@@ -1,0 +1,2152 @@
+#include "global.h"
+#include "gflib.h"
+#include "m4a.h"
+#include "quest_log.h"
+#include "graphics.h"
+#include "new_menu_helpers.h"
+#include "dynamic_placeholder_text_util.h"
+#include "constants/songs.h"
+#include "event_data.h"  //needed to load flag check
+
+extern u8 gGlyphInfo[0x90];
+extern const struct OamData gOamData_AffineOff_ObjNormal_16x16;
+
+static void DecompressGlyphFont3(u16 glyphId, bool32 isJapanese);
+static void DecompressGlyphFont4(u16 glyphId, bool32 isJapanese);
+
+TextFlags gTextFlags;
+
+static const u8 sDownArrowTiles[]         = INCBIN_U8("graphics/fonts/down_arrow.4bpp");
+static const u8 sDarkDownArrowTiles[]     = INCBIN_U8("graphics/fonts/down_arrow_RS.4bpp");
+static const u8 sTinyArrowTiles[]         = INCBIN_U8("graphics/fonts/down_arrow_2.4bpp");
+static const u8 sTinyDarkDownArrowTiles[] = INCBIN_U8("graphics/fonts/down_arrow_RS_2.4bpp");
+static const u8 sDoubleArrowTiles1[]       = INCBIN_U8("graphics/fonts/down_arrow_3.4bpp");
+static const u8 sDoubleArrowTiles2[]       = INCBIN_U8("graphics/fonts/down_arrow_4.4bpp");
+
+static const u8 sDownArrowYCoords[]           = { 0x0, 0x10, 0x20, 0x10 };
+static const u8 sWindowVerticalScrollSpeeds[] = { 0x1, 0x2 , 0x4 , 0x0 };
+
+static u8 GetScrollSpeed(void)
+{
+    u32 speed;
+    if (gSaveBlock2Ptr->optionsTextSpeed > OPTIONS_TEXT_SPEED_HYPER)
+        gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
+    speed = GetPlayerTextSpeed();
+    if (speed > OPTIONS_TEXT_SPEED_FAST) //not sure how this works out since above changes it to mid?
+        return sWindowVerticalScrollSpeeds[OPTIONS_TEXT_SPEED_FAST];         //there is a noted dif in speed between methods even with this so idk.
+    
+    return sWindowVerticalScrollSpeeds[speed];
+}
+
+static const struct GlyphWidthFunc sGlyphWidthFuncs[] = {
+    { 0x0, GetGlyphWidthFont0 },
+    { 0x1, GetGlyphWidthFont1 },
+    { 0x2, GetGlyphWidthFont2 },
+    { 0x3, GetGlyphWidthFont3 },
+    { 0x4, GetGlyphWidthFont4 },
+    { 0x5, GetGlyphWidthFont5 },
+    { 0x6, GetGlyphWidthFont6 }
+};
+
+static const struct SpriteSheet sUnknown_81EA68C[] =
+{
+    {sDoubleArrowTiles1, sizeof(sDoubleArrowTiles1), 0x8000},
+    {sDoubleArrowTiles2, sizeof(sDoubleArrowTiles2), 0x8000},
+    {NULL}
+};
+
+static const struct SpritePalette sUnknown_81EA6A4[] =
+{
+    {gTMCaseMainWindowPalette, 0x8000},
+    {NULL}
+};
+
+static const struct SpriteTemplate sUnknown_81EA6B4 =
+{
+    .tileTag = 0x8000,
+    .paletteTag = 0x8000,
+    .oam = &gOamData_AffineOff_ObjNormal_16x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = sub_80062B0,
+};
+
+static const struct KeypadIcon sKeypadIcons[] = {
+    {  0x0,  0x8, 0xC },
+    {  0x1,  0x8, 0xC },
+    {  0x2, 0x10, 0xC },
+    {  0x4, 0x10, 0xC },
+    {  0x6, 0x18, 0xC },
+    {  0x9, 0x18, 0xC },
+    {  0xC,  0x8, 0xC },
+    {  0xD,  0x8, 0xC },
+    {  0xE,  0x8, 0xC },
+    {  0xF,  0x8, 0xC },
+    { 0x20,  0x8, 0xC },
+    { 0x21,  0x8, 0xC },
+    { 0x22,  0x8, 0xC },
+};
+
+const u8 gKeypadIconTiles[] = INCBIN_U8("graphics/fonts/keypad_icons.4bpp");
+
+// Font 0 -FONT_SMALL
+static const u16 sFont0LatinGlyphs[] = INCBIN_U16("graphics/fonts/font0_latin.latfont");
+static const u8 sFont0LatinGlyphWidths[] = 
+{
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x04, 0x05, 0x04, 0x04, 0x05, 
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x04, 0x05, 0x04, 0x04, 0x05, 0x05, 0x05, 0x06, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x08, 0x07, 0x08, 0x05, 0x05, 0x05, 0x05, 0x05, 0x08, 0x08, 0x07, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x04, 0x07, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x04,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x08, 0x08, 0x08, 0x08, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x07, 0x07, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x08, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x04, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x08, 0x05, 0x08, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x04,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x04, 0x05, 0x05, 0x05,
+    0x05, 0x04, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x04, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x08, 0x07, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05,
+    0x05, 0x05, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x05
+};
+static const u16 sFont0JapaneseGlyphs[] = INCBIN_U16("graphics/fonts/font0_jap.fwjpnfont");
+
+// Font 1 - FONT_NORMAL_COPY_1
+static const u16 sFont1LatinGlyphs[] = INCBIN_U16("graphics/fonts/font1_latin.latfont");
+static const u8 sFont1LatinGlyphWidths[] =
+{
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x09, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0A, 0x08, 0x05, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x04, 0x06, 0x08, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x03, 0x03, 0x06,
+    0x06, 0x08, 0x05, 0x09, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x04, 0x06, 0x05,
+    0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x05, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x08, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x06
+};
+static const u16 sFont1JapaneseGlyphs[] = INCBIN_U16("graphics/fonts/font1_jap.fwjpnfont");
+
+// Font 2 - FONT_NORMAL
+static const u16 sFont2LatinGlyphs[] = INCBIN_U16("graphics/fonts/font2_latin.latfont");
+static const u8 sFont2LatinGlyphWidths[] =
+{
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x09, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0A, 0x08, 0x05, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x04, 0x06, 0x08, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x03, 0x03, 0x06,
+    0x06, 0x08, 0x05, 0x09, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x04, 0x06, 0x05,
+    0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x05, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x08, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x06
+};
+static const u16 sFont2JapaneseGlyphs[] = INCBIN_U16("graphics/fonts/font2_jap.fwjpnfont");
+static const u8 sFont2JapaneseGlyphWidths[] =
+{
+    0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x08, 0x07, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x05, 0x09, 0x0A, 0x0A, 0x0A, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x08,
+    0x08, 0x08, 0x0A, 0x0A, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x02, 0x04, 0x06,
+    0x03, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x00
+};
+
+// Font 4
+static const u16 sFont4LatinGlyphs[] = INCBIN_U16("graphics/fonts/font4_latin.latfont");
+static const u8 sFont4LatinGlyphWidths[] =
+{
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x09, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0A, 0x08, 0x05, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x04, 0x06, 0x08, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x03, 0x03, 0x06,
+    0x06, 0x08, 0x05, 0x09, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x04, 0x06, 0x05,
+    0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x05, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x08, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x06
+};
+static const u16 sFont4JapaneseGlyphs[] = INCBIN_U16("graphics/fonts/font4_jap.fwjpnfont");
+static const u8 sFont4JapaneseGlyphWidths[] = 
+{
+    0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x08, 0x07, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x05, 0x09, 0x0A, 0x0A, 0x0A, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x08,
+    0x08, 0x08, 0x0A, 0x0A, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x02, 0x04, 0x06,
+    0x03, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x00
+};
+
+// Font 5
+static const u16 sFont5LatinGlyphs[] = INCBIN_U16("graphics/fonts/font5_latin.latfont");
+static const u8 sFont5LatinGlyphWidths[] =
+{
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x09, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0A, 0x08, 0x05, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x04, 0x06, 0x08, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x08, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x03, 0x03, 0x06,
+    0x06, 0x08, 0x05, 0x09, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x04, 0x06, 0x05,
+    0x05, 0x06, 0x05, 0x06, 0x06, 0x06, 0x05, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x08, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x0C, 0x0C, 0x0C, 0x0C, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x06
+};
+static const u16 sFont5JapaneseGlyphs[] = INCBIN_U16("graphics/fonts/font5_jap.fwjpnfont");
+static const u8 sFont5JapaneseGlyphWidths[] =
+{
+    0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x09, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x09, 0x08, 0x07, 0x08, 0x08, 0x08, 0x08, 0x08,
+    0x08, 0x08, 0x08, 0x05, 0x09, 0x0A, 0x0A, 0x0A, 0x08, 0x0A, 0x0A, 0x0A, 0x0A, 0x08,
+    0x08, 0x08, 0x0A, 0x0A, 0x08, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x05, 0x06, 0x06, 0x02, 0x04, 0x06,
+    0x03, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+    0x06, 0x06, 0x05, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A,
+    0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x0A, 0x00
+};
+
+// Font 9
+static const u16 sFont9JapaneseGlyphs[] = INCBIN_U16("graphics/fonts/font9_jap.fwjpnfont");
+
+u16 Font0Func(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasGlyphIdBeenSet == 0)
+    {
+        subStruct->glyphId = 0;
+        subStruct->hasGlyphIdBeenSet = 1;
+    }
+    return RenderText(textPrinter);
+}
+
+u16 Font1Func(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasGlyphIdBeenSet == 0)
+    {
+        subStruct->glyphId = 1;
+        subStruct->hasGlyphIdBeenSet = 1;
+    }
+    return RenderText(textPrinter);
+}
+
+u16 Font2Func(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasGlyphIdBeenSet == 0)
+    {
+        subStruct->glyphId = 2;
+        subStruct->hasGlyphIdBeenSet = 1;
+    }
+    return RenderText(textPrinter);
+}
+
+u16 Font3Func(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasGlyphIdBeenSet == 0)
+    {
+        subStruct->glyphId = 3;
+        subStruct->hasGlyphIdBeenSet = 1;
+    }
+    return RenderText(textPrinter);
+}
+
+u16 Font4Func(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasGlyphIdBeenSet == 0)
+    {
+        subStruct->glyphId = 4;
+        subStruct->hasGlyphIdBeenSet = 1;
+    }
+    return RenderText(textPrinter);
+}
+
+u16 Font5Func(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasGlyphIdBeenSet == 0)
+    {
+        subStruct->glyphId = 5;
+        subStruct->hasGlyphIdBeenSet = 1;
+    }
+    return RenderText(textPrinter);
+}
+
+void TextPrinterInitDownArrowCounters(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (gTextFlags.autoScroll == 1)
+        subStruct->autoScrollDelay = 0;
+    else
+    {
+        subStruct->downArrowYPosIdx = 0;
+        subStruct->downArrowDelay = 0;
+    }
+}
+
+void TextPrinterDrawDownArrow(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+    const u8 *arrowTiles;
+
+    if (gTextFlags.autoScroll == 0)
+    {
+        if (subStruct->downArrowDelay != 0)
+        {
+            subStruct->downArrowDelay--;
+        }
+        else
+        {
+            FillWindowPixelRect(
+                textPrinter->printerTemplate.windowId,
+                textPrinter->printerTemplate.bgColor << 4 | textPrinter->printerTemplate.bgColor,
+                textPrinter->printerTemplate.currentX,
+                textPrinter->printerTemplate.currentY,
+                10,
+                12);
+
+            switch (gTextFlags.useAlternateDownArrow)
+            {
+                case 0:
+                default:
+                    arrowTiles = sDownArrowTiles;
+                    break;
+                case 1:
+                    arrowTiles = sDarkDownArrowTiles;
+                    break;
+            }
+
+            BlitBitmapRectToWindow(
+                textPrinter->printerTemplate.windowId,
+                arrowTiles,
+                sDownArrowYCoords[*(u32*)subStruct << 17 >> 30], // subStruct->downArrowYPosIdx but again, stupidly retrieved
+                0,
+                0x80,
+                0x10,
+                textPrinter->printerTemplate.currentX,
+                textPrinter->printerTemplate.currentY,
+                10,
+                12);
+            CopyWindowToVram(textPrinter->printerTemplate.windowId, 0x2);
+
+            subStruct->downArrowDelay = 0x8;
+            subStruct->downArrowYPosIdx = (*(u32*)subStruct << 17 >> 30) + 1;
+        }
+    }
+}
+
+void TextPrinterClearDownArrow(struct TextPrinter *textPrinter)
+{
+    FillWindowPixelRect(
+        textPrinter->printerTemplate.windowId,
+        textPrinter->printerTemplate.bgColor << 4 | textPrinter->printerTemplate.bgColor,
+        textPrinter->printerTemplate.currentX,
+        textPrinter->printerTemplate.currentY,
+        10,
+        12);
+    CopyWindowToVram(textPrinter->printerTemplate.windowId, 0x2);
+}
+
+bool8 TextPrinterWaitAutoMode(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+    u8 delay = (gQuestLogState == QL_STATE_PLAYBACK) ? 50 : 120;
+
+    if (subStruct->autoScrollDelay == delay)
+    {
+        return TRUE;
+    }
+    else
+    {
+        subStruct->autoScrollDelay++;
+        return FALSE;
+    }
+}
+
+bool16 TextPrinterWaitWithDownArrow(struct TextPrinter *textPrinter)
+{
+    bool8 result = FALSE;
+    if (gTextFlags.autoScroll != 0)
+    {
+        result = TextPrinterWaitAutoMode(textPrinter);
+    }
+    else
+    {
+        TextPrinterDrawDownArrow(textPrinter);
+        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        {
+            result = TRUE;
+            PlaySE(SE_SELECT);
+        }
+    }
+    return result;
+}
+
+bool16 TextPrinterWait(struct TextPrinter *textPrinter)
+{
+    bool16 result = FALSE;
+    if (gTextFlags.autoScroll != 0)
+    {
+        result = TextPrinterWaitAutoMode(textPrinter);
+    }
+    else
+    {
+        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        {
+            result = TRUE;
+            PlaySE(SE_SELECT);
+        }
+    }
+    return result;
+}
+
+void DrawDownArrow(u8 windowId, u16 x, u16 y, u8 bgColor, bool8 drawArrow, u8 *counter, u8 *yCoordIndex)
+{
+    const u8 *arrowTiles;
+
+    if (*counter != 0)
+    {
+        --*counter;
+    }
+    else
+    {
+        FillWindowPixelRect(windowId, (bgColor << 4) | bgColor, x, y, 10, 12);
+        if (drawArrow == 0)
+        {
+            switch (gTextFlags.useAlternateDownArrow)
+            {
+                case 0:
+                default:
+                    arrowTiles = sDownArrowTiles;
+                    break;
+                case 1:
+                    arrowTiles = sDarkDownArrowTiles;
+                    break;
+            }
+
+            BlitBitmapRectToWindow(
+                windowId,
+                arrowTiles,
+                sDownArrowYCoords[*yCoordIndex & 3],
+                0,
+                0x80,
+                0x10,
+                x,
+                y,
+                10,
+                12);
+            CopyWindowToVram(windowId, 0x2);
+            *counter = 8;
+            ++*yCoordIndex;
+        }
+    }
+}
+
+u16 RenderText(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+    u16 currChar, nextChar;
+    s32 width;
+    s32 widthHelper;
+    u8 charsPerFrame; //should make print repeat to print another character within the same frame?
+    bool8 repeat;
+
+    switch (textPrinter->state)
+    {
+    case RENDER_STATE_HANDLE_CHAR:
+        if (JOY_HELD(A_BUTTON | B_BUTTON) && subStruct->hasPrintBeenSpedUp)
+            textPrinter->delayCounter = 0;
+
+        if (textPrinter->delayCounter && textPrinter->textSpeed)
+        {
+            textPrinter->delayCounter--;
+            if (gTextFlags.canABSpeedUpPrint && JOY_NEW(A_BUTTON | B_BUTTON))
+            {
+                subStruct->hasPrintBeenSpedUp = TRUE;
+                textPrinter->delayCounter = 0;
+            }
+            return RENDER_UPDATE;
+        }
+
+        if (gTextFlags.autoScroll)
+            textPrinter->delayCounter = 1;
+        else
+            textPrinter->delayCounter = textPrinter->textSpeed;
+
+        switch (GetPlayerTextSpeed())
+		{
+            case OPTIONS_TEXT_SPEED_SLOW:
+				charsPerFrame = 0;
+                repeat = FALSE;
+				break;
+                case OPTIONS_TEXT_SPEED_MID:
+				charsPerFrame = 0;
+                repeat = FALSE;
+				break;
+                case OPTIONS_TEXT_SPEED_FAST:
+				charsPerFrame = 0;
+                repeat = FALSE;
+				break;
+			case OPTIONS_TEXT_SPEED_FASTER:
+				charsPerFrame = 2;
+                repeat = TRUE;
+				break;
+			case OPTIONS_TEXT_SPEED_HYPER:
+				charsPerFrame = 3;
+                repeat = TRUE;
+				break;
+			/*case OPTIONS_TEXT_SPEED_FAST:
+				charsPerFrame = 4;
+				break;*/
+        }
+        do
+        {
+          currChar = *textPrinter->printerTemplate.currentChar;
+          textPrinter->printerTemplate.currentChar++;
+          nextChar = *textPrinter->printerTemplate.currentChar;
+        
+        
+
+        switch (currChar)
+        {
+        case CHAR_NEWLINE:
+            textPrinter->printerTemplate.currentX = textPrinter->printerTemplate.x;
+            textPrinter->printerTemplate.currentY += gFonts[textPrinter->printerTemplate.fontId].maxLetterHeight + textPrinter->printerTemplate.lineSpacing;
+            return RENDER_REPEAT;
+        case PLACEHOLDER_BEGIN:
+            textPrinter->printerTemplate.currentChar++;
+            return RENDER_REPEAT;
+        case EXT_CTRL_CODE_BEGIN:
+            currChar = *textPrinter->printerTemplate.currentChar;
+            textPrinter->printerTemplate.currentChar++;
+            switch (currChar)
+            {
+            case EXT_CTRL_CODE_COLOR:
+                textPrinter->printerTemplate.fgColor = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_HIGHLIGHT:
+                textPrinter->printerTemplate.bgColor = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_SHADOW:
+                textPrinter->printerTemplate.shadowColor = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW:
+                textPrinter->printerTemplate.fgColor = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                textPrinter->printerTemplate.bgColor = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                textPrinter->printerTemplate.shadowColor = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_PALETTE:
+                textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_FONT:
+                subStruct->glyphId = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_RESET_SIZE:
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_PAUSE:
+                textPrinter->delayCounter = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                textPrinter->state = RENDER_STATE_PAUSE;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_PAUSE_UNTIL_PRESS:
+                textPrinter->state = RENDER_STATE_WAIT;
+                if (gTextFlags.autoScroll)
+                    subStruct->autoScrollDelay = 0;
+                return RENDER_UPDATE;
+            case EXT_CTRL_CODE_WAIT_SE:
+                textPrinter->state = RENDER_STATE_WAIT_SE;
+                return RENDER_UPDATE;
+            case EXT_CTRL_CODE_PLAY_BGM:
+                currChar = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                currChar |= *textPrinter->printerTemplate.currentChar << 8;
+                textPrinter->printerTemplate.currentChar++;
+                if (!QL_IS_PLAYBACK_STATE)
+                    PlayBGM(currChar);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_PLAY_SE:
+                currChar = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                currChar |= (*textPrinter->printerTemplate.currentChar << 8);
+                textPrinter->printerTemplate.currentChar++;
+                PlaySE(currChar);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_ESCAPE:
+                textPrinter->printerTemplate.currentChar++;
+                currChar = *textPrinter->printerTemplate.currentChar;
+                break;
+            case EXT_CTRL_CODE_SHIFT_TEXT:
+                textPrinter->printerTemplate.currentX = textPrinter->printerTemplate.x + *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_SHIFT_DOWN:
+                textPrinter->printerTemplate.currentY = textPrinter->printerTemplate.y + *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_FILL_WINDOW:
+                FillWindowPixelBuffer(textPrinter->printerTemplate.windowId, PIXEL_FILL(textPrinter->printerTemplate.bgColor));
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_PAUSE_MUSIC:
+                m4aMPlayStop(&gMPlayInfo_BGM);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_RESUME_MUSIC:
+                m4aMPlayContinue(&gMPlayInfo_BGM);
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_CLEAR:
+                width = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                if (width > 0)
+                {
+                    ClearTextSpan(textPrinter, width);
+                    textPrinter->printerTemplate.currentX += width;
+                    return RENDER_PRINT;
+                }
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_SKIP:
+                textPrinter->printerTemplate.currentX = *textPrinter->printerTemplate.currentChar + textPrinter->printerTemplate.x;
+                textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_CLEAR_TO:
+                {
+                    widthHelper = *textPrinter->printerTemplate.currentChar;
+                    widthHelper += textPrinter->printerTemplate.x;
+                    textPrinter->printerTemplate.currentChar++;
+                    width = widthHelper - textPrinter->printerTemplate.currentX;
+                    if (width > 0)
+                    {
+                        ClearTextSpan(textPrinter, width);
+                        textPrinter->printerTemplate.currentX += width;
+                        return RENDER_PRINT;
+                    }
+                }
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_MIN_LETTER_SPACING:
+                textPrinter->minLetterSpacing = *textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_JPN:
+                textPrinter->japanese = TRUE;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_ENG:
+                textPrinter->japanese = FALSE;
+                return RENDER_REPEAT;
+            /*case EXT_CTRL_CODE_CAPITALIZE_ABILITY:  //ABILITY_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_ABILITY_TEXT))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT; //think should just make print as is, if flag not set
+            case EXT_CTRL_CODE_CAPITALIZE_SPECIES:  //SPECIES_CAP
+            if (FlagGet(FLAG_CAPITALIZE_SPECIES_TEXT))
+			{
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }
+            return RENDER_PRINT;
+            case EXT_CTRL_CODE_CAPITALIZE_MOVES:    //MOVE_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_MOVE_TEXT))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT; //think should just make print as is, if flag not set
+            case EXT_CTRL_CODE_CAPITALIZE_ITEMS:    //ITEM_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_ITEM_TEXT))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT; //think should just make print as is, if flag not set
+            case EXT_CTRL_CODE_MISC_CAP:    //CHARACTER_NAME_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_MISC_PLACEHOLDER))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT; //think should just make print as is, if flag not set
+            case EXT_CTRL_CODE_END_CAPITALIZATION:  //END_CAP
+            if (textPrinter->capitalize)
+            {
+                textPrinter->capitalize = FALSE;    
+            }//potentially turn in to a repeat, that copies rendered text and removes all ext codes capitalize and end capital
+            return RENDER_PRINT;    //then rerenders to keep normal size??  no idea if possible
+            */
+        }//end of ext control code switch
+        break;
+        case CHAR_PROMPT_CLEAR:
+            textPrinter->state = RENDER_STATE_CLEAR;
+            TextPrinterInitDownArrowCounters(textPrinter);
+            return RENDER_UPDATE;
+        case CHAR_PROMPT_SCROLL:
+            textPrinter->state = RENDER_STATE_SCROLL_START;
+            TextPrinterInitDownArrowCounters(textPrinter);
+            return RENDER_UPDATE;
+        case CHAR_EXTRA_EMOJI:
+            currChar = *textPrinter->printerTemplate.currentChar | 0x100;
+            textPrinter->printerTemplate.currentChar++;
+            break;
+        case CHAR_KEYPAD_ICON:
+            currChar = *textPrinter->printerTemplate.currentChar++;
+            gGlyphInfo[0x80] = DrawKeypadIcon(textPrinter->printerTemplate.windowId, currChar, textPrinter->printerTemplate.currentX, textPrinter->printerTemplate.currentY);
+            textPrinter->printerTemplate.currentX += gGlyphInfo[0x80] + textPrinter->printerTemplate.letterSpacing;
+            return RENDER_PRINT;
+        /*case CHAR_CAPITALIZE_ABILITY://ABILITY_CAP
+            if (FlagGet(FLAG_CAPITALIZE_ABILITY_TEXT))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    //SETTING up as CHARS cuts space in half, (1 instead of 2)
+            }                               //but would cause issue if rom language ever rended in japanese as takes place of several characters
+            return RENDER_PRINT; //think should just make print as is, if flag not set
+        case CHAR_CAPITALIZE_SPECIES://SPECIES_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_SPECIES_TEXT))
+			{
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }
+            return RENDER_PRINT;
+        case CHAR_CAPITALIZE_MOVES:    //MOVE_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_MOVE_TEXT))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT;
+        case CHAR_CAPITALIZE_ITEMS:    //ITEM_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_ITEM_TEXT))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT;*/
+        case CHAR_MISC_CAP:    //MISC_CAP
+            if (!FlagGet(FLAG_CAPITALIZE_MISC_PLACEHOLDER))
+            {
+                textPrinter->capitalize = TRUE;
+                return RENDER_REPEAT;    
+            }        
+            return RENDER_PRINT; //if name exceeds buff seems to prevent decap, and make it extend to all
+        case CHAR_END_CAPITALIZATION:  //END_CAP
+            if (textPrinter->capitalize)
+            {
+                textPrinter->capitalize = FALSE;    
+            }//potentially turn in to a repeat, that copies rendered text and removes all ext codes capitalize and end capital
+            return RENDER_REPEAT;    //then rerenders to keep normal size??  no idea if possible
+        case EOS: //testing using repeat with wbove to see if would prevent pprint cap overflow
+            if (textPrinter->capitalize)
+            {
+                textPrinter->capitalize = FALSE;
+            }
+            return RENDER_FINISH;
+        }
+
+        //this plus flag check, flag to be set by options
+        //ok appears to work perfectly
+        //if (textPrinter->capitalize)
+        if (textPrinter->capitalize) //can do flag check for effect or part of effect, think use placeholder in string to decide if should be affected by capitalize? i.e ^
+		{
+			//textPrinter->capitalize = FALSE; //would make it only single character capitalize
+			if (currChar >= CHAR_a && currChar <= CHAR_z)
+				CAPITALIZE_CHAR(currChar);
+		}
+
+        switch (subStruct->glyphId) //these are different fonts
+        {
+        case 0:
+            DecompressGlyphFont0(currChar, textPrinter->japanese);
+            break;
+        case 1:
+            DecompressGlyphFont1(currChar, textPrinter->japanese);
+            break;
+        case 2:
+            DecompressGlyphFont2(currChar, textPrinter->japanese);
+            break;
+        case 3:
+            DecompressGlyphFont3(currChar, textPrinter->japanese);
+            break;
+        case 4:
+            DecompressGlyphFont4(currChar, textPrinter->japanese);
+            break;
+        case 5:
+            DecompressGlyphFont5(currChar, textPrinter->japanese);
+        }
+
+        CopyGlyphToWindow(textPrinter);
+
+        if (textPrinter->minLetterSpacing)
+        {
+            textPrinter->printerTemplate.currentX += gGlyphInfo[0x80];
+            width = textPrinter->minLetterSpacing - gGlyphInfo[0x80];
+            if (width > 0)
+            {
+                ClearTextSpan(textPrinter, width);
+                textPrinter->printerTemplate.currentX += width;
+            }
+        }
+        else
+        {
+            if (textPrinter->japanese)
+                textPrinter->printerTemplate.currentX += (gGlyphInfo[0x80] + textPrinter->printerTemplate.letterSpacing);
+            else
+                textPrinter->printerTemplate.currentX += gGlyphInfo[0x80];
+        }
+        if (charsPerFrame > 1)
+        {
+            switch (nextChar)
+            {
+            case CHAR_NEWLINE:
+            case PLACEHOLDER_BEGIN:
+            case EXT_CTRL_CODE_BEGIN:
+            case CHAR_PROMPT_CLEAR:
+            case CHAR_PROMPT_SCROLL:
+            case CHAR_KEYPAD_ICON:
+            case EOS:
+                charsPerFrame--;
+                break;
+            }
+        }
+        charsPerFrame--;
+        }while (charsPerFrame > 0 && repeat == TRUE);
+
+        if (charsPerFrame == 0 && repeat == FALSE) //attempt to keep default use for default speeds
+        {
+            currChar = *textPrinter->printerTemplate.currentChar;
+            textPrinter->printerTemplate.currentChar++;
+            nextChar = *textPrinter->printerTemplate.currentChar;
+            
+            
+
+            switch (currChar)
+            {
+            case CHAR_NEWLINE:
+                textPrinter->printerTemplate.currentX = textPrinter->printerTemplate.x;
+                textPrinter->printerTemplate.currentY += gFonts[textPrinter->printerTemplate.fontId].maxLetterHeight + textPrinter->printerTemplate.lineSpacing;
+                return RENDER_REPEAT;
+            case PLACEHOLDER_BEGIN:
+                textPrinter->printerTemplate.currentChar++;
+                return RENDER_REPEAT;
+            case EXT_CTRL_CODE_BEGIN:
+                currChar = *textPrinter->printerTemplate.currentChar;
+                textPrinter->printerTemplate.currentChar++;
+                switch (currChar)
+                {
+                case EXT_CTRL_CODE_COLOR:
+                    textPrinter->printerTemplate.fgColor = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_HIGHLIGHT:
+                    textPrinter->printerTemplate.bgColor = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_SHADOW:
+                    textPrinter->printerTemplate.shadowColor = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW:
+                    textPrinter->printerTemplate.fgColor = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    textPrinter->printerTemplate.bgColor = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    textPrinter->printerTemplate.shadowColor = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    GenerateFontHalfRowLookupTable(textPrinter->printerTemplate.fgColor, textPrinter->printerTemplate.bgColor, textPrinter->printerTemplate.shadowColor);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_PALETTE:
+                    textPrinter->printerTemplate.currentChar++;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_FONT:
+                    subStruct->glyphId = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_RESET_SIZE:
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_PAUSE:
+                    textPrinter->delayCounter = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    textPrinter->state = RENDER_STATE_PAUSE;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_PAUSE_UNTIL_PRESS:
+                    textPrinter->state = RENDER_STATE_WAIT;
+                    if (gTextFlags.autoScroll)
+                        subStruct->autoScrollDelay = 0;
+                    return RENDER_UPDATE;
+                case EXT_CTRL_CODE_WAIT_SE:
+                    textPrinter->state = RENDER_STATE_WAIT_SE;
+                    return RENDER_UPDATE;
+                case EXT_CTRL_CODE_PLAY_BGM:
+                    currChar = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    currChar |= *textPrinter->printerTemplate.currentChar << 8;
+                    textPrinter->printerTemplate.currentChar++;
+                    if (!QL_IS_PLAYBACK_STATE)
+                        PlayBGM(currChar);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_PLAY_SE:
+                    currChar = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    currChar |= (*textPrinter->printerTemplate.currentChar << 8);
+                    textPrinter->printerTemplate.currentChar++;
+                    PlaySE(currChar);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_ESCAPE:
+                    textPrinter->printerTemplate.currentChar++;
+                    currChar = *textPrinter->printerTemplate.currentChar;
+                    break;
+                case EXT_CTRL_CODE_SHIFT_TEXT:
+                    textPrinter->printerTemplate.currentX = textPrinter->printerTemplate.x + *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_SHIFT_DOWN:
+                    textPrinter->printerTemplate.currentY = textPrinter->printerTemplate.y + *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_FILL_WINDOW:
+                    FillWindowPixelBuffer(textPrinter->printerTemplate.windowId, PIXEL_FILL(textPrinter->printerTemplate.bgColor));
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_PAUSE_MUSIC:
+                    m4aMPlayStop(&gMPlayInfo_BGM);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_RESUME_MUSIC:
+                    m4aMPlayContinue(&gMPlayInfo_BGM);
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_CLEAR:
+                    width = *textPrinter->printerTemplate.currentChar;
+                    textPrinter->printerTemplate.currentChar++;
+                    if (width > 0)
+                    {
+                        ClearTextSpan(textPrinter, width);
+                        textPrinter->printerTemplate.currentX += width;
+                        return RENDER_PRINT;
+                    }
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_SKIP:
+                    textPrinter->printerTemplate.currentX = *textPrinter->printerTemplate.currentChar + textPrinter->printerTemplate.x;
+                    textPrinter->printerTemplate.currentChar++;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_CLEAR_TO:
+                    {
+                        widthHelper = *textPrinter->printerTemplate.currentChar;
+                        widthHelper += textPrinter->printerTemplate.x;
+                        textPrinter->printerTemplate.currentChar++;
+                        width = widthHelper - textPrinter->printerTemplate.currentX;
+                        if (width > 0)
+                        {
+                            ClearTextSpan(textPrinter, width);
+                            textPrinter->printerTemplate.currentX += width;
+                            return RENDER_PRINT;
+                        }
+                    }
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_MIN_LETTER_SPACING:
+                    textPrinter->minLetterSpacing = *textPrinter->printerTemplate.currentChar++;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_JPN:
+                    textPrinter->japanese = TRUE;
+                    return RENDER_REPEAT;
+                case EXT_CTRL_CODE_ENG:
+                    textPrinter->japanese = FALSE;
+                    return RENDER_REPEAT;
+                /*case EXT_CTRL_CODE_CAPITALIZE_ABILITY:  //ABILITY_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_ABILITY_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT; //think should just make print as is, if flag not set
+                case EXT_CTRL_CODE_CAPITALIZE_SPECIES:  //SPECIES_CAP
+                if (FlagGet(FLAG_CAPITALIZE_SPECIES_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }
+                return RENDER_PRINT;
+                case EXT_CTRL_CODE_CAPITALIZE_MOVES:    //MOVE_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_MOVE_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT; //think should just make print as is, if flag not set
+                case EXT_CTRL_CODE_CAPITALIZE_ITEMS:    //ITEM_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_ITEM_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT; //think should just make print as is, if flag not set
+                case EXT_CTRL_CODE_MISC_CAP:    //CHARACTER_NAME_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_MISC_PLACEHOLDER))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT; //think should just make print as is, if flag not set
+                case EXT_CTRL_CODE_END_CAPITALIZATION:  //END_CAP
+                if (textPrinter->capitalize)
+                {
+                    textPrinter->capitalize = FALSE;    
+                }//potentially turn in to a repeat, that copies rendered text and removes all ext codes capitalize and end capital
+                return RENDER_PRINT;    //then rerenders to keep normal size??  no idea if possible
+                */
+            }//end of ext control code switch
+            break;
+            case CHAR_PROMPT_CLEAR:
+                textPrinter->state = RENDER_STATE_CLEAR;
+                TextPrinterInitDownArrowCounters(textPrinter);
+                return RENDER_UPDATE;
+            case CHAR_PROMPT_SCROLL:
+                textPrinter->state = RENDER_STATE_SCROLL_START;
+                TextPrinterInitDownArrowCounters(textPrinter);
+                return RENDER_UPDATE;
+            case CHAR_EXTRA_EMOJI:
+                currChar = *textPrinter->printerTemplate.currentChar | 0x100;
+                textPrinter->printerTemplate.currentChar++;
+                break;
+            case CHAR_KEYPAD_ICON:
+                currChar = *textPrinter->printerTemplate.currentChar++;
+                gGlyphInfo[0x80] = DrawKeypadIcon(textPrinter->printerTemplate.windowId, currChar, textPrinter->printerTemplate.currentX, textPrinter->printerTemplate.currentY);
+                textPrinter->printerTemplate.currentX += gGlyphInfo[0x80] + textPrinter->printerTemplate.letterSpacing;
+                return RENDER_PRINT;
+            /*case CHAR_CAPITALIZE_ABILITY://ABILITY_CAP
+                if (FlagGet(FLAG_CAPITALIZE_ABILITY_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    //SETTING up as CHARS cuts space in half, (1 instead of 2)
+                }                               //but would cause issue if rom language ever rended in japanese as takes place of several characters
+                return RENDER_PRINT; //think should just make print as is, if flag not set
+            case CHAR_CAPITALIZE_SPECIES://SPECIES_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_SPECIES_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }
+                return RENDER_PRINT;
+            case CHAR_CAPITALIZE_MOVES:    //MOVE_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_MOVE_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT;
+            case CHAR_CAPITALIZE_ITEMS:    //ITEM_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_ITEM_TEXT))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT;*/
+            case CHAR_MISC_CAP:    //MISC_CAP
+                if (!FlagGet(FLAG_CAPITALIZE_MISC_PLACEHOLDER))
+                {
+                    textPrinter->capitalize = TRUE;
+                    return RENDER_REPEAT;    
+                }        
+                return RENDER_PRINT; //if name exceeds buff seems to prevent decap, and make it extend to all
+            case CHAR_END_CAPITALIZATION:  //END_CAP
+                if (textPrinter->capitalize)
+                {
+                    textPrinter->capitalize = FALSE;    
+                }//potentially turn in to a repeat, that copies rendered text and removes all ext codes capitalize and end capital
+                return RENDER_REPEAT;    //then rerenders to keep normal size??  no idea if possible
+            case EOS: //testing using repeat with wbove to see if would prevent pprint cap overflow
+                if (textPrinter->capitalize)
+                {
+                    textPrinter->capitalize = FALSE;
+                }
+                return RENDER_FINISH;
+            }
+
+            //this plus flag check, flag to be set by options
+            //ok appears to work perfectly
+            //if (textPrinter->capitalize)
+            if (textPrinter->capitalize) //can do flag check for effect or part of effect, think use placeholder in string to decide if should be affected by capitalize? i.e ^
+            {
+                //textPrinter->capitalize = FALSE; //would make it only single character capitalize
+                if (currChar >= CHAR_a && currChar <= CHAR_z)
+                    CAPITALIZE_CHAR(currChar);
+            }
+
+            switch (subStruct->glyphId) //these are different fonts
+            {
+            case 0:
+                DecompressGlyphFont0(currChar, textPrinter->japanese);
+                break;
+            case 1:
+                DecompressGlyphFont1(currChar, textPrinter->japanese);
+                break;
+            case 2:
+                DecompressGlyphFont2(currChar, textPrinter->japanese);
+                break;
+            case 3:
+                DecompressGlyphFont3(currChar, textPrinter->japanese);
+                break;
+            case 4:
+                DecompressGlyphFont4(currChar, textPrinter->japanese);
+                break;
+            case 5:
+                DecompressGlyphFont5(currChar, textPrinter->japanese);
+            }
+
+            CopyGlyphToWindow(textPrinter);
+
+            if (textPrinter->minLetterSpacing)
+            {
+                textPrinter->printerTemplate.currentX += gGlyphInfo[0x80];
+                width = textPrinter->minLetterSpacing - gGlyphInfo[0x80];
+                if (width > 0)
+                {
+                    ClearTextSpan(textPrinter, width);
+                    textPrinter->printerTemplate.currentX += width;
+                }
+            }
+            else
+            {
+                if (textPrinter->japanese)
+                    textPrinter->printerTemplate.currentX += (gGlyphInfo[0x80] + textPrinter->printerTemplate.letterSpacing);
+                else
+                    textPrinter->printerTemplate.currentX += gGlyphInfo[0x80];
+            }
+        }
+
+        return RENDER_PRINT;
+    case RENDER_STATE_WAIT:
+        if (TextPrinterWait(textPrinter))
+            textPrinter->state = RENDER_STATE_HANDLE_CHAR;
+        return RENDER_UPDATE;
+    case RENDER_STATE_CLEAR:
+        if (TextPrinterWaitWithDownArrow(textPrinter))
+        {
+            FillWindowPixelBuffer(textPrinter->printerTemplate.windowId, PIXEL_FILL(textPrinter->printerTemplate.bgColor));
+            textPrinter->printerTemplate.currentX = textPrinter->printerTemplate.x;
+            textPrinter->printerTemplate.currentY = textPrinter->printerTemplate.y;
+            textPrinter->state = RENDER_STATE_HANDLE_CHAR;
+        }
+        return RENDER_UPDATE;
+    case RENDER_STATE_SCROLL_START:
+        if (TextPrinterWaitWithDownArrow(textPrinter))
+        {
+            TextPrinterClearDownArrow(textPrinter);
+            textPrinter->scrollDistance = gFonts[textPrinter->printerTemplate.fontId].maxLetterHeight + textPrinter->printerTemplate.lineSpacing;
+            textPrinter->printerTemplate.currentX = textPrinter->printerTemplate.x;
+            textPrinter->state = RENDER_STATE_SCROLL;
+        }
+        return RENDER_UPDATE;
+    case RENDER_STATE_SCROLL:
+        if (textPrinter->scrollDistance)
+        {
+    
+            if (textPrinter->scrollDistance < GetScrollSpeed())
+            {
+                ScrollWindow(textPrinter->printerTemplate.windowId, 0, textPrinter->scrollDistance, PIXEL_FILL(textPrinter->printerTemplate.bgColor));
+                textPrinter->scrollDistance = 0;
+            }
+            else
+            {
+                ScrollWindow(textPrinter->printerTemplate.windowId, 0, GetScrollSpeed(), PIXEL_FILL(textPrinter->printerTemplate.bgColor));
+                textPrinter->scrollDistance -= GetScrollSpeed();
+            }
+            CopyWindowToVram(textPrinter->printerTemplate.windowId, COPYWIN_GFX);
+        
+        }
+        else
+        {
+            textPrinter->state = RENDER_STATE_HANDLE_CHAR;
+        }
+        return RENDER_UPDATE;
+    case RENDER_STATE_WAIT_SE:
+        if (!IsSEPlaying())
+            textPrinter->state = RENDER_STATE_HANDLE_CHAR;
+        return RENDER_UPDATE;
+    case RENDER_STATE_PAUSE:
+        if (textPrinter->delayCounter != 0)
+            textPrinter->delayCounter--;
+        else
+            textPrinter->state = RENDER_STATE_HANDLE_CHAR;
+        return RENDER_UPDATE;
+    }
+
+    return RENDER_FINISH;
+}
+
+s32 GetStringWidthFixedWidthFont(const u8 *str, u8 fontId, u8 letterSpacing)
+{
+    int i;
+    u8 width;
+    int temp;
+    int temp2;
+    u8 line;
+    int strPos;
+    u8 lineWidths[8];
+    const u8 *strLocal;
+
+    for (i = 0; i < 8; i++)
+    {
+        lineWidths[i] = 0;
+    }
+
+    width = 0;
+    line = 0;
+    strLocal = str;
+    strPos = 0;
+
+    do
+    {
+        temp = strLocal[strPos++];
+        switch (temp)
+        {
+            case 0xFE:
+            case 0xFF:
+                lineWidths[line] = width;
+                width = 0;
+                line++;
+                break;
+            case 0xFC:
+                temp2 = strLocal[strPos++];
+                switch (temp2)
+                {
+                    case 0x4:
+                        ++strPos;
+                    case 0xB:
+                    case 0x10:
+                        ++strPos;
+                    case 0x1:
+                    case 0x2:
+                    case 0x3:
+                    case 0x5:
+                    case 0x6:
+                    case 0x8:
+                    case 0xC:
+                    case 0xD:
+                    case 0xE:
+                    case 0x11:
+                    case 0x12:
+                    case 0x13:
+                    case 0x14:
+                        ++strPos;
+                        break;
+                    case 0x7:
+                    case 0x9:
+                    case 0xA:
+                    case 0xF:
+                    case 0x15:
+                    case 0x16:
+                    default:
+                        break;
+                }
+                break;
+            case 0xF7:
+            case 0xFD:
+                ++strPos;
+                break;
+            case 0xFA:
+            case 0xFB:
+                break;
+            case 0xF8:
+            case 0xF9:
+                ++strPos;
+            default:
+                ++width;
+                break;
+        }
+    } while (temp != 0xFF);
+
+    for (width = 0, strPos = 0; strPos < 8; ++strPos)
+    {
+        if (width < lineWidths[strPos])
+            width = lineWidths[strPos];
+    }
+
+    return (u8)(GetFontAttribute(fontId, 0) + letterSpacing) * width;
+}
+
+s32 (*GetFontWidthFunc(u8 glyphId))(u16 _glyphId, bool32 _isJapanese)
+{
+    u32 i;
+
+    for (i = 0; i < 7; ++i)
+    {
+        if (glyphId == sGlyphWidthFuncs[i].fontId)
+            return *sGlyphWidthFuncs[i].func;
+    }
+
+    return NULL;
+}
+
+s32 GetStringWidth(u8 fontId, const u8 *str, s16 letterSpacing)
+{
+    bool8 isJapanese;
+    int minGlyphWidth;
+    s32 (*func)(u16 glyphId, bool32 isJapanese);
+    int localLetterSpacing;
+    #ifndef NONMATCHING
+        register u32 lineWidth asm("r5");
+    #else
+        u32 lineWidth;
+    #endif
+    const u8 *bufferPointer;
+    int glyphWidth;
+    u32 width;
+
+    isJapanese = 0;
+    minGlyphWidth = 0;
+
+    func = GetFontWidthFunc(fontId);
+    if (func == NULL)
+        return 0;
+
+    if (letterSpacing == -1)
+        localLetterSpacing = GetFontAttribute(fontId, 2);
+    else
+        localLetterSpacing = letterSpacing;
+
+    width = 0;
+    lineWidth = 0;
+    bufferPointer = NULL;
+
+    while (*str != 0xFF)
+    {
+        switch (*str)
+        {
+            case 0xFE:
+                if (lineWidth > width)
+                    width = lineWidth;
+                lineWidth = 0;
+                break;
+            case 0xFD:
+                switch (*++str)
+                {
+                    case 0x2:
+                        bufferPointer = gStringVar1;
+                        break;
+                    case 0x3:
+                        bufferPointer = gStringVar2;
+                        break;
+                    case 0x4:
+                        bufferPointer = gStringVar3;
+                        break;
+                    default:
+                        return 0;
+                }
+            case 0xF7:
+                if (bufferPointer == NULL)
+                    bufferPointer = DynamicPlaceholderTextUtil_GetPlaceholderPtr(*++str);
+                while (*bufferPointer != 0xFF)
+                {
+                    glyphWidth = func(*bufferPointer++, isJapanese);
+                    if (minGlyphWidth > 0)
+                    {
+                        if (glyphWidth < minGlyphWidth)
+                            glyphWidth = minGlyphWidth;
+                    }
+                    else if (isJapanese)
+                    {
+                        glyphWidth += localLetterSpacing;
+                    }
+                    lineWidth += glyphWidth;
+                }
+                bufferPointer = NULL;
+                break;
+            case 0xFC:
+                switch (*++str)
+                {
+                    case 0x4:
+                        ++str;
+                    case 0xB:
+                    case 0x10:
+                        ++str;
+                    case 0x1:
+                    case 0x2:
+                    case 0x3:
+                    case 0x5:
+                    case 0x8:
+                    case 0xC:
+                    case 0xD:
+                    case 0xE:
+                        ++str;
+                        break;
+                    case 0x6:
+                        func = GetFontWidthFunc(*++str);
+                        if (func == NULL)
+                            return 0;
+                        if (letterSpacing == -1)
+                            localLetterSpacing = GetFontAttribute(*str, 2);
+                        break;
+                    case 0x11:
+                        glyphWidth = *++str;
+                        lineWidth += glyphWidth;
+                        break;
+                    case 0x12:
+                        lineWidth = *++str;
+                        break;
+                    case 0x13:
+                        if (*++str > lineWidth)
+                            lineWidth = *str;
+                        break;
+                    case 0x14:
+                        minGlyphWidth = *++str;
+                        break;
+                    case 0x15:
+                        isJapanese = 1;
+                        break;
+                    case 0x16:
+                        isJapanese = 0;
+                        break;
+                    case 0x7:
+                    case 0x9:
+                    case 0xA:
+                    case 0xF:
+                    default:
+                        break;
+                }
+                break;
+            case 0xF8:
+            case 0xF9:
+                if (*str == 0xF9)
+                    glyphWidth = func(*++str | 0x100, isJapanese);
+                else
+                    glyphWidth = GetKeypadIconWidth(*++str);
+
+                if (minGlyphWidth > 0)
+                {
+                    if (glyphWidth < minGlyphWidth)
+                        glyphWidth = minGlyphWidth;
+                }
+                else if (isJapanese)
+                {
+                    glyphWidth += localLetterSpacing;
+                }
+                lineWidth += glyphWidth;
+                break;
+            case 0xFA:
+            case 0xFB:
+                break;
+            default:
+                glyphWidth = func(*str, isJapanese);
+                if (minGlyphWidth > 0)
+                {
+                    if (glyphWidth < minGlyphWidth)
+                        glyphWidth = minGlyphWidth;
+                    lineWidth += glyphWidth;
+                }
+                else
+                {
+                    if (fontId != 6 && isJapanese)
+                    {
+                        glyphWidth += localLetterSpacing;
+                    }
+                    lineWidth += glyphWidth;
+                }
+                break;
+        }
+        ++str;
+    }
+
+    if (lineWidth > width)
+        return lineWidth;
+    return width;
+}
+
+u8 RenderTextFont9(u8 *pixels, u8 fontId, u8 *str, int a3, int a4, int a5, int a6, int a7)
+{
+    u8 shadowColor;
+    u8 *strLocal;
+    int strPos;
+    int temp;
+    int temp2;
+    u8 colorBackup[3];
+    u8 fgColor;
+    u8 bgColor;
+
+    SaveTextColors(&colorBackup[0], &colorBackup[1], &colorBackup[2]);
+
+    fgColor = 1;
+    bgColor = 0;
+    shadowColor = 3;
+
+    GenerateFontHalfRowLookupTable(1, 0, 3);
+    strLocal = str;
+    strPos = 0;
+
+    do
+    {
+        temp = strLocal[strPos++];
+        switch (temp)
+        {
+            case 0xFC:
+                temp2 = strLocal[strPos++];
+                switch (temp2)
+                {
+                    case 0x4:
+                        fgColor = strLocal[strPos++];
+                        bgColor = strLocal[strPos++];
+                        shadowColor = strLocal[strPos++];
+                        GenerateFontHalfRowLookupTable(fgColor, bgColor, shadowColor);
+                        continue;
+                    case 0x1:
+                        fgColor = strLocal[strPos++];
+                        GenerateFontHalfRowLookupTable(fgColor, bgColor, shadowColor);
+                        continue;
+                    case 0x2:
+                        bgColor = strLocal[strPos++];
+                        GenerateFontHalfRowLookupTable(fgColor, bgColor, shadowColor);
+                        continue;
+                    case 0x3:
+                        shadowColor = strLocal[strPos++];
+                        GenerateFontHalfRowLookupTable(fgColor, bgColor, shadowColor);
+                        continue;
+                    case 0x6:
+                        fontId = strLocal[strPos++];
+                        break;
+                    case 0xB:
+                    case 0x10:
+                        ++strPos;
+                    case 0x5:
+                    case 0x8:
+                    case 0xC:
+                    case 0xD:
+                    case 0xE:
+                    case 0x11:
+                    case 0x12:
+                    case 0x13:
+                    case 0x14:
+                        ++strPos;
+                        break;
+                    case 0x7:
+                    case 0x9:
+                    case 0xA:
+                    case 0xF:
+                    case 0x15:
+                    case 0x16:
+                    default:
+                        continue;
+                }
+                break;
+            case 0xF7:
+            case 0xF8:
+            case 0xF9:
+            case 0xFD:
+                ++strPos;
+                break;
+            case 0xFA:
+            case 0xFB:
+            case 0xFE:
+            case 0xFF:
+                break;
+            default:
+                DecompressGlyphFont9(temp);
+                CpuCopy32(gGlyphInfo, pixels, 0x20);
+                CpuCopy32(gGlyphInfo + 0x40, pixels + 0x20, 0x20);
+                pixels += 0x40;
+                break;
+        }
+    }
+    while (temp != 0xFF);
+
+    RestoreTextColors(&colorBackup[0], &colorBackup[1], &colorBackup[2]);
+    return 1;
+}
+
+void sub_80062B0(struct Sprite *sprite)
+{
+    if(sprite->data[0])
+    {
+        sprite->data[0]--;
+    }
+    else
+    {
+        sprite->data[0] = 8;
+        switch(sprite->data[1])
+        {
+            case 0:
+                sprite->pos2.y = 0;
+                break;
+            case 1:
+                sprite->pos2.y = 1;
+                break;
+            case 2:
+                sprite->pos2.y = 2;
+                break;
+            case 3:
+                sprite->pos2.y = 1;
+                sprite->data[1] = 0;
+                return;
+        }
+        sprite->data[1]++;
+    }
+}
+
+u8 CreateTextCursorSpriteForOakSpeech(u8 sheetId, u16 x, u16 y, u8 priority, u8 subpriority)
+{
+    u8 spriteId;
+    LoadSpriteSheet(&sUnknown_81EA68C[sheetId & 1]);
+    LoadSpritePalette(sUnknown_81EA6A4);
+    spriteId = CreateSprite(&sUnknown_81EA6B4, x + 3, y + 4, subpriority);
+    gSprites[spriteId].oam.priority = (priority & 3);
+    gSprites[spriteId].oam.matrixNum = 0;
+    gSprites[spriteId].data[0] = 8;
+    return spriteId;
+}
+
+void sub_8006398(u8 spriteId)
+{
+    DestroySprite(&gSprites[spriteId]);
+    FreeSpriteTilesByTag(0x8000);
+    FreeSpritePaletteByTag(0x8000);
+}
+
+u8 DrawKeypadIcon(u8 windowId, u8 keypadIconId, u16 x, u16 y)
+{
+    BlitBitmapRectToWindow(
+        windowId,
+        gKeypadIconTiles + (sKeypadIcons[keypadIconId].tileOffset * 0x20),
+        0,
+        0,
+        0x80,
+        0x80,
+        x,
+        y,
+        sKeypadIcons[keypadIconId].width,
+        sKeypadIcons[keypadIconId].height);
+    return sKeypadIcons[keypadIconId].width;
+}
+
+u8 GetKeypadIconTileOffset(u8 keypadIconId)
+{
+    return sKeypadIcons[keypadIconId].tileOffset;
+}
+
+u8 GetKeypadIconWidth(u8 keypadIconId)
+{
+    return sKeypadIcons[keypadIconId].width;
+}
+
+u8 GetKeypadIconHeight(u8 keypadIconId)
+{
+    return sKeypadIcons[keypadIconId].height;
+}
+
+void DecompressGlyphFont0(u16 glyphId, bool32 isJapanese)
+{
+    const u16* glyphs;
+
+    if (isJapanese == 1)
+    {
+        glyphs = sFont0JapaneseGlyphs + (0x100 * (glyphId >> 0x4)) + (0x8 * (glyphId & 0xF));
+        DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+        DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+        gGlyphInfo[0x80] = 8;
+        gGlyphInfo[0x81] = 12;
+    }
+    else
+    {
+        glyphs = sFont0LatinGlyphs + (0x10 * glyphId);
+        DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+        DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x40));
+        gGlyphInfo[0x80] = sFont0LatinGlyphWidths[glyphId];
+        gGlyphInfo[0x81] = 13;
+    }
+}
+
+s32 GetGlyphWidthFont0(u16 glyphId, bool32 isJapanese)
+{
+    if (isJapanese == TRUE)
+        return 8;
+    else
+        return sFont0LatinGlyphWidths[glyphId];
+}
+
+void DecompressGlyphFont1(u16 glyphId, bool32 isJapanese)
+{
+    const u16* glyphs;
+
+    if (isJapanese == TRUE)
+    {
+        int eff;
+        glyphs = sFont1JapaneseGlyphs + (0x100 * (glyphId >> 0x4)) + (0x8 * (glyphId & (eff = 0xF)));  // shh, no questions, only matching now
+        DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+        DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+        gGlyphInfo[0x80] = 8;
+        gGlyphInfo[0x81] = 16;
+    }
+    else
+    {
+        glyphs = sFont1LatinGlyphs + (0x20 * glyphId);
+        DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+        DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+        DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo + 0x40));
+        DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo + 0x60));
+        gGlyphInfo[0x80] = sFont1LatinGlyphWidths[glyphId];
+        gGlyphInfo[0x81] = 14;
+    }
+}
+
+s32 GetGlyphWidthFont1(u16 glyphId, bool32 isJapanese)
+{
+    if (isJapanese == TRUE)
+        return 8;
+    else
+        return sFont1LatinGlyphWidths[glyphId];
+}
+
+void DecompressGlyphFont2(u16 glyphId, bool32 isJapanese)
+{
+    const u16* glyphs;
+    int i;
+    u8 lastColor;
+
+    if(isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // Game Freak, please. writing the same values over and over...
+                gGlyphInfo[0x80] = 10;
+                gGlyphInfo[0x81] = 12;
+            }
+        }
+        else
+        {
+            glyphs = sFont2JapaneseGlyphs + (0x100 * (glyphId >> 0x3)) + (0x10 * (glyphId & 0x7));
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x88, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = sFont2JapaneseGlyphWidths[glyphId];
+            gGlyphInfo[0x81] = 12;
+        }
+    }
+    else
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // but why
+                gGlyphInfo[0x80] = sFont2LatinGlyphWidths[0];
+                gGlyphInfo[0x81] = 14;
+            }
+        }
+        else
+        {
+            glyphs = sFont2LatinGlyphs + (0x20 * glyphId);
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = sFont2LatinGlyphWidths[glyphId];
+            gGlyphInfo[0x81] = 14;
+        }
+    }
+}
+
+s32 GetGlyphWidthFont2(u16 glyphId, bool32 isJapanese)
+{
+    if (isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+            return 10;
+
+        return sFont2JapaneseGlyphWidths[glyphId];
+    }
+    else
+    {
+        return sFont2LatinGlyphWidths[glyphId];
+    }
+}
+
+static void DecompressGlyphFont3(u16 glyphId, bool32 isJapanese)
+{
+    const u16* glyphs;
+    int i;
+    u8 lastColor;
+
+    if(isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // Game Freak, please. writing the same values over and over...
+                gGlyphInfo[0x80] = 10;
+                gGlyphInfo[0x81] = 12;
+            }
+        }
+        else
+        {
+            glyphs = sFont2JapaneseGlyphs + (0x100 * (glyphId >> 0x3)) + (0x10 * (glyphId & 0x7));
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x88, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = 10;
+            gGlyphInfo[0x81] = 12;
+        }
+    }
+    else
+        DecompressGlyphFont2(glyphId, isJapanese);
+}
+
+s32 GetGlyphWidthFont3(u16 glyphId, bool32 isJapanese)
+{
+    if(isJapanese == TRUE)
+        return 10;
+    else
+        return sFont2LatinGlyphWidths[glyphId];
+}
+
+static void DecompressGlyphFont4(u16 glyphId, bool32 isJapanese)
+{
+    const u16* glyphs;
+    int i;
+    u8 lastColor;
+
+    if(isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // Game Freak, please. writing the same values over and over...
+                gGlyphInfo[0x80] = 10;
+                gGlyphInfo[0x81] = 12;
+            }
+        }
+        else
+        {
+            glyphs = sFont4JapaneseGlyphs + (0x100 * (glyphId >> 0x3)) + (0x10 * (glyphId & 0x7));
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x88, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = sFont4JapaneseGlyphWidths[glyphId];
+            gGlyphInfo[0x81] = 12;
+        }
+    }
+    else
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // but why
+                gGlyphInfo[0x80] = sFont4LatinGlyphWidths[0];
+                gGlyphInfo[0x81] = 14;
+            }
+        }
+        else
+        {
+            glyphs = sFont4LatinGlyphs + (0x20 * glyphId);
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = sFont4LatinGlyphWidths[glyphId];
+            gGlyphInfo[0x81] = 14;
+        }
+    }
+}
+
+s32 GetGlyphWidthFont4(u16 glyphId, bool32 isJapanese)
+{
+    if(isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+            return 10;
+
+        return sFont4JapaneseGlyphWidths[glyphId];
+    }
+    else
+        return sFont4LatinGlyphWidths[glyphId];
+}
+
+void DecompressGlyphFont5(u16 glyphId, bool32 isJapanese)
+{
+    const u16* glyphs;
+    int i;
+    u8 lastColor;
+
+    if(isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // Game Freak, please. writing the same values over and over...
+                gGlyphInfo[0x80] = 10;
+                gGlyphInfo[0x81] = 12;
+            }
+        }
+        else
+        {
+            glyphs = sFont5JapaneseGlyphs + (0x100 * (glyphId >> 0x3)) + (0x10 * (glyphId & 0x7));
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x88, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = sFont5JapaneseGlyphWidths[glyphId];
+            gGlyphInfo[0x81] = 12;
+        }
+    }
+    else
+    {
+        if(glyphId == 0)
+        {
+            lastColor = GetLastTextColor(2);
+
+            for(i = 0; i < 0x80; i++)
+            {
+                gGlyphInfo[i] = lastColor | lastColor << 4;
+                // but why
+                gGlyphInfo[0x80] = sFont5LatinGlyphWidths[0];
+                gGlyphInfo[0x81] = 14;
+            }
+        }
+        else
+        {
+            glyphs = sFont5LatinGlyphs + (0x20 * glyphId);
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo + 0x60));
+            gGlyphInfo[0x80] = sFont5LatinGlyphWidths[glyphId];
+            gGlyphInfo[0x81] = 14;
+        }
+    }
+}
+
+s32 GetGlyphWidthFont5(u16 glyphId, bool32 isJapanese)
+{
+    if(isJapanese == TRUE)
+    {
+        if(glyphId == 0)
+            return 10;
+        
+        return sFont5JapaneseGlyphWidths[glyphId];
+    }
+    else
+        return sFont5LatinGlyphWidths[glyphId];
+}
+
+void DecompressGlyphFont9(u16 glyphId)
+{
+    const u16* glyphs = sFont9JapaneseGlyphs + (0x100 * (glyphId >> 0x4)) + (0x8 * (glyphId & 0xF));
+    DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo);
+    DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo + 0x40));
+    gGlyphInfo[0x80] = 8;
+    gGlyphInfo[0x81] = 12;
+}
