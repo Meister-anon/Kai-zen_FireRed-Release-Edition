@@ -3678,6 +3678,20 @@ Exceptions:
   fixed
 
   for some reason bellsprout loads off cener for catdex
+  ok not just bellsprout, think may have to do with
+  the speed up, since never noticed before hand
+  //should be possible to fix
+  if I can exclude it from the battle stuff
+  idk why it would have any affect on it though
+
+  its skipping frames that's the issue,
+  using battle result caught was able to fix
+
+  NOTE**(
+    but noticed seems speed causes issue when interacting w certain animations
+    affect is causing script active sprite to blink for a moment
+    and the mon block ball animation is doing that...
+  )
   
 
   remember still haven't fixed all palette indecees for post gen mon?

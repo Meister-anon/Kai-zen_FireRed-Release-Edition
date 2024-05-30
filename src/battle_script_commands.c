@@ -642,6 +642,7 @@ static const u8 gPauseValue[] = {
     [B_WAIT_TIME_CLEAR_BUFF] = 0x5,
     [B_WAIT_TIME_CLEAR_BUFF_2] = 0x1,
     [B_WAIT_TIME_UNIQUE] = 0x2B, //for multihit miss and sleep heal
+    [B_WAIT_TIME_LONG_LONG] = 0x63,  //for mon block ball message
 
 };
 
@@ -4102,7 +4103,7 @@ static void atk12_waitmessage(void)
                 if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE)
                     BattleSpeed = OPTIONS_BATTLE_SPEED_2X;
                 
-                if (toWait == B_WAIT_TIME_UNIQUE) //this outta do it
+                if (toWait == B_WAIT_TIME_UNIQUE || toWait == B_WAIT_TIME_LONG_LONG) //this outta do it
                 {
                     toWait = SetWaitTimeModifier(BattleSpeed, toWait);
                 }
@@ -7031,7 +7032,7 @@ static void atk39_pause(void)
         }
             
             
-        if (++gPauseCounterBattle >= gPauseValue[value])
+        if (++gPauseCounterBattle >= gPauseValue[value]) //how is this working with values that don't fit into array i.e aren't set w buffers?
         {
             gPauseCounterBattle = 0;
             gBattlescriptCurrInstr += 3;
@@ -7039,40 +7040,54 @@ static void atk39_pause(void)
     }
 }
 
-static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value)
+static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) //potential issue just realized this is for both pause and wait when think may be best to handle separately-idk might be fine
 {
 
-    switch (BattleSpeed)
+    switch (BattleSpeed) //only unique & LongLong are assigning
     {
+        case OPTIONS_BATTLE_SPEED_1X:
+        if (value == B_WAIT_TIME_UNIQUE)
+            return value;
+        else if (value == B_WAIT_TIME_LONG_LONG)
+            return B_WAIT_TIME_CLEAR_BUFF_2;
+        else
+            return 0; //don't change wait time
+        break;
         case OPTIONS_BATTLE_SPEED_2X: //this seems to be fine
         if (value < B_WAIT_TIME_BRIEFEST)
             return BattleSpeed;
         else if (value == B_WAIT_TIME_UNIQUE)
             return B_WAIT_TIME_SHORT;
+        else if (value == B_WAIT_TIME_LONG_LONG)
+            return B_WAIT_TIME_MED;
         else
-            return 0;
+            return 0; //don't change wait time
         break;
         case OPTIONS_BATTLE_SPEED_3X:
         if (value < B_WAIT_TIME_SHORTEST) //plan do else if, w bs - 1 for values above cutoff
             return BattleSpeed;
-        else if (value < B_WAIT_TIME_BRIEFEST) //B_WAIT_TIME_CLEAR_BUFF
+        else if (value < B_WAIT_TIME_CLEAR_BUFF) //B_WAIT_TIME_CLEAR_BUFF
             return BattleSpeed - 1;
         else if (value == B_WAIT_TIME_UNIQUE)
             return B_WAIT_TIME_SHORTEST;
+        else if (value == B_WAIT_TIME_LONG_LONG)
+            return value;
         else
-            return 0;
+            return 0; //don't change wait time
         break;
         case OPTIONS_BATTLE_SPEED_4X: 
         //if (value < B_WAIT_TIME_SHORT) //plan do else if, w bs - 1 for values above cutoff
         //   return BattleSpeed;
-        if (value < B_WAIT_TIME_SHORT)
+        if (value == B_WAIT_TIME_LONG)
             return BattleSpeed - 2;
         //else if (value < B_WAIT_TIME_CLEAR_BUFF) //using this means briefest uses 0x5 instead of 0x7, so slightly faster
         //    return BattleSpeed - 2;
         else if (value == B_WAIT_TIME_UNIQUE)
             return B_WAIT_TIME_SHORTEST;
+        else if (value == B_WAIT_TIME_LONG_LONG)
+            return value;
         else
-            return 0;
+            return 0; //don't change wait time
         break;
     }
 }

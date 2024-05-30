@@ -473,6 +473,7 @@
 #define B_WAIT_TIME_CLEAR_BUFF 5
 #define B_WAIT_TIME_CLEAR_BUFF_2 6
 #define B_WAIT_TIME_UNIQUE 7
+#define B_WAIT_TIME_LONG_LONG   8
 //changed to be array values pause time is still teh same
 
 // Window Ids for sTextOnWindowsInfo_Normal
