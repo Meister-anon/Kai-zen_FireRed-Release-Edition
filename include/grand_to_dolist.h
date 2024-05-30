@@ -3662,9 +3662,9 @@ Exceptions:
   but press Select on hover over slot will open a different menu
   maybe can have ev train, expgain, and mon release on this select menu
   )
-  
-
-
+  */
+goto MAY_BE_CATCH_LOGIC //look into see if forced left side is wide double catch doesn't work vsonic
+/*
   - also seems defeatist not displaying correctly
   its supposed to trigger ran with ability if has special status?
   could the entire status be being set to wrong mon?

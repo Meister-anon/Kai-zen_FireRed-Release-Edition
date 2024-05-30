@@ -2548,6 +2548,7 @@ static void PlayerHandlePaletteFade(void)
     PlayerBufferExecCompleted();
 }
 
+#define MAY_BE_CATCH_LOGIC
 static void PlayerHandleSuccessBallThrowAnim(void)
 {
     gBattleSpritesDataPtr->animationData->ballThrowCaseId = BALL_3_SHAKES_SUCCESS;
