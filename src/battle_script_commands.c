@@ -17401,7 +17401,7 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
            // gBattlescriptCurrInstr = BattleScript_TakeItemfromCaughtMon; change think use buff3 and end with return 
         }
     }
-    gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //thinkm this is why can't catch both mon? it uses side? is that why?
+    //gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //thinkm this is why can't catch both mon? it uses side? is that why?
     GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
     ++gBattlescriptCurrInstr;
 }
@@ -17418,6 +17418,7 @@ static void atkF1_trysetcaughtmondexflags(void)
     else    //otherwise trigger set caught
     {
         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
+        gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //moved here to attempt use for speed up
 
         //may not need this since it is already in displaydexinfo via registermontopokedex?
         /*if (species > NATIONAL_SPECIES_COUNT

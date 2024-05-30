@@ -2074,6 +2074,14 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
     if(PrevPaletteFadeResult() == PALETTE_FADE_STATUS_LOADING)
         speedScale = 1;
 
+
+    //CONFIRMED its level up, not learn move  // should but glveleveupinbattle not working for me
+    if (gBattleResults.caughtMonSpecies)    //WORKED!!
+        speedScale = 1;
+
+    
+
+
     if(speedScale <= 1)
     {
         // Maintain OG order for compat
@@ -2115,7 +2123,7 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
             }
         }
 
-        if(fadeResult != PALETTE_FADE_STATUS_LOADING)
+        if(fadeResult != PALETTE_FADE_STATUS_LOADING) //believe final loop
         {
             // final update
             AnimateSprites();
