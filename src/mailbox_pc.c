@@ -8,12 +8,12 @@
 #include "menu_indicators.h"
 #include "constants/songs.h"
 
-static EWRAM_DATA u8 sWindowIds[3] = {};
-static EWRAM_DATA struct ListMenuItem * sListMenuItems = NULL;
+//static EWRAM_DATA u8 sWindowIds[3] = {};
+//static EWRAM_DATA struct ListMenuItem * sListMenuItems = NULL; //can remove these as well, since haev removed mail option from pc
 
 static void MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu * list);
 
-static const struct WindowTemplate sWindowTemplates[] = {
+/*static const struct WindowTemplate sWindowTemplates[] = {
     {
         .bg = 0,
         .tilemapLeft = 1,
@@ -39,7 +39,7 @@ static const struct WindowTemplate sWindowTemplates[] = {
         .paletteNum = 15,
         .baseBlock = 0x01c
     }
-};
+};*/
 
 static const u8 sTextColor[3] = {1, 2, 3};
 static const u8 sString_Dummy[] = _("");
@@ -47,40 +47,44 @@ static const u8 sString_Dummy[] = _("");
 bool8 MailboxPC_InitBuffers(u8 num)
 {
     u8 i;
+    return FALSE;
 
-    sListMenuItems = Alloc(sizeof(struct ListMenuItem) * (num + 1));
+    /*sListMenuItems = Alloc(sizeof(struct ListMenuItem) * (num + 1));
     if (sListMenuItems == NULL)
         return FALSE;
     for (i = 0; i < NELEMS(sWindowIds); i++)
         sWindowIds[i] = 0xFF;
-    return TRUE;
+    return TRUE;*/
 }
 
 u8 MailboxPC_GetAddWindow(u8 winIdx)
 {
-    if (sWindowIds[winIdx] == 0xFF)
+    return FALSE;
+    /*if (sWindowIds[winIdx] == 0xFF)
     {
         sWindowIds[winIdx] = AddWindow(&sWindowTemplates[winIdx]);
         SetStdWindowBorderStyle(sWindowIds[winIdx], 0);
     }
-    return sWindowIds[winIdx];
+    return sWindowIds[winIdx];*/
 }
 
 void MailboxPC_RemoveWindow(u8 winIdx)
 {
-    ClearStdWindowAndFrameToTransparent(sWindowIds[winIdx], FALSE);
+    return;
+    /*ClearStdWindowAndFrameToTransparent(sWindowIds[winIdx], FALSE);
     ClearWindowTilemap(sWindowIds[winIdx]);
     RemoveWindow(sWindowIds[winIdx]);
-    sWindowIds[winIdx] = 0xFF;
+    sWindowIds[winIdx] = 0xFF;*/
 }
 
 u8 MailboxPC_GetWindowId(u8 winIdx)
 {
-    return sWindowIds[winIdx];
+    return FALSE;// sWindowIds[winIdx];
 }
 
 static void ItemPrintFunc(u8 windowId, s32 itemId, u8 y)
 {
+    return;/*
     u8 strbuf[30];
     if (itemId != -2)
     {
@@ -88,13 +92,14 @@ static void ItemPrintFunc(u8 windowId, s32 itemId, u8 y)
         if (StringLength(strbuf) <= 5)
             ConvertInternationalString(strbuf, LANGUAGE_JAPANESE);
         AddTextPrinterParameterized4(windowId, 2, 8, y, 0, 0, sTextColor, -1, strbuf);
-    }
+    }*/
 }
 
 u8 MailboxPC_InitListMenu(struct PlayerPCItemPageStruct * playerPcStruct)
 {
-    u16 i;
-    for (i = 0; i < playerPcStruct->count; i++)
+
+    return FALSE;
+    /*for (i = 0; i < playerPcStruct->count; i++)
     {
         sListMenuItems[i].label = sString_Dummy;
         sListMenuItems[i].index = i;
@@ -120,7 +125,7 @@ u8 MailboxPC_InitListMenu(struct PlayerPCItemPageStruct * playerPcStruct)
     gMultiuseListMenuTemplate.itemPrintFunc = ItemPrintFunc;
     gMultiuseListMenuTemplate.cursorKind = 0;
     gMultiuseListMenuTemplate.scrollMultiple = 0;
-    return ListMenuInit(&gMultiuseListMenuTemplate, playerPcStruct->itemsAbove, playerPcStruct->cursorPos);
+    return ListMenuInit(&gMultiuseListMenuTemplate, playerPcStruct->itemsAbove, playerPcStruct->cursorPos);*/
 }
 
 static void MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu * list)
@@ -131,10 +136,10 @@ static void MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu * list)
 
 void MailboxPC_AddScrollIndicatorArrows(struct PlayerPCItemPageStruct * playerPcStruct)
 {
-    playerPcStruct->scrollIndicatorId = AddScrollIndicatorArrowPairParameterized(2, 0xC2, 0xC, 0x94, playerPcStruct->count - playerPcStruct->pageItems + 1, 110, 110, &playerPcStruct->itemsAbove);
+    return;//playerPcStruct->scrollIndicatorId = AddScrollIndicatorArrowPairParameterized(2, 0xC2, 0xC, 0x94, playerPcStruct->count - playerPcStruct->pageItems + 1, 110, 110, &playerPcStruct->itemsAbove);
 }
 
 void MailboxPC_DestroyListMenuBuffer(void)
 {
-    Free(sListMenuItems);
+    return;//Free(sListMenuItems);
 }

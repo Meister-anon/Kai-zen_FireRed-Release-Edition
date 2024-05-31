@@ -484,7 +484,7 @@ struct RivalParty
     /*0x12*/ u8 tough;
     /*0x13*/ bool8 active;
     /*0x14*/ u8 filler[0x8];
-};
+};//value I added to eventually store rival party data so is consistant all game
 
 struct RamScriptData
 {

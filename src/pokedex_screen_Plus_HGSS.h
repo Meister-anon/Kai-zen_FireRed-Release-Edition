@@ -218,7 +218,7 @@ static const u8 sText_EVO_NONE[] = _("{STR_VAR_1} has no evolution.");
 
 
 
-
+//not part of build so seems  isn't contributing to ewram
 
 static EWRAM_DATA struct PokedexView *sPokedexView = NULL;
 static EWRAM_DATA u16 sLastSelectedPokemon = 0;

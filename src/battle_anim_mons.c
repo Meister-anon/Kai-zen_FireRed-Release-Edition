@@ -33,7 +33,7 @@ static void sub_8077268(struct Sprite *sprite);
 static void AnimWeatherBallUp_Step(struct Sprite *sprite);
 
 static EWRAM_DATA union AffineAnimCmd *sAnimTaskAffineAnim = NULL;
-static EWRAM_DATA u32 gUnknown_2037F2C = 0; // not used
+//static EWRAM_DATA u32 gUnknown_2037F2C = 0; // not used
 
 enum {
     SINGLE_BATTLES,

@@ -340,7 +340,7 @@ struct PokemonStorageSystemData
     /* 0d90 */ struct Sprite *monMarkingSprite;
     /* 0d94 */ struct Sprite *field_D98[2];
     /* 0d9c */ u16 *monMarkingSpriteTileStart;
-    /* 0da0 */ struct PokemonMarkMenu field_DA4;
+    /* 0da0 */ //struct PokemonMarkMenu field_DA4;
     /* 1e58 */ struct UnkPSSStruct_2002370 field_1E5C;
     /* 20a0 */ struct Pokemon movingMon;
     /* 2104 */ struct Pokemon field_2108;

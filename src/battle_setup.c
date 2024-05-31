@@ -63,6 +63,7 @@ static void CB2_EndTrainerBattle(void);
 static const u8 *GetIntroSpeechOfApproachingTrainer(void);
 static const u8 *GetTrainerCantBattleSpeech(void);
 
+#define TRAINER_APPROACH_SETUP
 static EWRAM_DATA u16 sTrainerBattleMode = 0;
 EWRAM_DATA u16 gTrainerBattleOpponent_A = 0;    //vsonic need setup logic for battleopponent_B 
 EWRAM_DATA u16 gTrainerBattleOpponent_B = 0;    //not for double battle, for updated trainer see interaction 2 trainers meet for one battle

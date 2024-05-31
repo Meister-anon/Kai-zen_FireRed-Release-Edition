@@ -532,8 +532,8 @@ static void Cb_InitPSS(u8 taskId)
 
         if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
         {
-            gPSSData->field_DA4.baseTileTag = TAG_TILE_D;
-            gPSSData->field_DA4.basePaletteTag = TAG_PAL_DACE;
+            //gPSSData->field_DA4.baseTileTag = TAG_TILE_D;
+            //gPSSData->field_DA4.basePaletteTag = TAG_PAL_DACE;
             //SetMonMarkingsMenuPointer(&gPSSData->field_DA4);
             //LoadMonMarkingsFrameGfx();
         }

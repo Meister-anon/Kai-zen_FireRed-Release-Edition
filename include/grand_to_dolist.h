@@ -3697,6 +3697,11 @@ goto MAY_BE_CATCH_LOGIC //look into see if forced left side is wide double catch
   remember still haven't fixed all palette indecees for post gen mon?
   then need to change icons so fit menu
 
+  still to do fix eevee page dex sprite load
+  vaporeon disappears for some reason
+  //also limit shown page evo methods
+  to num on top line
+
   -fix onix dex entry -think Done
 
   all exisiting items are defined again - making new patch
@@ -4885,6 +4890,8 @@ that way you don't need to keep flying aruond to different places looking for th
  ...using constrict on wondergaurd shedinja breaks game...causes freeze   going over changes I realized - think fixed, missed a part of status stuff (double check)
 */
 
+goto MYSTERY_GIFT_FLAGS //list of flags used for mystery gift events, for non legendary events can make give aways in game some how
+
 goto COMPARISON_FILE  //file added for keeping track of things to port to this new repo to update to previous progress
 
 goto CHECK_THIS //something potentially relevant for future multi battle/triple etc.
@@ -4916,6 +4923,7 @@ goto POKEMON_TO_BATTLEMON  //pokemon.c other stuff relevant blah blah
 goto DEPOSIT_TO_PCLOGIC //in pokemon.c covers box position, and how it reads space in the box
 goto OTHER_BOX_LOGIC    //deals with moving mon and moving item logic
 goto TRAINER_APPROACH_LOGIC //use for setup bad onion item effect, trainer repellent, also use for stench ability
+goto TRAINER_SEE_SETUP //base values that go into trainer approach, for setting up the battle itself
 /* 
 * setup pokenav, show potential area encounters but want mon to be greyed out until you've seen them.
 * so just see a silloette- I just don't like the existing effects that show you exactly what are in the area,
@@ -6937,7 +6945,8 @@ goto EVOLUTION_LOGIC
 * [could do a whole false bravado thing, will play its growl when hit hp threshold maybe do flash red, then atk up animation and clear status*if statused*
 * some kind of text message, (takes place in end turn, that hp fell.) then set emergency exit status, in same place as nuisance add priority boost for status
 * last thing is figuring how to make it wait till end of next move to switch out, maybe set argument of next move to hit escape?
-*  also since I want this to be an attack thing, think may setup like taunt where can't select a non damaging move during status.gDisableStructs[gBattlerTarget].tauntTimer = 2
+*  also since I want this to be an attack thing, think may setup like taunt where can't select a non damaging move during status
+*.gDisableStructs[gBattlerTarget].tauntTimer = 2 - guess could do this
 * 
 * [total effect, if atk less than stage 6 set to 6, (same logic from crit effect), growl,  raise attack stat, set status1 0 to clear, remove confusion infatuation
 * set emergency exit status]

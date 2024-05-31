@@ -48,6 +48,7 @@ static void BlankBuffer344(void);
 extern const u8 gUnknownSerialData_Start[];
 extern const u8 gUnknownSerialData_End[];
 
+#define MYSTERY_GIFT_FLAGS
 static const u16 sGiftItemFlagIds[] = {
     FLAG_GOT_AURORA_TICKET,
     FLAG_GOT_MYSTIC_TICKET,

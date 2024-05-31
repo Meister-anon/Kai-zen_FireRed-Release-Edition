@@ -39,13 +39,13 @@ struct IntroSequenceData
 }; // size: 0x28BC
 
 static EWRAM_DATA struct GcmbStruct sGcmb = {0};
-static EWRAM_DATA u16 gUnknown_203AB00 = 0;
-static EWRAM_DATA u16 gUnknown_203AB02 = 0;
+//static EWRAM_DATA u16 gUnknown_203AB00 = 0; //doesn't seem used  //this isn't oak intro this is the intro when game start i.e gengar nidoran fight
+//static EWRAM_DATA u16 gUnknown_203AB02 = 0; //doesn't seem used
 static EWRAM_DATA u16 gUnknown_203AB04 = 0;
 static EWRAM_DATA u16 gUnknown_203AB06 = 0;
 static EWRAM_DATA u16 gUnknown_203AB08 = 0;
 static EWRAM_DATA u16 gUnknown_203AB0A = 0;
-static EWRAM_DATA u16 gUnknown_203AB0C = 0;
+//static EWRAM_DATA u16 gUnknown_203AB0C = 0;  //doesn't seem used
 static EWRAM_DATA u16 sLargeStarXSpeed = 0;
 static EWRAM_DATA u16 sLargeStarYSpeed = 0;
 static EWRAM_DATA u16 sTrailingSparklesXmodMask = 0;
@@ -1428,8 +1428,8 @@ static void IntroCB_FightScene3(struct IntroSequenceData * this)
         {
             DecompressAndCopyTileDataToVram(0, sBg0Tiles_FightScene3, 0, 0, 0);
             DecompressAndCopyTileDataToVram(0, sBg0Map_FightScene3, 0, 0, 1);
-            gUnknown_203AB00 = 4;
-            gUnknown_203AB02 = 52;
+            //gUnknown_203AB00 = 4;
+            //gUnknown_203AB02 = 52;
             ChangeBgX(0, 0x00001800, 0);
             ChangeBgY(0, 0x0001F000, 0);
             this->state++;
@@ -2424,7 +2424,7 @@ static void StartNidorinoAnim_LaunchSelfAtGengarAnim(struct IntroSequenceData * 
     ptr->nidorinoAnimSprite->data[5] = 0;
     ptr->nidorinoAnimSprite->pos1.x += ptr->nidorinoAnimSprite->pos2.x;
     ptr->nidorinoAnimSprite->pos2.x = 0;
-    gUnknown_203AB0C = 0x24;
+    //gUnknown_203AB0C = 0x24;
     gUnknown_203AB06 = 0x28;
     gUnknown_203AB04 = 0x03;
     gUnknown_203AB08 = 0x04;

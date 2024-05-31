@@ -16,8 +16,8 @@
 #include "constants/maps.h"
 #include "constants/songs.h"
 
-static EWRAM_DATA u16 sHelpSystemContextId = 0;
-static EWRAM_DATA u8 sSeenHelpSystemIntro = 0;
+//static EWRAM_DATA u16 sHelpSystemContextId = 0;
+//static EWRAM_DATA u8 sSeenHelpSystemIntro = 0;
 
 u8 gHelpSystemState[4];
 u16 gHelpContextIdBackup;

@@ -5,7 +5,9 @@
 #include "graphics.h"
 #include "constants/songs.h"
 
-static EWRAM_DATA struct PokemonMarkMenu * sMenu = NULL;
+//static EWRAM_DATA struct PokemonMarkMenu * sMenu = NULL; //removing this should save a lot of ewram, near much as reducing decompression buffer
+//???  removing all this didn't change ewram at all? is it because of how I "removed" this before I don't understand atall
+//no this is just a pointer and pointers are 4 bytes, 
 
 static void CreateMonMarkingsMenuSprites(s16 x, s16 y, u16 tilesTag, u16 paletteTag);
 static void nullsub_62(struct Sprite * sprite);
@@ -13,7 +15,7 @@ static void SpriteCB_MarkingIcon(struct Sprite * sprite);
 static void SpriteCB_Cursor(struct Sprite * sprite);
 static struct Sprite * CreateMonMarkingSprite(u16 tilesTag, u16 paletteTag, const u16 *palette, u16 size);
 
-static const u16 sMonMarkingsPal[] = INCBIN_U16("graphics/misc/mon_markings.gbapal");
+/*static const u16 sMonMarkingsPal[] = INCBIN_U16("graphics/misc/mon_markings.gbapal");
 static const u16 sMonMarkingsTiles[] = INCBIN_U16("graphics/misc/mon_markings.4bpp");
 static const u8 sUnref_83EE828[] = {0x09, 0x50, 0x13, 0x02, 0xFF};
 
@@ -207,25 +209,28 @@ static const union AnimCmd *const sSpriteAnimTable_MonMarkSet[] = {
     sAnimCmd_MonMark_1011,
     sAnimCmd_MonMark_0111,
     sAnimCmd_MonMark_1111
-};
+};*/
 
-void SetMonMarkingsMenuPointer(struct PokemonMarkMenu * markMenu)
+/*void SetMonMarkingsMenuPointer(struct PokemonMarkMenu * markMenu)
 {
-    sMenu = markMenu;
-}
+    return;//sMenu = markMenu;
+}*/
 
 static void GetUserFrameForMonMarkings(void)
 {
-    const struct TextWindowGraphics * frame = GetUserFrameGraphicsInfo(gSaveBlock2Ptr->optionsWindowFrameType);
+    return;
+    /*const struct TextWindowGraphics * frame = GetUserFrameGraphicsInfo(gSaveBlock2Ptr->optionsWindowFrameType);
     sMenu->frameTiles = frame->tiles;
     sMenu->framePalette = frame->palette;
     sMenu->tileLoadState = 0;
-    CpuFill16(0, sMenu->menuWindowSpriteTiles, sizeof(sMenu->menuWindowSpriteTiles));
+    CpuFill16(0, sMenu->menuWindowSpriteTiles, sizeof(sMenu->menuWindowSpriteTiles));*/
 }
 
 static bool8 DoLoadMonMarkingsFrameGfx(void)
 {
     u16 i;
+
+    return FALSE;/*
     u8 *menuWindowSpriteTiles = &sMenu->menuWindowSpriteTiles[256 * sMenu->tileLoadState];
     switch (sMenu->tileLoadState)
     {
@@ -253,7 +258,7 @@ static bool8 DoLoadMonMarkingsFrameGfx(void)
     case 14:
         return FALSE;
     }
-    return TRUE;
+    return TRUE;*/
 }
 
 void LoadMonMarkingsFrameGfx(void)
@@ -266,19 +271,21 @@ void LoadMonMarkingsFrameGfx(void)
 void DrawMonMarkingsMenu(u8 markings, s16 x, s16 y)
 {
     u16 i;
-    sMenu->cursorPos = 0;
+    return;
+    /*sMenu->cursorPos = 0;
     sMenu->markings = markings;
     for (i = 0; i < 4; i++)
     {
         sMenu->markingsArray[i] = (sMenu->markings >> i) & 1;
     }
-    CreateMonMarkingsMenuSprites(x, y, sMenu->baseTileTag, sMenu->basePaletteTag);;
+    CreateMonMarkingsMenuSprites(x, y, sMenu->baseTileTag, sMenu->basePaletteTag);;*/
 }
 
 void TeardownMonMarkingsMenu(void)
 {
     u16 i;
-    for (i = 0; i < 3; i++)
+    return;
+    /*for (i = 0; i < 3; i++)
         FreeSpriteTilesByTag(sMenu->baseTileTag + i);
     FreeSpritePaletteByTag(sMenu->basePaletteTag);
     FreeSpritePaletteByTag(sMenu->basePaletteTag + 1);
@@ -297,12 +304,13 @@ void TeardownMonMarkingsMenu(void)
     if (sMenu->unkSprite != NULL)
         DestroySprite(sMenu->unkSprite);
     if (sMenu->menuTextSprite != NULL)
-        DestroySprite(sMenu->menuTextSprite);
+        DestroySprite(sMenu->menuTextSprite);*/
 }
 
 bool8 MonMarkingsHandleInput(void)
 {
     u16 i;
+    return FALSE;/*
     if (JOY_NEW(DPAD_UP))
     {
         PlaySE(SE_SELECT);
@@ -338,13 +346,14 @@ bool8 MonMarkingsHandleInput(void)
         PlaySE(SE_SELECT);
         return FALSE;
     }
-    return TRUE;
+    return TRUE;*/
 }
 
 static void CreateMonMarkingsMenuSprites(s16 x, s16 y, u16 tilesTag, u16 paletteTag)
 {
     u16 i;
     u8 spriteId;
+    return;/*
     struct SpriteSheet sheets[] = {
         {
             .data = sMenu->menuWindowSpriteTiles,
@@ -447,7 +456,7 @@ static void CreateMonMarkingsMenuSprites(s16 x, s16 y, u16 tilesTag, u16 palette
     else
     {
         sMenu->unkSprite = NULL;
-    }
+    }*/
 }
 
 static void nullsub_62(struct Sprite * sprite)
@@ -455,33 +464,37 @@ static void nullsub_62(struct Sprite * sprite)
 
 static void SpriteCB_MarkingIcon(struct Sprite * sprite)
 {
-    if (sMenu->markingsArray[sprite->data[0]])
+    return;
+    /*if (sMenu->markingsArray[sprite->data[0]])
         StartSpriteAnim(sprite, 2 * sprite->data[0] + 1);
     else
-        StartSpriteAnim(sprite, 2 * sprite->data[0] + 0);
+        StartSpriteAnim(sprite, 2 * sprite->data[0] + 0);*/
 }
 
 static void SpriteCB_Cursor(struct Sprite * sprite)
 {
-    sprite->pos1.y = 16 * sMenu->cursorPos + sprite->data[0];
+    return;//sprite->pos1.y = 16 * sMenu->cursorPos + sprite->data[0];
 }
 
 struct Sprite * CreateMonMarkingSprite_SelectCombo(u16 tileTag, u16 paletteTag, const u16 *palette)
 {
+    return NULL;/*
     if (palette == NULL)
         palette = sMonMarkingsPal;
-    return CreateMonMarkingSprite(tileTag, paletteTag, palette, 16);
+    return CreateMonMarkingSprite(tileTag, paletteTag, palette, 16);*/
 }
 
 struct Sprite * CreateMonMarkingSprite_AllOff(u16 tileTag, u16 paletteTag, const u16 *palette)
 {
+    return NULL;/*
     if (palette == NULL)
         palette = sMonMarkingsPal;
-    return CreateMonMarkingSprite(tileTag, paletteTag, palette, 1);
+    return CreateMonMarkingSprite(tileTag, paletteTag, palette, 1);*/
 }
 
 static struct Sprite * CreateMonMarkingSprite(u16 tileTag, u16 paletteTag, const u16 *palette, u16 size)
 {
+    return NULL;/*
     u8 spriteId;
     struct SpriteTemplate sprTemplate;
     struct SpriteSheet sheet = { sMonMarkingsTiles, 0x80, tileTag };
@@ -504,11 +517,11 @@ static struct Sprite * CreateMonMarkingSprite(u16 tileTag, u16 paletteTag, const
     if (spriteId != MAX_SPRITES)
         return &gSprites[spriteId];
     else
-        return NULL;
+        return NULL;*/
 }
 
 void RequestDma3LoadMonMarking(u8 markings, void * dest)
 {
-    RequestDma3Copy(&sMonMarkingsTiles[64 * markings], dest, 0x80, DMA3_32BIT);
+    return;//RequestDma3Copy(&sMonMarkingsTiles[64 * markings], dest, 0x80, DMA3_32BIT);
 }
 

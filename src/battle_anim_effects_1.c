@@ -8,7 +8,7 @@
 #include "constants/songs.h"
 
 // RAM
-EWRAM_DATA static s16 gUnknown_203999C[4] = {0}; //zsonic looks like I can remove this  vsonic
+//EWRAM_DATA static s16 gUnknown_203999C[4] = {0}; //zsonic looks like I can remove this  vsonic
 
 // Function Declarations
 static void AnimMovePowderParticleStep(struct Sprite *);
@@ -3719,10 +3719,10 @@ void AnimFrenzyPlantRoot(struct Sprite *sprite)
     StartSpriteAnim(sprite, gBattleAnimArgs[4]);
     sprite->data[2] = gBattleAnimArgs[5];
     sprite->callback = AnimRootFlickerOut;
-    gUnknown_203999C[0] = sprite->pos1.x;
+    /*gUnknown_203999C[0] = sprite->pos1.x;
     gUnknown_203999C[1] = sprite->pos1.y;
     gUnknown_203999C[2] = targetX;
-    gUnknown_203999C[3] = targetY;
+    gUnknown_203999C[3] = targetY;*/
 }
 
 static void AnimRootFlickerOut(struct Sprite *sprite)
