@@ -826,7 +826,6 @@ enum   //battler end turn
     ENDTURN_MAGNET_RISE,
     ENDTURN_TELEKINESIS,
     ENDTURN_LOCK_ON,
-    ENDTURN_CHARGE,
     ENDTURN_LASER_FOCUS,
     ENDTURN_TAUNT,
     ENDTURN_YAWN,
@@ -3143,11 +3142,6 @@ u8 DoBattlerEndTurnEffects(void)
                     gStatuses3[gActiveBattler] -= 0x8;
                 ++gBattleStruct->turnEffectsTracker;
                 break;
-            case ENDTURN_CHARGE:  // charge
-                if (gDisableStructs[gActiveBattler].chargeTimer && --gDisableStructs[gActiveBattler].chargeTimer == 0)
-                    gStatuses3[gActiveBattler] &= ~STATUS3_CHARGED_UP;
-                ++gBattleStruct->turnEffectsTracker;
-                break;
             case ENDTURN_LASER_FOCUS:
             if (gStatuses3[gActiveBattler] & STATUS3_LASER_FOCUS)
             {
@@ -4026,7 +4020,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_TAUNTED: // taunt
             if (gDisableStructs[gBattlerAttacker].tauntTimer && IS_MOVE_STATUS(gCurrentMove))
             {
-                gProtectStructs[gBattlerAttacker].usedTauntedMove = 1;
+                gProtectStructs[gBattlerAttacker].usedTauntedMove = TRUE;
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gBattlescriptCurrInstr = BattleScript_MoveUsedIsTaunted;
                 gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -4037,7 +4031,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_IMPRISONED: // imprisoned
             if (GetImprisonedMovesCount(gBattlerAttacker, gCurrentMove))
             {
-                gProtectStructs[gBattlerAttacker].usedImprisonedMove = 1;
+                gProtectStructs[gBattlerAttacker].usedImprisonedMove = TRUE;
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gBattlescriptCurrInstr = BattleScript_MoveUsedIsImprisoned;
                 gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -7294,7 +7288,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }*/
                     gStatuses3[gBattlerAttacker] |= STATUS3_PERISH_SONG;
                     gDisableStructs[gBattlerAttacker].perishSongTimer = 3;
-                    gDisableStructs[gBattlerAttacker].perishSongTimerStartValue = 3;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_PerishBodyActivates;
                     ++effect;

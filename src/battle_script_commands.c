@@ -1410,6 +1410,11 @@ static void atk00_attackcanceler(void) //vsonic
         return;
     }
 
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP 
+    && gBattleMoves[gLastMoves[gBattlerAttacker]].type == TYPE_ELECTRIC
+    && gBattleMoves[gLastMoves[gBattlerAttacker]].split != SPLIT_STATUS)
+        gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
+
     //split conditions, gave higher odds to iron will
     //as its affects are all odds based with no consistent affect
     if ((GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL) //remove flinch affect for  pressure just give dmg drop
@@ -12762,7 +12767,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         // Check taunt
         if (gDisableStructs[gActiveBattler].tauntTimer != 0)
         {
-            gDisableStructs[gActiveBattler].tauntTimer = gDisableStructs[gActiveBattler].tauntTimer2 = 0;
+            gDisableStructs[gActiveBattler].tauntTimer = 0;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_TAUNT;
             PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_TAUNT);
         }
@@ -12770,7 +12775,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (gDisableStructs[gActiveBattler].encoreTimer != 0)
         {
             gDisableStructs[gActiveBattler].encoredMove = 0;
-            gDisableStructs[gActiveBattler].encoreTimerStartValue = gDisableStructs[gActiveBattler].encoreTimer = 0;
+            gDisableStructs[gActiveBattler].encoreTimer = 0;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_ENCORE;   // STRINGID_PKMNENCOREENDED
         }
         // Check torment
@@ -12782,7 +12787,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         // Check disable
         if (gDisableStructs[gActiveBattler].disableTimer != 0)
         {
-            gDisableStructs[gActiveBattler].disableTimer = gDisableStructs[gActiveBattler].disableTimerStartValue = 0;
+            gDisableStructs[gActiveBattler].disableTimer = 0;
             gDisableStructs[gActiveBattler].disabledMove = 0;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_DISABLE;
         }
@@ -14807,7 +14812,6 @@ static void atkA3_disablelastusedattack(void)
         PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerTarget].moves[i])
         gDisableStructs[gBattlerTarget].disabledMove = gBattleMons[gBattlerTarget].moves[i];
         gDisableStructs[gBattlerTarget].disableTimer = (Random() % 4) + 2;  //replaced & 3
-        gDisableStructs[gBattlerTarget].disableTimerStartValue = gDisableStructs[gBattlerTarget].disableTimer; // used to save the random amount of turns?
         gBattlescriptCurrInstr += 5;
     }
     else
@@ -14838,7 +14842,6 @@ static void atkA4_trysetencore(void)
         gDisableStructs[gBattlerTarget].encoredMove = gBattleMons[gBattlerTarget].moves[i];
         gDisableStructs[gBattlerTarget].encoredMovePos = i;
         gDisableStructs[gBattlerTarget].encoreTimer = (Random() & 3) + 3;
-        gDisableStructs[gBattlerTarget].encoreTimerStartValue = gDisableStructs[gBattlerTarget].encoreTimer;
         gBattlescriptCurrInstr += 5;
     }
     else
@@ -15307,7 +15310,6 @@ static void atkB2_trysetperishsong(void)
         {
             gStatuses3[i] |= STATUS3_PERISH_SONG;
             gDisableStructs[i].perishSongTimer = 3;
-            gDisableStructs[i].perishSongTimerStartValue = 3;
         }
     }
     PressurePPLoseOnUsingPerishSong(gBattlerAttacker);
@@ -16223,8 +16225,6 @@ static void atkCA_setforcedtarget(void) // follow me
 static void atkCB_setcharge(void)
 {
     gStatuses3[gBattlerAttacker] |= STATUS3_CHARGED_UP;
-    gDisableStructs[gBattlerAttacker].chargeTimer = 2;
-    gDisableStructs[gBattlerAttacker].chargeTimerStartValue = 2;
     ++gBattlescriptCurrInstr;
 }
 
@@ -16292,7 +16292,6 @@ static void atkD0_settaunt(void)    //adjusted setup to be more in line with tor
     else
     {
         gDisableStructs[gBattlerTarget].tauntTimer = 2;
-        gDisableStructs[gBattlerTarget].tauntTimer2 = 2;
         gBattlescriptCurrInstr += 5;
     }
     

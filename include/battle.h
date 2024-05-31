@@ -209,21 +209,15 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     s8 stockpileBeforeSpDef;
     /*0x0A*/ u8 substituteHP;
     /*0x0B*/ u8 disableTimer : 4;
-    /*0x0B*/ u8 disableTimerStartValue : 4;
     /*0x0C*/ u8 encoredMovePos;
     /*0x0D*/ u8 unkD;
     /*0x0E*/ u8 encoreTimer : 4;
-    /*0x0E*/ u8 encoreTimerStartValue : 4;
     /*0x0F*/ u8 perishSongTimer : 4;
-    /*0x0F*/ u8 perishSongTimerStartValue : 4;
     /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
              u16 furyCutterAccDrop; //need for acc drop to keep value 
     /*0x11*/ u8 rolloutTimer : 4;
-    /*0x11*/ u8 rolloutTimerStartValue : 4;
-    /*0x12*/ u8 chargeTimer : 4;
-    /*0x12*/ u8 chargeTimerStartValue : 4;
+    /*0x11*/ u8 rolloutTimerStartValue : 4; //this one is relevant as its used to decide the animation/power, tell it how many turns have elapsed
     /*0x13*/ u8 tauntTimer : 4;
-    /*0x13*/ u8 tauntTimer2 : 4;
     /*0x14*/ u8 battlerPreventingEscape;
     /*0x15*/ u8 battlerWithSureHit;
     /*0x16*/ u8 isFirstTurn;
