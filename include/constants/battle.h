@@ -273,7 +273,8 @@
 #define STATUS4_SNAP_TRAP               (1 << 9)
 #define STATUS4_THUNDER_CAGE            (1 << 10)
 
-#define STATUS4_GROUNDED                (1 << 11)  //new status  set for move effect trench_run to more easily translate mon into grounded state, add status to groudned function
+//removed replaced w timer
+//#define STATUS4_GROUNDED                (1 << 11)  //new status  set for move effect trench_run to more easily translate mon into grounded state, add status to groudned function
 
 //was able to save great amount of space with emerald upgrades
 //but now dont have separate counter for each status

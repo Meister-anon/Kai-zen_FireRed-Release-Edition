@@ -601,7 +601,7 @@
 #define FLAG_DID_MIMIEN_TRADE                            0x248
 #define FLAG_BOUGHT_MAGIKARP                             0x249
 #define FLAG_DID_ZYNX_TRADE                              0x24A
-#define FLAG_DID_MS_NIDO_TRADE                           0x24B
+#define FLAG_DID_MS_NIDO_TRADE                           0x24B  //is now zigzagoon
 #define FLAG_0x24C                                       0x24C
 #define FLAG_DID_CH_DING_TRADE                           0x24D
 #define FLAG_GOT_TM38_FROM_BLAINE                        0x24E

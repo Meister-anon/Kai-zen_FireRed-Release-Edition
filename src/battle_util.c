@@ -4774,7 +4774,8 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if ((GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_AIR_BALLOON) && IsBlackFogNotOnField())
         grounded = FALSE;
 
-    if (gStatuses4[battlerId] & STATUS4_GROUNDED) //change name, using for trench run
+    //not setup fully yet
+    if (gDisableStructs[battlerId].trenchRunTimer) //change name, using for trench run
         grounded = TRUE;
     if (gFieldStatuses & STATUS_FIELD_GRAVITY)
         grounded = TRUE;

@@ -12314,9 +12314,9 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_TRENCH_RUN] =
     {
-        .effect = EFFECT_EVASION_UP,  //need make its own effect, planned evasion up 2 and grounds battler like roost
+        .effect = EFFECT_TRENCH_RUN,  //need make its own effect, planned evasion up 2 and grounds battler like roost
         .power = 0,
-        .type = TYPE_FLYING,
+        .type = TYPE_FLYING, //almost got it, made 4 turn effect
         .accuracy = 0,
         .pp = 15,
         .secondaryEffectChance = 0,

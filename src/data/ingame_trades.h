@@ -31,7 +31,7 @@ static const struct InGameTrade sInGameTrades[] = {
         //.sheen = 10,
         .requestedSpecies = SPECIES_POLIWHIRL
     }, 
-    [INGAME_TRADE_NIDORAN] = 
+    [INGAME_TRADE_ZIGZAGOON] = 
     {
 #if defined(FIRERED)
         .nickname = _("WILD CAT"),

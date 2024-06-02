@@ -204,6 +204,8 @@ bool32 TryRemoveScreens(u8 battler); //made non-static to use with brick break t
 
 bool32 TestMoveFlags(u16 move, u32 flag);
 
+void SetAtkCancellerForCalledMove(void);
+
 //added from EE for form change update (not planning to use for transform/ditto)
 bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false
 bool32 DoesSpeciesUseHoldItemToChangeForm(u16 species, u16 heldItemId);
@@ -214,8 +216,6 @@ bool32 IsBattlerPrimalReverted(u8 battlerId);
 
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
-
-#define GROUNDED_GHOSTMON ((SPECIES_PARASECT || SPECIES_DITTO || SPECIES_SPIRITOMB || SPECIES_CORSOLA_GALARIAN || SPECIES_CURSOLA || SPECIES_SANDYGAST || SPECIES_PALOSSAND || SPECIES_GOLETT || SPECIES_TREVENANT || SPECIES_MARSHADOW || SPECIES_MIMIKYU || SPECIES_MIMIKYU_BUSTED || SPECIES_SABLEYE || SPECIES_SABLEYE_MEGA || SPECIES_NINETALES || SPECIES_DELCATTY))
 
 #define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].argument == TYPE_FIRE)) && (gBattleMoves[move].power >= 60 || gDynamicBasePower >= 60)))
 

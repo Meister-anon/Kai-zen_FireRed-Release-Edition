@@ -243,6 +243,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 telekinesisTimer;
     u8 laserFocusTimer;
     u8 throatChopTimer;
+    u8 trenchRunTimer; //timer for trench run, 4 turns end turn decrement
     u8 RoostTimer; // to set random % 4 effect after use roost setup iondelluge the same remove random make constant
     u8 usedMoves : 4; //have iondelug in field timers already
     u8 wrapTurns;  //turn counter for wrap 
@@ -698,6 +699,7 @@ struct BattleStruct //fill in unused fields when porting
     u16 castformPalette[MAX_BATTLERS_COUNT][16]; //important, may be how they fixed alcremie?
     u8 wishPerishSongState;
     u8 wishPerishSongBattlerId;
+    u8 isAtkCancelerForCalledMove:1; // Certain cases in atk canceler should only be checked once, when the original move is called, however others need to be checked the twice.
     u8 savedBattlerTarget;
     bool8 anyMonHasTransformed;
     u16 tracedAbility[MAX_BATTLERS_COUNT]; //didn't really need to port, but prob can use it to show current ability in menu summary screen //important

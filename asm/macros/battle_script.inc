@@ -1408,9 +1408,8 @@
 	.4byte \ptr
 	.endm
 
-	.macro setuserstatus4 flags:req, ptr:req
-	callnative BS_setuserstatus4
-	.4byte \flags
+	.macro setTrenchRun ptr:req
+	callnative BS_SetTrenchRun
 	.4byte \ptr
 	.endm
 

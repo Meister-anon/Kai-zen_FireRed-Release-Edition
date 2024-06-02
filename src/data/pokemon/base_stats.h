@@ -8279,7 +8279,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(72, 60, 30, 25, 20, 30),
         .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        .type2 = TYPE_FIGHTING, //while would like to don't think can swing giving normal type
         .catchRate = 180,
         .expYield = 47,
         //.evYield_HP = 1,
@@ -8308,7 +8308,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(144, 120, 60, 50, 40, 60),
         .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        .type2 = TYPE_FIGHTING,
         .catchRate = 200,
         .expYield = 166,
         //.evYield_HP = 2,

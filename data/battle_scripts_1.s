@@ -810,15 +810,15 @@ BattleScript_EffectLaserFocus:
  @not complete need setup evasion boost (2 stage boost) and make sure its removed if status on air i.e flying/skydrop donethat part
  @also need to put back logic that grounded flying types dont take super from electricity etc. 
 BattleScript_EffectTrenchrun::
-	setuserstatus4 STATUS4_GROUNDED, BattleScript_ButItFailed
 	attackcanceler	@cancel logic should be in attack canceler so not stacked
 	setmoveeffect MOVE_EFFECT_EVS_PLUS_2 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	setmoveeffectwithchance
 	attackstring
 	ppreduce
+	setTrenchRun BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_LASERFOCUS @give its own string/message
+	printstring STRINGID_NOE_FLIGHT @give its own string/message @flying under the radar
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
