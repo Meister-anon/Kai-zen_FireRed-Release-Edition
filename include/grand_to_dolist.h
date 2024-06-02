@@ -2190,6 +2190,12 @@ goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make 
   and flying is resisted by BOTH electric and steel
 
   the entire relation is reversed???
+
+  spacial rend broken animation breaks game,
+  think same for good amount of later animations
+  infestation replacement swarm is broken, 
+  or more accurately the infestation status is?
+  froze game
   
 
   ,...ok bind is broken, I missed something,
