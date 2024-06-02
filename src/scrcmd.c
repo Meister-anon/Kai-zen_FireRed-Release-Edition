@@ -666,7 +666,7 @@ static bool8 RunPauseTimer(void)
 #define SCRIPT_DELAY
 bool8 ScrCmd_delay(struct ScriptContext * ctx) //seeing how changing delya for ow stuff plays out
 {
-    sPauseCounter = ScriptReadHalfword(ctx);
+    sPauseCounter = ScriptReadHalfword(ctx); //may keep this on by default, thought about making option but is too good
     
     if (GetPlayerTextSpeed() > OPTIONS_TEXT_SPEED_FAST)
     {

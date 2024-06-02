@@ -6398,7 +6398,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_SPECIAL,
-    },
+    },//vsonic seems animation for this not right?
 
     [MOVE_DRAGON_RUSH] =
     {

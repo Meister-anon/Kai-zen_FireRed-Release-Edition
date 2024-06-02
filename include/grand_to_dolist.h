@@ -2172,6 +2172,26 @@ goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make 
   seen works in party menu, not in battle
   so need use party menu function
 
+  seems issue with dynamic starter relation
+  fire ball w bulbasaur ball
+  from left to right I rolled
+  Togedamaru,  Helioptile, and togepi
+
+  choice is based on final evo, so that gave me,
+  electric/steel,   normal/electric,  and fairy/flying
+
+  by my rules squirtle ball vs charmander ball works
+
+  but makes no sense for the other,
+  charmander ball should beat or resist bulbasaurball
+
+  and yet steel beats fairy and electric beats flying
+  fairy is not effective against steel, 
+  and flying is resisted by BOTH electric and steel
+
+  the entire relation is reversed???
+  
+
   ,...ok bind is broken, I missed something,
    if you switch in on a bind it makes you struggle EVERY time. smh
    ...not sure how but its fixed now, think something to do with the usable moves change I made

@@ -4365,9 +4365,12 @@ u16 DexScreen_FormFilter(u16 species)
         return  species;  //potentially change to just species
 
 }
+
+//unused
 void DexScreen_DrawMonFootprint(u8 windowId, u16 species, u8 x, u8 y)
 {
-    u16 i, j, unused, tileIdx;
+    return;
+    /*u16 i, j, unused, tileIdx;
     u8 footprintPixel, footprintTile;
     u8 * buffer;
     u8 * footprint;
@@ -4394,7 +4397,7 @@ void DexScreen_DrawMonFootprint(u8 windowId, u16 species, u8 x, u8 y)
             tileIdx++;
         }
     }
-    BlitBitmapRectToWindow(windowId, buffer, 0, 0, 16, 16, x, y, 16, 16);
+    BlitBitmapRectToWindow(windowId, buffer, 0, 0, 16, 16, x, y, 16, 16);*/
 }
 
 #define CREATE_POKEDEX_PAGE
@@ -4480,7 +4483,7 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 28);
     DexScreen_PrintMonWeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 40);
     DexScreen_PrintMonStatPage(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 75, 28);
-    DexScreen_DrawMonFootprint(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 88, 32);
+    //DexScreen_DrawMonFootprint(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 88, 32);
     PutWindowTilemap(sPokedexScreenData->windowIds[1]);
     CopyWindowToVram(sPokedexScreenData->windowIds[1], COPYWIN_GFX);
 
