@@ -3708,6 +3708,12 @@ enum
     CANCELLER_END2,
 };
 
+void SetAtkCancellerForCalledMove(void)
+{
+    gBattleStruct->atkCancellerTracker = CANCELLER_HEAL_BLOCKED;
+    gBattleStruct->isAtkCancelerForCalledMove = TRUE;
+}
+
 //needs to use gbattlerattacker / gbattlertarget  gactivebattler doesn't work here
 u8 AtkCanceller_UnableToUseMove(void)
 {
@@ -4040,7 +4046,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_CONFUSED: // confusion need test but done, until double battles are in
-            if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION)//can add bug type exclusion here, they will have confusion affect but never fail atk check
+            if (!gBattleStruct->isAtkCancelerForCalledMove && gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION)//can add bug type exclusion here, they will have confusion affect but never fail atk check
             { //users most likely won't notice the difference unless they attack themselves
                 u16 rando = Random() % 4;
                 u8 target = gBattleMoves[gCurrentMove].target;
@@ -4125,7 +4131,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_PARALYZED: // paralysis
-            if (((gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS) && (Random() % 4) == 0)
+            if ((!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS) && (Random() % 4) == 0)
                 && IsBlackFogNotOnField())
             {
                 gProtectStructs[gBattlerAttacker].prlzImmobility = 1;
@@ -4142,7 +4148,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_SPIRIT_LOCKED: //spirit lock
-            if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SPIRIT_LOCK) && (Random() % 4) == 2) //just an extra precaution in case this and paralysis would use the same counter
+            if (!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_SPIRIT_LOCK) && (Random() % 4) == 2) //just an extra precaution in case this and paralysis would use the same counter
             {
                 //gProtectStructs[gBattlerAttacker].prlzImmobility = 1;
                 //gBattlescriptCurrInstr = BattleScript_MoveUsedIsParalyzed;
@@ -4158,8 +4164,8 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_IRON_WILL:
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL
-        && gBattlerTarget != gBattlerAttacker) //need to ensure not self target
+        if (!gBattleStruct->isAtkCancelerForCalledMove && (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL
+        && gBattlerTarget != gBattlerAttacker)) //need to ensure not self target
             {
                 if ((Random() % 7 == 3)
                 && IsBlackFogNotOnField())
@@ -4191,7 +4197,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_IN_LOVE: // infatuation
-            if (gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION)      //put more planning into this vsonic          
+            if (!gBattleStruct->isAtkCancelerForCalledMove && gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION)      //put more planning into this vsonic          
                 //&& gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATED_WITH(gBattlerTarget)) //important change ot add check that the target is the one pokemon is infatuated with
             {
                 if (IsBlackFogNotOnField()) {
@@ -11020,6 +11026,7 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
                 gCurrMovePos = gChosenMovePos = Random() & 3;
             while (gBitTable[gCurrMovePos] & calc);
             gCalledMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
+            SetAtkCancellerForCalledMove();
             gBattlescriptCurrInstr = BattleScript_IgnoresAndUsesRandomMove;
             gBattlerTarget = GetMoveTarget(gCalledMove, 0);
             gHitMarker |= HITMARKER_DISOBEDIENT_MOVE;

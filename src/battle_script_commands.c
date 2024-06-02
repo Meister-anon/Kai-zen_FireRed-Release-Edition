@@ -1023,7 +1023,7 @@ static const u8 sForbiddenMoves[MOVES_COUNT] =
     [MOVE_FLING] = FORBIDDEN_PARENTAL_BOND,
     [MOVE_FLOATY_FALL] = FORBIDDEN_METRONOME,
     [MOVE_FLY] = FORBIDDEN_ASSIST | FORBIDDEN_SLEEP_TALK | FORBIDDEN_INSTRUCT | FORBIDDEN_PARENTAL_BOND,
-    [MOVE_FOCUS_PUNCH] = FORBIDDEN_METRONOME | FORBIDDEN_ASSIST | FORBIDDEN_COPYCAT | FORBIDDEN_SLEEP_TALK | FORBIDDEN_INSTRUCT,
+    [MOVE_FOCUS_PUNCH] = FORBIDDEN_INSTRUCT,
     [MOVE_FOLLOW_ME] = FORBIDDEN_METRONOME | FORBIDDEN_ASSIST | FORBIDDEN_COPYCAT,
     [MOVE_FREEZE_SHOCK] = FORBIDDEN_METRONOME | FORBIDDEN_SLEEP_TALK | FORBIDDEN_INSTRUCT | FORBIDDEN_PARENTAL_BOND,
     [MOVE_FREEZING_GLARE] = FORBIDDEN_METRONOME,
@@ -1198,7 +1198,7 @@ static const u16 sMovesForbiddenToCopy[] =
     MOVE_HELPING_HAND,
     MOVE_COVET,
     MOVE_TRICK,
-    MOVE_FOCUS_PUNCH,
+    //MOVE_FOCUS_PUNCH,
     METRONOME_FORBIDDEN_END
 };
 
@@ -1417,7 +1417,8 @@ static void atk00_attackcanceler(void) //vsonic
 
     //split conditions, gave higher odds to iron will
     //as its affects are all odds based with no consistent affect
-    if ((GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL) //remove flinch affect for  pressure just give dmg drop
+    if (!gBattleStruct->isAtkCancelerForCalledMove 
+        && (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL) //remove flinch affect for  pressure just give dmg drop
         && IsBlackFogNotOnField()
         && !gSpecialStatuses[gBattlerAttacker].Lostresolve //sinceit returns needs value to allow skip so doesnt loop
         && gBattlerTarget != gBattlerAttacker) //need to ensure not self target
@@ -1434,7 +1435,8 @@ static void atk00_attackcanceler(void) //vsonic
 
         } //moved effect out here, as otherwise caused freeze
 
-    else if ((GetBattlerAbility(gBattlerTarget) == ABILITY_HI_PRESSURE
+    else if (!gBattleStruct->isAtkCancelerForCalledMove 
+        && (GetBattlerAbility(gBattlerTarget) == ABILITY_HI_PRESSURE
         || GetBattlerAbility(gBattlerTarget) == ABILITY_PRESSURE)
         && IsBlackFogNotOnField()
         && !gSpecialStatuses[gBattlerAttacker].Lostresolve //sinceit returns needs value to allow skip so doesnt loop
@@ -1485,6 +1487,8 @@ static void atk00_attackcanceler(void) //vsonic
         //gProtectStructs[gBattlerTarget].bounceMove = FALSE; //removes magic coat effect from target after activating, (removing this line as I made multi turn
         gProtectStructs[gBattlerTarget].usesBouncedMove = TRUE;
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        // Edge case for bouncing a powder move against a grass type pokemon.
+        SetAtkCancellerForCalledMove();
         if (DoesPranksterBlockMove(gCurrentMove, gBattlerTarget, gBattlerAttacker, TRUE))
         {
             // Opponent used a prankster'd magic coat -> reflected status move should fail against a dark-type attacker
@@ -1505,6 +1509,8 @@ static void atk00_attackcanceler(void) //vsonic
         RecordAbilityBattle(gBattlerTarget, ABILITY_MAGIC_BOUNCE);
         gProtectStructs[gBattlerTarget].usesBouncedMove = TRUE;
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+        // Edge case for bouncing a powder move against a grass type pokemon.
+        SetAtkCancellerForCalledMove();
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_MagicCoatBounce;
         return;
@@ -8373,6 +8379,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             gSpecialStatuses[gBattlerAttacker].damagedMons = 0;
             gSpecialStatuses[gBattlerTarget].berryReduced = FALSE;
             gBattleScripting.moveEffect = 0;
+            gBattleStruct->isAtkCancelerForCalledMove = FALSE;
             // clear attacker z move data
             /*//gBattleStruct->zmove.active = FALSE;
             //gBattleStruct->zmove.toBeUsed[gBattlerAttacker] = MOVE_NONE;
@@ -13091,6 +13098,7 @@ static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         gCurrentMove = move;
         gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        SetAtkCancellerForCalledMove();
         gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
     }
     else if (validMovesCount != 0)
@@ -13099,6 +13107,7 @@ static void atk7C_trymirrormove(void) //need update with emerald logic  vsonic
         i = Random() % validMovesCount;
         gCurrentMove = movesArray[i];
         gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        SetAtkCancellerForCalledMove();
         gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
     }
     else
@@ -14658,7 +14667,21 @@ static void atk9D_mimicattackcopy(void)
 */
 static void atk9E_metronome(void) //speaknig of prob need change this, value for move expansion think (Random() % LAST_MOVE_INDEX) + 1
 {
-    while (1)
+
+    do
+    {
+        gCurrentMove = (Random() % MOVES_COUNT);
+    } while (sForbiddenMoves[gCurrentMove] & FORBIDDEN_METRONOME || gCurrentMove == MOVE_NONE); //keep checking long as move is forbidden
+    
+    if (!(sForbiddenMoves[gCurrentMove] & FORBIDDEN_METRONOME))
+    {
+        gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
+        SetAtkCancellerForCalledMove();
+        gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
+        gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
+        return;
+    }
+    /*while (1)
     {
         s32 i;
 
@@ -14674,6 +14697,8 @@ static void atk9E_metronome(void) //speaknig of prob need change this, value for
                 break;
             if (sMovesForbiddenToCopy[i] == METRONOME_FORBIDDEN_END)
                 break;
+            if (sForbiddenMoves[gCurrentMove] & FORBIDDEN_METRONOME)
+                break;
         }
         if (sMovesForbiddenToCopy[i] == METRONOME_FORBIDDEN_END)
         {
@@ -14682,7 +14707,7 @@ static void atk9E_metronome(void) //speaknig of prob need change this, value for
             gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
             return;
         }
-    }
+    }*/
 }
 
 static u8 WeightBoostedDamageFormula(void)
@@ -16166,9 +16191,9 @@ static void atkC5_setsemiinvulnerablebit(void)  //thsi command is why move effec
     case MOVE_SKY_DROP:
         gStatuses3[gBattlerAttacker] |= STATUS3_ON_AIR;
         gStatuses3[gBattlerAttacker] &= ~(STATUS3_SMACKED_DOWN); //remove grounding by flying/taking to the air //don't forget moves w hit in air flag have priority aginst in air targetgs
-        gStatuses4[gBattlerAttacker] &= ~(STATUS4_GROUNDED);
         gBattleResources->flags->flags[gBattlerAttacker] &= ~(RESOURCE_FLAG_ROOST); //end roost
         gDisableStructs[gBattlerAttacker].RoostTimer = 0;
+        gDisableStructs[gBattlerAttacker].trenchRunTimer = 0;        
         break;
     case MOVE_DIG:
         gStatuses3[gBattlerAttacker] |= STATUS3_UNDERGROUND;
@@ -18261,6 +18286,21 @@ void BS_setuserstatus3(void)
 
 }
 
+//replacing w timer instead
+void BS_SetTrenchRun(void)
+{
+    NATIVE_ARGS(const u8 *ptr);
+
+    if (gDisableStructs[gBattlerAttacker].trenchRunTimer)
+    {
+        gBattlescriptCurrInstr = cmd->ptr;
+    }
+    else
+    {
+        gDisableStructs[gBattlerAttacker].trenchRunTimer = 4; //4 turns if fast, 3 turns if slower
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
 void BS_setuserstatus4(void)  //right now just usiong to set status groudned, for trenchrun
 {
     u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
