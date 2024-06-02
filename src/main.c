@@ -82,7 +82,7 @@ static IntrFunc * const sTimerIntrFunc = gIntrTable + 0x7;
 //is for storing data largest values seem to come from  hall of fame and help system?
 //and save failed screen, if its a firered thing may be able to bring this down some to save space
 //not a fire red thing
-EWRAM_DATA u8 gDecompressionBuffer[0x4000] = {0}; 
+//EWRAM_DATA u8 gDecompressionBuffer[0x4000] = {0}; 
 EWRAM_DATA u16 gTrainerId = 0;
 
 static void UpdateLinkAndCallCallbacks(void);

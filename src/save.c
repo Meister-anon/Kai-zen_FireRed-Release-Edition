@@ -568,7 +568,7 @@ static void UpdateSaveAddresses(void)
     }
 }
 
-u8 HandleSavingData(u8 saveType)
+u8 HandleSavingData(u8 saveType, u8 *buffer)
 {
     u8 i;
     u32 *backupPtr = gMain.vblankCounter1;
@@ -585,10 +585,8 @@ u8 HandleSavingData(u8 saveType)
     case SAVE_HALL_OF_FAME:
         if (GetGameStat(GAME_STAT_ENTERED_HOF) < 999)
             IncrementGameStat(GAME_STAT_ENTERED_HOF);
-        tempAddr = gDecompressionBuffer;
-        HandleWriteSectorNBytes(SECTOR_ID_HOF_1, tempAddr, SECTOR_DATA_SIZE);
-        HandleWriteSectorNBytes(SECTOR_ID_HOF_2, tempAddr + SECTOR_DATA_SIZE, SECTOR_DATA_SIZE);
-        // fallthrough
+        HandleWriteSectorNBytes(SECTOR_ID_HOF_1, buffer, SECTOR_DATA_SIZE);
+        HandleWriteSectorNBytes(SECTOR_ID_HOF_2, buffer + SECTOR_DATA_SIZE, SECTOR_DATA_SIZE); // fallthrough
     case SAVE_NORMAL:
     default:
         SaveSerializedGame();
@@ -616,7 +614,7 @@ u8 HandleSavingData(u8 saveType)
     return 0;
 }
 
-u8 TrySavingData(u8 saveType)
+u8 TrySavingData(u8 saveType, u8 *buffer)
 {
     if (gFlashMemoryPresent != TRUE)
     {
@@ -624,7 +622,7 @@ u8 TrySavingData(u8 saveType)
         return SAVE_STATUS_ERROR;
     }
 
-    HandleSavingData(saveType);
+    HandleSavingData(saveType, buffer);
     if (!gDamagedSaveSectors)
     {
         gSaveAttemptStatus = SAVE_STATUS_OK;
@@ -632,7 +630,7 @@ u8 TrySavingData(u8 saveType)
     }
     else
     {
-        DoSaveFailedScreen(saveType);
+        //DoSaveFailedScreen(saveType, buffer);
         gSaveAttemptStatus = SAVE_STATUS_ERROR;
         return SAVE_STATUS_ERROR;
     }
@@ -653,7 +651,7 @@ bool8 LinkFullSave_WriteSector(void)
 {
     u8 status = HandleWriteIncrementalSector(NUM_SECTORS_PER_SLOT, gRamSaveSectorLocations);
     if (gDamagedSaveSectors)
-        DoSaveFailedScreen(SAVE_NORMAL);
+        return 0;//DoSaveFailedScreen(SAVE_NORMAL, NULL);
 
     if (status == SAVE_STATUS_ERROR)
         return TRUE;
@@ -665,7 +663,7 @@ bool8 LinkFullSave_ReplaceLastSector(void)
 {
     HandleReplaceSectorAndVerify(NUM_SECTORS_PER_SLOT, gRamSaveSectorLocations);
     if (gDamagedSaveSectors)
-        DoSaveFailedScreen(SAVE_NORMAL);
+        return 0;//DoSaveFailedScreen(SAVE_NORMAL, NULL);
 
     return FALSE;
 }
@@ -674,7 +672,7 @@ bool8 LinkFullSave_SetLastSectorSignature(void)
 {
     CopySectorSignatureByte(NUM_SECTORS_PER_SLOT, gRamSaveSectorLocations);
     if (gDamagedSaveSectors)
-        DoSaveFailedScreen(SAVE_NORMAL);
+        return 0;//DoSaveFailedScreen(SAVE_NORMAL, NULL);
 
     return FALSE;
 }
@@ -713,12 +711,12 @@ bool8 WriteSaveBlock1Sector(void)
         finished = TRUE;
     }
     if (gDamagedSaveSectors)
-        DoSaveFailedScreen(SAVE_LINK);
+        return 0;//DoSaveFailedScreen(SAVE_LINK, NULL);
 
     return finished;
 }
 
-u8 LoadGameSave(u8 saveType)
+u8 LoadGameSave(u8 saveType, u8 *buffer)
 {
     u8 result;
 
@@ -739,9 +737,9 @@ u8 LoadGameSave(u8 saveType)
         gGameContinueCallback = NULL;
         break;
     case SAVE_HALL_OF_FAME:
-        result = TryLoadSaveSector(SECTOR_ID_HOF_1, gDecompressionBuffer, SECTOR_DATA_SIZE);
+        result = TryLoadSaveSector(SECTOR_ID_HOF_1, buffer, SECTOR_DATA_SIZE);
         if (result == SAVE_STATUS_OK)
-            result = TryLoadSaveSector(SECTOR_ID_HOF_2, gDecompressionBuffer + SECTOR_DATA_SIZE, SECTOR_DATA_SIZE);
+            result = TryLoadSaveSector(SECTOR_ID_HOF_2, &buffer[SECTOR_DATA_SIZE], SECTOR_DATA_SIZE);
         break;
     }
 

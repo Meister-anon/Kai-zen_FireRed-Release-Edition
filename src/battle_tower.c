@@ -1156,7 +1156,7 @@ void SaveBattleTowerProgress(void)
 
     VarSet(VAR_TEMP_0, BTSPECIAL_TEST);
     gSaveBlock2Ptr->battleTower.unk_554 = 1;
-    TrySavingData(SAVE_EREADER);
+    TrySavingData(SAVE_EREADER, NULL);
 }
 
 void BattleTower_SoftReset(void)

@@ -8,8 +8,12 @@
 //max needed bout 31 -ok fits in save block far as I can tell, now need to make up the ewram space to fit...
 //fuck me I don't have the ewram for this and I don't even know where it went
 //think I need to check my map - most of ewram seems taken up by ewram
-#define TOTAL_BOXES_COUNT       14 // so if I'm making all pokemon/forms availale I'll need way more than 14 slots, I'm prob need to double or triple that.
+#define TOTAL_BOXES_COUNT       30 // so if I'm making all pokemon/forms availale I'll need way more than 14 slots, I'm prob need to double or triple that.
 #define IN_BOX_COUNT            30 //that requires save block expansion, but even after that, managing so many boxes would still be too tedious.
+
+//can fit 31 boxes now, but think will do 30, gives 900,
+//and species are 905, but that accounts for evos and all, 
+//and if you have one of every species family you should be more than fine
 
 // I think if I can get that cfru thing, where you carry a secondary storage on you that may solve it, you can keep the important pokemon on you, and just swap from the pc.
 // allowing me to cut down on the needed number of boxes.

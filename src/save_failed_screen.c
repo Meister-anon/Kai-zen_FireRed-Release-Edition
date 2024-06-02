@@ -13,6 +13,9 @@ static EWRAM_DATA u16 sSaveType = SAVE_NORMAL;
 static EWRAM_DATA u16 unused_203AB4E = 0;
 static EWRAM_DATA u8 sSaveFailedScreenState = 0;
 
+static EWRAM_DATA u8 *sSaveFailedBuffer = NULL;
+
+
 static void BlankPalettes(void);
 static void UpdateMapBufferWithText(void);
 static void ClearMapBuffer(void);
@@ -27,12 +30,15 @@ void SetNotInSaveFailedScreen(void)
     sIsInSaveFailedScreen = FALSE;
 }
 
-void DoSaveFailedScreen(u8 saveType)
+void DoSaveFailedScreen(u8 saveType, u8 *buffer)
 {
     sSaveType = saveType;
     sIsInSaveFailedScreen = TRUE;
+    sSaveFailedBuffer = buffer;
 }
 
+//tested  different screen than save corrupted, beleive inconsequentional to skip/remove
+//checked save.c yeah thisn't a corrupted save this is  trying tosave in game and it doesn't work for some reason
 bool32 RunSaveFailedScreen(void)
 {
     switch (sSaveFailedScreenState)
@@ -116,14 +122,14 @@ static void BlankPalettes(void)
     }
 }
 
-static void RequestDmaCopyFromScreenBuffer(void)
+static void RequestDmaCopyFromScreenBuffer(void)//sSaveFailedBuffer use this?
 {
-    RequestDma3Copy(gDecompressionBuffer + 0x3800, (void *)BG_SCREEN_ADDR(31), 0x500, DMA3_16BIT);
+    //RequestDma3Copy(gDecompressionBuffer + 0x3800, (void *)BG_SCREEN_ADDR(31), 0x500, DMA3_16BIT);
 }
 
 static void RequestDmaCopyFromCharBuffer(void)
 {
-    RequestDma3Copy(gDecompressionBuffer + 0x020, (void *)BG_CHAR_ADDR(3) + 0x20, 0x2300, DMA3_16BIT);
+    //RequestDma3Copy(gDecompressionBuffer + 0x020, (void *)BG_CHAR_ADDR(3) + 0x20, 0x2300, DMA3_16BIT);
 }
 
 static void FillBgMapBufferRect(u16 baseBlock, u8 left, u8 top, u8 width, u8 height, u16 blockOffset)
@@ -134,7 +140,7 @@ static void FillBgMapBufferRect(u16 baseBlock, u8 left, u8 top, u8 width, u8 hei
     {
         for (j = left; j < left + width; j++)
         {
-            *((u16 *)(gDecompressionBuffer + 0x3800 + 64 * i + 2 * j)) = baseBlock;
+            //*((u16 *)(gDecompressionBuffer + 0x3800 + 64 * i + 2 * j)) = baseBlock;
             baseBlock += blockOffset;
         }
     }
@@ -154,7 +160,7 @@ static void ClearMapBuffer(void)
 static void PrintTextOnSaveFailedScreen(const u8 *str)
 {
     GenerateFontHalfRowLookupTable(TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-    CpuFill16(PIXEL_FILL(1) | (PIXEL_FILL(1) << 8), gDecompressionBuffer + 0x20, 0x2300);
+    //CpuFill16(PIXEL_FILL(1) | (PIXEL_FILL(1) << 8), gDecompressionBuffer + 0x20, 0x2300);
    // HelpSystemRenderText(2, gDecompressionBuffer + 0x20, str, 2, 2, 28, 10);
     RequestDmaCopyFromCharBuffer();
 }
@@ -166,7 +172,7 @@ static bool32 TryWipeDamagedSectors(void)
     {
         if (WipeDamagedSectors(gDamagedSaveSectors))
             return FALSE;
-        HandleSavingData(sSaveType);
+        HandleSavingData(sSaveType, NULL);
     }
     if (gDamagedSaveSectors != 0)
         return FALSE;

@@ -60,6 +60,7 @@ static void mevent_client_init(struct mevent_client * svr, u32 sendPlayerNo, u32
     svr->flag = 0;
     svr->sendBuffer = AllocZeroed(ME_SEND_BUF_SIZE);
     svr->recvBuffer = AllocZeroed(ME_SEND_BUF_SIZE);
+    svr->execBuffer = AllocZeroed(ME_SEND_BUF_SIZE * 2); // NOTE: Twice as big s.t. on occasion the transmitted code could use a scratchpad.
     svr->cmdBuffer = AllocZeroed(ME_SEND_BUF_SIZE);
     svr->buffer = AllocZeroed(0x40);
     mevent_srv_sub_init(&svr->manager, sendPlayerNo, recvPlayerNo);
@@ -69,6 +70,7 @@ static void mevent_client_free_resources(struct mevent_client * svr)
 {
     Free(svr->sendBuffer);
     Free(svr->recvBuffer);
+    Free(svr->execBuffer);
     Free(svr->cmdBuffer);
     Free(svr->buffer);
 }
@@ -222,7 +224,7 @@ static u32 client_mainseq_4(struct mevent_client * svr)
         ValidateEReaderTrainer();
         break;
     case 21:
-        memcpy(gDecompressionBuffer, svr->recvBuffer, ME_SEND_BUF_SIZE);
+        memcpy(svr->execBuffer, svr->recvBuffer, ME_SEND_BUF_SIZE);
         svr->mainseqno = 7;
         svr->flag = 0;
         break;
@@ -265,7 +267,7 @@ static u32 client_mainseq_6(struct mevent_client * svr)
 static u32 client_mainseq_7(struct mevent_client * svr)
 {
     // exec arbitrary code
-    u32 (*func)(u32 *, struct SaveBlock2 *, struct SaveBlock1 *) = (void *)gDecompressionBuffer;
+    u32 (*func)(u32 *, struct SaveBlock2 *, struct SaveBlock1 *) = (void *)svr->execBuffer;
     if (func(&svr->param, gSaveBlock2Ptr, gSaveBlock1Ptr) == 1)
     {
         svr->mainseqno = 4;

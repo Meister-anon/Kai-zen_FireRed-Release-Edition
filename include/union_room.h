@@ -72,7 +72,7 @@ struct UnkStruct_Leader
     u16 field_1A;
 };
 
-struct UnkStruct_Group
+struct UnkStruct_Group //equiv struct WIrelessLink_Group
 {
     struct UnkStruct_Main0 * field_0;
     struct UnkStruct_Main4 * field_4;
@@ -100,12 +100,13 @@ struct UnionObj
     u8 schedAnim;
 };
 
-struct UnkStruct_URoom
+struct WirelessLink_URoom
 {
     /* 0x000 */ struct UnkStruct_Main0 * field_0;
     /* 0x004 */ struct UnkStruct_Main4 * field_4;
     /* 0x008 */ struct UnkStruct_Main0 * field_8;
     /* 0x00C */ struct UnkStruct_Main4 * field_C;
+                u8 *buffer;
     /* 0x010 */ u16 field_10;
     /* 0x012 */ u16 field_12;
     /* 0x014 */ u8 state;
@@ -140,7 +141,7 @@ union UnkUnion_Main
 {
     struct UnkStruct_Leader * leader;
     struct UnkStruct_Group * group;
-    struct UnkStruct_URoom * uRoom;
+    struct WirelessLink_URoom * uRoom;
 };
 
 struct UnionRoomTrade

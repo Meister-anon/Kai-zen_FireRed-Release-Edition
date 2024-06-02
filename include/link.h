@@ -194,6 +194,7 @@ extern struct Link gLink;
 extern u16 gRecvCmds[MAX_RFU_PLAYERS][CMD_LENGTH];
 extern u8 gBlockSendBuffer[BLOCK_BUFFER_SIZE];
 extern u16 gLinkType;
+extern u8 *gLinkBuffer;
 extern u32 gLinkStatus;
 extern u16 gBlockRecvBuffer[MAX_RFU_PLAYERS][BLOCK_BUFFER_SIZE / 2];
 extern u16 gSendCmd[CMD_LENGTH];

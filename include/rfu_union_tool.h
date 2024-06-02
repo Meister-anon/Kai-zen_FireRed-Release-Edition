@@ -8,8 +8,8 @@ void DeleteUnionObjWorkAndStopTask(void);
 void CreateGroupMemberObjectsInvisible(u8 *spriteIds, s32 group);
 void DestroyGroupMemberObjects(u8 *spriteIds);
 void MakeGroupAssemblyAreasPassable(void);
-void ScheduleUnionRoomPlayerRefresh(struct UnkStruct_URoom *uroom_p);
-void HandleUnionRoomPlayerRefresh(struct UnkStruct_URoom *uroom_p);
+void ScheduleUnionRoomPlayerRefresh(struct WirelessLink_URoom *uroom_p);
+void HandleUnionRoomPlayerRefresh(struct WirelessLink_URoom *uroom_p);
 bool32 RfuUnionTool_GetGroupAndMemberInFrontOfPlayer(struct UnkStruct_Main0 *main0_p, s16 *member_p, s16 *group_p, u8 *spriteIds);
 void UpdateUnionGroupMemberFacing(u32 member, u32 group, struct UnkStruct_Main0 *main0_p);
 

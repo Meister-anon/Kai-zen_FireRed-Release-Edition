@@ -928,6 +928,7 @@ void LinkTradeDrawWindow(void)
 
 static void TradeAnimInit_LoadGfx(void)
 {
+    void *buffer = Alloc(0x1000);
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
     ResetBgsAndClearDma3BusyFlags(FALSE);
     InitBgsFromTemplates(0, gUnknown_826D1D4, NELEMS(gUnknown_826D1D4));
@@ -939,15 +940,17 @@ static void TradeAnimInit_LoadGfx(void)
     DeactivateAllTextPrinters();
     // Doing the graphics load...
     DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
-    LZDecompressWram(gBattleInterface_Textbox_Tilemap, gDecompressionBuffer);
-    CopyToBgTilemapBuffer(0, gDecompressionBuffer, BG_SCREEN_SIZE, 0);
+    LZDecompressWram(gBattleInterface_Textbox_Tilemap, buffer);
+    CopyToBgTilemapBuffer(0, buffer, BG_SCREEN_SIZE, 0);
     LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0x000, 0x20);
     InitWindows(gUnknown_826D1BC);
     // ... and doing the same load again
     DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
-    LZDecompressWram(gBattleInterface_Textbox_Tilemap, gDecompressionBuffer);
-    CopyToBgTilemapBuffer(0, gDecompressionBuffer, BG_SCREEN_SIZE, 0);
+    LZDecompressWram(gBattleInterface_Textbox_Tilemap, buffer);
+    CopyToBgTilemapBuffer(0, buffer, BG_SCREEN_SIZE, 0);
     LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0x000, 0x20);
+
+    Free(buffer);
 }
 
 static void CB2_InitTradeAnim_InGameTrade(void)

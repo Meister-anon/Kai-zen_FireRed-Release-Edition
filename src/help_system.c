@@ -83,7 +83,7 @@ u8 RunHelpSystemCallback(void)
     case 2:
         RequestDma3Fill(0, (void *)BG_CHAR_ADDR(3), BG_CHAR_SIZE, DMA3_16BIT);
         RequestDma3Copy(sPals, (void *)PLTT, sizeof(sPals), DMA3_16BIT);
-        RequestDma3Copy(sTiles, gDecompressionBuffer + 0x3EE0, sizeof(sTiles), DMA3_16BIT);
+        //RequestDma3Copy(sTiles, gDecompressionBuffer + 0x3EE0, sizeof(sTiles), DMA3_16BIT);
         sVideoState.state = 3;
         break;
     case 3:
@@ -210,7 +210,8 @@ void RestoreMapTextColors(void)
 
 void CommitTilemap(void)
 {
-    RequestDma3Copy(gDecompressionBuffer, (void *)BG_CHAR_ADDR(3), BG_CHAR_SIZE, DMA3_16BIT);
+    return;
+    //RequestDma3Copy(gDecompressionBuffer, (void *)BG_CHAR_ADDR(3), BG_CHAR_SIZE, DMA3_16BIT);
 }
 
 void HS_DrawBgTilemapRect(u16 baseTile, u8 left, u8 top, u8 width, u8 height, u16 increment)
@@ -221,7 +222,7 @@ void HS_DrawBgTilemapRect(u16 baseTile, u8 left, u8 top, u8 width, u8 height, u1
     {
         for (j = left; j < left + width; j++)
         {
-            *((u16 *)(gDecompressionBuffer + 0x3800 + 64 * i + 2 * j)) = baseTile;
+            //*((u16 *)(gDecompressionBuffer + 0x3800 + 64 * i + 2 * j)) = baseTile;
             baseTile += increment;
         }
     }
@@ -932,50 +933,52 @@ void DecompressAndRenderGlyph(u8 font, u16 glyph, struct Bitmap *srcBlit, struct
 void HelpSystem_PrintText_Row61(const u8 * str)
 {
     GenerateFontHalfRowLookupTable(1, 15, 2);
-    HelpSystemRenderText(5, gDecompressionBuffer + 0x3D00, str, 6, 2, 7, 2);
+    //HelpSystemRenderText(5, gDecompressionBuffer + 0x3D00, str, 6, 2, 7, 2);
 }
 
 void HelpSystem_PrintTextRightAlign_Row52(const u8 * str)
 {
     s32 left = 0x7C - GetStringWidth(0, str, 0);
     GenerateFontHalfRowLookupTable(1, 15, 2);
-    HelpSystemRenderText(0, gDecompressionBuffer + 0x3400, str, left, 2, 16, 2);
+    //HelpSystemRenderText(0, gDecompressionBuffer + 0x3400, str, left, 2, 16, 2);
 }
 
 void HelpSystem_PrintTextAt(const u8 * str, u8 x, u8 y)
 {
     GenerateFontHalfRowLookupTable(1, 15, 2);
-    HelpSystemRenderText(2, gDecompressionBuffer + 0x0000, str, x, y, 26, 16);
+    //HelpSystemRenderText(2, gDecompressionBuffer + 0x0000, str, x, y, 26, 16);
 }
 
 void HelpSystem_PrintTwoStrings(const u8 * str1, const u8 * str2)
 {
-    CpuFill16(0xEEEE, gDecompressionBuffer + 0x0000, 0x3400);
+    return;
+    /*CpuFill16(0xEEEE, gDecompressionBuffer + 0x0000, 0x3400);
     GenerateFontHalfRowLookupTable(1, 14, 2);
     HelpSystemRenderText(2, gDecompressionBuffer + 0x0000, str1, 0, 0, 26, 16);
-    HelpSystemRenderText(2, gDecompressionBuffer + 0x09C0, str2, 0, 0, 26, 13);
+    HelpSystemRenderText(2, gDecompressionBuffer + 0x09C0, str2, 0, 0, 26, 13);*/
 }
 
 void HelpSystem_PrintText_813C584(const u8 * str)
 {
-    CpuFill16(0x1111, gDecompressionBuffer + 0x23C0, 0x1040);
+    return;
+    /*CpuFill16(0x1111, gDecompressionBuffer + 0x23C0, 0x1040);
     GenerateFontHalfRowLookupTable(2, 1, 3);
-    HelpSystemRenderText(2, gDecompressionBuffer + 0x23C0, str, 2, 6, 26, 5);
+    HelpSystemRenderText(2, gDecompressionBuffer + 0x23C0, str, 2, 6, 26, 5);*/
 }
 
 void HelpSystem_FillPanel3(void)
 {
-    CpuFill16(0xFFFF, gDecompressionBuffer + 0x3D00, 0x1C0);
+    //CpuFill16(0xFFFF, gDecompressionBuffer + 0x3D00, 0x1C0);
 }
 
 void HelpSystem_FillPanel2(void)
 {
-    CpuFill16(0xFFFF, gDecompressionBuffer + 0x3400, 0x400);
+    //CpuFill16(0xFFFF, gDecompressionBuffer + 0x3400, 0x400);
 }
 
 void HelpSystem_FillPanel1(void)
 {
-    CpuFill16(0xFFFF, gDecompressionBuffer + 0x0000, 0x3400);
+    //CpuFill16(0xFFFF, gDecompressionBuffer + 0x0000, 0x3400);
 }
 
 void HelpSystem_InitListMenuController(struct HelpSystemListMenu * a0, u8 a1, u8 a2)

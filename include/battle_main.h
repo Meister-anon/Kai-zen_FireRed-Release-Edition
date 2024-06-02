@@ -52,7 +52,7 @@ struct MultiBattlePokemonTx
 
 #define CAN_ABILITY_ABSORB(battler) (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS))
 
-extern const struct SpriteTemplate gUnknownDebugSprite;
+//extern const struct SpriteTemplate gUnknownDebugSprite;
 extern const struct OamData gOamData_BattlerOpponent;
 extern const struct OamData gOamData_BattlerPlayer;
 extern const u8 gTypeNames[][TYPE_NAME_LENGTH + 1];

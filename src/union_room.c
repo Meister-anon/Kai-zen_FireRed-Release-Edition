@@ -60,7 +60,7 @@ static EWRAM_DATA struct UnionRoomTrade sUnionRoomTrade = {};
 
 static struct UnkStruct_Leader * sLeader;
 static struct UnkStruct_Group * sGroup;
-static struct UnkStruct_URoom * sURoom;
+static struct WirelessLink_URoom * sURoom;
 
 static void Task_TryBecomeLinkLeader(u8 taskId);
 static void Leader_DestroyResources(struct UnkStruct_Leader * leader);
@@ -81,8 +81,8 @@ static void Task_CardOrNewsWithFriend(u8 taskId);
 static void Task_CardOrNewsOverWireless(u8 taskId);
 static void Task_RunUnionRoom(u8 taskId);
 static u16 ReadAsU16(const u8 *data);
-static void ReceiveUnionRoomActivityPacket(struct UnkStruct_URoom * uRoom);
-static bool32 UnionRoom_HandleContactFromOtherPlayer(struct UnkStruct_URoom * uRoom);
+static void ReceiveUnionRoomActivityPacket(struct WirelessLink_URoom * uRoom);
+static bool32 UnionRoom_HandleContactFromOtherPlayer(struct WirelessLink_URoom * uRoom);
 static void Task_InitUnionRoom(u8 taskId);
 static u8 HandlePlayerListUpdate(void);
 static u8 CreateTask_SearchForChildOrParent(struct UnkStruct_Main4 * main4, struct UnkStruct_Main4 * arg1, u32 arg2);
@@ -117,8 +117,8 @@ static s32 GetUnionRoomPlayerGender(s32 playerIdx, struct UnkStruct_Main0 * main
 static s32 IsRequestedTypeAndSpeciesInPlayerParty(u32 type, u32 species);
 static void GetURoomActivityRejectMsg(u8 *dst, s32 activity, u32 playerGender);
 static void GetURoomActivityStartMsg(u8 *dst, u8 activity);
-static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_p, struct UnkStruct_URoom * uroom);
-static bool32 PollPartnerYesNoResponse(struct UnkStruct_URoom * uroom);
+static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_p, struct WirelessLink_URoom * uroom);
+static bool32 PollPartnerYesNoResponse(struct WirelessLink_URoom * uroom);
 static bool32 HasAtLeastTwoMonsOfLevel30OrLower(void);
 static void ResetUnionRoomTrade(struct UnionRoomTrade * trade);
 static bool32 RegisterTradeMonAndGetIsEgg(u32 monId, struct UnionRoomTrade * trade);
@@ -127,8 +127,8 @@ static u32 GetPartyPositionOfRegisteredMon(struct UnionRoomTrade * trade, u8 mpI
 static void HandleCancelTrade(bool32 unlockObjs);
 static void UR_EnableScriptContext2AndFreezeObjectEvents(void);
 static u8 GetSinglePartnerSpriteGenderParam(s32 linkPlayer);
-static u8 GetActivePartnerSpriteGenderParam(struct UnkStruct_URoom * uroom);
-static void ViewURoomPartnerTrainerCard(u8 *dest, struct UnkStruct_URoom * uRoom, bool8 parent_child);
+static u8 GetActivePartnerSpriteGenderParam(struct WirelessLink_URoom * uroom);
+static void ViewURoomPartnerTrainerCard(u8 *dest, struct WirelessLink_URoom * uRoom, bool8 parent_child);
 
 #define _8456CD8(a, b) ((a) | ((b) << 8))
 
@@ -2608,7 +2608,7 @@ static void Task_CardOrNewsOverWireless(u8 taskId)
 
 void UnionRoomSpecial(void)
 {
-    struct UnkStruct_URoom * dataPtr;
+    struct WirelessLink_URoom * dataPtr;
 
     ClearAndInitHostRFUtgtGname();
     CreateTask(Task_RunUnionRoom, 10);
@@ -2636,7 +2636,7 @@ static u16 ReadAsU16(const u8 *ptr)
 
 static void UnionRoom_ScheduleFieldMessageWithFollowupState(u32 nextState, const u8 *src)
 {
-    struct UnkStruct_URoom * data = sUnionRoomMain.uRoom;
+    struct WirelessLink_URoom * data = sUnionRoomMain.uRoom;
 
     data->state = 8;
     data->stateAfterPrint = nextState;
@@ -2646,21 +2646,21 @@ static void UnionRoom_ScheduleFieldMessageWithFollowupState(u32 nextState, const
 
 static void UnionRoom_ScheduleFieldMessageAndExit(const u8 *src)
 {
-    struct UnkStruct_URoom * data = sUnionRoomMain.uRoom;
+    struct WirelessLink_URoom * data = sUnionRoomMain.uRoom;
 
     data->state = 26;
     if (src != gStringVar4)
         StringExpandPlaceholders(gStringVar4, src);
 }
 
-static void BackUpURoomField0ToDecompressionBuffer(struct UnkStruct_URoom * data)
+static void BackUpURoomField0ToDecompressionBuffer(struct WirelessLink_URoom * data)
 {
-    memcpy(&gDecompressionBuffer[0x3F00], data->field_0, UROOM_MAX_GROUP_COUNT * sizeof(struct UnkStruct_x20));
+    memcpy(data->buffer, data->field_0, UROOM_MAX_GROUP_COUNT * sizeof(struct UnkStruct_x20));
 }
 
-static void RestoreURoomField0FromDecompressionBuffer(struct UnkStruct_URoom * data)
+static void RestoreURoomField0FromDecompressionBuffer(struct WirelessLink_URoom * data)
 {
-    memcpy(data->field_0, &gDecompressionBuffer[0x3F00], UROOM_MAX_GROUP_COUNT * sizeof(struct UnkStruct_x20));
+    memcpy(data->field_0, data->buffer, UROOM_MAX_GROUP_COUNT * sizeof(struct UnkStruct_x20));
 }
 
 static void Task_RunUnionRoom(u8 taskId)
@@ -2668,7 +2668,7 @@ static void Task_RunUnionRoom(u8 taskId)
     u32 id = 0;
     s32 var5 = 0;
     s32 playerGender = MALE;
-    struct UnkStruct_URoom * data = sUnionRoomMain.uRoom;
+    struct WirelessLink_URoom * data = sUnionRoomMain.uRoom;
     s16 *taskData = gTasks[taskId].data;
     return;
     switch (data->state)
@@ -2678,6 +2678,7 @@ static void Task_RunUnionRoom(u8 taskId)
         data->field_C = AllocZeroed(RFU_CHILD_MAX * sizeof(struct UnkStruct_x1C));
         data->field_0 = AllocZeroed(UROOM_MAX_GROUP_COUNT * sizeof(struct UnkStruct_x20));
         data->field_8 = AllocZeroed(sizeof(struct UnkStruct_x20));
+        data->buffer = AllocZeroed(UROOM_MAX_GROUP_COUNT * sizeof(struct UnkStruct_x20));
         BlankUnkStruct_x20Array(data->field_0->arr, UROOM_MAX_GROUP_COUNT);
         sPlayerCurrActivity = IN_UNION_ROOM;
         data->field_20 = CreateTask_SearchForChildOrParent(data->field_C, data->field_4, LINK_GROUP_UNION_ROOM_RESUME);
@@ -3203,6 +3204,7 @@ static void Task_RunUnionRoom(u8 taskId)
         Free(data->field_0);
         Free(data->field_C);
         Free(data->field_4);
+        Free(data->buffer);
         DestroyTask(data->field_20);
         DestroyGroupMemberObjects(data->spriteIds);
         data->state = 17;
@@ -3422,7 +3424,7 @@ void var_800D_set_xB(void)
         gSpecialVar_Result = 11;
 }
 
-static void ReceiveUnionRoomActivityPacket(struct UnkStruct_URoom * uroom)
+static void ReceiveUnionRoomActivityPacket(struct WirelessLink_URoom * uroom)
 {
     return;
     if (gRecvCmds[1][1] != 0 && (gRecvCmds[1][0] & 0xFF00) == RFU_COMMAND_0x2f00)
@@ -3436,7 +3438,7 @@ static void ReceiveUnionRoomActivityPacket(struct UnkStruct_URoom * uroom)
     }
 }
 
-static bool32 UnionRoom_HandleContactFromOtherPlayer(struct UnkStruct_URoom * uroom)
+static bool32 UnionRoom_HandleContactFromOtherPlayer(struct WirelessLink_URoom * uroom)
 {
     return 0;
     if (uroom->recvActivityRequest[0] != 0)
@@ -3465,14 +3467,14 @@ static bool32 UnionRoom_HandleContactFromOtherPlayer(struct UnkStruct_URoom * ur
 
 void InitUnionRoom(void)
 {
-    struct UnkStruct_URoom * ptr;
+    struct WirelessLink_URoom * ptr;
 
     sUnionRoomPlayerName[0] = EOS;
     if (QL_IS_PLAYBACK_STATE)
         return;
     CreateTask(Task_InitUnionRoom, 0);
     sUnionRoomMain.uRoom = sUnionRoomMain.uRoom; // Needed to match.
-    sUnionRoomMain.uRoom = ptr = AllocZeroed(sizeof(struct UnkStruct_URoom));
+    sUnionRoomMain.uRoom = ptr = AllocZeroed(sizeof(struct WirelessLink_URoom));
     sURoom = sUnionRoomMain.uRoom;
     ptr->state = 0;
     ptr->textState = 0;
@@ -3485,7 +3487,7 @@ static void Task_InitUnionRoom(u8 taskId)
 {
     s32 i;
     u8 text[32];
-    struct UnkStruct_URoom * structPtr = sUnionRoomMain.uRoom;
+    struct WirelessLink_URoom * structPtr = sUnionRoomMain.uRoom;
 
     switch (structPtr->state)
     {
@@ -3568,7 +3570,7 @@ static u8 HandlePlayerListUpdate(void)
 {
     s32 i;
     u8 j;
-    struct UnkStruct_URoom * structPtr = sUnionRoomMain.uRoom;
+    struct WirelessLink_URoom * structPtr = sUnionRoomMain.uRoom;
     s32 r7 = 0;
 
     // If someone new joined, register them in field_8
@@ -4468,7 +4470,7 @@ static void GetURoomActivityStartMsg(u8 *dst, u8 activity)
     }
 }
 
-static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_p, struct UnkStruct_URoom * arg3)
+static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_p, struct WirelessLink_URoom * arg3)
 {
     s32 result = 0;
     u16 species = SPECIES_NONE;
@@ -4525,7 +4527,7 @@ static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_
     return result;
 }
 
-static bool32 PollPartnerYesNoResponse(struct UnkStruct_URoom * uroom)
+static bool32 PollPartnerYesNoResponse(struct WirelessLink_URoom * uroom)
 {
     if (gRecvCmds[0][1] != 0)
     {
@@ -4673,7 +4675,7 @@ static u8 GetSinglePartnerSpriteGenderParam(s32 linkPlayer)
     return retval;
 }
 
-static u8 GetActivePartnerSpriteGenderParam(struct UnkStruct_URoom * uroom)
+static u8 GetActivePartnerSpriteGenderParam(struct WirelessLink_URoom * uroom)
 {
     u8 retVal = 0x80;
     u8 i;
@@ -4691,7 +4693,7 @@ static u8 GetActivePartnerSpriteGenderParam(struct UnkStruct_URoom * uroom)
     return retVal;
 }
 
-static void ViewURoomPartnerTrainerCard(u8 *unused, struct UnkStruct_URoom * uroom, bool8 parent_child)
+static void ViewURoomPartnerTrainerCard(u8 *unused, struct WirelessLink_URoom * uroom, bool8 parent_child)
 {
     struct TrainerCard * trainerCard = &gTrainerCards[GetMultiplayerId() ^ 1];
     s32 i;

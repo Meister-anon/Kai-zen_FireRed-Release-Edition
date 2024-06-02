@@ -117,8 +117,10 @@ u8 SendUnknownSerialData_Run(struct MEvent_Str_1 *mgr)
 
 static void ResetTTDataBuffer(void)
 {
-    memset(gDecompressionBuffer, 0, 0x2000);
+    //memset(gDecompressionBuffer, 0, 0x2000);
     gLinkType = 0x5502;
+    FREE_AND_SET_NULL(gLinkBuffer);
+    gLinkBuffer = AllocZeroed(0x2000);
     OpenLink();
     SetSuppressLinkErrorMessage(TRUE);
 }
@@ -416,7 +418,7 @@ static void Task_EReaderComm(u8 taskId)
             }
             break;
         case 15:
-            data->initialSendResult = ValidateTrainerTowerData((struct EReaderTrainerTowerSet *)gDecompressionBuffer);
+            data->initialSendResult = ValidateTrainerTowerData((struct EReaderTrainerTowerSet *)gLinkBuffer);
             Link_StartSend5FFFwithParam(data->initialSendResult);
             data->state = 16;
             break;
@@ -430,7 +432,7 @@ static void Task_EReaderComm(u8 taskId)
             }
             break;
         case 17:
-            if (CEReaderTool_SaveTrainerTower((struct EReaderTrainerTowerSet *)gDecompressionBuffer))
+            if (CEReaderTool_SaveTrainerTower((struct EReaderTrainerTowerSet *)gLinkBuffer))
             {
                 AddTextPrinterToWindow1(gJPText_ConnectionComplete);
                 ResetDelayTimer(&data->stateAdvanceDelay);

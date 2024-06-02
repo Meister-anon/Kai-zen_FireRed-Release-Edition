@@ -3,6 +3,7 @@
 #include "decompress.h"
 #include "graphics.h"
 #include "item_menu_icons.h"
+#include "malloc.h"
 #include "constants/items.h"
 #include "party_menu.h"
 
@@ -12,6 +13,10 @@ static EWRAM_DATA void * sItemIconTilesBufferPadded = NULL;
 
 static void sub_8098560(struct Sprite * sprite);
 static void sub_80985BC(struct Sprite * sprite);
+
+#define TAG_BERRY_CHECK_CIRCLE_GFX 10000
+#define TAG_BERRY_PIC_PAL 30020
+#define TAG_BERRY_PIC_GFX 30020
 
 static const struct OamData sOamData_BagOrSatchel = {
     .affineMode = ST_OAM_AFFINE_NORMAL,
@@ -166,6 +171,44 @@ static const struct SpriteTemplate sSpriteTemplate_ItemIcon = {
     gDummySpriteAffineAnimTable,
     SpriteCallbackDummy
 };
+
+/* //ported in advance
+static void LoadBerryGfx(u8 berryId)
+{
+    struct CompressedSpritePalette pal;
+    struct SpriteSheet sheet;
+    u8 *srcBuffer;
+    u8 *dstBuffer;
+
+    if (berryId == ITEM_TO_BERRY(ITEM_ENIGMA_BERRY) - 1 && IsEnigmaBerryValid())
+    {
+        // unknown empty if statement
+    }
+
+
+    pal.data = sBerryPicTable[berryId].pal;
+    pal.tag = TAG_BERRY_PIC_PAL;
+
+    srcBuffer = AllocZeroed(0x1000);
+    dstBuffer = AllocZeroed(0x1000);
+
+    LoadCompressedSpritePalette(&pal);
+    LZDecompressWram(sBerryPicTable[berryId].tiles, srcBuffer);
+    ArrangeBerryGfx(srcBuffer, dstBuffer);
+    sheet.tag = TAG_BERRY_PIC_GFX;
+    sheet.data = dstBuffer;
+    sheet.size = 0x800;
+    LoadSpriteSheet(&sheet);
+    Free(srcBuffer);
+    Free(dstBuffer);
+}
+
+void FreeBerryTagSpriteAssets(void)
+{
+    FreeSpritePaletteByTag(TAG_BERRY_PIC_PAL);
+    FreeSpriteTilesByTag(TAG_BERRY_PIC_GFX);
+}
+*/
 
 //no idea what this is used for seems to be not used?
 //least far as the tm stuff

@@ -576,7 +576,7 @@ static void DespawnGroupLeaderAndMembers(u32 group, struct GFtgtGname * gname)
     }
 }
 
-static void UpdateUnionRoomPlayerSprites(struct UnkStruct_URoom * groups)
+static void UpdateUnionRoomPlayerSprites(struct WirelessLink_URoom * groups)
 {
     s32 i;
     struct UnkStruct_x20 * x20_p;
@@ -594,12 +594,12 @@ static void UpdateUnionRoomPlayerSprites(struct UnkStruct_URoom * groups)
     }
 }
 
-void ScheduleUnionRoomPlayerRefresh(struct UnkStruct_URoom *uroom_p)
+void ScheduleUnionRoomPlayerRefresh(struct WirelessLink_URoom *uroom_p)
 {
     sUnionObjRefreshTimer = 300;
 }
 
-void HandleUnionRoomPlayerRefresh(struct UnkStruct_URoom *uroom_p)
+void HandleUnionRoomPlayerRefresh(struct WirelessLink_URoom *uroom_p)
 {
     if (++sUnionObjRefreshTimer > 300)
     {

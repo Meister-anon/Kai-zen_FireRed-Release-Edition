@@ -796,12 +796,12 @@ static u8 SaveDialogCB_DoSave(void)
     IncrementGameStat(GAME_STAT_SAVED_GAME);
     if (gDifferentSaveFile == TRUE)
     {
-        TrySavingData(SAVE_OVERWRITE_DIFFERENT_FILE);
+        TrySavingData(SAVE_OVERWRITE_DIFFERENT_FILE, NULL);
         gDifferentSaveFile = FALSE;
     }
     else
     {
-        TrySavingData(SAVE_NORMAL);
+        TrySavingData(SAVE_NORMAL, NULL);
     }
     sSaveDialogCB = SaveDialogCB_PrintSaveResult;
     return SAVECB_RETURN_CONTINUE;

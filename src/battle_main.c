@@ -46,7 +46,8 @@
 #include "constants/trainer_classes.h"
 #include "constants/opponents.h" //believe trainerNum, should be same as values for opponents in opponents.h since trainer.h is in same order
 
-static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite);
+//static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite);
+//static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite);
 static void HandleAction_UseMove(void);
 static void HandleAction_Switch(void);
 static void HandleAction_UseItem(void);
@@ -75,7 +76,6 @@ static void CB2_HandleStartBattle(void);
 static void TryCorrectShedinjaLanguage(struct Pokemon *mon);
 static void BattleMainCB1(void);
 static void CB2_QuitPokedudeBattle(void);
-static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite);
 static void CB2_EndLinkBattle(void);
 static void EndLinkBattleInSteps(void);
 static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite);
@@ -246,7 +246,7 @@ static const struct ScanlineEffectParams sIntroScanlineParams16Bit =
     &REG_BG3HOFS, SCANLINE_EFFECT_DMACNT_16BIT, 1
 };
 
-const struct SpriteTemplate gUnknownDebugSprite =
+/*const struct SpriteTemplate gUnknownDebugSprite =
 {
     .tileTag = 0,
     .paletteTag = 0,
@@ -255,7 +255,7 @@ const struct SpriteTemplate gUnknownDebugSprite =
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_UnusedDebugSprite,
-};
+};*/
 
 static const u8 sText_ShedinjaJpnName[] = _("ヌケニン"); // Nukenin
 
@@ -1866,7 +1866,7 @@ static void CB2_HandleStartMultiBattle(void)
             LinkBattleComputeBattleTypeFlags(4, playerMultiplayerId);
             SetAllPlayersBerryData();
             SetDeoxysStats();
-            memcpy(gDecompressionBuffer, gPlayerParty, sizeof(struct Pokemon) * 3);
+            //memcpy(gDecompressionBuffer, gPlayerParty, sizeof(struct Pokemon) * 3); //for some reason not in EE
             taskId = CreateTask(InitLinkBattleVsScreen, 0);
             gTasks[taskId].data[1] = 270;
             gTasks[taskId].data[2] = 90;
@@ -1903,7 +1903,7 @@ static void CB2_HandleStartMultiBattle(void)
     case 3:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gDecompressionBuffer, sizeof(struct Pokemon) * 2);
+            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty, sizeof(struct Pokemon) * 2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
@@ -1966,7 +1966,7 @@ static void CB2_HandleStartMultiBattle(void)
     case 7:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gDecompressionBuffer + sizeof(struct Pokemon) * 2, sizeof(struct Pokemon));
+            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty + 2, sizeof(struct Pokemon));
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break; 
@@ -2174,7 +2174,7 @@ static void CB2_QuitPokedudeBattle(void)
     }
 }
 
-static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite)
+/*static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite)
 {
     sprite->data[0] = 0;
     sprite->callback = SpriteCB_UnusedDebugSprite_Step;
@@ -2224,7 +2224,7 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
         }
         break;
     }
-}
+}*/
 
 bool8 IsRivalBattle(u16 trainerNum)
 {

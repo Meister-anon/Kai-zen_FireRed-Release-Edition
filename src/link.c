@@ -107,6 +107,7 @@ EWRAM_DATA u16 gBlockRecvBuffer[MAX_RFU_PLAYERS][BLOCK_BUFFER_SIZE / 2] = {};
 EWRAM_DATA u8 gBlockSendBuffer[BLOCK_BUFFER_SIZE] = {};
 EWRAM_DATA bool8 gLinkOpen = FALSE;
 EWRAM_DATA u16 gLinkType = 0;
+EWRAM_DATA u8 *gLinkBuffer = NULL;
 EWRAM_DATA u16 gLinkTimeOutCounter = 0;
 EWRAM_DATA struct LinkPlayer gLocalLinkPlayer = {};
 EWRAM_DATA struct LinkPlayer gLinkPlayers[MAX_RFU_PLAYERS] = {};
@@ -458,7 +459,7 @@ void LinkTestProcessKeyInput(void)
     }
     if (JOY_NEW(R_BUTTON))
     {
-        TrySavingData(SAVE_LINK);
+        TrySavingData(SAVE_LINK, NULL);
     }
     if (JOY_NEW(SELECT_BUTTON))
     {
@@ -573,7 +574,7 @@ void ProcessRecvCmds(u8 unused)
                 u16 *buffer;
                 u16 j;
 
-                buffer = (u16 *)gDecompressionBuffer;
+                buffer = (u16 *)gLinkBuffer;
                 for (j = 0; j < CMD_LENGTH - 1; j++)
                 {
                     buffer[(sBlockRecv[i].pos / 2) + j] = gRecvCmds[i][j + 1];

@@ -46,6 +46,7 @@ struct HofGfx
     u8 field_2[4];
     u8 tilemap1[0x1000];
     u8 tilemap2[0x1000];
+    u8 hofSaveBuffer[SECTOR_DATA_SIZE * NUM_HOF_SECTORS];
 };
 
 static EWRAM_DATA u32 sSelectedPaletteIndices = 0;
@@ -424,17 +425,17 @@ static void Task_Hof_InitMonData(u8 taskId)
 static void Task_Hof_InitTeamSaveData(u8 taskId)
 {
     u16 i;
-    struct HallofFameTeam* lastSavedTeam = (struct HallofFameTeam *)(gDecompressionBuffer);
+    struct HallofFameTeam* lastSavedTeam = (struct HallofFameTeam *)(sHofGfxPtr->hofSaveBuffer);
 
     SaveQuestLogData();
     if (!gHasHallOfFameRecords)
     {
-        memset(gDecompressionBuffer, 0, 0x2000);
+        memset(sHofGfxPtr->hofSaveBuffer, 0, 0x2000);
     }
     else
     {
-        if (LoadGameSave(SAVE_HALL_OF_FAME) != TRUE)
-            memset(gDecompressionBuffer, 0, 0x2000);
+        if (LoadGameSave(SAVE_HALL_OF_FAME, sHofGfxPtr->hofSaveBuffer) != TRUE)
+            memset(sHofGfxPtr->hofSaveBuffer, 0, 0x2000);
     }
 
     for (i = 0; i < HALL_OF_FAME_MAX_TEAMS; i++, lastSavedTeam++)
@@ -444,8 +445,8 @@ static void Task_Hof_InitTeamSaveData(u8 taskId)
     }
     if (i >= HALL_OF_FAME_MAX_TEAMS)
     {
-        struct HallofFameTeam *afterTeam = (struct HallofFameTeam*)(gDecompressionBuffer);
-        struct HallofFameTeam *beforeTeam = (struct HallofFameTeam*)(gDecompressionBuffer);
+        struct HallofFameTeam *afterTeam = (struct HallofFameTeam*)(sHofGfxPtr->hofSaveBuffer);
+        struct HallofFameTeam *beforeTeam = (struct HallofFameTeam*)(sHofGfxPtr->hofSaveBuffer);
         afterTeam++;
         for (i = 0; i < HALL_OF_FAME_MAX_TEAMS - 1; i++, beforeTeam++, afterTeam++)
         {
@@ -464,7 +465,7 @@ static void Task_Hof_InitTeamSaveData(u8 taskId)
 static void Task_Hof_TrySaveData(u8 taskId)
 {
     gGameContinueCallback = CB2_DoHallOfFameScreenDontSaveData;
-    TrySavingData(SAVE_HALL_OF_FAME);
+    TrySavingData(SAVE_HALL_OF_FAME, sHofGfxPtr->hofSaveBuffer);
     PlaySE(SE_SAVE);
     gTasks[taskId].func = Task_Hof_DelayAfterSave;
     gTasks[taskId].data[3] = 32;
@@ -708,7 +709,7 @@ static void SetWarpsToRollCredits(void)
     ResetInitialPlayerAvatarState();
 }
 
-void CB2_InitHofPC(void)
+void CB2_InitHofPC(void)//equiv DoHallofFamePC
 {
     switch (gMain.state)
     {
@@ -763,13 +764,13 @@ static void Task_HofPC_CopySaveData(u8 taskId)
     struct HallofFameTeam* savedTeams;
 
     CreateTopBarWindowLoadPalette(0, 30, 0, 0x0C, 0x226);
-    if (LoadGameSave(SAVE_HALL_OF_FAME) != SAVE_STATUS_OK)
+    if (LoadGameSave(SAVE_HALL_OF_FAME, sHofGfxPtr->hofSaveBuffer) != SAVE_STATUS_OK)
     {
         gTasks[taskId].func = Task_HofPC_PrintDataIsCorrupted;
     }
     else
     {
-        CpuCopy16(gDecompressionBuffer, sHofMonPtr, 0x2000);
+        CpuCopy16(sHofGfxPtr->hofSaveBuffer, sHofMonPtr, 0x2000);
         savedTeams = sHofMonPtr;
         for (i = 0; i < HALL_OF_FAME_MAX_TEAMS; i++, savedTeams++)
         {

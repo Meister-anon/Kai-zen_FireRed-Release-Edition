@@ -882,13 +882,17 @@ static void CB2_ReturnFromLinkTrade2(void)
         gMain.state++;
         break;
     case 10:
-        DrawTextWindowAndBufferTiles(gSaveBlock2Ptr->playerName, sSpriteTextTilePtrs[0], 0, 0, gDecompressionBuffer, 3);
+    {
+        void *buffer = Alloc(0x10);
+        DrawTextWindowAndBufferTiles(gSaveBlock2Ptr->playerName, sSpriteTextTilePtrs[0], 0, 0, buffer, 3);
         id = GetMultiplayerId();
-        DrawTextWindowAndBufferTiles(gLinkPlayers[id ^ 1].name, sSpriteTextTilePtrs[3], 0, 0, gDecompressionBuffer, 3);
-        DrawTextWindowAndBufferTiles(sTradeUITextPtrs[TRADEUITEXT_CANCEL], sSpriteTextTilePtrs[6], 0, 0, gDecompressionBuffer, 2);
+        DrawTextWindowAndBufferTiles(gLinkPlayers[id ^ 1].name, sSpriteTextTilePtrs[3], 0, 0, buffer, 3);
+        DrawTextWindowAndBufferTiles(sTradeUITextPtrs[TRADEUITEXT_CANCEL], sSpriteTextTilePtrs[6], 0, 0, buffer, 2);
         RenderTextToVramViaBuffer(sTradeUITextPtrs[TRADEUITEXT_CHOOSE], sSpriteTextTilePtrs[8], 24);
         gMain.state++;
         sTradeMenuResourcesPtr->loadUISpritesState = 0;
+        Free(buffer);
+    }
         break;
     case 11:
         if (LoadUISprites())
@@ -1080,13 +1084,17 @@ void CB2_ReturnToTradeMenuFromSummary(void)
         gMain.state++;
         break;
     case 10:
-        DrawTextWindowAndBufferTiles(gSaveBlock2Ptr->playerName, sSpriteTextTilePtrs[0], 0, 0, gDecompressionBuffer, 3);
+    {
+        void *buffer = Alloc(0x10);
+        DrawTextWindowAndBufferTiles(gSaveBlock2Ptr->playerName, sSpriteTextTilePtrs[0], 0, 0, buffer, 3);
         id = GetMultiplayerId();
-        DrawTextWindowAndBufferTiles(gLinkPlayers[id ^ 1].name, sSpriteTextTilePtrs[3], 0, 0, gDecompressionBuffer, 3);
-        DrawTextWindowAndBufferTiles(sTradeUITextPtrs[TRADEUITEXT_CANCEL], sSpriteTextTilePtrs[6], 0, 0, gDecompressionBuffer, 2);
+        DrawTextWindowAndBufferTiles(gLinkPlayers[id ^ 1].name, sSpriteTextTilePtrs[3], 0, 0, buffer, 3);
+        DrawTextWindowAndBufferTiles(sTradeUITextPtrs[TRADEUITEXT_CANCEL], sSpriteTextTilePtrs[6], 0, 0, buffer, 2);
         RenderTextToVramViaBuffer(sTradeUITextPtrs[TRADEUITEXT_CHOOSE], sSpriteTextTilePtrs[8], 24);
         gMain.state++;
         sTradeMenuResourcesPtr->loadUISpritesState = 0;
+        Free(buffer);
+    }
         break;
     case 11:
         if (LoadUISprites())
@@ -2507,7 +2515,9 @@ static bool8 LoadUISprites(void)
 
 static void RenderTextToVramViaBuffer(const u8 *name, u8 *dest, u8 unused)
 {
-    DrawTextWindowAndBufferTiles(name, dest, 0, 0, gDecompressionBuffer, 6);
+    void *buffer = Alloc(0x10);
+    DrawTextWindowAndBufferTiles(name, dest, 0, 0, buffer, 6);
+    Free(buffer);
 }
 
 static void ComputePartyTradeableFlags(u8 who)

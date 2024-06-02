@@ -861,7 +861,7 @@ static void ChatEntryRoutine_SaveAndExit(void)
         if (!RunDisplaySubtask(0))
         {
             SetContinueGameWarpStatusToDynamicWarp();
-            TrySavingData(SAVE_NORMAL);
+            TrySavingData(SAVE_NORMAL, NULL);
             sWork->routineState = 8;
         }
         break;

@@ -2989,7 +2989,7 @@ static void Task_FadeToBg(u8 taskId)
     }
 }
 
-static void LoadMoveBg(u16 bgId)
+static void LoadMoveBg(u16 bgId)//function doesn't use gdecompbuffer in FR for some reason
 {
     LZDecompressVram(gBattleAnimBackgroundTable[bgId].tilemap, (void *)(BG_SCREEN_ADDR(26)));
     LZDecompressVram(gBattleAnimBackgroundTable[bgId].image, (void *)(BG_CHAR_ADDR(2)));

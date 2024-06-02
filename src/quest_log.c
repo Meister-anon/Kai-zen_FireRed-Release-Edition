@@ -812,7 +812,7 @@ static void QuestLog_StartFinalScene(void)
 {
     ResetSpecialVars();
     Save_ResetSaveCounters();
-    LoadGameSave(SAVE_NORMAL);
+    LoadGameSave(SAVE_NORMAL, NULL);
     SetMainCallback2(CB2_EnterFieldFromQuestLog);
     gFieldCallback2 = FieldCB2_FinalScene;
     FreeAllWindowBuffers();

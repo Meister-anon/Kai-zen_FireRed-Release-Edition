@@ -27,7 +27,7 @@ struct BattleBackground
     const void *palette;
 };
 
-static void CB2_unused(void);
+//static void CB2_unused(void);
 static u8 GetBattleTerrainOverride(void);
 
 static const u8 gUnknown_824829C[] = {1, 2};
@@ -651,7 +651,7 @@ static const struct {
     {MAP_BATTLE_SCENE_LINK,     BATTLE_TERRAIN_LINK}
 };
 
-UNUSED void CreateUnknownDebugSprite(void)
+/*UNUSED void CreateUnknownDebugSprite(void)
 {
     u8 spriteId;
 
@@ -665,7 +665,7 @@ static void CB2_unused(void)
 {
     AnimateSprites();
     BuildOamBuffer();
-}
+}*/
 
 static u8 GetBattleTerrainByMapScene(u8 mapBattleScene)
 {

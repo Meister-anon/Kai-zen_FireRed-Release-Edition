@@ -52,7 +52,7 @@ struct mevent_client_cmd
 #define CLI_RECVRAM    {.instr = 17, .parameter = 0}
 #define CLI_SENDALL    {.instr = 20, .parameter = 0}
 
-struct mevent_client
+struct mevent_client    //equiv MysteryGiftClient
 {
     u32 unk_00;
     u32 param;
@@ -61,6 +61,7 @@ struct mevent_client
     u32 cmdidx;
     void * sendBuffer;
     void * recvBuffer;
+    void * execBuffer;
     struct mevent_client_cmd * cmdBuffer;
     void * buffer;
     struct mevent_srv_sub manager;
