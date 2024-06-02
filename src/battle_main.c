@@ -442,7 +442,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_FIGHTING, TYPE_FLYING, TYPE_MUL_NOT_EFFECTIVE, //when grounded fighting should do normal damage to flying
     TYPE_FIGHTING, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FIGHTING, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE,    //dont understand this other than some super sentai stuff but I'm keeping it
-    TYPE_FIGHTING, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE,
+    TYPE_FIGHTING, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE,  //technically not true physical attacks are strong aginst fae because of their fragile bodies but keeping
     TYPE_FIGHTING, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIGHTING, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIGHTING, TYPE_STEEL, TYPE_MUL_SUPER_EFFECTIVE,
@@ -540,6 +540,14 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
 
 //logic for dark beating dark is similar to dragon, bad guys/evil are most likely to backstab/take each other out
 //same as dragons fight and defeat other dragons
+
+//nature of resists/effectiveness try to keep to absolute
+//ex. adding more fire will always just make the fire stronger as its adding more of itself
+//a bug fighting another bug the advantage goes to whichever is stronger
+//now for rock against rock, some of that same bug logic applies, depends on which rock is stronger
+//and eventually if a big enough or enough rocks are used the target stone will crack
+//but that said, rocks still fair much better against rocks, than any most other types
+//so there's a valid argument for a resist there.
 
     //consider makign bugs immune to confusion status, like wolfeyvgc said, he didn't explain but I gather logic is most bugs work by hivemind,
 //on top of having some type of extra sensory options with its feelers etc. will have to add dark type exception to prankster back i guess
