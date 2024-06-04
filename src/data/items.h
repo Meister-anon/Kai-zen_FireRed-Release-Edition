@@ -1685,7 +1685,7 @@ const struct Item gItems[] =
     },
     [ITEM_DAWN_STONE] =
     {
-      .name = _("????????"),
+      .name = _("DAWN STONE"),
       .itemId = ITEM_NONE,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
@@ -1702,7 +1702,7 @@ const struct Item gItems[] =
     },
     [ITEM_DUSK_STONE] =
     {
-      .name = _("????????"),
+      .name = _("DUSK STONE"),
       .itemId = ITEM_NONE,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
@@ -1719,7 +1719,7 @@ const struct Item gItems[] =
     },
     [ITEM_SHINY_STONE] =
     {
-      .name = _("????????"),
+      .name = _("SHINY STONE"),
       .itemId = ITEM_NONE,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
@@ -1736,7 +1736,7 @@ const struct Item gItems[] =
     },
     [ITEM_ICE_STONE] =
     {
-      .name = _("????????"),
+      .name = _("ICE STONE"),
       .itemId = ITEM_NONE,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
@@ -3896,7 +3896,7 @@ const struct Item gItems[] =
     },
     [ITEM_EVIOLITE_FAIL] =
     {
-      .name = _("????????"),
+      .name = _("EVIOLITE"),
       .itemId = ITEM_EVIOLITE_FAIL,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,

@@ -515,4 +515,7 @@ void DestroyBoxMonIconAtPosition(u8 boxPosition);
 void SetBoxMonIconObjMode(u8 cursorPos, u8 objMode);
 void SetPartyMonIconObjMode(u8 cursorPos, u8 objMode);
 
+const u32 *GetItemIconPic(u16 itemId);
+const u32 *GetItemIconPalette(u16 itemId);
+
 #endif //GUARD_POKEMON_STORAGE_SYSTEM_INTERNAL_H

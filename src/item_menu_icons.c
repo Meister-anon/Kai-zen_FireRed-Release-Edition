@@ -987,6 +987,7 @@ u8 AddItemIconObject(u16 tilesTag, u16 paletteTag, u16 itemId)
     return spriteId;
 }
 
+//seems is just for berry crush?
 u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origTemplate, u16 tilesTag, u16 paletteTag, u16 itemId)
 {
     struct SpriteTemplate template;
@@ -1018,6 +1019,7 @@ u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origT
     return spriteId;
 }
 
+//for shop bag and pc but seems not move mon item pc
 void CreateItemMenuIcon(u16 itemId, u8 idx)
 {
     u8 * ptr = &sItemMenuIconSpriteIds[10];
@@ -1049,16 +1051,22 @@ void DestroyItemMenuIcon(u8 idx)
 }
 
 #define ITEM_ICON_SETTING
-const void * GetItemIconGfxPtr(u16 itemId, u8 attrId) 
+const void * GetItemIconGfxPtr(u16 itemId, u8 attrId) //ok w new eviolite function change can't use this so make new equivalent
 {
     if (itemId > ITEM_N_A) //think this equation is what was messing up my field arrow,
         itemId = ITEM_NONE; //because it was listed grater than ITEM_N_A
-    if ((itemId == ITEM_EVIOLITE) && !CanEvioliteActivate(GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES))) //ok dont need loop for everything think this 
-        itemId = ITEM_EVIOLITE_FAIL; //doesn't change item, just changes effect of function / com
+    //if ((itemId == ITEM_EVIOLITE) && !CanEvioliteActivate(GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES))) //ok dont need loop for everything think this 
+    //    itemId = ITEM_EVIOLITE_FAIL; //doesn't change item, just changes effect of function / com
  
     return sItemIconGfxPtrs[itemId][attrId];
-}
+}//would only need for player side, 
+//still need to figure out how to use this
+//would need to work for both party menu and the pc
+//think need more research guess remove for now
+//there's a way to do this as it knowos which mon I'm looking at
 
+
+//just berry pouch?
 void sub_80989A0(u16 itemId, u8 idx)
 {
     u8 * ptr = &sItemMenuIconSpriteIds[10];

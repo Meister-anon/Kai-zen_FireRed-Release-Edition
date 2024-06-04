@@ -1045,6 +1045,19 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
         species = SpeciesToNationalPokedexNum(species);
         GetSetPokedexFlag(species, FLAG_SET_SEEN);
         HandleSetPokedexFlag(species, FLAG_SET_CAUGHT, personality);
+
+
+        if (species > NATIONAL_SPECIES_COUNT
+        && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
+        && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
+        || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+        || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
+        || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
+        || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
+        || gBaseStats[SanitizeSpeciesId(species)].flags == F_CEFIRIAN_FORM))
+        {
+            GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_SET_SEEN);
+        }
     }
 }
 
