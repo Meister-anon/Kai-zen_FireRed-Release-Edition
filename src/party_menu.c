@@ -2953,6 +2953,8 @@ static void ShowOrHideHeldItemSprite(u16 item, struct PartyMenuBox *menuBox)
 
 void LoadHeldItemIcons(void)
 {
+   //look into AddItemIconObjectWithCustomObjectTemplate for this
+
     LoadSpriteSheet(&sSpriteSheet_HeldItem);
     LoadSpritePalette(&sSpritePalette_HeldItem);
 }

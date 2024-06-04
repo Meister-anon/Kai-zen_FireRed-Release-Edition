@@ -1007,6 +1007,7 @@ on catch add mon held item to bag, with brief text trigger after pokedex logic
     general consensous (((attacker->level * 160) / 100) / 5 + 3);  //closest to original scaling, w slightly higher early scaling for early difficulty, and lower later but not caps mostly at 85% drop from norm
 
         - starting point starting multiplier i.e base dmg - my version on right
+ lvl 3 = 3                                  lvl 3 = 3
  lvl 5 = 4                                  lvl 5 = 5                              
  lvl 10 = 6                                 lvl 10 = 6
  lvl 15 = 8                                 lvl 15 = 7
@@ -1022,6 +1023,20 @@ on catch add mon held item to bag, with brief text trigger after pokedex logic
             real ex lvl 7 me vs lvl 9 foe 
    4.8  vs 5.6                  5.4  vs 5.8
 
+
+   (((attacker->level * 110) / 100) / 5 + 4);
+   //works brings up lower levels but still scales down for higher
+   need to scale lower by lvl 10
+
+   duh just use a different formula for those levels
+
+   can use this formula but at lvl 9 or so change to + 3 for the end
+
+ n^3 /sqroot(n^3) /5 - 5
+
+ n^2 - n /2 +1
+
+ (attacker->level * 140) / 100) /sqroot + 3
 
  (to see if this lvl dmg scaling keeps up with or exceeds stat growth with lvl  just compare stats now with growth based on stat formula)
   [n = (((2 * baseStat + ((iv * 240) /100) + ev / 4) * level) / 100) + 5;]   //can rmeove ev iv portion
@@ -2196,6 +2211,87 @@ goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make 
   infestation replacement swarm is broken, 
   or more accurately the infestation status is?
   froze game
+
+  -poisoned legacy not working, sets bad poison but never does dmg
+  -not workign at all smh isn't even doing corrossion effect
+  didn't let me poison bellsprout
+
+  ok issue was my change for status moves to work off type chart
+  since i had type calc in status function couldn't get passed immunity
+  now has direct modifier adjustment for poison stat moves
+  w cossosion/poisoned legacy
+
+  fixed toxid dmg, not sure exactly what was wrong but adjusted the code blocks
+  and it seems to be working correctly now
+
+  would need to do same for any other ability that breaks through immunity...
+  look into miracle eye -__-
+
+  go through bst of mon that were final evos but got extra evos later
+  (stuff like dusclops) for high defense mon especially
+  and check if there are good to use with new eviolite,
+  if not adjust their bst tobe above limit
+  also think need work in global stat total limt as well.
+  just to be safe,
+
+  did that, but broke eviolite function in 
+  GetItemIconGfxPtr, for displaying graphic (didn't work before anyway)
+  need to find how it identifies which mon its pulling from
+  and use that for the item/condition
+
+  aftermath has bugs
+  when used in trainer battles brings back dead mon during enemy trainer switch dialogue
+
+  `When switching in the Shift "do you want to switch Pokemon" dialog during a trainer battle
+Aftermath briefly revives the fallen Pokemon just to kill em again`
+
+  compliments of unfolding
+
+  `
+ if aftermath kills your enemy and you switch into your forewarn pokemon, it warns you about a glitchy move
+ `
+ - seems fixed, believe issue was forgetting to put a condition
+ for the target being alive on the funciton
+
+ -note instead of starter ditto have daycare man south of cerulean
+ give gift ditto as compliments of your first visit
+ /to commemorate your very fist patronage/visit
+
+ test bandit king and corruption
+
+  re-evaluate battle scripts make sure
+  typecalc is in right place for things,
+  realizd gbattlemovedamage is set in damagecalc
+  so type calc before damagecalc just sets result flags (checks whether should hit)
+  doesn't actually add stab
+
+ check item screen for impidimp it seems tobe closest value 
+ make that for all of them, as it actually displays item
+ =readjusted for item use most should fit,
+ still doesn't lookright for tms though
+
+ add rest of move effects to BS_getmoveeffect
+ so multi task can be done
+
+ still need work on brick break animation/effect  I think 
+
+ revise hidden power and weather ball, so just use effect hit
+ remove cases of their effects use and replace with move/gcurrent move
+ -done
+
+ Look into calculatebasedamage dmg formula, see if its not scaling too low,
+ all I worry about is if I accidentally made level MORE impactful rather than less,
+ plan was stats matter more, less boost from level gain so mon even at lower levels can still do solid dmg
+ to enemy based on stats
+
+ i.e 3-5 levels below you can still do things
+ but still overall  raising the TTK so its not a one shot fest
+
+ changed level scaling without changing defense side of dmg formula
+ which made all moves do half damage they were supposed to...
+ -fixed
+
+ potentially port emerald expansions additional effect setup, would clean up scripts
   
 
   ,...ok bind is broken, I missed something,
@@ -6212,7 +6308,7 @@ goto TYPE_CHART
 goto TYPE_NAMES
 goto TYPE_DEFINES
 goto TYPE_ICON_DATA //was missing something listing of the types and their order is in the graphics_file_rules.mk  file
-
+goto TYPE_MODIFIER_ADJUSTMENTS //place for special case logic that overwrites normal type behavior
 /* NOTE - still need to finish set message for spite changes, can do just like I did anticipation ability messages
 * -DONE   also made eerie spell use the new spite effect rather than only taking 3 pp. //NEED test errie spell test if still works aftr sheer force logic added
 * 

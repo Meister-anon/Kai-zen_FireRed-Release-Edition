@@ -762,7 +762,8 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u8 GetFinalFormSpeciesId(u16 formSpeciesId); //added for dex changes to read forms
 u16 GetBaseStatTotal(u16 species);
 u16 GetIndividualBaseStatValue(u16 species, u8 statIndex); //pull base stat for selected stat //mostly used for settin up new ev caps logic
-bool8 CanEvioliteActivate(u16 species);
+u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for use as limiter
+bool8 CanEvioliteActivate(u8 target);
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
 

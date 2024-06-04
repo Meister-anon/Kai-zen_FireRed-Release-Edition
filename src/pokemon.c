@@ -3572,6 +3572,23 @@ u16 GetBaseStatTotal(u16 species) //now that I have a stat total field can just 
 } //...so just realized I could make a macro like below for base stats file to calculate base stat total for  the mon directly from the base stat data
 //would add a u16 value to basestat but would be very useful for users, and partially offset by removal of ev yeild field  nope couldn't do that...
 
+//think need party /make void 
+//then use side to select party
+u16 GetGlobalStatTotal(struct Pokemon *mon) 
+{
+    u32 i;
+    u16 evs[NUM_STATS];
+    u16 totalEVs = 0;
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+
+    for (i = 0; i < NUM_STATS; i++)//totalling stats
+    {
+        evs[i] = GetMonData(mon, MON_DATA_HP_EV + i, NULL);
+        totalEVs += evs[i];
+    }
+    return (totalEVs / 4) + gBaseStats[species].statTotal;
+}
+
 u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
 {
     switch(statIndex)
@@ -3598,9 +3615,18 @@ u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
     }
 }
 
-bool8 CanEvioliteActivate(u16 species)
+bool8 CanEvioliteActivate(u8 target)
 {
-    if (CanEvolve(species) && (GetBaseStatTotal(species) < 465)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
+    u16 species = gBattleMons[target].species;
+    struct Pokemon *mon;
+
+    if (GET_BATTLER_SIDE(target) == B_SIDE_PLAYER)
+        mon = &gPlayerParty[gBattlerPartyIndexes[target]];
+    else
+        mon = &gEnemyParty[gBattlerPartyIndexes[target]];
+
+    if (CanEvolve(species) && (GetBaseStatTotal(species) < 465
+    && GetGlobalStatTotal(mon) < 565)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
         return TRUE;
     else
         return FALSE;
@@ -3619,19 +3645,20 @@ bool8 CanEvioliteActivate(u16 species)
 //nvm there are some abilities/effects that are specifically meant to be defense stat boosters
 #define OffensiveModifer(value)                                 \
 {                                                               \
-    if (usesDefStat){ attack = (value * attack) / 100; }        \
-    else {spAttack = (value * spAttack) / 100;}                 \
+    if (usesDefStat){ attack = max((value * attack) / 100, 1); }        \
+    else {spAttack = max((value * spAttack) / 100, 1);}                 \
 }
 #define DefenseModifer(value)                                   \
 {                                                               \
-    if (usesDefStat){ defense = (value * defense) / 100; }      \
-    else {spDefense = (value * spDefense) / 100;}               \
+    if (usesDefStat){ defense = max((value * defense) / 100, 1); }      \
+    else {spDefense = max((value * spDefense) / 100, 1);}               \
 }
 
 #define STAT_AND_DAMAGE_ABILITIES_ETC
 
 // seems this is the equivalent of emerald's CalcDefenseStat function
 // actually can put calcmovebasepower aft mod in here too, to set up those abilities.
+//used in damagecalc command and for selfhit dmg for confusion/disobedience
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u32 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
     u32 i;
@@ -3687,6 +3714,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     
     if (gCurrentMove == MOVE_HIDDEN_POWER) // also see about putting split condition for hidden power onto the function for getbattlesplit
     {
+        s32 powerBits;
 
         //} this should work much better, split is decided by the lower compoarison of my atk stats to my opponenets
             //then if that stat is also my lowest atk stat it gets a shonen style damage boost
@@ -3694,9 +3722,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //think battlemons here is fine and wuoldn't be affected by stat stage changes?
         if (gBattleMons[battlerIdAtk].attack < gBattleMons[battlerIdAtk].spAttack)
            usesDefStat = TRUE; //may reverse this, and set split to highest attack stat
-        if (gBattleMons[battlerIdAtk].spAttack < gBattleMons[battlerIdAtk].attack)
+        else if (gBattleMons[battlerIdAtk].spAttack < gBattleMons[battlerIdAtk].attack)
             usesDefStat = FALSE;
-        if (gBattleMons[battlerIdAtk].spAttack == gBattleMons[battlerIdAtk].attack) // i & j are equal when my stats equal my oppoenenets or both my stats are higher.
+        else if (gBattleMons[battlerIdAtk].spAttack == gBattleMons[battlerIdAtk].attack) // i & j are equal when my stats equal my oppoenenets or both my stats are higher.
         {
             if (value == 0) {
                 usesDefStat = TRUE;
@@ -3714,13 +3742,33 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //so just remove the moveSplit part of the boost function.
          //I put split logic back
 
+         //change hidden power want it to be boost power
+         //if target highest stat is greater than your highest stat
+
+         //eh its fine as is, rn just means if their offense is greater
+        //attempt tweak, so doesn't just go off all the time
+        if (usesDefStat && h > 0)
+            OffensiveModifer(130);
+
+        if (!usesDefStat && j > 0)
+            OffensiveModifer(130);
 
         //I hesitate on that beause in that case, the boost would always be active,
         //unless facing much lower level pokemon.   will need balance test
-        if (h > 0 || j > 0)
-            OffensiveModifer(130);
+        //if (h > 0 || j > 0)
+        //    OffensiveModifer(130);
             //gBattleMovePower = (gBattleMovePower * 130) / 100; //boosted from 17 to 50 just to see if it works
 
+        powerBits = ((gBattleMons[gBattlerAttacker].hpIV & 2) >> 1)
+            | ((gBattleMons[gBattlerAttacker].attackIV & 2) << 0)
+            | ((gBattleMons[gBattlerAttacker].defenseIV & 2) << 1)
+            | ((gBattleMons[gBattlerAttacker].speedIV & 2) << 2)
+            | ((gBattleMons[gBattlerAttacker].spAttackIV & 2) << 3)
+            | ((gBattleMons[gBattlerAttacker].spDefenseIV & 2) << 4);
+        
+        gBattleMovePower = (35 * powerBits) / 63 + 45;
+
+        //change to set power here just like weather ball
         ////if (j > 0 && usesDefStat == FALSE)
          //   OffensiveModifer(130); //change to use direct stat boost as thematically more fitting test for balance
             //gBattleMovePower = (gBattleMovePower * 130) / 100; //doesn't seem to be workign, I'll swap to gdynamic
@@ -3793,7 +3841,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (attackerHoldEffect == sHoldEffectToType[i][0]
             && type == sHoldEffectToType[i][1])
         {
-            gBattleMovePower = (gBattleMovePower * (attackerHoldEffectParam + 100)) / 100;  //i.e (gBattleMovePower * 120) /100
+            OffensiveModifer((attackerHoldEffectParam + 100)); //ok got tested this IS working
+            
+            
+            //gBattleMovePower = (gBattleMovePower * (attackerHoldEffectParam + 100)) / 100;  //i.e (gBattleMovePower * 120) /100
             /*if (usesDefStat)    //changed was redundant as being move physical sets usesdefstat
                 attack = (attack * (attackerHoldEffectParam + 100)) / 100;
             else
@@ -3808,26 +3859,27 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     {
         case HOLD_EFFECT_DAMP_ROCK:
             if (type == TYPE_WATER)
-                gBattleMovePower = (110 * gBattleMovePower) / 100;
+                OffensiveModifer(110);
+                //gBattleMovePower = (110 * gBattleMovePower) / 100;
             break;
         case HOLD_EFFECT_HEAT_ROCK:
             if (type == TYPE_FIRE)
-                gBattleMovePower = (110 * gBattleMovePower) / 100;
+                OffensiveModifer(110);
             break;
         case HOLD_EFFECT_ICY_ROCK:
             if (type == TYPE_ICE)
-                gBattleMovePower = (110 * gBattleMovePower) / 100;
+                OffensiveModifer(110);
             break;
         case HOLD_EFFECT_SMOOTH_ROCK:
             if (type == TYPE_ROCK || type == TYPE_GROUND)
-                gBattleMovePower = (110 * gBattleMovePower) / 100;
+                OffensiveModifer(110);
             break; 
     }
 
     switch(defenderHoldEffect)
     {
-        case HOLD_EFFECT_EVIOLITE:  //
-            if (CanEvioliteActivate)    //
+        case HOLD_EFFECT_EVIOLITE:  //wasn't set correclty before should work now
+            if (CanEvioliteActivate(battlerIdDef))    //
             {
                 DefenseModifer(170);
             }
@@ -3988,7 +4040,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower *= 2;
     }
 
-    if ((gBattleWeather & WEATHER_ANY) && gBattleMoves[move].effect == EFFECT_WEATHER_BALL) 
+    //can change this to just use move name
+    if (((gBattleWeather & WEATHER_ANY) || (gBattleWeather & WEATHER_STRONG_WINDS))
+    && move == MOVE_WEATHER_BALL) //think use gust tornado/twister for strong winds flying type weather ball
             gBattleMovePower *= 2;
 
     //this isn't working... //ok pretty sure reason wasn't working was because didn't set status in mudsport command correctly
@@ -4575,7 +4629,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //physical specific effects
     // critical hits ignore attack stat's stage drops
-    if (usesDefStat)//IS_MOVE_PHYSICAL(move))
+    if (usesDefStat)//IS_MOVE_PHYSICAL(move))  //forgot black fog stops crits
     {
         if (IS_CRIT)
         {
@@ -4584,8 +4638,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damage = attack;
         }
-        else
+        else if (IsBlackFogNotOnField())
             APPLY_STAT_MOD(damage, attacker, attack, STAT_ATK)
+        else 
+            damage = attack; //if black fog all stat changes & external effects irrelevant
 
         if (GetBattlerAbility(battlerIdAtk) == ABILITY_UNAWARE)
         {
@@ -4599,8 +4655,15 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //damage *= (2 * attacker->level / 5 + 2); //offense side of damage formula for level scaled damage  42.92
         //damage *= (((attacker->level * 160) / 100) / 5 + 3);  //alt lower scaling dmg formula
 
-        damage *= (((attacker->level * 160) / 100) / 5 + 2);  //redone balance
-
+        //further test potentially remove max
+        if (attacker->level <= 5)
+            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 4);  //redone balance
+        else if (attacker->level <= 7)
+            damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
+        else if (attacker->level == 8)
+            damage *= (max(((attacker->level * 105) / 100) / 4, 1) + 3);
+        else
+            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
         //damage *= (((attacker->level * 148) / 100) / 4); //the difference in dmg here seems very small, i'm unsure if I should lower? //hmm higher effect the higher your stat is
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
         //think the higher multiplier means level is more impactful for damage,
@@ -4621,7 +4684,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //15% prob good if I need to. vsonic
 
 
-        // critical hits ignore def stat buffs
+        // critical hits ignore def stat buffs  -black fog stops crits no need to put there
         if (IS_CRIT) //forgot about the else/ or effect of using >= since using else means, less than, or not equal, so changed to just use greater than 1 for crit
         {
             if (defender->statStages[STAT_DEF] < 6)
@@ -4629,8 +4692,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damageHelper = defense;
         }
-        else
+        else if (IsBlackFogNotOnField())
             APPLY_STAT_MOD(damageHelper, defender, defense, STAT_DEF) //apply stat mod actually sets damgageHelper to value of stat stage
+        else
+            damageHelper = defense;
 
         
 
@@ -4644,8 +4709,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //to overwrite the typical damage calc?
 
         damage = damage / damageHelper;
-        damage /= 50; 
-        //defense side of dmg formula
+        
+        if (attacker->level <= 9)
+            damage /= 50;  //adjusted form should scale higher for low level slight lower later
+        else//defense side of dmg formula
+            damage /= 41;
 
         
 
@@ -4671,9 +4739,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 damage /= 2;
         }
 
-        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
-            damage /= 1; //target 0x8 is target both    
-        //this removes the split damage from double target moves
+        //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
+        //    damage /= 1; //target 0x8 is target both    
+        //this removes the split damage from double target moves ...just remove the line you idiot
 
         // moves always do at least 1 damage.
         if (damage == 0)
@@ -4710,8 +4778,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damage = spAttack;
         }
-        else
+        else if (IsBlackFogNotOnField())
             APPLY_STAT_MOD(damage, attacker, spAttack, STAT_SPATK)
+        else
+            damage = spAttack;
 
         if (GetBattlerAbility(battlerIdAtk) == ABILITY_UNAWARE)
             damage = spAttack;
@@ -4720,10 +4790,21 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             damage = spAttack;
 
         damage = damage * gBattleMovePower;
+        //testing w level 5 rattata and tackle
+        //given 10 atk stat and tackle bp 40 - base damage 400
+
         //damage *= (2 * attacker->level / 5 + 2); //it isn't, realized that's calc for normal level scaling damage.
         //damage *= (((attacker->level * 160) / 100) / 5 + 3);  //alt lower scaling dmg formula
 
-        damage *= (((attacker->level * 160) / 100) / 5 + 2);  //redone balance
+        //further test potentially remove max value
+        if (attacker->level <= 5)
+            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 4);  //redone balance
+        else if (attacker->level <= 7)
+            damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
+        else if (attacker->level == 8)
+            damage *= (max(((attacker->level * 105) / 100) / 4, 1) + 3);
+        else
+            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
 
         //damage *= (((attacker->level * 148) / 100) / 4); //the difference in dmg here seems very small, i'm unsure if I should lower? //hmm higher effect the higher your stat is
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
@@ -4740,8 +4821,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             else
                 damageHelper = spDefense;
         }
-        else
+        else if (IsBlackFogNotOnField())
             APPLY_STAT_MOD(damageHelper, defender, spDefense, STAT_SPDEF)
+        else
+            damageHelper = spDefense;
 
         
 
@@ -4750,12 +4833,26 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
             damageHelper = spDefense;
-
-        damage = damage / damageHelper;
-        damage /= 50;
-        //defense side of sp. damage formula
-
         
+        damage = damage / damageHelper; 
+        
+        if (attacker->level <= 9)
+            damage /= 50;  //adjusted form should scale higher for low level slight lower later
+        else//defense side of sp. damage formula
+            damage /= 41;
+        
+
+        //testing w average defense of 10 divide by 10 is enough to bring values back down to just above 100
+        //final divide makes it do just 2 damage
+
+        //hmm believe I misunderstood impact of my damage formula change
+        //everthing does half damgae with my changes...
+
+        //w given test base formula returns 4.8 dmg
+        //while my changes returns 2.88, I wanted it for the flater level scalign
+        //but without adjusting the defense side of the equation it had a MUCH greater effect
+        
+        //to keep defenses the same would need make damage divider 30... wow
 
         //other damage factors
 
@@ -4772,8 +4869,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((attacker->status1 & STATUS1_SPIRIT_LOCK) && IsBlackFogNotOnField()) //function that gives spirit_lock special atk cut
             damage /= 2;
 
-        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
-            damage /= 1; //special verision double battle damage change
+        //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
+        //    damage /= 1; //special verision double battle damage change
 
         // moves always do at least 1 damage.
         if (damage == 0)
