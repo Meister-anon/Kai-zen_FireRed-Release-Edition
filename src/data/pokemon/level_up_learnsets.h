@@ -2743,7 +2743,7 @@ static const struct LevelUpMove sPolitoedLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sHoppipLevelUpLearnset[] = {
-    LEVEL_UP_MOVE(1, MOVE_SPLASH),
+    //LEVEL_UP_MOVE(1, MOVE_SPLASH),  //thought could keep but ai too stupid to not use it...
     LEVEL_UP_MOVE(3, MOVE_LEAFAGE),    
     LEVEL_UP_MOVE(5, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE(7, MOVE_SYNTHESIS),
@@ -14467,6 +14467,7 @@ static const struct LevelUpMove sPoipoleLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),
     LEVEL_UP_MOVE( 1, MOVE_ACID),
     LEVEL_UP_MOVE( 7, MOVE_FURY_ATTACK),
+    LEVEL_UP_MOVE(8, MOVE_POISON_GAS), //for test poisoned legacy
     LEVEL_UP_MOVE(13, MOVE_VENOSHOCK),
     LEVEL_UP_MOVE(19, MOVE_CHARM),
     LEVEL_UP_MOVE(23, MOVE_VENOM_DRENCH),

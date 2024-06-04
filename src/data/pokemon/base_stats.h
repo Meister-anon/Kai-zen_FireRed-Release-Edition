@@ -1980,9 +1980,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_EMPATH, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_SYNCHRONIZE, ABILITY_ANTICIPATION},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MAGIC_GUARD, ABILITY_NONE},
+            .abilityHidden = {ABILITY_MAGIC_GUARD, ABILITY_TRACE},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -2008,9 +2008,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_EMPATH, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_SYNCHRONIZE, ABILITY_ANTICIPATION},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MAGIC_GUARD, ABILITY_NONE},
+            .abilityHidden = {ABILITY_MAGIC_GUARD, ABILITY_TRACE},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -2125,7 +2125,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sBellsproutLevelUpLearnset,
         .tmhmLearnset = sBellsproutTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(21, LOW_EFFORT), 0, SPECIES_WEEPINBELL}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(21, AVERAGE_EFFORT), 0, SPECIES_WEEPINBELL}), //Should hopefully blank these for now without issue
     },//pokemon like this w big evo change have signinficant stat dif so previous evo may be better in some ways do 4 others i find like this
     //remember make 2nd pass at stats to leave room for high ev cap, but still be buffed, leave legends & psuedo where they are 
     //can lower others as needed.
@@ -7895,8 +7895,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKirliaLevelUpLearnset,
         .tmhmLearnset = sKirliaTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_FEMALE, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_GARDEVOIR},
-                                       {EVO_LEVEL_MALE, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_GALLADE}), //Should hopefully blank these for now without issue
-    },
+                                        {EVO_ITEM, ITEM_SHINY_STONE, 0, SPECIES_GARDEVOIR},
+                                       {EVO_LEVEL_MALE, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_GALLADE},
+                                       {EVO_ITEM, ITEM_DAWN_STONE, 0, SPECIES_GALLADE}), //Should hopefully blank these for now without issue
+    },//add stone evos for garde forms as well  //ITEM_DAWN_STONE
 
     [SPECIES_GARDEVOIR] =
     { 
@@ -9950,7 +9952,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DUSCLOPS] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(40, 70, 130, 25, 60, 130),
+         STATS(40, 70, 130, 25, 70, 130),
         .type1 = TYPE_GHOST,
         .type2 = TYPE_GHOST,
         .catchRate = 90,
@@ -13176,7 +13178,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_STEADFAST, ABILITY_NONE},
-            .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_NONE},
+            .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_RATTLED},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -25998,8 +26000,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_HEALER, ABILITY_ANTICIPATION},
-            .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_NONE},
+            .abilities = {ABILITY_EMPATH, ABILITY_ANTICIPATION},
+            .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_HEALER},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -26031,8 +26033,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_HEALER, ABILITY_ANTICIPATION},
-            .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_NONE},
+            .abilities = {ABILITY_EMPATH, ABILITY_ANTICIPATION},
+            .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_HEALER},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -26064,8 +26066,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_HEALER, ABILITY_ANTICIPATION},
-            .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_NONE},
+            .abilities = {ABILITY_EMPATH, ABILITY_ANTICIPATION},
+            .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_HEALER},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
