@@ -24,6 +24,10 @@ static void Task_SmoothBlendLayers(u8 taskId);//front_pic_coordinates.h
  #define SPRITE_ANCHOR_CHORDS
 
  //confirmed it uses gMonFrontPicTable
+ //ok looks like 0, 1 is xy for forehead used for shinies and items
+ //2 is used for closeness,
+ //3 and 4 are second xy for forehead think used just for tmhm?
+ //seems had it wrong 0, 1 do tmhm  3 4 is for regular items
 static const u8 sMonSpriteAnchorCoords[][5] = {
     [SPECIES_BULBASAUR       - 1] = {0x16, 0x1b, 0x30, 0x16, 0x29},
     [SPECIES_IVYSAUR         - 1] = {0x14, 0x1b, 0x30, 0x15, 0x2a},
@@ -415,8 +419,8 @@ static const u8 sMonSpriteAnchorCoords[][5] = {
     [SPECIES_DEOXYS          - 1] = {0x1a, 0x09, 0x28, 0x1a, 0x17},
 #endif
     [SPECIES_CHIMECHO        - 1] = {0x1d, 0x0c, 0x08, 0x1c, 0x1a},
-    
-};
+};//impidimp grahpic was about right, see if this works or is different
+//ok checked its different than what it read as without this
 
 void AddTextPrinterParameterized3(u8 windowId, u8 fontId, u8 x, u8 y, const u8 * color, s8 speed, const u8 * str)
 {
@@ -644,6 +648,10 @@ u8 Menu2_GetMonSpriteAnchorCoord(u16 species, u32 personality, u8 a2)
             break; */
         }
     }
+
+    if (species > SPECIES_CHIMECHO)
+        species = SPECIES_CHIMECHO; //for now should get close enough
+
     if (species != SPECIES_NONE && a2 < 5)
     {
         species--;
