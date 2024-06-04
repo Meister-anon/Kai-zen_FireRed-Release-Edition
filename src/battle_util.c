@@ -214,6 +214,12 @@ u8 GetBattlerForBattleScript(u8 caseId)
     return ret;
 }
 
+#define BLACK_FOG_CHECK \
+if (!IsBlackFogNotOnField()) \
+{\
+    return FALSE;\
+}//realized shouldn't put in weather function as would break weather set what I need is put in end turn
+
 void PressurePPLose(u8 target, u8 attacker, u16 move)
 {
     s32 i;
@@ -1436,10 +1442,13 @@ static bool32 IsBelchPreventingMove(u32 battler, u32 move)
     return !(gBattleStruct->ateBerry[battler & BIT_SIDE] & gBitTable[gBattlerPartyIndexes[battler]]);
 }
 
+//since doesn't change type effectiveness may not need status line, non status moves should still fail?
+//typecalc irnoically breaks so need put in typecalc function, and because of that need keep status line
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 {
     return (((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
-        || !(IS_BATTLER_OF_TYPE(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
+        || ((GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
+        || (!IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) && !IS_BATTLER_OF_TYPE(battlerTarget, TYPE_POISON)));
 }
 
 bool32 CanThaw(u32 move)
@@ -1854,7 +1863,7 @@ u8 DoFieldEndTurnEffects(void)
             while (gBattleStruct->turnSideTracker < 2)
             {
                 side = gBattleStruct->turnSideTracker;
-                gActiveBattler = gBattlerTarget = gSideTimers[side].embargoBattlerId;
+                gActiveBattler = gBattlerTarget = gSideTimers[side].embargoBattlerId; //since made side timer pretty sure don't need thhese batler Ids anymore
                 if (gSideStatuses[side] & SIDE_STATUS_EMBARGO)//checking if finished heal block effect item & move heal cancel..E
                 {
                     //gStatuses3[gBattlerTarget] |= STATUS3_HEAL_BLOCK; //set status for mid turn switch ins..actually could just put in switchin function
@@ -2108,9 +2117,9 @@ u8 DoFieldEndTurnEffects(void)
             }
         ++gBattleStruct->turnCountersTracker;
             break;
-        case ENDTURN_HAZE: //compiles but check if right
+        case ENDTURN_HAZE: //compiles but check if right    VSONIC IMPORTANT
         {
-            if (gFieldStatuses & STATUS_FIELD_BLACK_FOG)
+            if (gFieldStatuses & STATUS_FIELD_BLACK_FOG)//redifined effect point is to be completely neutral zone, excepting primal weather
             {
 
                 s32 i, j;
@@ -2129,7 +2138,7 @@ u8 DoFieldEndTurnEffects(void)
                         {
                             gBattleMons[i].statStages[j] = 6;
                             BattleScriptExecute(BattleScript_StatChangesRemoved); //not working freezes 
-                        }
+                        }//remove this and instead do in dmg formula calc base stat,
                 }                                    
                 ++effect;
             }
@@ -4893,6 +4902,7 @@ static const u16 sSwitchAbilities[][10] = {
 //check weather abilities snow warning seems to not end on switch out?
 //I checked sun disk previously and that one seemed to work?
 
+
 #define WEATHER_AND_TERRAIN_EFFECTS                                           //pretty sure this is doing nothing, like I'm just not applying it? nvm it is used, its in weather abilities but not move abilities function i.e not in setsunny
 bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) //need check where this is used, in emerald its used in sunny day stuff etc.
 {
@@ -4904,6 +4914,8 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
     //for (i = 0; i < NELEMS(sPermanentWeatherAbilities); i++)//changign only primals  and overworld weathr are permanent weather, 
                                                        //drought drizzle is temp but doesn't decrement long as their on field, so effectively permanent
 
+    //if (!IsBlackFogNotOnField()) // need to put before every return, as I want to set weather timers but treat it like we're in a world appart 
+        //return FALSE;   //so the weather just can't reach us
         
 
         if (gBattleWeather & WEATHER_PRIMAL_ANY
@@ -4919,8 +4931,8 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
         || weatherEnumId == ENUM_WEATHER_SUN_PRIMAL
         || weatherEnumId == ENUM_WEATHER_STRONG_WINDS))
         {
-            gBattleWeather = (sWeatherFlagsInfo[weatherEnumId][1]);
-            return TRUE;
+            gBattleWeather = (sWeatherFlagsInfo[weatherEnumId][1]);//primal weather should work, (mostly cuz doesn't have timer so no other way to set)
+            return TRUE;// think will have it remove dark fog?  well potentially
         }
 
                                                                         //without for loop don't need this line as its already saying not primal just by being else if
@@ -5159,31 +5171,32 @@ u8 CastformDataTypeChange(u8 battler)
     u8 formChange = 0;
     if (gBattleMons[battler].species == SPECIES_CASTFORM)
     {
-        if (gBattleMons[battler].ability != ABILITY_FORECAST || gBattleMons[battler].hp == 0)
+        if (GetBattlerAbility(battler) != ABILITY_FORECAST || gBattleMons[battler].hp == 0)
             return CASTFORM_NO_CHANGE;
-        if (!WEATHER_HAS_EFFECT && gBattleMons[battler].type2 != TYPE_GHOST)
+        if (!(IsBattlerWeatherAffected(battler,WEATHER_ANY)) && gBattleMons[battler].type2 != TYPE_GHOST)
         {
             SET_BATTLER_TYPE2(battler, TYPE_GHOST);
             return CASTFORM_TO_NORMAL;
         }
-        if (!WEATHER_HAS_EFFECT)
+        if (!(IsBattlerWeatherAffected(battler,WEATHER_ANY)))
             return CASTFORM_NO_CHANGE;
-        if (!(gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SUN_ANY | WEATHER_HAIL_ANY)) && gBattleMons[battler].type2 != TYPE_GHOST)
+        //need test
+        if (!(IsBattlerWeatherAffected(battler, (WEATHER_RAIN_ANY | WEATHER_SUN_ANY | WEATHER_HAIL_ANY))) && gBattleMons[battler].type2 != TYPE_GHOST)
         {
             SET_BATTLER_TYPE2(battler, TYPE_GHOST);
             formChange = CASTFORM_TO_NORMAL; //if Im' able to setup can put ground version for sandstorm here
         }
-        if (gBattleWeather & WEATHER_SUN_ANY && gBattleMons[battler].type2 != TYPE_FIRE)
+        if (IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY) && gBattleMons[battler].type2 != TYPE_FIRE)
         {
             SET_BATTLER_TYPE2(battler, TYPE_FIRE);
             formChange = CASTFORM_TO_FIRE;
         }
-        if (gBattleWeather & WEATHER_RAIN_ANY && gBattleMons[battler].type2 != TYPE_WATER)
+        if (IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY) && gBattleMons[battler].type2 != TYPE_WATER)
         {
             SET_BATTLER_TYPE2(battler, TYPE_WATER);
             formChange = CASTFORM_TO_WATER;
         }
-        if (gBattleWeather & WEATHER_HAIL_ANY && gBattleMons[battler].type2 != TYPE_ICE)
+        if (IsBattlerWeatherAffected(battler, WEATHER_HAIL_ANY) && gBattleMons[battler].type2 != TYPE_ICE)
         {
             SET_BATTLER_TYPE2(battler, TYPE_ICE);
             formChange = CASTFORM_TO_ICE;
@@ -5192,14 +5205,14 @@ u8 CastformDataTypeChange(u8 battler)
 
     else if (gBattleMons[battler].species == SPECIES_CHERRIM)
     {
-        if (gBattleMons[battler].ability != ABILITY_FLOWER_GIFT || gBattleMons[battler].hp == 0)
+        if (GetBattlerAbility(battler) != ABILITY_FLOWER_GIFT || gBattleMons[battler].hp == 0)
             formChange = CHERRIM_NO_CHANGE;
-        else if (gBattleMonForms[battler] == 0 && WEATHER_HAS_EFFECT && gBattleWeather & WEATHER_SUN_ANY)
+        else if (gBattleMonForms[battler] == 0 && IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY))
         {
             SET_BATTLER_TYPE2(battler, TYPE_FIRE);
             formChange = CHEERRIM_SUNSHINE;
         }            
-        else if (gBattleMonForms[battler] != 0 && (!WEATHER_HAS_EFFECT || !(gBattleWeather & WEATHER_SUN_ANY)))
+        else if (gBattleMonForms[battler] != 0 && (!(IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY))))
         {
             SET_BATTLER_TYPE2(battler, TYPE_GRASS);
             formChange = CHERRIM_OVERCAST;
@@ -6001,12 +6014,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_CORRUPTION:
-                if (!gSpecialStatuses[battler].switchInAbilityDone && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                if (!gSpecialStatuses[battler].switchInAbilityDone && !(gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] & SIDE_STATUS_HEAL_BLOCK))
                 {
                     //gStatuses3[gBattlerTarget] |= STATUS3_HEAL_BLOCK; // apply status to target and set side status   //don't think i need this
-                    gSideStatuses[GET_BATTLER_SIDE(battler)] |= SIDE_STATUS_HEAL_BLOCK;
-                    gSideTimers[GET_BATTLER_SIDE(battler)].healBlockTimer = 5;  //would want to make permanent but 5 turns is enough to last for the mon's life
-                    gSideTimers[GET_BATTLER_SIDE(battler)].healBlockBattlerId = battler;
+                    gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] |= SIDE_STATUS_HEAL_BLOCK;
+                    gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].healBlockTimer = 5;  //would want to make permanent but 5 turns is enough to last for the mon's life
+                    gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].healBlockBattlerId = BATTLE_OPPOSITE(battler);//double check these too make sure battler is right, i think it needs be opposite battler?
 
                     //gStatuses3[gBattlerTarget] |= STATUS3_HEAL_BLOCK;
                     //gDisableStructs[gBattlerTarget].healBlockTimer = 5;
@@ -6016,9 +6029,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     ++effect;
                 }
-                else if (!gSpecialStatuses[battler].switchInAbilityDone && gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK)
+                else if (!gSpecialStatuses[battler].switchInAbilityDone && gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] & SIDE_STATUS_HEAL_BLOCK)
                 {
-                    gSideTimers[GET_BATTLER_SIDE(battler)].healBlockTimer += 5; //adds on to existing timer on switchin
+                    gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].healBlockTimer += 5; //adds on to existing timer on switchin
                     gBattlerTarget = battler;
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_CORRUPTION;
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
@@ -6027,12 +6040,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_BANDIT_KING:
-                if (!gSpecialStatuses[battler].switchInAbilityDone && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_EMBARGO))
+                if (!gSpecialStatuses[battler].switchInAbilityDone && !(gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] & SIDE_STATUS_EMBARGO))
                 {
 
-                    gSideStatuses[GET_BATTLER_SIDE(battler)] |= SIDE_STATUS_EMBARGO;
-                    gSideTimers[GET_BATTLER_SIDE(battler)].embargoTimer = 5;  //hope works, need test
-                    gSideTimers[GET_BATTLER_SIDE(battler)].embargoBattlerId = battler;
+                    gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] |= SIDE_STATUS_EMBARGO;
+                    gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].embargoTimer = 5;  //hope works, need test
+                    gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].embargoBattlerId = BATTLE_OPPOSITE(battler);
 
 
                     gBattlerTarget = battler;
@@ -6549,8 +6562,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     break;
                 case ABILITY_GLACIAL_ICE:
                 case ABILITY_ICE_BODY:
-                    if (IsBattlerWeatherAffected(battler, WEATHER_HAIL_ANY) //this function only matters for rain & sun otherwise can use
-                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp //weather_has_effect
+                    if (IsBattlerWeatherAffected(battler, WEATHER_HAIL_ANY) 
+                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
                         && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
                     {
                         //gLastUsedAbility = ABILITY_ICE_BODY; //without this line can use same block for multiple abilities
@@ -11739,6 +11752,7 @@ static u16 GetInverseTypeMultiplier(u16 multiplier) //could use total damgae cal
     }
 }
 
+#define TYPE_MODIFIER_ADJUSTMENTS
 static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities)
 {
     u16 mod = GetTypeModifier(moveType, defType);
@@ -11798,6 +11812,11 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
     //other misc effects
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
+    //had to write out whole thing as realized, function logic would break type chart/other things
+    if (moveType == TYPE_POISON 
+    && (((GetBattlerAbility(battlerAtk) == ABILITY_CORROSION) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
+    || ((GetBattlerAbility(battlerAtk) == ABILITY_POISONED_LEGACY) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))))
+         mod = UQ_4_12(1.0);
     if (gBattleMoves[move].effect == EFFECT_FREEZE_DRY && defType == TYPE_WATER)
         mod = UQ_4_12(1.55);
     //if (moveType == TYPE_GROUND && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(0.0))
@@ -11878,6 +11897,8 @@ static u16 CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 bat
         }
 
     }*/
+    
+
     if (move == MOVE_GLARE && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_GHOST)
     || IS_BATTLER_OF_TYPE(battlerDef, TYPE_DARK))) //can keep this line
     {

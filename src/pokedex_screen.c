@@ -211,6 +211,12 @@ static const u8 sText_EVO_LEVEL_RECOIL_DAMAGE_MALE[] = _("{LV}{UP_ARROW} with {S
 static const u8 sText_EVO_LEVEL_RECOIL_DAMAGE_FEMALE[] = _("{LV}{UP_ARROW} with {STR_VAR_2} recoil, female");
 static const u8 sText_EVO_UNKNOWN[] = _("Method unknown");
 static const u8 sText_EVO_NONE[] = _("{STR_VAR_1} has no evolution.");
+static const u8 sText_EVO_MILCERY[] =_(""); //similar cascoon, friendship + flavor personality
+static const u8 sText_EVO_ITEM_FORM[] =_("{STR_VAR_2} is used w. {STR_VAR_3}"); //buffer flag param - make function take evo param 2 and assign buffer and string
+static const u8 sText_EVO_LEVEL_FORM[] =_("{LV}{UP_ARROW}to {STR_VAR_2}, or +{STR_VAR_3} Lv, w. ");//buffer flag param
+static const u8 sText_EVO_LEVEL_FORM_NIGHT[] =_("{LV}{UP_ARROW}to {STR_VAR_2}, or +{STR_VAR_3} Lv, night, w. ");//buffer flag param
+static const u8 sText_EVO_MOVE_TYPE_ATK_GT_DEF[] =_("{LV}{UP_ARROW}, w. {STR_VAR_2} type move, Atk > Def"); //string var 4 doesn't exist? find some extra buffer to use for flags
+static const u8 sText_EVO_MOVE_TYPE_ATK_LT_DEF[] =_("{LV}{UP_ARROW}, w. {STR_VAR_2} type move, Atk < Def");//{STR_VAR_1} can hopefully use without issue
 
 static void ResetEvoScreenDataStruct(void);
 static void GetSeenFlagTargetSpecies(void); //not sure if will need this

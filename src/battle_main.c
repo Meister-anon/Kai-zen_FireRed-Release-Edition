@@ -1232,7 +1232,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
                 gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
         }
     }
-    else if ((move == MOVE_WEATHER_BALL) && (WEATHER_HAS_EFFECT))
+    else if ((move == MOVE_WEATHER_BALL) && (WEATHER_HAS_EFFECT)) //thought set elsewhere but guess no longer need that
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             gBattleStruct->dynamicMoveType = TYPE_WATER;
@@ -1242,6 +1242,8 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
             gBattleStruct->dynamicMoveType = TYPE_FIRE;
         else if (gBattleWeather & WEATHER_HAIL_ANY)
             gBattleStruct->dynamicMoveType = TYPE_ICE;
+        else if (gBattleWeather & WEATHER_STRONG_WINDS)
+            gBattleStruct->dynamicMoveType = TYPE_FLYING;
         else
             gBattleStruct->dynamicMoveType = TYPE_NORMAL;
     }
@@ -1272,8 +1274,8 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         gBattleStruct->dynamicMoveType = TYPE_ICE;
     }
     else if (gBattleMoves[move].type == TYPE_NORMAL
-             && gBattleMoves[move].effect != EFFECT_HIDDEN_POWER
-             && gBattleMoves[move].effect != EFFECT_WEATHER_BALL
+             && move != MOVE_HIDDEN_POWER    //can remove effects for hidden ower and weather ball can just use hit, and do everything w move name 
+             && move != MOVE_WEATHER_BALL    //as effects are never reused, i.e only for those specific moves
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))
@@ -1285,8 +1287,8 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
     else if (gBattleMoves[move].type == TYPE_SOUND
-             && gBattleMoves[move].effect != EFFECT_HIDDEN_POWER
-             && gBattleMoves[move].effect != EFFECT_WEATHER_BALL
+             && move != MOVE_HIDDEN_POWER
+             && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
@@ -1298,8 +1300,8 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
     else if ((gBattleMoves[move].type != TYPE_NORMAL)
-             && (gBattleMoves[move].effect != EFFECT_HIDDEN_POWER
-             && gBattleMoves[move].effect != EFFECT_WEATHER_BALL
+             && (move != MOVE_HIDDEN_POWER
+             && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
@@ -1316,7 +1318,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     {
         gBattleStruct->dynamicMoveType = TYPE_GHOST;// | F_DYNAMIC_TYPE_2;
     }
-    else if (attackerAbility == ABILITY_WETIKO)
+    else if (attackerAbility == ABILITY_WETIKO)//technically should put last, but I like the idea of it hitting everything except hidden power
     {
         gBattleStruct->dynamicMoveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
     }
@@ -1417,6 +1419,8 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
             gBattleStruct->dynamicMoveType = TYPE_FIRE;
         else if (gBattleWeather & WEATHER_HAIL_ANY)
             gBattleStruct->dynamicMoveType = TYPE_ICE;
+        else if (gBattleWeather & WEATHER_STRONG_WINDS)
+            gBattleStruct->dynamicMoveType = TYPE_FLYING;
         else
             gBattleStruct->dynamicMoveType = TYPE_NORMAL;
     }
@@ -1444,8 +1448,8 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
         gBattleStruct->dynamicMoveType = TYPE_ICE;
     }
     else if (gBattleMoves[move].type == TYPE_NORMAL
-             && gBattleMoves[move].effect != EFFECT_HIDDEN_POWER
-             && gBattleMoves[move].effect != EFFECT_WEATHER_BALL
+             && move != MOVE_HIDDEN_POWER
+             && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))
@@ -1457,8 +1461,8 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
     else if ((gBattleMoves[move].type != TYPE_NORMAL)
-             && (gBattleMoves[move].effect != EFFECT_HIDDEN_POWER
-             && gBattleMoves[move].effect != EFFECT_WEATHER_BALL
+             && (move != MOVE_HIDDEN_POWER
+             && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth

@@ -3586,7 +3586,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
         .argument = MOVE_EFFECT_SPD_PLUS_1,
-    },
+    },//need redo this script, make go to hit from atkcancel or atkstring, consider  using emerald additional effect implementation
+    //should work same but potentially cut down on redundent scripts made. would not need new effect for everyone just to assign the move effect
+    //if it was that simple ex. rather than needing a rapid spin effect to set moveeffect rapid spin, 
+    //they have effect hit, and then 2 additional affects that set rapidspin move effect adn the speed pls move effect...
 
     [MOVE_SWEET_SCENT] =
     {
@@ -3698,9 +3701,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_HIDDEN_POWER] =
     {
             .power = 1, //change to show varying power
-        .effect = EFFECT_HIDDEN_POWER,
-        .type = TYPE_MYSTERY,
-        .accuracy = 100,
+        .effect = EFFECT_HIT,
+        .type = TYPE_MYSTERY, //MOVED power set to damagecalc
+        .accuracy = 100,    
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -4864,7 +4867,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WEATHER_BALL] =
     {
-        .effect = EFFECT_WEATHER_BALL,
+        .effect = EFFECT_HIT,//EFFECT_WEATHER_BALL, //can just use effect hit now
         .power = 50,
         .type = TYPE_NORMAL,
         .accuracy = 100,

@@ -111,7 +111,7 @@
 #define EFFECT_NIGHTMARE 107
 #define EFFECT_MINIMIZE 108
 #define EFFECT_CURSE 109
-#define EFFECT_HEALING_WISH 110 //replaced unused value
+#define EFFECT_HEALING_WISH 110 //replaced unused value  vsonic
 #define EFFECT_PROTECT 111
 #define EFFECT_SPIKES 112
 #define EFFECT_FORESIGHT 113
@@ -136,13 +136,13 @@
 #define EFFECT_MORNING_SUN 132
 #define EFFECT_SYNTHESIS 133
 #define EFFECT_MOONLIGHT 134
-#define EFFECT_HIDDEN_POWER 135
+#define EFFECT_HIDDEN_POWER 135 //no longer used vsonic
 #define EFFECT_RAIN_DANCE 136
 #define EFFECT_SUNNY_DAY 137
 #define EFFECT_DEFENSE_UP_HIT 138
 #define EFFECT_ATTACK_UP_HIT 139
 #define EFFECT_ALL_STATS_UP_HIT 140
-#define EFFECT_UNUSED_8D 141  // incomplete fake out in gen 2
+#define EFFECT_UNUSED_8D 141  // incomplete fake out in gen 2   vsonic
 #define EFFECT_BELLY_DRUM 142
 #define EFFECT_PSYCH_UP 143
 #define EFFECT_MIRROR_COAT 144
@@ -204,7 +204,7 @@
 #define EFFECT_BLAZE_KICK 200
 #define EFFECT_MUD_SPORT 201
 #define EFFECT_TOXIC_FANG 202
-#define EFFECT_WEATHER_BALL 203
+#define EFFECT_WEATHER_BALL 203 //unused vsonic
 #define EFFECT_OVERHEAT 204
 #define EFFECT_TICKLE 205
 #define EFFECT_COSMIC_POWER 206

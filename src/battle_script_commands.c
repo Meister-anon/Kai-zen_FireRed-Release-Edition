@@ -299,7 +299,7 @@ static void atkBD_copyfoestats(void);
 static void atkBE_rapidspinfree(void);
 static void atkBF_setdefensecurlbit(void);
 static void atkC0_recoverbasedonsunlight(void);
-static void atkC1_hiddenpowercalc(void);
+static void atkC1_hiddenpowercalc(void);  //not used
 static void atkC2_selectfirstvalidtarget(void);
 static void atkC3_trysetfutureattack(void);
 static void atkC4_trydobeatup(void);
@@ -339,7 +339,7 @@ static void atkE5_pickup(void);             //unused can replace
 static void atkE6_docastformchangeanimation(void);
 static void atkE7_trycastformdatachange(void);
 static void atkE8_settypebasedhalvers(void);
-static void atkE9_setweatherballtype(void);
+static void atkE9_setweatherballtype(void); //not used
 static void atkEA_tryrecycleitem(void);
 static void atkEB_settypetoterrain(void);
 static void atkEC_pursuitrelated(void);
@@ -1824,9 +1824,8 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         return TRUE;
     }
 
-    if ((WEATHER_HAS_EFFECT && 
-        ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
-        || ((gBattleWeather & WEATHER_HAIL_ANY) && move == MOVE_BLIZZARD)))
+    if ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_RAIN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
+        || ((IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY)) && move == MOVE_BLIZZARD)
         || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW)
         || ((gStatuses3[gBattlerTarget] & STATUS3_MINIMIZED) && (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE)))
     {
@@ -2406,7 +2405,7 @@ static void atk05_damagecalc(void)
     {
         gDynamicBasePower = gBattleMoves[gCurrentMove].power;
         gDynamicBasePower = (gDynamicBasePower * 100) / gMultiTask;
-        gDynamicBasePower /= 100;
+        gDynamicBasePower = max(gDynamicBasePower / 100, 2);
         //seems to work
        
     }//go more in depth on learning Calculatedamage function above, see how it works with gbttlemovedamage  vsonic
@@ -2631,11 +2630,11 @@ void ModulateDmgByType(u8 multiplier)   //Put all ability effects above ring tar
 
 } //reverted to old setup, potentailly issue was case typemulnrmal?
 
-#define TYPE_AND_STAB_CHECK
+#define TYPE_AND_STAB_CHECK //-review this make sure it makes sense to put before damagecalc at all
 static void atk06_typecalc(void) //ok checks type think sets effectiveness, but also does stab, with that in mind this MUST go after damagecalc function or stab doesn't work.
-{
-    s32 i = 0;
-    u8 moveType, argument;
+{   //from the looks of it, typecalc before damagecalc is just to decide if the move should land and does'nt augment damage?
+    s32 i = 0;  //believe that's right as moves like rollout had typecalc first used command typecalc2 which didn't have a stab check
+    u8 moveType, argument; //as gbattlemovedamage is set by damagecalc, any use of it beforehand would be multiplying by 0
     u8 type1 = gBattleMons[gBattlerTarget].type1, type2 = gBattleMons[gBattlerTarget].type2, type3 = gBattleMons[gBattlerTarget].type3;
     u16 effect = gBattleMoves[gCurrentMove].effect; //just realized should prob swap these for battlemons types since all types can shift, find where base stats becomes battlemons
     u16 multiplier;
@@ -4527,7 +4526,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
             //put no effect check here, below ability checks above status1 check
             //needs else if here only to make sure it takes into account corrosion check from above
             //vsonic will need change move type checks to use getmovetype or check settypebeforeusingmove function to get actual move type
-            else if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS && AttackerAbility != ABILITY_CORROSION && AttackerAbility != ABILITY_POISONED_LEGACY)
+            else if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
+            && (AttackerAbility != ABILITY_CORROSION 
+            && AttackerAbility != ABILITY_POISONED_LEGACY)
             && gBattleMoves[gCurrentMove].type != TYPE_NORMAL
             && gBattleMoves[gCurrentMove].type != TYPE_GHOST)    
             {
@@ -4751,7 +4752,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 return;
             }*/  //paralysis works and this si removed, removing for now, but think need multistring choice 2 for status blocking abilities
 
-            if (!(CanBePoisoned(gBattleScripting.battler, gEffectBattler)))
+            if (!CanBePoisoned(gBattleScripting.battler, gEffectBattler))
                 break;
             //put no effect check here, below ability checks above status1 check
             //I guess put this here? its passed most checks
@@ -4773,7 +4774,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 statusChanged = TRUE;
                 break;
             }
-            else if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler)))
+            else if (!CanPoisonType(gBattleScripting.battler, gEffectBattler))
             {
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
             }
@@ -4845,15 +4846,15 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 {
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    //gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gDisableStructs[gEffectBattler].toxicTurn = 2; //works now, awesome
-                    gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                    //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 } //ok issue was setting wrong thing, toxic turn is a counter, but gDisableStructs[gActiveBattler].toxicTurn is the actual dmg part
-                else //normal toxic setting
-                {
+                //else //normal toxic setting
+                //{
                     gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
-                }
+                //}
             }            
             else //normal status setting
             {
@@ -5827,7 +5828,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
         && ((gBattleMoves[gCurrentMove].effect == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].effect == EFFECT_SCALD)
         || (gBattleMoves[gCurrentMove].argument == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].argument == EFFECT_SCALD)))
     {
-        percentChance *= 6;
+        percentChance *= 6; //so 60% odds average and guaranteed with sun set
 
         if (gBattleWeather & WEATHER_SUN_ANY)
         {
@@ -12129,7 +12130,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         break;*/
     case VARIOUS_SET_AURORA_VEIL:
         if (gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_AURORA_VEIL
-            || !(WEATHER_HAS_EFFECT && gBattleWeather & WEATHER_HAIL_ANY))
+            || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
         {
             gMoveResultFlags |= MOVE_RESULT_MISSED;
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
@@ -15822,8 +15823,10 @@ static void atkBD_copyfoestats(void) // psych up
     gBattlescriptCurrInstr += 5; // Has an unused jump ptr(possibly for a failed attempt) parameter.
 }
 
-static void atkBE_rapidspinfree(void)
+static void atkBE_rapidspinfree(void) //need fix this clear isn't right
 {
+    CMD_ARGS();
+    u8 atkSide = GetBattlerSide(gBattlerAttacker);
     /*if (gBattleMons[gBattlerAttacker].status2 & STATUS2_WRAPPED)
     {
         gBattleScripting.battler = gBattlerTarget;
@@ -15837,10 +15840,12 @@ static void atkBE_rapidspinfree(void)
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_WrapFree;
     }*/
-    if (gBattleMons[gBattlerAttacker].status2 & STATUS2_WRAPPED) //potentiall change to all ifs, to just clear everything vsonic add more status
+    if (gBattleMons[gBattlerAttacker].status2 & STATUS2_WRAPPED
+    || gBattleMons[gBattlerAttacker].status4 & ITS_A_TRAP_STATUS4) //potentiall change to all ifs, to just clear everything vsonic add more status
     {
         gBattleScripting.battler = gBattlerTarget;
         gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_WRAPPED;
+        gBattleMons[gBattlerAttacker].status4 &= ~ITS_A_TRAP_STATUS4; //hopefully works
         gBattlerTarget = *(gBattleStruct->wrappedBy + gBattlerAttacker);
         //PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleStruct->wrappedMove[gBattlerAttacker]); //chaned to freed from all traps and hazards!
         BattleScriptPushCursor();
@@ -15848,23 +15853,52 @@ static void atkBE_rapidspinfree(void)
     }
     else if (gStatuses3[gBattlerAttacker] & STATUS3_LEECHSEED)
     {
-        gStatuses3[gBattlerAttacker] &= ~(STATUS3_LEECHSEED);
-        gStatuses3[gBattlerAttacker] &= ~(STATUS3_LEECHSEED_BATTLER);
+        gStatuses3[gBattlerAttacker] &= ~STATUS3_LEECHSEED;
+        gStatuses3[gBattlerAttacker] &= ~STATUS3_LEECHSEED_BATTLER;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_LeechSeedFree;
     }
-    else if (gSideStatuses[GetBattlerSide(gBattlerAttacker)] & SIDE_STATUS_SPIKES) //change spike to not be mutually exclusive, but use same counters
+    else if (gSideStatuses[atkSide] & SIDE_STATUS_SPIKES) //change spike to not be mutually exclusive, but use same counters
     {
-        gSideStatuses[GetBattlerSide(gBattlerAttacker)] &= ~(SIDE_STATUS_SPIKES); //to balance, you can use multiple diffeent spike types but can't stack max of each
-        gSideTimers[GetBattlerSide(gBattlerAttacker)].spikesAmount = 0; //i.e if stealth rocks and toxic spikes are on field you can only get a single stack of spikes
+        gSideStatuses[atkSide] &= ~(SIDE_STATUS_SPIKES); //to balance, you can use multiple diffeent spike types but can't stack max of each
+        gSideTimers[atkSide].spikesAmount = 0; //i.e if stealth rocks and toxic spikes are on field you can only get a single stack of spikes
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_SpikesFree;
     }
+    else if (gSideStatuses[atkSide] & SIDE_STATUS_TOXIC_SPIKES)
+    {
+        gSideStatuses[atkSide] &= ~SIDE_STATUS_TOXIC_SPIKES;
+        gSideTimers[atkSide].toxicSpikesAmount = 0;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_ToxicSpikesFree;
+    }
+    else if (gSideStatuses[atkSide] & SIDE_STATUS_STICKY_WEB)
+    {
+        gSideStatuses[atkSide] &= ~SIDE_STATUS_STICKY_WEB;
+        gSideTimers[atkSide].stickyWebAmount = 0;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_StickyWebFree;
+    }
+    else if (gSideStatuses[atkSide] & SIDE_STATUS_STEALTH_ROCK)
+    {
+        gSideStatuses[atkSide] &= ~SIDE_STATUS_STEALTH_ROCK;
+        gSideTimers[atkSide].stealthRockAmount = 0;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_StealthRockFree;
+    }
+    /*else if (gSideStatuses[atkSide] & SIDE_STATUS_STEELSURGE)
+    {
+        gSideStatuses[atkSide] &= ~SIDE_STATUS_STEELSURGE;
+        gSideTimers[atkSide].steelsurgeAmount = 0;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_SteelsurgeFree;
+    }*/
     else
     {
-        ++gBattlescriptCurrInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
+
 
 static void atkBF_setdefensecurlbit(void)
 {
@@ -15872,13 +15906,13 @@ static void atkBF_setdefensecurlbit(void)
     ++gBattlescriptCurrInstr;
 }
 
-static void atkC0_recoverbasedonsunlight(void)
+static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, will keep the boost at its current levels
 {
     gBattlerTarget = gBattlerAttacker;
     if (gBattleMons[gBattlerAttacker].hp != gBattleMons[gBattlerAttacker].maxHP)
     {
-        if (gBattleWeather == 0 || !WEATHER_HAS_EFFECT)
-            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
+        if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
+            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
             gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
         else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField()) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
@@ -15916,22 +15950,24 @@ s16 spatk_diff(void) {
 }
 
 #define HIDDENPOWER_CALC
-static void atkC1_hiddenpowercalc(void)
+static void atkC1_hiddenpowercalc(void) //no longer need
 {
     CMD_ARGS();
 
     s32 powerBits;
     s16 i, j;
     u8 moveSplit = gBattleMoves[gCurrentMove].split;
-
-    powerBits = ((gBattleMons[gBattlerAttacker].hpIV & 2) >> 1)
-        | ((gBattleMons[gBattlerAttacker].attackIV & 2) << 0)
-        | ((gBattleMons[gBattlerAttacker].defenseIV & 2) << 1)
-        | ((gBattleMons[gBattlerAttacker].speedIV & 2) << 2)
-        | ((gBattleMons[gBattlerAttacker].spAttackIV & 2) << 3)
-        | ((gBattleMons[gBattlerAttacker].spDefenseIV & 2) << 4);
-    
-    gDynamicBasePower = (35 * powerBits) / 63 + 45;
+    if (gCurrentMove == MOVE_HIDDEN_POWER)
+    {
+        powerBits = ((gBattleMons[gBattlerAttacker].hpIV & 2) >> 1)
+            | ((gBattleMons[gBattlerAttacker].attackIV & 2) << 0)
+            | ((gBattleMons[gBattlerAttacker].defenseIV & 2) << 1)
+            | ((gBattleMons[gBattlerAttacker].speedIV & 2) << 2)
+            | ((gBattleMons[gBattlerAttacker].spAttackIV & 2) << 3)
+            | ((gBattleMons[gBattlerAttacker].spDefenseIV & 2) << 4);
+        
+        gDynamicBasePower = (35 * powerBits) / 63 + 45;
+    }
     //looked on bulbapedia understand the calc now, ivs will return a value of 0 or 1, if all 1 it sums to 63 cancles out divisor leaving just the 40.
     //to be added on to the 30 if its 0 everything inside cancels leaving just the 30, which is why hidden power
     //scales between 30 and 70.
@@ -16162,7 +16198,7 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
                //gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier * gBattleScripting.dmgMultiplier;
            } //thikn that above line doubled crit damage again.
 
-           gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier; //should allow to crit without damagecalc
+           gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier; //should allow to crit without damagecalc, make sure have crit message
 
            //   3/26/23 am unsure if this extra increment is necesary for loop should be incrementing already?
            //checked - yes its necessary, for is looping for end condition/to break, this is a second loop
@@ -16788,29 +16824,32 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
         BattleScriptPush(gBattlescriptCurrInstr);
         gBattlescriptCurrInstr = BattleScript_StenchExits;
     }//else if worked,
-    else if (GetBattlerAbility(gActiveBattler) == ABILITY_AFTERMATH) //vsonic still in progress
+    else if (GetBattlerAbility(gActiveBattler) == ABILITY_AFTERMATH
+    && IsBattlerAlive(gBattlerTarget)) //vsonic still in progress - think missing that was issue that caused reactivate
     {
         if ((gActiveBattler = IsAbilityOnField(ABILITY_DAMP)))
-            {
-                gBattleScripting.battler = gActiveBattler - 1;
-                BattleScriptPush(gBattlescriptCurrInstr);
-                gBattlescriptCurrInstr = BattleScript_DampPreventsAftermath; //consider replace with break, so no message just switch out
-            }
-            else //does work for both battlers or just one enemy, if one, how does it select target? need work that out
-            {
-                PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gBattleMons[gActiveBattler].ability)
-                //--gBattleMons[gBattlerTarget].statStages[STAT_SPEED]; //don't know if will properly trigger animation or not
-                gBattleMons[gActiveBattler].ability = ABILITY_NONE; //this was the issue same as others,  with push command keeping ability causes loop issue
-                //SET_STATCHANGER(STAT_SPEED, 1, TRUE); //most values don't use battlerscripting with stat changer, but those are ones that don't affect opponent
-                //gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_1;  //i.e example was gooey/tangled hair, since it affects target stat it doest use statbuffchange command but this effect isn't one that can be bounced
-                gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //potentially make 1/16th as its just meant to do chip damage & break bands and can retrigger?
-                if (gBattleMoveDamage == 0) //occurred to me only having smaller chip damage on this withuot the slow wouldn't make the ability useful considering you need to 
-                    gBattleMoveDamage = 1; //pivot to make it useful so you'd be takeing two hits not just this one, think will put slow on switchout as well.
-                BattleScriptPush(gBattlescriptCurrInstr);
-                gBattlescriptCurrInstr = BattleScript_AftermathOnSwitch; //think stat drop should work now? since i'm bs attacker used swapattackerwithtarget to change battlescript to target for speed drop then
-                //SET_STATCHANGER(STAT_SPEED, 1, TRUE);
-            }//think can't go any further with this till I Fix battles..
-    }
+        {
+            gBattleScripting.battler = gActiveBattler - 1;
+            BattleScriptPush(gBattlescriptCurrInstr);
+            gBattlescriptCurrInstr = BattleScript_DampPreventsAftermath; //consider replace with break, so no message just switch out
+        }
+        else//does work for both battlers or just one enemy, if one, how does it select target? need work that out
+        {
+            PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gBattleMons[gActiveBattler].ability)
+            //--gBattleMons[gBattlerTarget].statStages[STAT_SPEED]; //don't know if will properly trigger animation or not
+            gBattleMons[gActiveBattler].ability = ABILITY_NONE; //this was the issue same as others,  with push command keeping ability causes loop issue
+            //SET_STATCHANGER(STAT_SPEED, 1, TRUE); //most values don't use battlerscripting with stat changer, but those are ones that don't affect opponent
+            //gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_1;  //i.e example was gooey/tangled hair, since it affects target stat it doest use statbuffchange command but this effect isn't one that can be bounced
+            gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //potentially make 1/16th as its just meant to do chip damage & break bands and can retrigger?
+            if (gBattleMoveDamage == 0) //occurred to me only having smaller chip damage on this withuot the slow wouldn't make the ability useful considering you need to 
+                gBattleMoveDamage = 1; //pivot to make it useful so you'd be takeing two hits not just this one, think will put slow on switchout as well.
+            BattleScriptPush(gBattlescriptCurrInstr);
+            gBattlescriptCurrInstr = BattleScript_AftermathOnSwitch; //think stat drop should work now? since i'm bs attacker used swapattackerwithtarget to change battlescript to target for speed drop then
+            //SET_STATCHANGER(STAT_SPEED, 1, TRUE);
+        }//think can't go any further with this till I Fix battles..
+    } //how would this work in doubles? technically I want this to only hit one?
+    //check in doubles, but otherwise I need a targetting thing to specifically 
+    //set gbattletarget
     else //noticeable differnece is values in switch, dont use battlescript  and are meant to affect the mon they are on/mon switching?
     {
         switch (GetBattlerAbility(gActiveBattler))
@@ -17022,7 +17061,7 @@ static void atkE8_settypebasedhalvers(void) // water and mud sport
 //not using now, movedlogic to settypebeforeusingmove
 static void atkE9_setweatherballtype(void)//think move to settypebeforeusemove function so it'll show in sum menu
 {
-    if (WEATHER_HAS_EFFECT)
+    /*if (WEATHER_HAS_EFFECT)
     {
         //if (gBattleWeather & WEATHER_ANY)
         //    gBattleScripting.dmgMultiplier = 2;  //moved to calcbasdmg function in pokemon c
@@ -17034,10 +17073,12 @@ static void atkE9_setweatherballtype(void)//think move to settypebeforeusemove f
             *(&gBattleStruct->dynamicMoveType) = TYPE_FIRE | 0x80;
         else if (gBattleWeather & WEATHER_HAIL_ANY)
             *(&gBattleStruct->dynamicMoveType) = TYPE_ICE | 0x80;
+        else if (gBattleWeather & WEATHER_STRONG_WINDS)
+            *(&gBattleStruct->dynamicMoveType) = TYPE_FLYING | 0x80;
         else
             *(&gBattleStruct->dynamicMoveType) = TYPE_NORMAL | 0x80;
     }
-    ++gBattlescriptCurrInstr;
+    ++gBattlescriptCurrInstr;*/
 }
 
 static void atkEA_tryrecycleitem(void) //vsonic need to update check
@@ -18601,7 +18642,7 @@ void BS_getmoveeffect(void)//transfer move effects mostly for multihit but also 
         case EFFECT_PARALYZE_HIT:
         gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
             break;
-        case EFFECT_TOXIC:
+        case EFFECT_TOXIC_FANG:
         gBattleScripting.moveEffect = MOVE_EFFECT_TOXIC;
             break;
         case EFFECT_FLINCH_HIT:
