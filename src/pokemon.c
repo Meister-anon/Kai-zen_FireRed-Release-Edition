@@ -3625,8 +3625,8 @@ bool8 CanEvioliteActivate(u8 target)
     else
         mon = &gEnemyParty[gBattlerPartyIndexes[target]];
 
-    if (CanEvolve(species) && (GetBaseStatTotal(species) < 465
-    && GetGlobalStatTotal(mon) < 565)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
+    if (CanEvolve(species) && (GetBaseStatTotal(species) <= 465
+    && GetGlobalStatTotal(mon) <= 565)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
         return TRUE;
     else
         return FALSE;
