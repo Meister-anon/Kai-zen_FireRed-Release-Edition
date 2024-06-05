@@ -2384,36 +2384,9 @@ bool8 CanMultiTask(u16 move) //works, but now I need to negate the jump, because
 //fire red puts it all in typecalc
 static void atk05_damagecalc(void)
 {
-    u32 sideStatus = gSideStatuses[GetBattlerSide(gBattlerTarget)];
+    u32 sideStatus = gSideStatuses[GetBattlerSide(gBattlerTarget)]; // rolled effects into calcbasedamage
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK
-        && gCurrentMove != MOVE_SURGING_STRIKES)    //could put in separate dmg bscommand, but if works for multitask this should also work
-    {//only boosts damage if triple kick or triple axel
-        gDynamicBasePower = gBattleMoves[gCurrentMove].power;
-
-        if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
-            gDynamicBasePower *= 2;
-
-        if (gMultiHitCounter == 1)
-            gDynamicBasePower *= 3;
-        /*else if (gCurrentMove == MOVE_SURGING_STRIKES)    handled in crit calc
-        */
-    }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
-
-    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
-        && CanMultiTask(gCurrentMove) == TRUE)
-    {
-        gDynamicBasePower = gBattleMoves[gCurrentMove].power;
-        gDynamicBasePower = (gDynamicBasePower * 100) / gMultiTask;
-        gDynamicBasePower = max(gDynamicBasePower / 100, 2);
-        //seems to work
-       
-    }//go more in depth on learning Calculatedamage function above, see how it works with gbttlemovedamage  vsonic
-    //ok because of how gBattleMoveDamage, with divisor like this I need to do a certain amount of damage or it'll do a dmg error
-    //pretty much it'll do less dmg at more hits than at lower hits because the divisor lowers the dmg to 0
-    //fixing this is simple as just using gDynamicBasePower instead, which honestly is prob better because that's how multihit works anyway
-    if (gSpecialStatuses[gBattlerAttacker].Lostresolve)
-        gDynamicBasePower = (gDynamicBasePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
+    
 
     //think dynamicbasepower here just means if dynamicbasepower not 0, use it instead fo move power? //yup confirmed
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker],
@@ -2437,25 +2410,7 @@ s32 AI_CalcDmgFormula(u8 attacker, u8 defender) //made for ai .c update
 {
     u32 sideStatus = gSideStatuses[GetBattlerSide(defender)];
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK
-        && gCurrentMove != MOVE_SURGING_STRIKES)    //could put in separate dmg bscommand, but if works for multitask this should also work
-    {//only boosts damage if triple kick or triple axel
-        gDynamicBasePower = gBattleMoves[gCurrentMove].power;
-
-        if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
-            gDynamicBasePower *= 2;
-
-        if (gMultiHitCounter == 1)
-            gDynamicBasePower *= 3;
-    }
-
-    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
-        && CanMultiTask(gCurrentMove) == TRUE)
-    {
-        gDynamicBasePower = gBattleMoves[gCurrentMove].power;
-        gDynamicBasePower = (gDynamicBasePower / gMultiTask);     
-       
-    }
+   
 
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[attacker],
                                             &gBattleMons[defender],
@@ -2479,25 +2434,7 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
 {
     u32 sideStatus = gSideStatuses[GetBattlerSide(defender)];
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK
-        && gCurrentMove != MOVE_SURGING_STRIKES)    //could put in separate dmg bscommand, but if works for multitask this should also work
-    {//only boosts damage if triple kick or triple axel
-        gDynamicBasePower = gBattleMoves[gCurrentMove].power;
-
-        if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
-            gDynamicBasePower *= 2;
-
-        if (gMultiHitCounter == 1)
-            gDynamicBasePower *= 3;
-    }
-
-    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
-        && CanMultiTask(gCurrentMove) == TRUE)
-    {
-        gDynamicBasePower = gBattleMoves[gCurrentMove].power;
-        gDynamicBasePower = (gDynamicBasePower / gMultiTask); //works, problem was furycalc in multihit, fixed        
-       
-    }
+    
 
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[attacker],
                                             &gBattleMons[defender],

@@ -668,11 +668,11 @@ bool8 ScrCmd_delay(struct ScriptContext * ctx) //seeing how changing delya for o
 {
     sPauseCounter = ScriptReadHalfword(ctx); //may keep this on by default, thought about making option but is too good
     
-    if (GetPlayerTextSpeed() > OPTIONS_TEXT_SPEED_FAST)
-    {
-        sPauseCounter = max(sPauseCounter / 4, 1); //been changing this value without any effect
+
+
+    sPauseCounter = max(sPauseCounter / 4, 1); //been changing this value without any effect
         //thinking ctx is the important value here not pause counter...
-    } //thoguht 4x would be too much, but scripts have a lot of delays in them
+    //thoguht 4x would be too much, but scripts have a lot of delays in them
     //so this actually worked out well 
     
 

@@ -416,7 +416,7 @@
 #define EFFECT_VICTORY_DANCE                403
 #define EFFECT_TEATIME                      404
 #define EFFECT_ATTACK_UP_USER_ALLY          405 // Howl 8th Gen ver.
-#define EFFECT_TARGET_TYPE_DAMAGE       406 //right now rock smash & cut,  
+#define EFFECT_TARGET_TYPE_DAMAGE       406 //right now rock smash & cut, dmg multiplier is argument chance /10 
 #define EFFECT_TRENCH_RUN               407  //ujnsure if done, know still needs message string
 #define EFFECT_HIT_SET_ENTRY_HAZARD 408     //for now just for stone axe
 #define EFFECT_SNOWBALL 409 //separated from psywave effect do variable pwr intsead of flat damage

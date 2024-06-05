@@ -3759,12 +3759,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //    OffensiveModifer(130);
             //gBattleMovePower = (gBattleMovePower * 130) / 100; //boosted from 17 to 50 just to see if it works
 
-        powerBits = ((gBattleMons[gBattlerAttacker].hpIV & 2) >> 1)
-            | ((gBattleMons[gBattlerAttacker].attackIV & 2) << 0)
-            | ((gBattleMons[gBattlerAttacker].defenseIV & 2) << 1)
-            | ((gBattleMons[gBattlerAttacker].speedIV & 2) << 2)
-            | ((gBattleMons[gBattlerAttacker].spAttackIV & 2) << 3)
-            | ((gBattleMons[gBattlerAttacker].spDefenseIV & 2) << 4);
+        powerBits = ((gBattleMons[battlerIdAtk].hpIV & 2) >> 1)
+            | ((gBattleMons[battlerIdAtk].attackIV & 2) << 0)
+            | ((gBattleMons[battlerIdAtk].defenseIV & 2) << 1)
+            | ((gBattleMons[battlerIdAtk].speedIV & 2) << 2)
+            | ((gBattleMons[battlerIdAtk].spAttackIV & 2) << 3)
+            | ((gBattleMons[battlerIdAtk].spDefenseIV & 2) << 4);
         
         gBattleMovePower = (35 * powerBits) / 63 + 45;
 
@@ -3782,6 +3782,33 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gBattleMons[battlerIdAtk].spAttack > gBattleMons[battlerIdAtk].attack)
             usesDefStat = FALSE;
     }
+
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK
+        && gCurrentMove != MOVE_SURGING_STRIKES)    //could put in separate dmg bscommand, but if works for multitask this should also work
+    {//only boosts damage if triple kick or triple axel
+
+        if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
+            gBattleMovePower *= 2;
+
+        if (gMultiHitCounter == 1)
+            gBattleMovePower *= 3;
+        /*else if (gCurrentMove == MOVE_SURGING_STRIKES)    handled in crit calc
+        */
+    }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
+
+    if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
+        && CanMultiTask(gCurrentMove) == TRUE)
+    {
+        gBattleMovePower = (gBattleMovePower * 100) / gMultiTask;
+        gBattleMovePower = max(gBattleMovePower / 100, 2);
+        //seems to work
+       
+    }//go more in depth on learning Calculatedamage function above, see how it works with gbttlemovedamage  vsonic
+    //ok because of how gBattleMoveDamage, with divisor like this I need to do a certain amount of damage or it'll do a dmg error
+    //pretty much it'll do less dmg at more hits than at lower hits because the divisor lowers the dmg to 0
+    //fixing this is simple as just using gDynamicBasePower instead, which honestly is prob better because that's how multihit works anyway
+    if (gSpecialStatuses[battlerIdAtk].Lostresolve)
+        gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
     
 
     if (attacker->item == ITEM_ENIGMA_BERRY)
@@ -4325,7 +4352,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             }
             break;
         case ABILITY_DARK_DEAL:
-            if (gBattleMoves[move].power > 80 || gDynamicBasePower > 80)
+            if (gBattleMovePower > 80)
                 gBattleMovePower /= 2;
             break;
         }
