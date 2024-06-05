@@ -9952,7 +9952,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DUSCLOPS] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(40, 70, 130, 25, 70, 130),
+         STATS(41, 70, 130, 25, 70, 130),
         .type1 = TYPE_GHOST,
         .type2 = TYPE_GHOST,
         .catchRate = 90,
@@ -17523,7 +17523,7 @@ const struct BaseStats gBaseStats[] =
             .abilityHidden = {ABILITY_ANALYTIC, ABILITY_LIQUID_VOICE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         .levelUpLearnset = sBeheeyemLevelUpLearnset,
         .tmhmLearnset = sBeheeyemTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
