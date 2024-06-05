@@ -793,11 +793,12 @@ extern struct BattleStruct *gBattleStruct;
     gBattleMons[battlerId].type3 = type;            \
 }
 
+//change so type 3 is unaffected
 #define SET_BATTLER_TYPE_PROTEAN(battlerId, type)   \
 {                                                   \
     gBattleMons[battlerId].type1 = type;            \
     gBattleMons[battlerId].type2 = type;            \
-}//change so type 3 is unaffected
+}
 
 #define GET_STAT_BUFF_ID(n)((n & 7))              // first three bits 0x1, 0x2, 0x4
 #define GET_STAT_BUFF_VALUE_WITH_SIGN(n)((n & 0xF8))

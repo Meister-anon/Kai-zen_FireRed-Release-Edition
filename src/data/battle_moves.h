@@ -210,7 +210,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
     },
@@ -441,7 +441,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -612,11 +612,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_DEFENSE_DOWN,
         .power = 0,
         .type = TYPE_NORMAL,
-        .accuracy = 100,
+        .accuracy = 0,
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -680,7 +680,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -704,11 +704,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_ATTACK_DOWN,
         .power = 0,
         .type = TYPE_SOUND,
-        .accuracy = 100,
+        .accuracy = 0,
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -740,11 +740,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_SLEEP,
         .power = 0,
         .type = TYPE_SOUND,
-        .accuracy = 85,
+        .accuracy = 80,
         .pp = 15,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 0, //droped acc will attempt buff
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },//accuracy buff based on anime logic, and raririty
@@ -758,7 +758,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -856,7 +856,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1147,7 +1147,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1, //really good affect already unsure about this part VSONIC IMPORTANT
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1165,7 +1165,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1207,7 +1207,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 35,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
     },
@@ -1221,7 +1221,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
     },
@@ -1235,7 +1235,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1, //allow priority on this because accuracy is low
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
     },
@@ -1275,7 +1275,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1352,14 +1352,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
 
     [MOVE_THUNDER] =
     {
-        .power = 120,
+        .power = 110,
         .effect = EFFECT_THUNDER, //sets paralysis can move to argument nvm did with flag can leave as is
         .type = TYPE_ELECTRIC,
         .accuracy = 85,
@@ -1446,7 +1446,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1488,7 +1488,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1, //since acc is lower will try give priority,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1502,7 +1502,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1516,7 +1516,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1600,7 +1600,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -1614,7 +1614,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1632,8 +1632,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
-        .flags = FLAG_SNATCH_AFFECTED,
+        .priority = 1, //allowing this as  counter balance for dropped healing
+        .flags = FLAG_SNATCH_AFFECTED, //vsonic important KEEP AN EYE ON THIS
         .split = SPLIT_STATUS,
     },
 
@@ -1646,7 +1646,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1664,7 +1664,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1678,7 +1678,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1692,7 +1692,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1706,7 +1706,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1720,7 +1720,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1738,7 +1738,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1752,7 +1752,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1766,7 +1766,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 0, //since  so strong will keep as is, vsonic important
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
     },//black fog, setup but never put command in sript, now is in need test ...breaks game
@@ -1781,7 +1781,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1795,7 +1795,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -1828,7 +1828,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_DEPENDS,
-        .priority = 0,
+        .priority = 1, //same logic as assist
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -1886,7 +1886,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -2060,7 +2060,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 20,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2079,20 +2079,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 15,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .split = SPLIT_STATUS,
 },
 
 [MOVE_SOFT_BOILED] =
 {
-    .effect = EFFECT_SOFTBOILED,
+    .effect = EFFECT_SOFTBOILED, 
     .power = 0,
     .type = TYPE_NORMAL,
     .accuracy = 100,
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2134,7 +2134,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 30,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2170,7 +2170,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .type = TYPE_POISON,
     .pp = 40,
     .secondaryEffectChance = 0,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2216,7 +2216,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2312,7 +2312,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 20,
     .secondaryEffectChance = 30,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1, //since is an hm I guess I could allow this?
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },//later test flinch chance to see if too much
@@ -2344,7 +2344,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 40,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 3,
     .flags = 0,
     .split = SPLIT_STATUS,
 },
@@ -2362,7 +2362,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .accuracy = 0,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2440,7 +2440,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 0, //since is full hp don't think I can boost,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2482,7 +2482,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 30,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2501,7 +2501,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 30,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1,
     .split = SPLIT_STATUS,
 },
 
@@ -2556,7 +2556,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 0, //would like to do but worry makes it too risk free? same as rest
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2641,7 +2641,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .split = SPLIT_STATUS,
 },
 
@@ -2658,7 +2658,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 5,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2676,7 +2676,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 15,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2727,7 +2727,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = 0,
     .split = SPLIT_STATUS,
 },
@@ -2755,7 +2755,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 30,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 0, //can change priority when finish new effect so not based on last move hit by
     .flags = 0,
     .split = SPLIT_STATUS,
 },
@@ -2791,7 +2791,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .type = TYPE_GRASS,
     .pp = 40,
     .secondaryEffectChance = 0,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
     .split = SPLIT_STATUS,
 },
@@ -2826,7 +2826,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_STATUS,
-},
+},//keep as is ,relies on move beign used
 
 [MOVE_POWDER_SNOW] =
 {
@@ -2883,7 +2883,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2919,7 +2919,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -2933,10 +2933,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = -1, //unsure bout this can't tell if its an advantage or disadvantage for the move to go first
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
-},
+},//ok decide its better this goes last better chance of surviving the turn
+//rather than using it first and having chance get killed now you use it last
+//and have a chance of wasting the turn if the opponent drops you to half
 
 [MOVE_SLUDGE_BOMB] =
 {
@@ -2994,7 +2996,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 20,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_OPPONENTS_FIELD,
-    .priority = 0,
+    .priority = 1,
     .split = SPLIT_STATUS,
 },
 
@@ -3034,7 +3036,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 40,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .split = SPLIT_STATUS,
 },
 
@@ -3047,7 +3049,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 5,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1,
     .flags = 0,
     .split = SPLIT_STATUS,
 },
@@ -3061,8 +3063,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 5,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
-    .flags = FLAG_SOUND,
+    .priority = 1, //keep an eye on, but good for increasing moves pressure without overall being oppressive
+    .flags = FLAG_SOUND, //vsonic
     .split = SPLIT_STATUS,
 },
 
@@ -3125,7 +3127,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 5,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 0,
+    .priority = 1,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -3155,10 +3157,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 5,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = 0,
+    .priority = 1, //thought about it decided going first is good for move gives needed utility back to moves
     .flags = 0,
-    .split = SPLIT_STATUS,
-},
+    .split = SPLIT_STATUS, //has wider  distribution than abilities and with priority gives reason to use the move
+},//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
 
 [MOVE_GIGA_DRAIN] =
 {
@@ -3198,7 +3200,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_STATUS,
-    },//still not working for some reason and need fix
+    },
 
     [MOVE_CHARM] =
     {
@@ -3213,7 +3215,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3259,7 +3261,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3273,7 +3275,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3335,7 +3337,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -3348,7 +3350,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3362,7 +3364,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_DEPENDS,
-        .priority = 0,
+        .priority = 1, //same logic as assist
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -3376,7 +3378,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -3432,7 +3434,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 25,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3446,7 +3448,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 0,//usually better to go last so keep as is
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3482,7 +3484,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_DYNAMIC_PUNCH] =
     {
         .effect = EFFECT_CONFUSE_HIT,
-        .power = 95,
+        .power = 85,    //think this better at 85 for the pp and effects
         .type = TYPE_FIGHTING,
         .accuracy = 95,
         .pp = 10,
@@ -3503,7 +3505,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ROCK_HEAD_BOOST,
         .split = SPLIT_PHYSICAL,
         .argument = MOVE_EFFECT_INFESTATION,
         .argumentEffectChance = 5,
@@ -3532,10 +3534,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1, //makes stronger but still have option to beat w pursuit or priority move
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    }, //what happens if the user is trapper/has escape prevention? if also blocks then even better
 
     [MOVE_ENCORE] =
     {
@@ -3604,7 +3606,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3660,7 +3662,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },//buffed recovery movs to standard base 10, more optimal for player, harder to deal with in opponet
@@ -3675,7 +3677,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3693,7 +3695,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -3749,7 +3751,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -3763,7 +3765,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -3820,14 +3822,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
     [MOVE_EXTREME_SPEED] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_5
-            .priority = 3,
+            .priority = 2, //why did I incrase the priority to 3?
         #else
             .priority = 1,
         #endif
@@ -4003,7 +4005,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4035,7 +4037,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4064,7 +4066,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4083,7 +4085,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -4096,7 +4098,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4114,7 +4116,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4127,11 +4129,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .target = MOVE_TARGET_SELECTED, //vsonic important
+        .priority = -1, //giving plus 1 lets it go off, but removes option of slow momento to keep switchin mon from taking dmg
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//should bypass acc hit semi invul double check it still does that
+    //good deal of mon can learn both fast and slow
+    //think I'll just make a negativepriority move,
+    //it'll be something you have to plan for
 
     [MOVE_FACADE] =
     {
@@ -4219,7 +4224,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4240,7 +4245,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -4271,10 +4276,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//item swap
 
     [MOVE_ROLE_PLAY] =
     {
@@ -4285,10 +4290,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    }, //copies target ability
 
     [MOVE_WISH] =
     {
@@ -4304,7 +4309,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -4317,7 +4322,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_DEPENDS,
-        .priority = 0,
+        .priority = 1, //while is calling a move as it normally gets no priority beneift of said move, and its random think safe to give priority
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -4331,7 +4336,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1, //is end turn effect so wouldn't change it overall
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4378,7 +4383,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -4419,7 +4424,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4479,10 +4484,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//ability swap
 
     [MOVE_IMPRISON] =
     {
@@ -4498,9 +4503,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
-    },
+    }, //seals opponent move if shared by user
 
     [MOVE_REFRESH] =
     {
@@ -4511,7 +4516,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4525,7 +4530,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4599,10 +4604,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    }, //change type based on bg environment
 
     [MOVE_TAIL_GLOW] =
     {
@@ -4617,7 +4622,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4659,7 +4664,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
     },
@@ -4678,9 +4683,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_FOES_AND_ALLY,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
-    },
+    },//think pair well w telepathy see if /make sure telepathy counts for this
+    //and not just damaging moves
 
     [MOVE_BLAZE_KICK] =
     {
@@ -4705,7 +4711,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1, //usually used for slow mon, make priority to get the benefit
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -4748,7 +4754,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     }, //could make tm, but then no one would use rest
@@ -4888,7 +4894,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4902,7 +4908,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -4965,7 +4971,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -5013,7 +5019,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -5027,7 +5033,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     }, //equal acc to sleep powder
@@ -5041,7 +5047,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -5055,7 +5061,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -5246,7 +5252,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -5265,7 +5271,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -5278,7 +5284,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -5320,7 +5326,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -5439,7 +5445,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -5453,7 +5459,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -5485,7 +5491,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
     },
@@ -5582,7 +5588,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -5597,7 +5603,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
         .priority = 0,
-        .flags = 0,
+        .flags = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -5615,9 +5621,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
-    },
+    },//removes type immunity, i.e psychic can hit dark
+    //make change effect to work like EFFECT_TARGET_TYPE_DAMAGE
+    //can put in same place and have argument be type it removes immunity
+    //vsonic important,  
 
     [MOVE_WAKE_UP_SLAP] =
     {
@@ -5680,9 +5689,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = -1, //to keep new mon from taking switchin dmg
         .split = SPLIT_STATUS,
-    },
+    },//vsonic important look into modern affect in EE
+    //as it suposedly changes when mon gets switched in I assume to prevent switch in dmg
+    //seem if could work for this and momento, if not keep negative priority
 
     [MOVE_BRINE] =
     {
@@ -5761,10 +5772,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 0,//think affect is too strong to be given priority, same as rest
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//vsonic important
 
     [MOVE_ACUPRESSURE] =
     {
@@ -5780,7 +5791,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER | MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -5879,7 +5890,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -5910,10 +5921,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//curses status1 and afflicts them to target
 
     [MOVE_TRUMP_CARD] =
     {
@@ -5943,11 +5954,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD, // if setup rotation/triple battles may need to change this to opponent field target
-        .priority = 1,  //added little priority to be able to pre-empt a heal.
+        .priority = 2,  //added little priority to be able to pre-empt a heal.
         .split = SPLIT_STATUS,
     }, //make heal block stop potions etc.e simple enough just add clause to itemuse function i think
     //so healing items can't be used if target status is heal block
     //make sure to set as team/side wide status
+    //vsonic important - also added extra priority to accont for status priority boosts
 
     [MOVE_WRING_OUT] =
     {
@@ -5977,7 +5989,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -5990,7 +6002,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -6009,7 +6021,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -6022,7 +6034,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 0,//leaving as is since calling a move
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -6036,7 +6048,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_DEPENDS,
-        .priority = 0,
+        .priority = 0,//must go first
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -6050,7 +6062,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -6064,7 +6076,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -6110,10 +6122,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//makes target ability insomnia
 
     [MOVE_SUCKER_PUNCH] =
     {
@@ -6144,7 +6156,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -6157,10 +6169,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//swap stat stages
 
     [MOVE_AQUA_RING] =
     {
@@ -6176,7 +6188,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -6194,9 +6206,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
+    //makes float
 
     [MOVE_FLARE_BLITZ] =
     {
@@ -6254,7 +6267,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -6538,10 +6551,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     }, //teach this
+    //swaps items
 
     [MOVE_GIGA_IMPACT] =
     {
@@ -6566,7 +6580,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -6787,7 +6801,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },
 
@@ -6981,10 +6995,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//lower stats if opposite gender
 
     [MOVE_STEALTH_ROCK] =
     {
@@ -7000,7 +7014,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
     },//check for how I adjusted stealth rock think I rebalanced it?
 
@@ -7149,7 +7163,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7163,7 +7177,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7238,7 +7252,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = -1,//change ensure mon comes in last
         .split = SPLIT_STATUS,
     },
 
@@ -7282,7 +7296,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 0, //leave as is
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7338,7 +7352,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7367,7 +7381,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7381,7 +7395,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7389,7 +7403,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_WONDER_ROOM] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .priority = 0,
+            .priority = 1,
         #else
             .priority = -7,
         #endif
@@ -7402,7 +7416,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//swap defense sp defense of all
 
     [MOVE_PSYSHOCK] =
     {
@@ -7441,7 +7455,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7473,7 +7487,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7481,7 +7495,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MAGIC_ROOM] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .priority = 0,
+            .priority = 1,
         #else
             .priority = -7,
         #endif
@@ -7494,7 +7508,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_USER,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//blocks all item use on field,
+    //with my embargo change this is kinda obsolete
 
     [MOVE_SMACK_DOWN] =
     {
@@ -7567,7 +7582,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
     },
@@ -7628,10 +7643,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+        .argument = TYPE_WATER, //forgot fully change this, make based on argument
+    }, //set type to water
 
     [MOVE_FLAME_CHARGE] =
     {
@@ -7656,7 +7672,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7716,10 +7732,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//set target ability to simple - doubles stat changes
 
     [MOVE_ENTRAINMENT] =
     {
@@ -7730,10 +7746,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//makes target ability same as user
+    //look into move, this seems like a good tm?
+    //vsonic important
 
     [MOVE_AFTER_YOU] =
     {
@@ -7744,10 +7762,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//makes target move after user, only useful for doubles+
+    //this will be a huge change, before would be used to speed up slower mon
+    //but now would function like helping hand, where I boost their priority to the top
 
     [MOVE_ROUND] =
     {
@@ -7833,7 +7853,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECTION_MOVE | FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         .argument = TRUE, // Protects the whole side.
-    },
+    },//make sure this is using correct effect and doesn't have decreasing odds each use
 
     [MOVE_ALLY_SWITCH] =
     {
@@ -7876,24 +7896,25 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = -1, //this functions better if last
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//alrigth every mon that learns this is slow, so will just make negative priority
 
     [MOVE_HEAL_PULSE] =
     {
-        .effect = EFFECT_HEAL_PULSE,
+        .effect = EFFECT_HEAL_PULSE, //missed this healing move, kept normal healing for mega launcher
         .power = 0,
         .type = TYPE_PSYCHIC,
         .accuracy = 0,
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_STATUS,
     },
+    //give blastoise heal pulse
 
     [MOVE_HEX] =
     {
@@ -7936,7 +7957,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -7982,10 +8003,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //opposite of after you, makes target act last
+    //like after you this is a massive buff
 
     [MOVE_ACROBATICS] =
     {
@@ -8010,10 +8033,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//is just conversion, but with greater access
+    //copies target's type(s)
 
     [MOVE_RETALIATE] =
     {
@@ -8057,9 +8081,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
-    },
+    },//gives held item to target
+    //this I feel should probably keep where it is?
+    //just because it seems like something where strategies are already locked in and very specific
+    //nvm seems bestoy strats aren't really a thing, otehr than to throw away bad items?
 
     [MOVE_INFERNO] =
     {
@@ -8219,7 +8246,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -8396,7 +8423,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -8733,11 +8760,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         .argument = TRUE, // Protects the whole side.
-    },
+    },//only works first turn mon is in, doesn't block status moves
+    //big buff for the move, but its only learned by throh and greninja
+    //and greninja is already faster than most, 
+    //so this just lets throh actually use the move I guess
 
     [MOVE_BELCH] =
     {
@@ -8762,10 +8792,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//confusing name but pretty much just means plow/till the land to enrich it
+    //boost offense stats for all grass mon on field
 
     [MOVE_STICKY_WEB] =
     {
@@ -8776,7 +8807,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_OPPONENTS_FIELD,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -8825,7 +8856,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
         .argument = TYPE_GHOST,
@@ -8840,10 +8871,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
+    //pyroar line signature, drops atk/sp atk
 
     [MOVE_ION_DELUGE] =
     {
@@ -8886,7 +8918,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
         .argument = TYPE_GRASS,
@@ -8945,10 +8977,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
-    },
+    },//lower offense stats then switch
 
     [MOVE_TOPSY_TURVY] =
     {
@@ -8963,10 +8995,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//reverse target stat change
 
     [MOVE_DRAINING_KISS] =
     {
@@ -9008,10 +9040,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//boost defense of all gass types
 
     [MOVE_GRASSY_TERRAIN] =
     {
@@ -9022,10 +9054,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//same thing as weather moves, gives some impact back to the moves
 
     [MOVE_MISTY_TERRAIN] =
     {
@@ -9036,7 +9068,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -9050,10 +9082,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//make target move electric
+    //would be good for galvanize replacement 
+    //if could get on psychic type w telepathy
+    //could have safe stab super explosion  pair w sturdy
+    //only available mon is alolan raichu, gave telepathy to attempt
 
     [MOVE_PLAY_ROUGH] =
     {
@@ -9120,10 +9156,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//klefki signature prevents all mon on field excpet ghosts
+    //from being able to switch or flee next turn
 
     [MOVE_KINGS_SHIELD] =
     {
@@ -9148,7 +9185,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -9162,7 +9199,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -9272,10 +9309,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     }, //teach bellowsom etc.
+    //vsonic important
+    //buff sp def of an ally
 
     [MOVE_EERIE_IMPULSE] =
     {
@@ -9300,10 +9339,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//lower stats of all poisoned target  atk/spatk & speed
 
     [MOVE_POWDER] =
     {
@@ -9328,10 +9367,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//xerneas signature charge turn then buff stats
+    //seems like it sucks but xerneas is bulky and power herb exists
 
     [MOVE_MAGNETIC_FLUX] =
     {
@@ -9342,10 +9382,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //raise defense stats of user and ally if ability plus or minus
 
     [MOVE_HAPPY_HOUR] =
     {
@@ -9356,10 +9397,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 3,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//huh this is meant to double money post battle
+    //stacks with amulet coin/luck incense and also doubles payday /make it rain returns
 
     [MOVE_ELECTRIC_TERRAIN] =
     {
@@ -9370,7 +9412,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -9398,7 +9440,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 3,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -9626,7 +9668,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -9726,10 +9768,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//vsonic important need add logic to heal pulse various command
 
     [MOVE_HIGH_HORSEPOWER] =
     {
@@ -9754,10 +9796,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     }, //want to make all healing effects snatchable,  will help cutdown on stall
+    //lower target attack recover by same amount as effective attack before stat drop
 
     [MOVE_SOLAR_BLADE] =
     {
@@ -9810,10 +9853,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//supposed to poison and drop speed but still drops speed even if can't poison
+    //but with my changes to make status moves follow type calc that no longer works
+    //consider whether to reinstate the effect, would be an exception to my rule if so
 
     [MOVE_LASER_FOCUS] =
     {
@@ -9824,10 +9869,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //if can crit next attack will crit
 
     [MOVE_GEAR_UP] =
     {
@@ -9838,10 +9884,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //same as magnetic flux but for offense stats
 
     [MOVE_THROAT_CHOP] =
     {
@@ -9894,7 +9941,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -9966,7 +10013,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -9998,6 +10045,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //if target has status1 cure status then heals user
 
     [MOVE_REVELATION_DANCE] =
     {
@@ -10050,7 +10098,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 0, //leave as is relies on last move, plus seems has complicated turn order logic?
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -10204,7 +10252,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_ACCELEROCK] =
     {
         .effect = EFFECT_HIT,
-        .power = 55,
+        .power = 60,
         .type = TYPE_ROCK,
         .accuracy = 100,
         .pp = 20,
@@ -10294,7 +10342,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -10686,10 +10734,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//eat berry  boost defense activate effect
 
     [MOVE_NO_RETREAT] =
     {
@@ -10700,10 +10748,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//buffs all stats prevents retreat/flee/escape
 
     [MOVE_TAR_SHOT] =
     {
@@ -10714,10 +10762,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //lower speed increase fire dmg dealt to target
 
     [MOVE_MAGIC_POWDER] =
     {
@@ -10728,7 +10777,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
         .argument = TYPE_PSYCHIC,
@@ -10757,7 +10806,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -10771,10 +10820,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//prevent escape switch lower defense stats each end turn
 
     [MOVE_BOLT_BEAK] =
     {
@@ -10813,10 +10862,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//make activebattle effects swap sides
 
     [MOVE_CLANGOROUS_SOUL] =
     {
@@ -10827,7 +10876,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },
@@ -10855,7 +10904,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -11062,10 +11111,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //restore hp of user and ally 25% of max
 
     [MOVE_OBSTRUCT] =
     {
@@ -11330,7 +11380,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH, //changed to make more useful.
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -11344,10 +11394,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },
+    },//boost ally atk def
 
     [MOVE_FLIP_TURN] =
     {
@@ -11414,9 +11464,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
-    },
+    },//effect should be heal quarter max hp user and ally
+    //but jungle healing also cures status 1
 
     [MOVE_WICKED_BLOW] =
     {
@@ -11604,7 +11655,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
         //.zMovePower = 100,
@@ -11750,12 +11801,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_DANCE,
         .split = SPLIT_STATUS,
         //.zMovePower = 100,
         //.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//boost atk def & speed
 
     [MOVE_HEADLONG_RUSH] =
     {
@@ -11842,7 +11893,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         //.zMovePower = 100,
@@ -11970,12 +12021,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         //.zMovePower = 100,
         //.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//restore 25% max hp user and allies plus remove status 1
+    //essentially jungle healing
+    //to make it its own thing may buff to 33%?
 
     [MOVE_TAKE_HEART] =
     {
@@ -11986,12 +12039,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
         //.zMovePower = 100,
         //.zMoveEffect = Z_EFFECT_NONE,
     },
+    //cures ALL status conditions (make custom list of negative ones to remove)
+    //then reaises atk and def  at end turn for 4 turns
+    //manaphy phione signature
 
     //Custom Moves 
 
@@ -12004,7 +12060,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
     }, //need change animation effect with new emerald graphics, it has a coccon effect already I can use.
@@ -12032,10 +12088,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,  //consider making a 5 pp move, but sleep powder is 15, so is sing
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },//lowered to 10 pp, since imobilizing status have lower pp to other similar variant moves
+    //vsonic important keep an eye on
 
     [MOVE_DRYADS_CURSE] =
     {
@@ -12324,7 +12381,7 @@ use wonder gaurd logic to determine its super effective
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0, //weight this as flying mon are fast, may make 0 priority so its an option more for faster birds not just all
+        .priority = 1, //weight this as flying mon are fast, may make 0 priority so its an option more for faster birds not just all
        .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS, //unsure if shold be physical? ok yeah its, a boobytrap bomb, if explosion is physical this should be too
     },

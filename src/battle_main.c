@@ -5555,6 +5555,9 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     else if (ability == ABILITY_DEFEATIST && gDisableStructs[battlerId].defeatistActivated)
         speed *= 2;
 
+    else if (ability == ABILITY_WEIGHTED_GI && gBattleMons[battlerId].hp <= (gBattleMons[battlerId].maxHP / 2))
+        speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
+
     if (IsAbilityPreventingEscape(battlerId)) //realize this need be an if, to always trigger
         speed = (speed * 67) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop
     //gen 9

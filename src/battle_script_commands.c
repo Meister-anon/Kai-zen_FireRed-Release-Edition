@@ -1902,7 +1902,9 @@ static void atk01_accuracycheck(void)
         if (JumpIfMoveAffectedByProtect(move) || AccuracyCalcHelper(move))
             return;
 
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_UNAWARE || GetBattlerAbility(gBattlerAttacker) == ABILITY_KEEN_EYE)
+        //this is default effect for keen eye so put sixth sense here
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_UNAWARE || GetBattlerAbility(gBattlerAttacker) == ABILITY_KEEN_EYE
+        || GetBattlerAbility(gBattlerAttacker) == ABILITY_SIXTH_SENSE)
             evasionStage = DEFAULT_STAT_STAGE;
         if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
             evasionStage = DEFAULT_STAT_STAGE;
@@ -1945,7 +1947,8 @@ static void atk01_accuracycheck(void)
         {
             moveAcc = (moveAcc * 90) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
             //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
-        }
+        }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
+        //as special exclusions to strengthen affect/mechanic
 
         
         
@@ -4760,7 +4763,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
                 }
                 else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
-                && (gBattleMons[gBattlerAttacker].hp < (gBattleMons[gBattlerAttacker].maxHP / 2)))
+                && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
@@ -4779,7 +4782,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_TOXIC_POISON)
             {
                 if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
-                && (gBattleMons[gBattlerAttacker].hp < (gBattleMons[gBattlerAttacker].maxHP / 2)))
+                && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
@@ -5747,7 +5750,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
         SetMoveEffect(0, MOVE_EFFECT_CERTAIN); */
     
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
-        && (gBattleMons[gBattlerAttacker].hp < (gBattleMons[gBattlerAttacker].maxHP / 2))) //make sure effects only activate when in a pinch
+        && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2))) //make sure effects only activate when in a pinch
     {
         if ((gBattleMoves[gCurrentMove].effect == EFFECT_POISON_HIT || gBattleMoves[gCurrentMove].effect == EFFECT_TOXIC_FANG)
            || (gBattleMoves[gCurrentMove].argument == EFFECT_POISON_HIT || gBattleMoves[gCurrentMove].argument == EFFECT_TOXIC_FANG))
@@ -7276,6 +7279,7 @@ static void atk48_playstatchangeanimation(void)
                         && ability != ABILITY_WHITE_SMOKE
                         && ability != ABILITY_LIQUID_METAL
                         && !(ability == ABILITY_KEEN_EYE && currStat == STAT_ACC)
+                        && !(ability == ABILITY_SIXTH_SENSE && currStat == STAT_ACC)
                         && !(ability == ABILITY_TANGLED_FEET && currStat == STAT_SPEED)
                         && !(ability == ABILITY_QUICK_FEET && currStat == STAT_SPEED)
                         && !(ability == ABILITY_AVIATOR && currStat == STAT_SPEED)
@@ -13352,7 +13356,7 @@ static void atk87_stockpiletohpheal(void)
         gBattlescriptCurrInstr += 5;
         gBattlerTarget = gBattlerAttacker;
     }
-}
+}//vsonic keep an eye on this
 
 //need to make absorbing life from ghosts damaging- DONE  vsonic
 //adapted to emerald logic using manipulatedmg big root in script, to set values negative
@@ -13591,6 +13595,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         
         else if (!certain
         && ((activeBattlerAbility == ABILITY_KEEN_EYE && statId == STAT_ACC)
+        || (activeBattlerAbility == ABILITY_SIXTH_SENSE && statId == STAT_ACC)
         || (activeBattlerAbility == ABILITY_HYPER_CUTTER && statId == STAT_ATK)
         || (activeBattlerAbility == ABILITY_BIG_PECKS && statId == STAT_ATK)
         || (activeBattlerAbility == ABILITY_BIG_PECKS && statId == STAT_DEF)))
@@ -15732,12 +15737,9 @@ static void atk95_setsandstorm(void)
 
 static void atkBC_maxattackhalvehp(void) // belly drum
 {
-    u32 halfHp = gBattleMons[gBattlerAttacker].maxHP / 2;
 
-    if (!(gBattleMons[gBattlerAttacker].maxHP / 2))
-        halfHp = 1;
     if (gBattleMons[gBattlerAttacker].statStages[STAT_ATK] < 12
-     && gBattleMons[gBattlerAttacker].hp > halfHp)
+     && gBattleMons[gBattlerAttacker].hp > (gBattleMons[gBattlerAttacker].maxHP / 2))
     {
         gBattleMons[gBattlerAttacker].statStages[STAT_ATK] = 12;
         gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;

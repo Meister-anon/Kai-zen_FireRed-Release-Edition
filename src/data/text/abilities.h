@@ -50,7 +50,7 @@ static const u8 sThickFatDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Heat-a
 static const u8 sEarlyBirdDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Awakens quickly from sleep, refreshed.\nCleanses stat drops on awaken."); //buffed gave chance to immediately wake
 static const u8 sFlameBodyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May cause Burn on contact.\nCan't be frozen and hatches eggs faster.");
 static const u8 sRunAwayDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes escaping easier.\nPrevents loss of speed except from traps.");
-static const u8 sKeenEyeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents loss of accuracy.");
+static const u8 sKeenEyeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents loss of accuracy.\nAlso sees through attempts to raise evasion.");
 static const u8 sHyperCutterDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents ATTACK reduction.");
 static const u8 sPickupDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May pick up items.");
 static const u8 sTruantDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Only moves every other turn.\nBut heals while at rest.");
@@ -640,7 +640,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_DREAD_WING] = sNoneDescription,
     [ABILITY_PLAGUE_WINGS] = sPlagueWingsDescription,
     [ABILITY_PHANTOM_TOUCH] = sPhantomTouchDescription,
-    [ABILITY_SIXTH_SENSE] = COMPOUND_ABILITY_STRING("Prevents loss of accuracy.\nImmune to effects of being confused."),//sSixthSenseDescription,
+    [ABILITY_SIXTH_SENSE] = COMPOUND_ABILITY_STRING("Prevents loss of accuracy,immune to evasion boosts.\nImmune to effects of being confused."),//sSixthSenseDescription,
+    [ABILITY_WEIGHTED_GI] = COMPOUND_ABILITY_STRING("Casts off weighted clothes/fur when in a pinch\nBoosting Speed."),
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1014,4 +1015,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_PLAGUE_WINGS] =_("Plague Wings"),
     [ABILITY_PHANTOM_TOUCH] =_("Phantom Touch"),
     [ABILITY_SIXTH_SENSE] =_("Sixth Sense"),
+    [ABILITY_WEIGHTED_GI] =_("Weighted Gi"),
 };//can have comma

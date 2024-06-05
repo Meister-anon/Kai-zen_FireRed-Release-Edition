@@ -2064,7 +2064,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_GUTS, ABILITY_NO_GUARD},
+            .abilities = {ABILITY_GUTS, ABILITY_WEIGHTED_GI},
             .abilityHidden = {ABILITY_MUSCLE_MAGIC, ABILITY_LIMBER},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -2091,7 +2091,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_GUTS, ABILITY_NO_GUARD},
+            .abilities = {ABILITY_GUTS, ABILITY_WEIGHTED_GI},
             .abilityHidden = {ABILITY_MUSCLE_MAGIC, ABILITY_MULTI_TASK},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -2099,7 +2099,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMachampLevelUpLearnset,
         .tmhmLearnset = sMachampTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//ABILITY_WEIGHTED_GI want to give this but can't find something to drop, would be really good but
+    //muscle magic suits this mon too well, and is a good early introduction to the ability
+    //will instead replace no guard it has its own niche, but for the most part only exists here
+    //for dynamic punch and since I've reworked that, the strat is no longer viable
 
     [SPECIES_BELLSPROUT] =
     { 
@@ -3155,9 +3158,9 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_KEEN_EYE, ABILITY_IRON_FIST},
-        .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_MUSCLE_MAGIC},
-        .bodyColor = BODY_COLOR_BROWN,
-        .noFlip = FALSE,
+        .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_WEIGHTED_GI},
+        .bodyColor = BODY_COLOR_BROWN,//dropped muscle magic for her, don't want spread to much
+        .noFlip = FALSE,//it was meant for mega marowak so should feel special
         .floating = FALSE,
         .levelUpLearnset = sHitmonchanLevelUpLearnset,
         .tmhmLearnset = sHitmonchanTMHMLearnset,
@@ -3294,7 +3297,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_ROCK_HEAD},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_RECKLESS, ABILITY_MUSCLE_MAGIC}, //muscle magic makes this thing getting surf actuallyt not a troll
+            .abilityHidden = {ABILITY_SOLID_ROCK, ABILITY_MUSCLE_MAGIC}, //muscle magic makes this thing getting surf actuallyt not a troll
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -3303,6 +3306,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRhydonTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_PROTECTOR, 0, SPECIES_RHYPERIOR}), //Should hopefully blank these for now without issue
     }, //give head charge & headlong rush
+    //removed reckless as only recoil moves were takedown and double edge
 
     [SPECIES_CHANSEY] =
     { 
@@ -6609,7 +6613,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_INTIMIDATE, ABILITY_FRISK},
-            .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_SIXTH_SENSE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6992,7 +6996,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_SAND_STREAM, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_UNNERVE, ABILITY_MUSCLE_MAGIC},
+            .abilityHidden = {ABILITY_UNNERVE, ABILITY_MUSCLE_MAGIC},//is this too much?
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -8295,7 +8299,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_THICK_FAT, ABILITY_GUTS},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_WEIGHTED_GI},
         // #endif
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -8324,7 +8328,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_THICK_FAT, ABILITY_GUTS},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_WEIGHTED_GI},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -12441,7 +12445,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_STEADFAST, ABILITY_INNER_FOCUS},
-            .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_NONE},
+            .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_SIXTH_SENSE}, //given because aura sense
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -12878,8 +12882,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_FIELD,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_SOLID_ROCK},
-            .abilityHidden = {ABILITY_RECKLESS, ABILITY_ROCK_HEAD},
+            .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_ROCK_HEAD},
+            .abilityHidden = {ABILITY_SOLID_ROCK, ABILITY_MUSCLE_MAGIC},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15001,7 +15005,7 @@ const struct BaseStats gBaseStats[] =
         45
         ),
         .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_ROCK,
+        .type2 = TYPE_FIGHTING,
         .catchRate = 180,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -15013,14 +15017,16 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_GUTS, ABILITY_SHEER_FORCE},
-            .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
+            .abilityHidden = {ABILITY_IRON_FIST, ABILITY_WEIGHTED_GI},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sTimburrLevelUpLearnset,
         .tmhmLearnset = sTimburrTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_GURDURR}), //Should hopefully blank these for now without issue
-    },
+    },//not making rock type would be cool, but design intention is fighter that can take on flying
+    //not really rock fighting?  
+    //or more they aren't well built to handle the added water/grass weakness
 
     [SPECIES_GURDURR] =
     { 
@@ -15034,7 +15040,7 @@ const struct BaseStats gBaseStats[] =
         60
         ),
         .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_ROCK,
+        .type2 = TYPE_FIGHTING,
         .catchRate = 90,
         .expYield = 142,
         //.evYield_Attack = 2,
@@ -15046,14 +15052,14 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_GUTS, ABILITY_SHEER_FORCE},
-            .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
+            .abilityHidden = {ABILITY_IRON_FIST, ABILITY_WEIGHTED_GI},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sGurdurrLevelUpLearnset,
         .tmhmLearnset = sGurdurrTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0, SPECIES_CONKELDURR}), //Should hopefully blank these for now without issue
-    },
+    },//changed now only rock fighting besides terrakion - changed back
 
     [SPECIES_CONKELDURR] =
     { 
@@ -15067,7 +15073,7 @@ const struct BaseStats gBaseStats[] =
         75
         ),
         .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_ROCK,
+        .type2 = TYPE_FIGHTING,
         .catchRate = 45,
         .expYield = 227,
         //.evYield_Attack = 3,
@@ -15079,7 +15085,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_GUTS, ABILITY_SHEER_FORCE},
-            .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
+            .abilityHidden = {ABILITY_IRON_FIST, ABILITY_WEIGHTED_GI},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15212,7 +15218,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_GUTS, ABILITY_MOLD_BREAKER},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_NONE},
+            .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -15247,7 +15253,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_STURDY, ABILITY_MOLD_BREAKER},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_NONE},
+            .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -17952,8 +17958,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_RECKLESS, ABILITY_REGENERATOR},
-            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_JUSTIFIED},
+            .abilities = {ABILITY_WEIGHTED_GI, ABILITY_REGENERATOR},
+            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_RECKLESS},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17985,8 +17991,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_RECKLESS, ABILITY_REGENERATOR},
-            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_JUSTIFIED},
+            .abilities = {ABILITY_WEIGHTED_GI, ABILITY_REGENERATOR},
+            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_RECKLESS},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27449,7 +27455,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_FRISK},
-        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_SIXTH_SENSE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -29609,7 +29615,7 @@ const struct BaseStats gBaseStats[] =
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_SURGE_SURFER, ABILITY_NONE},
        // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_TELEPATHY, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -29618,7 +29624,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRaichuAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
-    },
+    },//give move electrify
 
     [SPECIES_SANDSHREW_ALOLAN] =
     { 
@@ -29928,7 +29934,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_STURDY, ABILITY_MUSCLE_MAGIC}, //replace magnet pull w ABILITY_MUSCLE_MAGIC put sturdy i slot 1
+        .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL}, //replace magnet pull w muscle magic put sturdy i slot 1
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_GALVANIZE, ABILITY_DRY_SKIN}, //planned to replace magnet pull w muscle magic, but with magnet pull buff and effectiveness change
         // #endif
@@ -29940,6 +29946,11 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_GRAVELER_ALOLAN}), //Should hopefully blank these for now without issue                            //but on the other hand most steel are electric too, so it'd be neutral, while rock is weak to steel.. 
         .flags = F_ALOLAN_FORM,                 //oh but made electric resist, so it'd just be a neutral hit, hmm check how many steel are also electric to see value
     },//checked steel and they are rare, many are psuedos so its not a type you'd ecounter much, many resist electric, good against metagross, but still a very specific thing
+    //ok electric explosion is cool, buuut galvanize is only good here because its so bad -_-
+    //it gets no good physical electric moves so its better to makes normal move electric
+    //but even then it only gets double edge - they didn't even give thsi wild charge!!
+    //instead adding better physical electric moves
+    //giving MOVE_WILD_CHARGE, MOVE_VOLT_TACKLE to replace double edge & zekrom's MOVE_BOLT_STRIKE
 
     [SPECIES_GRAVELER_ALOLAN] =
     { 
@@ -29966,7 +29977,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_STURDY, ABILITY_MUSCLE_MAGIC},
+        .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_GALVANIZE, ABILITY_MULTI_TASK},
         // #endif
@@ -29977,7 +29988,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGravelerAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, LOW_EFFORT), 0, SPECIES_GOLEM_ALOLAN}), //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
-    },
+    },//plan can tkae off muscle magic but when introduce item
+    //that allows set any ability, which would allow people to set muscle magic themselves,
+    //and they'd feel smart for doing so, since it has so many good special moves!
+    //since expanded save block can add new field to mon data
+    //setcustom ability,  then just put logic that if field is 0,
+    //use innate abilities, otherwise ability field will take the custom argument
+    //will make task that sets selectred ability to field
 
     [SPECIES_GOLEM_ALOLAN] =
     { 
@@ -30001,7 +30018,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_STURDY, ABILITY_MUSCLE_MAGIC},
+        .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_GALVANIZE, ABILITY_DRY_SKIN},
         // #endif
@@ -30012,7 +30029,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGolemAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
-    },
+    },//w type change and buffs can actually run magnet pull
+    //keeping as is but realize don't really need galvanize can just use ion deluge
+    //make sure learns it
 
     [SPECIES_GRIMER_ALOLAN] =
     { 

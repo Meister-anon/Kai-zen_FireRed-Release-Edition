@@ -2253,9 +2253,67 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
  - seems fixed, believe issue was forgetting to put a condition
  for the target being alive on the funciton
 
+ -infestation/swarm still broken - causes freeze
+ not sure if problem w status or with animation
+ as there are other animations that are broken
+
  -note instead of starter ditto have daycare man south of cerulean
  give gift ditto as compliments of your first visit
  /to commemorate your very fist patronage/visit
+
+   NOTE**(
+    in tune w legends arceus change
+    and my goal of making status moves more relevant.
+    What if I made every status move 
+    excepting things that need go last/rely on a mvoe being used first
+    into priority moves?
+    Since you are already giving up damage to use them
+    and have the chance to die before being able to use it
+
+    that adds on extra push factors that would disincentavize using them
+    plus makes sense there's no need to charge an attack
+    or making contact w the enemy
+    so makes sense for them to go first
+    )
+
+    try cut down on proliferation of muscle magic as it was meant to be special
+    for mega marowak
+
+    /plan can tkae off muscle magic but when introduce item
+    //that allows set any ability, which would allow people to set muscle magic themselves,
+    //and they'd feel smart for doing so, since it has so many good special moves!
+    //since expanded save block can add new field to mon data
+    //setcustom ability,  then just put logic that if field is 0,
+    //use innate abilities, otherwise ability field will take the custom argument
+    //will make task that sets selectred ability to field
+
+    //rather than celadon think will have these be post game specific?
+    sold at pokemon league after becoming champion
+
+    to make available for new game plus
+    after starting new game,
+    can  go to league office and guy will let you in,
+    saying huh you seem to have the qualities/look of a champion
+    welcome.
+
+    and at the first room there will be a mart available
+    that sells the post game league stuff,
+    so you can use them for more mon
+
+    can potentially add back lost location field as well?
+    need see if that adds on to ewram if not think I'm all for it
+    (think bottom line is for fateful encounter text
+    can just move to top line in parenthesis )
+    then set reserve bottom line for nuzloke mode text for lost mon
+
+    can make nuzloke mode option
+    if set can't heal fainted mon, mon put in pc
+    w zero hp remain as such
+
+    no other hard rules needed
+    change options menu back to text options
+    add misc options for battle speed up event speed up and nuzlocke mode
+    //order event speed up, top, battle speed up, then nuzlocke mode last
 
  test bandit king and corruption
 
