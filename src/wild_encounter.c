@@ -39,6 +39,12 @@ static bool8 IsLeadMonHoldingCleanseTag(void);
 static u16 WildEncounterRandom(void);
 static void AddToWildEncounterRateBuff(u8 encouterRate);
 
+static bool8 IsAbilityAllowingEncounter(u8 level); //ported from emerald
+
+#define WILD_CHECK_REPEL    0x1
+#define WILD_CHECK_KEEN_EYE 0x2 //need take more fo this from emeralad, logic added but not in base fire red
+
+
 #include "data/wild_encounters.h"
 
 static const u8 sUnownLetterSlots[][12] = {
@@ -240,6 +246,24 @@ static bool8 UnlockedTanobyOrAreNotInTanoby(void)
     return FALSE;
 }
 
+static bool8 IsAbilityAllowingEncounter(u8 level)
+{
+    u16 ability;
+
+    if (GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
+        return TRUE;
+
+    ability = GetMonAbility(&gPlayerParty[0]);
+    if (ability == ABILITY_KEEN_EYE || ability == ABILITY_INTIMIDATE)
+    {
+        u8 playerMonLevel = GetMonData(&gPlayerParty[0], MON_DATA_LEVEL);
+        if (playerMonLevel > 5 && level <= playerMonLevel - 5 && !(Random() % 2))
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
 #define WILD_NATURE_SETTING
 static void GenerateWildMon(u16 species, u8 level, u8 slot)
 {
@@ -289,8 +313,6 @@ enum
     WILD_AREA_FISHING,
 };
 
-#define WILD_CHECK_REPEL    0x1
-#define WILD_CHECK_KEEN_EYE 0x2
 
 //setup like emerald TryGenerateWildMon there has ability logic/filters
 #define ENCOUNTER_GENERATOR
