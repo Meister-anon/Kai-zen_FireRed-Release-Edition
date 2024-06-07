@@ -165,6 +165,7 @@ static const struct LevelUpMove sBlastoiseLevelUpLearnset[] = {
     LEVEL_UP_MOVE(58, MOVE_HYDRO_PUMP),
     LEVEL_UP_END
 };  //figure out how to balance this right for added steel moves
+//also give heal pulse, for use w mega ability
 
 static const struct LevelUpMove sCaterpieLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
@@ -6644,7 +6645,7 @@ static const struct LevelUpMove sDrifblimLevelUpLearnset[] = {
 
 static const struct LevelUpMove sBunearyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_FRUSTRATION),
-    LEVEL_UP_MOVE( 1, MOVE_SPLASH),
+    //LEVEL_UP_MOVE( 1, MOVE_SPLASH),
     LEVEL_UP_MOVE( 1, MOVE_DEFENSE_CURL),
     LEVEL_UP_MOVE( 1, MOVE_POUND),
     LEVEL_UP_MOVE( 4, MOVE_BABY_DOLL_EYES),
@@ -16306,7 +16307,7 @@ static const struct LevelUpMove sRaichuAlolanLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
     LEVEL_UP_MOVE( 1, MOVE_THUNDERBOLT),
     LEVEL_UP_END
-};
+};//give electrify //vsonic
 
 static const struct LevelUpMove sSandshrewAlolanLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),

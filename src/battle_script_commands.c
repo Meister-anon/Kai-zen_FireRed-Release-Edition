@@ -11317,23 +11317,6 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
-    case VARIOUS_TRY_HEAL_PULSE:
-        if (BATTLER_MAX_HP(gActiveBattler))
-        {
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
-        }
-        else
-        {
-            if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MEGA_LAUNCHER && gBattleMoves[gCurrentMove].flags & FLAG_MEGA_LAUNCHER_BOOST)
-                gBattleMoveDamage = -(gBattleMons[gActiveBattler].maxHP * 75 / 100);
-            else
-                gBattleMoveDamage = -(gBattleMons[gActiveBattler].maxHP / 2);
-
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = -1;
-            gBattlescriptCurrInstr += 7;
-        }
-        return;
     case VARIOUS_TRY_QUASH:
         if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
         {
@@ -11445,17 +11428,6 @@ static void atk76_various(void) //will need to add all these emerald various com
         {
             gBattleMons[gBattlerAttacker].type1 = gBattleMons[gBattlerTarget].type1;
             gBattleMons[gBattlerAttacker].type2 = gBattleMons[gBattlerTarget].type2;
-            gBattlescriptCurrInstr += 7;
-        }
-        return;
-    case VARIOUS_TRY_SOAK:
-        if (gBattleMons[gBattlerTarget].type1 == TYPE_WATER && gBattleMons[gBattlerTarget].type2 == TYPE_WATER)
-        {
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
-        }
-        else
-        {
-            SET_BATTLER_TYPE(gBattlerTarget, TYPE_WATER);
             gBattlescriptCurrInstr += 7;
         }
         return;
@@ -15850,7 +15822,16 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
     gBattlerTarget = gBattlerAttacker;
     if (gBattleMons[gBattlerAttacker].hp != gBattleMons[gBattlerAttacker].maxHP)
     {
-        if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
+        if (gCurrentMove == MOVE_SHORE_UP)
+        {
+            if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
+                //gBattleMoveDamage = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
+                gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
+            else
+                //gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 3;
+                gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
+        }
+        else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
             gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
             gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
@@ -17919,6 +17900,47 @@ void BS_settoxicspikes(void)
     {
         gSideTimers[targetSide].toxicSpikesAmount++;
         gSideStatuses[targetSide] |= SIDE_STATUS_TOXIC_SPIKES;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+void BS_TryHealPulse(void)
+{
+    NATIVE_ARGS(const u8 *failInstr);
+
+    if (BATTLER_MAX_HP(gBattlerTarget))
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else
+    {
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MEGA_LAUNCHER && gBattleMoves[gCurrentMove].flags & FLAG_MEGA_LAUNCHER_BOOST)
+            //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) * 75 / 100);
+            gBattleMoveDamage = -(75 * gBattleMons[gBattlerTarget].maxHP) / 100;
+        else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && gCurrentMove == MOVE_FLORAL_HEALING)
+            //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) * 2 / 3);
+            gBattleMoveDamage = -(20 * gBattleMons[gBattlerTarget].maxHP) / 30;
+        else
+            //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) / 3);
+            gBattleMoveDamage = -gBattleMons[gBattlerTarget].maxHP / 3;
+
+        if (gBattleMoveDamage == 0)
+            gBattleMoveDamage = -1;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+void BS_TrySoak(void)
+{
+    NATIVE_ARGS(const u8 *failInstr);
+
+    if (gBattleMons[gBattlerTarget].type1 == gBattleMoves[gCurrentMove].argument && gBattleMons[gBattlerTarget].type2 == gBattleMoves[gCurrentMove].argument)
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else
+    {
+        SET_BATTLER_TYPE_PROTEAN(gBattlerTarget, gBattleMoves[gCurrentMove].argument);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }

@@ -3982,7 +3982,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack = (150 * attack) / 100;
     if (attacker->ability == ABILITY_SOLAR_POWER)
         spAttack = (150 * spAttack) / 100;
-    if (attacker->ability == ABILITY_URSURPER && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    if (attacker->ability == ABILITY_USURPER && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
     {
         OffensiveModifer(125);        
     }
@@ -4684,7 +4684,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //further test potentially remove max
         if (attacker->level <= 5)
-            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 4);  //redone balance
+            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
         else if (attacker->level <= 7)
             damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
         else if (attacker->level == 8)
@@ -4825,7 +4825,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //further test potentially remove max value
         if (attacker->level <= 5)
-            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 4);  //redone balance
+            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
         else if (attacker->level <= 7)
             damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
         else if (attacker->level == 8)

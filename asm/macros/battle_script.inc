@@ -1436,6 +1436,16 @@
 	callnative BS_Multihit_resultmessage
 	.endm
 
+	.macro tryhealpulse failInstr:req
+	callnative BS_TryHealPulse
+	.4byte \failInstr
+	.endm
+
+	.macro trysoak failInstr:req
+	callnative BS_TrySoak
+	.4byte \failInstr
+	.endm
+
 	@consolidates multiple effects that use gDynamicBasePower and dont jump
 	@furycuttercalc rageboostcalc happinesstodamagecalculation magnitudedamagecalculation  snowball /cant do rollout cuz acc check order
 	@put all future effects here
@@ -1594,11 +1604,7 @@
 	.macro setlastusedability battler:req
 	various \battler, VARIOUS_SET_LAST_USED_ABILITY
 	.endm
-
-	.macro tryhealpulse battler:req, ptr:req
-	various \battler, VARIOUS_TRY_HEAL_PULSE
-	.4byte \ptr
-	.endm
+	
 
 	.macro tryquash ptr:req
 	various BS_ATTACKER, VARIOUS_TRY_QUASH
@@ -1644,10 +1650,6 @@
 	.4byte \ptr
 	.endm
 
-	.macro trysoak ptr:req
-	various BS_ATTACKER, VARIOUS_TRY_SOAK
-	.4byte \ptr
-	.endm
 
 	.macro handleformchange battler:req, case:req
 	various \battler, VARIOUS_HANDLE_FORM_CHANGE

@@ -2442,7 +2442,7 @@ void ChooseSendDaycareMon(void)
 }
 
 // Route 5 Daycare
-//VSONIC
+//VSONIC    -no longer used
 void PutMonInRoute5Daycare(void)
 {
     u8 monIdx = GetCursorSelectionMonId();

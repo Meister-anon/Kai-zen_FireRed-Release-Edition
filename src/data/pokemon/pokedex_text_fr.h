@@ -3748,9 +3748,9 @@ const u8 gMienfooPokedexText[] = _(
 
 const u8 gMienshaoPokedexText[] = _(
     "They use the long fur on their arms as\n"
-    "a whip to strike their opponents. Its arm\n"
-    "attacks come with such rapidity that they\n"
-    "cannot even be seen.");
+    "a whip to strike their opponents. But\n"
+    "when facing a tough opponent it will lighten\n"
+    "itself by biting off the fur on its arms.");
 
 const u8 gDruddigonPokedexText[] = _(
     "It warms its body by absorbing sunlight\n"

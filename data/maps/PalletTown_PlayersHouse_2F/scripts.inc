@@ -34,7 +34,9 @@ PalletTown_PlayersHouse_2F_EventScript_NES:: @ 8168CD2
 
 PalletTown_PlayersHouse_2F_EventScript_Sign:: @ 8168CDB
 	msgbox PalletTown_PlayersHouse_2F_Text_PressLRForHelp, MSGBOX_SIGN
-	@giveitem ITEM_GREAT_BALL, 15   @for testing dex
+	givemon SPECIES_CASTFORM, 3, ITEM_NONE
+	givemon SPECIES_VULPIX_ALOLAN, 3, ITEM_NONE
+	giveitem ITEM_ICE_STONE, 1
 	end
 
 PalletTown_PlayersHouse_2F_EventScript_PC:: @ 8168CE4

@@ -127,7 +127,7 @@
 #define VARIOUS_SET_SIMPLE_BEAM                 39
 #define VARIOUS_TRY_ENTRAINMENT                 40
 #define VARIOUS_SET_LAST_USED_ABILITY           41
-#define VARIOUS_TRY_HEAL_PULSE                  42
+#define VARIOUS_TRY_HEAL_PULSE                  42  //unused
 #define VARIOUS_TRY_QUASH                       43
 #define VARIOUS_INVERT_STAT_STAGES              44
 #define VARIOUS_SET_TERRAIN                     45
@@ -135,8 +135,8 @@
 #define VARIOUS_JUMP_IF_BATTLE_END              47
 #define VARIOUS_TRY_ELECTRIFY                   48
 #define VARIOUS_TRY_REFLECT_TYPE                49
-#define VARIOUS_TRY_SOAK                        50
-#define VARIOUS_HANDLE_FORM_CHANGE              51
+#define VARIOUS_TRY_SOAK                        50  //unused
+#define VARIOUS_HANDLE_FORM_CHANGE              51 //will callnative don't need various, but bothersome to remove
 #define VARIOUS_TRY_LAST_RESORT                 52
 #define VARIOUS_ARGUMENT_STATUS_EFFECT          53
 #define VARIOUS_TRY_HIT_SWITCH_TARGET           54

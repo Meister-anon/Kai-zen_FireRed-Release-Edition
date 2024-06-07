@@ -2060,7 +2060,7 @@ BattleScript_EffectHealPulse:
     jumpifhealblock BS_TARGET, BattleScript_MoveUsedHealBlockPrevents
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC_CHECK_LOCK_ON
 	jumpifsubstituteblocks BattleScript_ButItFailed
-	tryhealpulse BS_TARGET, BattleScript_AlreadyAtFullHp
+	tryhealpulse BattleScript_AlreadyAtFullHp
 	attackanimation
 	waitanimation
 	healthbarupdate BS_TARGET

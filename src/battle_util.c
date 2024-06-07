@@ -991,7 +991,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
     else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES)
         && ((targetAbility == ABILITY_DEFIANT && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))
             || (targetAbility == ABILITY_COMPETITIVE && CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
-            || (targetAbility == ABILITY_URSURPER && (CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+            || (targetAbility == ABILITY_USURPER && (CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
                 || CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))))
         && gSpecialStatuses[gBattlerTarget].changedStatsBattlerId != BATTLE_PARTNER(gBattlerTarget)
         && ((gSpecialStatuses[gBattlerTarget].changedStatsBattlerId != gBattlerTarget) || gBattleScripting.stickyWebStatDrop == 1)
@@ -1005,7 +1005,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
             SET_STATCHANGER(STAT_ATK, 2, FALSE);    //since have extra to effect, lowered these 2 to a single stat stage for each stat drop.
         else if (targetAbility == ABILITY_COMPETITIVE)
             SET_STATCHANGER(STAT_SPATK, 2, FALSE);
-        else if (targetAbility == ABILITY_URSURPER)
+        else if (targetAbility == ABILITY_USURPER)
         {
             SET_STATCHANGER(STAT_ATK, 2, FALSE);
             SET_STATCHANGER2(gBattleScripting.savedStatChanger, STAT_SPATK, 2, FALSE);
@@ -2278,8 +2278,8 @@ u8 DoFieldEndTurnEffects(void)
             break;
         case ENDTURN_ION_DELUGE:
             if (gFieldStatuses & STATUS_FIELD_ION_DELUGE && --gFieldTimers.IonDelugeTimer == 0)
-                gFieldStatuses &= ~STATUS_FIELD_ION_DELUGE;
-            ++gBattleStruct->turnCountersTracker;
+                gFieldStatuses &= ~STATUS_FIELD_ION_DELUGE; //need make animation for this if doesn't exist
+            ++gBattleStruct->turnCountersTracker; //replay ion deluge anim
             break;
         case ENDTURN_FAIRY_LOCK:
             if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK && --gFieldTimers.fairyLockTimer == 0)
