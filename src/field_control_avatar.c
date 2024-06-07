@@ -716,6 +716,10 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
             found = TRUE;
 
         }//forgot exclude egg from check, its triggering for eggs
+
+        if (IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
+        && FlagGet(FLAG_SYS_POKEDEX_GET))
+            found = FALSE; //ensure mon not counted if dead by nuzlocke clause
     }
 
     UpdateBoxEXPStepCounter(); //hope works    //put out here so still works with movement scripts
@@ -773,6 +777,8 @@ static void UpdateHappinessStepCounter(void)
         struct Pokemon *mon = gPlayerParty;
         for (i = 0; i < PARTY_SIZE; i++)
         {
+            if (!(IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
+            && FlagGet(FLAG_SYS_POKEDEX_GET)))
             AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
             mon++;
         }
