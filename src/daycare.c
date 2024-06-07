@@ -31,6 +31,7 @@
 #include "field_fadetransition.h"
 #include "trade.h"
 #include "daycare.h"
+#include "option_menu.h"
 #include "constants/daycare.h"
 #include "constants/region_map_sections.h"
 
@@ -487,9 +488,20 @@ static void StorePokemonInEmptyDaycareSlot(struct Pokemon *mon, struct DayCare *
         StorePokemonInDaycare(mon, &daycare->mons[slotId]);
 }
 
+//this command is used
 void StoreSelectedPokemonInDaycare(void)
 {
     u8 monId = GetCursorSelectionMonId();
+    if ((IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[monId], MON_DATA_HP, NULL) == 0)))
+    {
+        gSpecialVar_0x8008 = NUZLOCKE_BANNED_MON;
+        return;
+    } //need do sometning figure how to make play print text and continue script
+        //say sorry I can't take that pokemon
+        //hmm can do set result var then put a compare var result after
+        //to jump to other command
+        //yeah that'd work
+
     StorePokemonInEmptyDaycareSlot(&gPlayerParty[monId], &gSaveBlock1Ptr->daycare);
 }
 

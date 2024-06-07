@@ -37,6 +37,8 @@ Route5_PokemonDayCare_EventScript_TryGiveMon:: @ 81BF3DD
 	msgbox Route5_PokemonDayCare_Text_ComeSeeMeInAWhile
 	waitmoncry
 	special StoreSelectedPokemonInDaycare
+	compare VAR_0x8008, NUZLOCKE_BANNED_MON
+	goto_if_eq Route5_PokemonDayCare_EventScript_SorryCantRaiseThat
 	incrementgamestat GAME_STAT_USED_DAYCARE
 	specialvar VAR_RESULT, GetDaycareState
 	compare VAR_RESULT, DAYCARE_ONE_MON
@@ -49,6 +51,11 @@ Route5_PokemonDayCare_EventScript_ComeAgain:: @ 81BF444
 	msgbox Route5_PokemonDayCare_Text_ComeAnytimeYouLike
 	release
 	end
+
+Route5_PokemonDayCare_EventScript_SorryCantRaiseThat::
+	setvar VAR_0x8008, 0
+	msgbox Route5_PokemonDayCare_Text_CantRaiseThat
+	goto Route5_PokemonDayCare_EventScript_TryGiveMon
 
 Route5_PokemonDayCare_EventScript_OnlyOneMonInParty:: @ 81BF452
 	special ClearVarPlayerAtRoute5Daycare

@@ -2310,6 +2310,42 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     if set can't heal fainted mon, mon put in pc
     w zero hp remain as such
 
+    so need item use logic, pc logic and pokemon center logic
+    and also logic for any place that does heal after battle
+    ok lucky most all was done w one command all that's left is pc logic
+    and can't put in daycare believe fixed daycare
+    need to exclde battle tower stuff
+    ...oh there is no battle tower in fire red
+    its trainer tower that is in fire red on sevii island
+
+    -if get nuzlocke mode working thought put 
+    nuzlocke counter on back of trainer card
+    can put in saveblock would just need ensure that data is cleared
+    so long as using same save ie. not deleted it stays
+    need see how many values are stored on back fo trainer card
+    could increment at new game long as nuzlocke option is on
+
+    mon gets healed as side effect,
+    of data passing to boxmon struct as boxmon doesn't store hp
+    so when it comes out  hp just gets set back to max
+
+    so will need to take that source on the wiki for setting hp to 0
+
+    got nuzlocke mode working,
+    redid status batle effect updgrades
+    fix oak speed strings
+
+    belive have it all working 
+    next thing is consolidate the pokemon substructs into boxmon
+    using bit fields
+
+    options menu stuff is setup (still need test)
+    but need to figure out how to make sure teh cursor
+    returns to the position I want on main menu
+    i.e if exiting game options put main menu cursor on game menu options
+    
+
+
     no other hard rules needed
     change options menu back to text options
     add misc options for battle speed up event speed up and nuzlocke mode

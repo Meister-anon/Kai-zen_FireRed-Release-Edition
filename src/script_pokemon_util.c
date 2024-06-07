@@ -8,6 +8,7 @@
 #include "party_menu.h"
 #include "pokedex.h"
 #include "random.h"
+#include "option_menu.h"
 #include "script_pokemon_util.h"
 #include "constants/items.h"
 #include "constants/pokemon.h"
@@ -20,11 +21,23 @@ void HealPlayerParty(void)
     u8 i, j;
     u8 ppBonuses;
     u8 arg[4];
+    u8 clearNuzlockeDeath = 1;
 
     // restore HP.
     for(i = 0; i < gPlayerPartyCount; i++)
     {
         u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
+
+        if ((IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
+        && FlagGet(FLAG_SYS_POKEDEX_GET)))
+            continue;
+        
+        else if (!(IsNuzlockeModeOn())
+        && FlagGet(FLAG_SYS_POKEDEX_GET) && (GetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, NULL) == 0))
+            SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &clearNuzlockeDeath);
+
+            
+        
         arg[0] = maxHP;
         arg[1] = maxHP >> 8;
         SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);

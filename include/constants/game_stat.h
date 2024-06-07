@@ -3,9 +3,9 @@
 
 #define GAME_STAT_SAVED_GAME                 0
 #define GAME_STAT_FIRST_HOF_PLAY_TIME        1
-#define GAME_STAT_STARTED_TRENDS             2
+#define GAME_STAT_STARTED_TRENDS             2 //remove
 #define GAME_STAT_PLANTED_BERRIES            3
-#define GAME_STAT_TRADED_BIKES               4
+#define GAME_STAT_TRADED_BIKES               4 //remove
 #define GAME_STAT_STEPS                      5
 #define GAME_STAT_GOT_INTERVIEWED            6
 #define GAME_STAT_TOTAL_BATTLES              7
@@ -22,8 +22,8 @@
 #define GAME_STAT_USED_CUT                  18
 #define GAME_STAT_USED_ROCK_SMASH           19
 #define GAME_STAT_MOVED_SECRET_BASE         20
-#define GAME_STAT_POKEMON_TRADES            21
-#define GAME_STAT_UNKNOWN_22                22
+#define GAME_STAT_POKEMON_TRADES            21 //remove
+#define GAME_STAT_UNKNOWN_22                22 ///remove
 #define GAME_STAT_LINK_BATTLE_WINS          23
 #define GAME_STAT_LINK_BATTLE_LOSSES        24
 #define GAME_STAT_LINK_BATTLE_DRAWS         25
@@ -52,9 +52,9 @@
 #define GAME_STAT_RODE_CABLE_CAR            48
 #define GAME_STAT_ENTERED_HOT_SPRINGS       49
 #define GAME_STAT_NUM_UNION_ROOM_BATTLES    50
-#define GAME_STAT_BERRY_CRUSH_POINTS        51
+#define GAME_STAT_BERRY_CRUSH_POINTS        51 //remove
 
-#define NUM_USED_GAME_STATS                 52
+#define NUM_USED_GAME_STATS                 52 //replace some w nuzlocke deaths and nuzlocke attempts
 #define NUM_GAME_STATS                      64
 
 #endif // GUARD_CONSTANTS_GAME_STAT_H

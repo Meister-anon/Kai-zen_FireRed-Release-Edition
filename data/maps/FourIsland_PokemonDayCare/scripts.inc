@@ -40,6 +40,8 @@ FourIsland_PokemonDayCare_GiveMonToRaise:: @ 8171993
 	msgbox DayCare_Text_WellRaiseYourMon
 	waitmoncry
 	special StoreSelectedPokemonInDaycare
+	compare VAR_0x8008, NUZLOCKE_BANNED_MON
+	goto_if_eq Route5_PokemonDayCare_EventScript_SorryCantRaiseThat
 	incrementgamestat GAME_STAT_USED_DAYCARE
 	specialvar VAR_RESULT, GetDaycareState
 	compare VAR_RESULT, DAYCARE_ONE_MON
@@ -54,6 +56,11 @@ FourIsland_PokemonDayCare_ComeAgain:: @ 81719F7
 	msgbox DayCare_Text_ComeAgain
 	release
 	end
+
+FourIsland_PokemonDayCare_EventScript_SorryCantRaiseThat::
+	setvar VAR_0x8008, 0
+	msgbox DayCare_Text_CantRaiseThat
+	goto FourIsland_PokemonDayCare_GiveMonToRaise
 
 FourIsland_PokemonDayCare_Thanks::
 	msgbox DayCare_Text_Thanks

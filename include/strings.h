@@ -939,7 +939,10 @@ extern const u8 gText_AbilityCap[];
 extern const u8 gText_MoveCap[];
 extern const u8 gText_ItemCap[];
 extern const u8 gText_MiscPlaceholderCap[];
+
+extern const u8 gText_EventSpeedup[];
 extern const u8 gText_BattleSpeed[];
+extern const u8 gText_NuzlockeMode[];
 
 extern const u8 gText_OptionMenuCancel[];
 extern const u8 gText_TextSpeedSlow[];
@@ -960,6 +963,7 @@ extern const u8 gText_ButtonTypeLEqualsA[];
 extern const u8 gText_MenuOption[];
 extern const u8 gText_FrameType[];
 extern const u8 gText_GameOptions[];
+extern const u8 gText_TextOptions[];
 extern const u8 gText_MiscOptions[];
 extern const u8 gTextJP_Type[];
 extern const u8 gText_PickSwitchCancel[];

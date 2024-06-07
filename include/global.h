@@ -376,10 +376,12 @@ struct SaveBlock2
     /*0x014*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST]
               u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
     /*0x15*/  u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
-              u16 optionsBattleSpeed:2; //for pokabbie setup navie battle speed up should be 4 options for 1-4x
               u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
               u16 optionsBattleSceneOff:1; // whether battle animations are disabled
-              u16 regionMapZoom:1; // whether the map is zoomed in
+              u16 regionMapZoom:1; // whether the map is zoomed in - u16 speread bit field over 2 bytes 3 5 = 8,then 4 1s
+              u16 optionsBattleSpeed:2; //for pokabbie setup navie battle speed up should be 4 options for 1-4x
+              u16 optionsEventSpeedup:1;
+              u16 optionsNuzlockeMode:1;
     /*0x018*/ struct Pokedex pokedex;
     /*0x090*/ u8 filler_90[0x8];
     /*0x098*/ struct Time localTimeOffset;
@@ -939,13 +941,13 @@ struct SaveBlock1
     /*0x08E0*/ struct ObjectEventTemplate objectEventTemplates[64];
     /*0x0EE0*/ u8 flags[NUM_FLAG_BYTES];
     /*0x1000*/ u16 vars[VARS_COUNT];
-    /*0x1200*/ u32 gameStats[NUM_GAME_STATS];
+    /*0x1200*/ u32 gameStats[NUM_GAME_STATS];//don't know how much but can prob save some by removing some of these
     /*0x1300*/ struct QuestLog questLog[QUEST_LOG_SCENE_COUNT];
     /*0x2CA0*/ u16 easyChatProfile[6];
     /*0x2CAC*/ u16 easyChatBattleStart[6];
     /*0x2CB8*/ u16 easyChatBattleWon[6];
     /*0x2CC4*/ u16 easyChatBattleLost[6];
-    /*0x2CD0*/ struct MailStruct mail[MAIL_COUNT];
+    /*0x2CD0*/ struct MailStruct mail[MAIL_COUNT]; //still to remove
     /*0x2F10*/ u8 additionalPhrases[EASY_CHAT_EXTRA_PHRASES_SIZE];
     /*0x2F18*/ //OldMan oldMan; // unused  //emerald exlusive mauwile man stuff
     /*0x2F54*/ //struct EasyChatPair easyChatPairs[5]; // unused

@@ -1484,6 +1484,10 @@
 	.byte 0xd9
 	.endm
 
+	.macro PreventBoxHeal
+	.byte 0xda
+	.endm
+
 	@idea from zatsu replace getspecies etc.
 	@direct call mon data and select slot then 
 	@assignto result var

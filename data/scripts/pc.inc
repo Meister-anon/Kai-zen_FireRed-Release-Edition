@@ -8,6 +8,7 @@ EventScript_PC:: @ 81A6955
 	special AnimatePcTurnOn
 	playse SE_PC_ON
 	msgbox Text_BootedUpPC
+	PreventBoxHeal
 	UpdateOakranch
 	waitse
 	goto EventScript_PCMainMenu

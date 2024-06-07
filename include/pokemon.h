@@ -12,11 +12,12 @@
 
 //mcgriffin informed me all these need to stay 12 bytes or I lose box space...sigh
 //that's why I lost so much space
-struct PokemonSubstruct0
+//it takes ewram fuck, fuckity fuck, don't have space to add things
+struct PokemonSubstruct0 //all 4 of these max up boxmon, for mon to not heal in pc need add hp value to boxmon
 {
     u16 species;
-    u16 heldItem;
-    u32 experience;
+    u16 heldItem; //looks like both of these will be bit 10
+    u32 experience; //will prob need make u8s below u16 to take up remaining field space
     u8 ppBonuses;
     u8 friendship;
     u8 formflag;
@@ -89,7 +90,8 @@ struct PokemonSubstruct2
 struct PokemonSubstruct3
 {
  /* 0x00 */ u8 pokerus;
- /* 0x01 */ u8 metLocation;
+ /* 0x01 */ u8 metLocation; //question is if this can even work?
+            
             
             
 
@@ -106,7 +108,7 @@ struct PokemonSubstruct3
  /* 0x06 */ u32 spDefenseIV:5; //changed abilityNum to 3, so I can get the second hidden ability slot.
  /* 0x07 */ u32 isEgg:1;
  /* 0x07 */ u32 abilityNum:2; // allability num are 2 in emerald. so that is the right call //  yeah didn't understand bit fields 2 is correct
-
+                //abilityNum doesn'tfit in field since i increased from bit1 to bit 2
  /* 0x08 */ u32 coolRibbon:3;
  /* 0x08 */ u32 beautyRibbon:3; //having this be 3 seems to correspond to 4 options, which matches the above's 3 ability options of 2 slots and 1 hidden.
  /* 0x08 */ u32 cuteRibbon:3;
@@ -122,6 +124,8 @@ struct PokemonSubstruct3
  /* 0x0B */ //u32 filler:4; //had to remove to add form flag check
  /* 0x0B */ u32 eventLegal:1; // controls Mew & Deoxys obedience; if set, Pokémon is a fateful encounter in FRLG & Gen 4+ summary screens; set for in-game event island legendaries, some distributed events, and Pokémon from XD: Gale of Darkness.
 }; //prob also remove event legal tag eventually
+//ribbon bit field also doesn't really work anymore since I removed
+//several ribbons  its u32, but i'm only taking up 21...
 
 /*union PokemonSubstruct
 {
@@ -159,6 +163,8 @@ struct BoxPokemon
     u8 isBadEgg:1;
     u8 hasSpecies:1;
     u8 isEgg:1;
+    u8 boxHp:1; //realized only need value 0 & 1
+    //u8 lostLocation; //technically can fit in, but uses up last of ewram and still not done adding things...
     //u8 unused:5; //huh I never removed this, what is it?
     u8 otName[OT_NAME_LENGTH];
     //u8 markings; //remove this
@@ -177,6 +183,10 @@ struct BoxPokemon
         union PokemonSubstruct substructs[4];
     } secure;*/
 };
+//wil use bit fields to cut down on substruct stuff on rec
+//from josh/shinydragonhunter
+//hard to get space saving since space is allocated to max of all structs
+//but think can just remove and put all in boxmon here
 
 struct Pokemon
 {

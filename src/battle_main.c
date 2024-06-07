@@ -34,6 +34,7 @@
 #include "trig.h"
 #include "vs_seeker.h"
 #include "util.h"
+#include "option_menu.h"
 #include "new_menu_helpers.h"
 #include "constants/abilities.h"
 #include "constants/battle_effects.h"
@@ -4491,6 +4492,18 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
 
     //if (gBattleMons[gActiveBattler].status2 & STATUS2_TRANSFORMED)
         CalculateMonStats(party); //to reset stats to normal  //remove transformatino line as status2 would alraedy be removed  fron fainted
+    //lost location don't display if 0,
+
+    //boxhp only set if is 0                
+    if (IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_HP, NULL) == 0)
+    && FlagGet(FLAG_SYS_POKEDEX_GET)
+    && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+    {
+        u8 boxHP = 0;
+        //u8 map = GetCurrentRegionMapSectionId();
+        //SetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_LOST_LOCATION, &map);
+        SetMonData(party, MON_DATA_BOX_HP, &boxHP);
+    }    //this works here
 }
 
 static void BattleIntroGetMonsData(void)

@@ -874,6 +874,7 @@ const u8 gText_UnionRoomTradesBattles[] = _("UNION TRADES & BATTLES");
 const u8 gText_BerryCrushes[] = _("BERRY CRUSH");
 const u8 gText_WaitingTrainerFinishReading[] = _("Waiting for the other TRAINER to\nfinish reading your TRAINER CARD.");
 const u8 gText_GameOptions[] = _("GAME OPTIONS");
+const u8 gText_TextOptions[] = _("TEXT OPTIONS");
 const u8 gText_MiscOptions[] = _("MISC. OPTIONS");
 const u8 gText_MenuOption[] = _("OPTION");
 const u8 gText_TextSpeed[] = _("TEXT SPEED");
@@ -888,7 +889,10 @@ const u8 gText_AbilityCap[] = _("CAP. ABILITY"); //but its limited to 255... wel
 const u8 gText_MoveCap[] = _("CAP. MOVES");
 const u8 gText_ItemCap[] = _("CAP. ITEMS");//vsonic IMPORTANT
 const u8 gText_MiscPlaceholderCap[] = _("CAP. PLACEHOLDERS");
+
+const u8 gText_EventSpeedup[] = _("EVENT SPEED UP");
 const u8 gText_BattleSpeed[] = _("BATTLE SPEED");
+const u8 gText_NuzlockeMode[] = _("NUZLOCKE MODE");
 
 const u8 gText_OptionMenuCancel[] = _("CANCEL");
 const u8 gText_TextSpeedSlow[] = _("SLOW");

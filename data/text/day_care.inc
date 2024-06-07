@@ -97,6 +97,10 @@ DayCare_Text_ComeAgain:: @ 81BF976
 	.string "Fine.\n"
 	.string "Come again.$"
 
+DayCare_Text_CantRaiseThat:
+	.string "Sorry.\n"
+	.string "But I can't raise that POKéMON.$"
+
 DayCare_Text_GoodToSeeYou:: @ 81BF988
 	.string "Ah, it's you!\n"
 	.string "Good to see you.\p"

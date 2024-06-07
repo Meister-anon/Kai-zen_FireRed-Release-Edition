@@ -219,6 +219,7 @@ gScriptCmdTable:: @ 815F9B4
 	.4byte ScrCmd_pokemart2		@new script commnd generate mart list by array/gymbadge
 	.4byte ScrCmd_givegroup		@for testing, hopefully can give set number of mon
 	.4byte ScrCmd_UpdateOakRanch @to run boxexp set from script
+	.4byte ScrCmd_PreventBoxHeal @for nuzlocke mode
 	.4byte ScrCmd_getmondata	@new script from zatsu, populate result with mon data at partyslot	
 
 gScriptCmdTableEnd:: @ 815FD08

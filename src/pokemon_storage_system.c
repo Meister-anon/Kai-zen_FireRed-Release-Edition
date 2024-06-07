@@ -1,6 +1,8 @@
 #include "global.h"
 #include "gflib.h"
 #include "pokemon_storage_system_internal.h"
+#include "event_data.h"
+#include "option_menu.h"
 
 static void ApplyOakRanchExperience(struct Pokemon *mon); //ohop make work
 
@@ -97,8 +99,9 @@ void CreateBoxMonAt(u8 boxId, u8 boxPosition, u16 species, u8 level, u8 fixedIV,
                      hasFixedPersonality, personality,
                      otIDType, otID);
     }
-}
+}//appears unused?
 
+//used for release mon and apparenlty storing/moving in pc?
 void ZeroBoxMonAt(u8 boxId, u8 boxPosition)
 {
     if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
@@ -134,6 +137,10 @@ void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience)
     //that takes all the argument
 
     if (currExperience == 0) //if CanBoxMonGainExp returns false
+        return;
+
+    if (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+        && FlagGet(FLAG_SYS_POKEDEX_GET)) //should be block exp gain for dead mon,to prevent level up
         return;
 
     //currExperience -= 1; //sub 1 to get back to real value //actually don't need this even at lvl 1 exp is still above 0

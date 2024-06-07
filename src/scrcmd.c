@@ -35,6 +35,7 @@
 #include "field_effect.h"
 #include "fieldmap.h"
 #include "field_door.h"
+#include "option_menu.h"
 #include "constants/event_objects.h"
 
 extern u16 (*const gSpecials[])(void);
@@ -669,8 +670,8 @@ bool8 ScrCmd_delay(struct ScriptContext * ctx) //seeing how changing delya for o
     sPauseCounter = ScriptReadHalfword(ctx); //may keep this on by default, thought about making option but is too good
     
 
-
-    sPauseCounter = max(sPauseCounter / 4, 1); //been changing this value without any effect
+    if (IsEventSpeedupOn())
+        sPauseCounter = max(sPauseCounter / 4, 1); //been changing this value without any effect
         //thinking ctx is the important value here not pause counter...
     //thoguht 4x would be too much, but scripts have a lot of delays in them
     //so this actually worked out well 
@@ -678,7 +679,7 @@ bool8 ScrCmd_delay(struct ScriptContext * ctx) //seeing how changing delya for o
 
     SetupNativeScript(ctx, RunPauseTimer); //think this just keeps running and dedrementing until it returns true?
     return TRUE;
-}
+}//will add to options menu as toggle, just for those that prefer taking it slow
 
 //will need redo/unremove these cmds think changetrue as well
 #define REMOVED_RS_COMMANDS
@@ -1892,6 +1893,27 @@ bool8 ScrCmd_UpdateOakRanch(void) //to run oak ranch update from cmd
 {
     if (FlagGet(FLAG_START_OAK_RANCH_COUNTER) && gSaveBlock1Ptr->oakRanchStepCounter != 0)
         UpdatePokemonStorageSystemMonExp();
+    return TRUE;
+}
+
+bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poison deaths I guess
+{
+    u32 i;
+    u8 boxHP = 0;
+    //u8 map = GetCurrentRegionMapSectionId();
+
+    if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)) //if has pokedex received pokeballs already
+    {
+        for (i = 0; i != PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
+                SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
+
+        }
+        
+        //SetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_LOST_LOCATION, &map);
+        
+    }
     return TRUE;
 }
 

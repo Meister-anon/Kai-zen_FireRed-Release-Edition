@@ -3238,6 +3238,7 @@ static void PokeSum_PrintTrainerMemo_Mon_HeldByOT(void) // seems to relate to or
     u8 nature;
     u8 level;
     u8 metLocation;
+    u8 lostLocation;
     u8 levelStr[5];
     u8 mapNameStr[32];
     u8 natureMetOrHatchedAtLevelStr[152];
@@ -3254,6 +3255,13 @@ static void PokeSum_PrintTrainerMemo_Mon_HeldByOT(void) // seems to relate to or
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, levelStr);
 
     metLocation = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MET_LOCATION);
+    lostLocation = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_LOST_LOCATION);
+
+    if (lostLocation)
+    {
+        if (MapSecIsInKantoOrSevii(lostLocation) == TRUE)
+        GetMapNameGeneric_(mapNameStr, lostLocation);
+    }
 
     if (MapSecIsInKantoOrSevii(metLocation) == TRUE)
         GetMapNameGeneric_(mapNameStr, metLocation);

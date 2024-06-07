@@ -3,4 +3,7 @@
 
 void CB2_OptionsMenuFromStartMenu(void);
 
+u8 IsEventSpeedupOn(void);
+u8 IsNuzlockeModeOn(void);
+
 #endif //GUARD_OPTION_MENU_H

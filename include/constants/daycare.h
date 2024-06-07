@@ -12,6 +12,7 @@
 #define DAYCARE_EGG_WAITING 1
 #define DAYCARE_ONE_MON     2
 #define DAYCARE_TWO_MONS    3
+#define NUZLOCKE_BANNED_MON 4   //when trying to put dead mon in daycare
 
 #define INHERITED_IV_COUNT 3
 #define EGG_HATCH_LEVEL 1//5 /CHANGED decided to use 1, like EM plus makes ng+ being lvl 1 make more sense

@@ -94,6 +94,9 @@
 #define MON_DATA_HATCHED           89   //new value to keep track of egg hatch status - needed for summary screen to properly distinguise mon got via egg
 #define MON_DATA_FORM_FLAG         90   //new value for helping evo into regional forms
 #define MON_DATA_EVO_LEVEL         91 //new value store level mon evolves at, moslty for keeping relative evo consistent, becomes new floor value if non -zero
+#define MON_DATA_LOST_LOCATION     92   //both for nuzlocke mode //store location fainted   - onhold for now
+#define MON_DATA_BOX_HP            93   //when hp is 0, pass hp to box so doesn't heal
+
 
 #define TYPE_DEFINES
 

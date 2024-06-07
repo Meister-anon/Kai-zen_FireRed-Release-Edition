@@ -13,6 +13,10 @@ Route5_PokemonDayCare_Text_ComeAnytimeYouLike:: @ 819DDDC
 	.string "Fine.\n"
 	.string "Come anytime you like.$"
 
+Route5_PokemonDayCare_Text_CantRaiseThat:
+	.string "Sorry.\n"
+	.string "But I can't raise that POKéMON.$"
+
 Route5_PokemonDayCare_Text_LookAfterMonForAWhile:: @ 819DDF9
 	.string "Fine, I'll look after your\n"
 	.string "{STR_VAR_1} for a while.$"

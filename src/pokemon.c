@@ -26,6 +26,7 @@
 #include "strings.h"
 #include "overworld.h"
 #include "party_menu.h"
+#include "option_menu.h"
 #include "field_specials.h"
 #include "field_weather.h"
 #include "constants/items.h"
@@ -2628,6 +2629,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 HiddenAbility1_Chance = 0;  //value to ensure ability 1 comes up more often than ability 2 -forgot -10 artificially boosted hidden1 chance everything from 10 is this odds
     u8 HiddenAbility2_Chance = 93;
 
+    u8 setZero = 0;
+    u8 setOne = 1;
+
     u8 hatched = FALSE;
     u8 formflag = FALSE;
     u8 evoLevel = 0;  //default 0, not set until evolves
@@ -2684,6 +2688,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_FRIENDSHIP, &gBaseStats[species].friendship);
     value = GetCurrentRegionMapSectionId();
     SetBoxMonData(boxMon, MON_DATA_MET_LOCATION, &value);
+    SetBoxMonData(boxMon, MON_DATA_LOST_LOCATION, &setZero);
     SetBoxMonData(boxMon, MON_DATA_MET_LEVEL, &level);
     SetBoxMonData(boxMon,MON_DATA_EVO_LEVEL, &evoLevel);
     SetBoxMonData(boxMon, MON_DATA_HATCHED, &hatched);
@@ -2691,6 +2696,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_MET_GAME, &gGameVersion);
     value = ITEM_POKE_BALL;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
+    SetBoxMonData(boxMon, MON_DATA_BOX_HP, &setOne); //set non-zero only use if 0
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
     if (fixedIV < 32)
@@ -3042,6 +3048,11 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
 
 void CalculateMonStats(struct Pokemon *mon)
 {
+
+    u8 boxHP = GetMonData(mon, MON_DATA_BOX_HP, NULL);
+
+        
+
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
     s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
     s32 hpIV = GetMonData(mon, MON_DATA_HP_IV, NULL);
@@ -3092,30 +3103,43 @@ void CalculateMonStats(struct Pokemon *mon)
     CALC_STAT(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
     CALC_STAT(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
 
-    if (ability == ABILITY_WONDER_GUARD)
-    {
-        if (currentHP != 0 || oldMaxHP == 0) //I guess this line is enough to make current hp 1?
-            currentHP = 1;
-        else
-            return;
+
+    //feel like this is all I need?
+    if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
+    && currentHP == 0 && boxHP == 0) //for some reason prevents wild mon from having hp
+    {    
+        //currentHP = boxHP;
+        //SetMonData(mon, MON_DATA_HP, &boxHP);
+        return;
     }
     else
     {
-        if (currentHP == 0 && oldMaxHP == 0)
-            currentHP = newMaxHP;
-        else if (currentHP != 0) //didn't need max hp > oldmax hp part from cfru, that made things less specific and broke transform
+        if (ability == ABILITY_WONDER_GUARD)
         {
-            // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
-            currentHP += newMaxHP - oldMaxHP;
-            #ifdef BUGFIX
-            if (currentHP <= 0)
+            if (currentHP != 0 || oldMaxHP == 0) //I guess this line is enough to make current hp 1?
                 currentHP = 1;
-            #endif
+            else
+                return;
         }
         else
-            return;
+        {
+            if (oldMaxHP == 0) //pc removal
+                currentHP = newMaxHP;
+            else if (currentHP != 0) //didn't need max hp > oldmax hp part from cfru, that made things less specific and broke transform
+            {
+                // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
+                currentHP += newMaxHP - oldMaxHP;
+                #ifdef BUGFIX
+                if (currentHP <= 0)
+                    currentHP = 1;
+                #endif
+            }
+            else if (currentHP == 0 && boxHP == 0) //remove from pc fainted but not nuzlocke mode
+                currentHP = newMaxHP;
+            else
+                return;
+        }
     }
-
     SetMonData(mon, MON_DATA_HP, &currentHP);
 }
 
@@ -3125,7 +3149,7 @@ void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
     u32 value = 0;
     dest->box = *src;
     SetMonData(dest, MON_DATA_STATUS, &value);
-    SetMonData(dest, MON_DATA_HP, &value);
+    //SetMonData(dest, MON_DATA_HP, &value);
     SetMonData(dest, MON_DATA_MAX_HP, &value);
     value = 255;
     //SetMonData(dest, MON_DATA_MAIL, &value);
@@ -5443,9 +5467,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_MET_LOCATION:
         retVal = substruct3->metLocation;
         break;
-/*  case MON_DATA_LOST_LOCATON:
-       retVal = subsruct3->lostLocation;
-       break;*/
+    case MON_DATA_LOST_LOCATION:
+        //retVal = boxMon->lostLocation;
+       break;
     case MON_DATA_HATCHED:
         retVal = substruct0->hatched; //needed move to save substruct space, all substructs must be 12 bytes
         break;
@@ -5463,6 +5487,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_POKEBALL:
         retVal = substruct3->pokeball;
+        break;
+    case MON_DATA_BOX_HP:
+        retVal = boxMon->boxHp;
         break;
     case MON_DATA_OT_GENDER:
         retVal = substruct3->otGender;
@@ -5813,9 +5840,12 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_MET_LOCATION:
         SET8(substruct3->metLocation);
         break;
-/*  case MON_DATA_LOST_LOCATON:  // plan to use this for pokemon death, will return the val of the map at the time the function determines the pokemon is dead.
-       SET8(substruct3->lostLocation);
-       break;*/  //not really needed I guess? met location is apparently only practical use is boosting friendship and no one even knows that, it'd be cool to have though
+  case MON_DATA_LOST_LOCATION:  // plan to use this for pokemon death, will return the val of the map at the time the function determines the pokemon is dead.
+    {
+        u8 lostLocation = *data;
+        //boxMon->lostLocation = lostLocation;
+        break;
+    }  //not really needed I guess? met location is apparently only practical use is boosting friendship and no one even knows that, it'd be cool to have though
     case MON_DATA_MET_LEVEL:
     {
         u8 metLevel = *data;
@@ -5847,6 +5877,12 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     {
         u8 pokeball = *data;
         substruct3->pokeball = pokeball;
+        break;
+    }
+    case MON_DATA_BOX_HP:
+    {
+        u8 boxHP = *data;
+        boxMon->boxHp = boxHP;
         break;
     }
     case MON_DATA_OT_GENDER:
@@ -6520,7 +6556,9 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     }
     
     if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
-    || gItems[item].fieldUseFunc == NULL)
+    || gItems[item].fieldUseFunc == NULL
+    || (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_HP, NULL) == 0)
+    && FlagGet(FLAG_SYS_POKEDEX_GET)))
         return TRUE;    //builds so hopefully works
         //ok now get it, was saying don't execute function if NOT oakstopsyou, 
         //when that was supposed to be the break condition ok lets try again
@@ -7124,14 +7162,11 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
         gActiveBattler = 0;
         battlerId = 4;
     }
-    //ok none of these are what I'm looking for 
-    //what I wanted was something to completely remove the use option text
-    //ok removing the use option text wasnt the plan I got confused,
-    //it was supposed to just make it have no effect, to replce the item range below it
-    //but oak stops you, and fielduse NULL don't go to the party menu
-    //so are both completely useless
+
     if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
-    || gItems[item].fieldUseFunc == NULL)
+    || gItems[item].fieldUseFunc == NULL
+    || (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_HP, NULL) == 0)
+    && FlagGet(FLAG_SYS_POKEDEX_GET)))
         return TRUE;
         
     //if (!(IS_POKEMON_ITEM(item)) && !IS_POKEMON_ITEM2(item))  //based on crit calc this DOES need to be and, not or

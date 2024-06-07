@@ -19,6 +19,7 @@ bool32 MenuHelpers_CallLinkSomething(void);
 enum MainOptionsMenu
 {
     MAIN_MENU_GAME_OPTIONS = 0,
+    MAIN_MENU_TEXT_OPTIONS,
     MAIN_MENU_MISC_OPTIONS,
     MAIN_MENU_CANCEL,
     MAIN_MENU_COUNT
@@ -38,14 +39,22 @@ enum    GameOptions
     GAME_MENUITEM_COUNT
 };
 
-enum MiscOptions //I have space to add battle speed up option here, could just change to Misc. option
+enum TextOptions //I have space to add battle speed up option here, could just change to Misc. option
 {
-    MISC_MENUITEM_CAP_SPECIES,
-    MISC_MENUITEM_CAP_ABILITY,
-    MISC_MENUITEM_CAP_MOVES,
-    MISC_MENUITEM_CAP_ITEMS,
-    MISC_MENUITEM_CAP_PLACEHOLDERS, //misc cap, but more descriptive
+    TEXT_MENUITEM_CAP_SPECIES,
+    TEXT_MENUITEM_CAP_ABILITY,
+    TEXT_MENUITEM_CAP_MOVES,
+    TEXT_MENUITEM_CAP_ITEMS,
+    TEXT_MENUITEM_CAP_PLACEHOLDERS, //misc cap, but more descriptive
+    
+    TEXT_MENUITEM_CANCEL,
+    TEXT_MENUITEM_COUNT
+};//change back to text, but still add misc options field
+
+enum MiscOptions
+{   MISC_MENUITEM_EVENT_SPEEDUP,
     MISC_MENUITEM_BATTLE_SPEED,
+    MISC_MENUITEM_NUZLOCKE_MODE,
     MISC_MENUITEM_CANCEL,
     MISC_MENUITEM_COUNT
 };
@@ -71,7 +80,8 @@ enum MenuCat
 {
     MAIN_MENU,
     GAME_OPTIONS,
-    MISC_OPTIONS
+    TEXT_OPTIONS,
+    MISC_OPTIONS,
 
 };
 
@@ -80,6 +90,7 @@ struct OptionMenu
 {
     /*0x00*/ u16 MainOptionsMenu[MAIN_MENU_COUNT]; //hopefuly not a problem, num options will be up to that, but change with menu cat -main menu
              u16 GameOptions[GAME_MENUITEM_COUNT];
+             u16 TextOptions[TEXT_MENUITEM_COUNT];
              u16 MiscOptions[MISC_MENUITEM_COUNT];
     /*0x0E*/ u16 cursorPos;
     /*0x10*/ u8 loadState;
@@ -190,13 +201,15 @@ static const u16 sOptionMenuPalette[] = INCBIN_U16("graphics/misc/unk_83cc2e4.gb
 static const u8 *const sMainOptionMenuItemsNames[MAIN_MENU_COUNT] = 
 {
     [MAIN_MENU_GAME_OPTIONS]    =  gText_GameOptions,
+    [MAIN_MENU_TEXT_OPTIONS]    =  gText_TextOptions,
     [MAIN_MENU_MISC_OPTIONS]    =  gText_MiscOptions,
-    [MAIN_MENU_CANCEL]     =  gText_OptionMenuCancel,
+    [MAIN_MENU_CANCEL]          =  gText_OptionMenuCancel,
 };
 
 static const u16 sMainOptionMenuItemCounts[MAIN_MENU_COUNT] =
 {
     [MAIN_MENU_GAME_OPTIONS]    =  0,
+    [MAIN_MENU_TEXT_OPTIONS]    =  0,
     [MAIN_MENU_MISC_OPTIONS]    =  0,
     [MAIN_MENU_CANCEL]          =  0,
 };
@@ -213,15 +226,24 @@ static const u16 sGameOptionMenuItemCounts[GAME_MENUITEM_COUNT] =
     [GAME_MENUITEM_CANCEL]           = 0
 };//num menu options for each category on/off is 2
 
-static const u16 sMiscOptionsMenuItemCounts[MISC_MENUITEM_COUNT] =
+static const u16 sTextOptionsMenuItemCounts[TEXT_MENUITEM_COUNT] =
 {
-    [MISC_MENUITEM_CAP_SPECIES]      = 2,
-    [MISC_MENUITEM_CAP_ABILITY]      = 2,
-    [MISC_MENUITEM_CAP_MOVES]        = 2,
-    [MISC_MENUITEM_CAP_ITEMS]        = 2,
-    [MISC_MENUITEM_CAP_PLACEHOLDERS] = 2,
+    [TEXT_MENUITEM_CAP_SPECIES]      = 2,
+    [TEXT_MENUITEM_CAP_ABILITY]      = 2,
+    [TEXT_MENUITEM_CAP_MOVES]        = 2,
+    [TEXT_MENUITEM_CAP_ITEMS]        = 2,
+    [TEXT_MENUITEM_CAP_PLACEHOLDERS] = 2,
+   
+    [TEXT_MENUITEM_CANCEL]           = 0
+};
+
+static const u16 sMiscOptionsMenuItemCounts[TEXT_MENUITEM_COUNT] =
+{
+    [MISC_MENUITEM_EVENT_SPEEDUP]     = 2, //OFF - ON
     [MISC_MENUITEM_BATTLE_SPEED]     = 4, //1x - 4x
-    [MISC_MENUITEM_CANCEL]           = 0
+    [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //OFF - ON
+
+    [MISC_MENUITEM_CANCEL]          = 0,
 };
 
 static const u8 *const sGameOptionMenuItemsNames[GAME_MENUITEM_COUNT] =
@@ -237,15 +259,22 @@ static const u8 *const sGameOptionMenuItemsNames[GAME_MENUITEM_COUNT] =
     [GAME_MENUITEM_CANCEL]      = gText_OptionMenuCancel,
 };
 
-static const u8 *const sTextOptionMenuItemsNames[MISC_MENUITEM_COUNT] =
+static const u8 *const sTextOptionMenuItemsNames[TEXT_MENUITEM_COUNT] =
 {
-    [MISC_MENUITEM_CAP_SPECIES]      = gText_SpeciesCap,
-    [MISC_MENUITEM_CAP_ABILITY]      = gText_AbilityCap,
-    [MISC_MENUITEM_CAP_MOVES]        = gText_MoveCap,
-    [MISC_MENUITEM_CAP_ITEMS]        = gText_ItemCap,
-    [MISC_MENUITEM_CAP_PLACEHOLDERS] = gText_MiscPlaceholderCap,
-    [MISC_MENUITEM_BATTLE_SPEED]     = gText_BattleSpeed,
-    [MISC_MENUITEM_CANCEL]           = gText_OptionMenuCancel,
+    [TEXT_MENUITEM_CAP_SPECIES]      = gText_SpeciesCap,
+    [TEXT_MENUITEM_CAP_ABILITY]      = gText_AbilityCap,
+    [TEXT_MENUITEM_CAP_MOVES]        = gText_MoveCap,
+    [TEXT_MENUITEM_CAP_ITEMS]        = gText_ItemCap,
+    [TEXT_MENUITEM_CAP_PLACEHOLDERS] = gText_MiscPlaceholderCap,
+    [TEXT_MENUITEM_CANCEL]           = gText_OptionMenuCancel,
+};
+
+static const u8 *const sMiscOptionMenuItemsNames[MISC_MENUITEM_COUNT] =
+{
+    [MISC_MENUITEM_EVENT_SPEEDUP]     = gText_EventSpeedup,
+    [MISC_MENUITEM_BATTLE_SPEED]      = gText_BattleSpeed,
+    [MISC_MENUITEM_NUZLOCKE_MODE]     = gText_NuzlockeMode,
+    [MISC_MENUITEM_CANCEL]            = gText_OptionMenuCancel,
 };
 
 static const u8 *const sTextSpeedOptions[] =
@@ -337,7 +366,7 @@ void CB2_OptionsMenuFromStartMenu(void)
     sOptionMenuPtr->loadState = 0;
     sOptionMenuPtr->loadPaletteState = 0;
     sOptionMenuPtr->state = 0;
-    sOptionMenuPtr->cursorPos = 0;
+    //sOptionMenuPtr->cursorPos = 0;
 
     //these should stay here, this is populating the base value/cursor position for each menu option
     //not printing them
@@ -348,13 +377,16 @@ void CB2_OptionsMenuFromStartMenu(void)
     sOptionMenuPtr->GameOptions[GAME_MENUITEM_BUTTONMODE] = gSaveBlock2Ptr->optionsButtonMode;
     sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE] = gSaveBlock2Ptr->optionsWindowFrameType;
     
-    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_SPECIES] = FlagGet(FLAG_CAPITALIZE_SPECIES_TEXT);
-    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_ABILITY] = FlagGet(FLAG_CAPITALIZE_ABILITY_TEXT);
-    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_MOVES] = FlagGet(FLAG_CAPITALIZE_MOVE_TEXT);
-    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_ITEMS] = FlagGet(FLAG_CAPITALIZE_ITEM_TEXT);
-    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_PLACEHOLDERS] = FlagGet(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
+    sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_SPECIES] = FlagGet(FLAG_CAPITALIZE_SPECIES_TEXT);
+    sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_ABILITY] = FlagGet(FLAG_CAPITALIZE_ABILITY_TEXT);
+    sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_MOVES] = FlagGet(FLAG_CAPITALIZE_MOVE_TEXT);
+    sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_ITEMS] = FlagGet(FLAG_CAPITALIZE_ITEM_TEXT);
+    sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_PLACEHOLDERS] = FlagGet(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
+    
+    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_EVENT_SPEEDUP] = gSaveBlock2Ptr->optionsEventSpeedup;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_SPEED] = gSaveBlock2Ptr->optionsBattleSpeed;
-
+    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE] = gSaveBlock2Ptr->optionsNuzlockeMode;
+    
     switch (sOptionMenuPtr->MenuCategory)
     {
         case GAME_OPTIONS:
@@ -362,6 +394,13 @@ void CB2_OptionsMenuFromStartMenu(void)
             {
                 if (sOptionMenuPtr->GameOptions[i] > (sGameOptionMenuItemCounts[i]) - 1)
                     sOptionMenuPtr->GameOptions[i] = 0;
+            }
+        break;
+        case TEXT_OPTIONS:
+            for (i = 0; i < TEXT_MENUITEM_COUNT - 1; i++)
+            {
+                if (sOptionMenuPtr->TextOptions[i] > (sTextOptionsMenuItemCounts[i]) - 1)
+                    sOptionMenuPtr->TextOptions[i] = 0; 
             }
         break;
         case MISC_OPTIONS:
@@ -402,6 +441,9 @@ static void CB2_OptionMenu(void)
         break;
         case GAME_OPTIONS:
             Menu_Count = GAME_MENUITEM_COUNT;
+        break;
+        case TEXT_OPTIONS:
+            Menu_Count = TEXT_MENUITEM_COUNT;
         break;
         case MISC_OPTIONS:
             Menu_Count = MISC_MENUITEM_COUNT;
@@ -616,12 +658,21 @@ static u8 OptionMenu_ProcessInput(void)
             {
                 if (sOptionMenuPtr->cursorPos == MAIN_MENU_GAME_OPTIONS)
                 {
+                    sOptionMenuPtr->cursorPos = 0;
                     sOptionMenuPtr->MenuCategory = GAME_OPTIONS;
                     gMain.savedCallback = NULL;  //to ensure doesn't reset menu cat on callback
                     return 5; 
                 }
+                else if (sOptionMenuPtr->cursorPos == MAIN_MENU_TEXT_OPTIONS)
+                {
+                    sOptionMenuPtr->cursorPos = 0;
+                    sOptionMenuPtr->MenuCategory = TEXT_OPTIONS;
+                    gMain.savedCallback = NULL;  //to ensure doesn't reset menu cat on callback
+                    return 5;
+                }
                 else if (sOptionMenuPtr->cursorPos == MAIN_MENU_MISC_OPTIONS)
                 {
+                    sOptionMenuPtr->cursorPos = 0;
                     sOptionMenuPtr->MenuCategory = MISC_OPTIONS;
                     gMain.savedCallback = NULL;  //to ensure doesn't reset menu cat on callback
                     return 5;
@@ -683,13 +734,66 @@ static u8 OptionMenu_ProcessInput(void)
             }
             else if (JOY_NEW(B_BUTTON) || JOY_NEW(A_BUTTON))
             {
-                return 1;
+                /*sOptionMenuPtr->cursorPos = MAIN_MENU_GAME_OPTIONS;
+                sOptionMenuPtr->MenuCategory = MAIN_MENU;
+                gMain.savedCallback = NULL;*/  //to ensure doesn't reset menu cat on callback
+                return 1; //think I was supposed to change this but didn't realize
             }
             else
             {
                 return 0;
             }
         break;
+        case TEXT_OPTIONS: 
+           if (JOY_REPT(DPAD_RIGHT))
+            {
+                current = sOptionMenuPtr->TextOptions[(sOptionMenuPtr->cursorPos)];
+                if (current == (sTextOptionsMenuItemCounts[sOptionMenuPtr->cursorPos] - 1))
+                    sOptionMenuPtr->TextOptions[sOptionMenuPtr->cursorPos] = 0;
+                else
+                    sOptionMenuPtr->TextOptions[sOptionMenuPtr->cursorPos] = current + 1;
+
+                    return 4;
+            }
+            else if (JOY_REPT(DPAD_LEFT))
+            {
+                curr = &sOptionMenuPtr->TextOptions[sOptionMenuPtr->cursorPos];
+                if (*curr == 0)
+                    *curr = sTextOptionsMenuItemCounts[sOptionMenuPtr->cursorPos] - 1;
+                else
+                    --*curr;
+                
+                    return 4;
+            }
+            else if (JOY_REPT(DPAD_UP)) 
+            {
+                if (sOptionMenuPtr->cursorPos == TEXT_MENUITEM_CAP_SPECIES)
+                    sOptionMenuPtr->cursorPos = TEXT_MENUITEM_CANCEL;
+                else
+                    sOptionMenuPtr->cursorPos = sOptionMenuPtr->cursorPos - 1;
+                return 3;        
+            }
+            else if (JOY_REPT(DPAD_DOWN))
+            {
+                if (sOptionMenuPtr->cursorPos == TEXT_MENUITEM_CANCEL)
+                    sOptionMenuPtr->cursorPos = TEXT_MENUITEM_CAP_SPECIES;
+                else
+                    sOptionMenuPtr->cursorPos = sOptionMenuPtr->cursorPos + 1;
+                return 3;
+            }
+            else if (JOY_NEW(B_BUTTON) || JOY_NEW(A_BUTTON))
+            {
+                /*sOptionMenuPtr->cursorPos = MAIN_MENU_TEXT_OPTIONS;
+                sOptionMenuPtr->MenuCategory = MAIN_MENU;
+                gMain.savedCallback = NULL;*/  //to ensure doesn't reset menu cat on callback
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+
+        break; 
         case MISC_OPTIONS: 
            if (JOY_REPT(DPAD_RIGHT))
             {
@@ -713,7 +817,7 @@ static u8 OptionMenu_ProcessInput(void)
             }
             else if (JOY_REPT(DPAD_UP)) 
             {
-                if (sOptionMenuPtr->cursorPos == MISC_MENUITEM_CAP_SPECIES)
+                if (sOptionMenuPtr->cursorPos == MISC_MENUITEM_EVENT_SPEEDUP)
                     sOptionMenuPtr->cursorPos = MISC_MENUITEM_CANCEL;
                 else
                     sOptionMenuPtr->cursorPos = sOptionMenuPtr->cursorPos - 1;
@@ -722,13 +826,16 @@ static u8 OptionMenu_ProcessInput(void)
             else if (JOY_REPT(DPAD_DOWN))
             {
                 if (sOptionMenuPtr->cursorPos == MISC_MENUITEM_CANCEL)
-                    sOptionMenuPtr->cursorPos = MISC_MENUITEM_CAP_SPECIES;
+                    sOptionMenuPtr->cursorPos = MISC_MENUITEM_EVENT_SPEEDUP;
                 else
                     sOptionMenuPtr->cursorPos = sOptionMenuPtr->cursorPos + 1;
                 return 3;
             }
             else if (JOY_NEW(B_BUTTON) || JOY_NEW(A_BUTTON))
             {
+                /*sOptionMenuPtr->cursorPos = MAIN_MENU_MISC_OPTIONS;
+                sOptionMenuPtr->MenuCategory = MAIN_MENU;
+                gMain.savedCallback = NULL;*/  //to ensure doesn't reset menu cat on callback
                 return 1;
             }
             else
@@ -736,12 +843,12 @@ static u8 OptionMenu_ProcessInput(void)
                 return 0;
             }
 
-        break; 
+        break;
     }
 
+    //OK THINK BELOW is extra stuff can remove
 
-
-    if (JOY_REPT(DPAD_RIGHT))
+    /*if (JOY_REPT(DPAD_RIGHT))
     {
         current = sOptionMenuPtr->GameOptions[(sOptionMenuPtr->cursorPos)];
         if (current == (sGameOptionMenuItemCounts[sOptionMenuPtr->cursorPos] - 1))
@@ -789,7 +896,7 @@ static u8 OptionMenu_ProcessInput(void)
     else
     {
         return 0;
-    }
+    }*/
 }
 
 //NEEd menu cat here as well, but can skip main menu stuff as that's for 0
@@ -838,21 +945,30 @@ static void BufferOptionMenuString(u8 selection)
                 break;
             }
         break;
-        case MISC_OPTIONS:
+        case TEXT_OPTIONS:
            switch (selection)
             {
-                case MISC_MENUITEM_CAP_SPECIES:
-                case MISC_MENUITEM_CAP_ABILITY:
-                case MISC_MENUITEM_CAP_MOVES:
-                case MISC_MENUITEM_CAP_ITEMS:
-                case MISC_MENUITEM_CAP_PLACEHOLDERS:
+                case TEXT_MENUITEM_CAP_SPECIES:
+                case TEXT_MENUITEM_CAP_ABILITY:
+                case TEXT_MENUITEM_CAP_MOVES:
+                case TEXT_MENUITEM_CAP_ITEMS:
+                case TEXT_MENUITEM_CAP_PLACEHOLDERS:
+                    AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sTextCapOptions[sOptionMenuPtr->TextOptions[selection]]); 
+                break;
+            }
+        break;
+        case MISC_OPTIONS:
+            switch (selection)
+            {
+                case MISC_MENUITEM_EVENT_SPEEDUP:
+                case MISC_MENUITEM_NUZLOCKE_MODE:
                     AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sTextCapOptions[sOptionMenuPtr->MiscOptions[selection]]); 
                 break;
                 case MISC_MENUITEM_BATTLE_SPEED:                    
                     AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sBattleSpeedOptions[sOptionMenuPtr->MiscOptions[selection]]); 
                 break;
             }
-        break;
+            break;
     }
     
     PutWindowTilemap(1);
@@ -881,13 +997,19 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
             SetMainCallback2(CB2_OptionsMenuFromStartMenu);
             FreeAllWindowBuffers();
         break;
+        case TEXT_OPTIONS:
+        UpdateSettingDecapSpecies(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_SPECIES]);
+        UpdateSettingDecapAbility(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_ABILITY]);
+        UpdateSettingDecapMoves(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_MOVES]);
+        UpdateSettingDecapItem(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_ITEMS]);
+        UpdateSettingDecapMisc(sOptionMenuPtr->TextOptions[TEXT_MENUITEM_CAP_PLACEHOLDERS]);;
+        SetMainCallback2(CB2_OptionsMenuFromStartMenu);
+        FreeAllWindowBuffers();
+        break;
         case MISC_OPTIONS:
-        UpdateSettingDecapSpecies(sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_SPECIES]);
-        UpdateSettingDecapAbility(sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_ABILITY]);
-        UpdateSettingDecapMoves(sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_MOVES]);
-        UpdateSettingDecapItem(sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_ITEMS]);
-        UpdateSettingDecapMisc(sOptionMenuPtr->MiscOptions[MISC_MENUITEM_CAP_PLACEHOLDERS]);
+        gSaveBlock2Ptr->optionsEventSpeedup = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_EVENT_SPEEDUP];
         gSaveBlock2Ptr->optionsBattleSpeed = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_SPEED];
+        gSaveBlock2Ptr->optionsNuzlockeMode = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE];
         SetMainCallback2(CB2_OptionsMenuFromStartMenu);
         FreeAllWindowBuffers();
         break;
@@ -952,11 +1074,18 @@ static void Init_OptionsMenuListNames(void)
                 AddTextPrinterParameterized(WIN_OPTIONS, 2, sGameOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
             }
         break;
+        case TEXT_OPTIONS:
+            Menu_Count = TEXT_MENUITEM_COUNT;
+            for (i = 0; i < Menu_Count; i++) 
+            {
+                AddTextPrinterParameterized(WIN_OPTIONS, 2, sTextOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
+            }
+        break;
         case MISC_OPTIONS:
             Menu_Count = MISC_MENUITEM_COUNT;
             for (i = 0; i < Menu_Count; i++) 
             {
-                AddTextPrinterParameterized(WIN_OPTIONS, 2, sTextOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
+                AddTextPrinterParameterized(WIN_OPTIONS, 2, sMiscOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
             }
         break;
     }
@@ -1012,4 +1141,20 @@ static void UpdateSettingDecapMisc(u8 selection)
         FlagSet(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
     else if (selection == OFF)
         FlagClear(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
+}
+
+u8 IsEventSpeedupOn(void)
+{
+    if (gSaveBlock2Ptr->optionsEventSpeedup)
+        return TRUE;
+
+    return FALSE;
+}
+
+u8 IsNuzlockeModeOn(void)
+{
+    if (gSaveBlock2Ptr->optionsNuzlockeMode)
+        return TRUE;
+
+    return FALSE;
 }

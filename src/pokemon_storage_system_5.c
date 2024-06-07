@@ -2,10 +2,12 @@
 #include "gflib.h"
 #include "data.h"
 #include "item.h"
+#include "event_data.h"
 #include "mail_data.h"
 #include "pokemon_storage_system_internal.h"
 #include "pokemon_summary_screen.h"
 #include "strings.h"
+#include "option_menu.h"
 #include "constants/items.h"
 #include "constants/moves.h"
 
@@ -592,21 +594,33 @@ void sub_8092F54(void)
 
 static void SetMovedMonData(u8 boxId, u8 position)
 {
+    //u8 boxHP = GetMonData(&gPlayerParty[sBoxCursorPosition], MON_DATA_BOX_HP, NULL);
     if (boxId == TOTAL_BOXES_COUNT)
-        gPSSData->movingMon = gPlayerParty[sBoxCursorPosition];
+    {
+        //if (FlagGet(FLAG_NUZLOCKE_MODE) && boxHP == 0)
+        //    SetMonData(&gPlayerParty[sBoxCursorPosition], MON_DATA_HP, &boxHP);
+       gPSSData->movingMon = gPlayerParty[sBoxCursorPosition];
+    }
+        
     else
         BoxMonAtToMon(boxId, position, &gPSSData->movingMon);
 
-    PurgeMonOrBoxMon(boxId, position);
-    sMovingMonOrigBoxId = boxId;
-    sMovingMonOrigBoxPos = position;
-}
+
+    PurgeMonOrBoxMon(boxId, position);//see what this do = /seems without this clones mon? stil heals in box, but doesn't remove mon from party
+    sMovingMonOrigBoxId = boxId; //for some reason removing the burge breaks fainting mon?
+    sMovingMonOrigBoxPos = position; //ok nvm that's not what broke it...
+}//position is sboxcursorpos    /ISSUE was calculatebasestats change, since that is called in faint mon function
 
 static void SetPlacedMonData(u8 boxId, u8 position)
 {
+    //u8 boxHP;
     if (boxId == TOTAL_BOXES_COUNT)
     {
         gPlayerParty[position] = gPSSData->movingMon;
+
+        //boxHP = GetMonData(&gPlayerParty[position], MON_DATA_BOX_HP, NULL);
+        //if (FlagGet(FLAG_NUZLOCKE_MODE) && boxHP == 0)
+        //    SetMonData(&gPlayerParty[position], MON_DATA_HP, &boxHP);
     }
     else
     {
@@ -657,7 +671,7 @@ bool8 TryStorePartyMonInBox(u8 boxId) //think this one place for moving mon form
     }
 
     if (boxId == StorageGetCurrentBox())
-        sub_80901EC(boxPosition);
+        sub_80901EC(boxPosition); //seems is create sprite in box, based on personality
 
     StartSpriteAnim(gPSSData->field_CB4, 1);
     return TRUE;
@@ -945,10 +959,10 @@ bool8 CanShiftMon(void)
     {
         if (sBoxCursorArea == CURSOR_AREA_IN_PARTY && CountPartyAliveNonEggMonsExcept(sBoxCursorPosition) == 0)
         {
-            if (gPSSData->cursorMonIsEgg || GetMonData(&gPSSData->movingMon, MON_DATA_HP) == 0)
+            if (gPSSData->cursorMonIsEgg)// || GetMonData(&gPSSData->movingMon, MON_DATA_HP) == 0) //what does this mean?
                 return FALSE;
         }
-        return TRUE;
+        return TRUE;//think is swap position with control select?
     }
     return FALSE;
 }
@@ -1038,6 +1052,14 @@ static void SetCursorMonData(void *pokemon, u8 mode)
             gPSSData->cursorMonPalette = GetMonFrontSpritePal(mon);
             gender = GetMonGender(mon);
             gPSSData->cursorMonItem = GetMonData(mon, MON_DATA_HELD_ITEM);
+
+            if (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+            && FlagGet(FLAG_SYS_POKEDEX_GET))
+            {
+                u8 boxHP = 0;
+                SetMonData(mon, MON_DATA_HP, &boxHP);
+            }
+        
         }
     }
     else if (mode == MODE_BOX)
