@@ -1696,7 +1696,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_ITEMS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = FieldUseFunc_OakStopsYou,
+      .fieldUseFunc = FieldUseFunc_EvoItem,
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
@@ -1713,7 +1713,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_ITEMS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = FieldUseFunc_OakStopsYou,
+      .fieldUseFunc = FieldUseFunc_EvoItem,
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
@@ -1730,7 +1730,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_ITEMS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = FieldUseFunc_OakStopsYou,
+      .fieldUseFunc = FieldUseFunc_EvoItem,
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
@@ -1747,7 +1747,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_ITEMS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = FieldUseFunc_OakStopsYou,
+      .fieldUseFunc = FieldUseFunc_EvoItem,
       .battleUseFunc = NULL,
       .secondaryId =  0
     },

@@ -13561,7 +13561,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_URSURPER, ABILITY_NONE},//replace with combination of competitive and defiant, known as ursurper 
+        .abilities = {ABILITY_USURPER, ABILITY_NONE},//replace with combination of competitive and defiant, known as ursurper 
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif

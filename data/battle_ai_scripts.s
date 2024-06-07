@@ -63,6 +63,8 @@ AI_CBM_CheckIfNegatesType::
 	if_equal ABILITY_WATER_ABSORB, CheckIfWaterAbsorbCancelsWater
 	if_equal ABILITY_FLASH_FIRE, CheckIfFlashFireCancelsFire
 	if_equal ABILITY_WONDER_GUARD, CheckIfWonderGuardCancelsMove
+	get_curr_move_type
+	if_equal_ TYPE_FLYING, CheckIfLevitateCancelsGroundMove
 	@if_equal ABILITY_LEVITATE, CheckIfLevitateCancelsGroundMove
 	goto AI_CheckBadMove_CheckSoundproof
 
@@ -92,13 +94,15 @@ CheckIfLevitateCancelsGroundMove:: @ 81D9CD8
 AI_CheckBadMove_CheckSoundproof:: @ 81D9CE0
 	get_ability AI_TARGET
 	if_not_equal ABILITY_SOUNDPROOF, AI_CheckBadMove_CheckEffect
-	if_move MOVE_GROWL, Score_Minus10
-	if_move MOVE_ROAR, Score_Minus10
-	if_move MOVE_SING, Score_Minus10
-	if_move MOVE_SUPERSONIC, Score_Minus10
-	if_move MOVE_SCREECH, Score_Minus10
-	if_move MOVE_SNORE, Score_Minus10
-	if_move MOVE_UPROAR, Score_Minus10
+	get_curr_move_type
+	if_equal_ TYPE_SOUND, Score_Minus10
+	@if_move MOVE_GROWL, Score_Minus10
+	@if_move MOVE_ROAR, Score_Minus10
+	@if_move MOVE_SING, Score_Minus10
+	@if_move MOVE_SUPERSONIC, Score_Minus10
+	@if_move MOVE_SCREECH, Score_Minus10
+	@if_move MOVE_SNORE, Score_Minus10
+	@if_move MOVE_UPROAR, Score_Minus10
 	if_move MOVE_METAL_SOUND, Score_Minus10
 	if_move MOVE_GRASS_WHISTLE, Score_Minus10
 
@@ -2792,14 +2796,14 @@ AI_TryToFaint:: @ 81DBA6F
 	if_can_faint AI_TryToFaint_TryToEncourageQuickAttack
 	get_how_powerful_move_is
 	if_equal MOVE_NOT_MOST_POWERFUL, Score_Minus1
-@	if_type_effectiveness AI_EFFECTIVENESS_x2_40, AI_TryToFaint_DoubleSuperEffective  @ Improvement in Emerald
+	if_type_effectiveness AI_EFFECTIVENESS_x2_40, AI_TryToFaint_DoubleSuperEffective  @ Improvement in Emerald
 	end
 
 @ Improvement in Emerald
-@AI_TryToFaint_DoubleSuperEffective:
-@	if_random_less_than 80, AI_TryToFaint_End
-@	score +2
-@	end
+AI_TryToFaint_DoubleSuperEffective:
+	if_random_less_than 80, AI_TryToFaint_End
+	score +2
+	end
 
 AI_TryToFaint_TryToEncourageQuickAttack:: @ 81DBA7C
 	if_effect EFFECT_EXPLOSION, AI_TryToFaint_End

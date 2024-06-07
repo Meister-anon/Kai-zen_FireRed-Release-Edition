@@ -16,6 +16,7 @@
 #include "battle_ai_script_commands.h"
 #include "battle_ai_switch_items.h"
 #include "trainer_tower.h"
+#include "battle_string_ids.h"
 #include "constants/battle_anim.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
@@ -1317,6 +1318,8 @@ static void OpponentDoMoveAnimation(void)
     }
 }
 
+//vsonic important for some reason THIS
+//controls the text the player sees upon losing, not the other file
 static void OpponentHandlePrintString(void)
 {
     u16 *stringId;
@@ -1333,10 +1336,10 @@ static void OpponentHandlePrintString(void)
     {
         switch (*stringId)
         {
-        case 0x17F:
+        case STRINGID_TRAINER1WINTEXT:
             gBattlerControllerFuncs[gActiveBattler] = PrintOakText_HowDisappointing;
             return;
-        case 0xE3:
+        case STRINGID_DONTLEAVEBIRCH:
             gBattlerControllerFuncs[gActiveBattler] = PrintOakText_OakNoRunningFromATrainer;
             return;
         }

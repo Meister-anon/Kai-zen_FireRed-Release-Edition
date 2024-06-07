@@ -737,14 +737,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SING] =
     {
-        .effect = EFFECT_SLEEP,
+        .effect = EFFECT_SLEEP, //giving effects that immobalize priority are too broken
         .power = 0,
         .type = TYPE_SOUND,
         .accuracy = 80,
         .pp = 15,
         .secondaryEffectChance = 0, //droped acc will attempt buff
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
+        .priority = 0, //since this keeps opponent from attacking will keep base priority / also because of high accuracy and good distributnion
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     },//accuracy buff based on anime logic, and raririty
@@ -1235,7 +1235,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1, //allow priority on this because accuracy is low
+        .priority = 0, //since this keeps opponent from attacking will keep base priority//allow priority on this because accuracy is low
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
         .split = SPLIT_STATUS,
     },
@@ -1488,7 +1488,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1, //since acc is lower will try give priority,
+        .priority = 0, //since this keeps opponent from attacking will keep base priority//since acc is lower will try give priority,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
@@ -2216,7 +2216,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 1,
+    .priority = 0, //since this keeps opponent from attacking will keep base priority
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
     .split = SPLIT_STATUS,
 },
@@ -5033,7 +5033,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1,
+        .priority = 0, //since this keeps opponent from attacking will keep base priority
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
     }, //equal acc to sleep powder
@@ -12088,7 +12088,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,  //consider making a 5 pp move, but sleep powder is 15, so is sing
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1,
+        .priority = 0, //since this keeps opponent from attacking will keep base priority
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },//lowered to 10 pp, since imobilizing status have lower pp to other similar variant moves
