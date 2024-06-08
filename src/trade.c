@@ -1853,8 +1853,8 @@ static u8 PlayerHasEnoughPokemonToTrade_HandleMewDeoxys(u8 *flags, u8 partyCount
             count += flags[i];
     }
     species = GetMonData(&gEnemyParty[sTradeMenuResourcesPtr->otherPlayerCursorPosition % 6], MON_DATA_SPECIES);
-    if ((species == SPECIES_DEOXYS || species == SPECIES_MEW) && !GetMonData(&gEnemyParty[sTradeMenuResourcesPtr->otherPlayerCursorPosition % 6], MON_DATA_EVENT_LEGAL))
-        return 2;
+    //if ((species == SPECIES_DEOXYS || species == SPECIES_MEW) && !GetMonData(&gEnemyParty[sTradeMenuResourcesPtr->otherPlayerCursorPosition % 6], MON_DATA_EVENT_LEGAL))
+    //    return 2;
     if (count != 0)
         count = 1;
     return count;
@@ -2654,17 +2654,17 @@ static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCo
 
             if (species2[cursorPos] > SPECIES_MEW)
             {
-                return 4;
+                //return 4;
             }
         }
     }
 
     if (species[cursorPos] == SPECIES_DEOXYS || species[cursorPos] == SPECIES_MEW)
     {
-        if (!GetMonData(&party[cursorPos], MON_DATA_EVENT_LEGAL))
+        /*if (!GetMonData(&party[cursorPos], MON_DATA_EVENT_LEGAL))
         {
             return 4;
-        }
+        }*/
     }
 
     for (i = 0; i < partyCount; i++)

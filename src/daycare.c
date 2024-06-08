@@ -2496,7 +2496,7 @@ static void CreatedHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 {
     u16 species;
     u32 personality, pokerus;
-    u8 i, friendship, language, gameMet, markings, isEventLegal,formFlag;
+    u8 i, friendship, language, gameMet, markings, formFlag;
     u16 moves[4];
     u32 ivs[NUM_STATS];
     u8 hatched = TRUE;
@@ -2518,9 +2518,9 @@ static void CreatedHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 
 //    language = GetMonData(egg, MON_DATA_LANGUAGE);
     gameMet = GetMonData(egg, MON_DATA_MET_GAME);
-    markings = GetMonData(egg, MON_DATA_MARKINGS);
+    //markings = GetMonData(egg, MON_DATA_MARKINGS);
     pokerus = GetMonData(egg, MON_DATA_POKERUS);
-    isEventLegal = GetMonData(egg, MON_DATA_EVENT_LEGAL);
+    //isEventLegal = GetMonData(egg, MON_DATA_EVENT_LEGAL);
     formFlag = GetMonData(egg, MON_DATA_FORM_FLAG);
 
     CreateMon(temp, species, EGG_HATCH_LEVEL, 32, TRUE, personality, 0, 0);
@@ -2538,12 +2538,12 @@ static void CreatedHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
     language = GAME_LANGUAGE;
     SetMonData(temp, MON_DATA_LANGUAGE, &language);
     SetMonData(temp, MON_DATA_MET_GAME, &gameMet);
-    SetMonData(temp, MON_DATA_MARKINGS, &markings);
+    //SetMonData(temp, MON_DATA_MARKINGS, &markings);
 
     friendship = 40; //missed this, as part of friendship revamp.
     SetMonData(temp, MON_DATA_FRIENDSHIP, &friendship);
     SetMonData(temp, MON_DATA_POKERUS, &pokerus);
-    SetMonData(temp, MON_DATA_EVENT_LEGAL, &isEventLegal);
+    //SetMonData(temp, MON_DATA_EVENT_LEGAL, &isEventLegal);
 
     SetMonData(temp, MON_DATA_HATCHED, &hatched);
     SetMonData(temp, MON_DATA_FORM_FLAG, &formFlag); //ASSUMIGN this was issue, wasn't passing value

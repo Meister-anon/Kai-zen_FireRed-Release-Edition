@@ -2343,6 +2343,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     but need to figure out how to make sure teh cursor
     returns to the position I want on main menu
     i.e if exiting game options put main menu cursor on game menu options
+
+    testing new options setup and low level dmg formula before moving
+    to adjusting structs
+
+    seems mostly ok, there is still an odd glitch where dead mon
+    removed from pc back to party
+    can have its hp refilled
+
+    moved substructs to boxmon, made up a lot of space
     
 
 

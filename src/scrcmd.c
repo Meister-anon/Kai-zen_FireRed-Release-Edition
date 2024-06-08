@@ -2635,7 +2635,7 @@ bool8 ScrCmd_setmoneventlegal(struct ScriptContext * ctx)
     bool8 isEventLegal = TRUE;
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
 
-    SetMonData(&gPlayerParty[partyIndex], MON_DATA_EVENT_LEGAL, &isEventLegal);
+    //SetMonData(&gPlayerParty[partyIndex], MON_DATA_EVENT_LEGAL, &isEventLegal);
     return FALSE;
 }
 
@@ -2643,7 +2643,7 @@ bool8 ScrCmd_checkmoneventlegal(struct ScriptContext * ctx)
 {
     u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
 
-    gSpecialVar_Result = GetMonData(&gPlayerParty[partyIndex], MON_DATA_EVENT_LEGAL, NULL);
+    gSpecialVar_Result = TRUE; //GetMonData(&gPlayerParty[partyIndex], MON_DATA_EVENT_LEGAL, NULL);
     return FALSE;
 }
 

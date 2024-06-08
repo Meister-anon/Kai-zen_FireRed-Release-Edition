@@ -35,6 +35,7 @@
 #include "random.h"
 #include "field_message_box.h"
 #include "party_menu.h"
+#include "option_menu.h"
 #include "item.h"
 #include "battle_script_commands.h"
 #include "strings.h"

@@ -3279,7 +3279,7 @@ static void PokeSum_PrintTrainerMemo_Mon_HeldByOT(void) // seems to relate to or
     // but Japanese uses different grammar for Bold and Gentle natures.
     if (GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HATCHED) == TRUE) // Hatched
     {
-        if (GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_EVENT_LEGAL) == 1) // Fateful encounter
+        if (GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_EVENT_LEGAL) == 1) // Fateful encounter //removed field so never true
         {
             if (PokeSum_IsMonBoldOrGentle(nature))
                 DynamicPlaceholderTextUtil_ExpandPlaceholders(natureMetOrHatchedAtLevelStr, gText_PokeSum_FatefulEncounterHatched_BoldGentleGrammar);

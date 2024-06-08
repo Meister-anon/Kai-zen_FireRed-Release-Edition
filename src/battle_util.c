@@ -10988,7 +10988,7 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
         return 0;
     if (!(FlagGet(FLAG_NEW_GAME_PLUS)))
         return 0;
-    if (FlagGet(FLAG_NEW_GAME_PLUS))
+    if (FlagGet(FLAG_NEW_GAME_PLUS)) //to prevent just rolling everything with level 80s in the box; idk may remove
     {
         if (/*!IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName) || */FlagGet(FLAG_BADGE08_GET))
             return 0;
