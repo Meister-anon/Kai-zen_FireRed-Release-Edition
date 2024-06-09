@@ -2351,9 +2351,74 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     removed from pc back to party
     can have its hp refilled
 
-    moved substructs to boxmon, made up a lot of space
+    (attempt typeless moves to hit through wonder/dispirit gaurd
+    they don't by default apparently, believe with new type setup
+    the modifier will just be 1, and thanks to my multiplier change
+    practically nothing hits for just 1
     
+    so do mod 1, and not type normal or something or do it by effect 
+    //probably do effect make a function holds all typeless dmg effects
+    isMoveTypeless(move)  that'll do
+    ) - don't need do that already had it set up, made typless moves power 0
+    and had dispirit/wonderguard specificly set to block moves w power greater than 0
 
+    battle speed up text still hard to read, may make pause logic and waitmessage
+    speed up use different function
+
+    //disable struct is removed on switch, so if you need to switch timer is reset
+    //perhaps can do with side timer instead, timer not lost if mon switches
+    //will only decrement if at end turn its on the field.
+    //do for slow start and new wonder guard setup, wonder guard 4/5 turns
+    //but then there's trickkery with switching put it on field at start of turn
+    //then switch it out, the timer wouldn't decrement if its at end turn?
+    //need look at turn order logic
+
+    //also hard part get specific timer recognize specifically that mon, not just
+    any mon with said ability, how does defeatis do it? -it uses disable struct so is cleared on switch
+
+    for now just check slow start and test to make sure battlestruct slowstartdone
+    is specific to the battler and not just the banttle slow,
+    get 2 regigigas switch the other in when ones timer is done
+
+    fuck, yup it just registers that a battler in that position has ended slow start,
+    //its not  checking specifically that one.
+    could add a personality check but would need to be a 6 field array
+    to store for every battler..
+    think can use this gBattlerPartyIndexes[gActiveBattler]
+
+    ok looks like won't need ot make something new
+    can use gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)]
+    technically it doesn't just hold a true false
+    if I change it to a u32 I can make it store personality
+    //will prob need change field
+    nah, think can keep name
+    actually don't need to change all I need is a check for thing activating and tracking the specific battler
+    this does that
+    worked perfecetly!!
+
+    uhh look into furry cutter endure interaction,
+    unsure but think first hit failed to endure?
+
+    now using for slowstart and wonderguard  
+    new idea consider shedinja a wraith, add to dex entry
+    give buff/debuff moves  like a spellcaster
+
+    think will give immunity to status and weather dmg 
+    -change immunity to status dmg
+
+    idea ice version of contact status ability,
+    would need to be on mon doesn't do big dmg,
+
+    came up with ice steel type, like sticking your tongue on a frozen pole
+    making contact has a chance to freeze
+
+
+
+
+    moved substructs to boxmon, made up a lot of space
+    -note look into battle.h and cleaning up those structs as well
+    
+   still want to try get options menu to track cursor positino for main menu
 
     no other hard rules needed
     change options menu back to text options

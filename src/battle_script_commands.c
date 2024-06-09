@@ -647,6 +647,7 @@ static const u8 gPauseValue[] = {
 };
 
 static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value); //setup to adjust wait time based on speed
+static u8 SetPauseTimeModifier(u8 BattleSpeed, u16 value); //specifically for pause
 
 const struct StatFractions gAccuracyStageRatios[] =
 {
@@ -3463,7 +3464,7 @@ static void atk07_adjustnormaldamage(void)
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded || gSpecialStatuses[gBattlerTarget].focusSashed || gSpecialStatuses[gBattlerTarget].sturdied)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
-     && gMultiHitCounter == 0)
+     && (gMultiHitCounter == 0 || gMultiHitCounter == gMultiTask))
     {
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
         if (gProtectStructs[gBattlerTarget].endured)
@@ -3530,7 +3531,7 @@ static void atk08_adjustnormaldamage2(void)
      if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded || gSpecialStatuses[gBattlerTarget].focusSashed || gSpecialStatuses[gBattlerTarget].sturdied)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
-     && gMultiHitCounter == 0)
+     && (gMultiHitCounter == 0 || gMultiHitCounter == gMultiTask))
     {
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
         if (gProtectStructs[gBattlerTarget].endured)
@@ -6980,7 +6981,7 @@ static void atk39_pause(void)
             if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE)
                 BattleSpeed = OPTIONS_BATTLE_SPEED_2X;
 
-            value += SetWaitTimeModifier(BattleSpeed, value); //use switch case
+            value += SetPauseTimeModifier(BattleSpeed, value); //use switch case
         }
             
             
@@ -6992,7 +6993,43 @@ static void atk39_pause(void)
     }
 }
 
-static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) //potential issue just realized this is for both pause and wait when think may be best to handle separately-idk might be fine
+//decided handle separately wait time unique and long long are only used by waitmessage not pause
+static u8 SetPauseTimeModifier(u8 BattleSpeed, u16 value)
+{
+
+    switch (BattleSpeed) 
+    {
+        case OPTIONS_BATTLE_SPEED_1X:
+            return 0; //don't change wait time
+        break;
+        case OPTIONS_BATTLE_SPEED_2X: //this seems to be fine
+        if (value < B_WAIT_TIME_BRIEFEST)
+            return BattleSpeed;
+        else
+            return 0; //don't change wait time
+        break;
+        case OPTIONS_BATTLE_SPEED_3X:
+        if (value < B_WAIT_TIME_SHORTEST) //plan do else if, w bs - 1 for values above cutoff
+            return BattleSpeed;
+        else if (value < B_WAIT_TIME_CLEAR_BUFF) //B_WAIT_TIME_CLEAR_BUFF
+            return BattleSpeed - 1;
+        else
+            return 0; //don't change wait time
+        break;
+        case OPTIONS_BATTLE_SPEED_4X: 
+        //if (value < B_WAIT_TIME_SHORT) //plan do else if, w bs - 1 for values above cutoff
+        //   return BattleSpeed;
+        if (value == B_WAIT_TIME_LONG)
+            return BattleSpeed - 2;
+        //else if (value < B_WAIT_TIME_CLEAR_BUFF) //using this means briefest uses 0x5 instead of 0x7, so slightly faster
+        //    return BattleSpeed - 2;
+        else
+            return 0; //don't change wait time
+        break;
+    }
+}
+
+static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) 
 {
 
     switch (BattleSpeed) //only unique & LongLong are assigning
@@ -7007,7 +7044,7 @@ static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) //potential issue just 
         break;
         case OPTIONS_BATTLE_SPEED_2X: //this seems to be fine
         if (value < B_WAIT_TIME_BRIEFEST)
-            return BattleSpeed;
+            return 1;
         else if (value == B_WAIT_TIME_UNIQUE)
             return B_WAIT_TIME_SHORT;
         else if (value == B_WAIT_TIME_LONG_LONG)
@@ -7017,11 +7054,11 @@ static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) //potential issue just 
         break;
         case OPTIONS_BATTLE_SPEED_3X:
         if (value < B_WAIT_TIME_SHORTEST) //plan do else if, w bs - 1 for values above cutoff
-            return BattleSpeed;
+            return 1;
         else if (value < B_WAIT_TIME_CLEAR_BUFF) //B_WAIT_TIME_CLEAR_BUFF
-            return BattleSpeed - 1;
+            return 1;
         else if (value == B_WAIT_TIME_UNIQUE)
-            return B_WAIT_TIME_SHORTEST;
+            return value;
         else if (value == B_WAIT_TIME_LONG_LONG)
             return value;
         else
@@ -7030,12 +7067,12 @@ static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) //potential issue just 
         case OPTIONS_BATTLE_SPEED_4X: 
         //if (value < B_WAIT_TIME_SHORT) //plan do else if, w bs - 1 for values above cutoff
         //   return BattleSpeed;
-        if (value == B_WAIT_TIME_LONG)
-            return BattleSpeed - 2;
+        //if (value == B_WAIT_TIME_LONG)
+        //    return BattleSpeed - 2;
         //else if (value < B_WAIT_TIME_CLEAR_BUFF) //using this means briefest uses 0x5 instead of 0x7, so slightly faster
         //    return BattleSpeed - 2;
-        else if (value == B_WAIT_TIME_UNIQUE)
-            return B_WAIT_TIME_SHORTEST;
+        if (value == B_WAIT_TIME_UNIQUE)
+            return value;
         else if (value == B_WAIT_TIME_LONG_LONG)
             return value;
         else
@@ -10246,7 +10283,7 @@ static void atk69_adjustsetdamage(void)
     if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded || gSpecialStatuses[gBattlerTarget].focusSashed || gSpecialStatuses[gBattlerTarget].sturdied)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
-     && gMultiHitCounter == 0)
+     && (gMultiHitCounter == 0 || gMultiHitCounter == gMultiTask))
     {
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
         if (gProtectStructs[gBattlerTarget].endured)

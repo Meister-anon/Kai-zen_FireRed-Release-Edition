@@ -8111,14 +8111,15 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_TRUANT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_ANGER_POINT, ABILITY_SLOW_START},
+        .abilityHidden = {ABILITY_SLOW_START, ABILITY_SLOW_START},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sSlakingLevelUpLearnset,
         .tmhmLearnset = sSlakingTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    }, //why the heck did I think giving this anger point would be anything  but insanely broken?
+    //i could make somehting that would be a fusino of anger point and truant but not really much point
 
     [SPECIES_NINCADA] =
     { 
@@ -8178,7 +8179,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SHEDINJA] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(27, 90, 45, 40, 30, 30),
+         STATS(27, 90, 45, 40, 30, 30), //potential debuff atk 90 ->75  sp atk/def 30 -> 35
         .type1 = TYPE_BUG,
         .type2 = TYPE_GHOST,
         .catchRate = 45,
@@ -8197,7 +8198,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sShedinjaLevelUpLearnset,
         .tmhmLearnset = sShedinjaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//thought need debuff atk but doesn't get much any good physical moves at all
+    //give buff/debuff moves to suit wraith identity 
 
     [SPECIES_WHISMUR] =
     { 
@@ -18435,7 +18437,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sDeinoLevelUpLearnset,
         .tmhmLearnset = sDeinoTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_ZWEILOUS}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_ZWEILOUS}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_ZWEILOUS] =
@@ -18467,7 +18469,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sZweilousLevelUpLearnset,
         .tmhmLearnset = sZweilousTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(55, AVERAGE_EFFORT), 0, SPECIES_HYDREIGON}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(45, AVERAGE_EFFORT), 0, SPECIES_HYDREIGON}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_HYDREIGON] =
@@ -18531,7 +18533,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sLarvestaLevelUpLearnset,
         .tmhmLearnset = sLarvestaTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(49, HIGH_EFFORT), 0, SPECIES_VOLCARONA}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(39, HIGH_EFFORT), 0, SPECIES_VOLCARONA}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_VOLCARONA] =
