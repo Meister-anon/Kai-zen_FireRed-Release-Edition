@@ -4085,7 +4085,6 @@ static void BattleStartClearSetData(void)
         gBattleStruct->lastTakenMove[i] = MOVE_NONE;
         gBattleStruct->choicedMove[i] = MOVE_NONE;
         gBattleStruct->changedItems[i] = 0;
-        gBattleStruct->slowstartDone[i] = 0; //not 100% needs to be here, nvm this is right, set here not on switch in
         gBattleStruct->lastTakenMoveFrom[i][0] = MOVE_NONE;
         gBattleStruct->lastTakenMoveFrom[i][1] = MOVE_NONE;
         gBattleStruct->lastTakenMoveFrom[i][2] = MOVE_NONE;
@@ -4158,6 +4157,10 @@ static void BattleStartClearSetData(void)
 
         gBattleStruct->usedSingleUseAbility[i][B_SIDE_PLAYER] = FALSE;
         gBattleStruct->usedSingleUseAbility[i][B_SIDE_OPPONENT] = FALSE;
+        
+        gBattleStruct->SingleUseAbilityTimers[i][B_SIDE_PLAYER] = FALSE;
+        gBattleStruct->SingleUseAbilityTimers[i][B_SIDE_OPPONENT] = FALSE;
+
         gBattleStruct->itemStolen[i].originalItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
 
         //gBattleStruct->allowedToChangeFormInWeather[i][B_SIDE_PLAYER] = FALSE;
@@ -5562,7 +5565,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed = (speed * 150) / 100;
     else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
-    else if (ability == ABILITY_SLOW_START && gDisableStructs[battlerId].slowStartTimer != 0)
+    else if (ability == ABILITY_SLOW_START && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] != 0)
         speed /= 2; //so I ironically complete missed adding this...
 
     else if (ability == ABILITY_DEFEATIST && gDisableStructs[battlerId].defeatistActivated)

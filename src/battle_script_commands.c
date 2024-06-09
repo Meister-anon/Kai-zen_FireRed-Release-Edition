@@ -2785,7 +2785,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
         */
     } //think can remove the attacksthisturn from this so I can use it in attackcanceler
     //  its not really doing anything here, and I already have if move power isn't 0
-    if (GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_GUARD
+    if ((GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)])
      && (!(gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE) || ((gMoveResultFlags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
      && gBattleMoves[gCurrentMove].power)   //I know understand this and why it works, its saying if not super effective, and then, 
     {                           //uses both super effective and not very effective bit flags, which balance out to normal effectiveness with or, so only super effective can dmg
@@ -2798,7 +2798,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     }
     if (GetBattlerAbility(gBattlerTarget) == ABILITY_DISPIRIT_GUARD
         && (!(gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE) || ((gMoveResultFlags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
-        && gBattleMoves[gCurrentMove].power)
+        && gBattleMoves[gCurrentMove].power)//this using power means typeless moves get through as made them all power 0
     {
         gLastUsedAbility = ABILITY_DISPIRIT_GUARD;
         gMoveResultFlags |= MOVE_RESULT_MISSED;
@@ -3204,7 +3204,7 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
         }//attempt at setting dual type moves
         */
     }    
-    if (gBattleMons[defender].ability == ABILITY_WONDER_GUARD
+    if ((gBattleMons[defender].ability == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[defender]][GetBattlerSide(defender)])
      && !(flags & MOVE_RESULT_MISSED)     
      && (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
      && gBattleMoves[move].power)
@@ -3233,11 +3233,11 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     return flags;
 }
 
-u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility)
+u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility) //facepalm was using species for battler argument
 {
     s32 i = 0;
     u8 flags = 0;
-    u8 type1 = gBattleMons[targetSpecies].type1, type2 = gBattleMons[targetSpecies].type2, type3 = gBattleMons[targetSpecies].type3;
+    u8 type1 = gBattleMons[gBattlerTarget].type1, type2 = gBattleMons[gBattlerTarget].type2, type3 = gBattleMons[gBattlerTarget].type3;
     u8 moveType,argument;
     u16 multiplier;
 
@@ -3258,7 +3258,7 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility)
         flags = MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE;
 
     }
-    else if (gBattleMons[targetSpecies].hp != 0)
+    else if (gBattleMons[gBattlerTarget].hp != 0)
     {
         // take type effectiveness
         gBattleMoveDamage = ApplyModifier(multiplier, gBattleMoveDamage);
@@ -3289,7 +3289,7 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility)
             i += 3;
         }*/
     }
-    if (targetAbility == ABILITY_WONDER_GUARD
+    if ((targetAbility == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)])
      && (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
      && gBattleMoves[move].power)
      {
@@ -8533,7 +8533,7 @@ static void atk4A_typecalc2(void)   //aight this is only for counter, mirror coa
             i += 3;
         } */
     }
-    if (GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_GUARD
+    if ((GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)])
      && !(flags & MOVE_RESULT_NO_EFFECT)    
      && (!(flags & MOVE_RESULT_SUPER_EFFECTIVE) || ((flags & (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)) == (MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE)))
      && gBattleMoves[gCurrentMove].split != SPLIT_STATUS)

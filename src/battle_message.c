@@ -639,14 +639,16 @@ static const u8 sText_BadDreamsDmg[] = _("{B_DEF_NAME_WITH_PREFIX} is tormented\
 static const u8 sText_MoldBreakerEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} breaks the mold!");
 static const u8 sText_TeravoltEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is radiating \na bursting aura!");
 static const u8 sText_TurboblazeEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is radiating\na blazing aura!");
-static const u8 sText_SlowStartEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is\nin a weakened state!");
-static const u8 sText_SlowStartEnd[] = _("{B_ATK_NAME_WITH_PREFIX}'s power has\nreturned to its zenith!");
+static const u8 sText_SlowStartEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is\nin a weakened state!{PAUSE 9}");
+static const u8 sText_SlowStartEnd[] = _("{B_ATK_NAME_WITH_PREFIX}'s power has\nreturned to its zenith!{PAUSE 9}");
+static const u8 sText_WonderGuardEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is wreathed in\nan otherworldly veil!{PAUSE 20}"); //wraith something
+static const u8 sText_WonderGuardEnds[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\nhas dissipated!{PAUSE 20}");
 static const u8 sText_SolarPowerHpDrop[] = _("The {B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\ntook its toll!");
 static const u8 sText_AftermathDmg[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\ntried to take {B_ATK_NAME_WITH_PREFIX} out with them!"); //fix this 
 static const u8 sText_AnticipationActivates[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} sensed {B_BUFF1}\nand shuddered in anticipation!");
 static const u8 sText_ForewarnActivates[] = _("{B_SCR_ACTIVE_ABILITY} {B_BUFF3} {B_SCR_ACTIVE_NAME_WITH_PREFIX}\n{B_BUFF2} {B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}!");
 static const u8 sText_IceBodyHpGain[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\nhealed it a little bit!");
-//static const u8 sText_SnowWarningHail[] = _("It started to hail!");
+//static const u8 sText_SnowWarningHail[] = _("It started to hail!"); //vsonic end turn abilities can't use src active, would print wrong values
 static const u8 sText_SnowWarningHail[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nbrought down hail!");
 //predicts a blizzard //chilling
 //predits a dust storm /harsh
@@ -1529,7 +1531,9 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_JUDGMENT - BATTLESTRINGS_TABLE_START]                      = sText_JudgmentString,
     [STRINGID_GROUND_NULLIFY - BATTLESTRINGS_TABLE_START]                = sText_GroundNullifiesEarth,
     [STRINGID_NOE_FLIGHT - BATTLESTRINGS_TABLE_START]                    = COMPOUND_STRING("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is flying under the radar!"),
-    
+    [STRINGID_WONDER_GUARD_ENTERS - BATTLESTRINGS_TABLE_START]           = sText_WonderGuardEnters,
+    [STRINGID_WONDER_GUARD_ENDS - BATTLESTRINGS_TABLE_START]             = sText_WonderGuardEnds,
+
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,
     [STRINGID_PLAYERWHITEDOUT - BATTLESTRINGS_TABLE_START]               = sText_PlayerWhiteout2,
@@ -1592,9 +1596,10 @@ const u16 gSwitchInAbilityStringIds[] =
     [B_MSG_SWITCHIN_PASTEL_VEIL] = STRINGID_PASTELVEILENTERS,*/
     [B_MSG_SWITCHIN_NEUTRALIZING_GAS] = STRINGID_NEUTRALIZINGGASENTERS,
     [B_MSG_SWITCHIN_BANDIT] = STRINGID_BANDITENTERS,
-    [B_MSG_SWITCHIN_FLUORESCENT] = STRINGID_PKMNTOOKSUNLIGHT
+    [B_MSG_SWITCHIN_FLUORESCENT] = STRINGID_PKMNTOOKSUNLIGHT,
+    [B_MSG_SWITCHIN_WONDERGUARD] = STRINGID_WONDER_GUARD_ENTERS
 
-};
+};//no comma at end
 
 const u16 gNoEscapeStringIds[] = {
     STRINGID_CANTESCAPE,

@@ -844,6 +844,7 @@ enum   //battler end turn
     //ENDTURN_INFESTATION,  //changed to non-damaging debuff status
     ENDTURN_THROAT_CHOP,
     ENDTURN_SLOW_START,
+    ENDTURN_WONDER_GUARD,
     ENDTURN_PLASMA_FISTS,
     ENDTURN_BIDE,
     ENDTURN_BATTLER_COUNT
@@ -1575,6 +1576,16 @@ if (ability == ABILITY_MAGIC_GUARD) \
     ++gBattleStruct->turnEffectsTracker;\
             break;\
 }
+
+#define WONDER_GUARD_CHECK \
+if (ability == ABILITY_WONDER_GUARD\
+&& gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)])\
+{\
+    RecordAbilityBattle(gActiveBattler, ability);\
+    ++gBattleStruct->turnEffectsTracker;\
+            break;\
+}
+
 
 //field/side based end turn
 enum
@@ -2483,6 +2494,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
+                    WONDER_GUARD_CHECK;
 
                     gBattlerTarget = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER; // Notice gBattlerTarget is actually the HP receiver.
                     gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;//heal leech target max hp
@@ -2522,6 +2534,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
+                    WONDER_GUARD_CHECK;
 
                     if (TryActivateBattlePoisonHeal())
                     {
@@ -2555,6 +2568,7 @@ u8 DoBattlerEndTurnEffects(void)
                     u8 turn = gDisableStructs[gActiveBattler].toxicTurn;
 
                     MAGIC_GUARD_CHECK;
+                    WONDER_GUARD_CHECK;
 
                     if (TryActivateBattlePoisonHeal())
                     {
@@ -2590,6 +2604,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
+                    WONDER_GUARD_CHECK;
 
                     if (GetBattlerAbility(gActiveBattler) == ABILITY_HEATPROOF) {
                         gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
@@ -2617,6 +2632,8 @@ u8 DoBattlerEndTurnEffects(void)
                     if (IsBlackFogNotOnField())//actually need add magic guard check to all of theese...
                     {
                         MAGIC_GUARD_CHECK;
+                        WONDER_GUARD_CHECK;
+
                         gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16; //changed to same as others, combined with hail will do  .186 kills in about 5 turns by itself
                         if (gBattleMoveDamage == 0) //balanced by being a temporary status and needing the hail setup to have a good chance of being applied.
                             gBattleMoveDamage = 1;
@@ -2636,6 +2653,7 @@ u8 DoBattlerEndTurnEffects(void)
                 if ((gBattleMons[gActiveBattler].status2 & STATUS2_NIGHTMARE) && gBattleMons[gActiveBattler].hp != 0)
                 {
                     MAGIC_GUARD_CHECK;
+                    WONDER_GUARD_CHECK;
                     // R/S does not perform this sleep check, which causes the nightmare effect to
                     // persist even after the affected Pokemon has been awakened by Shed Skin.
                     if (gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP)
@@ -2658,6 +2676,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
+                    WONDER_GUARD_CHECK;
 
                     gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 4;
                     if (gBattleMoveDamage == 0)
@@ -3251,16 +3270,29 @@ u8 DoBattlerEndTurnEffects(void)
                 }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
-            case ENDTURN_SLOW_START:
-                if (gDisableStructs[gActiveBattler].slowStartTimer
-                    && --gDisableStructs[gActiveBattler].slowStartTimer == 0
-                    && ability == ABILITY_SLOW_START)
+            case ENDTURN_SLOW_START: //could prob reduce to just the decremenet line
+                if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] //if batterpartyindex for this would timer for each party member,
+                    && ability == ABILITY_SLOW_START) //would use function to pull timer
                 {
-                    gBattleStruct->slowstartDone[gActiveBattler] = TRUE;
-                    BattleScriptExecute(BattleScript_SlowStartEnds);
-                    ++effect;
+                    if (--gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] == 0) //so would need single use ability timer field, then pull relevant timer based on ability rn would only be slowstart and wonderguard)
+                    {
+                        BattleScriptExecute(BattleScript_SlowStartEnds);
+                        ++effect;
+                    }
                 }
-                ++gBattleStruct->turnEffectsTracker;
+                ++gBattleStruct->turnEffectsTracker;    //IT WORKS
+                break;
+            case ENDTURN_WONDER_GUARD: //could prob reduce to just the decremenet line
+                if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] //if batterpartyindex for this would timer for each party member,
+                    && ability == ABILITY_WONDER_GUARD) //would use function to pull timer
+                {
+                    if (--gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] == 0) //so would need single use ability timer field, then pull relevant timer based on ability rn would only be slowstart and wonderguard)
+                    {
+                        BattleScriptExecute(BattleScript_WonderGuardEnds);
+                        ++effect;
+                    }
+                }
+                ++gBattleStruct->turnEffectsTracker;    //IT WORKS
                 break;
             case ENDTURN_PLASMA_FISTS:
                 for (i = 0; i < gBattlersCount; i++)
@@ -5972,14 +6004,55 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case ABILITY_SLOW_START:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
-                    if (!(gBattleStruct->slowstartDone[battler])) //set in end turn when timer ends, not reset on faint
+                    if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == FALSE) //set in end turn when timer ends, not reset on faint
                     {
-                        gDisableStructs[battler].slowStartTimer = 3;    //keeping at 2, so won't be able to just freely setup on this mon
-                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SLOWSTART;   // nvm boosted dmg reduction, keep timer
+                        //keeping at 2, so won't be able to just freely setup on this mon
+                        gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = GetAbilityTimer(gLastUsedAbility);
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SLOWSTART;   // nvm boosted dmg reduction, keep timer at 3, 
                         gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE;
                         BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                         ++effect;
                     }
+
+                    else if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)])
+                    {
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SLOWSTART;
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE; //need this to prevent loop
+                        BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                        ++effect;
+                    }
+                }
+                break;
+                case ABILITY_WONDER_GUARD:
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == FALSE) //set in end turn when timer ends, not reset on faint
+                    {   
+                        gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = GetAbilityTimer(gLastUsedAbility);
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_WONDERGUARD; 
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE;
+                        BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                        ++effect;
+                    }
+
+                    else if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)])
+                    {
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_WONDERGUARD;
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE; //need this to prevent loop
+                        BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                        ++effect;
+                    }
+                }
+                break; //to obscure which ability shedinja has
+                case ABILITY_DISPIRIT_GUARD:
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_WONDERGUARD; 
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    ++effect;                    
                 }
                 break;
                 /*case ABILITY_UNNERVE: //this isn't fully setup, but effect shuold be enemy side can't eat berries if my ability is intake
@@ -11130,6 +11203,20 @@ bool8 IsBlackFogNotOnField(void) //still setting up black fog effect /haze
         return FALSE;
 }
 
+u8 GetAbilityTimer(u16 ability)
+{
+    switch (ability)
+    {
+        case ABILITY_SLOW_START:
+            return 3;
+        break;
+        case ABILITY_WONDER_GUARD:
+            return 4; //might use 5
+        break;
+
+    }
+}
+
 u32 GetBattlerAbility(u8 battlerId)  //Deokishishu in pret mentioned there is a practice of making things that could
  // be type u8 either s32 or u32, because it has an positive effect on speed, ussually done for things 
  //constantly refernced or looped.
@@ -11929,7 +12016,21 @@ static u16 CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 bat
         modifier = UQ_4_12(1.0);
     }*///since normal multiplie is now 1, I can actually just remove this entirely and have it read the chart normally
 
-    if (((defAbility == ABILITY_WONDER_GUARD && modifier <= UQ_4_12(1.0))
+    //with this logic dispirit guard is easier to hit, since anything that counts
+    //as neutral half resisted, would count in my game, but with having hp that's not too bad?
+    //so with type change fire and ice would now affect it, rather than be super
+    //since the multilier would take it down to below 1, but I think I'm fine with that
+    //the problem is wonder guard has even fewer ways to deal with it.
+    //think will do a rework, dispirit guard stay sthe same
+    //instaed of permanent make wonder guarad have a timer.
+    //will make light slowstart 4-5 turns of complete invulnerability
+    //only broken by a super effective move, after that it loses invul
+    //and can be damaged by anything.
+    //that way will balance it, and it'll be more like a short use mon
+    //get in setup, or do as much as you can then let it die,
+    //or take it out,  after that point it's pretty much a dead slot on your team.
+    //for the entire fight, so more inherent risk to taking it
+    if (((defAbility == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerDef]][GetBattlerSide(battlerDef)] && modifier <= UQ_4_12(1.0))
         || (defAbility == ABILITY_TELEPATHY && battlerDef == BATTLE_PARTNER(battlerAtk))
         || (defAbility == ABILITY_DISPIRIT_GUARD && modifier >= UQ_4_12(1.0))
         )
@@ -11965,6 +12066,8 @@ static u16 CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 bat
 }
 
 //double check how this works in emerald as doesn't have check for  result missed
+//this means all moves that would be neutral would count as not very effective
+//and so hit dispirit guard which is as I want
 static void UpdateMoveResultFlags(u16 modifier)
 {
     if (modifier == UQ_4_12(0.0))

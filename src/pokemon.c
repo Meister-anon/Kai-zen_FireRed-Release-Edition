@@ -4200,7 +4200,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         break;
     case ABILITY_SLOW_START:
-        if (gDisableStructs[battlerIdAtk].slowStartTimer != 0)
+        if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerIdAtk]][GetBattlerSide(battlerIdAtk)] != 0)
             OffensiveModifer(50);
     case ABILITY_NORMALIZE:
         if (gBattleStruct->ateBoost[battlerIdAtk])//    if receives altl type damage boost?
@@ -4502,7 +4502,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             OffensiveModifer(50);   //should be able to safely use as condition already states def stat is false
         break;
     case ABILITY_SLOW_START:
-        if (gDisableStructs[gBattlerTarget].slowStartTimer != 0)    //was gonna add crit excluion clause but it seems abilities don't have that, only the moves
+        if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerIdDef]][GetBattlerSide(battlerIdDef)] != 0)    //was gonna add crit excluion clause but it seems abilities don't have that, only the moves
             OffensiveModifer(67); //so that's an extra bonus of having damage reduction via ability     may do 4 turn timer with 75% damage reduction instead of 50% @ 2 turns
         break;//yeah like that idea a lot more , that's most likley way to powerful... doing 3 turn timer at 50%, regi has high hp and def changed to 1/3rd cut
     case ABILITY_GRASS_PELT:
@@ -5625,7 +5625,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 | (boxMon->winningRibbon << 16)
                 | (boxMon->victoryRibbon << 17)
                 //| (boxMon->artistRibbon << 18)
-                | (boxMon->effortRibbon << 18)
+                | (boxMon->effortRibbon << 18);
                 //| (boxMon->nationalRibbon << 19);
         }
         break;

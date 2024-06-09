@@ -1173,6 +1173,14 @@ BattleScript_SlowStartEnds::
 	printstring STRINGID_SLOWSTARTEND
 	waitmessage B_WAIT_TIME_LONG
 	end2
+	
+
+BattleScript_WonderGuardEnds::
+	pause B_WAIT_TIME_CLEAR_BUFF
+	@ copybyte gBattlerAbility, gBattlerAttacker
+	printstring STRINGID_WONDER_GUARD_ENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
 
 BattleScript_MoveUsedIsThroatChopPrevented::
 	printstring STRINGID_PKMNCANTUSEMOVETHROATCHOP

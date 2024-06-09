@@ -56,7 +56,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
             if (GetMonData(&gEnemyParty[i], MON_DATA_HP) == 0
              || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES2) == SPECIES_NONE
              || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES2) == SPECIES_EGG
-             || i == gBattlerPartyIndexes[gActiveBattler])
+             || i == gBattlerPartyIndexes[gActiveBattler]) //if understanding this means partymember is on field
                 continue;
             GetMonData(&gEnemyParty[i], MON_DATA_SPECIES); // Unused return value.
             GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM); // Unused return value.        

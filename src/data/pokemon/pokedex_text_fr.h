@@ -1683,8 +1683,8 @@ const u8 gNinjaskPokedexText[] = _(
     "a headache.");
 
 const u8 gShedinjaPokedexText[] = _(
-    "A peculiar Pokémon that floats in air even\n"
-    "though its wings remain completely still.\n"
+    "A peculiar wraith-like Pokémon that floats\n"
+    "even though its wings are entirely still.\n"
     "The inside of its body is hollow and\n"
     "utterly dark.");
 

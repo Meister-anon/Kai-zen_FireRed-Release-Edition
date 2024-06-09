@@ -237,7 +237,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 tarShot : 1;
     u8 octolock : 1;
     u8 defeatistActivated : 1;      // moved here, keep defeatist hp drop from reactivating
-    u8 slowStartTimer;
+    //u8 slowStartTimer;  //move to singleuseabilitytimer
     //u8 embargoTimer; moved to gsidetimers
     u8 magnetRiseTimer;
     u8 telekinesisTimer;
@@ -378,7 +378,7 @@ struct SpecialStatus    //gets cleared at end turn
 
 extern struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT];
 
-struct SideTimer
+struct SideTimer    //effects below persist regardless of mon
 {
     /*0x00*/ u8 reflectTimer;
     /*0x01*/ u8 reflectBattlerId;
@@ -684,6 +684,7 @@ struct BattleStruct //fill in unused fields when porting
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
     u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
     u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition
+    u8 SingleUseAbilityTimers[PARTY_SIZE][NUM_BATTLE_SIDES]; //rn just for slow start / wonder guard
     u8 chosenItem[4]; // why is this an u8?
     u8 AI_itemType[2];
     u8 AI_itemFlags[2];
@@ -722,7 +723,7 @@ struct BattleStruct //fill in unused fields when porting
     u16 overwrittenAbilities[MAX_BATTLERS_COUNT];    // abilities overwritten during battle (keep separate from battle history in case of switching)
     u8 battleBondTransformed[NUM_BATTLE_SIDES]; // Bitfield for each party.
     //u8 presentBasePower; //used for   multihit move effect check, but with my version don't need this
-    bool8 slowstartDone[MAX_BATTLERS_COUNT];
+    //bool8 slowstartDone[MAX_BATTLERS_COUNT]; don't need this, also go over these structs as well like I did pokemon.h
     // align 4
     union {
         struct LinkPartnerHeader linkPartnerHeader;
