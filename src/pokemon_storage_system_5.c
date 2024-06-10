@@ -544,7 +544,7 @@ static bool8 sub_8092E54(void)
 
 static void MoveMon(void)
 {
-    switch (sBoxCursorArea)
+    switch (sBoxCursorArea)//believe split process move graphic and move data
     {
     case CURSOR_AREA_IN_PARTY:
         SetMovedMonData(TOTAL_BOXES_COUNT, sBoxCursorPosition);
@@ -594,15 +594,12 @@ void sub_8092F54(void)
 
 static void SetMovedMonData(u8 boxId, u8 position)
 {
-    //u8 boxHP = GetMonData(&gPlayerParty[sBoxCursorPosition], MON_DATA_BOX_HP, NULL);
     if (boxId == TOTAL_BOXES_COUNT)
     {
-        //if (FlagGet(FLAG_NUZLOCKE_MODE) && boxHP == 0)
-        //    SetMonData(&gPlayerParty[sBoxCursorPosition], MON_DATA_HP, &boxHP);
        gPSSData->movingMon = gPlayerParty[sBoxCursorPosition];
     }
         
-    else
+    else    //clears stats sets maxhp to 0, runs calcstat
         BoxMonAtToMon(boxId, position, &gPSSData->movingMon);
 
 
@@ -613,14 +610,9 @@ static void SetMovedMonData(u8 boxId, u8 position)
 
 static void SetPlacedMonData(u8 boxId, u8 position)
 {
-    //u8 boxHP;
     if (boxId == TOTAL_BOXES_COUNT)
     {
         gPlayerParty[position] = gPSSData->movingMon;
-
-        //boxHP = GetMonData(&gPlayerParty[position], MON_DATA_BOX_HP, NULL);
-        //if (FlagGet(FLAG_NUZLOCKE_MODE) && boxHP == 0)
-        //    SetMonData(&gPlayerParty[position], MON_DATA_HP, &boxHP);
     }
     else
     {
@@ -629,9 +621,13 @@ static void SetPlacedMonData(u8 boxId, u8 position)
     }
 }
 
+//not 100% but believe this is just for moving mon,
+//removed data at old position moves to new position
+//as without this duplicate mon are created one at original
+//and another at new position
 static void PurgeMonOrBoxMon(u8 boxId, u8 position)
 {
-    if (boxId == TOTAL_BOXES_COUNT)
+    if (boxId == TOTAL_BOXES_COUNT) //selection from in party, otherwise in box
         ZeroMonData(&gPlayerParty[position]);
     else
         ZeroBoxMonAt(boxId, position);
@@ -639,9 +635,9 @@ static void PurgeMonOrBoxMon(u8 boxId, u8 position)
 
 static void SetShiftedMonData(u8 boxId, u8 position)
 {
-    if (boxId == TOTAL_BOXES_COUNT)
+    if (boxId == TOTAL_BOXES_COUNT)//believe field2108 is mon position, this just means use party data for that
         gPSSData->field_2108 = gPlayerParty[position];
-    else
+    else    //clears stats sets maxhp to 0, runs calcstat
         BoxMonAtToMon(boxId, position, &gPSSData->field_2108);
 
     SetPlacedMonData(boxId, position);

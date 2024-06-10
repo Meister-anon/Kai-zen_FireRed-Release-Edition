@@ -462,17 +462,18 @@
 #define ITEM_TM155 443
 #define ITEM_TM156 444
 #define ITEM_TM157 445  
-#define ITEM_TM158 446//end of tms   +108
+#define ITEM_TM158 446
+#define ITEM_TM159 447//end of tms   +109
 
-#define ITEM_HM01 447 
-#define ITEM_HM02 448
-#define ITEM_HM03 449
-#define ITEM_HM04 450
-#define ITEM_HM05 451
-#define ITEM_HM06 452
-#define ITEM_HM07 453
-#define ITEM_HM08 454
-#define ITEM_HM09 455
+#define ITEM_HM01 448 
+#define ITEM_HM02 449
+#define ITEM_HM03 450
+#define ITEM_HM04 451
+#define ITEM_HM05 452
+#define ITEM_HM06 453
+#define ITEM_HM07 454
+#define ITEM_HM08 455
+#define ITEM_HM09 456
 
 #define ITEM_TM01_FOCUS_PUNCH ITEM_TM01
 #define ITEM_TM02_DRAGON_CLAW ITEM_TM02
@@ -568,7 +569,7 @@
 #define ITEM_TM75_THUNDER_FANG ITEM_TM75
 #define ITEM_TM76_FIRE_FANG ITEM_TM76
 #define ITEM_TM77_ICE_FANG ITEM_TM77
-#define ITEM_TM78_EXPLOSION ITEM_TM78
+#define ITEM_TM78_EXPLOSION ITEM_TM78 //want to add double edge above this, tm like it was in gen 1 vsonic
 #define ITEM_TM79_SHADOW_CLAW ITEM_TM79
 #define ITEM_TM80_NIGHT_SLASH ITEM_TM80
 #define ITEM_TM81_RAZOR_LEAF ITEM_TM81
@@ -647,8 +648,9 @@
 #define ITEM_TM154_HOLD_BACK ITEM_TM154
 #define ITEM_TM155_HEADBUTT ITEM_TM155
 #define ITEM_TM156_HI_JUMP_KICK ITEM_TM156
-#define ITEM_TM157_SNOWBALL ITEM_TM157
-#define ITEM_TM158_CELEBRATE ITEM_TM158
+#define ITEM_TM157_DOUBLE_EDGE ITEM_TM157
+#define ITEM_TM158_SNOWBALL ITEM_TM158
+#define ITEM_TM159_CELEBRATE ITEM_TM159
 
 
 #define ITEM_HM01_CUT ITEM_HM01
@@ -661,270 +663,270 @@
 #define ITEM_HM08_DIVE ITEM_HM08 //can add rock climb right after this simple enough
 #define ITEM_HM09_ROCK_CLIMB ITEM_HM09 //will add, plan use rock climb to revolutionize cave mapping/travel, same as surf can be used as map transition
 
-#define ITEM_MEGA_RING 456    
+#define ITEM_MEGA_RING 457    
 // FireRed/LeafGreen  believe this is key items actually maybe..?
-#define ITEM_OAKS_PARCEL 457
-#define ITEM_POKE_FLUTE 458
-#define ITEM_SECRET_KEY 459
-#define ITEM_BIKE_VOUCHER 460
-#define ITEM_GOLD_TEETH 461
-#define ITEM_OLD_AMBER 462		//aerodactyl
-#define ITEM_CARD_KEY 463
-#define ITEM_LIFT_KEY 464
-#define ITEM_HELIX_FOSSIL 465	//omanyte
-#define ITEM_DOME_FOSSIL 466	//kabuto
-#define ITEM_SILPH_SCOPE 467
-#define ITEM_BICYCLE 468
-#define ITEM_TOWN_MAP 469
-#define ITEM_VS_SEEKER 470
-#define ITEM_FAME_CHECKER 471
-#define ITEM_TM_CASE 472
-#define ITEM_BERRY_POUCH 473
-#define ITEM_TEACHY_TV 474
-#define ITEM_LINK_KEY 475 //NEW IDEA make key item call link key, trade evos can level up evolve long as yuo have this item //remove later don' tneed
-#define ITEM_TRI_PASS 476 //  AND they meet whatever other condition they have
-#define ITEM_RAINBOW_PASS 477
-#define ITEM_TEA 478
-#define ITEM_MYSTIC_TICKET 479
-#define ITEM_AURORA_TICKET 480 /*
-#define ITEM_POWDER_JAR 480 */
-#define ITEM_MAGMA_EMBLEM 481
-#define ITEM_OLD_SEA_MAP 482
-#define ITEM_RUBY 483
-#define ITEM_SAPPHIRE 484
-#define ITEM_ULTIMA_BRACE 485
-#define ITEM_EV_SHACKLES  486
+#define ITEM_OAKS_PARCEL 458
+#define ITEM_POKE_FLUTE 459
+#define ITEM_SECRET_KEY 460
+#define ITEM_BIKE_VOUCHER 461
+#define ITEM_GOLD_TEETH 462
+#define ITEM_OLD_AMBER 463		//aerodactyl
+#define ITEM_CARD_KEY 464
+#define ITEM_LIFT_KEY 465
+#define ITEM_HELIX_FOSSIL 466	//omanyte
+#define ITEM_DOME_FOSSIL 467	//kabuto
+#define ITEM_SILPH_SCOPE 468
+#define ITEM_BICYCLE 469
+#define ITEM_TOWN_MAP 470
+#define ITEM_VS_SEEKER 471
+#define ITEM_FAME_CHECKER 472
+#define ITEM_TM_CASE 473
+#define ITEM_BERRY_POUCH 474
+#define ITEM_TEACHY_TV 475
+#define ITEM_LINK_KEY 476 //NEW IDEA make key item call link key, trade evos can level up evolve long as yuo have this item //remove later don' tneed
+#define ITEM_TRI_PASS 477 //  AND they meet whatever other condition they have
+#define ITEM_RAINBOW_PASS 478
+#define ITEM_TEA 479
+#define ITEM_MYSTIC_TICKET 480
+#define ITEM_AURORA_TICKET 481 /*
+#define ITEM_POWDER_JAR 481 */
+#define ITEM_MAGMA_EMBLEM 482
+#define ITEM_OLD_SEA_MAP 483
+#define ITEM_RUBY 484
+#define ITEM_SAPPHIRE 485
+#define ITEM_ULTIMA_BRACE 486
+#define ITEM_EV_SHACKLES  487
 // Secondary Set of Use items  (mostly for evo) 
-#define ITEM_CHOICE_SCARF 487  //need to change these items in items.json so they are evo items.
-#define ITEM_CHOICE_SPECS 488 //don't forget to list in evolutions table as well
-#define ITEM_FOCUS_SASH 489
-#define ITEM_WIDE_LENS 490
-#define ITEM_ZOOM_LENS 491
-#define ITEM_METRONOME 492
-//#define ITEM_LINK_CABLE 491 	// not gonna need this, if can just make use whatever item I want
+#define ITEM_CHOICE_SCARF 488  //need to change these items in items.json so they are evo items.
+#define ITEM_CHOICE_SPECS 489 //don't forget to list in evolutions table as well
+#define ITEM_FOCUS_SASH 490
+#define ITEM_WIDE_LENS 491
+#define ITEM_ZOOM_LENS 492
+#define ITEM_METRONOME 493
+//#define ITEM_LINK_CABLE 492 	// not gonna need this, if can just make use whatever item I want
 
-#define ITEM_ABOMASITE 493
-#define ITEM_ABSOLITE 494
-#define ITEM_AERODACTYLITE 495
-#define ITEM_AGGRONITE 496
-#define ITEM_ALAKAZITE 497
-#define ITEM_ALTARIANITE 498
-#define ITEM_AMPHAROSITE 499
-#define ITEM_AUDINITE 500
-#define ITEM_BANETTITE 501
-#define ITEM_BEEDRILLITE 502
-#define ITEM_BLASTOISINITE 503
-#define ITEM_BLAZIKENITE 504
-#define ITEM_CAMERUPTITE 505
-#define ITEM_CHARIZARDITE_X 506
-#define ITEM_CHARIZARDITE_Y 507
-#define ITEM_DIANCITE 508
-#define ITEM_GALLADITE 509
-#define ITEM_GARCHOMPITE 510
-#define ITEM_GARDEVOIRITE 511
-#define ITEM_GENGARITE 512
-#define ITEM_GLALITITE 513
-#define ITEM_GYARADOSITE 514
-#define ITEM_HERACRONITE 515
-#define ITEM_HOUNDOOMINITE 516
-#define ITEM_KANGASKHANITE 517
-#define ITEM_LATIASITE 518
-#define ITEM_LATIOSITE 519
-#define ITEM_LOPUNNITE 520
-#define ITEM_LUCARIONITE 521
-#define ITEM_MANECTITE 522
-#define ITEM_MAWILITE 523
-#define ITEM_MEDICHAMITE 524
-#define ITEM_METAGROSSITE 525
-#define ITEM_MEWTWONITE_X 526
-#define ITEM_MEWTWONITE_Y 527
-#define ITEM_PIDGEOTITE 528
-#define ITEM_PINSIRITE 529
-#define ITEM_SABLENITE 530
-#define ITEM_SALAMENCITE 531
-#define ITEM_SCEPTILITE 532
-#define ITEM_SCIZORITE 533
-#define ITEM_SHARPEDONITE 534
-#define ITEM_SLOWBRONITE 535
-#define ITEM_STEELIXITE 536
-#define ITEM_SWAMPERTITE 537
-#define ITEM_TYRANITARITE 538
-#define ITEM_VENUSAURITE 539 //extra new megas below
-#define ITEM_TORTERRAITE 540
-#define ITEM_MAROWAKONITE 541//end of mega
+#define ITEM_ABOMASITE 494
+#define ITEM_ABSOLITE 495
+#define ITEM_AERODACTYLITE 496
+#define ITEM_AGGRONITE 497
+#define ITEM_ALAKAZITE 498
+#define ITEM_ALTARIANITE 499
+#define ITEM_AMPHAROSITE 500
+#define ITEM_AUDINITE 501
+#define ITEM_BANETTITE 502
+#define ITEM_BEEDRILLITE 503
+#define ITEM_BLASTOISINITE 504
+#define ITEM_BLAZIKENITE 505
+#define ITEM_CAMERUPTITE 506
+#define ITEM_CHARIZARDITE_X 507
+#define ITEM_CHARIZARDITE_Y 508
+#define ITEM_DIANCITE 509
+#define ITEM_GALLADITE 510
+#define ITEM_GARCHOMPITE 511
+#define ITEM_GARDEVOIRITE 512
+#define ITEM_GENGARITE 513
+#define ITEM_GLALITITE 514
+#define ITEM_GYARADOSITE 515
+#define ITEM_HERACRONITE 516
+#define ITEM_HOUNDOOMINITE 517
+#define ITEM_KANGASKHANITE 518
+#define ITEM_LATIASITE 519
+#define ITEM_LATIOSITE 520
+#define ITEM_LOPUNNITE 521
+#define ITEM_LUCARIONITE 522
+#define ITEM_MANECTITE 523
+#define ITEM_MAWILITE 524
+#define ITEM_MEDICHAMITE 525
+#define ITEM_METAGROSSITE 526
+#define ITEM_MEWTWONITE_X 527
+#define ITEM_MEWTWONITE_Y 528
+#define ITEM_PIDGEOTITE 529
+#define ITEM_PINSIRITE 530
+#define ITEM_SABLENITE 531
+#define ITEM_SALAMENCITE 532
+#define ITEM_SCEPTILITE 533
+#define ITEM_SCIZORITE 534
+#define ITEM_SHARPEDONITE 535
+#define ITEM_SLOWBRONITE 536
+#define ITEM_STEELIXITE 537
+#define ITEM_SWAMPERTITE 538
+#define ITEM_TYRANITARITE 539
+#define ITEM_VENUSAURITE 540 //extra new megas below
+#define ITEM_TORTERRAITE 541
+#define ITEM_MAROWAKONITE 542//end of mega
 //K looks like it doesn't matter where I put it except the use items,
 // because effects and bag placement are set in the items.h file.
-#define ITEM_MEGA_BRACELET 542 // should move set as key item.  //updated json item data should match
+#define ITEM_MEGA_BRACELET 543 // should move set as key item.  //updated json item data should match
 /*
 //More hold items
 // Z Crystals
-#define ITEM_Z_RING                   568
-#define ITEM_NORMALIUM_Z              569
-#define ITEM_FIGHTINIUM_Z             570
-#define ITEM_FLYINIUM_Z               571
-#define ITEM_POISONIUM_Z              572
-#define ITEM_GROUNDIUM_Z              573
-#define ITEM_ROCKIUM_Z                574
-#define ITEM_BUGINIUM_Z               575
-#define ITEM_GHOSTIUM_Z               576
-#define ITEM_STEELIUM_Z               577
-#define ITEM_FIRIUM_Z                 578
-#define ITEM_WATERIUM_Z               579
-#define ITEM_GRASSIUM_Z               580
-#define ITEM_ELECTRIUM_Z              581
-#define ITEM_PSYCHIUM_Z               582
-#define ITEM_ICIUM_Z                  583
-#define ITEM_DRAGONIUM_Z              584
-#define ITEM_DARKINIUM_Z              585
-#define ITEM_FAIRIUM_Z                586
-#define ITEM_ALORAICHIUM_Z            587
-#define ITEM_DECIDIUM_Z               588
-#define ITEM_EEVIUM_Z                 589
-#define ITEM_INCINIUM_Z               590
-#define ITEM_KOMMONIUM_Z              591
-#define ITEM_LUNALIUM_Z               592
-#define ITEM_LYCANIUM_Z               593
-#define ITEM_MARSHADIUM_Z             594
-#define ITEM_MEWNIUM_Z                595
-#define ITEM_MIMIKIUM_Z               596
-#define ITEM_PIKANIUM_Z               597
-#define ITEM_PIKASHUNIUM_Z            598
-#define ITEM_PRIMARIUM_Z              599
-#define ITEM_SNORLIUM_Z               600
-#define ITEM_SOLGANIUM_Z              601
-#define ITEM_TAPUNIUM_Z               602
-#define ITEM_ULTRANECROZIUM_Z         603
-//2nd set non-use held items
-#define ITEM_CHOICE_SCARF 266
-#define ITEM_CHOICE_SPECS 267
-#define ITEM_FOCUS_SASH 268
-#define ITEM_WIDE_LENS 269
-#define ITEM_ZOOM_LENS 270
-#define ITEM_METRONOME 271
-#define ITEM_MUSCLE_BAND 272
-#define ITEM_WISE_GLASSES 273
-#define ITEM_EXPERT_BELT 274
-#define ITEM_LIGHT_CLAY 275
-#define ITEM_ICY_ROCK 276
-#define ITEM_SMOOTH_ROCK 277
-#define ITEM_HEAT_ROCK 278
-#define ITEM_DAMP_ROCK 279
-#define ITEM_DESTINY_KNOT 280
-#define ITEM_GRIP_CLAW 281      //when do item port, change to description to say reinforce trap effects (to match suction cups and give that better context) last 7 turns and last if user switches
-#define ITEM_LIFE_ORB 282
-#define ITEM_TOXIC_ORB 283
-#define ITEM_FLAME_ORB 284
-#define ITEM_STICKY_BARB 285
-#define ITEM_IRON_BALL 287
-#define ITEM_LAGGING_TAIL 288
-#define ITEM_SHED_SHELL 289
-#define ITEM_BIG_ROOT 290
-#define ITEM_FLOAT_STONE 292
-#define ITEM_ROCKY_HELMET 293
-#define ITEM_AIR_BALLOON 294
-#define ITEM_RED_CARD 295
-#define ITEM_RING_TARGET 296
-#define ITEM_BINDING_BAND 297
-#define ITEM_EJECT_BUTTON 298
-#define ITEM_ABSORB_BULB 299
-#define ITEM_CELL_BATTERY 300
-#define ITEM_LUMINOUS_MOSS 301
-#define ITEM_SNOWBALL 302
-#define ITEM_WEAKNESS_POLICY 303
-#define ITEM_ASSAULT_VEST 304
-#define ITEM_SAFETY_GOGGLES 305
-#define ITEM_ADRENALINE_ORB 306
-#define ITEM_TERRAIN_EXTENDER 307
-#define ITEM_PROTECTIVE_PADS 308
-#define ITEM_ELECTRIC_SEED 309
-#define ITEM_PSYCHIC_SEED 310
-#define ITEM_MISTY_SEED 311
-#define ITEM_GRASSY_SEED 312*/
-//END of 2nd set of non Use items
-//Start of 2nd use items
-#define ITEM_UP_GRADE 543  //need to change these items in items.json so they are evo items.
-#define ITEM_ELECTIRIZER 544 //don't forget to list in evolutions table as well
-#define ITEM_MAGMARIZER 545
-#define ITEM_DUBIOUS_DISC 546
-#define ITEM_REAPER_CLOTH 547
-#define ITEM_METAL_COAT 548
+#define ITEM_Z_RING                   569
+#define ITEM_NORMALIUM_Z              570
+#define ITEM_FIGHTINIUM_Z             571
+#define ITEM_FLYINIUM_Z               572
+#define ITEM_POISONIUM_Z              573
+#define ITEM_GROUNDIUM_Z              574
+#define ITEM_ROCKIUM_Z                575
+#define ITEM_BUGINIUM_Z               576
+#define ITEM_GHOSTIUM_Z               577
+#define ITEM_STEELIUM_Z               578
+#define ITEM_FIRIUM_Z                 579
+#define ITEM_WATERIUM_Z               580
+#define ITEM_GRASSIUM_Z               581
+#define ITEM_ELECTRIUM_Z              582
+#define ITEM_PSYCHIUM_Z               583
+#define ITEM_ICIUM_Z                  584
+#define ITEM_DRAGONIUM_Z              585
+#define ITEM_DARKINIUM_Z              586
+#define ITEM_FAIRIUM_Z                587
+#define ITEM_ALORAICHIUM_Z            588
+#define ITEM_DECIDIUM_Z               589
+#define ITEM_EEVIUM_Z                 590
+#define ITEM_INCINIUM_Z               591
+#define ITEM_KOMMONIUM_Z              592
+#define ITEM_LUNALIUM_Z               593
+#define ITEM_LYCANIUM_Z               594
+#define ITEM_MARSHADIUM_Z             595
+#define ITEM_MEWNIUM_Z                596
+#define ITEM_MIMIKIUM_Z               597
+#define ITEM_PIKANIUM_Z               598
+#define ITEM_PIKASHUNIUM_Z            599
+#define ITEM_PRIMARIUM_Z              600
+#define ITEM_SNORLIUM_Z               601
+#define ITEM_SOLGANIUM_Z              602
+#define ITEM_TAPUNIUM_Z               603
+#define ITEM_ULTRANECROZIUM_Z         604
+//3nd set non-use held items
+#define ITEM_CHOICE_SCARF 267
+#define ITEM_CHOICE_SPECS 268
+#define ITEM_FOCUS_SASH 269
+#define ITEM_WIDE_LENS 270
+#define ITEM_ZOOM_LENS 271
+#define ITEM_METRONOME 272
+#define ITEM_MUSCLE_BAND 273
+#define ITEM_WISE_GLASSES 274
+#define ITEM_EXPERT_BELT 275
+#define ITEM_LIGHT_CLAY 276
+#define ITEM_ICY_ROCK 277
+#define ITEM_SMOOTH_ROCK 278
+#define ITEM_HEAT_ROCK 279
+#define ITEM_DAMP_ROCK 280
+#define ITEM_DESTINY_KNOT 281
+#define ITEM_GRIP_CLAW 282      //when do item port, change to description to say reinforce trap effects (to match suction cups and give that better context) last 8 turns and last if user switches
+#define ITEM_LIFE_ORB 283
+#define ITEM_TOXIC_ORB 284
+#define ITEM_FLAME_ORB 285
+#define ITEM_STICKY_BARB 286
+#define ITEM_IRON_BALL 288
+#define ITEM_LAGGING_TAIL 289
+#define ITEM_SHED_SHELL 290
+#define ITEM_BIG_ROOT 291
+#define ITEM_FLOAT_STONE 293
+#define ITEM_ROCKY_HELMET 294
+#define ITEM_AIR_BALLOON 295
+#define ITEM_RED_CARD 296
+#define ITEM_RING_TARGET 297
+#define ITEM_BINDING_BAND 298
+#define ITEM_EJECT_BUTTON 299
+#define ITEM_ABSORB_BULB 300
+#define ITEM_CELL_BATTERY 301
+#define ITEM_LUMINOUS_MOSS 302
+#define ITEM_SNOWBALL 303
+#define ITEM_WEAKNESS_POLICY 304
+#define ITEM_ASSAULT_VEST 305
+#define ITEM_SAFETY_GOGGLES 306
+#define ITEM_ADRENALINE_ORB 307
+#define ITEM_TERRAIN_EXTENDER 308
+#define ITEM_PROTECTIVE_PADS 309
+#define ITEM_ELECTRIC_SEED 310
+#define ITEM_PSYCHIC_SEED 311
+#define ITEM_MISTY_SEED 312
+#define ITEM_GRASSY_SEED 313*/
+//END of 3nd set of non Use items
+//Start of 3nd use items
+#define ITEM_UP_GRADE 544  //need to change these items in items.json so they are evo items.
+#define ITEM_ELECTIRIZER 545 //don't forget to list in evolutions table as well
+#define ITEM_MAGMARIZER 546
+#define ITEM_DUBIOUS_DISC 547
+#define ITEM_REAPER_CLOTH 548
+#define ITEM_METAL_COAT 549
 //Form Change Items
-#define ITEM_ALOLAN_SAND     549
-#define ITEM_GALAR_SAND     550
-#define ITEM_HISUIAN_SAND     551
-#define ITEM_CEFERIA_SAND   552
+#define ITEM_ALOLAN_SAND     550
+#define ITEM_GALAR_SAND     551
+#define ITEM_HISUIAN_SAND     552
+#define ITEM_CEFERIA_SAND   553
 // Incenses
-#define ITEM_SEA_INCENSE 553//385 
-#define ITEM_LAX_INCENSE 554
-#define ITEM_BLACK_SLUDGE 555
-#define ITEM_BAD_ONION 556 //  ok these new values for incense are actually better, since they aren't supposed to be for use, just hold.
-/*#define ITEM_ODD_INCENSE 386
-#define ITEM_ROCK_INCENSE 387
-#define ITEM_FULL_INCENSE 388
-#define ITEM_WAVE_INCENSE 389
-#define ITEM_ROSE_INCENSE 390
-#define ITEM_LUCK_INCENSE 391
-#define ITEM_PURE_INCENSE 392
+#define ITEM_SEA_INCENSE 554//386 
+#define ITEM_LAX_INCENSE 555
+#define ITEM_BLACK_SLUDGE 556
+#define ITEM_BAD_ONION 557 //  ok these new values for incense are actually better, since they aren't supposed to be for use, just hold.
+/*#define ITEM_ODD_INCENSE 387
+#define ITEM_ROCK_INCENSE 388
+#define ITEM_FULL_INCENSE 389
+#define ITEM_WAVE_INCENSE 390
+#define ITEM_ROSE_INCENSE 391
+#define ITEM_LUCK_INCENSE 392
+#define ITEM_PURE_INCENSE 393
 // Plates          - changed arceus so not using these
-#define ITEM_INSECT_PLATE 322
-#define ITEM_DREAD_PLATE 323
-#define ITEM_DRACO_PLATE 324
-#define ITEM_ZAP_PLATE 325
-#define ITEM_PIXIE_PLATE 326
-#define ITEM_FIST_PLATE 327
-#define ITEM_FLAME_PLATE 328
-#define ITEM_SKY_PLATE 329
-#define ITEM_SPOOKY_PLATE 330
-#define ITEM_MEADOW_PLATE 331
-#define ITEM_EARTH_PLATE 332
-#define ITEM_ICICLE_PLATE 333
-#define ITEM_TOXIC_PLATE 334
-#define ITEM_MIND_PLATE 335
-#define ITEM_STONE_PLATE 336
-#define ITEM_IRON_PLATE 337
-#define ITEM_SPLASH_PLATE 338
+#define ITEM_INSECT_PLATE 323
+#define ITEM_DREAD_PLATE 324
+#define ITEM_DRACO_PLATE 325
+#define ITEM_ZAP_PLATE 326
+#define ITEM_PIXIE_PLATE 327
+#define ITEM_FIST_PLATE 328
+#define ITEM_FLAME_PLATE 329
+#define ITEM_SKY_PLATE 330
+#define ITEM_SPOOKY_PLATE 331
+#define ITEM_MEADOW_PLATE 332
+#define ITEM_EARTH_PLATE 333
+#define ITEM_ICICLE_PLATE 334
+#define ITEM_TOXIC_PLATE 335
+#define ITEM_MIND_PLATE 336
+#define ITEM_STONE_PLATE 337
+#define ITEM_IRON_PLATE 338
+#define ITEM_SPLASH_PLATE 339
 // Gems
-#define ITEM_BUG_GEM 339
-#define ITEM_DARK_GEM 340
-#define ITEM_DRAGON_GEM 341
-#define ITEM_ELECTRIC_GEM 342
-#define ITEM_FAIRY_GEM 343
-#define ITEM_FIGHTING_GEM 344
-#define ITEM_FIRE_GEM 345
-#define ITEM_FLYING_GEM 346
-#define ITEM_GHOST_GEM 347
-#define ITEM_GRASS_GEM 348
-#define ITEM_GROUND_GEM 349
-#define ITEM_ICE_GEM 350
-#define ITEM_NORMAL_GEM 351
-#define ITEM_POISON_GEM 352
-#define ITEM_PSYCHIC_GEM 353
-#define ITEM_ROCK_GEM 354
-#define ITEM_STEEL_GEM 355
-#define ITEM_WATER_GEM 356
+#define ITEM_BUG_GEM 340
+#define ITEM_DARK_GEM 341
+#define ITEM_DRAGON_GEM 342
+#define ITEM_ELECTRIC_GEM 343
+#define ITEM_FAIRY_GEM 344
+#define ITEM_FIGHTING_GEM 345
+#define ITEM_FIRE_GEM 346
+#define ITEM_FLYING_GEM 347
+#define ITEM_GHOST_GEM 348
+#define ITEM_GRASS_GEM 349
+#define ITEM_GROUND_GEM 350
+#define ITEM_ICE_GEM 351
+#define ITEM_NORMAL_GEM 352
+#define ITEM_POISON_GEM 353
+#define ITEM_PSYCHIC_GEM 354
+#define ITEM_ROCK_GEM 355
+#define ITEM_STEEL_GEM 356
+#define ITEM_WATER_GEM 357
 // Memories
-#define ITEM_BUG_MEMORY 371
-#define ITEM_DARK_MEMORY 372
-#define ITEM_DRAGON_MEMORY 373
-#define ITEM_ELECTRIC_MEMORY 374
-#define ITEM_FAIRY_MEMORY 375
-#define ITEM_FIGHTING_MEMORY 376
-#define ITEM_FIRE_MEMORY 377
-#define ITEM_FLYING_MEMORY 378
-#define ITEM_GHOST_MEMORY 379
-#define ITEM_GRASS_MEMORY 380
-#define ITEM_GROUND_MEMORY 381
-#define ITEM_ICE_MEMORY 382
-#define ITEM_POISON_MEMORY 383
-#define ITEM_PSYCHIC_MEMORY 384
-#define ITEM_ROCK_MEMORY 385
-#define ITEM_STEEL_MEMORY 386
-#define ITEM_WATER_MEMORY 387
+#define ITEM_BUG_MEMORY 372
+#define ITEM_DARK_MEMORY 373
+#define ITEM_DRAGON_MEMORY 374
+#define ITEM_ELECTRIC_MEMORY 375
+#define ITEM_FAIRY_MEMORY 376
+#define ITEM_FIGHTING_MEMORY 377
+#define ITEM_FIRE_MEMORY 378
+#define ITEM_FLYING_MEMORY 379
+#define ITEM_GHOST_MEMORY 380
+#define ITEM_GRASS_MEMORY 381
+#define ITEM_GROUND_MEMORY 382
+#define ITEM_ICE_MEMORY 383
+#define ITEM_POISON_MEMORY 384
+#define ITEM_PSYCHIC_MEMORY 385
+#define ITEM_ROCK_MEMORY 386
+#define ITEM_STEEL_MEMORY 387
+#define ITEM_WATER_MEMORY 388
 // Drives
-#define ITEM_DOUSE_DRIVE 388
-#define ITEM_SHOCK_DRIVE 389
-#define ITEM_BURN_DRIVE 390
-#define ITEM_CHILL_DRIVE 391
+#define ITEM_DOUSE_DRIVE 389
+#define ITEM_SHOCK_DRIVE 390
+#define ITEM_BURN_DRIVE 391
+#define ITEM_CHILL_DRIVE 392
 
 //extra key items
 #define ITEM_BEATER
@@ -935,8 +937,8 @@
 #define ITEM_ADAMANT_ORB
 #define ITEM_LUSTROUS_ORB
 #define ITEM_GRISEOUS_ORB */
-#define ITEM_SCENT_CASE 557 //USE TM CASE grahpic for holding region scent vials
-#define ITEM_N_A 558 // keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error
+#define ITEM_SCENT_CASE 558 //USE TM CASE grahpic for holding region scent vials
+#define ITEM_N_A 559 // keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error
 #define ITEMS_COUNT ITEM_N_A +1
 #define ITEM_FIELD_ARROW ITEM_N_A//field arrow isn't defined as an item, it just end of item_menu_icons.c list
 // Emerald   BUT based on list from vanilla its actually ID was equal to items N_A, circumventing that equation.
@@ -947,7 +949,7 @@
 #define LAST_BERRY_INDEX ITEM_ENIGMA_BERRY
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 
-#define NUM_TECHNICAL_MACHINES 158 //change to 120 later  / or more plan to add on to tms I think for ease spreading certain moves
+#define NUM_TECHNICAL_MACHINES 159 //change to 120 later  / or more plan to add on to tms I think for ease spreading certain moves
 #define NUM_HIDDEN_MACHINES     9
 
 //copy from emerald for replacing the numerical values in type field in items.json

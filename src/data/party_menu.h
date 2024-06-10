@@ -1116,6 +1116,7 @@ static const bool8 sMultiBattlePartnersPartyMask[PARTY_SIZE + 2] =
     FALSE,
 };
 
+//original list for comparison
 static const u16 sTMHMMoves_Duplicate[] =
 {
     MOVE_FOCUS_PUNCH,
@@ -1520,6 +1521,7 @@ static const u16 sTMHMMoves[] =
     MOVE_HOLD_BACK,
     MOVE_HEADBUTT,
     MOVE_HI_JUMP_KICK,
+    MOVE_DOUBLE_EDGE,
     MOVE_SNOWBALL,
     MOVE_CELEBRATE,  //last tm
     MOVE_CUT,

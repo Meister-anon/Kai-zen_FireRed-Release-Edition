@@ -2397,14 +2397,43 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     worked perfecetly!!
 
     uhh look into furry cutter endure interaction,
-    unsure but think first hit failed to endure?
+    unsure but think first hit failed to endure? - belive fixed issue was all multihit missed a first hit check
 
     now using for slowstart and wonderguard  
     new idea consider shedinja a wraith, add to dex entry
     give buff/debuff moves  like a spellcaster
 
     think will give immunity to status and weather dmg 
-    -change immunity to status dmg
+    -changed to immunity to status dmg
+
+   - to make text more legible when speed up,
+   rather than slow buffers add \p  ending to important text
+
+   actually think may mkae on \s character that will do it
+   based on battle speed up, and text sped being above mid
+   so it doesn't interupt speed options where the current text works fine
+   so someting like if battlespeed is 3x and text speed is greatrer than mid
+   do the wait button press stuff i.e the \p stuff
+
+   things like ability messages, battle effect/timer end messages
+   is super simple and would allow people to go at their own pace even w
+   max speed on, will just have to come over battle message file
+
+   -setup done, works, just need decide where to put,
+   weather abilities strings don't neem to need,
+   as they use waitstate rather than a waitmessage
+   think I just need after important things
+   that use wait message short?
+   yeah sunnt day etc. use wait long so that's fine
+   its just wait short I believe, or for longer messages
+   like say pickup and magma armor.
+
+   on word from tardysoap went back removed new char use
+   instead adjusted w wait times function seems works,
+   adjusted short messages and long messages deemed important
+
+   added eduardo asparagus decap branch shared by ravepossum
+   will use like hgss file copy values I need for efficiency then remove
 
     idea ice version of contact status ability,
     would need to be on mon doesn't do big dmg,
@@ -2412,7 +2441,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     came up with ice steel type, like sticking your tongue on a frozen pole
     making contact has a chance to freeze
 
+    //change annihalape evo to perform rage fist at max rage
+    //rather than needing a new field I can set a flag like I do w
 
+    new move idea "bodyguard" or "body guard" similar to move that makes user center of attention
+    the moves of a selected target will instead target their battle partner
+    give to clefairy and other support mon
 
 
     moved substructs to boxmon, made up a lot of space
