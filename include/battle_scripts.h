@@ -316,6 +316,7 @@ extern const u8 BattleScript_AquaRingHeal[];
 extern const u8 BattleScript_TurnHeal[];
 extern const u8 BattleScript_AnticipationActivates[];
 extern const u8 BattleScript_AftermathDmg[];
+extern const u8 BattleScript_InnardsOutDmg[];
 extern const u8 BattleScript_AftermathOnSwitch[];
 extern const u8 BattleScript_MoveEffectClearSmog[];
 extern const u8 BattleScript_QuickClawActivation[];

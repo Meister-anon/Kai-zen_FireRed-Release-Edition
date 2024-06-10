@@ -116,29 +116,6 @@
 #define B_MSG_DOWNPOUR_CONTINUES 1
 #define B_MSG_RAIN_STOPPED       2
 
-// gForecastPredictionIds
-#define B_MSG_FORECAST_TORRENTIAL_RAIN   0
-#define B_MSG_FORECAST_HEATWAVE          1
-#define B_MSG_FORECAST_DUSTSTORM         2
-#define B_MSG_FORECAST_BLIZZARD          3
-//RAIN
-#define B_MSG_FORECAST_RAIN_SUN          4
-#define B_MSG_FORECAST_RAIN_SAND         5
-#define B_MSG_FORECAST_RAIN_HAIL         6
-//SUN
-#define B_MSG_FORECAST_SUN_RAIN          7
-#define B_MSG_FORECAST_SUN_SAND          8   
-#define B_MSG_FORECAST_SUN_HAIL          9
-//SAND  
-#define B_MSG_FORECAST_SAND_RAIN         10
-#define B_MSG_FORECAST_SAND_SUN          11
-#define B_MSG_FORECAST_SAND_HAIL         12
-//HAIL
-#define B_MSG_FORECAST_HAIL_RAIN         13
-#define B_MSG_FORECAST_HAIL_SUN          14
-#define B_MSG_FORECAST_HAIL_SAND         15
-
-
 
 // gFirstTurnOfTwoStringIds
 #define B_MSG_TURN1_RAZOR_WIND     0

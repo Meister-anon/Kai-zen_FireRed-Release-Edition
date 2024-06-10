@@ -643,10 +643,11 @@ static const u8 gPauseValue[] = {
     [B_WAIT_TIME_CLEAR_BUFF_2] = 0x1,
     [B_WAIT_TIME_UNIQUE] = 0x2B, //for multihit miss and sleep heal
     [B_WAIT_TIME_LONG_LONG] = 0x63,  //for mon block ball message
+    [B_WAIT_TIME_IMPORTANT_STRINGS] = 0x61, //for scaling important string wait times, ability effects state changes etc.
 
 };
 
-static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value); //setup to adjust wait time based on speed
+static s8 SetWaitTimeModifier(u8 BattleSpeed, u16 value); //setup to adjust wait time based on speed
 static u8 SetPauseTimeModifier(u8 BattleSpeed, u16 value); //specifically for pause
 
 const struct StatFractions gAccuracyStageRatios[] =
@@ -4054,7 +4055,7 @@ static void atk12_waitmessage(void)
                 if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE)
                     BattleSpeed = OPTIONS_BATTLE_SPEED_2X;
                 
-                if (toWait == B_WAIT_TIME_UNIQUE || toWait == B_WAIT_TIME_LONG_LONG) //this outta do it
+                if (toWait == B_WAIT_TIME_UNIQUE || toWait == B_WAIT_TIME_LONG_LONG || toWait == B_WAIT_TIME_IMPORTANT_STRINGS) //this outta do it
                 {
                     toWait = SetWaitTimeModifier(BattleSpeed, toWait);
                 }
@@ -7029,16 +7030,20 @@ static u8 SetPauseTimeModifier(u8 BattleSpeed, u16 value)
     }
 }
 
-static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) 
+//rather than try negative just add \p  to certain strings
+//don't want to miss,can just A press through it simple enough
+static s8 SetWaitTimeModifier(u8 BattleSpeed, u16 value) 
 {
 
-    switch (BattleSpeed) //only unique & LongLong are assigning
+    switch (BattleSpeed) //only unique & LongLong & Longest are assigning
     {
         case OPTIONS_BATTLE_SPEED_1X:
         if (value == B_WAIT_TIME_UNIQUE)
             return value;
         else if (value == B_WAIT_TIME_LONG_LONG)
             return B_WAIT_TIME_CLEAR_BUFF_2;
+        else if (value == B_WAIT_TIME_IMPORTANT_STRINGS)
+            return B_WAIT_TIME_LONG;
         else
             return 0; //don't change wait time
         break;
@@ -7049,31 +7054,42 @@ static u8 SetWaitTimeModifier(u8 BattleSpeed, u16 value)
             return B_WAIT_TIME_SHORT;
         else if (value == B_WAIT_TIME_LONG_LONG)
             return B_WAIT_TIME_MED;
+        else if (value == B_WAIT_TIME_IMPORTANT_STRINGS && GetPlayerTextSpeed() > OPTIONS_TEXT_SPEED_FAST)
+            return B_WAIT_TIME_LONG;
+        else if (value == B_WAIT_TIME_IMPORTANT_STRINGS)
+            return B_WAIT_TIME_MED;
         else
             return 0; //don't change wait time
         break;
         case OPTIONS_BATTLE_SPEED_3X:
-        if (value < B_WAIT_TIME_SHORTEST) //plan do else if, w bs - 1 for values above cutoff
+        
+        if (value == B_WAIT_TIME_SHORT && GetPlayerTextSpeed() > OPTIONS_TEXT_SPEED_MID) //plan do else if, w bs - 1 for values above cutoff
+           return 6; //turn short into long long
+        else if (value == B_WAIT_TIME_IMPORTANT_STRINGS && GetPlayerTextSpeed() < OPTIONS_TEXT_SPEED_FAST)
+            return B_WAIT_TIME_LONG;
+        else if (value < B_WAIT_TIME_SHORT) //put here w else if means for lower text speeds
             return 1;
-        else if (value < B_WAIT_TIME_CLEAR_BUFF) //B_WAIT_TIME_CLEAR_BUFF
-            return 1;
+        //else if (value < B_WAIT_TIME_CLEAR_BUFF) //B_WAIT_TIME_CLEAR_BUFF
+        //    return 0;
         else if (value == B_WAIT_TIME_UNIQUE)
             return value;
-        else if (value == B_WAIT_TIME_LONG_LONG)
+        else if (value == B_WAIT_TIME_LONG_LONG || B_WAIT_TIME_IMPORTANT_STRINGS)
             return value;
         else
             return 0; //don't change wait time
         break;
         case OPTIONS_BATTLE_SPEED_4X: 
-        //if (value < B_WAIT_TIME_SHORT) //plan do else if, w bs - 1 for values above cutoff
-        //   return BattleSpeed;
+        if (value == B_WAIT_TIME_SHORT && GetPlayerTextSpeed() > OPTIONS_TEXT_SPEED_MID) //plan do else if, w bs - 1 for values above cutoff
+           return 6; //turn short into long long - works
+        else if (value == B_WAIT_TIME_IMPORTANT_STRINGS && GetPlayerTextSpeed() < OPTIONS_TEXT_SPEED_FAST)
+            return B_WAIT_TIME_LONG;
         //if (value == B_WAIT_TIME_LONG)
         //    return BattleSpeed - 2;
         //else if (value < B_WAIT_TIME_CLEAR_BUFF) //using this means briefest uses 0x5 instead of 0x7, so slightly faster
         //    return BattleSpeed - 2;
-        if (value == B_WAIT_TIME_UNIQUE)
+        else if (value == B_WAIT_TIME_UNIQUE)
             return value;
-        else if (value == B_WAIT_TIME_LONG_LONG)
+        else if (value == B_WAIT_TIME_LONG_LONG || B_WAIT_TIME_IMPORTANT_STRINGS)
             return value;
         else
             return 0; //don't change wait time

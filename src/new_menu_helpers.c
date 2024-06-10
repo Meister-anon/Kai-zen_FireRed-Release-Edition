@@ -663,7 +663,7 @@ void DisplayYesNoMenuDefaultNo(void)
 
 u32 GetPlayerTextSpeed(void)
 {
-    if (gTextFlags.forceMidTextSpeed) //opnly used in auto scroll macro used in cableclub
+    if (gTextFlags.forceMidTextSpeed) //only used in auto scroll macro used in cableclub
         return OPTIONS_TEXT_SPEED_MID;
     return gSaveBlock2Ptr->optionsTextSpeed;
 }
