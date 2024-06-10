@@ -4526,6 +4526,7 @@ u8 AtkCanceller_UnableToUseMove(void)
 u8 AtkCanceller_UnableToUseMove2(void)
 {
     u8 effect = 0;
+    u16 moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
 
     do
     {
@@ -4537,7 +4538,9 @@ u8 AtkCanceller_UnableToUseMove2(void)
             if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN
                 && IsBattlerGrounded(gBattlerTarget)
                 && GetChosenMovePriority(gBattlerAttacker) > 0
-                && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
+                && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
+                && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))//was missing but not supposed to be able to block wide affect moves
+                && (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
             {
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gBattlescriptCurrInstr = BattleScript_MoveUsedPsychicTerrainPrevents;
@@ -5012,7 +5015,7 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
             return TRUE;
         } //should be ability set, and not same as weather already set
 
-        //move based weather change & other normal weather abilities
+        //move based weather change & other more conditional weather abilities
         else if ((!(gBattleWeather & (sWeatherFlagsInfo[weatherEnumId][0] | sWeatherFlagsInfo[weatherEnumId][1])))  //CHECK specific weather isn't alraedy set
             && (!IsAbilityOnField(ABILITY_DROUGHT) && !IsAbilityOnField(ABILITY_DRIZZLE))) //need test if prevents weather change while kyogre/groudon on field
         {
@@ -5720,6 +5723,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             {
                                 if (TryChangeBattleWeather(battler, gWishFutureKnock.forecastedCurrWeather, TRUE))
                                 {
+                                    //hmm pretty sure w new setup battle communication msg isn't even used
                                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_RAIN;
                                     BattleScriptPushCursorAndCallback(BattleScript_ForecastPredictionRain);
                                     gBattleScripting.battler = battler;
@@ -6901,7 +6905,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             u16 battlerAbility = GetBattlerAbility(battler);
             u16 targetAbility = GetBattlerAbility(gBattlerTarget);
 
-            if ((gLastUsedAbility == ABILITY_SOUNDPROOF && gBattleMoves[moveArg].flags & FLAG_SOUND && !(moveTarget & MOVE_TARGET_USER))
+            if ((gLastUsedAbility == ABILITY_SOUNDPROOF && (gBattleMoves[moveArg].type == TYPE_SOUND || gBattleMoves[moveArg].flags & FLAG_SOUND) && !(moveTarget & MOVE_TARGET_USER))
                 || (gLastUsedAbility == ABILITY_BULLETPROOF && gBattleMoves[moveArg].flags & FLAG_BALLISTIC))
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
@@ -6912,7 +6916,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             else if ((gLastUsedAbility == ABILITY_DAZZLING || gLastUsedAbility == ABILITY_QUEENLY_MAJESTY || IsBattlerAlive(battler ^= BIT_FLANK))
                 && (battlerAbility == ABILITY_DAZZLING || battlerAbility == ABILITY_QUEENLY_MAJESTY)
                 && GetChosenMovePriority(gBattlerAttacker) > 0
-                && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler))
+                && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(battler)
+                && (!(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))//was missing but not supposed to be able to block wide affect moves
+                && (gBattleMoves[gCurrentMove].power || IsPriorityElevatedviaAbility(gBattlerAttacker) || gCurrentMove == MOVE_BIDE)) //last thing for bide boost
             {
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
                     gHitMarker |= HITMARKER_NO_PPDEDUCT;
@@ -7353,7 +7359,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && (Random() % 3) == 0
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_OBLIVIOUS
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_UNAWARE
-                    //&& GetBattlerAbility(gBattlerAttacker) != ABILITY_FEMME_FATALE
+                    && GetBattlerAbility(gBattlerAttacker) != ABILITY_FEMME_FATALE
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != GetGenderFromSpeciesAndPersonality(speciesDef, pidDef)
                     && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION)
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != MON_GENDERLESS
@@ -7702,9 +7708,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                     else
                     {
-                        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4, 1);
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_AftermathDmg;
                     }
@@ -7717,9 +7721,22 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && IsBattlerAlive(gBattlerAttacker))
                 {
                     gBattleMoveDamage = gSpecialStatuses[gBattlerTarget].dmg;
+                    if (gBattleMoveDamage == 0)
+                        gBattleMoveDamage = 1;
                     BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_AftermathDmg;
+                    gBattlescriptCurrInstr = BattleScript_InnardsOutDmg;
                     ++effect;
+                }
+                else if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                && TARGET_TURN_DAMAGED
+                && IsBattlerAlive(gBattlerTarget)
+                && IsBattlerAlive(gBattlerAttacker) //in case of dmging item effects
+                && gDisableStructs[gBattlerTarget].isFirstTurn == 2) //small buff fit thematically if hit on switch in smacks opponent w organs
+                {
+                    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 6, 1);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_InnardsOutDmg;
+                    ++effect; //at low levels doesn't kill in 6, but that's because rounding errors, code itself is good
                 }
                 break;
             case ABILITY_ILLUSION:

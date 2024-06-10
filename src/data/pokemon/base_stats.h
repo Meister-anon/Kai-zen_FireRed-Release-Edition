@@ -22650,7 +22650,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_DRAGON,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_CORROSION, ABILITY_MERCILESS},
-        .abilityHidden = {ABILITY_OBLIVIOUS, ABILITY_QUEENLY_MAJESTY}, //oblivious is hidden ability as it can't be infatuated as its a seductress itself, new idea make femme fatale to replace
+        .abilityHidden = {ABILITY_FEMME_FATALE, ABILITY_QUEENLY_MAJESTY}, //oblivious is hidden ability as it can't be infatuated as its a seductress itself, new idea make femme fatale to replace
         .bodyColor = BODY_COLOR_BLACK, //give base oblivious affect and roll in gen 9 buff immunity to taunt and maybe flinch?  replace levitate
         .noFlip = FALSE,
         .floating = FALSE,
@@ -22824,7 +22824,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_GRASS,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_LEAF_GUARD, ABILITY_QUEENLY_MAJESTY},
-            .abilityHidden = {ABILITY_SWEET_VEIL, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SWEET_VEIL, ABILITY_FEMME_FATALE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -27586,7 +27586,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_FEMME_FATALE, ABILITY_FEMME_FATALE},
+        .abilities = {ABILITY_FEMME_FATALE, ABILITY_QUEENLY_MAJESTY},
         .abilityHidden = {ABILITY_POISON_TOUCH, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -29953,6 +29953,7 @@ const struct BaseStats gBaseStats[] =
     //but even then it only gets double edge - they didn't even give thsi wild charge!!
     //instead adding better physical electric moves
     //giving MOVE_WILD_CHARGE, MOVE_VOLT_TACKLE to replace double edge & zekrom's MOVE_BOLT_STRIKE
+    //done
 
     [SPECIES_GRAVELER_ALOLAN] =
     { 

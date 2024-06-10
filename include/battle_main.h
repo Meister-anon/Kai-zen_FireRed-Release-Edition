@@ -105,6 +105,7 @@ void RunBattleScriptCommands(void);
 bool8 TryRunFromBattle(u8 battler);
 s8 GetMovePriority(u8 battlerId, u16 move);
 s8 GetChosenMovePriority(u8 battlerId);
+bool8 IsPriorityElevatedviaAbility(u8 battlerId); //new thing to track moves w boosted priority from abilities for queenly majesty
 bool8 IsRivalBattle(u16 trainerNum);
 bool32 IsWildMonSmart(void);
 void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk);

@@ -2346,8 +2346,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_USER,
     .priority = 3,
     .flags = 0,
-    .split = SPLIT_STATUS,
-},
+    .split = SPLIT_PHYSICAL,//SPLIT_STATUS, //think change to physical
+},//vsonic important check make sure no issue
 
 [MOVE_ACID_ARMOR] =
 {
@@ -3534,10 +3534,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 40,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 1, //makes stronger but still have option to beat w pursuit or priority move
+        .priority = 0,//1, //makes stronger but still have option to beat w pursuit or priority move
         .flags = 0,
         .split = SPLIT_STATUS,
     }, //what happens if the user is trapper/has escape prevention? if also blocks then even better
+    //seems sometimes you want slower baton pass so guess keep this as is
 
     [MOVE_ENCORE] =
     {
@@ -4383,7 +4384,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 1,
+        .priority = 0,  //stall strats add to list too strong to boost priority
         .split = SPLIT_STATUS,
     },
 
@@ -12355,6 +12356,8 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         //.zMoveEffect = Z_EFFECT_NONE,
     },//vsonic
+    //change annihalape evo to perform rage fist at max rage
+    //rather than needing a new field I can set a flag like I do w region sand
 
     [MOVE_SNOWBALL] =
     {

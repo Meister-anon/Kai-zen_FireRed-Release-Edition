@@ -317,6 +317,11 @@ struct ProtectStruct    //also gets cleared at end turn
              u32 powderSelfDmg : 1;  //not sure why  I added this I'm not gonna use it? well for someone else I guess. 
              u32 usedThroatChopPreventedMove : 1;
              u32 pranksterElevated : 1;
+             u32 galewingsElevated : 1;
+             u32 triageElevated : 1;
+             u32 OmniAideElevated : 1; //omnipotent aide, new fields added to account for queenly majesty w status priority change
+             u32 NuisanceElevated : 1;
+             u32 LightMetalElevated : 1;
              u32 quickDraw : 1;
              u16 quash : 1;
              u16 beakBlastCharge : 1;

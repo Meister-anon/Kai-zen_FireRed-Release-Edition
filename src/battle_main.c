@@ -326,47 +326,47 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0 
 //no idea how never realized but type is organized from physical to special
 const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 {
- //               normal  fight   flying  poison  ground   rock    bug    ghost   steel   mystery  fire   water   grass  electric  psychic  ice   dragon   dark   fairy    sound
-      /*normal*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(0.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // normal
+//               normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water      grass    electric   psychic   ice      dragon     dark     fairy      sound
+    /*normal*/ {X(1.0),     X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.0),   X(0.5),   X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // normal
 
-       /*fight*/ {X(1.55), X(1.0), X(0.5), X(0.5), X(1.0), X(1.55), X(0.5), X(0.0), X(1.55), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.55), X(1.0), X(1.55), X(0.5), X(1.0)}, // fight
+       /*fight*/ {X(1.55),  X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.55),   X(0.5),   X(0.0),   X(1.55),  X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),  X(1.55),   X(0.5),   X(1.0)}, // fight
 
-      /*flying*/ {X(1.0), X(1.55), X(1.0), X(1.0), X(0.5), X(0.5), X(1.55), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.55), X(0.5), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0)}, // flying
+      /*flying*/ {X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),  X(1.0),   X(1.0),   X(1.55),   X(0.5),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // flying
 
-      /*poison*/ {X(1.0), X(1.55), X(1.0), X(0.0), X(0.5), X(0.0), X(1.0), X(0.5), X(0.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.55), X(1.0)}, // poison
+      /*poison*/ {X(1.0),   X(1.55),   X(1.0),   X(0.0),   X(0.5),   X(0.0),   X(1.0),   X(0.5),   X(0.0),   X(1.0),    X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.55),   X(1.0)}, // poison
 
-      /*ground*/ {X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(1.55), X(0.5), X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(0.5), X(1.55), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0)}, // ground
+      /*ground*/ {X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.55),  X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // ground
 
-        /*rock*/ {X(1.0), X(0.5), X(1.55), X(1.0), X(0.5), X(0.5), X(1.55), X(1.0), X(0.5), X(1.0), X(1.55), X(1.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(1.0), X(1.0), X(1.0)}, // rock
+        /*rock*/ {X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),  X(1.55),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // rock
 
-         /*bug*/ {X(1.0), X(0.5), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.55), X(1.0), X(1.55), X(0.5), X(1.0), X(1.55), X(1.0), X(1.0)}, // bug
+         /*bug*/ {X(1.0),   X(0.5),   X(0.5),   X(0.5),   X(1.0),   X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),    X(1.0),   X(1.55),   X(1.0),  X(1.55),   X(0.5),  X(1.0),   X(1.55),  X(1.0),  X(1.0)}, // bug
 
-       /*ghost*/ {X(0.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(0.5), X(1.0)}, // ghost
+       /*ghost*/ {X(0.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),    X(1.0),   X(1.55),   X(1.0),   X(1.0),  X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(0.5),    X(1.0)}, // ghost
 
-       /*steel*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(1.0), X(0.5), X(1.0), X(0.5), X(0.5), X(1.0), X(0.5), X(1.0), X(1.55), X(1.0), X(1.0), X(1.55), X(1.0)}, // steel
+       /*steel*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.5),    X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.55),   X(1.0)}, // steel
 
-     /*mystery*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // mystery
+     /*mystery*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),     X(1.0),  X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // mystery
 
-        /*fire*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(0.5), X(1.55), X(0.5), X(1.55), X(1.0), X(0.5), X(0.5), X(1.55), X(1.0), X(1.0), X(1.55), X(0.5), X(1.0), X(1.0), X(1.0)}, // fire
+        /*fire*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),    X(0.5),  X(1.55),   X(1.0),  X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(1.0),   X(1.55),  X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // fire
 
-       /*water*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.55), X(1.0), X(1.0), X(1.0), X(1.0), X(1.55), X(0.5), X(0.5), X(1.0), X(1.0), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0)}, // water
+       /*water*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0),   X(1.0),   X(1.0),   X(1.0),  X(1.55),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // water
 
-       /*grass*/ {X(1.0), X(1.0), X(0.5), X(0.5), X(1.55), X(1.55), X(0.5), X(1.0), X(0.5), X(1.0), X(0.5), X(1.55), X(0.5), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0)}, // grass
+       /*grass*/ {X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.55),   X(0.5),   X(1.0),   X(0.5),   X(1.0),  X(0.5),   X(1.55),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // grass
 
-    /*electric*/ {X(1.0), X(1.0), X(1.55), X(1.0), X(0.0), X(0.5), X(0.5), X(1.0), X(1.55), X(1.0), X(1.0), X(1.55), X(1.0), X(0.5), X(1.0), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0)}, // electric
+    /*electric*/ {X(1.0),   X(1.0),   X(1.55),  X(1.0),    X(0.0),   X(0.5),   X(0.5),   X(1.0),   X(1.55),   X(1.0),  X(1.0),   X(1.55),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // electric
 
-     /*psychic*/ {X(1.0), X(1.55), X(1.0), X(1.55), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(0.0), X(0.5), X(1.0)}, // psychic
+     /*psychic*/ {X(1.0),   X(1.55),   X(1.0),   X(1.55),  X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.0),   X(0.5),   X(1.0)}, // psychic
 
-         /*ice*/ {X(1.0), X(1.0), X(1.55), X(1.0), X(1.55), X(1.0), X(1.55), X(0.5), X(0.5), X(1.0), X(0.5), X(1.0), X(1.55), X(1.0), X(1.0), X(0.5), X(1.55), X(1.0), X(1.0), X(1.0)}, // ice
+         /*ice*/ {X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.55),   X(1.0),   X(1.55),   X(0.5),  X(0.5),  X(1.0),   X(0.5),  X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(1.0),   X(1.0)}, // ice
 
-      /*dragon*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.55), X(1.0), X(0.5), X(1.0)}, // dragon
+      /*dragon*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),    X(0.5),   X(1.0)}, // dragon
 
-        /*dark*/ {X(1.0), X(0.5), X(1.0), X(0.5), X(1.0), X(1.0), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.0), X(1.0), X(1.55), X(1.55), X(1.0)}, // dark
+        /*dark*/ {X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0)}, // dark
 
-       /*fairy*/ {X(1.55), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(0.5), X(1.0), X(0.5), X(1.0), X(0.5), X(1.0), X(0.0), X(1.0), X(1.0), X(1.0), X(1.55), X(1.55), X(1.0), X(1.0)}, // fairy
+       /*fairy*/ {X(1.55),  X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(0.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0),   X(1.0)}, // fairy
 
-       /*sound*/ {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // sound
-};//              normal  fight   flying  poison  ground   rock    bug    ghost   steel   mystery  fire   water   grass  electric  psychic  ice   dragon    dark   fairy   sound
+       /*sound*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),    X(1.0),   X(1.0),    X(1.0)}, // sound
+};//              normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
 
 #undef X
 
@@ -4398,6 +4398,11 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gProtectStructs[gActiveBattler].flinchImmobility = FALSE;
     gProtectStructs[gActiveBattler].notFirstStrike = FALSE;
     gProtectStructs[gActiveBattler].pranksterElevated = FALSE;
+    gProtectStructs[gActiveBattler].galewingsElevated = FALSE;
+    gProtectStructs[gActiveBattler].triageElevated = FALSE;
+    gProtectStructs[gActiveBattler].OmniAideElevated = FALSE;
+    gProtectStructs[gActiveBattler].NuisanceElevated = FALSE;
+    gProtectStructs[gActiveBattler].LightMetalElevated = FALSE;
     gProtectStructs[gActiveBattler].usedHealBlockedMove = FALSE;
     gProtectStructs[gActiveBattler].usesBouncedMove = FALSE;
     gProtectStructs[gActiveBattler].usedGravityPreventedMove = FALSE;
@@ -7095,7 +7100,13 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
 s8 GetChosenMovePriority(u8 battlerId) //made u8 (in test build)
 {
     u16 move;
-    gProtectStructs[battlerId].pranksterElevated = 0;
+    gProtectStructs[battlerId].pranksterElevated = FALSE;
+    gProtectStructs[battlerId].galewingsElevated = FALSE;
+    gProtectStructs[battlerId].triageElevated = FALSE;
+    gProtectStructs[battlerId].OmniAideElevated = FALSE;
+    gProtectStructs[battlerId].NuisanceElevated = FALSE;
+    gProtectStructs[battlerId].LightMetalElevated = FALSE;
+
     if (gProtectStructs[battlerId].noValidMoves) //think put called move effec here, ad set move to called move rather than used move?
         move = MOVE_STRUGGLE;
     else
@@ -7119,15 +7130,24 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     {
         priority++;
     }//that's good, just need to figure how to set grounded if by 2x flag move while in air - done in bs command
+    //may bneed add this to queenly majesty too? //or could remove, may do that
+    //may keep the idea is good, a punish for semi invul, since all those effects 
+    //are based on going a certain distance away that would otherwise make them untouchable
+    //it makes sense that because of that they wouldn't be able to reach me in time to counter
+    //me using a move that COULD reach them.
+    //hmm thinkcan leave as the single exclusion to queenly majesty, can't excert control while underground
+
 
     if (GetBattlerAbility(battlerId) == ABILITY_GALE_WINGS
         && gBattleMoves[move].type == TYPE_FLYING)
     {
+        gProtectStructs[battlerId].galewingsElevated = TRUE;
         priority++;
     }
     else if (GetBattlerAbility(battlerId) == ABILITY_PRANKSTER && IS_MOVE_STATUS(move))
     {
-        priority++;
+        gProtectStructs[battlerId].pranksterElevated = TRUE; //setup equivalent for gale wings and triage so cna be checked by queenly majesty
+        priority++; //and one for omnipotent aide as well
     }
     else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && IsBattlerGrounded(battlerId))
     {
@@ -7149,7 +7169,10 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         case EFFECT_WISH:
         case EFFECT_SOFTBOILED:
         case EFFECT_ABSORB:
+        {
+            gProtectStructs[battlerId].triageElevated = TRUE;
             priority += 3;
+        }
             break;
         }
     }
@@ -7170,18 +7193,23 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         case EFFECT_WISH:
         case EFFECT_SOFTBOILED:
         case EFFECT_ABSORB:
+        {
+            gProtectStructs[battlerId].OmniAideElevated = TRUE;
             priority += 3;
+        }
             break;
         }
     }
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
         && (gBattleMoves[move].power <= 60 || gDynamicBasePower <= 60)) //added dynamic for moves like hidden power
     {
+        gProtectStructs[battlerId].NuisanceElevated = TRUE;
         priority += 3;
     }
     else if (GetBattlerAbility(battlerId) == ABILITY_LIGHT_METAL
         && gBattleMoves[move].type == TYPE_STEEL)
     {
+        gProtectStructs[battlerId].LightMetalElevated = TRUE;
         priority++;
     }
 
@@ -7198,6 +7226,19 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         priority = -12;
 
     return priority;
+}
+
+bool8 IsPriorityElevatedviaAbility(u8 battlerId)
+{
+    if (gProtectStructs[battlerId].pranksterElevated
+    || gProtectStructs[battlerId].galewingsElevated
+    || gProtectStructs[battlerId].triageElevated
+    || gProtectStructs[battlerId].OmniAideElevated
+    || gProtectStructs[battlerId].NuisanceElevated
+    || gProtectStructs[battlerId].LightMetalElevated)
+        return TRUE;
+
+    return FALSE;
 }
 
 bool32 IsWildMonSmart(void)
