@@ -2435,6 +2435,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
    added eduardo asparagus decap branch shared by ravepossum
    will use like hgss file copy values I need for efficiency then remove
 
+  nother important hting need fix agbc setup
+  its not right at all, and will be a problem when sharing project
+
+  also find special thing i setup to transfer and cap values
+  that came from const struct will prob need for item cap
+
+  find that before start messing with it
+
     idea ice version of contact status ability,
     would need to be on mon doesn't do big dmg,
 
