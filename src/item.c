@@ -7,6 +7,7 @@
 #include "load_save.h"
 #include "quest_log.h"
 #include "strings.h"
+#include "pokemon.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"
 #include "constants/maps.h"
@@ -75,12 +76,14 @@ void CopyItemName(u16 itemId, u8 * dest)
 {
     if (itemId == ITEM_ENIGMA_BERRY)
     {
-        StringCopy(dest, GetBerryInfo(ITEM_TO_BERRY(ITEM_ENIGMA_BERRY))->name);
+        //StringCopy(dest, GetBerryInfo(ITEM_TO_BERRY(ITEM_ENIGMA_BERRY))->name);
+        GetItemName(dest, ITEM_ENIGMA_BERRY);
         StringAppend(dest, gUnknown_84162BD);
     }
     else
     {
-        StringCopy(dest, ItemId_GetName(itemId));
+        GetItemName(dest, itemId);
+        //StringCopy(dest, ItemId_GetName(itemId));
     }
 }
 
@@ -618,9 +621,16 @@ u16 SanitizeItemId(u16 itemId)
     return itemId;
 }
 
+//special trick for passing const
+static const u8* ReturnItemNameConst(u16 itemId)
+{
+    GetItemName(gStringVar4, itemId);
+    return gStringVar4;
+}//not working with player pc, wondering if use free adn custom buffer it would work?
+
 const u8 * ItemId_GetName(u16 itemId)
 {
-    return gItems[SanitizeItemId(itemId)].name;
+    return ReturnItemNameConst(itemId);//gItems[SanitizeItemId(itemId)].name;
 }
 
 u16 itemid_get_Id(u16 itemId)

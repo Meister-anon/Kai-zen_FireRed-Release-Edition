@@ -12675,6 +12675,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         else
         {
             PREPARE_ITEM_BUFFER(gBattleTextBuff1, gBattleMons[gActiveBattler].item);
+            GetItemName(gBattleTextBuff1, gBattleMons[gActiveBattler].item);
             gBattlescriptCurrInstr += 7;
         }
         return;
@@ -16416,6 +16417,8 @@ static void atkD2_tryswapitems(void) // trick
             gBattlescriptCurrInstr += 5;
             PREPARE_ITEM_BUFFER(gBattleTextBuff1, *newItemAtk)
             PREPARE_ITEM_BUFFER(gBattleTextBuff2, oldItemAtk)
+            GetItemName(gBattleTextBuff1, *newItemAtk);
+            GetItemName(gBattleTextBuff2, oldItemAtk);
             if (oldItemAtk != ITEM_NONE && *newItemAtk != ITEM_NONE)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 2; // attacker's item -> <- target's item
             else if (oldItemAtk == ITEM_NONE && *newItemAtk != ITEM_NONE)
@@ -17450,6 +17453,7 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
             
             AddBagItem(heldItem, 1); //need battle message for this
             PREPARE_ITEM_BUFFER(gBattleTextBuff3, heldItem);
+            GetItemName(gBattleTextBuff3, heldItem);
             PrepareStringBattle(STRINGID_CAUGHTMONDROPPEDITEM, gBattlerAttacker);
            // gBattlescriptCurrInstr = BattleScript_TakeItemfromCaughtMon; change think use buff3 and end with return 
         }
@@ -18613,6 +18617,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
             if (ItemId_GetPocket(gBattleMons[gBattlerAttacker].item) == POCKET_BERRY_POUCH)
             {
                 PREPARE_ITEM_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerAttacker].item);
+                GetItemName(gBattleTextBuff1, gBattleMons[gBattlerAttacker].item);
                 gBattleStruct->ateBerry[gBattlerAttacker & BIT_SIDE] |= gBitTable[gBattlerPartyIndexes[gBattlerAttacker]]; //work around attempt direct add to ate
                 gBattlescriptCurrInstr = cmd->nextInstr;
             }

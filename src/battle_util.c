@@ -6759,7 +6759,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                         //*changedItem = PickUpItem; //think this was it, item battle effects function passes item to glastuseditem, pretty sure don't need and was actually causing issues...
                         PREPARE_ITEM_BUFFER(gBattleTextBuff1, PickUpItem) //yup that was the main issue didn't need that above line
-                            gBattleMons[battler].item = PickUpItem;
+                        GetItemName(gBattleTextBuff1, PickUpItem);  
+                        gBattleMons[battler].item = PickUpItem;
                         BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, battler, sizeof(PickUpItem), &PickUpItem);
                         MarkBattlerForControllerExec(battler);
                         BattleScriptExecute(BattleScript_InBattlePickup);
@@ -9963,6 +9964,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     effect = ITEM_HP_CHANGE;
                     RecordItemEffectBattle(battlerId, battlerHoldEffect);
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+                    GetItemName(gBattleTextBuff1, gLastUsedItem);
                 }
                 break;
             case HOLD_EFFECT_LEFTOVERS:
@@ -10328,6 +10330,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+                    GetItemName(gBattleTextBuff1, gLastUsedItem);
                     RecordItemEffectBattle(battlerId, HOLD_EFFECT_ROCKY_HELMET);
                 }
                 break;
@@ -10402,6 +10405,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_JabocaRowapBerryActivates;
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+                    GetItemName(gBattleTextBuff1, gLastUsedItem);
                     RecordItemEffectBattle(battlerId, HOLD_EFFECT_ROCKY_HELMET);
                 }
                 break;
@@ -10422,6 +10426,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_JabocaRowapBerryActivates;
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+                    GetItemName(gBattleTextBuff1, gLastUsedItem);
                     RecordItemEffectBattle(battlerId, HOLD_EFFECT_ROCKY_HELMET);
                 }
                 break;
@@ -10484,6 +10489,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 effect = ITEM_HP_CHANGE;
                 RecordItemEffectBattle(battlerId, battlerHoldEffect);
                 PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);//need test to ensure it triggers before abilty effect pickpocket
+                GetItemName(gBattleTextBuff1, gLastUsedItem);
             }
             break;
         }

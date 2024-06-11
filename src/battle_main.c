@@ -5971,6 +5971,7 @@ static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)
                     gProtectStructs[gActiveBattler].usedCustapBerry = FALSE;
                     gLastUsedItem = gBattleMons[gActiveBattler].item;
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+                    GetItemName(gBattleTextBuff1, gLastUsedItem);
                     if (GetBattlerHoldEffect(gActiveBattler, FALSE) == HOLD_EFFECT_CUSTAP_BERRY)
                     {
                         // don't record berry since its gone now

@@ -476,13 +476,30 @@ static bool8 ItemPc_AllocateResourcesForListMenu(void)
     return TRUE;
 }
 
+//special trick for passing const
+//...ok I got it to work for this,
+//that means I potentially may be able to get
+//pokedex to work with abig enough buffer
+//if so I could prob cut down on rom size to a big degree
+//assuming it can even work there
+static const u8* ReturnItemNameConst2(u16 itemId)
+{
+    u8 *itembuff = Alloc(sizeof(gSaveBlock1Ptr->pcItems));
+
+    GetItemName(itembuff, itemId);
+    
+
+    return itembuff;
+    free(itembuff);
+}//huh worked ok
+
 static void ItemPc_BuildListMenuTemplate(void)
 {
     u16 i;
 
     for (i = 0; i < sStateDataPtr->nItems; i++)
     {
-        sListMenuItems[i].label = ItemId_GetName(gSaveBlock1Ptr->pcItems[i].itemId);
+        sListMenuItems[i].label = ReturnItemNameConst2(gSaveBlock1Ptr->pcItems[i].itemId);
         sListMenuItems[i].index = i;
     }
     sListMenuItems[i].label = gFameCheckerText_Cancel;

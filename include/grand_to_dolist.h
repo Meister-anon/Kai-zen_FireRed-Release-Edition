@@ -2442,6 +2442,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   that came from const struct will prob need for item cap
 
   find that before start messing with it
+*/
+goto CONST_CAP_WORKAROUND //found it
+/*
 
     idea ice version of contact status ability,
     would need to be on mon doesn't do big dmg,

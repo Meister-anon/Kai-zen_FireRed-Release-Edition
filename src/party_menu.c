@@ -2610,6 +2610,7 @@ static bool8 ShouldUseChooseMonText(void)
 //attempted but couldn't get to work for dex,
 //so will need to keep species name,but think I can use this trick
 //to get around needing two item lists or move lists
+#define CONST_CAP_WORKAROUND
 static const u8* ReturnCursorIdText(u8 i)
 {
     
