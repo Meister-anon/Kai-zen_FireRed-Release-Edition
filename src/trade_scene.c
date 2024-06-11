@@ -1054,7 +1054,7 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == F_CEFIRIAN_FORM))
+        || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM))
         {
             GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_SET_SEEN);
         }

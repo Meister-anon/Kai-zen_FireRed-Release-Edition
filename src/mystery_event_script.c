@@ -272,7 +272,7 @@ bool8 MEScrCmd_givepokemon(struct ScriptContext *ctx)
             || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
             || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
             || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(species)].flags == F_CEFIRIAN_FORM))
+            || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM))
             {
                 GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_SET_SEEN);
                 //if catch form should set base form is seen so can navigate to dex page

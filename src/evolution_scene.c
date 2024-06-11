@@ -806,7 +806,7 @@ static void Task_EvolutionScene(u8 taskId)
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_ALOLAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_GALARIAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_HISUIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_CEFIRIAN_FORM))
+            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_PALDEAN_FORM))
             {
                 GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_SET_SEEN);
                 //if catch form should set base form is seen so can navigate to dex page
@@ -1223,7 +1223,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_ALOLAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_GALARIAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_HISUIAN_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_CEFIRIAN_FORM))
+            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_PALDEAN_FORM))
             {
                 GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_SET_SEEN);
                 //if catch form should set base form is seen so can navigate to dex page

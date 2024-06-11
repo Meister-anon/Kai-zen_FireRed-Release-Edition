@@ -2909,8 +2909,8 @@ just because I saw the form*/
 #define F_ULTRA_BEAST   (1 << 0) //need for beast ball
 #define F_ALOLAN_FORM   (1 << 1) //need for form change/breeding
 #define F_GALARIAN_FORM (1 << 2)
-#define F_HISUIAN_FORM  (1 << 3)
-#define F_CEFIRIAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
+#define F_HISUIAN_FORM  (1 << 3) //changed don't have room for both, just keep eevee from opal
+#define F_PALDEAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
 #define F_MEGA_FORM     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
 #define SPECIES_FLAG_PRIMAL_REVERSION (1 << 6)  //replaced
 #define F_SPECIES_GENDER_DIFFERENCE (1 << 7) //changed use for gender encuonter setup check species for this flag, read form species table set species as Random % n that table to pick from speices	

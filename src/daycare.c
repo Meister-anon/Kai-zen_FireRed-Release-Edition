@@ -1550,7 +1550,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
             data = ItemId_GetSecondaryId(motherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
-            case ITEM_CEFERIA_SAND:
+            case ITEM_PALDEAN_SAND:
             data = ItemId_GetSecondaryId(motherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
@@ -1573,7 +1573,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
             data = ItemId_GetSecondaryId(fatherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
-            case ITEM_CEFERIA_SAND:
+            case ITEM_PALDEAN_SAND:
             data = ItemId_GetSecondaryId(fatherItem);
             SetMonData(mon, MON_DATA_FORM_FLAG, &data);
             break;
@@ -2579,7 +2579,7 @@ static void AddHatchedMonToParty(u8 id)
     || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == F_ALOLAN_FORM
     || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == F_GALARIAN_FORM
     || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == F_HISUIAN_FORM
-    || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == F_CEFIRIAN_FORM))
+    || gBaseStats[SanitizeSpeciesId(GetMonData(mon, MON_DATA_SPECIES))].flags == F_PALDEAN_FORM))
     {
         GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(GetMonData(mon, MON_DATA_SPECIES), 0)), FLAG_SET_SEEN);
         //if catch form should set base form is seen so can navigate to dex page

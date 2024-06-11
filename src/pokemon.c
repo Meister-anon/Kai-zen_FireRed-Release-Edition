@@ -6660,19 +6660,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 retVal = FALSE;
             }
 
-            /*for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
-            {
-                if ((itemEffect[cmdIndex] & ITEM1_SET_FORM) 
-                &&  (gBaseStats[species].flags != F_ALOLAN_FORM
-                &&  gBaseStats[species].flags != F_GALARIAN_FORM
-                &&  gBaseStats[species].flags != F_HISUIAN_FORM
-                &&  gBaseStats[species].flags != F_CEFIRIAN_FORM)
-                //&& (GetMonData(mon, MON_DATA_FORM_FLAG, NULL) == 0) //think remove this line, in case make later forms, so not perma stuck if make mistake
-                && (gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_ALOLAN_FORM 
-                || gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_GALARIAN_FORM
-                || gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_HISUIAN_FORM
-                || gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_CEFIRIAN_FORM))
-                */
+
                //working for pikachu i.e first preevo, but not mon that evolve into preevo, 
                //i.e oshowatt
                if ((itemEffect[cmdIndex] & ITEM1_SET_FORM) 
@@ -6695,7 +6683,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
                         retVal = FALSE;
                         break;
-                        case ITEM_CEFERIA_SAND:
+                        case ITEM_PALDEAN_SAND:
                         data = ItemId_GetSecondaryId(item);
                         SetMonData(mon, MON_DATA_FORM_FLAG, &data);
                         retVal = FALSE;
@@ -7242,22 +7230,11 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
              && gBattleMons[gActiveBattler].statStages[STAT_SPEED] < 12)
                 retVal = FALSE;
 
-            //for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
-            //{
-                if ((itemEffect[cmdIndex] & ITEM1_SET_FORM) 
-                /*&&  (gBaseStats[species].flags != F_ALOLAN_FORM
-                &&  gBaseStats[species].flags != F_GALARIAN_FORM
-                &&  gBaseStats[species].flags != F_HISUIAN_FORM
-                &&  gBaseStats[species].flags != F_CEFIRIAN_FORM)
-                //&& (GetMonData(mon, MON_DATA_FORM_FLAG, NULL) == 0)
-                && IsRegionalVariant(evolutions[i].targetSpecies)*/
-                && CheckFormViability(UseRegionSand(mon), item))
-                /*&& (gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_ALOLAN_FORM 
-                || gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_GALARIAN_FORM
-                || gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_HISUIAN_FORM
-                || gBaseStats[SanitizeSpeciesId(evolutions[i].targetSpecies)].flags == F_CEFIRIAN_FORM))*/
-                    hasregional = TRUE;//need test for have target species evo with flag
-            //}
+
+            if ((itemEffect[cmdIndex] & ITEM1_SET_FORM) 
+            && CheckFormViability(UseRegionSand(mon), item))
+                hasregional = TRUE;//need test for have target species evo with flag
+
 
             if (!hasregional)
                 retVal = TRUE;
@@ -9136,7 +9113,7 @@ bool8 UseRegionSand(struct Pokemon *mon)
                             formflags += evolutions[i].param2;
                         canSetHisuian = FALSE;
                         break;
-                    case F_CEFIRIAN_FORM:
+                    case F_PALDEAN_FORM:
                         if (canSetCefirian)
                             formflags += evolutions[i].param2;
                         canSetCefirian = FALSE;
@@ -9172,7 +9149,7 @@ bool8 UseRegionSand(struct Pokemon *mon)
                                         formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
                                     canSetHisuian = FALSE;
                                     break;
-                                case F_CEFIRIAN_FORM:
+                                case F_PALDEAN_FORM:
                                     if (canSetCefirian)
                                         formflags += gBaseStats[evolutions[i].targetSpecies].evolutions[j].param2;
                                     canSetCefirian = FALSE;
@@ -9217,44 +9194,44 @@ bool8 CheckFormViability(u8 formflags, u16 item)
         if (formflags == F_ALOLAN_FORM
         || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM)
         || (formflags == F_ALOLAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_CEFIRIAN_FORM)
+        || (formflags == F_ALOLAN_FORM + F_PALDEAN_FORM)
         || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_CEFIRIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_HISUIAN_FORM + F_CEFIRIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_CEFIRIAN_FORM))
+        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_PALDEAN_FORM)
+        || (formflags == F_ALOLAN_FORM + F_HISUIAN_FORM + F_PALDEAN_FORM)
+        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_PALDEAN_FORM))
             canUse = TRUE;
         break;
         case ITEM_GALAR_SAND:
         if (formflags == F_GALARIAN_FORM
         || (formflags == F_GALARIAN_FORM + F_ALOLAN_FORM)
         || (formflags == F_GALARIAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_GALARIAN_FORM + F_CEFIRIAN_FORM)
+        || (formflags == F_GALARIAN_FORM + F_PALDEAN_FORM)
         || (formflags == F_GALARIAN_FORM + F_ALOLAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_GALARIAN_FORM + F_ALOLAN_FORM + F_CEFIRIAN_FORM)
-        || (formflags == F_GALARIAN_FORM + F_HISUIAN_FORM + F_CEFIRIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_CEFIRIAN_FORM))
+        || (formflags == F_GALARIAN_FORM + F_ALOLAN_FORM + F_PALDEAN_FORM)
+        || (formflags == F_GALARIAN_FORM + F_HISUIAN_FORM + F_PALDEAN_FORM)
+        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_PALDEAN_FORM))
             canUse = TRUE;
         break;
         case ITEM_HISUIAN_SAND:
         if (formflags == F_HISUIAN_FORM
         || (formflags == F_HISUIAN_FORM + F_ALOLAN_FORM)
         || (formflags == F_HISUIAN_FORM + F_GALARIAN_FORM)
-        || (formflags == F_HISUIAN_FORM + F_CEFIRIAN_FORM)
+        || (formflags == F_HISUIAN_FORM + F_PALDEAN_FORM)
         || (formflags == F_HISUIAN_FORM + F_ALOLAN_FORM + F_GALARIAN_FORM)
-        || (formflags == F_HISUIAN_FORM + F_ALOLAN_FORM + F_CEFIRIAN_FORM)
-        || (formflags == F_HISUIAN_FORM + F_GALARIAN_FORM + F_CEFIRIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_CEFIRIAN_FORM))
+        || (formflags == F_HISUIAN_FORM + F_ALOLAN_FORM + F_PALDEAN_FORM)
+        || (formflags == F_HISUIAN_FORM + F_GALARIAN_FORM + F_PALDEAN_FORM)
+        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_PALDEAN_FORM))
             canUse = TRUE;
         break;
-        case ITEM_CEFERIA_SAND:
-        if (formflags == F_CEFIRIAN_FORM
-        || (formflags == F_CEFIRIAN_FORM + F_ALOLAN_FORM)
-        || (formflags == F_CEFIRIAN_FORM + F_GALARIAN_FORM)
-        || (formflags == F_CEFIRIAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_CEFIRIAN_FORM + F_ALOLAN_FORM + F_GALARIAN_FORM)
-        || (formflags == F_CEFIRIAN_FORM + F_ALOLAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_CEFIRIAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM)
-        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_CEFIRIAN_FORM))
+        case ITEM_PALDEAN_SAND:
+        if (formflags == F_PALDEAN_FORM
+        || (formflags == F_PALDEAN_FORM + F_ALOLAN_FORM)
+        || (formflags == F_PALDEAN_FORM + F_GALARIAN_FORM)
+        || (formflags == F_PALDEAN_FORM + F_HISUIAN_FORM)
+        || (formflags == F_PALDEAN_FORM + F_ALOLAN_FORM + F_GALARIAN_FORM)
+        || (formflags == F_PALDEAN_FORM + F_ALOLAN_FORM + F_HISUIAN_FORM)
+        || (formflags == F_PALDEAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM)
+        || (formflags == F_ALOLAN_FORM + F_GALARIAN_FORM + F_HISUIAN_FORM + F_PALDEAN_FORM))
             canUse = TRUE;
         break;
     }
@@ -9270,7 +9247,7 @@ bool8 IsRegionalVariant(u16 species)
     if (gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM 
     || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
     || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == F_CEFIRIAN_FORM)
+    || gBaseStats[SanitizeSpeciesId(species)].flags == F_PALDEAN_FORM)
         return TRUE;
 
     return FALSE;
