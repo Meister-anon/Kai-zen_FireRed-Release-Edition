@@ -940,7 +940,7 @@ u16 RenderText(struct TextPrinter *textPrinter)
 		{
 			//textPrinter->capitalize = FALSE; //would make it only single character capitalize
 			if (currChar >= CHAR_a && currChar <= CHAR_z)
-				CAPITALIZE_CHAR(currChar);
+				CAPITALIZE_CHAR(currChar); //no longer using these
 		}
 
         switch (subStruct->glyphId) //these are different fonts
@@ -1185,7 +1185,7 @@ u16 RenderText(struct TextPrinter *textPrinter)
                 return RENDER_PRINT;    //then rerenders to keep normal size??  no idea if possible
                 */
             }//end of ext control code switch
-            break;
+            break; //these cahnges are for speed up not leftoves fo capitalization
             case CHAR_PROMPT_CLEAR:
                 textPrinter->state = RENDER_STATE_CLEAR;
                 TextPrinterInitDownArrowCounters(textPrinter);

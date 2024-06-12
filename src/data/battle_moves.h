@@ -11954,13 +11954,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_9
             .power = 100,
-            .pp = 10,
+            .pp = 5,
         #else
             .power = 95,
             .pp = 5,
         #endif
-        .effect = EFFECT_SPEED_DOWN_HIT,
-        .type = TYPE_FLYING,
+        .effect = EFFECT_FREEZE_HIT,//EFFECT_SPEED_DOWN_HIT, //put freeze back on this
+        .type = TYPE_FLYING, //is balanced w my freeze changes
         .accuracy = 80,
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
