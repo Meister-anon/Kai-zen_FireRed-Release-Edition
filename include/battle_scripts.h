@@ -7,6 +7,7 @@ extern const u8 BattleScript_HitFromCritCalc[]; //only defined because its refer
 extern const u8 BattleScript_EffectWithChance[]; //putting more emerald ports below this
 extern const u8 BattleScript_SideStatusWoreOff[];
 extern const u8 BattleScript_NeutralizingGasExits[];
+extern const u8 BattleScript_ImmutableWindExits[];
 extern const u8 BattleScript_StenchExits[];
 extern const u8 BattleScript_ToxicSpikesFree[];
 extern const u8 BattleScript_StickyWebFree[];
@@ -156,6 +157,7 @@ extern const u8 BattleScript_MoveUsedWokeUp[];
 extern const u8 BattleScript_MonWokeUpRefreshed[];
 extern const u8 BattleScript_MonWokeUpInUproar[];
 extern const u8 BattleScript_StatusInfested[];  //script for playing infest animation
+extern const u8 BattleScript_StatusInfestedViaSwarm[];
 extern const u8 BattleScript_PoisonWorsened[];
 extern const u8 BattleScript_PoisonTurnDmg[];
 extern const u8 BattleScript_BurnTurnDmg[];
@@ -419,6 +421,10 @@ extern const u8 BattleScript_SweetVeilProtects[];
 extern const u8 BattleScript_SweetVeilProtectsRet[];
 extern const u8 BattleScript_FlowerVeilProtects[];
 extern const u8 BattleScript_FlowerVeilProtectsRet[];
+extern const u8 BattleScript_TerrainPreventsRet[]; //w return for yawn
+extern const u8 BattleScript_TerrainPreventsEnd2[];
+extern const u8 BattleScript_ElectricTerrainPrevents[];
+extern const u8 BattleScript_MistyTerrainPrevents[];
 extern const u8 BattleScript_EffectPlaceholder[];
 extern const u8 BattleScript_ShieldBash[];
 extern const u8 BattleScript_SetSpikesfromSpikyShield[];

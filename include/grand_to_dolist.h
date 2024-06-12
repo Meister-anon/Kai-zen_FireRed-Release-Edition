@@ -2444,7 +2444,62 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   find that before start messing with it
 */
 goto CONST_CAP_WORKAROUND //found it
+
+goto ABILITY_ABSORB_CONDITION_FUNCTION //need update this function
 /*
+
+  note reinstate gen2 logic of roaming mon can't flee while asleep -_-
+
+  //isn't this an issue like toxic counter gets reset if switch out?--
+   ...yup and same for sleep and freeze..
+
+  looked it up sleep timer toxic timer and since I adjusted to a timer
+  now freeze timer also gets reset on switch out
+  its unrealistic so changing that, you don't just get less poisoned
+  or more frozen just because you're not in battle.
+
+  huh, since freeze counts down not up that works differently
+  and is actually good for balance, it makes you less frozen not more.
+  which makes sense you could thaw out off screen.
+  if it works how I think, you'd get frozen the timer would be set for 2 turns
+  but if you switched out, it'd reset down to zero effectively thawing you out
+  when you came back in. damn I like this actually, need test to make sure
+
+  but if so then freeze can stay exactly as it is.
+  -tested yup works like that exactly so perfect
+
+  BUT you can go into deeper sleep so I will keep sleep as is,
+  (plus it works better with my mechanic change)
+
+  now not setting sleep like that doesn't mean I can't cut down the space
+  by changing the setup to track, the mon I'll just reset it on switch in
+  i.e if statused sleep and firsturn = 2 simple to do
+  -done freed space for 2 new status1 conditions
+
+  -test tiger mom works swarm not freezing, but still not quite right
+  need setup separate end turn effect for infestation itself
+
+  end turn swarm just has  chance to set swarm status
+  if it then goes to end turn infestation rule
+
+  vsonic, see if stench script works correctly in doubles
+  believe want switchout to hit all, by faint to effect just batler that fainted
+
+  setup ravepossum debug mode make testing much simpler/faster
+  would prob make play testing easier as well
+
+  PRIMARY_STATUS_MOVE_EFFECT
+
+  //check inthrall seems not setup right, no message
+  when set and no message when clear
+
+  yawn seems to be working sleep seems to be working,still need to test
+  toxic setup - tested toxic works and isn't broken since dmg stcks slowly
+
+  will need the time setup I used for slow start and wondergurad
+
+  now testing new status setup for yawn toxic and sleep
+  only toxic used the new tracking battle timer setup
 
     idea ice version of contact status ability,
     would need to be on mon doesn't do big dmg,

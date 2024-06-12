@@ -4161,6 +4161,10 @@ static void BattleStartClearSetData(void)
         gBattleStruct->SingleUseAbilityTimers[i][B_SIDE_PLAYER] = FALSE;
         gBattleStruct->SingleUseAbilityTimers[i][B_SIDE_OPPONENT] = FALSE;
 
+        
+        gBattleStruct->ToxicTurnCounter[i][B_SIDE_PLAYER] = 0;
+        gBattleStruct->ToxicTurnCounter[i][B_SIDE_OPPONENT] = 0;
+
         gBattleStruct->itemStolen[i].originalItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
 
         //gBattleStruct->allowedToChangeFormInWeather[i][B_SIDE_PLAYER] = FALSE;
@@ -4324,6 +4328,9 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     gSpecialStatuses[gActiveBattler].specialDmg = 0;
 
     gBattleStruct->overwrittenAbilities[gActiveBattler] = ABILITY_NONE;
+
+    if (gDisableStructs[gActiveBattler].isFirstTurn == 2 && gBattleMons[gActiveBattler].status1 == STATUS1_SLEEP)
+        gDisableStructs[gActiveBattler].SleepTimer = ((Random() % 3) + 3);
 
     // Clear selected party ID so Revival Blessing doesn't get confused.
     gSelectedMonPartyId = PARTY_SIZE;

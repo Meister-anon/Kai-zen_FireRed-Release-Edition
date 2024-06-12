@@ -351,7 +351,9 @@
 #define ABILITY_SIXTH_SENSE 324  //immune to affect of being confused like bugs, and prevent acc drop  for mon w extra senses, fightnig psychic ghost insinct etc.
                                     //planned for parasect if made grass ghost, so still keep bug type confuse exclusion
 #define ABILITY_WEIGHTED_GI 325     //dbz themed in a pinch fighting abiility, boost speed throwing off weights in a pinch boost 1.5x or 2x, give to bulky fighting types and mienshoo line (based on dex entry)
-
-#define ABILITIES_COUNT ABILITY_WEIGHTED_GI + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITY_VOLT_DASH 326       //thunderous therian ability volt absorb + speed boost
+#define ABILITY_IMMUTABLE_WIND 327   //Tornadus therian ability, neutralizing gas + wonder skin
+//message a strange cold wind blows
+#define ABILITIES_COUNT ABILITY_IMMUTABLE_WIND + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

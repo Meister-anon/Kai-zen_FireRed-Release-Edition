@@ -451,6 +451,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
     [ABILITY_UNAWARE] = 1,
     [ABILITY_VITAL_SPIRIT] = 1,
     [ABILITY_VOLT_ABSORB] = 1,
+    [ABILITY_VOLT_DASH] = 1,
     [ABILITY_WATER_ABSORB] = 1,
     [ABILITY_WATER_VEIL] = 1,
     [ABILITY_WHITE_SMOKE] = 1,
@@ -500,6 +501,7 @@ static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
     [ABILITY_IMPOSTER] = 1,
     [ABILITY_MULTITYPE] = 1,
     [ABILITY_NEUTRALIZING_GAS] = 1,
+    [ABILITY_IMMUTABLE_WIND] = 1,
     [ABILITY_NONE] = 1,
     [ABILITY_POWER_CONSTRUCT] = 1,
     [ABILITY_POWER_OF_ALCHEMY] = 1,
@@ -566,6 +568,7 @@ static const u16 sSkillSwapBannedAbilities[] =
     ABILITY_BATTLE_BOND,
     ABILITY_POWER_CONSTRUCT,
     ABILITY_NEUTRALIZING_GAS,
+    ABILITY_IMMUTABLE_WIND,
     ABILITY_ICE_FACE,
     ABILITY_HUNGER_SWITCH,
     ABILITY_GULP_MISSILE,
@@ -662,6 +665,7 @@ static const u16 sEntrainmentBannedAttackerAbilities[] =
     ABILITY_DISGUISE,
     ABILITY_POWER_CONSTRUCT,
     ABILITY_NEUTRALIZING_GAS,
+    ABILITY_IMMUTABLE_WIND,
     ABILITY_ICE_FACE,
     ABILITY_HUNGER_SWITCH,
     ABILITY_GULP_MISSILE,
@@ -2565,7 +2569,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && GetBattlerAbility(gActiveBattler) != ABILITY_TOXIC_BOOST
                     && IsBlackFogNotOnField()) //works as I want, black fog here should also prevent toxic increment so it effectively pauses the dmg boost as well
                 {
-                    u8 turn = gDisableStructs[gActiveBattler].toxicTurn;
+                    u8 turn = gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)];
 
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
@@ -2588,9 +2592,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
 
                         if (STATUS1_TOXIC_TURN(turn) != STATUS1_TOXIC_TURN(15)) // not 16 turns
-                            ++gDisableStructs[gActiveBattler].toxicTurn;
+                            ++gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)]; //isn't this an issue like toxic counter gets reset if switch out?-- ...yup and same for sleep and freeze..
                             //gBattleMons[gActiveBattler].status1 += STATUS1_TOXIC_TURN(1);   //increments by 100 up to F00 , assume starting from 000, which is why 16 turns
-                        gBattleMoveDamage *= gDisableStructs[gActiveBattler].toxicTurn; 
+                        gBattleMoveDamage *= gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)];
                         //gBattleMoveDamage *= (gBattleMons[gActiveBattler].status1 & STATUS1_TOXIC_COUNTER) >> 8;    //part adding dmg increase, want to change from 1/16 turn 1, but prob cause an issue
                         BattleScriptExecute(BattleScript_PoisonTurnDmg); //dmg is based on counter value, each turn turn number value is added to counter
                         ++effect;   //was 0x100 previously it gets shifted using right shift 8 which turns it back into turn nummber
@@ -2842,7 +2846,7 @@ u8 DoBattlerEndTurnEffects(void)
                             && Random() % 4)
                             {
                                 gBattleMons[gActiveBattler].status1 |= STATUS1_INFESTATION; //IF RIGHT should be 1 in 4 chance to set infestation at end turn after damage
-                                BattleScriptPushCursorAndCallback(BattleScript_StatusInfested);
+                                gBattlescriptCurrInstr = BattleScript_StatusInfestedViaSwarm;
                             }//see if this works
 
                     }   //make sure new trap effects all have switch prevention still
@@ -3183,15 +3187,18 @@ u8 DoBattlerEndTurnEffects(void)
                     --gDisableStructs[gActiveBattler].tauntTimer;
                 ++gBattleStruct->turnEffectsTracker;
                 break;
-            case ENDTURN_YAWN:  // yawn
+            case ENDTURN_YAWN:  // yawn -change set effect decrement in endturn, but assign sleep in attackcanceler
                 if (gStatuses3[gActiveBattler] & STATUS3_YAWN)
                 {
-                    gStatuses3[gActiveBattler] &= ~STATUS3_YAWN;    //should remove yawn
-                    if (!(gStatuses3[gActiveBattler] & STATUS3_YAWN) && CanSleep(gActiveBattler) && !UproarWakeUpCheck(gActiveBattler))
+                    --gDisableStructs[gActiveBattler].YawnTimer;
+
+                   
+                    /*if (!(gStatuses3[gActiveBattler] & STATUS3_YAWN) && CanSleep(gActiveBattler) && !UproarWakeUpCheck(gActiveBattler))
                     {
                         CancelMultiTurnMoves(gActiveBattler);
                         gBattleMons[gActiveBattler].status1 |= STATUS1_SLEEP; //hopefully works and puts to sleep and sets sleep turns
-                        gBattleMons[gActiveBattler].status1 |= ((Random() % 3) + 3); //since sleep is decremented at turn start not end turn, this is effectively 2-4 turns
+                        gDisableStructs[gActiveBattler].SleepTimer = ((Random() % 3) + 3);
+                        //gBattleMons[gActiveBattler].status1 |= ((Random() % 3) + 3); //since sleep is decremented at turn start not end turn, this is effectively 2-4 turns
                         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
                         MarkBattlerForControllerExec(gActiveBattler);
                         gEffectBattler = gActiveBattler;
@@ -3202,9 +3209,9 @@ u8 DoBattlerEndTurnEffects(void)
                             ClearRageStatuses(gActiveBattler);
                             BattleScriptPushCursor();
                             gBattlescriptCurrInstr = BattleScript_RageEnds; //ok works
-                        }
+                        }*/
                         ++effect;
-                    }
+                    //}
                 }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
@@ -3610,7 +3617,7 @@ static u8 ItemEffectMoveEnd(u32 battlerId, u16 holdEffect)
                 if (gBattleMons[battlerId].status1 & STATUS1_PSN_ANY && !UnnerveOn(battlerId, gLastUsedItem))
                 {
                     gBattleMons[battlerId].status1 &= ~(STATUS1_PSN_ANY);
-                    gDisableStructs[battlerId].toxicTurn = 0;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] = 0;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BerryCurePsnRet;
                     effect = ITEM_STATUS_CHANGE;
@@ -3720,6 +3727,7 @@ static u8 ItemEffectMoveEnd(u32 battlerId, u16 holdEffect)
 enum
 {
     CANCELLER_FLAGS,
+    CANCELLER_YAWN, //remove yawn set sleep
     CANCELLER_ASLEEP,
     CANCELLER_FROZEN,
     CANCELLER_TRUANT,
@@ -3771,11 +3779,54 @@ u8 AtkCanceller_UnableToUseMove(void)
             gStatuses3[gBattlerAttacker] &= ~(STATUS3_GRUDGE);
             if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMATOSE) //in case I decide to nerf comatose healing to sleep levels every other turn
                 gDisableStructs[gBattlerAttacker].sleepCounter ^= 1;
-            ++gBattleStruct->atkCancellerTracker;
+            ++gBattleStruct->atkCancellerTracker;//need add the special stuff from emerald to prevent read this twice
             break;
+        case CANCELLER_YAWN:
+        {
+        u16 battlerAbility = GetBattlerAbility(gBattlerAttacker);
+        if (gStatuses3[gBattlerAttacker] & STATUS3_YAWN)
+        {
+            if (gDisableStructs[gBattlerAttacker].YawnTimer == 0)
+                gStatuses3[gBattlerAttacker] &= ~STATUS3_YAWN;    //should remove yawn
+            
+            if (!(gStatuses3[gBattlerAttacker] & STATUS3_YAWN) && !(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY)
+                 && battlerAbility != ABILITY_VITAL_SPIRIT
+                 && battlerAbility != ABILITY_INSOMNIA 
+                 && !UproarWakeUpCheck(gBattlerAttacker)
+                 && !IsLeafGuardProtected(gBattlerAttacker))
+            {
+                    if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_ELECTRIC_TERRAIN))
+                    {
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_ELECTRIC;
+                        BattleScriptExecute(BattleScript_TerrainPreventsRet);
+                    }
+                    else if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_MISTY_TERRAIN))
+                    {
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_MISTY;
+                        BattleScriptExecute(BattleScript_TerrainPreventsRet);
+                    }//hopefully works
+                    else
+                    {
+                        //CancelMultiTurnMoves(gActiveBattler); buff put in initial setyawn command when used
+                        gBattleMons[gBattlerAttacker].status1 |= STATUS1_SLEEP; //hopefully works and puts to sleep and sets sleep turns
+                        gDisableStructs[gBattlerAttacker].SleepTimer = ((Random() % 3) + 3);
+                        //gBattleMons[gActiveBattler].status1 |= ((Random() % 3) + 3); //since sleep is decremented at turn start not end turn, this is effectively 2-4 turns
+                        //BattleScriptPushCursor();
+                        //gBattlescriptCurrInstr = 
+                        effect = 2;
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_YawnMakesAsleep;
+                        //BattleScriptExecute(BattleScript_YawnMakesAsleep); //need test
+                    }
+            }//yawn isn't working - issue was accidentally cleared status before got here
+        } //fixed that but its not going to the battlescript, ok got it working now
+        ++gBattleStruct->atkCancellerTracker;
+        }
+            break; //should never prevent action so don't think need effect
         case CANCELLER_ASLEEP: // check being asleep
             if (gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP)
             {
+
                 if (UproarWakeUpCheck(gBattlerAttacker))
                 {
                     gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP);
@@ -3792,7 +3843,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                     BattleScriptPushCursor();
                     gBattleCommunication[MULTISTRING_CHOOSER] = 1;
                     gBattlescriptCurrInstr = BattleScript_MoveUsedWokeUp; //how I want to work is wake up, attack next turn
-                    effect = 2;
+                    effect = 2; //vsonic important haze, make unique script startled awake, maybe its fine, check script
                 }
                 else // ok need to figure how this works, but seems to be sleep chance
                 {
@@ -3803,8 +3854,8 @@ u8 AtkCanceller_UnableToUseMove(void)
                         toSub = 2;  //each turn rather than 1, so still useful
                     else
                         toSub = 1;
-
-                    if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP) < toSub)
+                        
+                    if ((gDisableStructs[gBattlerAttacker].SleepTimer) < toSub)
                         {
                             gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP);
                         }
@@ -3815,7 +3866,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                     } //still not great, what will do is like being refreshed, will boost a random stat when wakes up
                     else
                     {
-                        gBattleMons[gBattlerAttacker].status1 -= toSub;
+                        gDisableStructs[gBattlerAttacker].SleepTimer -= toSub;
                         if (gDisableStructs[gBattlerAttacker].isFirstTurn != 2) //when switchin when already asleep  it heals every turn, hope fixes
                         gDisableStructs[gBattlerAttacker].sleepCounter ^= 1;    //equivalent of truant, sleeper heals every other turn at end of turn
                     }
@@ -4926,9 +4977,10 @@ static const u16 sPermanentWeatherAbilities[] = {
     ABILITY_DELTA_STREAM,
 };
 
-
+//not gonna do this actually- wow I really didn't understand how these worked
+//half of thse are already concurrent affect abilities that don't go away
 static const u16 sSwitchAbilities[][10] = {
-[REPEAT_SWITCH_IN] = {ABILITY_MOLD_BREAKER, ABILITY_TERAVOLT, ABILITY_TURBOBLAZE, ABILITY_UNNERVE, ABILITY_ANTICIPATION, ABILITY_FRISK, ABILITY_FOREWARN, ABILITY_INTIMIDATE, ABILITY_TRACE, ABILITY_NEUTRALIZING_GAS}
+[REPEAT_SWITCH_IN] = {ABILITY_MOLD_BREAKER, ABILITY_TERAVOLT, ABILITY_TURBOBLAZE, ABILITY_UNNERVE, ABILITY_FRISK,  ABILITY_INTIMIDATE, ABILITY_TRACE, ABILITY_NEUTRALIZING_GAS}
 };
 //first bracket number of rows in array, (auto defined)
 //second bracket number of members in array, each line willl have that many arguments
@@ -6767,11 +6819,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }
                     break;
+                case ABILITY_VOLT_DASH:
                 case ABILITY_SPEED_BOOST:
-                    if (gBattleMons[battler].statStages[STAT_SPEED] < 0xC && gDisableStructs[battler].isFirstTurn != 2)
+                    if (gBattleMons[battler].statStages[STAT_SPEED] < MAX_STAT_STAGE && gDisableStructs[battler].isFirstTurn != 2)
                     {
                         ++gBattleMons[battler].statStages[STAT_SPEED];
-                        gBattleScripting.animArg1 = 0x11;
+                        gBattleScripting.animArg1 = 0x11; //find what this is referencing so I don't accidentally break,
                         gBattleScripting.animArg2 = 0;
                         BattleScriptPushCursorAndCallback(BattleScript_SpeedBoostActivates);
                         gBattleScripting.battler = battler;
@@ -6951,6 +7004,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 u8 statId;
                 switch (gLastUsedAbility) //updated below, to modern as later gen can absorb status moves of type as well, but i'm also trying to make statusing better hmmm
                 {
+                case ABILITY_VOLT_DASH:
                 case ABILITY_VOLT_ABSORB:
                     if (moveType == TYPE_ELECTRIC) //redid drwaws in stauts, but doesn't boost wth them, just nullifies, //doesnt trigeger if target user
                         effect = 1; 
@@ -8112,7 +8166,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gDisableStructs[gBattlerTarget].inthralledMove = gBattleMons[gBattlerTarget].moves[moveSlot];
                         gDisableStructs[gBattlerTarget].inthrallTimer = 3;  //made effect consistent believe decrement at end turn so actual turn is n - 1
                     }                    
-                }
+                } //never made a messagge for this...
                 break;
         case ABILITYEFFECT_MOVE_END_OTHER: // Abilities that activate on *another* battler's moveend: Dancer, Soul-Heart, Receiver, Symbiosis
             switch (GetBattlerAbility(battler))
@@ -8459,9 +8513,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                     ++effect;
                 }
+                else if (gBattleMons[i].ability == ABILITY_IMMUTABLE_WIND && !(gBattleResources->flags->flags[i] & RESOURCE_FLAG_NEUTRALIZING_GAS))
+                {
+                    gBattleResources->flags->flags[i] |= RESOURCE_FLAG_NEUTRALIZING_GAS;
+                    gBattlerAbility = i;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_IMMUTABLE_WIND;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    ++effect;
+                }
 
-                if (effect)
-                    break;
+                if (effect) //since changed to side ability think need change a bit
+                    break;//vsonic important
             }
             break;
         case ABILITYEFFECT_CHECK_OTHER_SIDE: // 12
@@ -9710,7 +9772,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 if (gBattleMons[battlerId].status1 & STATUS1_PSN_ANY && !UnnerveOn(battlerId, gLastUsedItem))
                 {
                     gBattleMons[battlerId].status1 &= ~(STATUS1_PSN_ANY);
-                    gDisableStructs[battlerId].toxicTurn = 0;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] = 0;
                     BattleScriptExecute(BattleScript_BerryCurePsnEnd2);
                     effect = ITEM_STATUS_CHANGE;
                 }
@@ -10046,7 +10108,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 if (gBattleMons[battlerId].status1 & STATUS1_PSN_ANY && !UnnerveOn(battlerId, gLastUsedItem))
                 {
                     gBattleMons[battlerId].status1 &= ~(STATUS1_PSN_ANY);
-                    gDisableStructs[battlerId].toxicTurn = 0;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] = 0;
                     BattleScriptExecute(BattleScript_BerryCurePsnEnd2);
                     effect = ITEM_STATUS_CHANGE;
                 }
@@ -10544,15 +10606,17 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
 //-worked for separatng targetting, last check is if I status the absorb mon, will it prevent them from swapping the targetting
 //-nice it works perfectly!! if absorb mon is statused according to conditoin, they can't "jump in front of" the attack,
 //but if targetted directly they still absorb it!!
-u8 ShouldAbilityAbsorb(u16 move) 
+#define ABILITY_ABSORB_CONDITION_FUNCTION
+u8 ShouldAbilityAbsorb(u16 move) //UPDATE W switch case to make more efficient, give ability argument
 {
-    u8 moveType, argument;
-    u8 moveArgument = 0;
+    u8 moveType, argument; //opposiing ability^  use ifs, for movetype
+    u8 moveArgument = 0;    //put all cases for abiilties that count stacked in switch 1 function check for true
+    //otherwise return false
 
     SetTypeBeforeUsingMove(move, gBattlerAttacker);
     GET_MOVE_TYPE(move, moveType); //need add argument type, for two type move
 
-    GET_MOVE_ARGUMENT(move, argument);
+    GET_MOVE_ARGUMENT(move, argument);//BELIEVE THIS not needed anymore
 
     if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
         moveArgument = argument;
@@ -10567,6 +10631,11 @@ u8 ShouldAbilityAbsorb(u16 move)
         }
         else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_ABSORB)
         && CAN_ABILITY_ABSORB(IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_ABSORB) - 1))
+        {
+            return TRUE;
+        }
+        else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_DASH)
+        && CAN_ABILITY_ABSORB(IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_DASH) - 1))
         {
             return TRUE;
         }
@@ -10741,6 +10810,14 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
                 {
                     targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_ABSORB) - 1);
+                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                }
+                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_DASH) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
+                    && GetBattlerAbility(targetBattler) != ABILITY_VOLT_DASH
+                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
+                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
+                {
+                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_DASH) - 1);
                     RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
                 }
                 else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_MOTOR_DRIVE) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
@@ -11202,16 +11279,15 @@ bool32 IsNeutralizingGasBannedAbility(u32 ability)
     }
 } //abilities excluded  from neutralizing gas, as they are intrinsic to the pokemon biology/unique to themselves/involves changing their body.
 
-
-bool32 IsNeutralizingGasOnField(void)   //not used anymore, but still here if want to use default implementation //is not global as only used here.
+//not used anymore, but still here if want to use default implementation //is not global as only used here.
+bool32 IsNeutralizingGasOnField(void)
 {
     u32 i;
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        //if (IsBattlerAlive(i) && GetBattlerSide(i) != side && gBattleMons[i].ability == ABILITY_NEUTRALIZING_GAS && !(gStatuses3[i] & STATUS3_GASTRO_ACID))
-        if (IsBattlerAlive(i) && gBattleMons[i].ability == ABILITY_NEUTRALIZING_GAS && !(gStatuses3[i] & STATUS3_GASTRO_ACID))  //original code 
-        //if (IsAbilityOnOpposingSide(i, ABILITY_NEUTRALIZING_GAS) && !(gStatuses3[i] & STATUS3_GASTRO_ACID))
+       //original code
+        if (IsBattlerAlive(i) && gBattleMons[i].ability == ABILITY_NEUTRALIZING_GAS && !(gStatuses3[i] & STATUS3_GASTRO_ACID)) 
             return TRUE;
     } //added side statement, should make it only remove ability if neutralzing gas is on other side,
     //change how the ability is used a bit ,but I'm fixing bad abilities anyway so it shouldn't be used to remove bad abiliites.
@@ -11249,6 +11325,8 @@ u32 GetBattlerAbility(u8 battlerId)  //Deokishishu in pret mentioned there is a 
     //if (IsNeutralizingGasOnField() && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
     else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
         return ABILITY_NONE;//I don't need to subtract 1 from Id because my function isn't doing anything with the id returned by the function
+    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
+        return ABILITY_NONE;
     else if ((((gBattleMons[gBattlerAttacker].ability == ABILITY_MOLD_BREAKER
         || gBattleMons[gBattlerAttacker].ability == ABILITY_TERAVOLT
         || gBattleMons[gBattlerAttacker].ability == ABILITY_TURBOBLAZE)
@@ -12606,4 +12684,3 @@ bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions
 
     
 }
-

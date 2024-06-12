@@ -196,13 +196,13 @@ struct ResourceFlags
 #define RESOURCE_FLAG_EMERGENCY_EXIT 8  //check how this used will prob do it differently for my implementation
 #define RESOURCE_FLAG_NEUTRALIZING_GAS 16 //works by doubling previous
 
-struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here
+struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
 {
     /*0x00*/ u32 transformedMonPersonality;
     /*0x04*/ u16 disabledMove;
     /*0x06*/ u16 encoredMove;
     /*0x08*/ u8 protectUses;
-    /*0x09*/ u8 stockpileCounter;
+    /*0x09*/ u8 stockpileCounter:2;
     s8 stockpileDef;
     s8 stockpileSpDef;
     s8 stockpileBeforeDef;
@@ -224,11 +224,13 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x17*/ u8 unk17;
     /*0x18*/ u8 truantCounter : 1;
     /*0x18*/ u8 sleepCounter : 1;
+             u8 SleepTimer:3;
+             u8 YawnTimer:1;//for update yawn
     /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
     /*0x18*/ u8 unk18_a_2 : 2;
     /*0x18*/ u8 mimickedMoves : 4;
     /*0x19*/ u8 rechargeTimer;
-    u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
+    //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
     u8 ingrainTurn;
     u8 aquaringTurn;
     u8 rageCounter;
@@ -253,7 +255,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 snaptrapTurns;
     u8 thundercageTurns;
     u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
-    u8 FrozenTurns;
+    u8 FrozenTurns:2; //made w sleep timer and stockpile together in mind
     u8 bideTimer;
     u8 bindMovepos; //stored pos of bind move   //double check I'm actually using
     u16 bindedMove; //move bind locks you to
@@ -690,6 +692,7 @@ struct BattleStruct //fill in unused fields when porting
     u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
     u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition
     u8 SingleUseAbilityTimers[PARTY_SIZE][NUM_BATTLE_SIDES]; //rn just for slow start / wonder guard
+    u8 ToxicTurnCounter[PARTY_SIZE][NUM_BATTLE_SIDES]; //change make toxic dmg tracked not reset on switch
     u8 chosenItem[4]; // why is this an u8?
     u8 AI_itemType[2];
     u8 AI_itemFlags[2];

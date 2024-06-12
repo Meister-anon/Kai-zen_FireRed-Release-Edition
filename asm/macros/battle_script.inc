@@ -1109,9 +1109,9 @@
 	.byte 0xd6
 	.endm
 
-	.macro setyawn param0:req
+	.macro setyawn failInstr:req
 	.byte 0xd7
-	.4byte \param0
+	.4byte \failInstr
 	.endm
 
 	.macro setdamagetohealthdifference param0:req
@@ -1347,9 +1347,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro jumpifsubstituteblocks ptr:req
+	.macro jumpifsubstituteblocks jumpInstr:req
 	callnative BS_jumpifsubstituteblocks
-	.4byte \ptr
+	.4byte \jumpInstr
 	.endm
 
 	.macro trainerslideout param0:req
@@ -1451,6 +1451,12 @@
 	@put all future effects here
 	.macro variablepowercalc
 	callnative BS_VariablePowerCalc
+	.endm
+
+	@specifically for yawn rework, so can clear rage status if yawned
+	.macro jumpclearRage ptr:req
+	callnative BS_JumpandClearRage
+	.4byte \ptr
 	.endm
 
 	.macro getmoveeffect

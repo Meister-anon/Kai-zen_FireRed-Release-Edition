@@ -2684,6 +2684,8 @@ BattleScript_EffectSleep::
 	ppreduce
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailed
 	jumpifstatus BS_TARGET, STATUS1_SLEEP, BattleScript_AlreadyAsleep
+	jumpifterrainaffected BS_TARGET, STATUS_FIELD_ELECTRIC_TERRAIN, BattleScript_ElectricTerrainPrevents
+	jumpifterrainaffected BS_TARGET, STATUS_FIELD_MISTY_TERRAIN, BattleScript_MistyTerrainPrevents
 	jumpifcantmakeasleep BattleScript_CantMakeAsleep
 	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_LeafGuardProtects
 	jumpifflowerveil BattleScript_FlowerVeilProtects
@@ -2699,6 +2701,32 @@ BattleScript_EndingSleepChecks:
 	waitanimation
 	setmoveeffect MOVE_EFFECT_SLEEP
 	seteffectprimary
+	goto BattleScript_MoveEnd
+
+BattleScript_TerrainPreventsRet::
+	pause B_WAIT_TIME_SHORT
+	printfromtable gTerrainPreventsStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_TerrainPreventsEnd2::
+	pause B_WAIT_TIME_SHORT
+	printfromtable gTerrainPreventsStringIds
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_ElectricTerrainPrevents::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_ELECTRICTERRAINPREVENTS
+	waitmessage B_WAIT_TIME_LONG
+	orhalfword gMoveResultFlags, MOVE_RESULT_FAILED
+	goto BattleScript_MoveEnd
+
+BattleScript_MistyTerrainPrevents::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_MISTYTERRAINPREVENTS
+	waitmessage B_WAIT_TIME_LONG
+	orhalfword gMoveResultFlags, MOVE_RESULT_FAILED
 	goto BattleScript_MoveEnd
 
 BattleScript_FlowerVeilProtectsRet::
@@ -5580,7 +5608,7 @@ BattleScript_MementoNoReduceStats::
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectFacade::
-	jumpifstatus BS_ATTACKER, STATUS1_POISON | STATUS1_PARALYSIS | STATUS1_BURN | STATUS1_TOXIC_POISON, BattleScript_FacadeDoubleDmg
+	jumpifstatus BS_ATTACKER, STATUS1_POISON | STATUS1_PARALYSIS | STATUS1_BURN | STATUS1_FREEZE | STATUS1_TOXIC_POISON, BattleScript_FacadeDoubleDmg
 	goto BattleScript_EffectHit
 
 BattleScript_FacadeDoubleDmg::
@@ -5814,6 +5842,10 @@ BattleScript_BrickBreakNoScreens::
 	tryfaintmon BS_TARGET, 0, NULL
 	goto BattleScript_MoveEnd
 
+@work this out, want to make it so set  yawn plays make drowsy
+@and ends multiturn and plays rage ended message
+@prob need make new rage script and have it be a jump/call
+@yeah that's not too difficult to do just call it and then jump back to yawnend
 BattleScript_EffectYawn::
 	attackcanceler
 	attackstring
@@ -5824,8 +5856,11 @@ BattleScript_EffectYawn::
 	jumpifflowerveil BattleScript_FlowerVeilProtects
 	jumpifleafguard BattleScript_LeafGuardProtects
 	jumpifshieldsdown BS_TARGET, BattleScript_LeafGuardProtects
+	jumpifability BS_TARGET_SIDE, ABILITY_SWEET_VEIL, BattleScript_SweetVeilProtects
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailed
 	jumpifsafeguard BattleScript_SafeguardProtected
+	jumpifterrainaffected BS_TARGET, STATUS_FIELD_ELECTRIC_TERRAIN, BattleScript_ElectricTerrainPrevents
+	jumpifterrainaffected BS_TARGET, STATUS_FIELD_MISTY_TERRAIN, BattleScript_MistyTerrainPrevents
 	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
 	jumpifcantmakeasleep BattleScript_ButItFailed
 	setyawn BattleScript_ButItFailed
@@ -5833,7 +5868,14 @@ BattleScript_EffectYawn::
 	waitanimation
 	printstring STRINGID_PKMNWASMADEDROWSY
 	waitmessage B_WAIT_TIME_LONG
+	jumpclearRage BattleScript_RageEndsRet @jumpand clear rage
+BattleScript_YawnEnd::
 	goto BattleScript_MoveEnd
+
+BattleScript_RageEndsRet::
+	printstring STRINGID_DEF_RAGEABATED
+	waitmessage B_WAIT_TIME_SHORT
+	goto BattleScript_YawnEnd
 
 BattleScript_PrintBankAbilityMadeIneffective::
 	copybyte sBATTLER, sBATTLER_WITH_ABILITY
@@ -7876,13 +7918,14 @@ BattleScript_UpdateEffectStatusIconRet::
 	return
 
 BattleScript_YawnMakesAsleep::
-	statusanimation BS_EFFECT_BATTLER
+	statusanimation BS_ATTACKER
 	printstring STRINGID_PKMNFELLASLEEP
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	updatestatusicon BS_EFFECT_BATTLER
+	updatestatusicon BS_ATTACKER
 	waitstate
-	makevisible BS_EFFECT_BATTLER
-	end2
+	makevisible BS_ATTACKER
+	return	@changed to ret for new placement hopefully works
+	@end2
 
 BattlesScript_RoostEnds::
 	printstring STRINGID_PKMNSTOPPEDROOSTING
@@ -8000,6 +8043,12 @@ BattleScript_StatusInfested::
 	printstring STRINGID_PKMNINFESTED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
+
+BattleScript_StatusInfestedViaSwarm::
+	playanimation BS_ATTACKER, B_ANIM_STATUS_INFESTED, NULL
+	printstring STRINGID_PKMNINFESTED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
 
 BattleScript_MoveEffectSpiritLock::
 	goto BattleScript_UpdateEffectStatusIconRet
@@ -8583,6 +8632,7 @@ BattleScript_NeutralizingGasExitsLoop:
 	restoretarget
 	return
 
+@need to see how this works in doubles, make sure nothing wrong here
 BattleScript_StenchExits::
 	savetarget
 	pause B_WAIT_TIME_SHORT
@@ -8592,7 +8642,20 @@ BattleScript_StenchExits::
 BattleScript_StenchExitsLoop:
 	switchinabilities BS_TARGET
 	addbyte gBattlerTarget, 1
-	jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_NeutralizingGasExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
+	jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_StenchExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
+	restoretarget
+	return
+
+BattleScript_ImmutableWindExits::
+	savetarget
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_IMMUTABLEWIND_ENDS
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	setbyte gBattlerTarget, 0
+BattleScript_ImmutableWindExitsLoop:
+	switchinabilities BS_TARGET
+	addbyte gBattlerTarget, 1
+	jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_ImmutableWindExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
 	restoretarget
 	return
 
@@ -8646,6 +8709,7 @@ BattleScript_IntimidateActivatesEnd3::
 	end3
 
 @does nothing now, but put here to compile from use in battle_script_commands
+@may skip doing this intimidate as is, is already massively defining apparenty
 BattleScript_ReactivateIntimidate::
 	end3
 
@@ -8653,7 +8717,7 @@ BattleScript_DoIntimidateActivationAnim::
 	@pause B_WAIT_TIME_SHORT @ is the reason its so long?  ...yup
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 BattleScript_IntimidateActivates::
-	jumpifability BS_ATTACKER, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
+	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
 	setbyte gBattlerTarget, 0
 	setstatchanger STAT_ATK, 1, TRUE
 		@Think Ill cut this down by making a new command to do ability check, and fail jump that way can do all checks in 1 line.
@@ -8677,8 +8741,8 @@ BattleScript_IntimidateFailChecks:
 	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_FEMME_FATALE, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
-	jumpifability BS_ATTACKER, ABILITY_INTIMIDATE, BattleScipt_Intimidate_AttackDropExclusions
-	jumpifability BS_ATTACKER, ABILITY_TIGER_MOM, BattleScipt_TigerMom_DefenseDropExclusions	@jump for tigermom to skip atk specific stat drop exclusions
+	jumpifability BS_SCRIPTING, ABILITY_INTIMIDATE, BattleScipt_Intimidate_AttackDropExclusions
+	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScipt_TigerMom_DefenseDropExclusions	@jump for tigermom to skip atk specific stat drop exclusions
 BattleScript_IntimidateStatDrop::	
 	copybyte sBATTLER, gBattlerAttacker
 	statbuffchange STAT_CHANGE_BS_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_IntimidateFail
@@ -8686,7 +8750,7 @@ BattleScript_IntimidateStatDrop::
 	setgraphicalstatchangevalues
 	jumpifability BS_TARGET, ABILITY_CONTRARY, BattleScript_IntimidateContrary    @need test
 	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	jumpifability BS_ATTACKER, ABILITY_TIGER_MOM, BattleScript_TigerMomBattleMessage
+	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomBattleMessage
 	printstring STRINGID_PKMNCUTSATTACKWITH
 BattleScript_IntimidateEffect_WaitString:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS

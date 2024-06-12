@@ -1837,7 +1837,9 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
 
     if (gBattleMoves[move].accuracy == 0)   //MOVED OUT HERE for wonderskin buff? yeah affect isn't in base wonderskin   
     {
-        if (IS_MOVE_STATUS(move) && GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN)
+        if (IS_MOVE_STATUS(move) 
+        && (GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN
+        || GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND))
             return FALSE;
         else
         {
@@ -1997,8 +1999,9 @@ static void atk01_accuracycheck(void)
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             moveAcc = 65;   //make slightly more forgiving
         // Check Wonder Skin.
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN 
-            && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
+        if ((GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN
+        || GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND) 
+        && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
             moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
 
         if (moveAcc > 100)
@@ -4729,7 +4732,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
             //makes rest better, which is fine but should be no issues, just test and tweak heal value
             if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_SLEEP)//>>>actually way this is counted it decrements before effect takes palce (i.e in atk canceler not end turn)
                 {
-                    gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
+                    gDisableStructs[gEffectBattler].SleepTimer = ((Random() % 3) + 3);
+                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                     
                     if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
@@ -4760,7 +4765,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON); //^not my notes
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON);
                     gBattleMons[gEffectBattler].status1 |= STATUS1_TOXIC_POISON;
-                    gDisableStructs[gEffectBattler].toxicTurn = 2;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
                     //attempting set toxic counter, to start above normal poison base dmg //will o 3/16
                     gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
                 }
@@ -4770,7 +4775,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
                     gBattleMons[gEffectBattler].status1 |= STATUS1_TOXIC_POISON;
-                    gDisableStructs[gEffectBattler].toxicTurn = 2;
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
                     gBattlescriptCurrInstr = BattleScript_MoveEffectToxic; //setup its own message ability severely poisoned I think
                     
                 }
@@ -4789,7 +4794,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
                     gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
                     //gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                    gDisableStructs[gEffectBattler].toxicTurn = 2; //works now, awesome
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2; //works now, awesome
                     //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 } //ok issue was setting wrong thing, toxic turn is a counter, but gDisableStructs[gActiveBattler].toxicTurn is the actual dmg part
                 //else //normal toxic setting
@@ -9445,6 +9450,15 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_SwitchInAbilityMsgRet;
     }
+
+    else if (gBattleMons[gActiveBattler].ability == ABILITY_IMMUTABLE_WIND && gSpecialStatuses[gActiveBattler].announceNeutralizingGas == 0)
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_IMMUTABLE_WIND;
+        gSpecialStatuses[gActiveBattler].announceNeutralizingGas = TRUE;
+        gBattlerAbility = gActiveBattler;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_SwitchInAbilityMsgRet;
+    }
      
     //base fire red spike/hazard logic
     /*if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
@@ -11348,6 +11362,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             if (GetBattlerAbility(gBattlerTarget) == ABILITY_NEUTRALIZING_GAS)
                 gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
 
+            else if (GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND)
+                gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
+
             gBattleMons[gBattlerTarget].ability = ABILITY_SIMPLE;
             gBattlescriptCurrInstr += 7;
         }
@@ -12120,8 +12137,16 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (gSpecialStatuses[gActiveBattler].neutralizingGasRemoved)
         {
             gSpecialStatuses[gActiveBattler].neutralizingGasRemoved = FALSE;
-            BattleScriptPush(gBattlescriptCurrInstr + 3);
-            gBattlescriptCurrInstr = BattleScript_NeutralizingGasExits;
+            if (gBattleMons[gActiveBattler].ability == ABILITY_NEUTRALIZING_GAS)
+            {
+                BattleScriptPush(gBattlescriptCurrInstr + 3);
+                gBattlescriptCurrInstr = BattleScript_NeutralizingGasExits;
+            }
+            else if (gBattleMons[gActiveBattler].ability == ABILITY_IMMUTABLE_WIND)
+            {
+                BattleScriptPush(gBattlescriptCurrInstr + 3);
+                gBattlescriptCurrInstr = BattleScript_ImmutableWindExits; //make unique strange winds subsided
+            }
             return;
         }
         break;
@@ -13243,7 +13268,7 @@ static void atk81_trysetrest(void) //would be useful to track if sleep was set w
             gBattleCommunication[MULTISTRING_CHOOSER] = 1;
         else
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-        gBattleMons[gBattlerTarget].status1 = 3; //what does this mean??
+        gDisableStructs[gBattlerTarget].SleepTimer = 3; //sleep turns rest is fixed
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr += 5;
@@ -13298,9 +13323,7 @@ static void atk84_jumpifcantmakeasleep(void)
     {
         gBattlescriptCurrInstr = jumpPtr;
     }
-    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_INSOMNIA
-          || GetBattlerAbility(gBattlerTarget) == ABILITY_VITAL_SPIRIT
-          || GetBattlerAbility(gBattlerTarget) == ABILITY_COMATOSE)
+    else if (!(CanSleep(gBattlerTarget)))
     {
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
         gBattleCommunication[MULTISTRING_CHOOSER] = 2;
@@ -16514,17 +16537,48 @@ static void atkD6_doubledamagedealtifdamaged(void) //move revenge, test used cal
 
 static void atkD7_setyawn(void)
 {
+    CMD_ARGS(const u8 *failInstr);
+
     if (gStatuses3[gBattlerTarget] & STATUS3_YAWN
-     || !CanSleep(gBattlerTarget))
+        || gBattleMons[gBattlerTarget].status1 & STATUS1_ANY)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else if (IsBattlerTerrainAffected(gBattlerTarget, STATUS_FIELD_ELECTRIC_TERRAIN))
+    {
+        // When Yawn is used while Electric Terrain is set and drowsiness is set from Yawn being used against target in the previous turn:
+        // "But it failed" will display first.
+        gBattlescriptCurrInstr = BattleScript_ElectricTerrainPrevents;
+    }
+    else if (IsBattlerTerrainAffected(gBattlerTarget, STATUS_FIELD_MISTY_TERRAIN))
+    {
+        // When Yawn is used while Misty Terrain is set and drowsiness is set from Yawn being used against target in the previous turn:
+        // "But it failed" will display first.
+        gBattlescriptCurrInstr = BattleScript_MistyTerrainPrevents;
     }
     else
     {
         gStatuses3[gBattlerTarget] |= STATUS3_YAWN;
-        gBattlescriptCurrInstr += 5;
+        gDisableStructs[gBattlerTarget].YawnTimer = 1;
+        CancelMultiTurnMoves(gBattlerTarget);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
+
+void BS_JumpandClearRage(void)
+{
+     NATIVE_ARGS(const u8 *jumpInstr);
+
+    if (gBattleMons[gBattlerTarget].status2 & STATUS2_RAGE) 
+    {   
+        ClearRageStatuses(gBattlerTarget); //clear message adding to script
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+
 
 static void atkD8_setdamagetohealthdifference(void) //make case here for final gambit
 {//remember wanted to change how final gambit works more damage lower your hp or it equals health lost?
@@ -16793,6 +16847,12 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
         gBattleMons[gActiveBattler].ability = ABILITY_NONE;
         BattleScriptPush(gBattlescriptCurrInstr);
         gBattlescriptCurrInstr = BattleScript_NeutralizingGasExits;
+    }
+    else if (GetBattlerAbility(gActiveBattler) == ABILITY_IMMUTABLE_WIND)    //looks like put here so it goes first just like in switch-in (..oh this is why I guess)
+    {
+        gBattleMons[gActiveBattler].ability = ABILITY_NONE;
+        BattleScriptPush(gBattlescriptCurrInstr);
+        gBattlescriptCurrInstr = BattleScript_ImmutableWindExits; //change
     }
     else if (GetBattlerAbility(gActiveBattler) == ABILITY_STENCH) //doesn't work with if, so putting in else if, to change order of list...
     {
@@ -18014,6 +18074,9 @@ void BS_setgastroacid(void)
         if (gBattleMons[gBattlerTarget].ability == ABILITY_NEUTRALIZING_GAS)
             gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
 
+        if (gBattleMons[gBattlerTarget].ability == ABILITY_IMMUTABLE_WIND)
+            gSpecialStatuses[gBattlerTarget].neutralizingGasRemoved = TRUE;
+
         else if (gBattleMons[gBattlerTarget].ability == ABILITY_STENCH)
             gSpecialStatuses[gBattlerTarget].stenchRemoved = TRUE;
 
@@ -18116,11 +18179,14 @@ bool32 DoesDisguiseBlockMove(u8 battlerAtk, u8 battlerDef, u32 move) //plan add 
 } //seems this is main logic for ability effect
 
 //may not need sub block? don't really need it but using will save time
-void BS_jumpifsubstituteblocks(void) {
+//vsonic need update correctly
+void BS_jumpifsubstituteblocks(void) 
+{
+     NATIVE_ARGS(const u8 *jumpInstr);
     if (DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove))
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     else
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 //for those that want it
 void BS_trainerslideout(void) 

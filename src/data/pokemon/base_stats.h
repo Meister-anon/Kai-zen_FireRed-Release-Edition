@@ -34200,7 +34200,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_REGENERATOR, ABILITY_NONE},
+            .abilities = {ABILITY_IMMUTABLE_WIND, ABILITY_NONE},//do something for tornadus thundurus, issue is mostly their abilities?
        // #ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
@@ -34210,7 +34210,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTornadusLevelUpLearnset,
         .tmhmLearnset = sTornadusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//gen 9 wind rider , Aerilate, serene grace, mold breaker, wonder skin
+    //or unique neutralizing wind,  neutralizing gas clone potentially wrapped in aerialate
+    //or stronger version of wonder skin where it can't be hit by status moves?
+    //yeah that works for me
 
     [SPECIES_THUNDURUS_THERIAN] =
     { 
@@ -34234,7 +34237,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_VOLT_ABSORB, ABILITY_NONE},
+        .abilities = {ABILITY_VOLT_DASH, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -34242,7 +34245,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sThundurusLevelUpLearnset,
         .tmhmLearnset = sThundurusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//VOlt Dash or something  volt absorb with speed boost, since mean to be fast and every at once
 
     [SPECIES_LANDORUS_THERIAN] =
     { 
@@ -34273,7 +34276,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sLandorusLevelUpLearnset,
         .tmhmLearnset = sLandorusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//give flying move, think aeroblast that's it
 
     [SPECIES_ENAMORUS_THERIAN] =
     { 

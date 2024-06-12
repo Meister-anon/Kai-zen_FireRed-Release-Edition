@@ -642,6 +642,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_PHANTOM_TOUCH] = sPhantomTouchDescription,
     [ABILITY_SIXTH_SENSE] = COMPOUND_ABILITY_STRING("Ignores accuracy drops, and evasion boosts.\nImmune to effects of being confused."),//sSixthSenseDescription,
     [ABILITY_WEIGHTED_GI] = COMPOUND_ABILITY_STRING("Casts off weighted clothes/fur when in a pinch\nBoosting Speed."),
+    [ABILITY_VOLT_DASH] = COMPOUND_ABILITY_STRING("Imbued with the power of lightning\nTurns electr. into HP and gradually boosts SPEED."),
+    [ABILITY_IMMUTABLE_WIND] = COMPOUND_ABILITY_STRING("Surrounds itself with winds that nullify\nopponent abilities and blow status moves off course.")
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1017,4 +1019,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_PHANTOM_TOUCH] =_("Phantom Touch"),
     [ABILITY_SIXTH_SENSE] =_("Sixth Sense"),
     [ABILITY_WEIGHTED_GI] =_("Weighted Gi"),
+    [ABILITY_VOLT_DASH] =_("Volt Dash"),
+    [ABILITY_IMMUTABLE_WIND] =_("Immutable Wind"),
 };//can have comma

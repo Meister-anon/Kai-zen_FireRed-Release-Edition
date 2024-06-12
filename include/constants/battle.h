@@ -149,17 +149,33 @@
 // Non-volatile status conditions
 // These persist remain outside of battle and after switching out
 #define STATUS1_NONE             0
-#define STATUS1_SLEEP            (1 << 0 | 1 << 1 | 1 << 2) // First 3 bits (Number of turns to sleep)
-#define STATUS1_SLEEP_TURN(num)  ((num) << 0) // Just for readability (or if rearranging statuses)
-#define STATUS1_POISON           (1 << 3)
-#define STATUS1_BURN             (1 << 4)
-#define STATUS1_FREEZE           (1 << 5)
-#define STATUS1_PARALYSIS        (1 << 6)
-#define STATUS1_TOXIC_POISON     (1 << 7)
+//#define STATUS1_SLEEP            (1 << 0 | 1 << 1 | 1 << 2) // First 3 bits (Number of turns to sleep)
+//#define STATUS1_SLEEP_TURN(num)  ((num) << 0) // Just for readability (or if rearranging statuses)
+#define STATUS1_SLEEP            (1 << 1)
+#define STATUS1_POISON           (1 << 2)
+#define STATUS1_BURN             (1 << 3)
+#define STATUS1_FREEZE           (1 << 4)
+#define STATUS1_PARALYSIS        (1 << 5)
+#define STATUS1_TOXIC_POISON     (1 << 6)
+#define STATUS1_SPIRIT_LOCK      (1 << 7)	
+#define STATUS1_INFESTATION		 (1 << 8) //planned bug status 
 //#define STATUS1_TOXIC_COUNTER    (1 << 8 | 1 << 9 | 1 << 10 | 1 << 11)
-#define STATUS1_TOXIC_TURN(num)  ((num) << 8)
-#define STATUS1_SPIRIT_LOCK      (1 << 12)	//redid toxic, put at original value, moved others
-#define STATUS1_INFESTATION		 (1 << 13) //planned bug status keep this remove others
+#define STATUS1_TOXIC_TURN(num)  ((num) << 10)//redid toxic, put at original value, moved others
+
+//can prob reduce values for ones that use timer
+//if can rmeove turn count from actually being needed to store the values
+//and instead just be an auto updated, sort of like I have toxic set now
+//where it no longe ruses toxic counter to determine damage
+//and instead uses the toxic turn count to update a disablestruct value
+//if could do same/similar for sleep turn could reduce sleep status to 1
+//and not need to store the turn timers in data at all, meaning their value wouldn't matter
+//so I could move them up and bring other status down
+//should give space for 2 statuses, 
+//frees flag 2, and flag 8
+//for binary patch could remoev spirit lock and infest
+//so people hvae space to add their own new status?
+
+//could decide what things I want to separate out for main distribution
 
 
 #define STATUS1_PSN_ANY          (STATUS1_POISON | STATUS1_TOXIC_POISON)
@@ -167,11 +183,11 @@
 //laso cean up status definex
 
 //status1_any seeems tobe used to check all status1 but exclude toxic counter values & sleep counter
-#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON)
+#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON | STATUS1_SPIRIT_LOCK | STATUS1_INFESTATION)
 
-#define STATUS1_ENVIRONMENT_TRAP (STATUS1_FIRE_SPIN || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM)
+//#define STATUS1_ENVIRONMENT_TRAP (STATUS1_FIRE_SPIN || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM)
 
-#define ITS_A_TRAP_STATUS1 (STATUS1_SNAP_TRAP || STATUS1_FIRE_SPIN || STATUS1_CLAMP || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM || STATUS1_INFESTATION || STATUS1_WRAPPED)
+//#define ITS_A_TRAP_STATUS1 (STATUS1_SNAP_TRAP || STATUS1_FIRE_SPIN || STATUS1_CLAMP || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM || STATUS1_INFESTATION || STATUS1_WRAPPED)
 
 // Volatile status ailments
 // These are removed after exiting the battle or switching out
@@ -225,7 +241,7 @@
 #define STATUS3_CHARGED_UP              (1 << 9)
 #define STATUS3_ROOTED                  (1 << 10) //if I understand correctly, change gives extra statur 3 space 12 would be unused
 #define STATUS3_YAWN                    (1 << 11) // Number of turns to sleep
-//#define STATUS3_YAWN_TURN(num)          (((num) << 11) & STATUS3_YAWN)  changing set status yawn, then at end turn check for it, if there remove and put to sleep
+//#define STATUS3_YAWN_TURN(num)          (((num) << 11) & STATUS3_YAWN)//  changing set status yawn, then at end turn check for it, if there remove and put to sleep
 #define STATUS3_IMPRISONED_OTHERS       (1 << 13)
 #define STATUS3_GRUDGE                  (1 << 14)
 #define STATUS3_CANT_SCORE_A_CRIT       (1 << 15)
@@ -239,7 +255,7 @@
 #define STATUS3_AQUARING_SHIFT (22)
 #define STATUS3_AQUARING_TURN(num) ((num) << STATUS3_AQUARING_SHIFT) //way used these aren't really statuses, they don't get set they are more just macros for turn tracking
 
-
+//has room for 1 more status3 at 12 now
 
 #define STATUS3_GASTRO_ACID             (1 << 16)	//is there any reaso this needs to be status3 rather than a status 2?
 //#define STATUS3_EMBARGO                 (1 << 17)	//move to side status to make room
