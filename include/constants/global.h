@@ -46,7 +46,7 @@
 #define BAG_ITEMS_COUNT     52
 #define BAG_KEYITEMS_COUNT  50
 #define BAG_POKEBALLS_COUNT 13  //double check how many poke ball types i have
-#define BAG_TMHM_COUNT      167 //Value from NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES  also couunt from sTMHMMoves
+#define BAG_TMHM_COUNT      NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES //168 rn //Value from NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES  also couunt from sTMHMMoves
 #define BAG_BERRIES_COUNT   23 
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 

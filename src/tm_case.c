@@ -779,7 +779,7 @@ static void InitTMCaseListMenuItems(void)
     gMultiuseListMenuTemplate.moveCursorFunc = TMCase_MoveCursorFunc;
     gMultiuseListMenuTemplate.itemPrintFunc = TMCase_ItemPrintFunc;
     gMultiuseListMenuTemplate.cursorKind = 0;
-    gMultiuseListMenuTemplate.scrollMultiple = 0;
+    gMultiuseListMenuTemplate.scrollMultiple = TRUE; //changed to true to allow use left/right to scroll by max shown
 }
 
 static void GetTMNumberAndMoveString(u8 * dest, u16 itemId)

@@ -2339,6 +2339,23 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     remove shadow for all mon that have floating but aren't actually floating mon
     that way it can function as a secondary indicator
 
+    -testing over max power in debug seems have odd effect of removing status?
+
+    seems issue w early bird as well,
+    way it works, if you use a stat changing move the same turn you wake up
+    it forces the effect of the move to be teh same as the stat raised by early bird
+    and the esame amount.
+
+    i.e if early bird raises acc sharply adn you use harden, harden will again double raise your acc
+
+    for ow debug give mon, etc.
+    rather than tapping individually setup same as others
+    where red arrows come up and you can scroll each digit
+    think press Select or start to do that
+
+    fix give tm all, updatae tm case scroll logic,
+    and begin tweak debug stuff for my changes
+
     got nuzlocke mode working,
     redid status batle effect updgrades
     fix oak speed strings

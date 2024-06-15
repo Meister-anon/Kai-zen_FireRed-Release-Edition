@@ -210,6 +210,9 @@ enum
     VAR_SHOW_HP,
     VAR_SUBSTITUTE,
     VAR_IN_LOVE,
+    VAR_SLEEP_TIMER,
+    VAR_FREEZE_TIMER,
+    VAR_TOXIC_COUNTER,
     VAR_U16_4_ENTRIES,
     VAL_S8,
     VAL_ALL_STAT_STAGES,
@@ -229,6 +232,9 @@ enum
     VARIOUS_SHOW_HP,
     VARIOUS_SUBSTITUTE_HP,
     VARIOUS_IN_LOVE,
+    VARIOUS_SLEEP_TIMER,
+    VARIOUS_FREEZE_TIMER,
+    VARIOUS_TOXIC_COUNTER,
 };
 
 // Static Declarations
@@ -256,7 +262,10 @@ static const u8 sText_MaxHp[] = _("HP Max");
 static const u8 sText_CurrHp[] = _("HP Current");
 static const u8 sText_Freeze[] = _("freeze");
 static const u8 sText_ToxicPoison[] = _("toxic poison");
+static const u8 sText_SleepTimer[] = _("sleep timer");
+static const u8 sText_FreezeTimer[] = _("freeze timer");
 static const u8 sText_ToxicCounter[] = _("toxic counter");
+static const u8 sText_SetTimers[] =_("Set timers in various");
 static const u8 sText_Flinch[] = _("Flinch");
 static const u8 sText_Uproar[] = _("Uproar");
 static const u8 sText_Bide[] = _("Bide");
@@ -402,6 +411,9 @@ static const struct ListMenuItem sVariousListItems[] =
     {sText_ShowHP, VARIOUS_SHOW_HP},
     {sText_SubstituteHp, VARIOUS_SUBSTITUTE_HP},
     {sText_InLove, VARIOUS_IN_LOVE},
+    {sText_SleepTimer, VARIOUS_SLEEP_TIMER},
+    {sText_FreezeTimer, VARIOUS_FREEZE_TIMER},
+    {sText_ToxicCounter, VARIOUS_TOXIC_COUNTER},
 };
 
 static const struct ListMenuItem sAIListItems[] =
@@ -437,7 +449,7 @@ static const struct ListMenuItem sStatus1ListItems[] =
     {sText_Freeze, 3},
     {gText_Paralysis, 4},
     {sText_ToxicPoison, 5},
-    //{sText_ToxicCounter, 6},
+    {sText_SetTimers, 6},
 };
 
 static const struct ListMenuItem sStatus2ListItems[] =
@@ -556,7 +568,7 @@ static const struct WindowTemplate sSecondaryListWindowTemplate =
     .bg = 0,
     .tilemapLeft = 12,
     .tilemapTop = 3,
-    .width = 10,
+    .width = 17,
     .height = 2,
     .paletteNum = 0xF,
     .baseBlock = 0xA0
@@ -570,7 +582,7 @@ static const struct WindowTemplate sModifyWindowTemplate =
     .width = 4,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0x200
+    .baseBlock = 0x240
 };
 
 static const struct WindowTemplate sBattlerWindowTemplate =
@@ -581,7 +593,7 @@ static const struct WindowTemplate sBattlerWindowTemplate =
     .width = 14,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0x300
+    .baseBlock = 0x340
 };
 
 static const struct BgTemplate sBgTemplates[] =
@@ -813,7 +825,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
     else if (data->activeWindow == ACTIVE_WIN_SECONDARY)
     {
         listItemId = ListMenu_ProcessInput(data->secondaryListTaskId);
-        if (listItemId == LIST_CANCEL)
+        if (listItemId == LIST_CANCEL) //bpress
         {
             DestroyListMenuTask(data->secondaryListTaskId, NULL, NULL);
             ClearStdWindowAndFrameToTransparent(data->secondaryListWindowId, TRUE);
@@ -821,7 +833,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             data->activeWindow = ACTIVE_WIN_MAIN;
             data->secondaryListTaskId = 0xFF;
         }
-        else if (listItemId != LIST_NOTHING_CHOSEN)
+        else if (listItemId != LIST_NOTHING_CHOSEN) // a press modify to exclude stat timer in status1
         {
             data->currentSecondaryListItemId = listItemId;
             data->modifyWindowId = AddWindow(&sModifyWindowTemplate);
@@ -1224,6 +1236,25 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
             gBattleMons[data->battlerId].status2 &= ~STATUS2_INFATUATION;
         }
         break;
+    case VAR_SLEEP_TIMER:
+        if (data->modifyArrows.currValue)
+        {
+            gDisableStructs[data->battlerId].SleepTimer = data->modifyArrows.currValue;
+        }
+        else
+        {
+            gBattleMons[data->battlerId].status1 &= ~STATUS1_SLEEP;
+        }
+        break;
+    case VAR_FREEZE_TIMER:
+        if (data->modifyArrows.currValue)
+            gDisableStructs[data->battlerId].FrozenTurns = data->modifyArrows.currValue;
+        break;
+    
+    case VAR_TOXIC_COUNTER:
+        if (data->modifyArrows.currValue)
+            gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)] = data->modifyArrows.currValue;
+        break;
     }
     data->battlerWasChanged[data->battlerId] = TRUE;
 }
@@ -1457,6 +1488,33 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.modifiedValPtr = NULL;
             data->modifyArrows.typeOfVal = VAR_IN_LOVE;
             data->modifyArrows.currValue = (gBattleMons[data->battlerId].status2 & STATUS2_INFATUATION) != 0;
+        }
+        else if (data->currentSecondaryListItemId == VARIOUS_SLEEP_TIMER)
+        {
+            data->modifyArrows.minValue = 0;
+            data->modifyArrows.maxValue = 5;
+            data->modifyArrows.maxDigits = 1;
+            data->modifyArrows.modifiedValPtr = NULL;
+            data->modifyArrows.typeOfVal = VAR_SLEEP_TIMER;
+            data->modifyArrows.currValue = gDisableStructs[data->battlerId].SleepTimer;
+        }
+        else if (data->currentSecondaryListItemId == VARIOUS_FREEZE_TIMER)
+        {
+            data->modifyArrows.minValue = 0;
+            data->modifyArrows.maxValue = 3;
+            data->modifyArrows.maxDigits = 1;
+            data->modifyArrows.modifiedValPtr = NULL;
+            data->modifyArrows.typeOfVal = VAR_FREEZE_TIMER;
+            data->modifyArrows.currValue = gDisableStructs[data->battlerId].FrozenTurns;
+        }
+        else if (data->currentSecondaryListItemId == VARIOUS_TOXIC_COUNTER)
+        {
+            data->modifyArrows.minValue = 0;
+            data->modifyArrows.maxValue = 15;
+            data->modifyArrows.maxDigits = 2;  //gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)]
+            data->modifyArrows.modifiedValPtr = &gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+            data->modifyArrows.typeOfVal = VAR_TOXIC_COUNTER;
+            data->modifyArrows.currValue = gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
         }
         break;
     case LIST_ITEM_STATUS1:

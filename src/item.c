@@ -87,7 +87,7 @@ void CopyItemName(u16 itemId, u8 * dest)
     }
 }
 
-s8 BagPocketGetFirstEmptySlot(u8 pocketId)
+s16 BagPocketGetFirstEmptySlot(u8 pocketId)
 {
     u16 i;
 
@@ -206,7 +206,7 @@ bool8 AddBagItem(u16 itemId, u16 count)
 {
     u8 i;
     u8 pocket;
-    s8 idx;
+    s16 idx; //was base s8 so limited to 128 positive tm case still restricted to 128 not showing all
 
     if (ItemId_GetPocket(itemId) == 0)
         return FALSE;
