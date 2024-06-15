@@ -129,7 +129,7 @@ static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Option, {.u8_void = StartMenuOptionCallback} },
     { gStartMenuText_Exit, {.u8_void = StartMenuExitCallback} },
     { gStartMenuText_Retire, {.u8_void = StartMenuSafariZoneRetireCallback} },
-    //{ gStartMenuText_Player, {.u8_void = StartMenuLinkPlayerCallback} },
+    { gStartMenuText_Player, {.u8_void = NULL}},//StartMenuLinkPlayerCallback} },
     { sText_MenuDebug, {.u8_void = StartMenuDebugCallback} }
 };
 
