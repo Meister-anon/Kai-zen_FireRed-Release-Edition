@@ -21,8 +21,8 @@ static EWRAM_DATA u8 sStartMenuWindowId = {0};
 
 static const u16 gUnknown_841EF48[] = INCBIN_U16("graphics/unknown/unk_841EF48.4bpp");
 
-const u16 gUnknown_841F1C8[] = INCBIN_U16("graphics/text_window/unk_841F1C8.4bpp");
-const u16 gTMCaseMainWindowPalette[] = INCBIN_U16("graphics/tm_case/unk_841F408.gbapal");
+const u16 gMenuMessageWindow_Gfx[] = INCBIN_U16("graphics/text_window/unk_841F1C8.4bpp");
+const u16 gStandardMenuPalette[] = INCBIN_U16("graphics/tm_case/unk_841F408.gbapal");
 
 static const u8 sTextSpeedFrameDelays[] = { 8, 4, 1 };  //slow medium fast
 
@@ -462,7 +462,7 @@ void LoadStdWindowFrameGfx(void)
         Menu_LoadStdPal();
         TextWindow_LoadResourcesStdFrame0(0, DLG_WINDOW_BASE_TILE_NUM, DLG_WINDOW_PALETTE_NUM * 0x10);
     }
-    TextWindow_SetUserSelectedFrame(0, STD_WINDOW_BASE_TILE_NUM, STD_WINDOW_PALETTE_NUM * 0x10);
+    LoadUserWindowGfx(0, STD_WINDOW_BASE_TILE_NUM, STD_WINDOW_PALETTE_NUM * 0x10);
 }
 
 void DrawDialogueFrame(u8 windowId, bool8 copyToVram)
@@ -620,24 +620,24 @@ void sub_80F7768(u8 windowId, bool8 copyToVram)
 
 void Menu_LoadStdPal(void)
 {
-    LoadPalette(gTMCaseMainWindowPalette, STD_WINDOW_PALETTE_NUM * 0x10, 0x14);
+    LoadPalette(gStandardMenuPalette, STD_WINDOW_PALETTE_NUM * 0x10, 0x14);
 }
 
 void Menu_LoadStdPalAt(u16 offset)
 {
-    LoadPalette(gTMCaseMainWindowPalette, offset, 0x14);
+    LoadPalette(gStandardMenuPalette, offset, 0x14);
 }
 
 static const u16 *GetTmCaseMainWindowPalette(void)
 {
-    return gTMCaseMainWindowPalette;
+    return gStandardMenuPalette;
 }
 
 static u16 GetStdPalColor(u8 colorNum)
 {
     if (colorNum > 0xF)
         colorNum = 0;
-    return gTMCaseMainWindowPalette[colorNum];
+    return gStandardMenuPalette[colorNum];
 }
 
 //function and those it calls from mistakenly uses textspeed when it should be 
@@ -730,7 +730,7 @@ void LoadSignPostWindowFrameGfx(void)
 {
     Menu_LoadStdPal();
     sub_814FEEC(0, DLG_WINDOW_BASE_TILE_NUM, 0x10 * DLG_WINDOW_PALETTE_NUM);
-    TextWindow_SetUserSelectedFrame(0, STD_WINDOW_BASE_TILE_NUM, 0x10 * STD_WINDOW_PALETTE_NUM);
+    LoadUserWindowGfx(0, STD_WINDOW_BASE_TILE_NUM, 0x10 * STD_WINDOW_PALETTE_NUM);
 }
 
 void SetDefaultFontsPointer(void)
@@ -775,4 +775,10 @@ u8 GetFontAttribute(u8 fontId, u8 attributeId)
 u8 GetMenuCursorDimensionByFont(u8 fontId, u8 whichDimension)
 {
     return gMenuCursorDimensions[fontId][whichDimension];
+}
+
+void LoadMessageBoxAndBorderGfx(void)
+{
+    LoadStdWindowGfx(0, DLG_WINDOW_BASE_TILE_NUM, BG_PLTT_ID(DLG_WINDOW_PALETTE_NUM));
+    LoadUserWindowGfx(0, STD_WINDOW_BASE_TILE_NUM, BG_PLTT_ID(STD_WINDOW_PALETTE_NUM));
 }

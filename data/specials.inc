@@ -443,4 +443,5 @@ gSpecials:: @ 815FD60
 	def_special SetEggBoost
 	def_special SetDaycareServiceCost
 	def_special CheckIfBoostApplied
+	def_special ScriptGetPartyMonSpecies
 gSpecialsEnd::

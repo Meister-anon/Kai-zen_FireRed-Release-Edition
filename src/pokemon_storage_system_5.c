@@ -1029,7 +1029,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
     {
         struct Pokemon *mon = (struct Pokemon *)pokemon;
 
-        gPSSData->cursorMonSpecies = GetMonData(mon, MON_DATA_SPECIES2);
+        gPSSData->cursorMonSpecies = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
        
         //strange seems formchange withdrawn only used for hoopa?
         if (gPSSData->cursorMonSpecies != SPECIES_NONE)
@@ -1062,7 +1062,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
     {
         struct BoxPokemon *boxMon = (struct BoxPokemon *)pokemon;
 
-        gPSSData->cursorMonSpecies = GetBoxMonData(pokemon, MON_DATA_SPECIES2);
+        gPSSData->cursorMonSpecies = GetBoxMonData(pokemon, MON_DATA_SPECIES_OR_EGG);
 
         if (gPSSData->cursorMonSpecies != SPECIES_NONE)
         {
@@ -1154,7 +1154,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         *(txtPtr++) = TEXT_COLOR_WHITE;
         *(txtPtr++) = TEXT_COLOR_LIGHT_GREY;
         *(txtPtr++) = CHAR_SPACE;
-        *(txtPtr++) = CHAR_EXTRA_EMOJI;
+        *(txtPtr++) = CHAR_EXTRA_SYMBOL;
         *(txtPtr++) = 5; // LV_2
 
         txtPtr = ConvertIntToDecimalStringN(txtPtr, gPSSData->cursorMonLevel, STR_CONV_MODE_LEFT_ALIGN, 3);

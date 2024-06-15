@@ -3,6 +3,16 @@
 
 #include "bg.h"
 
+struct BattleBackground
+{
+    const void *tileset;
+    const void *tilemap;
+    const void *tilemap2;   //for doubles
+    const void *entryTileset;
+    const void *entryTilemap;
+    const void *palette;
+};
+
 extern const struct BgTemplate gBattleBgTemplates[];
 
 void InitBattleBgsVideo(void);

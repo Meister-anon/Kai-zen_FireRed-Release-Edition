@@ -964,7 +964,7 @@ void ItemUse_SetQuestLogEvent(u8 eventId, struct Pokemon * pokemon, u16 itemId, 
     questLog->itemId = itemId;
     questLog->param = param;
     if (pokemon != NULL)
-        questLog->species = GetMonData(pokemon, MON_DATA_SPECIES2);
+        questLog->species = GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG);
     else
         questLog->species = 0xFFFF;
     SetQuestLogEvent(eventId, (void *)questLog);

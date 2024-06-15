@@ -113,7 +113,7 @@ static void sub_814B5C4(u16 windowId)
     results[1] = pokeJump->bestJumpScore;
     results[2] = pokeJump->excellentsInRow;
 
-    TextWindow_SetStdFrame0_WithPal(windowId, 0x21D, 0xD0);
+    LoadStdWindowGfx(windowId, 0x21D, 0xD0);
     DrawTextBorderOuter(windowId, 0x21D, 0xD);
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
     AddTextPrinterParameterized5(windowId, 2, gText_PkmnJumpRecords, 0, 0, TEXT_SPEED_FF, NULL, 1, 0);

@@ -29,6 +29,7 @@
 #include "constants/quest_log.h"
 #include "constants/field_weather.h"
 #include "constants/event_object_movement.h"
+#include "config/overworld.h"
 
 struct TrainerFanClub
 {
@@ -428,6 +429,9 @@ void TrySetUpQuestLogScenes_ElseContinueFromSave(u8 taskId)
             sNumScenes++;
     }
 
+    if (FlagGet(OW_FLAG_DISABLE_QUEST_LOG))
+        sNumScenes = 0;
+
     if (sNumScenes != 0)
     {
         gHelpSystemEnabled = FALSE;
@@ -462,7 +466,7 @@ void sub_8110FCC(void)
 
 static bool8 FieldCB2_QuestLogStartPlaybackWithWarpExit(void)
 {
-    LoadPalette(stdpal_get(4), 0xF0, 0x20);
+    LoadPalette(GetTextWindowPalette(4), 0xF0, 0x20);
     SetQuestLogState(QL_STATE_PLAYBACK);
     FieldCB_DefaultWarpExit();
     sQuestLogCurrentScene = (struct UnkStruct_203AE94){};
@@ -472,7 +476,7 @@ static bool8 FieldCB2_QuestLogStartPlaybackWithWarpExit(void)
 
 static bool8 FieldCB2_QuestLogStartPlaybackStandingInPlace(void)
 {
-    LoadPalette(stdpal_get(4), 0xF0, 0x20);
+    LoadPalette(GetTextWindowPalette(4), 0xF0, 0x20);
     SetQuestLogState(QL_STATE_PLAYBACK);
     FieldCB_WarpExitFadeFromBlack();
     sQuestLogCurrentScene = (struct UnkStruct_203AE94){};
@@ -1079,7 +1083,7 @@ void sub_8111F38(u16 a0, u16 a1)
 
 static bool8 FieldCB2_FinalScene(void)
 {
-    LoadPalette(stdpal_get(4), 0xF0, 0x20);
+    LoadPalette(GetTextWindowPalette(4), 0xF0, 0x20);
     DrawPreviouslyOnQuestHeader(0);
     FieldCB_WarpExitFadeFromBlack();
     CreateTask(Task_FinalScene_WaitFade, 0xFF);

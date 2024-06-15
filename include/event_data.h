@@ -56,5 +56,7 @@ void ResetMysteryEventVars(void);
 bool32 IsNationalPokedexEnabled(void);
 void EnableNationalPokedex_RSE(void);
 void ClearTempFieldEventData(void);
+u16 VarGetIfExist(u16 id);
+u8 FlagToggle(u16 id);
 
 #endif // GUARD_EVENT_DATA_H

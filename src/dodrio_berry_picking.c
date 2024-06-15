@@ -2296,7 +2296,7 @@ void IsDodrioInParty(void)
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SANITY_HAS_SPECIES)
-            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) == SPECIES_DODRIO)
+            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_DODRIO)
         {
             gSpecialVar_Result = TRUE;
             return;
@@ -2377,7 +2377,7 @@ static void sub_81538D0(u8 windowId)
     results[1] = gSaveBlock2Ptr->berryPick.bestScore;
     results[2] = gSaveBlock2Ptr->berryPick.berriesPickedInRow;
 
-    TextWindow_SetStdFrame0_WithPal(windowId, 0x21D, 0xD0);
+    LoadStdWindowGfx(windowId, 0x21D, 0xD0);
     DrawTextBorderOuter(windowId, 0x21D, 0xD);
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
     AddTextPrinterParameterized(windowId, 2, sUnknown_84755E8[0], 1, 1, TEXT_SPEED_FF, NULL);

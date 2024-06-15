@@ -83,8 +83,8 @@ void ListMenuGetScrollAndRow(u8 listTaskId, u16 *cursorPos, u16 *itemsAbove);
 u16 ListMenuGetYCoordForPrintingArrowCursor(u8 listTaskId);
 void ListMenuOverrideSetColors(u8 cursorPal, u8 fillValue, u8 cursorShadowPal);
 void ListMenuDefaultCursorMoveFunc(s32 itemIndex, bool8 onInit, struct ListMenu *list);
-void ListMenuSetUnkIndicatorsStructField(u8 taskId, u8 field, s32 value);
-
+void ListMenuSetTemplateField(u8 taskId, u8 field, s32 value);
+void ListMenuGetCurrentItemArrayId(u8 listTaskId, u16 *arrayId);
 
 //new pokedex equivalents - removed struct and commented functions incase struct was disrupting list menu values, byte order
 /*bool8 DexListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);

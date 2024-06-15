@@ -1984,7 +1984,7 @@ static bool8 SlotsTask_GraphicsInit(u8 * state, struct SlotMachineSetupTaskData 
         DecompressAndCopyTileDataToVram(1, sBg1Map, 0, 0, 1);
         CopyBgTilemapBufferToVram(1);
 
-        LoadPalette(stdpal_get(2), 0xE0, 0x20);
+        LoadPalette(GetTextWindowPalette(2), 0xE0, 0x20);
         FillWindowPixelBuffer(1, 0xFF);
         PutWindowTilemap(1);
 

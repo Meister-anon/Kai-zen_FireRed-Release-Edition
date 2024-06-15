@@ -923,7 +923,7 @@ const u8 gUnknown_8419F10[] = _("レポ-トが ないので\nじかんの せっ
 const u8 gUnknown_8419F2D[] = _("ゲ-ムない じかんの しゅうせい システムが\nつかえる ように なりました!");
 const u8 gText_SavingDontTurnOffThePower2[] = _("SAVING…\nDON'T TURN OFF THE POWER.");
 
-// Start menu option descriptions
+// Start menu option descriptions - help menu logic removed so not needed
 const u8 gStartMenuDesc_Pokedex[] = _("A device that records POKéMON secrets\nupon meeting or catching them.");
 const u8 gStartMenuDesc_Pokemon[] = _("Check and organize POKéMON that are\ntraveling with you in your party.");
 const u8 gStartMenuDesc_Bag[] = _("Equipped with pockets for storing items\nyou bought, received, or found.");
@@ -932,6 +932,7 @@ const u8 gStartMenuDesc_Save[] = _("Save your game with a complete record\nof yo
 const u8 gStartMenuDesc_Option[] = _("Adjust various game settings such as text\nspeed, game rules, etc.");
 const u8 gStartMenuDesc_Exit[] = _("Close this MENU window.");
 const u8 gStartMenuDesc_Retire[] = _("Retire from the SAFARI GAME and return to\nthe registration counter.");
+const u8 gStartMenuDesc_Debug[] = _("Debugging functions for developers.");
 
 #include "data/text/quest_log.h"
 

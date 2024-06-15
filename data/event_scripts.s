@@ -37,6 +37,7 @@
 #include "constants/easy_chat.h"
 #include "constants/trainer_card.h"
 #include "constants/help_system.h"
+#include "config/debug.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.set FALSE, 0
@@ -805,6 +806,7 @@ gStdScriptsEnd::
 
 	.include "data/scripts/std_msgbox.inc"
 	.include "data/scripts/trainer_battle.inc"
+	.include "data/scripts/debug.inc"
 
 @ Unused
 Text_WouldYouLikeToMixRecords:: @ 81A5028

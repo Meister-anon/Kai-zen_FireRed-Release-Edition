@@ -26,6 +26,9 @@
 #define INTR_CHECK     (*(u16 *)0x3007FF8)
 #define INTR_VECTOR    (*(void **)0x3007FFC)
 
+#define ROM_START 0x8000000
+#define ROM_END 0xA000000
+
 #define EWRAM_START 0x02000000
 #define EWRAM_END   (EWRAM_START + 0x40000)
 #define IWRAM_START 0x03000000
@@ -87,7 +90,7 @@
 
 #define PLTT_OFFSET_4BPP(n) ((n) * PLTT_SIZE_4BPP) //below stuff I put there, port form ee?
 
-#define RGB(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
+/*#define RGB(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
 #define RGB2(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 #define _RGB(r, g, b) ((((b) & 0x1F) << 10) + (((g) & 0x1F) << 5) + ((r) & 0x1F))
 
@@ -99,7 +102,7 @@
 #define RGB_YELLOW RGB(31, 31, 0)
 #define RGB_MAGENTA RGB(31, 0, 31)
 #define RGB_CYAN RGB(0, 31, 31)
-#define RGB_WHITEALPHA (RGB_WHITE | 0x8000)
+//#define RGB_WHITEALPHA (RGB_WHITE | 0x8000)*/
 
 // Some functions are strictly inline asm
 #define NAKED __attribute__((naked))

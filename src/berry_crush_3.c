@@ -983,7 +983,7 @@ bool32 sub_814E644(struct BerryCrushGame * game, struct BerryCrushGame_138 * spr
         FillWindowPixelBuffer(spriteManager->unk82, PIXEL_FILL(0));
         break;
     case 2:
-        TextWindow_SetStdFrame0_WithPal(spriteManager->unk82, 0x21D, 0xD0);
+        LoadStdWindowGfx(spriteManager->unk82, 0x21D, 0xD0);
         DrawStdFrameWithCustomTileAndPalette(spriteManager->unk82, FALSE, 541, 13);
         break;
     case 3:
@@ -1038,7 +1038,7 @@ static void Task_ShowBerryCrushRankings(u8 taskId)
         data[1] = AddWindow(&sWindowTemplate_BerryCrushRankings);
         PutWindowTilemap(data[1]);
         FillWindowPixelBuffer(data[1], PIXEL_FILL(0));
-        TextWindow_SetStdFrame0_WithPal(data[1], 0x21D, 0xD0);
+        LoadStdWindowGfx(data[1], 0x21D, 0xD0);
         DrawStdFrameWithCustomTileAndPalette(data[1], 0, 0x21D, 0xD);
         break;
     case 1:

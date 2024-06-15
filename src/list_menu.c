@@ -135,7 +135,7 @@ u32 DoMysteryGiftListMenu(const struct WindowTemplate *windowTemplate, const str
         switch (arg2)
         {
         case 2:
-            TextWindow_SetUserSelectedFrame(sMysteryGiftLinkMenu.windowId, tileNum, palNum);
+            LoadUserWindowGfx(sMysteryGiftLinkMenu.windowId, tileNum, palNum);
         case 1:
             DrawTextBorderOuter(sMysteryGiftLinkMenu.windowId, tileNum, palNum / 16);
             break;
@@ -347,7 +347,7 @@ static s32 ListMenuTestInput(struct ListMenuTemplate *template, u32 cursorPos, u
     return LIST_NOTHING_CHOSEN;
 }
 
-static void ListMenuGetCurrentItemArrayId(u8 listTaskId, u16 *arrayId)
+void ListMenuGetCurrentItemArrayId(u8 listTaskId, u16 *arrayId)
 {
     struct ListMenu *list = (struct ListMenu *)gTasks[listTaskId].data;
 
@@ -951,7 +951,7 @@ void ListMenuDefaultCursorMoveFunc(s32 itemIndex, bool8 onInit, struct ListMenu 
         PlaySE(SE_SELECT);
 }
 
-static s32 ListMenuGetUnkIndicatorsStructFields(u8 taskId, u8 field)
+static s32 ListMenuGetTemplateField(u8 taskId, u8 field)
 {
     struct UnkIndicatorsStruct *data = (struct UnkIndicatorsStruct *)gTasks[taskId].data;
 
@@ -995,7 +995,7 @@ static s32 ListMenuGetUnkIndicatorsStructFields(u8 taskId, u8 field)
     }
 }
 
-void ListMenuSetUnkIndicatorsStructField(u8 taskId, u8 field, s32 value)
+void ListMenuSetTemplateField(u8 taskId, u8 field, s32 value)
 {
     struct UnkIndicatorsStruct *data = (struct UnkIndicatorsStruct *)gTasks[taskId].data;
 

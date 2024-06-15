@@ -25,7 +25,12 @@
 #define ITEM_LUXURY_BALL 11
 #define ITEM_PREMIER_BALL 12
 
-//end of ball ids
+// Note: If moving ball IDs around, updating FIRST_BALL/LAST_BALL is not sufficient
+//       Several places expect the ball IDs to be first and contiguous (e.g. MON_DATA_POKEBALL)
+//       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs
+#define FIRST_BALL ITEM_MASTER_BALL
+#define LAST_BALL  ITEM_PREMIER_BALL
+
 #define ITEM_POTION 13
 #define ITEM_ANTIDOTE 14
 #define ITEM_BURN_HEAL 15
@@ -960,6 +965,12 @@
 #define ITEM_USE_PBLOCK_CASE      3
 #define ITEM_USE_BAG_MENU         4 // No exit callback, stays in bag menu / firered seem to use a nonconstant value, but its used with switch cases with fallthrough //I may have confused that for wrong type, the itemeffect type?
 #define ITEM_USE_PARTY_MENU_MOVES 5 //so I believe the overall effect should be identical?  mostly seen in pokeball variants
+
+// changing this doesn't actually do anything
+// outside of the debug menu
+#define MAX_BAG_ITEM_CAPACITY  999
+#define MAX_PC_ITEM_CAPACITY   999
+#define MAX_BERRY_CAPACITY     999
 
 // Check if the item is one that can be used on a Pokemon.
 //ok seems to be slightly different than what I thought, it doesn't decided if an item has use menu option

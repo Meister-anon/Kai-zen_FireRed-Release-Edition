@@ -83,11 +83,9 @@ static EWRAM_DATA struct OakSpeechNidoranFStruct *sOakSpeechNidoranResources = N
 //static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
 static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
-static u8 GetNatureFromPersonality(u32 personality);
 static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 IsPokemonStorageFull(void);
-static u8 SendMonToPC(struct Pokemon* mon); //apparently this is what it should be
 static void EncryptBoxMon(struct BoxPokemon *boxMon);
 static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
 //static void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);
@@ -3160,8 +3158,8 @@ bool32 TryFormChange(u32 monId, u32 side, u16 method) //dont want to use this fo
 {
     struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
     u16 targetSpecies;
-    if (GetMonData(&party[monId], MON_DATA_SPECIES, 0) == SPECIES_NONE
-     || GetMonData(&party[monId], MON_DATA_SPECIES, 0) == SPECIES_EGG)
+    if (GetMonData(&party[monId], MON_DATA_SPECIES_OR_EGG, 0) == SPECIES_NONE
+     || GetMonData(&party[monId], MON_DATA_SPECIES_OR_EGG, 0) == SPECIES_EGG)
         return FALSE;
     targetSpecies = GetFormChangeTargetSpecies(&party[monId], method, 0);
 
@@ -3434,6 +3432,37 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
         if (GiveMoveToBoxMon(boxMon, move) == LEVEL_UP_END) // this may be the move learn function I need.
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, move); //important since I know boxmon works for enemy npc & i think wild as well.
     } // that function should be very useful for setting up wild move learning.
+}
+
+void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: AsparagusEduardo
+{
+    u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES, NULL);
+    s32 level = GetLevelFromBoxMonExp(boxMon);
+    s32 i;
+    u16 levelMoveCount = 0;
+    u16 moves[MAX_MON_MOVES] = {0};
+    u8 addedMoves = 0;
+    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+
+    for (i = 0; learnset[i].move != LEVEL_UP_END; i++)
+        levelMoveCount++;
+
+    for (i = levelMoveCount; (i >= 0 && addedMoves < MAX_MON_MOVES); i--)
+    {
+        if ((learnset[i].level) > level)
+            continue;
+
+        //if (learnset[i].level == 0)  //think remove this so mon gets evo move 
+        //    continue;
+
+        if (moves[addedMoves] != (learnset[i].move))
+            moves[addedMoves++] = (learnset[i].move);
+    }
+    for (i = MAX_MON_MOVES - 1; i >= 0; i--)
+    {
+        SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);
+        SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gBattleMoves[moves[i]].pp);
+    }
 }
 
 u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove) //edited to try and match cfru lvl 0 evo learn move function
@@ -5569,7 +5598,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_EVENT_LEGAL:
         retVal = 0;//boxMon->eventLegal;
         break;//plan remove later
-    case MON_DATA_SPECIES2:
+    case MON_DATA_SPECIES_OR_EGG:
         retVal = boxMon->species;
         if (boxMon->species && (boxMon->isEgg || boxMon->isBadEgg))
             retVal = SPECIES_EGG;
@@ -5684,7 +5713,7 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     case MON_DATA_MAIL:
         //SET8(mon->mail);
         break;
-    case MON_DATA_SPECIES2:
+    case MON_DATA_SPECIES_OR_EGG:
         break;
     // why did FRLG go out of its way to specify all of these for default?
     case MON_DATA_IVS:
@@ -6035,7 +6064,7 @@ u8 GiveMonToPlayer(struct Pokemon *mon)//is always used, in both cases of  catch
 }
 
 #define DEPOSIT_TO_PCLOGIC
-static u8 SendMonToPC(struct Pokemon* mon)//follows catching/receiving mon, is not same as depositing with pc
+u8 SendMonToPC(struct Pokemon* mon)//follows catching/receiving mon, is not same as depositing with pc
 {
     s32 boxNo, boxPos;
 
@@ -6127,8 +6156,8 @@ u8 GetMonsStateToDoubles(void)
         // FRLG changed the order of these checks, but there's no point to doing that
         // because of the requirement of all 3 of these checks.
         if (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0
-         && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) != SPECIES_NONE
-         && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) != SPECIES_EGG)
+         && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_NONE
+         && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG)
             aliveCount++;
     }
 
@@ -7612,7 +7641,7 @@ u8 GetNature(struct Pokemon *mon)
     return GetMonData(mon, MON_DATA_PERSONALITY, 0) % 25;
 }
 
-static u8 GetNatureFromPersonality(u32 personality)
+u8 GetNatureFromPersonality(u32 personality)
 {
     return personality % 25;
 }
@@ -8518,7 +8547,7 @@ u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex)
 #define FRIENDSHIP_FUNCTION
 void AdjustFriendship(struct Pokemon *mon, u8 event)
 {
-    u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
     u8 holdEffect;
 
@@ -9449,7 +9478,7 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
 u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
 {
     u16 i;
-    u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
     if (species == SPECIES_EGG)
     {
@@ -9565,7 +9594,7 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
     u16 learnedMoves[MAX_MON_MOVES];
     u16 moves[MAX_LEVEL_UP_MOVES]; //again 20. hmm possibly a limit for move lists? I heard something like that existing
     u8 numMoves = 0;
-    u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i, j, k;
@@ -9668,7 +9697,7 @@ void PlayMapChosenOrBattleBGM(u16 songId)
 
 const u32 *GetMonFrontSpritePal(struct Pokemon *mon)
 {
-    u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     return GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality);
@@ -9690,7 +9719,7 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 p
 
 const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
 {
-    u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     return GetMonSpritePalStructFromOtIdPersonality(species, otId, personality);

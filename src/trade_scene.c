@@ -752,7 +752,7 @@ static void LoadTradeMonPic(u8 whichParty, u8 action)
     {
     case 0:
         // Load graphics
-        species = GetMonData(mon, MON_DATA_SPECIES2);
+        species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
         personality = GetMonData(mon, MON_DATA_PERSONALITY);
 
         if (whichParty == 0)
@@ -884,8 +884,8 @@ void CB2_InitTradeAnim_LinkTrade(void)
     case 10:
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
         ShowBg(0);
-        sTradeData->monSpecies[0] = GetMonData(&gPlayerParty[gSelectedTradeMonPositions[0]], MON_DATA_SPECIES2);
-        sTradeData->monSpecies[1] = GetMonData(&gEnemyParty[gSelectedTradeMonPositions[1] % 6], MON_DATA_SPECIES2);
+        sTradeData->monSpecies[0] = GetMonData(&gPlayerParty[gSelectedTradeMonPositions[0]], MON_DATA_SPECIES_OR_EGG);
+        sTradeData->monSpecies[1] = GetMonData(&gEnemyParty[gSelectedTradeMonPositions[1] % 6], MON_DATA_SPECIES_OR_EGG);
         memcpy(sTradeData->linkPartnerName, gLinkPlayers[GetMultiplayerId() ^ 1].name, 7);
         gMain.state++;
         break;

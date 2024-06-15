@@ -2331,6 +2331,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     so will need to take that source on the wiki for setting hp to 0
 
+    for floating mon, to make more clear change to have elevation as indicator
+    w debug menu realized all floating mon have a shadow under them to denote they are floatin
+    so that's a simple thing to do,
+
+    //for mon that are flying can leave as is,
+    remove shadow for all mon that have floating but aren't actually floating mon
+    that way it can function as a secondary indicator
+
     got nuzlocke mode working,
     redid status batle effect updgrades
     fix oak speed strings

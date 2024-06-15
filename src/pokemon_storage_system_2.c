@@ -440,8 +440,8 @@ u8 CheckIfPcEmpty(void)
     {
         for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
         {
-            if ((GetBoxMonDataAt(boxId,boxPosition, MON_DATA_SPECIES2) != SPECIES_NONE)
-            && (GetBoxMonDataAt(boxId,boxPosition, MON_DATA_SPECIES2) != SPECIES_EGG))
+            if ((GetBoxMonDataAt(boxId,boxPosition, MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE)
+            && (GetBoxMonDataAt(boxId,boxPosition, MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG))
                 return FALSE;
         }
     }

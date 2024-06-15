@@ -7702,7 +7702,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNuzleafLevelUpLearnset,
         .tmhmLearnset = sNuzleafTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_LEAF_STONE, 0, SPECIES_SHIFTRY}), //Should hopefully blank these for now without issue    //as both water and mud/ground are important for plants  vsonic
-    },
+    },//CONSIDER could give bandit king?
 
     [SPECIES_SHIFTRY] =
     { 
@@ -7733,6 +7733,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sShiftryTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give knock off grassy glide
+    //and some flying moves apparently it can whip up wind storms
 
     [SPECIES_TAILLOW] =
     { 

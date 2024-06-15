@@ -4,8 +4,7 @@
 #include "menu.h"
 #include "text_window.h"
 #include "strings.h"
-
-#define MAX_MONEY 999999
+#include "money.h"
 
 EWRAM_DATA static u8 sMoneyBoxWindowId = 0;
 
@@ -124,7 +123,7 @@ void DrawMoneyBox(int amount, u8 x, u8 y)
     sMoneyBoxWindowId = AddWindow(&template);
     FillWindowPixelBuffer(sMoneyBoxWindowId, 0);
     PutWindowTilemap(sMoneyBoxWindowId);
-    TextWindow_SetStdFrame0_WithPal(sMoneyBoxWindowId, 0x21D, 0xD0);
+    LoadStdWindowGfx(sMoneyBoxWindowId, 0x21D, 0xD0);
     PrintMoneyAmountInMoneyBoxWithBorder(sMoneyBoxWindowId, 0x21D, 13, amount);
 }
 

@@ -1794,7 +1794,7 @@ static void choose_name_or_words_screen_apply_bg_pals(void)
 {
     LoadPalette(gNamingScreenMenu_Pal, 0, 0xC0);
     LoadPalette(gUnknown_8E97FE4, 0xA0, 0x20);
-    LoadPalette(stdpal_get(2), 0xB0, 0x20);
+    LoadPalette(GetTextWindowPalette(2), 0xB0, 0x20);
 }
 
 static void DecompressToBgTilemapBuffer(u8 bg, const u32 *src)

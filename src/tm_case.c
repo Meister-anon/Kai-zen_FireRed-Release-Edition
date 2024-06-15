@@ -1580,11 +1580,11 @@ static void InitWindowTemplatesAndPals(void) //90% this isn't' gonna work. ...it
     else
         InitWindows(sWindowTemplates2);
     DeactivateAllTextPrinters();
-    TextWindow_SetUserSelectedFrame(0, 0x5B, 0xE0);
+    LoadUserWindowGfx(0, 0x5B, 0xE0);
     TextWindow_LoadResourcesStdFrame0(0, 0x64, 0xB0);
-    TextWindow_SetStdFrame0_WithPal(0, 0x78, 0xD0);
-    LoadPalette(gTMCaseMainWindowPalette, 0xF0, 0x20);
-    LoadPalette(gTMCaseMainWindowPalette, 0xA0, 0x20);
+    LoadStdWindowGfx(0, 0x78, 0xD0);
+    LoadPalette(gStandardMenuPalette, 0xF0, 0x20);
+    LoadPalette(gStandardMenuPalette, 0xA0, 0x20);
     LoadPalette(sPal3Override, 0xF6, 0x04);
     LoadPalette(sPal3Override, 0xD6, 0x04);
     ListMenuLoadStdPalAt(0xc0, 0x01);
@@ -1920,7 +1920,7 @@ static void DrawPartyMonIcons(void)
             icon_y = i < 3 ? MON_ICON_START_Y : MON_ICON_START_Y + MON_ICON_PADDING;
         }
         //get species
-        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2);
+        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
 
         //create icon sprite
 
@@ -1946,7 +1946,7 @@ static void TintPartyMonIcons(u16 tm, s32 itemIndex)
 
     for (i = 0; i < gPlayerPartyCount; i++)
     {
-        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2);
+        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT2_ALL);
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(7, 11));
         

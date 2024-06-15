@@ -682,8 +682,8 @@ static void InitTradeMenuResources(void)
     ResetPaletteFade();
     gPaletteFade.bufferTransferDisabled = TRUE;
     SetVBlankCallback(VblankCB_Trade);
-    LoadPalette(gTMCaseMainWindowPalette, 0xF0, 0x14);
-    LoadPalette(gTMCaseMainWindowPalette, 0xD0, 0x14);
+    LoadPalette(gStandardMenuPalette, 0xF0, 0x14);
+    LoadPalette(gStandardMenuPalette, 0xD0, 0x14);
     ResetBgsAndClearDma3BusyFlags(FALSE);
     InitBgsFromTemplates(0, sBgTemplates, NELEMS(sBgTemplates));
     SetBgTilemapBuffer(1, sTradeMenuResourcesPtr->tilemapBuffer);
@@ -697,8 +697,8 @@ static void InitTradeMenuResources(void)
             FillWindowPixelBuffer(i, PIXEL_FILL(0));
         }
         FillBgTilemapBufferRect(0, 0, 0, 0, 30, 20, 0xF);
-        TextWindow_SetStdFrame0_WithPal(0, 0x014, 0xC0);
-        TextWindow_SetUserSelectedFrame(2, 0x001, 0xE0);
+        LoadStdWindowGfx(0, 0x014, 0xC0);
+        LoadUserWindowGfx(2, 0x001, 0xE0);
         LoadMonIconPalettes();
         sTradeMenuResourcesPtr->state = 0;
         sTradeMenuResourcesPtr->tradeMenuCBnum = 0;
@@ -850,7 +850,7 @@ static void CB2_ReturnFromLinkTrade2(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[0]; i++)
         {
             struct Pokemon * mon = &gPlayerParty[i];
-            sTradeMenuResourcesPtr->partyIcons[0][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES2),
+            sTradeMenuResourcesPtr->partyIcons[0][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG),
                                                                 SpriteCB_MonIcon,
                                                                 (sTradeMonSpriteCoords[i][0] * 8) + 14,
                                                                 (sTradeMonSpriteCoords[i][1] * 8) - 12,
@@ -862,7 +862,7 @@ static void CB2_ReturnFromLinkTrade2(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[1]; i++)
         {
             struct Pokemon * mon = &gEnemyParty[i];
-            sTradeMenuResourcesPtr->partyIcons[1][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES2, NULL),
+            sTradeMenuResourcesPtr->partyIcons[1][i] = CreateMonIcon(GetMonData(mon, MON_DATA_SPECIES_OR_EGG, NULL),
                                                                 SpriteCB_MonIcon,
                                                                 (sTradeMonSpriteCoords[i + PARTY_SIZE][0] * 8) + 14,
                                                                 (sTradeMonSpriteCoords[i + PARTY_SIZE][1] * 8) - 12,
@@ -1051,7 +1051,7 @@ void CB2_ReturnToTradeMenuFromSummary(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[0]; i++)
         {
             sTradeMenuResourcesPtr->partyIcons[0][i] = CreateMonIcon(
-                GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL),
+                GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL),
                 SpriteCB_MonIcon,
                 sTradeMonSpriteCoords[i][0] * 8 + 14,
                 sTradeMonSpriteCoords[i][1] * 8 - 12,
@@ -1063,7 +1063,7 @@ void CB2_ReturnToTradeMenuFromSummary(void)
         for (i = 0; i < sTradeMenuResourcesPtr->partyCounts[1]; i++)
         {
             sTradeMenuResourcesPtr->partyIcons[1][i] = CreateMonIcon(
-                GetMonData(&gEnemyParty[i], MON_DATA_SPECIES2, NULL),
+                GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG, NULL),
                 SpriteCB_MonIcon,
                 sTradeMonSpriteCoords[i + 6][0] * 8 + 14,
                 sTradeMonSpriteCoords[i + 6][1] * 8 - 12,
@@ -2625,7 +2625,7 @@ static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCo
 
     for (i = 0; i < partyCount; i++)
     {
-        species2[i] = GetMonData(&party[i], MON_DATA_SPECIES2);
+        species2[i] = GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG);
         species[i] = GetMonData(&party[i], MON_DATA_SPECIES);
     }
 

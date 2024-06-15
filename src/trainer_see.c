@@ -1,5 +1,6 @@
 #include "global.h"
 #include "battle_setup.h"
+#include "event_data.h"
 #include "event_object_movement.h"
 #include "field_effect.h"
 #include "field_player_avatar.h"
@@ -7,6 +8,7 @@
 #include "script.h"
 #include "task.h"
 #include "util.h"
+#include "config/overworld.h"
 #include "constants/battle_setup.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
@@ -117,6 +119,12 @@ bool8 UpdateBadOnionCounter(void)
 bool8 CheckForTrainersWantingBattle(void)
 {
     u8 i;
+
+#if OW_FLAG_NO_TRAINER_SEE != 0
+    if (FlagGet(OW_FLAG_NO_TRAINER_SEE))
+        return FALSE;
+#endif
+
     if (sub_8111C2C() == TRUE)
         return FALSE;
 

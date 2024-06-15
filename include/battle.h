@@ -51,6 +51,7 @@
 #define B_ACTION_FINISHED                  12
 #define B_ACTION_CANCEL_PARTNER            12 // when choosing an action
 #define B_ACTION_NOTHING_FAINTED           13 // when choosing an action
+#define B_ACTION_DEBUG                     20
 #define B_ACTION_NONE                      0xFF
 
 #define MAX_TRAINER_ITEMS 4
@@ -612,11 +613,13 @@ struct BattleStruct //fill in unused fields when porting
 {
     u8 turnEffectsTracker;
     u8 turnEffectsBattlerId;
+    u8 debugBattler;
     u8 turnCountersTracker;
     u16 wrappedMove[MAX_BATTLERS_COUNT]; // Leftover from Ruby's ewram access. /u16 because epanded move ids  //no longer need the * 2 forgot I redid these
     u16 moveTarget[MAX_BATTLERS_COUNT]; //checked is u16 in emerald, and fixed missed replacement of wrappedMove logic
     u8 expGetterMonId;
     u8 targetsDone[MAX_BATTLERS_COUNT]; // Each battler as a bit.
+    bool8 debugAISet;
     u8 wildVictorySong;
     u8 dynamicMoveType;
     u8 wrappedBy[MAX_BATTLERS_COUNT];
@@ -702,7 +705,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 switchInItemsCounter;
     u8 field_DA; // battle tower related
     u8 turnSideTracker;
-    u8 fillerDC[0xDF - 0xDC];
+    //u8 fillerDC[0xDF - 0xDC];
     u8 givenExpMons;
     u16 lastTakenMoveFrom[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT];// a 2-D array [target][attacker]
     u16 castformPalette[MAX_BATTLERS_COUNT][16]; //important, may be how they fixed alcremie?

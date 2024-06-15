@@ -9698,7 +9698,7 @@ static void atk56_playfaintcry(void)
 static void atk57(void)
 {
     gActiveBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-    BtlController_EmitCmd55(0, gBattleOutcome);
+    BtlController_EmitEndLinkBattle(0, gBattleOutcome);
     MarkBattlerForControllerExec(gActiveBattler);
     gBattlescriptCurrInstr += 1;
 }
@@ -10127,8 +10127,8 @@ static void atk61_drawpartystatussummary(void)
 
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            if (GetMonData(&party[i], MON_DATA_SPECIES2) == SPECIES_NONE
-             || GetMonData(&party[i], MON_DATA_SPECIES2) == SPECIES_EGG)
+            if (GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
+             || GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
             {
                 hpStatuses[i].hp = 0xFFFF;
                 hpStatuses[i].status = 0;
@@ -11111,7 +11111,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2);
+            species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
             abilityNum = GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM);
             status = GetMonData(&gPlayerParty[i], MON_DATA_STATUS);
             if (species != SPECIES_NONE
@@ -11131,7 +11131,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         monToCheck = 0;
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES2);
+            species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG);
             abilityNum = GetMonData(&gEnemyParty[i], MON_DATA_ABILITY_NUM);
             status = GetMonData(&gEnemyParty[i], MON_DATA_STATUS);
 
@@ -15207,7 +15207,7 @@ static void atkAE_healpartystatus(void)
         }
         for (i = 0; i < PARTY_SIZE; ++i)
         {
-            u16 species = GetMonData(&party[i], MON_DATA_SPECIES2);
+            u16 species = GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG);
             u8 abilityNum = GetMonData(&party[i], MON_DATA_ABILITY_NUM);
 
             if (species != SPECIES_NONE && species != SPECIES_EGG)
@@ -16129,8 +16129,8 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
         for (;gBattleCommunication[0] < PARTY_SIZE; ++gBattleCommunication[0])
         {
             if (GetMonData(&party[gBattleCommunication[0]], MON_DATA_HP)
-             && GetMonData(&party[gBattleCommunication[0]], MON_DATA_SPECIES2)
-             && GetMonData(&party[gBattleCommunication[0]], MON_DATA_SPECIES2) != SPECIES_EGG
+             && GetMonData(&party[gBattleCommunication[0]], MON_DATA_SPECIES_OR_EGG)
+             && GetMonData(&party[gBattleCommunication[0]], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG
              && !GetMonData(&party[gBattleCommunication[0]], MON_DATA_STATUS))
                 break; // continue party loop if mon alive, not an egg, and not statused
 
@@ -16724,8 +16724,8 @@ static void atkDE_assistattackselect(void)
     for (monId = 0; monId < PARTY_SIZE; ++monId)
     {
         if (monId == gBattlerPartyIndexes[gBattlerAttacker]
-         || GetMonData(&party[monId], MON_DATA_SPECIES2) == SPECIES_NONE
-         || GetMonData(&party[monId], MON_DATA_SPECIES2) == SPECIES_EGG)
+         || GetMonData(&party[monId], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
+         || GetMonData(&party[monId], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
             continue;
         for (moveId = 0; moveId < MAX_MON_MOVES; ++moveId)
         {
@@ -16998,7 +16998,7 @@ static void atkE5_pickup(void) //effect will go in battle_util.c end turn abilit
 
     for (i = 0; i < PARTY_SIZE; ++i)
     {
-        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2);
+        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
         heldItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
         /*if (GetMonData(&gPlayerParty[i], MON_DATA_ABILITY_NUM) != ABILITY_NONE) //important need change this
             ability = gBaseStats[species].abilities[1]; //well no mon have pipckup as hidden ability so this prob fine

@@ -513,7 +513,7 @@ u8 *StringExpandPlaceholders(u8 *dest, const u8 *src)
 
                 switch (c)
                 {
-                    case EXT_CTRL_CODE_RESET_SIZE:
+                    case EXT_CTRL_CODE_RESET_FONT:
                     case EXT_CTRL_CODE_PAUSE_UNTIL_PRESS:
                     case EXT_CTRL_CODE_FILL_WINDOW:
                     case EXT_CTRL_CODE_JPN:
@@ -560,10 +560,10 @@ u8 *StringBraille(u8 *dest, const u8 *src)
 
         switch (c)
         {
-            case EOS:
+            case EOS:   //0xFF
                 *dest = c;
                 return dest;
-            case 0xFE:
+            case CHAR_NEWLINE:  //0xFE
                 dest = StringCopy(dest, gotoLine2);
                 break;
             default:
@@ -786,7 +786,7 @@ u32 StringLength_Multibyte(const u8 *str)
 
     while (*str != EOS)
     {
-        if (*str == 0xF9)
+        if (*str == CHAR_EXTRA_SYMBOL) //0xf9
             str++;
         str++;
         length++;
@@ -797,7 +797,7 @@ u32 StringLength_Multibyte(const u8 *str)
 
 u8 *WriteColorChangeControlCode(u8 *dest, u32 colorType, u8 color)
 {
-    *dest = 0xFC;
+    *dest = EXT_CTRL_CODE_BEGIN; //0xfc
     dest++;
 
     switch (colorType)
@@ -833,13 +833,13 @@ u8 GetExtCtrlCodeLength(u8 code)
         [EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW] = 4,
         [EXT_CTRL_CODE_PALETTE]                = 2,
         [EXT_CTRL_CODE_FONT]                   = 2,
-        [EXT_CTRL_CODE_RESET_SIZE]             = 1,
+        [EXT_CTRL_CODE_RESET_FONT]             = 1,
         [EXT_CTRL_CODE_PAUSE]                  = 2,
         [EXT_CTRL_CODE_PAUSE_UNTIL_PRESS]      = 1,
         [EXT_CTRL_CODE_WAIT_SE]                = 1,
         [EXT_CTRL_CODE_PLAY_BGM]               = 3,
         [EXT_CTRL_CODE_ESCAPE]                 = 2,
-        [EXT_CTRL_CODE_SHIFT_TEXT]             = 2,
+        [EXT_CTRL_CODE_SHIFT_RIGHT]             = 2,
         [EXT_CTRL_CODE_SHIFT_DOWN]             = 2,
         [EXT_CTRL_CODE_FILL_WINDOW]            = 1,
         [EXT_CTRL_CODE_PLAY_SE]                = 3,
@@ -851,6 +851,7 @@ u8 GetExtCtrlCodeLength(u8 code)
         [EXT_CTRL_CODE_ENG]                    = 1,
         [EXT_CTRL_CODE_PAUSE_MUSIC]            = 1,
         [EXT_CTRL_CODE_RESUME_MUSIC]           = 1,
+        [EXT_CTRL_CODE_CLEAR_TEXT_TO]          = 2,
         /*[EXT_CTRL_CODE_CAPITALIZE_ABILITY]     = 1,
         [EXT_CTRL_CODE_CAPITALIZE_SPECIES]     = 1,
         [EXT_CTRL_CODE_CAPITALIZE_MOVES]       = 1,
@@ -858,32 +859,6 @@ u8 GetExtCtrlCodeLength(u8 code)
         [EXT_CTRL_CODE_MISC_CAP]           = 1,
         [EXT_CTRL_CODE_END_CAPITALIZATION]     = 1,
         */
-
-        /*1,
-        2,
-        2,
-        2,
-        4,
-        2,
-        2,
-        1,
-        2,
-        1,
-        1,
-        3,
-        2,
-        2,
-        2,
-        1,
-        3,
-        2,
-        2,
-        2,
-        2,
-        1,
-        1,
-        1,
-        1,*/
     };
 
     u8 length = 0;
@@ -894,7 +869,7 @@ u8 GetExtCtrlCodeLength(u8 code)
 
 static const u8 *SkipExtCtrlCode(const u8 *s)
 {
-    while (*s == 0xFC)//EXT_CTRL_CODE_BEGIN
+    while (*s == EXT_CTRL_CODE_BEGIN)//0xFC
     {
         s++;
         s += GetExtCtrlCodeLength(*s);
@@ -918,11 +893,11 @@ s32 StringCompareWithoutExtCtrlCodes(const u8 *str1, const u8 *str2)
         if (*str1 < *str2)
         {
             retVal = -1;
-            if (*str2 == 0xFF)
+            if (*str2 == EOS)
                 retVal = 1;
         }
 
-        if (*str1 == 0xFF)
+        if (*str1 == EOS)
             return retVal;
 
         str1++;
@@ -931,7 +906,7 @@ s32 StringCompareWithoutExtCtrlCodes(const u8 *str1, const u8 *str2)
 
     retVal = 1;
 
-    if (*str1 == 0xFF)
+    if (*str1 == EOS)
         retVal = -1;
 
     return retVal;
@@ -945,9 +920,9 @@ void ConvertInternationalString(u8 *s, u8 language)
 
         StripExtCtrlCodes(s);
         i = StringLength(s);
-        s[i++] = 0xFC;
+        s[i++] = EXT_CTRL_CODE_BEGIN;
         s[i++] = 22;
-        s[i++] = 0xFF;
+        s[i++] = EOS;
 
         i--;
 
@@ -957,7 +932,7 @@ void ConvertInternationalString(u8 *s, u8 language)
             i--;
         }
 
-        s[0] = 0xFC;
+        s[0] = EXT_CTRL_CODE_BEGIN;
         s[1] = 21;
     }
 }
@@ -966,9 +941,9 @@ void StripExtCtrlCodes(u8 *str)
 {
     u16 srcIndex = 0;
     u16 destIndex = 0;
-    while (str[srcIndex] != 0xFF)
+    while (str[srcIndex] != EOS)
     {
-        if (str[srcIndex] == 0xFC)
+        if (str[srcIndex] == EXT_CTRL_CODE_BEGIN)
         {
             srcIndex++;
             srcIndex += GetExtCtrlCodeLength(str[srcIndex]);
@@ -978,7 +953,7 @@ void StripExtCtrlCodes(u8 *str)
             str[destIndex++] = str[srcIndex++];
         }
     }
-    str[destIndex] = 0xFF;
+    str[destIndex] = EOS;
 }
 
 u8 *StringCopyUppercase(u8 *dest, const u8 *src)

@@ -25,7 +25,8 @@ u8 CreateMonIcon(u16 species, SpriteCallback callback, s16 x, s16 y, u8 subprior
 u8 UpdateMonIconFrame(struct Sprite * sprite);
 void LoadMonIconPalette(u16 iconId);
 void FreeMonIconPalette(u16 iconId);
-void SetPartyHPBarSprite(struct Sprite * sprite, u8 animNum);
+void FreeAndDestroyMonIconSprite(struct Sprite *sprite);
+void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);
 u16 GetIconSpecies(u16 species, u32 personality);
 void LoadMonIconPalettesAt(u16 offset);

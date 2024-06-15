@@ -67,7 +67,7 @@
 #define MON_DATA_SPATK             62
 #define MON_DATA_SPDEF             63
 #define MON_DATA_MAIL              64
-#define MON_DATA_SPECIES2          65
+#define MON_DATA_SPECIES_OR_EGG    65 //replace species_2, seems use was identical so just auto replaced
 #define MON_DATA_IVS               66
 #define MON_DATA_CHAMPION_RIBBON   67
 #define MON_DATA_WINNING_RIBBON    68
@@ -170,6 +170,7 @@
 #define NATURE_SASSY 22
 #define NATURE_CAREFUL 23
 #define NATURE_QUIRKY 24
+#define NUM_NATURES 25
 
 // Pokemon Stats
 #define STAT_HP 0
@@ -287,6 +288,7 @@
 #define UNOWN_FORM_COUNT 28
 #define BOX_NAME_LENGTH 8
 #define MAX_LEVEL_UP_MOVES 35	//attempt raisae to 35?
+#define MIN_LEVEL 1
 #define MAX_LEVEL 100
 
 #define EVO_MODE_NORMAL     0

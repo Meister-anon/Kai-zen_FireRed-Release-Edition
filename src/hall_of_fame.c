@@ -72,7 +72,6 @@ static void Task_Hof_WaitAndPrintPlayerInfo(u8 taskId);
 static void Task_Hof_ExitOnKeyPressed(u8 taskId);
 static void Task_Hof_HandlePaletteOnExit(u8 taskId);
 static void Task_Hof_HandleExit(u8 taskId);
-static void SetWarpsToRollCredits(void);
 static void Task_HofPC_CopySaveData(u8 taskId);
 static void Task_HofPC_DrawSpritesPrintText(u8 taskId);
 static void Task_HofPC_PrintMonInfo(u8 taskId);
@@ -389,7 +388,7 @@ static void Task_Hof_InitMonData(u8 taskId)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
         {
-            sHofMonPtr[0].mon[i].species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2);
+            sHofMonPtr[0].mon[i].species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
             sHofMonPtr[0].mon[i].tid = GetMonData(&gPlayerParty[i], MON_DATA_OT_ID);
             sHofMonPtr[0].mon[i].personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
             sHofMonPtr[0].mon[i].lvl = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
@@ -623,7 +622,7 @@ static void Task_Hof_SpawnPlayerPic(u8 taskId)
     ShowBg(3);
     gTasks[taskId].data[4] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 0x78, 0x48, 6, 0xFFFF);
     AddWindow(&sWindowTemplate);
-    TextWindow_SetStdFrame0_WithPal(1, 0x21D, 0xD0);
+    LoadStdWindowGfx(1, 0x21D, 0xD0);
     gTasks[taskId].data[3] = 120;
     gTasks[taskId].func = Task_Hof_WaitAndPrintPlayerInfo;
 }
@@ -699,7 +698,7 @@ static void Task_Hof_HandleExit(u8 taskId)
     }
 }
 
-static void SetWarpsToRollCredits(void)
+void SetWarpsToRollCredits(void)
 {
     VarSet(VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 1);
     FlagSet(FLAG_DONT_SHOW_MAP_NAME_POPUP);

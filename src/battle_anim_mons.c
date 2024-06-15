@@ -41,7 +41,7 @@ enum {
     ENEMY_DOUBLES,
 };
 
-static const struct UCoords8 sBattlerCoords[][4] =
+const struct UCoords8 sBattlerCoords[][4] =
 {
     [SINGLE_BATTLES] =
     { // Single battle

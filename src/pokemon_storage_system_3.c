@@ -491,7 +491,7 @@ static void Cb_InitPSS(u8 taskId)
         PutWindowTilemap(0);
         ClearWindowTilemap(1);
         CpuFill32(0, (void *)VRAM, 0x200);
-        TextWindow_SetUserSelectedFrame(1, 0xB, 0xE0);
+        LoadUserWindowGfx(1, 0xB, 0xE0);
         break;
     case 3:
         ResetAllBgCoords();
@@ -2560,7 +2560,7 @@ static bool8 DoShowPartyMenu(void)
 static void sub_808FB68(void)
 {
     SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29));
-    TextWindow_SetStdFrame0_WithPal(1, 2, 208);
+    LoadStdWindowGfx(1, 2, 208);
     FillBgTilemapBufferRect(0, 0, 0, 0, 32, 20, 17);
     CopyBgTilemapBufferToVram(0);
 }
@@ -2695,12 +2695,12 @@ static void sub_808FE54(u8 action)
     if (sInPartyMenu)
     {
         toBox = TOTAL_BOXES_COUNT;
-        species2 = GetMonData(&gPlayerParty[GetBoxCursorPosition()], MON_DATA_SPECIES2);
+        species2 = GetMonData(&gPlayerParty[GetBoxCursorPosition()], MON_DATA_SPECIES_OR_EGG);
     }
     else
     {
         toBox = StorageGetCurrentBox();
-        species2 = GetCurrentBoxMonData(GetBoxCursorPosition(), MON_DATA_SPECIES2);
+        species2 = GetCurrentBoxMonData(GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG);
     }
     qlogBuffer = &gPSSData->qlogBuffer;
 

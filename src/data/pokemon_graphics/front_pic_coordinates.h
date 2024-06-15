@@ -307,7 +307,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_PERSIAN] =
     {
         .size = 0x77,
-        .y_offset = 4,
+        .y_offset = 9,
     },
     [SPECIES_PSYDUCK] =
     {
@@ -412,7 +412,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_GEODUDE] =
     {
         .size = 0x54,
-        .y_offset = 19,
+        .y_offset = 10,
     },
     [SPECIES_GRAVELER] =
     {
@@ -542,12 +542,12 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_VOLTORB] =
     {
         .size = 0x44,
-        .y_offset = 15,
+        .y_offset = 10,
     },
     [SPECIES_ELECTRODE] =
     {
         .size = 0x55,
-        .y_offset = 11,
+        .y_offset = 6,
     },
     [SPECIES_EXEGGCUTE] =
     {
@@ -757,7 +757,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_SNORLAX] =
     {
         .size = 0x87,
-        .y_offset = 1,
+        .y_offset = 5,
     },
     [SPECIES_ARTICUNO] =
     {
@@ -4891,7 +4891,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_GEODUDE_ALOLAN] =
     {
         .size = 0x54,
-        .y_offset = 19,
+        .y_offset = 10,
     },
     [SPECIES_GRAVELER_ALOLAN] =
     {

@@ -3,7 +3,58 @@
 
 #include "global.h"
 
-#define CHAR_SPACE          0x00
+#define CHAR_SPACE             0x00
+#define CHAR_A_GRAVE           0x01
+#define CHAR_A_ACUTE           0x02
+#define CHAR_A_CIRCUMFLEX      0x03
+#define CHAR_C_CEDILLA         0x04
+#define CHAR_E_GRAVE           0x05
+#define CHAR_E_ACUTE           0x06
+#define CHAR_E_CIRCUMFLEX      0x07
+#define CHAR_E_DIAERESIS       0x08
+#define CHAR_I_GRAVE           0x09
+//#define CHAR_I_ACUTE         0x0A // Is 0x5A instead
+#define CHAR_I_CIRCUMFLEX      0x0B
+#define CHAR_I_DIAERESIS       0x0C
+#define CHAR_O_GRAVE           0x0D
+#define CHAR_O_ACUTE           0x0E
+#define CHAR_O_CIRCUMFLEX      0x0F
+#define CHAR_OE                0x10
+#define CHAR_U_GRAVE           0x11
+#define CHAR_U_ACUTE           0x12
+#define CHAR_U_CIRCUMFLEX      0x13
+#define CHAR_N_TILDE           0x14
+#define CHAR_ESZETT            0x15
+#define CHAR_a_GRAVE           0x16
+#define CHAR_a_ACUTE           0x17
+//#define CHAR_a_CIRCUMFLEX    0x18 // Is 0x68 instead
+#define CHAR_c_CEDILLA         0x19
+#define CHAR_e_GRAVE           0x1A
+#define CHAR_e_ACUTE           0x1B
+#define CHAR_e_CIRCUMFLEX      0x1C
+#define CHAR_e_DIAERESIS       0x1D
+#define CHAR_i_GRAVE           0x1E
+//#define CHAR_i_ACUTE         0x1F // Is 0x6F instead
+#define CHAR_i_CIRCUMFLEX      0x20
+#define CHAR_i_DIAERESIS       0x21
+#define CHAR_o_GRAVE           0x22
+#define CHAR_o_ACUTE           0x23
+#define CHAR_o_CIRCUMFLEX      0x24
+#define CHAR_oe                0x25
+#define CHAR_u_GRAVE           0x26
+#define CHAR_u_ACUTE           0x27
+#define CHAR_u_CIRCUMFLEX      0x28
+#define CHAR_n_TILDE           0x29
+#define CHAR_MASCULINE_ORDINAL 0x2A
+#define CHAR_FEMININE_ORDINAL  0x2B
+#define CHAR_SUPER_ER          0x2C
+#define CHAR_AMPERSAND         0x2D
+#define CHAR_PLUS              0x2E
+//
+#define CHAR_LV                0x34
+#define CHAR_EQUALS            0x35
+
+
 #define CHAR_0              0xA1
 #define CHAR_1              0xA2
 #define CHAR_2              0xA3
@@ -81,9 +132,9 @@
 #define CHAR_x              0xEC
 #define CHAR_y              0xED
 #define CHAR_z              0xEE
-#define CHAR_SPECIAL_F7     0xF7
+#define CHAR_DYNAMIC        0xF7
 #define CHAR_KEYPAD_ICON    0xF8
-#define CHAR_EXTRA_EMOJI    0xF9
+#define CHAR_EXTRA_SYMBOL   0xF9
 #define CHAR_COLON          0xF0
 #define CHAR_PROMPT_SCROLL  0xFA // waits for button press and scrolls dialog  \l
 #define CHAR_PROMPT_CLEAR   0xFB // waits for button press and clears dialog    \p
@@ -143,18 +194,18 @@
 //
 #define EXT_CTRL_CODE_PALETTE                0x05
 #define EXT_CTRL_CODE_FONT                   0x06
-#define EXT_CTRL_CODE_RESET_SIZE             0x07
+#define EXT_CTRL_CODE_RESET_FONT             0x07
 //
 #define EXT_CTRL_CODE_PAUSE                  0x08
 #define EXT_CTRL_CODE_PAUSE_UNTIL_PRESS      0x09
 #define EXT_CTRL_CODE_WAIT_SE                0x0A
 #define EXT_CTRL_CODE_PLAY_BGM               0x0B
 #define EXT_CTRL_CODE_ESCAPE                 0x0C
-#define EXT_CTRL_CODE_SHIFT_TEXT             0x0D
+#define EXT_CTRL_CODE_SHIFT_RIGHT            0x0D   //replacement made for debug
 #define EXT_CTRL_CODE_SHIFT_DOWN             0x0E
 #define EXT_CTRL_CODE_FILL_WINDOW            0x0F
 #define EXT_CTRL_CODE_PLAY_SE                0x10
-#define EXT_CTRL_CODE_CLEAR     0x11
+#define EXT_CTRL_CODE_CLEAR     0x11    
 //
 #define EXT_CTRL_CODE_SKIP                   0x12
 #define EXT_CTRL_CODE_CLEAR_TO  0x13
@@ -164,6 +215,8 @@
 
 #define EXT_CTRL_CODE_PAUSE_MUSIC            0x17
 #define EXT_CTRL_CODE_RESUME_MUSIC           0x18
+
+#define EXT_CTRL_CODE_CLEAR_TEXT_TO          0x19
 
 /*#define EXT_CTRL_CODE_CAPITALIZE_ABILITY			 0x19
 #define EXT_CTRL_CODE_CAPITALIZE_SPECIES			 0x1A
@@ -243,6 +296,15 @@ struct TextPrinterSubStruct
     u8 hasGlyphIdBeenSet:1;
     u8 autoScrollDelay;
 };
+
+struct GlyphInfo
+{
+    u8 pixels[0x80];
+    u8 width;
+    u8 height;
+};
+
+extern struct GlyphInfo gGlyphInfo;
 
 struct TextPrinterTemplate // TODO: Better name
 {
@@ -338,6 +400,7 @@ void DecompressGlyphTile(const u16 *src, u16 *dest);
 u8 GetLastTextColor(u8 colorType);
 void CopyGlyphToWindow(struct TextPrinter *x);
 void ClearTextSpan(struct TextPrinter *textPrinter, u32 width);
+void ClearTextSpanDebug(struct TextPrinter *textPrinter, u32 width);
 
 u16 Font0Func(struct TextPrinter *textPrinter);
 u16 Font1Func(struct TextPrinter *textPrinter);
@@ -377,7 +440,7 @@ void DecompressGlyphFont2(u16 glyphId, bool32 isJapanese);
 s32 GetGlyphWidthFont2(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont1(u16 glyphId, bool32 isJapanese);
 s32 GetGlyphWidthFont1(u16 glyphId, bool32 isJapanese);
-void DecompressGlyphFont9(u16 glyphId);
+void DecompressGlyph_Bold(u16 glyphId);
 s32 GetGlyphWidthFont3(u16 glyphId, bool32 isJapanese);
 s32 GetGlyphWidthFont4(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont5(u16 glyphId, bool32 isJapanese);

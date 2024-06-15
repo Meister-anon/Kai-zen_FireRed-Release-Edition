@@ -687,7 +687,7 @@ static void LoadUserFrameToBg(u8 bgId)
 
 static void SetStdFrame0OnBg(u8 bgId)
 {
-    TextWindow_SetStdFrame0_WithPal(MAIN_MENU_WINDOW_NEWGAME_ONLY, 0x1B1, 0x20);
+    LoadStdWindowGfx(MAIN_MENU_WINDOW_NEWGAME_ONLY, 0x1B1, 0x20);
     MainMenu_EraseWindow(&sWindowTemplate[MAIN_MENU_WINDOW_ERROR]);
 }
 

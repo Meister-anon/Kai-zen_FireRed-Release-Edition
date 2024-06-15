@@ -35,6 +35,19 @@ u16 LoadCompressedSpriteSheet(const struct CompressedSpriteSheet *src)
     return tileStart;
 }
 
+void LoadCompressedSpritePaletteWithTag(const u32 *pal, u16 tag) //vsonic
+{
+    struct SpritePalette dest;
+    void *buffer;
+    buffer = AllocZeroed(*(pal));
+    //buffer = AllocZeroed(*((u32*)src->data) >> 8);  idea reference
+
+    LZ77UnCompWram(pal, buffer);
+    dest.data = (void *) buffer;
+    dest.tag = tag;
+    LoadSpritePalette(&dest);
+}
+
 void LoadCompressedSpriteSheetOverrideBuffer(const struct CompressedSpriteSheet *src, void *buffer)
 {
     struct SpriteSheet dest;

@@ -120,7 +120,7 @@ void DisplayBerryPowderVendorMenu(void)
         sBerryPowderVendorWindowId = AddWindow(&template);
         FillWindowPixelBuffer(sBerryPowderVendorWindowId, 0);
         PutWindowTilemap(sBerryPowderVendorWindowId);
-        TextWindow_SetStdFrame0_WithPal(sBerryPowderVendorWindowId, 0x21D, 0xD0);
+        LoadStdWindowGfx(sBerryPowderVendorWindowId, 0x21D, 0xD0);
         DrawPlayerPowderAmount(sBerryPowderVendorWindowId, 0x21D, 0xD, GetBerryPowder());
     }
 }

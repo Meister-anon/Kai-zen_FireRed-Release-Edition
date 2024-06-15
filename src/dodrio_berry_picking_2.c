@@ -840,7 +840,7 @@ static void sub_81546EC(u8 frameId)
 
 static void sub_8154720(void)
 {
-    TextWindow_SetStdFrame0_WithPal(0, 0xA, 0xB0);
+    LoadStdWindowGfx(0, 0xA, 0xB0);
 }
 
 void sub_8154730(void)
@@ -1606,7 +1606,7 @@ static bool32 sub_8155FE0(void)
             return FALSE;
         break;
     case 5:
-        LoadPalette(stdpal_get(3), 0xD0, 0x20);
+        LoadPalette(GetTextWindowPalette(3), 0xD0, 0x20);
         break;
     default:
         gUnknown_203F440->unk3018 = 0;

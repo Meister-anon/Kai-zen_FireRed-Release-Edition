@@ -560,7 +560,7 @@ static bool8 LoadOptionMenuPalette(void)
         break;
     case 2:
         LoadPalette(sOptionMenuPalette, 0x10, 0x20);
-        LoadPalette(stdpal_get(2), 0xF0, 0x20);
+        LoadPalette(GetTextWindowPalette(2), 0xF0, 0x20);
         break;
     case 3:
         DrawWindowBorderWithStdpal3(1, 0x1B3, 0x30);

@@ -2274,7 +2274,7 @@ static const struct PokedudeTextScriptHeader sPokedudeTextScripts_Catching[] =
         .callback = PokedudeAction_PrintVoiceoverMessage,
     },
     {
-        .btlcmd = CONTROLLER_55,
+        .btlcmd = CONTROLLER_ENDLINKBATTLE,
         .side = B_SIDE_PLAYER,
         .callback = PokedudeAction_PrintVoiceoverMessage,
     },

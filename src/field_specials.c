@@ -3,6 +3,7 @@
 #include "quest_log.h"
 #include "list_menu.h"
 #include "diploma.h"
+#include "debug.h"
 #include "script.h"
 #include "field_player_avatar.h"
 #include "overworld.h"
@@ -34,6 +35,7 @@
 #include "party_menu.h"
 #include "dynamic_placeholder_text_util.h"
 #include "new_menu_helpers.h"
+#include "config/debug.h"
 #include "constants/songs.h"
 #include "constants/pokemon.h"
 #include "constants/items.h"
@@ -215,6 +217,11 @@ void AnimatePcTurnOn(void)
 {
     u8 taskId;
 
+    #if DEBUG_OVERWORLD_MENU == TRUE
+    if (gIsDebugPC)
+        return;
+    #endif
+
     if (FuncIsActiveTask(Task_AnimatePcTurnOn) != TRUE)
     {
         taskId = CreateTask(Task_AnimatePcTurnOn, 8);
@@ -291,6 +298,14 @@ void AnimatePcTurnOff()
     s8 deltaX = 0;
     s8 deltaY = 0;
     u8 direction = GetPlayerFacingDirection();
+
+    #if DEBUG_OVERWORLD_MENU == TRUE
+    if (gIsDebugPC)
+    {
+        gIsDebugPC = FALSE;
+        return;
+    }
+#endif
 
     switch (direction)
     {
@@ -429,7 +444,7 @@ bool8 IsStarterFirstStageInParty(void)
     u8 i;
     for (i = 0; i < partyCount; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) == species)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) == species)
             return TRUE;
     }
     return FALSE;
@@ -521,7 +536,7 @@ u8 GetLeadMonIndex(void)
     for (i = 0; i < partyCount; i++)
     {
         pokemon = &gPlayerParty[i];
-        if (GetMonData(pokemon, MON_DATA_SPECIES2, NULL) != SPECIES_EGG && GetMonData(pokemon, MON_DATA_SPECIES2, NULL) != SPECIES_NONE)
+        if (GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG && GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_NONE)
             return i;
     }
     return 0;
@@ -529,7 +544,7 @@ u8 GetLeadMonIndex(void)
 
 u16 GetPartyMonSpecies(void)
 {
-    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES2, NULL);
+    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG, NULL);
 }
 
 bool8 IsMonOTNameNotPlayers(void)
@@ -1104,7 +1119,7 @@ void DrawElevatorCurrentFloorWindow(void)
     if (QuestLog_SchedulePlaybackCB(QLPlaybackCB_DestroyScriptMenuMonPicSprites) != TRUE)
     {
         sElevatorCurrentFloorWindowId = AddWindow(&sElevatorCurrentFloorWindowTemplate);
-        TextWindow_SetStdFrame0_WithPal(sElevatorCurrentFloorWindowId, 0x21D, 0xD0);
+        LoadStdWindowGfx(sElevatorCurrentFloorWindowId, 0x21D, 0xD0);
         DrawStdFrameWithCustomTileAndPalette(sElevatorCurrentFloorWindowId, FALSE, 0x21D, 0xD);
         AddTextPrinterParameterized(sElevatorCurrentFloorWindowId, 2, gText_NowOn, 0, 2, 0xFF, NULL);
         floorname = sFloorNamePointers[gSpecialVar_0x8005];
@@ -2390,7 +2405,7 @@ void UpdateTrainerCardPhotoIcons(void)
     partyCount = CalculatePlayerPartyCount();
     for (i = 0; i < partyCount; i++)
     {
-        species[i] = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL);
+        species[i] = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL);
         personality[i] = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY, NULL);
     }
     VarSet(VAR_TRAINER_CARD_MON_ICON_1, SpeciesToMailSpecies(species[0], personality[0]));
@@ -2442,7 +2457,7 @@ bool8 DoesPlayerPartyContainSpecies(void)
     u8 i;
     for (i = 0; i < partyCount; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) == gSpecialVar_0x8004)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) == gSpecialVar_0x8004)
             return TRUE;
     }
     return FALSE;
@@ -2914,7 +2929,7 @@ bool8 CapeBrinkGetMoveToTeachLeadPokemon(void)
     gSpecialVar_0x8007 = leadMonSlot;
     for (i = 0; i < NELEMS(sCapeBrinkCompatibleSpecies); i++)
     {
-        if (GetMonData(&gPlayerParty[leadMonSlot], MON_DATA_SPECIES2, NULL) == sCapeBrinkCompatibleSpecies[i])
+        if (GetMonData(&gPlayerParty[leadMonSlot], MON_DATA_SPECIES_OR_EGG, NULL) == sCapeBrinkCompatibleSpecies[i])
         {
             tutorMonId = i;
             break;
@@ -3185,7 +3200,7 @@ bool8 PlayerPartyContainsSpeciesWithPlayerID(void)
     u8 i;
     for (i = 0; i < playerCount; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) == gSpecialVar_0x8004 
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) == gSpecialVar_0x8004 
             && GetPlayerTrainerId() == GetMonData(&gPlayerParty[i], MON_DATA_OT_ID, NULL))
             return TRUE;
     }
@@ -3239,4 +3254,9 @@ static void Task_WingFlapSound(u8 taskId)
     }
     if (data[0] == gSpecialVar_0x8004 - 1)
         DestroyTask(taskId);
+}
+
+u16 ScriptGetPartyMonSpecies(void)
+{
+    return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG, NULL);
 }

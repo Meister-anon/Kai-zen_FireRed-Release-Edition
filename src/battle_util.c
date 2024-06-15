@@ -4919,8 +4919,8 @@ bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2)
             for (i = flankId * 3; i < flankId * 3 + 3; ++i)
             {
                 if (GetMonData(&party[i], MON_DATA_HP) != 0
-                    && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_NONE
-                    && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_EGG)
+                    && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+                    && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
                     break;
             }
             return (i == flankId * 3 + 3);
@@ -4946,8 +4946,8 @@ bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2)
             for (i = 0; i < PARTY_SIZE; ++i)
             {
                 if (GetMonData(&party[i], MON_DATA_HP) != 0
-                    && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_NONE
-                    && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_EGG
+                    && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+                    && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG
                     && i != partyIdBattlerOn1
                     && i != partyIdBattlerOn2
                     && i != *(gBattleStruct->monToSwitchIntoId + playerId)
@@ -12634,7 +12634,7 @@ bool32 CanTeleport(u8 battlerId)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        species = GetMonData(&party[i], MON_DATA_SPECIES2);
+        species = GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG);
         if (species != SPECIES_NONE && species != SPECIES_EGG && GetMonData(&party[i], MON_DATA_HP) != 0)
             count++;
     }

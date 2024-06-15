@@ -844,7 +844,7 @@ static void CB2_InitBattleInternal(void)
 #define BUFFER_PARTY_VS_SCREEN_STATUS(party, flags, i)              \
     for ((i) = 0; (i) < PARTY_SIZE; (i)++)                          \
     {                                                               \
-        u16 species = GetMonData(&(party)[(i)], MON_DATA_SPECIES2); \
+        u16 species = GetMonData(&(party)[(i)], MON_DATA_SPECIES_OR_EGG); \
         u16 hp = GetMonData(&(party)[(i)], MON_DATA_HP);            \
         u32 status = GetMonData(&(party)[(i)], MON_DATA_STATUS);    \
                                                                     \
@@ -4136,6 +4136,7 @@ static void BattleStartClearSetData(void)
         gBattleStruct->safariEscapeFactor = 2;
     gBattleStruct->wildVictorySong = 0;
     gBattleStruct->moneyMultiplier = 1;
+    gBattleStruct->debugAISet = FALSE;
 
     //gRandomTurnNumber = Random();
     
@@ -4662,8 +4663,8 @@ static void BattleIntroDrawPartySummaryScreens(void)
         {
             for (i = 0; i < PARTY_SIZE; ++i)
             {
-                if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES2) == SPECIES_NONE
-                 || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES2) == SPECIES_EGG)
+                if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
+                 || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
                 {
                     hpStatus[i].hp = 0xFFFF;
                     hpStatus[i].status = 0;
@@ -4679,8 +4680,8 @@ static void BattleIntroDrawPartySummaryScreens(void)
             MarkBattlerForControllerExec(gActiveBattler);
             for (i = 0; i < PARTY_SIZE; ++i)
             {
-                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) == SPECIES_NONE
-                 || GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) == SPECIES_EGG)
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
+                 || GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
                 {
                     hpStatus[i].hp = 0xFFFF;
                     hpStatus[i].status = 0;
@@ -4704,8 +4705,8 @@ static void BattleIntroDrawPartySummaryScreens(void)
             // Still, there's no point in having dead code.
             for (i = 0; i < PARTY_SIZE; ++i)
             {
-                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) == SPECIES_NONE
-                 || GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) == SPECIES_EGG)
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
+                 || GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
                 {
                     hpStatus[i].hp = 0xFFFF;
                     hpStatus[i].status = 0;
@@ -5387,6 +5388,10 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     BtlController_EmitEndBounceEffect(0);
                     MarkBattlerForControllerExec(gActiveBattler);
                     return;
+                case B_ACTION_DEBUG:
+                    BtlController_EmitDebugMenu(0);
+                    MarkBattlerForControllerExec(gActiveBattler);
+                    break;
                 }
                 if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
                  && !(gBattleTypeFlags & BATTLE_TYPE_LINK)
@@ -5495,6 +5500,9 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     break;
                 case B_ACTION_OLDMAN_THROW:
                     ++gBattleCommunication[gActiveBattler];
+                    break;
+                case B_ACTION_DEBUG:
+                    gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
                     break;
                 }
             }
@@ -6356,8 +6364,8 @@ static void HandleEndTurn_FinishBattle(void)
 
         for (i = 0; i < PARTY_SIZE; i++) //erecalc stat after battle
         {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_NONE
-                && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_EGG)
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+                && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
             {
                 CalculateMonStats(&gPlayerParty[i]);
             }

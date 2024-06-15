@@ -828,4 +828,9 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 
 #define HOLD_EFFECT_POWERITEM    (HOLD_EFFECT_POWER_WEIGHT || HOLD_EFFECT_POWER_BRACER || HOLD_EFFECT_POWER_BELT || HOLD_EFFECT_POWER_ANKLET || HOLD_EFFECT_POWER_LENS || HOLD_EFFECT_POWER_BAND)
 
+//ported things for debug
+u8 GetNatureFromPersonality(u32 personality);
+u8 SendMonToPC(struct Pokemon* mon);
+void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon);
+
 #endif // GUARD_POKEMON_H

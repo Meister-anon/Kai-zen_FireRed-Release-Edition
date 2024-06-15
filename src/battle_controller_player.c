@@ -14,6 +14,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
+#include "battle_debug.h"
 #include "battle_interface.h"
 #include "battle_message.h"
 #include "battle_script_commands.h"
@@ -80,6 +81,7 @@ static void PlayerHandleBattleAnimation(void);
 static void PlayerHandleLinkStandbyMsg(void);
 static void PlayerHandleResetActionMoveSelection(void);
 static void PlayerHandleCmd55(void);
+static void PlayerHandleBattleDebug(void);
 static void PlayerCmdEnd(void);
 
 static void PlayerBufferRunCommand(void);
@@ -111,63 +113,66 @@ static void EndDrawPartyStatusSummary(void);
 
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
 {
-    PlayerHandleGetMonData,
-    PlayerHandleGetRawMonData,
-    PlayerHandleSetMonData,
-    PlayerHandleSetRawMonData,
-    PlayerHandleLoadMonSprite,
-    PlayerHandleSwitchInAnim,
-    PlayerHandleReturnMonToBall,
-    PlayerHandleDrawTrainerPic,
-    PlayerHandleTrainerSlide,
-    PlayerHandleTrainerSlideBack,
-    PlayerHandleFaintAnimation,
-    PlayerHandlePaletteFade,
-    PlayerHandleSuccessBallThrowAnim,
-    PlayerHandleBallThrowAnim,
-    PlayerHandlePause,
-    PlayerHandleMoveAnimation,
-    PlayerHandlePrintString,
-    PlayerHandlePrintSelectionString,
-    PlayerHandleChooseAction,
-    PlayerHandleUnknownYesNoBox,
-    PlayerHandleChooseMove,
-    PlayerHandleChooseItem,
-    PlayerHandleChoosePokemon,
-    PlayerHandleCmd23,
-    PlayerHandleHealthBarUpdate,
-    PlayerHandleExpUpdate,
-    PlayerHandleStatusIconUpdate,
-    PlayerHandleStatusAnimation,
-    PlayerHandleStatusXor,
-    PlayerHandleDataTransfer,
-    PlayerHandleDMA3Transfer,
-    PlayerHandlePlayBGM,
-    PlayerHandleCmd32,
-    PlayerHandleTwoReturnValues,
-    PlayerHandleChosenMonReturnValue,
-    PlayerHandleOneReturnValue,
-    PlayerHandleOneReturnValue_Duplicate,
-    PlayerHandleCmd37,
-    PlayerHandleCmd38,
-    PlayerHandleCmd39,
-    PlayerHandleCmd40,
-    PlayerHandleHitAnimation,
-    PlayerHandleCmd42,
-    PlayerHandlePlaySE,
-    PlayerHandlePlayFanfare,
-    PlayerHandleFaintingCry,
-    PlayerHandleIntroSlide,
-    PlayerHandleIntroTrainerBallThrow,
-    PlayerHandleDrawPartyStatusSummary,
-    PlayerHandleHidePartyStatusSummary,
-    PlayerHandleEndBounceEffect,
-    PlayerHandleSpriteInvisibility,
-    PlayerHandleBattleAnimation,
-    PlayerHandleLinkStandbyMsg,
-    PlayerHandleResetActionMoveSelection,
-    PlayerHandleCmd55,
-    PlayerCmdEnd,
+
+    [CONTROLLER_GETMONDATA]               = PlayerHandleGetMonData,
+    [CONTROLLER_GETRAWMONDATA]            = PlayerHandleGetRawMonData,
+    [CONTROLLER_SETMONDATA]               = PlayerHandleSetMonData,
+    [CONTROLLER_SETRAWMONDATA]            = PlayerHandleSetRawMonData,
+    [CONTROLLER_LOADMONSPRITE]            = PlayerHandleLoadMonSprite,
+    [CONTROLLER_SWITCHINANIM]             = PlayerHandleSwitchInAnim,
+    [CONTROLLER_RETURNMONTOBALL]          = PlayerHandleReturnMonToBall,
+    [CONTROLLER_DRAWTRAINERPIC]           = PlayerHandleDrawTrainerPic,
+    [CONTROLLER_TRAINERSLIDE]             = PlayerHandleTrainerSlide,
+    [CONTROLLER_TRAINERSLIDEBACK]         = PlayerHandleTrainerSlideBack,
+    [CONTROLLER_FAINTANIMATION]           = PlayerHandleFaintAnimation,
+    [CONTROLLER_PALETTEFADE]              = PlayerHandlePaletteFade,
+    [CONTROLLER_SUCCESSBALLTHROWANIM]     = PlayerHandleSuccessBallThrowAnim,
+    [CONTROLLER_BALLTHROWANIM]            = PlayerHandleBallThrowAnim,
+    [CONTROLLER_PAUSE]                    = PlayerHandlePause,
+    [CONTROLLER_MOVEANIMATION]            = PlayerHandleMoveAnimation,
+    [CONTROLLER_PRINTSTRING]              = PlayerHandlePrintString,
+    [CONTROLLER_PRINTSTRINGPLAYERONLY]    = PlayerHandlePrintSelectionString,
+    [CONTROLLER_CHOOSEACTION]             = PlayerHandleChooseAction,
+    [CONTROLLER_UNKNOWNYESNOBOX]          = PlayerHandleUnknownYesNoBox,
+    [CONTROLLER_CHOOSEMOVE]               = PlayerHandleChooseMove,
+    [CONTROLLER_OPENBAG]                  = PlayerHandleChooseItem,
+    [CONTROLLER_CHOOSEPOKEMON]            = PlayerHandleChoosePokemon,
+    [CONTROLLER_23]                       = PlayerHandleCmd23,
+    [CONTROLLER_HEALTHBARUPDATE]          = PlayerHandleHealthBarUpdate,
+    [CONTROLLER_EXPUPDATE]                = PlayerHandleExpUpdate,
+    [CONTROLLER_STATUSICONUPDATE]         = PlayerHandleStatusIconUpdate,
+    [CONTROLLER_STATUSANIMATION]          = PlayerHandleStatusAnimation,
+    [CONTROLLER_STATUSXOR]                = PlayerHandleStatusXor,
+    [CONTROLLER_DATATRANSFER]             = PlayerHandleDataTransfer,
+    [CONTROLLER_DMA3TRANSFER]             = PlayerHandleDMA3Transfer,
+    [CONTROLLER_PLAYBGM]                  = PlayerHandlePlayBGM,
+    [CONTROLLER_32]                       = PlayerHandleCmd32,
+    [CONTROLLER_TWORETURNVALUES]          = PlayerHandleTwoReturnValues,
+    [CONTROLLER_CHOSENMONRETURNVALUE]     = PlayerHandleChosenMonReturnValue,
+    [CONTROLLER_ONERETURNVALUE]           = PlayerHandleOneReturnValue,
+    [CONTROLLER_ONERETURNVALUE_DUPLICATE] = PlayerHandleOneReturnValue_Duplicate,
+    [CONTROLLER_CLEARUNKVAR]              = PlayerHandleCmd37,
+    [CONTROLLER_SETUNKVAR]                = PlayerHandleCmd38,
+    [CONTROLLER_CLEARUNKFLAG]             = PlayerHandleCmd39,
+    [CONTROLLER_TOGGLEUNKFLAG]            = PlayerHandleCmd40,
+    [CONTROLLER_HITANIMATION]             = PlayerHandleHitAnimation,
+    [CONTROLLER_CANTSWITCH]               = PlayerHandleCmd42,
+    [CONTROLLER_PLAYSE]                   = PlayerHandlePlaySE,
+    [CONTROLLER_PLAYFANFARE]              = PlayerHandlePlayFanfare,
+    [CONTROLLER_FAINTINGCRY]              = PlayerHandleFaintingCry,
+    [CONTROLLER_INTROSLIDE]               = PlayerHandleIntroSlide,
+    [CONTROLLER_INTROTRAINERBALLTHROW]    = PlayerHandleIntroTrainerBallThrow,
+    [CONTROLLER_DRAWPARTYSTATUSSUMMARY]   = PlayerHandleDrawPartyStatusSummary,
+    [CONTROLLER_HIDEPARTYSTATUSSUMMARY]   = PlayerHandleHidePartyStatusSummary,
+    [CONTROLLER_ENDBOUNCE]                = PlayerHandleEndBounceEffect,
+    [CONTROLLER_SPRITEINVISIBILITY]       = PlayerHandleSpriteInvisibility,
+    [CONTROLLER_BATTLEANIMATION]          = PlayerHandleBattleAnimation,
+    [CONTROLLER_LINKSTANDBYMSG]           = PlayerHandleLinkStandbyMsg,
+    [CONTROLLER_RESETACTIONMOVESELECTION] = PlayerHandleResetActionMoveSelection,
+    [CONTROLLER_ENDLINKBATTLE]            = PlayerHandleCmd55,
+    [CONTROLLER_DEBUGMENU]                = PlayerHandleBattleDebug,
+    [CONTROLLER_TERMINATOR_NOP]           = PlayerCmdEnd,
+
 };
 
 static const u8 sTargetIdentities[] = { B_POSITION_PLAYER_LEFT, B_POSITION_PLAYER_RIGHT, B_POSITION_OPPONENT_RIGHT, B_POSITION_OPPONENT_LEFT };
@@ -311,6 +316,7 @@ static void HandleInputChooseAction(void)
     else if (JOY_NEW(START_BUTTON)) //broken? haven't seen thsi work yet
     {
         SwapHpBarsWithHpText();
+
     }//could set to Joy_rept to avoid accident press?
     /*else if (JOY_NEW(L_BUTTON)) // should display message on atk turn, and skip turn.
     {//need add to handleinput choosetarget & choosemove
@@ -321,6 +327,14 @@ static void HandleInputChooseAction(void)
         //PlayerBufferExecCompleted();
     }//not gonna skip turn will instead use this to show true move power and type
     */ //was custom not default
+    #if DEBUG_BATTLE_MENU == TRUE
+    else if (JOY_NEW(SELECT_BUTTON))
+    {
+        BtlController_EmitTwoReturnValues(1, B_ACTION_DEBUG, 0);
+        PlayerBufferExecCompleted();
+    }
+    #endif
+
 }
 
 UNUSED static void UnusedEndBounceEffect(void)
@@ -3250,4 +3264,21 @@ static void PreviewDeterminativeMoveTargets(void) //determine who targetting
         }
         BeginNormalPaletteFade(bitMask, 8, startY, 0, RGB_WHITE);
     }
+}
+
+static void WaitForDebug(void)
+{
+    if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
+    {
+        PlayerBufferExecCompleted();
+    }
+}
+
+static void PlayerHandleBattleDebug(void)
+{
+#if DEBUG_BATTLE_MENU == TRUE
+    BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
+    SetMainCallback2(CB2_BattleDebugMenu);
+    gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
+#endif
 }

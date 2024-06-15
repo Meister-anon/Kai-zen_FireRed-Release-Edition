@@ -164,7 +164,6 @@ static bool8 AllocPartyMenuBgGfx(void);
 static void InitPartyMenuWindows(u8 layout);
 static void InitPartyMenuBoxes(u8 layout);
 static void LoadPartyMenuPokeballGfx(void);
-static void LoadPartyMenuAilmentGfx(void);
 static bool8 RenderPartyMenuBoxes(void);
 static void CreateCancelConfirmPokeballSprites(void);
 static void CreateCancelConfirmWindows(bool8 chooseHalf);
@@ -2073,8 +2072,8 @@ static void Task_FirstBattleEnterParty_WaitFadeNormal(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        TextWindow_SetUserSelectedFrame(0, 0x4F, 0xD0);
-        TextWindow_SetStdFrame0_WithPal(0, 0x58, 0xF0);
+        LoadUserWindowGfx(0, 0x4F, 0xD0);
+        LoadStdWindowGfx(0, 0x58, 0xF0);
         if (gPartyMenu.action == PARTY_ACTION_USE_ITEM)
             DisplayPartyMenuStdMessage(PARTY_MSG_USE_ON_WHICH_MON);
         else
@@ -2184,10 +2183,10 @@ static void InitPartyMenuWindows(u8 layout)
     DeactivateAllTextPrinters();
     for (i = 0; i < PARTY_SIZE; ++i)
         FillWindowPixelBuffer(i, PIXEL_FILL(0));
-    TextWindow_SetUserSelectedFrame(0, 0x4F, 0xD0);
-    TextWindow_SetStdFrame0_WithPal(0, 0x58, 0xF0);
-    LoadPalette(stdpal_get(2), 0xC0, 0x20);
-    LoadPalette(stdpal_get(0), 0xE0, 0x20);
+    LoadUserWindowGfx(0, 0x4F, 0xD0);
+    LoadStdWindowGfx(0, 0x58, 0xF0);
+    LoadPalette(GetTextWindowPalette(2), 0xC0, 0x20);
+    LoadPalette(GetTextWindowPalette(0), 0xE0, 0x20);
 }
 
 static void CreateCancelConfirmWindows(bool8 chooseHalf)
@@ -2827,7 +2826,7 @@ static void CreatePartyMonIconSprite(struct Pokemon *mon, struct PartyMenuBox *m
     // If in a multi battle, show partners Deoxys icon as Normal forme
     if (IsMultiBattle() == TRUE && gMain.inBattle)
         handleDeoxys = (sMultiBattlePartnersPartyMask[slot] ^ handleDeoxys) ? TRUE : FALSE;
-    species2 = GetMonData(mon, MON_DATA_SPECIES2);
+    species2 = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
     CreatePartyMonIconSpriteParameterized(species2, GetMonData(mon, MON_DATA_PERSONALITY), menuBox, 1, handleDeoxys);
     UpdatePartyMonHPBar(menuBox->monSpriteId, mon);
 }
@@ -3081,8 +3080,8 @@ static void CreatePartyMonStatusSprite(struct Pokemon *mon, struct PartyMenuBox 
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
-        menuBox->statusSpriteId = CreateSprite(&sSpriteTemplate_StatusIcons, menuBox->spriteCoords[4], menuBox->spriteCoords[5], 0);
-        SetPartyMonAilmentGfx(mon, menuBox);                                                //numbers is telling it what window that's not the position itself
+        menuBox->statusSpriteId = CreateSprite(&gSpriteTemplate_StatusIcons, menuBox->spriteCoords[4], menuBox->spriteCoords[5], 0);
+        SetPartyMonAilmentGfx(mon, menuBox);
     }
 }
 
@@ -3090,7 +3089,7 @@ static void CreatePartyMonStatusSpriteParameterized(u16 species, u8 status, stru
 {
     if (species != SPECIES_NONE)
     {
-        menuBox->statusSpriteId = CreateSprite(&sSpriteTemplate_StatusIcons, menuBox->spriteCoords[4], menuBox->spriteCoords[5], 0);
+        menuBox->statusSpriteId = CreateSprite(&gSpriteTemplate_StatusIcons, menuBox->spriteCoords[4], menuBox->spriteCoords[5], 0);
         UpdatePartyMonAilmentGfx(status, menuBox);
         gSprites[menuBox->statusSpriteId].oam.priority = 0;
     }
@@ -3116,7 +3115,7 @@ static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
     }
 }
 
-static void LoadPartyMenuAilmentGfx(void)
+void LoadPartyMenuAilmentGfx(void)
 {
     LoadCompressedSpriteSheet(&sSpriteSheet_StatusIcons);
     LoadCompressedSpritePalette(&sSpritePalette_StatusIcons);
@@ -3212,7 +3211,7 @@ u8 ShouldDisplayHMFieldMove(u8 fieldMove)
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 {
     u8 i, j;
-    u16 species = GetMonData(&mons[slotId], MON_DATA_SPECIES2);
+    u16 species = GetMonData(&mons[slotId], MON_DATA_SPECIES_OR_EGG);
     u8 abilityNum = GetMonData(&mons[slotId], MON_DATA_ABILITY_NUM);
     u16 ability = GetAbilityBySpecies(species, abilityNum);
     u8 *listsize = sPartyMenuInternal->actions;
@@ -3634,8 +3633,8 @@ static void SetSwitchedPartyOrderQuestLogEvent(void)
 {
     u16 *buffer = Alloc(2 * sizeof(u16));
 
-    buffer[0] = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES2);
-    buffer[1] = GetMonData(&gPlayerParty[gPartyMenu.slotId2], MON_DATA_SPECIES2);
+    buffer[0] = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES_OR_EGG);
+    buffer[1] = GetMonData(&gPlayerParty[gPartyMenu.slotId2], MON_DATA_SPECIES_OR_EGG);
     SetQuestLogEvent(QL_EVENT_SWITCHED_PARTY_ORDER, buffer);
     Free(buffer);
 }
@@ -4128,7 +4127,7 @@ static void CursorCB_Store(u8 taskId)
 // Register mon for the Trading Board in Union Room
 static void CursorCB_Register(u8 taskId)
 {
-    u16 species2 = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES2);
+    u16 species2 = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES_OR_EGG);
     u16 species = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES);
     u8 isEventLegal = TRUE;//GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_EVENT_LEGAL);
 
@@ -4155,7 +4154,7 @@ static void CursorCB_Register(u8 taskId)
 
 static void CursorCB_Trade1(u8 taskId)
 {
-    u16 species2 = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES2);
+    u16 species2 = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES_OR_EGG);
     u16 species = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES);
     u8 isEventLegal = TRUE;//GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_EVENT_LEGAL);
     u32 stringId = GetUnionRoomTradeMessageId(*(struct GFtgtGnameSub *)GetHostRFUtgtGname(), gPartnerTgtGnameSub, species2, gUnionRoomOfferedSpecies, gUnionRoomRequestedMonType, species, isEventLegal);
@@ -4438,7 +4437,7 @@ static void SetSwappedHeldItemQuestLogEvent(struct Pokemon *mon, u16 item, u16 i
 {
     u16 *ptr = Alloc(4 * sizeof(u16));
 
-    ptr[2] = GetMonData(mon, MON_DATA_SPECIES2);
+    ptr[2] = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
     ptr[0] = item;
     ptr[1] = item2;
     if (gPartyMenu.action == PARTY_ACTION_GIVE_PC_ITEM)
@@ -4459,7 +4458,7 @@ static void SetUsedFieldMoveQuestLogEvent(struct Pokemon *mon, u8 fieldMove)
 {
     struct FieldMoveWarpParams *ptr = Alloc(sizeof(*ptr));
 
-    ptr->species = GetMonData(mon, MON_DATA_SPECIES2);
+    ptr->species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
     ptr->fieldMove = fieldMove;
     switch (ptr->fieldMove)
     {
@@ -4492,7 +4491,7 @@ void SetUsedFlyQuestLogEvent(const u8 *healLocCtrlData)
     mapHeader = Overworld_GetMapHeaderByGroupAndId(ptr->mapGroup, ptr->mapNum);
     Free(ptr);
     ptr2 = Alloc(4);
-    ptr2->species = GetMonData(&gPlayerParty[GetCursorSelectionMonId()], MON_DATA_SPECIES2);
+    ptr2->species = GetMonData(&gPlayerParty[GetCursorSelectionMonId()], MON_DATA_SPECIES_OR_EGG);
     ptr2->fieldMove = FIELD_MOVE_FLY;
     ptr2->regionMapSectionId = mapHeader->regionMapSectionId;
     SetQuestLogEvent(QL_EVENT_USED_FIELD_MOVE, (u16 *)ptr2);

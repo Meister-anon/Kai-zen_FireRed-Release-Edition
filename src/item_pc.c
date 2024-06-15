@@ -798,7 +798,7 @@ static void ItemPc_MoveItemModeInit(u8 taskId, s16 pos)
 {
     s16 * data = gTasks[taskId].data;
 
-    ListMenuSetUnkIndicatorsStructField(data[0], 16, 1);
+    ListMenuSetTemplateField(data[0], 16, 1);
     data[1] = pos;
     sStateDataPtr->moveModeOrigPos = pos;
     StringCopy(gStringVar1, ItemId_GetName(ItemPc_GetItemIdBySlotId(data[1])));
@@ -1100,11 +1100,11 @@ static void ItemPc_InitWindows(void)
 
     InitWindows(sWindowTemplates);
     DeactivateAllTextPrinters();
-    TextWindow_SetUserSelectedFrame(0, 0x3C0, 0xE0);
-    TextWindow_SetStdFrame0_WithPal(0, 0x3A3, 0xC0);
+    LoadUserWindowGfx(0, 0x3C0, 0xE0);
+    LoadStdWindowGfx(0, 0x3A3, 0xC0);
     TextWindow_LoadResourcesStdFrame0(0, 0x3AC, 0xB0);
-    LoadPalette(stdpal_get(2), 0xD0, 0x20);
-    LoadPalette(gTMCaseMainWindowPalette, 0xF0, 0x20);
+    LoadPalette(GetTextWindowPalette(2), 0xD0, 0x20);
+    LoadPalette(gStandardMenuPalette, 0xF0, 0x20);
     for (i = 0; i < 3; i++)
     {
         FillWindowPixelBuffer(i, 0x00);

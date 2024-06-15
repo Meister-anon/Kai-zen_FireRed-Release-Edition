@@ -10,5 +10,6 @@ void sub_8175280(void);
 void CB2_InitHofPC(void);
 void HallOfFamePCBeginFade(void);
 void ReturnFromHallOfFamePC(void);
+void SetWarpsToRollCredits(void);
 
 #endif // GUARD_HALL_OF_FAME_H

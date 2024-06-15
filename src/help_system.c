@@ -9,11 +9,13 @@
 #include "event_data.h"
 #include "constants/songs.h"
 
+#define ZERO 0
+
 #if !defined(NONMATCHING) && MODERN
 #define static
 #endif
 
-extern u8 gGlyphInfo[];
+
 
 bool8 gHelpSystemEnabled;
 
@@ -379,6 +381,7 @@ void sub_813C004(u8 a0, u8 mode)
     do {DecompressAndRenderGlyph(font, character, &srcBlit, &destBlit, dest, x, y, width, height);} while (0); font;\
 })
 
+/*
 #ifdef NONMATCHING
 void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 width, u8 height)
 {
@@ -410,7 +413,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
                     if (gSaveBlock2Ptr->playerName[i] == EOS)
                         break;
                     HelpSystemHandleRenderGlyph(gSaveBlock2Ptr->playerName[i]);
-                    x += gGlyphInfo[0x80];
+                    x += gGlyphInfo.width;
                 }
             }
             else if (curChar == 2)
@@ -429,7 +432,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
                             break;
                         HelpSystemHandleRenderGlyph(gString_Someone[i]);
                     }
-                    x += gGlyphInfo[0x80];
+                    x += gGlyphInfo.width;
                 }
             }
             break;
@@ -437,7 +440,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
         case CHAR_PROMPT_CLEAR:
         case CHAR_NEWLINE:
             x = orig_x;
-            y += gGlyphInfo[0x81] + 1;
+            y += gGlyphInfo.height + 1;
             break;
         case EXT_CTRL_CODE_BEGIN:
             curChar = *src++;
@@ -498,7 +501,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
             BlitBitmapRect4Bit(&srcBlit, &destBlit, 0, 0, x, y, GetKeypadIconWidth(curChar), GetKeypadIconHeight(curChar), 0);
             x += GetKeypadIconWidth(curChar);
             break;
-        case CHAR_EXTRA_EMOJI:
+        case CHAR_EXTRA_SYMBOL:
             curChar = 0x100 | *src++;
             //fallthrough
         default:
@@ -512,7 +515,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
             else
             {
                 HelpSystemHandleRenderGlyph(curChar);
-                x += gGlyphInfo[0x80];
+                x += gGlyphInfo.width;
             }
             break;
         }
@@ -589,7 +592,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
                 "\tldrb r1, [r1]\n"
                 "\tcmp r1, 0xFF\n"
                 "\tbeq _0813C0AC_masterLoop\n"
-                "\tldr r5, _0813C150 @ =gGlyphInfo + 0x80\n"
+                "\tldr r5, _0813C150 @ =gGlyphInfo.pixels + 0x80\n"
                 "_0813C106:\n"
                 "\tldr r0, [r0]\n"
                 "\tadds r0, r4\n"
@@ -626,15 +629,15 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
                 "\tb _0813C0AC_masterLoop\n"
                 "\t.align 2, 0\n"
                 "_0813C14C: .4byte gSaveBlock2Ptr\n"
-                "_0813C150: .4byte gGlyphInfo + 0x80\n"
+                "_0813C150: .4byte gGlyphInfo.pixels + 0x80\n"
                 "_0813C154:\n"
                 "\tcmp r1, 0x2\n"
                 "\tbne _0813C0AC_masterLoop\n"
                 "\tmovs r4, 0\n"
-                "\tldr r5, _0813C160 @ =gGlyphInfo + 0x80\n"
+                "\tldr r5, _0813C160 @ =gGlyphInfo.pixels + 0x80\n"
                 "\tb _0813C1BC\n"
                 "\t.align 2, 0\n"
-                "_0813C160: .4byte gGlyphInfo + 0x80\n"
+                "_0813C160: .4byte gGlyphInfo.pixels + 0x80\n"
                 "_0813C164:\n"
                 "\tldrb r1, [r1]\n"
                 "\tldr r2, [sp, 0x28]\n"
@@ -912,6 +915,194 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
                 "\tbx r0");
 }
 #endif //NONMATCHING
+*/
+
+void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 width, u8 height)
+{
+    // fontId -> sp+24
+    // dest -> sp+28
+    // src -> r9
+    // x -> sp+34
+    // y -> r10
+    // width -> sp+2C
+    // height -> sp+30
+    struct Bitmap srcBlit;
+    struct Bitmap destBlit;
+    u8 orig_x = x;
+    u8 i = 0;
+    s32 clearPixels = 0;
+
+    while (1)
+    {
+        u16 curChar = *src;
+        src++;
+        switch (curChar)
+        {
+        case EOS:
+            return;
+        case CHAR_NEWLINE:
+            x = orig_x;
+            y += gGlyphInfo.height + 1;
+            break;
+        case PLACEHOLDER_BEGIN:
+            curChar = *src;
+            src++;
+            if (curChar == PLACEHOLDER_ID_PLAYER)
+            {
+                for (i = 0; i < 10; i++)
+                {
+                    if (gSaveBlock2Ptr->playerName[i] == EOS)
+                    {
+                        break;
+                    }
+                    DecompressAndRenderGlyph(fontId, gSaveBlock2Ptr->playerName[i], &srcBlit, &destBlit, dest, x, y, width, height);
+                    // This is required to match a dummy [sp+#0x24] read here
+                    if (fontId == FONT_SMALL)
+                    {
+                        x += gGlyphInfo.width;
+                    }
+                    else
+                    {
+                        x += gGlyphInfo.width + ZERO;
+                    }
+                }
+            }
+            else if (curChar == PLACEHOLDER_ID_STRING_VAR_1)
+            {
+                for (i = 0; ; i++)
+                {
+                    if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC) == TRUE)
+                    {
+                        if (gString_Bill[i] == EOS)
+                        {
+                            break;
+                        }
+                        DecompressAndRenderGlyph(fontId, gString_Bill[i], &srcBlit, &destBlit, dest, x, y, width, height);
+                    }
+                    else
+                    {
+                        if (gString_Someone[i] == EOS)
+                        {
+                            break;
+                        }
+                        DecompressAndRenderGlyph(fontId, gString_Someone[i], &srcBlit, &destBlit, dest, x, y, width, height);
+                    }
+                    if (fontId == FONT_SMALL)
+                    {
+                        x += gGlyphInfo.width;
+                    }
+                    else
+                    {
+                        x += gGlyphInfo.width + ZERO;
+                    }
+                }
+            }
+            break;
+        case CHAR_PROMPT_SCROLL:
+        case CHAR_PROMPT_CLEAR:
+            x = orig_x;
+            y += gGlyphInfo.height + 1;
+            break;
+        case EXT_CTRL_CODE_BEGIN:
+            curChar = *src;
+            src++;
+            switch (curChar)
+            {
+            case EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW:
+                src++;
+                //fallthrough
+            case EXT_CTRL_CODE_PLAY_BGM:
+            case EXT_CTRL_CODE_PLAY_SE:
+                src++;
+                //fallthrough
+            case EXT_CTRL_CODE_COLOR:
+            case EXT_CTRL_CODE_HIGHLIGHT:
+            case EXT_CTRL_CODE_SHADOW:
+            case EXT_CTRL_CODE_PALETTE:
+            case EXT_CTRL_CODE_FONT:
+            case EXT_CTRL_CODE_PAUSE:
+            case EXT_CTRL_CODE_ESCAPE:
+            case EXT_CTRL_CODE_SHIFT_RIGHT:
+            case EXT_CTRL_CODE_SHIFT_DOWN:
+                src++;
+            case EXT_CTRL_CODE_RESET_FONT:
+            case EXT_CTRL_CODE_PAUSE_UNTIL_PRESS:
+            case EXT_CTRL_CODE_WAIT_SE:
+            case EXT_CTRL_CODE_FILL_WINDOW:
+                break;
+            case EXT_CTRL_CODE_CLEAR:
+            case EXT_CTRL_CODE_SKIP:
+                src++;
+                break;
+            case EXT_CTRL_CODE_CLEAR_TEXT_TO:
+            case EXT_CTRL_CODE_CLEAR_TO:
+            {
+                clearPixels = *src + orig_x - x;
+
+                if (clearPixels > 0)
+                {
+                    destBlit.pixels = dest;
+                    destBlit.width = width * 8;
+                    destBlit.height = height * 8;
+                    FillBitmapRect4Bit(&destBlit, x, y, clearPixels, GetFontAttribute(fontId, FONTATTR_MAX_LETTER_HEIGHT), 0);
+                    x += clearPixels;
+                }
+                src++;
+                break;
+            }
+            case EXT_CTRL_CODE_MIN_LETTER_SPACING:
+                src++;
+                break;
+            case EXT_CTRL_CODE_JPN:
+            case EXT_CTRL_CODE_ENG:
+                break;
+            }
+            break;
+        case CHAR_KEYPAD_ICON:
+            curChar = *src;
+            src++;
+            srcBlit.pixels = (u8 *)&gKeypadIconTiles[0x20 * GetKeypadIconTileOffset(curChar)];
+            srcBlit.width = 0x80;
+            srcBlit.height = 0x80;
+            destBlit.pixels = dest;
+            destBlit.width = width * 8;
+            destBlit.height = height * 8;
+            BlitBitmapRect4Bit(&srcBlit, &destBlit, 0, 0, x, y, GetKeypadIconWidth(curChar), GetKeypadIconHeight(curChar), 0);
+            x += GetKeypadIconWidth(curChar);
+            break;
+        case CHAR_EXTRA_SYMBOL:
+            curChar = *src + 0x100;
+            src++;
+            //fallthrough
+        default:
+            if (curChar == CHAR_SPACE)
+            {
+                if (fontId == FONT_SMALL)
+                {
+                    x += 5;
+                }
+                else
+                {
+                    x += 4;
+                }
+            }
+            else
+            {
+                DecompressAndRenderGlyph(fontId, curChar, &srcBlit, &destBlit, dest, x, y, width, height);
+                if (fontId == FONT_SMALL)
+                {
+                    x += gGlyphInfo.width;
+                }
+                else
+                {
+                    x += gGlyphInfo.width + ZERO;
+                }
+            }
+            break;
+        }
+    }
+}
+
 
 void DecompressAndRenderGlyph(u8 font, u16 glyph, struct Bitmap *srcBlit, struct Bitmap *destBlit, u8 *destBuffer, u8 x, u8 y, u8 width, u8 height)
 {
@@ -921,13 +1112,13 @@ void DecompressAndRenderGlyph(u8 font, u16 glyph, struct Bitmap *srcBlit, struct
         DecompressGlyphFont5(glyph, FALSE);
     else
         DecompressGlyphFont2(glyph, FALSE);
-    srcBlit->pixels = gGlyphInfo;
+    srcBlit->pixels = gGlyphInfo.pixels;
     srcBlit->width = 16;
     srcBlit->height = 16;
     destBlit->pixels = destBuffer;
     destBlit->width = width * 8;
     destBlit->height = height * 8;
-    BlitBitmapRect4Bit(srcBlit, destBlit, 0, 0, x, y, gGlyphInfo[0x80], gGlyphInfo[0x81], 0);
+    BlitBitmapRect4Bit(srcBlit, destBlit, 0, 0, x, y, gGlyphInfo.width, gGlyphInfo.height, 0);
 }
 
 void HelpSystem_PrintText_Row61(const u8 * str)

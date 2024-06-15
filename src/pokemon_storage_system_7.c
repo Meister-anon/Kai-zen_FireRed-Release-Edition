@@ -162,7 +162,7 @@ static bool8 sub_8095234(void)
         if (!IsDma3ManagerBusyWithBgCopy())
         {
             sub_8094D40();
-            LoadPalette(stdpal_get(3), 0xD0, 0x20);
+            LoadPalette(GetTextWindowPalette(3), 0xD0, 0x20);
             ShowBg(0);
             return FALSE;
         }
@@ -268,7 +268,7 @@ static bool8 sub_80953BC(void)
     case 3:
         if (!IsDma3ManagerBusyWithBgCopy())
         {
-            LoadPalette(stdpal_get(3), 0xD0, 0x20);
+            LoadPalette(GetTextWindowPalette(3), 0xD0, 0x20);
             sub_8094D40();
             ShowBg(0);
             return FALSE;
@@ -395,7 +395,7 @@ static void sub_809566C(u8 arg0, u8 arg1, u8 arg2)
 static void sub_80956A4(u8 x, u8 y)
 {
     u8 position = x + (IN_BOX_ROWS * y);
-    u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES2);
+    u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES_OR_EGG);
     u32 personality = GetCurrentBoxMonData(position, MON_DATA_PERSONALITY);
 
     if (species != SPECIES_NONE)
@@ -420,7 +420,7 @@ static void sub_80956A4(u8 x, u8 y)
 static void sub_809572C(u8 x, u8 y)
 {
     u8 position = x + (IN_BOX_ROWS * y);
-    u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES2);
+    u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES_OR_EGG);
 
     if (species != SPECIES_NONE)
     {

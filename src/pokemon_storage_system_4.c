@@ -279,7 +279,7 @@ static u8 sub_8090058(void)
 void CreateMovingMonIcon(void)
 {
     u32 personality = GetMonData(&gPSSData->movingMon, MON_DATA_PERSONALITY);
-    u16 species = GetMonData(&gPSSData->movingMon, MON_DATA_SPECIES2);
+    u16 species = GetMonData(&gPSSData->movingMon, MON_DATA_SPECIES_OR_EGG);
     u8 priority = sub_8090058();
 
     gPSSData->movingMonSprite = CreateMonIconSprite(species, personality, 0, 0, priority, 7);
@@ -299,7 +299,7 @@ static void sub_80900D4(u8 boxId)
     {
         for (j = 0; j < IN_BOX_ROWS; j++)
         {
-            species = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_SPECIES2);
+            species = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_SPECIES_OR_EGG);
             if (species != SPECIES_NONE)
             {
                 personality = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_PERSONALITY);
@@ -326,7 +326,7 @@ static void sub_80900D4(u8 boxId)
 
 void sub_80901EC(u8 boxPosition)
 {
-    u16 species = GetCurrentBoxMonData(boxPosition, MON_DATA_SPECIES2);
+    u16 species = GetCurrentBoxMonData(boxPosition, MON_DATA_SPECIES_OR_EGG);
 
     if (species != SPECIES_NONE)
     {
@@ -532,7 +532,7 @@ static void SetBoxSpeciesAndPersonalities(u8 boxId)
     {
         for (j = 0; j < IN_BOX_ROWS; j++)
         {
-            gPSSData->boxSpecies[boxPosition] = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_SPECIES2);
+            gPSSData->boxSpecies[boxPosition] = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_SPECIES_OR_EGG);
             if (gPSSData->boxSpecies[boxPosition] != SPECIES_NONE)
                 gPSSData->boxPersonalities[boxPosition] = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_PERSONALITY);
             boxPosition++;
@@ -562,14 +562,14 @@ void SetBoxMonIconObjMode(u8 boxPosition, u8 objMode)
 void CreatePartyMonsSprites(bool8 arg0)
 {
     u16 i, count;
-    u16 species = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES2);
+    u16 species = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES_OR_EGG);
     u32 personality = GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY);
 
     gPSSData->partySprites[0] = CreateMonIconSprite(species, personality, 104, 64, 1, 12);
     count = 1;
     for (i = 1; i < PARTY_SIZE; i++)
     {
-        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2);
+        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
         if (species != SPECIES_NONE)
         {
             personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);

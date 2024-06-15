@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "gba/gba.h"
+#include "constants/rgb.h"
 #include <string.h>
 #include "constants/global.h"
 #include "constants/flags.h"
