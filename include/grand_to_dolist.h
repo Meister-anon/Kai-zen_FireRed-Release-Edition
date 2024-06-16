@@ -2356,6 +2356,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     fix give tm all, updatae tm case scroll logic,
     and begin tweak debug stuff for my changes
 
+    don't believe properly setup embargo/bandit king
+    code is in battle main adn util, but there isn't anythning aroudn
+    item data that actually stops using items...
+
+    early bird breaks self buffing status moves that activate same turn wake up
+    and seems cupids arrow is also broken, trigers move use and
+    freezes game
+
+    also seems logic to work no matter gender of enemy mon
+    isn't working
+
     got nuzlocke mode working,
     redid status batle effect updgrades
     fix oak speed strings

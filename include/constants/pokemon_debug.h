@@ -20,7 +20,7 @@
 #define MAX_Y_OFFSET 20
 
 //Pal Index
-#define MAX_PAL_INDEX 2
+#define MAX_PAL_INDEX 5 //added ee pallets so goes 0-5
 
 //Windows
 #define WIN_NAME_NUMBERS 0
