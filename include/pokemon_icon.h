@@ -34,4 +34,6 @@ u8 GetValidMonIconPalIndex(u16 species);
 void SafeLoadMonIconPalette(u16 species);
 void SafeFreeMonIconPalette(u16 species);
 
+void DebugLoadMonIconPalette(u8 palIndex); //value goes from 0-2
+
 #endif // GUARD_POKEMON_ICON_H

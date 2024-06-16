@@ -2741,6 +2741,12 @@ void LoadMonIconPalette(u16 species)
         LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
 }
 
+void DebugLoadMonIconPalette(u8 palIndex)
+{
+    if (IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag) == 0xFF)
+        LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
+}
+
 void FreeMonIconPalettes(void)
 {
     u8 i;

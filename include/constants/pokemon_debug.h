@@ -19,6 +19,9 @@
 //Sprite offset
 #define MAX_Y_OFFSET 20
 
+//Pal Index
+#define MAX_PAL_INDEX 2
+
 //Windows
 #define WIN_NAME_NUMBERS 0
 #define WIN_INSTRUCTIONS 1

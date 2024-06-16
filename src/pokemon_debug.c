@@ -266,6 +266,15 @@ static void Handle_Input_Debug_Pokemon(u8);
 static void ReloadPokemonSprites(struct PokemonDebugMenu *data);
 static void Exit_Debug_Pokemon(u8);
 
+
+enum subMenu_Constants {
+    MonID_Selection,
+    BG_SubMenu,
+    MonPic_Coord_Menu,
+    IconPal_SubMenu
+
+};
+
 //Text handling functions
 static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
 {
@@ -273,8 +282,10 @@ static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
     u8 x = 2;
     u8 textInstructions[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Exit  {A_BUTTON} Submenu 1$");
     u8 textInstructionsSubmenuOne[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Submenu 2$");
-    u8 textInstructionsSubmenuTwo[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back$");
+    u8 textInstructionsSubmenuTwo[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Submenu 3$");
+    u8 textInstructionsSubmenuThree[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back$");
     u8 textBottom[] = _("BG:$");
+    u8 textPal[] = _("Pal Index:");
     u8 textBottomSubmenuTwo[] = _("B coords:\nF coords:\nF elev:");
     u16 species = data->modifyArrows.currValue;
     u8 textL[] = _("{L_BUTTON}");
@@ -283,21 +294,25 @@ static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
     //Instruction window
     FillWindowPixelBuffer(WIN_INSTRUCTIONS, 0x11);
 
-    if (data->currentSubmenu == 0)
+    if (data->currentSubmenu == MonID_Selection)
         AddTextPrinterParameterized(WIN_INSTRUCTIONS, fontId, textInstructions, x, 0, 0, NULL);
-    else if (data->currentSubmenu == 1)
+    else if (data->currentSubmenu == BG_SubMenu)
         AddTextPrinterParameterized(WIN_INSTRUCTIONS, fontId, textInstructionsSubmenuOne, x, 0, 0, NULL);
-    else if (data->currentSubmenu == 2)
+    else if (data->currentSubmenu == MonPic_Coord_Menu)
         AddTextPrinterParameterized(WIN_INSTRUCTIONS, fontId, textInstructionsSubmenuTwo, x, 0, 0, NULL);
+    else if (data->currentSubmenu == IconPal_SubMenu)
+        AddTextPrinterParameterized(WIN_INSTRUCTIONS, fontId, textInstructionsSubmenuThree, x, 0, 0, NULL);
 
     CopyWindowToVram(WIN_INSTRUCTIONS, COPYWIN_BOTH);
 
     //Bottom text
     FillWindowPixelBuffer(WIN_BOTTOM_LEFT, PIXEL_FILL(0));
-    if (data->currentSubmenu != 2)
+    if (data->currentSubmenu < MonPic_Coord_Menu)
         AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textBottom, 0, 0, 0, NULL);
-    else
+    else if (data->currentSubmenu == MonPic_Coord_Menu)
         AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textBottomSubmenuTwo, 0, 0, 0, NULL);
+     else if (data->currentSubmenu == IconPal_SubMenu)
+        AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textPal, 0, 0, 0, NULL);
 }
 
 static void VBlankCB(void)
@@ -383,19 +398,20 @@ static void SetArrowInvisibility(struct PokemonDebugMenu *data)
 {
     switch (data->currentSubmenu)
     {
-    case 0:
+    case MonID_Selection:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = FALSE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = FALSE;
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->yPosModifyArrows.arrowSpriteId[0]].invisible = TRUE;
         break;
-    case 1:
+    case BG_SubMenu:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = TRUE;
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = FALSE;
         gSprites[data->yPosModifyArrows.arrowSpriteId[0]].invisible = TRUE;
         break;
-    case 2:
+    case IconPal_SubMenu:
+    case MonPic_Coord_Menu:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = TRUE;
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = TRUE;
@@ -645,6 +661,19 @@ static void LoadAndCreateEnemyShadowSpriteCustom(struct PokemonDebugMenu *data, 
     gSprites[data->frontShadowSpriteId].invisible = invisible;
 }
 
+static void SetConstIconPalValues(struct PokemonDebugMenu *data)
+{
+    u16 species = data->currentmonId;
+    data->constIconPalValues.paletteIndex = gMonIconPaletteIndices[species];
+}
+
+
+static void ResetOffsetIconPalValues(struct PokemonDebugMenu *data)
+{
+    u16 species = data->currentmonId;
+    data->offsetIconPalValues.offset_paletteIndex = gMonIconPaletteIndices[species];
+}
+
 //Tile functions (footprints)
 static void DrawFootprintCustom(u8 windowId, u16 species) //not using
 {
@@ -862,32 +891,53 @@ static void UpdateYPosOffsetText(struct PokemonDebugMenu *data)
     u8 newFrontPicCoords   = frontPicCoords  +  offset_front_picCoords;
     u8 newFrontElevation   = frontElevation  +  offset_front_elevation;
 
+    u8 iconPalIndex = data->constIconPalValues.paletteIndex;
+
+    s8 offset_iconPalIndex = data->offsetIconPalValues.offset_paletteIndex;
+
+    u8 newIconPalIndex = offset_iconPalIndex;
+
     FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
 
-    //Back
-    y = 0;
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 0, y, 0, NULL);
-    ConvertIntToDecimalStringN(text, backPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val, y, 0, NULL);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
-    ConvertIntToDecimalStringN(text, newBackPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
-    //Front picCoords
-    y = 12;
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 0, y, 0, NULL);
-    ConvertIntToDecimalStringN(text, frontPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val, y, 0, NULL);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
-    ConvertIntToDecimalStringN(text, newFrontPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
-    //Front elevation
-    y = 24;
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 0, y, 0, NULL);
-    ConvertIntToDecimalStringN(text, frontElevation , STR_CONV_MODE_LEFT_ALIGN, 2);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val, y, 0, NULL);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
-    ConvertIntToDecimalStringN(text, newFrontElevation , STR_CONV_MODE_LEFT_ALIGN, 2);
-    AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
+    if (data->currentSubmenu == MonPic_Coord_Menu)
+    {
+        //Back
+        y = 0;
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 0, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, backPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val, y, 0, NULL);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, newBackPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
+        //Front picCoords
+        y = 12;
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 0, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, frontPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val, y, 0, NULL);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, newFrontPicCoords , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
+        //Front elevation
+        y = 24;
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 0, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, frontElevation , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val, y, 0, NULL);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, newFrontElevation , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
+    }
+    else if (data->currentSubmenu == IconPal_SubMenu)
+    {
+        y = 0;
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textConst, 5, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, iconPalIndex , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_const_val + 5, y, 0, NULL);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, textNew, x_new_text, y, 0, NULL);
+        ConvertIntToDecimalStringN(text, newIconPalIndex , STR_CONV_MODE_LEFT_ALIGN, 2);
+        AddTextPrinterParameterized(WIN_BOTTOM_RIGHT, fontId, text, x_new_val, y, 0, NULL);
+        
+
+    }
 }
 
 static void ResetPokemonDebugWindows(void)
@@ -1102,7 +1152,7 @@ static void ApplyOffsetSpriteValues(struct PokemonDebugMenu *data)
     //Front
     gSprites[data->frontspriteId].pos1.y = GetBattlerSpriteFinal_YCustom(species, data->offsetsSpriteValues.offset_front_picCoords, data->offsetsSpriteValues.offset_front_elevation);
 
-    if (data->currentSubmenu == 2)
+    if (data->currentSubmenu == MonPic_Coord_Menu)
         UpdateShadowSpriteInvisible(data);
 }
 
@@ -1125,7 +1175,7 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
 {
     struct PokemonDebugMenu *data = GetStructPtr(taskId);
     u16 species = data->currentmonId;
-    u8 option = data->submenuYpos[2];
+    u8 option = data->submenuYpos[2]; //is for num rows in sub menu
     s8 offset;
     u8 y;
 
@@ -1196,6 +1246,45 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
     UpdateYPosOffsetText(data);
 }
 
+
+static void UpdateSubmenuThreeOptionValue(u8 taskId, bool8 increment)
+{
+    struct PokemonDebugMenu *data = GetStructPtr(taskId);
+    u16 species = data->currentmonId;
+    u8 option = data->submenuYpos[1];
+    s8 offset;
+    u8 y;
+
+    switch (option)
+    {
+    case 0:
+        offset = data->offsetIconPalValues.offset_paletteIndex;
+        if (increment)
+        {
+            if (offset == MAX_PAL_INDEX)
+                offset = 0;
+            else
+                offset += 1;
+        }
+        else
+        {
+            if (offset == 0)
+                offset = MAX_PAL_INDEX;
+            else 
+                offset -= 1;
+        }
+        data->offsetIconPalValues.offset_paletteIndex = offset;
+        break;
+    default:
+        break;
+
+    }
+
+    UpdateYPosOffsetText(data);
+    FreeMonIconPalettes();
+    DebugLoadMonIconPalette(offset);
+}
+
 #define READ_PTR_FROM_TASK(taskId, dataId)                      \
     (void *)(                                                   \
     ((u16)(gTasks[taskId].data[dataId]) |                       \
@@ -1229,11 +1318,11 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
         PlayCry_Normal(data->currentmonId, 0);
     }
 
-    if (data->currentSubmenu == 0)
+    if (data->currentSubmenu == MonID_Selection)
     {
         if (JOY_NEW(A_BUTTON))
         {
-            data->currentSubmenu = 1;
+            data->currentSubmenu = BG_SubMenu;
             SetArrowInvisibility(data);
             PrintInstructionsOnWindow(data);
         }
@@ -1251,6 +1340,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
                 UpdateBattlerValue(data);
                 ReloadPokemonSprites(data);
                 ResetOffsetSpriteValues(data);
+                ResetOffsetIconPalValues(data);
             }
             PlaySE(SE_DEX_SCROLL);
             VBlankIntrWait();
@@ -1263,6 +1353,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
                 UpdateBattlerValue(data);
                 ReloadPokemonSprites(data);
                 ResetOffsetSpriteValues(data);
+                ResetOffsetIconPalValues(data);
             }
             
             PlaySE(SE_DEX_SCROLL);
@@ -1287,11 +1378,11 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
         }
 
     }
-    else if (data->currentSubmenu == 1) //Submenu 1
+    else if (data->currentSubmenu == BG_SubMenu) //Submenu 1
     {
         if (JOY_NEW(A_BUTTON))
         {
-            data->currentSubmenu = 2;
+            data->currentSubmenu = MonPic_Coord_Menu;
             PrintInstructionsOnWindow(data);
             SetArrowInvisibility(data);
             SetConstSpriteValues(data);
@@ -1299,7 +1390,7 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
         }
         else if (JOY_NEW(B_BUTTON))
         {
-            data->currentSubmenu = 0;
+            data->currentSubmenu = MonID_Selection;
             //todo check on this
             if (data->submenuYpos[1] == 3)
             {
@@ -1319,11 +1410,20 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             UpdateSubmenuOneOptionValue(taskId, TRUE);
         }
     }
-    else if (data->currentSubmenu == 2) //Submenu 2
+    else if (data->currentSubmenu == MonPic_Coord_Menu) //Submenu 2
     {
+        if (JOY_NEW(A_BUTTON))
+        {
+            data->currentSubmenu = IconPal_SubMenu;
+            PrintInstructionsOnWindow(data);
+            SetArrowInvisibility(data);
+            SetConstIconPalValues(data);
+            ResetOffsetIconPalValues(data); //should already be set but not displaying right, showing 0 not curr value
+            UpdateYPosOffsetText(data);
+        }
         if (JOY_NEW(B_BUTTON))
         {
-            data->currentSubmenu = 1;
+            data->currentSubmenu = BG_SubMenu;
             FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
             PrintBattleBgName(taskId);
             SetArrowInvisibility(data);
@@ -1355,6 +1455,30 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
         else if (JOY_NEW(DPAD_RIGHT))
         {
             UpdateSubmenuTwoOptionValue(taskId, TRUE);
+        }
+    }
+    else if (data->currentSubmenu == IconPal_SubMenu) //Submenu 3
+    {
+
+        if (JOY_NEW(B_BUTTON))
+        {
+            data->currentSubmenu = MonPic_Coord_Menu;
+            FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
+            ResetOffsetIconPalValues(data);
+            FreeMonIconPalettes();
+            LoadMonIconPalette(data->currentmonId);
+            UpdateYPosOffsetText(data); //think this right
+            SetArrowInvisibility(data);//not sure what but got it working now
+            PrintInstructionsOnWindow(data);
+        }
+       
+        else if (JOY_NEW(DPAD_LEFT))
+        {
+            UpdateSubmenuThreeOptionValue(taskId, FALSE);
+        }
+        else if (JOY_NEW(DPAD_RIGHT))
+        {
+            UpdateSubmenuThreeOptionValue(taskId, TRUE);
         }
     }
 }

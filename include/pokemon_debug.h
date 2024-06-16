@@ -43,6 +43,16 @@ struct PokemonSpriteOffsets
     s8 offset_front_elevation;
 };
 
+struct PokemonIconPalIndexConstValues
+{
+    u8 paletteIndex;
+};
+
+struct PokemonPokemonIconPalIndexOffsets
+{
+    s8 offset_paletteIndex;
+};
+
 struct PokemonDebugMenu
 {
     u16 currentmonId;
@@ -58,6 +68,8 @@ struct PokemonDebugMenu
     struct PokemonDebugYPosModifiyArrows yPosModifyArrows;
     struct PokemonSpriteConstValues constSpriteValues;
     struct PokemonSpriteOffsets offsetsSpriteValues;
+    struct PokemonIconPalIndexConstValues constIconPalValues;
+    struct PokemonPokemonIconPalIndexOffsets offsetIconPalValues;
     u8 battleBgType;
     u8 battleTerrain;
     u8 currentSubmenu;
