@@ -2830,9 +2830,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_ROCK_HEAD, ABILITY_STURDY},
+        .abilities = {ABILITY_ROCK_HEAD, ABILITY_SOLID_ROCK},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_SAND_RUSH},
+            .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_STURDY}, //facepalm can't believe didn't think to give solid rock
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,

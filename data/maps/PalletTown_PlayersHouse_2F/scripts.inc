@@ -26,7 +26,7 @@ PalletTown_PlayersHouse_2F_EventScript_NES:: @ 8168CD2
 	@givemon SPECIES_HATENNA, 5, ITEM_NONE @for early game testing, now testing palette indecees
 	@givemon SPECIES_ZUBAT, 5, ITEM_NONE  @special gift for roni
 	@giveitem ITEM_THUNDER_STONE, 1
-	givegroup 12	@for playtest to let players see more of the options
+	@givegroup 12	@for playtest to let players see more of the options
 	@givemon SPECIES_NONE, 3, ITEM_NONE @for early game testing, now testing palette indecees
 	@givemon2 SPECIES_MORGREM, 5, ITEM_NONE @for early game testing, testing castform forecast changes
 	@givemon2 SPECIES_NIDOQUEEN, 40, ITEM_NONE @for early game testing, @distro move commit test
@@ -34,8 +34,6 @@ PalletTown_PlayersHouse_2F_EventScript_NES:: @ 8168CD2
 
 PalletTown_PlayersHouse_2F_EventScript_Sign:: @ 8168CDB
 	msgbox PalletTown_PlayersHouse_2F_Text_PressLRForHelp, MSGBOX_SIGN
-	givemon SPECIES_CASTFORM, 3, ITEM_NONE
-	givemon SPECIES_VULPIX_ALOLAN, 3, ITEM_NONE
 	end
 
 PalletTown_PlayersHouse_2F_EventScript_PC:: @ 8168CE4

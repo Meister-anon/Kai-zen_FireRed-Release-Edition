@@ -7218,7 +7218,8 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         }
     }
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
-        && (gBattleMoves[move].power <= 60 || gDynamicBasePower <= 60)) //added dynamic for moves like hidden power
+        && (gBattleMoves[move].power <= 60 || gDynamicBasePower <= 60) //added dynamic for moves like hidden power
+        && gBattleMoves[gCurrentMove].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
     {
         gProtectStructs[battlerId].NuisanceElevated = TRUE;
         priority += 3;
