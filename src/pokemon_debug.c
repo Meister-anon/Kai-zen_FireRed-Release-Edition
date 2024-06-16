@@ -1464,6 +1464,9 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
             data->currentSubmenu = MonID_Selection;
             FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
             PrintBattleBgName(taskId);
+            ResetOffsetIconPalValues(data);
+            FreeMonIconPalettes();
+            LoadMonIconPalette(data->currentmonId);
             SetArrowInvisibility(data);
             PrintInstructionsOnWindow(data);
         }
