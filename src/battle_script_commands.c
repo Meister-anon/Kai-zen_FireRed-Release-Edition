@@ -13268,6 +13268,7 @@ static void atk81_trysetrest(void) //would be useful to track if sleep was set w
             gBattleCommunication[MULTISTRING_CHOOSER] = 1;
         else
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        gBattleMons[gBattlerTarget].status1 = STATUS1_SLEEP;
         gDisableStructs[gBattlerTarget].SleepTimer = 3; //sleep turns rest is fixed
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
@@ -13315,15 +13316,23 @@ bool8 UproarWakeUpCheck(u8 battlerId)
         return TRUE;
 }
 
-static void atk84_jumpifcantmakeasleep(void)
+static void atk84_jumpifcantmakeasleep(void) //vsonic keep an eye on/check EE
 {
     const u8 *jumpPtr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+    u16 ability = GetBattlerAbility(gBattlerTarget);
 
     if (UproarWakeUpCheck(gBattlerTarget))
     {
         gBattlescriptCurrInstr = jumpPtr;
     }
-    else if (!(CanSleep(gBattlerTarget)))
+    else if (ability == ABILITY_INSOMNIA
+        || ability == ABILITY_VITAL_SPIRIT
+        || ability == ABILITY_COMATOSE
+        || gSideStatuses[GetBattlerSide(gBattlerTarget)] & SIDE_STATUS_SAFEGUARD
+        || IsAbilityOnSide(gBattlerTarget, ABILITY_SWEET_VEIL)
+        || IsAbilityOnSide(gBattlerTarget, ABILITY_AURA_OF_LIGHT)
+        || IsAbilityStatusProtected(gBattlerTarget)
+        || IsBattlerTerrainAffected(gBattlerTarget, STATUS_FIELD_ELECTRIC_TERRAIN | STATUS_FIELD_MISTY_TERRAIN))
     {
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
         gBattleCommunication[MULTISTRING_CHOOSER] = 2;

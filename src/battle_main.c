@@ -7155,7 +7155,8 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
 
 
     if (GetBattlerAbility(battlerId) == ABILITY_GALE_WINGS
-        && gBattleMoves[move].type == TYPE_FLYING)
+        && gBattleMoves[move].type == TYPE_FLYING
+        && (gBattleMons[battlerId].hp > (gBattleMons[battlerId].maxHP / 2)))
     {
         gProtectStructs[battlerId].galewingsElevated = TRUE;
         priority++;

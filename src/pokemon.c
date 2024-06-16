@@ -3452,8 +3452,8 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
         if ((learnset[i].level) > level)
             continue;
 
-        //if (learnset[i].level == 0)  //think remove this so mon gets evo move 
-        //    continue;
+        if (learnset[i].level == 0)  //think remove this so mon gets evo move 
+           continue; //put back think cause glitch w move learn otherwise
 
         if (moves[addedMoves] != (learnset[i].move))
             moves[addedMoves++] = (learnset[i].move);

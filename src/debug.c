@@ -3295,7 +3295,12 @@ static void DebugAction_Fill_PCBoxes_Fast(u8 taskId) //Credit: Sierraffinity
     u8 speciesName[POKEMON_NAME_LENGTH + 1];
     u8 level = 100;
 
+    level = GetAveragePlayerPartyLevel();
+
     personality = Random32();
+    //think I get this now, its faast because it runs most boxmon stuff once,
+    //instead of putting it in the loop, so all the values are the same for every mon
+    //other than their species and move
     CreateBoxMon(&boxMon, species, level, USE_RANDOM_IVS, FALSE, personality, OT_ID_PLAYER_ID, 0);
     species = SPECIES_BULBASAUR;
     for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
