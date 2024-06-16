@@ -283,7 +283,7 @@ static void PrintInstructionsOnWindow(struct PokemonDebugMenu *data)
     u8 textInstructions[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Exit  {A_BUTTON} Submenu 1$");
     u8 textInstructionsSubmenuOne[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Submenu 2$");
     u8 textInstructionsSubmenuTwo[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Submenu 3$");
-    u8 textInstructionsSubmenuThree[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back$");
+    u8 textInstructionsSubmenuThree[] = _("{START_BUTTON} Shiny {SELECT_BUTTON} Cry\n{B_BUTTON} Back  {A_BUTTON} Main menu$");
     u8 textBottom[] = _("BG:$");
     u8 textPal[] = _("Pal Index:");
     u8 textBottomSubmenuTwo[] = _("B coords:\nF coords:\nF elev:");
@@ -404,13 +404,13 @@ static void SetArrowInvisibility(struct PokemonDebugMenu *data)
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->yPosModifyArrows.arrowSpriteId[0]].invisible = TRUE;
         break;
+    case IconPal_SubMenu:
     case BG_SubMenu:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = TRUE;
         gSprites[data->optionArrows.arrowSpriteId[0]].invisible = FALSE;
         gSprites[data->yPosModifyArrows.arrowSpriteId[0]].invisible = TRUE;
         break;
-    case IconPal_SubMenu:
     case MonPic_Coord_Menu:
         gSprites[data->modifyArrows.arrowSpriteId[0]].invisible = TRUE;
         gSprites[data->modifyArrows.arrowSpriteId[1]].invisible = TRUE;
@@ -1459,8 +1459,15 @@ static void Handle_Input_Debug_Pokemon(u8 taskId)
     }
     else if (data->currentSubmenu == IconPal_SubMenu) //Submenu 3
     {
-
-        if (JOY_NEW(B_BUTTON))
+        if (JOY_NEW(A_BUTTON))
+        {
+            data->currentSubmenu = MonID_Selection;
+            FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
+            PrintBattleBgName(taskId);
+            SetArrowInvisibility(data);
+            PrintInstructionsOnWindow(data);
+        }
+        else if (JOY_NEW(B_BUTTON))
         {
             data->currentSubmenu = MonPic_Coord_Menu;
             FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
