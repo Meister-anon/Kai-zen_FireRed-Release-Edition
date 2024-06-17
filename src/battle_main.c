@@ -1300,8 +1300,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
-    else if ((gBattleMoves[move].type != TYPE_NORMAL)
-             && (move != MOVE_HIDDEN_POWER
+    else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
@@ -1461,9 +1460,8 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
         gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
     }
-    else if ((gBattleMoves[move].type != TYPE_NORMAL)
-             && (move != MOVE_HIDDEN_POWER
-             && move != MOVE_WEATHER_BALL
+    else if ((move != MOVE_HIDDEN_POWER
+             && move != MOVE_WEATHER_BALL //note was before changed type calc, 
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth

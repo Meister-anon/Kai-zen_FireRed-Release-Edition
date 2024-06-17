@@ -99,7 +99,7 @@
 #define ABILITY_HYDRATION 93
 #define ABILITY_SOLAR_POWER 94
 #define ABILITY_QUICK_FEET 95
-#define ABILITY_NORMALIZE 96
+#define ABILITY_NORMALIZE 96 //gets power boost + stab, but always neutral dmg, have to give to weak mon, is pretty much huge power
 #define ABILITY_SNIPER 97
 #define ABILITY_MAGIC_GUARD 98
 #define ABILITY_NO_GUARD 99
