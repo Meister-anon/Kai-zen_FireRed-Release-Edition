@@ -6606,7 +6606,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             gBattleMons[battler].statStages[STAT_ATK] -= 2;    //should lower stat by 2 i.e 50% 
                             if (gBattleMons[battler].statStages[STAT_ATK] < 0)
                                 gBattleMons[battler].statStages[STAT_ATK] = 0;
-                            gBattleScripting.animArg1 = 0x11;
+                            gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED; //speed boost
                             gBattleScripting.animArg2 = 0;
                             gBattleScripting.battler = battler;
                         }
@@ -6615,7 +6615,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             gBattleMons[battler].statStages[STAT_SPATK] -= 2;    //should lower stat by 2 i.e 50% 
                             if (gBattleMons[battler].statStages[STAT_SPATK] < 0)
                                 gBattleMons[battler].statStages[STAT_SPATK] = 0;
-                            gBattleScripting.animArg1 = 0x11;
+                            gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
                             gBattleScripting.animArg2 = 0;
                             gBattleScripting.battler = battler;
                         }
@@ -6828,8 +6828,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     if (gBattleMons[battler].statStages[STAT_SPEED] < MAX_STAT_STAGE && gDisableStructs[battler].isFirstTurn != 2)
                     {
                         ++gBattleMons[battler].statStages[STAT_SPEED];
-                        gBattleScripting.animArg1 = 0x11; //find what this is referencing so I don't accidentally break,
-                        gBattleScripting.animArg2 = 0;
+                        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED; //find what this is referencing so I don't accidentally break,
+                        gBattleScripting.animArg2 = 0; //figured out
                         BattleScriptPushCursorAndCallback(BattleScript_SpeedBoostActivates);
                         gBattleScripting.battler = battler;
                         ++effect;
@@ -7297,7 +7297,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             gBattleMons[battler].statStages[STAT_ATK] -= 2;    //should lower stat by 2 i.e 50% 
                             if (gBattleMons[battler].statStages[STAT_ATK] < 0)
                                 gBattleMons[battler].statStages[STAT_ATK] = 0;
-                            gBattleScripting.animArg1 = 0x11;
+                            gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
                             gBattleScripting.animArg2 = 0;
                             gBattleScripting.battler = battler;
                         }
@@ -7306,7 +7306,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             gBattleMons[battler].statStages[STAT_SPATK] -= 2;    //should lower stat by 2 i.e 50% 
                             if (gBattleMons[battler].statStages[STAT_SPATK] < 0)
                                 gBattleMons[battler].statStages[STAT_SPATK] = 0;
-                            gBattleScripting.animArg1 = 0x11;
+                            gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
                             gBattleScripting.animArg2 = 0;
                             gBattleScripting.battler = battler;
                         }
@@ -8790,7 +8790,7 @@ static u8 StatRaiseBerry(u8 battlerId, u16 itemId, u8 statId, bool32 end2)
         else
             SET_STATCHANGER(statId, 1, FALSE);
 
-        gBattleScripting.animArg1 = 14 + statId;
+        gBattleScripting.animArg1 = STAT_ANIM_PLUS1  + statId;
         gBattleScripting.animArg2 = 0;
 
         if (end2)
@@ -8841,7 +8841,7 @@ static u8 RandomStatRaiseBerry(u8 battlerId, u16 itemId, bool32 end2)
         else
             SET_STATCHANGER(i + 1, 2, FALSE);
 
-        gBattleScripting.animArg1 = 0x21 + i + 6;
+        gBattleScripting.animArg1 = STAT_ANIM_PLUS2 + i + 1;
         gBattleScripting.animArg2 = 0;
         if (end2)
         {
@@ -8894,7 +8894,7 @@ static u8 DamagedStatBoostBerryEffect(u8 battlerId, u8 statId, u8 split)
         else
             SET_STATCHANGER(statId, 1, FALSE);
 
-        gBattleScripting.animArg1 = 14 + statId;
+        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + statId;
         gBattleScripting.animArg2 = 0;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_BerryStatRaiseRet;
@@ -8911,7 +8911,7 @@ u8 TryHandleSeed(u8 battler, u32 terrainFlag, u8 statId, u16 itemId, bool32 exec
         gLastUsedItem = itemId; // For surge abilities
         gEffectBattler = gBattleScripting.battler = battler;
         SET_STATCHANGER(statId, 1, FALSE);
-        gBattleScripting.animArg1 = 14 + statId;
+        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + statId;
         gBattleScripting.animArg2 = 0;
         if (execute)
         {
@@ -8934,7 +8934,7 @@ bool32 TryRoomService(u8 battlerId)
         BufferStatChange(battlerId, STAT_SPEED, STRINGID_STATFELL);
         gEffectBattler = gBattleScripting.battler = battlerId;
         SET_STATCHANGER(STAT_SPEED, 1, TRUE);
-        gBattleScripting.animArg1 = 14 + STAT_SPEED;
+        gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
         gBattleScripting.animArg2 = 0;
         gLastUsedItem = gBattleMons[battlerId].item;
         return TRUE;
