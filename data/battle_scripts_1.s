@@ -10031,7 +10031,7 @@ BattleScript_CupidsArrowActivates::
 	status2animation BS_TARGET, STATUS2_INFATUATION
 	printstring STRINGID_CUPIDSARROWSTRUCK
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	return
+	end3
 
 BattleScript_GooeyActivates::
 	waitstate

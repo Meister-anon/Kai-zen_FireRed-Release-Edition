@@ -2365,7 +2365,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     freezes game
 
     also seems logic to work no matter gender of enemy mon
-    isn't working
+    isn't working   
+
+    need update icon graphics as well, EE has newer things for gen 8+ stuff and forms
+
+    fixed early bird , cupid's arrow seem work now
 
     got nuzlocke mode working,
     redid status batle effect updgrades
