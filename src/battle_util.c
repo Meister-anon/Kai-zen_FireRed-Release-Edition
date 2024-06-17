@@ -3862,6 +3862,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                     else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_EARLY_BIRD
                         && Random() % 4 == 0)
                     {
+                        gDisableStructs[gBattlerAttacker].SleepTimer = 0;
                         gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP); //ok this was my buff I gabe earlybird a chance to immediately wake up
                     } //still not great, what will do is like being refreshed, will boost a random stat when wakes up
                     else
@@ -3901,10 +3902,12 @@ u8 AtkCanceller_UnableToUseMove(void)
                                     gBattleMons[gBattlerAttacker].statStages[i] = DEFAULT_STAT_STAGE;
                             }//sets stat to raise, and cleanse lowered stats
 
+                            if (gBattleScripting.statChanger != 0) //works, keeps things a little cleaner at least
+                            gBattleScripting.savedStatChanger = gBattleScripting.statChanger;
 
                             if (validToRaise != 0) // Can lower one stat, or can raise one stat
                             {
-                                gBattleScripting.statChanger = gBattleScripting.savedStatChanger = 0; // for raising and lowering stat respectively
+                                gBattleScripting.statChanger /*= gBattleScripting.savedStatChanger*/ = 0; // for raising and lowering stat respectively
                                 if (validToRaise != 0) // Find stat to raise
                                 {
                                     do
@@ -3921,10 +3924,11 @@ u8 AtkCanceller_UnableToUseMove(void)
                         }//works
                         else
                         {
-                            BattleScriptPushCursor();
+                            BattleScriptPushCursor(); //executes woke up script then returns to attack cancel of main bs
                             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
                             gBattlescriptCurrInstr = BattleScript_MoveUsedWokeUp;
-
+                            //to make work will need edit all stat move scripts that start w setstatchanger to push stat to savedstatchanger
+                            //then copy back to statchange after looks like its fixed
                         }
 
                         effect = 2;

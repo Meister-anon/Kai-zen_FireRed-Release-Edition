@@ -5466,8 +5466,8 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 75, 85, 53, 135, 95),
         .type1 = TYPE_GRASS,
-        .type2 = TYPE_FIRE,
-        .catchRate = 120,
+        .type2 = TYPE_NORMAL, //zenmode yt may keep this normal too?
+        .catchRate = 120, //can still keep fire moves
         .expYield = 149,
         //.evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
@@ -6895,7 +6895,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_BLAZE, ABILITY_GUTS},
-        .abilityHidden = {ABILITY_STEAM_ENGINE, ABILITY_FLASH_FIRE},
+        .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_FLASH_FIRE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,

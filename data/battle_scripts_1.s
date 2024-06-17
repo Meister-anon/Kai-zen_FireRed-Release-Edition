@@ -2997,10 +2997,18 @@ BattleScript_EffectAccuracyUp:
 	setstatchanger STAT_ACC, 1, FALSE
 	goto BattleScript_EffectStatUp
 
+
+@ Cant compare directly to a value, have to compare to value at pointer
+sZero:
+.byte 0
+
+
 BattleScript_EffectEvasionUp::
 	setstatchanger STAT_EVASION, 1, FALSE
 BattleScript_EffectStatUp::
 	attackcanceler
+	jumpifbyteequal sSAVED_STAT_CHANGER, sZero, BattleScript_EffectStatUpAfterAtkCanceler
+	copybyte sSTATCHANGER, sSAVED_STAT_CHANGER
 BattleScript_EffectStatUpAfterAtkCanceler::
 	attackstring
 	ppreduce
@@ -3079,6 +3087,9 @@ BattleScript_EffectEvasionDown::
 	setstatchanger STAT_EVASION, 1, TRUE
 BattleScript_EffectStatDown::
 	attackcanceler
+	jumpifbyteequal sSAVED_STAT_CHANGER, sZero, BattleScript_EffectStatDownAfterAtkCanceler
+	copybyte sSTATCHANGER, sSAVED_STAT_CHANGER
+BattleScript_EffectStatDownAfterAtkCanceler:
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailedAtkStringPpReduce
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 BattleScript_StatDownFromAttackString::
@@ -8300,8 +8311,8 @@ BattleScript_DefeatistActivates::
 	end3
 
 @ Cant compare directly to a value, have to compare to value at pointer
-sZero:
-.byte 0
+@sZero:
+@.byte 0
 
 BattleScript_MoodyActivates::	
 	jumpifbyteequal sSTATCHANGER, sZero, BattleScript_MoodyLower
