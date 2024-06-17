@@ -3009,6 +3009,7 @@ BattleScript_EffectStatUp::
 	attackcanceler
 	jumpifbyteequal sSAVED_STAT_CHANGER, sZero, BattleScript_EffectStatUpAfterAtkCanceler
 	copybyte sSTATCHANGER, sSAVED_STAT_CHANGER
+	setbyte sSAVED_STAT_CHANGER, 0
 BattleScript_EffectStatUpAfterAtkCanceler::
 	attackstring
 	ppreduce
@@ -3088,7 +3089,8 @@ BattleScript_EffectEvasionDown::
 BattleScript_EffectStatDown::
 	attackcanceler
 	jumpifbyteequal sSAVED_STAT_CHANGER, sZero, BattleScript_EffectStatDownAfterAtkCanceler
-	copybyte sSTATCHANGER, sSAVED_STAT_CHANGER
+	copybyte sSTATCHANGER, sSAVED_STAT_CHANGER @for some reason affects were swapped? leer became attack drop
+	setbyte sSAVED_STAT_CHANGER, 0	@this was the issue, early bird set saved but didn't clear so constantly set stored stat
 BattleScript_EffectStatDownAfterAtkCanceler:
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_ButItFailedAtkStringPpReduce
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
