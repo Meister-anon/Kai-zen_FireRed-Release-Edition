@@ -6305,6 +6305,26 @@ static void HandleEndTurn_MonFled(void)
 static void HandleEndTurn_FinishBattle(void)
 {
     u32 i;
+    u8 freedomFlag = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++) //seems to work
+    {    
+        if (gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] == ITEM_NONE)
+            continue;
+
+        if (gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] != ITEM_NONE)
+            {
+                
+                if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_LINK)))
+                {
+                    freedomFlag = TRUE;
+                    AddBagItem(gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER], 1);
+                }
+                gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] = ITEM_NONE;
+            }
+    }
+    if (freedomFlag)
+        BattleScriptExecute(BattleScript_SecondaryItemtoBag);
 
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
@@ -6335,6 +6355,9 @@ static void HandleEndTurn_FinishBattle(void)
         //how its assigning items?  yup looks like it, I set changeditem in my function, and that goes to a move end argument that's AFTER item theft
         //so its pretty much resetting the item to the battler after I removed it, /confirmed that was issue
 
+        
+        
+        
         BeginFastPaletteFade(3);
         FadeOutMapMusic(5);
 
@@ -6361,8 +6384,7 @@ static void HandleEndTurn_FinishBattle(void)
             gBattleStruct->changedSpecies[B_SIDE_PLAYER][i] = SPECIES_NONE;
             gBattleStruct->changedSpecies[B_SIDE_OPPONENT][i] = SPECIES_NONE;
 
-            if (gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] != ITEM_NONE)
-                AddBagItem(gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER], 1);
+            
         }//prob need add a script for this like I did for caught mon held items
 
 

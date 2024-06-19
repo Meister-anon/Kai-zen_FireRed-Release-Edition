@@ -178,6 +178,7 @@ enum
     LIST_ITEM_MOVES,
     LIST_ITEM_ABILITY,
     LIST_ITEM_HELD_ITEM,
+    LIST_ITEM_SECONDARY_ITEM,
     LIST_ITEM_PP,
     LIST_ITEM_TYPES,
     LIST_ITEM_STATS,
@@ -257,6 +258,7 @@ static const u8 sText_Status1[] = _("Status1");
 static const u8 sText_Status2[] = _("Status2");
 static const u8 sText_Status3[] = _("Status3");
 static const u8 sText_HeldItem[] = _("Held Item");
+static const u8 sText_SecondaryItem[] = _("Secondary Item");
 static const u8 sText_SideStatus[] = _("Side Status");
 static const u8 sText_MaxHp[] = _("HP Max");
 static const u8 sText_CurrHp[] = _("HP Current");
@@ -394,6 +396,7 @@ static const struct ListMenuItem sMainListItems[] =
     {sText_Moves, LIST_ITEM_MOVES},
     {sText_Ability, LIST_ITEM_ABILITY},
     {sText_HeldItem, LIST_ITEM_HELD_ITEM},
+    {sText_SecondaryItem, LIST_ITEM_SECONDARY_ITEM},
     {sText_PP, LIST_ITEM_PP},
     {sText_Types, LIST_ITEM_TYPES},
     {sText_Stats, LIST_ITEM_STATS},
@@ -557,7 +560,7 @@ static const struct WindowTemplate sMainListWindowTemplate =
     .bg = 0,
     .tilemapLeft = 1,
     .tilemapTop = 3,
-    .width = 9,
+    .width = 12,
     .height = 12,
     .paletteNum = 0xF,
     .baseBlock = 0x2
@@ -571,7 +574,7 @@ static const struct WindowTemplate sSecondaryListWindowTemplate =
     .width = 17,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0xA0
+    .baseBlock = 0xA4
 };
 
 static const struct WindowTemplate sModifyWindowTemplate =
@@ -582,7 +585,7 @@ static const struct WindowTemplate sModifyWindowTemplate =
     .width = 4,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0x240
+    .baseBlock = 0x244
 };
 
 static const struct WindowTemplate sBattlerWindowTemplate =
@@ -593,7 +596,7 @@ static const struct WindowTemplate sBattlerWindowTemplate =
     .width = 14,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0x340
+    .baseBlock = 0x344
 };
 
 static const struct BgTemplate sBgTemplates[] =
@@ -638,6 +641,7 @@ static const bool8 sHasChangeableEntries[LIST_ITEM_COUNT] =
     [LIST_ITEM_ABILITY] = TRUE,
     [LIST_ITEM_TYPES] = TRUE,
     [LIST_ITEM_HELD_ITEM] = TRUE,
+    [LIST_ITEM_SECONDARY_ITEM] = TRUE,
     [LIST_ITEM_STAT_STAGES] = TRUE,
 };
 
@@ -964,6 +968,9 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
     case LIST_ITEM_HELD_ITEM:
         itemsCount = 1;
         break;
+    case LIST_ITEM_SECONDARY_ITEM:
+        itemsCount = 1;
+        break;
     case LIST_ITEM_TYPES:
         itemsCount = 2;
         break;
@@ -1090,6 +1097,11 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
         break;
     case LIST_ITEM_HELD_ITEM:
         PadString(ItemId_GetName(gBattleMons[data->battlerId].item), text);
+        printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
+        AddTextPrinter(&printer, 0, NULL);
+        break;
+    case LIST_ITEM_SECONDARY_ITEM:
+        PadString(ItemId_GetName(gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)]), text);
         printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
         break;
@@ -1412,6 +1424,14 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.typeOfVal = VAL_U16;
         data->modifyArrows.currValue = gBattleMons[data->battlerId].item;
         break;
+    case LIST_ITEM_SECONDARY_ITEM:
+        data->modifyArrows.minValue = 0;
+        data->modifyArrows.maxValue = ITEMS_COUNT - 1;
+        data->modifyArrows.maxDigits = 3;
+        data->modifyArrows.modifiedValPtr = &gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+        data->modifyArrows.typeOfVal = VAL_U16;
+        data->modifyArrows.currValue = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
+        break;
     case LIST_ITEM_TYPES:
         data->modifyArrows.minValue = 0;
         data->modifyArrows.maxValue = NUMBER_OF_MON_TYPES - 1;
@@ -1511,7 +1531,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         {
             data->modifyArrows.minValue = 0;
             data->modifyArrows.maxValue = 15;
-            data->modifyArrows.maxDigits = 2;  //gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)]
+            data->modifyArrows.maxDigits = 2;  
             data->modifyArrows.modifiedValPtr = &gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
             data->modifyArrows.typeOfVal = VAR_TOXIC_COUNTER;
             data->modifyArrows.currValue = gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];

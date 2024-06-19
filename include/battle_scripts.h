@@ -432,6 +432,7 @@ extern const u8 BattleScript_EjectButtonActivates[];
 extern const u8 BattleScript_EjectPackActivate_Ret[];
 extern const u8 BattleScript_EjectPackActivate_End2[];
 extern const u8 BattleScript_EjectPackActivates[];
+extern const u8 BattleScript_SecondaryItemtoBag[];
 extern const u8 BattleScript_HitEscapeEnd[];
 extern const u8 BattleScript_EffectHitEscape[];
 extern const u8 BattleScript_EffectThroatChop[];

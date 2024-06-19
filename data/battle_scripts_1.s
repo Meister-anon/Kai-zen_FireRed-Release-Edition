@@ -10654,3 +10654,8 @@ BattleScript_EjectPackActivate_End2::
 BattleScript_EjectPackActivates::
 	jumpifcantswitch BS_SCRIPTING, BattleScript_EjectButtonEnd
 	goto BattleScript_EjectPackActivate_Ret
+
+BattleScript_SecondaryItemtoBag::
+	printstring STRINGID_ITEMTOBAG
+	waitmessage B_WAIT_TIME_CLEAR_BUFF_2
+	end2
