@@ -4164,6 +4164,9 @@ static void BattleStartClearSetData(void)
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_PLAYER] = 0;
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_OPPONENT] = 0;
 
+        gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] = ITEM_NONE;
+        gBattleStruct->SecondaryItemSlot[i][B_SIDE_OPPONENT] = ITEM_NONE;
+
         gBattleStruct->itemStolen[i].originalItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
 
         //gBattleStruct->allowedToChangeFormInWeather[i][B_SIDE_PLAYER] = FALSE;
@@ -4329,7 +4332,7 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     gBattleStruct->overwrittenAbilities[gActiveBattler] = ABILITY_NONE;
 
     if (gDisableStructs[gActiveBattler].isFirstTurn == 2 && gBattleMons[gActiveBattler].status1 == STATUS1_SLEEP)
-        gDisableStructs[gActiveBattler].SleepTimer = ((Random() % 3) + 3);
+        gDisableStructs[gActiveBattler].SleepTimer = ((Random() % 2) + 2);// cut down on switch in sleep
 
     // Clear selected party ID so Revival Blessing doesn't get confused.
     gSelectedMonPartyId = PARTY_SIZE;
@@ -6357,7 +6360,10 @@ static void HandleEndTurn_FinishBattle(void)
             // Clear original species field
             gBattleStruct->changedSpecies[B_SIDE_PLAYER][i] = SPECIES_NONE;
             gBattleStruct->changedSpecies[B_SIDE_OPPONENT][i] = SPECIES_NONE;
-        }
+
+            if (gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] != ITEM_NONE)
+                AddBagItem(gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER], 1);
+        }//prob need add a script for this like I did for caught mon held items
 
 
         for (i = 0; i < PARTY_SIZE; i++) //erecalc stat after battle
@@ -7215,6 +7221,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
             break;
         }
     }
+    //potentially boost to 65 vsonic
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
         && (gBattleMoves[move].power <= 60 || gDynamicBasePower <= 60) //added dynamic for moves like hidden power
         && gBattleMoves[gCurrentMove].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change

@@ -690,7 +690,8 @@ struct BattleStruct //fill in unused fields when porting
     u8 multiplayerId;
     bool8 overworldWeatherDone;
     bool8 terrainDone;
-    u8 atkCancellerTracker;
+    u8 atkCancellerTracker;//almost feels like I should turn these party wide things into their own struct at this point
+    u16 SecondaryItemSlot[PARTY_SIZE][NUM_BATTLE_SIDES];//for pickpocket and magician store taken item if already holding item
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
     u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
     u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition

@@ -1459,6 +1459,11 @@
 	.4byte \ptr
 	.endm
 
+	.macro CheckPassSecondaryItem battler:req
+	callnative BS_checksecondaryItemslot
+	.byte \battler
+	.endm
+
 	.macro getmoveeffect
 	callnative BS_getmoveeffect
 	.endm

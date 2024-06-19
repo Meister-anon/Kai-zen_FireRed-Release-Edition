@@ -2366,10 +2366,62 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     also seems logic to work no matter gender of enemy mon
     isn't working   
+    
 
     need update icon graphics as well, EE has newer things for gen 8+ stuff and forms
 
     fixed early bird , cupid's arrow seem work now
+
+    pickpocket magician buffs, good for in game but not competitive
+    since fails if hnolding item and always holding item.
+    -my fix add field for secondary item slot, could use for thief
+    but think will just use for the abilities.
+
+    need add a script for this like I did for caught mon held items
+    loop party check if item was taken i.e loop secondaryitem slot if not 0
+    play script, item(s) added to bag
+
+    idea if holding item, stolen item is instead put in secondary slot
+    and will replace current held item if lost or consumed.
+
+    still need setup new description for magician
+    and battle strings for effect,
+    of adding stolen items to bag if not stolen/consumed by battle end
+    think will just do a simple item(s) added to bag.
+
+    last part of effect to setup is the actual item passing itself,
+    make function for assigning second slot to itemslot and clearing secondaryslot
+    think need take battlerid argument, would trigger when consume or item stolen
+
+    going over effect in item battle effects function
+    thing need make bs commad to go in scripts patterned after removeitem
+    that will take same script argument as remove item,
+    but swap item from secondry slot to first and clear secondary
+
+    then also a function for item stealing
+    thinkm need use push cursor so it triggers item replaced
+    actually should only display message for player side
+    as otherwise battlers item doesn't get reveiled 
+
+    may potentially add item icon to summary screen box
+    to show secondary slot
+
+    believe setup done for consumables just need to do for getting item stolen/knocked off
+    believe that's done, and ready to test
+    also go over battle struct things to clean those and others up as needed
+
+    for some reason seems bs script setup for that stops items from working
+    had wrong args  used cmd args instead of native args
+
+    after get working check base stats, setup new unique abilities
+    for celebit and base shaymin
+
+    also major decision VSONIC IMPORTANT
+    finally decided to NOT do all of expansion
+    i'll make a qol hack /firered remake with just what I want
+    no dynamax z-moves etc.  will prob keep tera just because it is interesting
+    even with the stupid hats (don't port the hats -_-)
+    and I'll have meags, along with a method of making them permanent evos
 
     got nuzlocke mode working,
     redid status batle effect updgrades

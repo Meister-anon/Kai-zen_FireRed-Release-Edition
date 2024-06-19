@@ -5933,7 +5933,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gSpecialStatuses[battler].tigerMomAttacked = TRUE;
                 }
                 break;
-            case ABILITY_CUPIDS_ARROW: // need test     reworked still need test
+            case ABILITY_CUPIDS_ARROW: // need test     reworked still need test - works
                 for (i = 0; i < gBattlersCount; ++i) //handles ability targetting  /think should also stop reactivate? need test
                 {
                     u16 speciesAttacker, speciesTarget1, speciesTarget2;
@@ -7596,7 +7596,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             && GetBattlerAbility(battler) == ABILITY_PICKPOCKET                               // Target must have pickpocket ability
                                                                                    // Target needs to have been damaged
                             && !DoesSubstituteBlockMove(gBattlerAttacker, battler, gCurrentMove)              // Subsitute unaffected
-                            && IsBattlerAlive(battler)                                                        // Battler must be alive to pickpocket
+                            && IsBattlerAlive(battler)   
+                            && gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == ITEM_NONE                                                     // Battler must be alive to pickpocket
                             //&& gBattleMons[battler].item == ITEM_NONE)                                      // Pickpocketer can't have an item already  - removed
                             && CanStealItem(battler, gBattlerAttacker, gBattleMons[gBattlerAttacker].item))   // Cannot steal plates, mega stones, etc
                         {
@@ -8040,6 +8041,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleMons[gBattlerTarget].item != ITEM_NONE
                     && IsBattlerAlive(gBattlerAttacker)
                     && TARGET_TURN_DAMAGED
+                    && gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] == ITEM_NONE
                     && CanStealItem(gBattlerAttacker, gBattlerTarget, gBattleMons[gBattlerTarget].item)
                     && !gSpecialStatuses[gBattlerAttacker].gemBoost   // In base game, gems are consumed after magician would activate.
                     && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerTarget)] & gBitTable[gBattlerPartyIndexes[gBattlerTarget]])
@@ -8047,22 +8049,22 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && (GetBattlerAbility(gBattlerTarget) != ABILITY_STICKY_HOLD || !IsBattlerAlive(gBattlerTarget)))
                 {
-                    if (gBattleMons[gBattlerAttacker].item == ITEM_NONE)
-                    {
+                    //if (gBattleMons[gBattlerAttacker].item == ITEM_NONE)
+                   // {
                         StealTargetItem(gBattlerAttacker, gBattlerTarget);
                         gBattleScripting.battler = gBattlerAbility = gBattlerAttacker;
                         gEffectBattler = gBattlerTarget;
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_MagicianActivates;
                         ++effect;
-                    }
-                    else if (gBattleMons[gBattlerTarget].item != gBattleStruct->itemStolen[gBattlerPartyIndexes[gBattlerAttacker]].originalItem) //if holding item, swap items, but not if target item is original item  
+                   // }
+                    /*else if (gBattleMons[gBattlerTarget].item != gBattleStruct->itemStolen[gBattlerPartyIndexes[gBattlerAttacker]].originalItem) //if holding item, swap items, but not if target item is original item  
                     {
                         gBattleScripting.battler = gBattlerAbility = gBattlerAttacker; //make string for swap items
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_MagicianSwap;
                         ++effect;
-                    } //original item is set, on battle start it just holds the item yuo starter battle with
+                    }*/ //original item is set, on battle start it just holds the item yuo starter battle with
                 }
             }
             break;

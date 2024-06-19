@@ -461,7 +461,8 @@ BattleScript_EffectBelch::
 	call_if EFFECT_BELCH
 	printstring STRINGID_ATEBERRY
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	removeitem BS_ATTACKER @temporary work aroudn to remove item, can't setup consume yet think would need, setup new berry override logic
+	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER @temporary work aroudn to remove item, can't setup consume yet think would need, setup new berry override logic
 BattleScript_AteBerryBelch:
 	goto BattleScript_HitFromAtkString
 
@@ -674,6 +675,7 @@ BattleScript_EffectFling:
 	jumpifword CMP_COMMON_BITS, gFieldStatuses, STATUS_FIELD_MAGIC_ROOM, BattleScript_ButItFailedAtkStringPpReduce
 	setlastuseditem BS_ATTACKER
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	attackcanceler
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
@@ -1312,6 +1314,7 @@ BattleScript_TeatimeLoop:
 	bicword gHitMarker, HITMARKER_NO_ANIMATIONS | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_IGNORE_DISGUISE
 	setbyte sBERRY_OVERRIDE, FALSE
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 	moveendto MOVE_END_NEXT_TARGET
 	jumpifnexttargetvalid BattleScript_TeatimeLoop
 	moveendcase MOVE_END_CLEAR_BITS
@@ -2661,6 +2664,7 @@ BattleScript_EffectNaturalGift:
 	jumpifmovehadnoeffect BattleScript_EffectNaturalGiftEnd
 	checkparentalbondcounter 2, BattleScript_EffectNaturalGiftEnd
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 BattleScript_EffectNaturalGiftEnd:
 	tryfaintmon BS_TARGET, 0, NULL
 	goto BattleScript_MoveEnd
@@ -5281,6 +5285,7 @@ BattleScript_PowerHerbActivation:
 	printstring STRINGID_POWERHERB
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	return
 
 BattleScript_EffectSemiInvulnerable::
@@ -6918,6 +6923,7 @@ BattleScript_WeaknessPolicySpAtk:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 BattleScript_WeaknessPolicyRemoveItem:
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 BattleScript_WeaknessPolicyEnd:
 	return
 
@@ -6933,6 +6939,7 @@ BattleScript_TargetItemStatRaise::
 	printstring STRINGID_USINGXTHEYOFZN
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 BattleScript_TargetItemStatRaiseRemoveItemRet:
 	return
 
@@ -6948,6 +6955,7 @@ BattleScript_AttackerItemStatRaise::
 	printstring STRINGID_USINGXTHEYOFZN
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 BattleScript_AttackerItemStatRaiseRet:
 	return
 
@@ -8066,6 +8074,9 @@ BattleScript_StatusInfestedViaSwarm::
 BattleScript_MoveEffectSpiritLock::
 	goto BattleScript_UpdateEffectStatusIconRet
 
+@right now not working want to affect both enemies in doubles
+@but loops infinitely on single target, need add loop values
+@like intimidate
 BattleScript_AftermathOnSwitch::
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
@@ -8080,6 +8091,7 @@ BattleScript_AftermathEndRet:
 	return
 
 @uses diff arguemnts because it takes place on mon attacking aftermon target
+@this works as intended
 BattleScript_AftermathDmg::
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
@@ -8714,6 +8726,7 @@ BattleScript_TryAdrenalineOrb:
 	printstring STRINGID_USINGXTHEYOFZN
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 BattleScript_TryAdrenalineOrbRet:
 	return
 
@@ -8924,6 +8937,7 @@ BattleScript_TerrainSeedLoopIter:
 	copybyte sBATTLER, gBattlerTarget
 	doterrainseed BS_TARGET, BattleScript_TerrainSeedLoop_NextBattler
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 BattleScript_TerrainSeedLoop_NextBattler:
 	addbyte gBattlerTarget, 0x1
 	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_TerrainSeedLoopIter
@@ -9850,6 +9864,7 @@ BattleScript_MicleBerryActivateEnd2_Anim:
 	printstring STRINGID_MICLEBERRYACTIVATES
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_MicleBerryActivateRet::
@@ -9862,6 +9877,7 @@ BattleScript_MicleBerryActivateRet_Anim:
 	printstring STRINGID_MICLEBERRYACTIVATES
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_JabocaRowapBerryActivates::
@@ -9876,6 +9892,7 @@ BattleScript_JabocaRowapBerryActivate_Anim:
 BattleScript_JabocaRowapBerryActivate_Dmg:
 	call BattleScript_HurtAttacker
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 	return
 
 @more berry effects need port from emeraldexpansion
@@ -10110,6 +10127,7 @@ BattleScript_StickyBarbTransfer::
 	printstring STRINGID_STICKYBARBTRANSFER
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 	return
 
 BattleScript_RedCardActivates::
@@ -10128,12 +10146,14 @@ BattleScript_RedCardIngrain:
 	printstring STRINGID_PKMNANCHOREDITSELF
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	swapattackerwithtarget
 	return
 BattleScript_RedCardSuctionCups:
 	printstring STRINGID_PKMNANCHORSITSELFWITH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	swapattackerwithtarget
 	return
 
@@ -10252,6 +10272,7 @@ BattleScript_BerryCureParRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_BerryCurePsnEnd2::
@@ -10264,6 +10285,7 @@ BattleScript_BerryCurePsnRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_BerryCureBrnEnd2::
@@ -10276,6 +10298,7 @@ BattleScript_BerryCureBrnRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_BerryCureFrzEnd2::
@@ -10288,6 +10311,7 @@ BattleScript_BerryCureFrzRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_BerryCureSlpEnd2::
@@ -10300,6 +10324,7 @@ BattleScript_BerryCureSlpRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_GemActivates::
@@ -10308,6 +10333,7 @@ BattleScript_GemActivates::
 	printstring STRINGID_GEMACTIVATES
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	return
 
 BattleScript_BerryReduceDmg::
@@ -10316,6 +10342,7 @@ BattleScript_BerryReduceDmg::
 	printstring STRINGID_TARGETATEITEM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 	return
 
 BattleScript_PrintBerryReduceString::
@@ -10333,6 +10360,7 @@ BattleScript_BerryCureConfusionRet::
 	printstring STRINGID_PKMNSITEMSNAPPEDOUT
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_BerryCureChosenStatusEnd2::
@@ -10345,6 +10373,7 @@ BattleScript_BerryCureChosenStatusRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_CleanseTagStatusCure::
@@ -10364,6 +10393,7 @@ BattleScript_MentalHerbCureRet::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	copybyte gBattlerAttacker, sSAVED_BATTLER   @ restore the original attacker just to be safe
 	return
 
@@ -10380,6 +10410,7 @@ BattleScript_WhiteHerbRet::
 	printstring STRINGID_PKMNSITEMRESTOREDSTATUS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_BerryConfuseHealRet::
@@ -10399,6 +10430,7 @@ BattleScript_BerryConfuseHealRet_Anim:
 	setmoveeffect MOVE_EFFECT_CONFUSION | MOVE_EFFECT_CERTAIN
 	seteffectprimary
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 	return
 
 BattleScript_ItemHealHP_RemoveItemRet::
@@ -10414,6 +10446,7 @@ BattleScript_ItemHealHP_RemoveItemRet_Anim:
 	healthbarupdate BS_SCRIPTING
 	datahpupdate BS_SCRIPTING
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	return
 
 BattleScript_ItemHealHP_RemoveItem::
@@ -10429,6 +10462,7 @@ BattleScript_ItemHealHP_RemoveItemEnd2_Anim:
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_BerryPPHealEnd2::
@@ -10436,6 +10470,7 @@ BattleScript_BerryPPHealEnd2::
 	printstring STRINGID_PKMNSITEMRESTOREDPP
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_ItemHealHP_End2::
@@ -10480,6 +10515,7 @@ BattleScript_AirBaloonMsgPop::
 	printstring STRINGID_AIRBALLOONPOP
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_TARGET
+    CheckPassSecondaryItem BS_TARGET
 	return
 
 BattleScript_QuickClawActivation::
@@ -10507,6 +10543,7 @@ BattleScript_CustapBerryActivation::
 	printstring STRINGID_CANACTFASTERTHANKSTO
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_SelectingNotAllowedMoveChoiceItem::
@@ -10539,6 +10576,7 @@ BattleScript_BerryConfuseHealEnd2::
 	setmoveeffect MOVE_EFFECT_CONFUSION | MOVE_EFFECT_AFFECTS_USER
 	seteffectprimary
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_BerryStatRaiseEnd2::
@@ -10547,6 +10585,7 @@ BattleScript_BerryStatRaiseEnd2::
 	setbyte cMULTISTRING_CHOOSER, 4
 	call BattleScript_StatUp
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_BerryStatRaiseRet::
@@ -10559,6 +10598,7 @@ BattleScript_BerryStatRaiseRet_Anim:
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
 	call BattleScript_StatUp
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 BattleScript_BerryStatRaiseRet_End:
 	return
 
@@ -10567,6 +10607,7 @@ BattleScript_BerryFocusEnergyEnd2::
 	printstring STRINGID_PKMNUSEDXTOGETPUMPED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_ATTACKER
+    CheckPassSecondaryItem BS_ATTACKER
 	end2
 
 BattleScript_ActionSelectionItemsCantBeUsed::
@@ -10583,6 +10624,7 @@ BattleScript_EjectButtonActivates::
 	printstring STRINGID_EJECTBUTTONACTIVATE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	removeitem BS_SCRIPTING
+    CheckPassSecondaryItem BS_SCRIPTING
 	makeinvisible BS_SCRIPTING
 	openpartyscreen BS_SCRIPTING, BattleScript_EjectButtonEnd
 	switchoutabilities BS_SCRIPTING
