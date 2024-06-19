@@ -221,11 +221,10 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x13*/ u8 tauntTimer : 4;
     /*0x14*/ u8 battlerPreventingEscape;
     /*0x15*/ u8 battlerWithSureHit;
-    /*0x16*/ u8 isFirstTurn;
+    /*0x16*/ u8 isFirstTurn:3;
     /*0x17*/ u8 unk17;
     /*0x18*/ u8 truantCounter : 1;
     /*0x18*/ u8 sleepCounter : 1;
-             u8 SleepTimer:3;
              u8 YawnTimer:1;//for update yawn
     /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
     /*0x18*/ u8 unk18_a_2 : 2;
@@ -697,6 +696,7 @@ struct BattleStruct //fill in unused fields when porting
     u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition
     u8 SingleUseAbilityTimers[PARTY_SIZE][NUM_BATTLE_SIDES]; //rn just for slow start / wonder guard
     u8 ToxicTurnCounter[PARTY_SIZE][NUM_BATTLE_SIDES]; //change make toxic dmg tracked not reset on switch
+    u8 SleepTimer[PARTY_SIZE][NUM_BATTLE_SIDES];
     u8 chosenItem[4]; // why is this an u8?
     u8 AI_itemType[2];
     u8 AI_itemFlags[2];

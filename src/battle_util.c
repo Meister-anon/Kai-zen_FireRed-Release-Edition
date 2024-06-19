@@ -3191,27 +3191,8 @@ u8 DoBattlerEndTurnEffects(void)
                 if (gStatuses3[gActiveBattler] & STATUS3_YAWN)
                 {
                     --gDisableStructs[gActiveBattler].YawnTimer;
+                    ++effect;
 
-                   
-                    /*if (!(gStatuses3[gActiveBattler] & STATUS3_YAWN) && CanSleep(gActiveBattler) && !UproarWakeUpCheck(gActiveBattler))
-                    {
-                        CancelMultiTurnMoves(gActiveBattler);
-                        gBattleMons[gActiveBattler].status1 |= STATUS1_SLEEP; //hopefully works and puts to sleep and sets sleep turns
-                        gDisableStructs[gActiveBattler].SleepTimer = ((Random() % 3) + 3);
-                        //gBattleMons[gActiveBattler].status1 |= ((Random() % 3) + 3); //since sleep is decremented at turn start not end turn, this is effectively 2-4 turns
-                        BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
-                        MarkBattlerForControllerExec(gActiveBattler);
-                        gEffectBattler = gActiveBattler;
-                        BattleScriptExecute(BattleScript_YawnMakesAsleep); //need test - works
-
-                        if (gBattleMons[gActiveBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
-                        {
-                            ClearRageStatuses(gActiveBattler);
-                            BattleScriptPushCursor();
-                            gBattlescriptCurrInstr = BattleScript_RageEnds; //ok works
-                        }*/
-                        ++effect;
-                    //}
                 }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
@@ -3809,17 +3790,13 @@ u8 AtkCanceller_UnableToUseMove(void)
                     {
                         //CancelMultiTurnMoves(gActiveBattler); buff put in initial setyawn command when used
                         gBattleMons[gBattlerAttacker].status1 |= STATUS1_SLEEP; //hopefully works and puts to sleep and sets sleep turns
-                        gDisableStructs[gBattlerAttacker].SleepTimer = ((Random() % 3) + 3);
-                        //gBattleMons[gActiveBattler].status1 |= ((Random() % 3) + 3); //since sleep is decremented at turn start not end turn, this is effectively 2-4 turns
-                        //BattleScriptPushCursor();
-                        //gBattlescriptCurrInstr = 
+                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] = ((Random() % 3) + 3);
                         effect = 2;
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_YawnMakesAsleep;
-                        //BattleScriptExecute(BattleScript_YawnMakesAsleep); //need test
                     }
-            }//yawn isn't working - issue was accidentally cleared status before got here
-        } //fixed that but its not going to the battlescript, ok got it working now
+            }
+        }
         ++gBattleStruct->atkCancellerTracker;
         }
             break; //should never prevent action so don't think need effect
@@ -3855,19 +3832,19 @@ u8 AtkCanceller_UnableToUseMove(void)
                     else
                         toSub = 1;
                         
-                    if ((gDisableStructs[gBattlerAttacker].SleepTimer) < toSub)
+                    if ((gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)]) < toSub)
                         {
                             gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP);
                         }
                     else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_EARLY_BIRD
                         && Random() % 4 == 0)
                     {
-                        gDisableStructs[gBattlerAttacker].SleepTimer = 0;
+                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] = 0;
                         gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP); //ok this was my buff I gabe earlybird a chance to immediately wake up
                     } //still not great, what will do is like being refreshed, will boost a random stat when wakes up
                     else
                     {
-                        gDisableStructs[gBattlerAttacker].SleepTimer -= toSub;
+                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] -= toSub;
                         if (gDisableStructs[gBattlerAttacker].isFirstTurn != 2) //when switchin when already asleep  it heals every turn, hope fixes
                         gDisableStructs[gBattlerAttacker].sleepCounter ^= 1;    //equivalent of truant, sleeper heals every other turn at end of turn
                     }

@@ -1251,7 +1251,7 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
     case VAR_SLEEP_TIMER:
         if (data->modifyArrows.currValue)
         {
-            gDisableStructs[data->battlerId].SleepTimer = data->modifyArrows.currValue;
+            gBattleStruct->SleepTimer[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)] = data->modifyArrows.currValue;
         }
         else
         {
@@ -1516,7 +1516,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.maxDigits = 1;
             data->modifyArrows.modifiedValPtr = NULL;
             data->modifyArrows.typeOfVal = VAR_SLEEP_TIMER;
-            data->modifyArrows.currValue = gDisableStructs[data->battlerId].SleepTimer;
+            data->modifyArrows.currValue = gBattleStruct->SleepTimer[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
         }
         else if (data->currentSecondaryListItemId == VARIOUS_FREEZE_TIMER)
         {

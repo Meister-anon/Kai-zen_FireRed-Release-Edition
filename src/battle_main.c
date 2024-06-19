@@ -4164,6 +4164,9 @@ static void BattleStartClearSetData(void)
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_PLAYER] = 0;
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_OPPONENT] = 0;
 
+        gBattleStruct->SleepTimer[i][B_SIDE_PLAYER] = 0;
+        gBattleStruct->SleepTimer[i][B_SIDE_OPPONENT] = 0;
+
         gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] = ITEM_NONE;
         gBattleStruct->SecondaryItemSlot[i][B_SIDE_OPPONENT] = ITEM_NONE;
 
@@ -4330,9 +4333,6 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     gSpecialStatuses[gActiveBattler].specialDmg = 0;
 
     gBattleStruct->overwrittenAbilities[gActiveBattler] = ABILITY_NONE;
-
-    if (gDisableStructs[gActiveBattler].isFirstTurn == 2 && gBattleMons[gActiveBattler].status1 == STATUS1_SLEEP)
-        gDisableStructs[gActiveBattler].SleepTimer = ((Random() % 2) + 2);// cut down on switch in sleep
 
     // Clear selected party ID so Revival Blessing doesn't get confused.
     gSelectedMonPartyId = PARTY_SIZE;

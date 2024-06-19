@@ -4797,7 +4797,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             //makes rest better, which is fine but should be no issues, just test and tweak heal value
             if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_SLEEP)//>>>actually way this is counted it decrements before effect takes palce (i.e in atk canceler not end turn)
                 {
-                    gDisableStructs[gEffectBattler].SleepTimer = ((Random() % 3) + 3);
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = ((Random() % 3) + 3);
                     gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
@@ -13375,7 +13375,7 @@ static void atk81_trysetrest(void) //would be useful to track if sleep was set w
         else
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         gBattleMons[gBattlerTarget].status1 = STATUS1_SLEEP;
-        gDisableStructs[gBattlerTarget].SleepTimer = 3; //sleep turns rest is fixed
+        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = 3; //sleep turns rest is fixed
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr += 5;
