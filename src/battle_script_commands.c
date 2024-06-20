@@ -12158,12 +12158,11 @@ static void atk76_various(void) //will need to add all these emerald various com
     case VARIOUS_CHECK_IF_GRASSY_TERRAIN_HEALS:
         if ((gStatuses3[gActiveBattler] & (STATUS3_SEMI_INVULNERABLE))
             || BATTLER_MAX_HP(gActiveBattler)
-            || !gBattleMons[gActiveBattler].hp
-            || !(IsBattlerGrounded(gActiveBattler)))
+            || !gBattleMons[gActiveBattler].hp) //hopefully works
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
-        }
-        else
+        }//vsonic important , need test terrain affect, may replace w isbattlerterrainaffected function
+        else if (IsBattlerTerrainAffected(gActiveBattler, STATUS_FIELD_GRASSY_TERRAIN)) //IsBattlerTerrainAffected(gActiveBattler, STATUS_FIELD_GRASSY_TERRAIN)
         {
             gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
             if (gBattleMoveDamage == 0)

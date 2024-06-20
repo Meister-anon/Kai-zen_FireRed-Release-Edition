@@ -138,7 +138,7 @@ static const u8 sLightMetalDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Halv
 static const u8 sMultiscaleDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Halves damage taken at full HP.");
 static const u8 sToxicBoostDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Attack if poisoned.\nAnd ignores poison damage.");
 static const u8 sFlareBoostDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Sp. Atk if burned.\nAnd ignores burn damage.");
-static const u8 sHarvestDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May recycle a used Berry."); //this is good
+static const u8 sHarvestDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May recycle a used Berry.\nGuaranteed recycle in sunny weather."); //this is good
 static const u8 sTelepathyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can't be damaged by an ally.");
 static const u8 sMoodyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Stats change gradually.");
 static const u8 sOvercoatDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks weather damage and powder effects");
@@ -169,7 +169,7 @@ static const u8 sBulletproofDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Avo
 static const u8 sCompetitiveDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Sp. Atk. if stats lowered.\nAnd if suffering from status.");
 static const u8 sStrongJawDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts biting moves.");
 static const u8 sRefrigerateDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Normal moves become Ice.");
-static const u8 sSweetVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents party from sleep.");
+static const u8 sSweetVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protects party from sleep.");
 static const u8 sStanceChangeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Transforms as it battles.");
 static const u8 sGaleWingsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Flying moves get a priority boost\nwhen at above 50% HP.");
 static const u8 sMegaLauncherDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts pulse moves.");
@@ -643,7 +643,10 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SIXTH_SENSE] = COMPOUND_ABILITY_STRING("Ignores accuracy and evasion changes.\nImmune to effects of being confused."),//sSixthSenseDescription,
     [ABILITY_WEIGHTED_GI] = COMPOUND_ABILITY_STRING("Casts off weighted clothes/fur\nwhen in a pinch boosting SPEED."),
     [ABILITY_VOLT_DASH] = COMPOUND_ABILITY_STRING("Turns electricity into HP\nand gradually boosts SPEED."),
-    [ABILITY_IMMUTABLE_WIND] = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course.")
+    [ABILITY_IMMUTABLE_WIND] = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course."),
+    [ABILITY_EVERGREEN] = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
+    [ABILITY_SHAMAN_CURE] = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures poisoned allies on switch."),
+
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1021,4 +1024,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_WEIGHTED_GI] =_("Weighted Gi"),
     [ABILITY_VOLT_DASH] =_("Volt Dash"),
     [ABILITY_IMMUTABLE_WIND] =_("Immutable Wind"),
+    [ABILITY_EVERGREEN] =_("Evergreen"),
+    [ABILITY_SHAMAN_CURE] =_("Shaman Cure"),
 };//can have comma

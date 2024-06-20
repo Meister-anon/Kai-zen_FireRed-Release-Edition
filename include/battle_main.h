@@ -52,6 +52,9 @@ struct MultiBattlePokemonTx
 
 #define CAN_ABILITY_ABSORB(battler) (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS))
 
+#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS)) can_absorb = TRUE;
+
+
 //extern const struct SpriteTemplate gUnknownDebugSprite;
 extern const struct OamData gOamData_BattlerOpponent;
 extern const struct OamData gOamData_BattlerPlayer;

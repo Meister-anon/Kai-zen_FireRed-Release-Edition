@@ -258,7 +258,7 @@ static const u8 sText_Status1[] = _("Status1");
 static const u8 sText_Status2[] = _("Status2");
 static const u8 sText_Status3[] = _("Status3");
 static const u8 sText_HeldItem[] = _("Held Item");
-static const u8 sText_SecondaryItem[] = _("Secondary Item");
+static const u8 sText_SecondaryItem[] = _("2nd Item");
 static const u8 sText_SideStatus[] = _("Side Status");
 static const u8 sText_MaxHp[] = _("HP Max");
 static const u8 sText_CurrHp[] = _("HP Current");
@@ -560,7 +560,7 @@ static const struct WindowTemplate sMainListWindowTemplate =
     .bg = 0,
     .tilemapLeft = 1,
     .tilemapTop = 3,
-    .width = 12,
+    .width = 9,
     .height = 12,
     .paletteNum = 0xF,
     .baseBlock = 0x2
@@ -574,7 +574,7 @@ static const struct WindowTemplate sSecondaryListWindowTemplate =
     .width = 17,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0xA4
+    .baseBlock = 0xA0
 };
 
 static const struct WindowTemplate sModifyWindowTemplate =
@@ -585,7 +585,7 @@ static const struct WindowTemplate sModifyWindowTemplate =
     .width = 4,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0x244
+    .baseBlock = 0x240
 };
 
 static const struct WindowTemplate sBattlerWindowTemplate =
@@ -596,7 +596,7 @@ static const struct WindowTemplate sBattlerWindowTemplate =
     .width = 14,
     .height = 2,
     .paletteNum = 0xF,
-    .baseBlock = 0x344
+    .baseBlock = 0x340
 };
 
 static const struct BgTemplate sBgTemplates[] =

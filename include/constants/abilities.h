@@ -77,7 +77,7 @@
 #define ABILITY_WHITE_SMOKE 73
 #define ABILITY_PURE_POWER 74
 #define ABILITY_SHELL_ARMOR 75
-#define ABILITY_CACOPHONY 76
+#define ABILITY_CACOPHONY 76    //huh forgot this was still here??
 
 // Gen 4
 #define ABILITY_TANGLED_FEET 77
@@ -354,6 +354,8 @@
 #define ABILITY_VOLT_DASH 326       //thunderous therian ability volt absorb + speed boost
 #define ABILITY_IMMUTABLE_WIND 327   //Tornadus therian ability, neutralizing gas + wonder skin
 //message a strange cold wind blows
-#define ABILITIES_COUNT ABILITY_IMMUTABLE_WIND + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITY_EVERGREEN 328   //celebi ability
+#define ABILITY_SHAMAN_CURE 329 //shaman base ability
+#define ABILITIES_COUNT ABILITY_SHAMAN_CURE + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

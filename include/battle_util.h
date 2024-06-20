@@ -199,7 +199,7 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
 //removed fire fang restriction, any heat transafer is good enough
 
 //new custom function, for storing ability timers by battler, 
-//instead of in disable struct for lasting all battle
+//instead of in disable struct so lasts all battle
 //keeps from being reset on switch/faint
 u8 GetAbilityTimer(u16 ability);
 
@@ -210,6 +210,10 @@ bool32 TryRemoveScreens(u8 battler); //made non-static to use with brick break t
 bool32 TestMoveFlags(u16 move, u32 flag);
 
 void SetAtkCancellerForCalledMove(void);
+
+//two custom functions for ability absorb along w new macro should do what I need
+bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
+bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
 
 //added from EE for form change update (not planning to use for transform/ditto)
 bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false

@@ -224,8 +224,13 @@
 //haev 2 extra spaces now
 
 //status 2 that takes users attention so would not be able to absorb ability setup like status1 any I think
+//having status flinch makes sense here, even though its only noticed on attack cancel, the effect is already set
+//still to test double battle but most of these seem to work when set via debug
+//but bide doesn't (not unexpected since I changed it a good deal)
+//rage , escape prevention, and torment don't work, ok this seems to be issues w the debugger
+//surprisingly enough and not actually my macro
 #define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_FLINCHED | STATUS2_UPROAR | STATUS2_BIDE | STATUS2_LOCK_CONFUSE\
-| STATUS2_LOCK_CONFUSE | STATUS2_MULTIPLETURNS | STATUS2_WRAPPED | STATUS2_INFATUATION | STATUS2_RECHARGE | STATUS2_RAGE\
+| STATUS2_MULTIPLETURNS | STATUS2_WRAPPED | STATUS2_INFATUATION | STATUS2_RECHARGE | STATUS2_RAGE\
 | STATUS2_ESCAPE_PREVENTION | STATUS2_TORMENT)
 
 // Seems like per-battler statuses. Not quite sure how to categorize these

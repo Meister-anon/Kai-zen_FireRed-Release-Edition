@@ -4379,7 +4379,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_FOREWARN, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PINK,
+        .bodyColor = BODY_COLOR_PINK, //potentially magic bounce if too strong
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sMewLevelUpLearnset,
@@ -7079,9 +7079,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_NATURAL_CURE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = FALSE,
+        .abilities = {ABILITY_EVERGREEN, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_GREEN, //harvest grassy surge
+        .noFlip = FALSE, //is floatnig but make ability allow it to heal w grassy terrain up anwyway
         .floating = TRUE,
         .levelUpLearnset = sCelebiLevelUpLearnset,
         .tmhmLearnset = sCelebiTMHMLearnset,
@@ -8455,7 +8455,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SABLEYE] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(68, 85, 75, 47, 65, 65),
+         STATS(68, 80, 75, 47, 65, 65),
         .type1 = TYPE_DARK,
         .type2 = TYPE_GHOST,
         .catchRate = 45,
@@ -8472,8 +8472,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_JEWEL_METABOLISM, ABILITY_ANALYTIC},
-            .abilityHidden = {ABILITY_NUISANCE, ABILITY_INFILTRATOR},
+            .abilities = {ABILITY_JEWEL_METABOLISM, ABILITY_STALL},
+            .abilityHidden = {ABILITY_NUISANCE, ABILITY_PRANKSTER},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -10759,8 +10759,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_SERENE_GRACE, ABILITY_MAGIC_BOUNCE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_SERENE_GRACE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MAGIC_BOUNCE, ABILITY_COMATOSE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -13695,10 +13695,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_NATURAL_CURE, ABILITY_NONE},
+        .abilities = {ABILITY_SHAMAN_CURE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = FALSE,
-        .floating = FALSE,
+        .noFlip = FALSE, //idae from jpr upgraded natural cure also protects allies and self from poison
+        .floating = FALSE,//can cure poisoning on switch in
         .levelUpLearnset = sShayminLevelUpLearnset,
         .tmhmLearnset = sShayminTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
@@ -18393,7 +18393,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_HEATPROOF, ABILITY_SWARM},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_TRUANT}, //no idea why thsi was an ability but w my chagnes would actualy be usable
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -26615,7 +26615,7 @@ const struct BaseStats gBaseStats[] =
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_POWER_SPOT, ABILITY_NONE},
        // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SOLID_ROCK, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
