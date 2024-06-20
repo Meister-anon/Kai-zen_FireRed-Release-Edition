@@ -2403,6 +2403,28 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     actually should only display message for player side
     as otherwise battlers item doesn't get reveiled 
 
+    -finally fixed ability absorb setup,
+    also cupid's arrow not quite right,
+    if not battle start when switch in attempts to use move
+    also infatuation fades sometimes when switch out?
+
+    also not all ability effects ported were setup,
+    just found harvest wasn't setup
+
+    and embargo wasn't setup so bandit king also doesn't work
+    ...of course they're not all setup I never setup emergency exit and wimpout either I think
+    need to go over ability list, search ported ones and see if they have code to go with teh constant
+    if not then I never setup
+
+    don't think terrain is setup right either,
+    and until that's fixed can't test evergreen,
+    and need add terrain and weather stuff to debugger...
+
+    as well as fix status issues with debugger
+    put staus timers in first block w status 1,
+    and setup wrap status and fix recharge status rage and torment
+    vsonic IMPORTANT
+
     may potentially add item icon to summary screen box
     to show secondary slot
 

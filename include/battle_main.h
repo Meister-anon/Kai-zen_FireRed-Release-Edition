@@ -50,9 +50,9 @@ struct MultiBattlePokemonTx
 #define BOUNCE_MON          0x0
 #define BOUNCE_HEALTHBOX    0x1
 
-#define CAN_ABILITY_ABSORB(battler) (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS))
+#define CAN_ABILITY_ABSORB(battler) (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS) && !(gStatuses3[battler] & STAUS3_VULNERABLE) && !(gStatuses4[battler] & ITS_A_TRAP_STATUS4))
 
-#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS)) can_absorb = TRUE;
+#define CAN_ABILITY_ABSORB_MOVE(battler) if (gBattleMons[battler].status1 == 0 && !(gBattleMons[battler].status2 & PREOCCUPIED_STATUS) && !(gStatuses3[battler] & STAUS3_VULNERABLE) && !(gStatuses4[battler] & ITS_A_TRAP_STATUS4)) can_absorb = TRUE;
 
 
 //extern const struct SpriteTemplate gUnknownDebugSprite;
