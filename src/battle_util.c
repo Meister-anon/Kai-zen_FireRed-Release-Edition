@@ -12825,6 +12825,118 @@ bool32 CanTeleport(u8 battlerId)
     return TRUE;
 }
 
+//put in acc check if true set to acc to 100
+//make sure to put high enough it can take effect but still be affected
+//by other accuracy factors
+//for sound status moves that change stat stage at above stage 1
+bool8 ShouldCacophonyBoostAccuracy(u16 move)
+{
+
+
+    if (gBattleMoves[move].split == SPLIT_STATUS && gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    &&  (move == MOVE_METAL_SOUND
+    || move == MOVE_SCREECH))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+//double relevant effect chance
+//sound moves w effects not including sleep or confusion
+//think had that wrong, was thinking of ...
+//nah well long as sleep chance is low should be fine
+bool8 ShouldCacophonyBoostEffectChance(u16 move)
+{
+
+    //uses secondary effect chance
+    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    && (move == MOVE_CLANGING_SCALES
+    || move == MOVE_OVERDRIVE
+    || move == MOVE_SONIC_BOOM
+    || move == MOVE_SONIC_SCREECH
+    || move == MOVE_SNORE
+    || move == MOVE_HYPER_VOICE
+    || move == MOVE_SPOOK
+    || move == MOVE_BUG_BUZZ
+    || move == MOVE_CHATTER
+    || move == MOVE_ECHOED_VOICE
+    || move == MOVE_RELIC_SONG
+    || move == MOVE_DISARMING_VOICE))
+        return TRUE;
+    //for moves thata use argument chance
+    /*else if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    && (move == MOVE_CLANGING_SCALES))
+        return TRUE;*/
+    else
+        return FALSE;
+}
+
+//two part companion function
+//for dmging sound based mvoes that change stat stage
+//at lvl 1, most done in script but this is for generic ones
+//without unique move effect  ex. effect attack down hit
+//use snarl to test if affect works
+bool8 ShouldCacophonyElevateMoveEffect(u16 move)
+{
+    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+    && (move == MOVE_BUG_BUZZ
+    || move == MOVE_SNARL
+    || move == MOVE_DISARMING_VOICE))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+void CacophonyElevateMoveEffect(void)
+{
+    switch (gBattleScripting.moveEffect)
+    {
+        case MOVE_EFFECT_ATK_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ATK_PLUS_2;
+                break;
+            case MOVE_EFFECT_DEF_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_DEF_PLUS_2;
+                break;
+            case MOVE_EFFECT_SPD_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SPD_PLUS_2;
+                break;
+            case MOVE_EFFECT_SP_ATK_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_ATK_PLUS_2;
+                break;
+            case MOVE_EFFECT_SP_DEF_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_DEF_PLUS_2;
+                break;
+            case MOVE_EFFECT_ACC_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ACC_PLUS_2;
+                break;
+            case MOVE_EFFECT_EVS_PLUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_EVS_PLUS_2;
+                break;
+        case MOVE_EFFECT_ATK_MINUS_1:
+        gBattleScripting.moveEffect = MOVE_EFFECT_ATK_MINUS_2;
+                break;
+            case MOVE_EFFECT_DEF_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_DEF_MINUS_2;
+                break;
+            case MOVE_EFFECT_SPD_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_2;
+                break;
+            case MOVE_EFFECT_SP_ATK_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2;
+                break;
+            case MOVE_EFFECT_SP_DEF_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_SP_DEF_MINUS_2;
+                break;
+            case MOVE_EFFECT_ACC_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_ACC_MINUS_2;
+                break;
+            case MOVE_EFFECT_EVS_MINUS_1:
+            gBattleScripting.moveEffect = MOVE_EFFECT_EVS_MINUS_2;
+                break;
+            break;
+    }
+}
+
 
 bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {

@@ -8217,9 +8217,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SOUNDPROOF, ABILITY_RATTLED},
+        .abilities = {ABILITY_SOUNDPROOF, ABILITY_CACOPHONY},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_OBLIVIOUS, ABILITY_UNAWARE},
+            .abilityHidden = {ABILITY_RATTLED, ABILITY_UNAWARE},
         // #endif
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
@@ -8244,9 +8244,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SOUNDPROOF, ABILITY_SCRAPPY},
+        .abilities = {ABILITY_SOUNDPROOF, ABILITY_CACOPHONY},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NO_GUARD, ABILITY_SONAR},
+            .abilityHidden = {ABILITY_SCRAPPY, ABILITY_SONAR},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -8271,9 +8271,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SOUNDPROOF, ABILITY_SCRAPPY},
+        .abilities = {ABILITY_SOUNDPROOF, ABILITY_CACOPHONY},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NO_GUARD, ABILITY_SONAR},
+            .abilityHidden = {ABILITY_SCRAPPY, ABILITY_SONAR},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,

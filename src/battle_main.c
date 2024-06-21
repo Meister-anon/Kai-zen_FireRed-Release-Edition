@@ -1282,7 +1282,8 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
-                 || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))))
+                 || (attackerAbility == ABILITY_GALVANIZE && (ateType = TYPE_ELECTRIC))
+                 || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
     {
         gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
@@ -1293,9 +1294,6 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
-                 //|| (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
-                 //|| (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
-                 //|| ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))))
     {
         gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
@@ -1303,6 +1301,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
+             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
         gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
@@ -1455,7 +1454,18 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
-                 || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))))
+                 || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))
+                 || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
+    {
+        gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+        gBattleStruct->ateBoost[battlerAtk] = 1;
+    }
+    else if (gBattleMoves[move].type == TYPE_SOUND
+             && move != MOVE_HIDDEN_POWER
+             && move != MOVE_WEATHER_BALL
+             && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
+             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
+             && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
@@ -1463,6 +1473,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
     else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL //note was before changed type calc, 
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM)
+             && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
         gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;    //WILL MAke moves do neutral damage to everything, need exclude from joat.

@@ -140,11 +140,22 @@
 	.4byte \ptr
 	.endm
 
-	.macro jumpifability battler:req, ability:req, jumpInstr:req
+	@add on to this then make separate function for if ability there or not
+	@split into jumpifability and jumpifnotability
+	.macro jumpbasedonability battler:req, ability:req, jumpCondition:req, jumpInstr:req
 	.byte 0x1e
 	.byte \battler
 	.2byte \ability
+	.byte \jumpCondition
 	.4byte \jumpInstr
+	.endm
+
+	.macro jumpifability battler:req, ability:req, jumpptr:req
+	jumpbasedonability \battler, \ability, TRUE, \jumpptr
+	.endm
+
+	.macro jumpifnotability	battler:req, ability:req, jumpptr:req
+	jumpbasedonability \battler, \ability, FALSE, \jumpptr
 	.endm
 
 	@FIXED think needed to make 4byte instead of 2
@@ -2234,6 +2245,7 @@
 
 	.macro jumpifsafeguard jumpptr:req
 	jumpifability BS_ATTACKER, ABILITY_INFILTRATOR, 1f
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, 1f	@put suond move condition in function
 	jumpifsideaffecting BS_TARGET, SIDE_STATUS_SAFEGUARD, \jumpptr
 	1:
 	.endm

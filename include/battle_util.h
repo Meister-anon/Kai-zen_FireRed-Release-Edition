@@ -216,6 +216,13 @@ bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
 bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
 u8 CanMovebeRedirected(void); //for adjusting absorb ability targetting
 
+//cacophony based functions - also affects perish song, bypasses walls and protection
+//and sets sleep and confusion effects to max duration on status set
+bool8 ShouldCacophonyBoostAccuracy(u16 move);
+bool8 ShouldCacophonyBoostEffectChance(u16 move);
+bool8 ShouldCacophonyElevateMoveEffect(u16 move);
+void CacophonyElevateMoveEffect(void);
+
 //added from EE for form change update (not planning to use for transform/ditto)
 bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false
 bool32 DoesSpeciesUseHoldItemToChangeForm(u16 species, u16 heldItemId);

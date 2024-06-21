@@ -415,7 +415,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit                     @ EFFECT_BOLT_BEAK
 	.4byte BattleScript_EffectSkyDrop                 @ EFFECT_SKY_DROP
 
-	
+	@clanging scales
 	.4byte BattleScript_EffectAttackerDefenseDownHit
 
 	@ custom effects  @@@@@@@@@@
@@ -453,6 +453,11 @@ goto BattleScript_MoveEnd  @just in case this has fallthrough
 @BattleScript_EffectSleepHit:
 @	setmoveeffect MOVE_EFFECT_SLEEP
 @	goto BattleScript_EffectHit
+
+@added this here for stat clear, for early bird
+@ Cant compare directly to a value, have to compare to value at pointer
+sZero:
+.byte 0
 
 BattleScript_EffectBelch::
 	attackcanceler
@@ -880,13 +885,17 @@ BattleScript_EffectPartingShotTryAtk:
 	setbyte sSTAT_ANIM_PLAYED, FALSE
 	playstatchangeanimation BS_TARGET, BIT_ATK | BIT_SPATK, STAT_CHANGE_STAT_NEGATIVE | STAT_CHANGE_ONLY_MULTIPLE
 	playstatchangeanimation BS_TARGET, BIT_ATK, STAT_CHANGE_STAT_NEGATIVE
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_CacophonyPartingShotAtk
 	setstatchanger STAT_ATK, 1, TRUE
+BattleScript_CacophonyBoostedPartingshotAtkChange:
 	statbuffchange STAT_CHANGE_BS_PTR, BattleScript_EffectPartingShotTrySpAtk
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_EffectPartingShotTrySpAtk:
 	playstatchangeanimation BS_TARGET, BIT_SPATK, STAT_CHANGE_STAT_NEGATIVE
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_CacophonyPartingShotSpAtk
 	setstatchanger STAT_SPATK, 1, TRUE
+BattleScript_CacophonyBoostedPartingshotSpAtkChange:
 	statbuffchange STAT_CHANGE_BS_PTR, BattleScript_EffectPartingShotSwitch
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
@@ -908,6 +917,14 @@ BattleScript_EffectPartingShotSwitch:
 	switchineffects BS_ATTACKER
 BattleScript_PartingShotEnd:
 	end
+
+BattleScript_CacophonyPartingShotAtk::
+	setstatchanger STAT_ATK, 2, TRUE
+	goto BattleScript_CacophonyBoostedPartingshotAtkChange
+
+BattleScript_CacophonyPartingShotSpAtk::
+	setstatchanger STAT_SPATK, 2, TRUE
+	goto BattleScript_CacophonyBoostedPartingshotSpAtkChange
 
 BattleScript_EffectSpAtkUpHit:
 	setmoveeffect MOVE_EFFECT_SP_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
@@ -1268,7 +1285,9 @@ BattleScript_EffectAttackUpUserAlly:
 BattleScript_EffectAttackUpUserAlly_Works:
 	attackanimation
 	waitanimation
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_CacophonyBoostedHowl
 	setstatchanger STAT_ATK, 1, FALSE
+BattleScript_EffectStatSet:
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_BS_PTR, BattleScript_EffectAttackUpUserAlly_TryAlly
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_EffectAttackUpUserAllyUser_PrintString
 	setgraphicalstatchangevalues
@@ -1281,7 +1300,9 @@ BattleScript_EffectAttackUpUserAlly_TryAlly:
 BattleScript_EffectAttackUpUserAlly_End:
 	goto BattleScript_MoveEnd
 BattleScript_EffectAttackUpUserAlly_TryAlly_:
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_AllyCacophonyBoostedHowl
 	setstatchanger STAT_ATK, 1, FALSE
+BattleScript_Effect_AllyStatSet:
 	statbuffchange STAT_CHANGE_BS_PTR, BattleScript_EffectAttackUpUserAlly_End
 	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_EffectAttackUpUserAlly_AllyAnim
 	pause B_WAIT_TIME_SHORTEST
@@ -1294,6 +1315,24 @@ BattleScript_EffectAttackUpUserAlly_AllyAnim:
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_EffectAttackUpUserAlly_End
+
+BattleScript_CacophonyBoostedHowl::
+	setstatchanger STAT_ATK, 2, FALSE
+	goto BattleScript_EffectStatSet
+
+BattleScript_AllyCacophonyBoostedHowl::
+	setstatchanger STAT_ATK, 2, FALSE
+	goto BattleScript_Effect_AllyStatSet
+
+@need unique printstring, call effect
+BattleScript_CacophonyStatusDamage::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNHURTSWITHABILITY
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	tryfaintmon BS_ATTACKER, 0, NULL
+	return
 
 BattleScript_EffectTeatime::
 	attackcanceler
@@ -1676,20 +1715,32 @@ BattleScript_NobleRoarDoMoveAnim::
 	setbyte sSTAT_ANIM_PLAYED, FALSE
 	playstatchangeanimation BS_TARGET, BIT_ATK | BIT_SPATK, STAT_CHANGE_STAT_NEGATIVE | STAT_CHANGE_ONLY_MULTIPLE
 	playstatchangeanimation BS_TARGET, BIT_ATK, STAT_CHANGE_STAT_NEGATIVE
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_CacophonyBoostedAtkChange
 	setstatchanger STAT_ATK, 1, TRUE
+BattleScript_NobleAtkSet::
 	statbuffchange STAT_CHANGE_BS_PTR, BattleScript_NobleRoarTryLowerSpAtk
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 0x2, BattleScript_NobleRoarTryLowerSpAtk
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_NobleRoarTryLowerSpAtk::
 	playstatchangeanimation BS_TARGET, BIT_SPATK, STAT_CHANGE_STAT_NEGATIVE
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_CacophonyBoostedSpAtkChange
 	setstatchanger STAT_SPATK, 1, TRUE
+BattleScript_NobleSpAtkSet::
 	statbuffchange STAT_CHANGE_BS_PTR, BattleScript_NobleRoarEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 0x2, BattleScript_NobleRoarEnd
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_NobleRoarEnd::
 	goto BattleScript_MoveEnd
+
+BattleScript_CacophonyBoostedAtkChange::
+	setstatchanger STAT_ATK, 2, TRUE
+	goto BattleScript_NobleAtkSet
+
+BattleScript_CacophonyBoostedSpAtkChange::
+	setstatchanger STAT_SPATK, 2, TRUE
+	goto BattleScript_NobleSpAtkSet
 
 BattleScript_EffectShellSmash:
 	attackcanceler
@@ -2977,37 +3028,44 @@ BattleScript_EffectMirrorMove::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
+@since these are status these are actually fine,
+@means I only need to worry about the dmging move stuff
+@i.e attackuphit  those would use the move effect
 BattleScript_EffectAttackUp::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectAttackUp2
 	setstatchanger STAT_ATK, 1, FALSE
 	goto BattleScript_EffectStatUp
 
 BattleScript_EffectDefenseUp::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectDefenseUp2
 	setstatchanger STAT_DEF, 1, FALSE
 	goto BattleScript_EffectStatUp
 
 BattleScript_EffectSpeedUp:
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectSpeedUp2
 	setstatchanger STAT_SPEED, 1, FALSE
 	goto BattleScript_EffectStatUp
 
 BattleScript_EffectSpecialDefenseUp:
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectSpecialDefenseUp2
 	setstatchanger STAT_SPDEF, 1, FALSE
 	goto BattleScript_EffectStatUp
 
 BattleScript_EffectSpecialAttackUp::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectSpecialAttackUp2
 	setstatchanger STAT_SPATK, 1, FALSE
 	goto BattleScript_EffectStatUp
 
 BattleScript_EffectAccuracyUp:
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectAccuracyUp2
 	setstatchanger STAT_ACC, 1, FALSE
 	goto BattleScript_EffectStatUp
 
 
-@ Cant compare directly to a value, have to compare to value at pointer
-sZero:
-.byte 0
 
 
 BattleScript_EffectEvasionUp::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectEvasionUp2
 	setstatchanger STAT_EVASION, 1, FALSE
 BattleScript_EffectStatUp::
 	attackcanceler
@@ -3053,18 +3111,22 @@ BattleScript_GroundNullifiesEarth::
 	goto BattleScript_TrySetArgumentEffect
 
 BattleScript_EffectAttackDown::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectAttackDown2
 	setstatchanger STAT_ATK, 1, TRUE
 	goto BattleScript_EffectStatDown
 
 BattleScript_EffectDefenseDown::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectDefenseDown2
 	setstatchanger STAT_DEF, 1, TRUE
 	goto BattleScript_EffectStatDown
 
 BattleScript_EffectSpeedDown::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectSpeedDown2
 	setstatchanger STAT_SPEED, 1, TRUE
 	goto BattleScript_EffectStatDown
 
 BattleScript_EffectAccuracyDown::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectAccuracyDown2
 	setstatchanger STAT_ACC, 1, TRUE
 	goto BattleScript_EffectStatDown
 
@@ -3081,14 +3143,17 @@ BattleScript_EffectFlash::
 	goto BattleScript_StatDownFromAttackString
 
 BattleScript_EffectSpecialAttackDown:
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectSpecialAttackDown2
 	setstatchanger STAT_SPATK, 1, TRUE
 	goto BattleScript_EffectStatDown
 
 BattleScript_EffectSpecialDefenseDown:
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectSpecialDefenseDown2
 	setstatchanger STAT_SPDEF, 1, TRUE
 	goto BattleScript_EffectStatDown
 
 BattleScript_EffectEvasionDown::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_EffectEvasionDown2
 	setstatchanger STAT_EVASION, 1, TRUE
 BattleScript_EffectStatDown::
 	attackcanceler
@@ -3132,6 +3197,73 @@ BattleScript_StatDown::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
+
+BattleScript_EffectAttackUp2::
+	setstatchanger STAT_ATK, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectDefenseUp2::
+	setstatchanger STAT_DEF, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectDefenseUp3:
+	setstatchanger STAT_DEF, 3, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectSpeedUp2::
+	setstatchanger STAT_SPEED, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectSpecialAttackUp2::
+	setstatchanger STAT_SPATK, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectSpecialDefenseUp2::
+	setstatchanger STAT_SPDEF, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectAccuracyUp2:
+	setstatchanger STAT_ACC, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectEvasionUp2::
+	setstatchanger STAT_EVASION, 2, FALSE
+	goto BattleScript_EffectStatUp
+
+BattleScript_EffectSpecialAttackUp3::
+	setstatchanger STAT_SPATK, 3, FALSE
+	goto BattleScript_EffectStatUp
+
+@ using True on end means stat lowers, False means stat raises, number represents number of stat stages to change
+
+BattleScript_EffectAttackDown2::
+	setstatchanger STAT_ATK, 2, TRUE
+	goto BattleScript_EffectStatDown
+
+BattleScript_EffectDefenseDown2::
+	setstatchanger STAT_DEF, 2, TRUE
+	goto BattleScript_EffectStatDown
+
+BattleScript_EffectSpeedDown2::
+	setstatchanger STAT_SPEED, 2, TRUE
+	goto BattleScript_EffectStatDown
+
+BattleScript_EffectSpecialAttackDown2:
+	setstatchanger STAT_SPATK, 2, TRUE
+	goto BattleScript_EffectStatDown
+
+BattleScript_EffectSpecialDefenseDown2::
+	setstatchanger STAT_SPDEF, 2, TRUE
+	goto BattleScript_EffectStatDown
+
+BattleScript_EffectAccuracyDown2::
+	setstatchanger STAT_ACC, 2, TRUE
+    goto BattleScript_EffectStatDown
+
+BattleScript_EffectEvasionDown2::
+	setstatchanger STAT_EVASION, 2, TRUE
+    goto BattleScript_EffectStatDown
+
 
 @theres some weird logic here if a bs is defined and referred to in the C code it NEEDS to use the double colon :: single doesnt work  vsonic
 BattleScript_EmpathAttackAnimation::
@@ -3706,42 +3838,6 @@ BattleScript_AlreadyConfused::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
-BattleScript_EffectAttackUp2::
-	setstatchanger STAT_ATK, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectDefenseUp2::
-	setstatchanger STAT_DEF, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectDefenseUp3:
-	setstatchanger STAT_DEF, 3, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectSpeedUp2::
-	setstatchanger STAT_SPEED, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectSpecialAttackUp2::
-	setstatchanger STAT_SPATK, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectSpecialDefenseUp2::
-	setstatchanger STAT_SPDEF, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectAccuracyUp2:
-	setstatchanger STAT_ACC, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectEvasionUp2::
-	setstatchanger STAT_EVASION, 2, FALSE
-	goto BattleScript_EffectStatUp
-
-BattleScript_EffectSpecialAttackUp3::
-	setstatchanger STAT_SPATK, 3, FALSE
-	goto BattleScript_EffectStatUp
-
 BattleScript_EffectTransform::
 	attackcanceler
 	attackstring
@@ -3752,37 +3848,6 @@ BattleScript_EffectTransform::
 	printfromtable gTransformUsedStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
-
-@ using True on end means stat lowers, False means stat raises, number represents number of stat stages to change
-
-BattleScript_EffectAttackDown2::
-	setstatchanger STAT_ATK, 2, TRUE
-	goto BattleScript_EffectStatDown
-
-BattleScript_EffectDefenseDown2::
-	setstatchanger STAT_DEF, 2, TRUE
-	goto BattleScript_EffectStatDown
-
-BattleScript_EffectSpeedDown2::
-	setstatchanger STAT_SPEED, 2, TRUE
-	goto BattleScript_EffectStatDown
-
-BattleScript_EffectSpecialAttackDown2:
-	setstatchanger STAT_SPATK, 2, TRUE
-	goto BattleScript_EffectStatDown
-
-BattleScript_EffectSpecialDefenseDown2::
-	setstatchanger STAT_SPDEF, 2, TRUE
-	goto BattleScript_EffectStatDown
-
-BattleScript_EffectAccuracyDown2::
-	setstatchanger STAT_ACC, 2, TRUE
-    goto BattleScript_EffectStatDown
-
-BattleScript_EffectEvasionDown2::
-	setstatchanger STAT_EVASION, 2, TRUE
-    goto BattleScript_EffectStatDown
-
 
 BattleScript_EffectReflect::
 	attackcanceler
@@ -3870,16 +3935,34 @@ BattleScript_EffectAttackDownHit::
 	setmoveeffect MOVE_EFFECT_ATK_MINUS_1
 	goto BattleScript_EffectHit
 
+@keeping but most of these lvl 2s don't have battle effects
+@they were made preceeding cacophony upgrades
+BattleScript_EffectAttackDownHit2::
+	setmoveeffect MOVE_EFFECT_ATK_MINUS_2
+	goto BattleScript_EffectHit
+
 BattleScript_EffectDefenseDownHit::
 	setmoveeffect MOVE_EFFECT_DEF_MINUS_1
+	goto BattleScript_EffectHit
+
+BattleScript_EffectDefenseDownHit2::
+	setmoveeffect MOVE_EFFECT_DEF_MINUS_2
 	goto BattleScript_EffectHit
 
 BattleScript_EffectSpeedDownHit::
 	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
 	goto BattleScript_EffectHit
 
+BattleScript_EffectSpeedDownHit2::
+	setmoveeffect MOVE_EFFECT_SPD_MINUS_2
+	goto BattleScript_EffectHit
+
 BattleScript_EffectSpecialAttackDownHit::
 	setmoveeffect MOVE_EFFECT_SP_ATK_MINUS_1
+	goto BattleScript_EffectHit
+
+BattleScript_EffectSpecialAttackDownHit2::
+	setmoveeffect MOVE_EFFECT_SP_ATK_MINUS_2
 	goto BattleScript_EffectHit
 
 
@@ -3893,6 +3976,10 @@ BattleScript_EffectSpecialDefenseDownHit2::
 
 BattleScript_EffectAccuracyDownHit::
 	setmoveeffect MOVE_EFFECT_ACC_MINUS_1
+	goto BattleScript_EffectHit
+
+BattleScript_EffectAccuracyDownHit2::
+	setmoveeffect MOVE_EFFECT_ACC_MINUS_2
 	goto BattleScript_EffectHit
 
 BattleScript_EffectHurricane:
@@ -7177,21 +7264,26 @@ BattleScript_AllStatsUpSpDef::
 BattleScript_AllStatsUpRet::
 	return
 
-	@believe cpm equal tell it to not raise stats if spdef is maxed since its raising everything
-BattleScript_EffectSketchStatUp::
+BattleScript_AllStatsUp2::
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, 12, BattleScript_AllStatsUpAtk2
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, 12, BattleScript_AllStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPEED, 12, BattleScript_AllStatsUpAtk2
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, 12, BattleScript_AllStatsUpAtk2
 	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, 12, BattleScript_AllStatsUpRet2
 BattleScript_AllStatsUpAtk2::
 	setbyte sSTAT_ANIM_PLAYED, 0
-	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPATK | BIT_SPDEF, 0
+	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPEED | BIT_SPATK | BIT_SPDEF, 0
 	setstatchanger STAT_ATK, 2, FALSE
 	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpDef2
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_AllStatsUpDef2::
 	setstatchanger STAT_DEF, 2, FALSE
+	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpeed2
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpSpeed2::
+	setstatchanger STAT_SPEED, 2, FALSE
 	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_AllStatsUpSpAtk2
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
@@ -7206,6 +7298,37 @@ BattleScript_AllStatsUpSpDef2::
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_AllStatsUpRet2::
+	return
+
+@believe cpm equal tell it to not raise stats if spdef is maxed since its raising everything
+BattleScript_EffectSketchStatUp::
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, 12, BattleScript_SketchStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, 12, BattleScript_SketchStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, 12, BattleScript_SketchStatsUpAtk2
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, 12, BattleScript_SketchStatsUpRet2
+BattleScript_SketchStatsUpAtk2::
+	setbyte sSTAT_ANIM_PLAYED, 0
+	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPATK | BIT_SPDEF, 0
+	setstatchanger STAT_ATK, 2, FALSE
+	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpDef2
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SketchStatsUpDef2::
+	setstatchanger STAT_DEF, 2, FALSE
+	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpSpAtk2
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SketchStatsUpSpAtk2::
+	setstatchanger STAT_SPATK, 2, FALSE
+	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpSpDef2
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SketchStatsUpSpDef2::
+	setstatchanger STAT_SPDEF, 2, FALSE
+	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SketchStatsUpRet2
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_SketchStatsUpRet2::
 	return
 
 BattleScript_RapidSpinAway::
@@ -8077,6 +8200,7 @@ BattleScript_MoveEffectSpiritLock::
 @right now not working want to affect both enemies in doubles
 @but loops infinitely on single target, need add loop values
 @like intimidate
+@special case realized, not place for jump
 BattleScript_AftermathOnSwitch::
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
@@ -9553,7 +9677,12 @@ BattleScript_EffectClangorousSoul:
 	waitanimation
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, BattleScript_CacophonyBoostedClangorousSoul
 	call BattleScript_AllStatsUp
+	goto BattleScript_MoveEnd
+
+BattleScript_CacophonyBoostedClangorousSoul:
+	call BattleScript_AllStatsUp2
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectOctolock:

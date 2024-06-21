@@ -4607,6 +4607,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //this is sayign what happens to the attackers damage given said condition so use offesne multiplier
     if (((sideStatus & SIDE_STATUS_AURORA_VEIL) && !IS_CRIT) //not a crit
         && GetBattlerAbility(battlerIdAtk) != ABILITY_INFILTRATOR
+        && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk) == ABILITY_CACOPHONY) && gBattleMoves[move].flags & FLAG_SOUND)
         && !gProtectStructs[battlerIdAtk].confusionSelfDmg
         && IsBlackFogNotOnField())
     {
@@ -4811,6 +4812,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
             && GetBattlerAbility(battlerIdAtk) != ABILITY_INFILTRATOR
             && !gProtectStructs[battlerIdAtk].confusionSelfDmg
+            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk) == ABILITY_CACOPHONY) && gBattleMoves[move].flags & FLAG_SOUND)
             && IsBlackFogNotOnField())
         {
             if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
@@ -4938,6 +4940,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
             if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
             && GetBattlerAbility(battlerIdAtk) != ABILITY_INFILTRATOR
+            && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk) == ABILITY_CACOPHONY) && gBattleMoves[move].flags & FLAG_SOUND)
             && IsBlackFogNotOnField())
         {
             if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)

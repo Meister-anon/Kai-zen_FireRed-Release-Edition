@@ -733,7 +733,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_SELECTED,
         .priority = -6,
         .split = SPLIT_STATUS,
-    },
+    }, //cacophony boost could make this do dmage percent hp
+    //may do like prankster make field cacophony boosted
 
     [MOVE_SING] =
     {
@@ -777,6 +778,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .argument = MOVE_EFFECT_CONFUSION,
     },//previously sonic boom / idk but doesn't seem to be setting confuse effect?
+    //cacophony boost  increase effect chance as well as infiltrate
 
     [MOVE_DISABLE] =
     {
@@ -1159,7 +1161,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .pp = 40,
         #endif
-        .effect = EFFECT_GROWTH,
+        .effect = EFFECT_GROWTH, //doubles stat boost in sun
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 0,
@@ -2716,6 +2718,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 0,
     .split = SPLIT_SPECIAL,
 }, //should make a good tm?
+//does flinch so no cacophony boost,hmm well I could screw it
 
 [MOVE_CURSE] =
 {
@@ -3066,7 +3069,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .priority = 1, //keep an eye on, but good for increasing moves pressure without overall being oppressive
     .flags = FLAG_SOUND, //vsonic
     .split = SPLIT_STATUS,
-},
+},//need test, attempt set cacophony perish song to set lower timer for opposing side
 
 [MOVE_ICY_WIND] =
 {
@@ -5023,7 +5026,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
-    },
+    },//cacophony boost drop 3 // think too much instead boost accuracy to 100
 
     [MOVE_GRASS_WHISTLE] =
     {
@@ -6404,7 +6407,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .power = 85,
         #else
-            .power = 90,
+            .power = 90,  //unsure if want to reboost power
         #endif
         .effect = EFFECT_HIT,
         .type = TYPE_DRAGON,
@@ -7037,8 +7040,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_CHATTER] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 85,
-            .secondaryEffectChance = 0,
+            .power = 75,
+            .secondaryEffectChance = 50,
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         #elif B_UPDATED_MOVE_DATA == GEN_5
             .power = 60,
@@ -7053,10 +7056,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_SOUND,
         .accuracy = 100,
         .pp = 20,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .target = MOVE_TARGET_BOTH,//change to target both with cacophony becomes guaranteed confuse
+        .priority = 0,          //w max confuse odds
         .split = SPLIT_SPECIAL,
     }, //did I intend this to eb a gauranteed confuse?
+    //for this and other foncuse will use cacophonyboosted special status to allow to confuse bugs etc.
+    //nvm that would be hell to setup just make confuse mon that otherwise block confuse
+    //don't need do that, forgot was gonna set max turns
+    //don't want to overwrite confuse immunity as that would run into new territory
+    //of countering existing mechanics or blocking other ability effects, 
+    //giving immunity is one thing
+    //while that is another and would be a power creep
 
     [MOVE_JUDGMENT] =
     {
@@ -8956,18 +8966,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DISARMING_VOICE] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
         .power = 40,
         .type = TYPE_FAIRY,
         .accuracy = 0,
         .pp = 15,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 20,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
         //.argument = MOVE_EFFECT_CONFUSION,
     }, //doesn't make sense for this to have confusion despite being sound move as its quite
+    //don't know what to do with this far as cacophony since I don't have dmg boost it would do nothing to this
+    //could make boost damaage? just for this kinda stuff, but I prefer for it to not do damage
+    //so its separate from sonar
 
     [MOVE_PARTING_SHOT] =
     {
@@ -9142,7 +9155,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 0, //realized for balance sake, shouldn't add confuse chance
-        .target = MOVE_TARGET_BOTH,
+        .target = MOVE_TARGET_BOTH,//might be broken w cacophony may need put target back to foes and ally
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
@@ -9744,7 +9757,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
         .argument = STATUS1_BURN,
-    },
+    }, //like disarming voice can't do much with this with cacophony and I guess that's fine?
+    //ended up buffing disarming voice
 
     [MOVE_ICE_HAMMER] =
     {
@@ -10880,7 +10894,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED | FLAG_SOUND,
         .split = SPLIT_STATUS,
-    },
+    },//might be set but test
 
     [MOVE_BODY_PRESS] =
     {
@@ -12195,14 +12209,14 @@ use wonder gaurd logic to determine its super effective
         .type = TYPE_FLYING,
         .accuracy = 100,
         .pp = 20,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
         .argument = MOVE_EFFECT_CONFUSION,
-        .argumentEffectChance = 10,
-    },
+        //.argumentEffectChance = 10, can use sec effect for this
+    },//since effect is affects user its already certain
 
     [MOVE_OVER_MAX_POWER] =
     {

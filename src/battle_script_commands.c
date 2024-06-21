@@ -136,7 +136,7 @@ static void atk1A_dofaintanimation(void);
 static void atk1B_cleareffectsonfaint(void);
 static void atk1C_jumpifstatus(void);
 static void atk1D_jumpifstatus2(void);
-static void atk1E_jumpifability(void);
+static void atk1E_jumpbasedonability(void);
 static void atk1F_jumpifsideaffecting(void);
 static void atk20_jumpifstat(void);
 static void atk21_jumpifstatus3condition(void);
@@ -396,7 +396,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atk1B_cleareffectsonfaint,
     atk1C_jumpifstatus,
     atk1D_jumpifstatus2,
-    atk1E_jumpifability,
+    atk1E_jumpbasedonability,
     atk1F_jumpifsideaffecting,
     atk20_jumpifstat,
     atk21_jumpifstatus3condition,
@@ -1455,6 +1455,10 @@ static void atk00_attackcanceler(void) //vsonic
 
     } 
 
+    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY)
+    && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+        gSpecialStatuses[gBattlerAttacker].Cacophonyboosted = TRUE;
+
     if (TryAegiFormChange())
         return;
 
@@ -1483,6 +1487,7 @@ static void atk00_attackcanceler(void) //vsonic
     if (gProtectStructs[gBattlerTarget].bounceMove  //target has magic coat effect/ already setup and should work as sidestatus, could replace with timer check but don't need to
         && gBattleMoves[gCurrentMove].flags & FLAG_MAGIC_COAT_AFFECTED
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_INFILTRATOR   //since this is a screen-like, needed add infiltrator bypass
+        && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY) && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
         && !gProtectStructs[gBattlerAttacker].usesBouncedMove) //move attacker is using is not one already bounced
     {
         PressurePPLose(gBattlerAttacker, gBattlerTarget, MOVE_MAGIC_COAT);
@@ -1682,7 +1687,11 @@ static bool8 IsBattlerProtected(u8 battlerId, u16 move)//IMPORTANT change to fal
 { //setprotectlike does the protection, then hre I can undo it when this gets checked in attack canceleror
     //make sure add check for if move is protect affected to all protectstructs listed below
 
-    if ((gProtectStructs[battlerId].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
+    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY) && gBattleMoves[move].flags & FLAG_SOUND)
+        return FALSE;
+    else if (IsMoveMakingContact(move, gBattlerAttacker) && GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST)
+        return FALSE;
+    else if ((gProtectStructs[battlerId].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
         return TRUE;
     else if (gBattleMoves[move].effect == MOVE_EFFECT_FEINT)
         return FALSE;
@@ -1703,55 +1712,13 @@ static bool8 IsBattlerProtected(u8 battlerId, u16 move)//IMPORTANT change to fal
         return TRUE;
     else if (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_MAT_BLOCK
         && !IS_MOVE_STATUS(move))
-        return TRUE; //think below should instead be its own function start fromweather has effect down
-    //else if (ProtectBreak) //idk may work, should be if not 0
-       // return TRUE; // nah doesn't work becuase of how function returns work, 
-    //my function isn't returning the random value its using it.
-        //I'll just leave this off,  I'll not worry about spikyshield physical damagage
-    //function below should be fine by itself.
+        return TRUE;
+    
     else
         return FALSE;
 }
 
-/*static void ProtectBreak(void) //part in parenthesis is argument going into function
-{ //part left of name is what's returned from function.
-    //made void again since don't think I need it to return something.
-    u16 rand = Random();
-    u16 randPercent = 100 - (rand % 12); //should work as final adjustment to damage to do 89-100 percent of total after breaking protect
 
-    if ((WEATHER_HAS_EFFECT &&
-        (((gBattleWeather & WEATHER_RAIN_ANY) && ((gBattleMoves[gCurrentMove].effect == EFFECT_THUNDER) || (gCurrentMove == MOVE_HYDRO_PUMP || gCurrentMove == MOVE_ZAP_CANNON)))
-            || ((gBattleWeather & WEATHER_HAIL_ANY) && (gCurrentMove == MOVE_BLIZZARD))
-            || ((gBattleWeather & WEATHER_SUN_ANY) && (gCurrentMove == MOVE_FIRE_BLAST || gCurrentMove == MOVE_SOLAR_BEAM || gCurrentMove == MOVE_SOLAR_BLADE || gCurrentMove == MOVE_OVERHEAT))))
-            || (gCurrentMove == MOVE_BLAST_BURN || gCurrentMove == MOVE_HYDRO_CANNON || gCurrentMove == MOVE_FRENZY_PLANT || gCurrentMove == MOVE_HYPER_BEAM || gCurrentMove == MOVE_GIGA_IMPACT || gCurrentMove == MOVE_ROCK_WRECKER)
-            && IsBattlerProtected
-            && Random() % 3 == 0) // don't know if should be chance effect or certain effect
-    {
-        gProtectStructs[gBattlerTarget].protected = 0; //removes affects
-        gSideStatuses[GetBattlerSide(gBattlerTarget)] &= ~(SIDE_STATUS_WIDE_GUARD);
-        gSideStatuses[GetBattlerSide(gBattlerTarget)] &= ~(SIDE_STATUS_QUICK_GUARD);
-        gSideStatuses[GetBattlerSide(gBattlerTarget)] &= ~(SIDE_STATUS_CRAFTY_SHIELD);
-        gSideStatuses[GetBattlerSide(gBattlerTarget)] &= ~(SIDE_STATUS_MAT_BLOCK);
-        gProtectStructs[gBattlerTarget].spikyShielded = 0; //need else if to ensure the phpysical moves 
-        gProtectStructs[gBattlerTarget].kingsShielded = 0; //that break protect still take spiky shield damage
-        gProtectStructs[gBattlerTarget].banefulBunkered = 0;
-
-        if (gBattleMoveDamage != 0) // in case using gbattlemovedamage prevents hi/lo rolls since aparently movedamage is the last calculation, I may switch this to power
-            //gBattleMoves[move].power   keep the first check that move does damage, but otherwise replace movedamage with power, if I find I need to because modulate damage is no longer working
-        {
-            gBattleMoveDamage *= randPercent;
-            gBattleMoveDamage /= 100;
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = 1;
-        }
-    }
-
-
-    // ok believe I've got this, should be 1 in 4 chance for 150bp move to break through protect and other moves to do so with proper weather boosts
-   // this idea of breaking protect was initially just thunder in gen 4 having a 30% chance in rain, then gen 8 brought back with dynamax moves at a portion of full damage
-   // I'm using my own conditions, and...I THINK I may do a reduction in damage too, but do it randomly like high/low rolls just to a lesser degree
-   // also maybe I'll add a text string for this, but for now I'll do without.
-}*/
 
 static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accuracy ignore  //done
 {   //in emerald these are else ifs, rather than if, think will change to that so it checks through all instead of just 1st true
@@ -1937,6 +1904,10 @@ static void atk01_accuracycheck(void)
         if (buff > MAX_STAT_STAGE)
             buff = MAX_STAT_STAGE;
         moveAcc = gBattleMoves[move].accuracy;
+
+        //cacophony boost
+        if (ShouldCacophonyBoostAccuracy(move))
+            moveAcc = 100;
 
         //trap effects
         if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
@@ -4796,19 +4767,22 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 //yeah I like that a lot better, ok set it up like traunt, but end turn, that way you still get 2 chances to catch a wild mon before it starts to heal
             //makes rest better, which is fine but should be no issues, just test and tweak heal value
             if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_SLEEP)//>>>actually way this is counted it decrements before effect takes palce (i.e in atk canceler not end turn)
-                {
+            {
+                if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted)
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 5;
+                else
                     gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = ((Random() % 3) + 3);
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                    //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
-                    gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
-                    
-                    if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
-                    {
-                        ClearRageStatuses(gEffectBattler);
-                        BattleScriptPushCursor();
-                        gBattlescriptCurrInstr = BattleScript_RageEnds; //need test doesn't work, no message
-                    } //just realized I'm not activating this logic since I'm using yawn, that bypasses this function
-                }
+                gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
+                gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                
+                if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
+                {
+                    ClearRageStatuses(gEffectBattler);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_RageEnds; //need test doesn't work, no message
+                } //just realized I'm not activating this logic since I'm using yawn, that bypasses this function
+            }
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_FREEZE)
             {
                 gDisableStructs[gEffectBattler].FrozenTurns = 3;    //means 2 turns of freeze
@@ -4909,6 +4883,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
             u32 TrapDuration;
             u32 i;
 
+            //best do cacophony effect change here
+            //do based on move
+            //howl parting shot etc. can stay as they are
+            //as they are spcific move based, I just need to change the general ones
+            if (ShouldCacophonyElevateMoveEffect(gCurrentMove))
+                CacophonyElevateMoveEffect();
+
             switch (gBattleScripting.moveEffect)
             {
             case MOVE_EFFECT_CONFUSION:
@@ -4918,7 +4899,10 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 else
                 {
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION_TURN(((Random()) % 4) + 2); //think this odds for confusion duration again 2-5
+                    if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted)
+                        gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION_TURN(5);
+                    else
+                        gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION_TURN(((Random()) % 4) + 2); //think this odds for confusion duration again 2-5
                     // If the confusion is activating due to being released from Sky Drop, go to "confused due to fatigue" script.
                     // Otherwise, do normal confusion script.
                         if (gCurrentMove == MOVE_SKY_DROP)
@@ -5760,6 +5744,10 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
         percentChance = argumentChance; //confused it doesn't use them interchangeably so may work? think is different?
     //since I didn't understand scripting.moveEffect this was the isue it was always defaulting to 0 as above block didn't read
 
+    //cacophony boost
+    if (ShouldCacophonyBoostEffectChance(gCurrentMove))
+        percentChance *= 2;
+
     //hail based freeze boost, 
     if ((gBattleWeather & WEATHER_HAIL_ANY)
         && gBattleMoves[gCurrentMove].effect == EFFECT_FREEZE_HIT)
@@ -6129,10 +6117,11 @@ static void atk1D_jumpifstatus2(void)
 }
 
 //sigh ok this was the problem with multitask its still not right, for some reason animation isn't playing
-static void atk1E_jumpifability(void) //tset copy original code back from kaizen, from before cmd arg update
+//split into jumpifability and jumpifnotability
+static void atk1E_jumpbasedonability(void)
 {
     
-    CMD_ARGS(u8 battler, u16 ability, const u8 *jumpInstr);
+    CMD_ARGS(u8 battler, u16 ability, u8 jumpCondition, const u8 *jumpInstr);
     u32 battlerId;
     bool32 hasAbility = FALSE;
     u32 ability = cmd->ability;
@@ -6153,6 +6142,13 @@ static void atk1E_jumpifability(void) //tset copy original code back from kaizen
                 {
                     hasAbility = TRUE; //if shouldn't multitask will fail to jump to portion that gives moves multi hit effect
                 } //only used in, low kick script, and non multihit scripts
+                else
+                    hasAbility = FALSE;
+            }
+            else if (ability == ABILITY_CACOPHONY)
+            {
+                if (gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+                    hasAbility = TRUE;
                 else
                     hasAbility = FALSE;
             }
@@ -6178,17 +6174,33 @@ static void atk1E_jumpifability(void) //tset copy original code back from kaizen
         break;
     }
 
-    if (hasAbility)
+    if (cmd->jumpCondition == TRUE)// jump if has ability
     {
-        gLastUsedAbility = ability;
-        gBattlescriptCurrInstr = cmd->jumpInstr;
-        //gBattlescriptCurrInstr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
-        RecordAbilityBattle(battlerId, gLastUsedAbility);
-        gBattleScripting.battlerWithAbility = battlerId;
+        if (hasAbility)
+        {
+            gLastUsedAbility = ability;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+            //gBattlescriptCurrInstr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
+            RecordAbilityBattle(battlerId, gLastUsedAbility);
+            gBattleScripting.battlerWithAbility = battlerId;
+        }
+        else
+        {
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
     }
-    else
+    else if (cmd->jumpCondition == FALSE) //jump if not has ability
     {
-        gBattlescriptCurrInstr = cmd->nextInstr;
+        if (!(hasAbility))
+        {
+
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+            //gBattlescriptCurrInstr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
+        }
+        else
+        {
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
     }
 }
 
@@ -13671,7 +13683,8 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         if (gSideTimers[GET_BATTLER_SIDE(gActiveBattler)].mistTimer
             && IsBlackFogNotOnField()
             && !certain && gCurrentMove != MOVE_CURSE
-            && !(gActiveBattler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR))
+            && !(gActiveBattler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR)
+            && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY) && gBattleMoves[gCurrentMove].flags & FLAG_SOUND))
         {
             if (flags == STAT_CHANGE_BS_PTR)
             {
@@ -15429,6 +15442,7 @@ static void atkB2_trysetperishsong(void)
 {
     s32 i;
     s32 notAffectedCount = 0;
+    u32 opposingSide = GetBattlerSide(BATTLE_OPPOSITE(gBattlerAttacker));
 
     for (i = 0; i < gBattlersCount; ++i)
     {
@@ -15440,7 +15454,13 @@ static void atkB2_trysetperishsong(void)
         else
         {
             gStatuses3[i] |= STATUS3_PERISH_SONG;
-            gDisableStructs[i].perishSongTimer = 3;
+
+            //want to setup so only opposite side has lower counter
+            if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted
+            && GetBattlerSide(i) == opposingSide)
+                gDisableStructs[i].perishSongTimer = 2;
+            else
+                gDisableStructs[i].perishSongTimer = 3;
         }
     }
     PressurePPLoseOnUsingPerishSong(gBattlerAttacker);
