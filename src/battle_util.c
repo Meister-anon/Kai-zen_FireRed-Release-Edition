@@ -7021,53 +7021,53 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 {
                 case ABILITY_VOLT_DASH:
                 case ABILITY_VOLT_ABSORB:
-                    if (moveType == TYPE_ELECTRIC && CAN_ABILITY_ABSORB(battler)) //redid drwaws in stauts, but doesn't boost stat, just nullifies, //doesnt trigeger if target user
+                    if (moveType == TYPE_ELECTRIC) //redid drwaws in stauts, but doesn't boost stat, just nullifies, //doesnt trigeger if target user
                         effect = 1; 
                     break;
                 case ABILITY_WATER_ABSORB:
                 case ABILITY_DRY_SKIN:
-                    if (moveType == TYPE_WATER && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_WATER)
                         effect = 1;
                     break;
                 case ABILITY_GLACIAL_ICE:
-                    if (moveType == TYPE_ICE && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_ICE)
                         effect = 1;
                     break;
                 case ABILITY_EROSION:
-                    if (moveType == TYPE_ROCK && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_ROCK)
                         effect = 1;
                     break;
                 case ABILITY_RISING_PHOENIX:
-                if (moveType == TYPE_FIRE && CAN_ABILITY_ABSORB(battler))
+                if (moveType == TYPE_FIRE)
                         effect = 4;
                     break;
                 case ABILITY_JEWEL_METABOLISM:
-                    if (moveType == TYPE_ROCK && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_ROCK)
                         effect = 2, statId = STAT_DEF;
                     break;
                 case ABILITY_MOTOR_DRIVE:
-                    if (moveType == TYPE_ELECTRIC && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_ELECTRIC)
                         effect = 2, statId = STAT_SPEED;
                     break;
                 case ABILITY_LIGHTNING_ROD:
-                    if (moveType == TYPE_ELECTRIC && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_ELECTRIC)
                         effect = 2, statId = STAT_SPATK;
                     break;
                 case ABILITY_STORM_DRAIN:
-                    if (moveType == TYPE_WATER && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_WATER)
                         effect = 2, statId = STAT_SPATK;
                     break;
                 case ABILITY_SAP_SIPPER:
-                    if (moveType == TYPE_GRASS && CAN_ABILITY_ABSORB(battler))
+                    if (moveType == TYPE_GRASS)
                         effect = 2, statId = STAT_ATK;
                     break;
                 case ABILITY_GALEFORCE:
-                    if (gBattleMoves[moveArg].flags & FLAG_WIND_MOVE && CAN_ABILITY_ABSORB(battler))
+                    if (gBattleMoves[moveArg].flags & FLAG_WIND_MOVE)
                         effect = 2, statId = STAT_SPATK;
                     break;
                 case ABILITY_LAVA_FISSURE:
                 case ABILITY_FLASH_FIRE:
-                    if ((moveType == TYPE_FIRE && CAN_ABILITY_ABSORB(battler)) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
+                    if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
                     {
                         if (!(gBattleResources->flags->flags[battler] & RESOURCE_FLAG_FLASH_FIRE))
                         {
@@ -10699,6 +10699,16 @@ u32 SetRandomTarget(u32 battlerId)
     return target;
 }
 
+u8 CanMovebeRedirected(void)
+{
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_SNIPE_SHOT
+    || (GetBattlerAbility(gBattlerAttacker) == ABILITY_PROPELLER_TAIL)
+    || (GetBattlerAbility(gBattlerAttacker) == ABILITY_STALWART))
+        return FALSE;
+    else
+        return TRUE;
+}
+
 #define ABSORB_ABILITY_TARGETTING
 u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who gets attacked?
 {
@@ -10735,261 +10745,155 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
         }
         else
         {
-            /*side = GetBattlerSide(gBattlerAttacker);//since this makes it use target, guess I can just use atk cancler for that but with these conitions?
-            do
-            {
-                targetBattler = Random() % gBattlersCount;  //think that would just make the battle string work, I still need to set status check her to prevent target swap
-            } while (targetBattler == gBattlerAttacker || side == GetBattlerSide(targetBattler) || gAbsentBattlerFlags & gBitTable[targetBattler]);*/
+            
 
-            targetBattler = SetRandomTarget(gBattlerAttacker); //CHANGEd match emerald need test
+            //with this, if move isn't redirected reasserts original target
+            targetBattler = gBattlerTarget;         
+            
 
-            //if (CAN_ABILITY_ABSORB(IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_LIGHTNING_ROD)))
-            //{} //think do like this, thought solved this but test agani on starmie pair below palette
 
-            //if targetbattler = BATTLE_PARTNER
-            //don't think I need something specific for partner
-            //this is single target only so just means redirect if absorb abilit on opposing side
-            //and targetted mon isn't said mon
-            //change this to use getmovetype type arge
-            if (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC)   //if multiple absorb abilities think would trigger in order of top to bottom
-            {
-                //if opposing battler has absorb ability and can absorb assign battler id
-                if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                //else if opposing partner has absorb ability and can absorb assign opposing partner
-                //essentially does is ability check logic without function
-                else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
 
-                /*if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_LIGHTNING_ROD) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
-                    && GetBattlerAbility(targetBattler) != ABILITY_LIGHTNING_ROD //means chosen target not lightning rod, since side has 2 mon, end goal is swap target to other mon with ability
-                    )  //usign minus one makes it return exact id, otherwise ust confirms its on other side
+                if (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC)   //if multiple absorb abilities think would trigger in order of top to bottom
                 {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_LIGHTNING_ROD) - 1);//^= BIT_FLANK; //sets target
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_ABSORB) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
-                    && GetBattlerAbility(targetBattler) != ABILITY_VOLT_ABSORB
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_ABSORB) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_DASH) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
-                    && GetBattlerAbility(targetBattler) != ABILITY_VOLT_DASH
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_VOLT_DASH) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_MOTOR_DRIVE) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
-                    && GetBattlerAbility(targetBattler) != ABILITY_MOTOR_DRIVE
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION)) //should be not status 1 and not confused
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_MOTOR_DRIVE) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }*/
+                    //if opposing battler has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
+                        
+                        //logic is sayign specifically what battler has it
+                        //and setting targetting to that battler so they absorb. 
+                        //logic may fail for triples?
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    //else if opposing partner has absorb ability and can absorb assign opposing partner
+                    //essentially does is ability check logic without function
+                    else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
 
-            }
-            if (moveType == TYPE_WATER || moveArgument == TYPE_WATER)
-            {
-                //if opposing battler has absorb ability and can absorb assign battler id
-                if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                //else if opposing partner has absorb ability and can absorb assign opposing partner
-                //essentially does is ability check logic without function
-                else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
 
-                /*if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_STORM_DRAIN) //checks for ability, returns battlerId, think can use as battlreid to check if mon is statused?
-                    && GetBattlerAbility(targetBattler) != ABILITY_STORM_DRAIN    //if the selected target not an absorb ability, shift target to partner with said ability
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_STORM_DRAIN) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_WATER_ABSORB)//I THINK way this works, if I target absorb battler it'll trigger on them rather than swapping target
-                    && GetBattlerAbility(targetBattler) != ABILITY_WATER_ABSORB
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_WATER_ABSORB) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_DRY_SKIN)
-                    && GetBattlerAbility(targetBattler) != ABILITY_DRY_SKIN
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_DRY_SKIN) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }*/
-            }
-            if (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE)
-            {
-                //if opposing battler has absorb ability and can absorb assign battler id
-                if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                //else if opposing partner has absorb ability and can absorb assign opposing partner
-                //essentially does is ability check logic without function
-                else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
+                
 
-                /*if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_FLASH_FIRE)
-                    && GetBattlerAbility(targetBattler) != ABILITY_FLASH_FIRE
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_FLASH_FIRE) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
                 }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_LAVA_FISSURE)
-                    && GetBattlerAbility(targetBattler) != ABILITY_LAVA_FISSURE
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
+                else if (moveType == TYPE_WATER || moveArgument == TYPE_WATER)
                 {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_LAVA_FISSURE) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_RISING_PHOENIX)
-                    && GetBattlerAbility(targetBattler) != ABILITY_RISING_PHOENIX
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_RISING_PHOENIX) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }*/
+                    //if opposing battler has absorb ability and can absorb assign battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    //else if opposing partner has absorb ability and can absorb assign opposing partner
+                    //essentially does is ability check logic without function
+                    else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
 
-            }
-            if (moveType == TYPE_ROCK || moveArgument == TYPE_ROCK)
-            {
-                //if opposing battler has absorb ability and can absorb assign battler id
-                if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                
                 }
-                //else if opposing partner has absorb ability and can absorb assign opposing partner
-                //essentially does is ability check logic without function
-                else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                else if (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE)
                 {
-                    targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                /*if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_EROSION)
-                    && GetBattlerAbility(targetBattler) != ABILITY_EROSION
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_EROSION) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                else if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_JEWEL_METABOLISM)
-                    && GetBattlerAbility(targetBattler) != ABILITY_JEWEL_METABOLISM
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_JEWEL_METABOLISM) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }*/
+                    //if opposing battler has absorb ability and can absorb assign battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    //else if opposing partner has absorb ability and can absorb assign opposing partner
+                    //essentially does is ability check logic without function
+                    else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
 
-            }
-            if (moveType == TYPE_GRASS || moveArgument == TYPE_GRASS)
-            {
-                //if opposing battler has absorb ability and can absorb assign battler id
-                if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                //else if opposing partner has absorb ability and can absorb assign opposing partner
-                //essentially does is ability check logic without function
-                else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                /*if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_SAP_SIPPER)
-                    && GetBattlerAbility(targetBattler) != ABILITY_SAP_SIPPER
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_SAP_SIPPER) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }*/
+                
 
-            }
-            if (moveType == TYPE_ICE || moveArgument == TYPE_ICE)
-            {
-                //if opposing battler has absorb ability and can absorb assign battler id
-                if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
-                {
-                    targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
                 }
-                //else if opposing partner has absorb ability and can absorb assign opposing partner
-                //essentially does is ability check logic without function
-                else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
-                && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                else if (moveType == TYPE_ROCK || moveArgument == TYPE_ROCK)
                 {
-                    targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }
-                /*if (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_GLACIAL_ICE)
-                    && GetBattlerAbility(targetBattler) != ABILITY_GLACIAL_ICE
-                    && !(gBattleMons[targetBattler].status1 & STATUS1_ANY)
-                    && !(gBattleMons[targetBattler].status2 & STATUS2_CONFUSION))
-                {
-                    targetBattler = (IsAbilityOnOpposingSide(gBattlerAttacker, ABILITY_GLACIAL_ICE) - 1);
-                    RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
-                }*/
+                    //if opposing battler has absorb ability and can absorb assign battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    //else if opposing partner has absorb ability and can absorb assign opposing partner
+                    //essentially does is ability check logic without function
+                    else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    
 
-            }
+                }
+                else if (moveType == TYPE_GRASS || moveArgument == TYPE_GRASS)
+                {
+                    //if opposing battler has absorb ability and can absorb assign battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    //else if opposing partner has absorb ability and can absorb assign opposing partner
+                    //essentially does is ability check logic without function
+                    else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                   
+
+                }
+                else if (moveType == TYPE_ICE || moveArgument == TYPE_ICE)
+                {
+                    //if opposing battler has absorb ability and can absorb assign battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    //else if opposing partner has absorb ability and can absorb assign opposing partner
+                    //essentially does is ability check logic without function
+                    else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
+                    && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
+                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    {
+                        targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
+                        RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
+                    }
+                    
+
+                }
+                
 
         }
         break;
@@ -11006,26 +10910,10 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
         if (gSideTimers[side].followmeTimer && gBattleMons[gSideTimers[side].followmeTarget].hp)
             targetBattler = gSideTimers[side].followmeTarget;
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && moveTarget & MOVE_TARGET_RANDOM)
-        {
-            if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
-            {
-                if (Random() & 1)
-                    targetBattler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
-                else
-                    targetBattler = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
-            }
-            else
-            {
-                if (Random() & 1)
-                    targetBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-                else
-                    targetBattler = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-            }
-            if (gAbsentBattlerFlags & gBitTable[targetBattler])
-                targetBattler ^= BIT_FLANK;
-        }
+            targetBattler = SetRandomTarget(gBattlerAttacker);
         else
-            targetBattler = GetBattlerAtPosition((GetBattlerPosition(gBattlerAttacker) & BIT_SIDE) ^ BIT_SIDE);
+            targetBattler = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker)));
+        break;
         break;
     case MOVE_TARGET_USER_OR_SELECTED:
     case MOVE_TARGET_USER:

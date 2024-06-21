@@ -214,6 +214,7 @@ void SetAtkCancellerForCalledMove(void);
 //two custom functions for ability absorb along w new macro should do what I need
 bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
 bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
+u8 CanMovebeRedirected(void); //for adjusting absorb ability targetting
 
 //added from EE for form change update (not planning to use for transform/ditto)
 bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false

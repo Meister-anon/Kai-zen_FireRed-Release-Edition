@@ -6591,6 +6591,7 @@ static void HandleAction_UseMove(void)
     else if (ShouldAbilityAbsorb(gBattleMons[gBattlerAttacker].moves[gCurrMovePos])) //tink need add extra condition? makae this else if, cehck for absorb ability on other side then go here, then put else with original condition
     {
         gCurrentMove = gChosenMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
+        if (CanMovebeRedirected()) //putting a block here does seem to prevent retargetting
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(gCurrentMove, TRUE);  //don't know if there are consequences but putting this her makes work?
     } //just need to add dynamic type logic to getmovetarget, and  put argument logic below this
     //using getmovetarget, does cause issue, it makes target swap work, but then for abilities that shouldn't be absorbed/retargetted, they get moved too
@@ -6605,19 +6606,18 @@ static void HandleAction_UseMove(void)
     else
         gBattleResults.lastUsedMoveOpponent = gCurrentMove;
 
-    // Set dynamic move type.
-    SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker);
-    GET_MOVE_TYPE(gChosenMove, moveType); //need add argument type, for two type move
+    // Set dynamic move type. - done in get move target so possibly can replace
+    //but multi turns doesn't have getmovetarget  so I guess need to keep
+    //this may be necessaary to set opponent type?
+    //as player has it set at move chose in battle controller or I put it there?
+    SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker); 
+    //GET_MOVE_TYPE(gChosenMove, moveType); //need add argument type, for two type move
 
-    GET_MOVE_ARGUMENT(gChosenMove, argument);
 
-    if (gBattleMoves[gChosenMove].effect == EFFECT_TWO_TYPED_MOVE)
-        moveArgument = argument;
 
-    moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);
 
-    // choose target
-    side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE;
+    // choose target - need look into may not need this anymore
+    side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE; //comparing getmovetarget logic appears almost identical, far as checks
     if (gSideTimers[side].followmeTimer != 0
      && gBattleMoves[gCurrentMove].target == MOVE_TARGET_SELECTED
      && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gSideTimers[side].followmeTarget)
@@ -6625,93 +6625,7 @@ static void HandleAction_UseMove(void)
     {
         gBattlerTarget = gSideTimers[side].followmeTarget;  //think use gBattlerTarget = GetMoveTarget(gCurrentMove, TRUE); somewhere
     }
-    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) //VSONIC think important can't remember what does need test, believe part of redirection?
-          && gSideTimers[side].followmeTimer == 0
-          && (gBattleMoves[gCurrentMove].power != 0
-              || (moveTarget != MOVE_TARGET_USER && moveTarget != MOVE_TARGET_ALL_BATTLERS))
-          && ((GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_LIGHTNING_ROD && (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_VOLT_ABSORB && (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_MOTOR_DRIVE && (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_STORM_DRAIN && (moveType == TYPE_WATER || moveArgument == TYPE_WATER))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_WATER_ABSORB && (moveType == TYPE_WATER || moveArgument == TYPE_WATER))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_DRY_SKIN && (moveType == TYPE_WATER || moveArgument == TYPE_WATER))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_EROSION &&(moveType == TYPE_ROCK || moveArgument == TYPE_ROCK))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_JEWEL_METABOLISM && (moveType == TYPE_ROCK || moveArgument == TYPE_ROCK))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_SAP_SIPPER && (moveType == TYPE_GRASS || moveArgument == TYPE_GRASS))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_GLACIAL_ICE && (moveType == TYPE_ICE || moveArgument == TYPE_ICE))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_LAVA_FISSURE && (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_FLASH_FIRE && (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_RISING_PHOENIX && (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE))
-            && (GetBattlerAbility(*(gBattleStruct->moveTarget + gBattlerAttacker)) != ABILITY_GALEFORCE && gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE)))
-    {
-        side = GetBattlerSide(gBattlerAttacker);
-        for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
-             if (side != GetBattlerSide(gActiveBattler) //I think I need to add status clause to below linses?
-                && *(gBattleStruct->moveTarget + gBattlerAttacker) != gActiveBattler
-                && ((GetBattlerAbility(gActiveBattler) == ABILITY_LIGHTNING_ROD && (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_VOLT_ABSORB && (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_MOTOR_DRIVE && (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_STORM_DRAIN && (moveType == TYPE_WATER || moveArgument == TYPE_WATER) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_WATER_ABSORB && (moveType == TYPE_WATER || moveArgument == TYPE_WATER) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_DRY_SKIN && (moveType == TYPE_WATER || moveArgument == TYPE_WATER) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION && (moveType == TYPE_ROCK || moveArgument == TYPE_ROCK) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM && (moveType == TYPE_ROCK || moveArgument == TYPE_ROCK) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_SAP_SIPPER && (moveType == TYPE_GRASS || moveArgument == TYPE_GRASS) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_GLACIAL_ICE && (moveType == TYPE_ICE || moveArgument == TYPE_ICE) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_LAVA_FISSURE && (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_FLASH_FIRE && (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_RISING_PHOENIX && (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE) && CAN_ABILITY_ABSORB(gActiveBattler))
-                 || (GetBattlerAbility(gActiveBattler) == ABILITY_GALEFORCE && gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE && CAN_ABILITY_ABSORB(gActiveBattler)))
-                && GetBattlerTurnOrderNum(gActiveBattler) < var
-                && gBattleMoves[gCurrentMove].effect != EFFECT_SNIPE_SHOT
-                && (GetBattlerAbility(gBattlerAttacker) != ABILITY_PROPELLER_TAIL
-                 || GetBattlerAbility(gBattlerAttacker) != ABILITY_STALWART))
-                var = GetBattlerTurnOrderNum(gActiveBattler);
-        if (var == 4)
-        {
-            if (gBattleMoves[gChosenMove].target & MOVE_TARGET_RANDOM)
-            {
-                if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
-                {
-                    if (Random() & 1)
-                        gBattlerTarget = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
-                    else
-                        gBattlerTarget = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
-                }
-                else
-                {
-                    if (Random() & 1)
-                        gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-                    else
-                        gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-                }
-            }
-            else
-            {
-                gBattlerTarget = *(gBattleStruct->moveTarget + gBattlerAttacker);
-            }
-            if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
-            {
-                if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
-                {
-                    gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerTarget) ^ BIT_FLANK);
-                }
-                else
-                {
-                    gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_SIDE);
-                    if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
-                        gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerTarget) ^ BIT_FLANK);
-                }
-            }
-        }
-        else //think just means not end turn?
-        {
-            gActiveBattler = gBattlerByTurnOrder[var];
-            RecordAbilityBattle(gActiveBattler, gBattleMons[gActiveBattler].ability);
-            //gSpecialStatuses[gActiveBattler].lightningRodRedirected = 1;  //idk why this sets this here, if its also set by getmovetarget in battle_util.c?
-            gBattlerTarget = gActiveBattler; //seems because they are used in different places, getmovetarget would rest target but it isn't used with lightning rod stuff here?
-        }
-    }
+    
     else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
           && gBattleMoves[gChosenMove].target & MOVE_TARGET_RANDOM)
     {
@@ -6933,7 +6847,8 @@ bool8 TryRunFromBattle(u8 battler)
             }
         }
 
-        ++gBattleStruct->runTries;
+        if (gBattleStruct->runTries <= 30)
+        ++gBattleStruct->runTries; //believe new max val is 31
     }
     if (effect)
     {

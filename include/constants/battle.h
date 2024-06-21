@@ -279,6 +279,8 @@
 
 #define STATUS3_SEMI_INVULNERABLE       (STATUS3_UNDERGROUND | STATUS3_ON_AIR | STATUS3_UNDERWATER | STATUS3_PHANTOM_FORCE)
 
+#define STAUS3_VULNERABLE (STATUS3_ROOTED | STATUS3_YAWN)
+
 //signature of heliolisk, for move electrify
 //similar to plasma fist effect but for target
 #define STATUS4_ELECTRIFIED             (1 << 0)	//need to check how status4 is setup to make sure it runs on same conditions as status2

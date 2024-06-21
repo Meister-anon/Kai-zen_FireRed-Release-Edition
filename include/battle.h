@@ -203,7 +203,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x04*/ u16 disabledMove;
     /*0x06*/ u16 encoredMove;
     /*0x08*/ u8 protectUses;
-    /*0x09*/ u8 stockpileCounter:2;
+    /*0x09*/ u8 stockpileCounter:2; //group
     s8 stockpileDef;
     s8 stockpileSpDef;
     s8 stockpileBeforeDef;
@@ -221,15 +221,17 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x13*/ u8 tauntTimer : 4;
     /*0x14*/ u8 battlerPreventingEscape;
     /*0x15*/ u8 battlerWithSureHit;
-    /*0x16*/ u8 isFirstTurn:3;
+    /*0x16*/ u8 isFirstTurn:2; //group
+             u8 unk18_a_2 : 2; //group
+             u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
     /*0x17*/ u8 unk17;
     /*0x18*/ u8 truantCounter : 1;
     /*0x18*/ u8 sleepCounter : 1;
              u8 YawnTimer:1;//for update yawn
     /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
-    /*0x18*/ u8 unk18_a_2 : 2;
+    /*0x18*/ 
     /*0x18*/ u8 mimickedMoves : 4;
-    /*0x19*/ u8 rechargeTimer;
+    /*0x19*/ u8 rechargeTimer; //would use 1
     //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
     u8 ingrainTurn;
     u8 aquaringTurn;
@@ -255,7 +257,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 snaptrapTurns;
     u8 thundercageTurns;
     u8 environmentTrapTurns;   //turn counter for environment traps fire spin whirlpool sandtomb magma storm
-    u8 FrozenTurns:2; //made w sleep timer and stockpile together in mind
     u8 bideTimer;
     u8 bindMovepos; //stored pos of bind move   //double check I'm actually using
     u16 bindedMove; //move bind locks you to
@@ -302,20 +303,23 @@ struct ProtectStruct    //also gets cleared at end turn
              u32 flag_x20 : 1;           // 0x20
              u32 flag_x40 : 1;           // 0x40
              u32 flag_x80 : 1;           // 0x80
-             u32 field3 : 8;
+             /* field_3 */
+             u32 field3 : 8;//field 3 because bit field 3,  this fills u32
 
              u32 physicalDmg;
              u32 specialDmg;
              u8 physicalBattlerId;
              u8 specialBattlerId;
+
              u32 spikyShielded : 1;  //consider renaming spike shield
              u32 kingsShielded : 1;
              u32 banefulBunkered : 1;
-             u16 silkTrapped : 1;
+             u32 silkTrapped : 1;
              u32 shieldBashed : 1;
              u32 usesBouncedMove : 1;
              u32 usedHealBlockedMove : 1;
              u32 usedGravityPreventedMove : 1;
+
              u32 powderSelfDmg : 1;  //not sure why  I added this I'm not gonna use it? well for someone else I guess. 
              u32 usedThroatChopPreventedMove : 1;
              u32 pranksterElevated : 1;
@@ -324,14 +328,16 @@ struct ProtectStruct    //also gets cleared at end turn
              u32 OmniAideElevated : 1; //omnipotent aide, new fields added to account for queenly majesty w status priority change
              u32 NuisanceElevated : 1;
              u32 LightMetalElevated : 1;
+
              u32 quickDraw : 1;
-             u16 quash : 1;
-             u16 beakBlastCharge : 1;
+             u32 quash : 1;
+             u32 beakBlastCharge : 1; //makes more sense to put thse in special status..
              u32 usedMicleBerry : 1;
              u32 usedCustapBerry : 1;    // also quick claw
              u32 touchedProtectLike : 1;
              u32 obstructed : 1;
-             u32 disableEjectPack : 1;    
+             u32 disableEjectPack : 1;  
+             u32 padding:8;  
              u16 fieldE;
 };
 
@@ -349,34 +355,43 @@ struct SpecialStatus    //gets cleared at end turn
     u8 traced : 1;                  // 0x10
     u8 ppNotAffectedByPressure : 1;
     u8 flag40 : 1;
+
+    u8 field1[3]; //think this is counted different rather than a portion of 1 byte its 3 full bytes
+
     u8 focusBanded : 1;
     u8 focusSashed : 1;
     u8 sturdied : 1;
-    u8 sturdyhungon:1; //new one time use  for sturdy avoiding exploion moves death
-    u8 field1[3];
+    u8 sturdyhungon:1; //new one time use  for sturdy avoiding exploion moves death    
     u8 berryReduced : 1;
-    u8 rototillerAffected : 1;  // to be affected by rototiller
     u8 instructedChosenTarget : 3;
+
+    u8 rototillerAffected : 1;  // to be affected by rototiller    
     u8 switchInItemDone : 1;
     u8 gemBoost : 1;
-    u8 gemParam;
+    u8 switchInAbilityDone : 1;
     u8 damagedMons : 4; // Mons that have been damaged directly by using a move, includes substitute. //NOW THAT have added can prob use to update catchexp function/macro?
+    u8 gemParam;
+
     u8 dancerUsedMove : 1;
     u8 dancerOriginalTarget : 3;
     u8 announceNeutralizingGas : 1;   // See Cmd_switchineffects
     u8 neutralizingGasRemoved : 1;    // See VARIOUS_TRY_END_NEUTRALIZING_GAS
     u8 stenchRemoved : 1;    // Set as VARIOUS_TRY_END_STENCH  both exclusive to gastro acid?
-    u8 switchInAbilityDone : 1;
     u8 Lostresolve:1; //for ability -tweaked as for pressure and iron will, moved here as realize makes more sense as special status
+    
     s32 dmg;
-    s32 physicalDmg;
+    s32 physicalDmg; //does it make sense to have this twice? have version in protect structs too?
     s32 specialDmg;
-    u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
     u8 physicalBattlerId;
     u8 specialBattlerId;
     u8 changedStatsBattlerId; // Battler that was responsible for the latest stat change. Can be self.
-    u8 parentalBondState : 2; // 0/1/2
+    
+    u8 EmergencyExit : 1; //logic mix truant pursuit/escape hit, setup like truant trigger on end turn that hp met theshold,raise attack then make attack first & set moveeffect escape hit so it leaves after attacking. WILL USE for both wimpout and Emergency exit just use ability check for logic change
+    u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
     u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
+    u8 Cacophonyboosted:1; //need make function for and add to battle_main
+    u8 padding:3;
+    
     u8 firstFuturesightHits;
     u8 secondFuturesightHits;
     u8 field12;
@@ -385,41 +400,56 @@ struct SpecialStatus    //gets cleared at end turn
 
 extern struct SpecialStatus gSpecialStatuses[MAX_BATTLERS_COUNT];
 
+//think can replace most timers w bitfield 3, as usually nothing goes aboe 8
+//slightly misunderstood that, is :3 can represent 8 values that's 0-7 not 0-8
+//so bit 3 only works for timers that don't get extended to 8
+//so not weather or terrain
 struct SideTimer    //effects below persist regardless of mon
 {
-    /*0x00*/ u8 reflectTimer;
+    /*0x00*/ u16 reflectTimer:3;
+             u16 lightscreenTimer:3;
+             u16 mistTimer:3;
+             u16 safeguardTimer:3;
+             u16 followmeTimer:1; //follow me only goes to 1
+             u16 followmePowder:1; //believe this is actually rage powder
+             u16 padding:2;
+
     /*0x01*/ u8 reflectBattlerId;
-    /*0x02*/ u8 lightscreenTimer;
+    /*0x02*/ 
     /*0x03*/ u8 lightscreenBattlerId;
-    /*0x04*/ u8 mistTimer;
+    /*0x04*/ 
     /*0x05*/ u8 mistBattlerId;
-    /*0x06*/ u8 safeguardTimer;
+    /*0x06*/ 
     /*0x07*/ u8 safeguardBattlerId;
-    /*0x08*/ u8 followmeTimer;
+    /*0x08*/ 
     /*0x09*/ u8 followmeTarget;
-    /*0x0A*/ u8 followmePowder;
-    u8 spikesAmount;
-    u8 toxicSpikesAmount;
-    u8 stealthRockAmount;
-    u8 stickyWebAmount;
+    /*0x0A*/ 
+    u8 spikesAmount:2; //3 effective layers
+    u8 toxicSpikesAmount:2; //2 effective layers
+    u8 stealthRockAmount:2; //1 effective layers
+    u8 stickyWebAmount:2; //2 effective layers - ability or move to set stickyweb //bleive was my own change,
     u8 stickyWebBattlerSide; // Used for Court Change
-    u8 auroraVeilTimer;
-    u8 auroraVeilBattlerId;
-    u8 tailwindTimer;
-    u8 tailwindBattlerId;
-    u8 luckyChantTimer;
-    u8 luckyChantBattlerId;
-    u8 healBlockTimer; //added for side status effect
+    
+    u32 auroraVeilTimer:3; //still need add to debugger
+    u32 tailwindTimer:3;
+    u32 luckyChantTimer:3;
+    u32 healBlockTimer:3; //added for side status effect
+    u32 embargoTimer:3;
+    u32 mudSportTimer:3;     //put these back, gen 3 effect didn' work how I thought. effect only lasts long as user stays in, and only for user who set it.
+    u32 waterSportTimer:3;  //forgot to remove these earlier, since I'm using gen 3 effects for them
+    u32 retaliateTimer:3;  //vsonic need to implement
+    u32 MagicTimer:3;
+    u32 padding1:5;
+
+    u8 auroraVeilBattlerId;    
+    u8 tailwindBattlerId;    
+    u8 luckyChantBattlerId;    
     u8 healBlockBattlerId; //hopefully will be able to individual target clear status, but keep side status in effect for new switches
-    u8 embargoBattlerId;
-    u8 embargoTimer;
-    u8 mudSportBattlerId;
-    u8 mudSportTimer;     //put these back, gen 3 effect didn' work how I thought. effect only lasts long as user stays in, and only for user who set it.
-    u8 waterSportTimer;  //forgot to remove these earlier, since I'm using gen 3 effects for them
-    u8 waterSportBattlerId;
-    u8 retaliateTimer;  //vsonic need to implement
-    u8 MagicTimer;
+    u8 embargoBattlerId;    
+    u8 mudSportBattlerId;    
+    u8 waterSportBattlerId;    
     u8 MagicBattlerId; //magic coat defines changed from one turn to screen like side status
+    
     /*0x0B*/ u8 fieldB;
 };
 
@@ -431,25 +461,28 @@ struct FieldTimer
     u8 wonderRoomTimer;
     u8 magicRoomTimer;
     u8 trickRoomTimer;
-    u8 terrainTimer;
-    u8 echoVoiceCounter;
+    u8 terrainTimer; //can go to 8 so needs bit 4
+    u8 echoVoiceCounter; //5 effective stacks bp 40, increases by 40, each turnup to 200
     u8 gravityTimer;
     u8 fairyLockTimer;
     u8 IonDelugeTimer; // this & roost will be only ones that don't fail if used when timer isn't 0
     u8 HazeTimer;
 
+
 };//check how I setup roost may not need iondelugetimer here
+//can't make fieldtimers bitfields
 
 struct WishFutureKnock
 {
-    u8 futureSightCounter[MAX_BATTLERS_COUNT];
+    u8 futureSightCounter[MAX_BATTLERS_COUNT]; //these are arrays so not messing with this
     u8 futureSightCounter2[MAX_BATTLERS_COUNT];
     u8 futureSightAttacker[MAX_BATTLERS_COUNT];
     s32 futureSightDmg[MAX_BATTLERS_COUNT];
     u16 futureSightMove[MAX_BATTLERS_COUNT];
     u8 wishCounter[MAX_BATTLERS_COUNT];
     u8 wishMonId[MAX_BATTLERS_COUNT];
-    u8 weatherDuration;
+    u8 weatherDuration:4; //could make bit 4 w padding nothing else to currently match with
+    u8 padding:4;
     u8 forecastedCurrWeather; //will be 1st weather effect predicted on switchin by forecast, set so can compare effects before set
     u8 forecastedNextWeather; //will be second weather effect predicted on switchin by forecast
     u8 knockedOffMons[2];
@@ -567,7 +600,7 @@ struct LinkPartnerHeader
     struct BattleEnigmaBerry battleEnigmaBerry;
 };
 
-struct MegaEvolutionData
+struct MegaEvolutionData //could change to altered/elevated/termporary state struct and put terra here? 
 {
     u8 toEvolve; // As flags using gBitTable.
     u8 evolvedPartyIds[2]; // As flags using gBitTable;
@@ -580,8 +613,9 @@ struct MegaEvolutionData
     u8 battlerId;
     bool8 playerSelect;
     u8 triggerSpriteId;
-    bool8 isWishMegaEvo;
-    bool8 isPrimalReversion;
+    bool8 isWishMegaEvo:1;
+    bool8 isPrimalReversion:1;
+    bool8 padding:6; //potential terra stuff
 };
 
 struct Illusion
@@ -627,6 +661,9 @@ struct BattleStruct //fill in unused fields when porting
     u8 battlerPreventingSwitchout;
     u8 moneyMultiplier;
     u8 moneyMultiplierMove : 1;
+    u8 overworldWeatherDone:1;
+    u8 terrainDone:1; //realistically run attempts almost never get into double digits
+    u8 runTries:5;//used for boosting run success odds based on number attempts//could shrink and link with moneymultipliermove
     u8 savedTurnActionNumber;
     u8 switchInAbilitiesCounter;
     u8 faintedActionsState;
@@ -639,7 +676,6 @@ struct BattleStruct //fill in unused fields when porting
     u8 battlerPartyIndexes[MAX_BATTLERS_COUNT];
     u8 monToSwitchIntoId[MAX_BATTLERS_COUNT];
     u8 battlerPartyOrders[MAX_BATTLERS_COUNT][3];
-    u8 runTries;
     u8 caughtMonNick[POKEMON_NAME_LENGTH + 1];
     //u8 caughtMonNick[POKEMON_NAME_LENGTH + 1][2]; //think this will work for catching multiple mon i.e doubles
     struct MegaEvolutionData mega;
@@ -687,8 +723,6 @@ struct BattleStruct //fill in unused fields when porting
     void (*savedCallback)(void);
     u8 synchronizeMoveEffect;
     u8 multiplayerId;
-    bool8 overworldWeatherDone;
-    bool8 terrainDone;
     u8 atkCancellerTracker;//almost feels like I should turn these party wide things into their own struct at this point
     u16 SecondaryItemSlot[PARTY_SIZE][NUM_BATTLE_SIDES];//for pickpocket and magician store taken item if already holding item
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
@@ -838,6 +872,7 @@ static inline struct Pokemon *GetBattlerParty(u32 battlerId)
 
 // NOTE: The members of this struct have hard-coded offsets 
 //       in include/constants/battle_script_commands.h
+//very finicky so not gonna bit field this
 struct BattleScripting  //remember expanding this costs ewram
 {
     s32 painSplitHp;
