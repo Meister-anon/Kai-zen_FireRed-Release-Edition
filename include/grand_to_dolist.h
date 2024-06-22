@@ -2403,6 +2403,51 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     actually should only display message for player side
     as otherwise battlers item doesn't get reveiled 
 
+    note**(
+    can make list of tms want everyone to have macro,
+    and rather than add to individual tm learnset
+    can put in function check if tm is this, anyone can learn it
+    -make rest one of them
+    )
+
+    -note can save on ewram a bit by optimizing structs listed in battle_main
+    did that can't make fieldtimers a bit field, but also need
+    add rest of side timers to debugger
+
+    for cacophony can do jumps/calls in script to account for effect
+    effect makes all sound moves bypass walls and protection
+    also enhances effect
+
+    add perish song to debugger multiple other status
+
+    status moves:
+    stat chanaging, increase stat stage of drop by 1 if is 1 stage or 2 stage boost (considering just do for single stage)
+    -decided boost stage if 1 stage boost otherwise just boost accuracy to 100
+    //will need make function for should cacophony boost acc
+    if status move and listed effects and cacophony boosted
+    -in progress
+
+    non-stat based enemy target, do damage with effect using copy of ability damage script
+    
+    status setting - ex. confusion or sleep, set max turns for this use cacophony boosted special status like where I have prankster setup
+    -done
+
+    damaging moves:
+    if has effect double effect chance
+
+    for effect set function would need do on move by move basic
+    but think can use switch case, w move argument  and effect chance argument
+    effect chance = cacophonyeffectboost(move, secondarychance or  argumentchance)
+
+    something liek this
+
+    -relevant effects
+    attack down, roar, sleep, confuse, defense down 2, snore - may need skeep effect boost if that sets flinch - yeah causes flinch
+    skip snore, perish song,  set counter 1 value lower if  cacophonyboosted
+    hell bell, guess make it affect sound proof if boosted?
+    not boosting spook cuz flinch chance
+    sp def down 2, bug buzz sp atk down hit
+
     -finally fixed ability absorb setup,
     also cupid's arrow not quite right,
     if not battle start when switch in attempts to use move
@@ -2422,11 +2467,68 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     as well as fix status issues with debugger
     put staus timers in first block w status 1,
-    and setup wrap status and fix recharge status rage and torment
+    and setup wrap status and fix recharge status rage and torment and bide
     vsonic IMPORTANT
 
+    decide leave status activation condition to just absorb abilities
+    would be too much to deal with if had to avoid status with every ability
+    //but would be a good potential counter for imtimidate
+    but the question is would it be too much?
+    if running the ability requires too much investment its not viable
+    hope is to have good options far as counters, grass mon would be great as counters
+
+    ok need put more thought into which abilities should specifically have these
+    status based activation conditions applied to them.
+
+    some abilities are passive, some are physical, some are mental,
+    some are biological etc. some are more actively focused
+
+    its easy to do filter for absorb abilities because they are reductive to overall gameplay
+    by design it removes options, an entire type from use.
+    Very strong with no counter.
+    Intimidate is the same, reductive strong no real counter (till they started adding a bunch)
+    or drawbacks, i.e very easy to activate/access
+
+    Cacophony while strong, only has effect in doubles, and requires using a specific move type
+    a good deal of setup is required so that wouldn't need to be filtered
+    
+    i.e abilities that require movement and to be in an unimpaired state
+    such as absorb abilities where idea is, they are moving to jump in front of a move.
+
+    and status abilities (intimidate) things that imply the user to be in a certain condition
+    to work such as intimdate working becuase they are able to put on airs and scare the enemy
+    can't do that if they are weakned
+
+    since intimidate is switch in only rather than use canability absorb
+    would just be status1
+
+    lets do an extrapolation, abilities are good abilities are cool,
+    they allow for unique strategies and variety in character use
+    if you turn abilities off the game gets boring.
+
+    But a part of how good something is, is measured in the quality of the counter play
+    or how many options it creates around it.
+
+    if you make status the factor for ability activation status setting gets more use,
+    but on the other hand, toxic spikes suddenly gets very popular as well,
+    as a simple means to block abilities on switch in.
+
+    so def a good thing didn't decide to make every ability work that way
+
+    other game change made staus moves use type calc,
+    to make typing more relevant/effective than just, for doing big damage
+
+    -for cacophony
+    infiltrator and protect break portions of effect appear to work
+    still to setup is specific move based effect boost
+
+    idea of cacophony is sound based helping hand,
+    makes it more efficient wall break and protect break is an extension of whhat sound already does
+    hits all for neutral because nothing can ignore it, and bypasses substitute as well
+
+
     may potentially add item icon to summary screen box
-    to show secondary slot
+    to show secondary slot item
 
     believe setup done for consumables just need to do for getting item stolen/knocked off
     believe that's done, and ready to test

@@ -4304,6 +4304,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         //MulModifier(&modifier, UQ_4_12(1.2));
         break;
+    case ABILITY_UNCHAINED_MELODY:
+        if (type == TYPE_SOUND && gBattleStruct->ateBoost[battlerIdAtk])
+            gBattleMovePower = (gBattleMovePower * 120 / 100);
+        break;
     case ABILITY_NEUROFORCE:
         if (gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE)
             OffensiveModifer(125);

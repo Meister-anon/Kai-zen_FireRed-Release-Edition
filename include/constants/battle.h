@@ -48,6 +48,7 @@
 #define BIT_FLANK       2
 
 // Battle Type Flags
+#define BATTLE_TYPE_WILD             0x0000 //think can use like this  yup use gbattletypeflags == BATTLE_TYPE_WILD  specifically for wild battle for all else can use !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
 #define BATTLE_TYPE_DOUBLE           0x0001 //relized this was used as 1 for double value in trainers.h because it lined up with this for gbattletypeflags, its the actual value, 0 is no flags so just default single I guess
 #define BATTLE_TYPE_LINK             0x0002
 #define BATTLE_TYPE_IS_MASTER        0x0004 // In not-link battles, it's always set.

@@ -356,6 +356,7 @@
 #define ABILITY_EVERGREEN 328   //celebi ability
 #define ABILITY_SHAMAN_CURE 329 //shaman base ability
 #define ABILITY_UNCHAINED_MELODY 330  //NORMAL MOVES into sound moves
+
 #define ABILITIES_COUNT ABILITY_UNCHAINED_MELODY + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

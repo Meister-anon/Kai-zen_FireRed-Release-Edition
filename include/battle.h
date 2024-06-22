@@ -411,7 +411,7 @@ struct SideTimer    //effects below persist regardless of mon
              u16 mistTimer:3;
              u16 safeguardTimer:3;
              u16 followmeTimer:1; //follow me only goes to 1
-             u16 followmePowder:1; //believe this is actually rage powder
+             u16 ragePowder:1; //believe this is actually rage powder
              u16 padding:2;
 
     /*0x01*/ u8 reflectBattlerId;

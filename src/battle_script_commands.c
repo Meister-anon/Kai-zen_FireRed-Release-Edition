@@ -8351,7 +8351,6 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             if ((gBattleMoves[gCurrentMove].effect == EFFECT_ATTRACT_HIT)
             && TARGET_TURN_DAMAGED
             && GetBattlerAbility(gBattlerTarget) != ABILITY_OBLIVIOUS
-            && GetBattlerAbility(gBattlerTarget) != ABILITY_UNAWARE
             && GetBattlerAbility(gBattlerTarget) != ABILITY_FEMME_FATALE) //if meets conditions for attract hit\  add ABILITY_FEMME_FATALE
             {
                 if (GetGenderFromSpeciesAndPersonality(speciesAttacker, personalityAttacker) == GetGenderFromSpeciesAndPersonality(speciesTarget, personalityTarget)
@@ -14447,7 +14446,7 @@ static void atk97_tryinfatuating(void)
     personalityTarget = GetMonData(monTarget, MON_DATA_PERSONALITY);
 
     //cupids arrow works regardless of gender so need figure how do that, or just remove the exclusion for gender from these adn just keep it as it is
-    if (targetAbility == ABILITY_OBLIVIOUS || targetAbility == ABILITY_UNAWARE) //add ABILITY_FEMME_FATALE in else if, special message femme fatalle prevents infatuation
+    if (targetAbility == ABILITY_OBLIVIOUS) //add ABILITY_FEMME_FATALE in else if, special message femme fatalle prevents infatuation
     {
         if (GetGenderFromSpeciesAndPersonality(speciesAttacker, personalityAttacker) == GetGenderFromSpeciesAndPersonality(speciesTarget, personalityTarget))
         {

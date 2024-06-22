@@ -360,7 +360,7 @@ static void infatuationchecks(u8 target)//cusotm effect used for cupidarrow
 {
     u16 targetAbility = GetBattlerAbility(target);
 
-    if (targetAbility == ABILITY_OBLIVIOUS || targetAbility == ABILITY_UNAWARE) //add femme fatalle
+    if (targetAbility == ABILITY_OBLIVIOUS || targetAbility == ABILITY_FEMME_FATALE) //add femme fatalle
     {
         gBattlescriptCurrInstr = BattleScript_AbilityPreventsMoodShift;
         gLastUsedAbility = targetAbility;
@@ -4002,8 +4002,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_FLINCH: // flinch
             if ((IsAbilityOnField(ABILITY_STENCH))  
                 && (GetBattlerAbility(gBattlerAttacker) != ABILITY_STENCH
-                && GetBattlerAbility(gBattlerAttacker) != ABILITY_INNER_FOCUS
-                && GetBattlerAbility(gBattlerAttacker) != ABILITY_OBLIVIOUS
+                && GetBattlerAbility(gBattlerAttacker) != ABILITY_INNER_FOCUS 
                 && GetBattlerAbility(gBattlerAttacker) != ABILITY_LEAF_GUARD
                 && GetBattlerAbility(gBattlerAttacker) != ABILITY_SWEET_VEIL
                 && GetBattlerAbility(gBattlerAttacker) != ABILITY_AROMA_VEIL
@@ -7428,7 +7427,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleMons[gBattlerTarget].hp != 0
                     && (Random() % 3) == 0
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_OBLIVIOUS
-                    && GetBattlerAbility(gBattlerAttacker) != ABILITY_UNAWARE
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_FEMME_FATALE
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != GetGenderFromSpeciesAndPersonality(speciesDef, pidDef)
                     && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION)
@@ -8213,10 +8211,11 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             }
-            break;
+            break; //vsonic important for things immune to status need put here, for clearing status in case set while ability suppressed
         case ABILITYEFFECT_IMMUNITY: // 5
             for (battler = 0; battler < gBattlersCount; ++battler)
             {
+                //think need add freeze immunity stuff here - nah freeze is juat ice type, so leaving as is
                 switch (gBattleMons[battler].ability)
                 {
                 case ABILITY_IMMUNITY:
@@ -8258,7 +8257,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                     break;
                 case ABILITY_LAVA_FISSURE:
-                //case ABILITY_RISING_PHOENIX:
                 case ABILITY_FLAME_BODY:
                 case ABILITY_MAGMA_ARMOR:
                     if (gBattleMons[battler].status1 & STATUS1_FREEZE) //may not even need pretty sure it prevents from even getting the status elsewhere?
@@ -8267,6 +8265,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         effect = 1;
                     }
                     break;
+                case ABILITY_FEMME_FATALE:
                 case ABILITY_OBLIVIOUS:
                     if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
                     {
@@ -10613,10 +10612,10 @@ bool32 IsAffectedByFollowMe(u32 battlerAtk, u32 defSide, u32 move)
         || ability == ABILITY_PROPELLER_TAIL || ability == ABILITY_STALWART)
         return FALSE;
 
-    if (gSideTimers[defSide].followmePowder)// && !IsAffectedByPowder(battlerAtk, ability, GetBattlerHoldEffect(battlerAtk, TRUE)))
+    if (gSideTimers[defSide].ragePowder)// && !IsAffectedByPowder(battlerAtk, ability, GetBattlerHoldEffect(battlerAtk, TRUE)))
         return FALSE; //function in ai update add back later
 
-    return TRUE;
+    return TRUE; //need to add ragepowder setup
 }
 
 //testing one step at a time, first, just to fix targetting for normal moves, then to see if can use this for statusing exclusion

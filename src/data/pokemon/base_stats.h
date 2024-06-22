@@ -1287,7 +1287,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FAIRY,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_CUTE_CHARM, ABILITY_COMPETITIVE},
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_NONE},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -1314,7 +1314,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FAIRY,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_CUTE_CHARM, ABILITY_COMPETITIVE},
-            .abilityHidden = {ABILITY_FRISK, ABILITY_NONE},
+            .abilityHidden = {ABILITY_FRISK, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -5319,7 +5319,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_WATER_ABSORB, ABILITY_DAMP},
-        .abilityHidden = {ABILITY_SQUALL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SQUALL, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7635,7 +7635,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_SWIFT_SWIM, ABILITY_RAIN_DISH},
-        .abilityHidden = {ABILITY_OWN_TEMPO, ABILITY_RAIN_DISH},
+        .abilityHidden = {ABILITY_OWN_TEMPO, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9012,7 +9012,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sWailordLevelUpLearnset,
         .tmhmLearnset = sWailordTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//replaced pressure w sonar, would like to add pressure back given changes made to pressure
+    // -decided keep as is
 
     [SPECIES_NUMEL] =
     { 
@@ -9335,7 +9336,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_NATURAL_CURE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -9360,7 +9361,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_NATURAL_CURE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -11189,7 +11190,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SHED_SKIN, ABILITY_NONE},
+        .abilities = {ABILITY_SHED_SKIN, ABILITY_UNCHAINED_MELODY},
         .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -11217,7 +11218,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SWARM, ABILITY_NONE},
+        .abilities = {ABILITY_SWARM, ABILITY_UNCHAINED_MELODY},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_ANTICIPATION},
         // #endif
@@ -12263,7 +12264,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_SONAR, ABILITY_TANGLED_FEET},
-            .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_LIQUID_VOICE},
+            .abilityHidden = {ABILITY_UNCHAINED_MELODY, ABILITY_LIQUID_VOICE},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,

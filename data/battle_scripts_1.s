@@ -2530,9 +2530,8 @@ BattleScript_EffectCaptivate:
 	setstatchanger STAT_SPATK, 2, TRUE
 	attackcanceler
 	jumpifsubstituteblocks BattleScript_ButItFailedAtkStringPpReduce
-	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_ButItFailedAtkStringPpReduce
 	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_ButItFailedAtkStringPpReduce
-	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_ButItFailedAtkStringPpReduce
+	jumpifability BS_TARGET, ABILITY_FEMME_FATALE, BattleScript_ButItFailedAtkStringPpReduce
 	jumpifoppositegenders BattleScript_CaptivateCheckAcc
 	goto BattleScript_ButItFailedAtkStringPpReduce
 BattleScript_CaptivateCheckAcc:
@@ -4735,8 +4734,6 @@ BattleScript_EffectSwagger::
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_SwaggerTryConfuse::
 	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_OwnTempoPrevents
-	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_AbilityPreventsMoodShift
-	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_AbilityPreventsMoodShift
 	jumpifsafeguard BattleScript_SafeguardProtected
 	setmoveeffect MOVE_EFFECT_CONFUSION
 	seteffectprimary
@@ -5597,8 +5594,6 @@ BattleScript_EffectFlatter::
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_FlatterTryConfuse::
 	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_OwnTempoPrevents
-	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_AbilityPreventsMoodShift
-	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_AbilityPreventsMoodShift
 	jumpifsafeguard BattleScript_SafeguardProtected
 	setmoveeffect MOVE_EFFECT_CONFUSION
 	seteffectprimary

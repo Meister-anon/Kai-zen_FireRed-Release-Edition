@@ -11,7 +11,7 @@ static const u8 sSandVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups ev
 static const u8 sStaticDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May Paralyze on contact.");
 static const u8 sVoltAbsorbDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Turns electricity into HP.");
 static const u8 sWaterAbsorbDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes water into HP.");
-static const u8 sObliviousDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents attraction and ignores extra\neffects from things that affect mood.");
+static const u8 sObliviousDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents attraction.\nBlocks Intimidate, taunt, and torment.");
 static const u8 sCloudNineDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Unflappable positivity makes it\nimmune to negative weather effects.");
 static const u8 sCompoundEyesDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises accuracy.");
 static const u8 sInsomniaDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents sleep.");
@@ -19,7 +19,7 @@ static const u8 sColorChangeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Cha
 static const u8 sImmunityDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents poisoning.");
 static const u8 sFlashFireDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Draws in and powers up fire moves");
 static const u8 sShieldDustDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents added effects.");
-static const u8 sOwnTempoDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents confusion and ignores extra\neffects from things that affect mood.");
+static const u8 sOwnTempoDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents confusion.\nBlocks Intimidate, taunt, and torment.");
 static const u8 sSuctionCupsDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Firmly anchors itself, stops force switch.\nTrap moves persist after switch.");
 static const u8 sIntimidateDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Lowers the foe's ATTACK.");
 static const u8 sShadowTagDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents non-ghost foes from escaping.\nAlso drops their speed.");
@@ -107,7 +107,7 @@ static const u8 sSuperLuckDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Criti
 static const u8 sAftermathDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact hurts on faint and lowers speed.\nAlso does reduced effects on switch.");
 static const u8 sAnticipationDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Senses danger via instinct or nature.\nEnables the Pokémon to avoid danger once");
 static const u8 sForewarnDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Predicts a foe's move with psychic power.\nAvoids a predicted move once.");
-static const u8 sUnawareDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ignores stat changes and ignores extra\neffects from things that affect mood.");
+static const u8 sUnawareDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ignores stat changes for dmg & acc check\nBlocks Intimidate, taunt, and torment.");
 static const u8 sTintedLensDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups damage if move's type is resisted.");
 static const u8 sFilterDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Weakens incoming “supereffective”\nmoves.");
 static const u8 sSlowStartDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Takes a while to get going.");
@@ -645,7 +645,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_IMMUTABLE_WIND] = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course."),
     [ABILITY_EVERGREEN] = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
     [ABILITY_SHAMAN_CURE] = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures poisoned allies on switch."),
-
+    [ABILITY_UNCHAINED_MELODY] = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1026,4 +1026,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_IMMUTABLE_WIND] =_("Immutable Wind"),
     [ABILITY_EVERGREEN] =_("Evergreen"),
     [ABILITY_SHAMAN_CURE] =_("Shaman Cure"),
+    [ABILITY_UNCHAINED_MELODY] =_("Unchained Melody"),
 };//can have comma
