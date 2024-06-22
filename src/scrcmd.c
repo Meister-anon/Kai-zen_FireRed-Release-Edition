@@ -1968,6 +1968,9 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext * ctx)
             case MOVE_DIVE:
             moveId = ITEM_HM08_DIVE;
             break;
+            case MOVE_ROCK_CLIMB:
+            moveId = ITEM_HM09_ROCK_CLIMB;
+            break;
         }    
                                      //CanSpeciesLearnTMHM(species, moveId)     MonKnowsMove(&gPlayerParty[i], moveId)
         if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && CanSpeciesLearnTMHM(species, moveId))

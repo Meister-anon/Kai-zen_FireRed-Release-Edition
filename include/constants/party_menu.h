@@ -41,14 +41,13 @@
 #define FIELD_MOVE_ROCK_SMASH   5
 #define FIELD_MOVE_WATERFALL    6
 #define FIELD_MOVE_DIVE         7
-#define FIELD_MOVE_TELEPORT     8
-#define FIELD_MOVE_DIG          9
-#define FIELD_MOVE_MILK_DRINK   10
-#define FIELD_MOVE_SOFT_BOILED  11
-#define FIELD_MOVE_SWEET_SCENT  12
-#define FIELD_MOVE_MOONLIGHT    13 //make for changing day night
-#define FIELD_MOVE_MORNING_SUN  14
-#define FIELD_MOVE_END          15
+#define FIELD_MOVE_ROCK_CLIMB   8
+#define FIELD_MOVE_TELEPORT     9
+#define FIELD_MOVE_DIG          10
+#define FIELD_MOVE_MILK_DRINK   11
+#define FIELD_MOVE_SOFT_BOILED  12
+#define FIELD_MOVE_SWEET_SCENT  13
+#define FIELD_MOVE_END          14
 
 #define PARTY_LAYOUT_SINGLE          0
 #define PARTY_LAYOUT_DOUBLE          1

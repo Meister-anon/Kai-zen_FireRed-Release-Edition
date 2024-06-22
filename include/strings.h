@@ -312,6 +312,7 @@ extern const u8 gText_LightUpDarkness[];
 extern const u8 gText_ShatterACrackedRock[];
 extern const u8 gText_ClimbAWaterfall[];
 extern const u8 gText_DiveDeep[];
+extern const u8 gText_RockClimb[];
 extern const u8 gText_EscapeFromHere[];
 extern const u8 gText_LureWildPokemon[];
 extern const u8 gText_ShareHp[];

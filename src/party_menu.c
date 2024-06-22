@@ -2675,6 +2675,9 @@ static const u8* ReturnCursorIdText(u8 i)
         case (MENU_FIELD_MOVES + FIELD_MOVE_DIVE):
             GetMoveName(gStringVar4, MOVE_DIVE);
                 return gStringVar4;
+        case (MENU_FIELD_MOVES + FIELD_MOVE_ROCK_CLIMB):
+            GetMoveName(gStringVar4, MOVE_ROCK_CLIMB);
+                return gStringVar4;
         case (MENU_FIELD_MOVES + FIELD_MOVE_TELEPORT):
             GetMoveName(gStringVar4, MOVE_TELEPORT);
                 return gStringVar4; 
@@ -2689,12 +2692,6 @@ static const u8* ReturnCursorIdText(u8 i)
                 return gStringVar4;
         case (MENU_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT):
             GetMoveName(gStringVar4, MOVE_SWEET_SCENT);
-                return gStringVar4;
-        case (MENU_FIELD_MOVES + FIELD_MOVE_MOONLIGHT):
-            GetMoveName(gStringVar4, MOVE_MOONLIGHT);
-                return gStringVar4;
-        case (MENU_FIELD_MOVES + FIELD_MOVE_MORNING_SUN):
-            GetMoveName(gStringVar4, MOVE_MORNING_SUN);
                 return gStringVar4;
         }
 }
@@ -2812,7 +2809,7 @@ static void ToggleFieldMoveDescriptionWindow(u8 action)
             ptr->windowId[2] = AddWindow(&gUnknown_845A178);
         sub_8112F18(ptr->windowId[2]);
         attr = GetFontAttribute(2, FONTATTR_LETTER_SPACING);
-        AddTextPrinterParameterized4(ptr->windowId[2], 2, 3, 6, attr, 0, sFontColorTable[5], 0, sHMDescriptionTable[action - MENU_FIELD_MOVES]);
+        AddTextPrinterParameterized4(ptr->windowId[2], 2, 3, 6, attr, 0, sFontColorTable[5], 0, sFieldMoveDescriptionTable[action - MENU_FIELD_MOVES]);
         PutWindowTilemap(ptr->windowId[2]);
         ScheduleBgCopyTilemapToVram(2);
     }

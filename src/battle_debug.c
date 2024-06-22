@@ -660,7 +660,7 @@ static void PrintDigitChars(struct BattleDebugMenu *data);
 static void SetUpModifyArrows(struct BattleDebugMenu *data);
 static void UpdateBattlerValue(struct BattleDebugMenu *data);
 static void UpdateMonData(struct BattleDebugMenu *data);
-static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue);
+static u8 GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, u8 setValue);
 static bool32 TryMoveDigit(struct BattleDebugModifyArrows *modArrows, bool32 moveUp);
 static void SwitchToDebugView(u8 taskId);
 static void SwitchToDebugViewFromAiParty(u8 taskId);
@@ -1217,8 +1217,8 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
         *(u32 *)(data->modifyArrows.modifiedValPtr) |= (data->modifyArrows.currValue << data->bitfield[data->currentSecondaryListItemId].currBit);
         break;
     case VAR_SIDE_STATUS:
-        *GetSideStatusValue(data, TRUE, data->modifyArrows.currValue != 0) = data->modifyArrows.currValue;
-        break;
+        GetSideStatusValue(data, TRUE, data->modifyArrows.currValue);// = data->modifyArrows.currValue;
+        break; //don't understand
     case VAR_SHOW_HP:
         (*(struct BattleSpriteInfo*)(data->modifyArrows.modifiedValPtr)).hpNumbersNoBars = data->modifyArrows.currValue;
         break;
@@ -1312,7 +1312,7 @@ static void ValueToCharDigits(u8 *charDigits, u32 newValue, u8 maxDigits)
         charDigits[i] = valueDigits[i] + CHAR_0;
 }
 
-static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue)
+static u8 GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, u8 setValue)
 {
     struct SideTimer *sideTimer = &gSideTimers[GetBattlerSide(data->battlerId)];
 
@@ -1321,56 +1321,71 @@ static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus,
     case LIST_SIDE_REFLECT:
         if (changeStatus)
         {
-            if (statusTrue)
+            if (gSideTimers[GetBattlerSide(data->battlerId)].reflectTimer)
                 *(u32 *)(data->modifyArrows.modifiedValPtr) |= SIDE_STATUS_REFLECT;
             else
                 *(u32 *)(data->modifyArrows.modifiedValPtr) &= ~SIDE_STATUS_REFLECT;
-            sideTimer->reflectBattlerId = data->battlerId;
+            gSideTimers[GetBattlerSide(data->battlerId)].reflectBattlerId = data->battlerId;
         }
-        return &sideTimer->reflectTimer;
+        if (setValue)
+            gSideTimers[GetBattlerSide(data->battlerId)].reflectTimer = setValue;
+
+        return gSideTimers[GetBattlerSide(data->battlerId)].reflectTimer;
     case LIST_SIDE_LIGHTSCREEN:
         if (changeStatus)
         {
-            if (statusTrue)
+            if (gSideTimers[GetBattlerSide(data->battlerId)].lightscreenTimer)
                 *(u32 *)(data->modifyArrows.modifiedValPtr) |= SIDE_STATUS_LIGHTSCREEN;
             else
                 *(u32 *)(data->modifyArrows.modifiedValPtr) &= ~SIDE_STATUS_LIGHTSCREEN;
-            sideTimer->lightscreenBattlerId = data->battlerId;
+            gSideTimers[GetBattlerSide(data->battlerId)].lightscreenBattlerId = data->battlerId;
         }
-        return &sideTimer->lightscreenTimer;
+        if (setValue)
+            gSideTimers[GetBattlerSide(data->battlerId)].lightscreenTimer = setValue;
+
+        return gSideTimers[GetBattlerSide(data->battlerId)].lightscreenTimer;
     case LIST_SIDE_SPIKES:
         if (changeStatus)
         {
-            if (statusTrue)
+            if (gSideTimers[GetBattlerSide(data->battlerId)].spikesAmount)
                 *(u32 *)(data->modifyArrows.modifiedValPtr) |= SIDE_STATUS_SPIKES;
             else
                 *(u32 *)(data->modifyArrows.modifiedValPtr) &= ~SIDE_STATUS_SPIKES;
         }
-        return &sideTimer->spikesAmount;
+        if (setValue)
+            gSideTimers[GetBattlerSide(data->battlerId)].spikesAmount = setValue;
+
+        return gSideTimers[GetBattlerSide(data->battlerId)].spikesAmount;
     case LIST_SIDE_SAFEGUARD:
         if (changeStatus)
         {
-            if (statusTrue)
+            if (gSideTimers[GetBattlerSide(data->battlerId)].safeguardTimer)
                 *(u32 *)(data->modifyArrows.modifiedValPtr) |= SIDE_STATUS_SAFEGUARD;
             else
                 *(u32 *)(data->modifyArrows.modifiedValPtr) &= ~SIDE_STATUS_SAFEGUARD;
-            sideTimer->safeguardBattlerId = data->battlerId;
+            gSideTimers[GetBattlerSide(data->battlerId)].safeguardBattlerId = data->battlerId;
         }
-        return &sideTimer->safeguardTimer;
+        if (setValue)
+            gSideTimers[GetBattlerSide(data->battlerId)].safeguardTimer = setValue;
+
+        return gSideTimers[GetBattlerSide(data->battlerId)].safeguardTimer;
     case LIST_SIDE_MIST:
         if (changeStatus)
         {
-            if (statusTrue)
+            if (gSideTimers[GetBattlerSide(data->battlerId)].mistTimer)
                 *(u32 *)(data->modifyArrows.modifiedValPtr) |= SIDE_STATUS_MIST;
             else
                 *(u32 *)(data->modifyArrows.modifiedValPtr) &= ~SIDE_STATUS_MIST;
-            sideTimer->mistBattlerId = data->battlerId;
+            gSideTimers[GetBattlerSide(data->battlerId)].mistBattlerId = data->battlerId;
         }
-        return &sideTimer->mistTimer;
+        if (setValue)
+            gSideTimers[GetBattlerSide(data->battlerId)].mistTimer = setValue;
+
+        return gSideTimers[GetBattlerSide(data->battlerId)].mistTimer;
     default:
-        return NULL;
-    }
-}
+        return 0;
+    }//thought it was all wrong but actually setting correctly for side status
+}   //nvm it is setting wrong, it works if i use the move, but assinging from here doesn't work defaults to zero
 
 static void SetUpModifyArrows(struct BattleDebugMenu *data)
 {
@@ -1568,12 +1583,12 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         if (data->currentSecondaryListItemId == LIST_SIDE_SPIKES)
             data->modifyArrows.maxValue = 3;
         else
-            data->modifyArrows.maxValue = 9;
+            data->modifyArrows.maxValue = 8; //changed to 8, believe should be max value w extenders
 
         data->modifyArrows.maxDigits = 2;
         data->modifyArrows.modifiedValPtr = &gSideStatuses[GetBattlerSide(data->battlerId)];
         data->modifyArrows.typeOfVal = VAR_SIDE_STATUS;
-        data->modifyArrows.currValue = *GetSideStatusValue(data, FALSE, FALSE);
+        data->modifyArrows.currValue = GetSideStatusValue(data, FALSE, FALSE);
         break;
     }
 

@@ -6697,7 +6697,7 @@ const struct BaseStats gBaseStats[] =
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_INTIMIDATE, ABILITY_TECHNICIAN},
             .abilityHidden = {ABILITY_STEADFAST, ABILITY_MULTI_TASK},
-        .bodyColor = BODY_COLOR_BROWN,
+        .bodyColor = BODY_COLOR_BROWN, //ABILITY_SIXTH_SENSE kinda want this here, spinning top never bothered by confusion
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sHitmontopLevelUpLearnset,
@@ -10015,7 +10015,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CHIMECHO] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 80, 49, 65, 95, 90),
+         STATS(75, 63, 49, 65, 95, 90),
         .type1 = TYPE_PSYCHIC,
         .type2 = TYPE_FAIRY,
         .catchRate = 45,
@@ -10029,8 +10029,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
-        .abilities = {ABILITY_TELEPATHY, ABILITY_NONE},
-        .abilityHidden = {ABILITY_FILTER, ABILITY_MAGIC_BOUNCE},
+        .abilities = {ABILITY_TELEPATHY, ABILITY_MAGIC_BOUNCE},
+        .abilityHidden = {ABILITY_FILTER, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -12042,8 +12042,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_TELEPATHY, ABILITY_NONE},
-        .abilityHidden = {ABILITY_FILTER, ABILITY_MAGIC_BOUNCE},
+        .abilities = {ABILITY_TELEPATHY, ABILITY_MAGIC_BOUNCE},
+        .abilityHidden = {ABILITY_FILTER, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,

@@ -793,22 +793,24 @@ static const u8 *const sDescriptionStringTable[] =
     [PARTYBOX_DESC_LEARNED]    = gText_Learned,
 };
 
-static const u8 *const sHMDescriptionTable[] =
+//not just hm this is for all field moves
+static const u8 *const sFieldMoveDescriptionTable[] =
 {
-    gText_CutATreeOrGrass,
-    gText_FlyToAKnownTown,
-    gText_TravelOnWater,
-    gText_MoveHeavyBoulders,
-    gText_LightUpDarkness,    
-    gText_ShatterACrackedRock,
-    gText_ClimbAWaterfall,
-    gText_DiveDeep,
-    gText_ReturnToAHealingSpot,
-    gText_EscapeFromHere,
-    gText_ShareHp,
-    gText_ShareHp,
-    gText_LureWildPokemon,
-};//cut fly surf strength flash rock smash waterfall
+    gText_CutATreeOrGrass,      //cut
+    gText_FlyToAKnownTown,      //fly
+    gText_TravelOnWater,        //surf
+    gText_MoveHeavyBoulders,    //strength
+    gText_LightUpDarkness,      //flash
+    gText_ShatterACrackedRock,  //rock smash
+    gText_ClimbAWaterfall,      //waterfall
+    gText_DiveDeep,             //dive
+    gText_RockClimb,            //rock climb
+    gText_ReturnToAHealingSpot, //teleport
+    gText_EscapeFromHere,       //dig
+    gText_ShareHp,              //milk drink
+    gText_ShareHp,              //soft boiled
+    gText_LureWildPokemon,      //sweet scent
+};
 
 static const u32 sHeldItemGfx[] = INCBIN_U32("graphics/interface/hold_icons.4bpp");
 static const u16 sHeldItemPalette[] = INCBIN_U16("graphics/interface/hold_icons.gbapal");
@@ -1236,16 +1238,18 @@ static struct
     [MENU_FIELD_MOVES + FIELD_MOVE_ROCK_SMASH] = {(MENU_FIELD_MOVES + FIELD_MOVE_ROCK_SMASH), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_WATERFALL] = {(MENU_FIELD_MOVES + FIELD_MOVE_WATERFALL), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_DIVE] = {(MENU_FIELD_MOVES + FIELD_MOVE_DIVE), CursorCB_FieldMove},
+    [MENU_FIELD_MOVES + FIELD_MOVE_ROCK_CLIMB] = {(MENU_FIELD_MOVES + FIELD_MOVE_ROCK_CLIMB), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_TELEPORT] = {(MENU_FIELD_MOVES + FIELD_MOVE_TELEPORT), CursorCB_FieldMove}, 
     [MENU_FIELD_MOVES + FIELD_MOVE_DIG] = {(MENU_FIELD_MOVES + FIELD_MOVE_DIG), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_MILK_DRINK] = {(MENU_FIELD_MOVES + FIELD_MOVE_MILK_DRINK), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SOFT_BOILED] = {(MENU_FIELD_MOVES + FIELD_MOVE_SOFT_BOILED), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT] = {(MENU_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT), CursorCB_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_MOONLIGHT] = {(MENU_FIELD_MOVES + FIELD_MOVE_MOONLIGHT), CursorCB_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_MORNING_SUN] = {(MENU_FIELD_MOVES + FIELD_MOVE_MORNING_SUN), CursorCB_FieldMove},
-};//need reorder these to match hm order
+};//any field move added must update sFieldMoveDescriptionTable array to sync descriptions
 //cut fly surf strength flash rock smash waterfall
 //then make new badge check function for display hm in menu based on switch case just made
+//moonlight morning sun as field moves would be cool, but their ungainly
+//best to just do with a clock or item, could take item from
+//unicorn overlord dream blossom? meaan to shift 12 hours
 
 static const u8 sPartyMenuAction_SummarySwitchCancel[] = {MENU_SUMMARY, MENU_SWITCH, MENU_CANCEL1};
 static const u8 sPartyMenuAction_ShiftSummaryCancel[] = {MENU_SHIFT, MENU_SUMMARY, MENU_CANCEL1};
@@ -1315,8 +1319,8 @@ static const u8 sPartyMenuActionCounts[] =
 
 static const u16 sFieldMoves[] =
 {
-    MOVE_CUT, MOVE_FLY, MOVE_SURF, MOVE_STRENGTH, MOVE_FLASH, MOVE_ROCK_SMASH, MOVE_WATERFALL, MOVE_DIVE,
-    MOVE_TELEPORT, MOVE_DIG, MOVE_MILK_DRINK, MOVE_SOFT_BOILED, MOVE_SWEET_SCENT, MOVE_MOONLIGHT, MOVE_MORNING_SUN, FIELD_MOVE_END // this may be misuse of enum. same in emerald
+    MOVE_CUT, MOVE_FLY, MOVE_SURF, MOVE_STRENGTH, MOVE_FLASH, MOVE_ROCK_SMASH, MOVE_WATERFALL, MOVE_DIVE, MOVE_ROCK_CLIMB,
+    MOVE_TELEPORT, MOVE_DIG, MOVE_MILK_DRINK, MOVE_SOFT_BOILED, MOVE_SWEET_SCENT, FIELD_MOVE_END // this may be misuse of enum. same in emerald
 };//if add defog rock climb ensure add them to end of list just to not clutter hm menu setting
 //ignore above comment hms must be before teleport adding rock climn not defog
 
@@ -1334,13 +1338,12 @@ static struct
     [FIELD_MOVE_ROCK_SMASH]   = {SetUpFieldMove_RockSmash,   PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_WATERFALL]    = {SetUpFieldMove_Waterfall,   PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_DIVE]         = {SetUpFieldMove_Dive,        PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_ROCK_CLIMB]   = {SetUpFieldMove_Dive,        PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_TELEPORT]     = {SetUpFieldMove_Teleport,    PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_DIG]          = {SetUpFieldMove_Dig,         PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_MILK_DRINK]   = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
     [FIELD_MOVE_SOFT_BOILED]  = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
     [FIELD_MOVE_SWEET_SCENT]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
-    [FIELD_MOVE_MOONLIGHT]  = {SetUpFieldMove_Waterfall,  PARTY_MSG_CANT_USE_HERE},
-    [FIELD_MOVE_MORNING_SUN]  = {SetUpFieldMove_Waterfall,  PARTY_MSG_CANT_USE_HERE},
 };//had to order based on  orer of hms items - need add dns shift logic for last two
 //used waterfall, so it won't accidentally be triggered before I make the logic
 
@@ -1534,3 +1537,5 @@ static const u16 sTMHMMoves[] =
     MOVE_DIVE,
     MOVE_ROCK_CLIMB,
 };
+//add sound moves to list,
+//round, echoed voice, hyper voice
