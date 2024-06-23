@@ -10015,7 +10015,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CHIMECHO] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 63, 49, 65, 95, 90),
+         STATS(75, 63, 49, 75, 95, 90),
         .type1 = TYPE_PSYCHIC,
         .type2 = TYPE_FAIRY,
         .catchRate = 45,
@@ -11485,7 +11485,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_ANTICIPATION, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_OVERCOAT, ABILITY_NONE},
+            .abilityHidden = {ABILITY_OVERCOAT, ABILITY_SHED_SKIN},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -17063,7 +17063,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 190,
         .expYield = 67,
         //.evYield_SpDefense = 1,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = MON_MALE,
         .eggCycles = 20,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -17096,7 +17096,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 60,
         .expYield = 168,
         //.evYield_SpDefense = 2,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = MON_MALE,
         .eggCycles = 20,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -32920,7 +32920,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_ANTICIPATION, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_OVERCOAT, ABILITY_NONE},
+            .abilityHidden = {ABILITY_OVERCOAT, ABILITY_SHED_SKIN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32947,7 +32947,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_ANTICIPATION, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_OVERCOAT, ABILITY_NONE},
+            .abilityHidden = {ABILITY_OVERCOAT, ABILITY_SHED_SKIN},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -38891,7 +38891,7 @@ const struct BaseStats gBaseStats[] =
             .bodyColor = BODY_COLOR_GREEN,
             .noFlip = FALSE,
             .floating = FALSE,
-        .levelUpLearnset = sBasculegionLevelUpLearnset,
+            .levelUpLearnset = sBasculegionLevelUpLearnset,
             .tmhmLearnset = sBasculegionTMHMLearnset,
             .evolutions = NULL, //Should hopefully blank these for now without issue
             .flags = F_SPECIES_GENDER_DIFFERENCE,
