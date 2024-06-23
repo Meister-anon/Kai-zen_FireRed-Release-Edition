@@ -749,6 +749,18 @@ static const u16 sSawsbuckFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
+static const u16 sFrillishFormSpeciesIdTable[] = {
+    SPECIES_FRILLISH,
+    SPECIES_FRILLISH_FEMALE,
+    FORM_SPECIES_END,
+};
+
+static const u16 sJellicentFormSpeciesIdTable[] = {
+    SPECIES_JELLICENT,
+    SPECIES_JELLICENT_FEMALE,
+    FORM_SPECIES_END,
+};
+
 static const u16 sStunfiskFormSpeciesIdTable[] = {
     SPECIES_STUNFISK,
     SPECIES_STUNFISK_GALARIAN,

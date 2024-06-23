@@ -6211,6 +6211,16 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x68,
         .y_offset = 2,
     },
+    [SPECIES_FRILLISH_FEMALE] = 
+    {
+        .size = 0x45,
+        .y_offset = 5,
+    },
+    [SPECIES_JELLICENT_FEMALE] = 
+    {
+        .size = 0x45,
+        .y_offset = 4,
+    },
     // Egg
     [SPECIES_EGG] =
     {

@@ -1302,6 +1302,9 @@ SPECIES_PAL(CRAMORANT_GULPING, gMonPalette_CramorantGulping),
     SPECIES_PAL(ENAMORUS_THERIAN, gMonPalette_EnamorusTherian),
     SPECIES_PAL(BASCULEGION_FEMALE, gMonPalette_BasculegionFemale),
 
+    SPECIES_PAL(FRILLISH_FEMALE, gMonPalette_FrillishFemale),
+    SPECIES_PAL(JELLICENT_FEMALE, gMonPalette_JellicentFemale),
+
     SPECIES_PAL(EGG, gMonPalette_Egg),
 };
 

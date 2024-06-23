@@ -1309,6 +1309,9 @@ const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1] = {
     [SPECIES_CALYREX_SHADOW_RIDER] = _("Calyrex"), 
     // Basculegion female
     [SPECIES_BASCULEGION_FEMALE] = _("Basculegion"),
+    //Frillish/Jelicent
+    [SPECIES_FRILLISH_FEMALE] = _("Frillish"),
+    [SPECIES_JELLICENT_FEMALE] = _("Jellicent"),
     //New megas
     [SPECIES_TORTERRA_MEGA] = _("Torterra"), 
     [SPECIES_MAROWAK_MEGA] = _("Marowak"),
@@ -2625,6 +2628,9 @@ const u8 gSpeciesNamesUpperCase[][POKEMON_NAME_LENGTH + 1] = {
     [SPECIES_CALYREX_SHADOW_RIDER] = _("CALYREX"), 
     // BASCULEGION FEMALE
     [SPECIES_BASCULEGION_FEMALE] = _("BASCULEGION"),
+    //FRILLISH/JELLICENT
+    [SPECIES_FRILLISH_FEMALE] = _("FRILLISH"),
+    [SPECIES_JELLICENT_FEMALE] = _("JELLICENT"),
     //NEW MEGAS
     [SPECIES_TORTERRA_MEGA] = _("TORTERRA"), 
     [SPECIES_MAROWAK_MEGA] = _("MAROWAK"),

@@ -3588,6 +3588,8 @@ const u32 gMonFrontPic_CalyrexIceRider[] = INCBIN_U32("graphics/pokemon/calyrex/
 const u32 gMonFrontPic_CalyrexShadowRider[] = INCBIN_U32("graphics/pokemon/calyrex/shadow_rider/front.4bpp.lz");
 const u32 gMonFrontPic_EnamorusTherian[] = INCBIN_U32("graphics/pokemon/enamorus/therian/front.4bpp.lz");
 const u32 gMonFrontPic_BasculegionFemale[] = INCBIN_U32("graphics/pokemon/basculegion/female/front.4bpp.lz");
+const u32 gMonFrontPic_FrillishFemale[] = INCBIN_U32("graphics/pokemon/frillish/female/front.4bpp.lz");
+const u32 gMonFrontPic_JellicentFemale[] = INCBIN_U32("graphics/pokemon/jellicent/female/front.4bpp.lz");
 
 // backpics
 const u32 gMonBackPic_Turtwig[] = INCBIN_U32("graphics/pokemon/turtwig/back.4bpp.lz");
@@ -4341,6 +4343,8 @@ const u32 gMonBackPic_CalyrexIceRider[] = INCBIN_U32("graphics/pokemon/calyrex/i
 const u32 gMonBackPic_CalyrexShadowRider[] = INCBIN_U32("graphics/pokemon/calyrex/shadow_rider/back.4bpp.lz");
 const u32 gMonBackPic_EnamorusTherian[] = INCBIN_U32("graphics/pokemon/enamorus/therian/back.4bpp.lz");
 const u32 gMonBackPic_BasculegionFemale[] = INCBIN_U32("graphics/pokemon/basculegion/female/back.4bpp.lz");
+const u32 gMonBackPic_FrillishFemale[] = INCBIN_U32("graphics/pokemon/frillish/female/back.4bpp.lz");
+const u32 gMonBackPic_JellicentFemale[] = INCBIN_U32("graphics/pokemon/jellicent/female/back.4bpp.lz");
 
 //palettes
 const u32 gMonPalette_Turtwig[] = INCBIN_U32("graphics/pokemon/turtwig/normal.gbapal.lz");
@@ -5147,6 +5151,8 @@ const u32 gMonPalette_CalyrexIceRider[] = INCBIN_U32("graphics/pokemon/calyrex/i
 const u32 gMonPalette_CalyrexShadowRider[] = INCBIN_U32("graphics/pokemon/calyrex/shadow_rider/normal.gbapal.lz");
 const u32 gMonPalette_EnamorusTherian[] = INCBIN_U32("graphics/pokemon/enamorus/therian/normal.gbapal.lz");
 const u32 gMonPalette_BasculegionFemale[] = INCBIN_U32("graphics/pokemon/basculegion/female/normal.gbapal.lz");
+const u32 gMonPalette_FrillishFemale[] = INCBIN_U32("graphics/pokemon/frillish/female/normal.gbapal.lz");
+const u32 gMonPalette_JellicentFemale[] = INCBIN_U32("graphics/pokemon/jellicent/female/normal.gbapal.lz");
 
 //shiny palettes
 const u32 gMonShinyPalette_Turtwig[] = INCBIN_U32("graphics/pokemon/turtwig/shiny.gbapal.lz");
@@ -5947,6 +5953,9 @@ const u32 gMonShinyPalette_CalyrexIceRider[] = INCBIN_U32("graphics/pokemon/caly
 const u32 gMonShinyPalette_CalyrexShadowRider[] = INCBIN_U32("graphics/pokemon/calyrex/shadow_rider/shiny.gbapal.lz");
 const u32 gMonShinyPalette_EnamorusTherian[] = INCBIN_U32("graphics/pokemon/enamorus/therian/shiny.gbapal.lz");
 const u32 gMonShinyPalette_BasculegionFemale[] = INCBIN_U32("graphics/pokemon/basculegion/female/shiny.gbapal.lz");
+const u32 gMonShinyPalette_FrillishFemale[] = INCBIN_U32("graphics/pokemon/frillish/female/shiny.gbapal.lz");
+const u32 gMonShinyPalette_JellicentFemale[] = INCBIN_U32("graphics/pokemon/jellicent/female/shiny.gbapal.lz");
+
 
 //icons
 const u8 gMonIcon_Turtwig[] = INCBIN_U8("graphics/pokemon/turtwig/icon.4bpp");
@@ -6716,6 +6725,9 @@ const u8 gMonIcon_AvaluggHisuian[] = INCBIN_U8("graphics/pokemon/avalugg/hisuian
 const u8 gMonIcon_DecidueyeHisuian[] = INCBIN_U8("graphics/pokemon/decidueye/hisuian/icon.4bpp");
 const u8 gMonIcon_EnamorusTherian[] = INCBIN_U8("graphics/pokemon/enamorus/therian/icon.4bpp");
 const u8 gMonIcon_BasculegionFemale[] = INCBIN_U8("graphics/pokemon/basculegion/female/icon.4bpp");
+const u8 gMonIcon_FrillishFemale[] = INCBIN_U8("graphics/pokemon/frillish/female/icon.4bpp");
+const u8 gMonIcon_JellicentFemale[] = INCBIN_U8("graphics/pokemon/jellicent/female/icon.4bpp");
+
 
 //footprints
 //const u8 gMonFootprint_Turtwig[] = INCBIN_U8("graphics/pokemon/turtwig/footprint.1bpp");

@@ -1389,9 +1389,12 @@
 // Basculegion female
 #define SPECIES_BASCULEGION_FEMALE          FORMS_START + 327
 
+#define SPECIES_FRILLISH_FEMALE             FORMS_START + 328
+#define SPECIES_JELLICENT_FEMALE            FORMS_START + 329
+
 //New Mega Forms
-#define SPECIES_TORTERRA_MEGA				FORMS_START + 328
-#define SPECIES_MAROWAK_MEGA                FORMS_START + 329
+#define SPECIES_TORTERRA_MEGA				FORMS_START + 330
+#define SPECIES_MAROWAK_MEGA                FORMS_START + 331
 
 #define SPECIES_EGG SPECIES_MAROWAK_MEGA + 1
 #define NUM_SPECIES SPECIES_EGG	//Num species determins number dex entries now instead of pokemon slots

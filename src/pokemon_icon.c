@@ -1265,6 +1265,8 @@ const u8 *const gMonIconTable[] = {
         [SPECIES_CALYREX_ICE_RIDER]               = gMonIcon_Calyrex_Ice_Rider,
         [SPECIES_CALYREX_SHADOW_RIDER]            = gMonIcon_Calyrex_Shadow_Rider,
         [SPECIES_BASCULEGION_FEMALE] = gMonIcon_BasculegionFemale,
+        [SPECIES_FRILLISH_FEMALE] = gMonIcon_FrillishFemale,
+        [SPECIES_JELLICENT_FEMALE] = gMonIcon_JellicentFemale,
 };
 
 //don't know if need be in hex
@@ -2504,6 +2506,8 @@ const u8 gMonIconPaletteIndices[] = {
     [SPECIES_CALYREX_ICE_RIDER] = 0,
     [SPECIES_CALYREX_SHADOW_RIDER] = 0,
     [SPECIES_BASCULEGION_FEMALE] = 0,
+    [SPECIES_FRILLISH_FEMALE] = 1,
+    [SPECIES_JELLICENT_FEMALE] = 4,
 };
 
 const u8 gMonIconPaletteIndicesFemale[] =

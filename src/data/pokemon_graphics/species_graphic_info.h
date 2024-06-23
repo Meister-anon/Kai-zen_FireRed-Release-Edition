@@ -32,6 +32,9 @@
         .iconSprite = gMonIcon_## sprite,                   \
         .iconPalIndex = palId
 
+//tag equals species constant
+//can put that in functinon rather than needing to put in table
+//use get tag and have it just set to species
 const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 {
 [SPECIES_NONE] = 
@@ -43,7 +46,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
-    }, //QuestionMark,
+    }, //QuestionMark, 
 [SPECIES_BULBASAUR] = 
     {  
       FRONT_PIC(Bulbasaur),
@@ -52,6 +55,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Bulbasaur),
       ICON(Bulbasaur,0),
+      TAG(SPECIES_NONE),
     }, //Bulbasaur,
 [SPECIES_IVYSAUR] = 
     {  
@@ -61,6 +65,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Ivysaur),
       ICON(Ivysaur,0),
+      TAG(SPECIES_NONE),
     }, //Ivysaur,
 [SPECIES_VENUSAUR] = 
     {  
@@ -70,6 +75,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Venusaur),
       ICON(Venusaur,0),
+      TAG(SPECIES_NONE),
     }, //Venusaur,
 [SPECIES_CHARMANDER] = 
     {  
@@ -79,6 +85,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Charmander),
       ICON(Charmander,0),
+      TAG(SPECIES_NONE),
     }, //Charmander,
 [SPECIES_CHARMELEON] = 
     {  
@@ -88,6 +95,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Charmeleon),
       ICON(Charmeleon,0),
+      TAG(SPECIES_NONE),
     }, //Charmeleon,
 [SPECIES_CHARIZARD] = 
     {  
@@ -97,6 +105,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Charizard),
       ICON(Charizard,0),
+      TAG(SPECIES_NONE),
     }, //Charizard,
 [SPECIES_SQUIRTLE] = 
     {  
@@ -106,6 +115,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Squirtle),
       ICON(Squirtle,0),
+      TAG(SPECIES_NONE),
     }, //Squirtle,
 [SPECIES_WARTORTLE] = 
     {  
@@ -115,6 +125,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Wartortle),
       ICON(Wartortle,0),
+      TAG(SPECIES_NONE),
     }, //Wartortle,
 [SPECIES_BLASTOISE] = 
     {  
@@ -124,6 +135,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Blastoise),
       ICON(Blastoise,0),
+      TAG(SPECIES_NONE),
     }, //Blastoise,
 [SPECIES_CATERPIE] = 
     {  
@@ -133,6 +145,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Caterpie),
       ICON(Caterpie,0),
+      TAG(SPECIES_NONE),
     }, //Caterpie,
 [SPECIES_METAPOD] = 
     {  
@@ -142,6 +155,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Metapod),
       ICON(Metapod,0),
+      TAG(SPECIES_NONE),
     }, //Metapod,
 [SPECIES_BUTTERFREE] = 
     {  
@@ -151,6 +165,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Butterfree),
       ICON(Butterfree,0),
+      TAG(SPECIES_NONE),
     }, //Butterfree,
 [SPECIES_WEEDLE] = 
     {  
@@ -160,6 +175,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Weedle),
       ICON(Weedle,0),
+      TAG(SPECIES_NONE),
     }, //Weedle,
 [SPECIES_KAKUNA] = 
     {  
@@ -169,6 +185,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Kakuna),
       ICON(Kakuna,0),
+      TAG(SPECIES_NONE),
     }, //Kakuna,
 [SPECIES_BEEDRILL] = 
     {  
@@ -178,6 +195,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Beedrill),
       ICON(Beedrill,0),
+      TAG(SPECIES_NONE),
     }, //Beedrill,
 [SPECIES_PIDGEY] = 
     {  
@@ -187,6 +205,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pidgey,
 [SPECIES_PIDGEOTTO] = 
     {  
@@ -196,6 +215,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pidgeotto,
 [SPECIES_PIDGEOT] = 
     {  
@@ -205,6 +225,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pidgeot,
 [SPECIES_RATTATA] = 
     {  
@@ -214,6 +235,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rattata,
 [SPECIES_RATICATE] = 
     {  
@@ -223,6 +245,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Raticate,
 [SPECIES_SPEAROW] = 
     {  
@@ -232,6 +255,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spearow,
 [SPECIES_FEAROW] = 
     {  
@@ -241,6 +265,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Fearow,
 [SPECIES_EKANS] = 
     {  
@@ -250,6 +275,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ekans,
 [SPECIES_ARBOK] = 
     {  
@@ -259,6 +285,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arbok,
 [SPECIES_PIKACHU] = 
     {  
@@ -268,6 +295,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pikachu,
 [SPECIES_RAICHU] = 
     {  
@@ -277,6 +305,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Raichu,
 [SPECIES_SANDSHREW] = 
     {  
@@ -286,6 +315,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sandshrew,
 [SPECIES_SANDSLASH] = 
     {  
@@ -295,6 +325,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sandslash,
 [SPECIES_NIDORAN_F] = 
     {  
@@ -304,6 +335,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //NidoranF,
 [SPECIES_NIDORINA] = 
     {  
@@ -313,6 +345,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nidorina,
 [SPECIES_NIDOQUEEN] = 
     {  
@@ -322,6 +355,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nidoqueen,
 [SPECIES_NIDORAN_M] = 
     {  
@@ -331,6 +365,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //NidoranM,
 [SPECIES_NIDORINO] = 
     {  
@@ -340,6 +375,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nidorino,
 [SPECIES_NIDOKING] = 
     {  
@@ -349,6 +385,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nidoking,
 [SPECIES_CLEFAIRY] = 
     {  
@@ -358,6 +395,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Clefairy,
 [SPECIES_CLEFABLE] = 
     {  
@@ -367,6 +405,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Clefable,
 [SPECIES_VULPIX] = 
     {  
@@ -376,6 +415,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vulpix,
 [SPECIES_NINETALES] = 
     {  
@@ -385,6 +425,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ninetales,
 [SPECIES_JIGGLYPUFF] = 
     {  
@@ -394,6 +435,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jigglypuff,
 [SPECIES_WIGGLYTUFF] = 
     {  
@@ -403,6 +445,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wigglytuff,
 [SPECIES_ZUBAT] = 
     {  
@@ -412,6 +455,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zubat,
 [SPECIES_GOLBAT] = 
     {  
@@ -421,6 +465,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Golbat,
 [SPECIES_ODDISH] = 
     {  
@@ -430,6 +475,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Oddish,
 [SPECIES_GLOOM] = 
     {  
@@ -439,6 +485,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gloom,
 [SPECIES_VILEPLUME] = 
     {  
@@ -448,6 +495,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vileplume,
 [SPECIES_PARAS] = 
     {  
@@ -457,6 +505,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Paras,
 [SPECIES_PARASECT] = 
     {  
@@ -466,6 +515,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Parasect,
 [SPECIES_VENONAT] = 
     {  
@@ -475,6 +525,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Venonat,
 [SPECIES_VENOMOTH] = 
     {  
@@ -484,6 +535,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Venomoth,
 [SPECIES_DIGLETT] = 
     {  
@@ -493,6 +545,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Diglett,
 [SPECIES_DUGTRIO] = 
     {  
@@ -502,6 +555,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dugtrio,
 [SPECIES_MEOWTH] = 
     {  
@@ -511,6 +565,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Meowth,
 [SPECIES_PERSIAN] = 
     {  
@@ -520,6 +575,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Persian,
 [SPECIES_PSYDUCK] = 
     {  
@@ -529,6 +585,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Psyduck,
 [SPECIES_GOLDUCK] = 
     {  
@@ -538,6 +595,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Golduck,
 [SPECIES_MANKEY] = 
     {  
@@ -547,6 +605,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mankey,
 [SPECIES_PRIMEAPE] = 
     {  
@@ -556,6 +615,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Primeape,
 [SPECIES_GROWLITHE] = 
     {  
@@ -565,6 +625,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Growlithe,
 [SPECIES_ARCANINE] = 
     {  
@@ -574,6 +635,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arcanine,
 [SPECIES_POLIWAG] = 
     {  
@@ -583,6 +645,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Poliwag,
 [SPECIES_POLIWHIRL] = 
     {  
@@ -592,6 +655,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Poliwhirl,
 [SPECIES_POLIWRATH] = 
     {  
@@ -601,6 +665,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Poliwrath,
 [SPECIES_ABRA] = 
     {  
@@ -610,6 +675,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Abra,
 [SPECIES_KADABRA] = 
     {  
@@ -619,6 +685,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kadabra,
 [SPECIES_ALAKAZAM] = 
     {  
@@ -628,6 +695,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alakazam,
 [SPECIES_MACHOP] = 
     {  
@@ -637,6 +705,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Machop,
 [SPECIES_MACHOKE] = 
     {  
@@ -646,6 +715,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Machoke,
 [SPECIES_MACHAMP] = 
     {  
@@ -655,6 +725,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Machamp,
 [SPECIES_BELLSPROUT] = 
     {  
@@ -664,6 +735,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bellsprout,
 [SPECIES_WEEPINBELL] = 
     {  
@@ -673,6 +745,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Weepinbell,
 [SPECIES_VICTREEBEL] = 
     {  
@@ -682,6 +755,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Victreebel,
 [SPECIES_TENTACOOL] = 
     {  
@@ -691,6 +765,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tentacool,
 [SPECIES_TENTACRUEL] = 
     {  
@@ -700,6 +775,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tentacruel,
 [SPECIES_GEODUDE] = 
     {  
@@ -709,6 +785,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Geodude,
 [SPECIES_GRAVELER] = 
     {  
@@ -718,6 +795,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Graveler,
 [SPECIES_GOLEM] = 
     {  
@@ -727,6 +805,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Golem,
 [SPECIES_PONYTA] = 
     {  
@@ -736,6 +815,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ponyta,
 [SPECIES_RAPIDASH] = 
     {  
@@ -745,6 +825,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rapidash,
 [SPECIES_SLOWPOKE] = 
     {  
@@ -754,6 +835,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slowpoke,
 [SPECIES_SLOWBRO] = 
     {  
@@ -763,6 +845,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slowbro,
 [SPECIES_MAGNEMITE] = 
     {  
@@ -772,6 +855,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magnemite,
 [SPECIES_MAGNETON] = 
     {  
@@ -781,6 +865,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magneton,
 [SPECIES_FARFETCHD] = 
     {  
@@ -790,6 +875,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Farfetchd,
 [SPECIES_DODUO] = 
     {  
@@ -799,6 +885,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Doduo,
 [SPECIES_DODRIO] = 
     {  
@@ -808,6 +895,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dodrio,
 [SPECIES_SEEL] = 
     {  
@@ -817,6 +905,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Seel,
 [SPECIES_DEWGONG] = 
     {  
@@ -826,6 +915,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dewgong,
 [SPECIES_GRIMER] = 
     {  
@@ -835,6 +925,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grimer,
 [SPECIES_MUK] = 
     {  
@@ -844,6 +935,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Muk,
 [SPECIES_SHELLDER] = 
     {  
@@ -853,6 +945,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shellder,
 [SPECIES_CLOYSTER] = 
     {  
@@ -862,6 +955,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cloyster,
 [SPECIES_GASTLY] = 
     {  
@@ -871,6 +965,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gastly,
 [SPECIES_HAUNTER] = 
     {  
@@ -880,6 +975,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Haunter,
 [SPECIES_GENGAR] = 
     {  
@@ -889,6 +985,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gengar,
 [SPECIES_ONIX] = 
     {  
@@ -898,6 +995,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Onix,
 [SPECIES_DROWZEE] = 
     {  
@@ -907,6 +1005,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drowzee,
 [SPECIES_HYPNO] = 
     {  
@@ -916,6 +1015,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hypno,
 [SPECIES_KRABBY] = 
     {  
@@ -925,6 +1025,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Krabby,
 [SPECIES_KINGLER] = 
     {  
@@ -934,6 +1035,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kingler,
 [SPECIES_VOLTORB] = 
     {  
@@ -943,6 +1045,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Voltorb,
 [SPECIES_ELECTRODE] = 
     {  
@@ -952,6 +1055,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Electrode,
 [SPECIES_EXEGGCUTE] = 
     {  
@@ -961,6 +1065,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Exeggcute,
 [SPECIES_EXEGGUTOR] = 
     {  
@@ -970,6 +1075,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Exeggutor,
 [SPECIES_CUBONE] = 
     {  
@@ -979,6 +1085,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cubone,
 [SPECIES_MAROWAK] = 
     {  
@@ -988,6 +1095,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Marowak,
 [SPECIES_HITMONLEE] = 
     {  
@@ -997,6 +1105,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hitmonlee,
 [SPECIES_HITMONCHAN] = 
     {  
@@ -1006,6 +1115,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hitmonchan,
 [SPECIES_LICKITUNG] = 
     {  
@@ -1015,6 +1125,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lickitung,
 [SPECIES_KOFFING] = 
     {  
@@ -1024,6 +1135,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Koffing,
 [SPECIES_WEEZING] = 
     {  
@@ -1033,6 +1145,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Weezing,
 [SPECIES_RHYHORN] = 
     {  
@@ -1042,6 +1155,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rhyhorn,
 [SPECIES_RHYDON] = 
     {  
@@ -1051,6 +1165,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rhydon,
 [SPECIES_CHANSEY] = 
     {  
@@ -1060,6 +1175,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chansey,
 [SPECIES_TANGELA] = 
     {  
@@ -1069,6 +1185,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tangela,
 [SPECIES_KANGASKHAN] = 
     {  
@@ -1078,6 +1195,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kangaskhan,
 [SPECIES_HORSEA] = 
     {  
@@ -1087,6 +1205,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Horsea,
 [SPECIES_SEADRA] = 
     {  
@@ -1096,6 +1215,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Seadra,
 [SPECIES_GOLDEEN] = 
     {  
@@ -1105,6 +1225,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Goldeen,
 [SPECIES_SEAKING] = 
     {  
@@ -1114,6 +1235,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Seaking,
 [SPECIES_STARYU] = 
     {  
@@ -1123,6 +1245,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Staryu,
 [SPECIES_STARMIE] = 
     {  
@@ -1132,6 +1255,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Starmie,
 [SPECIES_MR_MIME] = 
     {  
@@ -1141,6 +1265,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MrMime,
 [SPECIES_SCYTHER] = 
     {  
@@ -1150,6 +1275,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scyther,
 [SPECIES_JYNX] = 
     {  
@@ -1159,6 +1285,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jynx,
 [SPECIES_ELECTABUZZ] = 
     {  
@@ -1168,6 +1295,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Electabuzz,
 [SPECIES_MAGMAR] = 
     {  
@@ -1177,6 +1305,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magmar,
 [SPECIES_PINSIR] = 
     {  
@@ -1186,6 +1315,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pinsir,
 [SPECIES_TAUROS] = 
     {  
@@ -1195,6 +1325,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tauros,
 [SPECIES_MAGIKARP] = 
     {  
@@ -1204,6 +1335,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magikarp,
 [SPECIES_GYARADOS] = 
     {  
@@ -1213,6 +1345,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gyarados,
 [SPECIES_LAPRAS] = 
     {  
@@ -1222,6 +1355,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lapras,
 [SPECIES_DITTO] = 
     {  
@@ -1231,6 +1365,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ditto,
 [SPECIES_EEVEE] = 
     {  
@@ -1240,6 +1375,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eevee,
 [SPECIES_VAPOREON] = 
     {  
@@ -1249,6 +1385,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vaporeon,
 [SPECIES_JOLTEON] = 
     {  
@@ -1258,6 +1395,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jolteon,
 [SPECIES_FLAREON] = 
     {  
@@ -1267,6 +1405,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Flareon,
 [SPECIES_PORYGON] = 
     {  
@@ -1276,6 +1415,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Porygon,
 [SPECIES_OMANYTE] = 
     {  
@@ -1285,6 +1425,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Omanyte,
 [SPECIES_OMASTAR] = 
     {  
@@ -1294,6 +1435,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Omastar,
 [SPECIES_KABUTO] = 
     {  
@@ -1303,6 +1445,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kabuto,
 [SPECIES_KABUTOPS] = 
     {  
@@ -1312,6 +1455,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kabutops,
 [SPECIES_AERODACTYL] = 
     {  
@@ -1321,6 +1465,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aerodactyl,
 [SPECIES_SNORLAX] = 
     {  
@@ -1330,6 +1475,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Snorlax,
 [SPECIES_ARTICUNO] = 
     {  
@@ -1339,6 +1485,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Articuno,
 [SPECIES_ZAPDOS] = 
     {  
@@ -1348,6 +1495,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zapdos,
 [SPECIES_MOLTRES] = 
     {  
@@ -1357,6 +1505,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Moltres,
 [SPECIES_DRATINI] = 
     {  
@@ -1366,6 +1515,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dratini,
 [SPECIES_DRAGONAIR] = 
     {  
@@ -1375,6 +1525,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dragonair,
 [SPECIES_DRAGONITE] = 
     {  
@@ -1384,6 +1535,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dragonite,
 [SPECIES_MEWTWO] = 
     {  
@@ -1393,6 +1545,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mewtwo,
 [SPECIES_MEW] = 
     {  
@@ -1402,6 +1555,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mew,
 [SPECIES_CHIKORITA] = 
     {  
@@ -1411,6 +1565,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chikorita,
 [SPECIES_BAYLEEF] = 
     {  
@@ -1420,6 +1575,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bayleef,
 [SPECIES_MEGANIUM] = 
     {  
@@ -1429,6 +1585,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Meganium,
 [SPECIES_CYNDAQUIL] = 
     {  
@@ -1438,6 +1595,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cyndaquil,
 [SPECIES_QUILAVA] = 
     {  
@@ -1447,6 +1605,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Quilava,
 [SPECIES_TYPHLOSION] = 
     {  
@@ -1456,6 +1615,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Typhlosion,
 [SPECIES_TOTODILE] = 
     {  
@@ -1465,6 +1625,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Totodile,
 [SPECIES_CROCONAW] = 
     {  
@@ -1474,6 +1635,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Croconaw,
 [SPECIES_FERALIGATOR] = 
     {  
@@ -1483,6 +1645,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Feraligatr,
 [SPECIES_SENTRET] = 
     {  
@@ -1492,6 +1655,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sentret,
 [SPECIES_FURRET] = 
     {  
@@ -1501,6 +1665,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Furret,
 [SPECIES_HOOTHOOT] = 
     {  
@@ -1510,6 +1675,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hoothoot,
 [SPECIES_NOCTOWL] = 
     {  
@@ -1519,6 +1685,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Noctowl,
 [SPECIES_LEDYBA] = 
     {  
@@ -1528,6 +1695,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ledyba,
 [SPECIES_LEDIAN] = 
     {  
@@ -1537,6 +1705,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ledian,
 [SPECIES_SPINARAK] = 
     {  
@@ -1546,6 +1715,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spinarak,
 [SPECIES_ARIADOS] = 
     {  
@@ -1555,6 +1725,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ariados,
 [SPECIES_CROBAT] = 
     {  
@@ -1564,6 +1735,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Crobat,
 [SPECIES_CHINCHOU] = 
     {  
@@ -1573,6 +1745,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chinchou,
 [SPECIES_LANTURN] = 
     {  
@@ -1582,6 +1755,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lanturn,
 [SPECIES_PICHU] = 
     {  
@@ -1591,6 +1765,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pichu,
 [SPECIES_CLEFFA] = 
     {  
@@ -1600,6 +1775,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cleffa,
 [SPECIES_IGGLYBUFF] = 
     {  
@@ -1609,6 +1785,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Igglybuff,
 [SPECIES_TOGEPI] = 
     {  
@@ -1618,6 +1795,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Togepi,
 [SPECIES_TOGETIC] = 
     {  
@@ -1627,6 +1805,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Togetic,
 [SPECIES_NATU] = 
     {  
@@ -1636,6 +1815,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Natu,
 [SPECIES_XATU] = 
     {  
@@ -1645,6 +1825,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Xatu,
 [SPECIES_MAREEP] = 
     {  
@@ -1654,6 +1835,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mareep,
 [SPECIES_FLAAFFY] = 
     {  
@@ -1663,6 +1845,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Flaaffy,
 [SPECIES_AMPHAROS] = 
     {  
@@ -1672,6 +1855,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ampharos,
 [SPECIES_BELLOSSOM] = 
     {  
@@ -1681,6 +1865,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bellossom,
 [SPECIES_MARILL] = 
     {  
@@ -1690,6 +1875,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Marill,
 [SPECIES_AZUMARILL] = 
     {  
@@ -1699,6 +1885,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Azumarill,
 [SPECIES_SUDOWOODO] = 
     {  
@@ -1708,6 +1895,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sudowoodo,
 [SPECIES_POLITOED] = 
     {  
@@ -1717,6 +1905,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Politoed,
 [SPECIES_HOPPIP] = 
     {  
@@ -1726,6 +1915,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hoppip,
 [SPECIES_SKIPLOOM] = 
     {  
@@ -1735,6 +1925,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skiploom,
 [SPECIES_JUMPLUFF] = 
     {  
@@ -1744,6 +1935,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jumpluff,
 [SPECIES_AIPOM] = 
     {  
@@ -1753,6 +1945,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aipom,
 [SPECIES_SUNKERN] = 
     {  
@@ -1762,6 +1955,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sunkern,
 [SPECIES_SUNFLORA] = 
     {  
@@ -1771,6 +1965,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sunflora,
 [SPECIES_YANMA] = 
     {  
@@ -1780,6 +1975,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Yanma,
 [SPECIES_WOOPER] = 
     {  
@@ -1789,6 +1985,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wooper,
 [SPECIES_QUAGSIRE] = 
     {  
@@ -1798,6 +1995,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Quagsire,
 [SPECIES_ESPEON] = 
     {  
@@ -1807,6 +2005,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Espeon,
 [SPECIES_UMBREON] = 
     {  
@@ -1816,6 +2015,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Umbreon,
 [SPECIES_MURKROW] = 
     {  
@@ -1825,6 +2025,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Murkrow,
 [SPECIES_SLOWKING] = 
     {  
@@ -1834,6 +2035,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slowking,
 [SPECIES_MISDREAVUS] = 
     {  
@@ -1843,6 +2045,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Misdreavus,
 [SPECIES_UNOWN] = 
     {  
@@ -1852,6 +2055,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Unown,
 [SPECIES_WOBBUFFET] = 
     {  
@@ -1861,6 +2065,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wobbuffet,
 [SPECIES_GIRAFARIG] = 
     {  
@@ -1870,6 +2075,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Girafarig,
 [SPECIES_PINECO] = 
     {  
@@ -1879,6 +2085,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pineco,
 [SPECIES_FORRETRESS] = 
     {  
@@ -1888,6 +2095,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Forretress,
 [SPECIES_DUNSPARCE] = 
     {  
@@ -1897,6 +2105,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dunsparce,
 [SPECIES_GLIGAR] = 
     {  
@@ -1906,6 +2115,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gligar,
 [SPECIES_STEELIX] = 
     {  
@@ -1915,6 +2125,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Steelix,
 [SPECIES_SNUBBULL] = 
     {  
@@ -1924,6 +2135,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Snubbull,
 [SPECIES_GRANBULL] = 
     {  
@@ -1933,6 +2145,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Granbull,
 [SPECIES_QWILFISH] = 
     {  
@@ -1942,6 +2155,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Qwilfish,
 [SPECIES_SCIZOR] = 
     {  
@@ -1951,6 +2165,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scizor,
 [SPECIES_SHUCKLE] = 
     {  
@@ -1960,6 +2175,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shuckle,
 [SPECIES_HERACROSS] = 
     {  
@@ -1969,6 +2185,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Heracross,
 [SPECIES_SNEASEL] = 
     {  
@@ -1978,6 +2195,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sneasel,
 [SPECIES_TEDDIURSA] = 
     {  
@@ -1987,6 +2205,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Teddiursa,
 [SPECIES_URSARING] = 
     {  
@@ -1996,6 +2215,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ursaring,
 [SPECIES_SLUGMA] = 
     {  
@@ -2005,6 +2225,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slugma,
 [SPECIES_MAGCARGO] = 
     {  
@@ -2014,6 +2235,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magcargo,
 [SPECIES_SWINUB] = 
     {  
@@ -2023,6 +2245,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swinub,
 [SPECIES_PILOSWINE] = 
     {  
@@ -2032,6 +2255,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Piloswine,
 [SPECIES_CORSOLA] = 
     {  
@@ -2041,6 +2265,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Corsola,
 [SPECIES_REMORAID] = 
     {  
@@ -2050,6 +2275,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Remoraid,
 [SPECIES_OCTILLERY] = 
     {  
@@ -2059,6 +2285,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Octillery,
 [SPECIES_DELIBIRD] = 
     {  
@@ -2068,6 +2295,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Delibird,
 [SPECIES_MANTINE] = 
     {  
@@ -2077,6 +2305,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mantine,
 [SPECIES_SKARMORY] = 
     {  
@@ -2086,6 +2315,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skarmory,
 [SPECIES_HOUNDOUR] = 
     {  
@@ -2095,6 +2325,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Houndour,
 [SPECIES_HOUNDOOM] = 
     {  
@@ -2104,6 +2335,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Houndoom,
 [SPECIES_KINGDRA] = 
     {  
@@ -2113,6 +2345,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kingdra,
 [SPECIES_PHANPY] = 
     {  
@@ -2122,6 +2355,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Phanpy,
 [SPECIES_DONPHAN] = 
     {  
@@ -2131,6 +2365,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Donphan,
 [SPECIES_PORYGON2] = 
     {  
@@ -2140,6 +2375,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Porygon2,
 [SPECIES_STANTLER] = 
     {  
@@ -2149,6 +2385,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stantler,
 [SPECIES_SMEARGLE] = 
     {  
@@ -2158,6 +2395,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Smeargle,
 [SPECIES_TYROGUE] = 
     {  
@@ -2167,6 +2405,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tyrogue,
 [SPECIES_HITMONTOP] = 
     {  
@@ -2176,6 +2415,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hitmontop,
 [SPECIES_SMOOCHUM] = 
     {  
@@ -2185,6 +2425,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Smoochum,
 [SPECIES_ELEKID] = 
     {  
@@ -2194,6 +2435,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Elekid,
 [SPECIES_MAGBY] = 
     {  
@@ -2203,6 +2445,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magby,
 [SPECIES_MILTANK] = 
     {  
@@ -2212,6 +2455,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Miltank,
 [SPECIES_BLISSEY] = 
     {  
@@ -2221,6 +2465,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Blissey,
 [SPECIES_RAIKOU] = 
     {  
@@ -2230,6 +2475,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Raikou,
 [SPECIES_ENTEI] = 
     {  
@@ -2239,6 +2485,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Entei,
 [SPECIES_SUICUNE] = 
     {  
@@ -2248,6 +2495,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Suicune,
 [SPECIES_LARVITAR] = 
     {  
@@ -2257,6 +2505,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Larvitar,
 [SPECIES_PUPITAR] = 
     {  
@@ -2266,6 +2515,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pupitar,
 [SPECIES_TYRANITAR] = 
     {  
@@ -2275,6 +2525,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tyranitar,
 [SPECIES_LUGIA] = 
     {  
@@ -2284,6 +2535,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lugia,
 [SPECIES_HO_OH] = 
     {  
@@ -2293,6 +2545,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //HoOh,
 [SPECIES_CELEBI] = 
     {  
@@ -2302,6 +2555,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Celebi,
     
 [SPECIES_TREECKO] = 
@@ -2312,6 +2566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Treecko,
 [SPECIES_GROVYLE] = 
     {  
@@ -2321,6 +2576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grovyle,
 [SPECIES_SCEPTILE] = 
     {  
@@ -2330,6 +2586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sceptile,
 [SPECIES_TORCHIC] = 
     {  
@@ -2339,6 +2596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Torchic,
 [SPECIES_COMBUSKEN] = 
     {  
@@ -2348,6 +2606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Combusken,
 [SPECIES_BLAZIKEN] = 
     {  
@@ -2357,6 +2616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Blaziken,
 [SPECIES_MUDKIP] = 
     {  
@@ -2366,6 +2626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mudkip,
 [SPECIES_MARSHTOMP] = 
     {  
@@ -2375,6 +2636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Marshtomp,
 [SPECIES_SWAMPERT] = 
     {  
@@ -2384,6 +2646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swampert,
 [SPECIES_POOCHYENA] = 
     {  
@@ -2393,6 +2656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Poochyena,
 [SPECIES_MIGHTYENA] = 
     {  
@@ -2402,6 +2666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mightyena,
 [SPECIES_ZIGZAGOON] = 
     {  
@@ -2411,6 +2676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zigzagoon,
 [SPECIES_LINOONE] = 
     {  
@@ -2420,6 +2686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Linoone,
 [SPECIES_WURMPLE] = 
     {  
@@ -2429,6 +2696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wurmple,
 [SPECIES_SILCOON] = 
     {  
@@ -2438,6 +2706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silcoon,
 [SPECIES_BEAUTIFLY] = 
     {  
@@ -2447,6 +2716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Beautifly,
 [SPECIES_CASCOON] = 
     {  
@@ -2456,6 +2726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cascoon,
 [SPECIES_DUSTOX] = 
     {  
@@ -2465,6 +2736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dustox,
 [SPECIES_LOTAD] = 
     {  
@@ -2474,6 +2746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lotad,
 [SPECIES_LOMBRE] = 
     {  
@@ -2483,6 +2756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lombre,
 [SPECIES_LUDICOLO] = 
     {  
@@ -2492,6 +2766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ludicolo,
 [SPECIES_SEEDOT] = 
     {  
@@ -2501,6 +2776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Seedot,
 [SPECIES_NUZLEAF] = 
     {  
@@ -2510,6 +2786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nuzleaf,
 [SPECIES_SHIFTRY] = 
     {  
@@ -2519,6 +2796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shiftry,
 [SPECIES_NINCADA] = 
     {  
@@ -2528,6 +2806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nincada,
 [SPECIES_NINJASK] = 
     {  
@@ -2537,6 +2816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ninjask,
 [SPECIES_SHEDINJA] = 
     {  
@@ -2546,6 +2826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shedinja,
 [SPECIES_TAILLOW] = 
     {  
@@ -2555,6 +2836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Taillow,
 [SPECIES_SWELLOW] = 
     {  
@@ -2564,6 +2846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swellow,
 [SPECIES_SHROOMISH] = 
     {  
@@ -2573,6 +2856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shroomish,
 [SPECIES_BRELOOM] = 
     {  
@@ -2582,6 +2866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Breloom,
 [SPECIES_SPINDA] = 
     {  
@@ -2591,6 +2876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spinda,
 [SPECIES_WINGULL] = 
     {  
@@ -2600,6 +2886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wingull,
 [SPECIES_PELIPPER] = 
     {  
@@ -2609,6 +2896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pelipper,
 [SPECIES_SURSKIT] = 
     {  
@@ -2618,6 +2906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Surskit,
 [SPECIES_MASQUERAIN] = 
     {  
@@ -2627,6 +2916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Masquerain,
 [SPECIES_WAILMER] = 
     {  
@@ -2636,6 +2926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wailmer,
 [SPECIES_WAILORD] = 
     {  
@@ -2645,6 +2936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wailord,
 [SPECIES_SKITTY] = 
     {  
@@ -2654,6 +2946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skitty,
 [SPECIES_DELCATTY] = 
     {  
@@ -2663,6 +2956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Delcatty,
 [SPECIES_KECLEON] = 
     {  
@@ -2672,6 +2966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kecleon,
 [SPECIES_BALTOY] = 
     {  
@@ -2681,6 +2976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Baltoy,
 [SPECIES_CLAYDOL] = 
     {  
@@ -2690,6 +2986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Claydol,
 [SPECIES_NOSEPASS] = 
     {  
@@ -2699,6 +2996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nosepass,
 [SPECIES_TORKOAL] = 
     {  
@@ -2708,6 +3006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Torkoal,
 [SPECIES_SABLEYE] = 
     {  
@@ -2717,6 +3016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sableye,
 [SPECIES_BARBOACH] = 
     {  
@@ -2726,6 +3026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Barboach,
 [SPECIES_WHISCASH] = 
     {  
@@ -2735,6 +3036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Whiscash,
 [SPECIES_LUVDISC] = 
     {  
@@ -2744,6 +3046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Luvdisc,
 [SPECIES_CORPHISH] = 
     {  
@@ -2753,6 +3056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Corphish,
 [SPECIES_CRAWDAUNT] = 
     {  
@@ -2762,6 +3066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Crawdaunt,
 [SPECIES_FEEBAS] = 
     {  
@@ -2771,6 +3076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Feebas,
 [SPECIES_MILOTIC] = 
     {  
@@ -2780,6 +3086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Milotic,
 [SPECIES_CARVANHA] = 
     {  
@@ -2789,6 +3096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Carvanha,
 [SPECIES_SHARPEDO] = 
     {  
@@ -2798,6 +3106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sharpedo,
 [SPECIES_TRAPINCH] = 
     {  
@@ -2807,6 +3116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Trapinch,
 [SPECIES_VIBRAVA] = 
     {  
@@ -2816,6 +3126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vibrava,
 [SPECIES_FLYGON] = 
     {  
@@ -2825,6 +3136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Flygon,
 [SPECIES_MAKUHITA] = 
     {  
@@ -2834,6 +3146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Makuhita,
 [SPECIES_HARIYAMA] = 
     {  
@@ -2843,6 +3156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hariyama,
 [SPECIES_ELECTRIKE] = 
     {  
@@ -2852,6 +3166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Electrike,
 [SPECIES_MANECTRIC] = 
     {  
@@ -2861,6 +3176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Manectric,
 [SPECIES_NUMEL] = 
     {  
@@ -2870,6 +3186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Numel,
 [SPECIES_CAMERUPT] = 
     {  
@@ -2879,6 +3196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Camerupt,
 [SPECIES_SPHEAL] = 
     {  
@@ -2888,6 +3206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spheal,
 [SPECIES_SEALEO] = 
     {  
@@ -2897,6 +3216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sealeo,
 [SPECIES_WALREIN] = 
     {  
@@ -2906,6 +3226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Walrein,
 [SPECIES_CACNEA] = 
     {  
@@ -2915,6 +3236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cacnea,
 [SPECIES_CACTURNE] = 
     {  
@@ -2924,6 +3246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cacturne,
 [SPECIES_SNORUNT] = 
     {  
@@ -2933,6 +3256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Snorunt,
 [SPECIES_GLALIE] = 
     {  
@@ -2942,6 +3266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Glalie,
 [SPECIES_LUNATONE] = 
     {  
@@ -2951,6 +3276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lunatone,
 [SPECIES_SOLROCK] = 
     {  
@@ -2960,6 +3286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Solrock,
 [SPECIES_AZURILL] = 
     {  
@@ -2969,6 +3296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Azurill,
 [SPECIES_SPOINK] = 
     {  
@@ -2978,6 +3306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spoink,
 [SPECIES_GRUMPIG] = 
     {  
@@ -2987,6 +3316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grumpig,
 [SPECIES_PLUSLE] = 
     {  
@@ -2996,6 +3326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Plusle,
 [SPECIES_MINUN] = 
     {  
@@ -3005,6 +3336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minun,
 [SPECIES_MAWILE] = 
     {  
@@ -3014,6 +3346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mawile,
 [SPECIES_MEDITITE] = 
     {  
@@ -3023,6 +3356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Meditite,
 [SPECIES_MEDICHAM] = 
     {  
@@ -3032,6 +3366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Medicham,
 [SPECIES_SWABLU] = 
     {  
@@ -3041,6 +3376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swablu,
 [SPECIES_ALTARIA] = 
     {  
@@ -3050,6 +3386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Altaria,
 [SPECIES_WYNAUT] = 
     {  
@@ -3059,6 +3396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wynaut,
 [SPECIES_DUSKULL] = 
     {  
@@ -3068,6 +3406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Duskull,
 [SPECIES_DUSCLOPS] = 
     {  
@@ -3077,6 +3416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dusclops,
 [SPECIES_ROSELIA] = 
     {  
@@ -3086,6 +3426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Roselia,
 [SPECIES_SLAKOTH] = 
     {  
@@ -3095,6 +3436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slakoth,
 [SPECIES_VIGOROTH] = 
     {  
@@ -3104,6 +3446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vigoroth,
 [SPECIES_SLAKING] = 
     {  
@@ -3113,6 +3456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slaking,
 [SPECIES_GULPIN] = 
     {  
@@ -3122,6 +3466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gulpin,
 [SPECIES_SWALOT] = 
     {  
@@ -3131,6 +3476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swalot,
 [SPECIES_TROPIUS] = 
     {  
@@ -3140,6 +3486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tropius,
 [SPECIES_WHISMUR] = 
     {  
@@ -3149,6 +3496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Whismur,
 [SPECIES_LOUDRED] = 
     {  
@@ -3158,6 +3506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Loudred,
 [SPECIES_EXPLOUD] = 
     {  
@@ -3167,6 +3516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Exploud,
 [SPECIES_CLAMPERL] = 
     {  
@@ -3176,6 +3526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Clamperl,
 [SPECIES_HUNTAIL] = 
     {  
@@ -3185,6 +3536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Huntail,
 [SPECIES_GOREBYSS] = 
     {  
@@ -3194,6 +3546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gorebyss,
 [SPECIES_ABSOL] = 
     {  
@@ -3203,6 +3556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Absol,
 [SPECIES_SHUPPET] = 
     {  
@@ -3212,6 +3566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shuppet,
 [SPECIES_BANETTE] = 
     {  
@@ -3221,6 +3576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Banette,
 [SPECIES_SEVIPER] = 
     {  
@@ -3230,6 +3586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Seviper,
 [SPECIES_ZANGOOSE] = 
     {  
@@ -3239,6 +3596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zangoose,
 [SPECIES_RELICANTH] = 
     {  
@@ -3248,6 +3606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Relicanth,
 [SPECIES_ARON] = 
     {  
@@ -3257,6 +3616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aron,
 [SPECIES_LAIRON] = 
     {  
@@ -3266,6 +3626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lairon,
 [SPECIES_AGGRON] = 
     {  
@@ -3275,6 +3636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aggron,
 [SPECIES_CASTFORM] = 
     {  
@@ -3284,6 +3646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Castform,
 [SPECIES_VOLBEAT] = 
     {  
@@ -3293,6 +3656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Volbeat,
 [SPECIES_ILLUMISE] = 
     {  
@@ -3302,6 +3666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Illumise,
 [SPECIES_LILEEP] = 
     {  
@@ -3311,6 +3676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lileep,
 [SPECIES_CRADILY] = 
     {  
@@ -3320,6 +3686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cradily,
 [SPECIES_ANORITH] = 
     {  
@@ -3329,6 +3696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Anorith,
 [SPECIES_ARMALDO] = 
     {  
@@ -3338,6 +3706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Armaldo,
 [SPECIES_RALTS] = 
     {  
@@ -3347,6 +3716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ralts,
 [SPECIES_KIRLIA] = 
     {  
@@ -3356,6 +3726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kirlia,
 [SPECIES_GARDEVOIR] = 
     {  
@@ -3365,6 +3736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gardevoir,
 [SPECIES_BAGON] = 
     {  
@@ -3374,6 +3746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bagon,
 [SPECIES_SHELGON] = 
     {  
@@ -3383,6 +3756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shelgon,
 [SPECIES_SALAMENCE] = 
     {  
@@ -3392,6 +3766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Salamence,
 [SPECIES_BELDUM] = 
     {  
@@ -3401,6 +3776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Beldum,
 [SPECIES_METANG] = 
     {  
@@ -3410,6 +3786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Metang,
 [SPECIES_METAGROSS] = 
     {  
@@ -3419,6 +3796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Metagross,
 [SPECIES_REGIROCK] = 
     {  
@@ -3428,6 +3806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Regirock,
 [SPECIES_REGICE] = 
     {  
@@ -3437,6 +3816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Regice,
 [SPECIES_REGISTEEL] = 
     {  
@@ -3446,6 +3826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Registeel,
 [SPECIES_KYOGRE] = 
     {  
@@ -3455,6 +3836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kyogre,
 [SPECIES_GROUDON] = 
     {  
@@ -3464,6 +3846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Groudon,
 [SPECIES_RAYQUAZA] = 
     {  
@@ -3473,6 +3856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rayquaza,
 [SPECIES_LATIAS] = 
     {  
@@ -3482,6 +3866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Latias,
 [SPECIES_LATIOS] = 
     {  
@@ -3491,6 +3876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Latios,
 [SPECIES_JIRACHI] = 
     {  
@@ -3500,6 +3886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jirachi,
 [SPECIES_DEOXYS] = 
     {  
@@ -3509,6 +3896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Deoxys,
 [SPECIES_CHIMECHO] = 
     {  
@@ -3518,6 +3906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chimecho,
 [SPECIES_EGG] = 
     {  
@@ -3527,6 +3916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Egg,
 [SPECIES_UNOWN_B] = 
     {  
@@ -3536,6 +3926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownB,
 [SPECIES_UNOWN_C] = 
     {  
@@ -3545,6 +3936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownC,
 [SPECIES_UNOWN_D] = 
     {  
@@ -3554,6 +3946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownD,
 [SPECIES_UNOWN_E] = 
     {  
@@ -3563,6 +3956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownE,
 [SPECIES_UNOWN_F] = 
     {  
@@ -3572,6 +3966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownF,
 [SPECIES_UNOWN_G] = 
     {  
@@ -3581,6 +3976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownG,
 [SPECIES_UNOWN_H] = 
     {  
@@ -3590,6 +3986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownH,
 [SPECIES_UNOWN_I] = 
     {  
@@ -3599,6 +3996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownI,
 [SPECIES_UNOWN_J] = 
     {  
@@ -3608,6 +4006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownJ,
 [SPECIES_UNOWN_K] = 
     {  
@@ -3617,6 +4016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownK,
 [SPECIES_UNOWN_L] = 
     {  
@@ -3626,6 +4026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownL,
 [SPECIES_UNOWN_M] = 
     {  
@@ -3635,6 +4036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownM,
 [SPECIES_UNOWN_N] = 
     {  
@@ -3644,6 +4046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownN,
 [SPECIES_UNOWN_O] = 
     {  
@@ -3653,6 +4056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownO,
 [SPECIES_UNOWN_P] = 
     {  
@@ -3662,6 +4066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownP,
 [SPECIES_UNOWN_Q] = 
     {  
@@ -3671,6 +4076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownQ,
 [SPECIES_UNOWN_R] = 
     {  
@@ -3680,6 +4086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownR,
 [SPECIES_UNOWN_S] = 
     {  
@@ -3689,6 +4096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownS,
 [SPECIES_UNOWN_T] = 
     {  
@@ -3698,6 +4106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownT,
 [SPECIES_UNOWN_U] = 
     {  
@@ -3707,6 +4116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownU,
 [SPECIES_UNOWN_V] = 
     {  
@@ -3716,6 +4126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownV,
 [SPECIES_UNOWN_W] = 
     {  
@@ -3725,6 +4136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownW,
 [SPECIES_UNOWN_X] = 
     {  
@@ -3734,6 +4146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownX,
 [SPECIES_UNOWN_Y] = 
     {  
@@ -3743,6 +4156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownY,
 [SPECIES_UNOWN_Z] = 
     {  
@@ -3752,6 +4166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownZ,
 [SPECIES_UNOWN_EMARK] = 
     {  
@@ -3761,6 +4176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownExclamationMark,
 [SPECIES_UNOWN_QMARK] = 
     {  
@@ -3770,6 +4186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //UnownQuestionMark, //ok I see now part of problem, this doeesn't have a comma and others are misaligned.
 [SPECIES_TURTWIG] = 
     {  
@@ -3779,6 +4196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Turtwig,
 [SPECIES_GROTLE] = 
     {  
@@ -3788,6 +4206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grotle,
 [SPECIES_TORTERRA] = 
     {  
@@ -3797,6 +4216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Torterra,
 [SPECIES_CHIMCHAR] = 
     {  
@@ -3806,6 +4226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chimchar,
 [SPECIES_MONFERNO] = 
     {  
@@ -3815,6 +4236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Monferno,
 [SPECIES_INFERNAPE] = 
     {  
@@ -3824,6 +4246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Infernape,
 [SPECIES_PIPLUP] = 
     {  
@@ -3833,6 +4256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Piplup,
 [SPECIES_PRINPLUP] = 
     {  
@@ -3842,6 +4266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Prinplup,
 [SPECIES_EMPOLEON] = 
     {  
@@ -3851,6 +4276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Empoleon,
 [SPECIES_STARLY] = 
     {  
@@ -3860,6 +4286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Starly,
 [SPECIES_STARAVIA] = 
     {  
@@ -3869,6 +4296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Staravia,
 [SPECIES_STARAPTOR] = 
     {  
@@ -3878,6 +4306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Staraptor,
 [SPECIES_BIDOOF] = 
     {  
@@ -3887,6 +4316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bidoof,
 [SPECIES_BIBAREL] = 
     {  
@@ -3896,6 +4326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bibarel,
 [SPECIES_KRICKETOT] = 
     {  
@@ -3905,6 +4336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kricketot,
 [SPECIES_KRICKETUNE] = 
     {  
@@ -3914,6 +4346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kricketune,
 [SPECIES_SHINX] = 
     {  
@@ -3923,6 +4356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shinx,
 [SPECIES_LUXIO] = 
     {  
@@ -3932,6 +4366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Luxio,
 [SPECIES_LUXRAY] = 
     {  
@@ -3941,6 +4376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Luxray,
 [SPECIES_BUDEW] = 
     {  
@@ -3950,6 +4386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Budew,
 [SPECIES_ROSERADE] = 
     {  
@@ -3959,6 +4396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Roserade,
 [SPECIES_CRANIDOS] = 
     {  
@@ -3968,6 +4406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cranidos,
 [SPECIES_RAMPARDOS] = 
     {  
@@ -3977,6 +4416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rampardos,
 [SPECIES_SHIELDON] = 
     {  
@@ -3986,6 +4426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shieldon,
 [SPECIES_BASTIODON] = 
     {  
@@ -3995,6 +4436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bastiodon,
 [SPECIES_BURMY] = 
     {  
@@ -4004,6 +4446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Burmy,
 [SPECIES_WORMADAM] = 
     {  
@@ -4013,6 +4456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wormadam,
 [SPECIES_MOTHIM] = 
     {  
@@ -4022,6 +4466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mothim,
 [SPECIES_COMBEE] = 
     {  
@@ -4031,6 +4476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Combee,
 [SPECIES_VESPIQUEN] = 
     {  
@@ -4040,6 +4486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vespiquen,
 [SPECIES_PACHIRISU] = 
     {  
@@ -4049,6 +4496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pachirisu,
 [SPECIES_BUIZEL] = 
     {  
@@ -4058,6 +4506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Buizel,
 [SPECIES_FLOATZEL] = 
     {  
@@ -4067,6 +4516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Floatzel,
 [SPECIES_CHERUBI] = 
     {  
@@ -4076,6 +4526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cherubi,
 [SPECIES_CHERRIM] = 
     {  
@@ -4085,6 +4536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cherrim,
 [SPECIES_SHELLOS] = 
     {  
@@ -4094,6 +4546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shellos,
 [SPECIES_GASTRODON] = 
     {  
@@ -4103,6 +4556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gastrodon,
 [SPECIES_AMBIPOM] = 
     {  
@@ -4112,6 +4566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ambipom,
 [SPECIES_DRIFLOON] = 
     {  
@@ -4121,6 +4576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drifloon,
 [SPECIES_DRIFBLIM] = 
     {  
@@ -4130,6 +4586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drifblim,
 [SPECIES_BUNEARY] = 
     {  
@@ -4139,6 +4596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Buneary,
 [SPECIES_LOPUNNY] = 
     {  
@@ -4148,6 +4606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lopunny,
 [SPECIES_MISMAGIUS] = 
     {  
@@ -4157,6 +4616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mismagius,
 [SPECIES_HONCHKROW] = 
     {  
@@ -4166,6 +4626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Honchkrow,
 [SPECIES_GLAMEOW] = 
     {  
@@ -4175,6 +4636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Glameow,
 [SPECIES_PURUGLY] = 
     {  
@@ -4184,6 +4646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Purugly,
 [SPECIES_CHINGLING] = 
     {  
@@ -4193,6 +4656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chingling,
 [SPECIES_STUNKY] = 
     {  
@@ -4202,6 +4666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stunky,
 [SPECIES_SKUNTANK] = 
     {  
@@ -4211,6 +4676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skuntank,
 [SPECIES_BRONZOR] = 
     {  
@@ -4220,6 +4686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bronzor,
 [SPECIES_BRONZONG] = 
     {  
@@ -4229,6 +4696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bronzong,
 [SPECIES_BONSLY] = 
     {  
@@ -4238,6 +4706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bonsly,
 [SPECIES_MIME_JR] = 
     {  
@@ -4247,6 +4716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MimeJr,
 [SPECIES_HAPPINY] = 
     {  
@@ -4256,6 +4726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Happiny,
 [SPECIES_CHATOT] = 
     {  
@@ -4265,6 +4736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chatot,
 [SPECIES_SPIRITOMB] = 
     {  
@@ -4274,6 +4746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spiritomb,
 [SPECIES_GIBLE] = 
     {  
@@ -4283,6 +4756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gible,
 [SPECIES_GABITE] = 
     {  
@@ -4292,6 +4766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gabite,
 [SPECIES_GARCHOMP] = 
     {  
@@ -4301,6 +4776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Garchomp,
 [SPECIES_MUNCHLAX] = 
     {  
@@ -4310,6 +4786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Munchlax,
 [SPECIES_RIOLU] = 
     {  
@@ -4319,6 +4796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Riolu,
 [SPECIES_LUCARIO] = 
     {  
@@ -4328,6 +4806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lucario,
 [SPECIES_HIPPOPOTAS] = 
     {  
@@ -4337,6 +4816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hippopotas,
 [SPECIES_HIPPOWDON] = 
     {  
@@ -4346,6 +4826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hippowdon,
 [SPECIES_SKORUPI] = 
     {  
@@ -4355,6 +4836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skorupi,
 [SPECIES_DRAPION] = 
     {  
@@ -4364,6 +4846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drapion,
 [SPECIES_CROAGUNK] = 
     {  
@@ -4373,6 +4856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Croagunk,
 [SPECIES_TOXICROAK] = 
     {  
@@ -4382,6 +4866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Toxicroak,
 [SPECIES_CARNIVINE] = 
     {  
@@ -4391,6 +4876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Carnivine,
 [SPECIES_FINNEON] = 
     {  
@@ -4400,6 +4886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Finneon,
 [SPECIES_LUMINEON] = 
     {  
@@ -4409,6 +4896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lumineon,
 [SPECIES_MANTYKE] = 
     {  
@@ -4418,6 +4906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mantyke,
 [SPECIES_SNOVER] = 
     {  
@@ -4427,6 +4916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Snover,
 [SPECIES_ABOMASNOW] = 
     {  
@@ -4436,6 +4926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Abomasnow,
 [SPECIES_WEAVILE] = 
     {  
@@ -4445,6 +4936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Weavile,
 [SPECIES_MAGNEZONE] = 
     {  
@@ -4454,6 +4946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magnezone,
 [SPECIES_LICKILICKY] = 
     {  
@@ -4463,6 +4956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lickilicky,
 [SPECIES_RHYPERIOR] = 
     {  
@@ -4472,6 +4966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rhyperior,
 [SPECIES_TANGROWTH] = 
     {  
@@ -4481,6 +4976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tangrowth,
 [SPECIES_ELECTIVIRE] = 
     {  
@@ -4490,6 +4986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Electivire,
 [SPECIES_MAGMORTAR] = 
     {  
@@ -4499,6 +4996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magmortar,
 [SPECIES_TOGEKISS] = 
     {  
@@ -4508,6 +5006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Togekiss,
 [SPECIES_YANMEGA] = 
     {  
@@ -4517,6 +5016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Yanmega,
 [SPECIES_LEAFEON] = 
     {  
@@ -4526,6 +5026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Leafeon,
 [SPECIES_GLACEON] = 
     {  
@@ -4535,6 +5036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Glaceon,
 [SPECIES_GLISCOR] = 
     {  
@@ -4544,6 +5046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gliscor,
 [SPECIES_MAMOSWINE] = 
     {  
@@ -4553,6 +5056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mamoswine,
 [SPECIES_PORYGON_Z] = 
     {  
@@ -4562,6 +5066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Porygon_Z,
 [SPECIES_GALLADE] = 
     {  
@@ -4571,6 +5076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gallade,
 [SPECIES_PROBOPASS] = 
     {  
@@ -4580,6 +5086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Probopass,
 [SPECIES_DUSKNOIR] = 
     {  
@@ -4589,6 +5096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dusknoir,
 [SPECIES_FROSLASS] = 
     {  
@@ -4598,6 +5106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Froslass,
 [SPECIES_ROTOM] = 
     {  
@@ -4607,6 +5116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rotom,
 [SPECIES_UXIE] = 
     {  
@@ -4616,6 +5126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Uxie,
 [SPECIES_MESPRIT] = 
     {  
@@ -4625,6 +5136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mesprit,
 [SPECIES_AZELF] = 
     {  
@@ -4634,6 +5146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Azelf,
 [SPECIES_DIALGA] = 
     {  
@@ -4643,6 +5156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dialga,
 [SPECIES_PALKIA] = 
     {  
@@ -4652,6 +5166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Palkia,
 [SPECIES_HEATRAN] = 
     {  
@@ -4661,6 +5176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Heatran,
 [SPECIES_REGIGIGAS] = 
     {  
@@ -4670,6 +5186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Regigigas,
 [SPECIES_GIRATINA] = 
     {  
@@ -4679,6 +5196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Giratina,
 [SPECIES_CRESSELIA] = 
     {  
@@ -4688,6 +5206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cresselia,
 [SPECIES_PHIONE] = 
     {  
@@ -4697,6 +5216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Phione,
 [SPECIES_MANAPHY] = 
     {  
@@ -4706,6 +5226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Manaphy,
 [SPECIES_DARKRAI] = 
     {  
@@ -4715,6 +5236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Darkrai,
 [SPECIES_SHAYMIN] = 
     {  
@@ -4724,6 +5246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shaymin,
 [SPECIES_ARCEUS] = 
     {  
@@ -4733,6 +5256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
 [SPECIES_VICTINI] = 
     {  
@@ -4742,6 +5266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Victini,
 [SPECIES_SNIVY] = 
     {  
@@ -4751,6 +5276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Snivy,
 [SPECIES_SERVINE] = 
     {  
@@ -4760,6 +5286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Servine,
 [SPECIES_SERPERIOR] = 
     {  
@@ -4769,6 +5296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Serperior,
 [SPECIES_TEPIG] = 
     {  
@@ -4778,6 +5306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tepig,
 [SPECIES_PIGNITE] = 
     {  
@@ -4787,6 +5316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pignite,
 [SPECIES_EMBOAR] = 
     {  
@@ -4796,6 +5326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Emboar,
 [SPECIES_OSHAWOTT] = 
     {  
@@ -4805,6 +5336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Oshawott,
 [SPECIES_DEWOTT] = 
     {  
@@ -4814,6 +5346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dewott,
 [SPECIES_SAMUROTT] = 
     {  
@@ -4823,6 +5356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Samurott,
 [SPECIES_PATRAT] = 
     {  
@@ -4832,6 +5366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Patrat,
 [SPECIES_WATCHOG] = 
     {  
@@ -4841,6 +5376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Watchog,
 [SPECIES_LILLIPUP] = 
     {  
@@ -4850,6 +5386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lillipup,
 [SPECIES_HERDIER] = 
     {  
@@ -4859,6 +5396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Herdier,
 [SPECIES_STOUTLAND] = 
     {  
@@ -4868,6 +5406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stoutland,
 [SPECIES_PURRLOIN] = 
     {  
@@ -4877,6 +5416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Purrloin,
 [SPECIES_LIEPARD] = 
     {  
@@ -4886,6 +5426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Liepard,
 [SPECIES_PANSAGE] = 
     {  
@@ -4895,6 +5436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pansage,
 [SPECIES_SIMISAGE] = 
     {  
@@ -4904,6 +5446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Simisage,
 [SPECIES_PANSEAR] = 
     {  
@@ -4913,6 +5456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pansear,
 [SPECIES_SIMISEAR] = 
     {  
@@ -4922,6 +5466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Simisear,
 [SPECIES_PANPOUR] = 
     {  
@@ -4931,6 +5476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Panpour,
 [SPECIES_SIMIPOUR] = 
     {  
@@ -4940,6 +5486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Simipour,
 [SPECIES_MUNNA] = 
     {  
@@ -4949,6 +5496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Munna,
 [SPECIES_MUSHARNA] = 
     {  
@@ -4958,6 +5506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Musharna,
 [SPECIES_PIDOVE] = 
     {  
@@ -4967,6 +5516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pidove,
 [SPECIES_TRANQUILL] = 
     {  
@@ -4976,6 +5526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tranquill,
 [SPECIES_UNFEZANT] = 
     {  
@@ -4985,6 +5536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Unfezant,
 [SPECIES_BLITZLE] = 
     {  
@@ -4994,6 +5546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Blitzle,
 [SPECIES_ZEBSTRIKA] = 
     {  
@@ -5003,6 +5556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zebstrika,
 [SPECIES_ROGGENROLA] = 
     {  
@@ -5012,6 +5566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Roggenrola,
 [SPECIES_BOLDORE] = 
     {  
@@ -5021,6 +5576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Boldore,
 [SPECIES_GIGALITH] = 
     {  
@@ -5030,6 +5586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gigalith,
 [SPECIES_WOOBAT] = 
     {  
@@ -5039,6 +5596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Woobat,
 [SPECIES_SWOOBAT] = 
     {  
@@ -5048,6 +5606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swoobat,
 [SPECIES_DRILBUR] = 
     {  
@@ -5057,6 +5616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drilbur,
 [SPECIES_EXCADRILL] = 
     {  
@@ -5066,6 +5626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Excadrill,
 [SPECIES_AUDINO] = 
     {  
@@ -5075,6 +5636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Audino,
 [SPECIES_TIMBURR] = 
     {  
@@ -5084,6 +5646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Timburr,
 [SPECIES_GURDURR] = 
     {  
@@ -5093,6 +5656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gurdurr,
 [SPECIES_CONKELDURR] = 
     {  
@@ -5102,6 +5666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Conkeldurr,
 [SPECIES_TYMPOLE] = 
     {  
@@ -5111,6 +5676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tympole,
 [SPECIES_PALPITOAD] = 
     {  
@@ -5120,6 +5686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Palpitoad,
 [SPECIES_SEISMITOAD] = 
     {  
@@ -5129,6 +5696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Seismitoad,
 [SPECIES_THROH] = 
     {  
@@ -5138,6 +5706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Throh,
 [SPECIES_SAWK] = 
     {  
@@ -5147,6 +5716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sawk,
 [SPECIES_SEWADDLE] = 
     {  
@@ -5156,6 +5726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sewaddle,
 [SPECIES_SWADLOON] = 
     {  
@@ -5165,6 +5736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swadloon,
 [SPECIES_LEAVANNY] = 
     {  
@@ -5174,6 +5746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Leavanny,
 [SPECIES_VENIPEDE] = 
     {  
@@ -5183,6 +5756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Venipede,
 [SPECIES_WHIRLIPEDE] = 
     {  
@@ -5192,6 +5766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Whirlipede,
 [SPECIES_SCOLIPEDE] = 
     {  
@@ -5201,6 +5776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scolipede,
 [SPECIES_COTTONEE] = 
     {  
@@ -5210,6 +5786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cottonee,
 [SPECIES_WHIMSICOTT] = 
     {  
@@ -5219,6 +5796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Whimsicott,
 [SPECIES_PETILIL] = 
     {  
@@ -5228,6 +5806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Petilil,
 [SPECIES_LILLIGANT] = 
     {  
@@ -5237,6 +5816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lilligant,
 [SPECIES_BASCULIN] = 
     {  
@@ -5246,6 +5826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Basculin,
 [SPECIES_SANDILE] = 
     {  
@@ -5255,6 +5836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sandile,
 [SPECIES_KROKOROK] = 
     {  
@@ -5264,6 +5846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Krokorok,
 [SPECIES_KROOKODILE] = 
     {  
@@ -5273,6 +5856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Krookodile,
 [SPECIES_DARUMAKA] = 
     {  
@@ -5282,6 +5866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Darumaka,
 [SPECIES_DARMANITAN] = 
     {  
@@ -5291,6 +5876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Darmanitan,
 [SPECIES_MARACTUS] = 
     {  
@@ -5300,6 +5886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Maractus,
 [SPECIES_DWEBBLE] = 
     {  
@@ -5309,6 +5896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dwebble,
 [SPECIES_CRUSTLE] = 
     {  
@@ -5318,6 +5906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Crustle,
 [SPECIES_SCRAGGY] = 
     {  
@@ -5327,6 +5916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scraggy,
 [SPECIES_SCRAFTY] = 
     {  
@@ -5336,6 +5926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scrafty,
 [SPECIES_SIGILYPH] = 
     {  
@@ -5345,6 +5936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sigilyph,
 [SPECIES_YAMASK] = 
     {  
@@ -5354,6 +5946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Yamask,
 [SPECIES_COFAGRIGUS] = 
     {  
@@ -5363,6 +5956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cofagrigus,
 [SPECIES_TIRTOUGA] = 
     {  
@@ -5372,6 +5966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tirtouga,
 [SPECIES_CARRACOSTA] = 
     {  
@@ -5381,6 +5976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Carracosta,
 [SPECIES_ARCHEN] = 
     {  
@@ -5390,6 +5986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Archen,
 [SPECIES_ARCHEOPS] = 
     {  
@@ -5399,6 +5996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Archeops,
 [SPECIES_TRUBBISH] = 
     {  
@@ -5408,6 +6006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Trubbish,
 [SPECIES_GARBODOR] = 
     {  
@@ -5417,6 +6016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Garbodor,
 [SPECIES_ZORUA] = 
     {  
@@ -5426,6 +6026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zorua,
 [SPECIES_ZOROARK] = 
     {  
@@ -5435,6 +6036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zoroark,
 [SPECIES_MINCCINO] = 
     {  
@@ -5444,6 +6046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minccino,
 [SPECIES_CINCCINO] = 
     {  
@@ -5453,6 +6056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cinccino,
 [SPECIES_GOTHITA] = 
     {  
@@ -5462,6 +6066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gothita,
 [SPECIES_GOTHORITA] = 
     {  
@@ -5471,6 +6076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gothorita,
 [SPECIES_GOTHITELLE] = 
     {  
@@ -5480,6 +6086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gothitelle,
 [SPECIES_SOLOSIS] = 
     {  
@@ -5489,6 +6096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Solosis,
 [SPECIES_DUOSION] = 
     {  
@@ -5498,6 +6106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Duosion,
 [SPECIES_REUNICLUS] = 
     {  
@@ -5507,6 +6116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Reuniclus,
 [SPECIES_DUCKLETT] = 
     {  
@@ -5516,6 +6126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ducklett,
 [SPECIES_SWANNA] = 
     {  
@@ -5525,6 +6136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swanna,
 [SPECIES_VANILLITE] = 
     {  
@@ -5534,6 +6146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vanillite,
 [SPECIES_VANILLISH] = 
     {  
@@ -5543,6 +6156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vanillish,
 [SPECIES_VANILLUXE] = 
     {  
@@ -5552,6 +6166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vanilluxe,
 [SPECIES_DEERLING] = 
     {  
@@ -5561,6 +6176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Deerling,
 [SPECIES_SAWSBUCK] = 
     {  
@@ -5570,6 +6186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sawsbuck,
 [SPECIES_EMOLGA] = 
     {  
@@ -5579,6 +6196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Emolga,
 [SPECIES_KARRABLAST] = 
     {  
@@ -5588,6 +6206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Karrablast,
 [SPECIES_ESCAVALIER] = 
     {  
@@ -5597,6 +6216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Escavalier,
 [SPECIES_FOONGUS] = 
     {  
@@ -5606,6 +6226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Foongus,
 [SPECIES_AMOONGUSS] = 
     {  
@@ -5615,6 +6236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Amoonguss,
 [SPECIES_FRILLISH] = 
     {  
@@ -5624,6 +6246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Frillish,
 [SPECIES_JELLICENT] = 
     {  
@@ -5633,6 +6256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jellicent,
 [SPECIES_ALOMOMOLA] = 
     {  
@@ -5642,6 +6266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alomomola,
 [SPECIES_JOLTIK] = 
     {  
@@ -5651,6 +6276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Joltik,
 [SPECIES_GALVANTULA] = 
     {  
@@ -5660,6 +6286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Galvantula,
 [SPECIES_FERROSEED] = 
     {  
@@ -5669,6 +6296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ferroseed,
 [SPECIES_FERROTHORN] = 
     {  
@@ -5678,6 +6306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ferrothorn,
 [SPECIES_KLINK] = 
     {  
@@ -5687,6 +6316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Klink,
 [SPECIES_KLANG] = 
     {  
@@ -5696,6 +6326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Klang,
 [SPECIES_KLINKLANG] = 
     {  
@@ -5705,6 +6336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Klinklang,
 [SPECIES_TYNAMO] = 
     {  
@@ -5714,6 +6346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tynamo,
 [SPECIES_EELEKTRIK] = 
     {  
@@ -5723,6 +6356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eelektrik,
 [SPECIES_EELEKTROSS] = 
     {  
@@ -5732,6 +6366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eelektross,
 [SPECIES_ELGYEM] = 
     {  
@@ -5741,6 +6376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Elgyem,
 [SPECIES_BEHEEYEM] = 
     {  
@@ -5750,6 +6386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Beheeyem,
 [SPECIES_LITWICK] = 
     {  
@@ -5759,6 +6396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Litwick,
 [SPECIES_LAMPENT] = 
     {  
@@ -5768,6 +6406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lampent,
 [SPECIES_CHANDELURE] = 
     {  
@@ -5777,6 +6416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chandelure,
 [SPECIES_AXEW] = 
     {  
@@ -5786,6 +6426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Axew,
 [SPECIES_FRAXURE] = 
     {  
@@ -5795,6 +6436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Fraxure,
 [SPECIES_HAXORUS] = 
     {  
@@ -5804,6 +6446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Haxorus,
 [SPECIES_CUBCHOO] = 
     {  
@@ -5813,6 +6456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cubchoo,
 [SPECIES_BEARTIC] = 
     {  
@@ -5822,6 +6466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Beartic,
 [SPECIES_CRYOGONAL] = 
     {  
@@ -5831,6 +6476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cryogonal,
 [SPECIES_SHELMET] = 
     {  
@@ -5840,6 +6486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shelmet,
 [SPECIES_ACCELGOR] = 
     {  
@@ -5849,6 +6496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Accelgor,
 [SPECIES_STUNFISK] = 
     {  
@@ -5858,6 +6506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stunfisk,
 [SPECIES_MIENFOO] = 
     {  
@@ -5867,6 +6516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mienfoo,
 [SPECIES_MIENSHAO] = 
     {  
@@ -5876,6 +6526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mienshao,
 [SPECIES_DRUDDIGON] = 
     {  
@@ -5885,6 +6536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Druddigon,
 [SPECIES_GOLETT] = 
     {  
@@ -5894,6 +6546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Golett,
 [SPECIES_GOLURK] = 
     {  
@@ -5903,6 +6556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Golurk,
 [SPECIES_PAWNIARD] = 
     {  
@@ -5912,6 +6566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pawniard,
 [SPECIES_BISHARP] = 
     {  
@@ -5921,6 +6576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bisharp,
 [SPECIES_BOUFFALANT] = 
     {  
@@ -5930,6 +6586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bouffalant,
 [SPECIES_RUFFLET] = 
     {  
@@ -5939,6 +6596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rufflet,
 [SPECIES_BRAVIARY] = 
     {  
@@ -5948,6 +6606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Braviary,
 [SPECIES_VULLABY] = 
     {  
@@ -5957,6 +6616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vullaby,
 [SPECIES_MANDIBUZZ] = 
     {  
@@ -5966,6 +6626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mandibuzz,
 [SPECIES_HEATMOR] = 
     {  
@@ -5975,6 +6636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Heatmor,
 [SPECIES_DURANT] = 
     {  
@@ -5984,6 +6646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Durant,
 [SPECIES_DEINO] = 
     {  
@@ -5993,6 +6656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Deino,
 [SPECIES_ZWEILOUS] = 
     {  
@@ -6002,6 +6666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zweilous,
 [SPECIES_HYDREIGON] = 
     {  
@@ -6011,6 +6676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hydreigon,
 [SPECIES_LARVESTA] = 
     {  
@@ -6020,6 +6686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Larvesta,
 [SPECIES_VOLCARONA] = 
     {  
@@ -6029,6 +6696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Volcarona,
 [SPECIES_COBALION] = 
     {  
@@ -6038,6 +6706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cobalion,
 [SPECIES_TERRAKION] = 
     {  
@@ -6047,6 +6716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Terrakion,
 [SPECIES_VIRIZION] = 
     {  
@@ -6056,6 +6726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Virizion,
 [SPECIES_TORNADUS] = 
     {  
@@ -6065,6 +6736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tornadus,
 [SPECIES_THUNDURUS] = 
     {  
@@ -6074,6 +6746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Thundurus,
 [SPECIES_RESHIRAM] = 
     {  
@@ -6083,6 +6756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Reshiram,
 [SPECIES_ZEKROM] = 
     {  
@@ -6092,6 +6766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zekrom,
 [SPECIES_LANDORUS] = 
     {  
@@ -6101,6 +6776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Landorus,
 [SPECIES_KYUREM] = 
     {  
@@ -6110,6 +6786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kyurem,
 [SPECIES_KELDEO] = 
     {  
@@ -6119,6 +6796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Keldeo,
 [SPECIES_MELOETTA] = 
     {  
@@ -6128,6 +6806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Meloetta,
 [SPECIES_GENESECT] = 
     {  
@@ -6137,6 +6816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Genesect,
 [SPECIES_CHESPIN] = 
     {  
@@ -6146,6 +6826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chespin,
 [SPECIES_QUILLADIN] = 
     {  
@@ -6155,6 +6836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Quilladin,
 [SPECIES_CHESNAUGHT] = 
     {  
@@ -6164,6 +6846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chesnaught,
 [SPECIES_FENNEKIN] = 
     {  
@@ -6173,6 +6856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Fennekin,
 [SPECIES_BRAIXEN] = 
     {  
@@ -6182,6 +6866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Braixen,
 [SPECIES_DELPHOX] = 
     {  
@@ -6191,6 +6876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Delphox,
 [SPECIES_FROAKIE] = 
     {  
@@ -6200,6 +6886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Froakie,
 [SPECIES_FROGADIER] = 
     {  
@@ -6209,6 +6896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Frogadier,
 [SPECIES_GRENINJA] = 
     {  
@@ -6218,6 +6906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Greninja,
 [SPECIES_BUNNELBY] = 
     {  
@@ -6227,6 +6916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bunnelby,
 [SPECIES_DIGGERSBY] = 
     {  
@@ -6236,6 +6926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Diggersby,
 [SPECIES_FLETCHLING] = 
     {  
@@ -6245,6 +6936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Fletchling,
 [SPECIES_FLETCHINDER] = 
     {  
@@ -6254,6 +6946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Fletchinder,
 [SPECIES_TALONFLAME] = 
     {  
@@ -6263,6 +6956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Talonflame,
 [SPECIES_SCATTERBUG] = 
     {  
@@ -6272,6 +6966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scatterbug,
 [SPECIES_SPEWPA] = 
     {  
@@ -6281,6 +6976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spewpa,
 [SPECIES_VIVILLON] = 
     {  
@@ -6290,6 +6986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vivillon,
 [SPECIES_LITLEO] = 
     {  
@@ -6299,6 +6996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Litleo,
 [SPECIES_PYROAR] = 
     {  
@@ -6308,6 +7006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pyroar,
 [SPECIES_FLABEBE] = 
     {  
@@ -6317,6 +7016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Flabebe,
 [SPECIES_FLOETTE] = 
     {  
@@ -6326,6 +7026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Floette,
 [SPECIES_FLORGES] = 
     {  
@@ -6335,6 +7036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Florges,
 [SPECIES_SKIDDO] = 
     {  
@@ -6344,6 +7046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skiddo,
 [SPECIES_GOGOAT] = 
     {  
@@ -6353,6 +7056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gogoat,
 [SPECIES_PANCHAM] = 
     {  
@@ -6362,6 +7066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pancham,
 [SPECIES_PANGORO] = 
     {  
@@ -6371,6 +7076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pangoro,
 [SPECIES_FURFROU] = 
     {  
@@ -6380,6 +7086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Furfrou,
 [SPECIES_ESPURR] = 
     {  
@@ -6389,6 +7096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Espurr,
 [SPECIES_MEOWSTIC] = 
     {  
@@ -6398,6 +7106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Meowstic,
 [SPECIES_HONEDGE] = 
     {  
@@ -6407,6 +7116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Honedge,
 [SPECIES_DOUBLADE] = 
     {  
@@ -6416,6 +7126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Doublade,
 [SPECIES_AEGISLASH] = 
     {  
@@ -6425,6 +7136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aegislash,
 [SPECIES_SPRITZEE] = 
     {  
@@ -6434,6 +7146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spritzee,
 [SPECIES_AROMATISSE] = 
     {  
@@ -6443,6 +7156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aromatisse,
 [SPECIES_SWIRLIX] = 
     {  
@@ -6452,6 +7166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Swirlix,
 [SPECIES_SLURPUFF] = 
     {  
@@ -6461,6 +7176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Slurpuff,
 [SPECIES_INKAY] = 
     {  
@@ -6470,6 +7186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Inkay,
 [SPECIES_MALAMAR] = 
     {  
@@ -6479,6 +7196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Malamar,
 [SPECIES_BINACLE] = 
     {  
@@ -6488,6 +7206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Binacle,
 [SPECIES_BARBARACLE] = 
     {  
@@ -6497,6 +7216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Barbaracle,
 [SPECIES_SKRELP] = 
     {  
@@ -6506,6 +7226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skrelp,
 [SPECIES_DRAGALGE] = 
     {  
@@ -6515,6 +7236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dragalge,
 [SPECIES_CLAUNCHER] = 
     {  
@@ -6524,6 +7246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Clauncher,
 [SPECIES_CLAWITZER] = 
     {  
@@ -6533,6 +7256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Clawitzer,
 [SPECIES_HELIOPTILE] = 
     {  
@@ -6542,6 +7266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Helioptile,
 [SPECIES_HELIOLISK] = 
     {  
@@ -6551,6 +7276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Heliolisk,
 [SPECIES_TYRUNT] = 
     {  
@@ -6560,6 +7286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tyrunt,
 [SPECIES_TYRANTRUM] = 
     {  
@@ -6569,6 +7296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tyrantrum,
 [SPECIES_AMAURA] = 
     {  
@@ -6578,6 +7306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Amaura,
 [SPECIES_AURORUS] = 
     {  
@@ -6587,6 +7316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Aurorus,
 [SPECIES_SYLVEON] = 
     {  
@@ -6596,6 +7326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sylveon,
 [SPECIES_HAWLUCHA] = 
     {  
@@ -6605,6 +7336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hawlucha,
 [SPECIES_DEDENNE] = 
     {  
@@ -6614,6 +7346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dedenne,
 [SPECIES_CARBINK] = 
     {  
@@ -6623,6 +7356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Carbink,
 [SPECIES_GOOMY] = 
     {  
@@ -6632,6 +7366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Goomy,
 [SPECIES_SLIGGOO] = 
     {  
@@ -6641,6 +7376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sliggoo,
 [SPECIES_GOODRA] = 
     {  
@@ -6650,6 +7386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Goodra,
 [SPECIES_KLEFKI] = 
     {  
@@ -6659,6 +7396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Klefki,
 [SPECIES_PHANTUMP] = 
     {  
@@ -6668,6 +7406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Phantump,
 [SPECIES_TREVENANT] = 
     {  
@@ -6677,6 +7416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Trevenant,
 [SPECIES_PUMPKABOO] = 
     {  
@@ -6686,6 +7426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pumpkaboo,
 [SPECIES_GOURGEIST] = 
     {  
@@ -6695,6 +7436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gourgeist,
 [SPECIES_BERGMITE] = 
     {  
@@ -6704,6 +7446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bergmite,
 [SPECIES_AVALUGG] = 
     {  
@@ -6713,6 +7456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Avalugg,
 [SPECIES_NOIBAT] = 
     {  
@@ -6722,6 +7466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Noibat,
 [SPECIES_NOIVERN] = 
     {  
@@ -6731,6 +7476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Noivern,
 [SPECIES_XERNEAS] = 
     {  
@@ -6740,6 +7486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Xerneas,
 [SPECIES_YVELTAL] = 
     {  
@@ -6749,6 +7496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Yveltal,
 [SPECIES_ZYGARDE] = 
     {  
@@ -6758,6 +7506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zygarde,
 [SPECIES_DIANCIE] = 
     {  
@@ -6767,6 +7516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Diancie,
 [SPECIES_HOOPA] = 
     {  
@@ -6776,6 +7526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hoopa,
 [SPECIES_VOLCANION] = 
     {  
@@ -6785,6 +7536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Volcanion,
 [SPECIES_ROWLET] = 
     {  
@@ -6794,6 +7546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rowlet,
 [SPECIES_DARTRIX] = 
     {  
@@ -6803,6 +7556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dartrix,
 [SPECIES_DECIDUEYE] = 
     {  
@@ -6812,6 +7566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Decidueye,
 [SPECIES_LITTEN] = 
     {  
@@ -6821,6 +7576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Litten,
 [SPECIES_TORRACAT] = 
     {  
@@ -6830,6 +7586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Torracat,
 [SPECIES_INCINEROAR] = 
     {  
@@ -6839,6 +7596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Incineroar,
 [SPECIES_POPPLIO] = 
     {  
@@ -6848,6 +7606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Popplio,
 [SPECIES_BRIONNE] = 
     {  
@@ -6857,6 +7616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Brionne,
 [SPECIES_PRIMARINA] = 
     {  
@@ -6866,6 +7626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Primarina,
 [SPECIES_PIKIPEK] = 
     {  
@@ -6875,6 +7636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pikipek,
 [SPECIES_TRUMBEAK] = 
     {  
@@ -6884,6 +7646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Trumbeak,
 [SPECIES_TOUCANNON] = 
     {  
@@ -6893,6 +7656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Toucannon,
 [SPECIES_YUNGOOS] = 
     {  
@@ -6902,6 +7666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Yungoos,
 [SPECIES_GUMSHOOS] = 
     {  
@@ -6911,6 +7676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gumshoos,
 [SPECIES_GRUBBIN] = 
     {  
@@ -6920,6 +7686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grubbin,
 [SPECIES_CHARJABUG] = 
     {  
@@ -6929,6 +7696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Charjabug,
 [SPECIES_VIKAVOLT] = 
     {  
@@ -6938,6 +7706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Vikavolt,
 [SPECIES_CRABRAWLER] = 
     {  
@@ -6947,6 +7716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Crabrawler,
 [SPECIES_CRABOMINABLE] = 
     {  
@@ -6956,6 +7726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Crabominable,
 [SPECIES_ORICORIO_BAILE] = 
     {  
@@ -6965,6 +7736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Oricorio_Baile),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Oricorio_Baile,
 [SPECIES_CUTIEFLY] = 
     {  
@@ -6974,6 +7746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cutiefly,
 [SPECIES_RIBOMBEE] = 
     {  
@@ -6983,6 +7756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ribombee,
 [SPECIES_ROCKRUFF] = 
     {  
@@ -6992,6 +7766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rockruff,
 [SPECIES_LYCANROC] = 
     {  
@@ -7001,6 +7776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lycanroc,
 [SPECIES_WISHIWASHI] = 
     {  
@@ -7010,6 +7786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wishiwashi,
 [SPECIES_MAREANIE] = 
     {  
@@ -7019,6 +7796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mareanie,
 [SPECIES_TOXAPEX] = 
     {  
@@ -7028,6 +7806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Toxapex,
 [SPECIES_MUDBRAY] = 
     {  
@@ -7037,6 +7816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mudbray,
 [SPECIES_MUDSDALE] = 
     {  
@@ -7046,6 +7826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mudsdale,
 [SPECIES_DEWPIDER] = 
     {  
@@ -7055,6 +7836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dewpider,
 [SPECIES_ARAQUANID] = 
     {  
@@ -7064,6 +7846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Araquanid,
 [SPECIES_FOMANTIS] = 
     {  
@@ -7073,6 +7856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Fomantis,
 [SPECIES_LURANTIS] = 
     {  
@@ -7082,6 +7866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lurantis,
 [SPECIES_MORELULL] = 
     {  
@@ -7091,6 +7876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Morelull,
 [SPECIES_SHIINOTIC] = 
     {  
@@ -7100,6 +7886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Shiinotic,
 [SPECIES_SALANDIT] = 
     {  
@@ -7109,6 +7896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Salandit,
 [SPECIES_SALAZZLE] = 
     {  
@@ -7118,6 +7906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Salazzle,
 [SPECIES_STUFFUL] = 
     {  
@@ -7127,6 +7916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stufful,
 [SPECIES_BEWEAR] = 
     {  
@@ -7136,6 +7926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bewear,
 [SPECIES_BOUNSWEET] = 
     {  
@@ -7145,6 +7936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bounsweet,
 [SPECIES_STEENEE] = 
     {  
@@ -7154,6 +7946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Steenee,
 [SPECIES_TSAREENA] = 
     {  
@@ -7163,6 +7956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Tsareena,
 [SPECIES_COMFEY] = 
     {  
@@ -7172,6 +7966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Comfey,
 [SPECIES_ORANGURU] = 
     {  
@@ -7181,6 +7976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Oranguru,
 [SPECIES_PASSIMIAN] = 
     {  
@@ -7190,6 +7986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Passimian,
 [SPECIES_WIMPOD] = 
     {  
@@ -7199,6 +7996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wimpod,
 [SPECIES_GOLISOPOD] = 
     {  
@@ -7208,6 +8006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Golisopod,
 [SPECIES_SANDYGAST] = 
     {  
@@ -7217,6 +8016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sandygast,
 [SPECIES_PALOSSAND] = 
     {  
@@ -7226,6 +8026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Palossand,
 [SPECIES_PYUKUMUKU] = 
     {  
@@ -7235,6 +8036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pyukumuku,
 [SPECIES_TYPE_NULL] = 
     {  
@@ -7244,6 +8046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TypeNull,
 [SPECIES_SILVALLY] = 
     {  
@@ -7253,6 +8056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
 [SPECIES_MINIOR] = 
     {  
@@ -7262,6 +8066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
 [SPECIES_KOMALA] = 
     {  
@@ -7271,6 +8076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Komala,
 [SPECIES_TURTONATOR] = 
     {  
@@ -7280,6 +8086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Turtonator,
 [SPECIES_TOGEDEMARU] = 
     {  
@@ -7289,6 +8096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Togedemaru,
 [SPECIES_MIMIKYU] = 
     {  
@@ -7298,6 +8106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Mimikyu,
 [SPECIES_BRUXISH] = 
     {  
@@ -7307,6 +8116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Bruxish,
 [SPECIES_DRAMPA] = 
     {  
@@ -7316,6 +8126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drampa,
 [SPECIES_DHELMISE] = 
     {  
@@ -7325,6 +8136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dhelmise,
 [SPECIES_JANGMO_O] = 
     {  
@@ -7334,6 +8146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Jangmoo,
 [SPECIES_HAKAMO_O] = 
     {  
@@ -7343,6 +8156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hakamoo,
 [SPECIES_KOMMO_O] = 
     {  
@@ -7352,6 +8166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kommoo,
 [SPECIES_TAPU_KOKO] = 
     {  
@@ -7361,6 +8176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TapuKoko,
 [SPECIES_TAPU_LELE] = 
     {  
@@ -7370,6 +8186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TapuLele,
 [SPECIES_TAPU_BULU] = 
     {  
@@ -7379,6 +8196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TapuBulu,
 [SPECIES_TAPU_FINI] = 
     {  
@@ -7388,6 +8206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TapuFini,
 [SPECIES_COSMOG] = 
     {  
@@ -7397,6 +8216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cosmog,
 [SPECIES_COSMOEM] = 
     {  
@@ -7406,6 +8226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cosmoem,
 [SPECIES_SOLGALEO] = 
     {  
@@ -7415,6 +8236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Solgaleo,
 [SPECIES_LUNALA] = 
     {  
@@ -7424,6 +8246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Lunala,
 [SPECIES_NIHILEGO] = 
     {  
@@ -7433,6 +8256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nihilego,
 [SPECIES_BUZZWOLE] = 
     {  
@@ -7442,6 +8266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Buzzwole,
 [SPECIES_PHEROMOSA] = 
     {  
@@ -7451,6 +8276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pheromosa,
 [SPECIES_XURKITREE] = 
     {  
@@ -7460,6 +8286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Xurkitree,
 [SPECIES_CELESTEELA] = 
     {  
@@ -7469,6 +8296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Celesteela,
 [SPECIES_KARTANA] = 
     {  
@@ -7478,6 +8306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kartana,
 [SPECIES_GUZZLORD] = 
     {  
@@ -7487,6 +8316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Guzzlord,
 [SPECIES_NECROZMA] = 
     {  
@@ -7496,6 +8326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Necrozma,
 [SPECIES_MAGEARNA] = 
     {  
@@ -7505,6 +8336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Magearna,
 [SPECIES_MARSHADOW] = 
     {  
@@ -7514,6 +8346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Marshadow,
 [SPECIES_POIPOLE] = 
     {  
@@ -7523,6 +8356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Poipole,
 [SPECIES_NAGANADEL] = 
     {  
@@ -7532,6 +8366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Naganadel,
 [SPECIES_STAKATAKA] = 
     {  
@@ -7541,6 +8376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stakataka,
 [SPECIES_BLACEPHALON] = 
     {  
@@ -7550,6 +8386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Blacephalon,
 [SPECIES_ZERAORA] = 
     {  
@@ -7559,6 +8396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zeraora,
 [SPECIES_MELTAN] = 
     {  
@@ -7568,6 +8406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Meltan,
 [SPECIES_MELMETAL] = 
     {  
@@ -7577,6 +8416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Melmetal,
 [SPECIES_GROOKEY] = 
     {  
@@ -7586,6 +8426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grookey,
 [SPECIES_THWACKEY] = 
     {  
@@ -7595,6 +8436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Thwackey,
 [SPECIES_RILLABOOM] = 
     {  
@@ -7604,6 +8446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rillaboom,
 [SPECIES_SCORBUNNY] = 
     {  
@@ -7613,6 +8456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Scorbunny,
 [SPECIES_RABOOT] = 
     {  
@@ -7622,6 +8466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Raboot,
 [SPECIES_CINDERACE] = 
     {  
@@ -7631,6 +8476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cinderace,
 [SPECIES_SOBBLE] = 
     {  
@@ -7640,6 +8486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sobble,
 [SPECIES_DRIZZILE] = 
     {  
@@ -7649,6 +8496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drizzile,
 [SPECIES_INTELEON] = 
     {  
@@ -7658,6 +8506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Inteleon,
 [SPECIES_SKWOVET] = 
     {  
@@ -7667,6 +8516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Skwovet,
 [SPECIES_GREEDENT] = 
     {  
@@ -7676,6 +8526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Greedent,
 [SPECIES_ROOKIDEE] = 
     {  
@@ -7685,6 +8536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rookidee,
 [SPECIES_CORVISQUIRE] = 
     {  
@@ -7694,6 +8546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Corvisquire,
 [SPECIES_CORVIKNIGHT] = 
     {  
@@ -7703,6 +8556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Corviknight,
 [SPECIES_BLIPBUG] = 
     {  
@@ -7712,6 +8566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Blipbug,
 [SPECIES_DOTTLER] = 
     {  
@@ -7721,6 +8576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dottler,
 [SPECIES_ORBEETLE] = 
     {  
@@ -7730,6 +8586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Orbeetle,
 [SPECIES_NICKIT] = 
     {  
@@ -7739,6 +8596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Nickit,
 [SPECIES_THIEVUL] = 
     {  
@@ -7748,6 +8606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Thievul,
 [SPECIES_GOSSIFLEUR] = 
     {  
@@ -7757,6 +8616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gossifleur,
 [SPECIES_ELDEGOSS] = 
     {  
@@ -7766,6 +8626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eldegoss,
 [SPECIES_WOOLOO] = 
     {  
@@ -7775,6 +8636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wooloo,
 [SPECIES_DUBWOOL] = 
     {  
@@ -7784,6 +8646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dubwool,
 [SPECIES_CHEWTLE] = 
     {  
@@ -7793,6 +8656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Chewtle,
 [SPECIES_DREDNAW] = 
     {  
@@ -7802,6 +8666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drednaw,
 [SPECIES_YAMPER] = 
     {  
@@ -7811,6 +8676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Yamper,
 [SPECIES_BOLTUND] = 
     {  
@@ -7820,6 +8686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Boltund,
 [SPECIES_ROLYCOLY] = 
     {  
@@ -7829,6 +8696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Rolycoly,
 [SPECIES_CARKOL] = 
     {  
@@ -7838,6 +8706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Carkol,
 [SPECIES_COALOSSAL] = 
     {  
@@ -7847,6 +8716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Coalossal,
 [SPECIES_APPLIN] = 
     {  
@@ -7856,6 +8726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Applin,
 [SPECIES_FLAPPLE] = 
     {  
@@ -7865,6 +8736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Flapple,
 [SPECIES_APPLETUN] = 
     {  
@@ -7874,6 +8746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Appletun,
 [SPECIES_SILICOBRA] = 
     {  
@@ -7883,6 +8756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silicobra,
 [SPECIES_SANDACONDA] = 
     {  
@@ -7892,6 +8766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sandaconda,
 [SPECIES_CRAMORANT] = 
     {  
@@ -7901,6 +8776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cramorant,
 [SPECIES_ARROKUDA] = 
     {  
@@ -7910,6 +8786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arrokuda,
 [SPECIES_BARRASKEWDA] = 
     {  
@@ -7919,6 +8796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Barraskewda,
 [SPECIES_TOXEL] = 
     {  
@@ -7928,6 +8806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Toxel,
 [SPECIES_TOXTRICITY] = 
     {  
@@ -7937,6 +8816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Toxtricity,
 [SPECIES_SIZZLIPEDE] = 
     {  
@@ -7946,6 +8826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sizzlipede,
 [SPECIES_CENTISKORCH] = 
     {  
@@ -7955,6 +8836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Centiskorch,
 [SPECIES_CLOBBOPUS] = 
     {  
@@ -7964,6 +8846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Clobbopus,
 [SPECIES_GRAPPLOCT] = 
     {  
@@ -7973,6 +8856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grapploct,
 [SPECIES_SINISTEA] = 
     {  
@@ -7982,6 +8866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sinistea,
 [SPECIES_POLTEAGEIST] = 
     {  
@@ -7991,6 +8876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Polteageist,
 [SPECIES_HATENNA] = 
     {  
@@ -8000,6 +8886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hatenna,
 [SPECIES_HATTREM] = 
     {  
@@ -8009,6 +8896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hattrem,
 [SPECIES_HATTERENE] = 
     {  
@@ -8018,6 +8906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Hatterene,
 [SPECIES_IMPIDIMP] = 
     {  
@@ -8027,6 +8916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Impidimp,
 [SPECIES_MORGREM] = 
     {  
@@ -8036,6 +8926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Morgrem,
 [SPECIES_GRIMMSNARL] = 
     {  
@@ -8045,6 +8936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Grimmsnarl,
 [SPECIES_OBSTAGOON] = 
     {  
@@ -8054,6 +8946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Obstagoon,
 [SPECIES_PERRSERKER] = 
     {  
@@ -8063,6 +8956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Perrserker,
 [SPECIES_CURSOLA] = 
     {  
@@ -8072,6 +8966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cursola,
 [SPECIES_SIRFETCHD] = 
     {  
@@ -8081,6 +8976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sirfetchd,
 [SPECIES_MR_RIME] = 
     {  
@@ -8090,6 +8986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MrRime,
 [SPECIES_RUNERIGUS] = 
     {  
@@ -8099,6 +8996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Runerigus,
 [SPECIES_MILCERY] = 
     {  
@@ -8108,6 +9006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Milcery,
 [SPECIES_ALCREMIE] = 
     {  
@@ -8117,6 +9016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie,
 [SPECIES_FALINKS] = 
     {  
@@ -8126,6 +9026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Falinks,
 [SPECIES_PINCURCHIN] = 
     {  
@@ -8135,6 +9036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pincurchin,
 [SPECIES_SNOM] = 
     {  
@@ -8144,6 +9046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Snom,
 [SPECIES_FROSMOTH] = 
     {  
@@ -8153,6 +9056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Frosmoth,
 [SPECIES_STONJOURNER] = 
     {  
@@ -8162,6 +9066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Stonjourner,
 [SPECIES_EISCUE] = 
     {  
@@ -8171,6 +9076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eiscue,
 [SPECIES_INDEEDEE] = 
     {  
@@ -8180,6 +9086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Indeedee,
 [SPECIES_MORPEKO] = 
     {  
@@ -8189,6 +9096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Morpeko,
 [SPECIES_CUFANT] = 
     {  
@@ -8198,6 +9106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cufant,
 [SPECIES_COPPERAJAH] = 
     {  
@@ -8207,6 +9116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Copperajah,
 [SPECIES_DRACOZOLT] = 
     {  
@@ -8216,6 +9126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dracozolt,
 [SPECIES_ARCTOZOLT] = 
     {  
@@ -8225,6 +9136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arctozolt,
 [SPECIES_DRACOVISH] = 
     {  
@@ -8234,6 +9146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dracovish,
 [SPECIES_ARCTOVISH] = 
     {  
@@ -8243,6 +9156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arctovish,
 [SPECIES_DURALUDON] = 
     {  
@@ -8252,6 +9166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Duraludon,
 [SPECIES_DREEPY] = 
     {  
@@ -8261,6 +9176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dreepy,
 [SPECIES_DRAKLOAK] = 
     {  
@@ -8270,6 +9186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Drakloak,
 [SPECIES_DRAGAPULT] = 
     {  
@@ -8279,6 +9196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Dragapult,
 [SPECIES_ZACIAN] = 
     {  
@@ -8288,6 +9206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zacian,
 [SPECIES_ZAMAZENTA] = 
     {  
@@ -8297,6 +9216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zamazenta,
 [SPECIES_ETERNATUS] = 
     {  
@@ -8306,6 +9226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eternatus,
 [SPECIES_KUBFU] = 
     {  
@@ -8315,6 +9236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kubfu,
 [SPECIES_URSHIFU_SINGLE_STRIKE_STYLE] = 
     {  
@@ -8324,6 +9246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Urshifu,
 [SPECIES_ZARUDE] = 
     {  
@@ -8333,6 +9256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zarude,
 [SPECIES_REGIELEKI] = 
     {  
@@ -8342,6 +9266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Regieleki,
 [SPECIES_REGIDRAGO] = 
     {  
@@ -8351,6 +9276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Regidrago,
 [SPECIES_GLASTRIER] = 
     {  
@@ -8360,6 +9286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Glastrier,
 [SPECIES_SPECTRIER] = 
     {  
@@ -8369,6 +9296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Spectrier,
 [SPECIES_CALYREX] = 
     {  
@@ -8378,6 +9306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Calyrex,
 [SPECIES_WYRDEER] = 
     {  
@@ -8387,6 +9316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Wyrdeer,
 [SPECIES_KLEAVOR] = 
     {  
@@ -8396,6 +9326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Kleavor,
 [SPECIES_URSALUNA] = 
     {  
@@ -8405,6 +9336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Ursaluna,
 [SPECIES_BASCULEGION] = 
     {  
@@ -8414,6 +9346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Basculegion,
 [SPECIES_SNEASLER] = 
     {  
@@ -8423,6 +9356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Sneasler,
 [SPECIES_OVERQWIL] = 
     {  
@@ -8432,6 +9366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Overqwil,
 [SPECIES_ENAMORUS] = 
     {  
@@ -8441,6 +9376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Enamorus,
   [SPECIES_VENUSAUR_MEGA] = 
     {  
@@ -8450,6 +9386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VenusaurMega,
   [SPECIES_CHARIZARD_MEGA_X] = 
     {  
@@ -8459,6 +9396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CharizardMegaX,
   [SPECIES_CHARIZARD_MEGA_Y] = 
     {  
@@ -8468,6 +9406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CharizardMegaY,
   [SPECIES_BLASTOISE_MEGA] = 
     {  
@@ -8477,6 +9416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BlastoiseMega,
   [SPECIES_BEEDRILL_MEGA] = 
     {  
@@ -8486,6 +9426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BeedrillMega,
   [SPECIES_PIDGEOT_MEGA] = 
     {  
@@ -8495,6 +9436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PidgeotMega,
   [SPECIES_ALAKAZAM_MEGA] = 
     {  
@@ -8504,6 +9446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AlakazamMega,
   [SPECIES_SLOWBRO_MEGA] = 
     {  
@@ -8513,6 +9456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SlowbroMega,
   [SPECIES_GENGAR_MEGA] = 
     {  
@@ -8522,6 +9466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GengarMega,
   [SPECIES_KANGASKHAN_MEGA] = 
     {  
@@ -8531,6 +9476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //KangaskhanMega,
   [SPECIES_PINSIR_MEGA] = 
     {  
@@ -8540,6 +9486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PinsirMega,
   [SPECIES_GYARADOS_MEGA] = 
     {  
@@ -8549,6 +9496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GyaradosMega,
   [SPECIES_AERODACTYL_MEGA] = 
     {  
@@ -8558,6 +9506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AerodactylMega,
   [SPECIES_MEWTWO_MEGA_X] = 
     {  
@@ -8567,6 +9516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MewtwoMegaX,
   [SPECIES_MEWTWO_MEGA_Y] = 
     {  
@@ -8576,6 +9526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MewtwoMegaY,
   [SPECIES_AMPHAROS_MEGA] = 
     {  
@@ -8585,6 +9536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AmpharosMega,
   [SPECIES_STEELIX_MEGA] = 
     {  
@@ -8594,6 +9546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SteelixMega,
   [SPECIES_SCIZOR_MEGA] = 
     {  
@@ -8603,6 +9556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ScizorMega,
   [SPECIES_HERACROSS_MEGA] = 
     {  
@@ -8612,6 +9566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //HeracrossMega,
   [SPECIES_HOUNDOOM_MEGA] = 
     {  
@@ -8621,6 +9576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //HoundoomMega,
   [SPECIES_TYRANITAR_MEGA] = 
     {  
@@ -8630,6 +9586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TyranitarMega,
   [SPECIES_SCEPTILE_MEGA] = 
     {  
@@ -8639,6 +9596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SceptileMega,
   [SPECIES_BLAZIKEN_MEGA] = 
     {  
@@ -8648,6 +9606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BlazikenMega,
   [SPECIES_SWAMPERT_MEGA] = 
     {  
@@ -8657,6 +9616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SwampertMega,
   [SPECIES_GARDEVOIR_MEGA] = 
     {  
@@ -8666,6 +9626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GardevoirMega,
   [SPECIES_SABLEYE_MEGA] = 
     {  
@@ -8675,6 +9636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SableyeMega,
   [SPECIES_MAWILE_MEGA] = 
     {  
@@ -8684,6 +9646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MawileMega,
   [SPECIES_AGGRON_MEGA] = 
     {  
@@ -8693,6 +9656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AggronMega,
   [SPECIES_MEDICHAM_MEGA] = 
     {  
@@ -8702,6 +9666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MedichamMega,
   [SPECIES_MANECTRIC_MEGA] = 
     {  
@@ -8711,6 +9676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ManectricMega,
   [SPECIES_SHARPEDO_MEGA] = 
     {  
@@ -8720,6 +9686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SharpedoMega,
   [SPECIES_CAMERUPT_MEGA] = 
     {  
@@ -8729,6 +9696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CameruptMega,
   [SPECIES_ALTARIA_MEGA] = 
     {  
@@ -8738,6 +9706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AltariaMega,
   [SPECIES_BANETTE_MEGA] = 
     {  
@@ -8747,6 +9716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BanetteMega,
   [SPECIES_ABSOL_MEGA] = 
     {  
@@ -8756,6 +9726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AbsolMega,
   [SPECIES_GLALIE_MEGA] = 
     {  
@@ -8765,6 +9736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GlalieMega,
   [SPECIES_SALAMENCE_MEGA] = 
     {  
@@ -8774,6 +9746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SalamenceMega,
   [SPECIES_METAGROSS_MEGA] = 
     {  
@@ -8783,6 +9756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MetagrossMega,
   [SPECIES_LATIAS_MEGA] = 
     {  
@@ -8792,6 +9766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LatiasMega,
   [SPECIES_LATIOS_MEGA] = 
     {  
@@ -8801,6 +9776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LatiosMega,
   [SPECIES_LOPUNNY_MEGA] = 
     {  
@@ -8810,6 +9786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LopunnyMega,
   [SPECIES_GARCHOMP_MEGA] = 
     {  
@@ -8819,6 +9796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GarchompMega,
   [SPECIES_LUCARIO_MEGA] = 
     {  
@@ -8828,6 +9806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LucarioMega,
   [SPECIES_ABOMASNOW_MEGA] = 
     {  
@@ -8837,6 +9816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AbomasnowMega,
   [SPECIES_GALLADE_MEGA] = 
     {  
@@ -8846,6 +9826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GalladeMega,
   [SPECIES_AUDINO_MEGA] = 
     {  
@@ -8855,6 +9836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AudinoMega,
   [SPECIES_DIANCIE_MEGA] = 
     {  
@@ -8864,6 +9846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DiancieMega,
   [SPECIES_RAYQUAZA_MEGA] = 
     {  
@@ -8873,6 +9856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RayquazaMega,
   [SPECIES_KYOGRE_PRIMAL] = 
     {  
@@ -8882,6 +9866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //KyogrePrimal,
   [SPECIES_GROUDON_PRIMAL] = 
     {  
@@ -8891,6 +9876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GroudonPrimal,
   [SPECIES_RATTATA_ALOLAN] = 
     {  
@@ -8900,6 +9886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RattataAlolan,
   [SPECIES_RATICATE_ALOLAN] = 
     {  
@@ -8909,6 +9896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RaticateAlolan,
   [SPECIES_RAICHU_ALOLAN] = 
     {  
@@ -8918,6 +9906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RaichuAlolan,
   [SPECIES_SANDSHREW_ALOLAN] = 
     {  
@@ -8927,6 +9916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SandshrewAlolan,
   [SPECIES_SANDSLASH_ALOLAN] = 
     {  
@@ -8936,6 +9926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SandslashAlolan,
   [SPECIES_VULPIX_ALOLAN] = 
     {  
@@ -8945,6 +9936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VulpixAlolan,
   [SPECIES_NINETALES_ALOLAN] = 
     {  
@@ -8954,6 +9946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //NinetalesAlolan,
   [SPECIES_DIGLETT_ALOLAN] = 
     {  
@@ -8963,6 +9956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DiglettAlolan,
   [SPECIES_DUGTRIO_ALOLAN] = 
     {  
@@ -8972,6 +9966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DugtrioAlolan,
   [SPECIES_MEOWTH_ALOLAN] = 
     {  
@@ -8981,6 +9976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MeowthAlolan,
   [SPECIES_PERSIAN_ALOLAN] = 
     {  
@@ -8990,6 +9986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PersianAlolan,
   [SPECIES_GEODUDE_ALOLAN] = 
     {  
@@ -8999,6 +9996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GeodudeAlolan,
   [SPECIES_GRAVELER_ALOLAN] = 
     {  
@@ -9008,6 +10006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GravelerAlolan,
   [SPECIES_GOLEM_ALOLAN] = 
     {  
@@ -9017,6 +10016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GolemAlolan,
   [SPECIES_GRIMER_ALOLAN] = 
     {  
@@ -9026,6 +10026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GrimerAlolan,
   [SPECIES_MUK_ALOLAN] = 
     {  
@@ -9035,6 +10036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MukAlolan,
   [SPECIES_EXEGGUTOR_ALOLAN] = 
     {  
@@ -9044,6 +10046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ExeggutorAlolan,
   [SPECIES_MAROWAK_ALOLAN] = 
     {  
@@ -9053,6 +10056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MarowakAlolan,
   [SPECIES_MEOWTH_GALARIAN] = 
     {  
@@ -9062,6 +10066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MeowthGalarian,
   [SPECIES_PONYTA_GALARIAN] = 
     {  
@@ -9071,6 +10076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PonytaGalarian,
   [SPECIES_RAPIDASH_GALARIAN] = 
     {  
@@ -9080,6 +10086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RapidashGalarian,
   [SPECIES_SLOWPOKE_GALARIAN] = 
     {  
@@ -9089,6 +10096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SlowpokeGalarian,
   [SPECIES_SLOWBRO_GALARIAN] = 
     {  
@@ -9098,6 +10106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SlowbroGalarian,
   [SPECIES_FARFETCHD_GALARIAN] = 
     {  
@@ -9107,6 +10116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FarfetchdGalarian,
   [SPECIES_WEEZING_GALARIAN] = 
     {  
@@ -9116,6 +10126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //WeezingGalarian,
   [SPECIES_MR_MIME_GALARIAN] = 
     {  
@@ -9125,6 +10136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MrMimeGalarian,
   [SPECIES_ARTICUNO_GALARIAN] = 
     {  
@@ -9134,6 +10146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ArticunoGalarian,
   [SPECIES_ZAPDOS_GALARIAN] = 
     {  
@@ -9143,6 +10156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ZapdosGalarian,
   [SPECIES_MOLTRES_GALARIAN] = 
     {  
@@ -9152,6 +10166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MoltresGalarian,
   [SPECIES_SLOWKING_GALARIAN] = 
     {  
@@ -9161,6 +10176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SlowkingGalarian,
   [SPECIES_CORSOLA_GALARIAN] = 
     {  
@@ -9170,6 +10186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CorsolaGalarian,
   [SPECIES_ZIGZAGOON_GALARIAN] = 
     {  
@@ -9179,6 +10196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ZigzagoonGalarian,
   [SPECIES_LINOONE_GALARIAN] = 
     {  
@@ -9188,6 +10206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LinooneGalarian,
   [SPECIES_DARUMAKA_GALARIAN] = 
     {  
@@ -9197,6 +10216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DarumakaGalarian,
   [SPECIES_DARMANITAN_GALARIAN] = 
     {  
@@ -9206,6 +10226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DarmanitanGalarian,
   [SPECIES_YAMASK_GALARIAN] = 
     {  
@@ -9215,6 +10236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //YamaskGalarian,
   [SPECIES_STUNFISK_GALARIAN] = 
     {  
@@ -9224,6 +10246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //StunfiskGalarian,
   [SPECIES_GROWLITHE_HISUIAN] = 
     {  
@@ -9233,6 +10256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GrowlitheHisuian,
   [SPECIES_ARCANINE_HISUIAN] = 
     {  
@@ -9242,6 +10266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ArcanineHisuian,
   [SPECIES_VOLTORB_HISUIAN] = 
     {  
@@ -9251,6 +10276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VoltorbHisuian,
   [SPECIES_ELECTRODE_HISUIAN] = 
     {  
@@ -9260,6 +10286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ElectrodeHisuian,
   [SPECIES_TYPHLOSION_HISUIAN] = 
     {  
@@ -9269,6 +10296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TyphlosionHisuian,
   [SPECIES_QWILFISH_HISUIAN] = 
     {  
@@ -9278,6 +10306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //QwilfishHisuian,
   [SPECIES_SNEASEL_HISUIAN] = 
     {  
@@ -9287,6 +10316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SneaselHisuian,
   [SPECIES_SAMUROTT_HISUIAN] = 
     {  
@@ -9296,6 +10326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SamurottHisuian,
   [SPECIES_LILLIGANT_HISUIAN] = 
     {  
@@ -9305,6 +10336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LilligantHisuian,
   [SPECIES_ZORUA_HISUIAN] = 
     {  
@@ -9314,6 +10346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ZoruaHisuian,
   [SPECIES_ZOROARK_HISUIAN] = 
     {  
@@ -9323,6 +10356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ZoroarkHisuian,
   [SPECIES_BRAVIARY_HISUIAN] = 
     {  
@@ -9332,6 +10366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BraviaryHisuian,
   [SPECIES_SLIGGOO_HISUIAN] = 
     {  
@@ -9341,6 +10376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SliggooHisuian,
   [SPECIES_GOODRA_HISUIAN] = 
     {  
@@ -9350,6 +10386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GoodraHisuian,
   [SPECIES_AVALUGG_HISUIAN] = 
     {  
@@ -9359,6 +10396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AvaluggHisuian,
   [SPECIES_DECIDUEYE_HISUIAN] = 
     {  
@@ -9368,6 +10406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DecidueyeHisuian,
   [SPECIES_PIKACHU_COSPLAY] = 
     {  
@@ -9377,6 +10416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuCosplay,
   [SPECIES_PIKACHU_ROCK_STAR] = 
     {  
@@ -9386,6 +10426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuRockStar,
   [SPECIES_PIKACHU_BELLE] = 
     {  
@@ -9395,6 +10436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuBelle,
   [SPECIES_PIKACHU_POP_STAR] = 
     {  
@@ -9404,6 +10446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuPopStar,
   [SPECIES_PIKACHU_PH_D] = 
     {  
@@ -9413,6 +10456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuPhD,
   [SPECIES_PIKACHU_LIBRE] = 
     {  
@@ -9422,6 +10466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuLibre,
   [SPECIES_PIKACHU_ORIGINAL_CAP] = 
     {  
@@ -9431,6 +10476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuOriginalCap,
   [SPECIES_PIKACHU_HOENN_CAP] = 
     {  
@@ -9440,6 +10486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuHoennCap,
   [SPECIES_PIKACHU_SINNOH_CAP] = 
     {  
@@ -9449,6 +10496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuSinnohCap,
   [SPECIES_PIKACHU_UNOVA_CAP] = 
     {  
@@ -9458,6 +10506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuUnovaCap,
   [SPECIES_PIKACHU_KALOS_CAP] = 
     {  
@@ -9467,6 +10516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuKalosCap,
   [SPECIES_PIKACHU_ALOLA_CAP] = 
     {  
@@ -9476,6 +10526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuAlolaCap,
   [SPECIES_PIKACHU_PARTNER_CAP] = 
     {  
@@ -9485,6 +10536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuPartnerCap,
   [SPECIES_PIKACHU_WORLD_CAP] = 
     {  
@@ -9494,6 +10546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PikachuWorldCap,
   [SPECIES_PICHU_SPIKY_EARED] = 
     {  
@@ -9503,6 +10556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //PichuSpikyEared,
   [SPECIES_CASTFORM_SUNNY] = 
     {  
@@ -9512,6 +10566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CastformSunny,
   [SPECIES_CASTFORM_RAINY] = 
     {  
@@ -9521,6 +10576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CastformRainy,
   [SPECIES_CASTFORM_SNOWY] = 
     {  
@@ -9530,6 +10586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CastformSnowy,
   [SPECIES_DEOXYS_ATTACK] = 
     {  
@@ -9539,6 +10596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DeoxysAttack,
   [SPECIES_DEOXYS_DEFENSE] = 
     {  
@@ -9548,6 +10606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DeoxysDefense,
   [SPECIES_DEOXYS_SPEED] = 
     {  
@@ -9557,6 +10616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DeoxysSpeed,
   [SPECIES_BURMY_SANDY_CLOAK] = 
     {  
@@ -9566,6 +10626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BurmySandyCloak,
   [SPECIES_BURMY_TRASH_CLOAK] = 
     {  
@@ -9575,6 +10636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BurmyTrashCloak,
   [SPECIES_WORMADAM_SANDY_CLOAK] = 
     {  
@@ -9584,6 +10646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //WormadamSandyCloak,
   [SPECIES_WORMADAM_TRASH_CLOAK] = 
     {  
@@ -9593,6 +10656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //WormadamTrashCloak,
   [SPECIES_CHERRIM_SUNSHINE] = 
     {  
@@ -9602,6 +10666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //CherrimSunshine,
   [SPECIES_SHELLOS_EAST_SEA] = 
     {  
@@ -9611,6 +10676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ShellosEastSea,
   [SPECIES_GASTRODON_EAST_SEA] = 
     {  
@@ -9620,6 +10686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GastrodonEastSea,
   [SPECIES_ROTOM_HEAT] = 
     {  
@@ -9629,6 +10696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RotomHeat,
   [SPECIES_ROTOM_WASH] = 
     {  
@@ -9638,6 +10706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RotomWash,
   [SPECIES_ROTOM_FROST] = 
     {  
@@ -9647,6 +10716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RotomFrost,
   [SPECIES_ROTOM_FAN] = 
     {  
@@ -9656,6 +10726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RotomFan,
   [SPECIES_ROTOM_MOW] = 
     {  
@@ -9665,6 +10736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //RotomMow,
   [SPECIES_GIRATINA_ORIGIN] = 
     {  
@@ -9674,6 +10746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GiratinaOrigin,
   [SPECIES_SHAYMIN_SKY] = 
     {  
@@ -9683,6 +10756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ShayminSky,
   [SPECIES_ARCEUS_FIGHTING] = 
     {  
@@ -9692,6 +10766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_FLYING] = 
     {  
@@ -9701,6 +10776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_POISON] = 
     {  
@@ -9710,6 +10786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_GROUND] = 
     {  
@@ -9719,6 +10796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_ROCK] = 
     {  
@@ -9728,6 +10806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_BUG] = 
     {  
@@ -9737,6 +10816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_GHOST] = 
     {  
@@ -9746,6 +10826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_STEEL] = 
     {  
@@ -9755,6 +10836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_FIRE] = 
     {  
@@ -9764,6 +10846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_WATER] = 
     {  
@@ -9773,6 +10856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_GRASS] = 
     {  
@@ -9782,6 +10866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_ELECTRIC] = 
     {  
@@ -9791,6 +10876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_PSYCHIC] = 
     {  
@@ -9800,6 +10886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_ICE] = 
     {  
@@ -9809,6 +10896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_DRAGON] = 
     {  
@@ -9818,6 +10906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_DARK] = 
     {  
@@ -9827,6 +10916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_ARCEUS_FAIRY] = 
     {  
@@ -9836,6 +10926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Arceus,
   [SPECIES_BASCULIN_BLUE_STRIPED] = 
     {  
@@ -9845,6 +10936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BasculinBlueStriped,
   [SPECIES_BASCULIN_WHITE_STRIPED] = 
     {  
@@ -9854,6 +10946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //BasculinHisuian,
   [SPECIES_DARMANITAN_ZEN_MODE] = 
     {  
@@ -9863,6 +10956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DarmanitanZenMode,
   [SPECIES_DARMANITAN_ZEN_MODE_GALARIAN] = 
     {  
@@ -9872,6 +10966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DarmanitanZenModeGalarian,
   [SPECIES_DEERLING_SUMMER] = 
     {  
@@ -9881,6 +10976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DeerlingSummer,
   [SPECIES_DEERLING_AUTUMN] = 
     {  
@@ -9890,6 +10986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DeerlingAutumn,
   [SPECIES_DEERLING_WINTER] = 
     {  
@@ -9899,6 +10996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //DeerlingWinter,
   [SPECIES_SAWSBUCK_SUMMER] = 
     {  
@@ -9908,6 +11006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SawsbuckSummer,
   [SPECIES_SAWSBUCK_AUTUMN] = 
     {  
@@ -9917,6 +11016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SawsbuckAutumn,
   [SPECIES_SAWSBUCK_WINTER] = 
     {  
@@ -9926,6 +11026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //SawsbuckWinter,
   [SPECIES_TORNADUS_THERIAN] = 
     {  
@@ -9935,6 +11036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //TornadusTherian,
   [SPECIES_THUNDURUS_THERIAN] = 
     {  
@@ -9944,6 +11046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ThundurusTherian,
   [SPECIES_LANDORUS_THERIAN] = 
     {  
@@ -9953,6 +11056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LandorusTherian,
   [SPECIES_ENAMORUS_THERIAN] = 
     {  
@@ -9962,6 +11066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //EnamorusTherian,
   [SPECIES_KYUREM_WHITE] = 
     {  
@@ -9971,6 +11076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //KyuremWhite,
   [SPECIES_KYUREM_BLACK] = 
     {  
@@ -9980,6 +11086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //KyuremBlack,
   [SPECIES_KELDEO_RESOLUTE] = 
     {  
@@ -9989,6 +11096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //KeldeoResolute,
   [SPECIES_MELOETTA_PIROUETTE] = 
     {  
@@ -9998,6 +11106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MeloettaPirouette,
   [SPECIES_GENESECT_DOUSE_DRIVE] = 
     {  
@@ -10007,6 +11116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Genesect,
   [SPECIES_GENESECT_SHOCK_DRIVE] = 
     {  
@@ -10016,6 +11126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Genesect,
   [SPECIES_GENESECT_BURN_DRIVE] = 
     {  
@@ -10025,6 +11136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Genesect,
   [SPECIES_GENESECT_CHILL_DRIVE] = 
     {  
@@ -10034,6 +11146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Genesect,
   [SPECIES_GRENINJA_ASH] = 
     {  
@@ -10043,6 +11156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //GreninjaAsh,
   [SPECIES_VIVILLON_POLAR] = 
     {  
@@ -10052,6 +11166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonPolar,
   [SPECIES_VIVILLON_TUNDRA] = 
     {  
@@ -10061,6 +11176,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonTundra,
   [SPECIES_VIVILLON_CONTINENTAL] = 
     {  
@@ -10070,6 +11186,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonContinental,
   [SPECIES_VIVILLON_GARDEN] = 
     {  
@@ -10079,6 +11196,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonGarden,
   [SPECIES_VIVILLON_ELEGANT] = 
     {  
@@ -10088,6 +11206,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonElegant,
   [SPECIES_VIVILLON_MEADOW] = 
     {  
@@ -10097,6 +11216,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonMeadow,
   [SPECIES_VIVILLON_MODERN] = 
     {  
@@ -10106,6 +11226,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonModern,
   [SPECIES_VIVILLON_MARINE] = 
     {  
@@ -10115,6 +11236,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonMarine,
   [SPECIES_VIVILLON_ARCHIPELAGO] = 
     {  
@@ -10124,6 +11246,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonArchipelago,
   [SPECIES_VIVILLON_HIGH_PLAINS] = 
     {  
@@ -10133,6 +11256,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonHighPlains,
   [SPECIES_VIVILLON_SANDSTORM] = 
     {  
@@ -10142,6 +11266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonSandstorm,
   [SPECIES_VIVILLON_RIVER] = 
     {  
@@ -10151,6 +11276,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonRiver,
   [SPECIES_VIVILLON_MONSOON] = 
     {  
@@ -10160,6 +11286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonMonsoon,
   [SPECIES_VIVILLON_SAVANNA] = 
     {  
@@ -10169,6 +11296,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonSavanna,
   [SPECIES_VIVILLON_SUN] = 
     {  
@@ -10178,6 +11306,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonSun,
   [SPECIES_VIVILLON_OCEAN] = 
     {  
@@ -10187,6 +11316,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonOcean,
   [SPECIES_VIVILLON_JUNGLE] = 
     {  
@@ -10196,6 +11326,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonJungle,
   [SPECIES_VIVILLON_FANCY] = 
     {  
@@ -10205,6 +11336,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonFancy,
   [SPECIES_VIVILLON_POKE_BALL] = 
     {  
@@ -10214,6 +11346,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //VivillonPokeBall,
   [SPECIES_UNFEZANT_FEMALE] = 
     {  
@@ -10223,6 +11356,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Unfezant_Female
   [SPECIES_PYROAR_FEMALE] = 
     {  
@@ -10232,6 +11366,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pyroar_Female,
   [SPECIES_FLABEBE_YELLOW_FLOWER] = 
     {  
@@ -10241,6 +11376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlabebeYellowFlower,
   [SPECIES_FLABEBE_ORANGE_FLOWER] = 
     {  
@@ -10250,6 +11386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlabebeOrangeFlower,
   [SPECIES_FLABEBE_BLUE_FLOWER] = 
     {  
@@ -10259,6 +11396,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlabebeBlueFlower,
   [SPECIES_FLABEBE_WHITE_FLOWER] = 
     {  
@@ -10268,6 +11406,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlabebeWhiteFlower,
   [SPECIES_FLOETTE_YELLOW_FLOWER] = 
     {  
@@ -10277,6 +11416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FloetteYellowFlower,
   [SPECIES_FLOETTE_ORANGE_FLOWER] = 
     {  
@@ -10286,6 +11426,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FloetteOrangeFlower,
   [SPECIES_FLOETTE_BLUE_FLOWER] = 
     {  
@@ -10295,6 +11436,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FloetteBlueFlower,
   [SPECIES_FLOETTE_WHITE_FLOWER] = 
     {  
@@ -10304,6 +11446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FloetteWhiteFlower,
   [SPECIES_FLOETTE_ETERNAL_FLOWER] = 
     {  
@@ -10313,6 +11456,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FloetteEternalFlower,
   [SPECIES_FLORGES_YELLOW_FLOWER] = 
     {  
@@ -10322,6 +11466,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlorgesYellowFlower,
   [SPECIES_FLORGES_ORANGE_FLOWER] = 
     {  
@@ -10331,6 +11476,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlorgesOrangeFlower,
   [SPECIES_FLORGES_BLUE_FLOWER] = 
     {  
@@ -10340,6 +11486,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlorgesBlueFlower,
   [SPECIES_FLORGES_WHITE_FLOWER] = 
     {  
@@ -10349,6 +11496,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FlorgesWhiteFlower,
   [SPECIES_FURFROU_HEART_TRIM] = 
     {  
@@ -10358,6 +11506,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouHeartTrim,
   [SPECIES_FURFROU_STAR_TRIM] = 
     {  
@@ -10367,6 +11516,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouStarTrim,
   [SPECIES_FURFROU_DIAMOND_TRIM] = 
     {  
@@ -10376,6 +11526,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouDiamondTrim,
   [SPECIES_FURFROU_DEBUTANTE_TRIM] = 
     {  
@@ -10385,6 +11536,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouDebutanteTrim,
   [SPECIES_FURFROU_MATRON_TRIM] = 
     {  
@@ -10394,6 +11546,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouMatronTrim,
   [SPECIES_FURFROU_DANDY_TRIM] = 
     {  
@@ -10403,6 +11556,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouDandyTrim,
   [SPECIES_FURFROU_LA_REINE_TRIM] = 
     {  
@@ -10412,6 +11566,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouLaReineTrim,
   [SPECIES_FURFROU_KABUKI_TRIM] = 
     {  
@@ -10421,6 +11576,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouKabukiTrim,
   [SPECIES_FURFROU_PHARAOH_TRIM] = 
     {  
@@ -10430,6 +11586,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //FurfrouPharaohTrim,
   [SPECIES_MEOWSTIC_FEMALE] = 
     {  
@@ -10439,6 +11596,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MeowsticFemale,
   [SPECIES_AEGISLASH_BLADE] = 
     {  
@@ -10448,6 +11606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //AegislashBlade,
   [SPECIES_PUMPKABOO_SMALL] = 
     {  
@@ -10457,6 +11616,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pumpkaboo,
   [SPECIES_PUMPKABOO_LARGE] = 
     {  
@@ -10466,6 +11626,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pumpkaboo,
   [SPECIES_PUMPKABOO_SUPER] = 
     {  
@@ -10475,6 +11636,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Pumpkaboo,
   [SPECIES_GOURGEIST_SMALL] = 
     {  
@@ -10484,6 +11646,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gourgeist,
   [SPECIES_GOURGEIST_LARGE] = 
     {  
@@ -10493,6 +11656,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gourgeist,
   [SPECIES_GOURGEIST_SUPER] = 
     {  
@@ -10502,6 +11666,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Gourgeist,
   [SPECIES_XERNEAS_ACTIVE] = 
     {  
@@ -10511,6 +11676,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //XerneasActive,
   [SPECIES_ZYGARDE_10] = 
     {  
@@ -10520,6 +11686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zygarde10,
   [SPECIES_ZYGARDE_10_POWER_CONSTRUCT] = 
     {  
@@ -10529,6 +11696,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zygarde10,
   [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] = 
     {  
@@ -10538,6 +11706,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zygarde,
   [SPECIES_ZYGARDE_COMPLETE] = 
     {  
@@ -10547,6 +11716,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //ZygardeComplete,
   [SPECIES_HOOPA_UNBOUND] = 
     {  
@@ -10556,6 +11726,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //HoopaUnbound,
   [SPECIES_ORICORIO_POM_POM] = 
     {  
@@ -10565,6 +11736,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //OricorioPomPom,
   [SPECIES_ORICORIO_PAU] = 
     {  
@@ -10574,6 +11746,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //OricorioPau,
   [SPECIES_ORICORIO_SENSU] = 
     {  
@@ -10583,6 +11756,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //OricorioSensu,
   [SPECIES_LYCANROC_MIDNIGHT] = 
     {  
@@ -10592,6 +11766,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LycanrocMidnight,
   [SPECIES_LYCANROC_DUSK] = 
     {  
@@ -10601,6 +11776,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //LycanrocDusk,
   [SPECIES_WISHIWASHI_SCHOOL] = 
     {  
@@ -10610,6 +11786,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //WishiwashiSchool,
   [SPECIES_SILVALLY_FIGHTING] = 
     {  
@@ -10619,6 +11796,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_FLYING] = 
     {  
@@ -10628,6 +11806,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_POISON] = 
     {  
@@ -10637,6 +11816,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_GROUND] = 
     {  
@@ -10646,6 +11826,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_ROCK] = 
     {  
@@ -10655,6 +11836,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_BUG] = 
     {  
@@ -10664,6 +11846,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_GHOST] = 
     {  
@@ -10673,6 +11856,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_STEEL] = 
     {  
@@ -10682,6 +11866,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_FIRE] = 
     {  
@@ -10691,6 +11876,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_WATER] = 
     {  
@@ -10700,6 +11886,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_GRASS] = 
     {  
@@ -10709,6 +11896,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_ELECTRIC] = 
     {  
@@ -10718,6 +11906,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_PSYCHIC] = 
     {  
@@ -10727,6 +11916,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_ICE] = 
     {  
@@ -10736,6 +11926,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_DRAGON] = 
     {  
@@ -10745,6 +11936,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_DARK] = 
     {  
@@ -10754,6 +11946,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_SILVALLY_FAIRY] = 
     {  
@@ -10763,6 +11956,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Silvally,
   [SPECIES_MINIOR_METEOR_ORANGE] = 
     {  
@@ -10772,6 +11966,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
   [SPECIES_MINIOR_METEOR_YELLOW] = 
     {  
@@ -10781,6 +11976,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
   [SPECIES_MINIOR_METEOR_GREEN] = 
     {  
@@ -10790,6 +11986,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
   [SPECIES_MINIOR_METEOR_BLUE] = 
     {  
@@ -10799,6 +11996,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
   [SPECIES_MINIOR_METEOR_INDIGO] = 
     {  
@@ -10808,6 +12006,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
   [SPECIES_MINIOR_METEOR_VIOLET] = 
     {  
@@ -10817,6 +12016,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Minior,
   [SPECIES_MINIOR_CORE_RED] = 
     {  
@@ -10826,6 +12026,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreRed,
   [SPECIES_MINIOR_CORE_ORANGE] = 
     {  
@@ -10835,6 +12036,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreOrange,
   [SPECIES_MINIOR_CORE_YELLOW] = 
     {  
@@ -10844,6 +12046,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreYellow,
   [SPECIES_MINIOR_CORE_GREEN] = 
     {  
@@ -10853,6 +12056,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreGreen,
   [SPECIES_MINIOR_CORE_BLUE] = 
     {  
@@ -10862,6 +12066,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreBlue,
   [SPECIES_MINIOR_CORE_INDIGO] = 
     {  
@@ -10871,6 +12076,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreIndigo,
   [SPECIES_MINIOR_CORE_VIOLET] = 
     {  
@@ -10880,6 +12086,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MiniorCoreViolet,
   [SPECIES_MIMIKYU_BUSTED] = 
     {  
@@ -10889,6 +12096,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MimikyuBusted,
   [SPECIES_NECROZMA_DUSK_MANE] = 
     {  
@@ -10898,6 +12106,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //NecrozmaDuskMane,
   [SPECIES_NECROZMA_DAWN_WINGS] = 
     {  
@@ -10907,6 +12116,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //NecrozmaDawnWings,
   [SPECIES_NECROZMA_ULTRA] = 
     {  
@@ -10916,6 +12126,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //NecrozmaUltra,
   [SPECIES_MAGEARNA_ORIGINAL_COLOR] = 
     {  
@@ -10925,6 +12136,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //MagearnaOriginalColor,
   [SPECIES_CRAMORANT_GULPING] = 
     {  
@@ -10934,6 +12146,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cramorant_Gulping,
   [SPECIES_CRAMORANT_GORGING] = 
     {  
@@ -10943,6 +12156,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Cramorant_Gorging,
   [SPECIES_TOXTRICITY_LOW_KEY] = 
     {  
@@ -10952,6 +12166,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Toxtricity_Low_key,
       //[SPECIES_SINISTEA_ANTIQUE]                = gMonIcon_Sinistea_Antique,
       //[SPECIES_POLTEAGEIST_ANTIQUE]             = gMonIcon_PolteaGeist_Antique,
@@ -10963,6 +12178,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_ruby,
     [SPECIES_ALCREMIE_MATCHA_CREAM] = 
     {  
@@ -10972,6 +12188,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_matcha,
     [SPECIES_ALCREMIE_MINT_CREAM] = 
     {  
@@ -10981,6 +12198,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_mint,
     [SPECIES_ALCREMIE_LEMON_CREAM] = 
     {  
@@ -10990,6 +12208,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_lemon,
     [SPECIES_ALCREMIE_SALTED_CREAM] = 
     {  
@@ -10999,6 +12218,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_salt,
     [SPECIES_ALCREMIE_RUBY_SWIRL] = 
     {  
@@ -11008,6 +12228,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_ruby_swirl,
     [SPECIES_ALCREMIE_CARAMEL_SWIRL] = 
     {  
@@ -11017,6 +12238,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_caramel_swirl,
     [SPECIES_ALCREMIE_RAINBOW_SWIRL] = 
     {  
@@ -11026,6 +12248,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Alcremie_rainbow_swirl,
     [SPECIES_EISCUE_NOICE_FACE] = 
     {  
@@ -11035,6 +12258,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eiscue_noice_face,
     [SPECIES_INDEEDEE_FEMALE] = 
     {  
@@ -11044,6 +12268,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(Indeedee_Female),
       ICON(Indeedee_Female,0),
+      TAG(SPECIES_NONE),
     }, //Indeedee_Female,
     [SPECIES_MORPEKO_HANGRY] = 
     {  
@@ -11053,6 +12278,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Morpeko_Hangry,
     [SPECIES_ZACIAN_CROWNED_SWORD] = 
     {  
@@ -11062,6 +12288,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zacian_Crowned_Sword,
     [SPECIES_ZAMAZENTA_CROWNED_SHIELD] = 
     {  
@@ -11071,6 +12298,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zamazenta_Crowned_Shield,
     [SPECIES_ETERNATUS_ETERNAMAX] = 
     {  
@@ -11080,6 +12308,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Eternatus_Eternamax,
     [SPECIES_URSHIFU_RAPID_STRIKE_STYLE] = 
     {  
@@ -11089,6 +12318,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Urshifu_Rapid, //think last value needs no comma, nope doesn't matter but using comma is better in case you plan to add more
     [SPECIES_ZARUDE_DADA] = 
     {  
@@ -11098,6 +12328,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
+      TAG(SPECIES_NONE),
     }, //Zarude_Dada,
     [SPECIES_CALYREX_ICE_RIDER] = 
     {  
@@ -11107,6 +12338,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
       ICON(Calyrex_Ice_Rider,0),
+      TAG(SPECIES_NONE),
     }, //Calyrex_Ice_Rider,
     [SPECIES_CALYREX_SHADOW_RIDER] = 
     {  
@@ -11125,5 +12357,26 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PALETTES(BasculegionFemale),
       ICON(BasculegionFemale,0),
+      TAG(SPECIES_NONE),
+    }, //BasculegionFemale,
+    [SPECIES_FRILLISH_FEMALE] = 
+    {  
+      FRONT_PIC(BasculegionFemale),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(BasculegionFemale),
+      BACK_COORD(0x88,0),
+      PALETTES(BasculegionFemale),
+      ICON(BasculegionFemale,0),
+      TAG(SPECIES_NONE),
+    }, //BasculegionFemale,
+    [SPECIES_JELLICENT_FEMALE] = 
+    {  
+      FRONT_PIC(BasculegionFemale),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(BasculegionFemale),
+      BACK_COORD(0x88,0),
+      PALETTES(BasculegionFemale),
+      ICON(BasculegionFemale,0),
+      TAG(SPECIES_NONE),
     }, //BasculegionFemale,
 };

@@ -111,6 +111,8 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ZOROARK] = sZoroarkFormSpeciesIdTable,
     [SPECIES_DEERLING] = sDeerlingFormSpeciesIdTable,
     [SPECIES_SAWSBUCK] = sSawsbuckFormSpeciesIdTable,
+    [SPECIES_FRILLISH] = sFrillishFormSpeciesIdTable,
+    [SPECIES_JELLICENT] = sJellicentFormSpeciesIdTable,
     [SPECIES_STUNFISK] = sStunfiskFormSpeciesIdTable,
     [SPECIES_BRAVIARY] = sBraviaryFormSpeciesIdTable,
     [SPECIES_TORNADUS] = sTornadusFormSpeciesIdTable,
@@ -579,5 +581,8 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ENAMORUS_THERIAN] = sEnamorusFormSpeciesIdTable,
     // Basculegion
     [SPECIES_BASCULEGION_FEMALE] = sBasculegionFormSpeciesIdTable,
+
+    [SPECIES_FRILLISH_FEMALE] = sFrillishFormSpeciesIdTable,
+    [SPECIES_JELLICENT_FEMALE] = sJellicentFormSpeciesIdTable,
 
 };
