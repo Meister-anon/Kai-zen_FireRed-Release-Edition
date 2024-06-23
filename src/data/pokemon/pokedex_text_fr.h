@@ -4126,8 +4126,8 @@ const u8 gAegislashPokedexText[] = _(
 
 const u8 gSpritzeePokedexText[] = _(
     "In the past, rather than using perfume,\n"
-    "royal ladies carried a Spritzee that would\n"
-    "waft a fragrance they liked. Its fragrance\n"
+    "royal ladies carried Spritzee that would\n"
+    "waft a fragrance they liked. Its scent\n"
     "changes depending on what it has eaten.");
 
 const u8 gAromatissePokedexText[] = _(

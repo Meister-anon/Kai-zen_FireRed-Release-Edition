@@ -175,6 +175,9 @@ u8 GetBattlerForBattleScript(u8 caseId)
     case BS_ATTACKER_PARTNER:
         ret = BATTLE_PARTNER(gBattlerAttacker);
         break;
+    case BS_TARGET_PARTNER:
+        ret = BATTLE_PARTNER(gBattlerTarget);//new additions used for cacophony and cupids arrow
+        break;
     case BS_EFFECT_BATTLER:
         ret = gEffectBattler;
         break;
@@ -366,7 +369,7 @@ static void infatuationchecks(u8 target)//cusotm effect used for cupidarrow
         gLastUsedAbility = targetAbility;
         RecordAbilityBattle(target, targetAbility);
     }
-    if (gBattleMons[target].status2 & STATUS2_INFATUATION) //forgot this isn't bs command need diff arguments
+    else if (gBattleMons[target].status2 & STATUS2_INFATUATION) //forgot this isn't bs command need diff arguments
     {
         gBattlescriptCurrInstr = BattleScript_ButItFailed;
     }
@@ -375,8 +378,9 @@ static void infatuationchecks(u8 target)//cusotm effect used for cupidarrow
 
         gBattleMons[target].status2 |= STATUS2_INFATUATED_WITH(gBattlerAttacker);
 
-    }
-}
+    }//need test cupid arrow see if this fixes issue
+}//almost got it, issue is when I switch out, tracks to wrong battler
+//think  what I need is clear the status when I switch out luvdisc?
 
 void MarkAllBattlersForControllerExec(void)
 {
@@ -5924,10 +5928,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         //using high odds since it can only activate on switch in, and if opposite gender is on other side
                     {//changed to 100% oddds since its weak mon, intend to turn luvdisc into setup/stall mon
                         u8 target2;
-
                         side = (GetBattlerPosition(i) ^ BIT_SIDE) & BIT_SIDE; // side of the opposing pokemon
-                        target1 = GetBattlerAtPosition(side);
-                        target2 = GetBattlerAtPosition(side + BIT_FLANK);
+                        target1 = GetBattlerAtPosition(BATTLE_OPPOSITE(i));
+                        target2 = GetBattlerAtPosition(BATTLE_OPPOSITE(BATTLE_PARTNER(i)));
 
                         speciesAttacker = GetMonData(i, MON_DATA_SPECIES);
                         personalityAttacker = GetMonData(i, MON_DATA_PERSONALITY);
@@ -5943,21 +5946,22 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             {
                                 break; //don't see why I had target ability not 0, tihnk will remove, its not really doing anything
                             }*/
-                            if (IsBattlerAlive(target1)
+                            if ((IsBattlerAlive(target1) && !(gBattleMons[target1].status2 & STATUS2_INFATUATION))
                                 && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS)
-                                && IsBattlerAlive(target2)
+                                && (IsBattlerAlive(target2) && !(gBattleMons[target2].status2 & STATUS2_INFATUATION))
                                 && (GetGenderFromSpeciesAndPersonality(speciesTarget2, personalityTarget2) != MON_GENDERLESS))
                             {
-                                gBattlerTarget = GetBattlerAtPosition(((Random() & 1) * 2) | side); //select on target from enemy 
+                                gBattlerTarget = target1; //select on target from enemy 
                                 gBattleScripting.battler = i;
                                 gLastUsedAbility = gBattleMons[i].ability;
-                                infatuationchecks(gBattlerTarget);
-                                PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattlerTarget, gBattlerPartyIndexes[gBattlerTarget])
-                                    BattleScriptPushCursorAndCallback(BattleScript_CupidsArrowActivates);
+                                infatuationchecks(target1);
+                                infatuationchecks(target2);
+                                    BattleScriptPushCursorAndCallback(BattleScript_CupidsArrowActivatesBoth);
                                 ++effect;
                             }
                             else if (IsBattlerAlive(target1)
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS))
+                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS)
+                                && !(gBattleMons[target1].status2 & STATUS2_INFATUATION))
                             {
                                 gBattlerTarget = target1;
                                 gBattleScripting.battler = i;
@@ -5968,7 +5972,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 ++effect;
                             }
                             else if (IsBattlerAlive(target2)
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget2, personalityTarget2) != MON_GENDERLESS))
+                                && (GetGenderFromSpeciesAndPersonality(speciesTarget2, personalityTarget2) != MON_GENDERLESS)
+                                && !(gBattleMons[target2].status2 & STATUS2_INFATUATION))
                             {
                                 gBattlerTarget = target2;
                                 gBattleScripting.battler = i;
@@ -5983,7 +5988,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         {
 
                             if (IsBattlerAlive(target1)
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS))
+                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS)
+                                && !(gBattleMons[target1].status2 & STATUS2_INFATUATION))
                             {
                                 gBattlerTarget = target1;
                                 gBattleScripting.battler = i;
@@ -6532,9 +6538,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_AURA_OF_LIGHT:
-                if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver. //change canabsorb
+                //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver. //change canabsorb
                 {
-                    /*if (gBattleMons[battler].status1 & STATUS1_SLEEP)
+                    if (gBattleMons[battler].status1 & STATUS1_SLEEP)
                     {
 
                         gBattleMons[battler].status1 &= ~(STATUS1_SLEEP);
@@ -6544,7 +6550,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
                         MarkBattlerForControllerExec(gActiveBattler);
                         ++effect;
-                    }*/ //already immune to sleep so only need clear partner
+                    } //already immune to sleep so only need clear partner
+                    //no need do self as well in case ability supressed or lose ability and regani it
 
                     if (IsBattlerAlive(BATTLE_PARTNER(battler))) {
                         if (gBattleMons[BATTLE_PARTNER(battler)].status1 & STATUS1_SLEEP)    //PARTNER status clear
@@ -6562,7 +6569,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
             break;
             case ABILITY_SHAMAN_CURE:
-                if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver. //change canabsorb
+                //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver. //change canabsorb
                 {
 
                     if (IsBattlerAlive(BATTLE_PARTNER(battler))) {
@@ -6809,6 +6816,58 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         }
                     }
                     break;
+                case ABILITY_AURA_OF_LIGHT:
+                //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //end turn ver. //change canabsorb
+                {
+                    if (gBattleMons[battler].status1 & STATUS1_SLEEP)
+                    {
+
+                        gBattleMons[battler].status1 &= ~(STATUS1_SLEEP);
+                        gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
+                        gBattleScripting.battler = gActiveBattler = battler;
+                        BattleScriptPushCursorAndCallback(BattleScript_PurifyingAuraActivates);
+                        BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
+                        MarkBattlerForControllerExec(gActiveBattler);
+                        ++effect;
+                    } //already immune to sleep so only need clear partner
+                    //no need do self as well in case ability supressed or lose ability and regani it
+
+                    if (IsBattlerAlive(BATTLE_PARTNER(battler))) {
+                        if (gBattleMons[BATTLE_PARTNER(battler)].status1 & STATUS1_SLEEP)    //PARTNER status clear
+                        {
+
+                            gBattleMons[BATTLE_PARTNER(battler)].status1 &= ~(STATUS1_SLEEP);
+                            gBattleMons[BATTLE_PARTNER(battler)].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
+                            gBattleScripting.battler = gActiveBattler = BATTLE_PARTNER(battler);
+                            BattleScriptPushCursorAndCallback(BattleScript_AuraofLightActivatesForPartner);
+                            BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
+                            MarkBattlerForControllerExec(gActiveBattler);
+                            ++effect;
+                        }
+                    }
+                }
+            break;
+                case ABILITY_SHAMAN_CURE:
+                //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //end turn ver. //change canabsorb
+                {
+
+                    if (IsBattlerAlive(BATTLE_PARTNER(battler))) {
+                        if (gBattleMons[BATTLE_PARTNER(battler)].status1 & STATUS1_POISON
+                        || gBattleMons[BATTLE_PARTNER(battler)].status1 & STATUS1_TOXIC_POISON)    //PARTNER status clear
+                        {
+
+                            gBattleMons[BATTLE_PARTNER(battler)].status1 &= ~(STATUS1_POISON);
+                            gBattleMons[BATTLE_PARTNER(battler)].status1 &= ~(STATUS1_TOXIC_POISON);
+                            gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[BATTLE_PARTNER(battler)]][GetBattlerSide(BATTLE_PARTNER(battler))] = 0;
+                            gBattleScripting.battler = gActiveBattler = BATTLE_PARTNER(battler);
+                            BattleScriptPushCursorAndCallback(BattleScript_AuraofLightActivatesForPartner);
+                            BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
+                            MarkBattlerForControllerExec(gActiveBattler);
+                            ++effect;
+                        } //w multi status may have to change this later
+                    }
+                }
+            break;
                 case ABILITY_PICKUP:
 
                     if (gBattleMons[battler].item == ITEM_NONE && (Random() % 3 == 0))

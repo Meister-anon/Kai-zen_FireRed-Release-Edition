@@ -78,6 +78,7 @@
 #define BS_OPPONENT2                14
 #define BS_ABILITY_BATTLER          15	//port from emerald
 #define BS_ATTACKER_PARTNER         16
+#define BS_TARGET_PARTNER           17 //last two my additions for ability messages
 
 // used for openpartyscreen
 #define OPEN_PARTY_ALLOW_CANCEL     0x80

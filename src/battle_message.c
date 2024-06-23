@@ -324,6 +324,8 @@ static const u8 sText_PkmnsXMadeItIneffective[] = _("{B_SCR_ACTIVE_NAME_WITH_PRE
 static const u8 sText_PkmnsXPreventsFlinching[] = _("{B_EFF_NAME_WITH_PREFIX}'s {B_EFF_ABILITY}\nprevents flinching!");
 static const u8 sText_PkmnsXPreventsYsZ[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\nprevents {B_DEF_NAME_WITH_PREFIX}'s\l{B_DEF_ABILITY} from working!");
 static const u8 sText_PkmnsAbilityPreventsAbility[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nprevents {B_DEF_NAME_WITH_PREFIX}'s\l{B_DEF_ABILITY} from working!");
+//taken from damp explosion logic specifically for aftermath damp
+static const u8 sText_PkmnPreventsAbilityUsage[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nprevents {B_SCR_ACTIVE_NAME_WITH_PREFIX}\lfrom using {B_LAST_ABILITY}!");//{B_LAST_ABILITY}
 static const u8 sText_PkmnsXCuredItsYProblem[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\ncured its {B_BUFF1} problem!");
 static const u8 sText_PkmnsXHadNoEffectOnY[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nhad no effect on {B_EFF_NAME_WITH_PREFIX}!");
 static const u8 sText_TooScaredToMove[] = _("{B_ATK_NAME_WITH_PREFIX} is too scared to move!");
@@ -1536,9 +1538,11 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_WONDER_GUARD_ENTERS - BATTLESTRINGS_TABLE_START]           = sText_WonderGuardEnters,
     [STRINGID_WONDER_GUARD_ENDS - BATTLESTRINGS_TABLE_START]             = sText_WonderGuardEnds,
     [STRINGID_DEF_RAGEABATED - BATTLESTRINGS_TABLE_START]                = sText_DefenderRageEnded,
-    [STRINGID_IMMUTABLEWIND_ENTERS - BATTLESTRINGS_TABLE_START]       = COMPOUND_STRING("A strange cold wind blows!"),
-    [STRINGID_IMMUTABLEWIND_ENDS - BATTLESTRINGS_TABLE_START]         = COMPOUND_STRING("The strange wind\nfinally subsided!"),
-    [STRINGID_ITEMTOBAG - BATTLESTRINGS_TABLE_START] = sText_ItemaddedtoBag,
+    [STRINGID_IMMUTABLEWIND_ENTERS - BATTLESTRINGS_TABLE_START]          = COMPOUND_STRING("A strange cold wind blows!"),
+    [STRINGID_IMMUTABLEWIND_ENDS - BATTLESTRINGS_TABLE_START]            = COMPOUND_STRING("The strange wind\nfinally subsided!"),
+    [STRINGID_ITEMTOBAG - BATTLESTRINGS_TABLE_START]                     = sText_ItemaddedtoBag,
+    [STRINGID_DAMP_PREVENTS_AFTERMATH - BATTLESTRINGS_TABLE_START]       = sText_PkmnPreventsAbilityUsage,
+    [STRINGID_CUPIDSARROWSTRUCK_BOTH - BATTLESTRINGS_TABLE_START]        = COMPOUND_STRING("{B_SCR_ACTIVE_ABILITY} struck both targets!"),
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,

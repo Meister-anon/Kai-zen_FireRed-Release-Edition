@@ -8234,6 +8234,16 @@ BattleScript_InnardsOutDmg::
 	tryfaintmon BS_ATTACKER, FALSE, NULL
 	return
 
+BattleScript_DampPreventsAftermathOnSwitch::
+	pause B_WAIT_TIME_SHORT
+	@call BattleScript_AbilityPopUp
+	@pause B_WAIT_TIME_LONG
+	copybyte gBattlerAbility, sBATTLER
+	@call BattleScript_AbilityPopUp
+	printstring STRINGID_DAMP_PREVENTS_AFTERMATH
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
 BattleScript_DampPreventsAftermath::
 	pause B_WAIT_TIME_SHORT
 	@call BattleScript_AbilityPopUp
@@ -10172,6 +10182,13 @@ BattleScript_CuteCharmActivates::
 BattleScript_CupidsArrowActivates::
 	status2animation BS_TARGET, STATUS2_INFATUATION
 	printstring STRINGID_CUPIDSARROWSTRUCK
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end3
+
+BattleScript_CupidsArrowActivatesBoth::
+	chosenstatusanimation BS_TARGET, 1, STATUS2_INFATUATION
+	chosenstatusanimation BS_TARGET_PARTNER, 1, STATUS2_INFATUATION
+	printstring STRINGID_CUPIDSARROWSTRUCK_BOTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 

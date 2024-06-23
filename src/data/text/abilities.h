@@ -644,7 +644,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_VOLT_DASH] = COMPOUND_ABILITY_STRING("Turns electricity into HP\nand gradually boosts SPEED."),
     [ABILITY_IMMUTABLE_WIND] = COMPOUND_ABILITY_STRING("Summons winds that nullify foes abilities\nand blow status moves off course."),
     [ABILITY_EVERGREEN] = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
-    [ABILITY_SHAMAN_CURE] = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures poisoned allies on switch."),
+    [ABILITY_SHAMAN_CURE] = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
     [ABILITY_UNCHAINED_MELODY] = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation

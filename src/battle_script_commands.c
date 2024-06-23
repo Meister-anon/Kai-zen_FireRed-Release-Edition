@@ -16996,19 +16996,26 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
     else if (GetBattlerAbility(gActiveBattler) == ABILITY_AFTERMATH
     && IsBattlerAlive(gBattlerTarget)) //vsonic still in progress - think missing that was issue that caused reactivate
     {
-        if ((gActiveBattler = IsAbilityOnField(ABILITY_DAMP)))
+        if ((IsAbilityOnField(ABILITY_DAMP)))
         {
-            gBattleScripting.battler = gActiveBattler - 1;
+            for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount; ++gBattlerTarget)
+            if (GetBattlerAbility(gBattlerTarget) == ABILITY_DAMP)
+                break;
+            gLastUsedAbility = ABILITY_AFTERMATH;
+            RecordAbilityBattle(gBattlerTarget, gBattleMons[gBattlerTarget].ability);
             BattleScriptPush(gBattlescriptCurrInstr);
-            gBattlescriptCurrInstr = BattleScript_DampPreventsAftermath; //consider replace with break, so no message just switch out
+            gBattlescriptCurrInstr = BattleScript_DampPreventsAftermathOnSwitch; //consider replace with break, so no message just switch out
+            gBattleMons[gActiveBattler].ability = ABILITY_NONE;
         }
         else//does work for both battlers or just one enemy, if one, how does it select target? need work that out
         {
             PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gBattleMons[gActiveBattler].ability)
             //--gBattleMons[gBattlerTarget].statStages[STAT_SPEED]; //don't know if will properly trigger animation or not
             gBattleMons[gActiveBattler].ability = ABILITY_NONE; //this was the issue same as others,  with push command keeping ability causes loop issue
-            //SET_STATCHANGER(STAT_SPEED, 1, TRUE); //most values don't use battlerscripting with stat changer, but those are ones that don't affect opponent
-            //gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_1;  //i.e example was gooey/tangled hair, since it affects target stat it doest use statbuffchange command but this effect isn't one that can be bounced
+            //works for target setting, will set to opponent directly accross from user
+            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                gBattlerTarget = BATTLE_OPPOSITE(BATTLE_PARTNER(gActiveBattler));
+            
             gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //potentially make 1/16th as its just meant to do chip damage & break bands and can retrigger?
             if (gBattleMoveDamage == 0) //occurred to me only having smaller chip damage on this withuot the slow wouldn't make the ability useful considering you need to 
                 gBattleMoveDamage = 1; //pivot to make it useful so you'd be takeing two hits not just this one, think will put slow on switchout as well.
@@ -17023,6 +17030,7 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
     {
         switch (GetBattlerAbility(gActiveBattler))
         {
+        case ABILITY_SHAMAN_CURE:
         case ABILITY_NATURAL_CURE:
             gBattleMons[gActiveBattler].status1 = 0;
             BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, gBitTable[*(gBattleStruct->battlerPartyIndexes + gActiveBattler)], 4, &gBattleMons[gActiveBattler].status1);
