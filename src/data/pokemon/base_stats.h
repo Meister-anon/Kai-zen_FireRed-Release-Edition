@@ -38897,6 +38897,72 @@ const struct BaseStats gBaseStats[] =
             .flags = F_SPECIES_GENDER_DIFFERENCE,
         },
 
+    [SPECIES_FRILLISH_FEMALE] =
+    { 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        55,
+        40,
+        50,
+        40,
+        65,
+        85
+        ),
+        .type1 = TYPE_WATER,
+        .type2 = TYPE_GHOST,
+        .catchRate = 190,
+        .expYield = 67,
+        //.evYield_SpDefense = 1,
+        .genderRatio = MON_FEMALE,
+        .eggCycles = 20,
+         .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroup1 = EGG_GROUP_AMORPHOUS,
+        .eggGroup2 = EGG_GROUP_AMORPHOUS,
+        //#ifdef BATTLE_ENGINE
+            .abilities = {ABILITY_WATER_ABSORB, ABILITY_CURSED_BODY},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_WHITE,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .levelUpLearnset = sFrillishLevelUpLearnset,
+        .tmhmLearnset = sFrillishTMHMLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT}), //Should hopefully blank these for now without issue
+    }, //water with tentacruel
+
+    [SPECIES_JELLICENT_FEMALE] =
+    { 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        100,
+        60,
+        70,
+        60,
+        85,
+        105
+        ),
+        .type1 = TYPE_WATER,
+        .type2 = TYPE_GHOST,
+        .catchRate = 60,
+        .expYield = 168,
+        //.evYield_SpDefense = 2,
+        .genderRatio = MON_FEMALE,
+        .eggCycles = 20,
+         .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroup1 = EGG_GROUP_AMORPHOUS,
+        .eggGroup2 = EGG_GROUP_AMORPHOUS,
+        //#ifdef BATTLE_ENGINE
+            .abilities = {ABILITY_WATER_ABSORB, ABILITY_CURSED_BODY},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_WHITE,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .levelUpLearnset = sJellicentLevelUpLearnset,
+        .tmhmLearnset = sJellicentTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    },
+
     [SPECIES_TORTERRA_MEGA] =
     { 
            //hp, atk, def, spd, spatk, spdef

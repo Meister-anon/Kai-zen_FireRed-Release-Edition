@@ -6502,8 +6502,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
-            case ABILITY_PURIFYING_AURA:
-                if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver.
+            case ABILITY_PURIFYING_AURA: //unsure if need use status to balance like absorb ability - its not a physical block but a special/passive ability
+                //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //switch in ver. - could use same check, but its not an absorb so not same principle of effect
                 {
                     if (gBattleMons[battler].status1 & STATUS1_ANY)
                     {
@@ -6768,6 +6768,11 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
                         gBattleMons[battler].status1 = 0;
                         gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
+
+                         gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff
+                        if (gBattleMoveDamage == 0)
+                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage *= -1;
                         gBattleScripting.battler = gActiveBattler = battler;
                         BattleScriptPushCursorAndCallback(BattleScript_ShedSkinActivates);
                         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
@@ -6776,7 +6781,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                     break;
                 case ABILITY_PURIFYING_AURA:
-                    if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //end turn ver.
+                    //if (gBattleMons[battler].status2 != STATUS2_CONFUSION)  //end turn ver.
                     {
                         if (gBattleMons[battler].status1 & STATUS1_ANY)
                         {

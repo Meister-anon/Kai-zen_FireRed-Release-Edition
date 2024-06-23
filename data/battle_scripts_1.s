@@ -8594,7 +8594,8 @@ BattleScript_ShedSkinActivates::
 	printstring STRINGID_PKMNSXCUREDYPROBLEM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_ATTACKER
-	end3
+	goto BattleScript_HealWithoutMessage
+	@end3
 
 BattleScript_RisingPhoenixActivates::
 	printstring STRINGID_PHOENIX_CLEANSE
