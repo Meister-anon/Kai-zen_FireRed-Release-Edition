@@ -3061,7 +3061,9 @@ static bool32 DexScreen_TryScrollMonsVertical(u8 direction) //vsonic important t
 
 
         //if (selectedIndex >= 10) //oh realized I can do more, since it scrolls fast now
-            DexScreen_LoadIndex(325 + 1, SCROLL_UP, selectedIndex, 1); //works
+        //this doesn't need to be as large, if I'm going up I've already been there,
+        //so its alreadybeen loaded
+            DexScreen_LoadIndex(50 + 1, SCROLL_UP, selectedIndex, 1); //works
         //selectedIndex--;
         while (--selectedIndex >= 0) //Should be while (--selectedIndex >= 0) without the selectedIndex-- in the body or before the while at all, but this is needed to match.
         {
@@ -3096,7 +3098,7 @@ static bool32 DexScreen_TryScrollMonsVertical(u8 direction) //vsonic important t
         //ok this is good enough, nvm tested w full dex and its much slower
         //when having to navigate filled values and can't just write blank entries
 
-        DexScreen_LoadIndex(325, SCROLL_DOWN, selectedIndex, 1);//only slows if i need to go full length, load time is based on distance to next value
+        DexScreen_LoadIndex(160, SCROLL_DOWN, selectedIndex, 1);//only slows if i need to go full length, load time is based on distance to next value
 
         //can't tell if its something i caused but in nat dex it breaks when it scrolls 
         //beyond a gap, think Im somehow missing a limiter?

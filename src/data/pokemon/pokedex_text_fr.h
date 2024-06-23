@@ -5377,8 +5377,8 @@ const u8 gRegidragoPokedexText[] = _(
 
 const u8 gGlastrierPokedexText[] = _(
     "Glastrier emits intense cold from its\n"
-    "hooves. It's also a belligerent Pokémon--\n"
-    "anything it wants, it takes by force.");
+    "hooves. It's also a belligerent Pokémon,\n"
+    "anything it wants… it takes by force.");
 
 const u8 gSpectrierPokedexText[] = _(
     "It probes its surroundings with all its\n"

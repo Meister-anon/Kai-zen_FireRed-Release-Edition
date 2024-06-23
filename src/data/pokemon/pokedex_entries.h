@@ -11499,8 +11499,8 @@ const struct FormdexEntries gFormdexEntries[] =
         //.categoryName = _("Love-Hate"),
         .description = COMPOUND_STRING(
             "It looks down on everyone other than\n"
-            "itself. In contrast to its lovely face, it\n"
-            "is so brutal that it tortures its weakened\n"
+            "itself. In contrast to its round soft face,\n"
+            "it is so brutal that it tortures weakened\n"
             "prey rather than finishing them off."),
     },
 
@@ -12163,6 +12163,26 @@ const struct FormdexEntries gFormdexEntries[] =
             "has raised."),
     },
 
+    [NATIONAL_DEX_CALYREX_ICE_RIDER] =
+    {
+        //.categoryName = _("Love-Hate"),
+        .description = COMPOUND_STRING(
+            "According to lore, this Pokémon\n"
+            "showed no mercy to those who got in\n"
+            "its way, yet it would heal its\n"
+            "opponents' wounds after battle."),
+    },
+
+    [NATIONAL_DEX_CALYREX_SHADOW_RIDER] =
+    {
+        //.categoryName = _("Love-Hate"),
+        .description = COMPOUND_STRING(
+            "Legend says that by using its power\n"
+            "to see all events from past to future,\n"
+            "this Pokémon saved the creatures of\n"
+            "a forest from a meteorite strike."),
+    },
+    
     [NATIONAL_DEX_TORNADUS_THERIAN] =
     {
         //.categoryName = _("Love-Hate"),

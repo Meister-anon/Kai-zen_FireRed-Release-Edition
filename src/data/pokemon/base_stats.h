@@ -1648,7 +1648,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MEOWTH] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(40, 45, 35, 90, 40, 40),
+         STATS(40, 45, 35, 97, 45, 40),
         .type1 = TYPE_NORMAL,
         .type2 = TYPE_NORMAL,
         .catchRate = 255,
@@ -29848,10 +29848,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
-        60,
+        40,
         35,
         97,
-        50,
+        60,
         40
         ),
         .type1 = TYPE_NORMAL,
@@ -29882,12 +29882,12 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        65,
-        88,
+        85,
+        68,
         60,
-        135,
-        75,
-        65
+        89,
+        81,
+        85
         ),
         .type1 = TYPE_NORMAL,
         .type2 = TYPE_DARK,
@@ -30159,7 +30159,7 @@ const struct BaseStats gBaseStats[] =
         55,
         40,
         40,
-        40
+        50
         ),
         .type1 = TYPE_DARK,
         .type2 = TYPE_STEEL,
