@@ -5928,7 +5928,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         //using high odds since it can only activate on switch in, and if opposite gender is on other side
                     {//changed to 100% oddds since its weak mon, intend to turn luvdisc into setup/stall mon
                         u8 target2;
-                        side = (GetBattlerPosition(i) ^ BIT_SIDE) & BIT_SIDE; // side of the opposing pokemon
+
                         target1 = GetBattlerAtPosition(BATTLE_OPPOSITE(i));
                         target2 = GetBattlerAtPosition(BATTLE_OPPOSITE(BATTLE_PARTNER(i)));
 
@@ -5946,10 +5946,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             {
                                 break; //don't see why I had target ability not 0, tihnk will remove, its not really doing anything
                             }*/
-                            if ((IsBattlerAlive(target1) && !(gBattleMons[target1].status2 & STATUS2_INFATUATION))
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS)
-                                && (IsBattlerAlive(target2) && !(gBattleMons[target2].status2 & STATUS2_INFATUATION))
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget2, personalityTarget2) != MON_GENDERLESS))
+                            if ((IsBattlerAlive(target1) && (gBattleMons[target1].status2 & STATUS2_INFATUATION) == 0)
+                                && (IsBattlerAlive(target2) && ((gBattleMons[target2].status2 & STATUS2_INFATUATION) == 0)))
                             {
                                 gBattlerTarget = target1; //select on target from enemy 
                                 gBattleScripting.battler = i;
@@ -5960,8 +5958,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 ++effect;
                             }
                             else if (IsBattlerAlive(target1)
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS)
-                                && !(gBattleMons[target1].status2 & STATUS2_INFATUATION))
+                                && ((gBattleMons[target1].status2 & STATUS2_INFATUATION) == 0))
                             {
                                 gBattlerTarget = target1;
                                 gBattleScripting.battler = i;
@@ -5972,8 +5969,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 ++effect;
                             }
                             else if (IsBattlerAlive(target2)
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget2, personalityTarget2) != MON_GENDERLESS)
-                                && !(gBattleMons[target2].status2 & STATUS2_INFATUATION))
+                                && ((gBattleMons[target2].status2 & STATUS2_INFATUATION) == 0))
                             {
                                 gBattlerTarget = target2;
                                 gBattleScripting.battler = i;
@@ -5988,8 +5984,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         {
 
                             if (IsBattlerAlive(target1)
-                                && (GetGenderFromSpeciesAndPersonality(speciesTarget1, personalityTarget1) != MON_GENDERLESS)
-                                && !(gBattleMons[target1].status2 & STATUS2_INFATUATION))
+                            && ((gBattleMons[target1].status2 & STATUS2_INFATUATION) == 0))
                             {
                                 gBattlerTarget = target1;
                                 gBattleScripting.battler = i;

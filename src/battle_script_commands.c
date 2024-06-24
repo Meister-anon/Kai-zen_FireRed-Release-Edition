@@ -17045,24 +17045,18 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
             BtlController_EmitSetMonData(0, REQUEST_HP_BATTLE, gBitTable[*(gBattleStruct->battlerPartyIndexes + gActiveBattler)], 2, &gBattleMoveDamage);
             MarkBattlerForControllerExec(gActiveBattler); //think 2 bytes because dealing with hp wish is u16
             break;
-        /*case ABILITY_AFTERMATH:
-            if ((gActiveBattler = IsAbilityOnField(ABILITY_DAMP)))
+        case ABILITY_CUPIDS_ARROW:
+        if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)//if cupid arrow switches out withotu another on field clear infatuation
+        {
+            if (GetBattlerAbility(BATTLE_PARTNER(gActiveBattler)) != ABILITY_CUPIDS_ARROW)
             {
-                gBattleScripting.battler = gActiveBattler - 1;
-                BattleScriptPush(gBattlescriptCurrInstr);
-                gBattlescriptCurrInstr = BattleScript_DampPreventsAftermath; //consider replace with break, so no message just switch out
+                gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
+                gBattleMons[BATTLE_PARTNER(gBattlerTarget)].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
             }
-            else
-            {
-                //SET_STATCHANGER(STAT_SPEED, 1, TRUE); //most values don't use battlerscripting with stat changer, but those are ones that don't affect opponent
-                //gBattleScripting.moveEffect = MOVE_EFFECT_SPD_MINUS_1;  //i.e example was gooey/tangled hair, since it affects target stat it doest use statbuffchange command but this effect isn't one that can be bounced
-                gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //potentially make 1/16th as its just meant to do chip damage & break bands and can retrigger?
-                if (gBattleMoveDamage == 0) //occurred to me only having smaller chip damage on this withuot the slow wouldn't make the ability useful considering you need to 
-                    gBattleMoveDamage = 1; //pivot to make it useful so you'd be takeing two hits not just this one, think will put slow on switchout as well.
-                BattleScriptPush(gBattlescriptCurrInstr);
-                gBattlescriptCurrInstr = BattleScript_AftermathOnSwitch; //think stat drop should work now? since i'm bs attacker used swapattackerwithtarget to change battlescript to target for speed drop then
-            }
-            break; //hopefully works, turns aftermath into a chip ability, from worthless to strong for nuzlockes*/
+        }
+        else
+            gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
+        break;//works how I want, even with faint
         }
         
         gBattlescriptCurrInstr = cmd->nextInstr;
