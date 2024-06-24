@@ -2408,11 +2408,64 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and rather than add to individual tm learnset
     can put in function check if tm is this, anyone can learn it
     -make rest one of them
-    )
+    ) - also note add updated sitrus berry effect
+    -blood moon ursaluna for move bloodmoon simply setup like protect
+    //but guaranteed ...actually don't need to do that, if lastusedmove
+    by mon is same just make it fail, nah use lastlandedmvoe or lastsuccessfulmove something
+
+    -rework samurott base sprite
+    have image in Xshare folder
+
+    what the absolute fuck I thought I fixed move learn??
+    but skitty learned moves imd battle and
+    despite only having two the game treated it as if it had max moves
+    ok seems it was an issue caused by the debug stuff
+    the quick move learn from boxmon?
+
+    added the fix for it, and it seems to work corectly
+
+    fixed aftermath fixed cupids arrow, 
+    next thing setup pokedex info page view from
+    summary screen, then graphic info page setup
+
+
 
     -note can save on ewram a bit by optimizing structs listed in battle_main
     did that can't make fieldtimers a bit field, but also need
     add rest of side timers to debugger
+
+    also need change battle debugger ability set
+    forgot I changed ability logic for party menu
+    so the base setup causes bugs
+    just copy the party menu setup, for in battle.
+
+    -there's nothing wrong w battle debug ability setup
+    its just the way that the debugger creates mon clashes with my setup
+    usually every personality is different,
+    but the debugger fills boxes with mon with all the same personality
+    which causes issue, but for some reason species isn't read?
+
+    other note copy pokemon debug logic for summary screen
+    want to setup for a callback to pokedex info page
+    so you can quickly check dex of party members
+    think setup with callbacks, so can be different from base pokedex logic
+    what want to do is callback to same page you were on before
+
+    you open party menu on info page-first page of party menu
+    press start and it opens the info page of dex
+    press B on that page to return to summary screen page
+
+    think will need to do like categorical dex logic
+    where its a separate function with its own tasks and navigation
+    so will be party dex page something like that
+    have all logic for forms but never shows numerical list,
+    doesn't scroll up and down,
+    can still scroll through evo and area page
+
+
+    //consildating own tempo obvliious unaware effects into category of abilities
+    //simple/similar base but each with own different extra effect
+    //no intimidate no taunt or torment
 
     for cacophony can do jumps/calls in script to account for effect
     effect makes all sound moves bypass walls and protection
