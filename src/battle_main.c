@@ -7184,6 +7184,14 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         priority++;
     }
 
+    else if (gDisableStructs[battlerId].EmergencyExitTimer == 0
+    && gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_EMERGENCY_EXIT
+    && GetBattlerAbility(battlerId) == ABILITY_EMERGENCY_EXIT) 
+    {   
+        priority = 9;
+    }//should ensure goes first, and will allow to be excluded from effects that otherwise block priority
+
+
     else if (gBattleMons[battlerId].status2 & STATUS2_BIDE
         && gDisableStructs[battlerId].bideTimer == 0) //think had to remove check for move bide, since that's not set until atk canceler
     {

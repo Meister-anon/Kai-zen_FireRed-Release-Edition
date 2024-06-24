@@ -853,6 +853,8 @@ enum   //battler end turn
     ENDTURN_THROAT_CHOP,
     ENDTURN_SLOW_START,
     ENDTURN_WONDER_GUARD,
+    ENDTURN_WIMP_OUT,
+    ENDTURN_EMERGENCY_EXIT,
     ENDTURN_PLASMA_FISTS,
     ENDTURN_BIDE,
     ENDTURN_BATTLER_COUNT
@@ -3286,6 +3288,31 @@ u8 DoBattlerEndTurnEffects(void)
                 }
                 ++gBattleStruct->turnEffectsTracker;    //IT WORKS
                 break;
+            case ENDTURN_WIMP_OUT:
+                if (gBattleResources->flags->flags[gActiveBattler] & RESOURCE_FLAG_EMERGENCY_EXIT && ability == ABILITY_WIMP_OUT)
+                {
+                    gBattlerAttacker = gActiveBattler;
+                    gBattleResources->flags->flags[gActiveBattler] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
+                    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER))
+                    {
+                        if (CanBattlerSwitch(gActiveBattler))
+                            BattleScriptExecute(BattleScript_WimpoutNoPopUp);
+                    }
+                    else
+                        BattleScriptExecute(BattleScript_WimpoutWildNoPopUp);
+                    ++effect;
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_EMERGENCY_EXIT:
+                if (gDisableStructs[gActiveBattler].EmergencyExitTimer && ability == ABILITY_EMERGENCY_EXIT)
+                {
+                    if (--gDisableStructs[gActiveBattler].EmergencyExitTimer == 0)
+                        gBattleResources->flags->flags[gActiveBattler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
+                    ++effect;
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
             case ENDTURN_PLASMA_FISTS:
                 for (i = 0; i < gBattlersCount; i++)
                     gStatuses4[i] &= ~STATUS4_PLASMA_FISTS;
@@ -3885,7 +3912,7 @@ u8 AtkCanceller_UnableToUseMove(void)
 
                             if (validToRaise != 0) // Can lower one stat, or can raise one stat
                             {
-                                gBattleScripting.statChanger /*= gBattleScripting.savedStatChanger*/ = 0; // for raising and lowering stat respectively
+                                gBattleScripting.statChanger  = 0; // for raising and lowering stat respectively
                                 if (validToRaise != 0) // Find stat to raise
                                 {
                                     do
@@ -7589,7 +7616,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
-            case ABILITY_WIMP_OUT:
+            case ABILITY_WIMP_OUT://change to switch at end turn
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && TARGET_TURN_DAMAGED
                     && IsBattlerAlive(battler)
@@ -7604,15 +7631,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
                     gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
+                    gSpecialStatuses[battler].EmergencyExit = TRUE;
                     ++effect;
-                }
+                }//have part setup, if triggeed before attacks will attack and switch at move end
+                //need to add pure end turn for if already attacked
                 break;
-            case ABILITY_EMERGENCY_EXIT:    //separate since plan to treat emergency exit differently
+            case ABILITY_EMERGENCY_EXIT: //change to switch after next turn move end w priority ahnd dmg boost
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)//will attempt setup after can build/compile
                     && TARGET_TURN_DAMAGED
                     && IsBattlerAlive(battler)
                     // Had more than half of hp before, now has less
-                    //&& gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
+                    && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp < gBattleMons[battler].maxHP / 2
                     && (gMultiHitCounter == 0 || gMultiHitCounter == 1)
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
@@ -7621,8 +7650,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
-                    gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
-                    gSpecialStatuses[battler].EmergencyExit ^= 1;
+                    gDisableStructs[battler].EmergencyExitTimer = 1;
                     ++effect;
                 }
                 break;

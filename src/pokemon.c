@@ -4171,10 +4171,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // attacker's abilities  
     switch (GetBattlerAbility(battlerIdAtk)) //checked emerald doeesn't appear to need to order by ability value, emerald doesn't do so.
     {
-    /*case ABILITY_SNIPER:  //DONE IN bs commands
-        if (IS_CRIT)
-            MulModifier(&finalModifier, UQ_4_12(1.5));
-        break;*/
+
     case ABILITY_TECHNICIAN:
         if (gBattleMovePower <= 60)
             gBattleMovePower = (gBattleMovePower * 150 / 100);

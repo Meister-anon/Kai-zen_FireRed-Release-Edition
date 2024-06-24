@@ -368,6 +368,8 @@ extern const u8 BattleScript_EmergencyExitNoPopUp[];
 extern const u8 BattleScript_EmergencyExitRet[];
 extern const u8 BattleScript_EmergencyExitWild[];
 extern const u8 BattleScript_EmergencyExitWildNoPopUp[];
+extern const u8 BattleScript_WimpoutNoPopUp[];
+extern const u8 BattleScript_WimpoutWildNoPopUp[];
 extern const u8 BattleScript_ReceiverActivates[];
 extern const u8 BattleScript_AbilityHpHeal[];
 extern const u8 BattleScript_EndTurnAbilityHpHeal[];
@@ -694,6 +696,7 @@ extern const u8 BattleScript_StrengthSapLower[];
 extern const u8 BattleScript_StrengthSapTryLower[];
 extern const u8 BattleScript_EffectStrengthSap[];
 extern const u8 BattleScript_EffectStrengthUpHit[];
+extern const u8 BattleScript_EffectAttackUpBeforeMove[]; //for now just emergency exit
 extern const u8 BattleScript_OctolockEndTurn[];
 extern const u8 BattleScript_PurifyWorks[];
 extern const u8 BattleScript_EffectPurify[];

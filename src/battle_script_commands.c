@@ -1459,6 +1459,21 @@ static void atk00_attackcanceler(void) //vsonic
     && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
         gSpecialStatuses[gBattlerAttacker].Cacophonyboosted = TRUE;
 
+    if (gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_EMERGENCY_EXIT
+    && gDisableStructs[gBattlerAttacker].EmergencyExitTimer == 0
+    && GetBattlerAbility(gBattlerAttacker) == ABILITY_EMERGENCY_EXIT) 
+    {   
+        gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
+        gSpecialStatuses[gBattlerAttacker].EmergencyExit = TRUE;
+        if (gBattleMoves[gCurrentMove].split != SPLIT_STATUS)
+        {
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_EffectAttackUpBeforeMove;
+            return;//works seems only reason froze was I didn't have the return here at end
+        }
+        
+    }
+
     if (TryAegiFormChange())
         return;
 
@@ -8278,22 +8293,31 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 }
             }
             ++gBattleScripting.atk49_state;
-            break;
+            break;//need chagne, set up is for hitting emergency exit mon not attacker being emergency exit
         case MOVE_END_EMERGENCY_EXIT: // Special case, because moves hitting multiple opponents stop after switching out
-            for (i = 0; i < gBattlersCount; i++)
-            {
-                if (gBattleResources->flags->flags[i] & RESOURCE_FLAG_EMERGENCY_EXIT)   //vsonic DOUBLE check this, may not need here, or may adapt.
+           // for (i = 0; i < gBattlersCount; i++)
+            //{
+                //if (gBattleResources->flags->flags[i] & RESOURCE_FLAG_EMERGENCY_EXIT)   //vsonic DOUBLE check this, may not need here, or may adapt.
+                //can use for both wimp out and emergency exit, different will be when status is set,
+                //wimp out sets ti when gets hit,
+                //emergency exit sets it in attack canceler after end turn timer ends for next turn
+                
+                if (gSpecialStatuses[gBattlerAttacker].EmergencyExit
+                && (CanBattlerSwitch(gBattlerAttacker) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)))
                 {
-                    gBattleResources->flags->flags[i] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
-                    gSpecialStatuses[i].EmergencyExit = TRUE;   //still unsure about this, but use my special status, to set to 1, incase need that for truant thing to work
-                    gBattlerTarget = gBattlerAbility = i;
-                    BattleScriptPushCursor();
-                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(i) == B_SIDE_PLAYER)
+                    gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
+                    //needed this part to prevent repeat switchout
+                    gSpecialStatuses[gBattlerAttacker].EmergencyExit = FALSE;   //still unsure about this, but use my special status, to set to 1, incase need that for truant thing to work
+                    gBattlerAbility = gBattlerAttacker;
+                    
+                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
                     {
                     /*#if B_ABILITY_POP_UP == TRUE
                         gBattlescriptCurrInstr = BattleScript_EmergencyExit;
                     #else*/
+                        BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitNoPopUp;
+                        return;
                     //#endif
                     }
                     else
@@ -8301,12 +8325,14 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     /*#if B_ABILITY_POP_UP == TRUE
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitWild;
                     #else*/
+                        BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitWildNoPopUp;
+                        return;
                     //#endif
                     }
-                    return;
+                    
                 }
-            }
+            //}
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_SYMBIOSIS:
@@ -13828,6 +13854,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             //think I can do a check for if gbattlescipting.moveeffect == 0,
             //above the part that change gbattlescriptCurrInstr and just make a separate script
             //above the main one that just does attackanimation & waitanimation
+            //-VSONIC IMPORTANT is this still relevant?  need review
         }
         else if (GetBattlerAbility(gActiveBattler) == ABILITY_SHIELD_DUST && !flags)
         {

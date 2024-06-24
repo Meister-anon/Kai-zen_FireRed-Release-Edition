@@ -6096,6 +6096,19 @@ BattleScript_EffectStrengthUpHit::
 	waitmessage B_WAIT_TIME_MED
 	goto BattleScript_HitFromAtkString
 
+@attempt to call in attack canceler for emergency exit
+@works
+BattleScript_EffectAttackUpBeforeMove::
+	setstatchanger STAT_ATK, 3, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_BS_PTR, NULL
+	setgraphicalstatchangevalues
+	printstring STRINGID_EMPTYSTRING3
+	waitmessage B_WAIT_TIME_CLEAR_BUFF_2
+	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_MED
+	return
+
 BattleScript_EffectSecretPower::
 	getsecretpowereffect
 	goto BattleScript_EffectHit
@@ -8509,20 +8522,20 @@ BattleScript_EmergencyExit::
 	pause B_WAIT_TIME_CLEAR_BUFF	
 	pause B_WAIT_TIME_LONG
 BattleScript_EmergencyExitNoPopUp::
-	playanimation BS_TARGET, B_ANIM_SLIDE_OFFSCREEN, NULL
+	playanimation BS_ATTACKER, B_ANIM_SLIDE_OFFSCREEN, NULL
 	waitanimation
-	openpartyscreen BS_TARGET, BattleScript_EmergencyExitRet
-	switchoutabilities BS_TARGET
+	openpartyscreen BS_ATTACKER, BattleScript_EmergencyExitRet
+	switchoutabilities BS_ATTACKER
 	waitstate
-	switchhandleorder BS_TARGET, 2
-	returntoball BS_TARGET
-	getswitchedmondata BS_TARGET
-	switchindataupdate BS_TARGET
-	hpthresholds BS_TARGET
+	switchhandleorder BS_ATTACKER, 2
+	returntoball BS_ATTACKER
+	getswitchedmondata BS_ATTACKER
+	switchindataupdate BS_ATTACKER
+	hpthresholds BS_ATTACKER
 	printstring STRINGID_SWITCHINMON
-	switchinanim BS_TARGET, TRUE
+	switchinanim BS_ATTACKER, TRUE
 	waitstate
-	switchineffects BS_TARGET
+	switchineffects BS_ATTACKER
 BattleScript_EmergencyExitRet:
 	return
 	
@@ -8530,11 +8543,39 @@ BattleScript_EmergencyExitWild::
 	pause B_WAIT_TIME_CLEAR_BUFF	
 	pause B_WAIT_TIME_LONG
 BattleScript_EmergencyExitWildNoPopUp::
-	playanimation BS_TARGET, B_ANIM_SLIDE_OFFSCREEN, NULL
+	playanimation BS_ATTACKER, B_ANIM_SLIDE_OFFSCREEN, NULL
 	waitanimation
-	setoutcomeonteleport BS_TARGET
+	setoutcomeonteleport BS_ATTACKER
 	finishaction
 	return
+
+BattleScript_WimpoutNoPopUp::
+	playanimation BS_ATTACKER, B_ANIM_SLIDE_OFFSCREEN, NULL
+	waitanimation
+	openpartyscreen BS_ATTACKER, BattleScript_WimpoutEnd
+	switchoutabilities BS_ATTACKER
+	waitstate
+	switchhandleorder BS_ATTACKER, 2
+	returntoball BS_ATTACKER
+	getswitchedmondata BS_ATTACKER
+	switchindataupdate BS_ATTACKER
+	hpthresholds BS_ATTACKER
+	printstring STRINGID_SWITCHINMON
+	switchinanim BS_ATTACKER, TRUE
+	waitstate
+	switchineffects BS_ATTACKER
+BattleScript_WimpoutEnd:
+	end2
+	
+BattleScript_WimpoutWild::
+	pause B_WAIT_TIME_CLEAR_BUFF	
+	pause B_WAIT_TIME_LONG
+BattleScript_WimpoutWildNoPopUp::
+	playanimation BS_ATTACKER, B_ANIM_SLIDE_OFFSCREEN, NULL
+	waitanimation
+	setoutcomeonteleport BS_ATTACKER
+	finishaction
+	end2
 
 BattleScript_TraceActivates::
 	pause B_WAIT_TIME_SHORT
