@@ -2953,6 +2953,7 @@ BattleScript_ExplosionLoop::
 	tryfaintmon BS_TARGET, 0, NULL
 	moveendto MOVE_END_NEXT_TARGET
 	jumpifnexttargetvalid BattleScript_ExplosionLoop
+	jumpifability BS_ATTACKER, ABILITY_STURDY, BattleScript_AttackerSturdiedMsg
 	tryfaintmon BS_ATTACKER, 0, NULL
 	end
 
@@ -2962,7 +2963,8 @@ BattleScript_ExplosionMissed::
 	waitmessage B_WAIT_TIME_LONG
 	moveendto MOVE_END_NEXT_TARGET
 	jumpifnexttargetvalid BattleScript_ExplosionLoop
-	tryfaintmon BS_ATTACKER, 0, NULL
+	jumpifability BS_ATTACKER, ABILITY_STURDY, BattleScript_AttackerSturdiedMsg
+	tryfaintmon BS_ATTACKER, 0, NULL	@set sturdy condition, if alive, i guess
 	end
 
 BattleScript_PreserveMissedBitDoMoveAnim::
@@ -5687,6 +5689,7 @@ BattleScript_MementoSkipStatDown1::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_MementoSkipStatDown2::
+	jumpifability BS_ATTACKER ABILITY_STURDY, BattleScript_AttackerSturdiedMsg
 	tryfaintmon BS_ATTACKER, 0, NULL
 	goto BattleScript_MoveEnd
 
@@ -7104,6 +7107,42 @@ BattleScript_DestinyBondTakesLife::
 	tryfaintmon BS_ATTACKER, 0, NULL
 	return
 
+BattleScript_SturdiedMsg::
+	pause B_WAIT_TIME_SHORTEST
+	@ call BattleScript_AbilityPopUpTarget
+	printstring STRINGID_ENDUREDSTURDY
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
+BattleScript_DestinyBondSturdied::
+	printstring STRINGID_PKMNTOOKFOE
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_ATTACKER_STURDY
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return	
+
+BattleScript_PerishSongSturdied::
+	printstring STRINGID_PKMNPERISHCOUNTFELL
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_ATTACKER_STURDY @ need fix ability user listed in msg
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
+@just using for explosion now, 
+@other ones hvae dedicated string
+BattleScript_AttackerSturdiedMsg::
+	@pause B_WAIT_TIME_SHORTEST
+	@ call BattleScript_AbilityPopUpTarget
+	printstring STRINGID_ATTACKER_STURDY
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end	
+
 BattleScript_SpikesOnAttacker::
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
 	healthbarupdate BS_ATTACKER
@@ -7731,19 +7770,7 @@ BattleScript_OneHitKOMsg::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
-BattleScript_SturdiedMsg::
-	pause B_WAIT_TIME_SHORTEST
-	@ call BattleScript_AbilityPopUpTarget
-	printstring STRINGID_ENDUREDSTURDY
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	return
 
-BattleScript_AttackerSturdiedMsg::
-	pause B_WAIT_TIME_SHORTEST
-	@ call BattleScript_AbilityPopUpTarget
-	printstring STRINGID_ATTACKER_STURDY
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	return	
 
 
 BattleScript_SAtkDown2::

@@ -6028,14 +6028,11 @@ static void atk19_tryfaintmon(void)
             {
                 gHitMarker &= ~(HITMARKER_DESTINYBOND);
                 BattleScriptPush(gBattlescriptCurrInstr);
-                if (GetBattlerAbility(battlerId) == ABILITY_STURDY
-                    && gBattleMons[battlerId].hp != 1 //lol glad I caught that, almost reintroduced  sturdy bug
-                    && !gSpecialStatuses[battlerId].sturdyhungon)
+                if (CanSurviveInstantKOWithSturdy(battlerId))
                 {
                     gBattleMoveDamage = (gBattleMons[battlerId].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
                     gSpecialStatuses[battlerId].sturdyhungon = TRUE;
-                   // gSpecialStatuses[battlerId].sturdied = TRUE; //sets moveresult sturdy plays mon hung on with sturdy message - wont work destinybond doesnt call moveresult
-                    gBattlescriptCurrInstr = BattleScript_AttackerSturdiedMsg; //need test should call sturdymessage
+                    gBattlescriptCurrInstr = BattleScript_DestinyBondSturdied; //need test should call sturdymessage
                 }
                 else
                 {
@@ -6151,6 +6148,11 @@ static void atk1E_jumpbasedonability(void)
                     hasAbility = TRUE;
                 else
                     hasAbility = FALSE;
+            }
+            else if (ability == ABILITY_STURDY)
+            {
+                if (IsBattlerAlive(battlerId))
+                    hasAbility = TRUE;
             }
             else
                 hasAbility = TRUE;
@@ -13085,12 +13087,10 @@ static void atk78_faintifabilitynotdamp(void) //explosion
         if (gBattlerTarget == gBattlersCount)
         {
             gActiveBattler = gBattlerAttacker;
-            if (GetBattlerAbility(gActiveBattler) == ABILITY_STURDY
-                && gBattleMons[gActiveBattler].hp != 1 //lol glad I caught that, almost reintroduced  sturdy bug
-                && !gSpecialStatuses[gActiveBattler].sturdyhungon) //ok remember this was added to not make it spamable
+
+            if (CanSurviveInstantKOWithSturdy(gActiveBattler)) //ok remember this was added to not make it spamable
             {
                 gBattleMoveDamage = (gBattleMons[gActiveBattler].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
-                gSpecialStatuses[gActiveBattler].sturdyhungon = TRUE;
                 RecordAbilityBattle(gActiveBattler, ABILITY_STURDY);
                 gLastUsedAbility = ABILITY_STURDY;
             }
@@ -13114,27 +13114,21 @@ static void atk78_faintifabilitynotdamp(void) //explosion
 }
 
 #define NEW_STURDY_PT2
-static void atk79_setatkhptozero(void)
+static void atk79_setatkhptozero(void)//explosion wish healing moves etc.
 {
     if (!gBattleControllerExecFlags)
     {
         gActiveBattler = gBattlerAttacker;
-        if (GetBattlerAbility(gActiveBattler) == ABILITY_STURDY
-            && gBattleMons[gActiveBattler].hp != 1
-            && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH
-            && !gSpecialStatuses[gActiveBattler].sturdyhungon)
+        if (CanSurviveInstantKOWithSturdy(gActiveBattler))
+        {
             gBattleMons[gActiveBattler].hp = 1;
+            gSpecialStatuses[gActiveBattler].sturdyhungon = TRUE;
+        }
         else
             gBattleMons[gActiveBattler].hp = 0;
+
         BtlController_EmitSetMonData(0, REQUEST_HP_BATTLE, 0, 2, &gBattleMons[gActiveBattler].hp);
         MarkBattlerForControllerExec(gActiveBattler);
-        if (GetBattlerAbility(gActiveBattler) == ABILITY_STURDY
-            && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH
-            && !gSpecialStatuses[gActiveBattler].sturdyhungon)
-            {
-                BattleScriptPushCursorAndCallback(BattleScript_AttackerSturdiedMsg); //not perfect but should display message for sturdy mon surviving
-                gSpecialStatuses[gActiveBattler].sturdyhungon = TRUE;
-            }
         ++gBattlescriptCurrInstr;
     }
 }
@@ -16399,7 +16393,10 @@ static void atkC9_jumpifattackandspecialattackcannotfall(void) // memento
     else
     {
         gActiveBattler = gBattlerAttacker;
-        gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
+        if (CanSurviveInstantKOWithSturdy(gActiveBattler))
+            gBattleMoveDamage = gBattleMons[gActiveBattler].hp - 1;
+        else
+            gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
         BtlController_EmitHealthBarUpdate(0, INSTANT_HP_BAR_DROP);
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr += 5;

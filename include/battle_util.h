@@ -216,6 +216,8 @@ bool32 CanAbilityAbsorb(u8 MoveUser, u8 AbilityUser, u8 MoveType);
 bool32 DoesBattlerAbilityAbsorbMoveType(u8 moveTarget, u8 MoveType);
 u8 CanMovebeRedirected(void); //for adjusting absorb ability targetting
 
+bool8 CanSurviveInstantKOWithSturdy(u8 battler); //for sturdy conditions 
+
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);

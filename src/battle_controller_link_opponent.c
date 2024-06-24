@@ -1376,7 +1376,14 @@ static void LinkOpponentHandleHealthBarUpdate(void)
     {
         u32 maxHP = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_MAX_HP);
 
-        SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 0, hpVal);
+        if (CanSurviveInstantKOWithSturdy(gActiveBattler))
+        {
+            SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 1, 0);
+        }
+        else    
+        {
+            SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 0, hpVal);
+        }
     }
     gBattlerControllerFuncs[gActiveBattler] = CompleteOnHealthbarDone;
 }

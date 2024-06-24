@@ -3405,14 +3405,11 @@ bool8 HandleWishPerishSongOnTurnEnd(void)
                 {
                     gStatuses3[gActiveBattler] &= ~STATUS3_PERISH_SONG;
 
-                    if (GetBattlerAbility(gActiveBattler) == ABILITY_STURDY
-                    && gBattleMons[gActiveBattler].hp != 1 //lol glad I caught that, almost reintroduced  sturdy bug
-                    && !gSpecialStatuses[gActiveBattler].sturdyhungon)
+                    if (CanSurviveInstantKOWithSturdy(gActiveBattler))
                     {
                         gBattleMoveDamage = (gBattleMons[gActiveBattler].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
                         gSpecialStatuses[gActiveBattler].sturdyhungon = TRUE;
-                    // gSpecialStatuses[battlerId].sturdied = TRUE; //sets moveresult sturdy plays mon hung on with sturdy message - wont work destinybond doesnt call moveresult
-                        gBattlescriptCurrInstr = BattleScript_AttackerSturdiedMsg; //need test should call sturdymessage
+                        gBattlescriptCurrInstr = BattleScript_PerishSongSturdied; //need test should call sturdymessage
                     }
                     else
                     {
@@ -12881,6 +12878,21 @@ bool32 CanTeleport(u8 battlerId)
     }*/
 
     return TRUE;
+}
+
+//may be a few more suicide moves I'll have to add to this
+//only reason have to add healing wish is user fainting is part of effect
+//tied in so much that move script opens party menu to force switch
+bool8 CanSurviveInstantKOWithSturdy(u8 battler)
+{
+    if (GetBattlerAbility(battler) == ABILITY_STURDY
+    && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)
+    && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH
+    && !gSpecialStatuses[battler].sturdyhungon)
+    {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 //put in acc check if true set to acc to 100

@@ -1662,8 +1662,16 @@ static void PokedudeHandleHealthBarUpdate(void)
     {
         u32 maxHP = GetMonData(mon, MON_DATA_MAX_HP);
 
-        SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 0, hpVal);
-        UpdateHpTextInHealthbox(gHealthboxSpriteIds[gActiveBattler], 0, HP_CURRENT);
+        if (CanSurviveInstantKOWithSturdy(gActiveBattler))
+        {
+            SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 1, 0);
+            UpdateHpTextInHealthbox(gHealthboxSpriteIds[gActiveBattler], 1, HP_CURRENT);
+        }
+        else    
+        {
+            SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 0, hpVal);
+            UpdateHpTextInHealthbox(gHealthboxSpriteIds[gActiveBattler], 0, HP_CURRENT);
+        }
     }
     gBattlerControllerFuncs[gActiveBattler] = CompleteOnHealthbarDone;
 }

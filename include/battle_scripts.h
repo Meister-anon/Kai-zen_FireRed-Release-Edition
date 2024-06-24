@@ -150,6 +150,8 @@ extern const u8 BattleScript_EnduredMsg[];
 extern const u8 BattleScript_OneHitKOMsg[];
 extern const u8 BattleScript_SturdiedMsg[];
 extern const u8 BattleScript_AttackerSturdiedMsg[];
+extern const u8 BattleScript_DestinyBondSturdied[];
+extern const u8 BattleScript_PerishSongSturdied[];
 extern const u8 BattleScript_SAtkDown2[];
 extern const u8 BattleScript_FocusPunchSetUp[];
 extern const u8 BattleScript_MoveUsedIsAsleep[];
