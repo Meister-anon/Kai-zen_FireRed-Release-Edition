@@ -2348,10 +2348,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     i.e if early bird raises acc sharply adn you use harden, harden will again double raise your acc
 
-    for ow debug give mon, etc.
-    rather than tapping individually setup same as others
-    where red arrows come up and you can scroll each digit
-    think press Select or start to do that
+
+    need fix sturdy, KO resist effects aren't working - sigh
+    -fixed
+
+    fixed wimpout and emergency exit rework,
+    now working correctly in all scenarios
 
     fix give tm all, updatae tm case scroll logic,
     and begin tweak debug stuff for my changes
@@ -2713,6 +2715,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   find that before start messing with it
 */
 goto CONST_CAP_WORKAROUND //found it
+
+goto REFERENCE_ENDTURN_ABILITIES
 
 goto ABILITY_ABSORB_CONDITION_FUNCTION //need update this function
 /*

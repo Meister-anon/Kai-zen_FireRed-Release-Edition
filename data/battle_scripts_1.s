@@ -2586,7 +2586,7 @@ BattleScript_EffectHitEscape:
 	jumpifbyte CMP_NOT_EQUAL gBattleOutcome 0, BattleScript_HitEscapeEnd
 	@jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_HitEscapeEnd
 	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_HitEscapeEnd
-	jumpifemergencyexited BS_TARGET, BattleScript_HitEscapeEnd
+	@jumpifemergencyexited BS_TARGET, BattleScript_HitEscapeEnd
 	openpartyscreen BS_ATTACKER, BattleScript_HitEscapeEnd
 	switchoutabilities BS_ATTACKER
 	waitstate
@@ -8517,7 +8517,7 @@ BattleScript_MoodyLower:
 BattleScript_MoodyEnd:
 	end3
 	
-@idk if need both check when I set emergencyexit up
+@handled in moveend
 BattleScript_EmergencyExit::
 	pause B_WAIT_TIME_CLEAR_BUFF	
 	pause B_WAIT_TIME_LONG
@@ -8549,6 +8549,7 @@ BattleScript_EmergencyExitWildNoPopUp::
 	finishaction
 	return
 
+@handled in endturn
 BattleScript_WimpoutNoPopUp::
 	playanimation BS_ATTACKER, B_ANIM_SLIDE_OFFSCREEN, NULL
 	waitanimation

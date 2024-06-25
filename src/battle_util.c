@@ -810,6 +810,8 @@ bool32 DoesPranksterBlockMove(u16 move, u8 battlerwithPrankster, u8 battlerDef, 
     return TRUE;
 }
 
+#define REFERENCE_ENDTURN_ABILITIES
+
 enum   //battler end turn
 {
     ENDTURN_INGRAIN,
@@ -851,10 +853,7 @@ enum   //battler end turn
     ENDTURN_POWDER,
     //ENDTURN_INFESTATION,  //changed to non-damaging debuff status
     ENDTURN_THROAT_CHOP,
-    ENDTURN_SLOW_START,
-    ENDTURN_WONDER_GUARD,
-    ENDTURN_WIMP_OUT,
-    ENDTURN_EMERGENCY_EXIT,
+    ENDTURN_WONDER_GUARD, //kept here to exclude from other end turn damage for full timer duration
     ENDTURN_PLASMA_FISTS,
     ENDTURN_BIDE,
     ENDTURN_BATTLER_COUNT
@@ -3264,18 +3263,7 @@ u8 DoBattlerEndTurnEffects(void)
                 }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
-            case ENDTURN_SLOW_START: //could prob reduce to just the decremenet line
-                if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] //if batterpartyindex for this would timer for each party member,
-                    && ability == ABILITY_SLOW_START) //would use function to pull timer
-                {
-                    if (--gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] == 0) //so would need single use ability timer field, then pull relevant timer based on ability rn would only be slowstart and wonderguard)
-                    {
-                        BattleScriptExecute(BattleScript_SlowStartEnds);
-                        ++effect;
-                    }
-                }
-                ++gBattleStruct->turnEffectsTracker;    //IT WORKS
-                break;
+                //kept this here to except form end turn damage for full effect
             case ENDTURN_WONDER_GUARD: //could prob reduce to just the decremenet line
                 if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] //if batterpartyindex for this would timer for each party member,
                     && ability == ABILITY_WONDER_GUARD) //would use function to pull timer
@@ -3287,31 +3275,6 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                 }
                 ++gBattleStruct->turnEffectsTracker;    //IT WORKS
-                break;
-            case ENDTURN_WIMP_OUT:
-                if (gBattleResources->flags->flags[gActiveBattler] & RESOURCE_FLAG_EMERGENCY_EXIT && ability == ABILITY_WIMP_OUT)
-                {
-                    gBattlerAttacker = gActiveBattler;
-                    gBattleResources->flags->flags[gActiveBattler] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
-                    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER))
-                    {
-                        if (CanBattlerSwitch(gActiveBattler))
-                            BattleScriptExecute(BattleScript_WimpoutNoPopUp);
-                    }
-                    else
-                        BattleScriptExecute(BattleScript_WimpoutWildNoPopUp);
-                    ++effect;
-                }
-                ++gBattleStruct->turnEffectsTracker;
-                break;
-            case ENDTURN_EMERGENCY_EXIT:
-                if (gDisableStructs[gActiveBattler].EmergencyExitTimer && ability == ABILITY_EMERGENCY_EXIT)
-                {
-                    if (--gDisableStructs[gActiveBattler].EmergencyExitTimer == 0)
-                        gBattleResources->flags->flags[gActiveBattler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
-                    ++effect;
-                }
-                ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_PLASMA_FISTS:
                 for (i = 0; i < gBattlersCount; i++)
@@ -6967,6 +6930,40 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         }
                     }
                     break;
+                case ABILITY_SLOW_START: //could prob reduce to just the decremenet line
+                //if batterpartyindex for this would timer for each party member,
+                if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)])
+                {
+                    if (--gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] == 0) //so would need single use ability timer field, then pull relevant timer based on ability rn would only be slowstart and wonderguard)
+                    {
+                        BattleScriptExecute(BattleScript_SlowStartEnds);
+                        ++effect;
+                    }
+                }
+                break;
+            case ABILITY_WIMP_OUT: //this is triggering instead of the move end script when ti shouldn't be able to
+                if (gBattleResources->flags->flags[gActiveBattler] & RESOURCE_FLAG_EMERGENCY_EXIT)
+                {
+                    gBattlerTarget = BATTLE_OPPOSITE(gActiveBattler);
+                    gBattleResources->flags->flags[gActiveBattler] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
+                    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER))
+                    {
+                        if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0)
+                           BattleScriptExecute(BattleScript_WimpoutNoPopUp);
+                    }
+                    else if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0)
+                        BattleScriptExecute(BattleScript_WimpoutWildNoPopUp);
+                    ++effect;
+                }//idk why but same for emergency exit fails to work here in endturn
+                break;
+            case ABILITY_EMERGENCY_EXIT:
+                if (gDisableStructs[gActiveBattler].EmergencyExitTimer)
+                {
+                    if (--gDisableStructs[gActiveBattler].EmergencyExitTimer == 0)
+                        gBattleResources->flags->flags[gActiveBattler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
+                    ++effect;
+                }
+                break;
                 case ABILITY_BAD_DREAMS:  
                 if (IsBattlerAlive(gBattleScripting.battler))                  
                     BattleScriptPushCursorAndCallback(BattleScript_BadDreamsActivates);
@@ -7324,7 +7321,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 break;
             case ABILITY_SIROCCO:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-                    && gBattleMons[gBattlerAttacker].hp != 0
+                    && gBattleMons[battler].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker)))
@@ -7616,25 +7613,21 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
-            case ABILITY_WIMP_OUT://change to switch at end turn
+            case ABILITY_WIMP_OUT://change to switch by end turn
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && TARGET_TURN_DAMAGED
                     && IsBattlerAlive(battler)
-                    // Had more than half of hp before, now has less
+                    // Had more than half of hp at move select, now has less
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
-                    && gBattleMons[battler].hp < gBattleMons[battler].maxHP / 2
+                    && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2
                     && (gMultiHitCounter == 0 || gMultiHitCounter == 1)
-                    //&& !(TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
-                    && (CanBattlerSwitch(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
-                    //&& CountUsablePartyMons(battler) > 0  ai change add abck somehow
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
                     gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
-                    gSpecialStatuses[battler].EmergencyExit = TRUE;
                     ++effect;
-                }//have part setup, if triggeed before attacks will attack and switch at move end
-                //need to add pure end turn for if already attacked
+                }
                 break;
             case ABILITY_EMERGENCY_EXIT: //change to switch after next turn move end w priority ahnd dmg boost
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)//will attempt setup after can build/compile
@@ -7642,11 +7635,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && IsBattlerAlive(battler)
                     // Had more than half of hp before, now has less
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
-                    && gBattleMons[battler].hp < gBattleMons[battler].maxHP / 2
-                    && (gMultiHitCounter == 0 || gMultiHitCounter == 1)
+                    && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2 //made or equal to prevent miss triggering at exact hp
+                    && (gMultiHitCounter == 0 || gMultiHitCounter == 1) //is if it lands on exact half it'll never trigger after -_-
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && (CanBattlerSwitch(battler) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
-                    //&& CountUsablePartyMons(battler) > 0
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
@@ -13033,6 +13024,46 @@ void CacophonyElevateMoveEffect(void)
                 break;
             break;
     }
+}
+
+//checks how many usable battlers in party excluding mon on field
+//right now think need just for emergency exit/wimpout
+//to make sure doesn't activate switch battler
+//when battle should end, need use count alive mon function to do full check
+s32 CountUsablePartyMons(u32 battlerId)//this counts mon in party excepting battler htis is beter than the can swich function
+{
+    s32 battlerOnField1, battlerOnField2, i, ret;
+    struct Pokemon *party;
+
+    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
+        party = gPlayerParty;
+    else
+        party = gEnemyParty;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battlerId];
+        battlerOnField2 = gBattlerPartyIndexes[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battlerId)))];
+    }
+    else // In singles there's only one battlerId by side.
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battlerId];
+        battlerOnField2 = gBattlerPartyIndexes[battlerId];
+    }
+
+    ret = 0;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (i != battlerOnField1 && i != battlerOnField2
+         && GetMonData(&party[i], MON_DATA_HP) != 0
+         && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+         && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
+        {
+            ret++;
+        }
+    }
+
+    return ret;
 }
 
 

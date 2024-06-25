@@ -1463,6 +1463,7 @@ static void atk00_attackcanceler(void) //vsonic
     && gDisableStructs[gBattlerAttacker].EmergencyExitTimer == 0
     && GetBattlerAbility(gBattlerAttacker) == ABILITY_EMERGENCY_EXIT) 
     {   
+        //need remove this to prevent loop, but can use special status I think for move end check?
         gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
         gSpecialStatuses[gBattlerAttacker].EmergencyExit = TRUE;
         if (gBattleMoves[gCurrentMove].split != SPLIT_STATUS)
@@ -8293,46 +8294,44 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 }
             }
             ++gBattleScripting.atk49_state;
-            break;//need chagne, set up is for hitting emergency exit mon not attacker being emergency exit
-        case MOVE_END_EMERGENCY_EXIT: // Special case, because moves hitting multiple opponents stop after switching out
-           // for (i = 0; i < gBattlersCount; i++)
-            //{
-                //if (gBattleResources->flags->flags[i] & RESOURCE_FLAG_EMERGENCY_EXIT)   //vsonic DOUBLE check this, may not need here, or may adapt.
-                //can use for both wimp out and emergency exit, different will be when status is set,
-                //wimp out sets ti when gets hit,
-                //emergency exit sets it in attack canceler after end turn timer ends for next turn
-                
-                if (gSpecialStatuses[gBattlerAttacker].EmergencyExit
-                && (CanBattlerSwitch(gBattlerAttacker) || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)))
+            break;
+        case MOVE_END_EMERGENCY_EXIT:
+                //last condition should if target not fainted or enemy has more mon in party
+                //using special status this never triggered because status was alraedy cleared for wimpout
+                if ((gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_EMERGENCY_EXIT
+                || gSpecialStatuses[gBattlerAttacker].EmergencyExit)
+                && (!(gHitMarker & HITMARKER_FAINTED(gBattlerTarget)) || CountUsablePartyMons(gBattlerTarget) > 0))
                 {
                     gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
                     //needed this part to prevent repeat switchout
-                    gSpecialStatuses[gBattlerAttacker].EmergencyExit = FALSE;   //still unsure about this, but use my special status, to set to 1, incase need that for truant thing to work
-                    gBattlerAbility = gBattlerAttacker;
+                    gSpecialStatuses[gBattlerAttacker].EmergencyExit = FALSE;
                     
-                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+                    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
+                    && CountUsablePartyMons(gBattlerAttacker) > 0
+                    && (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0))
                     {
                     /*#if B_ABILITY_POP_UP == TRUE
                         gBattlescriptCurrInstr = BattleScript_EmergencyExit;
                     #else*/
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitNoPopUp;
+                        effect = TRUE;
                         return;
                     //#endif
                     }
-                    else
+                    else if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0)
                     {
                     /*#if B_ABILITY_POP_UP == TRUE
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitWild;
                     #else*/
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitWildNoPopUp;
+                        effect = TRUE;
                         return;
                     //#endif
                     }
                     
                 }
-            //}
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_SYMBIOSIS:
