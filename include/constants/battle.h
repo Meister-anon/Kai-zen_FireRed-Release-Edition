@@ -199,8 +199,9 @@
 #define STATUS2_UPROAR                (1 << 4 | 1 << 5 | 1 << 6)
 #define STATUS2_UPROAR_TURN(num)      ((num) << 4)
 #define STATUS2_EMERGENCY_EXIT         (1 << 7)	//use for emergency exit
-#define STATUS2_BIDE                  (1 << 8 | 1 << 9)
-#define STATUS2_BIDE_TURN(num)        (((num) << 8) & STATUS2_BIDE)
+#define STATUS2_BIDE                  (1 << 8) //w timer don't need take up 8 and 9
+#define STATUS2_FREE_SPOT
+//#define STATUS2_BIDE_TURN(num)        (((num) << 8) & STATUS2_BIDE)
 #define STATUS2_LOCK_CONFUSE          (1 << 10 | 1 << 11) // e.g. Thrash
 #define STATUS2_LOCK_CONFUSE_TURN(num)((num) << 10)
 #define STATUS2_MULTIPLETURNS         (1 << 12) //wrapped is wrap & bide  / separting just wrap, think plan put wrap into status4 so all traps together
@@ -248,6 +249,7 @@
 #define STATUS3_ROOTED                  (1 << 10) //if I understand correctly, change gives extra statur 3 space 12 would be unused
 #define STATUS3_YAWN                    (1 << 11) // Number of turns to sleep
 //#define STATUS3_YAWN_TURN(num)          (((num) << 11) & STATUS3_YAWN)//  changing set status yawn, then at end turn check for it, if there remove and put to sleep
+#define STATUS3_FREESPACE               (1 << 12)
 #define STATUS3_IMPRISONED_OTHERS       (1 << 13)
 #define STATUS3_GRUDGE                  (1 << 14)
 #define STATUS3_CANT_SCORE_A_CRIT       (1 << 15)
