@@ -3052,6 +3052,7 @@ void CalculateMonStats(struct Pokemon *mon)
 {
 
     u8 boxHP = GetMonData(mon, MON_DATA_BOX_HP, NULL);
+    u8 clearNuzlockeDeath = 1;
 
         
 
@@ -3108,14 +3109,17 @@ void CalculateMonStats(struct Pokemon *mon)
 
     //feel like this is all I need?
     if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
-    && currentHP == 0 && boxHP == 0) //for some reason prevents wild mon from having hp
-    {    
-        //currentHP = boxHP;
-        //SetMonData(mon, MON_DATA_HP, &boxHP);
-        return;
-    }
+    && GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+    {   
+        if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0) 
+            currentHP = 0;
+
+    }//seems this fixes nuzlocke mode pc issue and no wild mon issue either
     else
     {
+        if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+            SetMonData(mon, MON_DATA_BOX_HP, &clearNuzlockeDeath);
+
         if (ability == ABILITY_WONDER_GUARD)
         {
             if (currentHP != 0 || oldMaxHP == 0) //I guess this line is enough to make current hp 1?
@@ -3130,13 +3134,16 @@ void CalculateMonStats(struct Pokemon *mon)
             else if (currentHP != 0) //didn't need max hp > oldmax hp part from cfru, that made things less specific and broke transform
             {
                 // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
+                if (newMaxHP > oldMaxHP)
                 currentHP += newMaxHP - oldMaxHP;
                 #ifdef BUGFIX
                 if (currentHP <= 0)
                     currentHP = 1;
                 #endif
+                if (currentHP > newMaxHP)
+                currentHP = newMaxHP;
             }
-            else if (currentHP == 0 && boxHP == 0) //remove from pc fainted but not nuzlocke mode
+            else if (currentHP == 0 && newMaxHP == 0) //remove from pc fainted but not nuzlocke mode
                 currentHP = newMaxHP;
             else
                 return;
