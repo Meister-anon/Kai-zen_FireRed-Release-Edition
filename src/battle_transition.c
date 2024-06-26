@@ -1155,10 +1155,11 @@ static bool8 BT_Phase2ClockwiseBlackFade_Init(struct Task *task)
     return TRUE;
 }
 
+//applied ub fix
 static bool8 BT_Phase2ClockwiseBlackFade_Step1(struct Task *task)
 {
     sTransitionStructPtr->vblankDma = FALSE;
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->trEndPtX, -1, 1, 1);
+    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->trEndPtX, 0, 1, 1);
     do
     {
         gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = WIN_RANGE(0x78, sTransitionStructPtr->trCurrentPtX + 1);

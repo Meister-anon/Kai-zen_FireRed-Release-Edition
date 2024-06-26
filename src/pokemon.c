@@ -3874,17 +3874,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         */
     }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
 
-    if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
-        && CanMultiTask(gCurrentMove) == TRUE)
-    {
-        gBattleMovePower = (gBattleMovePower * 100) / gMultiTask;
-        gBattleMovePower = max(gBattleMovePower / 100, 2);
-        //seems to work
-       
-    }//go more in depth on learning Calculatedamage function above, see how it works with gbttlemovedamage  vsonic
-    //ok because of how gBattleMoveDamage, with divisor like this I need to do a certain amount of damage or it'll do a dmg error
-    //pretty much it'll do less dmg at more hits than at lower hits because the divisor lowers the dmg to 0
-    //fixing this is simple as just using gDynamicBasePower instead, which honestly is prob better because that's how multihit works anyway
+    
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect
     
@@ -4851,6 +4841,22 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //    damage /= 1; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
 
+    //could put multi task here
+    if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
+    && CanMultiTask(gCurrentMove) == TRUE)
+    {
+
+        damage = max(damage / gMultiTask, 1);
+        //not sure why I used the other but seemed overperform?
+        //with debugger able to test damage and see its overperforming still
+        //dmg done is not same as power without multihit
+        //and does more dmg w more hits when it shouldn't
+        //possibly not my fault but actualy a factor of how power goes into
+        //dmg function, in that case would be better to put this logic
+        //on the end damage itself below?
+       
+    }//this seems to work/is more balanced
+
         // moves always do at least 1 damage.
         if (damage == 0)
             damage = 1;
@@ -4980,7 +4986,22 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
         //    damage /= 1; //special verision double battle damage change
+    
+    if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
+    && CanMultiTask(gCurrentMove) == TRUE)
+    {
 
+        damage = max(damage / gMultiTask, 1);
+        //not sure why I used the other but seemed overperform?
+        //with debugger able to test damage and see its overperforming still
+        //dmg done is not same as power without multihit
+        //and does more dmg w more hits when it shouldn't
+        //possibly not my fault but actualy a factor of how power goes into
+        //dmg function, in that case would be better to put this logic
+        //on the end damage itself below?
+       
+    }//this seems to work/is more balanced
+    
         // moves always do at least 1 damage.
         if (damage == 0)
             damage = 1;

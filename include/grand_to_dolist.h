@@ -2355,7 +2355,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     fixed wimpout and emergency exit rework,
     now working correctly in all scenarios
 
-    fix give tm all, updatae tm case scroll logic,
+    identified issue w nuzlocke mode w pc,
+    it occurs when scrolling between mon in the pc,
+    from alive to dead,
+    it for some reason clears it
+    but only on view it doesn't change actual values?
+    as reselecting after closing sum screen still shows them as fainted
+    -fixed
+
+    rebalanced multi-task fixed missed move exclusion removals as well.
+    now much more in-line with normal dmg.
+
+    fix give tm all, updatae tm case scroll logic, - done
     and begin tweak debug stuff for my changes
 
     don't believe properly setup embargo/bandit king
