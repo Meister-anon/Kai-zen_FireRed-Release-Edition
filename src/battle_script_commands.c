@@ -10950,6 +10950,8 @@ u32 IsLeafGuardProtected(u32 battler)
         return 0;
 }
 
+//uses battlemons over getbattlerability
+//because ability is immune to removal
 bool32 IsShieldsDownProtected(u32 battler)
 {
     return (gBattleMons[battler].ability == ABILITY_SHIELDS_DOWN

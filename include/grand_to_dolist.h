@@ -2375,15 +2375,76 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     early bird breaks self buffing status moves that activate same turn wake up
     and seems cupids arrow is also broken, trigers move use and
-    freezes game
+    freezes game - fixed
 
-    also seems logic to work no matter gender of enemy mon
+    also seems logic to work no matter gender of enemy mon for cupids arrow
     isn't working   
+    -fixed
+
+    talked w ppl in pret realized not able to fly between region maps
+    i.e main map and seviis etc.
+
+    with that in mind, create new fly input for swapping maps.
+    the fly menu has a weird icon you can click on that functions as a cancel
+    which is dumb since you can just press B.
+
+    //alread instead of that make clicking the tab icon
+    bring up a window for selecting other region maps
+
+    //creates window over laying map and putting a grey out over
+    the background map, and in orange letters create list for selecting which
+    map to load on a press close box and fade out fade in to load
+    that map instead of the other one.
+
+    fly map already has grey out box for when hovering fly location
+    use that to cover the entire map for grey out
+
+    for pokedex from summ screen check pokemon_stoage_system_5 I think
+    where it uses cb2 summary screen call back, 
+    believe setting up callback function will be what I need
+
+    -benefit being more intimdate knowledge of your team/party
+    plus a quick and easy way to check evo methods
+    simple things is make it nto scroll
+    but if good can potentially do like storage/summary setup
+    where scrolling in one will update the place of the other on return
+    hmm but not sure if can create a list on the fly like that.
+
+    probably can't, since even the alt lists or search dexs
+    aren't actually made on the fly, but instead pulled from
+    existing arrays or maybe not, emerald seems able to 
+    populate a list based on conditions with a loop
+
+    in fr searh dex is different built form static arrays
+    in emerald its created from conditions
+
+    I may not need to make an entirely separte function for the dex stuff
+    if instead I do with callback, may be able to overright base logic
+    w a check for saved callback, i.e if savecallback equals summ screen
+    when press b, go to that instead of normal logic
+     beliee can use Task_DexScreen_ShowMonPage  but mayuu 
+     need intermediary function to set currentmon to dex species
+     when both are static
+
+    ...kinda dumb but realized the entire debung menu is essentially a callback i.e what I need
+    all I have to do is emulate that.
+    will also help for setting up pc access from overworld
+    as it already has a menu option for that
     
 
     need update icon graphics as well, EE has newer things for gen 8+ stuff and forms
 
     fixed early bird , cupid's arrow seem work now
+
+        //...dangit I want Beedet Beecadet SO BAD!!
+    //baby form chubby Bee from It takes two,
+    //in an aviator jacket adn oversized helmet
+    //evolve slim sleecker with a plane
+    //front sprite standing in front of the plane
+    //back pic in the cockpit
+    //Beecadet will be name of first form, 
+    //evolve from can be FlyBee spin of Flyboy
+    //actually on Change that to BuzzBoy  much better!
 
     pickpocket magician buffs, good for in game but not competitive
     since fails if hnolding item and always holding item.
@@ -2426,6 +2487,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //but guaranteed ...actually don't need to do that, if lastusedmove
     by mon is same just make it fail, nah use lastlandedmvoe or lastsuccessfulmove something
 
+   someting wrong with playanimation command  attempt use
+   for infatuatnio animation, put up substitute animtion instead.
+   but chosenstatusanimation command worked perfectly
+
     -rework samurott base sprite
     have image in Xshare folder
 
@@ -2434,12 +2499,26 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     despite only having two the game treated it as if it had max moves
     ok seems it was an issue caused by the debug stuff
     the quick move learn from boxmon?
+    
 
     added the fix for it, and it seems to work corectly
 
     fixed aftermath fixed cupids arrow, 
     next thing setup pokedex info page view from
     summary screen, then graphic info page setup
+
+    testing sturdy buffs those not working
+    sturdy destiny bond takes no hp off me
+    and plays the opponenets ability name instead of mine
+
+    ok destiny bond isn'tbroken in debugger
+    I just didn't understand how it works,
+    it doesn't work off end turn but next action
+    if they're killed before they make another action it faints the target
+    works fine for in battle, but doesn't work for debugger
+    where the effect isn't set in teh same turn
+    so as soon as the battler attacks the effect is removed
+    -fixed
 
 
 

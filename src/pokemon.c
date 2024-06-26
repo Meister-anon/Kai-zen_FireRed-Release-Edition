@@ -4097,12 +4097,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
 
     //Special case - Partner in a pinch -need test
+    //decideed to change to just electric not counterpart ability to make it better/more accessible
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
-        if (type == TYPE_ELECTRIC && attacker->ability == ABILITY_PLUS && GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_MINUS)
+        if (attacker->ability == ABILITY_PLUS && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
-        if (type == TYPE_ELECTRIC && attacker->ability == ABILITY_MINUS && GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_PLUS)
+        else if (attacker->ability == ABILITY_MINUS && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
 

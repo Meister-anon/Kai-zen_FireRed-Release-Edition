@@ -2539,14 +2539,18 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDoduoLevelUpLearnset,
         .tmhmLearnset = sDoduoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//hmm realized I should make this straight normal since I'm trying to consolidate this
+    //concept so flying isn't just bird type, but that kinda ruins doduo as a starter?
+    //and it messes up the cool work I did for making grounded flying
+    //neutral for electric etc.
+
 
     [SPECIES_DODRIO] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 70, 110, 60, 60),
         .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        .type2 = TYPE_FLYING,   //gave back flying type, a bit bigger of a change thean I want to make
         .catchRate = 45,
         .expYield = 165,
         //.evYield_Attack = 2,
@@ -7724,7 +7728,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_CHLOROPHYLL, ABILITY_INFILTRATOR},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_NONE},
+            .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_AERILATE},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -7734,6 +7738,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give knock off grassy glide
     //and some flying moves apparently it can whip up wind storms
+    //also gave aerilate - vsonic
 
     [SPECIES_TAILLOW] =
     { 
@@ -8817,7 +8822,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_OBLIVIOUS, ABILITY_TINTED_LENS},
-            .abilityHidden = {ABILITY_PRANKSTER, ABILITY_NONE},
+            .abilityHidden = {ABILITY_PRANKSTER, ABILITY_HONEY_GATHER}, //added for sweet scent
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -17307,7 +17312,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_MOTOR_DRIVE, ABILITY_MINUS},
-        .abilityHidden = {ABILITY_CLEAR_BODY, ABILITY_MOLD_BREAKER},
+        .abilityHidden = {ABILITY_FULL_METAL_BODY, ABILITY_MOLD_BREAKER},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17339,7 +17344,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_MOTOR_DRIVE, ABILITY_MINUS},
-        .abilityHidden = {ABILITY_CLEAR_BODY, ABILITY_MOLD_BREAKER},
+        .abilityHidden = {ABILITY_FULL_METAL_BODY, ABILITY_MOLD_BREAKER},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -17371,7 +17376,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_MOTOR_DRIVE, ABILITY_MINUS},
-        .abilityHidden = {ABILITY_CLEAR_BODY, ABILITY_MOLD_BREAKER},
+        .abilityHidden = {ABILITY_FULL_METAL_BODY, ABILITY_MOLD_BREAKER},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20751,7 +20756,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDedenneLevelUpLearnset,
         .tmhmLearnset = sDedenneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//potentially give recycle to go w pickup/cheek pouch? vsonic
 
     [SPECIES_CARBINK] =
     { 
@@ -24392,7 +24397,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_MAGNET_PULL, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_FULL_METAL_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -24426,7 +24431,7 @@ const struct BaseStats gBaseStats[] =
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_IRON_FIST, ABILITY_NONE},
        // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_FULL_METAL_BODY, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
