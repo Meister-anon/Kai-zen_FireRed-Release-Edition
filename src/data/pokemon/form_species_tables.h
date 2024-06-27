@@ -173,8 +173,8 @@ static const u16 sSlowpokeFormSpeciesIdTable[] = {
 
 static const u16 sSlowbroFormSpeciesIdTable[] = {
     SPECIES_SLOWBRO,
-    SPECIES_SLOWBRO_MEGA,
     SPECIES_SLOWBRO_GALARIAN,
+    SPECIES_SLOWBRO_MEGA,
     FORM_SPECIES_END,
 };
 

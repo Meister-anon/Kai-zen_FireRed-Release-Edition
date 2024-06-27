@@ -64,7 +64,7 @@ struct EvoScreenData
 {
     //bool8 fromEvoPage;
     u8 numAllEvolutions;
-    u16 targetSpecies[10]; //think will need increase this, since boosted pre evo setting and have 10 values for target species
+    u16 targetSpecies[20]; //think will need increase this, since boosted pre evo setting and have 10 values for target species
     //u8 numSeen;
     //bool8 seen[10]; //not using this at all so can save some space by removing
     u8 menuPos;  //unfortunately removing above didn't save space
@@ -231,7 +231,7 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
 static void Task_SwitchScreensFromEvolutionScreen(void);
 static void Task_ExitEvolutionScreen(u8 taskId);
 static void PrintInfoScreenTextSmall(const u8* str, u8 left, u8 top);
-static void FreeInfoScreenWindowAndBgBuffers(void);
+static void FreeInfoScreenWindowAndBgBuffers(void); //not used
 
 static void ShowOrHideDexBallIconObj(u8 invisible); //takenfrom  summ screen for thsi
 static void DestroyDexBallIconObj(void); //taken from summ screen for this
@@ -303,6 +303,8 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex); //m
 //Stat bars by DizzyEgg
 #define TAG_STAT_BAR 4097
 #define TAG_STAT_BAR_BG 4098
+
+#define MAX_ICONS 9 //rn 9 is used for  alreadyPrintedIcons changing number doesn't affect vaporeon not showing up
 static const struct OamData sOamData_StatBar =
 {
     .y = 160,
@@ -4535,7 +4537,7 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
 {
     u32 i;
     u8 taskId = 0;
-    u32 alreadyPrintedIcons[9] = {0};
+    u32 alreadyPrintedIcons[MAX_ICONS] = {0};
     //u32 preservedPalettes; //not doing anything rn?
     u32 iconOffset;
 
@@ -4594,12 +4596,7 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
    // DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gSpeciesNames[sPokedexScreenData->dexSpecies], 28, 1, 0);
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 1, 0);
     
-    /*DexScreen_PrintMonCategory(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 16);
-    DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 28);
-    DexScreen_PrintMonWeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 40);
-    DexScreen_PrintMonStatPage(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 75, 28);
-    DexScreen_DrawMonFootprint(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 88, 32);
-    */
+
     PutWindowTilemap(sPokedexScreenData->windowIds[1]);
     CopyWindowToVram(sPokedexScreenData->windowIds[1], COPYWIN_GFX);
 
@@ -4625,18 +4622,10 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
 
     //Print evo info and icons
         iconOffset = sPokedexScreenData->numPreEvolutions;
-        gTasks[taskId].data[3] = 0;
+        gTasks[taskId].data[3] = 0;  //prevents freeze
         PrintEvolutionTargetSpeciesAndMethod(taskId, sPokedexScreenData->dexSpecies, 0, sPokedexScreenData->numPreEvolutions, alreadyPrintedIcons, &iconOffset);
         LoadSpritePalette(&gSpritePalette_Arrow);
-        GetSeenFlagTargetSpecies();
-
-        /*preservedPalettes = 0;
-
-        if (gTasks[taskId].data[2] != 0)
-            preservedPalettes = 0x14; // each bit represents a palette index
-        if (gTasks[taskId].data[1] != 0)
-            preservedPalettes |= (1 << (gSprites[gTasks[taskId].data[4]].oam.paletteNum + 16));*/
-    
+ 
     // Control info - cancel/next buttons
     FillWindowPixelBuffer(1, PIXEL_FILL(15)); //was 255  /is same thing calcs to 15 bitwise or 15 left shft 4
     if (justRegistered == FALSE)
@@ -4650,8 +4639,6 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
     else
         // Just registered
         DexScreen_PrintControlInfo(gText_Next);
-    PutWindowTilemap(1);
-    CopyWindowToVram(1, COPYWIN_GFX);
 
     return 1;
 }
@@ -7040,7 +7027,7 @@ static void Task_LoadEvolutionScreen(u8 taskId)
     //Print evo info and icons
     {
        
-        u32 alreadyPrintedIcons[9] = {0};
+        u32 alreadyPrintedIcons[MAX_ICONS] = {0};
         u32 iconOffset = sPokedexScreenData->numPreEvolutions;
         gTasks[taskId].data[3] = 0;
         PrintEvolutionTargetSpeciesAndMethod(taskId, sPokedexScreenData->dexSpecies, 0, sPokedexScreenData->numPreEvolutions, alreadyPrintedIcons, &iconOffset);
@@ -7410,7 +7397,7 @@ static u8 AssignPreEvoData(u16 *speciesArrayOne, u16 *speciesArrayTwo, u16 speci
         if (speciesArrayTwo[0] != SPECIES_NONE)
         {
             sPokedexScreenData->sEvoScreenData.targetSpecies[numPrePreEvolves] = speciesArrayTwo[0];
-            numPrePreEvolves += 1;
+            numPrePreEvolves++;
             CreateCaughtBallEvolutionScreen(speciesArrayTwo[0], base_x - 9, base_y + base_y_offset*(numPrePreEvolves - 1), 0);
             HandlePreEvolutionSpeciesPrint(taskId, speciesArrayTwo[0], speciesArrayOne[0], base_x, base_y, base_y_offset, numPrePreEvolves - 1);
         } //since prepreevos branch will have to separate those out
@@ -7418,7 +7405,7 @@ static u8 AssignPreEvoData(u16 *speciesArrayOne, u16 *speciesArrayTwo, u16 speci
         if (speciesArrayTwo[1] != SPECIES_NONE)
         {
             sPokedexScreenData->sEvoScreenData.targetSpecies[numPrePreEvolves] = speciesArrayTwo[1];
-            numPrePreEvolves += 1;
+            numPrePreEvolves++;
             CreateCaughtBallEvolutionScreen(speciesArrayTwo[1], base_x - 9, base_y + base_y_offset*(numPrePreEvolves - 1), 0);
             HandlePreEvolutionSpeciesPrint(taskId, speciesArrayTwo[1], speciesArrayOne[1], base_x, base_y, base_y_offset, numPrePreEvolves - 1);
         } 
@@ -7426,7 +7413,7 @@ static u8 AssignPreEvoData(u16 *speciesArrayOne, u16 *speciesArrayTwo, u16 speci
         if (speciesArrayTwo[2] != SPECIES_NONE) 
         {
             sPokedexScreenData->sEvoScreenData.targetSpecies[numPrePreEvolves] = speciesArrayTwo[2];
-            numPrePreEvolves += 1;
+            numPrePreEvolves++;
             CreateCaughtBallEvolutionScreen(speciesArrayTwo[2], base_x - 9, base_y + base_y_offset*(numPrePreEvolves - 1), 0);
             HandlePreEvolutionSpeciesPrint(taskId, speciesArrayTwo[2], speciesArrayOne[2], base_x, base_y, base_y_offset, numPrePreEvolves - 1);
         } 
@@ -7435,7 +7422,7 @@ static u8 AssignPreEvoData(u16 *speciesArrayOne, u16 *speciesArrayTwo, u16 speci
         {
             if (speciesArrayOne[i] != SPECIES_NONE) 
             {
-                numPreEvolutions += 1;
+                numPreEvolutions++;
                 sPokedexScreenData->sEvoScreenData.targetSpecies[numPrePreEvolves + (numPreEvolutions - 1)] = speciesArrayOne[i];
                 CreateCaughtBallEvolutionScreen(speciesArrayOne[i], base_x - 9, base_y + base_y_offset*(numPrePreEvolves + (numPreEvolutions - 1)), 0);
                 HandlePreEvolutionSpeciesPrint(taskId, speciesArrayOne[i], species, base_x, base_y, base_y_offset, numPrePreEvolves + (numPreEvolutions - 1));
@@ -7448,7 +7435,7 @@ static u8 AssignPreEvoData(u16 *speciesArrayOne, u16 *speciesArrayTwo, u16 speci
         {
             if (speciesArrayOne[i] != SPECIES_NONE) 
             {
-                numPreEvolutions += 1;
+                numPreEvolutions++;
                 sPokedexScreenData->sEvoScreenData.targetSpecies[numPreEvolutions - 1] = speciesArrayOne[i];
                 CreateCaughtBallEvolutionScreen(speciesArrayOne[i], base_x - 9, base_y + base_y_offset*(numPreEvolutions - 1), 0);
                 HandlePreEvolutionSpeciesPrint(taskId, speciesArrayOne[i], species, base_x, base_y, base_y_offset, numPreEvolutions - 1);
@@ -7511,7 +7498,7 @@ static u8 PrintPreEvolutions(u8 taskId, u16 species)
             if (evolutions[j].targetSpecies == species)
             {
                 preEvolutionOne[numPreEvolutions] = i; //keep here for building species array
-                numPreEvolutions += 1; //fixed issue moved here to fit all pre evos without replacement //will not matter
+                numPreEvolutions++; //fixed issue moved here to fit all pre evos without replacement //will not matter
                 
                 #ifdef POKEMON_EXPANSION
                     if (evolutions[j].method == EVO_MEGA_EVOLUTION)
@@ -7558,7 +7545,7 @@ static u8 PrintPreEvolutions(u8 taskId, u16 species)
                     if (!(setslot0)) //to ensure doesn't repeat, ok that fixed it
                     {
                     preEvolutionTwo[0] = i;
-                    numPrePreEvolves += 1;
+                    numPrePreEvolves++;
                     setslot0 = TRUE;
                     }
                     break;
@@ -7569,7 +7556,7 @@ static u8 PrintPreEvolutions(u8 taskId, u16 species)
                     if (!(setslot1))
                     {
                     preEvolutionTwo[1] = i;
-                    numPrePreEvolves += 1;
+                    numPrePreEvolves++;
                     setslot1 = TRUE;
                     }
                     break;
@@ -7580,7 +7567,7 @@ static u8 PrintPreEvolutions(u8 taskId, u16 species)
                     if (!(setslot2))
                     {
                     preEvolutionTwo[2] = i;
-                    numPrePreEvolves += 1;
+                    numPrePreEvolves++;
                     setslot2 = TRUE;
                     }
                     break;
@@ -7688,8 +7675,8 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
         {
             if (evolutions[i].method != EVOLUTIONS_END)
             {
-                if (evolutions[0].method != 0)
-                times += 1;
+                if (evolutions[0].method != 0) //think this is just extra protection
+                times++;
                 
             }
         }
@@ -7723,7 +7710,7 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
             HandleTargetSpeciesPrintText(currentTargetSpecies, base_x + depth_x*depth, base_y, base_y_offset, base_i);
         }
 
-        for (j = 0; j < 9; j++)
+        for (j = 0; j < MAX_ICONS; j++)
         {
             if (alreadyPrintedIcons[j] == targetSpecies)
                 break;
@@ -7735,6 +7722,7 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 break;
             }
         }
+        
         switch (evolutions[i].method)
         {
         case EVO_FRIENDSHIP:
@@ -8010,6 +7998,7 @@ static void PrintInfoScreenTextSmall(const u8* str, u8 left, u8 top)
     AddTextPrinterParameterized4(sPokedexScreenData->windowIds[2], 0, left, top, 0, 0, color, 0, str);
 }//plan print into dex entry window so not using window 0
 
+//not used?
 static void FreeInfoScreenWindowAndBgBuffers(void)
 {
     void *tilemapBuffer;
