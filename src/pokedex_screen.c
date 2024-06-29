@@ -2597,8 +2597,8 @@ static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId) //called from abo
     sPokedexScreenData->state = 5; 
         break;
     case 5:
-
-        DexScreen_CreateCategoryListGfx(TRUE);
+        DexScreen_DestroyAreaScreenResources(); //for some reason need this up here for 
+        DexScreen_CreateCategoryListGfx(TRUE);//full window to load without cutt off stat bars
         DexScreen_DrawMonDexPage(FALSE); 
         sPokedexScreenData->currentPage = DEX_REGISTER_PAGE;
         sPokedexScreenData->state = 6;
@@ -2631,12 +2631,155 @@ static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId) //called from abo
         }
         break;
     case 8://replace w full input
-        if (JOY_NEW(A_BUTTON | B_BUTTON))  //this part is similar to EE where the navigation is at the very end
-            sPokedexScreenData->state = 2;
+        sPokedexScreenData->state++;
         break;
-    }//think want add a left right, input function specifically for register dex
+    case 9:
+        if (JOY_NEW(A_BUTTON))
+        {
+            RemoveDexPageWindows();
+            sPokedexScreenData->currentPage = DEX_EVO_FROM_LIST;
+            sPokedexScreenData->state = 14; //going to evo page
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            sPokedexScreenData->state = 2;
+        }
+        else if (JOY_NEW(DPAD_LEFT) && DexScreen_TryDisplayForms(1)) //use of this function means if able to scroll in that direction
+        {
+            RemoveDexPageWindows();
+            BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
+            sPokedexScreenData->state = 10;
+        }
+        else if (JOY_NEW(DPAD_RIGHT) && DexScreen_TryDisplayForms(0)) //vsonic attempt use add scrolling between category dex entires
+        {
+            RemoveDexPageWindows();
+            BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
+            sPokedexScreenData->state = 10;
+        } //fill in when fix //looks like all Ineed to do is change dexSPecis
+        else //else here just means pressing start?
+        {
+            DexScreen_InputHandler_StartToCry();
+        }
+        break;
+    case 10:
+        HideBg(2); //will need set dexSpecies reassignment in new function, that loops form id table
+        HideBg(1); //if dexspecies is entry 0, before reassignment, don't make left arrow,  if next entry is 0xffff don't make right arrow
+        // foud this can use GET_BASE_SPECIES_ID(speciesId) can use to check if put left arrow
+        sPokedexScreenData->state++;
+        break;
+    case 11:
+    sPokedexScreenData->numMonsOnPage = 1;
+        DexScreen_DrawMonDexPage(FALSE); //draws the mon info page, false is for saying its not a mon just adding to dex from catch
+        sPokedexScreenData->state++;
+        break; 
+    case 12:
+        CopyBgTilemapBufferToVram(3);
+        CopyBgTilemapBufferToVram(2);
+        CopyBgTilemapBufferToVram(1);
+        CopyBgTilemapBufferToVram(0);
+        PlayCry_NormalNoDucking(sPokedexScreenData->dexSpecies, 0, CRY_VOLUME_RS, CRY_PRIORITY_NORMAL); //play cry as page loads
+        sPokedexScreenData->state++;
+        break;
+    case 13:
+        BeginNormalPaletteFade(~0x8000, 0, 16, 0, RGB_WHITEALPHA); //fade in finish displaying page
+        ShowBg(3);
+        ShowBg(2);
+        ShowBg(1);
+        sPokedexScreenData->state = 9;
+        break;//end of form loop
+    case 14: //evo page exper
+        DexScreen_DrawMonEvoPage(FALSE);
+        sPokedexScreenData->state = 15; 
+        break; 
+    case 15://evo navi
+    {
+        UpdateStatBars(sPokedexScreenData->dexSpecies); //now creates bars nto just update
+        if (JOY_NEW(A_BUTTON))//evo navigation page make down dpad craete arrow// then go to new navigation case so A B do different things
+        {
+            sPokedexScreenData->state = 2;
+            /*Task_SwitchScreensFromEvolutionScreen();
+            RemoveDexPageWindows();
+            FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 2, 30, 16);
+            FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 4, 30, 14);
+            CopyBgTilemapBufferToVram(1);
+            sPokedexScreenData->state++;//go to area*/
+        }
+        else if (JOY_NEW(B_BUTTON))//and down and up move through evolutions
+        {
+            Task_SwitchScreensFromEvolutionScreen(); //might be fix I need. was going to draw evo without doign the clear
+            RemoveDexPageWindows();
+            sPokedexScreenData->state = 21; //this seems to be working //why am I going to 10?
+        }//back to info
+    }
+    break;//think want add a left right, input function specifically for register dex
     //would be to check evo paths bst and stat distribution but since its still for register dex keep it bare bones
     //so no checking and navigating to evo entries
+    case 16: //draw area page -area didn't load right skipping 
+        sPokedexScreenData->currentPage = DEX_AREA_FROM_LIST;
+        DexScreen_DrawMonAreaPage();
+        sPokedexScreenData->state++;
+        break;
+    case 17:
+        CopyBgTilemapBufferToVram(3);
+        CopyBgTilemapBufferToVram(2);
+        CopyBgTilemapBufferToVram(1);
+        CopyBgTilemapBufferToVram(0);
+        sPokedexScreenData->state++;
+        break;
+    case 18:     //area page naviagation //nother stand in for process input function
+        if (JOY_NEW(A_BUTTON)) //close
+        {
+            //BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
+            sPokedexScreenData->state = 2;
+        }
+        else if (JOY_NEW(B_BUTTON))//return to evo page
+        {
+            
+            sPokedexScreenData->state++; //changed here was 10 - made universal clear
+        }
+        else
+        {
+            DexScreen_InputHandler_StartToCry();
+        }
+        break;
+    case 19: //clear area page go to evo, //copy of 1o for area to avoidp break flow
+
+            FillBgTilemapBufferRect_Palette0(2, 0x000, 0, 2, 30, 16);
+            FillBgTilemapBufferRect_Palette0(1, 0x000, 0, 2, 30, 16);
+            FillBgTilemapBufferRect_Palette0(0, 0x000, 0, 2, 30, 16);
+            CopyBgTilemapBufferToVram(2);
+            CopyBgTilemapBufferToVram(1);
+            CopyBgTilemapBufferToVram(0);
+
+        DexScreen_DestroyAreaScreenResources();
+        RemoveDexPageWindows();
+        sPokedexScreenData->currentPage = DEX_EVO_FROM_LIST;
+        sPokedexScreenData->state++;
+        break;
+    case 20:
+        DexScreen_DrawMonEvoPage(FALSE); //ok looks like its workin
+        CopyBgTilemapBufferToVram(3);
+        CopyBgTilemapBufferToVram(2);
+        CopyBgTilemapBufferToVram(1);
+        CopyBgTilemapBufferToVram(0);
+        sPokedexScreenData->state++;
+        break;//end area page naviation
+    case 21: //evo navigate to info
+        DexScreen_DestroyAreaScreenResources();
+        sPokedexScreenData->state++;
+        break;
+    case 22:
+        sPokedexScreenData->currentPage = DEX_INFO_FROM_LIST;
+        DexScreen_DrawMonDexPage(FALSE); //same as other, Press B return from area page
+        CopyBgTilemapBufferToVram(3);
+        CopyBgTilemapBufferToVram(2);
+        CopyBgTilemapBufferToVram(1);
+        CopyBgTilemapBufferToVram(0);
+        //sPokedexScreenData->state = 14;
+        sPokedexScreenData->state = 9;
+        break;
+    }
+    
 }
 
 //so learned a lot from going over options menu/
