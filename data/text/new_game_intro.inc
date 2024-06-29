@@ -163,6 +163,15 @@ gNewGame_HelpDocs7:: @ 81C5981
     .string "game, or on how to do things,\n"
     .string "press the L or R Button.$"
 
+gNewGame_HelpDocs8:: @ 81C582D
+    .string "Recommended Buttons:\n"
+    .string "{START_BUTTON}  Z\n"
+    .string "{SELECT_BUTTON}  Ctrl\n"
+    .string "{A_BUTTON}   SPACE\n"
+    .string "{B_BUTTON}   C\n"
+    .string "{L_BUTTON}  SHIFT$"
+
+
 gOakText_AskPlayerGender:: @ 81C59D5
     .string "Now tell me. Are you a boy?\n"
     .string "Or are you a girl?$"

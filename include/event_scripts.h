@@ -757,6 +757,7 @@ extern const u8 gNewGame_HelpDocs4[];
 extern const u8 gNewGame_HelpDocs5[];
 extern const u8 gNewGame_HelpDocs6[];
 extern const u8 gNewGame_HelpDocs7[];
+extern const u8 gNewGame_HelpDocs8[]; //recomended button settings
 extern const u8 gOakText_AskPlayerGender[];
 extern const u8 gNewGameAdventureIntro1[];
 extern const u8 gNewGameAdventureIntro2[];

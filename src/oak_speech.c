@@ -25,7 +25,7 @@ struct OakSpeechResources
     u8 filler_000C[4];
     u16 unk_0010;
     u16 unk_0012;
-    u16 unk_0014[4];
+    u16 unk_0014[5];
     u8 textColor[3];
     u8 textSpeed;
     u8 filler_0020[0x1800];
@@ -222,10 +222,23 @@ static const struct WindowTemplate sHelpDocsWindowTemplates3[] = {
     }, DUMMY_WIN_TEMPLATE
 };
 
-static const struct WindowTemplate *const sHelpDocsWindowTemplatePtrs[3] = {
+static const struct WindowTemplate sHelpDocsWindowTemplates4[] = {
+    {
+        .bg = 0x00,
+        .tilemapLeft = 0x00,
+        .tilemapTop = 0x03,
+        .width = 0x1e,
+        .height = 0xf,
+        .paletteNum = 0x0f,
+        .baseBlock = 0x0001
+    }, DUMMY_WIN_TEMPLATE
+};
+
+static const struct WindowTemplate *const sHelpDocsWindowTemplatePtrs[4] = {
     sHelpDocsWindowTemplates1,
     sHelpDocsWindowTemplates2,
-    sHelpDocsWindowTemplates3
+    sHelpDocsWindowTemplates3,
+    sHelpDocsWindowTemplates4
 };
 
 static const struct WindowTemplate sNewGameAdventureIntroWindowTemplates[] = {
@@ -394,7 +407,8 @@ static const struct SpriteTemplate sOakSpeech_PikaSpriteTemplates[3] = {
 
 static const u8 *const sHelpDocsPtrs[] = {
     gNewGame_HelpDocs2, gNewGame_HelpDocs3, gNewGame_HelpDocs4,
-    gNewGame_HelpDocs5, gNewGame_HelpDocs6, gNewGame_HelpDocs7
+    gNewGame_HelpDocs5, gNewGame_HelpDocs6, gNewGame_HelpDocs7,
+    gNewGame_HelpDocs8
 };
 
 static const u8 *const sMaleNameChoices[] = {
@@ -627,7 +641,7 @@ static void Task_OakSpeech4(u8 taskId)
     else
     {
         TopBarWindowPrintString(gText_ABUTTONNext_BBUTTONBack, 0, 1);
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < 4; i++)
         {
             sOakSpeechResources->unk_0014[i] = AddWindow(&sHelpDocsWindowTemplatePtrs[sOakSpeechResources->unk_0012][i]);
             PutWindowTilemap(sOakSpeechResources->unk_0014[i]);
@@ -640,9 +654,13 @@ static void Task_OakSpeech4(u8 taskId)
         {
             CopyToBgTilemapBufferRect(1, sHelpDocsPage2Tilemap, 1, 3, 5, 16);
         }
-        else
+        else if (sOakSpeechResources->unk_0012 == 2)
         {
             CopyToBgTilemapBufferRect(1, sHelpDocsPage3Tilemap, 1, 3, 5, 16);
+        }
+        else
+        {
+            FillBgTilemapBufferRect_Palette0(1, 0x3000, 1, 3, 5, 16);
         }
         CopyBgTilemapBufferToVram(1);
     }
@@ -657,7 +675,7 @@ static void Task_OaksSpeech2(u8 taskId)
         if (JOY_NEW(A_BUTTON))
         {
             gTasks[taskId].data[15] = 1;
-            if (sOakSpeechResources->unk_0012 < 2)
+            if (sOakSpeechResources->unk_0012 < 3)
             {
                 BeginNormalPaletteFade(0xFFFFDFFF, -1, 0, 16, GetTextWindowPalette(2)[15]);
             }
@@ -692,11 +710,12 @@ static void Task_OakSpeech3(u8 taskId)
             break;
         case 1:
         case 2:
-            r8 = 3;
+        case 3:
+            r8 = 4;
             break;
         }
         sOakSpeechResources->unk_0012 += gTasks[taskId].data[15];
-        if (sOakSpeechResources->unk_0012 < 3)
+        if (sOakSpeechResources->unk_0012 < 4)
         {
             for (i = 0; i < r8; i++)
             {
@@ -722,7 +741,7 @@ static void Task_OakSpeech5(u8 taskId)
 
     if (!gPaletteFade.active)
     {
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < 4; i++)
         {
             FillWindowPixelBuffer(sOakSpeechResources->unk_0014[i], 0x00);
             ClearWindowTilemap(sOakSpeechResources->unk_0014[i]);
@@ -806,7 +825,7 @@ static void Task_OakSpeech7(u8 taskId)
                 break;
             }
             PlaySE(SE_SELECT);
-            if (sOakSpeechResources->unk_0012 == 3)
+            if (sOakSpeechResources->unk_0012 == 4) //limit of help system pages
             {
                 gMain.state = 4;
             }
