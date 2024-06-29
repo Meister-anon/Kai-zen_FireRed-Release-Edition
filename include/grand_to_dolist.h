@@ -2430,7 +2430,71 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     all I have to do is emulate that.
     will also help for setting up pc access from overworld
     as it already has a menu option for that
+
+    -took closer look seems other than battle debug
+    seems they all just use existing callbacks to move between things
+    rathe than anything custom, and all plans I have require
+    things a bit more specific
+
+    passing species not working 
+    look at how pokemon storge does it
+*/
+goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
+goto ADD_MOVE_CAT_ICONS //for move split etc.
+/*
+    for dex evo list page
+    potentially identified issue w eevee page
+    vaporeon doesn't shhow correctly icon wise
+    but I think its getting replaced?
+
+    from checking the evo methods
+    I see that sylveon isn't getting on the list,
+    and that a blank value is there,
+    something unbound?
+    also for some reason unfezant F is on the list intead of sylveon
+    -finally fixed
+    issue was I forgot to incrase field for evo screen target species
+
+    exp candies kinda worthless unless you're trying to edge leveling
+    when rare candies exist, so think will change exp candies based on that premise
+    to make them easier to use.
+
+    make them do the greater of percentage needed to level and fixed amount.
+    exp .s  10% > 50 exp
+    exp .m  30% > 200 exp
+    exp .L  50% > 1000 exp
+    exp .XL  70% > 7000 exp
+
+    percentage done using to next level field
+    (percent value x next level) / 100
+
+    then can put the gain amount in item description
+    so players now what and how much to use to get what they want
     
+    move icons
+    split
+    unique category - punch kick headbutt etc.
+    unique property - hit in air, double dmg in air, hit underwater, hit underground
+
+    property is the only one that can overlap
+    the others are exclusive
+    //make new icons and use in summ screen
+    make battle summ screen callback
+
+    and summ pokedex screen callback
+
+    punch move icon is box glove
+    kick move icon is foot
+    headbutt icon is helmet
+
+    think hit in air just have generic bird icon
+    one used for body type
+
+    potentially replace phys icon w mon flexing 
+    and special icon with abra w wavey psy patterns around it
+
+    nah icon too small for that amount of detail
+
 
     need update icon graphics as well, EE has newer things for gen 8+ stuff and forms
 

@@ -2043,6 +2043,7 @@ static void Cb_OnBPressed(u8 taskId)    //pressing B, while inside box.
     }
 }
 
+#define Storage_SystemCallbacks
 static void Cb_ChangeScreen(u8 taskId)
 {
     struct Pokemon * partyMon;
