@@ -3379,6 +3379,15 @@ static void CB2_ShowPokemonSummaryScreen(void)
     ShowPokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuFromSummaryScreen, 0);
 }
 
+void CB2_ShowPokemonSummaryScreen2(void)
+{
+    if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
+        UpdatePartyToBattleOrder();
+    
+    gPartyMenu.slotId = GetLastViewedMonIndex();
+    ShowPokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuFromSummaryScreen, 0);
+}
+
 static void CB2_ReturnToPartyMenuFromSummaryScreen(void)
 {
     gPaletteFade.bufferTransferDisabled = TRUE;
@@ -5981,6 +5990,13 @@ static void TryTutorSelectedMon(u8 taskId)
 void CB2_PartyMenuFromStartMenu(void)
 {
     InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToFieldWithOpenMenu);
+}
+
+//made for dex call back 
+//to specifically return to id started from
+void CB2_PartyMenuFromStartMenu2(void)
+{
+    InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, TRUE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToFieldWithOpenMenu);
 }
 
 // Giving an item by selecting Give from the bag menu

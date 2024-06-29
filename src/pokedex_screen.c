@@ -22,6 +22,8 @@
 #include "constants/songs.h"
 #include "constants/sound.h"
 #include "pokedex_area_markers.h"
+#include "pokemon_summary_screen.h"
+#include "party_menu.h"
 #include "region_map.h"
 #include "field_specials.h"
 #include "rtc.h"
@@ -297,6 +299,8 @@ static s32 DexScreen_ProcessInput(u8 listTaskId); //replace list menu input so c
 static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 scroll_increment);//load list indexs on scroll
 //added scroll increment to attempt help keep placement - works done
 static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex); //moved new list creation logic here, still to be called from DexScreen_CountMonsInOrderedList
+static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId);
+
 
 #include "data/pokemon_graphics/footprint_table.h"
 
@@ -1283,7 +1287,7 @@ bool8 DoClosePokedex(void)
         gMain.state++;
         return FALSE;
     case 1:
-        if (!gPaletteFade.active)
+        if (!gPaletteFade.active) //in callback ran frame by frame, doesn't progress until fade done
             gMain.state = 2;
         else
             UpdatePaletteFade();
@@ -1310,6 +1314,16 @@ void CB2_ClosePokedex(void)
         SetMainCallback2(CB2_ReturnToFieldWithOpenMenu);
     }
 }
+
+void CB2_ClosePokedexGotoSummaryScreen(void)
+{
+    if (DoClosePokedex())
+    {
+        SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_WIN1_ON);
+        SetMainCallback2(CB2_ShowPokemonSummaryScreen2);
+        
+    }//this part works at least
+}//or it seems to, attempting to use this callback elsewhere breaks things
 
 //could also put it here, so isnt triged excesively
 //looked further and its perfect, this called in creation and in case for closing dex list, so only need to add it here to both set and clear
@@ -2525,6 +2539,104 @@ static int DexScreen_InputHandler_GetShoulderInput(void)
     default:
         return 0;
     }
+}
+
+void CB2_OpenDexPageFromSummScreen(void)
+{
+
+
+    DmaFillLarge16(3, 0, (u8 *)VRAM, VRAM_SIZE, 0x1000)
+    DmaClear32(3, OAM, OAM_SIZE);
+    DmaClear16(3, PLTT, PLTT_SIZE);
+    DexScreen_LoadResources();
+
+    sPokedexScreenData->dexSpecies = GetMonData(&gPlayerParty[GetLastViewedMonIndex()],MON_DATA_SPECIES);
+    DexScreen_LookUpCategoryBySpecies(sPokedexScreenData->dexSpecies);
+    gTasks[sPokedexScreenData->taskId].func = Task_DexScreen_DexPageFromSummaryScreen; //again putting here below lookup just in case order matered
+    
+    SetMainCallback2(CB2_PokedexScreen);
+}
+
+static void Task_DexScreen_DexPageFromSummaryScreen(u8 taskId) //called from above dexScreen register function, which is called only from bs_commands so change need go there
+{
+    switch (sPokedexScreenData->state)
+    {
+    case 0:
+        PutWindowTilemap(0);
+        PutWindowTilemap(1);
+
+        CopyBgTilemapBufferToVram(3);
+        CopyBgTilemapBufferToVram(2);
+        CopyBgTilemapBufferToVram(1);
+        CopyBgTilemapBufferToVram(0);
+        sPokedexScreenData->state = 3;
+        break;
+    case 1:
+        RemoveDexPageWindows();
+
+        gMain.state = 0;
+        sPokedexScreenData->state = 2;
+        break;
+    case 2:
+        SetMainCallback2(CB2_ClosePokedexGotoSummaryScreen);
+        DestroyTask(taskId);
+        break;
+    case 3:
+        gPaletteFade.bufferTransferDisabled = 0;
+        //removing palette loads it MUCH faster
+        //conclusion was putting fade upon fade and making it wait longer
+        //BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, 0xffff);
+
+        ShowBg(3);
+        ShowBg(2);
+        ShowBg(1);
+        ShowBg(0);
+        sPokedexScreenData->state = 4;        
+        break;
+    case 4:
+    sPokedexScreenData->state = 5; 
+        break;
+    case 5:
+
+        DexScreen_CreateCategoryListGfx(TRUE);
+        DexScreen_DrawMonDexPage(FALSE); 
+        sPokedexScreenData->currentPage = DEX_REGISTER_PAGE;
+        sPokedexScreenData->state = 6;
+       break;
+    case 6:
+         sPokedexScreenData->data[0] = 0;
+        sPokedexScreenData->data[1] = 0;
+        sPokedexScreenData->state++;
+    case 7:
+        if (sPokedexScreenData->data[1] < 6)
+        {
+            if (sPokedexScreenData->data[0]) //just makes it zoom in doesn't fix glitch, but actually like the zoom
+            {
+                DexScreen_DexPageZoomEffectFrame(0, sPokedexScreenData->data[1]);
+                CopyBgTilemapBufferToVram(0);
+                sPokedexScreenData->data[0] = 4;
+                sPokedexScreenData->data[1]++;
+            }
+            else
+                sPokedexScreenData->data[0]--;
+        }
+        else
+        {
+            FillBgTilemapBufferRect_Palette0(0, 0, 0, 2, 30, 16);
+            CopyBgTilemapBufferToVram(3);
+            CopyBgTilemapBufferToVram(2);
+            CopyBgTilemapBufferToVram(1);
+            CopyBgTilemapBufferToVram(0);
+        sPokedexScreenData->state++;
+        }
+        break;
+    case 8://replace w full input
+        if (JOY_NEW(A_BUTTON | B_BUTTON))  //this part is similar to EE where the navigation is at the very end
+            sPokedexScreenData->state = 2;
+        break;
+    }//think want add a left right, input function specifically for register dex
+    //would be to check evo paths bst and stat distribution but since its still for register dex keep it bare bones
+    //so no checking and navigating to evo entries
 }
 
 //so learned a lot from going over options menu/
@@ -5423,7 +5535,7 @@ static void Task_DexScreen_RegisterMonToPokedex(u8 taskId) //called from above d
     case 2:
         if (DoClosePokedex())
             DestroyTask(taskId);
-        break;
+        break; //nothing appers to go to 1?
     case 3:
         DexScreen_CreateCategoryListGfx(TRUE);
         PutWindowTilemap(0);
@@ -6942,7 +7054,7 @@ static void ResetEvoScreenDataStruct(void)
 
 }
 
-//not using this either
+//not using this either - go over files below not used
 static void GetSeenFlagTargetSpecies(void)
 {
     u8 i;

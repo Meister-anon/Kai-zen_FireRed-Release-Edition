@@ -33,6 +33,7 @@
 #include "pokemon_icon.h"
 #include "battle_interface.h"
 #include "mon_markings.h"
+#include "pokedex_screen.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_debug.h"
 #include "constants/pokemon_debug.h"
@@ -354,6 +355,70 @@ static const u32 sBgPal8[] = INCBIN_U32("graphics/interface/pokesummary_unk_8463
 static const u16 sMoveSelectionCursorPals[] = INCBIN_U16("graphics/interface/pokesummary_unk_8463720.gbapal");
 static const u32 sMoveSelectionCursorTiles_Left[] = INCBIN_U32("graphics/interface/pokesummary_unk_8463740.4bpp.lz");
 static const u32 sMoveSelectionCursorTiles_Right[] = INCBIN_U32("graphics/interface/pokesummary_unk_846386C.4bpp.lz");
+
+
+#define ADD_MOVE_CAT_ICONS
+/*#define TAG_CATEGORY_ICONS 30004
+
+static const u16 sCategoryIcons_Pal[] = INCBIN_U16("graphics/interface/category_icons.gbapal");
+static const u32 sCategoryIcons_Gfx[] = INCBIN_U32("graphics/interface/category_icons.4bpp.lz");
+
+static const struct OamData sOamData_CategoryIcons =
+{
+    .size = SPRITE_SIZE(16x16),
+    .shape = SPRITE_SHAPE(16x16),
+    .priority = 0,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_CategoryIcons =
+{
+    .data = sCategoryIcons_Gfx,
+    .size = 16*16*3/2,
+    .tag = TAG_CATEGORY_ICONS,
+};
+
+static const struct SpritePalette sSpritePal_CategoryIcons =
+{
+    .data = sCategoryIcons_Pal,
+    .tag = TAG_CATEGORY_ICONS
+};
+
+static const union AnimCmd sSpriteAnim_CategoryIcon0[] =
+{
+    ANIMCMD_FRAME(0, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_CategoryIcon1[] =
+{
+    ANIMCMD_FRAME(4, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_CategoryIcon2[] =
+{
+    ANIMCMD_FRAME(8, 0),
+    ANIMCMD_END
+};//think represents y,x
+//icon sheet is set up vertically
+
+static const union AnimCmd *const sSpriteAnimTable_CategoryIcons[] =
+{
+    sSpriteAnim_CategoryIcon0,
+    sSpriteAnim_CategoryIcon1,
+    sSpriteAnim_CategoryIcon2,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_CategoryIcons =
+{
+    .tileTag = TAG_CATEGORY_ICONS,
+    .paletteTag = TAG_CATEGORY_ICONS,
+    .oam = &sOamData_CategoryIcons,
+    .anims = sSpriteAnimTable_CategoryIcons,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};*/
 
 static const struct OamData sMoveSelectionCursorOamData =
 {
@@ -1084,7 +1149,7 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
     sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));
     sMonSkillsPrinterXpos = AllocZeroed(sizeof(struct Struct203B144));
 
-    if (sMonSummaryScreen == NULL)
+    if (sMonSummaryScreen == NULL) //think destroy on exti makes use this?
     {
         SetMainCallback2(savedCallback);
         return;
@@ -1312,6 +1377,15 @@ static void Task_InputHandler_Info(u8 taskId)
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
             }
         #endif
+            else if (JOY_NEW(START_BUTTON) && !gMain.inBattle)
+            {
+                
+               
+                sMonSummaryScreen->savedCallback = CB2_OpenDexPageFromSummScreen;
+               
+                PlaySE(SE_SELECT);
+                sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
+            }
         }
         break;
     case PSS_STATE3270_3:
@@ -1336,7 +1410,7 @@ static void Task_InputHandler_Info(u8 taskId)
         else if (sub_800B270() == TRUE) //function in link.c
             return;
 
-        sMonSummaryScreen->state3270 = PSS_STATE3270_6;
+        sMonSummaryScreen->state3270 = PSS_STATE3270_6; //believe takes to default
         break;
     default:
         if (!gPaletteFade.active)
@@ -2004,6 +2078,7 @@ static void PokeSum_CopyNewBgTilemapBeforePageFlip(void)
     }
 }
 
+//is summary screen not storage system
 static void CB2_SetUpPSS(void)
 {
     switch (sMonSummaryScreen->summarySetupStep)

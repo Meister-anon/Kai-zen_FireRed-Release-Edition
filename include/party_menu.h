@@ -66,6 +66,9 @@ void ItemUseCB_SacredAsh(u8 taskId, UNUSED TaskFunc func);
 void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc func);
 u8 GetItemEffectType(u16 item);
 void CB2_PartyMenuFromStartMenu(void);
+void CB2_PartyMenuFromStartMenu2(void); //my additions
+void CB2_ShowPokemonSummaryScreen2(void);
+
 void CB2_ChooseMonToGiveItem(void);
 void ChooseMonToGiveMailFromMailbox(void);
 void InitChooseHalfPartyForBattle(u8 a1);

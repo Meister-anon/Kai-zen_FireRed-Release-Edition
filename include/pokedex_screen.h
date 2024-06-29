@@ -33,6 +33,11 @@ void CB2_OpenPokedexFromStartMenu(void);
 s8 DexScreen_GetSetPokedexFlag(u16 nationalDexNo, u8 caseId, bool8 indexIsSpecies);
 u16 DexScreen_FormFilter(u16 species); //check if species should use 
 
+//new additions for summ screen dex callback
+void CB2_OpenDexPageFromSummScreen(void);
+
+void CB2_ClosePokedexGotoSummaryScreen(void);
+
 #define END_LIST 0XFFFF
 
 
