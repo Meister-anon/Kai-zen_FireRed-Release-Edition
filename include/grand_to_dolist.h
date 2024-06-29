@@ -2453,6 +2453,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also on new game screen add recomended button message
     -done
 
+    replce cat icon split icons symbols, plan use gen 9 versions
+    more minimalistic not ugly as sin
+
+    NOTE*(
+    Important thought, moves that remove ability worry seed etc.
+    and mold breaker likes no longer affect mon that it would have that previously had levitate
+    as its an inate characteristic now.
+
+    need make exclusion to balance, what could do is make involve status
+    i.e sleep paralysis make it unabe to fly
+
+    and electric mon would still have the greater benefit
+    as they are immune to most means of paralysis...yeah that could work
+    )
+
+
 
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
