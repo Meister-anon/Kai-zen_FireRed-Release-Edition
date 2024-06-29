@@ -2531,14 +2531,15 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_RUN_AWAY, ABILITY_EARLY_BIRD},
         .safariZoneFleeRate = 50,
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_AERILATE, ABILITY_MULTI_TASK},
+            .abilityHidden = {ABILITY_TANGLED_FEET, ABILITY_MULTI_TASK},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sDoduoLevelUpLearnset,
         .tmhmLearnset = sDoduoTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(31, AVERAGE_EFFORT), 0, SPECIES_DODRIO}), //Should hopefully blank these for now without issue
+         //Should hopefully blank these for now without issue
     },//hmm realized I should make this straight normal since I'm trying to consolidate this
     //concept so flying isn't just bird type, but that kinda ruins doduo as a starter?
     //and it messes up the cool work I did for making grounded flying
@@ -2563,15 +2564,15 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_EARLY_BIRD},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_AERILATE, ABILITY_MULTI_TASK},
+            .abilityHidden = {ABILITY_TANGLED_FEET, ABILITY_MULTI_TASK},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sDodrioLevelUpLearnset,
         .tmhmLearnset = sDodrioTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(31, AVERAGE_EFFORT), 0, SPECIES_DODRIO}), //Should hopefully blank these for now without issue
-    },
+        .evolutions = NULL,
+    },//no idea why I gave aerialte puttgni tangled feet back after buffing
 
     [SPECIES_SEEL] =
     { 

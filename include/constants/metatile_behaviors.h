@@ -26,7 +26,7 @@
 #define MB_THIN_ICE 0x26
 #define MB_CRACKED_ICE 0x27
 #define MB_HOT_SPRINGS 0x28
-#define MB_ROCK_STAIRS 0x2A
+#define MB_ROCK_STAIRS 0x2A //!! what's this sounds like perfet for rock climb??
 #define MB_SAND_CAVE 0x2B
 #define MB_IMPASSABLE_EAST 0x30
 #define MB_IMPASSABLE_WEST 0x31

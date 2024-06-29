@@ -2438,6 +2438,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     passing species not working 
     look at how pokemon storge does it
+
+    -got working
+
+    //attempt working on all planned callbacks for major feature update
+    i.e move info from battle
+
+    register mon from battle bring out dex. i.e press shift
+    //will need to figure out area screen issue 
+
+    add option menu for effectiveness of moves in battle toggle
+    use red, orange, green, blue
+
+    also on new game screen add recomended button message
+    -done
+
+
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
 goto ADD_MOVE_CAT_ICONS //for move split etc.
@@ -2454,6 +2470,8 @@ goto ADD_MOVE_CAT_ICONS //for move split etc.
     also for some reason unfezant F is on the list intead of sylveon
     -finally fixed
     issue was I forgot to incrase field for evo screen target species
+
+
 
     exp candies kinda worthless unless you're trying to edge leveling
     when rare candies exist, so think will change exp candies based on that premise
@@ -2497,6 +2515,9 @@ goto ADD_MOVE_CAT_ICONS //for move split etc.
 
 
     need update icon graphics as well, EE has newer things for gen 8+ stuff and forms
+
+    go over graphics in general, use sharedx saves take best between
+    Emerald and Firered - don't forget EE icons too big in some cases
 
     fixed early bird , cupid's arrow seem work now
 

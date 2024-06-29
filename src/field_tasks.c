@@ -16,6 +16,7 @@
 #include "constants/songs.h"
 
 // TODO: Metatile IDs in this file
+//vsonic
 
 static void DummyPerStepCallback(u8 taskId);
 static void AshGrassPerStepCallback(u8 taskId);
@@ -32,7 +33,10 @@ static const TaskFunc sPerStepCallbacks[] =
     [STEP_CB_TRUCK]             = DummyPerStepCallback,
     [STEP_CB_SECRET_BASE]       = DummyPerStepCallback,
     [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback
-};
+};//looking into adding back ash and cracked floor
+//and see if can make work without having to constantly run fieldcallback
+//think something like how grass animates when stepped on should work
+//...assuming its not done the same way
 
 static const u8 sIcefallCaveIceTileCoords[][2] =
 {

@@ -331,30 +331,60 @@ static const struct BitfieldInfo sStatus1Bitfield[] =
 //will need to do major edits to base menu for my changes
 //but all doable
 
+enum Status2{
+    CONFUSION = 0,
+    FLINCH = 3,
+    UPROAR = 4,
+    EMERGENCY_EXIT = 7,
+    BIDE = 8,
+    FREE = 9,
+    LOCK_CONFUSE = 10,
+    MULTIPLE_TURNS = 12,
+    POWDER = 14,
+    FOCUS_ENERGY = 20,
+    TRANSFORMED = 21,
+    RECHARGE = 22,
+    RAGE = 23,
+    SUBSTITUTE = 24,
+    DESTINY_BOND = 25,
+    ESCAPE_PREVENTION = 26,
+    NIGHTMARE = 27,
+    CURSED = 28,
+    FORESIGHT = 29,
+    DEFENSE_CURL = 30,
+    TORMENT = 31
+};
+
+
+//FIRST number how many bytes status takes up
+//Second value the byte value of the status
+//need to match to status value in constants battle.h
 static const struct BitfieldInfo sStatus2Bitfield[] =
 {
     {/*Confusion*/ 3, 0},
     {/*Flinch*/ 1, 3},
     {/*Uproar*/ 3, 4},
-    // Bit 7 is unused.
-    {/*Bide*/ 2, 8},
+    // Bit 7 is unused.  //for emergency exit
+    {/*Bide*/ 1, 8}, //setting this doesn't work correctly oh right I added a timer?
     {/*Lock Confuse*/ 2, 10},
     {/*Multiple Turns*/ 1, 12},
     // Wrap bits are omitted. Done in various.
     // In Love bits are omitted. Done in various.
     {/*(Focus Energy*/ 1, 20},
-    {/*Transformed*/ 1, 21},
+    {/*Transformed*/ 1, 21}, //- <- not on list
     {/*Recharge*/ 1, 22},
     {/*Rage*/ 1, 23},
     {/*Substitute*/ 1, 24},
-    {/*Destiny bond*/ 1, 25},
-    {/*Can't escape*/ 1, 26},
+    {/*Destiny bond*/ 1, 25}, //doesn't work?
+    {/*Can't escape*/ 1, 26},//ok seems somehow out of alignment, setting substitute activated rage??
     {/*Nightmares*/ 1, 27},
     {/*Cursed*/ 1, 28},
     {/*Foresighted*/ 1, 29},
     {/*Defense Curled*/ 1, 30},
     {/*Tormented*/ 1, 31},
-};
+};//ok yeah weirdly out of allignment, setting cant escape did destiny bond?
+//sigh even worse appears  to have to be set twice, has to set it, wait a turn for it to count down to 0
+//then SET IT AGAIN, and then kill for it to work!!!
 
 static const struct BitfieldInfo sStatus3Bitfield[] =
 {
@@ -455,6 +485,7 @@ static const struct ListMenuItem sStatus1ListItems[] =
     {sText_SetTimers, 6},
 };
 
+//must match order of bit field
 static const struct ListMenuItem sStatus2ListItems[] =
 {
     {gText_Confusion, 0},
@@ -464,17 +495,19 @@ static const struct ListMenuItem sStatus2ListItems[] =
     {sText_LockConfuse, 4},
     {sText_MultipleTurns, 5},
     {sText_FocusEnergy, 6},
-    {sText_Recharge, 7},
-    {sText_Rage, 8},
-    {sText_Substitute, 9},
-    {sText_DestinyBond, 10},
-    {sText_CantEscape, 11},
-    {sText_Nightmare, 12},
-    {sText_Cursed, 13},
-    {sText_Foresight, 14},
-    {sText_DefenseCurl, 15},
-    {sText_Tormented, 16},
-};
+    {COMPOUND_STRING("Transform"), 7},
+    {sText_Recharge, 8},
+    {sText_Rage, 9},
+    {sText_Substitute, 10},
+    {sText_DestinyBond, 11},
+    {sText_CantEscape, 12},
+    {sText_Nightmare, 13},
+    {sText_Cursed, 14},
+    {sText_Foresight, 15},
+    {sText_DefenseCurl, 16},
+    {sText_Tormented, 17},
+};//sigh idk how but the count is off that's why
+//in statuses destiny bond is 11 not 10
 
 static const struct ListMenuItem sStatus3ListItems[] =
 {
@@ -1551,7 +1584,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
             data->modifyArrows.typeOfVal = VAR_TOXIC_COUNTER;
             data->modifyArrows.currValue = gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)];
         }
-        break;
+        break;//will need else if conditionals for specific effects handled differently below status that don't follow bit field logic/for adding timers
     case LIST_ITEM_STATUS1:
         data->modifyArrows.modifiedValPtr = &gBattleMons[data->battlerId].status1;
         data->modifyArrows.currValue = GetBitfieldValue(gBattleMons[data->battlerId].status1, data->bitfield[data->currentSecondaryListItemId].currBit, data->bitfield[data->currentSecondaryListItemId].bitsCount);
