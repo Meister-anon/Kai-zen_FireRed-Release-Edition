@@ -43,6 +43,7 @@
 #include "pokemon_jump.h"
 #include "pokemon_special_anim.h"
 #include "pokemon_summary_screen.h"
+#include "pokemon_storage_system_internal.h"
 #include "quest_log.h"
 #include "region_map.h"
 #include "reshow_battle_screen.h"
@@ -3388,16 +3389,26 @@ void CB2_ShowPokemonSummaryScreen2(void)
     ShowPokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuFromSummaryScreen, 0);
 }
 
+//changed to use pssbox mode hopefully that addresses it
 void CB2_ShowPokemonSummaryScreen3(void) //almost works, just doesn't track pc position, sets to 0
 {
         struct BoxPokemon *Pokemon = GetBoxedMonPtr(StorageGetCurrentBox(), GetLastViewedMonIndex());
-
+        struct Pokemon * partyMon;
+        //partyMon = Alloc(sizeof(gPlayerParty));
+        partyMon = Alloc(sizeof(struct Pokemon));
     if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
         UpdatePartyToBattleOrder();
+        //BoxMonAtToMon(StorageGetCurrentBox(), GetLastViewedMonIndex(),gPlayerParty);
     //gPlayerParty = Pokemon;//GetBoxedMonPtr(StorageGetCurrentBox(), GetLastViewedMonIndex());
     //gPartyMenu.slotId = GetLastViewedMonIndex();
-    BoxMonToMon(Pokemon,gPlayerParty);
-    ShowPokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, Cb2_ReturnToPSS, 0);
+    BoxMonToMon(Pokemon,partyMon);
+
+    //if use 0, or gPartyMenu.slotId properly loads icon on return from pc but pc slot resets to 0,
+    //if use getlastviewedmonindex properly tracks position in pc but returns garbage for sum screen data
+    //if I assign partymenu slot id to getlastviewedmonidex and use that it breaks
+    //actually both break without the alloc method - FUCK no they all break
+    ShowPokemonSummaryScreen(partyMon, gPartyMenu.slotId, IN_BOX_COUNT - 1, Cb2_ReturnToPSS, PSS_MODE_BOX);
+    free(partyMon);
 }
 
 static void CB2_ReturnToPartyMenuFromSummaryScreen(void)

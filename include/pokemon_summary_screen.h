@@ -14,6 +14,10 @@ u8 GetLastViewedMonIndex(void);
 void ShowPokemonSummaryScreen(struct Pokemon *party, u8 cursorPos, u8 lastIdx, void (*callback)(void), u8 mode);
 void SetPokemonSummaryScreenMode(u8);
 
+//new additions
+void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback);
+void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback, u8 mode);
+void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 lastIdx, MainCallback savedCallback, u8 mode);
 void PokeballIcon_CaughtIn(u8 y);
 
 //sLevelNickTextColors
@@ -43,6 +47,7 @@ enum PokemonSummaryScreenMode
     PSS_MODE_FORGET_MOVE,
     PSS_MODE_UNK4,
     PSS_MODE_BOX,
+    PSS_MODE_BATTLE_INFO,
 };
 
 enum PokemonSummaryScreenPage

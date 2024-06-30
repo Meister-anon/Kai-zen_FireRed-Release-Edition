@@ -1218,6 +1218,81 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
     SetMainCallback2(CB2_SetUpPSS);
 }
 
+void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 lastIdx, MainCallback savedCallback, u8 mode)
+{
+    sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));
+    sMonSkillsPrinterXpos = AllocZeroed(sizeof(struct Struct203B144));
+
+    if (sMonSummaryScreen == NULL) //think destroy on exti makes use this?
+    {
+        SetMainCallback2(savedCallback);
+        return;
+    }
+
+
+    sLastViewedMonIndex = cursorPos;
+
+    sMoveSelectionCursorPos = 0;
+    sMoveSwapCursorPos = 0;
+    sMonSummaryScreen->savedCallback = savedCallback;
+    sMonSummaryScreen->monList.mons = party;
+
+    if (party == gEnemyParty)
+        sMonSummaryScreen->isEnemyParty = TRUE;
+    else
+        sMonSummaryScreen->isEnemyParty = FALSE;
+
+    sMonSummaryScreen->lastIndex = lastIdx;
+    sMonSummaryScreen->mode = mode;
+
+    switch (sMonSummaryScreen->mode)
+    {
+    case PSS_MODE_NORMAL:
+    default:
+       // SetHelpContext(HELPCONTEXT_POKEMON_INFO);
+        sMonSummaryScreen->curPageIndex = PSS_PAGE_INFO;
+        sMonSummaryScreen->isBoxMon = FALSE;
+        sMonSummaryScreen->lockMovesFlag = FALSE;
+        break;
+    case PSS_MODE_BOX:
+       // SetHelpContext(HELPCONTEXT_POKEMON_INFO);
+        sMonSummaryScreen->curPageIndex = PSS_PAGE_INFO;
+        sMonSummaryScreen->isBoxMon = TRUE;
+        sMonSummaryScreen->lockMovesFlag = FALSE;
+        break;
+    case PSS_MODE_SELECT_MOVE:
+    case PSS_MODE_FORGET_MOVE:
+       // SetHelpContext(HELPCONTEXT_POKEMON_MOVES);
+        sMonSummaryScreen->curPageIndex = PSS_PAGE_MOVES_INFO;
+        sMonSummaryScreen->isBoxMon = FALSE;
+        sMonSummaryScreen->lockMovesFlag = TRUE;
+        break;
+    }
+
+    sMonSummaryScreen->state3270 = 0;
+    sMonSummaryScreen->summarySetupStep = 0;
+    sMonSummaryScreen->loadBgGfxStep = 0;
+    sMonSummaryScreen->spriteCreationStep = 0;
+
+    sMonSummaryScreen->whichBgLayerToTranslate = 0;
+    sMonSummaryScreen->skillsPageBgNum = 2;
+    sMonSummaryScreen->infoAndMovesPageBgNum = 1;
+    sMonSummaryScreen->flippingPages = FALSE;
+
+    sMonSummaryScreen->unk3228 = 0;
+    sMonSummaryScreen->unk322C = 1;
+
+    BufferSelectedMonData(&sMonSummaryScreen->currentMon); //should set currentmon to value of lastviewedindex
+    sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
+    sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
+
+    if (sMonSummaryScreen->isBadEgg == TRUE)
+        sMonSummaryScreen->isEgg = TRUE;
+
+    sMonSummaryScreen->lastPageFlipDirection[0] = 0xff;
+    SetMainCallback2(CB2_SetUpPSS);
+}
+
 //can prob use this for in battle show move info, to see split power etc.  vsonic
 #define SHOW_SUMMARY_SCREEN
 void ShowSelectMovePokemonSummaryScreen(struct Pokemon *party, u8 cursorPos, u8 lastIdx, MainCallback savedCallback, u16 newMove)
@@ -1386,7 +1461,7 @@ static void Task_InputHandler_Info(u8 taskId)
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
             } //can make work just need another new function/setup for, to reapply original callback
-            else if (JOY_NEW(START_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback == Cb2_ReturnToPSS)
+            /*else if (JOY_NEW(START_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback == Cb2_ReturnToPSS)
             {
                 
                
@@ -1394,7 +1469,7 @@ static void Task_InputHandler_Info(u8 taskId)
                
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
-            }
+            }*/ //for now turn off until can get to work
         }
         break;
     case PSS_STATE3270_3:
