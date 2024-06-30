@@ -13314,7 +13314,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_UXIE] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 75, 130, 95, 75, 130),
+         STATS(85, 25, 130, 95, 75, 170),
         .type1 = TYPE_PSYCHIC,
         .type2 = TYPE_FAIRY,
         .catchRate = 3,

@@ -2466,9 +2466,32 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     and electric mon would still have the greater benefit
     as they are immune to most means of paralysis...yeah that could work
+    
+    good because makes status move important and not just limiting to 
+    moves that hit in air, which are typically just one or two types  flying/rock
+
+    think need returned to the air message for sleep ending and cure paralysis
+    can do status cure and check if floating mon from base stats
+    maybe make function, so check if asleep paralyzed or grounded set otherwise
+    i.e STATUS3_SMACKED_DOWN  cured sleep/paralysis and not have sleep/paralysis or smacked down status
     )
 
+   uxie ability inthrall still not sealing moves correctly, doing nothing rn.
+   but also rebalanced its stats
+   maybe need change to move end? idk
 
+   note may be something saw in debug
+   but rather than making battles randomly other types
+   i.e I could make an option to set option for preferred battle type
+   and make option for fixed battle types
+
+   can also combine with random selection of battle type
+   as base? then when option is on it gets fixed?
+
+  //if add gen 9 legends wo-chien change its ability effect
+  make tablet of ruin drop speed instead,
+  ironically will make the ability work more for itself rather than
+  as a support. its an equalizer so your mon technically aren't affected
 
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index

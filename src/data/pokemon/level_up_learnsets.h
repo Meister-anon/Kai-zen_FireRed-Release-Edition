@@ -7780,6 +7780,7 @@ static const struct LevelUpMove sUxieLevelUpLearnset[] = {
 
 static const struct LevelUpMove sMespritLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_HEALING_WISH),
+    LEVEL_UP_MOVE( 1, MOVE_FOLLOW_ME),
     LEVEL_UP_MOVE( 1, MOVE_NATURAL_GIFT),
     LEVEL_UP_MOVE( 1, MOVE_COPYCAT),
     LEVEL_UP_MOVE( 1, MOVE_REST),

@@ -21,7 +21,7 @@ void ReshowBattleScreenDummy(void)
 
 void ReshowBattleScreenAfterMenu(void)
 {
-    gPaletteFade.bufferTransferDisabled = 1;
+    gPaletteFade.bufferTransferDisabled = TRUE;
     SetHBlankCallback(NULL);
     SetGpuReg(REG_OFFSET_MOSAIC, 0);
     gBattleScripting.reshowMainState = 0;
