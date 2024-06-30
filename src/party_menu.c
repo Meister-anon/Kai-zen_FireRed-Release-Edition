@@ -3388,6 +3388,18 @@ void CB2_ShowPokemonSummaryScreen2(void)
     ShowPokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuFromSummaryScreen, 0);
 }
 
+void CB2_ShowPokemonSummaryScreen3(void) //almost works, just doesn't track pc position, sets to 0
+{
+        struct BoxPokemon *Pokemon = GetBoxedMonPtr(StorageGetCurrentBox(), GetLastViewedMonIndex());
+
+    if (gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
+        UpdatePartyToBattleOrder();
+    //gPlayerParty = Pokemon;//GetBoxedMonPtr(StorageGetCurrentBox(), GetLastViewedMonIndex());
+    //gPartyMenu.slotId = GetLastViewedMonIndex();
+    BoxMonToMon(Pokemon,gPlayerParty);
+    ShowPokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, Cb2_ReturnToPSS, 0);
+}
+
 static void CB2_ReturnToPartyMenuFromSummaryScreen(void)
 {
     gPaletteFade.bufferTransferDisabled = TRUE;

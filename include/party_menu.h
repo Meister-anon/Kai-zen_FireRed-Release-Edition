@@ -68,6 +68,7 @@ u8 GetItemEffectType(u16 item);
 void CB2_PartyMenuFromStartMenu(void);
 void CB2_PartyMenuFromStartMenu2(void); //my additions
 void CB2_ShowPokemonSummaryScreen2(void);
+void CB2_ShowPokemonSummaryScreen3(void); //for pc callback
 
 void CB2_ChooseMonToGiveItem(void);
 void ChooseMonToGiveMailFromMailbox(void);

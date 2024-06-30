@@ -35,6 +35,7 @@ u16 DexScreen_FormFilter(u16 species); //check if species should use
 
 //new additions for summ screen dex callback
 void CB2_OpenDexPageFromSummScreen(void);
+void CB2_OpenDexPageFromPCSummScreen(void); //alt needed for pc summ screen calback
 
 void CB2_ClosePokedexGotoSummaryScreen(void);
 

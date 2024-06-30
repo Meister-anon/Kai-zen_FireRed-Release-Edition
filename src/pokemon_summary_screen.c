@@ -1377,11 +1377,20 @@ static void Task_InputHandler_Info(u8 taskId)
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
             }
         #endif
-            else if (JOY_NEW(START_BUTTON) && !gMain.inBattle)
+            else if (JOY_NEW(START_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {
                 
                
                 sMonSummaryScreen->savedCallback = CB2_OpenDexPageFromSummScreen;
+               
+                PlaySE(SE_SELECT);
+                sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
+            } //can make work just need another new function/setup for, to reapply original callback
+            else if (JOY_NEW(START_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback == Cb2_ReturnToPSS)
+            {
+                
+               
+                sMonSummaryScreen->savedCallback = CB2_OpenDexPageFromPCSummScreen;
                
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
