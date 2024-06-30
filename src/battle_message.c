@@ -1543,6 +1543,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_ITEMTOBAG - BATTLESTRINGS_TABLE_START]                     = sText_ItemaddedtoBag,
     [STRINGID_DAMP_PREVENTS_AFTERMATH - BATTLESTRINGS_TABLE_START]       = sText_PkmnPreventsAbilityUsage,
     [STRINGID_CUPIDSARROWSTRUCK_BOTH - BATTLESTRINGS_TABLE_START]        = COMPOUND_STRING("{B_SCR_ACTIVE_ABILITY} struck both targets!"),
+    [STRINGID_STATUSGROUNDED - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is too exhausted to fly!"),
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,

@@ -7885,8 +7885,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             if (!(IsBattlerGrounded(gBattlerTarget)) 
             && IsBattlerAlive(gBattlerTarget) 
             //&& gMultiHitCounter == 0  //removing this line seemed to fix issue of not dispalying, didn't need as should only trigger if 0/move complete
-            //&& !gMoveResultFlags & (MOVE_RESULT_NO_EFFECT)
-            && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
+            && !gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+            //&& TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
             {           //result no effect didn't work so replace w target must take dmg
                 
                 if ((gBattleMoves[gCurrentMove].flags & (FLAG_DMG_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
@@ -7895,8 +7895,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
                     gSprites[gBattlerSpriteIds[gBattlerTarget]].invisible = FALSE;
                     //gStatuses3[gActiveBattler] &= ~(STATUS3_ON_AIR); // doesn't need this part handled in cancelmultiturn
-                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
+                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
                     effect = TRUE;
                     BattleScriptPush(gBattlescriptCurrInstr);
                     gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithoutGravity;
@@ -7912,6 +7912,31 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     BattleScriptPush(gBattlescriptCurrInstr);
                     gBattlescriptCurrInstr = BattleScript_MoveEffectSmackDown; //just a battle message
                 }//for some reason seems doesn't always work?,idk what's going on with this thing...
+                
+
+                //I "think" this will work?
+                else if (gBattleScripting.moveEffect == MOVE_EFFECT_PARALYSIS
+                && !(gStatuses3[gBattlerTarget] & STATUS3_SMACKED_DOWN)
+                && !gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP
+                )
+                {
+                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
+                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
+                    effect = TRUE;
+                    BattleScriptPush(gBattlescriptCurrInstr);
+                    gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithStatus;
+                }
+
+                else if (gBattleScripting.moveEffect == MOVE_EFFECT_SLEEP
+                && !(gStatuses3[gBattlerTarget] & STATUS3_SMACKED_DOWN)
+                && !gBattleMons[gBattlerTarget].status1 & STATUS1_PARALYSIS)
+                {
+                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
+                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
+                    effect = TRUE;
+                    BattleScriptPush(gBattlescriptCurrInstr);
+                    gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithStatus;
+                } //need makes its own script, too exchausted to fly
 
             } //vsonic need test
             ++gBattleScripting.atk49_state;

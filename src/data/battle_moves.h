@@ -3557,9 +3557,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .split = SPLIT_STATUS,
-    },
+    },//added to priority boosted list since makes easie to use
 
     [MOVE_PURSUIT] =
     {

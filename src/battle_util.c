@@ -4819,6 +4819,26 @@ bool8 IsBattlerGrounded(u8 battlerId)
         grounded = FALSE; //and this
         */
     
+    //for setting the sript to play think can do it in atk49 moveend
+    //check battlescript.moveeffect if sleep or paralysis
+    //can do a before and after thing like how emergency exit does before after hp checks
+    //put check in attack canceler if mon is not grounded
+    //and then in move end check if becomes grounded and set script then
+    //if can get that to work can consolidate effect
+    //won't need do separate effects for each thing,
+
+    //need put logic in status cure 
+    //may just make a new ewram thing that can loop all battlers
+    //at turn start from main, to check if they are grounded
+    //turnstartgroundedcheck  just a true false assignment
+    //then in endturn/moveend can do what I need to, to update
+    //MOVE_END_GROUND_TARGET already handle that without new ewram thing
+    if (gBattleMons[battlerId].status1 & STATUS1_SLEEP) 
+        grounded = TRUE;
+
+    if (gBattleMons[battlerId].status1 & STATUS1_PARALYSIS) 
+        grounded = TRUE;
+    
 
     if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_ROOST)
         grounded = TRUE; //hope this set up right/works

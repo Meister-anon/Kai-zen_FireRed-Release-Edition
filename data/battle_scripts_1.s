@@ -2685,6 +2685,11 @@ BattleScript_GroundFlyingEnemywithoutGravity::
 	waitmessage B_WAIT_TIME_SHORT	
 	return
 
+BattleScript_GroundFlyingEnemywithStatus::
+	printstring STRINGID_STATUSGROUNDED
+	waitmessage B_WAIT_TIME_SHORT	
+	return
+
 BattleScript_EffectNaturalGift:
 	attackcanceler
 	attackstring

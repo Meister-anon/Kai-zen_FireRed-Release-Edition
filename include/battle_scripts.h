@@ -218,6 +218,7 @@ extern const u8 BattleScript_ItemSteal[];
 extern const u8 BattleScript_InBattlePickup[];	//new in battle effect for ability pickup, 1 in 3 chance pickup held item and end of turn
 extern const u8 BattleScript_DrizzleActivates[];
 extern const u8 BattleScript_SpeedBoostActivates[];
+extern const u8 BattleScript_DefenderAbilityStatBoost[];
 extern const u8 BattleScript_DefeatistActivates[];
 extern const u8 BattleScript_TraceActivates[];
 extern const u8 BattleScript_RainDishActivates[];
@@ -454,7 +455,8 @@ extern const u8 BattleScript_GravityLoopDrop[];
 extern const u8 BattleScript_GravityLoop[];
 extern const u8 BattleScript_EffectGravity[];
 extern const u8 BattleScript_GravityEnds[];
-extern const u8 BattleScript_GroundFlyingEnemywithoutGravity[]; //2x dmg in air flag
+extern const u8 BattleScript_GroundFlyingEnemywithoutGravity[];
+extern const u8 BattleScript_GroundFlyingEnemywithStatus[];
 extern const u8 BattleScript_EffectMircleEye[];
 extern const u8 BattleScript_EffectTailwind[];
 extern const u8 BattleScript_TailwindEnds[];
@@ -475,7 +477,6 @@ extern const u8 BattleScript_EffectStealthRock[];
 extern const u8 BattleScript_StealthRockAbsorb[];
 extern const u8 BattleScript_EffectTelekinesis[];
 extern const u8 BattleScript_TelekinesisEndTurn[];
-extern const u8 BattleScript_GroundFlyingEnemywithoutGravity[];
 extern const u8 BattleScript_EffectSpeedSwap[];
 extern const u8 BattleScript_EffectGuardSwap[];
 extern const u8 BattleScript_EffectPowerSwap[];
