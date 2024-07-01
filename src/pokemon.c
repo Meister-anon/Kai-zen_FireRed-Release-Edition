@@ -7770,11 +7770,13 @@ static u8 GetEvoMethodPriority(u16 EvoMethod)
         break;
         case EVO_SPECIFIC_MON_IN_PARTY:
             return 0x10;
-        break;        
+        break; 
+        case EVO_LEVEL_FAMILY_OF_THREE:       
         case EVO_LEVEL_RAIN:
         case EVO_MILCERY:
             return 0xF8;
         break;
+        case EVO_LEVEL_FAMILY_OF_FOUR:
         case EVO_BEAUTY:
             return 0xF9;
         break;

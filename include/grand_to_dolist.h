@@ -2492,6 +2492,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   make tablet of ruin drop speed instead,
   ironically will make the ability work more for itself rather than
   as a support. its an equalizer so your mon technically aren't affected
+  -done
 
   EE expansion breaks down mon into evo families and was able to tell form that
   there are far fewer mon in the game than I thought, 
@@ -2504,6 +2505,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
   //icon id for slashing/slicing moves boosted by sharpness
   just use 3 angled lines like a cut
+
+  when done check if I have room, if so would add priority
+  to give more room for numbers for priority
+  change graphic of move description field
+  got plenty of space for top line, so can move the white part
+  above text down a bit
 
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index

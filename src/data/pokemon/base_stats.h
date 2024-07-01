@@ -14,9 +14,13 @@
 
 
 //hopefully this works
-#define MON_TYPES(type1, ...)\
-.type1 = (type1),\
-.type2 = (DEFAULT(type1, __VA_ARGS__))
+#define MON_TYPES(type_1, ...)\
+.type1 = (type_1),\
+.type2 = (DEFAULT(type_1, __VA_ARGS__))
+
+#define MON_EGG_GROUPS(eggGroup_1, ...)\
+.eggGroup1 = (eggGroup_1),\
+.eggGroup2 = (DEFAULT(eggGroup_1, __VA_ARGS__))
 
 #define FILL 0
 //taken from emerald planned setup overwrite need for evolution.h file
@@ -4356,7 +4360,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -4385,7 +4389,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_LUM_BERRY,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -7028,7 +7032,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpDefense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -7057,7 +7061,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_SACRED_ASH,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -7086,7 +7090,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_LUM_BERRY,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -10690,7 +10694,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -10715,7 +10719,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -10741,7 +10745,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -10768,7 +10772,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_STAR_PIECE,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -10795,7 +10799,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -11892,7 +11896,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
@@ -13425,7 +13429,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13489,7 +13493,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13523,7 +13527,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 10,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13548,7 +13552,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13573,7 +13577,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13600,7 +13604,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpDefense = 3,
         .genderRatio = MON_FEMALE,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13677,7 +13681,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13689,7 +13693,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDarkraiLevelUpLearnset,
         .tmhmLearnset = sDarkraiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//haven't set despair effect yet 
 
     [SPECIES_SHAYMIN] =
     { 
@@ -13704,7 +13708,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_LUM_BERRY,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13728,7 +13732,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -13755,7 +13759,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -18770,7 +18774,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -18804,7 +18808,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -18872,7 +18876,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -18904,7 +18908,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 80,
-        .friendship = 10,
+        .friendship = FRIENDSHIP_LOW,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -18940,7 +18944,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_STAR_PIECE,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -18974,7 +18978,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -21219,7 +21223,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -21254,7 +21258,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -21289,7 +21293,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -21357,7 +21361,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -21390,7 +21394,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23134,7 +23138,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23166,7 +23170,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23723,7 +23727,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23759,7 +23763,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpDefense = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23792,7 +23796,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23827,7 +23831,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23862,7 +23866,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpDefense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23899,7 +23903,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Defense = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23935,7 +23939,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -23971,7 +23975,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24009,7 +24013,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24045,7 +24049,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24081,7 +24085,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24116,7 +24120,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24153,7 +24157,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24189,7 +24193,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24224,7 +24228,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24260,7 +24264,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24296,7 +24300,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Defense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24331,7 +24335,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24367,7 +24371,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24399,7 +24403,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -24431,7 +24435,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -27099,7 +27103,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -27131,7 +27135,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -27163,7 +27167,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -27266,7 +27270,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -27431,7 +27435,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 50,
+        .friendship = FRIENDSHIP_HIGH,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -27749,8 +27753,8 @@ const struct BaseStats gBaseStats[] =
 
     //Gen 9
     
-    /*
-    #if P_FAMILY_SPRIGATITO
+    
+    //#if p_fAMILY_SPRIGATITO
     [SPECIES_SPRIGATITO] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -27764,16 +27768,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
         .expYield = 62,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
         .abilities = { ABILITY_OVERGROW, ABILITY_NONE  },
         .abilityHidden = {ABILITY_PROTEAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Sprigatito"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sprigatito"),
         .cryId = CRY_SPRIGATITO,
         .natDexNum = NATIONAL_DEX_SPRIGATITO,
         .categoryName = _("Grass Cat"),
@@ -27802,8 +27808,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Sprigatito,
         .iconPalIndex = 1,
         //FOOTPRINT(Sprigatito)
-        .levelUpLearnset = sSprigatitoLevelUpLearnset,
-        .teachableLearnset = sSprigatitoTeachableLearnset,
+        */
+        //.levelUpLearnset = sSprigatitoLevelUpLearnset,
+        //.teachableLearnset = sSprigatitoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, 0,  SPECIES_FLORAGATO}),
     },
 
@@ -27820,16 +27827,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
         .expYield = 144,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
         .abilities = { ABILITY_OVERGROW, ABILITY_NONE },
         .abilityHidden = {ABILITY_PROTEAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Floragato"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Floragato"),
         .cryId = CRY_FLORAGATO,
         .natDexNum = NATIONAL_DEX_FLORAGATO,
         .categoryName = _("Grass Cat"),
@@ -27858,8 +27867,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Floragato,
         .iconPalIndex = 1,
         //FOOTPRINT(Floragato)
-        .levelUpLearnset = sFloragatoLevelUpLearnset,
-        .teachableLearnset = sFloragatoTeachableLearnset,
+        */
+        //.levelUpLearnset = sFloragatoLevelUpLearnset,
+        //.teachableLearnset = sFloragatoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, 0,  SPECIES_MEOWSCARADA}),
     },
 
@@ -27876,16 +27886,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 45,
         .expYield = 265,
-        .evYield_Speed = 3,
+       // .evYield_Speed = 3,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_GRASS),
         .abilities = { ABILITY_OVERGROW, ABILITY_NONE},
         .abilityHidden = {ABILITY_PROTEAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Meowscarad"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Meowscarad"),
         .cryId = CRY_MEOWSCARADA,
         .natDexNum = NATIONAL_DEX_MEOWSCARADA,
         .categoryName = _("Magician"),
@@ -27914,12 +27926,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Meowscarada,
         .iconPalIndex = 1,
         //FOOTPRINT(Meowscarada)
-        .levelUpLearnset = sMeowscaradaLevelUpLearnset,
-        .teachableLearnset = sMeowscaradaTeachableLearnset,
+        */
+        //.levelUpLearnset = sMeowscaradaLevelUpLearnset,
+        //.teachableLearnset = sMeowscaradaTeachableLearnset,
     },
-#endif //P_FAMILY_SPRIGATITO
+//#endif //P_FAMILY_SPRIGATITO
 
-#if P_FAMILY_FUECOCO
+//#if p_fAMILY_FUECOCO
     [SPECIES_FUECOCO] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -27933,16 +27946,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
-        .evYield_HP = 1,
+       // .evYield_HP = 1,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_BLAZE, ABILITY_NONE},
          .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Fuecoco"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Fuecoco"),
         .cryId = CRY_FUECOCO,
         .natDexNum = NATIONAL_DEX_FUECOCO,
         .categoryName = _("Fire Croc"),
@@ -27971,8 +27986,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Fuecoco,
         .iconPalIndex = 2,
         //FOOTPRINT(Fuecoco)
-        .levelUpLearnset = sFuecocoLevelUpLearnset,
-        .teachableLearnset = sFuecocoTeachableLearnset,
+        */
+        //.levelUpLearnset = sFuecocoLevelUpLearnset,
+        //.teachableLearnset = sFuecocoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, 0,  SPECIES_CROCALOR}),
     },
 
@@ -27989,16 +28005,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE),
         .catchRate = 45,
         .expYield = 144,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_BLAZE, ABILITY_NONE},
         .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Crocalor"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Crocalor"),
         .cryId = CRY_CROCALOR,
         .natDexNum = NATIONAL_DEX_CROCALOR,
         .categoryName = _("Fire Croc"),
@@ -28027,8 +28045,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Crocalor,
         .iconPalIndex = 0,
         //FOOTPRINT(Crocalor)
-        .levelUpLearnset = sCrocalorLevelUpLearnset,
-        .teachableLearnset = sCrocalorTeachableLearnset,
+        */
+        //.levelUpLearnset = sCrocalorLevelUpLearnset,
+        //.teachableLearnset = sCrocalorTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, 0,  SPECIES_SKELEDIRGE}),
     },
 
@@ -28045,16 +28064,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 265,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_BLAZE, ABILITY_NONE },
         .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Skeledirge"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Skeledirge"),
         .cryId = CRY_SKELEDIRGE,
         .natDexNum = NATIONAL_DEX_SKELEDIRGE,
         .categoryName = _("Singer"),
@@ -28083,12 +28104,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Skeledirge,
         .iconPalIndex = 0,
         //FOOTPRINT(Skeledirge)
-        .levelUpLearnset = sSkeledirgeLevelUpLearnset,
-        .teachableLearnset = sSkeledirgeTeachableLearnset,
+        */
+        //.levelUpLearnset = sSkeledirgeLevelUpLearnset,
+        //.teachableLearnset = sSkeledirgeTeachableLearnset,
     },
-#endif //P_FAMILY_FUECOCO
+//#endif //P_FAMILY_FUECOCO
 
-#if P_FAMILY_QUAXLY
+//#if p_fAMILY_QUAXLY
     [SPECIES_QUAXLY] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -28102,16 +28124,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield =  62,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_WATER_1),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_WATER_1),
         .abilities = { ABILITY_TORRENT, ABILITY_NONE },
         .abilityHidden = {ABILITY_MOXIE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Quaxly"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Quaxly"),
         .cryId = CRY_QUAXLY,
         .natDexNum = NATIONAL_DEX_QUAXLY,
         .categoryName = _("Duckling"),
@@ -28140,8 +28164,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Quaxly,
         .iconPalIndex = 0,
         //FOOTPRINT(Quaxly)
-        .levelUpLearnset = sQuaxlyLevelUpLearnset,
-        .teachableLearnset = sQuaxlyTeachableLearnset,
+        */
+        //.levelUpLearnset = sQuaxlyLevelUpLearnset,
+        //.teachableLearnset = sQuaxlyTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 16, 0,  SPECIES_QUAXWELL}),
     },
 
@@ -28158,16 +28183,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = 144,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_WATER_1),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_WATER_1),
         .abilities = { ABILITY_TORRENT, ABILITY_NONE },
         .abilityHidden = {ABILITY_MOXIE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Quaxwell"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Quaxwell"),
         .cryId = CRY_QUAXWELL,
         .natDexNum = NATIONAL_DEX_QUAXWELL,
         .categoryName = _("Practicing"),
@@ -28196,8 +28223,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Quaxwell,
         .iconPalIndex = 0,
         //FOOTPRINT(Quaxwell)
-        .levelUpLearnset = sQuaxwellLevelUpLearnset,
-        .teachableLearnset = sQuaxwellTeachableLearnset,
+        */
+        //.levelUpLearnset = sQuaxwellLevelUpLearnset,
+        //.teachableLearnset = sQuaxwellTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, 0,  SPECIES_QUAQUAVAL}),
     },
 
@@ -28214,16 +28242,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 265,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_WATER_1),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING, EGG_GROUP_WATER_1),
         .abilities = { ABILITY_TORRENT, ABILITY_NONE },
         .abilityHidden = {ABILITY_MOXIE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Quaquaval"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Quaquaval"),
         .cryId = CRY_QUAQUAVAL,
         .natDexNum = NATIONAL_DEX_QUAQUAVAL,
         .categoryName = _("Dancer"),
@@ -28252,12 +28282,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Quaquaval,
         .iconPalIndex = 0,
         //FOOTPRINT(Quaquaval)
-        .levelUpLearnset = sQuaquavalLevelUpLearnset,
-        .teachableLearnset = sQuaquavalTeachableLearnset,
+        */
+        //.levelUpLearnset = sQuaquavalLevelUpLearnset,
+        //.teachableLearnset = sQuaquavalTeachableLearnset,
     },
-#endif //P_FAMILY_QUAXLY
+//#endif //P_FAMILY_QUAXLY
 
-#if P_FAMILY_LECHONK
+//#if p_fAMILY_LECHONK
     [SPECIES_LECHONK] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -28271,16 +28302,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 51,
-        .evYield_HP = 1,
+       // .evYield_HP = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_AROMA_VEIL, ABILITY_GLUTTONY  },
         .abilityHidden = {ABILITY_THICK_FAT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Lechonk"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Lechonk"),
         .cryId = CRY_LECHONK,
         .natDexNum = NATIONAL_DEX_LECHONK,
         .categoryName = _("Hog"),
@@ -28309,8 +28342,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Lechonk,
         .iconPalIndex = 1,
         //FOOTPRINT(Lechonk)
-        .levelUpLearnset = sLechonkLevelUpLearnset,
-        .teachableLearnset = sLechonkTeachableLearnset,
+        */
+        //.levelUpLearnset = sLechonkLevelUpLearnset,
+        //.teachableLearnset = sLechonkTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_MALE, 18, 0,  SPECIES_OINKOLOGNE_MALE},
                                 {EVO_LEVEL_FEMALE, 18, 0,  SPECIES_OINKOLOGNE_FEMALE}),
     },
@@ -28328,16 +28362,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 100,
         .expYield = 171,
-        .evYield_HP = 2,
+       // .evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(0),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_LINGERING_AROMA, ABILITY_GLUTTONY },
         .abilityHidden = {ABILITY_THICK_FAT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Oinkologne"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Oinkologne"),
         .cryId = CRY_OINKOLOGNE_MALE,
         .natDexNum = NATIONAL_DEX_OINKOLOGNE,
         .categoryName = _("Hog"),
@@ -28365,9 +28401,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_OinkologneMale,
         .iconPalIndex = 1,
         //FOOTPRINT(Oinkologne)
-        .levelUpLearnset = sOinkologneMaleLevelUpLearnset,
-        .teachableLearnset = sOinkologneTeachableLearnset,
-        .formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sOinkologneMaleLevelUpLearnset,
+        //.teachableLearnset = sOinkologneTeachableLearnset,
+        //.formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
     },
 
     [SPECIES_OINKOLOGNE_FEMALE] =
@@ -28383,16 +28420,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 100,
         .expYield = 171,
-        .evYield_HP = 2,
+       // .evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(100),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_AROMA_VEIL, ABILITY_GLUTTONY },
         .abilityHidden = {ABILITY_THICK_FAT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Oinkologne"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Oinkologne"),
         .cryId = CRY_OINKOLOGNE_FEMALE,
         .natDexNum = NATIONAL_DEX_OINKOLOGNE,
         .categoryName = _("Hog"),
@@ -28421,13 +28460,14 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_OinkologneFemale,
         .iconPalIndex = 0,
         //FOOTPRINT(Oinkologne)
-        .levelUpLearnset = sOinkologneFemaleLevelUpLearnset,
-        .teachableLearnset = sOinkologneTeachableLearnset,
-        .formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sOinkologneFemaleLevelUpLearnset,
+        //.teachableLearnset = sOinkologneTeachableLearnset,
+        //.formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
     },
-#endif //P_FAMILY_LECHONK
+//#endif //P_FAMILY_LECHONK
 
-#if P_FAMILY_TAROUNTULA
+//#if p_fAMILY_TAROUNTULA
     [SPECIES_TAROUNTULA] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -28441,16 +28481,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG),
         .catchRate = 255,
         .expYield = 42,
-        .evYield_Defense = 1,
+       // .evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_INSOMNIA, ABILITY_NONE},
         .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Tarountula"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tarountula"),
         .cryId = CRY_TAROUNTULA,
         .natDexNum = NATIONAL_DEX_TAROUNTULA,
         .categoryName = _("String Ball"),
@@ -28479,8 +28521,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Tarountula,
         .iconPalIndex = 1,
         //FOOTPRINT(Tarountula)
-        .levelUpLearnset = sTarountulaLevelUpLearnset,
-        .teachableLearnset = sTarountulaTeachableLearnset,
+        */
+        //.levelUpLearnset = sTarountulaLevelUpLearnset,
+        //.teachableLearnset = sTarountulaTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 15, 0,  SPECIES_SPIDOPS}),
     },
 
@@ -28497,16 +28540,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG),
         .catchRate = 120,
         .expYield = 141,
-        .evYield_Defense = 2,
+       // .evYield_Defense = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_INSOMNIA, ABILITY_NONE },
         .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Spidops"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Spidops"),
         .cryId = CRY_SPIDOPS,
         .natDexNum = NATIONAL_DEX_SPIDOPS,
         .categoryName = _("Trap"),
@@ -28535,12 +28580,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Spidops,
         .iconPalIndex = 1,
         //FOOTPRINT(Spidops)
-        .levelUpLearnset = sSpidopsLevelUpLearnset,
-        .teachableLearnset = sSpidopsTeachableLearnset,
+        */
+        //.levelUpLearnset = sSpidopsLevelUpLearnset,
+        //.teachableLearnset = sSpidopsTeachableLearnset,
     },
-#endif //P_FAMILY_TAROUNTULA
+//#endif //P_FAMILY_TAROUNTULA
 
-#if P_FAMILY_NYMBLE
+//#if p_fAMILY_NYMBLE
     [SPECIES_NYMBLE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -28554,16 +28600,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG),
         .catchRate = 190,
         .expYield = 42,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = 20,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_SWARM, ABILITY_NONE  },
         .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Nymble"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Nymble"),
         .cryId = CRY_NYMBLE,
         .natDexNum = NATIONAL_DEX_NYMBLE,
         .categoryName = _("Grasshopper"),
@@ -28592,8 +28640,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Nymble,
         .iconPalIndex = 0,
         //FOOTPRINT(Nymble)
-        .levelUpLearnset = sNymbleLevelUpLearnset,
-        .teachableLearnset = sNymbleTeachableLearnset,
+        */
+        //.levelUpLearnset = sNymbleLevelUpLearnset,
+        //.teachableLearnset = sNymbleTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, 0,  SPECIES_LOKIX}),
     },
 
@@ -28610,16 +28659,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG, TYPE_DARK),
         .catchRate = 30,
         .expYield = 158,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_SWARM, ABILITY_NONE },
         .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Lokix"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Lokix"),
         .cryId = CRY_LOKIX,
         .natDexNum = NATIONAL_DEX_LOKIX,
         .categoryName = _("Grasshopper"),
@@ -28648,12 +28699,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Lokix,
         .iconPalIndex = 0,
         //FOOTPRINT(Lokix)
-        .levelUpLearnset = sLokixLevelUpLearnset,
-        .teachableLearnset = sLokixTeachableLearnset,
+        */
+        //.levelUpLearnset = sLokixLevelUpLearnset,
+        //.teachableLearnset = sLokixTeachableLearnset,
     },
-#endif //P_FAMILY_NYMBLE
+//#endif //P_FAMILY_NYMBLE
 
-#if P_FAMILY_PAWMI
+//#if p_fAMILY_PAWMI
     [SPECIES_PAWMI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -28667,16 +28719,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 48,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_STATIC, ABILITY_NATURAL_CURE },
         .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Pawmi"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Pawmi"),
         .cryId = CRY_PAWMI,
         .natDexNum = NATIONAL_DEX_PAWMI,
         .categoryName = _("Mouse"),
@@ -28705,8 +28759,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Pawmi,
         .iconPalIndex = 0,
         //FOOTPRINT(Pawmi)
-        .levelUpLearnset = sPawmiLevelUpLearnset,
-        .teachableLearnset = sPawmiTeachableLearnset,
+        */
+        //.levelUpLearnset = sPawmiLevelUpLearnset,
+        //.teachableLearnset = sPawmiTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 18, 0,  SPECIES_PAWMO}),
     },
 
@@ -28723,16 +28778,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_FIGHTING),
         .catchRate = 80,
         .expYield = 123,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_VOLT_ABSORB, ABILITY_NATURAL_CURE},
         .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Pawmo"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Pawmo"),
         .cryId = CRY_PAWMO,
         .natDexNum = NATIONAL_DEX_PAWMO,
         .categoryName = _("Mouse"),
@@ -28761,8 +28818,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Pawmo,
         .iconPalIndex = 0,
         //FOOTPRINT(Pawmo)
-        .levelUpLearnset = sPawmoLevelUpLearnset,
-        .teachableLearnset = sPawmoTeachableLearnset,
+        */
+        //.levelUpLearnset = sPawmoLevelUpLearnset,
+        //.teachableLearnset = sPawmoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_PAWMOT}),
     },
 
@@ -28779,16 +28837,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 245,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_VOLT_ABSORB, ABILITY_NATURAL_CURE },
         .abilityHidden = {ABILITY_IRON_FIST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Pawmot"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Pawmot"),
         .cryId = CRY_PAWMOT,
         .natDexNum = NATIONAL_DEX_PAWMOT,
         .categoryName = _("Hands-On"),
@@ -28817,12 +28877,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Pawmot,
         .iconPalIndex = 0,
         //FOOTPRINT(Pawmot)
-        .levelUpLearnset = sPawmotLevelUpLearnset,
-        .teachableLearnset = sPawmotTeachableLearnset,
+        */
+        //.levelUpLearnset = sPawmotLevelUpLearnset,
+        //.teachableLearnset = sPawmotTeachableLearnset,
     },
-#endif //P_FAMILY_PAWMI
+//#endif //P_FAMILY_PAWMI
 
-#if P_FAMILY_TANDEMAUS
+//#if p_fAMILY_TANDEMAUS
     [SPECIES_TANDEMAUS] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -28836,16 +28897,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 150,
         .expYield = 61,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 10,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
         .abilities = { ABILITY_RUN_AWAY, ABILITY_PICKUP },
         .abilityHidden = {ABILITY_OWN_TEMPO, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Tandemaus"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tandemaus"),
         .cryId = CRY_TANDEMAUS,
         .natDexNum = NATIONAL_DEX_TANDEMAUS,
         .categoryName = _("Couple"),
@@ -28874,8 +28937,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Tandemaus,
         .iconPalIndex = 1,
         //FOOTPRINT(Tandemaus)
-        .levelUpLearnset = sTandemausLevelUpLearnset,
-        .teachableLearnset = sTandemausTeachableLearnset,
+        */
+        //.levelUpLearnset = sTandemausLevelUpLearnset,
+        //.teachableLearnset = sTandemausTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_FAMILY_OF_FOUR, 25, 0,  SPECIES_MAUSHOLD_FAMILY_OF_FOUR},
                                 {EVO_LEVEL_FAMILY_OF_THREE, 25, 0,  SPECIES_MAUSHOLD_FAMILY_OF_THREE}),
     },
@@ -28893,16 +28957,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 165,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 10,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
         .abilities = { ABILITY_FRIEND_GUARD, ABILITY_CHEEK_POUCH  },
         .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Maushold"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Maushold"),
         .cryId = CRY_MAUSHOLD_FAMILY_OF_THREE,
         .natDexNum = NATIONAL_DEX_MAUSHOLD,
         .categoryName = _("Family"),
@@ -28931,9 +28997,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_MausholdFamilyOfThree,
         .iconPalIndex = 1,
 
-        .levelUpLearnset = sMausholdLevelUpLearnset,
-        .teachableLearnset = sMausholdTeachableLearnset,
-        .formSpeciesIdTable = sMausholdFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sMausholdLevelUpLearnset,
+        //.teachableLearnset = sMausholdTeachableLearnset,
+        //.formSpeciesIdTable = sMausholdFormSpeciesIdTable,
     },
     [SPECIES_MAUSHOLD_FAMILY_OF_FOUR] =
     {
@@ -28948,16 +29015,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 165,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 10,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
         .abilities = { ABILITY_FRIEND_GUARD, ABILITY_CHEEK_POUCH },
         .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Maushold"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Maushold"),
         .cryId = CRY_MAUSHOLD_FAMILY_OF_FOUR,
         .natDexNum = NATIONAL_DEX_MAUSHOLD,
         .categoryName = _("Family"),
@@ -28983,13 +29052,14 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_Maushold,
         .iconSprite = gMonIcon_MausholdFamilyOfFour,
         .iconPalIndex = 1,
-        .levelUpLearnset = sMausholdLevelUpLearnset,
-        .teachableLearnset = sMausholdTeachableLearnset,
-        .formSpeciesIdTable = sMausholdFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sMausholdLevelUpLearnset,
+        //.teachableLearnset = sMausholdTeachableLearnset,
+        //.formSpeciesIdTable = sMausholdFormSpeciesIdTable,
     },
-#endif //P_FAMILY_TANDEMAUS
+//#endif //P_FAMILY_TANDEMAUS
 
-#if P_FAMILY_FIDOUGH
+//#if p_fAMILY_FIDOUGH
     [SPECIES_FIDOUGH] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29003,16 +29073,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 62,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_OWN_TEMPO, ABILITY_NONE  },
         .abilityHidden = {ABILITY_KLUTZ, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Fidough"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Fidough"),
         .cryId = CRY_FIDOUGH,
         .natDexNum = NATIONAL_DEX_FIDOUGH,
         .categoryName = _("Puppy"),
@@ -29041,8 +29113,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Fidough,
         .iconPalIndex = 1,
         //FOOTPRINT(Fidough)
-        .levelUpLearnset = sFidoughLevelUpLearnset,
-        .teachableLearnset = sFidoughTeachableLearnset,
+        */
+        //.levelUpLearnset = sFidoughLevelUpLearnset,
+        //.teachableLearnset = sFidoughTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, 0,  SPECIES_DACHSBUN}),
     },
 
@@ -29059,16 +29132,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY),
         .catchRate = 90,
         .expYield = 167,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_WELL_BAKED_BODY, ABILITY_NONE  },
         .abilityHidden = {ABILITY_AROMA_VEIL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Dachsbun"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Dachsbun"),
         .cryId = CRY_DACHSBUN,
         .natDexNum = NATIONAL_DEX_DACHSBUN,
         .categoryName = _("Dog"),
@@ -29097,12 +29172,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Dachsbun,
         .iconPalIndex = 0,
         //FOOTPRINT(Dachsbun)
-        .levelUpLearnset = sDachsbunLevelUpLearnset,
-        .teachableLearnset = sDachsbunTeachableLearnset,
+        */
+        //.levelUpLearnset = sDachsbunLevelUpLearnset,
+        //.teachableLearnset = sDachsbunTeachableLearnset,
     },
-#endif //P_FAMILY_FIDOUGH
+//#endif //P_FAMILY_FIDOUGH
 
-#if P_FAMILY_SMOLIV
+//#if p_fAMILY_SMOLIV
     [SPECIES_SMOLIV] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29116,16 +29192,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 52,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_EARLY_BIRD, ABILITY_NONE  },
         .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Smoliv"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Smoliv"),
         .cryId = CRY_SMOLIV,
         .natDexNum = NATIONAL_DEX_SMOLIV,
         .categoryName = _("Olive"),
@@ -29154,8 +29232,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Smoliv,
         .iconPalIndex = 1,
         //FOOTPRINT(Smoliv)
-        .levelUpLearnset = sSmolivLevelUpLearnset,
-        .teachableLearnset = sSmolivTeachableLearnset,
+        */
+        //.levelUpLearnset = sSmolivLevelUpLearnset,
+        //.teachableLearnset = sSmolivTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 25, 0,  SPECIES_DOLLIV}),
     },
 
@@ -29172,16 +29251,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 124,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_EARLY_BIRD, ABILITY_NONE },
         .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Dolliv"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Dolliv"),
         .cryId = CRY_DOLLIV,
         .natDexNum = NATIONAL_DEX_DOLLIV,
         .categoryName = _("Olive"),
@@ -29210,8 +29291,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Dolliv,
         .iconPalIndex = 1,
         //FOOTPRINT(Dolliv)
-        .levelUpLearnset = sDollivLevelUpLearnset,
-        .teachableLearnset = sDollivTeachableLearnset,
+        */
+        //.levelUpLearnset = sDollivLevelUpLearnset,
+        //.teachableLearnset = sDollivTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_ARBOLIVA}),
     },
 
@@ -29228,16 +29310,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 255,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_SEED_SOWER, ABILITY_NONE },
         .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Arboliva"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Arboliva"),
         .cryId = CRY_ARBOLIVA,
         .natDexNum = NATIONAL_DEX_ARBOLIVA,
         .categoryName = _("Olive"),
@@ -29266,12 +29350,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Arboliva,
         .iconPalIndex = 1,
         //FOOTPRINT(Arboliva)
-        .levelUpLearnset = sArbolivaLevelUpLearnset,
-        .teachableLearnset = sArbolivaTeachableLearnset,
+        */
+        //.levelUpLearnset = sArbolivaLevelUpLearnset,
+        //.teachableLearnset = sArbolivaTeachableLearnset,
     },
-#endif //P_FAMILY_SMOLIV
+//#endif //P_FAMILY_SMOLIV
 
-#if P_FAMILY_SQUAWKABILLY
+//#if p_fAMILY_SQUAWKABILLY
     [SPECIES_SQUAWKABILLY_GREEN_PLUMAGE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29285,16 +29370,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 146,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE  },
         .abilityHidden = {ABILITY_GUTS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Sqawkabily"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sqawkabily"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -29323,9 +29410,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_SquawkabillyGreenPlumage,
         .iconPalIndex = 1,
         //FOOTPRINT(Squawkabilly)
-        .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        .teachableLearnset = sSquawkabillyTeachableLearnset,
-        .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
+        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
     [SPECIES_SQUAWKABILLY_BLUE_PLUMAGE] =
@@ -29341,16 +29429,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 146,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE },
         .abilityHidden = {ABILITY_GUTS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Sqawkabily"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sqawkabily"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -29379,9 +29469,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_SquawkabillyBluePlumage,
         .iconPalIndex = 0,
         //FOOTPRINT(Squawkabilly)
-        .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        .teachableLearnset = sSquawkabillyTeachableLearnset,
-        .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
+        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
     [SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE] =
@@ -29397,16 +29488,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 146,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE },
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Sqawkabily"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sqawkabily"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -29435,9 +29528,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_SquawkabillyYellowPlumage,
         .iconPalIndex = 1,
         //FOOTPRINT(Squawkabilly)
-        .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        .teachableLearnset = sSquawkabillyTeachableLearnset,
-        .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
+        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
     [SPECIES_SQUAWKABILLY_WHITE_PLUMAGE] =
@@ -29453,16 +29547,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 146,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE },
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Sqawkabily"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sqawkabily"),
         .cryId = CRY_SQUAWKABILLY,
         .natDexNum = NATIONAL_DEX_SQUAWKABILLY,
         .categoryName = _("Parrot"),
@@ -29491,13 +29587,14 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_SquawkabillyWhitePlumage,
         .iconPalIndex = 0,
         //FOOTPRINT(Squawkabilly)
-        .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        .teachableLearnset = sSquawkabillyTeachableLearnset,
-        .formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
+        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
-#endif //P_FAMILY_SQUAWKABILLY
+//#endif //P_FAMILY_SQUAWKABILLY
 
-#if P_FAMILY_NACLI
+//#if p_fAMILY_NACLI
     [SPECIES_NACLI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29511,16 +29608,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK),
         .catchRate = 255,
         .expYield = 56,
-        .evYield_Defense = 1,
+       // .evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_PURIFYING_SALT, ABILITY_STURDY  },
         .abilityHidden = {ABILITY_CLEAR_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Nacli"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Nacli"),
         .cryId = CRY_NACLI,
         .natDexNum = NATIONAL_DEX_NACLI,
         .categoryName = _("Rock Salt"),
@@ -29549,8 +29648,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Nacli,
         .iconPalIndex = 2,
         //FOOTPRINT(Nacli)
-        .levelUpLearnset = sNacliLevelUpLearnset,
-        .teachableLearnset = sNacliTeachableLearnset,
+        */
+        //.levelUpLearnset = sNacliLevelUpLearnset,
+        //.teachableLearnset = sNacliTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, 0,  SPECIES_NACLSTACK}),
     },
 
@@ -29567,16 +29667,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK),
         .catchRate = 120,
         .expYield = 124,
-        .evYield_Defense = 2,
+       // .evYield_Defense = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_PURIFYING_SALT, ABILITY_STURDY },
         .abilityHidden = {ABILITY_CLEAR_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Naclstack"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Naclstack"),
         .cryId = CRY_NACLSTACK,
         .natDexNum = NATIONAL_DEX_NACLSTACK,
         .categoryName = _("Rock Salt"),
@@ -29605,8 +29707,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Naclstack,
         .iconPalIndex = 2,
         //FOOTPRINT(Naclstack)
-        .levelUpLearnset = sNaclstackLevelUpLearnset,
-        .teachableLearnset = sNaclstackTeachableLearnset,
+        */
+        //.levelUpLearnset = sNaclstackLevelUpLearnset,
+        //.teachableLearnset = sNaclstackTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, 0,  SPECIES_GARGANACL}),
     },
 
@@ -29623,16 +29726,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK),
         .catchRate = 45,
         .expYield = 250,
-        .evYield_Defense = 3,
+       // .evYield_Defense = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_PURIFYING_SALT, ABILITY_STURDY },
         .abilityHidden = {ABILITY_CLEAR_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Garganacl"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Garganacl"),
         .cryId = CRY_GARGANACL,
         .natDexNum = NATIONAL_DEX_GARGANACL,
         .categoryName = _("Rock Salt"),
@@ -29661,12 +29766,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Garganacl,
         .iconPalIndex = 2,
         //FOOTPRINT(Garganacl)
-        .levelUpLearnset = sGarganaclLevelUpLearnset,
-        .teachableLearnset = sGarganaclTeachableLearnset,
+        */
+        //.levelUpLearnset = sGarganaclLevelUpLearnset,
+        //.teachableLearnset = sGarganaclTeachableLearnset,
     },
-#endif //P_FAMILY_NACLI
+//#endif //P_FAMILY_NACLI
 
-#if P_FAMILY_CHARCADET
+//#if p_fAMILY_CHARCADET
     [SPECIES_CHARCADET] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29680,16 +29786,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE),
         .catchRate = 90,
         .expYield = 51,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+        MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
         .abilities = { ABILITY_FLASH_FIRE, ABILITY_NONE  },
         .abilityHidden = {ABILITY_FLAME_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Charcadet"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Charcadet"),
         .cryId = CRY_CHARCADET,
         .natDexNum = NATIONAL_DEX_CHARCADET,
         .categoryName = _("Fire Child"),
@@ -29718,11 +29826,12 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Charcadet,
         .iconPalIndex = 0,
         //FOOTPRINT(Charcadet)
-        .levelUpLearnset = sCharcadetLevelUpLearnset,
-        .teachableLearnset = sCharcadetTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_AUSPICIOUS_ARMOR, 0,  SPECIES_ARMAROUGE},
-                                {EVO_ITEM, ITEM_MALICIOUS_ARMOR, 0,  SPECIES_CERULEDGE}),
-    },
+        */
+        //.levelUpLearnset = sCharcadetLevelUpLearnset,
+        //.teachableLearnset = sCharcadetTeachableLearnset,
+        .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_AUSPICIOUS_ARMOR*/, 0,  SPECIES_ARMAROUGE},
+                                {EVO_ITEM, 0/*ITEM_MALICIOUS_ARMOR*/, 0,  SPECIES_CERULEDGE}),
+    },//vsonic
 
     [SPECIES_ARMAROUGE] =
     {
@@ -29737,16 +29846,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE, TYPE_PSYCHIC),
         .catchRate = 25,
         .expYield = 263,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
         .friendship = 20,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+        MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
         .abilities = { ABILITY_FLASH_FIRE, ABILITY_NONE  },
         .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Armarouge"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Armarouge"),
         .cryId = CRY_ARMAROUGE,
         .natDexNum = NATIONAL_DEX_ARMAROUGE,
         .categoryName = _("Fire Warrior"),
@@ -29775,8 +29886,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Armarouge,
         .iconPalIndex = 0,
         //FOOTPRINT(Armarouge)
-        .levelUpLearnset = sArmarougeLevelUpLearnset,
-        .teachableLearnset = sArmarougeTeachableLearnset,
+        */
+        //.levelUpLearnset = sArmarougeLevelUpLearnset,
+        //.teachableLearnset = sArmarougeTeachableLearnset,
     },
 
     [SPECIES_CERULEDGE] =
@@ -29792,16 +29904,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 25,
         .expYield = 263,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
         .friendship = 20,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+        MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
         .abilities = { ABILITY_FLASH_FIRE, ABILITY_NONE },
         .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
-        .speciesName = _("Ceruledge"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Ceruledge"),
         .cryId = CRY_CERULEDGE,
         .natDexNum = NATIONAL_DEX_CERULEDGE,
         .categoryName = _("Fire Blades"),
@@ -29830,12 +29944,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Ceruledge,
         .iconPalIndex = 2,
         //FOOTPRINT(Ceruledge)
-        .levelUpLearnset = sCeruledgeLevelUpLearnset,
-        .teachableLearnset = sCeruledgeTeachableLearnset,
+        */
+        //.levelUpLearnset = sCeruledgeLevelUpLearnset,
+        //.teachableLearnset = sCeruledgeTeachableLearnset,
     },
-#endif //P_FAMILY_CHARCADET
+//#endif //P_FAMILY_CHARCADET
 
-#if P_FAMILY_TADBULB
+//#if p_fAMILY_TADBULB
     [SPECIES_TADBULB] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29849,16 +29964,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 54,
-        .evYield_HP = 1,
+       // .evYield_HP = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_1),
         .abilities = { ABILITY_OWN_TEMPO, ABILITY_STATIC  },
         .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Tadbulb"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tadbulb"),
         .cryId = CRY_TADBULB,
         .natDexNum = NATIONAL_DEX_TADBULB,
         .categoryName = _("EleTadpole"),
@@ -29888,8 +30005,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Tadbulb,
         .iconPalIndex = 0,
         //FOOTPRINT(Tadbulb)
-        .levelUpLearnset = sTadbulbLevelUpLearnset,
-        .teachableLearnset = sTadbulbTeachableLearnset,
+        */
+        //.levelUpLearnset = sTadbulbLevelUpLearnset,
+        //.teachableLearnset = sTadbulbTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0,  SPECIES_BELLIBOLT}),
     },
 
@@ -29906,16 +30024,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 50,
         .expYield = 173,
-        .evYield_HP = 2,
+       // .evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_1),
         .abilities = { ABILITY_ELECTROMORPHOSIS, ABILITY_STATIC },
         .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Bellibolt"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Bellibolt"),
         .cryId = CRY_BELLIBOLT,
         .natDexNum = NATIONAL_DEX_BELLIBOLT,
         .categoryName = _("EleFrog"),
@@ -29944,12 +30064,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Bellibolt,
         .iconPalIndex = 0,
         //FOOTPRINT(Bellibolt)
-        .levelUpLearnset = sBelliboltLevelUpLearnset,
-        .teachableLearnset = sBelliboltTeachableLearnset,
+        */
+        //.levelUpLearnset = sBelliboltLevelUpLearnset,
+        //.teachableLearnset = sBelliboltTeachableLearnset,
     },
-#endif //P_FAMILY_TADBULB
+//#endif //P_FAMILY_TADBULB
 
-#if P_FAMILY_WATTREL
+//#if p_fAMILY_WATTREL
     [SPECIES_WATTREL] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -29963,16 +30084,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 180,
         .expYield = 56,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
         .abilities = { ABILITY_WIND_POWER, ABILITY_VOLT_ABSORB },
         .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
-        .speciesName = _("Wattrel"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Wattrel"),
         .cryId = CRY_WATTREL,
         .natDexNum = NATIONAL_DEX_WATTREL,
         .categoryName = _("Storm Petrel"),
@@ -30001,8 +30124,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Wattrel,
         .iconPalIndex = 0,
         //FOOTPRINT(Wattrel)
-        .levelUpLearnset = sWattrelLevelUpLearnset,
-        .teachableLearnset = sWattrelTeachableLearnset,
+        */
+        //.levelUpLearnset = sWattrelLevelUpLearnset,
+        //.teachableLearnset = sWattrelTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 25, 0,  SPECIES_KILOWATTREL}),
     },
 
@@ -30019,16 +30143,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 90,
         .expYield = 172,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
         .abilities = { ABILITY_WIND_POWER, ABILITY_VOLT_ABSORB },
         .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Kilowatrel"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Kilowatrel"),
         .cryId = CRY_KILOWATTREL,
         .natDexNum = NATIONAL_DEX_KILOWATTREL,
         .categoryName = _("Frigatebird"),
@@ -30057,12 +30183,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Kilowattrel,
         .iconPalIndex = 0,
         //FOOTPRINT(Kilowattrel)
-        .levelUpLearnset = sKilowattrelLevelUpLearnset,
-        .teachableLearnset = sKilowattrelTeachableLearnset,
+        */
+        //.levelUpLearnset = sKilowattrelLevelUpLearnset,
+        //.teachableLearnset = sKilowattrelTeachableLearnset,
     },
-#endif //P_FAMILY_WATTREL
+//#endif //P_FAMILY_WATTREL
 
-#if P_FAMILY_MASCHIFF
+//#if p_fAMILY_MASCHIFF
     [SPECIES_MASCHIFF] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30076,16 +30203,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK),
         .catchRate = 150,
         .expYield = 68,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_RUN_AWAY  },
         .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Maschiff"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Maschiff"),
         .cryId = CRY_MASCHIFF,
         .natDexNum = NATIONAL_DEX_MASCHIFF,
         .categoryName = _("Rascal"),
@@ -30114,8 +30243,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Maschiff,
         .iconPalIndex = 0,
         //FOOTPRINT(Maschiff)
-        .levelUpLearnset = sMaschiffLevelUpLearnset,
-        .teachableLearnset = sMaschiffTeachableLearnset,
+        */
+        //.levelUpLearnset = sMaschiffLevelUpLearnset,
+        //.teachableLearnset = sMaschiffTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, 0,  SPECIES_MABOSSTIFF}),
     },
 
@@ -30132,16 +30262,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK),
         .catchRate = 75,
         .expYield = 177,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_GUARD_DOG },
         .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Mabosstiff"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Mabosstiff"),
         .cryId = CRY_MABOSSTIFF,
         .natDexNum = NATIONAL_DEX_MABOSSTIFF,
         .categoryName = _("Boss"),
@@ -30170,12 +30302,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Mabosstiff,
         .iconPalIndex = 0,
         //FOOTPRINT(Mabosstiff)
-        .levelUpLearnset = sMabosstiffLevelUpLearnset,
-        .teachableLearnset = sMabosstiffTeachableLearnset,
+        */
+        //.levelUpLearnset = sMabosstiffLevelUpLearnset,
+        //.teachableLearnset = sMabosstiffTeachableLearnset,
     },
-#endif //P_FAMILY_MASCHIFF
+//#endif //P_FAMILY_MASCHIFF
 
-#if P_FAMILY_SHROODLE
+//#if p_fAMILY_SHROODLE
     [SPECIES_SHROODLE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30189,16 +30322,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 58,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_UNBURDEN, ABILITY_PICKPOCKET  },
         .abilityHidden = {ABILITY_PRANKSTER, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Shroodle"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Shroodle"),
         .cryId = CRY_SHROODLE,
         .natDexNum = NATIONAL_DEX_SHROODLE,
         .categoryName = _("Toxic Mouse"),
@@ -30227,8 +30362,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Shroodle,
         .iconPalIndex = 0,
         //FOOTPRINT(Shroodle)
-        .levelUpLearnset = sShroodleLevelUpLearnset,
-        .teachableLearnset = sShroodleTeachableLearnset,
+        */
+        //.levelUpLearnset = sShroodleLevelUpLearnset,
+        //.teachableLearnset = sShroodleTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 28, 0,  SPECIES_GRAFAIAI}),
     },
 
@@ -30245,16 +30381,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 170,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_UNBURDEN, ABILITY_POISON_TOUCH },
         .abilityHidden = {ABILITY_PRANKSTER, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Grafaiai"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Grafaiai"),
         .cryId = CRY_GRAFAIAI,
         .natDexNum = NATIONAL_DEX_GRAFAIAI,
         .categoryName = _("Toxic Monkey"),
@@ -30283,12 +30421,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Grafaiai,
         .iconPalIndex = 0,
         //FOOTPRINT(Grafaiai)
-        .levelUpLearnset = sGrafaiaiLevelUpLearnset,
-        .teachableLearnset = sGrafaiaiTeachableLearnset,
+        */
+        //.levelUpLearnset = sGrafaiaiLevelUpLearnset,
+        //.teachableLearnset = sGrafaiaiTeachableLearnset,
     },
-#endif //P_FAMILY_SHROODLE
+//#endif //P_FAMILY_SHROODLE
 
-#if P_FAMILY_BRAMBLIN
+//#if p_fAMILY_BRAMBLIN
     [SPECIES_BRAMBLIN] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30302,16 +30441,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 190,
         .expYield = 55,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_WIND_RIDER, ABILITY_NONE  },
         .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Bramblin"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Bramblin"),
         .cryId = CRY_BRAMBLIN,
         .natDexNum = NATIONAL_DEX_BRAMBLIN,
         .categoryName = _("Tumbleweed"),
@@ -30340,8 +30481,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Bramblin,
         .iconPalIndex = 1,
         //FOOTPRINT(Bramblin)
-        .levelUpLearnset = sBramblinLevelUpLearnset,
-        .teachableLearnset = sBramblinTeachableLearnset,
+        */
+        //.levelUpLearnset = sBramblinLevelUpLearnset,
+        //.teachableLearnset = sBramblinTeachableLearnset,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_BRAMBLEGHAST}),
     },
 
@@ -30358,16 +30500,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 168,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_WIND_RIDER, ABILITY_NONE },
         .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Brmblghast"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Brmblghast"),
         .cryId = CRY_BRAMBLEGHAST,
         .natDexNum = NATIONAL_DEX_BRAMBLEGHAST,
         .categoryName = _("Tumbleweed"),
@@ -30396,12 +30540,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Brambleghast,
         .iconPalIndex = 2,
         //FOOTPRINT(Brambleghast)
-        .levelUpLearnset = sBrambleghastLevelUpLearnset,
-        .teachableLearnset = sBrambleghastTeachableLearnset,
+        */
+        //.levelUpLearnset = sBrambleghastLevelUpLearnset,
+        //.teachableLearnset = sBrambleghastTeachableLearnset,
     },
-#endif //P_FAMILY_BRAMBLIN
+//#endif //P_FAMILY_BRAMBLIN
 
-#if P_FAMILY_TOEDSCOOL
+//#if p_fAMILY_TOEDSCOOL
     [SPECIES_TOEDSCOOL] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30415,16 +30560,16 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GROUND, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 67,
-        .evYield_SpDefense = 1,
+       // .evYield_SpDefense = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_MYCELIUM_MIGHT, ABILITY_NONE  },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,//ability makes go last in priority but ignore ability negates
-        .speciesName = _("Toedscool"), //boost further by making ignore ability type checks
+        /*.speciesName = _("Toedscool"), //boost further by making ignore ability type checks
         .cryId = CRY_TOEDSCOOL, //will need to add ability jumps in script
         .natDexNum = NATIONAL_DEX_TOEDSCOOL, //vsonic
         .categoryName = _("Woodear"),
@@ -30453,8 +30598,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Toedscool,
         .iconPalIndex = 0,
         //FOOTPRINT(Toedscool)
-        .levelUpLearnset = sToedscoolLevelUpLearnset,
-        .teachableLearnset = sToedscoolTeachableLearnset,
+        */
+        //.levelUpLearnset = sToedscoolLevelUpLearnset,
+        //.teachableLearnset = sToedscoolTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, 0,  SPECIES_TOEDSCRUEL}),
     },
 
@@ -30471,16 +30617,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GROUND, TYPE_GRASS),
         .catchRate = 90,
         .expYield = 180,
-        .evYield_SpDefense = 2,
+       // .evYield_SpDefense = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_MYCELIUM_MIGHT, ABILITY_NONE  },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
-        .speciesName = _("Toedscruel"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Toedscruel"),
         .cryId = CRY_TOEDSCRUEL,
         .natDexNum = NATIONAL_DEX_TOEDSCRUEL,
         .categoryName = _("Woodear"),
@@ -30509,12 +30657,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Toedscruel,
         .iconPalIndex = 0,
         //FOOTPRINT(Toedscruel)
-        .levelUpLearnset = sToedscruelLevelUpLearnset,
-        .teachableLearnset = sToedscruelTeachableLearnset,
+        */
+        //.levelUpLearnset = sToedscruelLevelUpLearnset,
+        //.teachableLearnset = sToedscruelTeachableLearnset,
     },
-#endif //P_FAMILY_TOEDSCOOL
+//#endif //P_FAMILY_TOEDSCOOL
 
-#if P_FAMILY_KLAWF
+//#if p_fAMILY_KLAWF
     [SPECIES_KLAWF] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30528,16 +30677,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK),
         .catchRate = 120,
         .expYield = 158,
-        .evYield_Defense = 2,
+       // .evYield_Defense = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_3),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_3),
         .abilities = { ABILITY_ANGER_SHELL, ABILITY_SHELL_ARMOR  },
         .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Klawf"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Klawf"),
         .cryId = CRY_KLAWF,
         .natDexNum = NATIONAL_DEX_KLAWF,
         .categoryName = _("Ambush"),
@@ -30566,12 +30717,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Klawf,
         .iconPalIndex = 0,
         //FOOTPRINT(Klawf)
-        .levelUpLearnset = sKlawfLevelUpLearnset,
-        .teachableLearnset = sKlawfTeachableLearnset,
+        */
+        //.levelUpLearnset = sKlawfLevelUpLearnset,
+        //.teachableLearnset = sKlawfTeachableLearnset,
     },
-#endif //P_FAMILY_KLAWF
+//#endif //P_FAMILY_KLAWF
 
-#if P_FAMILY_CAPSAKID
+//#if p_fAMILY_CAPSAKID
     [SPECIES_CAPSAKID] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30585,16 +30737,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS),
         .catchRate = 190,
         .expYield = 61,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_CHLOROPHYLL, ABILITY_INSOMNIA  },
         .abilityHidden = {ABILITY_KLUTZ, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Capsakid"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Capsakid"),
         .cryId = CRY_CAPSAKID,
         .natDexNum = NATIONAL_DEX_CAPSAKID,
         .categoryName = _("Spicy Pepper"),
@@ -30623,8 +30777,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Capsakid,
         .iconPalIndex = 1,
         //FOOTPRINT(Capsakid)
-        .levelUpLearnset = sCapsakidLevelUpLearnset,
-        .teachableLearnset = sCapsakidTeachableLearnset,
+        */
+        //.levelUpLearnset = sCapsakidLevelUpLearnset,
+        //.teachableLearnset = sCapsakidTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_FIRE_STONE, 0,  SPECIES_SCOVILLAIN}),
     },
 
@@ -30641,16 +30796,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_FIRE),
         .catchRate = 75,
         .expYield = 170,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_GRASS),
+        MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_CHLOROPHYLL, ABILITY_INSOMNIA  },
         .abilityHidden = {ABILITY_MOODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Scovillain"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Scovillain"),
         .cryId = CRY_SCOVILLAIN,
         .natDexNum = NATIONAL_DEX_SCOVILLAIN,
         .categoryName = _("Spicy Pepper"),
@@ -30679,12 +30836,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Scovillain,
         .iconPalIndex = 1,
         //FOOTPRINT(Scovillain)
-        .levelUpLearnset = sScovillainLevelUpLearnset,
-        .teachableLearnset = sScovillainTeachableLearnset,
+        */
+        //.levelUpLearnset = sScovillainLevelUpLearnset,
+        //.teachableLearnset = sScovillainTeachableLearnset,
     },
-#endif //P_FAMILY_CAPSAKID
+//#endif //P_FAMILY_CAPSAKID
 
-#if P_FAMILY_RELLOR
+//#if p_fAMILY_RELLOR
     [SPECIES_RELLOR] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30698,16 +30856,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG),
         .catchRate = 190,
         .expYield = 54,
-        .evYield_Defense = 1,
+       // .evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_COMPOUND_EYES, ABILITY_NONE  },
         .abilityHidden = {ABILITY_SHED_SKIN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Rellor"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Rellor"),
         .cryId = CRY_RELLOR,
         .natDexNum = NATIONAL_DEX_RELLOR,
         .categoryName = _("Rolling"),
@@ -30736,8 +30896,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Rellor,
         .iconPalIndex = 0,
         //FOOTPRINT(Rellor)
-        .levelUpLearnset = sRellorLevelUpLearnset,
-        .teachableLearnset = sRellorTeachableLearnset,
+        */
+        //.levelUpLearnset = sRellorLevelUpLearnset,
+        //.teachableLearnset = sRellorTeachableLearnset,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_RABSCA}),
     },
 
@@ -30754,16 +30915,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 165,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_SYNCHRONIZE, ABILITY_NONE  },
         .abilityHidden = {ABILITY_TELEPATHY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Rabsca"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Rabsca"),
         .cryId = CRY_RABSCA,
         .natDexNum = NATIONAL_DEX_RABSCA,
         .categoryName = _("Rolling"),
@@ -30792,12 +30955,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Rabsca,
         .iconPalIndex = 0,
         //FOOTPRINT(Rabsca)
-        .levelUpLearnset = sRabscaLevelUpLearnset,
-        .teachableLearnset = sRabscaTeachableLearnset,
+        */
+        //.levelUpLearnset = sRabscaLevelUpLearnset,
+        //.teachableLearnset = sRabscaTeachableLearnset,
     },
-#endif //P_FAMILY_RELLOR
+//#endif //P_FAMILY_RELLOR
 
-#if P_FAMILY_FLITTLE
+//#if p_fAMILY_FLITTLE
     [SPECIES_FLITTLE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30811,16 +30975,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 120,
         .expYield = 51,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_ANTICIPATION, ABILITY_FRISK  },
         .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Flittle"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Flittle"),
         .cryId = CRY_FLITTLE,
         .natDexNum = NATIONAL_DEX_FLITTLE,
         .categoryName = _("Frill"),
@@ -30849,8 +31015,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Flittle,
         .iconPalIndex = 1,
         //FOOTPRINT(Flittle)
-        .levelUpLearnset = sFlittleLevelUpLearnset,
-        .teachableLearnset = sFlittleTeachableLearnset,
+        */
+        //.levelUpLearnset = sFlittleLevelUpLearnset,
+        //.teachableLearnset = sFlittleTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_ESPATHRA}),
     },
 
@@ -30867,16 +31034,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 60,
         .expYield = 168,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_OPPORTUNIST, ABILITY_FRISK},
         .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Espathra"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Espathra"),
         .cryId = CRY_ESPATHRA,
         .natDexNum = NATIONAL_DEX_ESPATHRA,
         .categoryName = _("Ostrich"),
@@ -30905,12 +31074,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Espathra,
         .iconPalIndex = 0,
         //FOOTPRINT(Espathra)
-        .levelUpLearnset = sEspathraLevelUpLearnset,
-        .teachableLearnset = sEspathraTeachableLearnset,
+        */
+        //.levelUpLearnset = sEspathraLevelUpLearnset,
+        //.teachableLearnset = sEspathraTeachableLearnset,
     },
-#endif //P_FAMILY_FLITTLE
+//#endif //P_FAMILY_FLITTLE
 
-#if P_FAMILY_TINKATINK
+//#if p_fAMILY_TINKATINK
     [SPECIES_TINKATINK] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -30924,16 +31094,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 190,
         .expYield = 59,
-        .evYield_SpDefense = 1,
+       // .evYield_SpDefense = 1,
         .genderRatio = MON_FEMALE,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
+        MON_EGG_GROUPS(EGG_GROUP_FAIRY),
         .abilities = { ABILITY_MOLD_BREAKER, ABILITY_OWN_TEMPO  },
         .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("Tinkatink"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tinkatink"),
         .cryId = CRY_TINKATINK,
         .natDexNum = NATIONAL_DEX_TINKATINK,
         .categoryName = _("Metalsmith"),
@@ -30962,8 +31134,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Tinkatink,
         .iconPalIndex = 1,
         //FOOTPRINT(Tinkatink)
-        .levelUpLearnset = sTinkatinkLevelUpLearnset,
-        .teachableLearnset = sTinkatinkTeachableLearnset,
+        */
+        //.levelUpLearnset = sTinkatinkLevelUpLearnset,
+        //.teachableLearnset = sTinkatinkTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 24, 0,  SPECIES_TINKATUFF}),
     },
 
@@ -30980,16 +31153,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 133,
-        .evYield_SpDefense = 2,
+       // .evYield_SpDefense = 2,
         .genderRatio = MON_FEMALE,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
+        MON_EGG_GROUPS(EGG_GROUP_FAIRY),
         .abilities = { ABILITY_MOLD_BREAKER, ABILITY_OWN_TEMPO },
         .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("Tinkatuff"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tinkatuff"),
         .cryId = CRY_TINKATUFF,
         .natDexNum = NATIONAL_DEX_TINKATUFF,
         .categoryName = _("Hammer"),
@@ -31018,8 +31193,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Tinkatuff,
         .iconPalIndex = 1,
         //FOOTPRINT(Tinkatuff)
-        .levelUpLearnset = sTinkatuffLevelUpLearnset,
-        .teachableLearnset = sTinkatuffTeachableLearnset,
+        */
+        //.levelUpLearnset = sTinkatuffLevelUpLearnset,
+        //.teachableLearnset = sTinkatuffTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, 0,  SPECIES_TINKATON}),
     },
 
@@ -31036,16 +31212,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 253,
-        .evYield_SpDefense = 3,
+       // .evYield_SpDefense = 3,
         .genderRatio = MON_FEMALE,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
+        MON_EGG_GROUPS(EGG_GROUP_FAIRY),
         .abilities = { ABILITY_MOLD_BREAKER, ABILITY_OWN_TEMPO  },
         .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("Tinkaton"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tinkaton"),
         .cryId = CRY_TINKATON,
         .natDexNum = NATIONAL_DEX_TINKATON,
         .categoryName = _("Hammer"),
@@ -31074,12 +31252,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Tinkaton,
         .iconPalIndex = 1,
         //FOOTPRINT(Tinkaton)
-        .levelUpLearnset = sTinkatonLevelUpLearnset,
-        .teachableLearnset = sTinkatonTeachableLearnset,
+        */
+        //.levelUpLearnset = sTinkatonLevelUpLearnset,
+        //.teachableLearnset = sTinkatonTeachableLearnset,
     },
-#endif //P_FAMILY_TINKATINK
+//#endif //P_FAMILY_TINKATINK
 
-#if P_FAMILY_WIGLETT
+//#if p_fAMILY_WIGLETT
     [SPECIES_WIGLETT] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31093,16 +31272,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 255,
         .expYield = 49,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_3),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_3),
         .abilities = { ABILITY_GOOEY, ABILITY_RATTLED  },
         .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Wiglett"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Wiglett"),
         .cryId = CRY_WIGLETT,
         .natDexNum = NATIONAL_DEX_WIGLETT,
         .categoryName = _("Garden Eel"),
@@ -31130,8 +31311,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Wiglett,
         .iconPalIndex = 0,
         //FOOTPRINT(Wiglett)
-        .levelUpLearnset = sWiglettLevelUpLearnset,
-        .teachableLearnset = sWiglettTeachableLearnset,
+        */
+        //.levelUpLearnset = sWiglettLevelUpLearnset,
+        //.teachableLearnset = sWiglettTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 26, 0,  SPECIES_WUGTRIO}),
     },
 
@@ -31148,16 +31330,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 50,
         .expYield = 149,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_3),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_3),
         .abilities = { ABILITY_GOOEY, ABILITY_RATTLED },
         .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Wugtrio"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Wugtrio"),
         .cryId = CRY_WUGTRIO,
         .natDexNum = NATIONAL_DEX_WUGTRIO,
         .categoryName = _("Garden Eel"),
@@ -31185,12 +31369,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Wugtrio,
         .iconPalIndex = 0,
         //FOOTPRINT(Wugtrio)
-        .levelUpLearnset = sWugtrioLevelUpLearnset,
-        .teachableLearnset = sWugtrioTeachableLearnset,
+        */
+        //.levelUpLearnset = sWugtrioLevelUpLearnset,
+        //.teachableLearnset = sWugtrioTeachableLearnset,
     },
-#endif //P_FAMILY_WIGLETT
+//#endif //P_FAMILY_WIGLETT
 
-#if P_FAMILY_BOMBIRDIER
+//#if p_fAMILY_BOMBIRDIER
     [SPECIES_BOMBIRDIER] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31204,16 +31389,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FLYING, TYPE_DARK),
         .catchRate = 25,
         .expYield = 243,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_BIG_PECKS, ABILITY_KEEN_EYE  },
         .abilityHidden = {ABILITY_ROCKY_PAYLOAD, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Bombirdier"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Bombirdier"),
         .cryId = CRY_BOMBIRDIER,
         .natDexNum = NATIONAL_DEX_BOMBIRDIER,
         .categoryName = _("Item Drop"),
@@ -31243,12 +31430,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Bombirdier,
         .iconPalIndex = 0,
         //FOOTPRINT(Bombirdier)
-        .levelUpLearnset = sBombirdierLevelUpLearnset,
-        .teachableLearnset = sBombirdierTeachableLearnset,
+        */
+        //.levelUpLearnset = sBombirdierLevelUpLearnset,
+        //.teachableLearnset = sBombirdierTeachableLearnset,
     },
-#endif //P_FAMILY_BOMBIRDIER
+//#endif //P_FAMILY_BOMBIRDIER
 
-#if P_FAMILY_FINIZEN
+//#if p_fAMILY_FINIZEN
     [SPECIES_FINIZEN] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31262,16 +31450,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 200,
         .expYield = 63,
-        .evYield_Speed = 1,
+       // .evYield_Speed = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_WATER_2),
         .abilities = { ABILITY_WATER_VEIL, ABILITY_NONE  },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Finizen"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Finizen"),
         .cryId = CRY_FINIZEN,
         .natDexNum = NATIONAL_DEX_FINIZEN,
         .categoryName = _("Dolphin"),
@@ -31299,8 +31489,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Finizen,
         .iconPalIndex = 0,
         //FOOTPRINT(Finizen)
-        .levelUpLearnset = sFinizenLevelUpLearnset,
-        .teachableLearnset = sFinizenTeachableLearnset,
+        */
+        //.levelUpLearnset = sFinizenLevelUpLearnset,
+        //.teachableLearnset = sFinizenTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 38, 0,  SPECIES_PALAFIN_ZERO}),
     },
 
@@ -31317,16 +31508,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = 160,
-        .evYield_HP = 2,
+       // .evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_WATER_2),
         .abilities = { ABILITY_ZERO_TO_HERO, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Palafin"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Palafin"),
         .cryId = CRY_PALAFIN_ZERO,
         .natDexNum = NATIONAL_DEX_PALAFIN,
         .categoryName = _("Dolphin"),
@@ -31355,10 +31548,11 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_PalafinZero,
         .iconPalIndex = 0,
         //FOOTPRINT(Palafin)
-        .levelUpLearnset = sPalafinLevelUpLearnset,
-        .teachableLearnset = sPalafinTeachableLearnset,
-        .formSpeciesIdTable = sPalafinFormSpeciesIdTable,
-        .formChangeTable = sPalafinZeroFormChangeTable,
+        */
+        //.levelUpLearnset = sPalafinLevelUpLearnset,
+        //.teachableLearnset = sPalafinTeachableLearnset,
+        //.formSpeciesIdTable = sPalafinFormSpeciesIdTable,
+        //.formChangeTable = sPalafinZeroFormChangeTable,
     },
 
     [SPECIES_PALAFIN_HERO] =
@@ -31374,16 +31568,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = 228,
-        .evYield_HP = 2,
+       // .evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_WATER_2),
         .abilities = { ABILITY_ZERO_TO_HERO, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Palafin"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Palafin"),
         .cryId = CRY_PALAFIN_HERO,
         .natDexNum = NATIONAL_DEX_PALAFIN,
         .categoryName = _("Hero"),
@@ -31412,14 +31608,15 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_PalafinHero,
         .iconPalIndex = 0,
         //FOOTPRINT(Palafin)
-        .levelUpLearnset = sPalafinLevelUpLearnset,
-        .teachableLearnset = sPalafinTeachableLearnset,
-        .formSpeciesIdTable = sPalafinFormSpeciesIdTable,
-        .formChangeTable = sPalafinZeroFormChangeTable,
+        */
+        //.levelUpLearnset = sPalafinLevelUpLearnset,
+        //.teachableLearnset = sPalafinTeachableLearnset,
+        //.formSpeciesIdTable = sPalafinFormSpeciesIdTable,
+        //.formChangeTable = sPalafinZeroFormChangeTable,
     },
-#endif //P_FAMILY_FINIZEN
+//#endif //P_FAMILY_FINIZEN
 
-#if P_FAMILY_VAROOM
+//#if p_fAMILY_VAROOM
     [SPECIES_VAROOM] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31433,17 +31630,19 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_STEEL, TYPE_POISON),
         .catchRate = 190,
         .expYield = 60,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_OVERCOAT, ABILITY_NONE  },
         .abilityHidden = {ABILITY_SLOW_START, ABILITY_SPEED_BOOST},
-        .floating = TRUE;
+        .floating = TRUE,
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Varoom"), //why on god's earth did pokemon decide to give another mon slowstart??
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Varoom"), //why on god's earth did pokemon decide to give another mon slowstart??
         .cryId = CRY_VAROOM,
         .natDexNum = NATIONAL_DEX_VAROOM,
         .categoryName = _("Single-Cyl"),
@@ -31472,8 +31671,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Varoom,
         .iconPalIndex = 2,
         //FOOTPRINT(Varoom)
-        .levelUpLearnset = sVaroomLevelUpLearnset,
-        .teachableLearnset = sVaroomTeachableLearnset,
+        */
+        //.levelUpLearnset = sVaroomLevelUpLearnset,
+        //.teachableLearnset = sVaroomTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 40, 0,  SPECIES_REVAVROOM}),
     },
 
@@ -31490,17 +31690,19 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_STEEL, TYPE_POISON),
         .catchRate = 75,
         .expYield = 175,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_OVERCOAT, ABILITY_NONE },
         .abilityHidden = {ABILITY_FILTER, ABILITY_SPEED_BOOST},
-        .floating = TRUE;
+        .floating = TRUE,
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Revavroom"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Revavroom"),
         .cryId = CRY_REVAVROOM,
         .natDexNum = NATIONAL_DEX_REVAVROOM,
         .categoryName = _("Multi-Cyl"),
@@ -31529,12 +31731,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Revavroom,
         .iconPalIndex = 0,
         //FOOTPRINT(Revavroom)
-        .levelUpLearnset = sRevavroomLevelUpLearnset,
-        .teachableLearnset = sRevavroomTeachableLearnset,
+        */
+        //.levelUpLearnset = sRevavroomLevelUpLearnset,
+        //.teachableLearnset = sRevavroomTeachableLearnset,
     },
-#endif //P_FAMILY_VAROOM
+//#endif //P_FAMILY_VAROOM
 
-#if P_FAMILY_CYCLIZAR
+//#if p_fAMILY_CYCLIZAR
     [SPECIES_CYCLIZAR] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31548,16 +31751,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 175,
-        .evYield_Speed = 2,
+       // .evYield_Speed = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 30,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_SHED_SKIN, ABILITY_NONE  },
         .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Cyclizar"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Cyclizar"),
         .cryId = CRY_CYCLIZAR,
         .natDexNum = NATIONAL_DEX_CYCLIZAR,
         .categoryName = _("Mount"),
@@ -31586,12 +31791,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Cyclizar,
         .iconPalIndex = 1,
         //FOOTPRINT(Cyclizar)
-        .levelUpLearnset = sCyclizarLevelUpLearnset,
-        .teachableLearnset = sCyclizarTeachableLearnset,
+        */
+        //.levelUpLearnset = sCyclizarLevelUpLearnset,
+        //.teachableLearnset = sCyclizarTeachableLearnset,
     },
-#endif //P_FAMILY_CYCLIZAR
+//#endif //P_FAMILY_CYCLIZAR
 
-#if P_FAMILY_ORTHWORM
+//#if p_fAMILY_ORTHWORM
     [SPECIES_ORTHWORM] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31605,16 +31811,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_STEEL),
         .catchRate = 25,
         .expYield = 240,
-        .evYield_Defense = 2,
+       // .evYield_Defense = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_EARTH_EATER, ABILITY_NONE  },
         .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("Orthworm"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Orthworm"),
         .cryId = CRY_ORTHWORM,
         .natDexNum = NATIONAL_DEX_ORTHWORM,
         .categoryName = _("Earthworm"),
@@ -31643,12 +31851,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Orthworm,
         .iconPalIndex = 0,
         //FOOTPRINT(Orthworm)
-        .levelUpLearnset = sOrthwormLevelUpLearnset,
-        .teachableLearnset = sOrthwormTeachableLearnset,
+        */
+        //.levelUpLearnset = sOrthwormLevelUpLearnset,
+        //.teachableLearnset = sOrthwormTeachableLearnset,
     },
-#endif //P_FAMILY_ORTHWORM
+//#endif //P_FAMILY_ORTHWORM
 
-#if P_FAMILY_GLIMMET
+//#if p_fAMILY_GLIMMET
     [SPECIES_GLIMMET] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31662,16 +31871,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK, TYPE_POISON),
         .catchRate = 70,
         .expYield = 70,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 30,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_TOXIC_DEBRIS, ABILITY_NONE  },
         .abilityHidden = {ABILITY_CORROSION, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Glimmet"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Glimmet"),
         .cryId = CRY_GLIMMET,
         .natDexNum = NATIONAL_DEX_GLIMMET,
         .categoryName = _("Ore"),
@@ -31701,8 +31912,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Glimmet,
         .iconPalIndex = 0,
         //FOOTPRINT(Glimmet)
-        .levelUpLearnset = sGlimmetLevelUpLearnset,
-        .teachableLearnset = sGlimmetTeachableLearnset,
+        */
+        //.levelUpLearnset = sGlimmetLevelUpLearnset,
+        //.teachableLearnset = sGlimmetTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_GLIMMORA}),
     },
 
@@ -31719,16 +31931,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK, TYPE_POISON),
         .catchRate = 25,
         .expYield = 184,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 30,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL),
         .abilities = { ABILITY_TOXIC_DEBRIS, ABILITY_NONE},
         .abilityHidden = {ABILITY_CORROSION, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Glimmora"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Glimmora"),
         .cryId = CRY_GLIMMORA,
         .natDexNum = NATIONAL_DEX_GLIMMORA,
         .categoryName = _("Ore"),
@@ -31758,12 +31972,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Glimmora,
         .iconPalIndex = 0,
         //FOOTPRINT(Glimmora)
-        .levelUpLearnset = sGlimmoraLevelUpLearnset,
-        .teachableLearnset = sGlimmoraTeachableLearnset,
+        */
+        //.levelUpLearnset = sGlimmoraLevelUpLearnset,
+        //.teachableLearnset = sGlimmoraTeachableLearnset,
     },
-#endif //P_FAMILY_GLIMMET
+//#endif //P_FAMILY_GLIMMET
 
-#if P_FAMILY_GREAVARD
+//#if p_fAMILY_GREAVARD
     [SPECIES_GREAVARD] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31777,16 +31992,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GHOST),//think may make normal ghost
         .catchRate = 120,
         .expYield = 58,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_PICKUP, ABILITY_NONE  },
         .abilityHidden = {ABILITY_FLUFFY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Greavard"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Greavard"),
         .cryId = CRY_GREAVARD,
         .natDexNum = NATIONAL_DEX_GREAVARD,
         .categoryName = _("Ghost Dog"),
@@ -31815,8 +32032,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Greavard,
         .iconPalIndex = 0,
         //FOOTPRINT(Greavard)
-        .levelUpLearnset = sGreavardLevelUpLearnset,
-        .teachableLearnset = sGreavardTeachableLearnset,
+        */
+        //.levelUpLearnset = sGreavardLevelUpLearnset,
+        //.teachableLearnset = sGreavardTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, 30, 0,  SPECIES_HOUNDSTONE}),
     },
 
@@ -31833,16 +32051,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GHOST),
         .catchRate = 60,
         .expYield = 171,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_SAND_RUSH, ABILITY_NONE},
         .abilityHidden = {ABILITY_FLUFFY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Houndstone"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Houndstone"),
         .cryId = CRY_HOUNDSTONE,
         .natDexNum = NATIONAL_DEX_HOUNDSTONE,
         .categoryName = _("Ghost Dog"),
@@ -31871,12 +32091,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Houndstone,
         .iconPalIndex = 2,
         //FOOTPRINT(Houndstone)
-        .levelUpLearnset = sHoundstoneLevelUpLearnset,
-        .teachableLearnset = sHoundstoneTeachableLearnset,
+        */
+        //.levelUpLearnset = sHoundstoneLevelUpLearnset,
+        //.teachableLearnset = sHoundstoneTeachableLearnset,
     },
-#endif //P_FAMILY_GREAVARD
+//#endif //P_FAMILY_GREAVARD
 
-#if P_FAMILY_FLAMIGO
+//#if p_fAMILY_FLAMIGO
     [SPECIES_FLAMIGO] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31890,16 +32111,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FLYING, TYPE_FIGHTING),
         .catchRate = 100,
         .expYield = 175,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FLYING),
+        MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_SCRAPPY, ABILITY_TANGLED_FEET  },
         .abilityHidden = {ABILITY_COSTAR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("Flamigo"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Flamigo"),
         .cryId = CRY_FLAMIGO,
         .natDexNum = NATIONAL_DEX_FLAMIGO,
         .categoryName = _("Synchronize"),
@@ -31928,12 +32151,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Flamigo,
         .iconPalIndex = 1,
         //FOOTPRINT(Flamigo)
-        .levelUpLearnset = sFlamigoLevelUpLearnset,
-        .teachableLearnset = sFlamigoTeachableLearnset,
+        */
+        //.levelUpLearnset = sFlamigoLevelUpLearnset,
+        //.teachableLearnset = sFlamigoTeachableLearnset,
     },
-#endif //P_FAMILY_FLAMIGO
+//#endif //P_FAMILY_FLAMIGO
 
-#if P_FAMILY_CETODDLE
+//#if p_fAMILY_CETODDLE
     [SPECIES_CETODDLE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -31947,16 +32171,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ICE),
         .catchRate = 150,
         .expYield = 67,
-        .evYield_HP = 1,
+       // .evYield_HP = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 25,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_THICK_FAT, ABILITY_SNOW_CLOAK  },
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Cetoddle"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Cetoddle"),
         .cryId = CRY_CETODDLE,
         .natDexNum = NATIONAL_DEX_CETODDLE,
         .categoryName = _("Terra Whale"),
@@ -31985,8 +32211,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Cetoddle,
         .iconPalIndex = 0,
         //FOOTPRINT(Cetoddle)
-        .levelUpLearnset = sCetoddleLevelUpLearnset,
-        .teachableLearnset = sCetoddleTeachableLearnset,
+        */
+        //.levelUpLearnset = sCetoddleLevelUpLearnset,
+        //.teachableLearnset = sCetoddleTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_ICE_STONE, 0,  SPECIES_CETITAN}),
     },
 
@@ -32003,16 +32230,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ICE),
         .catchRate = 50,
         .expYield = 182,
-        .evYield_HP = 2,
+       // .evYield_HP = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 25,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_THICK_FAT, ABILITY_SLUSH_RUSH },
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Cetitan"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Cetitan"),
         .cryId = CRY_CETITAN,
         .natDexNum = NATIONAL_DEX_CETITAN,
         .categoryName = _("Terra Whale"),
@@ -32041,12 +32270,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Cetitan,
         .iconPalIndex = 0,
         //FOOTPRINT(Cetitan)
-        .levelUpLearnset = sCetitanLevelUpLearnset,
-        .teachableLearnset = sCetitanTeachableLearnset,
+        */
+        //.levelUpLearnset = sCetitanLevelUpLearnset,
+        //.teachableLearnset = sCetitanTeachableLearnset,
     },
-#endif //P_FAMILY_CETODDLE
+//#endif //P_FAMILY_CETODDLE
 
-#if P_FAMILY_VELUZA
+//#if p_fAMILY_VELUZA
     [SPECIES_VELUZA] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32060,16 +32290,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 100,
         .expYield = 167,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_2),
         .abilities = { ABILITY_MOLD_BREAKER, ABILITY_NONE },
         .abilityHidden = {ABILITY_SHARPNESS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Veluza"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Veluza"),
         .cryId = CRY_VELUZA,
         .natDexNum = NATIONAL_DEX_VELUZA,
         .categoryName = _("Jettison"),
@@ -32099,12 +32331,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Veluza,
         .iconPalIndex = 1,
         //FOOTPRINT(Veluza)
-        .levelUpLearnset = sVeluzaLevelUpLearnset,
-        .teachableLearnset = sVeluzaTeachableLearnset,
+        */
+        //.levelUpLearnset = sVeluzaLevelUpLearnset,
+        //.teachableLearnset = sVeluzaTeachableLearnset,
     },
-#endif //P_FAMILY_VELUZA
+//#endif //P_FAMILY_VELUZA
 
-#if P_FAMILY_DONDOZO
+//#if p_fAMILY_DONDOZO
     [SPECIES_DONDOZO] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32118,16 +32351,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER),
         .catchRate = 25,
         .expYield = 265,
-        .evYield_HP = 3,
+       // .evYield_HP = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_2),
         .abilities = { ABILITY_UNAWARE, ABILITY_OBLIVIOUS  },
         .abilityHidden = {ABILITY_WATER_VEIL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Dondozo"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Dondozo"),
         .cryId = CRY_DONDOZO,
         .natDexNum = NATIONAL_DEX_DONDOZO,
         .categoryName = _("Big Catfish"),
@@ -32157,12 +32392,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Dondozo,
         .iconPalIndex = 0,
         //FOOTPRINT(Dondozo)
-        .levelUpLearnset = sDondozoLevelUpLearnset,
-        .teachableLearnset = sDondozoTeachableLearnset,
+        */
+        //.levelUpLearnset = sDondozoLevelUpLearnset,
+        //.teachableLearnset = sDondozoTeachableLearnset,
     },
-#endif //P_FAMILY_DONDOZO
+//#endif //P_FAMILY_DONDOZO
 
-#if P_FAMILY_TATSUGIRI
+//#if p_fAMILY_TATSUGIRI
     [SPECIES_TATSUGIRI_CURLY] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32176,16 +32412,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_WATER),
         .catchRate = 100,
         .expYield = 166,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_2),
         .abilities = { ABILITY_COMMANDER, ABILITY_NONE  },
         .abilityHidden = {ABILITY_STORM_DRAIN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Tatsugiri"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tatsugiri"),
         .cryId = CRY_TATSUGIRI_CURLY,
         .natDexNum = NATIONAL_DEX_TATSUGIRI,
         .categoryName = _("Mimicry"),
@@ -32214,9 +32452,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_TatsugiriCurly,
         .iconPalIndex = 0,
         //FOOTPRINT(Tatsugiri)
-        .levelUpLearnset = sTatsugiriLevelUpLearnset,
-        .teachableLearnset = sTatsugiriTeachableLearnset,
-        .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sTatsugiriLevelUpLearnset,
+        //.teachableLearnset = sTatsugiriTeachableLearnset,
+        //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 
     [SPECIES_TATSUGIRI_DROOPY] =
@@ -32232,16 +32471,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_WATER),
         .catchRate = 100,
         .expYield = 166,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_2),
         .abilities = { ABILITY_COMMANDER, ABILITY_NONE },
         .abilityHidden = {ABILITY_STORM_DRAIN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("Tatsugiri"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tatsugiri"),
         .cryId = CRY_TATSUGIRI_DROOPY,
         .natDexNum = NATIONAL_DEX_TATSUGIRI,
         .categoryName = _("Mimicry"),
@@ -32269,9 +32510,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_TatsugiriDroopy,
         .iconPalIndex = 0,
         //FOOTPRINT(Tatsugiri)
-        .levelUpLearnset = sTatsugiriLevelUpLearnset,
-        .teachableLearnset = sTatsugiriTeachableLearnset,
-        .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sTatsugiriLevelUpLearnset,
+        //.teachableLearnset = sTatsugiriTeachableLearnset,
+        //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 
     [SPECIES_TATSUGIRI_STRETCHY] =
@@ -32287,16 +32529,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_WATER),
         .catchRate = 100,
         .expYield = 166,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 35,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+        MON_EGG_GROUPS(EGG_GROUP_WATER_2),
         .abilities = { ABILITY_COMMANDER, ABILITY_NONE },
         .abilityHidden = {ABILITY_STORM_DRAIN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Tatsugiri"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Tatsugiri"),
         .cryId = CRY_TATSUGIRI_STRETCHY,
         .natDexNum = NATIONAL_DEX_TATSUGIRI,
         .categoryName = _("Mimicry"),
@@ -32324,13 +32568,14 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_TatsugiriStretchy,
         .iconPalIndex = 0,
         //FOOTPRINT(Tatsugiri)
-        .levelUpLearnset = sTatsugiriLevelUpLearnset,
-        .teachableLearnset = sTatsugiriTeachableLearnset,
-        .formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sTatsugiriLevelUpLearnset,
+        //.teachableLearnset = sTatsugiriTeachableLearnset,
+        //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
-#endif //P_FAMILY_TATSUGIRI
+//#endif //P_FAMILY_TATSUGIRI
 
-#if P_FAMILY_GREAT_TUSK
+//#if p_fAMILY_GREAT_TUSK
     [SPECIES_GREAT_TUSK] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32344,16 +32589,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GROUND, TYPE_FIGHTING),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE  },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
-        .speciesName = _("Great Tusk"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Great Tusk"),
         .cryId = CRY_GREAT_TUSK,
         .natDexNum = NATIONAL_DEX_GREAT_TUSK,
         .categoryName = _("Paradox"),
@@ -32383,12 +32630,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(GreatTusk)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sGreatTuskLevelUpLearnset,
-        .teachableLearnset = sGreatTuskTeachableLearnset,
+        */
+        //.levelUpLearnset = sGreatTuskLevelUpLearnset,
+        //.teachableLearnset = sGreatTuskTeachableLearnset,
     },
-#endif //P_FAMILY_GREAT_TUSK
+//#endif //P_FAMILY_GREAT_TUSK
 
-#if P_FAMILY_SCREAM_TAIL
+//#if p_fAMILY_SCREAM_TAIL
     [SPECIES_SCREAM_TAIL] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32402,16 +32650,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY, TYPE_PSYCHIC),
         .catchRate = 50,
         .expYield = 285,
-        .evYield_HP = 3,
+       // .evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
-        .speciesName = _("ScreamTail"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("ScreamTail"),
         .cryId = CRY_SCREAM_TAIL,
         .natDexNum = NATIONAL_DEX_SCREAM_TAIL,
         .categoryName = _("Paradox"),
@@ -32441,12 +32691,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(ScreamTail)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sScreamTailLevelUpLearnset,
-        .teachableLearnset = sScreamTailTeachableLearnset,
+        */
+        //.levelUpLearnset = sScreamTailLevelUpLearnset,
+        //.teachableLearnset = sScreamTailTeachableLearnset,
     },
-#endif //P_FAMILY_SCREAM_TAIL
+//#endif //P_FAMILY_SCREAM_TAIL
 
-#if P_FAMILY_BRUTE_BONNET
+//#if p_fAMILY_BRUTE_BONNET
     [SPECIES_BRUTE_BONNET] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32460,16 +32711,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 50,
         .expYield = 285,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("BruteBonet"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("BruteBonet"),
         .cryId = CRY_BRUTE_BONNET,
         .natDexNum = NATIONAL_DEX_BRUTE_BONNET,
         .categoryName = _("Paradox"),
@@ -32499,12 +32752,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(BruteBonnet)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sBruteBonnetLevelUpLearnset,
-        .teachableLearnset = sBruteBonnetTeachableLearnset,
+        */
+        //.levelUpLearnset = sBruteBonnetLevelUpLearnset,
+        //.teachableLearnset = sBruteBonnetTeachableLearnset,
     },
-#endif //P_FAMILY_BRUTE_BONNET
+//#endif //P_FAMILY_BRUTE_BONNET
 
-#if P_FAMILY_FLUTTER_MANE
+//#if p_fAMILY_FLUTTER_MANE
     [SPECIES_FLUTTER_MANE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32518,18 +32772,20 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_Speed = 1,
-        .evYield_SpAttack = 1,
-        .evYield_SpDefense = 1,
+       // .evYield_Speed = 1,
+       // .evYield_SpAttack = 1,
+       // .evYield_SpDefense = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("FluttrMane"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("FluttrMane"),
         .cryId = CRY_FLUTTER_MANE,
         .natDexNum = NATIONAL_DEX_FLUTTER_MANE,
         .categoryName = _("Paradox"),
@@ -32560,12 +32816,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 2,
         //FOOTPRINT(FlutterMane)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sFlutterManeLevelUpLearnset,
-        .teachableLearnset = sFlutterManeTeachableLearnset,
+        */
+        //.levelUpLearnset = sFlutterManeLevelUpLearnset,
+        //.teachableLearnset = sFlutterManeTeachableLearnset,
     },
-#endif //P_FAMILY_FLUTTER_MANE
+//#endif //P_FAMILY_FLUTTER_MANE
 
-#if P_FAMILY_SLITHER_WING
+//#if p_fAMILY_SLITHER_WING
     [SPECIES_SLITHER_WING] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32579,16 +32836,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("SlithrWing"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("SlithrWing"),
         .cryId = CRY_SLITHER_WING,
         .natDexNum = NATIONAL_DEX_SLITHER_WING,
         .categoryName = _("Paradox"),
@@ -32617,12 +32876,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(SlitherWing)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sSlitherWingLevelUpLearnset,
-        .teachableLearnset = sSlitherWingTeachableLearnset,
+        */
+        //.levelUpLearnset = sSlitherWingLevelUpLearnset,
+        //.teachableLearnset = sSlitherWingTeachableLearnset,
     },
-#endif //P_FAMILY_SLITHER_WING
+//#endif //P_FAMILY_SLITHER_WING
 
-#if P_FAMILY_SANDY_SHOCKS
+//#if p_fAMILY_SANDY_SHOCKS
     [SPECIES_SANDY_SHOCKS] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32636,16 +32896,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_GROUND),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("SndyShocks"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("SndyShocks"),
         .cryId = CRY_SANDY_SHOCKS,
         .natDexNum = NATIONAL_DEX_SANDY_SHOCKS,
         .categoryName = _("Paradox"),
@@ -32675,12 +32937,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(SandyShocks)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sSandyShocksLevelUpLearnset,
-        .teachableLearnset = sSandyShocksTeachableLearnset,
+        */
+        //.levelUpLearnset = sSandyShocksLevelUpLearnset,
+        //.teachableLearnset = sSandyShocksTeachableLearnset,
     },
-#endif //P_FAMILY_SANDY_SHOCKS
+//#endif //P_FAMILY_SANDY_SHOCKS
 
-#if P_FAMILY_IRON_TREADS
+//#if p_fAMILY_IRON_TREADS
     [SPECIES_IRON_TREADS] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32694,16 +32957,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GROUND, TYPE_STEEL),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_Defense = 3,
+       // .evYield_Defense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("IronTreads"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronTreads"),
         .cryId = CRY_IRON_TREADS,
         .natDexNum = NATIONAL_DEX_IRON_TREADS,
         .categoryName = _("Paradox"),
@@ -32733,12 +32998,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(IronTreads)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronTreadsLevelUpLearnset,
-        .teachableLearnset = sIronTreadsTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronTreadsLevelUpLearnset,
+        //.teachableLearnset = sIronTreadsTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_TREADS
+//#endif //P_FAMILY_IRON_TREADS
 
-#if P_FAMILY_IRON_BUNDLE
+//#if p_fAMILY_IRON_BUNDLE
     [SPECIES_IRON_BUNDLE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32752,16 +33018,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 50,
         .expYield = 285,
-        .evYield_Speed = 3,
+       // .evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("IronBundle"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronBundle"),
         .cryId = CRY_IRON_BUNDLE,
         .natDexNum = NATIONAL_DEX_IRON_BUNDLE,
         .categoryName = _("Paradox"),
@@ -32791,12 +33059,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(IronBundle)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronBundleLevelUpLearnset,
-        .teachableLearnset = sIronBundleTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronBundleLevelUpLearnset,
+        //.teachableLearnset = sIronBundleTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_BUNDLE
+//#endif //P_FAMILY_IRON_BUNDLE
 
-#if P_FAMILY_IRON_HANDS
+//#if p_fAMILY_IRON_HANDS
     [SPECIES_IRON_HANDS] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32810,16 +33079,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIGHTING, TYPE_ELECTRIC),
         .catchRate = 50,
         .expYield = 285,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Iron Hands"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Iron Hands"),
         .cryId = CRY_IRON_HANDS,
         .natDexNum = NATIONAL_DEX_IRON_HANDS,
         .categoryName = _("Paradox"),
@@ -32849,12 +33120,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(IronHands)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronHandsLevelUpLearnset,
-        .teachableLearnset = sIronHandsTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronHandsLevelUpLearnset,
+        //.teachableLearnset = sIronHandsTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_HANDS
+//#endif //P_FAMILY_IRON_HANDS
 
-#if P_FAMILY_IRON_JUGULIS
+//#if p_fAMILY_IRON_JUGULIS
     [SPECIES_IRON_JUGULIS] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32868,16 +33140,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("IronJuguls"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronJuguls"),
         .cryId = CRY_IRON_JUGULIS,
         .natDexNum = NATIONAL_DEX_IRON_JUGULIS,
         .categoryName = _("Paradox"),
@@ -32908,12 +33182,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(IronJugulis)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronJugulisLevelUpLearnset,
-        .teachableLearnset = sIronJugulisTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronJugulisLevelUpLearnset,
+        //.teachableLearnset = sIronJugulisTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_JUGULIS
+//#endif //P_FAMILY_IRON_JUGULIS
 
-#if P_FAMILY_IRON_MOTH
+//#if p_fAMILY_IRON_MOTH
     [SPECIES_IRON_MOTH] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32927,16 +33202,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE, TYPE_POISON),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Iron Moth"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Iron Moth"),
         .cryId = CRY_IRON_MOTH,
         .natDexNum = NATIONAL_DEX_IRON_MOTH,
         .categoryName = _("Paradox"),
@@ -32967,12 +33244,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 3,
         //FOOTPRINT(IronMoth)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronMothLevelUpLearnset,
-        .teachableLearnset = sIronMothTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronMothLevelUpLearnset,
+        //.teachableLearnset = sIronMothTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_MOTH
+//#endif //P_FAMILY_IRON_MOTH
 
-#if P_FAMILY_IRON_THORNS
+//#if p_fAMILY_IRON_THORNS
     [SPECIES_IRON_THORNS] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -32986,16 +33264,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK, TYPE_ELECTRIC),
         .catchRate = 30,
         .expYield = 285,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("IronThorns"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronThorns"),
         .cryId = CRY_IRON_THORNS,
         .natDexNum = NATIONAL_DEX_IRON_THORNS,
         .categoryName = _("Paradox"),
@@ -33025,12 +33305,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(IronThorns)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronThornsLevelUpLearnset,
-        .teachableLearnset = sIronThornsTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronThornsLevelUpLearnset,
+        //.teachableLearnset = sIronThornsTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_THORNS
+//#endif //P_FAMILY_IRON_THORNS
 
-#if P_FAMILY_FRIGIBAX
+//#if p_fAMILY_FRIGIBAX
     [SPECIES_FRIGIBAX] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33044,16 +33325,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 45,
         .expYield = 64,
-        .evYield_Attack = 1,
+       // .evYield_Attack = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_THERMAL_EXCHANGE, ABILITY_NONE  },
         .abilityHidden = {ABILITY_ICE_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Frigibax"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Frigibax"),
         .cryId = CRY_FRIGIBAX,
         .natDexNum = NATIONAL_DEX_FRIGIBAX,
         .categoryName = _("Ice Fin"),
@@ -33082,8 +33365,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Frigibax,
         .iconPalIndex = 0,
         //FOOTPRINT(Frigibax)
-        .levelUpLearnset = sFrigibaxLevelUpLearnset,
-        .teachableLearnset = sFrigibaxTeachableLearnset,
+        */
+        //.levelUpLearnset = sFrigibaxLevelUpLearnset,
+        //.teachableLearnset = sFrigibaxTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_ARCTIBAX}),
     },
 
@@ -33100,16 +33384,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 25,
         .expYield = 148,
-        .evYield_Attack = 2,
+       // .evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_THERMAL_EXCHANGE, ABILITY_NONE },
         .abilityHidden = {ABILITY_ICE_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Arctibax"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Arctibax"),
         .cryId = CRY_ARCTIBAX,
         .natDexNum = NATIONAL_DEX_ARCTIBAX,
         .categoryName = _("Ice Fin"),
@@ -33138,8 +33424,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Arctibax,
         .iconPalIndex = 0,
         //FOOTPRINT(Arctibax)
-        .levelUpLearnset = sArctibaxLevelUpLearnset,
-        .teachableLearnset = sArctibaxTeachableLearnset,
+        */
+        //.levelUpLearnset = sArctibaxLevelUpLearnset,
+        //.teachableLearnset = sArctibaxTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 54, 0,  SPECIES_BAXCALIBUR}),
     },
 
@@ -33156,16 +33443,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 10,
         .expYield = 300,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
+        MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
         .abilities = { ABILITY_THERMAL_EXCHANGE, ABILITY_NONE },
         .abilityHidden = {ABILITY_ICE_BODY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Baxcalibur"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Baxcalibur"),
         .cryId = CRY_BAXCALIBUR,
         .natDexNum = NATIONAL_DEX_BAXCALIBUR,
         .categoryName = _("Ice Dragon"),
@@ -33194,12 +33483,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Baxcalibur,
         .iconPalIndex = 0,
         //FOOTPRINT(Baxcalibur)
-        .levelUpLearnset = sBaxcaliburLevelUpLearnset,
-        .teachableLearnset = sBaxcaliburTeachableLearnset,
+        */
+        //.levelUpLearnset = sBaxcaliburLevelUpLearnset,
+        //.teachableLearnset = sBaxcaliburTeachableLearnset,
     },
-#endif //P_FAMILY_FRIGIBAX
+//#endif //P_FAMILY_FRIGIBAX
 
-#if P_FAMILY_GIMMIGHOUL
+//#if p_fAMILY_GIMMIGHOUL
     [SPECIES_GIMMIGHOUL_CHEST] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33213,16 +33503,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GHOST),
         .catchRate = 45,
         .expYield = 60,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_RATTLED, ABILITY_NONE  },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Gimmighoul"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Gimmighoul"),
         .cryId = CRY_GIMMIGHOUL,
         .natDexNum = NATIONAL_DEX_GIMMIGHOUL,
         .categoryName = _("Coin Chest"),
@@ -33251,9 +33543,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_GimmighoulChest,
         .iconPalIndex = 0,
         //FOOTPRINT(Gimmighoul)
-        .levelUpLearnset = sGimmighoulLevelUpLearnset,
-        .teachableLearnset = sGimmighoulTeachableLearnset,
-        .formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sGimmighoulLevelUpLearnset,
+        //.teachableLearnset = sGimmighoulTeachableLearnset,
+        //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_GHOLDENGO}),
     },
 
@@ -33270,16 +33563,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GHOST),
         .catchRate = 45,
         .expYield = 60,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_RUN_AWAY, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("Gimmighoul"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Gimmighoul"),
         .cryId = CRY_GIMMIGHOUL,
         .natDexNum = NATIONAL_DEX_GIMMIGHOUL,
         .categoryName = _("Coin Hunter"),
@@ -33308,9 +33603,10 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_GimmighoulRoaming,
         .iconPalIndex = 0,
         //FOOTPRINT(Gimmighoul)
-        .levelUpLearnset = sGimmighoulLevelUpLearnset,
-        .teachableLearnset = sGimmighoulTeachableLearnset,
-        .formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
+        */
+        //.levelUpLearnset = sGimmighoulLevelUpLearnset,
+        //.teachableLearnset = sGimmighoulTeachableLearnset,
+        //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_GHOLDENGO}),
     },
 
@@ -33327,16 +33623,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_STEEL, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 275,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_GOOD_AS_GOLD, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Gholdengo"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Gholdengo"),
         .cryId = CRY_GHOLDENGO,
         .natDexNum = NATIONAL_DEX_GHOLDENGO,
         .categoryName = _("Coin Entity"),
@@ -33365,12 +33663,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Gholdengo,
         .iconPalIndex = 0,
         //FOOTPRINT(Gholdengo)
-        .levelUpLearnset = sGholdengoLevelUpLearnset,
-        .teachableLearnset = sGholdengoTeachableLearnset,
+        */
+        //.levelUpLearnset = sGholdengoLevelUpLearnset,
+        //.teachableLearnset = sGholdengoTeachableLearnset,
     },
-#endif //P_FAMILY_GIMMIGHOUL
+//#endif //P_FAMILY_GIMMIGHOUL
 
-#if P_FAMILY_WO_CHIEN
+//#if p_fAMILY_WO_CHIEN
     [SPECIES_WO_CHIEN] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33384,16 +33683,16 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK, TYPE_GRASS),
         .catchRate = 6,
         .expYield = 285,
-        .evYield_SpDefense = 3,
+       // .evYield_SpDefense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TABLETS_OF_RUIN, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN, //based on wolfyvgc vid redid ability drops speed instead of attack
-        .speciesName = _("Wo-Chien"),
+        /*.speciesName = _("Wo-Chien"),
         .cryId = CRY_WO_CHIEN,
         .natDexNum = NATIONAL_DEX_WO_CHIEN,
         .categoryName = _("Ruinous"),
@@ -33423,12 +33722,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(WoChien)
         .isLegendary = TRUE,
-        .levelUpLearnset = sWoChienLevelUpLearnset,
-        .teachableLearnset = sWoChienTeachableLearnset,
+        */
+        //.levelUpLearnset = sWoChienLevelUpLearnset,
+        //.teachableLearnset = sWoChienTeachableLearnset,
     },
-#endif //P_FAMILY_WO_CHIEN
+//#endif //P_FAMILY_WO_CHIEN
 
-#if P_FAMILY_CHIEN_PAO
+//#if p_fAMILY_CHIEN_PAO
     [SPECIES_CHIEN_PAO] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33442,16 +33742,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK, TYPE_ICE),
         .catchRate = 6,
         .expYield = 285,
-        .evYield_Speed = 3,
+       // .evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_SWORD_OF_RUIN, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("Chien-Pao"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Chien-Pao"),
         .cryId = CRY_CHIEN_PAO,
         .natDexNum = NATIONAL_DEX_CHIEN_PAO,
         .categoryName = _("Ruinous"),
@@ -33481,12 +33783,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(ChienPao)
         .isLegendary = TRUE,
-        .levelUpLearnset = sChienPaoLevelUpLearnset,
-        .teachableLearnset = sChienPaoTeachableLearnset,
+        */
+        //.levelUpLearnset = sChienPaoLevelUpLearnset,
+        //.teachableLearnset = sChienPaoTeachableLearnset,
     },
-#endif //P_FAMILY_CHIEN_PAO
+//#endif //P_FAMILY_CHIEN_PAO
 
-#if P_FAMILY_TING_LU
+//#if p_fAMILY_TING_LU
     [SPECIES_TING_LU] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33500,16 +33803,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK, TYPE_GROUND),
         .catchRate = 6,
         .expYield = 285,
-        .evYield_Defense = 3,
+       // .evYield_Defense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_VESSEL_OF_RUIN, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Ting-Lu"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Ting-Lu"),
         .cryId = CRY_TING_LU,
         .natDexNum = NATIONAL_DEX_TING_LU,
         .categoryName = _("Ruinous"),
@@ -33539,12 +33844,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(TingLu)
         .isLegendary = TRUE,
-        .levelUpLearnset = sTingLuLevelUpLearnset,
-        .teachableLearnset = sTingLuTeachableLearnset,
+        */
+        //.levelUpLearnset = sTingLuLevelUpLearnset,
+        //.teachableLearnset = sTingLuTeachableLearnset,
     },
-#endif //P_FAMILY_TING_LU
+//#endif //P_FAMILY_TING_LU
 
-#if P_FAMILY_CHI_YU
+//#if p_fAMILY_CHI_YU
     [SPECIES_CHI_YU] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33558,16 +33864,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DARK, TYPE_FIRE),
         .catchRate = 6,
         .expYield = 285,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_BEADS_OF_RUIN, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Chi-Yu"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Chi-Yu"),
         .cryId = CRY_CHI_YU,
         .natDexNum = NATIONAL_DEX_CHI_YU,
         .categoryName = _("Ruinous"),
@@ -33598,12 +33906,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(ChiYu)
         .isLegendary = TRUE,
-        .levelUpLearnset = sChiYuLevelUpLearnset,
-        .teachableLearnset = sChiYuTeachableLearnset,
+        */
+        //.levelUpLearnset = sChiYuLevelUpLearnset,
+        //.teachableLearnset = sChiYuTeachableLearnset,
     },
-#endif //P_FAMILY_CHI_YU
+//#endif //P_FAMILY_CHI_YU
 
-#if P_FAMILY_ROARING_MOON
+//#if p_fAMILY_ROARING_MOON
     [SPECIES_ROARING_MOON] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33617,16 +33926,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_DRAGON, TYPE_DARK),
         .catchRate = 10,
         .expYield = 295,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("RoarngMoon"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("RoarngMoon"),
         .cryId = CRY_ROARING_MOON,
         .natDexNum = NATIONAL_DEX_ROARING_MOON,
         .categoryName = _("Paradox"),
@@ -33657,12 +33968,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(RoaringMoon)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sRoaringMoonLevelUpLearnset,
-        .teachableLearnset = sRoaringMoonTeachableLearnset,
+        */
+        //.levelUpLearnset = sRoaringMoonLevelUpLearnset,
+        //.teachableLearnset = sRoaringMoonTeachableLearnset,
     },
-#endif //P_FAMILY_ROARING_MOON
+//#endif //P_FAMILY_ROARING_MOON
 
-#if P_FAMILY_IRON_VALIANT
+//#if p_fAMILY_IRON_VALIANT
     [SPECIES_IRON_VALIANT] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33676,16 +33988,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FAIRY, TYPE_FIGHTING),
         .catchRate = 10,
         .expYield = 295,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
-        .speciesName = _("IronVliant"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronVliant"),
         .cryId = CRY_IRON_VALIANT,
         .natDexNum = NATIONAL_DEX_IRON_VALIANT,
         .categoryName = _("Paradox"),
@@ -33714,12 +34028,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(IronValiant)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronValiantLevelUpLearnset,
-        .teachableLearnset = sIronValiantTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronValiantLevelUpLearnset,
+        //.teachableLearnset = sIronValiantTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_VALIANT
+//#endif //P_FAMILY_IRON_VALIANT
 
-#if P_FAMILY_KORAIDON
+//#if p_fAMILY_KORAIDON
     [SPECIES_KORAIDON] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33733,16 +34048,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIGHTING, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 335,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_ORICHALCUM_PULSE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_RED,
-        .speciesName = _("Koraidon"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Koraidon"),
         .cryId = CRY_KORAIDON,
         .natDexNum = NATIONAL_DEX_KORAIDON,
         .categoryName = _("Paradox"),
@@ -33773,12 +34090,13 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Koraidon)
         .isLegendary = TRUE,
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sKoraidonLevelUpLearnset,
-        .teachableLearnset = sKoraidonTeachableLearnset,
+        */
+        //.levelUpLearnset = sKoraidonLevelUpLearnset,
+        //.teachableLearnset = sKoraidonTeachableLearnset,
     },
-#endif //P_FAMILY_KORAIDON
+//#endif //P_FAMILY_KORAIDON
 
-#if P_FAMILY_MIRAIDON
+//#if p_fAMILY_MIRAIDON
     [SPECIES_MIRAIDON] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33792,16 +34110,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 335,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_HADRON_ENGINE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
-        .speciesName = _("Miraidon"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Miraidon"),
         .cryId = CRY_MIRAIDON,
         .natDexNum = NATIONAL_DEX_MIRAIDON,
         .categoryName = _("Paradox"),
@@ -33832,12 +34152,13 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Miraidon)
         .isLegendary = TRUE,
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sMiraidonLevelUpLearnset,
-        .teachableLearnset = sMiraidonTeachableLearnset,
+        */
+        //.levelUpLearnset = sMiraidonLevelUpLearnset,
+        //.teachableLearnset = sMiraidonTeachableLearnset,
     },
-#endif //P_FAMILY_MIRAIDON
+//#endif //P_FAMILY_MIRAIDON
 
-#if P_FAMILY_WALKING_WAKE
+//#if p_fAMILY_WALKING_WAKE
     [SPECIES_WALKING_WAKE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33851,16 +34172,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 5,
         .expYield = 295,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("WalkngWake"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("WalkngWake"),
         .cryId = CRY_WALKING_WAKE,
         .natDexNum = NATIONAL_DEX_WALKING_WAKE,
         .categoryName = _("Paradox"),
@@ -33889,12 +34212,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 2,
         //FOOTPRINT(WalkingWake)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sWalkingWakeLevelUpLearnset,
-        .teachableLearnset = sWalkingWakeTeachableLearnset,
+        */
+        //.levelUpLearnset = sWalkingWakeLevelUpLearnset,
+        //.teachableLearnset = sWalkingWakeTeachableLearnset,
     },
-#endif //P_FAMILY_WALKING_WAKE
+//#endif //P_FAMILY_WALKING_WAKE
 
-#if P_FAMILY_IRON_LEAVES
+//#if p_fAMILY_IRON_LEAVES
     [SPECIES_IRON_LEAVES] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33908,16 +34232,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),
         .catchRate = 5,
         .expYield = 295,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("IronLeaves"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronLeaves"),
         .cryId = CRY_IRON_LEAVES,
         .natDexNum = NATIONAL_DEX_IRON_LEAVES,
         .categoryName = _("Paradox"),
@@ -33946,12 +34272,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(IronLeaves)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronLeavesLevelUpLearnset,
-        .teachableLearnset = sIronLeavesTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronLeavesLevelUpLearnset,
+        //.teachableLearnset = sIronLeavesTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_LEAVES
+//#endif //P_FAMILY_IRON_LEAVES
 
-#if P_FAMILY_POLTCHAGEIST
+//#if p_fAMILY_POLTCHAGEIST
     [SPECIES_POLTCHAGEIST_COUNTERFEIT] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -33965,16 +34292,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 120,
         .expYield = 62,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
         .abilities = { ABILITY_HOSPITALITY, ABILITY_NONE },
         .abilityHidden = {ABILITY_HEATPROOF, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Ptchageist"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Ptchageist"),
         .cryId = CRY_POLTCHAGEIST,
         .natDexNum = NATIONAL_DEX_POLTCHAGEIST,
         .categoryName = _("Matcha"),
@@ -34004,10 +34333,12 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Poltchageist,
         .iconPalIndex = 1,
         //FOOTPRINT(Poltchageist)
-        .levelUpLearnset = sPoltchageistLevelUpLearnset,
-        .teachableLearnset = sPoltchageistTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_UNREMARKABLE_TEACUP, 0,  SPECIES_SINISTCHA_UNREMARKABLE}),
-    },
+        */
+        //.levelUpLearnset = sPoltchageistLevelUpLearnset,
+        //.teachableLearnset = sPoltchageistTeachableLearnset,
+        .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_UNREMARKABLE_TEACUP*/, 0,  SPECIES_SINISTCHA_UNREMARKABLE}),
+    },//vsonic
+
     [SPECIES_POLTCHAGEIST_ARTISAN] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34021,16 +34352,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 120,
         .expYield = 62,
-        .evYield_SpAttack = 1,
+       // .evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
         .abilities = { ABILITY_HOSPITALITY, ABILITY_NONE },
         .abilityHidden = {ABILITY_HEATPROOF, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Ptchageist"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Ptchageist"),
         .cryId = CRY_POLTCHAGEIST,
         .natDexNum = NATIONAL_DEX_POLTCHAGEIST,
         .categoryName = _("Matcha"),
@@ -34060,10 +34393,11 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Poltchageist,
         .iconPalIndex = 1,
         //FOOTPRINT(Poltchageist)
-        .levelUpLearnset = sPoltchageistLevelUpLearnset,
-        .teachableLearnset = sPoltchageistTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_MASTERPIECE_TEACUP, 0,  SPECIES_SINISTCHA_MASTERPIECE}),
-    },
+        */
+        //.levelUpLearnset = sPoltchageistLevelUpLearnset,
+        //.teachableLearnset = sPoltchageistTeachableLearnset,
+        .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_MASTERPIECE_TEACUP*/, 0,  SPECIES_SINISTCHA_MASTERPIECE}),
+    },//vsonic
 
     [SPECIES_SINISTCHA_UNREMARKABLE] =
     {
@@ -34078,16 +34412,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 178,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
         .abilities = { ABILITY_HOSPITALITY, ABILITY_NONE },
         .abilityHidden = {ABILITY_HEATPROOF, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Sinistcha"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sinistcha"),
         .cryId = CRY_SINISTCHA,
         .natDexNum = NATIONAL_DEX_SINISTCHA,
         .categoryName = _("Matcha"),
@@ -34117,8 +34453,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Sinistcha,
         .iconPalIndex = 1,
         //FOOTPRINT(Sinistcha)
-        .levelUpLearnset = sSinistchaLevelUpLearnset,
-        .teachableLearnset = sSinistchaTeachableLearnset,
+        */
+        //.levelUpLearnset = sSinistchaLevelUpLearnset,
+        //.teachableLearnset = sSinistchaTeachableLearnset,
     },
     [SPECIES_SINISTCHA_MASTERPIECE] =
     {
@@ -34133,16 +34470,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 178,
-        .evYield_SpAttack = 2,
+       // .evYield_SpAttack = 2,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 20,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_AMORPHOUS),
         .abilities = { ABILITY_HOSPITALITY, ABILITY_NONE },
         .abilityHidden = {ABILITY_HEATPROOF, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .speciesName = _("Sinistcha"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Sinistcha"),
         .cryId = CRY_SINISTCHA,
         .natDexNum = NATIONAL_DEX_SINISTCHA,
         .categoryName = _("Matcha"),
@@ -34172,12 +34511,13 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Sinistcha,
         .iconPalIndex = 1,
         //FOOTPRINT(Sinistcha)
-        .levelUpLearnset = sSinistchaLevelUpLearnset,
-        .teachableLearnset = sSinistchaTeachableLearnset,
+        */
+        //.levelUpLearnset = sSinistchaLevelUpLearnset,
+        //.teachableLearnset = sSinistchaTeachableLearnset,
     },
-#endif //P_FAMILY_POLTCHAGEIST
+//#endif //P_FAMILY_POLTCHAGEIST
 
-#if P_FAMILY_OKIDOGI
+//#if p_fAMILY_OKIDOGI
     [SPECIES_OKIDOGI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34191,16 +34531,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_POISON, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 278,
-        .evYield_Attack = 3,
+       // .evYield_Attack = 3,
         .genderRatio = MON_MALE,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TOXIC_CHAIN, ABILITY_NONE  },
         .abilityHidden = {ABILITY_GUARD_DOG, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
-        .speciesName = _("Okidogi"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Okidogi"),
         .cryId = CRY_OKIDOGI,
         .natDexNum = NATIONAL_DEX_OKIDOGI,
         .categoryName = _("Retainer"),
@@ -34230,12 +34572,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         //FOOTPRINT(Okidogi)
         .isLegendary = TRUE,
-        .levelUpLearnset = sOkidogiLevelUpLearnset,
-        .teachableLearnset = sOkidogiTeachableLearnset,
+        */
+        //.levelUpLearnset = sOkidogiLevelUpLearnset,
+        //.teachableLearnset = sOkidogiTeachableLearnset,
     },
-#endif //P_FAMILY_OKIDOGI
+//#endif //P_FAMILY_OKIDOGI
 
-#if P_FAMILY_MUNKIDORI
+//#if p_fAMILY_MUNKIDORI
     [SPECIES_MUNKIDORI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34249,16 +34592,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_POISON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 278,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_MALE,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TOXIC_CHAIN, ABILITY_NONE },
         .abilityHidden = {ABILITY_FRISK, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
-        .speciesName = _("Munkidori"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Munkidori"),
         .cryId = CRY_MUNKIDORI,
         .natDexNum = NATIONAL_DEX_MUNKIDORI,
         .categoryName = _("Retainer"),
@@ -34288,12 +34633,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(Munkidori)
         .isLegendary = TRUE,
-        .levelUpLearnset = sMunkidoriLevelUpLearnset,
-        .teachableLearnset = sMunkidoriTeachableLearnset,
+        */
+        //.levelUpLearnset = sMunkidoriLevelUpLearnset,
+        //.teachableLearnset = sMunkidoriTeachableLearnset,
     },
-#endif //P_FAMILY_MUNKIDORI
+//#endif //P_FAMILY_MUNKIDORI
 
-#if P_FAMILY_FEZANDIPITI
+//#if p_fAMILY_FEZANDIPITI
     [SPECIES_FEZANDIPITI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34307,16 +34653,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_POISON, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 278,
-        .evYield_SpDefense = 3,
+       // .evYield_SpDefense = 3,
         .genderRatio = MON_MALE,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TOXIC_CHAIN, ABILITY_NONE  },
         .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
-        .speciesName = _("Fezndipiti"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Fezndipiti"),
         .cryId = CRY_FEZANDIPITI,
         .natDexNum = NATIONAL_DEX_FEZANDIPITI,
         .categoryName = _("Retainer"),
@@ -34346,34 +34694,36 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(Fezandipiti)
         .isLegendary = TRUE,
-        .levelUpLearnset = sFezandipitiLevelUpLearnset,
-        .teachableLearnset = sFezandipitiTeachableLearnset,
+        */
+        //.levelUpLearnset = sFezandipitiLevelUpLearnset,
+        //.teachableLearnset = sFezandipitiTeachableLearnset,
     },
-#endif //P_FAMILY_FEZANDIPITI
+//#endif //P_FAMILY_FEZANDIPITI
 
-#if P_FAMILY_OGERPON
+//#if p_fAMILY_OGERPON
 #define OGERPON_SPECIES_INFO(Form, type, ability, color, iconpalette)                   \
     {                                                                                   \
-            //hp, atk, def, spd, spatk, spdef
+            /*hp, atk, def, spd, spatk, spdef */                                \
         STATS(80,                                                            \
               120,                                                           \
               84,                                                            \
               110,                                                           \
               60,                                                            \
-              96,                                                            \
+              96                                                            \
+            ),                                                            \
         MON_TYPES(TYPE_GRASS, type),                                           \
         .catchRate = 5,                                                                 \
         .expYield = 275,                                                                \
-        .evYield_Attack = 3,                                                            \
+       /* .evYield_Attack = 3,   */                                                         \
         .genderRatio = MON_FEMALE,                                                      \
         .eggCycles = 10,                                                                \
-        .friendship = STANDARD_FRIENDSHIP,                                              \
+        .friendship = FRIENDSHIP_STANDARD,                                              \
         .growthRate = GROWTH_SLOW,                                                      \
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),                      \
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),                      \
         .abilities = { ability, ABILITY_NONE },                                         \
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},                                  \
         .bodyColor = color,                                                             \
-        .speciesName = _("Ogerpon"),                                                    \
+        /*.speciesName = _("Ogerpon"),                                                    \
         .cryId = CRY_OGERPON,                                                           \
         .natDexNum = NATIONAL_DEX_OGERPON,                                              \
         .categoryName = _("Mask"),                                                      \
@@ -34398,11 +34748,12 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Ogerpon##Form,                                           \
         .iconPalIndex = iconpalette,                                                    \
         //FOOTPRINT(Ogerpon)                                                          \
-        .levelUpLearnset = sOgerponLevelUpLearnset,                                     \
-        .teachableLearnset = sOgerponTeachableLearnset,                                 \
-        .formSpeciesIdTable = sOgerponFormSpeciesIdTable,                               \
-        .formChangeTable = sOgerponFormChangeTable,                                     \
-        .isLegendary = TRUE,                                                            \
+        
+        /*.levelUpLearnset = sOgerponLevelUpLearnset, */                                    \
+        /*.teachableLearnset = sOgerponTeachableLearnset, */                                \
+        /*.formSpeciesIdTable = sOgerponFormSpeciesIdTable,   */                            \
+        /*.formChangeTable = sOgerponFormChangeTable,      */                               \
+        /*.isLegendary = TRUE,     */                                                       \
     }
 
     [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_DEFIANT,                   BODY_COLOR_GREEN, 1),
@@ -34416,9 +34767,9 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK, BODY_COLOR_GRAY,  0),
 #endif //P_TERA_FORMS
 
-#endif //P_FAMILY_OGERPON
+//#endif //P_FAMILY_OGERPON
 
-#if P_FAMILY_GOUGING_FIRE
+//#if p_fAMILY_GOUGING_FIRE
     [SPECIES_GOUGING_FIRE] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34432,16 +34783,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_FIRE, TYPE_DRAGON),
         .catchRate = 10,
         .expYield = 295,
-        .evYield_Defense = 3,
+       // .evYield_Defense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("GouginFire"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("GouginFire"),
         .cryId = CRY_GOUGING_FIRE,
         .natDexNum = NATIONAL_DEX_GOUGING_FIRE,
         .categoryName = _("Paradox"),
@@ -34471,12 +34824,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 5,
         //FOOTPRINT(GougingFire)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sGougingFireLevelUpLearnset,
-        .teachableLearnset = sGougingFireTeachableLearnset,
+        */
+        //.levelUpLearnset = sGougingFireLevelUpLearnset,
+        //.teachableLearnset = sGougingFireTeachableLearnset,
     },
-#endif //P_FAMILY_GOUGING_FIRE
+//#endif //P_FAMILY_GOUGING_FIRE
 
-#if P_FAMILY_RAGING_BOLT
+//#if p_fAMILY_RAGING_BOLT
     [SPECIES_RAGING_BOLT] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34490,16 +34844,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ELECTRIC, TYPE_DRAGON),
         .catchRate = 10,
         .expYield = 295,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("RagingBolt"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("RagingBolt"),
         .cryId = CRY_RAGING_BOLT,
         .natDexNum = NATIONAL_DEX_RAGING_BOLT,
         .categoryName = _("Paradox"),
@@ -34529,12 +34885,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 2,
         //FOOTPRINT(RagingBolt)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sRagingBoltLevelUpLearnset,
-        .teachableLearnset = sRagingBoltTeachableLearnset,
+        */
+        //.levelUpLearnset = sRagingBoltLevelUpLearnset,
+        //.teachableLearnset = sRagingBoltTeachableLearnset,
     },  //alt entei/rakou 100%  not using
-#endif //P_FAMILY_RAGING_BOLT
+//#endif //P_FAMILY_RAGING_BOLT
 
-#if P_FAMILY_IRON_BOULDER
+//#if p_fAMILY_IRON_BOULDER
     [SPECIES_IRON_BOULDER] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34548,16 +34905,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
         .catchRate = 10,
         .expYield = 295,
-        .evYield_Speed = 3,
+       // .evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .speciesName = _("IronBouldr"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("IronBouldr"),
         .cryId = CRY_IRON_BOULDER,
         .natDexNum = NATIONAL_DEX_IRON_BOULDER,
         .categoryName = _("Paradox"),
@@ -34586,12 +34945,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 5,
         //FOOTPRINT(IronBoulder)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronBoulderLevelUpLearnset,
-        .teachableLearnset = sIronBoulderTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronBoulderLevelUpLearnset,
+        //.teachableLearnset = sIronBoulderTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_BOULDER
+//#endif //P_FAMILY_IRON_BOULDER
 
-#if P_FAMILY_IRON_CROWN
+//#if p_fAMILY_IRON_CROWN
     [SPECIES_IRON_CROWN] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34605,16 +34965,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 10,
         .expYield = 295,
-        .evYield_SpAttack = 3,
+       // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 50,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Iron Crown"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Iron Crown"),
         .cryId = CRY_IRON_CROWN,
         .natDexNum = NATIONAL_DEX_IRON_CROWN,
         .categoryName = _("Paradox"),
@@ -34644,12 +35006,13 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 3,
         //FOOTPRINT(IronCrown)
         .isParadoxForm = TRUE,
-        .levelUpLearnset = sIronCrownLevelUpLearnset,
-        .teachableLearnset = sIronCrownTeachableLearnset,
+        */
+        //.levelUpLearnset = sIronCrownLevelUpLearnset,
+        //.teachableLearnset = sIronCrownTeachableLearnset,
     },
-#endif //P_FAMILY_IRON_CROWN
+//#endif //P_FAMILY_IRON_CROWN
 
-#if P_FAMILY_TERAPAGOS
+//#if p_fAMILY_TERAPAGOS
     [SPECIES_TERAPAGOS_NORMAL] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34663,16 +35026,18 @@ const struct BaseStats gBaseStats[] =
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 90,
-        .evYield_Defense = 1,
+       // .evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 5,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TERA_SHIFT, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Terapagos"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Terapagos"),
         .cryId = CRY_TERAPAGOS,
         .natDexNum = NATIONAL_DEX_TERAPAGOS,
         .categoryName = _("Tera"),
@@ -34702,10 +35067,11 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(Terapagos)
         .isLegendary = TRUE,
-        .levelUpLearnset = sTerapagosLevelUpLearnset,
-        .teachableLearnset = sTerapagosTeachableLearnset,
-        .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
-        .formChangeTable = sTerapagosFormChangeTable,
+        */
+        //.levelUpLearnset = sTerapagosLevelUpLearnset,
+        //.teachableLearnset = sTerapagosTeachableLearnset,
+        //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
+        //.formChangeTable = sTerapagosFormChangeTable,
     },
 
     [SPECIES_TERAPAGOS_TERASTAL] =
@@ -34716,22 +35082,24 @@ const struct BaseStats gBaseStats[] =
               110,
               85,
               105,
-              110,
+              110
         ),
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 120,
-        .evYield_Defense = 2,
-        .evYield_SpDefense = 2,
+       // .evYield_Defense = 2,
+       // .evYield_SpDefense = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 5,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TERA_SHELL, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Terapagos"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Terapagos"),
         .cryId = CRY_TERAPAGOS,
         .natDexNum = NATIONAL_DEX_TERAPAGOS,
         .categoryName = _("Tera"),
@@ -34761,10 +35129,11 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(Terapagos)
         .isLegendary = TRUE,
-        .levelUpLearnset = sTerapagosLevelUpLearnset,
-        .teachableLearnset = sTerapagosTeachableLearnset,
-        .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
-        .formChangeTable = sTerapagosFormChangeTable,
+        */
+        //.levelUpLearnset = sTerapagosLevelUpLearnset,
+        //.teachableLearnset = sTerapagosTeachableLearnset,
+        //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
+        //.formChangeTable = sTerapagosFormChangeTable,
     },
 
     [SPECIES_TERAPAGOS_STELLAR] =
@@ -34775,21 +35144,23 @@ const struct BaseStats gBaseStats[] =
               110,
               85,
               130,
-              110,
+              110
         ),
         MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 140,
-        .evYield_HP = 3,
+       // .evYield_HP = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 5,
-        .friendship = STANDARD_FRIENDSHIP,
+        .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TERAFORM_ZERO, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .speciesName = _("Terapagos"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Terapagos"),
         .cryId = CRY_TERAPAGOS,
         .natDexNum = NATIONAL_DEX_TERAPAGOS,
         .categoryName = _("Tera"),
@@ -34819,14 +35190,15 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(Terapagos)
         .isLegendary = TRUE,
-        .levelUpLearnset = sTerapagosLevelUpLearnset,
-        .teachableLearnset = sTerapagosTeachableLearnset,
-        .formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
-        .formChangeTable = sTerapagosFormChangeTable,
+        */
+        //.levelUpLearnset = sTerapagosLevelUpLearnset,
+        //.teachableLearnset = sTerapagosTeachableLearnset,
+        //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
+        //.formChangeTable = sTerapagosFormChangeTable,
     },
-#endif //P_FAMILY_TERAPAGOS
+//#endif //P_FAMILY_TERAPAGOS
 
-#if P_FAMILY_PECHARUNT
+////#if p_fAMILY_PECHARUNT
     [SPECIES_PECHARUNT] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34835,21 +35207,23 @@ const struct BaseStats gBaseStats[] =
               160,
               88,
               88,
-              88,
+              88
         ),
         MON_TYPES(TYPE_POISON, TYPE_GHOST),
         .catchRate = 3,
         .expYield = 300,
-        .evYield_Defense = 3,
+       // .evYield_Defense = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 20,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_POISON_PUPPETEER, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
-        .speciesName = _("Pecharunt"),
+        .noFlip = FALSE,
+        .floating = FALSE,
+        /*.speciesName = _("Pecharunt"),
         .cryId = CRY_PECHARUNT,
         .natDexNum = NATIONAL_DEX_PECHARUNT,
         .categoryName = _("Subjugation"),
@@ -34879,11 +35253,12 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 0,
         //FOOTPRINT(Pecharunt)
         .isMythical = TRUE,
-        .levelUpLearnset = sPecharuntLevelUpLearnset,
-        .teachableLearnset = sPecharuntTeachableLearnset,
+        */
+        //.levelUpLearnset = sPecharuntLevelUpLearnset,
+        //.teachableLearnset = sPecharuntTeachableLearnset,
     },
-#endif //P_FAMILY_PECHARUNT
-    */
+////#endif //P_FAMILY_PECHARUNT
+    
    //End of Gen 9
 
     //forgot never got aroudn to mega stat reworks,
@@ -35368,7 +35743,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -35406,7 +35781,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -36585,7 +36960,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -36621,7 +36996,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -36657,7 +37032,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -39989,7 +40364,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40015,7 +40390,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpDefense = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40040,7 +40415,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40385,7 +40760,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40412,7 +40787,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_LUM_BERRY,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40444,7 +40819,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40479,7 +40854,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40514,7 +40889,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40549,7 +40924,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40584,7 +40959,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40619,7 +40994,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40654,7 +41029,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40689,7 +41064,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40724,7 +41099,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40759,7 +41134,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40794,7 +41169,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40829,7 +41204,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40864,7 +41239,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40899,7 +41274,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40934,7 +41309,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -40969,7 +41344,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41004,7 +41379,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41482,7 +41857,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41517,7 +41892,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41591,7 +41966,7 @@ const struct BaseStats gBaseStats[] =
         //.item2 = ITEM_STAR_PIECE,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41625,7 +42000,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41662,7 +42037,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41699,7 +42074,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -41736,7 +42111,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43570,7 +43945,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43605,7 +43980,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43640,7 +44015,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43675,7 +44050,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43710,7 +44085,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43745,7 +44120,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 100,
+        .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -43998,7 +44373,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44033,7 +44408,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44068,7 +44443,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44103,7 +44478,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44138,7 +44513,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44173,7 +44548,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44208,7 +44583,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44243,7 +44618,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44278,7 +44653,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44313,7 +44688,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44348,7 +44723,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44383,7 +44758,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44418,7 +44793,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44453,7 +44828,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44488,7 +44863,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44523,7 +44898,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -44558,7 +44933,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45109,7 +45484,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45146,7 +45521,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45183,7 +45558,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45218,7 +45593,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45791,7 +46166,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45826,7 +46201,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Speed = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45861,7 +46236,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45928,7 +46303,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 0,
+        .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45963,7 +46338,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 50,
+        .friendship = FRIENDSHIP_HIGH,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
@@ -45998,7 +46373,7 @@ const struct BaseStats gBaseStats[] =
         //.evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
-        .friendship = 50,
+        .friendship = FRIENDSHIP_HIGH,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,

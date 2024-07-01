@@ -242,6 +242,14 @@
 #define FRIENDSHIP_EVENT_FAINT_LARGE          9
 #define FRIENDSHIP_EVENT_EXP_GAINED          10		//added logic gain +1 for gaining exp in battle; also counts exp share //emerald has extra option for berries  will need to addd
 
+#define FRIENDSHIP_FRIENDLY 100
+#define FRIENDSHIP_HIGH 50
+#define FRIENDSHIP_AVERAGE 35
+#define FRIENDSHIP_MID 30
+#define FRIENDSHIP_ABOVE_STANDARD 25
+#define FRIENDSHIP_STANDARD 15
+#define FRIENDSHIP_LOW 10
+#define FRIENDSHIP_LEGENDARY 0
 
 #define MAX_PER_STAT_IVS 31
 #define MIN_FIXED_IVS 20	//minimum value I plan to use for trainer assignment, is used for gym leaders  [replaced IV Mask]
