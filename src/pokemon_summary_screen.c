@@ -1452,7 +1452,7 @@ static void Task_InputHandler_Info(u8 taskId)
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
             }
         #endif
-            else if (JOY_NEW(START_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
+            else if (JOY_NEW(START_BUTTON) && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {
                 
                

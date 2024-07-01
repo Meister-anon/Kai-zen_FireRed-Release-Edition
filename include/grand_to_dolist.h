@@ -2493,6 +2493,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   ironically will make the ability work more for itself rather than
   as a support. its an equalizer so your mon technically aren't affected
 
+  EE expansion breaks down mon into evo families and was able to tell form that
+  there are far fewer mon in the game than I thought, 
+  if you only catch on of each tree you have plenty of room. with my box expansion.
+  By my count there are 537 pokemon families and this counts mon that don't evolve
+  and legendries
+
+  This means I can add gen 9! and still have room for catching everything nearly twice over
+  not including forms of course like different regionals and megas but still more than enough
+
+  //icon id for slashing/slicing moves boosted by sharpness
+  just use 3 angled lines like a cut
+
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
 goto ADD_MOVE_CAT_ICONS //for move split etc.
