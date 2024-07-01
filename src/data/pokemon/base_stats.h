@@ -31881,7 +31881,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_CORROSION, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Glimmet"),
         .cryId = CRY_GLIMMET,
         .natDexNum = NATIONAL_DEX_GLIMMET,
@@ -31941,7 +31941,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_CORROSION, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Glimmora"),
         .cryId = CRY_GLIMMORA,
         .natDexNum = NATIONAL_DEX_GLIMMORA,
@@ -32121,7 +32121,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_COSTAR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Flamigo"),
         .cryId = CRY_FLAMIGO,
         .natDexNum = NATIONAL_DEX_FLAMIGO,
@@ -32784,7 +32784,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("FluttrMane"),
         .cryId = CRY_FLUTTER_MANE,
         .natDexNum = NATIONAL_DEX_FLUTTER_MANE,
@@ -33150,7 +33150,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("IronJuguls"),
         .cryId = CRY_IRON_JUGULIS,
         .natDexNum = NATIONAL_DEX_IRON_JUGULIS,
@@ -33212,7 +33212,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Iron Moth"),
         .cryId = CRY_IRON_MOTH,
         .natDexNum = NATIONAL_DEX_IRON_MOTH,
@@ -33936,7 +33936,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("RoarngMoon"),
         .cryId = CRY_ROARING_MOON,
         .natDexNum = NATIONAL_DEX_ROARING_MOON,
@@ -34578,7 +34578,7 @@ const struct BaseStats gBaseStats[] =
     },
 //#endif //P_FAMILY_OKIDOGI
 
-//#if p_fAMILY_MUNKIDORI
+//#if p_fAMILY_MUNKIDORI //vsonic need rework apparently complete dogshit
     [SPECIES_MUNKIDORI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34663,7 +34663,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Fezndipiti"),
         .cryId = CRY_FEZANDIPITI,
         .natDexNum = NATIONAL_DEX_FEZANDIPITI,
@@ -34767,7 +34767,117 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK, BODY_COLOR_GRAY,  0),
 #endif //P_TERA_FORMS
 
+[SPECIES_ARCHALUDON] =
+    {
+            //hp, atk, def, spd, spatk, spdef
+        STATS(90,
+              105,
+              130,
+              85,
+              125,
+              65
+       ),
+        MON_TYPES(TYPE_STEEL, TYPE_DRAGON),
+        .catchRate = 10,
+        .expYield = 300,
+        //.evYield_Defense = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 30,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_MINERAL, EGG_GROUP_DRAGON),
+        .abilities = { ABILITY_STAMINA, ABILITY_STURDY, ABILITY_STALWART },
+        .bodyColor = BODY_COLOR_WHITE,
+        /*.speciesName = _("Archaludon"),
+        .cryId = CRY_ARCHALUDON,
+        .natDexNum = NATIONAL_DEX_ARCHALUDON,
+        .categoryName = _("Alloy"),
+        .height = 20,
+        .weight = 600,
+        .description = COMPOUND_STRING(
+            "It gathers static electricity\n"
+            "from its surroundings. The beams\n"
+            "it launches when down on all fours\n"
+            "are tremendously powerful."),
+        .pokemonScale = 267,
+        .pokemonOffset = 2,
+        .trainerScale = 286,
+        .trainerOffset = 1,
+        .frontPic = gMonFrontPic_Archaludon,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_Archaludon,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Archaludon,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 7,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Archaludon,
+        .shinyPalette = gMonShinyPalette_Archaludon,
+        .iconSprite = gMonIcon_Archaludon,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Archaludon)
+        .levelUpLearnset = sArchaludonLevelUpLearnset,
+        .teachableLearnset = sArchaludonTeachableLearnset,*/
+    },
+
 //#endif //P_FAMILY_OGERPON
+//missing archaludon and hydrapple flapple evo
+[SPECIES_HYDRAPPLE] =
+    {
+            //hp, atk, def, spd, spatk, spdef
+        STATS(106,
+              80,
+              110,
+              44,
+              120,
+              80
+       ),
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
+        .catchRate = 10,
+        .expYield = 270,
+        //.evYield_SpAttack = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_ERRATIC,
+        MON_EGG_GROUPS(EGG_GROUP_GRASS, EGG_GROUP_DRAGON),
+        .abilities = { ABILITY_SUPERSWEET_SYRUP, ABILITY_REGENERATOR, ABILITY_STICKY_HOLD },
+        .bodyColor = BODY_COLOR_GREEN,
+        /*.speciesName = _("Hydrapple"),
+        .cryId = CRY_HYDRAPPLE,
+        .natDexNum = NATIONAL_DEX_HYDRAPPLE,
+        .categoryName = _("Apple Hydra"),
+        .height = 18,
+        .weight = 930,
+        .description = COMPOUND_STRING(
+            "These capricious syrpents have\n"
+            "banded together. On the rare\n"
+            "occasion that their moods align,\n"
+            "their true power is unleashed."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Hydrapple,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 1,
+        .frontAnimFrames = sAnims_Hydrapple,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Hydrapple,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Hydrapple,
+        .shinyPalette = gMonShinyPalette_Hydrapple,
+        .iconSprite = gMonIcon_Hydrapple,
+        .iconPalIndex = 5,
+        //FOOTPRINT(Hydrapple)
+        .levelUpLearnset = sHydrappleLevelUpLearnset,
+        .teachableLearnset = sHydrappleTeachableLearnset,*/
+    },
+
+
 
 //#if p_fAMILY_GOUGING_FIRE
     [SPECIES_GOUGING_FIRE] =
@@ -35222,7 +35332,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Pecharunt"),
         .cryId = CRY_PECHARUNT,
         .natDexNum = NATIONAL_DEX_PECHARUNT,
