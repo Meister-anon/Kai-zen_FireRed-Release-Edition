@@ -331,7 +331,7 @@
 #define ABILITY_SUPERSWEET_SYRUP 307
 #define ABILITY_TERA_SHIFT 308
 #define ABILITY_TERA_SHELL 309
-#define ABILITY_TERAFORM_ZERO 310
+#define ABILITY_TERAFORM_ZERO 310   //alter make also break all other terra and long as on field no one else can use terra does default cloud 9 w terrain clear idk can't tell if it removes them or not maybe it does?
 #define ABILITY_POISON_PUPPETEER 311
 
 //CUSTOM ABILITIES

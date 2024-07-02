@@ -4484,10 +4484,19 @@ u8 AtkCanceller_UnableToUseMove(void)
                     case EFFECT_MULTI_HIT:
                     {
                         gMultiTask = Random() % 4; //return a number between 0 & 3
-                        if (gMultiTask >= 1)
-                            gMultiTask = (Random() % 4) + 2; // if non 0, multihit is between 2-5 htis
-                        else
-                            gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
+                        if (gCurrentMove != MOVE_POPULATION_BOMB)
+                        {
+                            if (gMultiTask >= 1)
+                                gMultiTask = (Random() % 4) + 2; // if non 0, multihit is between 2-5 htis
+                            else
+                                gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
+                        }
+                        else //population bomb
+                        {
+                            gMultiTask = Random() % 11; //return a number between 0 & 10
+                            if (gMultiTask == 0)
+                                gMultiTask++; //move meant to land 1-10 times not sure on distribution
+                        }
                         break;
                     }
                     case EFFECT_TWINEEDLE:
@@ -4502,6 +4511,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
                         && CanMultiTask(gCurrentMove) == TRUE
                         && gBattleMoves[gCurrentMove].split != SPLIT_STATUS)
+                        if (gCurrentMove != MOVE_POPULATION_BOMB)
                         {
                             gMultiTask = Random() % 4; //return a number between 0 & 3
                             if (gMultiTask >= 1)
@@ -4509,13 +4519,22 @@ u8 AtkCanceller_UnableToUseMove(void)
                             else
                                 gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
                         }
+                        else //population bomb
+                        {
+                            gMultiTask = Random() % 11; //return a number between 0 & 10
+                            if (gMultiTask == 0)
+                                gMultiTask++; //move meant to land 1-10 times not sure on distribution
+                        }
                         break;
                 }
 
                 if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_SKILL_LINK)
                     || (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK)) //will only affect multi hit & fury cutter /was just meant to be for things that were already multihit
                 {
-                    if (gBattleMoves[gCurrentMove].effect == EFFECT_MULTI_HIT
+                    if (gCurrentMove == MOVE_POPULATION_BOMB)
+                        gMultiTask = 10;
+
+                    else if (gBattleMoves[gCurrentMove].effect == EFFECT_MULTI_HIT
                         //|| (gBattleMoves[gCurrentMove].effect == EFFECT_FURY_CUTTER)
                         || (gBattleMoves[gCurrentMove].effect == EFFECT_PRESENT) //to exclude from damagecalc multitask split need add these effects back to miultitask exclusion
                         ) //this will still work, it'll just stop the dmg from getting affected/cut

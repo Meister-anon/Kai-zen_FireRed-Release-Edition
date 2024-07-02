@@ -429,6 +429,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_WIND_MOVE              (1 << 26)   //added for rotom ability
 #define FLAG_LETHAL_LEGS_BOOST      (1 << 27)  //hitmon lee ability kick move boost
 #define FLAG_ALWAYS_CRIT            (1 << 28)   //replace effect always crit do with flag check, simpler
+#define FLAG_SHARPNESS_AFFECTED     (1 << 29)
 
 //thaw user and two strikes can be removed, FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING  can also be removed 
 //also flags are u32, so I beleive I can go up to 32 with this
@@ -486,6 +487,7 @@ enum
 //think it needs to be 2 byte fill
 #define EVOLUTIONS_END                    0xFFFF // Not an actual evolution, used to mark the end of an evolution array.
 #define EVO_NONE                          0xFFFE // Not an actual evolution, used to generate offspring that can't evolve into the specified species, like regional forms.
+//don't get this -not used either?
 
 //:NOTE: If more form evo methods are added believe you need to replace the default method with them
 //and add base method to end of list.
@@ -557,6 +559,12 @@ enum
 #define EVO_DARK_SCROLL                     0x002f // interacts with Scroll of Darkness
 #define EVO_WATER_SCROLL                    0x0030 // interacts with Scroll of Waters
 
+#define EVO_LEVEL_FAMILY_OF_THREE           0x0037  //remember to add to add to evo priority list
+#define EVO_LEVEL_FAMILY_OF_FOUR            0x0038  
+#define EVO_MOVE_TWO_SEGMENT                0x0039
+#define EVO_MOVE_THREE_SEGMENT              0x003a
+
+//custom methods
 #define EVO_MILCERY                         0x0031 //SPECIAL method for milcery will be friendship + special condition plan use unown personality to determine evo form
 #define EVO_ITEM_FORM                       0x0032
 #define EVO_LEVEL_FORM                      0x0033 //form evo methods, reads form flag from 2nd param, otherwise works same

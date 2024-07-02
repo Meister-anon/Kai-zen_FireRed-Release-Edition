@@ -175,6 +175,9 @@ extern u8 gStringVar4[];
 // Converts a string to a compound literal, essentially making it a pointer to const u8
 #define COMPOUND_STRING(str) (const u8[]) _(str) //ported to use dex entry strings from EE
 
+//move description version
+#define COMPOUND_MOVE_STRING(str) (const u8[MOVE_DESCRIPTION_LENGTH + 1]) _(str)
+
 //replacement version so can use compound string logic w my ability stuff and keep my limiter
 #define COMPOUND_ABILITY_STRING(str) (const u8[ABILITY_DESCRIPTION_LENGTH + 1]) _(str)
 

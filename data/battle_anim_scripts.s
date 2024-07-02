@@ -837,6 +837,76 @@ gBattleAnims_Moves::
 	.4byte Move_SANDSEAR_STORM
 	.4byte Move_LUNAR_BLESSING
 	.4byte Move_TAKE_HEART
+@@@@@@@@@@@@ GEN 9 @@@@@@@@@@@@
+	.4byte Move_TERA_BLAST
+	.4byte Move_SILK_TRAP
+	.4byte Move_AXE_KICK
+	.4byte Move_LAST_RESPECTS
+	.4byte Move_LUMINA_CRASH
+	.4byte Move_ORDER_UP
+	.4byte Move_JET_PUNCH
+	.4byte Move_SPICY_EXTRACT
+	.4byte Move_SPIN_OUT
+	.4byte Move_POPULATION_BOMB
+	.4byte Move_ICE_SPINNER
+	.4byte Move_GLAIVE_RUSH
+	.4byte Move_REVIVAL_BLESSING
+	.4byte Move_SALT_CURE
+	.4byte Move_TRIPLE_DIVE
+	.4byte Move_MORTAL_SPIN
+	.4byte Move_DOODLE
+	.4byte Move_FILLET_AWAY
+	.4byte Move_KOWTOW_CLEAVE
+	.4byte Move_FLOWER_TRICK
+	.4byte Move_TORCH_SONG
+	.4byte Move_AQUA_STEP
+	.4byte Move_RAGING_BULL
+	.4byte Move_MAKE_IT_RAIN
+	.4byte Move_RUINATION
+	.4byte Move_COLLISION_COURSE
+	.4byte Move_ELECTRO_DRIFT
+	.4byte Move_SHED_TAIL
+	.4byte Move_CHILLY_RECEPTION
+	.4byte Move_TIDY_UP
+	.4byte Move_SNOWSCAPE
+	.4byte Move_GRASSHOPPER
+	.4byte Move_TRAILBLAZE
+	.4byte Move_CHILLING_WATER
+	.4byte Move_HYPER_DRILL
+	.4byte Move_TWIN_BEAM
+	.4byte Move_RAGE_FIST
+	.4byte Move_ARMOR_CANNON
+	.4byte Move_BITTER_BLADE
+	.4byte Move_DOUBLE_SHOCK
+	.4byte Move_GIGATON_HAMMER
+	.4byte Move_COMEUPPANCE
+	.4byte Move_AQUA_CUTTER
+	.4byte Move_BLAZING_TORQUE
+	.4byte Move_WICKED_TORQUE
+	.4byte Move_NOXIOUS_TORQUE
+	.4byte Move_COMBAT_TORQUE
+	.4byte Move_MAGICAL_TORQUE
+	.4byte Move_PSYBLADE
+	.4byte Move_HYDRO_STEAM
+	.4byte Move_BLOOD_MOON
+	.4byte Move_MATCHA_GOTCHA
+	.4byte Move_SYRUP_BOMB
+	.4byte Move_IVY_CUDGEL
+	.4byte Move_ELECTRO_SHOT
+	.4byte Move_TERA_STARSTORM
+	.4byte Move_FICKLE_BEAM
+	.4byte Move_BURNING_BULWARK
+	.4byte Move_THUNDERCLAP
+	.4byte Move_MIGHTY_CLEAVE
+	.4byte Move_TACHYON_CUTTER
+	.4byte Move_HARD_PRESS
+	.4byte Move_DRAGON_CHEER
+	.4byte Move_ALLURING_VOICE
+	.4byte Move_TEMPER_FLARE
+	.4byte Move_SUPERCELL_SLAM
+	.4byte Move_PSYCHIC_NOISE
+	.4byte Move_UPPER_HAND
+	.4byte Move_MALIGNANT_CHAIN
 @@@@@@@@@@@@ CUSTOM  @@@@@@@@@@@@
 	.4byte Move_COCOON
 	.4byte Move_MONOTYPE
@@ -856,8 +926,6 @@ gBattleAnims_Moves::
 	.4byte Move_DOUBLE_SHOCK
 	.4byte Move_POUNCE
 	.4byte Move_CHEAP_SHOT
-@@@@@SELECTIVE GEN 9 + CUSTOM MOVES @@@@@@@@@
-	.4byte Move_RAGE_FIST
 	.4byte Move_SNOWBALL
 	.4byte Move_TRENCH_RUN
 	.4byte Move_SPIN_DASH
@@ -24077,131 +24145,122 @@ Move_POLTERGEIST::
 	end
 
 Move_CORROSIVE_GAS::
-	end @to do:
-
 Move_COACHING::
-	end @to do:
-
 Move_FLIP_TURN::
-	end @to do:
-
 Move_TRIPLE_AXEL::
-	end @to do:
-
 Move_DUAL_WINGBEAT::
-	end @to do:
-
 Move_SCORCHING_SANDS::
-	end @to do:
+	end @to do
 
 Move_JUNGLE_HEALING::
 	goto Move_AROMATHERAPY
 
 Move_WICKED_BLOW::
-	end @to do:
-
 Move_SURGING_STRIKES::
-	end @to do:
-
 Move_THUNDER_CAGE::
-	end @to do:
-
 Move_DRAGON_ENERGY::
-	end @to do:
-
 Move_FREEZING_GLARE::
-	end @to do:
-
 Move_FIERY_WRATH::
-	end @to do:
-
 Move_THUNDEROUS_KICK::
-	end @to do:
-
 Move_GLACIAL_LANCE::
-	end @to do:
-
 Move_ASTRAL_BARRAGE::
-	end @to do:
-
 Move_EERIE_SPELL::
-	end @to do:
-
 @Legends Arceus moves
 Move_DIRE_CLAW::
-	end @to do:
-
 Move_PSYSHIELD_BASH::
-	end @to do:
-
 Move_POWER_SHIFT::
-	end @to do:
 Move_STONE_AXE::
-	end @to do:
-
 Move_SPRINGTIDE_STORM::
-	end @to do:
-
 Move_MYSTICAL_POWER::
-	end @to do:
-
 Move_RAGING_FURY::
-	end @to do:
-
 Move_WAVE_CRASH::
-	end @to do:
-
 Move_CHLOROBLAST::
-	end @to do:
-
 Move_MOUNTAIN_GALE::
-	end @to do:
-
 Move_VICTORY_DANCE::
-	end @to do:
-
 Move_HEADLONG_RUSH::
-	end @to do:
-
 Move_BARB_BARRAGE::
-	end @to do:
-
 Move_ESPER_WING::
-	end @to do:
-
 Move_BITTER_MALICE::
-	end @to do:
-
 Move_SHELTER::
-	end @to do:
-
 Move_TRIPLE_ARROWS::
-	end @to do:
-
 Move_INFERNAL_PARADE::
-	end @to do:
-
 Move_CEASELESS_EDGE::
-	end @to do:
-
 Move_BLEAKWIND_STORM::
-	end @to do:
-
 Move_WILDBOLT_STORM::
-	end @to do:
-
 Move_SANDSEAR_STORM::
-	end @to do:
-
 Move_LUNAR_BLESSING::
-	end @to do:
-
 Move_TAKE_HEART::
-	end @to do:
-
-@some gen9 moves for mon I actually want
+@end of Legends Moves - Gen 9 start
+Move_TERA_BLAST::
+Move_SILK_TRAP::
+Move_AXE_KICK::
+Move_LAST_RESPECTS::
+Move_LUMINA_CRASH::
+Move_ORDER_UP::
+Move_JET_PUNCH::
+Move_SPICY_EXTRACT::
+Move_SPIN_OUT::
+Move_POPULATION_BOMB::
+Move_ICE_SPINNER::
+Move_GLAIVE_RUSH::
+Move_REVIVAL_BLESSING::
+Move_SALT_CURE::
+Move_TRIPLE_DIVE::
+Move_MORTAL_SPIN::
+Move_DOODLE::
+Move_FILLET_AWAY::
+Move_KOWTOW_CLEAVE::
+Move_FLOWER_TRICK::
+Move_TORCH_SONG::
+Move_AQUA_STEP::
+Move_RAGING_BULL::
+Move_MAKE_IT_RAIN::
+Move_RUINATION::
+Move_COLLISION_COURSE::
+Move_ELECTRO_DRIFT::
+Move_SHED_TAIL::
+Move_CHILLY_RECEPTION::
+Move_TIDY_UP::
+Move_SNOWSCAPE::
+Move_GRASSHOPPER::
+Move_TRAILBLAZE::
+Move_CHILLING_WATER::
+Move_HYPER_DRILL::
+Move_TWIN_BEAM::
 Move_RAGE_FIST::
-	end @to do:
+Move_ARMOR_CANNON::
+Move_BITTER_BLADE::
+Move_DOUBLE_SHOCK::
+Move_GIGATON_HAMMER::
+Move_COMEUPPANCE::
+Move_AQUA_CUTTER::
+Move_BLAZING_TORQUE::
+Move_WICKED_TORQUE::
+Move_NOXIOUS_TORQUE::
+Move_COMBAT_TORQUE::
+Move_MAGICAL_TORQUE::
+Move_PSYBLADE::
+Move_HYDRO_STEAM::
+Move_BLOOD_MOON::
+Move_MATCHA_GOTCHA::
+Move_SYRUP_BOMB::
+Move_IVY_CUDGEL::
+Move_ELECTRO_SHOT::
+Move_TERA_STARSTORM::
+Move_FICKLE_BEAM::
+Move_BURNING_BULWARK::
+Move_THUNDERCLAP::
+Move_MIGHTY_CLEAVE::
+Move_TACHYON_CUTTER::
+Move_HARD_PRESS::
+Move_DRAGON_CHEER::
+Move_ALLURING_VOICE::
+Move_TEMPER_FLARE::
+Move_SUPERCELL_SLAM::
+Move_PSYCHIC_NOISE::
+Move_UPPER_HAND::
+Move_MALIGNANT_CHAIN::
+	end @to do
 
 @Custom moves here
 @ animation didn''t work because I forgot to define it at top

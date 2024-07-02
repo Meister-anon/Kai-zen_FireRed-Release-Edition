@@ -4122,7 +4122,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gBattleMons[battlerIdDef].status1 & STATUS1_SLEEP || GetBattlerAbility(battlerIdDef) == ABILITY_COMATOSE)
             gBattleMovePower *= 2;
     }
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_HEX
+
+    if ((gBattleMoves[gCurrentMove].effect == EFFECT_VENOSHOCK
+    || gCurrentMove == MOVE_BARB_BARRAGE)
+    && defender->status1 & STATUS1_PSN_ANY && IsBlackFogNotOnField())
+        gBattleMovePower = (230 * gBattleMovePower) / 100;
+
+    else if ((gBattleMoves[gCurrentMove].effect == EFFECT_HEX
+    || gBattleMoves[gCurrentMove].effect == EFFECT_VENOSHOCK
+    || gCurrentMove == MOVE_BARB_BARRAGE
+    || gCurrentMove == MOVE_INFERNAL_PARADE)
     && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
         gBattleMovePower *= 2;
 
@@ -4131,6 +4140,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (gBattleMons[battlerIdDef].status1 & STATUS1_PARALYSIS && IsBlackFogNotOnField())
             gBattleMovePower *= 2;
     }
+
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_BRINE
+    && defender->hp <= defender->maxHP / 2)
+        gBattleMovePower *= 2;
+
+    
 
     if (gBattleMoves[gCurrentMove].effect == EFFECT_STOMPING_TANTRUM)
     {

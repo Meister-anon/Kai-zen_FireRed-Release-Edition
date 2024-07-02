@@ -5606,6 +5606,10 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     else if (ability == ABILITY_WEIGHTED_GI && gBattleMons[battlerId].hp <= (gBattleMons[battlerId].maxHP / 2))
         speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
 
+    else if (IsAbilityOnField(ABILITY_TABLETS_OF_RUIN) && GetBattlerAbility(battlerId) != ABILITY_TABLETS_OF_RUIN)
+        speed = (speed * 75) / 100;  //wo chien ability buff
+
+
     if (IsAbilityPreventingEscape(battlerId)) //realize this need be an if, to always trigger
         speed = (speed * 67) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop
     //gen 9

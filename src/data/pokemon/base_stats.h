@@ -1809,7 +1809,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sPrimeapeLevelUpLearnset,
         .tmhmLearnset = sPrimeapeTMHMLearnset,
-        //.evolutions = EVOLUTION({EVO_MOVE, MOVE_RAGE_FIST, 0, SPECIES_ANNIHILAPE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_RAGE_FIST, 0, SPECIES_ANNIHILAPE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_GROWLITHE] =
@@ -5800,7 +5800,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sGirafarigLevelUpLearnset,
         .tmhmLearnset = sGirafarigTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_TWIN_BEAM, SPECIES_FARIGIRAF}), //Should hopefully blank these for now without issue
     },//stats lowered to allow use of eviolite / VSONIC remember add evo later
 
     [SPECIES_PINECO] =
@@ -5881,11 +5881,24 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sDunsparceLevelUpLearnset,
         .tmhmLearnset = sDunsparceTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //debuffed hp as plannin to actually add evo, just remodel sprite
+        .evolutions = EVOLUTION({EVO_MOVE_TWO_SEGMENT, MOVE_HYPER_DRILL, SPECIES_DUDUNSPARCE_TWO_SEGMENT},
+                                {EVO_MOVE_THREE_SEGMENT, MOVE_HYPER_DRILL, SPECIES_DUDUNSPARCE_THREE_SEGMENT}), //Should hopefully blank these for now without issue
+    }, //learns hyperddrill at 32, delay till 40 add new evo at 32 to never have to see
+    //dudunsparce, but keep for the...crazy people that like it
+    
+    //debuffed hp as plannin to actually add evo, just remodel sprite
     //waffling between leaving pure normal but making float, or normal poison and floating, giving it just a psychic weakness,
     //think I will do that actually, that removes its fighting weakness too. 
-
+    //make evolved form float and normal poison make essentially star wars force awakened beast/ff14 jungle monster
+    //but with wings
+    //Oggdo Bogdo from star wars fallen order &
+    //Fafnir of the North   from Final Fantasy 16
+    //awaken old traits in its dna
+    //regained ability to fly, larger armored form, retractable wings
+    //inner poison sacs of paralytic poison extendable tongue  
+    //remember still keep drill tails, think go chimera style give two tails
+    //that end in drill tips
+    //give toxungue ability
     [SPECIES_GLIGAR] =
     { 
            //hp, atk, def, spd, spatk, spdef
@@ -18188,7 +18201,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sBisharpLevelUpLearnset,
         .tmhmLearnset = sBisharpTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, 50, 0, SPECIES_KINGAMBIT}), //Should hopefully blank these for now without issue
     },//GIVE Hi pressure ability //change mind normal pressure
 
     [SPECIES_BOUFFALANT] =
@@ -18620,7 +18633,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCobalionLevelUpLearnset,
         .tmhmLearnset = sCobalionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//needs better moves
 
     [SPECIES_TERRAKION] =
     { 
@@ -24099,7 +24112,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGuzzlordTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ULTRA_BEAST,
-    },
+    },//apparently guzzlord is bad?
 
     [SPECIES_NECROZMA] =
     { 
@@ -25498,7 +25511,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sApplinLevelUpLearnset,
         .tmhmLearnset = sApplinTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_NONE, 0, SPECIES_FLAPPLE}, 
-                                       {EVO_ITEM, ITEM_NONE, 0, SPECIES_APPLETUN}), //Should hopefully blank these for now without issue
+                                       {EVO_ITEM, ITEM_NONE, 0, SPECIES_APPLETUN},
+                                       {EVO_ITEM, ITEM_NONE, 0, SPECIES_DIPPLIN}), //Should hopefully blank these for now without issue
     },//HAVE TO define items, and figure how to do these 
 
     [SPECIES_FLAPPLE] =
@@ -31641,7 +31655,6 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
-        .floating = FALSE,
         /*.speciesName = _("Varoom"), //why on god's earth did pokemon decide to give another mon slowstart??
         .cryId = CRY_VAROOM,
         .natDexNum = NATIONAL_DEX_VAROOM,
@@ -31701,7 +31714,6 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
-        .floating = FALSE,
         /*.speciesName = _("Revavroom"),
         .cryId = CRY_REVAVROOM,
         .natDexNum = NATIONAL_DEX_REVAVROOM,
@@ -32574,7 +32586,344 @@ const struct BaseStats gBaseStats[] =
         //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 //#endif //P_FAMILY_TATSUGIRI
+    [SPECIES_ANNIHILAPE] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(110,
+              115,
+              80,
+              90,
+              50,
+              90
+        ),
+        MON_TYPES(TYPE_FIGHTING, TYPE_GHOST),
+        .catchRate = 45,
+        .expYield = 268,
+      //  .evYield_Attack = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_VITAL_SPIRIT, ABILITY_INNER_FOCUS },
+        .abilityHidden = {ABILITY_DEFIANT, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_GRAY,
+      /*   .speciesName = _("Annihilape"),
+        .cryId = CRY_ANNIHILAPE,
+        .natDexNum = NATIONAL_DEX_ANNIHILAPE,
+        .categoryName = _("Rage Monkey"),
+        .height = 12,
+        .weight = 560,
+        .description = COMPOUND_STRING(
+            "When its anger rose beyond a\n"
+            "critical point, this Pokémon gained power\n"
+            "that is unfettered by the limits of\n"
+            "its physical body."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Annihilape,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_Annihilape,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Annihilape,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 1,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Annihilape,
+        .shinyPalette = gMonShinyPalette_Annihilape,
+        .iconSprite = gMonIcon_Annihilape,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Annihilape)
+       */
+        //.levelUpLearnset = sAnnihilapeLevelUpLearnset,
+        //.teachableLearnset = sAnnihilapeTeachableLearnset,
+    },
+    
 
+    [SPECIES_CLODSIRE] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(130,
+              75,
+              60,
+              20,
+              45,
+              100
+        ),
+        MON_TYPES(TYPE_POISON, TYPE_GROUND),
+        .catchRate = 90,
+        .expYield = 151,
+      //  .evYield_HP = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
+        .abilities = { ABILITY_POISON_POINT, ABILITY_WATER_ABSORB  },
+        .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+      /*   .speciesName = _("Clodsire"),
+        .cryId = CRY_CLODSIRE,
+        .natDexNum = NATIONAL_DEX_CLODSIRE,
+        .categoryName = _("Spiny Fish"),
+        .height = 18,
+        .weight = 2230,
+        .description = COMPOUND_STRING(
+            "When attacked, this Pokémon will\n"
+            "retaliate by sticking thick spines out\n"
+            "from its body. It's a risky move\n"
+            "that puts everything on the line."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Clodsire,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 8,
+        .frontAnimFrames = sAnims_Clodsire,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Clodsire,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 15,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Clodsire,
+        .shinyPalette = gMonShinyPalette_Clodsire,
+        .iconSprite = gMonIcon_Clodsire,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Clodsire)
+       */
+        //.levelUpLearnset = sClodsireLevelUpLearnset,
+        //.teachableLearnset = sClodsireTeachableLearnset,
+    },
+
+    [SPECIES_FARIGIRAF] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(120,
+              90,
+              70,
+              60,
+              110,
+              70
+        ),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
+        .catchRate = 45,
+        .expYield = 260,
+      //  .evYield_HP = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_CUD_CHEW, ABILITY_ARMOR_TAIL  },
+        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+      /*   .speciesName = _("Farigiraf"),
+        .cryId = CRY_FARIGIRAF,
+        .natDexNum = NATIONAL_DEX_FARIGIRAF,
+        .categoryName = _("Long Neck"),
+        .height = 32,
+        .weight = 1600,
+        .description = COMPOUND_STRING(
+            "Now that the brain waves from the\n"
+            "head and tail are synced up, the\n"
+            "psychic power of this Pokémon is 10\n"
+            "times stronger than Girafarig's."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Farigiraf,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_Farigiraf,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Farigiraf,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Farigiraf,
+        .shinyPalette = gMonShinyPalette_Farigiraf,
+        .iconSprite = gMonIcon_Farigiraf,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Farigiraf)
+       */
+        //.levelUpLearnset = sFarigirafLevelUpLearnset,
+        //.teachableLearnset = sFarigirafTeachableLearnset,
+    },
+
+    [SPECIES_DUDUNSPARCE_TWO_SEGMENT] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(125,
+              100,
+              80,
+              55,
+              85,
+              75
+        ),
+        MON_TYPES(TYPE_NORMAL),
+        .catchRate = 45,
+        .expYield = 182,
+      //  .evYield_HP = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_SERENE_GRACE, ABILITY_RUN_AWAY  },
+        .abilityHidden = {ABILITY_RATTLED, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_YELLOW,
+      /*   .speciesName = _("Dudunsprce"),
+        .cryId = CRY_DUDUNSPARCE,
+        .natDexNum = NATIONAL_DEX_DUDUNSPARCE,
+        .categoryName = _("Land Snake"),
+        .height = 36,
+        .weight = 392,
+        .description = COMPOUND_STRING(
+            "This Pokémon uses its hard tail to\n"
+            "make its nest by boring holes into\n"
+            "bedrock deep underground. The nest\n"
+            "can reach lengths of over six miles."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_DudunsparceTwoSegment,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 10,
+        .frontAnimFrames = sAnims_Dudunsparce,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_DudunsparceTwoSegment,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 11,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Dudunsparce,
+        .shinyPalette = gMonShinyPalette_Dudunsparce,
+        .iconSprite = gMonIcon_Dudunsparce,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Dudunsparce)
+       */
+        //.levelUpLearnset = sDudunsparceLevelUpLearnset,
+        //.teachableLearnset = sDudunsparceTeachableLearnset,
+      //  .formSpeciesIdTable = sDudunsparceFormSpeciesIdTable,
+    },
+
+    [SPECIES_DUDUNSPARCE_THREE_SEGMENT] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(125,
+              100,
+              80,
+              55,
+              85,
+              75
+        ),
+        MON_TYPES(TYPE_NORMAL),
+        .catchRate = 45,
+        .expYield = 182,
+      //  .evYield_HP = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_SERENE_GRACE, ABILITY_RUN_AWAY },
+        .abilityHidden = {ABILITY_RATTLED, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_YELLOW,
+      /*   .speciesName = _("Dudunsprce"),
+        .cryId = CRY_DUDUNSPARCE,
+        .natDexNum = NATIONAL_DEX_DUDUNSPARCE,
+        .categoryName = _("Land Snake"),
+        .height = 45,
+        .weight = 474,
+        .description = COMPOUND_STRING(
+            "A recent study uncovered that the\n"
+            "number of segments a\n"
+            "Dudunsparce's body has is determined by the\n"
+            "Pokémon's genes."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_DudunsparceThreeSegment,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 10,
+        .frontAnimFrames = sAnims_Dudunsparce,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_DudunsparceThreeSegment,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 11,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Dudunsparce,
+        .shinyPalette = gMonShinyPalette_Dudunsparce,
+        .iconSprite = gMonIcon_Dudunsparce,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Dudunsparce)
+       */
+        //.levelUpLearnset = sDudunsparceLevelUpLearnset,
+        //.teachableLearnset = sDudunsparceTeachableLearnset,
+      //  .formSpeciesIdTable = sDudunsparceFormSpeciesIdTable,
+    },
+
+    [SPECIES_KINGAMBIT] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(100,
+              135,
+              120,
+              50,
+              60,
+              85
+        ),
+        MON_TYPES(TYPE_DARK, TYPE_STEEL),
+        .catchRate = 25,
+        .expYield = 275,
+      //  .evYield_Attack = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+        .abilities = { ABILITY_DEFIANT, ABILITY_SUPREME_OVERLORD  },
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BLACK,
+      /*   .speciesName = _("Kingambit"),
+        .cryId = CRY_KINGAMBIT,
+        .natDexNum = NATIONAL_DEX_KINGAMBIT,
+        .categoryName = _("Big Blade"),
+        .height = 20,
+        .weight = 1200,
+        .description = COMPOUND_STRING(
+            "Though it commands a massive army\n"
+            "in battle, it's not skilled at\n"
+            "devising complex strategies. It just uses\n"
+            "brute strength to keep pushing."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Kingambit,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_Kingambit,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Kingambit,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Kingambit,
+        .shinyPalette = gMonShinyPalette_Kingambit,
+        .iconSprite = gMonIcon_Kingambit,
+        .iconPalIndex = 0,
+        //FOOTPRINT(Kingambit)
+       */
+        //.levelUpLearnset = sKingambitLevelUpLearnset,
+        //.teachableLearnset = sKingambitTeachableLearnset,
+    },
 //#if p_fAMILY_GREAT_TUSK
     [SPECIES_GREAT_TUSK] =
     {
@@ -34158,6 +34507,236 @@ const struct BaseStats gBaseStats[] =
     },
 //#endif //P_FAMILY_MIRAIDON
 
+//Paldean Forms Start
+[SPECIES_TAUROS_PALDEAN_COMBAT_BREED] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(75,
+              110,
+              105,
+              100,
+              30,
+              70
+        ),
+        MON_TYPES(TYPE_FIGHTING,TYPE_DARK),
+        .catchRate = 45,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 211,
+      //  .evYield_Attack = 2,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_SLOW,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_INTIMIDATE, ABILITY_ANGER_POINT  },
+        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BLACK,
+      /*   .speciesName = _("Tauros"),
+        .cryId = CRY_TAUROS,
+        .natDexNum = NATIONAL_DEX_TAUROS,
+        .categoryName = _("Wild Bull"),
+        .height = 14,
+        .weight = 1150,
+        .description = COMPOUND_STRING(
+            "This Pokémon has a muscular body\n"
+            "and excels at close-quarters combat.\n"
+            "It uses its short horns to strike\n"
+            "the opponent’s weak spots."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_TaurosPaldeanCombatBreed,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 5,
+        .frontAnimFrames = sAnims_TaurosPaldean,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_TaurosPaldeanCombatBreed,
+        .backPicSize = MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = 9,
+        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        .palette = gMonPalette_TaurosPaldeanCombatBreed,
+        .shinyPalette = gMonShinyPalette_TaurosPaldeanCombatBreed,
+        .iconSprite = gMonIcon_TaurosPaldeanCombatBreed,
+        .iconPalIndex = 0,
+        FOOTPRINT(Tauros)
+        .isPaldeanForm = TRUE,*/
+       // .levelUpLearnset = sTaurosPaldeanCombatBreedLevelUpLearnset,
+        //.teachableLearnset = sTaurosPaldeanCombatBreedTeachableLearnset,
+      //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,
+    },
+
+    [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(75,
+              110,
+              105,
+              100,
+              30,
+              70
+        ),
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIRE),
+        .catchRate = 45,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 211,
+      //  .evYield_Attack = 2,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_SLOW,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_INTIMIDATE, ABILITY_ANGER_POINT },
+        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BLACK,
+      /*   .speciesName = _("Tauros"),
+        .cryId = CRY_TAUROS,
+        .natDexNum = NATIONAL_DEX_TAUROS,
+        .categoryName = _("Wild Bull"),
+        .height = 14,
+        .weight = 850,
+        .description = COMPOUND_STRING(
+            "When heated by fire energy, its horns can\n"
+            "get hotter than 1,800 degrees Fahrenheit.\n"
+            "Those gored by them will suffer\n"
+            "both wounds and burns."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_TaurosPaldeanBlazeBreed,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 5,
+        .frontAnimFrames = sAnims_TaurosPaldean,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,//
+        .backPic = gMonBackPic_TaurosPaldeanBlazeBreed,
+        .backPicSize = MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = 9,
+        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        .palette = gMonPalette_TaurosPaldeanBlazeBreed,
+        .shinyPalette = gMonShinyPalette_TaurosPaldeanBlazeBreed,
+        .iconSprite = gMonIcon_TaurosPaldeanBlazeBreed,
+        .iconPalIndex = 0,
+        FOOTPRINT(Tauros)
+        .isPaldeanForm = TRUE,
+        .levelUpLearnset = sTaurosPaldeanBlazeBreedLevelUpLearnset,
+        .teachableLearnset = sTaurosPaldeanBlazeBreedTeachableLearnset,
+      //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,*/
+    },
+
+    [SPECIES_TAUROS_PALDEAN_AQUA_BREED] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(75,
+              110,
+              105,
+              100,
+              30,
+              70
+        ),
+        MON_TYPES(TYPE_FIGHTING, TYPE_WATER),
+        .catchRate = 45,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 211,
+      //  .evYield_Attack = 2,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_SLOW,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_INTIMIDATE, ABILITY_ANGER_POINT},
+        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BLACK,
+      /*   .speciesName = _("Tauros"),
+        .cryId = CRY_TAUROS,
+        .natDexNum = NATIONAL_DEX_TAUROS,
+        .categoryName = _("Wild Bull"),
+        .height = 14,
+        .weight = 1100,
+        .description = COMPOUND_STRING(
+            "This Pokémon blasts water from holes on\n"
+            "the tips of its horns--the high-pressure\n"
+            "jets pierce right through\n"
+            "Tauros’s enemies."),
+        .pokemonScale = 256,
+        .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_TaurosPaldeanAquaBreed,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 5,
+        .frontAnimFrames = sAnims_TaurosPaldean,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,//
+        .backPic = gMonBackPic_TaurosPaldeanAquaBreed,
+        .backPicSize = MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = 9,
+        .backAnimId = BACK_ANIM_V_SHAKE_LOW,
+        .palette = gMonPalette_TaurosPaldeanAquaBreed,
+        .shinyPalette = gMonShinyPalette_TaurosPaldeanAquaBreed,
+        .iconSprite = gMonIcon_TaurosPaldeanAquaBreed,
+        .iconPalIndex = 0,
+        FOOTPRINT(Tauros)
+        .isPaldeanForm = TRUE,
+        .levelUpLearnset = sTaurosPaldeanAquaBreedLevelUpLearnset,
+        .teachableLearnset = sTaurosPaldeanAquaBreedTeachableLearnset,
+      //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,*/
+    },
+
+    [SPECIES_WOOPER_PALDEAN] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(55,
+              45,
+              45,
+              15,
+              25,
+              25
+        ),
+        MON_TYPES(TYPE_POISON, TYPE_GROUND),
+        .catchRate = 255,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 42 : 52,
+      //  .evYield_HP = 1,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
+        .abilities = { ABILITY_POISON_POINT, ABILITY_WATER_ABSORB  },
+        .abilityHidden = {ABILITY_UNAWARE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+      /*   .speciesName = _("Wooper"),
+        .cryId = CRY_WOOPER,
+        .natDexNum = NATIONAL_DEX_WOOPER,
+        .categoryName = _("Poison Fish"),
+        .height = 4,
+        .weight = 110,
+        .description = COMPOUND_STRING(
+            "After losing a territorial struggle,\n"
+            "Wooper began living on land.\n"
+            "The Pokémon changed over time, developing\n"
+            "a poisonous film to protect its body."),
+        .pokemonScale = 479,
+        .pokemonOffset = 21,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_WooperPaldean,
+        .frontPicSize = MON_COORDS_SIZE(40, 32),
+        .frontPicYOffset = 16,
+        .frontAnimFrames = sAnims_WooperPaldean,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_WooperPaldean,
+        .backPicSize = MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_V_STRETCH,
+        .palette = gMonPalette_WooperPaldean,
+        .shinyPalette = gMonShinyPalette_WooperPaldean,
+        .iconSprite = gMonIcon_WooperPaldean,
+        .iconPalIndex = 2,
+        FOOTPRINT(Wooper)
+        .isPaldeanForm = TRUE,
+        .levelUpLearnset = sWooperPaldeanLevelUpLearnset,
+        .teachableLearnset = sWooperPaldeanTeachableLearnset,
+      //  .formSpeciesIdTable = sWooperFormSpeciesIdTable,*/
+        .evolutions = EVOLUTION({EVO_LEVEL, 20, SPECIES_CLODSIRE}),
+    },
+
 //#if p_fAMILY_WALKING_WAKE
     [SPECIES_WALKING_WAKE] =
     {
@@ -34218,7 +34797,7 @@ const struct BaseStats gBaseStats[] =
     },
 //#endif //P_FAMILY_WALKING_WAKE
 
-//#if p_fAMILY_IRON_LEAVES
+//#if p_fAMILY_IRON_LEAVES - vsonic do something with this
     [SPECIES_IRON_LEAVES] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34277,6 +34856,61 @@ const struct BaseStats gBaseStats[] =
         //.teachableLearnset = sIronLeavesTeachableLearnset,
     },
 //#endif //P_FAMILY_IRON_LEAVES
+[SPECIES_DIPPLIN] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(80,
+              80,
+              110,
+              40,
+              95,
+              80
+        ),
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
+        .catchRate = 45,
+        .expYield = 170,
+      //  .evYield_Defense = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_ERRATIC,
+        MON_EGG_GROUPS(EGG_GROUP_GRASS, EGG_GROUP_DRAGON),
+        .abilities = { ABILITY_SUPERSWEET_SYRUP, ABILITY_GLUTTONY  },
+        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_GREEN,
+      /*   .speciesName = _("Dipplin"),
+        .cryId = CRY_DIPPLIN,
+        .natDexNum = NATIONAL_DEX_DIPPLIN,
+        .categoryName = _("Candy Apple"),
+        .height = 4,
+        .weight = 44,
+        .description = COMPOUND_STRING(
+            "Dipplin is two creatures in one Pokémon.\n"
+            "Its evolution was triggered by a special\n"
+            "apple grown only in one place."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Dipplin,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 5,
+        .frontAnimFrames = sAnims_Dipplin,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_Dipplin,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 0,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_Dipplin,
+        .shinyPalette = gMonShinyPalette_Dipplin,
+        .iconSprite = gMonIcon_Dipplin,
+        .iconPalIndex = 1,
+        //FOOTPRINT(Dipplin)
+       */
+        //.levelUpLearnset = sDipplinLevelUpLearnset,
+        //.teachableLearnset = sDipplinTeachableLearnset,
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_DRAGON_CHEER, 0, SPECIES_HYDRAPPLE}),
+    },
 
 //#if p_fAMILY_POLTCHAGEIST
     [SPECIES_POLTCHAGEIST_COUNTERFEIT] =
@@ -34579,6 +35213,9 @@ const struct BaseStats gBaseStats[] =
 //#endif //P_FAMILY_OKIDOGI
 
 //#if p_fAMILY_MUNKIDORI //vsonic need rework apparently complete dogshit
+    //think will attempt to buff with moves over stats don't feel like there's really  much 
+    //to do here, think signature move poison uturn?  baneful bunker
+    //over max power,
     [SPECIES_MUNKIDORI] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34767,6 +35404,69 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK, BODY_COLOR_GRAY,  0),
 #endif //P_TERA_FORMS
 
+[SPECIES_URSALUNA_BLOODMOON] =
+    {
+        //hp, atk, def, spd, spatk, spdef
+        STATS(113,
+              70,
+              120,
+              52,
+              135,
+              65
+        ),
+        MON_TYPES(TYPE_GROUND, TYPE_NORMAL),
+        .catchRate = 5,
+        .expYield = 275,
+      //  .evYield_SpAttack = 3,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = FRIENDSHIP_STANDARD,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_MINDS_EYE, ABILITY_NONE, ABILITY_NONE },
+        .abilityHidden = {ABILITY_STALWART, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+      /*   .speciesName = _("Ursaluna"),
+        .cryId = CRY_URSALUNA,
+        .natDexNum = NATIONAL_DEX_URSALUNA,
+        .categoryName = _("Peat"),
+        .height = 27,
+        .weight = 3330,
+        .description = COMPOUND_STRING(
+            "It crossed the sea and drifted\n"
+            "ashore in a new land. Surviving in this\n"
+            "place led it to take on a unique\n"
+            "appearance and gain special powers."),
+        .pokemonScale = 256,
+        .pokemonOffset = 3,
+        .trainerScale = 369,
+        .trainerOffset = 7,
+        .frontPic = gMonFrontPic_UrsalunaBloodmoon,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        //.frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_UrsalunaBloodmoon,
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_UrsalunaBloodmoon,
+        .backPicSize = MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = 3,
+        //.backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_UrsalunaBloodmoon,
+        .shinyPalette = gMonShinyPalette_UrsalunaBloodmoon,
+        .iconSprite = gMonIcon_UrsalunaBloodmoon,
+        .iconPalIndex = 2,
+        //FOOTPRINT(UrsalunaBloodmoon)
+       */
+        .levelUpLearnset = sUrsalunaBloodmoonLevelUpLearnset,
+        .teachableLearnset = sUrsalunaBloodmoonTeachableLearnset,
+      //  .formSpeciesIdTable = sUrsalunaFormSpeciesIdTable,
+    },//thought about making an evo, think will give an item
+    //to shift form one way, well doesn't need tobe one way.
+    //but moxie brought up interesting idea
+    //that this is actually a paradox mon.
+    //since nothing evolves into it, and theres lore wise only one,
+    //that really makes sense
+    //so I won't change this into an evo vsonic
+
 [SPECIES_ARCHALUDON] =
     {
             //hp, atk, def, spd, spatk, spdef
@@ -34818,8 +35518,9 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Archaludon,
         .iconPalIndex = 0,
         //FOOTPRINT(Archaludon)
-        .levelUpLearnset = sArchaludonLevelUpLearnset,
-        .teachableLearnset = sArchaludonTeachableLearnset,*/
+       */
+        //.levelUpLearnset = sArchaludonLevelUpLearnset,
+        //.teachableLearnset = sArchaludonTeachableLearnset,*/
     },
 
 //#endif //P_FAMILY_OGERPON
@@ -34875,6 +35576,7 @@ const struct BaseStats gBaseStats[] =
         .iconSprite = gMonIcon_Hydrapple,
         .iconPalIndex = 5,
         //FOOTPRINT(Hydrapple)
+       
         .levelUpLearnset = sHydrappleLevelUpLearnset,
         .teachableLearnset = sHydrappleTeachableLearnset,*/
     },
@@ -35210,7 +35912,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Terapagos"),
         .cryId = CRY_TERAPAGOS,
         .natDexNum = NATIONAL_DEX_TERAPAGOS,
@@ -35271,7 +35973,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         /*.speciesName = _("Terapagos"),
         .cryId = CRY_TERAPAGOS,
         .natDexNum = NATIONAL_DEX_TERAPAGOS,
@@ -35307,7 +36009,13 @@ const struct BaseStats gBaseStats[] =
         //.teachableLearnset = sTerapagosTeachableLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
-    },
+    },//since stellar type is a bad version of my own normal buffs I'll just scrap it
+    //will only allow stellar form for terapagos and treat it like shadow pokemon,
+    //where it keeps a permanent stellar tera blast that is super to everything
+    //stellar type for terapagos will give stab on all moves
+    //change, don't remove enemy terra, just prevent other mon from using terra if this is on the field
+    //based on ability  stellar will still be super against other terra
+    //vsonic
 //#endif //P_FAMILY_TERAPAGOS
 
 ////#if p_fAMILY_PECHARUNT

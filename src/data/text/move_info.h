@@ -186,7 +186,7 @@ const u8 gMoveDescription_MachPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("A punch th
 const u8 gMoveDescription_ScaryFace[MOVE_DESCRIPTION_LENGTH + 5] = _("Frightens the foe\nwith a scary face\nto sharply reduce\nits SPEED.");
 const u8 gMoveDescription_FaintAttack[MOVE_DESCRIPTION_LENGTH + 5] = _("The user draws up\nclose to the foe\ndisarmingly, then\nhits without fail.");
 const u8 gMoveDescription_SweetKiss[MOVE_DESCRIPTION_LENGTH + 5] = _("The user kisses\nthe foe with sweet\ncuteness that\ncauses confusion.");
-const u8 gMoveDescription_BellyDrum[MOVE_DESCRIPTION_LENGTH + 5] = _("The user maximizes\nits ATTACK stat at\nthe cost of half\nits full HP.");
+const u8 gMoveDescription_BellyDrum[MOVE_DESCRIPTION_LENGTH + 5] = _("The user maximizes\nits ATTACK stat at\nthe cost of half\nits max HP.");
 const u8 gMoveDescription_SludgeBomb[MOVE_DESCRIPTION_LENGTH + 5] = _("Filthy sludge is\nhurled at the foe.\nIt may poison the\ntarget.");
 const u8 gMoveDescription_MudSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("Mud is hurled in\nthe foe's face to\ninflict damage and\nlower its accuracy.");
 const u8 gMoveDescription_Octazooka[MOVE_DESCRIPTION_LENGTH + 5] = _("Ink is blasted in\nthe foe's face or\neyes to damage and\nlower accuracy.");
@@ -363,7 +363,7 @@ const u8 gMoveDescription_WakeupSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("Doubles d
 const u8 gMoveDescription_HammerArm[MOVE_DESCRIPTION_LENGTH + 5] = _("Swings down with\na heavy fist\nthat lowers Speed.");
 const u8 gMoveDescription_GyroBall[MOVE_DESCRIPTION_LENGTH + 5] = _("A high-speed spin\nthat does more damage\nto faster foes.");
 const u8 gMoveDescription_HealingWish[MOVE_DESCRIPTION_LENGTH + 5] = _("The user faints\nto heal up the\nnext battler.");
-const u8 gMoveDescription_Brine[MOVE_DESCRIPTION_LENGTH + 5] = _("Deals double damage\nto foes below\nhalf HP.");
+const u8 gMoveDescription_Brine[MOVE_DESCRIPTION_LENGTH + 5] = _("Deals double damage\nto foes at or below\nhalf HP.");
 const u8 gMoveDescription_NaturalGift[MOVE_DESCRIPTION_LENGTH + 5] = _("The effectiveness\nand damage varies\nwith the held Berry.");
 const u8 gMoveDescription_Feint[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nhits foes using\nmoves like Protect.");
 const u8 gMoveDescription_Pluck[MOVE_DESCRIPTION_LENGTH + 5] = _("Eats the foe's\nheld Berry,\ngaining its effect.");
@@ -619,7 +619,7 @@ const u8 gPSYSHOCK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a psychic wave\nthat does physical damage.");
 
 const u8 gVENOSHOCK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage if the\nfoe is poisoned.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage if the\nfoe has an ailment.\nDeals extra damage\nto poisoned targets.");
 
 const u8 gAUTOTOMIZE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Sheds additional weight to\nsharply boost Speed.");
@@ -715,7 +715,7 @@ const u8 gHEAL_PULSE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Recovers up to a third the\ntarget's maximum HP.");
 
 const u8 gHEX_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage if the\nfoe has a status problem.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage if the\nfoe has an ailment.");
 
 const u8 gSKY_DROP_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Takes the foe into the sky\nthen drops it the next turn.");
@@ -2233,30 +2233,101 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [ MOVE_ASTRAL_BARRAGE ] = gASTRAL_BARRAGE_Description,
     [ MOVE_EERIE_SPELL ] = gEERIE_SPELL_Description,
 
-    [MOVE_DIRE_CLAW] = gEERIE_SPELL_Description,
-    [MOVE_PSYSHIELD_BASH] = gEERIE_SPELL_Description,
-    [MOVE_POWER_SHIFT] = gEERIE_SPELL_Description,
-    [MOVE_STONE_AXE] = gEERIE_SPELL_Description,
-    [MOVE_SPRINGTIDE_STORM] = gEERIE_SPELL_Description,
-    [MOVE_MYSTICAL_POWER] = gEERIE_SPELL_Description,
-    [MOVE_RAGING_FURY] = gEERIE_SPELL_Description,
-    [MOVE_WAVE_CRASH] = gEERIE_SPELL_Description,
-    [MOVE_CHLOROBLAST] = gEERIE_SPELL_Description,
-    [MOVE_MOUNTAIN_GALE] = gEERIE_SPELL_Description,
-    [MOVE_VICTORY_DANCE] = gEERIE_SPELL_Description,
-    [MOVE_HEADLONG_RUSH] = gEERIE_SPELL_Description,
-    [MOVE_BARB_BARRAGE] = gEERIE_SPELL_Description,
-    [MOVE_ESPER_WING] = gEERIE_SPELL_Description,
-    [MOVE_BITTER_MALICE] = gEERIE_SPELL_Description,
-    [MOVE_SHELTER] = gEERIE_SPELL_Description,
-    [MOVE_TRIPLE_ARROWS] = gEERIE_SPELL_Description,
-    [MOVE_INFERNAL_PARADE] = gEERIE_SPELL_Description,
-    [MOVE_CEASELESS_EDGE] = gEERIE_SPELL_Description,
-    [MOVE_BLEAKWIND_STORM] = gEERIE_SPELL_Description,
-    [MOVE_WILDBOLT_STORM] = gEERIE_SPELL_Description,
-    [MOVE_SANDSEAR_STORM] = gEERIE_SPELL_Description,
-    [MOVE_LUNAR_BLESSING] = gEERIE_SPELL_Description,
-    [MOVE_TAKE_HEART] = gEERIE_SPELL_Description,
+    [MOVE_DIRE_CLAW] = COMPOUND_MOVE_STRING("High critical hit chance. May\nparalyze, poison or drowse."),
+    [MOVE_PSYSHIELD_BASH] = COMPOUND_MOVE_STRING("Hits a foe with psychic\nenergy. May raise Defense."),
+    [MOVE_POWER_SHIFT] = COMPOUND_MOVE_STRING("The user swaps its offensive\nand defensive stats."),
+    [MOVE_STONE_AXE] = COMPOUND_MOVE_STRING("High critical hit ratio. Sets\nSplinters that hurt the foe."),
+    [MOVE_SPRINGTIDE_STORM] = COMPOUND_MOVE_STRING("Wraps a foe in fierce winds.\nVaries with the user's form."),
+    [MOVE_MYSTICAL_POWER] = COMPOUND_MOVE_STRING("Increases the user's best\noffense or defense stat."), //change effect to just boost one
+    [MOVE_RAGING_FURY] = COMPOUND_MOVE_STRING("The user rampages around spewing flames\nfor two to three turns.\nThen becomes confused."),
+    [MOVE_WAVE_CRASH] = COMPOUND_MOVE_STRING("The user shrouds itself in water\nand then slams into the target.\nThis also damages the user a little."), //water double edge
+    [MOVE_CHLOROBLAST] = COMPOUND_MOVE_STRING("The user launches its amassed chlorophyll to inflict\ndamage on the target.\nThis also damages the userquite a lot."),
+    [MOVE_MOUNTAIN_GALE] = COMPOUND_MOVE_STRING("The user hurls giant chunks\nof ice to damage the foe.\nIt may make the\nfoe flinch."),
+    [MOVE_VICTORY_DANCE] = COMPOUND_MOVE_STRING("The user performs an intense dance\nto usher in victory, boosting\nits Attack, Defense, and Speed stats."),
+    [MOVE_HEADLONG_RUSH] = COMPOUND_MOVE_STRING("The user smashes into the target\nin a full-body tackle.\nThis also lowers the user’s Defense and Sp. Def stats."),
+    [MOVE_BARB_BARRAGE] = COMPOUND_MOVE_STRING("Attacks with countless toxic barbs.\nBoosts dmg if poisoned and may poison.\nDoubles damage if\nfoe has an ailment."),
+    [MOVE_ESPER_WING] = COMPOUND_MOVE_STRING("High critical hit chance.\nThe user slashes the target\nwith aura-enriched wings.\nAlso boosts the user’s Speed."),
+    [MOVE_BITTER_MALICE] = COMPOUND_MOVE_STRING("The user attacks with\nspine-chilling resentment.\nLowering the target’s Attack\nand Sp. Attack stats."), //effect still to setup
+    [MOVE_SHELTER] = COMPOUND_MOVE_STRING("The user makes its skin as hard as an iron shield,\nsharply boosting its Defense stat."),
+    [MOVE_TRIPLE_ARROWS] = COMPOUND_MOVE_STRING("High crit. may lower Defense\nThe user focuses to raise its\ncritical-hit ratio.\nThen kicks, and fires three arrows."),
+    [MOVE_INFERNAL_PARADE] = COMPOUND_MOVE_STRING("Does double damage if the\nfoe has an ailment.\nIt may also Burn."),
+    [MOVE_CEASELESS_EDGE] = COMPOUND_MOVE_STRING("High critical hit ratio. Sets\nsplinters that hurt the foe."),
+    [MOVE_BLEAKWIND_STORM] = COMPOUND_MOVE_STRING("The user attacks with\nsavagely cold winds.\nMay Freeze the foe."),
+    [MOVE_WILDBOLT_STORM] = COMPOUND_MOVE_STRING("Hits with a brutal tempest.\nMay inflict paralysis."),
+    [MOVE_SANDSEAR_STORM] = COMPOUND_MOVE_STRING("Hits with brutally hot sand.\nMay inflict a burn."),
+    [MOVE_LUNAR_BLESSING] = COMPOUND_MOVE_STRING("The user receives\na blessing from\nthe crescent moon.\nRestores HP and cures\nailments for itself and\nan ally."),
+    [MOVE_TAKE_HEART] = COMPOUND_MOVE_STRING("The user lifts its spirits,\ncuring its own ailments\nand boosting its Sp. Atk\nand Sp. Def stats."),
+
+    [MOVE_TERA_BLAST] = COMPOUND_MOVE_STRING("When Terastallized, it\nunleashes its Tera energy.\nDamage type is based on\nthe user's highest\noffense stat."),
+    [MOVE_SILK_TRAP] = COMPOUND_MOVE_STRING("The user spins a silken trap, to protect itself and lowers the Speed of any attacker that makes contact."),
+    [MOVE_AXE_KICK] = COMPOUND_MOVE_STRING("The user kicks up into the air\nand slams its heel down\non the foe.\nMay confuse target\nbut hurts user on miss."),
+    [MOVE_LAST_RESPECTS] = COMPOUND_MOVE_STRING("The user attacks to\navenge its allies.\nThe more fainted mon in\nthe user's party, the\ngreater the move's power."),
+    [MOVE_LUMINA_CRASH] = COMPOUND_MOVE_STRING("The user unleashes a\npeculiar light that\neven affects the mind.\nAlso harshly lowers the\ntarget's Sp. Def."),
+    [MOVE_ORDER_UP] = COMPOUND_MOVE_STRING("Boosts the user's stats\ndepending on Tatsugiri's form."),
+    [MOVE_JET_PUNCH] = COMPOUND_MOVE_STRING("A punch is thrown at blinding\nspeed to strike first."),
+    [MOVE_SPICY_EXTRACT] = COMPOUND_MOVE_STRING("The user emits an\nincredibly spicy extract.\nSharply boosts the target's\nAttack and harshly lowers\nits Defense."),
+    [MOVE_SPIN_OUT] = COMPOUND_MOVE_STRING("Spins furiously by\nstraining its legs,\nto damage the target.\nHarshly lowers the user's Speed."),
+    [MOVE_POPULATION_BOMB] = COMPOUND_MOVE_STRING("The user’s fellows gather\nin droves to perform\na combo attack that\nhits the target\none to ten times."),
+    [MOVE_ICE_SPINNER] = COMPOUND_MOVE_STRING("The user covers its feet\nin thin ice then twirls about,\nto slam into the target.\nAlso destroys the terrain."),
+    [MOVE_GLAIVE_RUSH] = COMPOUND_MOVE_STRING("A reckless charge.\nUntil the POKéMON acts again,\nAll incomming attacks will\nland and do double damage."),
+    [MOVE_REVIVAL_BLESSING] = COMPOUND_MOVE_STRING("Revives a fainted\nPOKéMON and restores\nhalf of its HP."),
+    [MOVE_SALT_CURE] = COMPOUND_MOVE_STRING("The user salt cures the target,\ndealing 1/8th MaxHp every turn.\nSteel and Water types\ntake 1/4th dmg each turn."),
+    [MOVE_TRIPLE_DIVE] = COMPOUND_MOVE_STRING("Performs a perfectly\ntimed triple dive,\nsplashing the target\nthree times in a row."),
+    [MOVE_MORTAL_SPIN] = COMPOUND_MOVE_STRING("Poisons all foes and eliminates\ntrapping moves and Leech Seed."),
+    [MOVE_DOODLE] = COMPOUND_MOVE_STRING("Changes user's and ally's\nAbility into the target's."),
+    [MOVE_FILLET_AWAY] = COMPOUND_MOVE_STRING("Sharply boosts offenses and\nSpeed at the cost of\nhalf its max HP."),
+    [MOVE_KOWTOW_CLEAVE] = COMPOUND_MOVE_STRING("Kowtows and then slashes\nat the foe when\nthey least expect it.\nThis attack never misses."),
+    [MOVE_FLOWER_TRICK] = COMPOUND_MOVE_STRING("The user throws\na rigged bouquet\nof flowers at the foe.\nThis attack never\nmisses and is always\na critical hit."),
+    [MOVE_TORCH_SONG] = COMPOUND_MOVE_STRING("Belts out a raging flame\nas if singing a song,\nscorching the target.\nThis also boosts the\nuser's Sp. Atk stat."),
+    [MOVE_AQUA_STEP] = COMPOUND_MOVE_STRING("The user toys with the target\nattacking with light,\nfluid dance steps.\nThis also boosts the\nuser's Speed stat."),
+    [MOVE_RAGING_BULL] = COMPOUND_MOVE_STRING("A bull-like tackle breaks barriers.\ntype depends on the user's form."),
+    [MOVE_MAKE_IT_RAIN] = COMPOUND_MOVE_STRING("Tosses a mass of\ncoins at the foe.\nThis also lowers\nthe user's Sp. Atk.\nMoney is earned\nafter the battle."),
+    [MOVE_RUINATION] = COMPOUND_MOVE_STRING("A summoned ruinous disaster\ntakes half the target's\nremaining HP."),
+    [MOVE_COLLISION_COURSE] = COMPOUND_MOVE_STRING("A massive prehistoric explosion\nBoosts damage by 1/3rd\nif super effective."),
+    [MOVE_ELECTRO_DRIFT] = COMPOUND_MOVE_STRING("Pierces the target\nwith futuristic\nelectricity.\nBoosts damage by 1/3rd\nif super effective."),
+    [MOVE_SHED_TAIL] = COMPOUND_MOVE_STRING("Creates a Substitute for itself\nbefore switching out."),
+    [MOVE_CHILLY_RECEPTION] = COMPOUND_MOVE_STRING("The Pokémon tells an\nawfully bad joke\nbefore fleeing the\ncold stares.\nThis summons hail lasting five turns."),
+    [MOVE_TIDY_UP] = COMPOUND_MOVE_STRING("The user tidies up hazards.\nIts Attack and Speed are raised."),
+    [MOVE_SNOWSCAPE] = COMPOUND_MOVE_STRING("Summons a snowstorm that\nstrikes every turn."),//not adding snow so don't need?
+    [MOVE_GRASSHOPPER] = COMPOUND_MOVE_STRING("Springs onto the foe,\nlowering its Speed."),
+    [MOVE_TRAILBLAZE] = COMPOUND_MOVE_STRING("The user attacks suddenly\nas if leaping out\nfrom tall grass.\nThe user's nimble\nfootwork boosts its\nSpeed stat."),
+    [MOVE_CHILLING_WATER] = COMPOUND_MOVE_STRING("Showers the foe with water\nso cold it saps\ntheir strength.\nAlso lowers Attack."),
+    [MOVE_HYPER_DRILL] = COMPOUND_MOVE_STRING("A spinning pointed end\npierces the heavens!\nBreaks through protection."),
+    [MOVE_TWIN_BEAM] = COMPOUND_MOVE_STRING("Mystical beams from the user's\neyes hit twice in a row."),
+    [MOVE_RAGE_FIST] = COMPOUND_MOVE_STRING("The user converts\nits rage into energy.\nThe more attacks\nit's been hit by,\nthe greater the\nmove's power."),
+    [MOVE_ARMOR_CANNON] = COMPOUND_MOVE_STRING("The user shoots\nits own armor\nout as blazing\nprojectiles.\nLowers the user’s\nDefense stats."),
+    [MOVE_BITTER_BLADE] = COMPOUND_MOVE_STRING("A sharp attack\nfull of bitter\nfeelings towards\the living world.\nRestores HP by\nhalf damage dealt."),
+    [MOVE_DOUBLE_SHOCK] = COMPOUND_MOVE_STRING("Discharges all stored\nelectricity, losing\nthe Electric type."),
+    [MOVE_GIGATON_HAMMER] = COMPOUND_MOVE_STRING("Swings a huge hammer. Can't\nbe used twice in a row."),
+    [MOVE_COMEUPPANCE] = COMPOUND_MOVE_STRING("The user retaliates\nwith much greater\nforce after it\nreceives damage."), //counter but not limited to special/physical
+    [MOVE_AQUA_CUTTER] = COMPOUND_MOVE_STRING("High critical hit chance.\nCuts the foe\nwith a pressurized\nblade of water."),
+    [MOVE_BLAZING_TORQUE] = COMPOUND_MOVE_STRING("Shifts into a\nfiery upper gear.\nMay burn the foe."),
+    [MOVE_WICKED_TORQUE] = COMPOUND_MOVE_STRING("Shifts into a\ndemented upper gear.\nMay put foe to sleep."),
+    [MOVE_NOXIOUS_TORQUE] = COMPOUND_MOVE_STRING("Shifts into a\ntoxic upper gear.\nMay poison the foe."),
+    [MOVE_COMBAT_TORQUE] = COMPOUND_MOVE_STRING("Shifts into a\nstrong upper gear.\nMay paralyze the foe."),
+    [MOVE_MAGICAL_TORQUE] = COMPOUND_MOVE_STRING("Shifts into a\nfabled upper gear.\nMay confuse the foe."),
+
+    [MOVE_PSYBLADE] = COMPOUND_MOVE_STRING("The user rends the target\nwith an ethereal blade.\nBoosts Power if user is\non Electric Terrain."),
+    [MOVE_HYDRO_STEAM] = COMPOUND_MOVE_STRING("Blasts the target\nwith boiling-hot water.\nBoosts move power\nby 50 percent\nin harsh sunlight."),
+    [MOVE_BLOOD_MOON] = COMPOUND_MOVE_STRING("Bathed in the light\nof a full moon that\nshines red as blood.\nThe user unleashes its\nfull might."), //can't be used twice
+    [MOVE_MATCHA_GOTCHA] = COMPOUND_MOVE_STRING("The user fires a blast of tea that it mixed. The user's HP is restored by up to half the damage taken by the target. This may also leave the target with a burn."),
+    [MOVE_SYRUP_BOMB] = COMPOUND_MOVE_STRING("The user sets off an explosion of sticky candy syrup, which coats the target and causes the target's Speed stat to drop each turn for three turns."),
+    [MOVE_IVY_CUDGEL] = COMPOUND_MOVE_STRING("The user strikes with an ivy-wrapped cudgel. This move's type changes depending on the mask worn by the user, and it has a heightened chance of landing a critical hit."),
+    [MOVE_ELECTRO_SHOT] = COMPOUND_MOVE_STRING("The user gathers electricity on the first turn, boosting its Sp. Atk stat, then fires a high-voltage shot on the next turn. The shot will be fired immediately in rain."),
+    [MOVE_TERA_STARSTORM] = COMPOUND_MOVE_STRING("With the power of its crystals, the user bombards and eliminates the target. When used by Terapagos in its Stellar Form, this move damages all opposing Pokémon."),
+    [MOVE_FICKLE_BEAM] = COMPOUND_MOVE_STRING("The user shoots a beam of light to inflict damage. Sometimes all the user's heads shoot beams in unison, doubling the move's power."),
+    [MOVE_BURNING_BULWARK] = COMPOUND_MOVE_STRING("The user’s intensely hot fur protects it from attacks and also burns any attacker that makes direct contact with it."),
+    [MOVE_THUNDERCLAP] = COMPOUND_MOVE_STRING("This move enables the user to attack first with a jolt of electricity. This move fails if the target is not readying an attack."),
+    [MOVE_MIGHTY_CLEAVE] = COMPOUND_MOVE_STRING("The user wields the light that has accumulated atop its head to cleave the target. This move hits even if the target protects itself."),
+    [MOVE_TACHYON_CUTTER] = COMPOUND_MOVE_STRING("The user attacks by launching particle blades at the target twice in a row. This attack never misses."),
+    [MOVE_HARD_PRESS] = COMPOUND_MOVE_STRING("The target is crushed with an arm, a claw, or the like to inflict damage. The more HP the target has left, the greater the move's power."),
+    [MOVE_DRAGON_CHEER] = COMPOUND_MOVE_STRING("The user raises its allies’ morale with a draconic cry so that their future attacks have a heightened chance of landing critical hits. This rouses Dragon types more."),
+    [MOVE_ALLURING_VOICE] = COMPOUND_MOVE_STRING("The user attacks the target using its angelic voice. This also confuses the target if its stats have been boosted during the turn."),
+    [MOVE_TEMPER_FLARE] = COMPOUND_MOVE_STRING("Spurred by desperation, the user attacks the target. This move's power is doubled if the user's previous move failed."),
+    [MOVE_SUPERCELL_SLAM] = COMPOUND_MOVE_STRING("The user electrifies its body and drops onto the target to inflict damage. If this move misses, the user takes damage instead."),
+    [MOVE_PSYCHIC_NOISE] = COMPOUND_MOVE_STRING("The user attacks the target with unpleasant sound waves. For two turns, the target is prevented from recovering HP through moves, Abilities, or held items."),
+    [MOVE_UPPER_HAND] = COMPOUND_MOVE_STRING("The user reacts to the target's movement and strikes with the heel of its palm, making the target flinch. This move fails if the target is not readying a priority move."),
+    [MOVE_MALIGNANT_CHAIN] = COMPOUND_MOVE_STRING("The user pours toxins into the target by wrapping them in a toxic, corrosive chain. This may also leave the target badly poisoned."),
 
     [ MOVE_COCOON ] = gMoveDescription_Cocoon,
     [ MOVE_MONOTYPE ] = gMoveDescription_Monotype,
@@ -2279,6 +2350,8 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_TRENCH_RUN] = gMoveDescription_Snowball, //make own value later
     [MOVE_SPIN_DASH] = gMoveDescription_Spindash,
 };//last value can have comma
+//with using compound string realized can paste descriptions directly
+//from bulbapedia, then just a matter of adjusting for spacing
 
 
     //for implementing lower case move names
