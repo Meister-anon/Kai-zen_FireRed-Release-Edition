@@ -923,7 +923,6 @@ gBattleAnims_Moves::
 	.4byte Move_PLASMA_RAILGUN
 	.4byte Move_BOLTBEAM
 	.4byte Move_BACK_STAB
-	.4byte Move_DOUBLE_SHOCK
 	.4byte Move_POUNCE
 	.4byte Move_CHEAP_SHOT
 	.4byte Move_SNOWBALL
@@ -24276,7 +24275,6 @@ Move_FINAL_FLIGHT:
 Move_PLASMA_RAILGUN:
 Move_BOLTBEAM:
 Move_BACK_STAB:
-Move_DOUBLE_SHOCK:
 Move_POUNCE:
 Move_CHEAP_SHOT:
 Move_TRENCH_RUN:

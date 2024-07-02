@@ -894,13 +894,12 @@
 #define MOVE_PLASMA_RAILGUN 860	//ELECTRIC BURN OUT	
 #define MOVE_BOLTBEAM 861	//joke idea taken from CammyMeeleTea video on icetypes
 #define MOVE_BACK_STAB 862	//new dark exclusive, give every dark type sucker punch and backstab  potentially make a tm, but keep sucker punch as learn move?
-#define MOVE_DOUBLE_SHOCK 863
-#define MOVE_POUNCE 864
-#define MOVE_CHEAP_SHOT 865 //low prio fighting uturn
-#define MOVE_SNOWBALL 866
-#define MOVE_TRENCH_RUN 867     //flying status move, 71 stagae evasion boost, flies low to ground/grounds flyer removing electric weakness
-#define MOVE_SPIN_DASH 868  //groud move tuck into ball and spin at the foe, give flag dmg in air can bounce into the air
-#define MOVE_ARCTIC_RAKE 869    //move for base sneasel line
+#define MOVE_POUNCE 863
+#define MOVE_CHEAP_SHOT 864 //low prio fighting uturn
+#define MOVE_SNOWBALL 865
+#define MOVE_TRENCH_RUN 866    //flying status move, 71 stagae evasion boost, flies low to ground/grounds flyer removing electric weakness
+#define MOVE_SPIN_DASH 867 //groud move tuck into ball and spin at the foe, give flag dmg in air can bounce into the air
+#define MOVE_ARCTIC_RAKE 868    //move for base sneasel line
 
 //#define MOVES_COUNT_GEN8 757
 

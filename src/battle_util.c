@@ -4511,19 +4511,12 @@ u8 AtkCanceller_UnableToUseMove(void)
                     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
                         && CanMultiTask(gCurrentMove) == TRUE
                         && gBattleMoves[gCurrentMove].split != SPLIT_STATUS)
-                        if (gCurrentMove != MOVE_POPULATION_BOMB)
                         {
-                            gMultiTask = Random() % 4; //return a number between 0 & 3
-                            if (gMultiTask >= 1)
-                                gMultiTask = (Random() % 4) + 2; // if non 0, multihit is between 2-5 htis
-                            else
-                                gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
-                        }
-                        else //population bomb
-                        {
-                            gMultiTask = Random() % 11; //return a number between 0 & 10
-                            if (gMultiTask == 0)
-                                gMultiTask++; //move meant to land 1-10 times not sure on distribution
+                                gMultiTask = Random() % 4; //return a number between 0 & 3
+                                if (gMultiTask >= 1)
+                                    gMultiTask = (Random() % 4) + 2; // if non 0, multihit is between 2-5 htis
+                                else
+                                    gMultiTask += 2; //else add 2 to multi counter, returning a multihit of 2.
                         }
                         break;
                 }

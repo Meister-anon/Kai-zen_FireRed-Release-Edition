@@ -34518,9 +34518,9 @@ const struct BaseStats gBaseStats[] =
               30,
               70
         ),
-        MON_TYPES(TYPE_FIGHTING,TYPE_DARK),
+        MON_TYPES(TYPE_FIGHTING,TYPE_DARK), //need decide if make raging bull type dark or fighting
         .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 211,
+        .expYield = 211,
       //  .evYield_Attack = 2,
         .genderRatio = MON_MALE,
         .eggCycles = 20,
@@ -34577,7 +34577,7 @@ const struct BaseStats gBaseStats[] =
         ),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIRE),
         .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 211,
+        .expYield = 211,
       //  .evYield_Attack = 2,
         .genderRatio = MON_MALE,
         .eggCycles = 20,
@@ -34634,7 +34634,7 @@ const struct BaseStats gBaseStats[] =
         ),
         MON_TYPES(TYPE_FIGHTING, TYPE_WATER),
         .catchRate = 45,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 211,
+        .expYield = 211,
       //  .evYield_Attack = 2,
         .genderRatio = MON_MALE,
         .eggCycles = 20,
@@ -34691,7 +34691,7 @@ const struct BaseStats gBaseStats[] =
         ),
         MON_TYPES(TYPE_POISON, TYPE_GROUND),
         .catchRate = 255,
-        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 42 : 52,
+        .expYield = 42,
       //  .evYield_HP = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
@@ -35423,8 +35423,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_MINDS_EYE, ABILITY_NONE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_STALWART, ABILITY_NONE},
+        .abilities = { ABILITY_MINDS_EYE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
       /*   .speciesName = _("Ursaluna"),
         .cryId = CRY_URSALUNA,
@@ -35456,8 +35456,8 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 2,
         //FOOTPRINT(UrsalunaBloodmoon)
        */
-        .levelUpLearnset = sUrsalunaBloodmoonLevelUpLearnset,
-        .teachableLearnset = sUrsalunaBloodmoonTeachableLearnset,
+        //.levelUpLearnset = sUrsalunaBloodmoonLevelUpLearnset,
+        //.teachableLearnset = sUrsalunaBloodmoonTeachableLearnset,
       //  .formSpeciesIdTable = sUrsalunaFormSpeciesIdTable,
     },//thought about making an evo, think will give an item
     //to shift form one way, well doesn't need tobe one way.

@@ -2506,11 +2506,52 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   //icon id for slashing/slicing moves boosted by sharpness
   just use 3 angled lines like a cut
 
+  //removes that require specific status set to double damage
+  //just makes them bad, is venoshack and barb barage for some reason only poison -_-
+  //what they could be is double if statused and then extra boost if poisoned
+  think 2x if status 2.3x if poison?
+  -done
+
+  Dunsparce other evo
+  //learns hyperddrill at 32, delay till 40 add new evo at 32 to never have to see
+    //that one
+    
+    //debuffed hp as plannin to actually add evo, just remodel sprite
+    //waffling between leaving pure normal but making float, or normal poison and floating, giving it just a psychic weakness,
+    //think I will do that actually, that removes its fighting weakness too. 
+    //make evolved form float and normal poison make essentially star wars force awakened beast/ff14 jungle monster
+    //but with wings
+    //Oggdo Bogdo from star wars fallen order &
+    //Fafnir of the North   from Final Fantasy 16
+    //awaken old traits in its dna
+    //regained ability to fly, larger armored form, retractable wings
+    //inner poison sacs of paralytic poison extendable tongue  
+    //remember still keep drill tails, think go chimera style give two tails
+    //that end in drill tips
+    //give toxungue ability
+
+  can consolidate effects like I did for rocksmash/cut variable power based on status
+  like I did that variable power based on type
+  can make one effect like jungle heal but think for clarity would prefer
+  to just make a single bs command for them and keep the scripts unique
+  huh don't actually need to do that, effect is in pokemon.c apparently
+  and I never actually setup venoshocks damage boost because I didn't realize that...
+  -ok done perfect did added brine as well since I missed that
+
   when done check if I have room, if so would add priority
   to give more room for numbers for priority
   change graphic of move description field
   got plenty of space for top line, so can move the white part
   above text down a bit
+
+  Though its regained the ability to fly
+  it still spends most of its time underground.
+  It retracts its wings and drills with its twin tails.
+
+  Becadet  Normal/Bug - can't fly
+  Buzzboy - unsure bug steel bug flying flying steel
+
+  //note forgot to add freeze logic for status grounding, 
 
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index

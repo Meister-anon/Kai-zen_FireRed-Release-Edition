@@ -12649,7 +12649,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_TWIN_BEAM] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_DOUBLE_HIT,
         .power = 40,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
@@ -12657,7 +12657,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_TWO_STRIKES,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
         //.zMovePower = 100,
         //.zMoveEffect = Z_EFFECT_NONE,
@@ -12677,7 +12677,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         //.zMovePower = 100,
         //.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//change annihalape evo to perform rage fist at max rage
+    //rather than needing a new field I can set a flag like I do w region sand
 
     [MOVE_ARMOR_CANNON] =
     {
@@ -12710,22 +12711,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE,
         // Needs the "slicing" flag
-    },
-
-    [MOVE_DOUBLE_SHOCK] =
-    {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_DOUBLE_SHOCK
-        .power = 120,
-        .type = TYPE_ELECTRIC,
-        .accuracy = 100,
-        .pp = 5,
-        .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-        .split = SPLIT_PHYSICAL,
-        //.zMovePower = 190,
-        //.zMoveEffect = Z_EFFECT_NONE
     },
 
     [MOVE_GIGATON_HAMMER] =
@@ -13547,22 +13532,6 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
     },//made for crabominable line but can give to machamp as well
 
-    [MOVE_RAGE_FIST] =
-    {
-        .effect = EFFECT_HIT, // EFFECT_RAGE_FIST
-        .power = 50,
-        .type = TYPE_GHOST,
-        .accuracy = 100,
-        .pp = 10,
-        .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
-        .split = SPLIT_PHYSICAL,
-        ////.zMoveEffect = Z_EFFECT_NONE,
-    },//vsonic
-    //change annihalape evo to perform rage fist at max rage
-    //rather than needing a new field I can set a flag like I do w region sand
 
     [MOVE_SNOWBALL] =
     {
