@@ -525,7 +525,7 @@
 #define SPECIES_MUSHARNA 518
 #define SPECIES_PIDOVE 519
 #define SPECIES_TRANQUILL 520
-#define SPECIES_UNFEZANT 521
+#define SPECIES_UNFEZANT_MALE 521
 #define SPECIES_BLITZLE 522
 #define SPECIES_ZEBSTRIKA 523
 #define SPECIES_ROGGENROLA 524
@@ -673,7 +673,7 @@
 #define SPECIES_SPEWPA 665
 #define SPECIES_VIVILLON 666 // Icy Snow Pattern
 #define SPECIES_LITLEO 667
-#define SPECIES_PYROAR 668
+#define SPECIES_PYROAR_MALE 668
 #define SPECIES_FLABEBE 669 // Red Flower
 #define SPECIES_FLOETTE 670
 #define SPECIES_FLORGES 671
@@ -683,7 +683,7 @@
 #define SPECIES_PANGORO 675
 #define SPECIES_FURFROU 676
 #define SPECIES_ESPURR 677
-#define SPECIES_MEOWSTIC 678
+#define SPECIES_MEOWSTIC_MALE 678
 #define SPECIES_HONEDGE 679
 #define SPECIES_DOUBLADE 680
 #define SPECIES_AEGISLASH 681
@@ -883,7 +883,7 @@
 #define SPECIES_FROSMOTH 873
 #define SPECIES_STONJOURNER 874
 #define SPECIES_EISCUE 875
-#define SPECIES_INDEEDEE 876
+#define SPECIES_INDEEDEE_MALE 876
 #define SPECIES_MORPEKO 877
 #define SPECIES_CUFANT 878
 #define SPECIES_COPPERAJAH 879
@@ -909,7 +909,7 @@
 #define SPECIES_WYRDEER 899
 #define SPECIES_KLEAVOR 900
 #define SPECIES_URSALUNA 901
-#define SPECIES_BASCULEGION 902
+#define SPECIES_BASCULEGION_MALE 902
 #define SPECIES_SNEASLER 903
 #define SPECIES_OVERQWIL 904
 #define SPECIES_ENAMORUS 905	//Pokemon Opal has some original mon so can add after this as gen 10, like Cefireon and unknown legendar with the s/v mon I actually want
@@ -935,7 +935,7 @@
 #define SPECIES_QUAXWELL                                915
 #define SPECIES_QUAQUAVAL                               916
 #define SPECIES_LECHONK                                 917
-#define SPECIES_OINKOLOGNE                              SPECIES_OINKOLOGNE_MALE
+//#define SPECIES_OINKOLOGNE                              SPECIES_OINKOLOGNE_MALE
 #define SPECIES_OINKOLOGNE_MALE                         918
 #define SPECIES_OINKOLOGNE_FEMALE                       919
 #define SPECIES_TAROUNTULA                              920
@@ -1568,6 +1568,57 @@
 
 #define SPECIES_EGG SPECIES_MAROWAK_MEGA + 1
 #define NUM_SPECIES SPECIES_EGG	//Num species determins number dex entries now instead of pokemon slots
+
+#define SPECIES_UNFEZANT        NUM_SPECIES + 1
+#define SPECIES_PYROAR          NUM_SPECIES + 2
+#define SPECIES_MEOWSTIC        NUM_SPECIES + 3
+#define SPECIES_INDEEDEE        NUM_SPECIES + 4
+#define SPECIES_BASCULEGION     NUM_SPECIES + 5
+#define SPECIES_OINKOLOGNE      NUM_SPECIES + 6
+#define SPECIES_EARLY_RT_BIRDS   NUM_SPECIES + 7
+
+/*since gender form array only has 5 values
+  can't use [SPECIES_NAME] = value,
+  syntax as thata will just make the array massive
+  and make number of vlaues the max value in it
+  instead make a function that returns id value 
+  based on given species.
+
+  and use that as the species argument in the function
+  that takees the form
+  i.e make species check for what species to generate
+  make switch case for each of each base species above
+  that will assign a value to genderID
+
+  u16 generate what speciesfrom json(species)
+  {
+    u8 FormTableId;
+    switch (species)
+    {
+        case SPECIES_UNFEZANT:
+        { 
+            FromTableId = 0;
+            return gGenderforms[FormTableId][GetGender(species)]
+        }
+        break;
+        default:
+        return species;
+        break;
+    } 
+  }//something like this
+  //decide make file handle both gender splits and grouped species
+  //what I need here is a set of global enums
+  //then I can tpe case UNFEZANT  and it'd be 0
+  //like what i did for string compare..actually made global constant for that
+  //here need enum that's global
+
+*/
+
+//believe num species is what mattters for ewram
+//because of this
+//#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
+//believe that goes into the saveblock
+//tested and confirmed
 
 // National Dex Index Defines
 
@@ -2487,6 +2538,9 @@
 #define NATIONAL_DEX_CEFIREON 906
 #define NATIONAL_DEX_FRAEYJTA 907
 
+//believe oinkologne needs entry or each form
+//-confirmed
+
 #define NATIONAL_SPECIES_COUNT NATIONAL_DEX_ENAMORUS
 
 #define NATIONAL_DEX_VENUSAUR_MEGA                NATIONAL_SPECIES_COUNT + 1
@@ -3091,6 +3145,14 @@ just because I saw the form*/
 #define F_PALDEAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
 #define F_MEGA_FORM     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
 #define SPECIES_FLAG_PRIMAL_REVERSION (1 << 6)  //replaced
-#define F_SPECIES_GENDER_DIFFERENCE (1 << 7) //changed use for gender encuonter setup check species for this flag, read form species table set species as Random % n that table to pick from speices	
-#define FLAG_ALL_PERFECT_IVS    (1 << 8) //use for giving special mon bug psuedo gym etc. (think use for fighting gym too, special mon trained for fighting sabrina)
+
+
+
+
+
+//just realized flag perfect ivs is completely worthless here,
+//I can't change these, these are all constants setting ivs
+//would bein the givemon function not here
+#define F_PLACEHOLDER (1 << 7) //removed gender form flag for my own setup to select form for encountertable to allow setting either etc.
+#define FLAG_PLACEHOLDER    (1 << 8) //use for giving special mon bug psuedo gym etc. (think use for fighting gym too, special mon trained for fighting sabrina)
 #endif  // GUARD_CONSTANTS_SPECIES_H

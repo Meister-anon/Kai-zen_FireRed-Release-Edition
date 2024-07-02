@@ -4119,7 +4119,7 @@ const u32 gDexAdjusting[] =
     SPECIES_FALINKS,
     SPECIES_PINCURCHIN,
     SPECIES_SNOM,
-    SPECIES_INDEEDEE,
+    SPECIES_INDEEDEE_MALE,
     SPECIES_MORPEKO,
     SPECIES_CUFANT,
     SPECIES_DREEPY, //cephireon and fraejta need be added before truly done but otherwise done

@@ -2556,7 +2556,74 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
 goto ADD_MOVE_CAT_ICONS //for move split etc.
+goto GROUPED_SPECIES_ENUMS //for planned new species set setup, enum must match order of arrays bottom of grouped_species_tables.h
 /*
+    
+    /*since gender form array only has 5 values
+  can't use [SPECIES_NAME] = value,
+  syntax as thata will just make the array massive
+  and make number of vlaues the max value in it
+  instead make a function that returns id value 
+  based on given species.
+
+  and use that as the species argument in the function
+  that takees the form
+  i.e make species check for what species to generate
+  make switch case for each of each base species above
+  that will assign a value to genderID
+
+  u16 generate what speciesfrom json(species)
+  {
+    u8 FormTableId;
+    switch (species)
+    {
+        case SPECIES_UNFEZANT:
+        { 
+            FromTableId = 0;
+            return gGenderforms[FormTableId][GetGender(species)]
+        }
+        break;
+        default:
+        return species;
+        break;
+    } 
+  }//something like this
+  //decide make file handle both gender splits and grouped species
+  //what I need here is a set of global enums
+  //then I can tpe case UNFEZANT  and it'd be 0
+  //like what i did for string compare..actually made global constant for that
+  //here need enum that's global got that working
+  now next thing is include the category species
+  i.e  early_route_birds  for that rather than gender
+  2nd field will be a randomizer for size of the array
+
+  I think ee has some special random generators that are supposed
+  to be more accurate to help prevent numbers not showing up more evenly
+  belive yb taking into account previously generated numbers
+  and re-weighting?
+  but anyway look into those see about using them.
+  may need to make category arrays global
+  so can use specific generator for..OR
+  do like formspecies and have terminator value
+  since I have global enum arrays
+  I can make an extra array for each category array
+  to hold the size and then can just use 1 randomizer
+  and still be able to set different max limiters
+  -surprisngly got working without issue,
+  still need setup better later and
+  finish adding new logic added to pokemon.c
+  CreateMonWithNature  to other places that use create mon
+  but overall it works 
+
+
+
+//believe num species is what mattters for ewram
+//because of this
+//#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
+//believe that goes into the saveblock
+//tested and confirmed
+    
+    
     for dex evo list page
     potentially identified issue w eevee page
     vaporeon doesn't shhow correctly icon wise

@@ -647,6 +647,8 @@ extern struct Pokemon gPlayerParty[PARTY_SIZE];
 extern u8 gEnemyPartyCount;
 extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern const struct BaseStats gBaseStats[];
+extern const u16 *const gGenderForms[];
+extern const u16 *const gSpeciesGroups[];
 extern const u8 *const gItemEffectTable[];
 //extern const struct Evolution gEvolutionTable[][EVOS_PER_MON]; //plan remove replace w EE version built into basestats
 extern const u8 gStatStageRatios[][2];

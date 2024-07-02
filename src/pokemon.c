@@ -1032,7 +1032,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(MUSHARNA),
     SPECIES_TO_NATIONAL(PIDOVE),
     SPECIES_TO_NATIONAL(TRANQUILL),
-    SPECIES_TO_NATIONAL(UNFEZANT),
+    [SPECIES_UNFEZANT_MALE - 1] = NATIONAL_DEX_UNFEZANT,
     SPECIES_TO_NATIONAL(BLITZLE),
     SPECIES_TO_NATIONAL(ZEBSTRIKA),
     SPECIES_TO_NATIONAL(ROGGENROLA),
@@ -1179,7 +1179,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(SPEWPA),
     SPECIES_TO_NATIONAL(VIVILLON),
     SPECIES_TO_NATIONAL(LITLEO),
-    SPECIES_TO_NATIONAL(PYROAR),
+    [SPECIES_PYROAR_MALE - 1] = NATIONAL_DEX_PYROAR,
     SPECIES_TO_NATIONAL(FLABEBE),
     SPECIES_TO_NATIONAL(FLOETTE),
     SPECIES_TO_NATIONAL(FLORGES),
@@ -1189,7 +1189,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(PANGORO),
     SPECIES_TO_NATIONAL(FURFROU),
     SPECIES_TO_NATIONAL(ESPURR),
-    SPECIES_TO_NATIONAL(MEOWSTIC),
+    [SPECIES_MEOWSTIC_MALE - 1] = NATIONAL_DEX_MEOWSTIC,
     SPECIES_TO_NATIONAL(HONEDGE),
     SPECIES_TO_NATIONAL(DOUBLADE),
     SPECIES_TO_NATIONAL(AEGISLASH),
@@ -1387,7 +1387,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(FROSMOTH),
     SPECIES_TO_NATIONAL(STONJOURNER),
     SPECIES_TO_NATIONAL(EISCUE),
-    SPECIES_TO_NATIONAL(INDEEDEE),
+    [SPECIES_INDEEDEE_MALE - 1] = NATIONAL_DEX_INDEEDEE,
     SPECIES_TO_NATIONAL(MORPEKO),
     SPECIES_TO_NATIONAL(CUFANT),
     SPECIES_TO_NATIONAL(COPPERAJAH),
@@ -1414,10 +1414,14 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(WYRDEER),// 899
     SPECIES_TO_NATIONAL(KLEAVOR),// 900
     SPECIES_TO_NATIONAL(URSALUNA),// 901
-    SPECIES_TO_NATIONAL(BASCULEGION),// 902
+    [SPECIES_BASCULEGION_MALE - 1] = NATIONAL_DEX_BASCULEGION,  // 902
     SPECIES_TO_NATIONAL(SNEASLER),// 903
     SPECIES_TO_NATIONAL(OVERQWIL),// 904
     SPECIES_TO_NATIONAL(ENAMORUS),// 905
+
+    //[SPECIES_OINKOLOGNE_MALE - 1] = NATIONAL_DEX_OINKOLOGNE,
+   //SPECIES_TO_NATIONAL(OINKOLOGNE_MALE), //may need, as dex prob diff entry
+    
 
     // Megas - for these to appear properly as not caught, would need to make each of these its own id (not gendered forms)
     //but then if species is above species form count, above calyrex, use baseform macro to load base species like it worked here
@@ -1826,6 +1830,8 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     [SPECIES_BASCULEGION_FEMALE - 1] = NATIONAL_DEX_BASCULEGION,
     [SPECIES_FRILLISH_FEMALE - 1] = NATIONAL_DEX_FRILLISH,
     [SPECIES_JELLICENT_FEMALE - 1] = NATIONAL_DEX_JELLICENT,
+    //SPECIES_TO_NATIONAL(OINKOLOGNE_FEMALE), //may need, as dex prob diff entry
+     //[SPECIES_OINKOLOGNE_FEMALE - 1] = NATIONAL_DEX_OINKOLOGNE,
 };
 
 static const u16 sHoennToNationalOrder[] = // Assigns Hoenn Dex Pokémon (Using National Dex Index)
@@ -2272,6 +2278,7 @@ static const s8 sNatureStatTable[][5] =
 //#include "data/pokemon/evolution.h"
 //#include "data/pokemon/level_up_learnset_pointers.h" //removed as part of consolidation to base stats
 #include "data/pokemon/base_stats.h"  //fix thanks to Luvas in pret, now that base stats calls tm evo and learnset base stat include has to go AFTER those
+#include "data/pokemon/grouped_species_tables.h" //seems to have worked for defining?
 #include "data/pokemon/form_species_tables.h"
 #include "data/pokemon/form_species_table_pointers.h"
 #include "data/pokemon/form_change_tables.h"
@@ -2804,9 +2811,61 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     GiveBoxMonInitialMoveset(boxMon);// found out if mon evos into form without slot the original ability num is saved for when it evos again
 }
 
+enum Gender
+{
+    MALE_,
+    FEMALE_
+};
+
+//works still need figure gender set stuff
+//was able to test species groups
+//think may split into two?
+//want to filter for return the species
+//then fitler for gender for the case
+//that a gendered form may be within the group
+//that way there are no mistakes
+//Check species groups then check genderforms
+u16 CheckSpeciesGroups(u16 species) 
+{
+    u8 FormTableId;
+    switch (species)
+    {
+        case SPECIES_EARLY_RT_BIRDS:
+        {
+            FormTableId = EARLY_ROUTE_BIRDS;
+            return gSpeciesGroups[FormTableId][Random() % EARLY_ROUTE_BIRDS_END];
+        }
+        break;
+        default:
+        return species;
+        break;
+    } 
+}//something like this
+
+u16 CheckGenderForms(u16 species, bool8 Gender) 
+{
+    u8 FormTableId;
+    switch (species)
+    {
+        case SPECIES_UNFEZANT:
+        { 
+            FormTableId = UNFEZANT;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
+        default:
+        return species;
+        break;
+    } 
+}
+
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature)
 {
     u32 personality;
+    u8 FormTableId;
+    bool8 Gender;
+    u16 Speciesreturn;
+
 
     do
     {
@@ -2814,7 +2873,20 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     }
     while (nature != GetNatureFromPersonality(personality));    //keep generating random values until a mon with the requested nature is made
 
-    CreateMon(mon, species, level, fixedIV, 1, personality, OT_ID_PLAYER_ID, 0);
+
+    //Filters for species/gender
+    Speciesreturn = CheckSpeciesGroups(species);
+    //doesn't set gender here but accurately extrapulates gender (same calc later)
+    if (gBaseStats[Speciesreturn].genderRatio > (personality & 0xFF))
+        Gender = FEMALE_;
+    else
+        Gender = MALE_;
+
+    Speciesreturn = CheckGenderForms(Speciesreturn, Gender);
+    //put this portion in other createmon functions below
+    //so logic tracks
+
+    CreateMon(mon, Speciesreturn, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
 }
 
 void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter)

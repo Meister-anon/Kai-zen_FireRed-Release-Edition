@@ -100,7 +100,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ARCEUS] = sArceusFormSpeciesIdTable,
 
     [SPECIES_SAMUROTT] = sSamurottFormSpeciesIdTable,
-    [SPECIES_UNFEZANT] = sUnfezantFormSpeciesIdTable,
+    [SPECIES_UNFEZANT_MALE] = sUnfezantFormSpeciesIdTable,
     [SPECIES_AUDINO] = sAudinoFormSpeciesIdTable,
     [SPECIES_BASCULIN] = sBasculinFormSpeciesIdTable,
     [SPECIES_LILLIGANT] = sLilligantFormSpeciesIdTable,
@@ -125,12 +125,12 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
 
     [SPECIES_GRENINJA] = sGreninjaFormSpeciesIdTable,
     [SPECIES_VIVILLON] = sVivillonFormSpeciesIdTable,
-    [SPECIES_PYROAR] = sPyroarFormSpeciesIdTable,
+    [SPECIES_PYROAR_MALE] = sPyroarFormSpeciesIdTable,
     [SPECIES_FLABEBE] = sFlabebeFormSpeciesIdTable,
     [SPECIES_FLOETTE] = sFloetteFormSpeciesIdTable,
     [SPECIES_FLORGES] = sFlorgesFormSpeciesIdTable,
     [SPECIES_FURFROU] = sFurfrouFormSpeciesIdTable,
-    [SPECIES_MEOWSTIC] = sMeowsticFormSpeciesIdTable,
+    [SPECIES_MEOWSTIC_MALE] = sMeowsticFormSpeciesIdTable,
     [SPECIES_AEGISLASH] = sAegislashFormSpeciesIdTable,
     [SPECIES_SLIGGOO] = sSliggooFormSpeciesIdTable,
     [SPECIES_GOODRA] = sGoodraFormSpeciesIdTable,
@@ -159,7 +159,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_POLTEAGEIST] = sPolteageistFormSpeciesIdTable,
     [SPECIES_ALCREMIE] = sAlcremieFormSpeciesIdTable,
     [SPECIES_EISCUE] = sEiscueFormSpeciesIdTable,
-    [SPECIES_INDEEDEE] = sIndeedeeFormSpeciesIdTable,
+    [SPECIES_INDEEDEE_MALE] = sIndeedeeFormSpeciesIdTable,
     [SPECIES_MORPEKO] = sMorpekoFormSpeciesIdTable,
     [SPECIES_ZACIAN] = sZacianFormSpeciesIdTable,
     [SPECIES_ZAMAZENTA] = sZamazentaFormSpeciesIdTable,
@@ -168,7 +168,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ZARUDE] = sZarudeFormSpeciesIdTable,
     [SPECIES_CALYREX] = sCalyrexFormSpeciesIdTable,
     [SPECIES_ENAMORUS] = sEnamorusFormSpeciesIdTable,
-    [SPECIES_BASCULEGION] = sBasculegionFormSpeciesIdTable,
+    [SPECIES_BASCULEGION_MALE] = sBasculegionFormSpeciesIdTable,
 
     // Megas
     [SPECIES_VENUSAUR_MEGA] = sVenusaurFormSpeciesIdTable,

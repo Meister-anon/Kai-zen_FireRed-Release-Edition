@@ -358,6 +358,35 @@ struct UCoords32
     u32 y;
 };
 
+#define GROUPED_SPECIES_ENUMS
+typedef enum
+{
+    UNFEZANT,
+    PYROAR,
+    MEOWSTIC,
+    INDEEDEE,
+    BASCULEGION,
+    OINKOLOGNE
+}GenderForms;
+
+typedef enum
+{
+    EARLY_ROUTE_BIRDS,
+}SpeciesGroups;
+
+typedef enum
+{
+    EARLY_ROUTE_BIRDS_END = 44,
+}SpeciesGroupsTerminators;
+
+/*global enums meant for
+new mon generation logic,
+to allow splitting a single species
+for json between multiple values
+
+Matches to global arrays in grouped_species_tables.h*/
+
+
 struct Time //want month seasons potentialy add here
 {
     /*0x00*/ s16 days;

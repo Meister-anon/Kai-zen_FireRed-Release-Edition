@@ -677,7 +677,7 @@ static const u16 sSamurottFormSpeciesIdTable[] = {
 };
 
 static const u16 sUnfezantFormSpeciesIdTable[] = {
-    SPECIES_UNFEZANT,
+    SPECIES_UNFEZANT_MALE,
     SPECIES_UNFEZANT_FEMALE,
     FORM_SPECIES_END,
 };
@@ -850,7 +850,7 @@ static const u16 sVivillonFormSpeciesIdTable[] = {
 };
 
 static const u16 sPyroarFormSpeciesIdTable[] = {
-    SPECIES_PYROAR,
+    SPECIES_PYROAR_MALE,
     SPECIES_PYROAR_FEMALE,
     FORM_SPECIES_END,
 };
@@ -898,7 +898,7 @@ static const u16 sFurfrouFormSpeciesIdTable[] = {
 };
 
 static const u16 sMeowsticFormSpeciesIdTable[] = {
-    SPECIES_MEOWSTIC,
+    SPECIES_MEOWSTIC_MALE,
     SPECIES_MEOWSTIC_FEMALE,
     FORM_SPECIES_END,
 };
@@ -1102,7 +1102,7 @@ static const u16 sEiscueFormSpeciesIdTable[] = {
 };
 
 static const u16 sIndeedeeFormSpeciesIdTable[] = {
-    SPECIES_INDEEDEE,
+    SPECIES_INDEEDEE_MALE,
     SPECIES_INDEEDEE_FEMALE,
     FORM_SPECIES_END,
 };
@@ -1157,7 +1157,7 @@ static const u16 sEnamorusFormSpeciesIdTable[] = {
 };
 
 static const u16 sBasculegionFormSpeciesIdTable[] = {
-    SPECIES_BASCULEGION,
+    SPECIES_BASCULEGION_MALE,
     SPECIES_BASCULEGION_FEMALE,  
     FORM_SPECIES_END,
 };

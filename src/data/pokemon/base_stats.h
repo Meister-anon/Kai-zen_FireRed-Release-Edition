@@ -14647,12 +14647,12 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sTranquillLevelUpLearnset,
         .tmhmLearnset = sTranquillTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(32, AVERAGE_EFFORT), 0, SPECIES_UNFEZANT},
+        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(32, AVERAGE_EFFORT), 0, SPECIES_UNFEZANT_MALE},
                                        {EVO_LEVEL_FEMALE, RELATIVE_EVO(32, AVERAGE_EFFORT), 0, SPECIES_UNFEZANT_FEMALE}), //Should hopefully blank these for now without issue
     },//seaprate final evo into gender forms
     //will need to reupdate species file again...
 
-    [SPECIES_UNFEZANT] =
+    [SPECIES_UNFEZANT_MALE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -14683,7 +14683,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUnfezantLevelUpLearnset,
         .tmhmLearnset = sUnfezantTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_BLITZLE] =
@@ -19614,11 +19614,11 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sLitleoLevelUpLearnset,
         .tmhmLearnset = sLitleoTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_PYROAR},
+        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_PYROAR_MALE},
                                        {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_PYROAR_FEMALE}), //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_PYROAR] =
+    [SPECIES_PYROAR_MALE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -19649,7 +19649,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPyroarLevelUpLearnset,
         .tmhmLearnset = sPyroarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },//add sunny day crunch extremespeed to learnet and have thunderbolt as tm move    vsonic
     
     [SPECIES_FLABEBE] =
@@ -19950,11 +19950,11 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sEspurrLevelUpLearnset,
         .tmhmLearnset = sEspurrTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_MEOWSTIC},
+        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_MEOWSTIC_MALE},
                                        {EVO_LEVEL_FEMALE, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_MEOWSTIC_FEMALE}), //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_MEOWSTIC] =
+    [SPECIES_MEOWSTIC_MALE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -19985,7 +19985,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeowsticLevelUpLearnset,
         .tmhmLearnset = sMeowsticMaleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_HONEDGE] =
@@ -26691,7 +26691,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_INDEEDEE] =
+    [SPECIES_INDEEDEE_MALE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -26723,7 +26723,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sIndeedeeLevelUpLearnset,
         .tmhmLearnset = sIndeedeeMaleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_MORPEKO] =
@@ -27562,7 +27562,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_BASCULEGION] =
+    [SPECIES_BASCULEGION_MALE] =
     { 
         //hp, atk, def, spd, spatk, spdef
         STATS(
@@ -27592,7 +27592,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sBasculegionLevelUpLearnset,
         .tmhmLearnset = sBasculegionTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_SNEASLER] =
@@ -28419,6 +28419,7 @@ const struct BaseStats gBaseStats[] =
         //.levelUpLearnset = sOinkologneMaleLevelUpLearnset,
         //.teachableLearnset = sOinkologneTeachableLearnset,
         //.formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
+        
     },
 
     [SPECIES_OINKOLOGNE_FEMALE] =
@@ -28478,6 +28479,7 @@ const struct BaseStats gBaseStats[] =
         //.levelUpLearnset = sOinkologneFemaleLevelUpLearnset,
         //.teachableLearnset = sOinkologneTeachableLearnset,
         //.formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
+        
     },
 //#endif //P_FAMILY_LECHONK
 
@@ -34563,6 +34565,7 @@ const struct BaseStats gBaseStats[] =
        // .levelUpLearnset = sTaurosPaldeanCombatBreedLevelUpLearnset,
         //.teachableLearnset = sTaurosPaldeanCombatBreedTeachableLearnset,
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,
+        .flags = F_PALDEAN_FORM,
     },
 
     [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] =
@@ -34620,6 +34623,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTaurosPaldeanBlazeBreedLevelUpLearnset,
         .teachableLearnset = sTaurosPaldeanBlazeBreedTeachableLearnset,
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,*/
+        .flags = F_PALDEAN_FORM,
     },
 
     [SPECIES_TAUROS_PALDEAN_AQUA_BREED] =
@@ -34677,6 +34681,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTaurosPaldeanAquaBreedLevelUpLearnset,
         .teachableLearnset = sTaurosPaldeanAquaBreedTeachableLearnset,
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,*/
+        .flags = F_PALDEAN_FORM,
     },
 
     [SPECIES_WOOPER_PALDEAN] =
@@ -34735,6 +34740,7 @@ const struct BaseStats gBaseStats[] =
         .teachableLearnset = sWooperPaldeanTeachableLearnset,
       //  .formSpeciesIdTable = sWooperFormSpeciesIdTable,*/
         .evolutions = EVOLUTION({EVO_LEVEL, 20, SPECIES_CLODSIRE}),
+        .flags = F_PALDEAN_FORM,
     },
 
 //#if p_fAMILY_WALKING_WAKE
@@ -42267,7 +42273,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sBasculinHisuianLevelUpLearnset,
         .tmhmLearnset = sBasculinTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION},
+        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION_MALE},
                                        {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION_FEMALE}), //Should hopefully blank these for now without issue
         .flags = F_HISUIAN_FORM,
     },//hisuian form, but other than being only one to evolve seems identical?
@@ -43698,7 +43704,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUnfezantLevelUpLearnset,
         .tmhmLearnset = sUnfezantTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_PYROAR_FEMALE] =
@@ -43732,7 +43738,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPyroarLevelUpLearnset, //tiger mom not working yet, bug need to work out
         .tmhmLearnset = sPyroarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_FLABEBE_YELLOW_FLOWER] =
@@ -44510,7 +44516,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeowsticLevelUpLearnset,
         .tmhmLearnset = sMeowsticFemaleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_AEGISLASH_BLADE] =
@@ -46930,7 +46936,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sIndeedeeFemaleLevelUpLearnset,
         .tmhmLearnset = sIndeedeeFemaleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_SPECIES_GENDER_DIFFERENCE,
+        
     },
 
     [SPECIES_MORPEKO_HANGRY] =
@@ -47240,7 +47246,7 @@ const struct BaseStats gBaseStats[] =
             .levelUpLearnset = sBasculegionLevelUpLearnset,
             .tmhmLearnset = sBasculegionTMHMLearnset,
             .evolutions = NULL, //Should hopefully blank these for now without issue
-            .flags = F_SPECIES_GENDER_DIFFERENCE,
+            
         },
 
     [SPECIES_FRILLISH_FEMALE] =
@@ -47371,5 +47377,35 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMarowakTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_MEGA_FORM,
+    },
+
+    [SPECIES_UNFEZANT] =
+    {
+        .genderRatio = PERCENT_FEMALE(50),
+    },
+
+    [SPECIES_PYROAR] =
+    {
+        .genderRatio = PERCENT_FEMALE(87.5),
+    },
+
+    [SPECIES_MEOWSTIC] =
+    {
+        .genderRatio = PERCENT_FEMALE(50),
+    },
+
+    [SPECIES_INDEEDEE] =
+    {
+        .genderRatio = PERCENT_FEMALE(50),
+    },
+
+    [SPECIES_BASCULEGION] =
+    {
+        .genderRatio = PERCENT_FEMALE(50),
+    },
+
+    [SPECIES_OINKOLOGNE] =
+    {
+        .genderRatio = PERCENT_FEMALE(50),
     },
 };

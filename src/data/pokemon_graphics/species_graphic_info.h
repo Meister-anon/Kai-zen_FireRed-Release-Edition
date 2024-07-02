@@ -5528,7 +5528,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Tranquill,
-[SPECIES_UNFEZANT] = 
+[SPECIES_UNFEZANT_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -6998,7 +6998,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Litleo,
-[SPECIES_PYROAR] = 
+[SPECIES_PYROAR_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -7098,7 +7098,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Espurr,
-[SPECIES_MEOWSTIC] = 
+[SPECIES_MEOWSTIC_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -9078,7 +9078,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Eiscue,
-[SPECIES_INDEEDEE] = 
+[SPECIES_INDEEDEE_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -9338,7 +9338,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Ursaluna,
-[SPECIES_BASCULEGION] = 
+[SPECIES_BASCULEGION_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
