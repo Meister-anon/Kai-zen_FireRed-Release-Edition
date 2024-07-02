@@ -1240,3 +1240,9 @@ void BtlController_EmitDebugMenu(u8 bufferId)
     sBattleBuffersTransferData[0] = CONTROLLER_DEBUGMENU;
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, 1);
 }
+
+void BtlController_EmitMoveInfo(u8 bufferId)
+{
+    sBattleBuffersTransferData[0] = CONTROLLER_MOVEINFO;
+    PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, 1);
+}

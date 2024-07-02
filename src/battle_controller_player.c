@@ -19,6 +19,7 @@
 #include "battle_message.h"
 #include "battle_script_commands.h"
 #include "reshow_battle_screen.h"
+#include "pokemon_summary_screen.h"
 #include "constants/battle_anim.h"
 #include "constants/items.h"
 #include "constants/moves.h"
@@ -82,6 +83,7 @@ static void PlayerHandleLinkStandbyMsg(void);
 static void PlayerHandleResetActionMoveSelection(void);
 static void PlayerHandleCmd55(void);
 static void PlayerHandleBattleDebug(void);
+static void PlayerHandleBattleMoveInfo(void);
 static void PlayerCmdEnd(void);
 
 static void PlayerBufferRunCommand(void);
@@ -109,7 +111,8 @@ static void Task_GiveExpWithExpBar(u8 taskId);
 static void Task_CreateLevelUpVerticalStripes(u8 taskId);
 static void StartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit);
 static void EndDrawPartyStatusSummary(void);
-//static void HandleAction_WaitTurnEnd(void);
+
+static void WaitForDebug(void);
 
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
 {
@@ -171,6 +174,7 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_RESETACTIONMOVESELECTION] = PlayerHandleResetActionMoveSelection,
     [CONTROLLER_ENDLINKBATTLE]            = PlayerHandleCmd55,
     [CONTROLLER_DEBUGMENU]                = PlayerHandleBattleDebug,
+    [CONTROLLER_MOVEINFO]                 = PlayerHandleBattleMoveInfo,
     [CONTROLLER_TERMINATOR_NOP]           = PlayerCmdEnd,
 
 };
@@ -333,9 +337,16 @@ static void HandleInputChooseAction(void)
         BtlController_EmitTwoReturnValues(1, B_ACTION_DEBUG, 0);
         PlayerBufferExecCompleted();
     }
-    #endif
-
-}
+    #endif//joy new L button (shift) bring up register to dex vsonic
+    else if (JOY_NEW(L_BUTTON))
+    {
+        BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 0);
+        PlayerBufferExecCompleted();
+    }//this works if used in choose action, but not in choose action, doesn't call,
+    //need figure that out, also it blacks out on return prob the fade I added actually
+}//yup removing that fixed it, still does the weird purple glitch though
+//and I don't want to be forced to do it on main screen rather than from the battle thing,
+//ruins immerrsion
 
 UNUSED static void UnusedEndBounceEffect(void)
 {
@@ -680,7 +691,7 @@ void HandleInputChooseMove(void)    //test new targetting setup
     {
         PlaySE(SE_SELECT);
         gBattleStruct->mega.playerSelect = FALSE;
-        BtlController_EmitTwoReturnValues(BUFFER_B, 10, 0xFFFF);
+        BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_EXEC_SCRIPT, 0xFFFF);
         //HideMegaTriggerSprite();
         PlayerBufferExecCompleted();
         ResetPaletteFadeControl();
@@ -755,21 +766,49 @@ void HandleInputChooseMove(void)    //test new targetting setup
                 gMultiUsePlayerCursor = gMoveSelectionCursor[gActiveBattler] + 1;
             MoveSelectionCreateCursorAt(gMultiUsePlayerCursor, 27);
             BattlePutTextOnWindow(gText_BattleSwitchWhich, 0xB);
-            gBattlerControllerFuncs[gActiveBattler] = HandleMoveSwitching;
+            gBattlerControllerFuncs[gActiveBattler] = HandleMoveSwitching; //functions as task input function
         }
     }
-    /*else if (JOY_NEW(L_BUTTON)) // should display message on atk turn, and skip turn.
-    {//need add to handleinput choosetarget & choosemove
-       // if (!(gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL))
-       // { // should make sure it works for all but old man tutorial
-       PlaySE(SE_SELECT);
-       BtlController_EmitTwoReturnValues(1, B_ACTION_SKIP_TURN, 0);
-       //PlayerBufferExecCompleted();
-    }*///no longer plan to make skip turn, instead can use this to display true move power & true type
-} //changed mind I DO want to skip trun do more simply just trigger attack canceler, w mon waiting patiently
-//hm but I ALSO think it would be useful to display actual move power etc. but i can just do that with 
-//code long as in battle the summary screen can display actual power, and can just change
-//the usual ui displaymovetype, to use dynamic type?
+    else if (JOY_NEW(START_BUTTON))// attempt check move info
+    {
+
+        //BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 0);
+        //PlayerBufferExecCompleted();
+        //think what I need is make new thing that takes cursor 
+        //calls summ screen move selection from battle
+        //but uses control function for separate inputs
+
+        //have b button either return to move selection in battle
+        //or main action choice screen prob the latter what I'm thinking rn
+
+        //a press is use move, want to open selection on move cursor was on
+        
+        
+        //ShowSelectMovePokemonSummaryScreen(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu, 0);
+        
+        //don't know what this does //think don't need return 2 value
+        //seems the 2nd value here is just triggering move selection
+        //with 0 uses fist move, w 1 used rest, so second move
+        //tested adn confirmed
+        BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 3);
+        
+        //oko turning this off keeps anything from happening?
+        PlayerBufferExecCompleted(); //don't konw if need htis here, sine after battle action choice?
+
+        
+        
+        
+        //ShowMoveInfoForSelectedMove(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu);
+        
+        //adding this seems to make callback not glitchy
+        //gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
+        /*if (!gPaletteFade.active)
+        {
+            FreeAllWindowBuffers();
+            ShowSelectMovePokemonSummaryScreen(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu, 0);
+        }*/
+    }
+} 
 
 // not used
 static u32 HandleMoveInputUnused(void)
@@ -3290,3 +3329,19 @@ static void PlayerHandleBattleDebug(void)
     gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
 #endif
 }
+
+void CB2_BattleMoveInfo(void)
+{
+    gPartyMenu.menuType = PARTY_MENU_TYPE_IN_BATTLE;
+    ShowMoveInfoForSelectedMove(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu);
+
+}
+
+static void PlayerHandleBattleMoveInfo(void)
+{
+    BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
+    SetMainCallback2(CB2_BattleMoveInfo);
+    gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
+    
+}
+

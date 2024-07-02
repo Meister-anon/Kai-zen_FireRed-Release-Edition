@@ -710,8 +710,7 @@ static void (*const sTurnActionsFuncsTable[])(void) =
     [B_ACTION_TRY_FINISH] = HandleAction_TryFinish,
     [B_ACTION_FINISHED] = HandleAction_ActionFinished,
     [B_ACTION_NOTHING_FAINTED] = HandleAction_NothingIsFainted,
-   // [B_ACTION_SKIP_TURN] = HandleAction_WaitTurnEnd,
-};//think bring back or do with attack canceler
+};
 
 static void (*const sEndTurnFuncsTable[])(void) =
 {
@@ -5390,10 +5389,6 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                         return;
                     }
                     break;
-                /*case B_ACTION_SKIP_TURN:
-                    gBattleCommunication[gActiveBattler] = STATE_WAIT_SET_BEFORE_ACTION; //still unsure which state to use
-                    MarkBattlerForControllerExec(gActiveBattler);
-                    break;*/
                 case B_ACTION_CANCEL_PARTNER:
                     gBattleCommunication[gActiveBattler] = STATE_WAIT_SET_BEFORE_ACTION;
                     gBattleCommunication[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] = STATE_BEFORE_ACTION_CHOSEN;
@@ -5404,7 +5399,12 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     BtlController_EmitDebugMenu(0);
                     MarkBattlerForControllerExec(gActiveBattler);
                     break;
-                }
+                case B_ACTION_MOVE_INFO:
+                    BtlController_EmitMoveInfo(0);
+                    MarkBattlerForControllerExec(gActiveBattler);
+                    break;
+                }//vsonic
+                
                 if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
                  && !(gBattleTypeFlags & BATTLE_TYPE_LINK)
                  && gBattleBufferB[gActiveBattler][1] == B_ACTION_RUN)
@@ -5515,6 +5515,10 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     break;
                 case B_ACTION_DEBUG:
                     gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+                    break;
+                case B_ACTION_MOVE_INFO:
+                    gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+                    //gChosenActionByBattler[gActiveBattler] = B_ACTION_USE_MOVE
                     break;
                 }
             }

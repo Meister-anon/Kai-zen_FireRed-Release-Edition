@@ -144,6 +144,10 @@ static void PokeSum_UpdateMonMarkingsAnim(void);
 static s8 SeekToNextMonInSingleParty(s8);
 static s8 SeekToNextMonInMultiParty(s8);
 
+//new additions for battle move info callback
+static void Task_InputHandler_BattleMoveInfo(u8 taskId);
+
+
 
 #define SINGLE_BATTLE   (gMain.inBattle && singles)
 #define DOUBLE_BATTLE   (gMain.inBattle && doubles)
@@ -1301,6 +1305,70 @@ void ShowSelectMovePokemonSummaryScreen(struct Pokemon *party, u8 cursorPos, u8 
     sMonSummaryScreen->moveIds[4] = newMove;
 } //cursor position is which mon to show
 
+//new addition for battle callback show move info
+void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback)
+{
+    FreeAllWindowBuffers();
+    ShowSummaryScreenSelectMoveFromBattle(party, partyMember, lastIdx, savedCallback, PSS_MODE_BATTLE_INFO);
+}
+
+void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback, u8 mode)
+{
+    sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));
+    sMonSkillsPrinterXpos = AllocZeroed(sizeof(struct Struct203B144));
+
+    if (sMonSummaryScreen == NULL) //think destroy on exti makes use this?
+    {
+        SetMainCallback2(savedCallback);
+        return;
+    }
+
+    sLastViewedMonIndex = partyMember;
+
+    //works but need find where input logic is,
+    //so can make update move cursor so it tracks when return to battle screen
+    sMoveSelectionCursorPos = gMoveSelectionCursor[gActiveBattler];
+    sMoveSwapCursorPos = 0;
+    sMonSummaryScreen->savedCallback = savedCallback;
+    sMonSummaryScreen->monList.mons = party;
+
+    if (party == gEnemyParty)
+        sMonSummaryScreen->isEnemyParty = TRUE;
+    else
+        sMonSummaryScreen->isEnemyParty = FALSE;
+
+    sMonSummaryScreen->lastIndex = lastIdx;
+    sMonSummaryScreen->mode = mode;
+    sMonSummaryScreen->curPageIndex = PSS_PAGE_MOVES_INFO;
+    sMonSummaryScreen->isBoxMon = FALSE;
+    sMonSummaryScreen->lockMovesFlag = TRUE;
+
+
+
+    sMonSummaryScreen->state3270 = 0;
+    sMonSummaryScreen->summarySetupStep = 0;
+    sMonSummaryScreen->loadBgGfxStep = 0;
+    sMonSummaryScreen->spriteCreationStep = 0;
+
+    sMonSummaryScreen->whichBgLayerToTranslate = 0;
+    sMonSummaryScreen->skillsPageBgNum = 2;
+    sMonSummaryScreen->infoAndMovesPageBgNum = 1;
+    sMonSummaryScreen->flippingPages = FALSE;
+
+    sMonSummaryScreen->unk3228 = 0;
+    sMonSummaryScreen->unk322C = 1;
+
+    BufferSelectedMonData(&sMonSummaryScreen->currentMon); //should set currentmon to value of lastviewedindex
+    sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
+    sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
+
+    if (sMonSummaryScreen->isBadEgg == TRUE)
+        sMonSummaryScreen->isEgg = TRUE;
+
+    sMonSummaryScreen->lastPageFlipDirection[0] = 0xff;
+    SetMainCallback2(CB2_SetUpPSS);
+}
+
 static u8 sub_813476C(u8 a0)
 {
     if (sMonSummaryScreen->inhibitPageFlipInput == TRUE && sMonSummaryScreen->pageFlipDirection != a0)
@@ -2165,6 +2233,7 @@ static void PokeSum_CopyNewBgTilemapBeforePageFlip(void)
 //is summary screen not storage system
 static void CB2_SetUpPSS(void)
 {
+    
     switch (sMonSummaryScreen->summarySetupStep)
     {
     case 0:
@@ -2202,7 +2271,8 @@ static void CB2_SetUpPSS(void)
         PokeSum_PrintMonTypeIcons();
         break;
     case 10:
-        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE)
+        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE
+        || sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
             CopyToBgTilemapBuffer(3, sBgTilemap_MovesPage, 0, 0);
         else
             CopyToBgTilemapBuffer(3, sBgTilemap_MovesInfoPage, 0, 0);
@@ -2214,7 +2284,8 @@ static void CB2_SetUpPSS(void)
             CopyToBgTilemapBuffer(sMonSummaryScreen->skillsPageBgNum, gBgTilemap_TrainerMemo_Egg, 0, 0);
         else
         {
-            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE)
+            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE
+            || sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
             {
                 CopyToBgTilemapBuffer(sMonSummaryScreen->skillsPageBgNum, gBgTilemap_PokeSum_MovesListForDelete, 0, 0);
                 CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, gBgTilemap_PokeSum_MoveDetailsForDelete, 0, 0);
@@ -2249,7 +2320,8 @@ static void CB2_SetUpPSS(void)
         CopyBgTilemapBufferToVram(3);
         break;
     case 15:
-        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE)
+        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE
+        || sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
         {
             PokeSum_ShowOrHideMonIconSprite(0);
             ShoworHideMoveSelectionCursor(0);
@@ -2267,7 +2339,7 @@ static void CB2_SetUpPSS(void)
         HideShowPokerusIcon(0);
         HideShowShinyStar(0);
         break;
-    default:
+    default: //goes to here when done
         PokeSum_Setup_SetVBlankCallback();
         PokeSum_FinishSetup();
         return;
@@ -2876,6 +2948,8 @@ static void PokeSum_FinishSetup(void)
 {
     if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE)
         sMonSummaryScreen->inputHandlerTaskId = CreateTask(Task_InputHandler_SelectOrForgetMove, 0);
+    if (sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
+        sMonSummaryScreen->inputHandlerTaskId = CreateTask(Task_InputHandler_BattleMoveInfo, 0);
     else
         sMonSummaryScreen->inputHandlerTaskId = CreateTask(Task_InputHandler_Info, 0);
 
@@ -3977,6 +4051,7 @@ static void Task_DestroyResourcesOnExit(u8 taskId)
     PokeSum_RemoveWindows(sMonSummaryScreen->curPageIndex);
     FreeAllWindowBuffers();
     DestroyTask(taskId);
+    
     SetMainCallback2(sMonSummaryScreen->savedCallback);
 
     sLastViewedMonIndex = GetLastViewedMonIndex();
@@ -4323,7 +4398,7 @@ static void PokeSum_DrawBg3Tilemap(void)//relates to bg may be useful for unders
         FillBgTilemapBufferRect(3, 64 + SUB_8138538_BASE_TILE_NUM, 18, 1, 1, 1, 0);
         break;
     case PSS_PAGE_MOVES_INFO:
-        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
+        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
         {
             FillBgTilemapBufferRect(3, 1 + SUB_8138538_BASE_TILE_NUM, 13, 0, 4, 1, 0);
             FillBgTilemapBufferRect(3, 19 + SUB_8138538_BASE_TILE_NUM, 13, 1, 4, 1, 0);
@@ -5210,6 +5285,147 @@ static void Task_InputHandler_SelectOrForgetMove(u8 taskId)
     }
 }
 
+static void Task_InputHandler_BattleMoveInfo(u8 taskId)
+{
+    u8 i;
+
+    switch (sMonSummaryScreen->selectMoveInputHandlerState)
+    {
+    case 0://replaced with upgraded pallete fade constant hope works
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, 0);
+        sMonSummaryScreen->selectMoveInputHandlerState++;
+        break;
+    case 1:
+        if (!gPaletteFade.active)
+        {
+            PokeSum_TryPlayMonCry();
+            sMonSummaryScreen->selectMoveInputHandlerState++;
+        }
+        break;
+    case 2:
+        if (JOY_NEW(DPAD_UP))
+        {
+            if (sMoveSelectionCursorPos > 0)
+            {
+                sMonSummaryScreen->selectMoveInputHandlerState = 3;
+                PlaySE(SE_SELECT);
+                for (i = sMoveSelectionCursorPos; i > 0; i--)
+                    if (sMonSummaryScreen->moveIds[i - 1] != 0)
+                    {
+                        PlaySE(SE_SELECT);
+                        sMoveSelectionCursorPos = i - 1;
+                        return;
+                    }
+            }
+            else
+            {
+                sMoveSelectionCursorPos = 4;
+                sMonSummaryScreen->selectMoveInputHandlerState = 3;
+                PlaySE(SE_SELECT);
+                return;
+            }
+        }
+        else if (JOY_NEW(DPAD_DOWN))
+        {
+            if (sMoveSelectionCursorPos < 4)
+            {
+                u8 v0 = 4;
+
+                sMonSummaryScreen->selectMoveInputHandlerState = 3;
+
+                if (sMonSummaryScreen->isSwappingMoves == TRUE)
+                    v0--;
+
+                for (i = sMoveSelectionCursorPos; i < v0; i++)
+                    if (sMonSummaryScreen->moveIds[i + 1] != 0)
+                    {
+                        PlaySE(SE_SELECT);
+                        sMoveSelectionCursorPos = i + 1;
+                        return;
+                    }
+
+                if (!sMonSummaryScreen->isSwappingMoves)
+                {
+                    PlaySE(SE_SELECT);
+                    sMoveSelectionCursorPos = i;
+                }
+
+                return;
+            }
+            else if (sMoveSelectionCursorPos == 4)
+            {
+                sMoveSelectionCursorPos = 0;
+                sMonSummaryScreen->selectMoveInputHandlerState = 3;
+                PlaySE(SE_SELECT);
+                return;
+            }
+        }
+        else if (JOY_NEW(A_BUTTON))
+        {
+            if (sMoveSelectionCursorPos != 4)
+            {
+                PlaySE(SE_SELECT);
+                sMoveSwapCursorPos = sMoveSelectionCursorPos;
+                gSpecialVar_0x8005 = sMoveSwapCursorPos;
+                sMonSummaryScreen->selectMoveInputHandlerState = 6;
+            }
+            else if ( sMoveSelectionCursorPos == 4)
+            {
+                sMoveSwapCursorPos = 4;
+                gSpecialVar_0x8005 = (u16)sMoveSwapCursorPos;
+                sMonSummaryScreen->selectMoveInputHandlerState = 6;
+            }
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            sMoveSwapCursorPos = 4;
+            gSpecialVar_0x8005 = (u16)sMoveSwapCursorPos;
+            sMonSummaryScreen->selectMoveInputHandlerState = 6;
+        }
+        break;
+    case 3:
+        PokeSum_PrintRightPaneText();
+        PokeSum_PrintBottomPaneText();
+        PokeSum_PrintAbilityDataOrMoveTypes();
+        sMonSummaryScreen->selectMoveInputHandlerState = 4;
+        break;
+    case 4:
+        if (MenuHelpers_CallLinkSomething() == TRUE || sub_800B270() == TRUE)
+            return;
+
+        CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], 2);
+        CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], 2);
+        CopyWindowToVram(sMonSummaryScreen->windowIds[5], 2);
+        CopyWindowToVram(sMonSummaryScreen->windowIds[6], 2);
+        CopyBgTilemapBufferToVram(0);
+        CopyBgTilemapBufferToVram(3);
+        sMonSummaryScreen->selectMoveInputHandlerState = 2;
+        break;
+    case 5:
+        FillWindowPixelBuffer(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], 0);
+        AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], FONT_NORMAL,
+                                     7, 42,
+                                     0, 0,
+                                     sLevelNickTextColors[0], TEXT_SKIP_DRAW,
+                                     gUnknown_8419CB9);
+        CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], 2);
+        CopyBgTilemapBufferToVram(0);
+        CopyBgTilemapBufferToVram(3);
+        sMonSummaryScreen->selectMoveInputHandlerState = 2;
+        break;
+    case 6:
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, 0);
+        sMonSummaryScreen->selectMoveInputHandlerState++;
+        break;
+    default:
+        //if (!gPaletteFade.active)
+        {
+            Task_DestroyResourcesOnExit(taskId); //set stuff to null activate callback
+        }
+        break;
+    }
+}
+
 static void SpriteCB_PokeSum_MonPicSprite(struct Sprite * sprite)
 {
     if (sMonSummaryScreen->numMonPicBounces >= 2)
@@ -5948,6 +6164,16 @@ static void UpdateExpBarObjs(void)
     exp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_EXP);
     level = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_LEVEL);
     species = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES);
+
+    //I guess not the right place as using below broke exp bar for new mon
+
+    //think this is right place for this,
+    //was fix from cawt for exp candy use, from apparent issue caused
+    //on menu load from desync of exo bar/level w actual level
+    //"seems like the root of the issue is exp and level being desyncd
+    //due to how move learning is handled for xp candies"
+    //while(level < MAX_LEVEL && exp > gExperienceTables[gBaseStats[species].growthRate][level + 1])
+    //    level++;
 
     if (level < 100)
     {

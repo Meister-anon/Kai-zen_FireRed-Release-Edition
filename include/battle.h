@@ -51,7 +51,8 @@
 #define B_ACTION_FINISHED                  12
 #define B_ACTION_CANCEL_PARTNER            12 // when choosing an action
 #define B_ACTION_NOTHING_FAINTED           13 // when choosing an action
-#define B_ACTION_DEBUG                     20
+#define B_ACTION_DEBUG                     20 //open debug menu
+#define B_ACTION_MOVE_INFO                 21 //open summ screen move info page
 #define B_ACTION_NONE                      0xFF
 
 #define MAX_TRAINER_ITEMS 4

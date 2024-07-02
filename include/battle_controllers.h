@@ -184,6 +184,7 @@ enum
     CONTROLLER_ENDLINKBATTLE,
     CONTROLLER_DEBUGMENU,
     /*new controllers should go here*/
+    CONTROLLER_MOVEINFO,    //jump to summ screen move info to get move cat etc.
     CONTROLLER_TERMINATOR_NOP,
     CONTROLLER_CMDS_COUNT
 };
@@ -244,6 +245,7 @@ void BtlController_EmitLinkStandbyMsg(u8 bufferId, u8 arg1);
 void BtlController_EmitResetActionMoveSelection(u8 bufferId, u8 caseId);
 void BtlController_EmitEndLinkBattle(u8 bufferId, u8 arg1);
 void BtlController_EmitDebugMenu(u8 bufferId);
+void BtlController_EmitMoveInfo(u8 bufferId);
 
 // player controller
 void PlayerDummy(void);
