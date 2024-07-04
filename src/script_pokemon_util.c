@@ -65,6 +65,7 @@ void HealPlayerParty(void)
 //by filtering for battle side or possibly trainer id, like in battle_main npctrainerparty function
 //but this for now is fine as is
 #define CUSTOM_SETUP_GIVEMON
+//no idea why I made this a u16 but it works without issue
 u16 GetAveragePlayerPartyLevel(void) //ok so issue seems to be assingment, I guess I can't define and assign multiple values at once?
 {
     u16 sum, numMons;

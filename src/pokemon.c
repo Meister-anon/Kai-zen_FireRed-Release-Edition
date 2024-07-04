@@ -4467,17 +4467,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     }//put adaptability logic in typecalc in bs command becaus that's where stab is handled
 
-    // field abilities
-    if ((IsAbilityOnField(ABILITY_DARK_AURA) && type == TYPE_DARK)
-        || (IsAbilityOnField(ABILITY_FAIRY_AURA) && type == TYPE_FAIRY))
-    {
-        if (IsAbilityOnField(ABILITY_AURA_BREAK))
-            gBattleMovePower = (gBattleMovePower * 75 / 100);
-            //MulModifier(&modifier, UQ_4_12(0.75));
-        else
-            gBattleMovePower = (gBattleMovePower * 125 / 100);
-           // MulModifier(&modifier, UQ_4_12(1.25));
-    }//dont know why I had this commented out...
+    
 
     // attacker partner's abilities
     if (IsBattlerAlive(BATTLE_PARTNER(battlerIdAtk)))
@@ -4680,9 +4670,34 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
     }
 
+    //Side based abilities
     if (IsAbilityOnOpposingSide(battlerIdAtk, ABILITY_AURA_OF_LIGHT) && type == TYPE_DARK)
         gBattleMovePower /= 2;  //
 
+    // field abilities
+    if ((IsAbilityOnField(ABILITY_DARK_AURA) && type == TYPE_DARK)
+        || (IsAbilityOnField(ABILITY_FAIRY_AURA) && type == TYPE_FAIRY))
+    {
+        if (IsAbilityOnField(ABILITY_AURA_BREAK))
+            gBattleMovePower = (gBattleMovePower * 75 / 100);
+            //MulModifier(&modifier, UQ_4_12(0.75));
+        else
+            gBattleMovePower = (gBattleMovePower * 125 / 100);
+           // MulModifier(&modifier, UQ_4_12(1.25));
+    }//dont know why I had this commented out...
+
+
+    if (IsAbilityOnField(ABILITY_VESSEL_OF_RUIN) && GetBattlerAbility(battlerIdAtk) != ABILITY_VESSEL_OF_RUIN)
+        spAttack = (spAttack * 75) / 100;
+
+    if (IsAbilityOnField(ABILITY_SWORD_OF_RUIN) && GetBattlerAbility(battlerIdDef) != ABILITY_SWORD_OF_RUIN)
+        defense = (defense * 75) / 100;
+    
+    if (IsAbilityOnField(ABILITY_BEADS_OF_RUIN) && GetBattlerAbility(battlerIdDef) != ABILITY_BEADS_OF_RUIN)
+        spDefense = (spDefense * 75) / 100;
+
+    
+    
     //logic didn't work in adjustnormaldamage bs command function, put here bcause is equivalent to where aurora veil damage reducion is done 4 emerald
     //I'm stupid I forgot this was meant to be flat damage reduction, not require contact
     if (gProtectStructs[battlerIdDef].shieldBashed

@@ -60,6 +60,7 @@
 #define cEFFECT_CHOOSER gBattleCommunication + 3        //figure what gBattleCommunication is and how works. vsonic
 #define cMULTISTRING_CHOOSER gBattleCommunication + 5
 
+//GetBattlerForBattleScript
 // Battle Script defines for getting the wanted battler
 #define BS_TARGET                   0
 #define BS_ATTACKER                 1
@@ -71,7 +72,7 @@
 #define BS_BATTLER_0                7
 #define BS_ATTACKER_SIDE            8 // for atk1E_jumpifability
 #define BS_TARGET_SIDE				9 // for atk1E_jumpifability
-#define BS_SCRIPTING                10
+#define BS_SCRIPTING                10 // gBattleScripting.battler
 #define BS_PLAYER1                  11
 #define BS_OPPONENT1                12
 #define BS_PLAYER2                  13 // for atk98_updatestatusicon  /?? i don't remember tis

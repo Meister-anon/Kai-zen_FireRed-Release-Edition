@@ -6789,11 +6789,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
                         gBattleMons[battler].status1 = 0;
                         gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
+                        if (gBattleMons[battler].hp < gBattleMons[battler].maxHP)
+                        {
+                            gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff
+                            if (gBattleMoveDamage == 0)
+                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage *= -1;
+                        }
 
-                         gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
-                        gBattleMoveDamage *= -1;
                         gBattleScripting.battler = gActiveBattler = battler;
                         BattleScriptPushCursorAndCallback(BattleScript_ShedSkinActivates);
                         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
@@ -7011,12 +7014,19 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }
                     break;
-                case ABILITY_HEALER:
+                case ABILITY_HEALER: //partner based shed skin
                     gBattleScripting.battler = BATTLE_PARTNER(battler);
                     if (IsBattlerAlive(gBattleScripting.battler)
                         && gBattleMons[gBattleScripting.battler].status1 & STATUS1_ANY
                         && (Random() % 100) < 30)
                     {
+                        if (gBattleMons[BATTLE_PARTNER(battler)].hp < gBattleMons[BATTLE_PARTNER(battler)].maxHP)
+                        {
+                            gBattleMoveDamage = gBattleMons[BATTLE_PARTNER(battler)].maxHP / 4; //orochimaru style buff
+                            if (gBattleMoveDamage == 0)
+                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage *= -1;
+                        }
                         BattleScriptPushCursorAndCallback(BattleScript_HealerActivates);
                         ++effect;
                     }
@@ -7735,6 +7745,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && TARGET_TURN_DAMAGED
                     && gDisableStructs[gBattlerAttacker].disabledMove == MOVE_NONE
+                    //&& gDisableStructs[gBattlerAttacker].inthralledMove == MOVE_NONE
                     && IsBattlerAlive(gBattlerAttacker)
                     && !IsAbilityOnSide(gBattlerAttacker, ABILITY_AROMA_VEIL)
                     && gBattleMons[gBattlerAttacker].pp[gChosenMovePos] != 0
@@ -8187,7 +8198,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case ABILITY_INTHRALL:    //this and pickpocket should go in abilityeffects function instead, this should only be for   actual move effect only, think wil move the item stuff recently ported from emerald out too
                 if (IsBattlerAlive(gBattlerTarget)
                     && TARGET_TURN_DAMAGED
-                    && !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerTarget)] & gBitTable[gBattlerPartyIndexes[gBattlerTarget]])
+                    //&& !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerTarget)] & gBitTable[gBattlerPartyIndexes[gBattlerTarget]])
                     && !DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove)
                     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && !gDisableStructs[gBattlerTarget].inthralled)
@@ -8241,6 +8252,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                     moveSlot = j;
 
                                 }
+                                break;
                             case EFFECT_COUNTER:
                             case EFFECT_MIRROR_COAT:
                             case EFFECT_METAL_BURST:
@@ -8254,11 +8266,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                                 }
                                 break;//add EFFECT_ENDEAVOR logic  for based on enemy hp  115 if below or equal 25% max hp, 100 if 50%
+                            case EFFECT_FLAIL:
                             case EFFECT_ENDEAVOR:
                                 if (gBattleMons[gBattlerTarget].hp <= (gBattleMons[gBattlerTarget].maxHP / 4))
                                     MovePower = 110;
                                 else if (gBattleMons[gBattlerTarget].hp <= (gBattleMons[gBattlerTarget].maxHP / 2))
                                     MovePower = 100;
+                                else
+                                    MovePower = 40;
 
                                 if (MovePower > power)
                                 {
@@ -8267,6 +8282,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                     moveSlot = j;
 
                                 }
+                                break;
                             default:
                                 if (gBattleMoves[gBattleMons[gBattlerTarget].moves[j]].power == 1
                                 || (gBattleMoves[gBattleMons[gBattlerTarget].moves[j]].power == 0 && gBattleMoves[gBattleMons[gBattlerTarget].moves[j]].split != SPLIT_STATUS))
@@ -8284,9 +8300,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 break;
                             }
                         }
-                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerTarget].moves[moveSlot])
+                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveId)
                         gDisableStructs[gBattlerTarget].inthralledMove = gBattleMons[gBattlerTarget].moves[moveSlot];
                         gDisableStructs[gBattlerTarget].inthrallTimer = 3;  //made effect consistent believe decrement at end turn so actual turn is n - 1
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_InthrallActivates;
+                        ++effect;
                     }                    
                 } //never made a messagge for this...
                 break;

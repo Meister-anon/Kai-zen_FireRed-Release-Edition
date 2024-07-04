@@ -3226,7 +3226,6 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_PLASMA_RAILGUN] = _("Plasma Railgun"),
     [MOVE_BOLTBEAM] = _("Bolt Beam"),
     [MOVE_BACK_STAB] = _("Backstab"),
-    [MOVE_DOUBLE_SHOCK] = _("Double Shock"),
     [MOVE_POUNCE] = _("Pounce"),
     [MOVE_CHEAP_SHOT] = _("Cheap Shot"),
     [MOVE_SNOWBALL] =_("Snowball"),

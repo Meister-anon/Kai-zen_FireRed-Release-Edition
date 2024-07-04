@@ -13353,8 +13353,8 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_INTHRALL, ABILITY_NONE}, //effect not yet set, should work like disable but with forewarn logic to choose move
         .bodyColor = BODY_COLOR_YELLOW, //beleive should work now? setup, put in ai decision and added all custom messages, still need test
         .noFlip = FALSE,
-        .floating = TRUE,
-        .levelUpLearnset = sUxieLevelUpLearnset,
+        .floating = TRUE, //need test ability vsonic
+        .levelUpLearnset = sUxieLevelUpLearnset, //ability doens't work
         .tmhmLearnset = sUxieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//knowledge/ memoery mon  can seal a move when they attack. the enemy
@@ -13366,7 +13366,7 @@ const struct BaseStats gBaseStats[] =
    //if enemy mon has  move sealed by another effect and that move is the most dangerous, either loop again excluding that or just default to random
    //ok anticipation logic, use that function to find move but then lock the move for long as I'm on field
    //works as switch in I guess //think of using psychic powers to read their most effective tactic and seal it away
-   //will need exit message
+   //will need exit message - check bind setup
    //vsonic IMPORTANT
     [SPECIES_MESPRIT] =
     { 
@@ -13396,6 +13396,9 @@ const struct BaseStats gBaseStats[] =
     //so attacker takes a percent of damage dealt 20% 25% something like that or maybe 15% //change call this empathic curse
     //as plan to make new synchronize buff its own ability & call that empath as realized its a mirror armor/corvinight copy/hybrid and I DON'T want that going on umbreon ...
     //eempathic curse is already set to pass status like the others
+    //double check I put effect in move end so it works with multi hit,
+    //if so give this follow me to counter multi task and multi hit attackers
+    //not in move end but with iron barbs so would work w multi hit
     [SPECIES_AZELF] =
     { 
            //hp, atk, def, spd, spatk, spdef
@@ -13706,7 +13709,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDarkraiLevelUpLearnset,
         .tmhmLearnset = sDarkraiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },//haven't set despair effect yet 
+    },//haven't set despair effect yet      
 
     [SPECIES_SHAYMIN] =
     { 
@@ -27772,7 +27775,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SPRIGATITO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               61,
               54,
               65,
@@ -27831,7 +27835,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FLORAGATO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(61,
+        STATS(
+              61,
               80,
               63,
               83,
@@ -27890,7 +27895,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MEOWSCARADA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(76,
+        STATS(
+              76,
               110,
               70,
               123,
@@ -27950,7 +27956,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FUECOCO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(67,
+        STATS(
+              67,
               45,
               59,
               36,
@@ -28009,7 +28016,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CROCALOR] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(81,
+        STATS(
+              81,
               55,
               78,
               49,
@@ -28068,7 +28076,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SKELEDIRGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(104,
+        STATS(
+              104,
               75,
               100,
               66,
@@ -28128,7 +28137,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_QUAXLY] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(55,
+        STATS(
+              55,
               65,
               45,
               50,
@@ -28187,7 +28197,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_QUAXWELL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               85,
               65,
               65,
@@ -28246,7 +28257,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_QUAQUAVAL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(85,
+        STATS(
+              85,
               120,
               80,
               85,
@@ -28306,7 +28318,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_LECHONK] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(54,
+        STATS(
+              54,
               45,
               40,
               35,
@@ -28366,7 +28379,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OINKOLOGNE_MALE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(110,
+        STATS(
+              110,
               100,
               75,
               65,
@@ -28425,7 +28439,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OINKOLOGNE_FEMALE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(115,
+        STATS(
+              115,
               90,
               70,
               65,
@@ -28487,7 +28502,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TAROUNTULA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(35,
+        STATS(
+              35,
               41,
               45,
               20,
@@ -28546,7 +28562,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SPIDOPS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(60,
+        STATS(
+              60,
               79,
               92,
               35,
@@ -28606,7 +28623,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_NYMBLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(33,
+        STATS(
+              33,
               46,
               40,
               45,
@@ -28665,7 +28683,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_LOKIX] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(71,
+        STATS(
+              71,
               102,
               78,
               92,
@@ -28725,7 +28744,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_PAWMI] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(45,
+        STATS(
+              45,
               50,
               20,
               60,
@@ -28784,7 +28804,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_PAWMO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(60,
+        STATS(
+              60,
               75,
               40,
               85,
@@ -28843,7 +28864,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_PAWMOT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               115,
               70,
               105,
@@ -28903,7 +28925,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TANDEMAUS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(50,
+        STATS(
+              50,
               50,
               45,
               75,
@@ -28963,7 +28986,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MAUSHOLD_FAMILY_OF_THREE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(74,
+        STATS(
+              74,
               75,
               70,
               111,
@@ -29021,7 +29045,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MAUSHOLD_FAMILY_OF_FOUR] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(74,
+        STATS(
+              74,
               75,
               70,
               111,
@@ -29079,7 +29104,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FIDOUGH] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(37,
+        STATS(
+              37,
               55,
               70,
               65,
@@ -29138,7 +29164,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DACHSBUN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(57,
+        STATS(
+              57,
               80,
               115,
               95,
@@ -29198,7 +29225,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SMOLIV] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(41,
+        STATS(
+              41,
               35,
               45,
               30,
@@ -29257,7 +29285,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DOLLIV] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(52,
+        STATS(
+              52,
               53,
               60,
               33,
@@ -29316,7 +29345,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ARBOLIVA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(78,
+        STATS(
+              78,
               69,
               90,
               39,
@@ -29376,7 +29406,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SQUAWKABILLY_GREEN_PLUMAGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(82,
+        STATS(
+              82,
               96,
               51,
               92,
@@ -29435,7 +29466,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SQUAWKABILLY_BLUE_PLUMAGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(82,
+        STATS(
+              82,
               96,
               51,
               92,
@@ -29494,7 +29526,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(82,
+        STATS(
+              82,
               96,
               51,
               92,
@@ -29553,7 +29586,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SQUAWKABILLY_WHITE_PLUMAGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(82,
+        STATS(
+              82,
               96,
               51,
               92,
@@ -29614,7 +29648,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_NACLI] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(55,
+        STATS(
+              55,
               55,
               75,
               25,
@@ -29673,7 +29708,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_NACLSTACK] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(60,
+        STATS(
+              60,
               60,
               100,
               35,
@@ -29732,7 +29768,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GARGANACL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               100,
               130,
               35,
@@ -29792,7 +29829,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CHARCADET] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               50,
               40,
               35,
@@ -29852,7 +29890,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ARMAROUGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(85,
+        STATS(
+              85,
               60,
               100,
               75,
@@ -29910,7 +29949,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CERULEDGE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(75,
+        STATS(
+              75,
               125,
               80,
               85,
@@ -29970,7 +30010,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TADBULB] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(61,
+        STATS(
+              61,
               31,
               41,
               45,
@@ -30030,7 +30071,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_BELLIBOLT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(109,
+        STATS(
+              109,
               64,
               91,
               45,
@@ -30090,7 +30132,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_WATTREL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               40,
               35,
               70,
@@ -30149,7 +30192,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_KILOWATTREL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               70,
               60,
               125,
@@ -30209,7 +30253,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MASCHIFF] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(60,
+        STATS(
+              60,
               78,
               60,
               51,
@@ -30268,7 +30313,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MABOSSTIFF] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(80,
+        STATS(
+              80,
               120,
               90,
               85,
@@ -30328,7 +30374,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SHROODLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               65,
               35,
               75,
@@ -30387,7 +30434,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GRAFAIAI] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(63,
+        STATS(
+              63,
               95,
               65,
               110,
@@ -30447,7 +30495,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_BRAMBLIN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               65,
               30,
               60,
@@ -30506,7 +30555,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_BRAMBLEGHAST] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(55,
+        STATS(
+              55,
               115,
               70,
               90,
@@ -30566,7 +30616,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TOEDSCOOL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               40,
               35,
               70,
@@ -30623,7 +30674,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TOEDSCRUEL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(80,
+        STATS(
+              80,
               70,
               65,
               100,
@@ -30683,7 +30735,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_KLAWF] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               100,
               115,
               75,
@@ -30743,7 +30796,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CAPSAKID] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(50,
+        STATS(
+              50,
               62,
               40,
               50,
@@ -30802,7 +30856,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SCOVILLAIN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(65,
+        STATS(
+              65,
               108,
               65,
               75,
@@ -30862,7 +30917,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_RELLOR] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(41,
+        STATS(
+              41,
               50,
               60,
               30,
@@ -30921,7 +30977,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_RABSCA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(75,
+        STATS(
+              75,
               50,
               85,
               45,
@@ -30981,7 +31038,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FLITTLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(30,
+        STATS(
+              30,
               35,
               30,
               75,
@@ -31040,7 +31098,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ESPATHRA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(95,
+        STATS(
+              95,
               60,
               60,
               105,
@@ -31100,7 +31159,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TINKATINK] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(50,
+        STATS(
+              50,
               45,
               45,
               58,
@@ -31159,7 +31219,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TINKATUFF] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(65,
+        STATS(
+              65,
               55,
               55,
               78,
@@ -31218,7 +31279,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TINKATON] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(85,
+        STATS(
+              85,
               75,
               77,
               94,
@@ -31278,7 +31340,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_WIGLETT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(10,
+        STATS(
+              10,
               55,
               25,
               95,
@@ -31336,7 +31399,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_WUGTRIO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(35,
+        STATS(
+              35,
               100,
               50,
               120,
@@ -31395,7 +31459,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_BOMBIRDIER] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               103,
               85,
               82,
@@ -31456,7 +31521,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FINIZEN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               45,
               40,
               75,
@@ -31514,7 +31580,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_PALAFIN_ZERO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               70,
               72,
               100,
@@ -31574,7 +31641,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_PALAFIN_HERO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               160,
               97,
               100,
@@ -31636,7 +31704,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_VAROOM] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(45,
+        STATS(
+              45,
               70,
               63,
               47,
@@ -31695,7 +31764,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_REVAVROOM] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(80,
+        STATS(
+              80,
               119,
               90,
               90,
@@ -31755,7 +31825,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CYCLIZAR] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               95,
               65,
               121,
@@ -31815,7 +31886,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ORTHWORM] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(70,
+        STATS(
+              70,
               85,
               145,
               65,
@@ -31874,13 +31946,14 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_GLIMMET
     [SPECIES_GLIMMET] =
     {
-            //hp, atk, def, spd, spatk, spdef
-        STATS(48,
-              35,
-              42,
-              60,
-              105,
-              60
+        //hp, atk, def, spd, spatk, spdef
+        STATS(
+        48,
+        35,
+        42,
+        60,
+        105,
+        60
        ),
         MON_TYPES(TYPE_ROCK, TYPE_POISON),
         .catchRate = 70,
@@ -31935,7 +32008,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GLIMMORA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(83,
+        STATS(
+              83,
               55,
               90,
               86,
@@ -31996,7 +32070,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GREAVARD] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(50,
+        STATS(
+              50,
               61,
               60,
               34,
@@ -32055,7 +32130,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_HOUNDSTONE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(72,
+        STATS(
+              72,
               101,
               100,
               68,
@@ -32115,7 +32191,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FLAMIGO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(82,
+        STATS(
+              82,
               115,
               74,
               90,
@@ -32175,7 +32252,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CETODDLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(108,
+        STATS(
+              108,
               68,
               45,
               43,
@@ -32234,7 +32312,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CETITAN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(170,
+        STATS(
+              170,
               113,
               65,
               73,
@@ -32294,7 +32373,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_VELUZA] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               102,
               73,
               70,
@@ -32355,7 +32435,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DONDOZO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(150,
+        STATS(
+              150,
               100,
               115,
               35,
@@ -32416,7 +32497,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TATSUGIRI_CURLY] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(68,
+        STATS(
+              68,
               50,
               60,
               82,
@@ -32475,7 +32557,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TATSUGIRI_DROOPY] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(68,
+        STATS(
+              68,
               50,
               60,
               82,
@@ -32533,7 +32616,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TATSUGIRI_STRETCHY] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(68,
+        STATS(
+              68,
               50,
               60,
               82,
@@ -32591,7 +32675,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ANNIHILAPE] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(110,
+        STATS(
+              110,
               115,
               80,
               90,
@@ -32648,7 +32733,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CLODSIRE] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(130,
+        STATS(
+              130,
               75,
               60,
               20,
@@ -32704,7 +32790,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FARIGIRAF] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(120,
+        STATS(
+              120,
               90,
               70,
               60,
@@ -32760,7 +32847,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DUDUNSPARCE_TWO_SEGMENT] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(125,
+        STATS(
+              125,
               100,
               80,
               55,
@@ -32817,7 +32905,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_DUDUNSPARCE_THREE_SEGMENT] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(125,
+        STATS(
+              125,
               100,
               80,
               55,
@@ -32874,7 +32963,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_KINGAMBIT] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               135,
               120,
               50,
@@ -32930,7 +33020,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GREAT_TUSK] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(115,
+        STATS(
+              115,
               131,
               131,
               87,
@@ -32991,7 +33082,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SCREAM_TAIL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(115,
+        STATS(
+              115,
               65,
               99,
               111,
@@ -33052,7 +33144,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_BRUTE_BONNET] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(111,
+        STATS(
+              111,
               127,
               99,
               55,
@@ -33113,7 +33206,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FLUTTER_MANE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(55,
+        STATS(
+              55,
               55,
               55,
               135,
@@ -33177,7 +33271,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SLITHER_WING] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(85,
+        STATS(
+              85,
               135,
               79,
               81,
@@ -33237,7 +33332,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SANDY_SHOCKS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(85,
+        STATS(
+              85,
               81,
               97,
               101,
@@ -33298,7 +33394,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_TREADS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               112,
               120,
               106,
@@ -33359,7 +33456,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_BUNDLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(56,
+        STATS(
+              56,
               80,
               114,
               136,
@@ -33420,7 +33518,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_HANDS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(154,
+        STATS(
+              154,
               140,
               108,
               50,
@@ -33481,7 +33580,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_JUGULIS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(94,
+        STATS(
+              94,
               80,
               86,
               108,
@@ -33543,7 +33643,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_MOTH] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(80,
+        STATS(
+              80,
               70,
               60,
               110,
@@ -33605,7 +33706,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_THORNS] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               134,
               110,
               72,
@@ -33666,7 +33768,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FRIGIBAX] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(65,
+        STATS(
+              65,
               75,
               45,
               55,
@@ -33725,7 +33828,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ARCTIBAX] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               95,
               66,
               62,
@@ -33784,7 +33888,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_BAXCALIBUR] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(115,
+        STATS(
+              115,
               145,
               92,
               87,
@@ -33844,7 +33949,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GIMMIGHOUL_CHEST] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(45,
+        STATS(
+              45,
               30,
               70,
               10,
@@ -33904,7 +34010,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GIMMIGHOUL_ROAMING] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(45,
+        STATS(
+              45,
               30,
               25,
               80,
@@ -33964,7 +34071,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GHOLDENGO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(87,
+        STATS(
+              87,
               60,
               95,
               84,
@@ -34024,7 +34132,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_WO_CHIEN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(105,
+        STATS(
+              105,
               85,
               100,
               70,
@@ -34083,7 +34192,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CHIEN_PAO] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(80,
+        STATS(
+              80,
               120,
               80,
               135,
@@ -34144,7 +34254,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TING_LU] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(155,
+        STATS(
+              155,
               110,
               125,
               45,
@@ -34205,7 +34316,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_CHI_YU] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(55,
+        STATS(
+              55,
               80,
               80,
               100,
@@ -34267,7 +34379,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_ROARING_MOON] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(105,
+        STATS(
+              105,
               139,
               71,
               119,
@@ -34329,7 +34442,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_VALIANT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(74,
+        STATS(
+              74,
               130,
               90,
               116,
@@ -34389,7 +34503,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_KORAIDON] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               135,
               115,
               135,
@@ -34451,7 +34566,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MIRAIDON] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(100,
+        STATS(
+              100,
               85,
               100,
               135,
@@ -34513,7 +34629,8 @@ const struct BaseStats gBaseStats[] =
 [SPECIES_TAUROS_PALDEAN_COMBAT_BREED] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(75,
+        STATS(
+              75,
               110,
               105,
               100,
@@ -34571,7 +34688,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(75,
+        STATS(
+              75,
               110,
               105,
               100,
@@ -34629,7 +34747,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TAUROS_PALDEAN_AQUA_BREED] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(75,
+        STATS(
+              75,
               110,
               105,
               100,
@@ -34687,7 +34806,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_WOOPER_PALDEAN] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(55,
+        STATS(
+              55,
               45,
               45,
               15,
@@ -34747,7 +34867,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_WALKING_WAKE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(99,
+        STATS(
+              99,
               83,
               91,
               109,
@@ -34807,7 +34928,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_LEAVES] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               130,
               88,
               104,
@@ -34865,7 +34987,8 @@ const struct BaseStats gBaseStats[] =
 [SPECIES_DIPPLIN] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(80,
+        STATS(
+              80,
               80,
               110,
               40,
@@ -34922,7 +35045,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_POLTCHAGEIST_COUNTERFEIT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               45,
               45,
               50,
@@ -34982,7 +35106,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_POLTCHAGEIST_ARTISAN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(40,
+        STATS(
+              40,
               45,
               45,
               50,
@@ -35042,7 +35167,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SINISTCHA_UNREMARKABLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(71,
+        STATS(
+              71,
               60,
               106,
               70,
@@ -35100,7 +35226,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SINISTCHA_MASTERPIECE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(71,
+        STATS(
+              71,
               60,
               106,
               70,
@@ -35161,7 +35288,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OKIDOGI] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(88,
+        STATS(
+              88,
               128,
               115,
               80,
@@ -35225,7 +35353,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_MUNKIDORI] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(88,
+        STATS(
+              88,
               75,
               66,
               106,
@@ -35286,7 +35415,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_FEZANDIPITI] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(88,
+        STATS(
+              88,
               91,
               82,
               99,
@@ -35347,7 +35477,8 @@ const struct BaseStats gBaseStats[] =
 #define OGERPON_SPECIES_INFO(Form, type, ability, color, iconpalette)                   \
     {                                                                                   \
             /*hp, atk, def, spd, spatk, spdef */                                \
-        STATS(80,                                                            \
+        STATS(                                                                  \
+              80,                                                            \
               120,                                                           \
               84,                                                            \
               110,                                                           \
@@ -35413,7 +35544,8 @@ const struct BaseStats gBaseStats[] =
 [SPECIES_URSALUNA_BLOODMOON] =
     {
         //hp, atk, def, spd, spatk, spdef
-        STATS(113,
+        STATS(
+              113,
               70,
               120,
               52,
@@ -35467,7 +35599,7 @@ const struct BaseStats gBaseStats[] =
       //  .formSpeciesIdTable = sUrsalunaFormSpeciesIdTable,
     },//thought about making an evo, think will give an item
     //to shift form one way, well doesn't need tobe one way.
-    //but moxie brought up interesting idea
+    //but moxie2D brought up interesting idea
     //that this is actually a paradox mon.
     //since nothing evolves into it, and theres lore wise only one,
     //that really makes sense
@@ -35476,7 +35608,8 @@ const struct BaseStats gBaseStats[] =
 [SPECIES_ARCHALUDON] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               105,
               130,
               85,
@@ -35534,7 +35667,8 @@ const struct BaseStats gBaseStats[] =
 [SPECIES_HYDRAPPLE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(106,
+        STATS(
+              106,
               80,
               110,
               44,
@@ -35593,7 +35727,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_GOUGING_FIRE] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(105,
+        STATS(
+              105,
               115,
               121,
               91,
@@ -35654,7 +35789,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_RAGING_BOLT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(125,
+        STATS(
+              125,
               73,
               91,
               75,
@@ -35715,7 +35851,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_BOULDER] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               120,
               80,
               124,
@@ -35775,7 +35912,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_IRON_CROWN] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               72,
               100,
               98,
@@ -35836,7 +35974,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TERAPAGOS_NORMAL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(90,
+        STATS(
+              90,
               65,
               85,
               60,
@@ -35897,7 +36036,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TERAPAGOS_TERASTAL] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(95,
+        STATS(
+              95,
               95,
               110,
               85,
@@ -35959,7 +36099,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_TERAPAGOS_STELLAR] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(160,
+        STATS(
+              160,
               105,
               110,
               85,
@@ -36028,7 +36169,8 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_PECHARUNT] =
     {
             //hp, atk, def, spd, spatk, spdef
-        STATS(88,
+        STATS(
+              88,
               88,
               160,
               88,

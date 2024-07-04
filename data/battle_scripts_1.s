@@ -8654,6 +8654,8 @@ BattleScript_HealerActivates::
 	updatestatusicon BS_SCRIPTING
 	printstring STRINGID_HEALERCURE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	jumpifnotfullhp	BS_SCRIPTING, BattleScript_HealWithoutMessage
+	@goto BattleScript_HealWithoutMessage	@change to jump based on hp
 	end3
 
 BattleScript_SandstreamActivates::
@@ -8678,8 +8680,9 @@ BattleScript_ShedSkinActivates::
 	printstring STRINGID_PKMNSXCUREDYPROBLEM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	updatestatusicon BS_ATTACKER
-	goto BattleScript_HealWithoutMessage
-	@end3
+	jumpifnotfullhp	BS_SCRIPTING, BattleScript_HealWithoutMessage
+	@goto BattleScript_HealWithoutMessage	@change to jump based on hp
+	end3
 
 BattleScript_RisingPhoenixActivates::
 	printstring STRINGID_PHOENIX_CLEANSE
