@@ -2811,12 +2811,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     GiveBoxMonInitialMoveset(boxMon);// found out if mon evos into form without slot the original ability num is saved for when it evos again
 }
 
-enum Gender
-{
-    MALE_,
-    FEMALE_
-};
-
 //works still need figure gender set stuff
 //was able to test species groups
 //think may split into two?
@@ -2878,9 +2872,9 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     Speciesreturn = CheckSpeciesGroups(species);
     //doesn't set gender here but accurately extrapulates gender (same calc later)
     if (gBaseStats[Speciesreturn].genderRatio > (personality & 0xFF))
-        Gender = FEMALE_;
+        Gender = FEMALE;
     else
-        Gender = MALE_;
+        Gender = MALE;
 
     Speciesreturn = CheckGenderForms(Speciesreturn, Gender);
     //put this portion in other createmon functions below

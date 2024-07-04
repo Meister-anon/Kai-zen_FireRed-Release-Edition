@@ -25,8 +25,8 @@ struct OakSpeechResources
     u8 filler_000C[4];
     u16 unk_0010;
     u16 unk_0012;
-    u16 unk_0014[5];
-    u8 textColor[3];
+    u16 unk_0014[4]; //don't understand this, thought was amount of windows
+    u8 textColor[3]; //but seems increasing or reducing has no affect on it
     u8 textSpeed;
     u8 filler_0020[0x1800];
     u8 bg2TilemapBuffer[0x400];
@@ -697,7 +697,9 @@ static void Task_OaksSpeech2(u8 taskId)
     gTasks[taskId].func = Task_OakSpeech3;
 }
 
-static void Task_OakSpeech3(u8 taskId)
+//ok this is for of pages for main help window
+//but not for the pika window that's a different place
+static void Task_OakSpeech3(u8 taskId) //this seems most importnat for determing num pages?
 {
     u8 r8 = 0;
     u8 i;
@@ -741,7 +743,7 @@ static void Task_OakSpeech5(u8 taskId)
 
     if (!gPaletteFade.active)
     {
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < 3; i++)
         {
             FillWindowPixelBuffer(sOakSpeechResources->unk_0014[i], 0x00);
             ClearWindowTilemap(sOakSpeechResources->unk_0014[i]);
@@ -793,6 +795,7 @@ static void Task_OakSpeech6(u8 taskId)
     }
 }
 
+//pika page
 static void Task_OakSpeech7(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
@@ -825,7 +828,7 @@ static void Task_OakSpeech7(u8 taskId)
                 break;
             }
             PlaySE(SE_SELECT);
-            if (sOakSpeechResources->unk_0012 == 4) //limit of help system pages
+            if (sOakSpeechResources->unk_0012 == 3) //limit of pika adventure pages
             {
                 gMain.state = 4;
             }
