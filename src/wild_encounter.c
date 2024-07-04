@@ -12,6 +12,7 @@
 #include "script.h"
 #include "link.h"
 #include "quest_log.h"
+#include "script_pokemon_util.h"
 #include "constants/maps.h"
 #include "constants/abilities.h"
 #include "constants/items.h"
@@ -174,12 +175,17 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
+//need test but shoudl work then need make
+//option setup for scale down, and setup for that
 static u8 ChooseWildMonLevel(const struct WildPokemon * info)
 {
     u8 lo;
     u8 hi;
     u8 mod;
     u8 res;
+    u8 range;
+    u8 variance = 5;
+
     if (info->maxLevel >= info->minLevel)
     {
         lo = info->minLevel;
@@ -190,9 +196,25 @@ static u8 ChooseWildMonLevel(const struct WildPokemon * info)
         lo = info->maxLevel;
         hi = info->minLevel;
     }
-    mod = hi - lo + 1;
-    res = Random() % mod;
-    return lo + res;
+    //realized withut this it would cause scalign down..
+    if (GetAveragePlayerPartyLevel() >= hi)
+    {
+        hi = (GetAveragePlayerPartyLevel() + variance);
+        
+        range = hi - lo;
+
+        if (range > WILD_ENCOUNTER_MAX_LEVEL_RANGE)
+            lo = max(hi - WILD_ENCOUNTER_MAX_LEVEL_RANGE,1);
+    }
+    //make option toggle so add that here when setup
+    /*else if (GetAveragePlayerPartyLevel() < lo && lo >= 10) //to not make early rt mon go lower
+    {
+        lo = max(lo - variance, 1);
+        hi = GetAveragePlayerPartyLevel();
+    }*/
+    mod = hi - lo + 1;  //gets range
+    res = Random() % mod; //return random modifier based on range
+    return lo + res; //returns generated level
 }
 
 #define CHECK_CURR_MAP

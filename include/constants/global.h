@@ -2,6 +2,7 @@
 #define GUARD_CONSTANTS_GLOBAL_H
 
 #define IDENTICAL 0 //constant for string compare function so it doesn't look like false
+#define WILD_ENCOUNTER_MAX_LEVEL_RANGE 15 //more stuff for enconter rework
 
 #define ITEM_NAME_LENGTH 18
 #define POKEMON_NAME_LENGTH 11 //remember set back to 12 //will break save data was 11

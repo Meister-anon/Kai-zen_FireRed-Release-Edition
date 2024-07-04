@@ -2622,7 +2622,178 @@ goto GROUPED_SPECIES_ENUMS //for planned new species set setup, enum must match 
 //#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
 //believe that goes into the saveblock
 //tested and confirmed
-    
+
+IMPORTANT - more encounter table optimizations
+level scaling but not direct to level just shift max level generated based on average team level+
+and can add a function to check if a mon should evolve, if so generate the evolved form
+similar to how I have the rival, well rival is based on a constant so guess I"ll have to do that.
+do evolve, and then use final evo function later.
+
+first check level, and go up a single stage if couldn't evolve w level evolve at certain
+player ave level say 25  then 40 or something.
+
+think want everything to just go up one evo stage based on whats in the list?
+if just make everything final evo that may be boring.
+
+to do idea, need rework json, don't have max level...no instead check if player is above max level,
+and replace max level with player average level.
+
+just need to do some form of weighting based on player level 
+relation to min level.
+
+like if the min level is 40 below you don't realistically 
+want those popping up.  so instead may be good idea to keep it to a 15-20
+level range?   so I shift the max and then if diff between
+player average and min level is greater than max range constant
+shift to crate new min level that is equal to either
+player ave - 15 or 20,  
+or new max - 15 or 20
+
+just need to adjust the ChooseWildMonLevel
+function in wild_encounter.c its actually SUPER easy
+since I've already made an average level function.
+
+
+hmm this also further optimizes mon generation as list specifically keeps multiple versions of same encounter
+just to have higher levels for it with this I've both removed the need for repeating same set of mon
+in multiple different encounter tables,  AND the need for having repeating mon within the same evo table. o.0
+
+
+will have to add some guard rails,
+ex, people overlevel grinding, enemies sccale up
+and suddenly they have an uber beefed up team
+that's stronger than the gym.
+
+so make gym list, scale levels up to like 1 level belw gym trianers
+until after you've got the badge for that level of 
+game progression? 
+
+On surface that would break open world progression,
+but areas you can get to early by exploring
+are alays higher level than you so that's no problem.
+
+also new idea add game option for levels scaling down
+make toggle, what that will do is make wild encounters scale down 
+to your level if you're below the max, main benefit is allowing
+you to level up new mon/teams anywhere rather then having to  be 
+stuck in early game areas
+
+level scaling up will be default but scalign down will be a toggle.
+option
+
+this is also interesting as people could use the down scaling
+to get to other areas, and catch mon for things they wouldn't normally have.
+
+//like being able to get a hypno, or diglett/dugtrio, after brock, 
+//before going through diglett cave/misty
+
+very intersting
+//add to misc options for option menu
+
+Display Effectiveness - change text color to denote type effectiveness
+//for dual target can't check all just change if color exists
+//if super to some target make display super color
+//single target can display on selection.
+//for doubles make it display based on target
+
+Level Scale down (find better name) - make levels scale down to
+average team level or lowest mon, when toggled on
+
+with level scaling setup don't need to include multiple instances
+of same mon for level.
+
+with species categories don't need to take multiple
+slots for different species.
+
+so I no longer am limited by slots at all,
+which means I need to come up with a different system 
+for encounter setup.
+
+I think will attempt what unfolding mentioned 
+and try for max 20 encounters per area
+i.e land surf sand fishing
+
+having more mon available is more exciting 
+makes it more of a surprise when you find something new or rare.
+
+but as mentoined there are those that want specific things
+while I don't like it exactly using the dexnav will solve all
+potential problems, with its search feature I can completely
+remove the rng from encounters as needed.
+
+BUT I don't want people to just walk in and use that immediately
+I hate teh removal of teh mystery,
+so instead I'll have it greyed out initially when you enter an area
+but once you "complete" the area it'll fully activate
+allowing you to see select and search for all encounters
+
+(need figure how to make work for fishing)
+will require changing condition logic for how dexnav works
+and menu graphic by default it only has space for 10 species
+
+make taller window have fields displayed as columns collapsed
+clicking on them will open
+them up filling with blankspace that icons will then be printed on.
+will then need to setup to be able to scroll icons
+vertically and horizontally to select species to generate.
+right panel will hold general species info
+
+///num abilities in a tiered box that is populated as you encounter
+them.  don't require catching, no do require catching to fill out
+actualy no just show abilities from the get go,
+would take too much ewram to store ability data and captured
+
+figure out how to include some form of catching incentive
+since I want people to catch more since ivs are more impactful.
+maybe catch a certain amount a fill a shiny meter to allow
+generating a shiny?  sigh again that would require ewram...
+and don't like the idea of mindlessly forcing people to catch///
+
+Will need to add a set of flags to check for to show for completeion
+of an area think can use map progression flags
+ex.if I've been to viridian city then I've already cleared rt1
+another option if I've been on a map, but am not currently on said map
+can say I cleared it no need proper progression markers
+otherwise people can just cheese it by walking in
+then walking back out.
+
+tldr dexnav search is a required feature for 
+encounter size expansion will introduce it early on
+but not immediately. have one of prof's
+aides give it, or better tell them professor oak
+has something for them and would like to see them,
+can do that around vermillion by then should be able to 
+get back to oaks lab through digglet tunnel.
+
+making them go back to palette town should make them
+aware of the mon scaling feature.
+
+and once they get the dexnav they should be incentivized
+to go through the old areas to see what they might have missed.
+
+and this would be a good place to make them aware of the trainer rematch 
+changes along with the trainer scaling.
+
+ok perfect soon as player beats lt surge 
+have prof aide approach them
+make ground trigger
+
+don't remember well but there may already be an aide in 
+vermillion for after beating surge?
+if so use him, just take on some stuff to his script
+
+other wise set some triggers for alt scripts
+one right in front of the pokemon center door
+that would make an aide load inside
+would want trigger after you heal at pokemon center,
+so put activatoin var inside nurse joy script for vermillion
+
+otherwise make a column along the entrance of the town
+between the gym and town entrance have oak aide call out 
+and approach player   - JULY 2024 - new quick way to find relevant notes just date them
+vsonic
+
+   
     
     for dex evo list page
     potentially identified issue w eevee page
