@@ -197,7 +197,12 @@ static u8 ChooseWildMonLevel(const struct WildPokemon * info)
         hi = info->minLevel;
     }
     //realized withut this it would cause scalign down..
-    if (GetAveragePlayerPartyLevel() >= hi)
+    //need shift rng for where player level is compared to lo/hi
+    //so can shif how often get higher mon how often get mid/lower
+    //pretty much use range and weight based on size of range
+    //larger range means player levels are higher and we 
+    //can afford to toss more mon on the higher side at them more often
+    if (GetAveragePlayerPartyLevel() >= hi && GetNumBadges() >= 1) //didn't have that made early encouters lvl 10...
     {
         hi = (GetAveragePlayerPartyLevel() + variance);
         
@@ -207,7 +212,7 @@ static u8 ChooseWildMonLevel(const struct WildPokemon * info)
             lo = max(hi - WILD_ENCOUNTER_MAX_LEVEL_RANGE,1);
     }
     //make option toggle so add that here when setup
-    /*else if (GetAveragePlayerPartyLevel() < lo && lo >= 10) //to not make early rt mon go lower
+    /*else if (GetAveragePlayerPartyLevel() < lo && GetNumBadges() >= 1) //to not make early rt mon go lower
     {
         lo = max(lo - variance, 1);
         hi = GetAveragePlayerPartyLevel();
