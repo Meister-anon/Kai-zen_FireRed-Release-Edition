@@ -235,6 +235,8 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method);
 bool32 IsBattlerMegaEvolved(u8 battlerId);
 bool32 IsBattlerPrimalReverted(u8 battlerId);
 
+u32 IsmonOnField(u32 battlerId, u8 method); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
+
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
 

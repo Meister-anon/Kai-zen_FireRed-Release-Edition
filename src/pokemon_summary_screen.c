@@ -196,8 +196,8 @@ struct PokemonSummaryScreenData
         //u8 ALIGNED(4) expPointsStrBuf[9];   //planning to remove this, to make room for expanded ability descriptions
         u8 ALIGNED(4) expToNextLevelStrBuf[9];
 
-        u8 ALIGNED(4) abilityNameStrBuf[4][ABILITY_NAME_LENGTH + 1]; //made 4 string values eventually make constants for each, slot 1 slot 2 slot 3(rotatoin) and party
-        u8 ALIGNED(4) abilityDescStrBuf[4][ABILITY_DESCRIPTION_LENGTH + 1]; //tested & works
+        u8 ALIGNED(4) abilityNameStrBuf[ABILITY_NAME_LENGTH + 1]; //made 4 string values eventually make constants for each, slot 1 slot 2 slot 3(rotatoin) and party
+        u8 ALIGNED(4) abilityDescStrBuf[ABILITY_DESCRIPTION_LENGTH + 1]; //tested & works
     } summary; //move descriptinos are off, clearly a result of chang to the ability buffs here? don't know why didn't see taht in my pret red version unless I did and forgot?
 
     u8 ALIGNED(4) isEgg; /* 0x3200 */
@@ -2462,8 +2462,35 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
 
     GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_NICKNAME, tempStr);//moved up here for comparison
 
-    sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
-    sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
+    
+     if (gMain.inBattle) //seems works - works in singles for some reason fails in doubles??
+        {
+        
+        //doesn't work in doubles - works in doubles now
+        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {
+            sMonSummaryScreen->monTypes[0] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].type1;
+            sMonSummaryScreen->monTypes[1] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].type2;
+        }
+        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {
+            sMonSummaryScreen->monTypes[0] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].type1;
+            sMonSummaryScreen->monTypes[1] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].type2;
+
+        }
+        else 
+        {
+            sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
+            sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
+        }
+        }
+        else
+        {
+            sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
+            sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
+        }
 
     if (StringCompare(gSpeciesNames[dexNum], tempStr) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(tempStr, dexNum);
@@ -2591,115 +2618,35 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     ConvertIntToDecimalStringN(sMonSummaryScreen->summary.expToNextLevelStrBuf, expToNextLevel, STR_CONV_MODE_LEFT_ALIGN, 7);
     sMonSkillsPrinterXpos->toNextLevel = MACRO_8136350_0(sMonSummaryScreen->summary.expToNextLevelStrBuf);
 
-    //need set abilitydata values for transformation and for ability swap effects like trace  skillswap
-    //if (gBattleTypeFlags != 0) //should mean if in a battle? - works
-    if (gMain.inBattle) // use this for battles, using gbattletypeflags not 0, excludes wilds as those use value 0 accordign to GriffinR
+    
+    
+    if (gMain.inBattle) //seems works   //issue is I need to translate currentmon into a battlerid
     {
-        u32 curr_personality, slot1_personality, slot2_personality, slot3_personality;
-        curr_personality = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY);
-        slot1_personality = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality;
-        slot2_personality = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality;
-        slot3_personality = GetMonData(&gPlayerParty[2], MON_DATA_PERSONALITY); //adapt above when make position for triple/rotation battles
-
-        if (!(gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_ROTATION | BATTLE_TYPE_TWO_OPPONENTS))) //found fix, setup before had wrong operation now it works
-        {
-            if ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-            {
-                abilitydatabattler = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability;
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[0], gAbilityNames[abilitydatabattler]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[0], abilitydatabattler);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[0], gAbilityDescriptionPointers[abilitydatabattler]);
-            }
-            else
-            {
-                abilitydataparty = GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM));
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[3], gAbilityNames[abilitydataparty]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[3], abilitydataparty);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[3], gAbilityDescriptionPointers[abilitydataparty]);
-            }
-        }
-        else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-        {
-            if ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))//slot 1
-            {
-                abilitydatabattler = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability;
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[0], gAbilityNames[abilitydatabattler]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[0], abilitydatabattler);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[0], gAbilityDescriptionPointers[abilitydatabattler]);
-            }
-            if ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT))) //slot 2
-            {
-                abilitydatabattler2 = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability;
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[1], gAbilityNames[abilitydatabattler2]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[1], abilitydatabattler2);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[1], gAbilityDescriptionPointers[abilitydatabattler2]);
-            }
-            else //party
-            {
-                abilitydataparty = GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM));
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[3], gAbilityNames[abilitydataparty]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[3], abilitydataparty);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[3], gAbilityDescriptionPointers[abilitydataparty]);
-            }
-        }
-        else if (gBattleTypeFlags & BATTLE_TYPE_ROTATION) //potentially setup triple batttle as well
-        {
-            //still to do, only one mon on field at atime technically so same layout as singles, but would need to store data for all mon for ai and battle logic
-            //idea show icons in triangle, show relative health by speed of bounce, make icon flash red for mon in red health,
-            //play low hp music if a mon "on field" has low hp, not just mon out as that would just constantly change
-            //abilitydata = GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM));
-            if ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-            {
-                abilitydatabattler = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability;
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[0], gAbilityNames[abilitydatabattler]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[0], abilitydatabattler);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[0], gAbilityDescriptionPointers[abilitydatabattler]);
-            }
-            if ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT))) //slot 2
-            {
-                abilitydatabattler2 = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability;
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[1], gAbilityNames[abilitydatabattler2]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[1], abilitydatabattler2);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[1], gAbilityDescriptionPointers[abilitydatabattler2]);
-            }
-            else if ((curr_personality == slot3_personality)
-            && GetMonData(&gPlayerParty[2], MON_DATA_HP)) //...slot 3
-            {
-                //will need change this and when I setup triple battler/rotation battle extra battler positions
-                //could make display of all mon in battle with their icons, then based on turn order could load/deload sprites
-                //i.e 3 on battlers for triple/rotation, rather than having 3 on field load/deload leftmost and right most battler
-                //and have middle battler swap betwen position left and position right, based on if its left mons turn or right mons turn. hmm   vsonic
-                abilitydatabattler3 = GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM));
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[2], gAbilityNames[abilitydatabattler3]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[2], abilitydatabattler3);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[2], gAbilityDescriptionPointers[abilitydatabattler3]);
-            }
-            else //party
-            {
-                abilitydataparty = GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM));
-                //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[3], gAbilityNames[abilitydataparty]);
-                GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[3], abilitydataparty);
-                StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[3], gAbilityDescriptionPointers[abilitydataparty]);
-            }
-        }
-    }//would be potentially complex for rotation battles but just need to make sure party slot doesn't change when rotating battle position
+    if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+    {
+        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability);
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability]);
+    }
+    else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+    {
+        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability);
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability]);
+    }
     else
     {
-
-        abilitydataparty = GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM));
-
-        for (i = 0; i < 4; i++)
-        {
-            //StringCopy(sMonSummaryScreen->summary.abilityNameStrBuf[i], gAbilityNames[abilitydataparty]);
-            GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf[i], abilitydataparty);
-            StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf[i], gAbilityDescriptionPointers[abilitydataparty]);
-        }
+        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM)));
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM))]);
     }
+    }
+    else
+    {
+        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM)));
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM))]);
+    }
+    
+    
 
     sMonSummaryScreen->curMonStatusAilment = StatusToAilment(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_STATUS)); //important status screen, unk326c & this sub seem to be important for displaying status.
     if (sMonSummaryScreen->curMonStatusAilment == AILMENT_NONE)
@@ -3803,19 +3750,19 @@ static void PokeSum_PrintAbilityNameAndDesc(void)
     doubles = (gBattleTypeFlags & BATTLE_TYPE_DOUBLE);
     rotation = (gBattleTypeFlags & BATTLE_TYPE_ROTATION);
 
-    if (!gMain.inBattle)
-    {
-        FillWindowPixelBuffer(sMonSummaryScreen->windowIds[5], 0);//checked window fills entire graphic
 
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], FONT_NORMAL,
-            66, 0, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.abilityNameStrBuf[3]);
 
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], FONT_NORMAL,
-            2, 10, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.abilityDescStrBuf[3]);
-    }
+    FillWindowPixelBuffer(sMonSummaryScreen->windowIds[5], 0);//checked window fills entire graphic
+
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], FONT_NORMAL,
+        66, 0, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.abilityNameStrBuf);
+
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], FONT_NORMAL,
+        2, 10, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.abilityDescStrBuf);
+
 
     //for in battle
-    if (gMain.inBattle) //trainer in bnattle, not if mon is in battle
+    /*if (gMain.inBattle) //trainer in bnattle, not if mon is in battle
     {
         curr_personality = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY);
         slot1_personality = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality;
@@ -3927,7 +3874,7 @@ static void PokeSum_PrintAbilityNameAndDesc(void)
                     2, 10, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.abilityDescStrBuf[3]);
             }
         }
-    }
+    }*/
      //ok I can't loop? or have empty data as it prints garbage if the field is empty, so I need it to keep it from printing if the field is empty and just increment instead
 }
 
@@ -4515,150 +4462,61 @@ static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with la
     switch (moveSlot)
     {
     case 0://move 1
-        if (SINGLE_BATTLE && (curr_personality == slot1_personality) //still ane existing bug with this logic
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        if (gMain.inBattle) //seems works
         {
-            move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[0];
-        }
-        else if (DOUBLE_BATTLE)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[0];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[0];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE1);
-        }
-        else if (TRIPLE_ROTATION)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[0];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[0];
-
-            if  ((curr_personality == slot3_personality)
-            && GetMonData(&gPlayerParty[2], MON_DATA_HP))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[0]; //fill in value, will need make new on efor triple/rotation instead of positionm right
-            else
-                move = GetMonData(mon, MON_DATA_MOVE1);
+        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[0];}
+        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[0];}
+        else
+            move = GetMonData(mon, MON_DATA_MOVE1);
         }
         else
             move = GetMonData(mon, MON_DATA_MOVE1);
         break;
     case 1://move 2
-        if (SINGLE_BATTLE && (curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        if (gMain.inBattle) //seems works
         {
-            move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[1];
-        }
-        else if (DOUBLE_BATTLE)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[1];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[1];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE2);
-        }
-        else if (TRIPLE_ROTATION)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[1];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[1];
-
-            if  ((curr_personality == slot3_personality)
-            && GetMonData(&gPlayerParty[2], MON_DATA_HP))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[1];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE2);
+        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[1];}
+        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[1];}
+        else
+            move = GetMonData(mon, MON_DATA_MOVE2);
         }
         else
             move = GetMonData(mon, MON_DATA_MOVE2);
         break;
     case 2://move 3
-        if (SINGLE_BATTLE && (curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        if (gMain.inBattle) //seems works
         {
-            move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[2];
-        }
-        else if (DOUBLE_BATTLE)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[2];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[2];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE3);
-        }
-        else if (TRIPLE_ROTATION)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[2];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[2];
-
-            if  ((curr_personality == slot3_personality)
-            && GetMonData(&gPlayerParty[2], MON_DATA_HP))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[2];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE3);
-            
+        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[2];}
+        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[2];}
+        else
+            move = GetMonData(mon, MON_DATA_MOVE3);
         }
         else
             move = GetMonData(mon, MON_DATA_MOVE3);
         break;
     default://move 4
-        if (SINGLE_BATTLE && (curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        if (gMain.inBattle) //seems works
         {
-            move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[3];
-        }
-        else if (DOUBLE_BATTLE)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[3];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[3];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE4);
-        }
-        else if (TRIPLE_ROTATION)
-        {
-            if  ((curr_personality == slot1_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].moves[3];
-
-            if  ((curr_personality == slot2_personality)
-            && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[3];
-
-            if  ((curr_personality == slot3_personality)
-            && GetMonData(&gPlayerParty[2], MON_DATA_HP))
-                move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[3];
-            else
-                move = GetMonData(mon, MON_DATA_MOVE4);
+        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[3];}
+        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[3];}
+        else
+            move = GetMonData(mon, MON_DATA_MOVE4);
         }
         else
             move = GetMonData(mon, MON_DATA_MOVE4);
