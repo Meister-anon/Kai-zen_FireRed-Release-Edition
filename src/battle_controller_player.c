@@ -604,8 +604,9 @@ void HandleInputChooseMove(void)    //test new targetting setup
     else
         gPlayerDpadHoldFrames = 0;*/
 
-   // if (IsDoubleBattle()) //hopefully make just display default text before
-     //   SetMoveTypePaletteInMoveSelection_Singles(MOVE_HELPING_HAND, TYPE_MYSTERY);
+    //ok putting here seems to have worked, when press B clears all
+    if (IsDoubleBattle()) //hopefully make just display default text before
+        SetMoveTypePaletteInMoveSelection_Singles(MOVE_HELPING_HAND, TYPE_MYSTERY);
 
     PreviewDeterminativeMoveTargets();  //not in emerald may be redundent after upgrade test if any issues //...may be redundent -_-  this was issue, its the flashing effect
     if (JOY_NEW(A_BUTTON))  //noted this uses pallete fades while emerald doesnt appear to.     //its actualy fine, I thought itg was messing up speed of normal effect
@@ -725,10 +726,6 @@ void HandleInputChooseMove(void)    //test new targetting setup
     {
         PlaySE(SE_SELECT);
         gBattleStruct->mega.playerSelect = FALSE;
-        if (IsDoubleBattle())
-        {
-            SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, TYPE_MYSTERY);
-        }
         BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_EXEC_SCRIPT, 0xFFFF);
         //HideMegaTriggerSprite();
         PlayerBufferExecCompleted();
@@ -2871,7 +2868,6 @@ void InitMoveSelectionsVarsAndStrings(void)//think relevant
     MoveSelectionDisplayPpString();
     MoveSelectionDisplayPpNumber();
     MoveSelectionDisplayMoveType();
-    gActiveBattler = B_POSITION_PLAYER_LEFT;
     if (IsDoubleBattle())
     {
         u8 moveType;
@@ -2882,7 +2878,7 @@ void InitMoveSelectionsVarsAndStrings(void)//think relevant
         gMultiUsePlayerCursor = B_POSITION_OPPONENT_LEFT; //confirmed works //
         
         SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
-    }
+    }//start double battle default text, don't show color until select Move
 }
 
 static void PlayerHandleChooseItem(void)

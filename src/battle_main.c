@@ -5306,8 +5306,8 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                                                                      i);
                         }
                         BtlController_EmitChooseMove(0, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0, FALSE, &moveInfo);
-                        MarkBattlerForControllerExec(gActiveBattler);
-                    }
+                        MarkBattlerForControllerExec(gActiveBattler); //unsure what above means? but its default?
+                    }//I'm guessing means if double battle? if double battle flag is set?
                     break;
                 case B_ACTION_USE_ITEM:
                     if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))

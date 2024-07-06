@@ -105,7 +105,7 @@ static void InitSinglePlayerBtlControllers(void)
             gBattlersCount = 2;
         }
     }
-    else
+    else //doubles
     {
         gBattleMainFunc = BeginBattleIntro;
         if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
