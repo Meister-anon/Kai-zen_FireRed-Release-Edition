@@ -69,6 +69,8 @@ void ClearPCItemSlots(void);
 void TrySetObtainedItemQuestLogEvent(u16 itemId);
 bool8 AddBagItem(u16 itemId, u16 amount);
 
+u16 GetBagItemQuantity(u16 * quantity); //global in advance of applying ghoul slash bag sort
+
 void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket);
 u16 BagGetItemIdByPocketPosition(u8 pocketId, u16 itemId);
 u16 BagGetQuantityByPocketPosition(u8 pocketId, u16 itemId);

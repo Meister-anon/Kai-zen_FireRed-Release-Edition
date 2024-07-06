@@ -20,9 +20,9 @@ void SortAndCompactBagPocket(struct BagPocket * pocket);
 #include "data/text/item_descriptions.h"  //after json removal use this  vsonic
 #include "data/items.h"
 // don't have this file right now, guess becuase I ran clean, and haven't built my items file yet.
-u16 GetBagItemQuantity(u16 * ptr)
+u16 GetBagItemQuantity(u16 * quantity)
 {
-    return gSaveBlock2Ptr->encryptionKey ^ *ptr;
+    return gSaveBlock2Ptr->encryptionKey ^ *quantity;
 }
 
 void SetBagItemQuantity(u16 * ptr, u16 value)
