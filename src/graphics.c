@@ -1217,7 +1217,8 @@ const u32 gBattleAnimSpritePal_Meteor[] = INCBIN_U32("graphics/battle_anims/spri
 const u32 gBattleAnimSpriteGfx_FlatRock[] = INCBIN_U32("graphics/battle_anims/sprites/flat_rock.4bpp.lz");
 const u32 gBattleAnimSpritePal_FlatRock[] = INCBIN_U32("graphics/battle_anims/sprites/flat_rock.gbapal.lz");
 
-const u16 gUnknown_8D2FBB4[] = INCBIN_U16("graphics/interface/unk_8D2FBB4.gbapal");
+const u16 gUnknown_8D2FBB4[] = INCBIN_U16("graphics/interface/unk_8D2FBB4.gbapal"); //text pal, used for pp abot equvaetof text.pal in EE
+const u16 gMoveTypePal[] = INCBIN_U16("graphics/interface/MoveTypePal.gbapal");
 
 #include "data/graphics/pokemon.h"
 #include "data/graphics/trainers.h"

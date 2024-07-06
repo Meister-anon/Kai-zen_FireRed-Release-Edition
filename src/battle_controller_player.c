@@ -361,12 +361,16 @@ static void HandleInputChooseTarget(void)
     s32 i;
     u8 identities[4];
     u16 moveTarget;
+    u8 moveType;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
     moveTarget = gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].target;
 
     memcpy(identities, sTargetIdentities, NELEMS(sTargetIdentities));
     DoBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX, 15, 1);
     i = 0;
+
+
+
     if (gBattlersCount != 0)
     {
         do
@@ -389,10 +393,16 @@ static void HandleInputChooseTarget(void)
     {
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCb_HideAsMoveTarget;
+        if (IsDoubleBattle())
+        {
+
+            SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+        }
         gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseMove;
         DoBounceEffect(gActiveBattler, BOUNCE_HEALTHBOX, 7, 1);
         DoBounceEffect(gActiveBattler, BOUNCE_MON, 7, 1);
         EndBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX);
+        
     }
     else if (JOY_NEW(DPAD_LEFT | DPAD_UP) && !(moveTarget & MOVE_TARGET_USER))
     {
@@ -432,6 +442,13 @@ static void HandleInputChooseTarget(void)
                 i = 0;
         }
         while (i == 0);
+        if (IsDoubleBattle())
+        {
+            u8 moveType;
+            GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+            SetMoveTypePaletteInMoveSelection_Doubles(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+        }
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCb_ShowAsMoveTarget;
     }
     else if (JOY_NEW(DPAD_RIGHT | DPAD_DOWN) && !(moveTarget & MOVE_TARGET_USER)) //alright works perfectly now
@@ -472,6 +489,13 @@ static void HandleInputChooseTarget(void)
                 i = 0;
         }
         while (i == 0);
+        if (IsDoubleBattle())
+        {
+            u8 moveType;
+            GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+            SetMoveTypePaletteInMoveSelection_Doubles(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+        }
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCb_ShowAsMoveTarget;
     }
 }
@@ -580,6 +604,9 @@ void HandleInputChooseMove(void)    //test new targetting setup
     else
         gPlayerDpadHoldFrames = 0;*/
 
+   // if (IsDoubleBattle()) //hopefully make just display default text before
+     //   SetMoveTypePaletteInMoveSelection_Singles(MOVE_HELPING_HAND, TYPE_MYSTERY);
+
     PreviewDeterminativeMoveTargets();  //not in emerald may be redundent after upgrade test if any issues //...may be redundent -_-  this was issue, its the flashing effect
     if (JOY_NEW(A_BUTTON))  //noted this uses pallete fades while emerald doesnt appear to.     //its actualy fine, I thought itg was messing up speed of normal effect
     {                                                                   //but it doesn't effect that, it just looks weird naturally with speed up on...
@@ -686,11 +713,22 @@ void HandleInputChooseMove(void)    //test new targetting setup
             gBattlerControllerFuncs[gActiveBattler] = HandleInputShowEntireFieldTargets;
             break;
         }
+        if (IsDoubleBattle())
+        {
+            u8 moveType;
+            GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+            SetMoveTypePaletteInMoveSelection_Doubles(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+        }
     }    
     else if (JOY_NEW(B_BUTTON))// || gPlayerDpadHoldFrames > 59)
     {
         PlaySE(SE_SELECT);
         gBattleStruct->mega.playerSelect = FALSE;
+        if (IsDoubleBattle())
+        {
+            SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, TYPE_MYSTERY);
+        }
         BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_EXEC_SCRIPT, 0xFFFF);
         //HideMegaTriggerSprite();
         PlayerBufferExecCompleted();
@@ -708,6 +746,13 @@ void HandleInputChooseMove(void)    //test new targetting setup
             //MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayPpString();
             MoveSelectionDisplayMoveType();
+            if (IsDoubleBattle())
+            {
+                u8 moveType;
+                GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+                SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+            }
             BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
         }
     }
@@ -723,6 +768,13 @@ void HandleInputChooseMove(void)    //test new targetting setup
             //MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayPpString();
             MoveSelectionDisplayMoveType();
+            if (IsDoubleBattle())
+            {
+                u8 moveType;
+                GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+                SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+            }
             BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
         }
     }
@@ -737,6 +789,13 @@ void HandleInputChooseMove(void)    //test new targetting setup
             //MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayPpString();
             MoveSelectionDisplayMoveType();
+            if (IsDoubleBattle())
+            {
+                u8 moveType;
+                GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+                SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+            }
             BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
         }
     }
@@ -752,6 +811,13 @@ void HandleInputChooseMove(void)    //test new targetting setup
             //MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayPpString();
             MoveSelectionDisplayMoveType();
+            if (IsDoubleBattle())
+            {
+                u8 moveType;
+                GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+                SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+            }
             BeginNormalPaletteFade(0xF0000, 0, 0, 0, RGB_WHITE);
         }
     }
@@ -962,6 +1028,15 @@ static void HandleMoveSwitching(void)
         MoveSelectionDisplayPpString();
         MoveSelectionDisplayPpNumber();
         MoveSelectionDisplayMoveType();
+        if (IsDoubleBattle())
+        {
+            u8 moveType;
+            struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
+            GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+            SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+        }
+        
     }
     if (JOY_NEW(DPAD_LEFT))
     {
@@ -981,6 +1056,8 @@ static void HandleMoveSwitching(void)
     }
     if (JOY_NEW(DPAD_RIGHT))
     {
+        struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
+
         if (!(gMultiUsePlayerCursor & 1) && (gMultiUsePlayerCursor ^ 1) < gNumberOfMovesToChoose)
         {
             if (gMultiUsePlayerCursor == gMoveSelectionCursor[gActiveBattler])
@@ -993,6 +1070,10 @@ static void HandleMoveSwitching(void)
                 MoveSelectionCreateCursorAt(gMultiUsePlayerCursor, 0);
             else
                 MoveSelectionCreateCursorAt(gMultiUsePlayerCursor, 27);
+
+            
+
+            
         }
     }
     if (JOY_NEW(DPAD_UP))
@@ -1705,14 +1786,22 @@ static void MoveSelectionDisplayPpString(void)
 static void MoveSelectionDisplayMoveType(void)//displays type/  & move type
 {
     u8 *txtPtr;
-    u32 moveType;
+    u8 moveType;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
 
+    //removed for space
     /*txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType); //type/
     *txtPtr++ = EXT_CTRL_CODE_BEGIN;
     *txtPtr++ = 6;
     *txtPtr++ = 1;*/ //based on results I think this somehow changed the base font from small to normal  normal font is value 1 so idk?
-    txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceDynamicColors);
+    
+
+    //think get what this was doing now, this was dynamically changing the palette on the fly/setting it
+    //which is why it said palette 5 13 14 15 to match teh window valus
+    //I think it meant I could have used that to change it instead fo taking direct from window/
+    //need to change from the window, but will use window values
+    //since I need to change in function
+    //txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceDynamicColors);
     
     //reusing won't make a difference but if I understand this right, will only need use this once?
     //so potentially remove from battle_main...well actually no don't do that, this only works off of move cursor,
@@ -1723,9 +1812,12 @@ static void MoveSelectionDisplayMoveType(void)//displays type/  & move type
     //for some reason this is taking the type of the last move used against it, or the type of the target mon that last hit it??
     SetTypeBeforeUsingMove(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]],gActiveBattler); //should attempt set dynamicmovetype based on move cursor is on
     GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType) //should decide whether to set base type ro dynamicmovetype to moveType
-
+    if (!IsDoubleBattle())
+        SetMoveTypePaletteInMoveSelection_Singles(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+    //else
+    //    SetMoveTypePaletteInMoveSelection_Doubles(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
     //StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
-    StringCopy(txtPtr, gTypeNames[moveType]);   //should display whatever argument was passed,  so rather than 0 when no dynamic type, would display normal move type
+    StringCopy(gDisplayedStringBattle, gTypeNames[moveType]);   //should display whatever argument was passed,  so rather than 0 when no dynamic type, would display normal move type
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE); //tested works perfectly
 }//can't use convertIntToDecimalString to attempt make right align, text becomes garbalded numbers and still is left alingned...
 //used StringCopyPadded to have 4 elements to use str_conv right aline it doens't actually right align, but correctly displayed movetype
@@ -1736,6 +1828,7 @@ static void MoveSelectionDisplayMoveType(void)//displays type/  & move type
 #define MOVE_NAME_2_Y_VALUE sStandardBattleWindowTemplates[B_WIN_MOVE_NAME_2].tilemapTop
 
 //putting brackets around values was the issue
+
 
 void MoveSelectionCreateCursorAt(u8 cursorPosition, u8 arg1) //actually I think this may not be what i need its create cursor
 //it may just be the start position, which is move 1
@@ -2778,6 +2871,18 @@ void InitMoveSelectionsVarsAndStrings(void)//think relevant
     MoveSelectionDisplayPpString();
     MoveSelectionDisplayPpNumber();
     MoveSelectionDisplayMoveType();
+    gActiveBattler = B_POSITION_PLAYER_LEFT;
+    if (IsDoubleBattle())
+    {
+        u8 moveType;
+        
+        struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
+        GET_MOVE_TYPE(moveInfo->moves[gMoveSelectionCursor[gActiveBattler]], moveType);
+
+        gMultiUsePlayerCursor = B_POSITION_OPPONENT_LEFT; //confirmed works //
+        
+        SetMoveTypePaletteInMoveSelection_Doubles(MOVE_HELPING_HAND, moveType);
+    }
 }
 
 static void PlayerHandleChooseItem(void)

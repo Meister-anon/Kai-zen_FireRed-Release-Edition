@@ -3,6 +3,7 @@
 #include "battle_string_ids.h"
 #include "battle.h"
 #include "battle_anim.h"
+#include "battle_util.h"
 #include "strings.h"
 #include "battle_message.h"
 #include "link.h"
@@ -16,6 +17,7 @@
 #include "new_menu_helpers.h"
 #include "battle_controllers.h"
 #include "graphics.h"
+#include "random.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 #include "constants/trainer_classes.h"
@@ -2057,7 +2059,7 @@ const u8 gUnknown_83FE747[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}BAL
 const u8 gText_MoveInterfacePP[] = _("PP ");
 const u8 gText_BattleMoveInterfacePP[] = _("PP");
 const u8 gText_MoveInterfaceType[] = _("TYPE/");
-const u8 gText_MoveInterfaceDynamicColors[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}");
+const u8 gText_MoveInterfaceDynamicColors[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}"); //0 for shadow looks pretty good, but this afects both move name and move type
 const u8 gUnknown_83FE779[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}どの わざを\nわすれさせたい?");
 const u8 gText_BattleYesNoChoice[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}Yes\nNo");
 const u8 gText_BattleSwitchWhich[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}Switch\nwhich?");
@@ -3609,9 +3611,9 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
         .letterSpacing = 0,
         .lineSpacing = 0,
         .speed = 0,
-        .fgColor = 13,
+        .fgColor = 9,
         .bgColor = 14,
-        .shadowColor = 15,
+        .shadowColor = 10,
     },//.x value is probalby not 1 to 1 with window width as width of pp is 5, but x value is 10
     [B_WIN_PP_REMAINING] = {
         .fillValue = PIXEL_FILL(0xe),//set to 0x0 to better see window border set back to 0xe when done adjusting
@@ -3904,6 +3906,8 @@ bool8 BattleStringShouldBeColored(u16 stringId)
     return FALSE;
 }
 
+//guess set something like this for move name and type name
+//based on type effect, need figure how to do green think will bold if super
 void SetPpNumbersPaletteInMoveSelection(void)
 {
     struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
@@ -3916,6 +3920,91 @@ void SetPpNumbersPaletteInMoveSelection(void)
 
     CpuCopy16(&gPlttBufferUnfaded[92], &gPlttBufferFaded[92], sizeof(u16));
     CpuCopy16(&gPlttBufferUnfaded[91], &gPlttBufferFaded[91], sizeof(u16));
+}
+
+void SetMoveTypePaletteInMoveSelection_Singles(u16 move, u8 moveType)
+{
+    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
+    const u16 *palPtr = gMoveTypePal;
+    u8 var = GetTypeEffectivenessState_Singles(move,moveType);//hopefully I understood this correctly
+
+    //takes state and shift to return different
+    //value in pal gUnknown_8D2FBB4
+    //simple fix make new palette 
+    //way its setup whatever foreground is
+    //shadow will be 1 color above
+
+
+    gPlttBufferUnfaded[89] = palPtr[(var) + 0]; //foreground color
+    gPlttBufferUnfaded[90] = palPtr[(var) + 1]; //shadow color
+    //uses palette 5, 16 values in a palette
+    //so start value is 80,
+    //important parts of text are shadow color and fg color
+    //find those based on relevenat window /B_WIN_PP uses 11 and 12 for those
+    //which when added to 80 are 91 & 92 respectively
+
+    //for move  type window those values are 15 & 13 also palette 5
+    //so I need 95 and 93
+    //changed colors as needed value that wasn't used elsewhere
+    //in battle menu
+
+    CpuCopy16(&gPlttBufferUnfaded[89], &gPlttBufferFaded[89], sizeof(u16));
+    CpuCopy16(&gPlttBufferUnfaded[90], &gPlttBufferFaded[90], sizeof(u16));
+
+}
+
+//reorganized pallete so targetting works 
+//for dual target make return highest effectiveness of enemy mon hit
+//i.e return based on priority, normal effect at bottom,
+//w incrasing resist as it rises w super at the top
+//last thing believe need try take into account is move target random, 
+//not sure will work for now
+//for some reason doubles check isn't working?
+void SetMoveTypePaletteInMoveSelection_Doubles(u16 move, u8 moveType)
+{
+    struct ChooseMoveStruct *chooseMoveStruct = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
+    const u16 *palPtr = gMoveTypePal;
+    u8 var; //hopefully I understood this correctly
+    
+    if (gBattleMoves[move].target == MOVE_TARGET_USER
+    || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD)
+        var = 0;
+    else if (gBattleMoves[move].target == MOVE_TARGET_BOTH 
+    || gBattleMoves[move].target == MOVE_TARGET_ALL_BATTLERS
+    || gBattleMoves[move].target == MOVE_TARGET_FOES_AND_ALLY)
+        var = max(GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)), GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)));
+    else if (gBattleMoves[move].target == MOVE_TARGET_RANDOM)
+    {
+        if (Random() & 1)
+            var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(B_POSITION_OPPONENT_LEFT));
+        else
+            var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(B_POSITION_OPPONENT_RIGHT));
+    }//best I can do is guess
+    else
+        var = GetTypeEffectivenessState_Doubles(move,moveType, GetBattlerPosition(gMultiUsePlayerCursor));
+    //takes state and shift to return different
+    //value in pal gUnknown_8D2FBB4
+    //simple fix make new palette 
+    //way its setup whatever foreground is
+    //shadow will be 1 color above
+
+
+    gPlttBufferUnfaded[89] = palPtr[(var) + 0]; //foreground color
+    gPlttBufferUnfaded[90] = palPtr[(var) + 1]; //shadow color
+    //uses palette 5, 16 values in a palette
+    //so start value is 80,
+    //important parts of text are shadow color and fg color
+    //find those based on relevenat window /B_WIN_PP uses 11 and 12 for those
+    //which when added to 80 are 91 & 92 respectively
+
+    //for move  type window those values are 15 & 13 also palette 5
+    //so I need 95 and 93
+    //changed colors as needed value that wasn't used elsewhere
+    //in battle menu
+
+    CpuCopy16(&gPlttBufferUnfaded[89], &gPlttBufferFaded[89], sizeof(u16));
+    CpuCopy16(&gPlttBufferUnfaded[90], &gPlttBufferFaded[90], sizeof(u16));
+
 }
 
 u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp)
@@ -3949,4 +4038,67 @@ u8 GetCurrentPpToMaxPpState(u8 currentPp, u8 maxPp)
     }
 
     return 0;
-}//the FUCK?? what does this even mean!
+}//used with color palette 3 is normal font color
+//1 is  yellow, 2 is red  //correspondes to value in palette
+
+u8 GetTypeEffectivenessState_Singles(u16 move, u8 moveType) //for singles
+{
+    if (!IsDoubleBattle()) //oddly gbattlertarget is same as attacker at this point without this
+    {    gBattlerTarget = (GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(gActiveBattler))));
+        //gBattlerAttacker = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+    }
+    //else
+    //    return 0;
+
+    if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(1.0))
+    {
+        return 0; //default color
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55))
+    {
+       return 13; //green //if I want to return the greatest need exchange place of this and 13
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(0.0))
+    {
+       return 8; //grey
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(0.775))
+    {
+       return 2; //yellow
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) <= UQ_4_12(0.5))
+    {
+       return 6; //red
+    }
+    
+    return 0; //needed for modern I think
+}
+
+//decide targetId with loop
+u8 GetTypeEffectivenessState_Doubles(u16 move, u8 moveType, u8 targetId) //for singles
+{
+
+
+    if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) == UQ_4_12(1.0))
+    {
+        return 0; //defautl color
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) >= UQ_4_12(1.55))
+    {
+       return 13; //green
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) == UQ_4_12(0.0))
+    {
+       return 8; //grey
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) == UQ_4_12(0.775))
+    {
+       return 2; //yellow
+    }
+    else if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, targetId, FALSE) <= UQ_4_12(0.5))
+    {
+       return 6; //red
+    }
+    
+    return 0; //needed for modern I think
+}
