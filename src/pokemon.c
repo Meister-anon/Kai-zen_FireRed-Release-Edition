@@ -11,6 +11,7 @@
 #include "item_use.h"
 #include "event_data.h"
 #include "util.h"
+#include "money.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "battle_gfx_sfx_util.h"
@@ -7875,6 +7876,7 @@ static u8 GetEvoMethodPriority(u16 EvoMethod)
         case EVO_BEAUTY:
             return 0xF9;
         break;
+        case EVO_HIGH_RICHES:
         case EVO_MAPSEC:
             return 0xFA;
         break;
@@ -8155,6 +8157,13 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 break;
             case EVO_LEVEL_NINJASK:
                 if (IsMonPastEvolutionLevel(mon, i))
+                    {
+                        EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
+                        targetSpecies = evolutions[i].targetSpecies;
+                    }
+                break;
+            case EVO_HIGH_RICHES:
+                if (GetMoney(&gSaveBlock1Ptr->money) >= evolutions[i].param)
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                         targetSpecies = evolutions[i].targetSpecies;

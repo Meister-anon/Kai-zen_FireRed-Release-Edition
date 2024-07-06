@@ -219,6 +219,7 @@ static const u8 sText_EVO_LEVEL_FORM[] =_("{LV}{UP_ARROW}to {STR_VAR_2}, or +{ST
 static const u8 sText_EVO_LEVEL_FORM_NIGHT[] =_("{LV}{UP_ARROW}to {STR_VAR_2}, or +{STR_VAR_3} Lv, night, w. ");//buffer flag param
 static const u8 sText_EVO_MOVE_TYPE_ATK_GT_DEF[] =_("{LV}{UP_ARROW}, w. {STR_VAR_2} type move, Atk > Def"); //string var 4 doesn't exist? find some extra buffer to use for flags
 static const u8 sText_EVO_MOVE_TYPE_ATK_LT_DEF[] =_("{LV}{UP_ARROW}, w. {STR_VAR_2} type move, Atk < Def");//{STR_VAR_1} can hopefully use without issue
+static const u8 sText_EVO_HIGH_RICHES[] =_("{LV}{UP_ARROW}, w. ¥{STR_VAR_2}");
 
 static void ResetEvoScreenDataStruct(void);
 static void GetSeenFlagTargetSpecies(void); //not sure if will need this
@@ -8385,6 +8386,11 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 GetMapName(gStringVar2, mapHeader->regionMapSectionId, 0);
                 StringExpandPlaceholders(gStringVar4, sText_EVO_SPECIFIC_MAP );
                 break; //need add on to this with, my custom methods,can remove trade methods as well
+            /*New Additions*/
+            case EVO_HIGH_RICHES:
+                ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS);
+                StringExpandPlaceholders(gStringVar4, sText_EVO_HIGH_RICHES ); //hope got right
+                break;
         //#endif
         default:
             StringExpandPlaceholders(gStringVar4, sText_EVO_UNKNOWN );

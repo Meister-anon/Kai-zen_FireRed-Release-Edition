@@ -34004,8 +34004,9 @@ const struct BaseStats gBaseStats[] =
         //.levelUpLearnset = sGimmighoulLevelUpLearnset,
         //.teachableLearnset = sGimmighoulTeachableLearnset,
         //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
-        .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_GHOLDENGO}),
-    },
+        .evolutions = EVOLUTION({EVO_HIGH_RICHES, 65000, FILL,  SPECIES_GHOLDENGO}),
+    },//will make money based evolution I guess 70k poke, kinda griny but make gimmighoul better to use pre evo
+    //and counter is you can evolve it at any level - brought down because u16 param
 
     [SPECIES_GIMMIGHOUL_ROAMING] =
     {
@@ -34066,7 +34067,7 @@ const struct BaseStats gBaseStats[] =
         //.teachableLearnset = sGimmighoulTeachableLearnset,
         //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_GHOLDENGO}),
-    },
+    }, //not gonna use this form
 
     [SPECIES_GHOLDENGO] =
     {

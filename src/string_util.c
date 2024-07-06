@@ -264,53 +264,6 @@ u8 *StringCopy(u8 *dest, const u8 *src)
     return dest;
 }
 
-/*u8 GetEvoEffortValue(u8 *dest, u16 species, u8 i)
-{
-    const struct Evolution *evolutions = GetSpeciesEvolutions(species);
-
-    switch (evolutions[i].method)
-    {
-        case EVO_LEVEL:
-        case EVO_LEVEL_ATK_GT_DEF:
-        case EVO_LEVEL_ATK_EQ_DEF:
-        case EVO_LEVEL_ATK_LT_DEF:
-        case EVO_LEVEL_SILCOON:
-        case EVO_LEVEL_CASCOON:
-        case EVO_LEVEL_NINJASK:
-        case EVO_LEVEL_SHEDINJA:
-        case EVO_LEVEL_FEMALE:
-        case EVO_LEVEL_MALE:
-        case EVO_LEVEL_NIGHT:
-        case EVO_LEVEL_DAY:
-        case EVO_LEVEL_DUSK:
-        case EVO_LEVEL_RAIN:
-        case EVO_LEVEL_DARK_TYPE_MON_IN_PARTY:
-        case EVO_LEVEL_FORM:
-        case EVO_LEVEL_ABILITY:
-        case EVO_LEVEL_KARRABLAST:
-        case EVO_LEVEL_SHELMET:
-        case EVO_LEVEL_NATURE_AMPED:
-        case EVO_LEVEL_NATURE_LOW_KEY:
-            switch ((evolutions[i].param & 0xFF00) >> 8) //changed mind never capping these, doesn't make sense to
-            {
-                case LOW_EFFORT: //if works should proba makes these into actual strings for placeholder
-                    StringCopy(dest, COMPOUND_STRING("Lo Eft."));
-                    break;
-                case AVERAGE_EFFORT:
-                    StringCopy(dest, COMPOUND_STRING("Avg Eft."));
-                    break;
-                case MEDIUM_EFFORT:
-                    StringCopy(dest, COMPOUND_STRING("Mid Eft.")); //Mid Eft.
-                    break;
-                case HIGH_EFFORT:
-                    StringCopy(dest, COMPOUND_STRING("Hi Eft."));
-                    break;
-            }
-        break;
-    }
-    
-}*/
-
 u8 *StringAppend(u8 *dest, const u8 *src)
 {
     while (*dest != EOS)
