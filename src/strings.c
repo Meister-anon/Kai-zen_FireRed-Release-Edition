@@ -893,6 +893,7 @@ const u8 gText_MiscPlaceholderCap[] = _("CAP. PLACEHOLDERS");
 
 const u8 gText_EventSpeedup[] = _("EVENT SPEED UP");
 const u8 gText_BattleSpeed[] = _("BATTLE SPEED");
+const u8 gText_DisplayTypeEffect[] =_("SHOW TYPE EFFECT.");
 const u8 gText_NuzlockeMode[] = _("NUZLOCKE MODE");
 
 const u8 gText_OptionMenuCancel[] = _("CANCEL");

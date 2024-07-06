@@ -13,6 +13,7 @@
 #include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/sound.h"
+#include "option_menu.h"
 #include "field_specials.h" //this is the file I used to set dynamic starter type checks
 
 // Prevent cross-jump optimization.
@@ -517,6 +518,8 @@ struct BattleTowerData // Leftover from R/S
     /*0x04D1, 0x0581*/ u8 filler_4D1[0x317];
 }; /* size = 0x7E8 */
 
+//u16 values need to be no even bytes or they add extra padding
+//C rule learned from Mggriffin
 struct SaveBlock2
 {
     /*0x000*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -537,8 +540,10 @@ struct SaveBlock2
               u16 optionsBattleSpeed:2; //for pokabbie setup navie battle speed up should be 4 options for 1-4x
               u16 optionsEventSpeedup:1;
               u16 optionsNuzlockeMode:1;
-    /*0x018*/ struct Pokedex pokedex;
-    /*0x090*/ u8 filler_90[0x8];
+              u16 NewPlaceholder:15;
+              u16 optionsDisplayTypeEffect:1;
+    /*0x018*/ struct Pokedex pokedex; //may need new size value fo rthis?
+    /*0x090*/ u8 filler_90[0x6];
     /*0x098*/ struct Time localTimeOffset;
     /*0x0A0*/ struct Time lastBerryTreeUpdate;
     /*0x0A8*/ //u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD - not needed, plus needed space for mon data

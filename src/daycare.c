@@ -31,7 +31,6 @@
 #include "field_fadetransition.h"
 #include "trade.h"
 #include "daycare.h"
-#include "option_menu.h"
 #include "constants/daycare.h"
 #include "constants/region_map_sections.h"
 #include "daycare.h"

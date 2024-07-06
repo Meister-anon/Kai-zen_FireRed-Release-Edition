@@ -34,7 +34,6 @@
 #include "trig.h"
 #include "vs_seeker.h"
 #include "util.h"
-#include "option_menu.h"
 #include "new_menu_helpers.h"
 #include "constants/abilities.h"
 #include "constants/battle_effects.h"

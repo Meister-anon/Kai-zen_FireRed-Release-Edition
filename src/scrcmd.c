@@ -35,7 +35,6 @@
 #include "field_effect.h"
 #include "fieldmap.h"
 #include "field_door.h"
-#include "option_menu.h"
 #include "constants/event_objects.h"
 
 extern u16 (*const gSpecials[])(void);

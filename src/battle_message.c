@@ -3934,6 +3934,9 @@ void SetMoveTypePaletteInMoveSelection_Singles(u16 move, u8 moveType)
     //way its setup whatever foreground is
     //shadow will be 1 color above
 
+    if (!IsDisplayTypeEffectivenessOn())
+        var = 0;
+
 
     gPlttBufferUnfaded[89] = palPtr[(var) + 0]; //foreground color
     gPlttBufferUnfaded[90] = palPtr[(var) + 1]; //shadow color
@@ -3967,7 +3970,8 @@ void SetMoveTypePaletteInMoveSelection_Doubles(u16 move, u8 moveType)
     u8 var; //hopefully I understood this correctly
     
     if (gBattleMoves[move].target == MOVE_TARGET_USER
-    || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD)
+    || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD
+    || !IsDisplayTypeEffectivenessOn())
         var = 0;
     else if (gBattleMoves[move].target == MOVE_TARGET_BOTH 
     || gBattleMoves[move].target == MOVE_TARGET_ALL_BATTLERS

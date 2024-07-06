@@ -32,7 +32,6 @@
 #include "field_specials.h"
 #include "pokedex_screen.h"
 #include "trainer_card.h"
-#include "option_menu.h"
 #include "save_menu_util.h"
 #include "help_system.h"
 #include "config/debug.h"

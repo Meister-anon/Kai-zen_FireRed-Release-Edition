@@ -8,7 +8,6 @@
 #include "party_menu.h"
 #include "pokedex.h"
 #include "random.h"
-#include "option_menu.h"
 #include "script_pokemon_util.h"
 #include "constants/items.h"
 #include "constants/pokemon.h"

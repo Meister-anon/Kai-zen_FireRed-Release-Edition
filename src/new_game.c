@@ -93,6 +93,7 @@ static void SetDefaultOptions(void) //changed setup, now when start new game, wi
     gSaveBlock2Ptr->optionsButtonMode = OPTIONS_BUTTON_MODE_LR;
     gSaveBlock2Ptr->optionsBattleSpeed = OPTIONS_BATTLE_SPEED_2X;
     gSaveBlock2Ptr->optionsEventSpeedup = TRUE;
+    gSaveBlock2Ptr->optionsDisplayTypeEffect = FALSE;
     gSaveBlock2Ptr->optionsNuzlockeMode = FALSE;
     //SetTextCapFlags();  //works / thought this worked but things aren't set?
 } //ok just doesn't work on as part of this function, think issue is it not being part of save block

@@ -7,7 +7,6 @@
 #include "pokemon_storage_system_internal.h"
 #include "pokemon_summary_screen.h"
 #include "strings.h"
-#include "option_menu.h"
 #include "constants/items.h"
 #include "constants/moves.h"
 

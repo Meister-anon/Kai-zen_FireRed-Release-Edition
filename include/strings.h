@@ -944,6 +944,7 @@ extern const u8 gText_MiscPlaceholderCap[];
 
 extern const u8 gText_EventSpeedup[];
 extern const u8 gText_BattleSpeed[];
+extern const u8 gText_DisplayTypeEffect[];
 extern const u8 gText_NuzlockeMode[];
 
 extern const u8 gText_OptionMenuCancel[];

@@ -26,7 +26,6 @@
 #include "strings.h"
 #include "overworld.h"
 #include "party_menu.h"
-#include "option_menu.h"
 #include "field_specials.h"
 #include "field_weather.h"
 #include "constants/items.h"

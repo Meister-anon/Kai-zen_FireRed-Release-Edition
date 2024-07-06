@@ -54,7 +54,9 @@ enum TextOptions //I have space to add battle speed up option here, could just c
 enum MiscOptions
 {   MISC_MENUITEM_EVENT_SPEEDUP,
     MISC_MENUITEM_BATTLE_SPEED,
+    MISC_MENUITEM_DISPLAY_EFFECTIVENESS,
     MISC_MENUITEM_NUZLOCKE_MODE,
+
     MISC_MENUITEM_CANCEL,
     MISC_MENUITEM_COUNT
 };
@@ -237,10 +239,11 @@ static const u16 sTextOptionsMenuItemCounts[TEXT_MENUITEM_COUNT] =
     [TEXT_MENUITEM_CANCEL]           = 0
 };
 
-static const u16 sMiscOptionsMenuItemCounts[TEXT_MENUITEM_COUNT] =
+static const u16 sMiscOptionsMenuItemCounts[MISC_MENUITEM_COUNT] =
 {
     [MISC_MENUITEM_EVENT_SPEEDUP]     = 2, //OFF - ON
     [MISC_MENUITEM_BATTLE_SPEED]     = 4, //1x - 4x
+    [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = 2, //OFF - ON
     [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //OFF - ON
 
     [MISC_MENUITEM_CANCEL]          = 0,
@@ -269,10 +272,14 @@ static const u8 *const sTextOptionMenuItemsNames[TEXT_MENUITEM_COUNT] =
     [TEXT_MENUITEM_CANCEL]           = gText_OptionMenuCancel,
 };
 
+//not sure why can't use compount string for this, prob because using equal
+//nope compound string just doesn't work here for some reason 
+//even though it does in battle message and for ability descriptions
 static const u8 *const sMiscOptionMenuItemsNames[MISC_MENUITEM_COUNT] =
 {
     [MISC_MENUITEM_EVENT_SPEEDUP]     = gText_EventSpeedup,
     [MISC_MENUITEM_BATTLE_SPEED]      = gText_BattleSpeed,
+    [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gText_DisplayTypeEffect,
     [MISC_MENUITEM_NUZLOCKE_MODE]     = gText_NuzlockeMode,
     [MISC_MENUITEM_CANCEL]            = gText_OptionMenuCancel,
 };
@@ -385,6 +392,7 @@ void CB2_OptionsMenuFromStartMenu(void)
     
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_EVENT_SPEEDUP] = gSaveBlock2Ptr->optionsEventSpeedup;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_SPEED] = gSaveBlock2Ptr->optionsBattleSpeed;
+    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gSaveBlock2Ptr->optionsDisplayTypeEffect;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE] = gSaveBlock2Ptr->optionsNuzlockeMode;
     
     switch (sOptionMenuPtr->MenuCategory)
@@ -908,7 +916,7 @@ static void BufferOptionMenuString(u8 selection)
     u8 dst[3];
     u8 x, y;
     
-    memcpy(dst, sOptionMenuTextColor, 3);
+    memcpy(dst, sOptionMenuTextColor, 3); //array is 3 so should probbe size fo array
     x = 0x82;
     y = ((GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT) - 1) * selection) + 2;
     FillWindowPixelRect(1, 1, x, y, 0x46, GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT));
@@ -962,6 +970,7 @@ static void BufferOptionMenuString(u8 selection)
             {
                 case MISC_MENUITEM_EVENT_SPEEDUP:
                 case MISC_MENUITEM_NUZLOCKE_MODE:
+                case MISC_MENUITEM_DISPLAY_EFFECTIVENESS:
                     AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sTextCapOptions[sOptionMenuPtr->MiscOptions[selection]]); 
                 break;
                 case MISC_MENUITEM_BATTLE_SPEED:                    
@@ -1009,6 +1018,7 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
         case MISC_OPTIONS:
         gSaveBlock2Ptr->optionsEventSpeedup = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_EVENT_SPEEDUP];
         gSaveBlock2Ptr->optionsBattleSpeed = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_SPEED];
+        gSaveBlock2Ptr->optionsDisplayTypeEffect = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS];
         gSaveBlock2Ptr->optionsNuzlockeMode = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE];
         SetMainCallback2(CB2_OptionsMenuFromStartMenu);
         FreeAllWindowBuffers();
@@ -1154,6 +1164,14 @@ u8 IsEventSpeedupOn(void)
 u8 IsNuzlockeModeOn(void)
 {
     if (gSaveBlock2Ptr->optionsNuzlockeMode)
+        return TRUE;
+
+    return FALSE;
+}
+
+u8 IsDisplayTypeEffectivenessOn(void)
+{
+    if (gSaveBlock2Ptr->optionsDisplayTypeEffect)
         return TRUE;
 
     return FALSE;

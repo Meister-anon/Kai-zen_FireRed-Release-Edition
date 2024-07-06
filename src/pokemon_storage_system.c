@@ -2,7 +2,6 @@
 #include "gflib.h"
 #include "pokemon_storage_system_internal.h"
 #include "event_data.h"
-#include "option_menu.h"
 
 static void ApplyOakRanchExperience(struct Pokemon *mon); //ohop make work
 
