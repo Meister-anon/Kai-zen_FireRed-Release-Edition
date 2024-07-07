@@ -1,4 +1,3 @@
-
 //Gen 9
 //#if P_FAMILY__SPRIGATITO
     const u32 gMonFrontPic_Sprigatito[] = INCBIN_U32("graphics/pokemon/Gen_9/sprigatito/front.4bpp.lz");
@@ -1351,11 +1350,11 @@
     const u32 gMonShinyPalette_Annihilape[] = INCBIN_U32("graphics/pokemon/Gen_9/annihilape/shiny.gbapal.lz");
     const u8 gMonIcon_Annihilape[] = INCBIN_U8("graphics/pokemon/Gen_9/annihilape/icon.4bpp");
 
-    const u32 gMonFrontPic_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_2/clodsire/front.4bpp.lz");
-    const u32 gMonPalette_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_2/clodsire/normal.gbapal.lz");
-    const u32 gMonBackPic_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_2/clodsire/back.4bpp.lz");
-    const u32 gMonShinyPalette_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_2/clodsire/shiny.gbapal.lz");
-    const u8 gMonIcon_Clodsire[] = INCBIN_U8("graphics/pokemon/Gen_2/clodsire/icon.4bpp");
+    const u32 gMonFrontPic_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_9/clodsire/front.4bpp.lz");
+    const u32 gMonPalette_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_9/clodsire/normal.gbapal.lz");
+    const u32 gMonBackPic_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_9/clodsire/back.4bpp.lz");
+    const u32 gMonShinyPalette_Clodsire[] = INCBIN_U32("graphics/pokemon/Gen_9/clodsire/shiny.gbapal.lz");
+    const u8 gMonIcon_Clodsire[] = INCBIN_U8("graphics/pokemon/Gen_9/clodsire/icon.4bpp");
 
     const u32 gMonFrontPic_Farigiraf[] = INCBIN_U32("graphics/pokemon/Gen_9/farigiraf/front.4bpp.lz");
     const u32 gMonPalette_Farigiraf[] = INCBIN_U32("graphics/pokemon/Gen_9/farigiraf/normal.gbapal.lz");
