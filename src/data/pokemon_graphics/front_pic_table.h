@@ -1191,7 +1191,7 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
     SPECIES_SPRITE(FURFROU_KABUKI_TRIM, gMonFrontPic_FurfrouKabukiTrim),
     SPECIES_SPRITE(FURFROU_PHARAOH_TRIM, gMonFrontPic_FurfrouPharaohTrim),
 
-    SPECIES_SPRITE(MEOWSTIC_FEMALE, gMonFrontPic_MeowsticFemale),
+    SPECIES_SPRITE(MEOWSTIC_FEMALE, gMonFrontPic_Meowstic_Female),
 
     SPECIES_SPRITE(AEGISLASH_BLADE, gMonFrontPic_AegislashBlade),
 
@@ -1301,10 +1301,10 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
 
     SPECIES_SPRITE(ENAMORUS_THERIAN, gMonFrontPic_EnamorusTherian),
 
-    SPECIES_SPRITE(BASCULEGION_FEMALE, gMonFrontPic_BasculegionFemale),
+    SPECIES_SPRITE(BASCULEGION_FEMALE, gMonFrontPic_Basculegion_Female),
 
-    SPECIES_SPRITE(FRILLISH_FEMALE, gMonFrontPic_FrillishFemale),
-    SPECIES_SPRITE(JELLICENT_FEMALE, gMonFrontPic_JellicentFemale),
+    SPECIES_SPRITE(FRILLISH_FEMALE, gMonFrontPic_Frillish_Female),
+    SPECIES_SPRITE(JELLICENT_FEMALE, gMonFrontPic_Jellicent_Female),
 
     SPECIES_SPRITE(EGG, gMonFrontPic_Egg),
 

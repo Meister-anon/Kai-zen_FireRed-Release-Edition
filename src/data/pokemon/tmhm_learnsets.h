@@ -23733,7 +23733,7 @@ static const u16 sHoopaUnboundTMHMLearnset[] = {
     TMHM_LEARNSET_END
 };
 
-static const u16 sMeowsticFemaleTMHMLearnset[] = {
+static const u16 sMeowstic_FemaleTMHMLearnset[] = {
   ITEM_TM45_ATTRACT,
                                           ITEM_TM04_CALM_MIND,
                                           ITEM_HM01_CUT,

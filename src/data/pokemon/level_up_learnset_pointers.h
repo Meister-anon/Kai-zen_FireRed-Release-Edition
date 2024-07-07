@@ -1230,7 +1230,7 @@ const struct LevelUpMove *const gLevelUpLearnsets[NUM_SPECIES] =
 [SPECIES_FURFROU_KABUKI_TRIM] = sFurfrouLevelUpLearnset,
 [SPECIES_FURFROU_PHARAOH_TRIM] = sFurfrouLevelUpLearnset,
 // Meowstic
-[SPECIES_MEOWSTIC_FEMALE] = sMeowsticFemaleLevelUpLearnset,
+[SPECIES_MEOWSTIC_FEMALE] = sMeowstic_FemaleLevelUpLearnset,
 // Aegislash
 [SPECIES_AEGISLASH_BLADE] = sAegislashLevelUpLearnset,
 // Pumpkaboo

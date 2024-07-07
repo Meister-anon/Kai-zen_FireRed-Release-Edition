@@ -1186,7 +1186,7 @@ const u8 *const gMonIconTable[] = {
       [SPECIES_FURFROU_LA_REINE_TRIM] = gMonIcon_FurfrouLaReineTrim,
       [SPECIES_FURFROU_KABUKI_TRIM] = gMonIcon_FurfrouKabukiTrim,
       [SPECIES_FURFROU_PHARAOH_TRIM] = gMonIcon_FurfrouPharaohTrim,
-      [SPECIES_MEOWSTIC_FEMALE] = gMonIcon_MeowsticFemale,
+      [SPECIES_MEOWSTIC_FEMALE] = gMonIcon_Meowstic_Female,
       [SPECIES_AEGISLASH_BLADE] = gMonIcon_AegislashBlade,
       [SPECIES_PUMPKABOO_SMALL] = gMonIcon_Pumpkaboo,
       [SPECIES_PUMPKABOO_LARGE] = gMonIcon_Pumpkaboo,
@@ -1264,9 +1264,9 @@ const u8 *const gMonIconTable[] = {
         [SPECIES_ZARUDE_DADA]                      = gMonIcon_Zarude_Dada,
         [SPECIES_CALYREX_ICE_RIDER]               = gMonIcon_Calyrex_Ice_Rider,
         [SPECIES_CALYREX_SHADOW_RIDER]            = gMonIcon_Calyrex_Shadow_Rider,
-        [SPECIES_BASCULEGION_FEMALE] = gMonIcon_BasculegionFemale,
-        [SPECIES_FRILLISH_FEMALE] = gMonIcon_FrillishFemale,
-        [SPECIES_JELLICENT_FEMALE] = gMonIcon_JellicentFemale,
+        [SPECIES_BASCULEGION_FEMALE] = gMonIcon_Basculegion_Female,
+        [SPECIES_FRILLISH_FEMALE] = gMonIcon_Frillish_Female,
+        [SPECIES_JELLICENT_FEMALE] = gMonIcon_Jellicent_Female,
 };
 
 //don't know if need be in hex

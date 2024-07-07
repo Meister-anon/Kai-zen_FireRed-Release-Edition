@@ -1191,7 +1191,7 @@ const struct CompressedSpritePalette gMonPaletteTable[] =
     SPECIES_PAL(FURFROU_KABUKI_TRIM, gMonPalette_FurfrouKabukiTrim),
     SPECIES_PAL(FURFROU_PHARAOH_TRIM, gMonPalette_FurfrouPharaohTrim),
 
-    SPECIES_PAL(MEOWSTIC_FEMALE, gMonPalette_MeowsticFemale),
+    SPECIES_PAL(MEOWSTIC_FEMALE, gMonPalette_Meowstic_Female),
 
     SPECIES_PAL(AEGISLASH_BLADE, gMonPalette_AegislashBlade),
 
@@ -1300,10 +1300,10 @@ SPECIES_PAL(CRAMORANT_GULPING, gMonPalette_CramorantGulping),
     SPECIES_PAL(CALYREX_SHADOW_RIDER, gMonPalette_CalyrexShadowRider),
 
     SPECIES_PAL(ENAMORUS_THERIAN, gMonPalette_EnamorusTherian),
-    SPECIES_PAL(BASCULEGION_FEMALE, gMonPalette_BasculegionFemale),
+    SPECIES_PAL(BASCULEGION_FEMALE, gMonPalette_Basculegion_Female),
 
-    SPECIES_PAL(FRILLISH_FEMALE, gMonPalette_FrillishFemale),
-    SPECIES_PAL(JELLICENT_FEMALE, gMonPalette_JellicentFemale),
+    SPECIES_PAL(FRILLISH_FEMALE, gMonPalette_Frillish_Female),
+    SPECIES_PAL(JELLICENT_FEMALE, gMonPalette_Jellicent_Female),
 
     SPECIES_PAL(EGG, gMonPalette_Egg),
 };

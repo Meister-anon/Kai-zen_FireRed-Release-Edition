@@ -1202,7 +1202,7 @@ const u16 *const gTMHMLearnsets[NUM_SPECIES] =
     [SPECIES_FURFROU_KABUKI_TRIM] = sFurfrouTMHMLearnset,
     [SPECIES_FURFROU_PHARAOH_TRIM] = sFurfrouTMHMLearnset,
     // Meowstic
-    [SPECIES_MEOWSTIC_FEMALE] = sMeowsticFemaleTMHMLearnset,
+    [SPECIES_MEOWSTIC_FEMALE] = sMeowstic_FemaleTMHMLearnset,
     // Aegislash
     [SPECIES_AEGISLASH_BLADE] = sAegislashTMHMLearnset,
     // Pumpkaboo

@@ -1191,7 +1191,7 @@ const struct CompressedSpritePalette gMonShinyPaletteTable[] =
     SPECIES_SHINY_PAL(FURFROU_KABUKI_TRIM, gMonShinyPalette_FurfrouKabukiTrim),
     SPECIES_SHINY_PAL(FURFROU_PHARAOH_TRIM, gMonShinyPalette_FurfrouPharaohTrim),
 
-    SPECIES_SHINY_PAL(MEOWSTIC_FEMALE, gMonShinyPalette_MeowsticFemale),
+    SPECIES_SHINY_PAL(MEOWSTIC_FEMALE, gMonShinyPalette_Meowstic_Female),
 
     SPECIES_SHINY_PAL(AEGISLASH_BLADE, gMonShinyPalette_AegislashBlade),
 
@@ -1299,11 +1299,11 @@ const struct CompressedSpritePalette gMonShinyPaletteTable[] =
     SPECIES_SHINY_PAL(CALYREX_ICE_RIDER, gMonShinyPalette_CalyrexIceRider),
     SPECIES_SHINY_PAL(CALYREX_SHADOW_RIDER, gMonShinyPalette_CalyrexShadowRider),
 
-    SPECIES_SHINY_PAL(BASCULEGION_FEMALE, gMonShinyPalette_BasculegionFemale),
+    SPECIES_SHINY_PAL(BASCULEGION_FEMALE, gMonShinyPalette_Basculegion_Female),
     SPECIES_SHINY_PAL(ENAMORUS_THERIAN, gMonShinyPalette_EnamorusTherian),
     
-    SPECIES_SHINY_PAL(FRILLISH_FEMALE, gMonShinyPalette_FrillishFemale),
-    SPECIES_SHINY_PAL(JELLICENT_FEMALE, gMonShinyPalette_JellicentFemale),
+    SPECIES_SHINY_PAL(FRILLISH_FEMALE, gMonShinyPalette_Frillish_Female),
+    SPECIES_SHINY_PAL(JELLICENT_FEMALE, gMonShinyPalette_Jellicent_Female),
 
     SPECIES_SHINY_PAL(EGG, gMonPalette_Egg),
 };

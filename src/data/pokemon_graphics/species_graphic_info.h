@@ -11597,7 +11597,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
-    }, //MeowsticFemale,
+    }, //Meowstic_Female,
   [SPECIES_AEGISLASH_BLADE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
@@ -12351,32 +12351,32 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //Calyrex_Shadow_Rider,
     [SPECIES_BASCULEGION_FEMALE] = 
     {  
-      FRONT_PIC(BasculegionFemale),
+      FRONT_PIC(Basculegion_Female),
       FRONT_COORD(0x88,0),
-      BACK_PIC(BasculegionFemale),
+      BACK_PIC(Basculegion_Female),
       BACK_COORD(0x88,0),
-      PALETTES(BasculegionFemale),
-      ICON(BasculegionFemale,0),
+      PALETTES(Basculegion_Female),
+      ICON(Basculegion_Female,0),
       TAG(SPECIES_NONE),
-    }, //BasculegionFemale,
+    }, //Basculegion_Female,
     [SPECIES_FRILLISH_FEMALE] = 
     {  
-      FRONT_PIC(BasculegionFemale),
+      FRONT_PIC(Basculegion_Female),
       FRONT_COORD(0x88,0),
-      BACK_PIC(BasculegionFemale),
+      BACK_PIC(Basculegion_Female),
       BACK_COORD(0x88,0),
-      PALETTES(BasculegionFemale),
-      ICON(BasculegionFemale,0),
+      PALETTES(Basculegion_Female),
+      ICON(Basculegion_Female,0),
       TAG(SPECIES_NONE),
-    }, //BasculegionFemale,
+    }, //Basculegion_Female,
     [SPECIES_JELLICENT_FEMALE] = 
     {  
-      FRONT_PIC(BasculegionFemale),
+      FRONT_PIC(Basculegion_Female),
       FRONT_COORD(0x88,0),
-      BACK_PIC(BasculegionFemale),
+      BACK_PIC(Basculegion_Female),
       BACK_COORD(0x88,0),
-      PALETTES(BasculegionFemale),
-      ICON(BasculegionFemale,0),
+      PALETTES(Basculegion_Female),
+      ICON(Basculegion_Female,0),
       TAG(SPECIES_NONE),
-    }, //BasculegionFemale,
+    }, //Basculegion_Female,
 };

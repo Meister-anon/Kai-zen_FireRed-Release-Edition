@@ -44657,7 +44657,7 @@ const struct BaseStats gBaseStats[] =
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sMeowsticLevelUpLearnset,
-        .tmhmLearnset = sMeowsticFemaleTMHMLearnset,
+        .tmhmLearnset = sMeowstic_FemaleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         
     },
