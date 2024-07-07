@@ -34627,18 +34627,23 @@ const struct BaseStats gBaseStats[] =
 //#endif //P_FAMILY_MIRAIDON
 
 //Paldean Forms Start
+//changed to main dark, as makes much more sense than fighting,
+//all of these barely get fighting moves as well
+//plus combat breed already made more sense as a dark type
+//than pure fighting based on moveset patterns
+//w loss of stab w most of its moveset boosted attack
 [SPECIES_TAUROS_PALDEAN_COMBAT_BREED] =
     {
         //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
-              110,
+              120,
               105,
               100,
               30,
               70
         ),
-        MON_TYPES(TYPE_FIGHTING,TYPE_DARK), //need decide if make raging bull type dark or fighting
+        MON_TYPES(TYPE_DARK,TYPE_FIGHTING), //need decide if make raging bull type dark or fighting
         .catchRate = 45,
         .expYield = 211,
       //  .evYield_Attack = 2,
@@ -34648,9 +34653,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_ANGER_POINT  },
-        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_BLACK,
-      /*   .speciesName = _("Tauros"),
+        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_EARLY_BIRD}, 
+        .bodyColor = BODY_COLOR_BLACK, //INSTEAD of muscle magic give early bird, MM can be the special
+      /*   .speciesName = _("Tauros"),  //give rest
         .cryId = CRY_TAUROS,
         .natDexNum = NATIONAL_DEX_TAUROS,
         .categoryName = _("Wild Bull"),
@@ -34691,13 +34696,13 @@ const struct BaseStats gBaseStats[] =
         //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
-              110,
+              120,
               105,
               100,
               30,
               70
         ),
-        MON_TYPES(TYPE_FIGHTING, TYPE_FIRE),
+        MON_TYPES(TYPE_DARK, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 211,
       //  .evYield_Attack = 2,
@@ -34707,7 +34712,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_ANGER_POINT },
-        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_NONE},
+        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BLACK,
       /*   .speciesName = _("Tauros"),
         .cryId = CRY_TAUROS,
@@ -34750,13 +34755,13 @@ const struct BaseStats gBaseStats[] =
         //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
-              110,
+              120,
               105,
               100,
               30,
               70
         ),
-        MON_TYPES(TYPE_FIGHTING, TYPE_WATER),
+        MON_TYPES(TYPE_DARK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 211,
       //  .evYield_Attack = 2,
@@ -34766,7 +34771,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_ANGER_POINT},
-        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_NONE},
+        .abilityHidden = {ABILITY_CUD_CHEW, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BLACK,
       /*   .speciesName = _("Tauros"),
         .cryId = CRY_TAUROS,
