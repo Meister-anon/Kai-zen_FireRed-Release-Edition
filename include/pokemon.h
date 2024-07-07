@@ -571,6 +571,7 @@ enum
 #define EVO_LEVEL_FORM_NIGHT                0x0034
 #define EVO_MOVE_TYPE_ATK_GT_DEF            0x0035 //for galarian slowbro
 #define EVO_MOVE_TYPE_ATK_LT_DEF            0x0036 //new evo methods, for evolving galarian slowpoke - this for galarian slowking
+#define EVO_HIGH_RICHES               0x003b //method for gimmighoul evo 70k+ money
 //all existing regional forms only use level, and item, (marowak uses level night) to evolve most have identical level except decidueye
 //moved these to end so can read form data first
 
