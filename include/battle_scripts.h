@@ -94,6 +94,7 @@ extern const u8 BattleScript_MistProtected[];
 extern const u8 BattleScript_RageIsBuilding[];
 extern const u8 BattleScript_AttackerRageBuilding[];
 extern const u8 BattleScript_RageEnds[];
+extern const u8 BattleScript_InthrallActivates[];
 extern const u8 BattleScript_MoveUsedIsDisabled[];
 extern const u8 BattleScript_MoveUsedIsInthralled[];
 extern const u8 BattleScript_SelectingDisabledMove[];

@@ -8576,7 +8576,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 43, 53, 40, 43, 63),
-        MON_TYPES(TYPE_POISON, TYPE_POISON),
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 225,
         .expYield = 60,
         //.evYield_HP = 1,
@@ -8604,7 +8604,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 73, 83, 55, 83, 87),
-        MON_TYPES(TYPE_POISON, TYPE_POISON),
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_HP = 2,

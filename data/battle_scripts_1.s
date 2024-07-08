@@ -8305,6 +8305,12 @@ BattleScript_AnticipationActivates::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+BattleScript_InthrallActivates::
+	pause B_WAIT_TIME_CLEAR_BUFF
+	printstring STRINGID_PKMNMOVESEALED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
 BattleScript_CottonDownActivates::
 	copybyte gEffectBattler, gBattlerTarget
 	savetarget
