@@ -3812,6 +3812,8 @@ void SpriteCB_FaintOpponentMon(struct Sprite *sprite)
         species = sprite->sSpeciesId;
     GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_PERSONALITY);  // Unused return value.
 
+    //...why did I rove this for unown? need keep actually since unown works diff than how I thought
+    //its fine new function accounts for unown
     /*if (species == SPECIES_UNOWN)
     {
         u32 personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_PERSONALITY);

@@ -691,7 +691,7 @@ static const u16 sAudinoFormSpeciesIdTable[] = {
 static const u16 sBasculinFormSpeciesIdTable[] = {
     SPECIES_BASCULIN,
     SPECIES_BASCULIN_BLUE_STRIPED,
-    SPECIES_BASCULIN_WHITE_STRIPED, //PRETTY SURE DOESN'T EXIST? - does exist its hisuian form that evolves to basculigeon
+    SPECIES_BASCULIN_WHITE_STRIPED,
     FORM_SPECIES_END,
 };
 

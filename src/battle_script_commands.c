@@ -8784,6 +8784,23 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
     struct BattlePokemon oldData;
     s32 i;
     u8 *monData;
+    u16 species,applied_species;
+
+    species = gBattleMons[gActiveBattler].species;
+
+
+    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+      applied_species = GetFormSpeciesId(species, 0);
+    else
+        applied_species = species;
+
+    if (species == SPECIES_PIKACHU_ROCK_STAR
+    || species == SPECIES_PIKACHU_BELLE
+    || species == SPECIES_PIKACHU_POP_STAR
+    || species == SPECIES_PIKACHU_PH_D
+    || species == SPECIES_PIKACHU_LIBRE
+    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+        applied_species = species;
 
     if (!gBattleControllerExecFlags)
     {
@@ -8794,10 +8811,10 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
         {
             monData[i] = gBattleBufferB[gActiveBattler][4 + i];
         }
-        gBattleMons[gActiveBattler].type1 = gBaseStats[gBattleMons[gActiveBattler].species].type1;
-        gBattleMons[gActiveBattler].type2 = gBaseStats[gBattleMons[gActiveBattler].species].type2;
+        gBattleMons[gActiveBattler].type1 = gBaseStats[applied_species].type1;
+        gBattleMons[gActiveBattler].type2 = gBaseStats[applied_species].type2;
         gBattleMons[gActiveBattler].type3 = TYPE_MYSTERY;
-        gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(gBattleMons[gActiveBattler].species, gBattleMons[gActiveBattler].abilityNum);
+        gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(applied_species, gBattleMons[gActiveBattler].abilityNum);
         // check knocked off item
         i = GetBattlerSide(gActiveBattler);
         if (gWishFutureKnock.knockedOffMons[i] & gBitTable[gBattlerPartyIndexes[gActiveBattler]])

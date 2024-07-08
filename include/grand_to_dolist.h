@@ -2453,6 +2453,69 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also on new game screen add recomended button message
     -done
 
+    NOTE*(
+    IMPORTANT thought from josh many mon in base stats file
+    are cosmetic variants things like vivillion unown etc.
+    are just taking up large space in for no reason, each entry takes up
+    entire space of base stat struct regarldess of what you put in the block
+    so make species graphic info file to hold the graphic data, keep the species constants
+    but can remove from base stats if identical stats name learnset etc.
+    since base stat update has learnsets placed in base stats would need
+    to popuate learnset and stats from base species
+
+    Think what will do is make functions for checking 
+    if a cosmetic variant if true return stats from base form
+    make base stat flag for cosmeiticforms on base species
+    i.e on unown add flag hasCosmeticforms
+    when puling species stats (wold only need in one place as battler stats
+    are pulled from species stats at battle start)
+
+    auto check form specices table  value 0 for base form
+    if form has cosmetic form flag then use that form as species data
+    form ability stats items etc.
+    pretty much just use that as the species rather than actual species
+    everything should fall into place following that
+
+    can use form species table
+    if (gbasestats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+      appliedSpecies = GetFormSpeciesId(species, 0);
+
+    that's all need, would make take base stat data from base form
+    then just finish setup species graphic function and all good
+    //only things to keep an eye on are cosplay pika fomrms
+
+    minior forms  and arceus/silvally
+
+    pika forms are simple and mainly why didn't just reset species
+    under check can do if species == (exclusion species) cosplaypika forms etc.
+    appliedspecies = species simple enough for that part at least
+
+    well don't have my grahpic data in base stats so can already make that change now
+    made base setup, put code in learnset tmlearnset
+    battle script for switch in for taking mon stats from base stats
+    and in boxmon for setting intial learnets, unfortunately still working on graphics
+    stuff so can't make test build, but will commit with adendum for now
+
+    while was at it, setup vivillion evo similar to milcery
+    and alcremie form and vivillion form groups
+    but honestly could just do with function,
+
+    could use the exact same functions used for evo they were patterned after
+    unown form generation logic anyway
+
+    no def don't do that -_-  unown doesn't change species it uses
+    the base species for everything but changes form based on personality generated
+
+    I want to actually generate a diff species so can easily link
+    directly to the graphic table
+
+
+    so yeah instead just see about using the target species forms I made
+    for alcremie and vivillon
+
+
+    )
+
     replce cat icon split icons symbols, plan use gen 9 versions
     more minimalistic not ugly as sin
 

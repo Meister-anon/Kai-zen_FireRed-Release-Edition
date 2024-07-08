@@ -349,8 +349,8 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x0A */ //u16 evYield_Speed:2;
  /* 0x0B */ //u16 evYield_SpAttack:2;
  /* 0x0B */ //u16 evYield_SpDefense:2;
- /* 0x0C */ u16 item1;
- /* 0x0E */ u16 item2;
+ /* 0x0C */ u16 itemCommon;
+ /* 0x0E */ u16 itemRare;
  /* 0x10 */ u8 genderRatio;
  /* 0x11 */ u8 eggCycles;
  /* 0x12 */ u8 friendship;
@@ -571,7 +571,8 @@ enum
 #define EVO_LEVEL_FORM_NIGHT                0x0034
 #define EVO_MOVE_TYPE_ATK_GT_DEF            0x0035 //for galarian slowbro
 #define EVO_MOVE_TYPE_ATK_LT_DEF            0x0036 //new evo methods, for evolving galarian slowpoke - this for galarian slowking
-#define EVO_HIGH_RICHES               0x003b //method for gimmighoul evo 70k+ money
+#define EVO_HIGH_RICHES                     0x003b //method for gimmighoul evo 70k+ money
+#define EVO_LEVEL_VIVILLON                  0x003c
 //all existing regional forms only use level, and item, (marowak uses level night) to evolve most have identical level except decidueye
 //moved these to end so can read form data first
 
@@ -782,6 +783,7 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon);//this too
 u16 GetSpeciesPreEvolution(u16 species, u32 TargetLoop); //ported for pre evo checks
 bool8 IsMonPastEvolutionLevel(struct Pokemon *mon, u32 i);// new port for simplify level evo checks
 u16 GetTargetAlcremieForm(struct Pokemon *mon); //new logic for attempt make milcery evolve into diff alcremie forms based on personality, inspir by unown logic
+u16 GetTargetVivillionForm(struct Pokemon *mon); //same thing but for vivillion
 bool8 CanEvolveToRegionalForm(struct Pokemon *mon, u32 i); //new function for mon with alt form evos
 bool8 IsRegionalVariant(u16 species); //new function to stand in for long code
 bool8 UseRegionSand(struct Pokemon *mon); //new function say if mon canuse sand, still need function to read this and say what sand it can use

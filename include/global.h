@@ -373,12 +373,16 @@ typedef enum
 typedef enum
 {
     EARLY_ROUTE_BIRDS,
+    ALCREMIE_FORMS,
+    VIVILLION_FORMS,
 }SpeciesGroups;
 
 typedef enum
 {
-    EARLY_ROUTE_BIRDS_END = 44,
-}SpeciesGroupsTerminators;
+    EARLY_ROUTE_BIRDS_END = 2,
+    ALCREMIE_FORMS_END = 9,
+    VIVILLION_FORMS_END = 20,
+}SpeciesGroupsTerminators; //use size of array
 
 /*global enums meant for
 new mon generation logic,

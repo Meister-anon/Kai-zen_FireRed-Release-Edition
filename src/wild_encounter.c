@@ -307,7 +307,11 @@ static void GenerateWildMon(u16 species, u8 level, u8 slot)
         personality = GenerateUnownPersonalityByLetter(sUnownLetterSlots[chamber][slot]);
         CreateMon(&gEnemyParty[0], species, level, 32, TRUE, personality, FALSE, 0);
     }
-}
+}//ok now I understand how this works, since unown are all the same, it doesn't actually change species
+//to different form, what it does is set a personality value that the sprite loader
+//in decompress.c looks for and tells it what sprite to generate
+//but it never gives or assigns a different species, so unown base stats are COMPLETELY useless
+//you're not even using the other species...
 
 //has planned letter keeps shifting personality until it assigns with letter
 //I can't shift personality for form milcery I need to ensure every value alligns with possible form

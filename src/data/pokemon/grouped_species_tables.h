@@ -27,17 +27,53 @@ static const u16 sBasculegionGenderForms[] = {
 
 static const u16 sOinkologneGenderForms[] = {
     SPECIES_OINKOLOGNE_MALE,
-    SPECIES_OINKOLOGNE_FEMALE,
+    SPECIES_OINKOLOGNE_FEMALE
 };
 
 const u16 *const  gGenderForms[] =
 {
-    sUnfezantGenderForms,
-    sPyroarGenderForms,
-    sMeowsticGenderForms,
-    sIndeedeeGenderForms,
-    sBasculegionGenderForms,
-    sOinkologneGenderForms,
+    [UNFEZANT] = sUnfezantGenderForms,
+    [PYROAR] = sPyroarGenderForms,
+    [MEOWSTIC] = sMeowsticGenderForms,
+    [INDEEDEE] = sIndeedeeGenderForms,
+    [BASCULEGION] = sBasculegionGenderForms,
+    [OINKOLOGNE] = sOinkologneGenderForms,
+};
+
+static const u16 sAlcremieForms[] = {
+    SPECIES_ALCREMIE,
+    SPECIES_ALCREMIE_RUBY_CREAM,
+    SPECIES_ALCREMIE_MATCHA_CREAM,
+    SPECIES_ALCREMIE_MINT_CREAM,
+    SPECIES_ALCREMIE_LEMON_CREAM,
+    SPECIES_ALCREMIE_SALTED_CREAM,
+    SPECIES_ALCREMIE_RUBY_SWIRL,
+    SPECIES_ALCREMIE_CARAMEL_SWIRL,
+    SPECIES_ALCREMIE_RAINBOW_SWIRL
+
+};
+
+static const u16 sVivillonForms[] = {
+    SPECIES_VIVILLON,
+    SPECIES_VIVILLON_POLAR,
+    SPECIES_VIVILLON_TUNDRA,
+    SPECIES_VIVILLON_CONTINENTAL,
+    SPECIES_VIVILLON_GARDEN,
+    SPECIES_VIVILLON_ELEGANT,
+    SPECIES_VIVILLON_MEADOW,
+    SPECIES_VIVILLON_MODERN,
+    SPECIES_VIVILLON_MARINE,
+    SPECIES_VIVILLON_ARCHIPELAGO,
+    SPECIES_VIVILLON_HIGH_PLAINS,
+    SPECIES_VIVILLON_SANDSTORM,
+    SPECIES_VIVILLON_RIVER,
+    SPECIES_VIVILLON_MONSOON,
+    SPECIES_VIVILLON_SAVANNA,
+    SPECIES_VIVILLON_SUN,
+    SPECIES_VIVILLON_OCEAN,
+    SPECIES_VIVILLON_JUNGLE,
+    SPECIES_VIVILLON_FANCY,
+    SPECIES_VIVILLON_POKE_BALL,
 };
 
 static const u16 sEarlyRtBirds[] = {
@@ -48,4 +84,6 @@ static const u16 sEarlyRtBirds[] = {
 const u16 *const  gSpeciesGroups[] =
 {
     sEarlyRtBirds,
+    sAlcremieForms,
+    sVivillonForms
 };

@@ -2847,6 +2847,36 @@ u16 CheckGenderForms(u16 species, bool8 Gender)
             return gGenderForms[FormTableId][Gender];
         }
         break;
+        case SPECIES_PYROAR:
+        { 
+            FormTableId = PYROAR;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
+        case SPECIES_MEOWSTIC:
+        { 
+            FormTableId = MEOWSTIC;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
+        case SPECIES_INDEEDEE:
+        { 
+            FormTableId = INDEEDEE;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
+        case SPECIES_BASCULEGION:
+        { 
+            FormTableId = BASCULEGION;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
+        case SPECIES_OINKOLOGNE:
+        { 
+            FormTableId = OINKOLOGNE;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
         default:
         return species;
         break;
@@ -3486,7 +3516,23 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     s32 i;
     s32 personality; // added these two for later edits, idea for learnset order based on personality or nature
     u8 nature;
-    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+    const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
+    u16 generatedSpecies;
+
+    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+      generatedSpecies = GetFormSpeciesId(species, 0);
+    else
+        generatedSpecies = species;
+
+    if (species == SPECIES_PIKACHU_ROCK_STAR
+    || species == SPECIES_PIKACHU_BELLE
+    || species == SPECIES_PIKACHU_POP_STAR
+    || species == SPECIES_PIKACHU_PH_D
+    || species == SPECIES_PIKACHU_LIBRE
+    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+        generatedSpecies = species;
+
+    learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
 
     nature = GetNatureFromPersonality(personality); //put this somewhere
 
@@ -3518,7 +3564,25 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     s32 i;
     u16 moves[MAX_MON_MOVES] = {0};
     u8 addedMoves = 0;
-    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+    const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
+    u16 generatedSpecies;
+
+    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+      generatedSpecies = GetFormSpeciesId(species, 0);
+    else
+        generatedSpecies = species;
+
+    if (species == SPECIES_PIKACHU_ROCK_STAR
+    || species == SPECIES_PIKACHU_BELLE
+    || species == SPECIES_PIKACHU_POP_STAR
+    || species == SPECIES_PIKACHU_PH_D
+    || species == SPECIES_PIKACHU_LIBRE
+    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+        generatedSpecies = species;
+
+    learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
+    
+    
     for (i = 0; learnset[i].move != LEVEL_UP_END; i++)
     {
         s32 j;
@@ -5170,6 +5234,7 @@ u8 GetDefaultMoveTarget(u8 battlerId)
 }
 
 //used for evo_method Milcery to swap target evo species
+//can use this for vivillion as well vivillion has 20 forms believe
 u16 GetTargetAlcremieForm(struct Pokemon *mon)
 {
     u8 TargetForm;
@@ -5207,6 +5272,79 @@ u16 GetTargetAlcremieForm(struct Pokemon *mon)
             return SPECIES_ALCREMIE_RAINBOW_SWIRL;
         break;
 
+        
+    }
+}
+
+u16 GetTargetVivillionForm(struct Pokemon *mon)
+{
+    u8 TargetForm;
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
+    
+    TargetForm = (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 0x3)) % 0x14;
+
+    switch (TargetForm)
+    {
+        case 0:
+            return SPECIES_VIVILLON;
+        break;
+        case 1:
+            return SPECIES_VIVILLON_POLAR;
+        break;
+        case 2:
+            return SPECIES_VIVILLON_TUNDRA;
+        break;
+        case 3:
+            return SPECIES_VIVILLON_CONTINENTAL;
+        break;
+        case 4:
+            return SPECIES_VIVILLON_GARDEN;
+        break;
+        case 5:
+            return SPECIES_VIVILLON_ELEGANT;
+        break;
+        case 6:
+            return SPECIES_VIVILLON_MEADOW;
+        break;
+        case 7:
+            return SPECIES_VIVILLON_MODERN;
+        break;
+        case 8:
+            return SPECIES_VIVILLON_MARINE;
+        break;
+        case 9:
+            return SPECIES_VIVILLON_ARCHIPELAGO;
+        break;
+        case 10:
+            return SPECIES_VIVILLON_HIGH_PLAINS;
+        break;
+        case 11:
+            return SPECIES_VIVILLON_SANDSTORM;
+        break;
+        case 12:
+            return SPECIES_VIVILLON_RIVER;
+        break;
+        case 13:
+            return SPECIES_VIVILLON_MONSOON;
+        break;
+        case 14:
+            return SPECIES_VIVILLON_SAVANNA;
+        break;
+        case 15:
+            return SPECIES_VIVILLON_SUN;
+        break;
+        case 16:
+            return SPECIES_VIVILLON_OCEAN;
+        break;
+        case 17:
+            return SPECIES_VIVILLON_JUNGLE;
+        break;
+         case 18:
+            return SPECIES_VIVILLON_FANCY;
+        break;
+        case 19:
+            return SPECIES_VIVILLON_POKE_BALL;
+        break;
         
     }
 }
@@ -7869,6 +8007,7 @@ static u8 GetEvoMethodPriority(u16 EvoMethod)
         break; 
         case EVO_LEVEL_FAMILY_OF_THREE:       
         case EVO_LEVEL_RAIN:
+        case EVO_LEVEL_VIVILLON:
         case EVO_MILCERY:
             return 0xF8;
         break;
@@ -8181,6 +8320,13 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 {
                     EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                     targetSpecies = GetTargetAlcremieForm(mon);
+                }
+                break;
+             case EVO_LEVEL_VIVILLON:
+                if (IsMonPastEvolutionLevel(mon, i) && species == SPECIES_SPEWPA)
+                {
+                    EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
+                    targetSpecies = GetTargetVivillionForm(mon);
                 }
                 break;
             case EVO_MOVE:
@@ -9106,7 +9252,25 @@ const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species)
 //tm learnset my version doesn't include tutor moves
 const u16 *GetSpeciesTeachableLearnset(u16 species)
 {
-    const u16 *learnset = gBaseStats[SanitizeSpeciesId(species)].tmhmLearnset;
+    const u16 *learnset;// = gBaseStats[SanitizeSpeciesId(species)].tmhmLearnset;
+    u16 generatedSpecies;
+
+    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+      generatedSpecies = GetFormSpeciesId(species, 0);
+    else
+        generatedSpecies = species;
+
+    if (species == SPECIES_PIKACHU_ROCK_STAR
+    || species == SPECIES_PIKACHU_BELLE
+    || species == SPECIES_PIKACHU_POP_STAR
+    || species == SPECIES_PIKACHU_PH_D
+    || species == SPECIES_PIKACHU_LIBRE
+    || species == SPECIES_BASCULIN_WHITE_STRIPED)
+        generatedSpecies = species;
+
+    learnset = gBaseStats[SanitizeSpeciesId(generatedSpecies)].tmhmLearnset;
+
+
     if (learnset == NULL)
         return gBaseStats[SPECIES_NONE].tmhmLearnset;
     return learnset;
@@ -9997,18 +10161,18 @@ void SetWildMonHeldItem(void)
     {
         u16 rnd = Random() % 100;
         u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0);
-        if (gBaseStats[species].item1 == gBaseStats[species].item2)
+        if (gBaseStats[species].itemCommon == gBaseStats[species].itemRare)
         {
-            SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
+            SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].itemCommon);
             return;
         }
 
         if (rnd > 44)
         {
             if (rnd <= 94)
-                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
+                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].itemCommon);
             else
-                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item2);
+                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].itemRare);
         }
     }
 }
