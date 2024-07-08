@@ -272,8 +272,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 49, 49, 45, 65, 65),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 45,
         .expYield = 64,
         .genderRatio = PERCENT_FEMALE(12.5),
@@ -297,8 +296,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(72, 62, 63, 60, 80, 80),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_SpAttack = 1,
@@ -323,8 +321,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(93, 82, 83, 80, 100, 100),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 45,
         .expYield = 236,
         //.evYield_SpAttack = 2,
@@ -349,8 +346,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(39, 52, 43, 65, 60, 50),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -376,8 +372,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(58, 64, 58, 80, 80, 65),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -404,8 +399,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 84, 78, 100, 109, 85),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 240,
         //.evYield_SpAttack = 3,
@@ -431,8 +425,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(44, 48, 65, 43, 50, 64),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 63,
         //.evYield_Defense = 1,
@@ -456,8 +449,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(59, 63, 80, 58, 65, 80),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Defense = 1,
@@ -482,8 +474,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(79, 83, 100, 78, 85, 105),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_WATER, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_SpDefense = 3,
@@ -507,8 +498,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 35, 45, 20, 20),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG),
         .catchRate = 255,
         .expYield = 39,
         //.evYield_HP = 1,
@@ -532,8 +522,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 20, 65, 30, 25, 25),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG, //potentially make normal bug? would be stronger but then who would be normal but, keep aneye on this prob use type
+        MON_TYPES(TYPE_BUG, TYPE_BUG), //potentially make normal bug? would be stronger but then who would be normal but, keep aneye on this prob use type
         .catchRate = 120,
         .expYield = 72,
         //.evYield_Defense = 2,
@@ -558,8 +547,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 50, 90, 95, 80),     
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 178,
         //.evYield_SpAttack = 2,
@@ -587,8 +575,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 35, 30, 50, 20, 40),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 255,
         .expYield = 39,
         //.evYield_Speed = 1,
@@ -612,8 +599,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 25, 50, 35, 25, 65),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 120,
         .expYield = 72,
         //.evYield_Defense = 2,
@@ -636,8 +622,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 40, 95, 45, 98),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 45,
         .expYield = 178,
         //.evYield_Attack = 2,
@@ -665,8 +650,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 40, 67, 45, 35),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 50,
         //.evYield_Speed = 1,
@@ -691,8 +675,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(63, 70, 55, 91, 70, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 122,
         //.evYield_Speed = 2,
@@ -717,8 +700,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 95, 85, 121, 85, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 216,
         //.evYield_Speed = 3,
@@ -743,8 +725,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 56, 35, 72, 25, 35),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 51,
         //.evYield_Speed = 1,
@@ -768,8 +749,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 87, 60, 109, 50, 70),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 127,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -793,8 +773,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 60, 30, 70, 31, 31),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 52,
         //.evYield_Speed = 1,
@@ -821,8 +800,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 100, 65, 100, 61, 61),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 90,
         .expYield = 155,
         //.evYield_Speed = 2,
@@ -849,8 +827,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 60, 44, 70, 40, 64),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Attack = 1,
@@ -876,8 +853,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 96, 69, 87, 80, 89),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 157,
         //.evYield_Attack = 2,
@@ -903,8 +879,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 75, 40, 95, 85, 50),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -930,8 +905,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 100, 75, 70, 95, 90),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = 218,
         //.evYield_Speed = 3,
@@ -955,8 +929,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 75, 85, 65, 20, 30),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -985,8 +958,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 100, 110, 75, 45, 55),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 90,
         .expYield = 158,
         //.evYield_Defense = 2,
@@ -1015,8 +987,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 47, 52, 41, 40, 50),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 235,
         .expYield = 55,
         //.evYield_HP = 1,
@@ -1042,8 +1013,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 62, 67, 56, 55, 75),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 128,
         //.evYield_HP = 2,
@@ -1069,8 +1039,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 92, 87, 76, 90, 105),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 227,
         //.evYield_HP = 3,
@@ -1095,8 +1064,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(46, 57, 40, 50, 40, 50),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 235,
         .expYield = 55,
         //.evYield_Attack = 1,
@@ -1122,8 +1090,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 77, 57, 65, 55, 65),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 128,
         //.evYield_Attack = 2,
@@ -1149,8 +1116,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(81, 102, 77, 85, 91, 95),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DARK, //initially forgot logic, but traded electric immunity for psychic immunity, while poison covers the bug and fighting weakness, 
+        MON_TYPES(TYPE_POISON, TYPE_DARK), //initially forgot logic, but traded electric immunity for psychic immunity, while poison covers the bug and fighting weakness, 
         .catchRate = 45,    //as well as the other dark benefits I get.   //same thing for nidoqueen except she gets normal benefits
         .expYield = 227,
         //.evYield_Attack = 3,
@@ -1176,8 +1142,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 50, 48, 35, 60, 75),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 150,
         .expYield = 113,
         //.evYield_HP = 2,
@@ -1203,8 +1168,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 70, 73, 60, 100, 95),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 25,
         .expYield = 217,
         //.evYield_HP = 3,
@@ -1230,8 +1194,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(38, 41, 40, 65, 50, 65),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 190,
         .expYield = 60,
         //.evYield_Speed = 1,
@@ -1256,8 +1219,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 76, 75, 100, 81, 100),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 177,
         //.evYield_Speed = 1,
@@ -1283,8 +1245,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 45, 37, 20, 45, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 170,
         .expYield = 95,
         //.evYield_HP = 2,
@@ -1310,8 +1271,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(140, 70, 55, 45, 85, 68),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 50,
         .expYield = 196,
         //.evYield_HP = 3,
@@ -1337,8 +1297,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 35, 55, 30, 53),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_POISON, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 49,
         //.evYield_Speed = 1,
@@ -1364,8 +1323,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 80, 110, 80, 65, 85),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_POISON, TYPE_FLYING),
         .catchRate = 90,
         .expYield = 159,
         //.evYield_Speed = 2,
@@ -1391,8 +1349,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 55, 30, 75, 75),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 255,
         .expYield = 64,
         //.evYield_SpAttack = 1,
@@ -1419,8 +1376,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 65, 70, 40, 85, 85),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 120,
         .expYield = 138,
         //.evYield_SpAttack = 2,
@@ -1448,8 +1404,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 80, 85, 50, 110, 101),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 45,
         .expYield = 221,
         //.evYield_SpAttack = 3,
@@ -1476,8 +1431,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 78, 67, 63, 45, 75),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_BUG, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 57,
         //.evYield_Attack = 1,
@@ -1507,8 +1461,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(88, 107, 115, 30, 60, 88),
-        .type1 = TYPE_GRASS,  //think prefer grass for mushroom, as bug is dead the mushroom is the only thing left to be affected
-        .type2 = TYPE_GHOST,    //changed back,its the body of a bug its abilities can represent the mushroom effect, plus type strength is about same
+        MON_TYPES(TYPE_GRASS, TYPE_GHOST),  //think prefer grass for mushroom, as bug is dead the mushroom is the only thing left to be affected TYPE_GHOST,    //changed back,its the body of a bug its abilities can represent the mushroom effect, plus type strength is about same
         .catchRate = 75,    //still waffling on this, bug grass have similar weaknesses, bug gets confusion immunity, but the bug is dead
         .expYield = 142,    //grass gets the fairy immunity, and powder move immunity, which the mushroom would have
         //.evYield_Attack = 2,      //think keeping bug grass it has more defense strength
@@ -1545,8 +1498,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(67, 55, 50, 60, 45, 75),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_SpDefense = 1,
@@ -1572,8 +1524,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 65, 60, 100, 100, 90),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 75,
         .expYield = 158,
         //.evYield_Speed = 1,
@@ -1603,8 +1554,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(10, 55, 25, 95, 35, 45),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 53,
         //.evYield_Speed = 1,
@@ -1631,8 +1581,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 105, 50, 120, 50, 70),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 50,
         .expYield = 149,
         //.evYield_Speed = 2,
@@ -1659,8 +1608,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 35, 97, 45, 40),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Speed = 1,
@@ -1686,8 +1634,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 77, 60, 115, 77, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 154,
         //.evYield_Speed = 2,
@@ -1713,8 +1660,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 56, 58, 55, 85, 65),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 64,
         //.evYield_SpAttack = 1,
@@ -1739,8 +1685,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 95, 78, 85, 95, 87),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 175,
         //.evYield_SpAttack = 2,
@@ -1764,8 +1709,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(48, 80, 50, 72, 35, 45),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -1790,8 +1734,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 105, 65, 95, 60, 70),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 159,
         //.evYield_Attack = 2,
@@ -1816,8 +1759,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 70, 45, 70, 70, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
         .catchRate = 190,
         .expYield = 70,
         //.evYield_Attack = 1,
@@ -1843,8 +1785,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 110, 80, 105, 100, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
         .catchRate = 75,
         .expYield = 194,
         //.evYield_Attack = 2,
@@ -1870,8 +1811,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 50, 40, 90, 40, 40),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Speed = 1,
@@ -1896,8 +1836,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 75, 90, 50, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 120,
         .expYield = 135,
         //.evYield_Speed = 2,
@@ -1923,8 +1862,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 105, 105, 70, 70, 90),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 230,
         //.evYield_Defense = 3,
@@ -1949,8 +1887,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 20, 25, 90, 105, 55),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 200,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -1978,8 +1915,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 35, 30, 105, 120, 70),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 100,
         .expYield = 140,
         //.evYield_SpAttack = 2,
@@ -2006,8 +1942,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 50, 45, 120, 135, 95),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 50,
         .expYield = 225,
         //.evYield_SpAttack = 3,
@@ -2034,8 +1969,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 80, 50, 35, 35, 35),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 180,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -2061,8 +1995,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 70, 45, 50, 60),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 90,
         .expYield = 142,
         //.evYield_Attack = 2,
@@ -2088,8 +2021,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 130, 80, 60, 65, 85),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 227,
         //.evYield_Attack = 3,
@@ -2118,8 +2050,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 36, 89, 70, 56),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -2147,8 +2078,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 90, 50, 55, 85, 65),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 120,
         .expYield = 137,
         //.evYield_Attack = 2,
@@ -2174,8 +2104,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(111, 105, 75, 57, 100, 87),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 45,
         .expYield = 221,
         //.evYield_Attack = 3,
@@ -2201,8 +2130,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 40, 75, 70, 50, 100),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_WATER, TYPE_POISON),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_SpDefense = 1,
@@ -2227,8 +2155,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 70, 95, 100, 80, 130),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_WATER, TYPE_POISON),
         .catchRate = 60,
         .expYield = 180,
         //.evYield_SpDefense = 2,
@@ -2253,8 +2180,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 80, 100, 20, 30, 45),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -2279,8 +2205,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 115, 35, 45, 65),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),
         .catchRate = 120,
         .expYield = 137,
         //.evYield_Defense = 2,
@@ -2305,8 +2230,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 120, 130, 45, 55, 75),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 223,
         //.evYield_Defense = 3,
@@ -2331,8 +2255,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 85, 55, 90, 65, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
         .catchRate = 190,
         .expYield = 82,
         //.evYield_Speed = 1,
@@ -2356,8 +2279,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 100, 70, 105, 80, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_Speed = 2,
@@ -2381,8 +2303,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 65, 65, 15, 40, 40),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 63,
         //.evYield_HP = 1,
@@ -2413,8 +2334,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 75, 110, 30, 100, 80),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -2441,8 +2361,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(25, 35, 70, 45, 95, 55),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_SpAttack = 1,
@@ -2469,8 +2388,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 60, 95, 70, 120, 70),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 163,
         //.evYield_SpAttack = 2,
@@ -2498,8 +2416,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 105, 60, 60, 50, 62),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 192,
         //.evYield_Attack = 1,
@@ -2526,8 +2443,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 85, 45, 75, 35, 35),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 62,
         //.evYield_Attack = 1,
@@ -2560,8 +2476,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 70, 110, 60, 60),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,   //gave back flying type, a bit bigger of a change thean I want to make
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),   //gave back flying type, a bit bigger of a change thean I want to make
         .catchRate = 45,
         .expYield = 165,
         //.evYield_Attack = 2,
@@ -2588,8 +2503,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 45, 55, 45, 45, 70),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_WATER, TYPE_ICE),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_SpDefense = 1,
@@ -2614,8 +2528,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 70, 80, 76, 75, 95),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_WATER, TYPE_ICE),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_SpDefense = 2,
@@ -2640,8 +2553,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 50, 25, 40, 65),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_HP = 1,
@@ -2670,8 +2582,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 105, 75, 50, 65, 100),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 75,
         .expYield = 175,
         //.evYield_HP = 1,
@@ -2701,8 +2612,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 65, 100, 54, 45, 25),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -2729,8 +2639,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 95, 180, 65, 85, 50),
-        .type1 = TYPE_WATER,  //most moves were ice rather than water related plus its a clam which makes pearls so kinda fitting
-        .type2 = TYPE_ICE, //ice rock was cool idea but doesn't make any sense for this to be a sandstorm mon
+        MON_TYPES(TYPE_WATER, TYPE_ICE),  //most moves were ice rather than water related plus its a clam which makes pearls so kinda fitting TYPE_ICE, //ice rock was cool idea but doesn't make any sense for this to be a sandstorm mon
         .catchRate = 60,
         .expYield = 184,
         //.evYield_Defense = 2,
@@ -2757,8 +2666,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 55, 30, 80, 100, 45),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GHOST, TYPE_POISON),
         .catchRate = 190,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -2782,8 +2690,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 70, 45, 95, 115, 75),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GHOST, TYPE_POISON),
         .catchRate = 90,
         .expYield = 142,
         //.evYield_SpAttack = 2,
@@ -2807,8 +2714,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 85, 60, 110, 130, 80),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GHOST, TYPE_POISON),
         .catchRate = 45,
         .expYield = 225,
         //.evYield_SpAttack = 3,
@@ -2834,8 +2740,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 62, 160, 113, 30, 55),//still not up to snuff, but can't do much more to its stats without breaking early game, think can only boost speed
-        .type1 = TYPE_ROCK,         //will be fastest rock type
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),     //will be fastest rock type TYPE_GROUND),
         .catchRate = 45,
         .expYield = 77,
         //.evYield_Defense = 1,
@@ -2861,8 +2766,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 58, 60, 42, 53, 90),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_SpDefense = 1,
@@ -2887,8 +2791,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 73, 70, 67, 73, 115),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 169,
         //.evYield_SpDefense = 2,
@@ -2913,8 +2816,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 105, 90, 55, 39, 25),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 225,
         .expYield = 65,
         //.evYield_Attack = 1,
@@ -2940,8 +2842,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 130, 115, 75, 50, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -2967,8 +2868,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 30, 55, 105, 65, 75),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_Speed = 1,
@@ -2994,8 +2894,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 75, 150, 95, 100),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 172,
         //.evYield_Speed = 2,
@@ -3021,8 +2920,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 55, 101, 40, 60, 45),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 65,
         //.evYield_Defense = 1,
@@ -3053,8 +2951,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 95, 85, 55, 125, 75),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 186,
         //.evYield_SpAttack = 2,
@@ -3080,8 +2977,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 50, 95, 45, 40, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 190,
         .expYield = 64,
         //.evYield_Defense = 1,
@@ -3108,8 +3004,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 88, 118, 65, 50, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 149,
         //.evYield_Defense = 2,
@@ -3134,8 +3029,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 121, 60, 87, 35, 110),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_Attack = 2,
@@ -3160,8 +3054,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 105, 79, 76, 35, 123),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_SpDefense = 2,
@@ -3188,8 +3081,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(112, 55, 75, 30, 60, 96),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_NORMAL, TYPE_POISON),
         .catchRate = 45,
         .expYield = 77,
         //.evYield_HP = 2,
@@ -3216,8 +3108,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 65, 75, 35, 60, 95),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 190,
         .expYield = 68,
         //.evYield_Defense = 1,
@@ -3244,8 +3135,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 90, 88, 60, 85, 120),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 60,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -3271,8 +3161,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 85, 95, 25, 30, 45),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_GROUND, TYPE_ROCK),
         .catchRate = 120,
         .expYield = 69,
         //.evYield_Defense = 1,
@@ -3299,8 +3188,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 130, 120, 40, 45, 65),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_GROUND, TYPE_ROCK),
         .catchRate = 60,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -3327,8 +3215,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(250, 15, 10, 50, 45, 105),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 30,
         .expYield = 395,
         //.evYield_HP = 2,
@@ -3356,8 +3243,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 54, 115, 60, 100, 51),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 87,
         //.evYield_Defense = 1,
@@ -3382,8 +3268,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 95, 80, 90, 40, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_HP = 2,
@@ -3409,8 +3294,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 40, 70, 60, 70, 25),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 225,
         .expYield = 59,
         //.evYield_SpAttack = 1,
@@ -3436,8 +3320,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 65, 95, 85, 95, 55),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 75,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -3464,8 +3347,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 67, 60, 63, 55, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 225,
         .expYield = 64,
         //.evYield_Attack = 1,
@@ -3491,8 +3373,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 92, 65, 88, 65, 80),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 60,
         .expYield = 158,
         //.evYield_Attack = 2,
@@ -3518,8 +3399,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 45, 55, 85, 70, 55),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 225,
         .expYield = 68,
         //.evYield_Speed = 1,
@@ -3547,8 +3427,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 75, 85, 115, 100, 85),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 60,
         .expYield = 182,
         //.evYield_Speed = 2,
@@ -3576,8 +3455,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(56, 45, 75, 90, 100, 120),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 161,
         //.evYield_SpDefense = 2,
@@ -3602,8 +3480,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 80, 105, 55, 80),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 100,
         //.evYield_Attack = 1,
@@ -3630,8 +3507,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 50, 45, 95, 115, 95),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ICE, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_SpAttack = 2,
@@ -3656,8 +3532,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 83, 57, 105, 95, 85),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Speed = 2,
@@ -3684,8 +3559,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 57, 93, 100, 85),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_SpAttack = 2,
@@ -3712,8 +3586,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 125, 100, 85, 55, 70),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -3739,8 +3612,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 110, 95, 110, 40, 70),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Attack = 1,
@@ -3767,8 +3639,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 160, 125, 45, 155, 95),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 150,
         //.evYield_Speed = 1,
@@ -3795,8 +3666,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 125, 79, 81, 60, 100),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 189,
         //.evYield_Attack = 2,
@@ -3822,8 +3692,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 85, 80, 60, 85, 95),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_WATER, TYPE_ICE),
         .catchRate = 45,
         .expYield = 187,
         //.evYield_HP = 2,
@@ -3851,8 +3720,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(48, 99, 99, 130, 99, 99),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GHOST, //the ghost type was a joke but eh guess I'll give it night shade
+        MON_TYPES(TYPE_NORMAL, TYPE_GHOST), //the ghost type was a joke but eh guess I'll give it night shade
         .catchRate = 35,
         .expYield = 101,
         //.evYield_HP = 1,
@@ -3883,8 +3751,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 55, 85, 85, 75),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,   //change up eevee stats as its evo is more of a form change than a growth imo so stats are average but actually mid game viable
+        MON_TYPES(TYPE_NORMAL),   //change up eevee stats as its evo is more of a form change than a growth imo so stats are average but actually mid game viable
         .catchRate = 45,
         .expYield = 65,
         //.evYield_SpDefense = 1,
@@ -3922,8 +3789,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 65, 60, 65, 110, 95),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_HP = 2,
@@ -3949,8 +3815,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 90, 50, 120, 110, 90),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Speed = 2,
@@ -3976,8 +3841,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 130, 60, 65, 95, 110),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Attack = 2,
@@ -4001,8 +3865,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 60, 70, 40, 85, 75),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 79,
         //.evYield_SpAttack = 1,
@@ -4027,8 +3890,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 40, 100, 35, 90, 55),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 71,
         //.evYield_Defense = 1,
@@ -4054,8 +3916,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 125, 55, 115, 70),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -4081,8 +3942,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 80, 90, 55, 55, 45),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 71,
         //.evYield_Defense = 1,
@@ -4108,8 +3968,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 115, 105, 80, 65, 70),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Attack = 2,
@@ -4135,8 +3994,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 105, 65, 130, 60, 75),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 180,
         //.evYield_Speed = 2,
@@ -4162,8 +4020,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(160, 110, 65, 30, 65, 110),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 25,
         .expYield = 189,
         //.evYield_HP = 2,
@@ -4192,8 +4049,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 100, 85, 115, 115),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ICE, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpDefense = 3,
@@ -4219,8 +4075,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 90, 85, 100, 125, 90),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpAttack = 3,
@@ -4244,8 +4099,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 100, 90, 90, 125, 85),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpAttack = 3,
@@ -4271,8 +4125,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(41, 64, 45, 50, 50, 50),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -4298,8 +4151,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 84, 65, 70, 70, 70),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Attack = 2,
@@ -4325,8 +4177,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(91, 134, 95, 80, 100, 100),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_Attack = 3,
@@ -4353,8 +4204,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 110, 90, 130, 154, 90),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_SpAttack = 3,
@@ -4380,8 +4230,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 127, 100, 160),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -4406,8 +4255,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 49, 65, 45, 49, 75),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 64,
         //.evYield_SpDefense = 1,
@@ -4433,8 +4281,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(87, 57, 80, 60, 63, 95),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Defense = 1,
@@ -4461,8 +4308,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 82, 100, 80, 83, 153),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 236,
         //.evYield_Defense = 1,
@@ -4489,8 +4335,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(39, 52, 43, 72, 60, 50),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -4514,8 +4359,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 64, 58, 87, 80, 70),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL, //could make fire ground but w my normal change still think fire normal is better?it has a somewhat varied move pool already
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL), //could make fire ground but w my normal change still think fire normal is better?it has a somewhat varied move pool already
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -4541,8 +4385,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 84, 78, 100, 109, 95),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 240,
         //.evYield_SpAttack = 3,
@@ -4566,8 +4409,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 65, 64, 47, 44, 48),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 63,
         //.evYield_Attack = 1,
@@ -4593,8 +4435,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 80, 80, 66, 59, 63),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Attack = 1,
@@ -4622,8 +4463,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 115, 100, 82, 79, 83),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Attack = 2,
@@ -4650,8 +4490,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 56, 34, 25, 35, 45),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 43,
         //.evYield_Attack = 1,
@@ -4677,8 +4516,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 86, 64, 100, 45, 55),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 90,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -4704,8 +4542,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 30, 50, 66, 56),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 52,
         //.evYield_HP = 1,
@@ -4731,8 +4568,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 50, 50, 70, 120, 96),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 158,
         //.evYield_HP = 2,
@@ -4758,8 +4594,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 50, 65, 20, 100),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL, //ok was thinking fighting but will keep this, use normal type joat  to make it super versatile
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL), //ok was thinking fighting but will keep this, use normal type joat  to make it super versatile
         .catchRate = 255, //give all the elemental punches
         .expYield = 53,
         //.evYield_SpDefense = 1,
@@ -4785,8 +4620,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 85, 65, 95, 35, 135),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 137,
         //.evYield_SpDefense = 2,
@@ -4812,8 +4646,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 60, 40, 65, 40, 60),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 255,
         .expYield = 50,
         //.evYield_Attack = 1,
@@ -4839,8 +4672,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 90, 70, 88, 60, 88),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 90,
         .expYield = 140,
         //.evYield_Attack = 2,
@@ -4866,8 +4698,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 90, 80, 130, 70, 90),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_POISON, TYPE_FLYING),
         .catchRate = 90,
         .expYield = 241,
         //.evYield_Speed = 3,
@@ -4893,8 +4724,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 38, 48, 67, 66, 66),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_WATER, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_HP = 1,
@@ -4919,8 +4749,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(125, 58, 68, 67, 86, 86),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_WATER, TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = 161,
         //.evYield_HP = 2,
@@ -4945,8 +4774,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 40, 30, 60, 55, 25),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 41,
         //.evYield_Speed = 1,
@@ -4971,8 +4799,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 25, 28, 15, 45, 55),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 150,
         .expYield = 44,
         //.evYield_SpDefense = 1,
@@ -4998,8 +4825,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 30, 25, 15, 40, 25),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 170,
         .expYield = 42,
         //.evYield_HP = 1,
@@ -5024,8 +4850,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 20, 65, 20, 40, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 49,
         //.evYield_SpDefense = 1,
@@ -5051,8 +4876,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 40, 85, 40, 80, 115),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FAIRY, TYPE_FLYING),
         //// #endif
         .catchRate = 75,
         .expYield = 142,
@@ -5080,12 +4904,11 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 50, 45, 70, 70, 50),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_NORMAL,   //Can't fly
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),   //Can't fly
         .catchRate = 190,
         .expYield = 64,
         //.evYield_SpAttack = 1,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50), //flying is bird type or excells at flight so this could be a flying type?
         .eggCycles = 20,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -5101,14 +4924,17 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNatuLevelUpLearnset,
         .tmhmLearnset = sNatuTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_XATU}), //Should hopefully blank these for now without issue
-    },
+    },//unsure if want be flying or normal gets a good variety of alt type moves
+    //so normal is a good damage buff but flying none floating illustrates new mechanic
+    //and is unique as removes the electric weakness which would leave it only weak to ice
+    //yeah like nuance better than just flat dmg, has to work a bit harder for it,
+    //but greater overall potential
 
     [SPECIES_XATU] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 70, 100, 100, 75),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
         .catchRate = 75,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -5135,8 +4961,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 40, 95, 35, 65, 86),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 235,
         .expYield = 56,
         //.evYield_SpAttack = 1,
@@ -5160,8 +4985,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 55, 55, 65, 85, 60),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 120,
         .expYield = 128,
         //.evYield_SpAttack = 2,
@@ -5185,8 +5009,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 85, 55, 115, 90),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 230,
         //.evYield_SpAttack = 3,
@@ -5210,8 +5033,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 80, 95, 75, 100, 110),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 221,
         //.evYield_SpDefense = 3,
@@ -5240,8 +5062,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 35, 50, 40, 50, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 88,
         //.evYield_HP = 2,
@@ -5267,8 +5088,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 55, 80, 50, 90, 80),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 75,
         .expYield = 189,
         //.evYield_HP = 3,
@@ -5294,8 +5114,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 110, 115, 30, 30, 75),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_ROCK, TYPE_GRASS),
         .catchRate = 65,
         .expYield = 144,
         //.evYield_Defense = 2,
@@ -5321,8 +5140,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 75, 70, 90, 110),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 225,
         //.evYield_SpDefense = 3,
@@ -5347,8 +5165,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 45, 40, 50, 45, 65),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING, //keep flying for this, may not be a distance flyer but still good at maneovering itself throug the air
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING), //keep flying for this, may not be a distance flyer but still good at maneovering itself throug the air
         .catchRate = 255,
         .expYield = 50,
         //.evYield_SpDefense = 1,
@@ -5373,8 +5190,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 85, 84, 45, 70),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 119,
         //.evYield_Speed = 2,
@@ -5399,8 +5215,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 55, 70, 128, 105, 95),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 207,
         //.evYield_Speed = 3,
@@ -5425,8 +5240,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 70, 55, 85, 40, 55),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 72,
         //.evYield_Speed = 1,
@@ -5452,8 +5266,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 30, 30, 55, 30),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 235,
         .expYield = 36,
         //.evYield_SpAttack = 1,
@@ -5480,8 +5293,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 75, 85, 53, 135, 95),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_NORMAL, //zenmode yt may keep this normal too?
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL), //zenmode yt may keep this normal too?
         .catchRate = 120, //can still keep fire moves
         .expYield = 149,
         //.evYield_SpAttack = 2,
@@ -5506,8 +5318,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 45, 95, 75, 45),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 75,
         .expYield = 78,
         //.evYield_Speed = 1,
@@ -5536,8 +5347,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 45, 15, 35, 32),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 42,
         //.evYield_HP = 1,
@@ -5563,8 +5373,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 95, 95, 35, 65, 65),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 90,
         .expYield = 151,
         //.evYield_HP = 2,
@@ -5590,8 +5399,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 60, 110, 130, 95),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_SpAttack = 2,
@@ -5617,8 +5425,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 79, 110, 65, 66, 130),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_SpDefense = 2,
@@ -5642,8 +5449,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 85, 42, 91, 85, 42),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 81,
         //.evYield_Speed = 1,
@@ -5669,8 +5475,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 75, 80, 30, 100, 110),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 70,
         .expYield = 172,
         //.evYield_SpDefense = 3,
@@ -5697,8 +5502,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 60, 85, 85, 85),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 87,
         //.evYield_SpDefense = 1,
@@ -5723,8 +5527,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 64, 48, 76, 64, 48),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -5753,8 +5556,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(190, 33, 58, 33, 33, 58),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_HP = 2,
@@ -5780,8 +5582,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 77, 63, 95, 97, 64),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 60,
         .expYield = 205,
         //.evYield_SpAttack = 2,
@@ -5807,8 +5608,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 65, 90, 15, 35, 35),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,   //bcuz
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),   //bcuz
         .catchRate = 190,
         .expYield = 58,
         //.evYield_Defense = 1,
@@ -5834,8 +5634,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 90, 140, 40, 60, 60),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Defense = 2,
@@ -5861,8 +5660,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 70, 70, 45, 65, 87),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,   //keeping poison would hurt without floating
+        MON_TYPES(TYPE_NORMAL),   //keeping poison would hurt without floating
         .catchRate = 190,
         .expYield = 145,
         //.evYield_HP = 1,
@@ -5903,8 +5701,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 105, 85, 35, 65),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GROUND, TYPE_FLYING),
         .catchRate = 60,
         .expYield = 86,
         //.evYield_Defense = 1,
@@ -5928,8 +5725,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 85, 200, 30, 55, 65),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_STEEL, TYPE_GROUND),
         .catchRate = 25,
         .expYield = 179,
         //.evYield_Defense = 2,
@@ -5956,8 +5752,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 80, 50, 30, 40, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -5983,8 +5778,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 120, 75, 45, 60, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 75,
         .expYield = 158,
         //.evYield_Attack = 2,
@@ -6009,8 +5803,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 85, 85, 95, 65),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_WATER, TYPE_POISON),
         .catchRate = 45,
         .expYield = 88,
         //.evYield_Attack = 1,
@@ -6035,8 +5828,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 130, 100, 80, 55, 80),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 25,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -6061,8 +5853,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 10, 230, 5, 10, 230),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_BUG, TYPE_ROCK),
         .catchRate = 190,
         .expYield = 177,
         //.evYield_Defense = 1,
@@ -6090,8 +5881,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 125, 75, 85, 40, 95),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -6117,8 +5907,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 105, 55, 115, 35, 80),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_DARK, TYPE_ICE),
         .catchRate = 60,
         .expYield = 86,
         //.evYield_Speed = 1,
@@ -6146,8 +5935,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 80, 50, 40, 50, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 66,
         //.evYield_Attack = 1,
@@ -6172,8 +5960,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 130, 75, 55, 75, 75),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -6198,8 +5985,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 40, 40, 20, 88, 56),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 190,
         .expYield = 50,
         //.evYield_SpAttack = 1,
@@ -6225,8 +6011,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 120, 30, 115, 90),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_FIRE, TYPE_ROCK),
         .catchRate = 75,
         .expYield = 151,
         //.evYield_Defense = 2,
@@ -6252,8 +6037,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 50, 40, 50, 30, 30),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ICE, TYPE_GROUND),
         .catchRate = 225,
         .expYield = 50,
         //.evYield_Attack = 1,
@@ -6278,8 +6062,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 80, 50, 60, 60),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ICE, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 158,
         //.evYield_HP = 1,
@@ -6306,8 +6089,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 115, 35, 85, 110),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_WATER, TYPE_ROCK),
         .catchRate = 60,
         .expYield = 144,
         //.evYield_Defense = 1,
@@ -6337,8 +6119,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 65, 35, 65, 65, 35),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 190,
         .expYield = 60,
         //.evYield_SpAttack = 1,
@@ -6363,8 +6144,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 105, 75, 45, 105, 75),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 75,
         .expYield = 168,
         //.evYield_Attack = 1,
@@ -6390,8 +6170,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(101, 95, 55, 95, 75, 55),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ICE, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 116,
         //.evYield_Speed = 1,
@@ -6415,8 +6194,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 40, 70, 70, 80, 140),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 25,
         .expYield = 170,
         //.evYield_SpDefense = 2,
@@ -6440,8 +6218,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 80, 140, 70, 40, 70),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_STEEL, TYPE_FLYING),
         .catchRate = 25,
         .expYield = 163,
         //.evYield_Defense = 2,
@@ -6468,8 +6245,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 85, 30, 65, 70, 50),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_DARK, TYPE_FIRE),
         .catchRate = 120,
         .expYield = 66,
         //.evYield_SpAttack = 1,
@@ -6495,8 +6271,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 110, 50, 95, 95, 80),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_DARK, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_SpAttack = 2,
@@ -6522,8 +6297,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 95, 85, 95, 95),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 243,
         //.evYield_Attack = 1,
@@ -6551,8 +6325,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 60, 60, 46, 40, 40),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 120,
         .expYield = 66,
         //.evYield_HP = 1,
@@ -6576,8 +6349,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 120, 120, 65, 60, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_Attack = 1,
@@ -6602,8 +6374,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 80, 90, 60, 105, 95),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 180,
         //.evYield_SpAttack = 2,
@@ -6628,8 +6399,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 100, 62, 85, 85, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 163,
         //.evYield_Attack = 1,
@@ -6655,8 +6425,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 40, 35, 85, 40, 45),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 111,
         //.evYield_Speed = 1,
@@ -6681,8 +6450,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 35, 35, 35, 35, 35),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 65,
         .expYield = 42,
         //.evYield_Attack = 1,
@@ -6711,8 +6479,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 95, 95, 70, 35, 115),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_SpDefense = 2,
@@ -6737,8 +6504,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 25, 65, 85, 65),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ICE, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 61,
         //.evYield_SpAttack = 1,
@@ -6763,8 +6529,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 63, 37, 95, 65, 55),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 72,
         //.evYield_Speed = 1,
@@ -6791,8 +6556,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 75, 37, 83, 70, 55),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 73,
         //.evYield_Speed = 1,
@@ -6819,8 +6583,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 80, 105, 100, 40, 80),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -6847,8 +6610,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(255, 30, 20, 55, 75, 135),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 30,
         .expYield = 608,
         //.evYield_HP = 3,
@@ -6875,8 +6637,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 85, 75, 115, 115, 100),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Speed = 2,
@@ -6910,8 +6671,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 115, 85, 100, 90, 75),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_HP = 1,
@@ -6936,8 +6696,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 75, 115, 85, 90, 115),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_WATER, TYPE_ICE),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Defense = 1,
@@ -6962,8 +6721,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 64, 50, 41, 45, 50),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -6987,8 +6745,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 84, 70, 51, 65, 65),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 144,
         //.evYield_Attack = 2,
@@ -7011,8 +6768,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 134, 110, 61, 95, 100),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_ROCK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_Attack = 3,
@@ -7038,8 +6794,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 90, 130, 110, 90, 154),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_PSYCHIC,  //dragon to resist 3 birds, and dragons have dominion over air and sea, psychic because it has bariers and is able to "talk"
+        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),  //dragon to resist 3 birds, and dragons have dominion over air and sea, psychic because it has bariers and is able to "talk"
         .catchRate = 3,
         .expYield = 306,
         //.evYield_SpDefense = 3,
@@ -7065,8 +6820,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 130, 90, 90, 110, 154),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_SpDefense = 3,
@@ -7094,8 +6848,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 35, 110, 110, 130, 120),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -7120,8 +6873,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 45, 35, 70, 65, 55),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -7147,8 +6899,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(81, 65, 45, 95, 85, 65),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Speed = 2,
@@ -7174,8 +6925,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 85, 65, 120, 105, 85),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON, //vintage white change, works for me as I made grass imune to fairy
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON), //vintage white change, works for me as I made grass imune to fairy
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Speed = 3,
@@ -7201,8 +6951,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 60, 40, 45, 70, 50),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -7226,8 +6975,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 85, 60, 55, 85, 60),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Attack = 1,
@@ -7252,8 +7000,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 120, 70, 80, 110, 70),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Attack = 3,
@@ -7277,8 +7024,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 50, 40, 50, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Attack = 1,
@@ -7302,8 +7048,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 85, 70, 50, 60, 70),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Attack = 2,
@@ -7327,8 +7072,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 110, 90, 60, 85, 90),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 241,
         //.evYield_Attack = 3,
@@ -7352,8 +7096,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 75, 35, 35, 30, 30),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Attack = 1,
@@ -7378,8 +7121,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 105, 70, 77, 60, 60),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 127,
         .expYield = 147,
         //.evYield_Attack = 2,
@@ -7404,8 +7146,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(38, 40, 41, 70, 30, 41),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -7432,8 +7173,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 85, 61, 100, 50, 61),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 147,
         //.evYield_Speed = 2,
@@ -7460,8 +7200,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 45, 35, 20, 20, 30),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_HP = 1,
@@ -7488,8 +7227,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 35, 55, 15, 25, 25),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 120,
         .expYield = 72,
         //.evYield_Defense = 2,
@@ -7512,8 +7250,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 70, 60, 90, 105, 60),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 178,
         //.evYield_SpAttack = 3,
@@ -7546,8 +7283,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 35, 55, 15, 25, 25),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 120,
         .expYield = 72,
         //.evYield_Defense = 2,
@@ -7570,8 +7306,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 70, 85, 60, 105),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_SpDefense = 3,
@@ -7598,8 +7333,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(56, 30, 30, 30, 40, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 44,
         //.evYield_SpDefense = 1,
@@ -7624,8 +7358,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 50, 50, 60, 60, 70),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 119,
         //.evYield_SpDefense = 2,
@@ -7650,8 +7383,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(92, 70, 70, 70, 90, 100),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 216,
         //.evYield_SpDefense = 3,
@@ -7676,8 +7408,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(59, 40, 50, 30, 30, 50),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 44,
         //.evYield_Defense = 1,
@@ -7706,8 +7437,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 82, 40, 80, 60, 40),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 120,
         .expYield = 119,
         //.evYield_Attack = 2,
@@ -7736,8 +7466,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(92, 100, 88, 70, 90, 60),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 45,
         .expYield = 216,
         //.evYield_Attack = 3,
@@ -7768,8 +7497,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 30, 85, 30, 30),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 200,
         .expYield = 54,
         //.evYield_Speed = 1,
@@ -7795,8 +7523,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 100, 60, 125, 75, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_Speed = 2,
@@ -7822,8 +7549,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 30, 30, 85, 65, 30),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 54,
         //.evYield_Speed = 1,
@@ -7851,8 +7577,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 120, 65, 100, 70),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 154,
         //.evYield_Defense = 2,
@@ -7879,8 +7604,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(32, 25, 25, 40, 45, 35),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 235,
         .expYield = 40,
         //.evYield_SpAttack = 1,
@@ -7907,8 +7631,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(56, 35, 55, 50, 70, 55),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 97,
         //.evYield_SpAttack = 2,
@@ -7938,8 +7661,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 65, 65, 85, 125, 115),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 233,
         //.evYield_SpAttack = 3,
@@ -7966,8 +7688,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 42, 32, 65, 50, 52),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_BUG, TYPE_WATER),
         .catchRate = 200,
         .expYield = 54,
         //.evYield_Speed = 1,
@@ -7994,8 +7715,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 62, 90, 100, 102),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_BUG, TYPE_WATER),
         .catchRate = 75,
         .expYield = 200,
         //.evYield_SpAttack = 1,
@@ -8023,8 +7743,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 60, 35, 40, 60),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 59,
         //.evYield_HP = 1,
@@ -8051,8 +7770,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 130, 80, 70, 60, 60),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
         .catchRate = 90,
         .expYield = 161,
         //.evYield_Attack = 2,
@@ -8079,8 +7797,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 60, 30, 35, 35),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_HP = 1,
@@ -8104,8 +7821,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 80, 90, 55, 55),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 154,
         //.evYield_Speed = 2,
@@ -8129,8 +7845,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 160, 100, 100, 95, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 252,
         //.evYield_HP = 3,
@@ -8155,8 +7870,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(31, 45, 90, 40, 30, 30),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_BUG, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 53,
         //.evYield_Defense = 1,
@@ -8183,8 +7897,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 110, 45, 160, 50, 50),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_BUG, TYPE_DARK),
         .catchRate = 120,
         .expYield = 160,
         //.evYield_Speed = 2,
@@ -8210,8 +7923,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(27, 90, 45, 40, 30, 30), //potential debuff atk 90 ->75  sp atk/def 30 -> 35
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_BUG, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 83,
         //.evYield_HP = 2,
@@ -8235,8 +7947,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 56, 36, 28, 51, 36),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 48,
         //.evYield_HP = 1,
@@ -8262,8 +7973,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(84, 80, 43, 48, 80, 43),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 126,
         //.evYield_HP = 2,
@@ -8289,8 +7999,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(104, 91, 63, 68, 91, 73),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 221,
         //.evYield_HP = 3,
@@ -8316,8 +8025,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(72, 60, 30, 25, 20, 30),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING, //while would like to don't think can swing giving normal type
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING), //while would like to don't think can swing giving normal type
         .catchRate = 180,
         .expYield = 47,
         //.evYield_HP = 1,
@@ -8345,8 +8053,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(144, 120, 60, 50, 40, 60),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 200,
         .expYield = 166,
         //.evYield_HP = 2,
@@ -8374,8 +8081,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 20, 40, 20, 36, 40),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 150,
         .expYield = 38,
         //.evYield_HP = 1,
@@ -8401,8 +8107,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 45, 135, 30, 45, 90),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 255,
         .expYield = 75,
         //.evYield_Defense = 1,
@@ -8430,8 +8135,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 45, 45, 50, 35, 35),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 52,
         //.evYield_Speed = 1,
@@ -8456,8 +8160,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 75, 65, 81, 75, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_NORMAL, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 140,
         //.evYield_HP = 1,
@@ -8485,8 +8188,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 80, 75, 47, 65, 65),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_DARK, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 133,
         //.evYield_Attack = 1,
@@ -8518,8 +8220,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 87, 90, 55, 65, 75),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 133,
         //.evYield_Attack = 1,
@@ -8549,8 +8250,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 100, 30, 40, 55),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_STEEL, TYPE_ROCK),
         .catchRate = 180,
         .expYield = 66,
         //.evYield_Defense = 1,
@@ -8577,8 +8277,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 90, 140, 40, 50, 65),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_STEEL, TYPE_ROCK),
         .catchRate = 90,
         .expYield = 151,
         //.evYield_Defense = 2,
@@ -8605,8 +8304,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 180, 50, 60, 80),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_STEEL, TYPE_ROCK),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Defense = 3,
@@ -8638,8 +8336,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 40, 115, 60, 40, 115),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 180,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -8665,8 +8362,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 142, 80, 60, 142),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 144,
         //.evYield_Speed = 2,
@@ -8698,8 +8394,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 40, 65, 65, 40),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 120,
         .expYield = 59,
         //.evYield_Speed = 1,
@@ -8723,8 +8418,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 75, 60, 105, 105, 60),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_Speed = 2,
@@ -8748,8 +8442,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 40, 95, 85, 75),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 200,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -8776,8 +8469,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 50, 95, 75, 85),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 200,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -8804,8 +8496,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 53, 75, 85, 77, 85),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ELECTRIC, 
+        MON_TYPES(TYPE_BUG, TYPE_ELECTRIC), 
         .catchRate = 150,
         .expYield = 151,
         //.evYield_Speed = 1,
@@ -8832,8 +8523,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 47, 75, 95, 73, 85),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GRASS,    //grass for sweet smelling  fragance/aroma
+        MON_TYPES(TYPE_BUG, TYPE_GRASS),    //grass for sweet smelling  fragance/aroma
         .catchRate = 150,
         .expYield = 151,
         //.evYield_Speed = 1,
@@ -8859,8 +8549,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 45, 65, 100, 90),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 150,
         .expYield = 140,
         //.evYield_SpAttack = 2,
@@ -8887,8 +8576,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 43, 53, 40, 43, 63),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 225,
         .expYield = 60,
         //.evYield_HP = 1,
@@ -8916,8 +8604,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 73, 83, 55, 83, 87),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_HP = 2,
@@ -8945,8 +8632,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 90, 20, 65, 65, 20),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 225,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -8971,8 +8657,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 120, 40, 95, 95, 40),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 60,
         .expYield = 161,
         //.evYield_Attack = 2,
@@ -8997,8 +8682,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 70, 35, 60, 70, 35),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 125,
         .expYield = 80,
         //.evYield_HP = 1,
@@ -9022,8 +8706,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(170, 90, 45, 60, 90, 45),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_HP = 2,
@@ -9048,8 +8731,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 40, 35, 65, 45),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 61,
         //.evYield_SpAttack = 1,
@@ -9077,8 +8759,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 100, 70, 40, 105, 75),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 150,
         .expYield = 161,
         //.evYield_Attack = 1,
@@ -9104,8 +8785,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 95, 140, 20, 95, 70),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 90,
         .expYield = 165,
         //.evYield_Defense = 2,
@@ -9130,8 +8810,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 25, 35, 60, 70, 80),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 255,
         .expYield = 66,
         //.evYield_SpDefense = 1,
@@ -9157,8 +8836,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 45, 65, 80, 90, 110),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_DARK),
         .catchRate = 60,
         .expYield = 165,
         //.evYield_SpDefense = 2,
@@ -9186,8 +8864,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(88, 88, 88, 88, 88, 88),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 126,
         //.evYield_SpAttack = 1,
@@ -9212,8 +8889,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 110, 55, 10, 45, 65),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_GROUND, TYPE_BUG),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Attack = 1,
@@ -9242,8 +8918,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 50, 70, 50, 50),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
         .catchRate = 120,
         .expYield = 119,
         //.evYield_Attack = 1,
@@ -9269,8 +8944,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 80, 100, 80, 80),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 234,
         //.evYield_Attack = 1,
@@ -9296,8 +8970,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 85, 40, 55, 85, 40),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_SpAttack = 1,
@@ -9324,8 +8997,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 115, 60, 75, 115, 60),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 60,
         .expYield = 166,
         //.evYield_Attack = 1,
@@ -9353,8 +9025,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 40, 60, 50, 40, 75),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 62,
         //.evYield_SpDefense = 1,
@@ -9378,8 +9049,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 90, 80, 77, 105),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_DRAGON, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_SpDefense = 2,
@@ -9405,8 +9075,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 115, 60, 100, 60, 60),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DARK, //WOULD now be 4x  to fighting and fairy, but its fast enough to overcome that idea from Lockstin & Gnoggin
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK), //WOULD now be 4x  to fighting and fairy, but its fast enough to overcome that idea from Lockstin & Gnoggin
         .catchRate = 90,
         .expYield = 160,
         //.evYield_Attack = 2,
@@ -9433,8 +9102,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 80, 70, 70, 95, 85),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 160,
         //.evYield_Attack = 1,
@@ -9464,8 +9132,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 65, 65, 70, 105, 85),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 161,
         //.evYield_SpAttack = 2,
@@ -9498,8 +9165,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 95, 85, 70, 85, 65),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 161,
         //.evYield_Attack = 2,
@@ -9525,8 +9191,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 48, 73, 60, 46, 71),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 190,
         .expYield = 58,
         //.evYield_HP = 1,
@@ -9551,8 +9216,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 98, 73, 60, 76, 71),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 164,
         //.evYield_HP = 2,
@@ -9577,8 +9241,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(43, 80, 65, 35, 50, 35),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 205,
         .expYield = 62,
         //.evYield_Attack = 1,
@@ -9604,8 +9267,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(63, 120, 85, 55, 90, 55),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 155,
         .expYield = 164,
         //.evYield_Attack = 2,
@@ -9631,8 +9293,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 40, 55, 55, 40, 70),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_SpDefense = 1,
@@ -9658,8 +9319,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 70, 105, 75, 70, 120),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 175,
         //.evYield_SpDefense = 2,
@@ -9685,8 +9345,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 41, 77, 23, 61, 87),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_ROCK, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 71,
         //.evYield_SpDefense = 1,
@@ -9715,8 +9374,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(96, 81, 97, 43, 81, 107),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_ROCK, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -9745,8 +9403,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 95, 70, 75, 40, 50),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_ROCK, TYPE_BUG),
         .catchRate = 45,
         .expYield = 71,
         //.evYield_Attack = 1,
@@ -9770,8 +9427,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 125, 100, 45, 70, 80),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_ROCK, TYPE_BUG),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Attack = 2,
@@ -9795,8 +9451,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(37, 35, 40, 80, 30, 125),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 40,
         //.evYield_Speed = 1,
@@ -9824,8 +9479,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 60, 79, 81, 100, 125),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 189,
         //.evYield_SpDefense = 2,
@@ -9850,8 +9504,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GHOST,    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
+        MON_TYPES(TYPE_NORMAL, TYPE_GHOST),    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -9876,8 +9529,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 90, 70, 40, 75, 120),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 200,
         .expYield = 154,
         //.evYield_SpDefense = 1,
@@ -9903,8 +9555,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(44, 75, 35, 45, 63, 33),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GHOST, TYPE_DARK),
         .catchRate = 225,
         .expYield = 59,
         //.evYield_Attack = 1,
@@ -9933,8 +9584,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 115, 65, 65, 83, 63),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GHOST, TYPE_DARK),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_Attack = 2,
@@ -9962,8 +9612,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 40, 90, 25, 30, 90),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST, //think want to keep full ghost so banette is more unique
+        MON_TYPES(TYPE_GHOST), //think want to keep full ghost so banette is more unique
         .catchRate = 190,
         .expYield = 59,
         //.evYield_SpDefense = 1,
@@ -9990,8 +9639,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(41, 70, 130, 25, 70, 130),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 90,
         .expYield = 159,
         //.evYield_Defense = 1,
@@ -10019,8 +9667,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 80, 83, 51, 72, 95),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 200,
         .expYield = 238,
         //.evYield_HP = 2,
@@ -10045,8 +9692,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 63, 49, 75, 95, 90),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 159,
         //.evYield_SpAttack = 1,
@@ -10072,8 +9718,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 130, 60, 75, 75, 60),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 30,
         .expYield = 163,
         //.evYield_Attack = 2,
@@ -10098,8 +9743,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 23, 48, 23, 23, 48),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 125,
         .expYield = 52,
         //.evYield_HP = 1,
@@ -10125,8 +9769,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 50, 50, 50, 50, 50),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 190,
         .expYield = 60,
         //.evYield_HP = 1,
@@ -10155,8 +9798,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 95, 100, 60, 60, 75),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ICE, TYPE_ROCK),
         .catchRate = 75,
         .expYield = 168,
         //.evYield_HP = 2,
@@ -10181,8 +9823,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 40, 50, 25, 55, 50),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_HP = 1,
@@ -10207,8 +9848,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 60, 70, 45, 75, 70),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 120,
         .expYield = 144,
         //.evYield_HP = 2,
@@ -10233,8 +9873,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 80, 90, 65, 95, 90),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_HP = 3,
@@ -10259,8 +9898,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 64, 125, 32, 74, 55),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 69,
         //.evYield_Defense = 1,
@@ -10290,8 +9928,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 104, 95, 72, 94, 75),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 170,
         //.evYield_Attack = 1,
@@ -10317,8 +9954,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 84, 75, 72, 114, 95),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 170,
         //.evYield_SpAttack = 2,
@@ -10345,8 +9981,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 90, 130, 55, 45, 65),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_WATER, TYPE_ROCK),
         .catchRate = 25,
         .expYield = 170,
         //.evYield_HP = 1,
@@ -10372,8 +10007,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(43, 55, 71, 77, 55, 88),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 225,
         .expYield = 116,
         //.evYield_Speed = 1,
@@ -10400,8 +10034,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 75, 60, 50, 40, 30),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -10428,8 +10061,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 100, 50, 60, 50),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Defense = 2,
@@ -10456,8 +10088,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 135, 80, 100, 110, 80),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_Attack = 3,
@@ -10484,8 +10115,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 80, 30, 35, 60),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -10512,8 +10142,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 75, 100, 50, 55, 80),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 147,
         //.evYield_Defense = 2,
@@ -10540,8 +10169,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 135, 130, 70, 95, 90),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Defense = 3,
@@ -10568,8 +10196,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 200, 50, 50, 100),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Defense = 3,
@@ -10593,8 +10220,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 50, 100, 50, 100, 200),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpDefense = 3,
@@ -10620,8 +10246,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 75, 150, 50, 75, 150),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Defense = 2,
@@ -10648,8 +10273,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 90, 110, 110, 130),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -10675,8 +10299,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 90, 80, 110, 130, 110),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -10700,8 +10323,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 90, 90, 150, 140),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 3,
         .expYield = 302,
         //.evYield_SpAttack = 3,
@@ -10725,8 +10347,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 150, 140, 90, 100, 90),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 302,
         //.evYield_Attack = 3,
@@ -10750,8 +10371,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 150, 90, 95, 150, 90),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_Attack = 2,
@@ -10776,8 +10396,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -10803,8 +10422,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 150, 50, 150, 150, 50),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -10830,8 +10448,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 68, 64, 31, 45, 55),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 64,
         //.evYield_Attack = 1,
@@ -10855,8 +10472,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 89, 85, 36, 55, 65),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Attack = 1,
@@ -10881,8 +10497,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(112, 109, 105, 56, 75, 85),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 236,
         //.evYield_Attack = 2,
@@ -10907,8 +10522,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(44, 58, 44, 61, 58, 44),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -10934,8 +10548,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 78, 52, 81, 78, 52),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -10962,8 +10575,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 104, 71, 108, 104, 71),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 240,
         //.evYield_Attack = 1,
@@ -10991,8 +10603,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(53, 51, 53, 40, 61, 56),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 63,
         //.evYield_SpAttack = 1,
@@ -11018,8 +10629,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 66, 68, 50, 81, 76),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_SpAttack = 2,
@@ -11045,8 +10655,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(104, 86, 88, 60, 111, 101),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_WATER, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_SpAttack = 3,
@@ -11072,8 +10681,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 30, 60, 30, 30),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 49,
         //.evYield_Speed = 1,
@@ -11099,8 +10707,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 75, 50, 80, 40, 40),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 119,
         //.evYield_Speed = 2,
@@ -11126,8 +10733,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 120, 70, 100, 50, 60),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 218,
         //.evYield_Attack = 3,
@@ -11153,8 +10759,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 45, 40, 31, 35, 40),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 50,
         //.evYield_HP = 1,
@@ -11179,8 +10784,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(89, 95, 80, 71, 55, 77),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_NORMAL, TYPE_WATER),
         .catchRate = 127,
         .expYield = 144,
         //.evYield_Attack = 2,
@@ -11205,8 +10809,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(37, 35, 51, 25, 25, 41),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 255,
         .expYield = 39,
         //.evYield_Defense = 1,
@@ -11233,8 +10836,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 104, 51, 87, 55, 51),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 45,
         .expYield = 158,
         //.evYield_Attack = 2,
@@ -11263,8 +10865,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 77, 34, 45, 50, 34),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 235,
         .expYield = 53,
         //.evYield_Attack = 1,
@@ -11289,8 +10890,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 95, 49, 67, 70, 49),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 120,
         .expYield = 127,
         //.evYield_Attack = 2,
@@ -11315,8 +10915,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 130, 79, 72, 95, 79),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 235,
         //.evYield_Attack = 3,
@@ -11343,8 +10942,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 30, 35, 55, 50, 77),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_SpAttack = 1,
@@ -11371,8 +10969,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 70, 65, 90, 125, 105),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 75,
         .expYield = 232,
         //.evYield_SpAttack = 3,
@@ -11399,8 +10996,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(67, 125, 40, 58, 30, 30),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 70,
         //.evYield_Attack = 1,
@@ -11425,8 +11021,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 165, 60, 58, 65, 50),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Attack = 2,
@@ -11451,8 +11046,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 42, 118, 30, 42, 88),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ROCK, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 70,
         //.evYield_Defense = 1,
@@ -11476,8 +11070,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 52, 168, 30, 47, 138),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ROCK, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -11501,8 +11094,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 29, 45, 36, 29, 45),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 120,
         .expYield = 45,
         //.evYield_SpDefense = 1,
@@ -11529,8 +11121,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 79, 75, 66, 89, 85),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_BUG, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 148,
         //.evYield_SpDefense = 2,
@@ -11556,8 +11147,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 94, 50, 86, 94, 76),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 148,
         //.evYield_Attack = 1,
@@ -11585,8 +11175,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 30, 42, 70, 30, 42),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 49,
         //.evYield_Speed = 1,
@@ -11614,8 +11203,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 80, 102, 45, 80, 102),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_Defense = 1,
@@ -11643,8 +11231,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 70, 95, 95, 90),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 200,
         .expYield = 142,
         //.evYield_Speed = 1,
@@ -11668,8 +11255,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 65, 35, 85, 60, 30),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_Speed = 1,
@@ -11693,8 +11279,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 105, 55, 115, 85, 50),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 173,
         //.evYield_Speed = 2,
@@ -11718,8 +11303,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 35, 45, 35, 62, 53),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 55,
         //.evYield_SpAttack = 1,
@@ -11743,8 +11327,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 60, 90, 85, 77, 117),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 158,
         //.evYield_SpAttack = 2,
@@ -11772,8 +11355,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 48, 48, 34, 57, 62),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_HP = 1,
@@ -11798,8 +11380,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(111, 83, 68, 39, 92, 82),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_HP = 2,
@@ -11824,8 +11405,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 100, 66, 115, 60, 66),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 169,
         //.evYield_Speed = 2,
@@ -11850,8 +11430,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 50, 34, 70, 60, 44),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GHOST, TYPE_FLYING),
         .catchRate = 125,
         .expYield = 70,
         //.evYield_HP = 1,
@@ -11876,8 +11455,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 80, 44, 80, 90, 54),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GHOST, TYPE_FLYING),
         .catchRate = 60,
         .expYield = 174,
         //.evYield_HP = 2,
@@ -11902,8 +11480,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 66, 44, 85, 44, 56),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 70,
         //.evYield_Speed = 1,
@@ -11929,8 +11506,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 86, 84, 105, 74, 96),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_Speed = 2,
@@ -11955,8 +11531,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 66, 66, 105, 105, 105),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_SpAttack = 1,
@@ -11981,8 +11556,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 125, 52, 71, 105, 52),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 205,
         //.evYield_Attack = 2,
@@ -12007,8 +11581,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(49, 55, 42, 85, 42, 37),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -12032,8 +11605,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(89, 82, 74, 112, 64, 69),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 158,
         //.evYield_Speed = 2,
@@ -12059,8 +11631,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 50, 45, 65, 60),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 57,
         //.evYield_SpAttack = 1,
@@ -12085,8 +11656,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(63, 63, 47, 74, 41, 57),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_POISON, TYPE_DARK),
         .catchRate = 225,
         .expYield = 66,
         //.evYield_Speed = 1,
@@ -12111,8 +11681,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(103, 93, 67, 84, 71, 84),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_POISON, TYPE_DARK),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_HP = 2,
@@ -12137,8 +11706,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 24, 86, 23, 24, 86),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -12164,8 +11732,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(67, 89, 116, 33, 79, 116),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 175,
         //.evYield_Defense = 1,
@@ -12192,8 +11759,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 80, 95, 10, 10, 45),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_ROCK, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Defense = 1,
@@ -12220,8 +11786,8 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 25, 45, 60, 70, 90),
         //#if P_UPDATED_TYPES >= GEN_6
-            .type1 = TYPE_PSYCHIC,
-            .type2 = TYPE_NORMAL,
+            MON_TYPES(TYPE_PSYCHIC,
+            TYPE_NORMAL),
         .catchRate = 145,
         .expYield = 62,
         //.evYield_SpDefense = 1,
@@ -12246,8 +11812,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 5, 5, 30, 35, 65),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 130,
         .expYield = 110,
         //.evYield_HP = 1,
@@ -12277,8 +11842,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 65, 56, 91, 92, 55),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 144,
         //.evYield_Attack = 1,
@@ -12306,8 +11870,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 92, 108, 35, 92, 108),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GHOST, TYPE_DARK),
         .catchRate = 100,
         .expYield = 170,
         //.evYield_Defense = 1,
@@ -12334,8 +11897,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(58, 70, 45, 42, 40, 45),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -12359,8 +11921,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 90, 65, 82, 50, 55),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 144,
         //.evYield_Attack = 2,
@@ -12384,8 +11945,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(108, 130, 95, 102, 80, 85),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_Attack = 3,
@@ -12409,8 +11969,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(135, 85, 40, 5, 40, 85),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 50,
         .expYield = 78,
         //.evYield_HP = 1,
@@ -12438,8 +11997,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 70, 40, 60, 35, 40),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 57,
         //.evYield_Attack = 1,
@@ -12464,8 +12022,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 70, 90, 115, 70),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Attack = 1,
@@ -12491,8 +12048,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 72, 78, 32, 38, 42),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 140,
         .expYield = 66,
         //.evYield_Defense = 1,
@@ -12518,8 +12074,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(108, 112, 118, 47, 68, 72),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 60,
         .expYield = 184,
         //.evYield_Defense = 2,
@@ -12545,8 +12100,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 50, 90, 65, 30, 62),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_POISON, TYPE_BUG),
         .catchRate = 120,
         .expYield = 66,
         //.evYield_Defense = 1,
@@ -12572,8 +12126,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 90, 110, 95, 60, 83),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_POISON, TYPE_DARK),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_Defense = 2,
@@ -12599,8 +12152,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(52, 61, 40, 50, 61, 55),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_POISON, TYPE_FIGHTING),
         .catchRate = 140,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -12628,8 +12180,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(83, 106, 65, 85, 86, 80),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_POISON, TYPE_FIGHTING),
         .catchRate = 75,
         .expYield = 172,
         //.evYield_Attack = 2,
@@ -12657,8 +12208,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(84, 113, 72, 46, 96, 72),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 200,
         .expYield = 159,
         //.evYield_Attack = 2,
@@ -12682,8 +12232,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(49, 49, 56, 66, 49, 61),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_Speed = 1,
@@ -12712,8 +12261,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 69, 76, 112, 69, 96),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 75,
         .expYield = 161,
         //.evYield_Speed = 2,
@@ -12738,8 +12286,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 20, 50, 50, 65, 120),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 25,
         .expYield = 69,
         //.evYield_SpDefense = 1,
@@ -12763,8 +12310,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 62, 50, 40, 62, 60),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_GRASS, TYPE_ICE),
         .catchRate = 120,
         .expYield = 67,
         //.evYield_Attack = 1,
@@ -12790,8 +12336,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(107, 92, 75, 60, 92, 85),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_GRASS, TYPE_ICE),
         .catchRate = 60,
         .expYield = 173,
         //.evYield_Attack = 1,
@@ -12818,8 +12363,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 120, 65, 125, 45, 85),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_DARK, TYPE_ICE),
         .catchRate = 45,
         .expYield = 179,
         //.evYield_Attack = 1,
@@ -12847,8 +12391,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 70, 115, 60, 130, 90),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 30,
         .expYield = 241,
         //.evYield_SpAttack = 3,
@@ -12875,8 +12418,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 85, 95, 50, 80, 105),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_NORMAL, TYPE_POISON),
         .catchRate = 30,
         .expYield = 180,
         //.evYield_HP = 3,
@@ -12903,8 +12445,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 140, 130, 40, 55, 85),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_GROUND, TYPE_ROCK),
         .catchRate = 30,
         .expYield = 241,
         //.evYield_Attack = 3,
@@ -12929,8 +12470,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 100, 125, 50, 110, 50),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 30,
         .expYield = 187,
         //.evYield_Defense = 2,
@@ -12955,8 +12495,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 123, 67, 95, 95, 85),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 30,
         .expYield = 243,
         //.evYield_Attack = 3,
@@ -12984,8 +12523,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 67, 83, 125, 95),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 30,
         .expYield = 243,
         //.evYield_SpAttack = 3,
@@ -13013,8 +12551,8 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 50, 95, 80, 120, 115),
         //#if P_UPDATED_TYPES >= GEN_6
-            .type1 = TYPE_FAIRY,
-            .type2 = TYPE_FLYING,
+            MON_TYPES(TYPE_FAIRY,
+            TYPE_FLYING),
         .catchRate = 30,
         .expYield = 245,
         //.evYield_SpAttack = 2,
@@ -13041,8 +12579,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 76, 86, 105, 116, 56),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_BUG, TYPE_DRAGON),
         .catchRate = 30,
         .expYield = 180,
         //.evYield_Attack = 2,
@@ -13070,8 +12607,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 110, 130, 95, 60, 65),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Defense = 2,
@@ -13096,8 +12632,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 60, 110, 69, 130, 95),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_SpAttack = 2,
@@ -13122,8 +12657,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 125, 95, 45, 75),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GROUND, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 179,
         //.evYield_Defense = 2,
@@ -13149,8 +12683,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 130, 80, 80, 70, 60),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_ICE, TYPE_GROUND),
         .catchRate = 50,
         .expYield = 239,
         //.evYield_Attack = 3,
@@ -13175,8 +12708,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 80, 70, 90, 135, 75),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 30,
         .expYield = 241,
         //.evYield_SpAttack = 3,
@@ -13201,8 +12733,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 125, 65, 80, 65, 115),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 233,
         //.evYield_Attack = 3,
@@ -13228,8 +12759,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 55, 145, 40, 75, 150),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ROCK, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 184,
         //.evYield_Defense = 1,
@@ -13257,8 +12787,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 100, 135, 45, 65, 135),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DARK, //this keeps ghost dark,
+        MON_TYPES(TYPE_GHOST, TYPE_DARK), //this keeps ghost dark),
         .catchRate = 45,
         .expYield = 236,
         //.evYield_Defense = 1,
@@ -13286,8 +12815,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 80, 70, 110, 90, 70),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_ICE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 189,
         //.evYield_Speed = 2,
@@ -13312,8 +12840,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 65, 77, 105, 103, 107), //shoudl be near fastest form as not weighed down by an object
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 154,
         //.evYield_Speed = 1,
@@ -13338,8 +12865,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 25, 130, 95, 75, 170),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Defense = 2,
@@ -13372,8 +12898,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 95, 100, 80, 95, 100),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 1,
@@ -13403,8 +12928,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 125, 70, 115, 125, 70),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 2,
@@ -13438,8 +12962,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 120, 120, 90, 150, 100),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_STEEL, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_SpAttack = 3,
@@ -13502,8 +13025,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 120, 100, 100, 150, 120),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_SpAttack = 3,
@@ -13536,8 +13058,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(91, 90, 106, 77, 130, 106),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_FIRE, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -13561,8 +13082,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 160, 110, 100, 80, 110),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_MYSTERY,  //just because its cool, its not in type chart so will just make everythinig neutral so has no effect
+        MON_TYPES(TYPE_NORMAL, TYPE_MYSTERY),  //just because its cool, its not in type chart so will just make everythinig neutral so has no effect
         .catchRate = 3,
         .expYield = 302,
         //.evYield_Attack = 3,
@@ -13586,8 +13106,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 100, 120, 90, 100, 120),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GHOST, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_HP = 3,
@@ -13613,8 +13132,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 70, 120, 85, 75, 130),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -13639,8 +13157,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(88, 88, 88, 88, 88, 88),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 30,
         .expYield = 216,
         //.evYield_HP = 1,
@@ -13664,8 +13181,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -13689,8 +13205,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 90, 90, 125, 135, 90),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Speed = 1,
@@ -13715,8 +13230,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 100, 100, 100, 100, 100),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -13741,8 +13255,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 120, 120, 120, 120, 120),
-        .type1 = TYPE_MYSTERY,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_MYSTERY, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -13768,8 +13281,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FIRE),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -13799,8 +13311,7 @@ const struct BaseStats gBaseStats[] =
         63,
         45,
         55),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -13833,8 +13344,7 @@ const struct BaseStats gBaseStats[] =
         60,
         75
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -13867,8 +13377,7 @@ const struct BaseStats gBaseStats[] =
         75,
         95
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 238,
         //.evYield_Speed = 3,
@@ -13900,8 +13409,7 @@ const struct BaseStats gBaseStats[] =
         45,
         45
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_GROUND, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_HP = 1,
@@ -13932,8 +13440,7 @@ const struct BaseStats gBaseStats[] =
         70,
         55
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_GROUND, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 146,
         //.evYield_Attack = 2,
@@ -13967,8 +13474,7 @@ const struct BaseStats gBaseStats[] =
         100,
         65
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_GROUND, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 238,
         //.evYield_Attack = 3,
@@ -14002,8 +13508,7 @@ const struct BaseStats gBaseStats[] =
         63,
         45
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -14034,8 +13539,7 @@ const struct BaseStats gBaseStats[] =
         83,
         60
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 145,
         //.evYield_SpAttack = 2,
@@ -14067,8 +13571,7 @@ const struct BaseStats gBaseStats[] =
         108,
         70
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 238,
         //.evYield_SpAttack = 3,
@@ -14099,8 +13602,7 @@ const struct BaseStats gBaseStats[] =
         35,
         39
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 51,
         //.evYield_Attack = 1,
@@ -14133,8 +13635,7 @@ const struct BaseStats gBaseStats[] =
         70,
         69
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 147,
         //.evYield_Attack = 2,
@@ -14167,8 +13668,7 @@ const struct BaseStats gBaseStats[] =
         25,
         45
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 55,
         //.evYield_Attack = 1,
@@ -14199,8 +13699,7 @@ const struct BaseStats gBaseStats[] =
         35,
         65
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_Attack = 2,
@@ -14232,8 +13731,7 @@ const struct BaseStats gBaseStats[] =
         45,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 225,
         //.evYield_Attack = 3,
@@ -14265,8 +13763,7 @@ const struct BaseStats gBaseStats[] =
         50,
         37
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -14298,8 +13795,7 @@ const struct BaseStats gBaseStats[] =
         98,
         50
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 90,
         .expYield = 156,
         //.evYield_Speed = 2,
@@ -14331,8 +13827,7 @@ const struct BaseStats gBaseStats[] =
         62,
         48
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 63,
         //.evYield_Speed = 1,
@@ -14365,8 +13860,7 @@ const struct BaseStats gBaseStats[] =
         105,
         63
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 174,
         //.evYield_Speed = 2,
@@ -14398,8 +13892,7 @@ const struct BaseStats gBaseStats[] =
         60,
         48
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 63,
         //.evYield_Speed = 1,
@@ -14432,8 +13925,7 @@ const struct BaseStats gBaseStats[] =
         101,
         63
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 174,
         //.evYield_Speed = 2,
@@ -14465,8 +13957,7 @@ const struct BaseStats gBaseStats[] =
         67,
         48
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 63,
         //.evYield_Speed = 1,
@@ -14499,8 +13990,7 @@ const struct BaseStats gBaseStats[] =
         117,
         63
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 174,
         //.evYield_Speed = 2,
@@ -14532,8 +14022,7 @@ const struct BaseStats gBaseStats[] =
         67,
         55
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 58,
         //.evYield_HP = 1,
@@ -14565,8 +14054,7 @@ const struct BaseStats gBaseStats[] =
         107,
         95
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 170,
         //.evYield_HP = 2,
@@ -14598,8 +14086,7 @@ const struct BaseStats gBaseStats[] =
         56,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 53,
         //.evYield_Attack = 1,
@@ -14631,8 +14118,7 @@ const struct BaseStats gBaseStats[] =
         77,
         62
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 125,
         //.evYield_Attack = 2,
@@ -14666,8 +14152,7 @@ const struct BaseStats gBaseStats[] =
         115,
         100
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 220,
         //.evYield_Attack = 3,
@@ -14700,8 +14185,7 @@ const struct BaseStats gBaseStats[] =
         50,
         32
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 59,
         //.evYield_Speed = 1,
@@ -14733,8 +14217,7 @@ const struct BaseStats gBaseStats[] =
         80,
         63
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = 174,
         //.evYield_Speed = 2,
@@ -14766,8 +14249,7 @@ const struct BaseStats gBaseStats[] =
         25,
         40
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Defense = 1,
@@ -14801,8 +14283,7 @@ const struct BaseStats gBaseStats[] =
         50,
         55
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 120,
         .expYield = 137,
         //.evYield_Attack = 1,
@@ -14837,8 +14318,7 @@ const struct BaseStats gBaseStats[] =
         60,
         80        
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 45,
         .expYield = 232,
         //.evYield_Attack = 3,
@@ -14873,8 +14353,7 @@ const struct BaseStats gBaseStats[] =
         55,
         43
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_Speed = 1,
@@ -14906,8 +14385,7 @@ const struct BaseStats gBaseStats[] =
         97,
         65
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 149,
         //.evYield_Speed = 2,
@@ -14939,8 +14417,7 @@ const struct BaseStats gBaseStats[] =
         30,
         45
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 120,
         .expYield = 66,
         //.evYield_Attack = 1,
@@ -14972,8 +14449,7 @@ const struct BaseStats gBaseStats[] =
         50,
         65
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GROUND, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 178,
         //.evYield_Attack = 2,
@@ -15005,8 +14481,7 @@ const struct BaseStats gBaseStats[] =
         60,
         86
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 390,
         //.evYield_HP = 2,
@@ -15040,8 +14515,7 @@ const struct BaseStats gBaseStats[] =
         25,
         45
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 180,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -15075,8 +14549,7 @@ const struct BaseStats gBaseStats[] =
         40,
         60
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 90,
         .expYield = 142,
         //.evYield_Attack = 2,
@@ -15108,8 +14581,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 227,
         //.evYield_Attack = 3,
@@ -15141,8 +14613,7 @@ const struct BaseStats gBaseStats[] =
         50,
         40
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 59,
         //.evYield_Speed = 1,
@@ -15174,8 +14645,7 @@ const struct BaseStats gBaseStats[] =
         65,
         55
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 120,
         .expYield = 134,
         //.evYield_HP = 2,
@@ -15207,8 +14677,7 @@ const struct BaseStats gBaseStats[] =
         85,
         75
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 229,
         //.evYield_HP = 3,
@@ -15240,8 +14709,7 @@ const struct BaseStats gBaseStats[] =
         30,
         85
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 163,
         //.evYield_HP = 2,
@@ -15275,8 +14743,7 @@ const struct BaseStats gBaseStats[] =
         30,
         75
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 163,
         //.evYield_Attack = 2,
@@ -15310,8 +14777,7 @@ const struct BaseStats gBaseStats[] =
         40,
         60
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_BUG, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 62,
         //.evYield_Defense = 1,
@@ -15345,8 +14811,7 @@ const struct BaseStats gBaseStats[] =
         50,
         80
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_BUG, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 133,
         //.evYield_Defense = 2,
@@ -15379,8 +14844,7 @@ const struct BaseStats gBaseStats[] =
         70,
         80
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_BUG, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 225,
         //.evYield_Attack = 3,
@@ -15414,8 +14878,7 @@ const struct BaseStats gBaseStats[] =
         30,
         69
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 255,
         .expYield = 52,
         //.evYield_Defense = 1,
@@ -15447,8 +14910,7 @@ const struct BaseStats gBaseStats[] =
         40,
         89
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 120,
         .expYield = 126,
         //.evYield_Defense = 2,
@@ -15480,8 +14942,7 @@ const struct BaseStats gBaseStats[] =
         55,
         69
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 45,
         .expYield = 218,
         //.evYield_Speed = 3,
@@ -15513,8 +14974,7 @@ const struct BaseStats gBaseStats[] =
         37,
         50
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -15549,8 +15009,7 @@ const struct BaseStats gBaseStats[] =
         77,
         75
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
         .catchRate = 75,
         .expYield = 168,
         //.evYield_Speed = 2,
@@ -15585,8 +15044,7 @@ const struct BaseStats gBaseStats[] =
         70,
         50
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 56,
         //.evYield_SpAttack = 1,
@@ -15623,8 +15081,7 @@ const struct BaseStats gBaseStats[] =
         110,
         75
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 168,
         //.evYield_SpAttack = 2,
@@ -15660,8 +15117,7 @@ const struct BaseStats gBaseStats[] =
         80,
         55
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 25,
         .expYield = 161,
         //.evYield_Speed = 2,
@@ -15694,8 +15150,7 @@ const struct BaseStats gBaseStats[] =
         35,
         35
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GROUND, TYPE_DARK),
         .catchRate = 180,
         .expYield = 58,
         //.evYield_Attack = 1,
@@ -15728,8 +15183,7 @@ const struct BaseStats gBaseStats[] =
         45,
         45
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GROUND, TYPE_DARK),
         .catchRate = 90,
         .expYield = 123,
         //.evYield_Attack = 2,
@@ -15762,8 +15216,7 @@ const struct BaseStats gBaseStats[] =
         65,
         70
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GROUND, TYPE_DARK),
         .catchRate = 45,
         .expYield = 234,
         //.evYield_Attack = 3,
@@ -15796,8 +15249,7 @@ const struct BaseStats gBaseStats[] =
         15,
         45
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 120,
         .expYield = 63,
         //.evYield_Attack = 1,
@@ -15828,8 +15280,7 @@ const struct BaseStats gBaseStats[] =
         30,
         55
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_Attack = 2,
@@ -15861,8 +15312,7 @@ const struct BaseStats gBaseStats[] =
         106,
         77
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 161,
         //.evYield_SpAttack = 2,
@@ -15896,8 +15346,7 @@ const struct BaseStats gBaseStats[] =
         35,
         55
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_BUG, TYPE_ROCK),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_Defense = 1,
@@ -15931,8 +15380,7 @@ const struct BaseStats gBaseStats[] =
         65,
         75
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_BUG, TYPE_ROCK),
         .catchRate = 75,
         .expYield = 170,
         //.evYield_Defense = 2,
@@ -15966,8 +15414,7 @@ const struct BaseStats gBaseStats[] =
         35,
         70
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_DARK, TYPE_FIGHTING),
         .catchRate = 180,
         .expYield = 70,
         //.evYield_Attack = 1,
@@ -16002,8 +15449,7 @@ const struct BaseStats gBaseStats[] =
         45,
         115
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_DARK, TYPE_FIGHTING),
         .catchRate = 90,
         .expYield = 171,
         //.evYield_Defense = 1,
@@ -16039,8 +15485,7 @@ const struct BaseStats gBaseStats[] =
         103,
         80
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_SpAttack = 2,
@@ -16072,8 +15517,7 @@ const struct BaseStats gBaseStats[] =
         55,
         65
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -16107,8 +15551,7 @@ const struct BaseStats gBaseStats[] =
         95,
         105
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GHOST, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 169,
         //.evYield_Defense = 2,
@@ -16142,8 +15585,7 @@ const struct BaseStats gBaseStats[] =
         53,
         45
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_WATER, TYPE_ROCK),
         .catchRate = 45,
         .expYield = 71,
         //.evYield_Defense = 1,
@@ -16175,8 +15617,7 @@ const struct BaseStats gBaseStats[] =
         83,
         65
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_WATER, TYPE_ROCK),
         .catchRate = 45,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -16208,8 +15649,7 @@ const struct BaseStats gBaseStats[] =
         74,
         45
         ),
-        .type1 = TYPE_DRAGON, //fits better dinos aren't rocks, they were taken out by ice age, so weak to ice makes sense
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING), //fits better dinos aren't rocks, they were taken out by ice age, so weak to ice makes sense TYPE_FLYING),
         .catchRate = 45,
         .expYield = 71,
         //.evYield_Attack = 1,
@@ -16242,8 +15682,7 @@ const struct BaseStats gBaseStats[] =
         112,
         65
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 177,
         //.evYield_Attack = 2,
@@ -16277,8 +15716,7 @@ const struct BaseStats gBaseStats[] =
         40,
         76
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_Speed = 1,
@@ -16312,8 +15750,7 @@ const struct BaseStats gBaseStats[] =
         75,
         102
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_POISON, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -16349,8 +15786,7 @@ const struct BaseStats gBaseStats[] =
         80,
         40
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 75,
         .expYield = 66,
         //.evYield_SpAttack = 1,
@@ -16383,8 +15819,7 @@ const struct BaseStats gBaseStats[] =
         120,
         60
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 179,
         //.evYield_SpAttack = 2,
@@ -16417,8 +15852,7 @@ const struct BaseStats gBaseStats[] =
         40,
         40
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Speed = 1,
@@ -16450,8 +15884,7 @@ const struct BaseStats gBaseStats[] =
         65,
         60
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 60,
         .expYield = 165,
         //.evYield_Speed = 2,
@@ -16483,8 +15916,7 @@ const struct BaseStats gBaseStats[] =
         55,
         65
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DARK, TYPE_PSYCHIC),
         .catchRate = 200,
         .expYield = 58,
         //.evYield_SpDefense = 1,
@@ -16516,8 +15948,7 @@ const struct BaseStats gBaseStats[] =
         75,
         85
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DARK, TYPE_PSYCHIC),
         .catchRate = 100,
         .expYield = 137,
         //.evYield_SpDefense = 2,
@@ -16549,8 +15980,7 @@ const struct BaseStats gBaseStats[] =
         95,
         110
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DARK, TYPE_PSYCHIC),
         .catchRate = 50,
         .expYield = 221,
         //.evYield_SpDefense = 3,
@@ -16582,8 +16012,7 @@ const struct BaseStats gBaseStats[] =
         105,
         50
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 200,
         .expYield = 58,
         //.evYield_SpAttack = 1,
@@ -16615,8 +16044,7 @@ const struct BaseStats gBaseStats[] =
         125,
         60
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 100,
         .expYield = 130,
         //.evYield_SpAttack = 2,
@@ -16648,8 +16076,7 @@ const struct BaseStats gBaseStats[] =
         125,
         85
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 50,
         .expYield = 221,
         //.evYield_SpAttack = 3,
@@ -16681,8 +16108,7 @@ const struct BaseStats gBaseStats[] =
         44,
         50
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_HP = 1,
@@ -16714,8 +16140,7 @@ const struct BaseStats gBaseStats[] =
         97,
         63
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_Speed = 2,
@@ -16747,8 +16172,7 @@ const struct BaseStats gBaseStats[] =
         65,
         60
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 255,
         .expYield = 61,
         //.evYield_SpAttack = 1,
@@ -16781,8 +16205,7 @@ const struct BaseStats gBaseStats[] =
         80,
         75
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 120,
         .expYield = 138,
         //.evYield_SpAttack = 2,
@@ -16815,8 +16238,7 @@ const struct BaseStats gBaseStats[] =
         110,
         95
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 45,
         .expYield = 241,
         //.evYield_SpAttack = 3,
@@ -16849,8 +16271,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_Speed = 1,
@@ -16882,8 +16303,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -16915,8 +16335,7 @@ const struct BaseStats gBaseStats[] =
         85,
         60
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 200,
         .expYield = 150,
         //.evYield_Speed = 2,
@@ -16949,8 +16368,7 @@ const struct BaseStats gBaseStats[] =
         40,
         45
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 200,
         .expYield = 63,
         //.evYield_Attack = 1,
@@ -16984,8 +16402,7 @@ const struct BaseStats gBaseStats[] =
         60,
         105
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 75,
         .expYield = 173,
         //.evYield_Attack = 2,
@@ -17018,8 +16435,7 @@ const struct BaseStats gBaseStats[] =
         55,
         70
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 190,
         .expYield = 59,
         //.evYield_HP = 1,
@@ -17054,8 +16470,7 @@ const struct BaseStats gBaseStats[] =
         85,
         95
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 75,
         .expYield = 162,
         //.evYield_HP = 2,
@@ -17090,8 +16505,7 @@ const struct BaseStats gBaseStats[] =
         65,
         85
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_WATER, TYPE_GHOST),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_SpDefense = 1,
@@ -17123,8 +16537,7 @@ const struct BaseStats gBaseStats[] =
         85,
         105
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_WATER, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_SpDefense = 2,
@@ -17156,8 +16569,7 @@ const struct BaseStats gBaseStats[] =
         40,
         45
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 75,
         .expYield = 165,
         //.evYield_HP = 2,
@@ -17189,8 +16601,7 @@ const struct BaseStats gBaseStats[] =
         57,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_BUG, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 64,
         //.evYield_Speed = 1,
@@ -17222,8 +16633,7 @@ const struct BaseStats gBaseStats[] =
         97,
         60
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_BUG, TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = 165,
         //.evYield_Speed = 2,
@@ -17255,8 +16665,7 @@ const struct BaseStats gBaseStats[] =
         24,
         86
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GRASS, TYPE_STEEL),
         .catchRate = 255,
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -17291,8 +16700,7 @@ const struct BaseStats gBaseStats[] =
         54,
         116
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GRASS, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 171,
         //.evYield_Defense = 2,
@@ -17327,8 +16735,7 @@ const struct BaseStats gBaseStats[] =
         45,
         60
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 130,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -17359,8 +16766,7 @@ const struct BaseStats gBaseStats[] =
         70,
         85
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 60,
         .expYield = 154,
         //.evYield_Defense = 2,
@@ -17391,8 +16797,7 @@ const struct BaseStats gBaseStats[] =
         70,
         85
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 30,
         .expYield = 234,
         //.evYield_Defense = 3,
@@ -17423,8 +16828,7 @@ const struct BaseStats gBaseStats[] =
         45,
         40
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 55,
         //.evYield_Speed = 1,
@@ -17454,8 +16858,7 @@ const struct BaseStats gBaseStats[] =
         75,
         70
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 60,
         .expYield = 142,
         //.evYield_Attack = 2,
@@ -17485,8 +16888,7 @@ const struct BaseStats gBaseStats[] =
         105,
         80
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 30,
         .expYield = 232,
         //.evYield_Attack = 3,
@@ -17516,8 +16918,7 @@ const struct BaseStats gBaseStats[] =
         85,
         55
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_STEEL),
         .catchRate = 255,
         .expYield = 67,
         //.evYield_SpAttack = 1,
@@ -17549,8 +16950,7 @@ const struct BaseStats gBaseStats[] =
         125,
         95
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 170,
         //.evYield_SpAttack = 2,
@@ -17582,8 +16982,7 @@ const struct BaseStats gBaseStats[] =
         65,
         55
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_GHOST, TYPE_FIRE),
         .catchRate = 190,
         .expYield = 55,
         //.evYield_SpAttack = 1,
@@ -17616,8 +17015,7 @@ const struct BaseStats gBaseStats[] =
         95,
         60
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_GHOST, TYPE_FIRE),
         .catchRate = 90,
         .expYield = 130,
         //.evYield_SpAttack = 2,
@@ -17650,8 +17048,7 @@ const struct BaseStats gBaseStats[] =
         145,
         90
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_GHOST, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 234,
         //.evYield_SpAttack = 3,
@@ -17684,8 +17081,7 @@ const struct BaseStats gBaseStats[] =
         30,
         40
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 75,
         .expYield = 64,
         //.evYield_Attack = 1,
@@ -17717,8 +17113,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 60,
         .expYield = 144,
         //.evYield_Attack = 2,
@@ -17750,8 +17145,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 243,
         //.evYield_Attack = 3,
@@ -17783,8 +17177,7 @@ const struct BaseStats gBaseStats[] =
         60,
         60
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_NORMAL, TYPE_ICE),
         .catchRate = 120,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -17816,8 +17209,7 @@ const struct BaseStats gBaseStats[] =
         70,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_NORMAL, TYPE_ICE),
         .catchRate = 60,
         .expYield = 177,
         //.evYield_Attack = 2,
@@ -17849,8 +17241,7 @@ const struct BaseStats gBaseStats[] =
         95,
         135
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 25,
         .expYield = 180,
         //.evYield_SpDefense = 2,
@@ -17882,8 +17273,7 @@ const struct BaseStats gBaseStats[] =
         40,
         65
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 200,
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -17916,8 +17306,7 @@ const struct BaseStats gBaseStats[] =
         120,
         60
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 75,
         .expYield = 173,
         //.evYield_Speed = 2,
@@ -17949,8 +17338,7 @@ const struct BaseStats gBaseStats[] =
         81,
         99
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_GROUND, TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = 165,
         //.evYield_HP = 2,
@@ -17982,8 +17370,7 @@ const struct BaseStats gBaseStats[] =
         55,
         50
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 180,
         .expYield = 70,
         //.evYield_Attack = 1,
@@ -18015,8 +17402,7 @@ const struct BaseStats gBaseStats[] =
         95,
         60
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 179,
         //.evYield_Attack = 2,
@@ -18048,8 +17434,7 @@ const struct BaseStats gBaseStats[] =
         60,
         90
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -18082,8 +17467,7 @@ const struct BaseStats gBaseStats[] =
         35,
         50
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GROUND, TYPE_GHOST),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -18118,8 +17502,7 @@ const struct BaseStats gBaseStats[] =
         55,
         80
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GROUND, TYPE_GHOST),
         .catchRate = 90,
         .expYield = 169,
         //.evYield_Attack = 2,
@@ -18154,8 +17537,7 @@ const struct BaseStats gBaseStats[] =
         40,
         40
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_DARK, TYPE_STEEL),
         .catchRate = 120,
         .expYield = 68,
         //.evYield_Attack = 1,
@@ -18186,8 +17568,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_DARK, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Attack = 2,
@@ -18218,8 +17599,7 @@ const struct BaseStats gBaseStats[] =
         40,
         95
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Attack = 2,
@@ -18250,8 +17630,7 @@ const struct BaseStats gBaseStats[] =
         37,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 70,
         //.evYield_Attack = 1,
@@ -18283,8 +17662,7 @@ const struct BaseStats gBaseStats[] =
         57,
         75
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 60,
         .expYield = 179,
         //.evYield_Attack = 2,
@@ -18315,8 +17693,7 @@ const struct BaseStats gBaseStats[] =
         45,
         65
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 190,
         .expYield = 74,
         //.evYield_Defense = 1,
@@ -18348,8 +17725,7 @@ const struct BaseStats gBaseStats[] =
         55,
         95
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 60,
         .expYield = 179,
         //.evYield_SpAttack = 2,
@@ -18381,8 +17757,7 @@ const struct BaseStats gBaseStats[] =
         105,
         66
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 90,
         .expYield = 169,
         //.evYield_SpAttack = 2,
@@ -18414,8 +17789,7 @@ const struct BaseStats gBaseStats[] =
         48,
         48
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 169,
         //.evYield_Defense = 2,
@@ -18453,8 +17827,7 @@ const struct BaseStats gBaseStats[] =
         45,
         50
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DARK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -18485,8 +17858,7 @@ const struct BaseStats gBaseStats[] =
         65,
         70
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DARK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Attack = 2,
@@ -18517,8 +17889,7 @@ const struct BaseStats gBaseStats[] =
         125,
         90
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DARK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -18549,8 +17920,7 @@ const struct BaseStats gBaseStats[] =
         50,
         55
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_BUG, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 72,
         //.evYield_Attack = 1,
@@ -18581,8 +17951,7 @@ const struct BaseStats gBaseStats[] =
         135,
         105
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_BUG, TYPE_FIRE),
         .catchRate = 15,
         .expYield = 248,
         //.evYield_SpAttack = 3,
@@ -18615,8 +17984,7 @@ const struct BaseStats gBaseStats[] =
         90,
         72
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_STEEL, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Defense = 3,
@@ -18649,8 +18017,7 @@ const struct BaseStats gBaseStats[] =
         72,
         90
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_ROCK, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 3,
@@ -18683,8 +18050,7 @@ const struct BaseStats gBaseStats[] =
         90,
         129
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpDefense = 3,
@@ -18717,8 +18083,7 @@ const struct BaseStats gBaseStats[] =
         125,
         80
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 3,
@@ -18750,8 +18115,7 @@ const struct BaseStats gBaseStats[] =
         125,
         80
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 3,
@@ -18783,8 +18147,7 @@ const struct BaseStats gBaseStats[] =
         150,
         120
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_DRAGON, TYPE_FIRE),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_SpAttack = 3,
@@ -18817,8 +18180,7 @@ const struct BaseStats gBaseStats[] =
         120,
         100
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_DRAGON, TYPE_ELECTRIC),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_Attack = 3,
@@ -18851,8 +18213,7 @@ const struct BaseStats gBaseStats[] =
         115,
         80
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GROUND, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -18883,8 +18244,7 @@ const struct BaseStats gBaseStats[] =
         130,
         90
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 3,
         .expYield = 297,
         //.evYield_HP = 1,
@@ -18917,8 +18277,7 @@ const struct BaseStats gBaseStats[] =
         129,
         90
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpAttack = 3,
@@ -18949,8 +18308,7 @@ const struct BaseStats gBaseStats[] =
         128,
         128
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Speed = 1,
@@ -18985,8 +18343,7 @@ const struct BaseStats gBaseStats[] =
         120,
         95
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -19019,8 +18376,7 @@ const struct BaseStats gBaseStats[] =
         48,
         45
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 63,
         //.evYield_Defense = 1,
@@ -19053,8 +18409,7 @@ const struct BaseStats gBaseStats[] =
         56,
         58
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Defense = 2,
@@ -19087,8 +18442,7 @@ const struct BaseStats gBaseStats[] =
         74,
         75
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Defense = 3,
@@ -19123,8 +18477,7 @@ const struct BaseStats gBaseStats[] =
         62,
         60
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 61,
         //.evYield_SpAttack = 1,
@@ -19157,8 +18510,7 @@ const struct BaseStats gBaseStats[] =
         90,
         70
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 143,
         //.evYield_SpAttack = 2,
@@ -19191,8 +18543,7 @@ const struct BaseStats gBaseStats[] =
         114,
         100
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_FIRE, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 240,
         //.evYield_SpAttack = 3,
@@ -19225,8 +18576,7 @@ const struct BaseStats gBaseStats[] =
         62,
         44
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 63,
         //.evYield_Speed = 1,
@@ -19259,8 +18609,7 @@ const struct BaseStats gBaseStats[] =
         83,
         56
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_Speed = 2,
@@ -19293,8 +18642,7 @@ const struct BaseStats gBaseStats[] =
         103,
         71
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Speed = 3,
@@ -19327,8 +18675,7 @@ const struct BaseStats gBaseStats[] =
         32,
         36
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 47,
         //.evYield_Speed = 1,
@@ -19360,8 +18707,7 @@ const struct BaseStats gBaseStats[] =
         50,
         77
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 127,
         .expYield = 148,
         //.evYield_HP = 2,
@@ -19393,8 +18739,7 @@ const struct BaseStats gBaseStats[] =
         40,
         38
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -19426,8 +18771,7 @@ const struct BaseStats gBaseStats[] =
         56,
         52
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 134,
         //.evYield_Speed = 2,
@@ -19460,8 +18804,7 @@ const struct BaseStats gBaseStats[] =
         74,
         69
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_Speed = 3,
@@ -19494,8 +18837,7 @@ const struct BaseStats gBaseStats[] =
         27,
         25
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 255,
         .expYield = 40,
         //.evYield_Defense = 1,
@@ -19528,8 +18870,7 @@ const struct BaseStats gBaseStats[] =
         27,
         30
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 120,
         .expYield = 75,
         //.evYield_Defense = 2,
@@ -19562,8 +18903,7 @@ const struct BaseStats gBaseStats[] =
         95,
         66
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -19598,8 +18938,7 @@ const struct BaseStats gBaseStats[] =
         73,
         54
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 220,
         .expYield = 74,
         //.evYield_SpAttack = 1,
@@ -19632,8 +18971,7 @@ const struct BaseStats gBaseStats[] =
         109,
         66
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 65,
         .expYield = 177,
         //.evYield_SpAttack = 2,
@@ -19666,8 +19004,7 @@ const struct BaseStats gBaseStats[] =
         61,
         79
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 225,
         .expYield = 61,
         //.evYield_SpDefense = 1,
@@ -19699,8 +19036,7 @@ const struct BaseStats gBaseStats[] =
         75,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpDefense = 2,
@@ -19732,8 +19068,7 @@ const struct BaseStats gBaseStats[] =
         112,
         154
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 248,
         //.evYield_SpDefense = 3,
@@ -19765,8 +19100,7 @@ const struct BaseStats gBaseStats[] =
         62,
         57
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 200,
         .expYield = 70,
         //.evYield_HP = 1,
@@ -19798,8 +19132,7 @@ const struct BaseStats gBaseStats[] =
         97,
         81
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 186,
         //.evYield_HP = 2,
@@ -19831,8 +19164,7 @@ const struct BaseStats gBaseStats[] =
         46,
         48
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 220,
         .expYield = 70,
         //.evYield_Attack = 1,
@@ -19865,8 +19197,7 @@ const struct BaseStats gBaseStats[] =
         69,
         71
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_FIGHTING, TYPE_DARK),
         .catchRate = 65,
         .expYield = 173,
         //.evYield_Attack = 2,
@@ -19899,8 +19230,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -19934,8 +19264,7 @@ const struct BaseStats gBaseStats[] =
         63,
         60
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 71,
         //.evYield_Speed = 1,
@@ -19968,8 +19297,7 @@ const struct BaseStats gBaseStats[] =
         83,
         81
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Speed = 2,
@@ -20002,8 +19330,7 @@ const struct BaseStats gBaseStats[] =
         35,
         37
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_STEEL, TYPE_GHOST),
         .catchRate = 180,
         .expYield = 65,
         //.evYield_Defense = 1,
@@ -20034,8 +19361,7 @@ const struct BaseStats gBaseStats[] =
         45,
         49
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_STEEL, TYPE_GHOST),
         .catchRate = 90,
         .expYield = 157,
         //.evYield_Defense = 2,
@@ -20066,8 +19392,7 @@ const struct BaseStats gBaseStats[] =
         50,
         150
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_STEEL, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 234,
         //.evYield_Defense = 2,
@@ -20099,8 +19424,7 @@ const struct BaseStats gBaseStats[] =
         63,
         65
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 68,
         //.evYield_HP = 1,
@@ -20131,8 +19455,7 @@ const struct BaseStats gBaseStats[] =
         99,
         89
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 140,
         .expYield = 162,
         //.evYield_HP = 2,
@@ -20164,8 +19487,7 @@ const struct BaseStats gBaseStats[] =
         59,
         57
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 68,
         //.evYield_Defense = 1,
@@ -20197,8 +19519,7 @@ const struct BaseStats gBaseStats[] =
         85,
         75
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 140,
         .expYield = 168,
         //.evYield_Defense = 2,
@@ -20230,8 +19551,7 @@ const struct BaseStats gBaseStats[] =
         37,
         46
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DARK, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 58,
         //.evYield_Attack = 1,
@@ -20263,8 +19583,7 @@ const struct BaseStats gBaseStats[] =
         68,
         75
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DARK, TYPE_PSYCHIC),
         .catchRate = 80,
         .expYield = 169,
         //.evYield_Attack = 2,
@@ -20296,8 +19615,7 @@ const struct BaseStats gBaseStats[] =
         39,
         56
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 120,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -20329,8 +19647,7 @@ const struct BaseStats gBaseStats[] =
         54,
         86
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ROCK, TYPE_WATER),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -20362,8 +19679,7 @@ const struct BaseStats gBaseStats[] =
         60,
         60
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_POISON, TYPE_WATER),
         .catchRate = 225,
         .expYield = 64,
         //.evYield_SpDefense = 1,
@@ -20395,8 +19711,7 @@ const struct BaseStats gBaseStats[] =
         97,
         123
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 55,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -20428,8 +19743,7 @@ const struct BaseStats gBaseStats[] =
         58,
         63
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 225,
         .expYield = 66,
         //.evYield_SpAttack = 1,
@@ -20460,8 +19774,7 @@ const struct BaseStats gBaseStats[] =
         120,
         89
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 55,
         .expYield = 100,
         //.evYield_SpAttack = 2,
@@ -20495,8 +19808,7 @@ const struct BaseStats gBaseStats[] =
         61,
         43
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 58,
         //.evYield_Speed = 1,
@@ -20528,8 +19840,7 @@ const struct BaseStats gBaseStats[] =
         109,
         94
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 168,
         //.evYield_Speed = 1,
@@ -20562,8 +19873,7 @@ const struct BaseStats gBaseStats[] =
         45,
         45
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_ROCK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 72,
         //.evYield_Attack = 1,
@@ -20595,8 +19905,7 @@ const struct BaseStats gBaseStats[] =
         69,
         59
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_ROCK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Attack = 2,
@@ -20628,8 +19937,7 @@ const struct BaseStats gBaseStats[] =
         67,
         63
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ROCK, TYPE_ICE),
         .catchRate = 45,
         .expYield = 72,
         //.evYield_HP = 1,
@@ -20661,8 +19969,7 @@ const struct BaseStats gBaseStats[] =
         99,
         92
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ROCK, TYPE_ICE),
         .catchRate = 45,
         .expYield = 104,
         //.evYield_HP = 2,
@@ -20694,8 +20001,7 @@ const struct BaseStats gBaseStats[] =
         110,
         130
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_SpDefense = 2,
@@ -20728,8 +20034,7 @@ const struct BaseStats gBaseStats[] =
         74,
         63
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FLYING),
         .catchRate = 100,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -20763,8 +20068,7 @@ const struct BaseStats gBaseStats[] =
         81,
         67
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 180,
         .expYield = 151,
         //.evYield_Speed = 2,
@@ -20796,8 +20100,7 @@ const struct BaseStats gBaseStats[] =
         50,
         150
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ROCK, TYPE_FAIRY),
         .catchRate = 60,
         .expYield = 100,
         //.evYield_Defense = 1,
@@ -20829,8 +20132,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_SpDefense = 1,
@@ -20866,8 +20168,7 @@ const struct BaseStats gBaseStats[] =
         83,
         113
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 158,
         //.evYield_SpDefense = 2,
@@ -20902,8 +20203,7 @@ const struct BaseStats gBaseStats[] =
         110,
         150
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -20935,8 +20235,7 @@ const struct BaseStats gBaseStats[] =
         80,
         87
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
         .catchRate = 75,
         .expYield = 165,
         //.evYield_Defense = 1,
@@ -20968,8 +20267,7 @@ const struct BaseStats gBaseStats[] =
         50,
         60
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 62,
         //.evYield_Attack = 1,
@@ -21001,8 +20299,7 @@ const struct BaseStats gBaseStats[] =
         65,
         82
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 60,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -21034,8 +20331,7 @@ const struct BaseStats gBaseStats[] =
         44,
         55
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 67,
         //.evYield_Defense = 1,
@@ -21067,8 +20363,7 @@ const struct BaseStats gBaseStats[] =
         58,
         75
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 60,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -21100,8 +20395,7 @@ const struct BaseStats gBaseStats[] =
         32,
         35
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_BUG, //made bug, for mite part, believe should be a plus,
+        MON_TYPES(TYPE_ICE, TYPE_BUG), //made bug, for mite part, believe should be a plus),
         .catchRate = 190, //plus more couterpart withi hisuian form which will resist rock
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -21136,8 +20430,7 @@ const struct BaseStats gBaseStats[] =
         44,
         46
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_ICE, TYPE_BUG),
         .catchRate = 55,
         .expYield = 180,
         //.evYield_Defense = 2,
@@ -21168,8 +20461,7 @@ const struct BaseStats gBaseStats[] =
         45,
         40
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_FLYING, TYPE_DRAGON),
         .catchRate = 190,
         .expYield = 49,
         //.evYield_Speed = 1,
@@ -21200,8 +20492,7 @@ const struct BaseStats gBaseStats[] =
         97,
         80
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_FLYING, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 187,
         //.evYield_Speed = 2,
@@ -21232,8 +20523,7 @@ const struct BaseStats gBaseStats[] =
         131,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_HP = 3,
@@ -21267,8 +20557,7 @@ const struct BaseStats gBaseStats[] =
         131,
         98
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_HP = 3,
@@ -21302,8 +20591,7 @@ const struct BaseStats gBaseStats[] =
         81,
         95
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -21337,8 +20625,7 @@ const struct BaseStats gBaseStats[] =
         100,
         150
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ROCK, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Defense = 1,
@@ -21370,8 +20657,7 @@ const struct BaseStats gBaseStats[] =
         150,
         130
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_GHOST),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -21403,8 +20689,7 @@ const struct BaseStats gBaseStats[] =
         130,
         90
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_FIRE, TYPE_WATER),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -21435,8 +20720,7 @@ const struct BaseStats gBaseStats[] =
         50,
         50
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 64,
         //.evYield_HP = 1,
@@ -21467,8 +20751,7 @@ const struct BaseStats gBaseStats[] =
         70,
         70
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 2,
@@ -21500,8 +20783,7 @@ const struct BaseStats gBaseStats[] =
         100,
         100
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Attack = 3,
@@ -21532,8 +20814,7 @@ const struct BaseStats gBaseStats[] =
         60,
         40
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 64,
         //.evYield_Speed = 1,
@@ -21564,8 +20845,7 @@ const struct BaseStats gBaseStats[] =
         80,
         50
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Speed = 2,
@@ -21596,8 +20876,7 @@ const struct BaseStats gBaseStats[] =
         80,
         90
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_FIRE, TYPE_DARK),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_Attack = 3,
@@ -21628,8 +20907,7 @@ const struct BaseStats gBaseStats[] =
         66,
         56
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 64,
         //.evYield_SpAttack = 1,
@@ -21662,8 +20940,7 @@ const struct BaseStats gBaseStats[] =
         91,
         81
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_SpAttack = 2,
@@ -21696,8 +20973,7 @@ const struct BaseStats gBaseStats[] =
         126,
         116
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 239,
         //.evYield_SpAttack = 3,
@@ -21730,8 +21006,7 @@ const struct BaseStats gBaseStats[] =
         30,
         30
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 53,
         //.evYield_Attack = 1,
@@ -21764,8 +21039,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 124,
         //.evYield_Attack = 2,
@@ -21798,8 +21072,7 @@ const struct BaseStats gBaseStats[] =
         75,
         75
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 218,
         //.evYield_Attack = 3,
@@ -21832,8 +21105,7 @@ const struct BaseStats gBaseStats[] =
         30,
         30
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 51,
         //.evYield_Attack = 1,
@@ -21866,8 +21138,7 @@ const struct BaseStats gBaseStats[] =
         55,
         60
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 127,
         .expYield = 146,
         //.evYield_Attack = 2,
@@ -21900,8 +21171,7 @@ const struct BaseStats gBaseStats[] =
         55,
         55
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Attack = 1,
@@ -21932,8 +21202,7 @@ const struct BaseStats gBaseStats[] =
         55,
         83
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_BUG, TYPE_ELECTRIC),
         .catchRate = 120,
         .expYield = 140,
         //.evYield_Defense = 2,
@@ -21969,8 +21238,7 @@ const struct BaseStats gBaseStats[] =
         145,
         75
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_BUG, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 225,
         //.evYield_SpAttack = 3,
@@ -22001,8 +21269,7 @@ const struct BaseStats gBaseStats[] =
         42,
         47
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 225,
         .expYield = 68,
         //.evYield_Attack = 1,
@@ -22036,8 +21303,7 @@ const struct BaseStats gBaseStats[] =
         62,
         67
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_FIGHTING, TYPE_ICE),
         .catchRate = 60,
         .expYield = 167,
         //.evYield_Attack = 2,
@@ -22074,8 +21340,7 @@ const struct BaseStats gBaseStats[] =
         98,
         70
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 167,
         //.evYield_SpAttack = 2,
@@ -22111,8 +21376,7 @@ const struct BaseStats gBaseStats[] =
         55,
         40
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_BUG, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Speed = 1,
@@ -22147,8 +21411,7 @@ const struct BaseStats gBaseStats[] =
         95,
         70
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_BUG, TYPE_FAIRY),
         .catchRate = 75,
         .expYield = 162,
         //.evYield_Speed = 2,
@@ -22183,8 +21446,7 @@ const struct BaseStats gBaseStats[] =
         30,
         40
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_NORMAL, TYPE_ROCK),
         .catchRate = 190,
         .expYield = 56,
         //.evYield_Attack = 1,
@@ -22224,8 +21486,7 @@ const struct BaseStats gBaseStats[] =
         55,
         65
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_NORMAL, TYPE_ROCK),
         .catchRate = 90,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -22257,8 +21518,7 @@ const struct BaseStats gBaseStats[] =
         25,
         25
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 61,
         //.evYield_HP = 1,
@@ -22292,8 +21552,7 @@ const struct BaseStats gBaseStats[] =
         43,
         62
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_POISON, TYPE_WATER),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -22326,8 +21585,7 @@ const struct BaseStats gBaseStats[] =
         53,
         142
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_POISON, TYPE_WATER),
         .catchRate = 75,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -22360,8 +21618,7 @@ const struct BaseStats gBaseStats[] =
         45,
         55
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 190,
         .expYield = 77,
         //.evYield_Attack = 1,
@@ -22396,8 +21653,7 @@ const struct BaseStats gBaseStats[] =
         55,
         85
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -22432,8 +21688,7 @@ const struct BaseStats gBaseStats[] =
         55,
         72
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_WATER, TYPE_BUG),
         .catchRate = 200,
         .expYield = 54,
         //.evYield_SpDefense = 1,
@@ -22466,8 +21721,7 @@ const struct BaseStats gBaseStats[] =
         80,
         132
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_WATER, TYPE_BUG),
         .catchRate = 100,
         .expYield = 159,
         //.evYield_SpDefense = 2,
@@ -22500,8 +21754,7 @@ const struct BaseStats gBaseStats[] =
         50,
         35
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 50,
         //.evYield_Attack = 1,
@@ -22534,8 +21787,7 @@ const struct BaseStats gBaseStats[] =
         80,
         90
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 168,
         //.evYield_Attack = 2,
@@ -22568,8 +21820,7 @@ const struct BaseStats gBaseStats[] =
         65,
         75
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 57,
         //.evYield_SpDefense = 1,
@@ -22602,8 +21853,7 @@ const struct BaseStats gBaseStats[] =
         90,
         100
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GRASS, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 142,
         //.evYield_SpDefense = 2,
@@ -22636,8 +21886,7 @@ const struct BaseStats gBaseStats[] =
         71,
         57
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_POISON, TYPE_FIRE),
         .catchRate = 120,
         .expYield = 64,
         //.evYield_Speed = 1,
@@ -22670,8 +21919,7 @@ const struct BaseStats gBaseStats[] =
         111,
         77
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_POISON, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 168,
         //.evYield_Speed = 2,
@@ -22704,8 +21952,7 @@ const struct BaseStats gBaseStats[] =
         45,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
         .catchRate = 140,
         .expYield = 68,
         //.evYield_Attack = 1,
@@ -22737,8 +21984,7 @@ const struct BaseStats gBaseStats[] =
         55,
         60
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
         .catchRate = 70,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -22770,8 +22016,7 @@ const struct BaseStats gBaseStats[] =
         30,
         38
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 235,
         .expYield = 42,
         //.evYield_HP = 1,
@@ -22806,8 +22051,7 @@ const struct BaseStats gBaseStats[] =
         40,
         48
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 102,
         //.evYield_Speed = 2,
@@ -22842,8 +22086,7 @@ const struct BaseStats gBaseStats[] =
         50,
         98
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 230,
         //.evYield_Attack = 3,
@@ -22878,8 +22121,7 @@ const struct BaseStats gBaseStats[] =
         82,
         110
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 60,
         .expYield = 170,
         //.evYield_SpDefense = 2,
@@ -22914,8 +22156,7 @@ const struct BaseStats gBaseStats[] =
         90,
         110
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_SpDefense = 2,
@@ -22947,8 +22188,7 @@ const struct BaseStats gBaseStats[] =
         40,
         60
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Attack = 2,
@@ -22980,8 +22220,7 @@ const struct BaseStats gBaseStats[] =
         20,
         30
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_BUG, TYPE_WATER),
         .catchRate = 90,
         .expYield = 46,
         //.evYield_Speed = 1,
@@ -23013,8 +22252,7 @@ const struct BaseStats gBaseStats[] =
         60,
         90
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_BUG, TYPE_WATER),
         .catchRate = 45,
         .expYield = 186,
         //.evYield_Defense = 2,
@@ -23046,8 +22284,7 @@ const struct BaseStats gBaseStats[] =
         70,
         45
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GHOST, TYPE_GROUND),
         .catchRate = 140,
         .expYield = 64,
         //.evYield_Defense = 1,
@@ -23080,8 +22317,7 @@ const struct BaseStats gBaseStats[] =
         100,
         75
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GHOST, TYPE_GROUND),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_Defense = 2,
@@ -23114,8 +22350,7 @@ const struct BaseStats gBaseStats[] =
         30,
         130
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 144,
         //.evYield_SpDefense = 2,
@@ -23147,8 +22382,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_NORMAL, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 107,
         //.evYield_HP = 2,
@@ -23179,8 +22413,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_NORMAL, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -23214,8 +22447,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -23251,8 +22483,7 @@ const struct BaseStats gBaseStats[] =
         75,
         95
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 168,
         //.evYield_Attack = 2,
@@ -23286,8 +22517,7 @@ const struct BaseStats gBaseStats[] =
         91,
         85
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_FIRE, TYPE_DRAGON),
         .catchRate = 70,
         .expYield = 170,
         //.evYield_Defense = 2,
@@ -23319,8 +22549,7 @@ const struct BaseStats gBaseStats[] =
         40,
         73
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 180,
         .expYield = 152,
         //.evYield_Attack = 2,
@@ -23355,8 +22584,7 @@ const struct BaseStats gBaseStats[] =
         50,
         105
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 167,
         //.evYield_SpDefense = 2,
@@ -23391,8 +22619,7 @@ const struct BaseStats gBaseStats[] =
         70,
         70
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 80,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -23427,8 +22654,7 @@ const struct BaseStats gBaseStats[] =
         135,
         91
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
         .catchRate = 70,
         .expYield = 170,
         //.evYield_SpAttack = 2,
@@ -23461,8 +22687,7 @@ const struct BaseStats gBaseStats[] =
         86,
         90
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 25,
         .expYield = 181,
         //.evYield_Attack = 2,
@@ -23496,8 +22721,7 @@ const struct BaseStats gBaseStats[] =
         45,
         45
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -23532,8 +22756,7 @@ const struct BaseStats gBaseStats[] =
         65,
         70
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Defense = 2,
@@ -23568,8 +22791,7 @@ const struct BaseStats gBaseStats[] =
         100,
         105
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_Defense = 3,
@@ -23604,8 +22826,7 @@ const struct BaseStats gBaseStats[] =
         95,
         75
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_Speed = 3,
@@ -23637,8 +22858,7 @@ const struct BaseStats gBaseStats[] =
         130,
         115
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_SpAttack = 3,
@@ -23670,8 +22890,7 @@ const struct BaseStats gBaseStats[] =
         85,
         95
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_Attack = 3,
@@ -23703,8 +22922,7 @@ const struct BaseStats gBaseStats[] =
         95,
         130
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_SpDefense = 3,
@@ -23736,8 +22954,7 @@ const struct BaseStats gBaseStats[] =
         29,
         31
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 40,
         //.evYield_HP = 1,
@@ -23771,8 +22988,7 @@ const struct BaseStats gBaseStats[] =
         29,
         131
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 140,
         //.evYield_Defense = 1,
@@ -23805,8 +23021,7 @@ const struct BaseStats gBaseStats[] =
         113,
         89
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_Attack = 3,
@@ -23840,8 +23055,7 @@ const struct BaseStats gBaseStats[] =
         137,
         107
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_SpAttack = 3,
@@ -23875,8 +23089,7 @@ const struct BaseStats gBaseStats[] =
         127,
         131
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_ROCK, TYPE_POISON),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_SpDefense = 3,
@@ -23911,8 +23124,7 @@ const struct BaseStats gBaseStats[] =
         53,
         53
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_Attack = 1,
@@ -23948,8 +23160,7 @@ const struct BaseStats gBaseStats[] =
         137,
         37
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_Speed = 3,
@@ -23984,8 +23195,7 @@ const struct BaseStats gBaseStats[] =
         173,
         71
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_SpAttack = 3,
@@ -24020,8 +23230,7 @@ const struct BaseStats gBaseStats[] =
         107,
         101
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_STEEL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_Attack = 1,
@@ -24058,8 +23267,7 @@ const struct BaseStats gBaseStats[] =
         59,
         31
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GRASS, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_Attack = 3,
@@ -24094,8 +23302,7 @@ const struct BaseStats gBaseStats[] =
         97,
         53
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DARK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -24128,8 +23335,7 @@ const struct BaseStats gBaseStats[] =
         127,
         89
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 255,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -24166,8 +23372,7 @@ const struct BaseStats gBaseStats[] =
         130,
         115
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -24201,8 +23406,7 @@ const struct BaseStats gBaseStats[] =
         90,
         90
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_FIGHTING, TYPE_GHOST),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 2,
@@ -24237,8 +23441,7 @@ const struct BaseStats gBaseStats[] =
         73,
         67
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 45,
         .expYield = 189,
         //.evYield_Speed = 1,
@@ -24273,8 +23476,7 @@ const struct BaseStats gBaseStats[] =
         127,
         73
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 243,
         //.evYield_SpAttack = 3,
@@ -24309,8 +23511,7 @@ const struct BaseStats gBaseStats[] =
         53,
         101
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ROCK, TYPE_STEEL),
         .catchRate = 30,
         .expYield = 257,
         //.evYield_Defense = 3,
@@ -24344,8 +23545,7 @@ const struct BaseStats gBaseStats[] =
         151,
         79
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 257,
         //.evYield_SpAttack = 3,
@@ -24380,8 +23580,7 @@ const struct BaseStats gBaseStats[] =
         102,
         80
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Speed = 3,
@@ -24412,8 +23611,7 @@ const struct BaseStats gBaseStats[] =
         55,
         35
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 135,
         //.evYield_Attack = 1,
@@ -24444,8 +23642,7 @@ const struct BaseStats gBaseStats[] =
         80,
         65
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 3,
@@ -24479,8 +23676,7 @@ const struct BaseStats gBaseStats[] =
         40,
         40
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Attack = 1,
@@ -24513,8 +23709,7 @@ const struct BaseStats gBaseStats[] =
         55,
         60
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Attack = 2,
@@ -24547,8 +23742,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 265,
         //.evYield_Attack = 3,
@@ -24581,8 +23775,7 @@ const struct BaseStats gBaseStats[] =
         40,
         40
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -24615,8 +23808,7 @@ const struct BaseStats gBaseStats[] =
         55,
         60
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_Speed = 2,
@@ -24649,8 +23841,7 @@ const struct BaseStats gBaseStats[] =
         65,
         75
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 265,
         //.evYield_Speed = 3,
@@ -24683,8 +23874,7 @@ const struct BaseStats gBaseStats[] =
         70,
         40
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -24718,8 +23908,7 @@ const struct BaseStats gBaseStats[] =
         95,
         55
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_SpAttack = 2,
@@ -24752,8 +23941,7 @@ const struct BaseStats gBaseStats[] =
         125,
         65
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 45,
         .expYield = 265,
         //.evYield_Speed = 3,
@@ -24786,8 +23974,7 @@ const struct BaseStats gBaseStats[] =
         35,
         35
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 55,
         //.evYield_HP = 1,
@@ -24820,8 +24007,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 161,
         //.evYield_HP = 2,
@@ -24854,8 +24040,7 @@ const struct BaseStats gBaseStats[] =
         33,
         35
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 49,
         //.evYield_Speed = 1,
@@ -24887,8 +24072,7 @@ const struct BaseStats gBaseStats[] =
         43,
         55
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 128,
         //.evYield_Speed = 2,
@@ -24920,8 +24104,7 @@ const struct BaseStats gBaseStats[] =
         53,
         85
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_FLYING, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 248,
         //.evYield_Defense = 3,
@@ -24953,8 +24136,7 @@ const struct BaseStats gBaseStats[] =
         25,
         45
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 255,
         .expYield = 36,
         //.evYield_SpDefense = 1,
@@ -24987,8 +24169,7 @@ const struct BaseStats gBaseStats[] =
         50,
         90
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_BUG, TYPE_PSYCHIC),
         .catchRate = 120,
         .expYield = 117,
         //.evYield_SpDefense = 2,
@@ -25024,8 +24205,7 @@ const struct BaseStats gBaseStats[] =
         90,
         120
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_BUG, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 253,
         //.evYield_SpDefense = 3,
@@ -25060,8 +24240,7 @@ const struct BaseStats gBaseStats[] =
         47,
         52
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK),
         .catchRate = 255,
         .expYield = 49,
         //.evYield_SpDefense = 1,
@@ -25098,8 +24277,7 @@ const struct BaseStats gBaseStats[] =
         87,
         92
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK),
         .catchRate = 127,
         .expYield = 159,
         //.evYield_SpDefense = 2,
@@ -25131,8 +24309,7 @@ const struct BaseStats gBaseStats[] =
         40,
         60
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 50,
         //.evYield_SpDefense = 1,
@@ -25164,8 +24341,7 @@ const struct BaseStats gBaseStats[] =
         80,
         120
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 161,
         //.evYield_SpDefense = 2,
@@ -25197,8 +24373,7 @@ const struct BaseStats gBaseStats[] =
         40,
         45
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 122,
         //.evYield_Defense = 1,
@@ -25230,8 +24405,7 @@ const struct BaseStats gBaseStats[] =
         60,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 127,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -25263,8 +24437,7 @@ const struct BaseStats gBaseStats[] =
         38,
         38
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 57,
         //.evYield_Attack = 1,
@@ -25296,8 +24469,7 @@ const struct BaseStats gBaseStats[] =
         48,
         68
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_WATER, TYPE_ROCK),
         .catchRate = 75,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -25329,8 +24501,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 255,
         .expYield = 54,
         //.evYield_HP = 1,
@@ -25362,8 +24533,7 @@ const struct BaseStats gBaseStats[] =
         90,
         60
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 172,
         //.evYield_Speed = 2,
@@ -25395,8 +24565,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 255,
         .expYield = 48,
         //.evYield_Defense = 1,
@@ -25428,8 +24597,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_ROCK, TYPE_FIRE),
         .catchRate = 120,
         .expYield = 144,
         //.evYield_Defense = 2,
@@ -25461,8 +24629,7 @@ const struct BaseStats gBaseStats[] =
         80,
         90
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_ROCK, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 255,
         //.evYield_Defense = 3,
@@ -25494,8 +24661,7 @@ const struct BaseStats gBaseStats[] =
         40,
         40
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 255,
         .expYield = 52,
         //.evYield_Defense = 1,
@@ -25529,8 +24695,7 @@ const struct BaseStats gBaseStats[] =
         95,
         60
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -25562,8 +24727,7 @@ const struct BaseStats gBaseStats[] =
         100,
         80
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 170,
         //.evYield_HP = 2,
@@ -25595,8 +24759,7 @@ const struct BaseStats gBaseStats[] =
         35,
         50
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 63,
         //.evYield_Defense = 1,
@@ -25628,8 +24791,7 @@ const struct BaseStats gBaseStats[] =
         65,
         70
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 120,
         .expYield = 179,
         //.evYield_Defense = 2,
@@ -25661,8 +24823,7 @@ const struct BaseStats gBaseStats[] =
         85,
         95
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_FLYING, TYPE_WATER),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_SpDefense = 2,
@@ -25696,8 +24857,7 @@ const struct BaseStats gBaseStats[] =
         40,
         30
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -25730,8 +24890,7 @@ const struct BaseStats gBaseStats[] =
         60,
         50
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 172,
         //.evYield_Speed = 2,
@@ -25764,8 +24923,7 @@ const struct BaseStats gBaseStats[] =
         54,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_POISON),
         .catchRate = 75,
         .expYield = 48,
         //.evYield_SpAttack = 1,
@@ -25800,8 +24958,7 @@ const struct BaseStats gBaseStats[] =
         114,
         87
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_POISON),
         .catchRate = 45,
         .expYield = 176,
         //.evYield_SpAttack = 2,
@@ -25833,8 +24990,7 @@ const struct BaseStats gBaseStats[] =
         50,
         50
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_FIRE, TYPE_BUG),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Attack = 1,
@@ -25865,8 +25021,7 @@ const struct BaseStats gBaseStats[] =
         90,
         90
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_FIRE, TYPE_BUG),
         .catchRate = 75,
         .expYield = 184,
         //.evYield_Attack = 2,
@@ -25897,8 +25052,7 @@ const struct BaseStats gBaseStats[] =
         50,
         50
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 180,
         .expYield = 62,
         //.evYield_Attack = 1,
@@ -25931,8 +25085,7 @@ const struct BaseStats gBaseStats[] =
         70,
         80
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 168,
         //.evYield_Attack = 2,
@@ -25965,8 +25118,7 @@ const struct BaseStats gBaseStats[] =
         74,
         54
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 120,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -25998,8 +25150,7 @@ const struct BaseStats gBaseStats[] =
         134,
         114
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 178,
         //.evYield_SpAttack = 2,
@@ -26031,8 +25182,7 @@ const struct BaseStats gBaseStats[] =
         56,
         53
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 235,
         .expYield = 53,
         //.evYield_SpAttack = 1,
@@ -26064,8 +25214,7 @@ const struct BaseStats gBaseStats[] =
         86,
         73
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpAttack = 2,
@@ -26097,8 +25246,7 @@ const struct BaseStats gBaseStats[] =
         136,
         103
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 255,
         //.evYield_SpAttack = 3,
@@ -26130,8 +25278,7 @@ const struct BaseStats gBaseStats[] =
         55,
         40
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_DARK, TYPE_FAIRY),
         .catchRate = 255,
         .expYield = 53,
         //.evYield_SpAttack = 1,
@@ -26163,8 +25310,7 @@ const struct BaseStats gBaseStats[] =
         75,
         55
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_DARK, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpAttack = 2,
@@ -26196,8 +25342,7 @@ const struct BaseStats gBaseStats[] =
         95,
         75
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_DARK, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 255,
         //.evYield_Attack = 3,
@@ -26229,8 +25374,7 @@ const struct BaseStats gBaseStats[] =
         60,
         81
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 260,
         //.evYield_Defense = 3,
@@ -26262,8 +25406,7 @@ const struct BaseStats gBaseStats[] =
         50,
         60
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_DARK, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 154,
         //.evYield_Attack = 2,
@@ -26295,8 +25438,7 @@ const struct BaseStats gBaseStats[] =
         145,
         145
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_GHOST, TYPE_ROCK),
         .catchRate = 30,
         .expYield = 179,
         //.evYield_SpAttack = 2,
@@ -26328,8 +25470,7 @@ const struct BaseStats gBaseStats[] =
         68,
         82
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 177,
         //.evYield_Attack = 2,
@@ -26362,8 +25503,7 @@ const struct BaseStats gBaseStats[] =
         110,
         100
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ICE, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_SpAttack = 3,
@@ -26395,8 +25535,7 @@ const struct BaseStats gBaseStats[] =
         50,
         105
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GROUND, TYPE_GHOST),
         .catchRate = 90,
         .expYield = 169,
         //.evYield_Defense = 2,
@@ -26430,8 +25569,7 @@ const struct BaseStats gBaseStats[] =
         50,
         61
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 200,
         .expYield = 54,
         //.evYield_SpDefense = 1,
@@ -26464,8 +25602,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -26497,8 +25634,7 @@ const struct BaseStats gBaseStats[] =
         70,
         60
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 165,
         //.evYield_Attack = 2,
@@ -26530,8 +25666,7 @@ const struct BaseStats gBaseStats[] =
         91,
         85
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 75,
         .expYield = 152,
         //.evYield_Attack = 2,
@@ -26564,8 +25699,7 @@ const struct BaseStats gBaseStats[] =
         45,
         30
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_ICE, TYPE_BUG),
         .catchRate = 190,
         .expYield = 37,
         //.evYield_SpAttack = 1,
@@ -26601,8 +25735,7 @@ const struct BaseStats gBaseStats[] =
         125,
         90
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_ICE, TYPE_BUG),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_SpAttack = 2,
@@ -26635,8 +25768,7 @@ const struct BaseStats gBaseStats[] =
         20,
         30
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 60,
         .expYield = 165,
         //.evYield_Defense = 2,
@@ -26670,8 +25802,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 60,
         .expYield = 165,
         //.evYield_Defense = 2,
@@ -26705,8 +25836,7 @@ const struct BaseStats gBaseStats[] =
         105,
         95
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_NORMAL),
         .catchRate = 30,
         .expYield = 166,
         //.evYield_SpAttack = 2,
@@ -26740,8 +25870,7 @@ const struct BaseStats gBaseStats[] =
         70,
         58
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_DARK),
         .catchRate = 180,
         .expYield = 153,
         //.evYield_Speed = 2,
@@ -26775,8 +25904,7 @@ const struct BaseStats gBaseStats[] =
         40,
         49
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_STEEL, TYPE_NORMAL),
         .catchRate = 190,
         .expYield = 66,
         //.evYield_Attack = 1,
@@ -26811,8 +25939,7 @@ const struct BaseStats gBaseStats[] =
         80,
         69
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_STEEL, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -26847,8 +25974,7 @@ const struct BaseStats gBaseStats[] =
         80,
         70
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 177,
         //.evYield_Attack = 2,
@@ -26881,8 +26007,7 @@ const struct BaseStats gBaseStats[] =
         90,
         80
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ICE),
         .catchRate = 45,
         .expYield = 177,
         //.evYield_Attack = 2,
@@ -26915,8 +26040,7 @@ const struct BaseStats gBaseStats[] =
         70,
         80
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 177,
         //.evYield_Defense = 2,
@@ -26948,8 +26072,7 @@ const struct BaseStats gBaseStats[] =
         80,
         90
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_WATER, TYPE_ICE),
         .catchRate = 45,
         .expYield = 177,
         //.evYield_Defense = 2,
@@ -26981,8 +26104,7 @@ const struct BaseStats gBaseStats[] =
         120,
         50
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_STEEL, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 187,
         //.evYield_SpAttack = 2,
@@ -27014,8 +26136,7 @@ const struct BaseStats gBaseStats[] =
         40,
         30
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_DRAGON, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 54,
         //.evYield_Speed = 1,
@@ -27047,8 +26168,7 @@ const struct BaseStats gBaseStats[] =
         60,
         50
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_DRAGON, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 144,
         //.evYield_Speed = 2,
@@ -27080,8 +26200,7 @@ const struct BaseStats gBaseStats[] =
         100,
         75
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_DRAGON, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 300,
         //.evYield_Speed = 3,
@@ -27113,8 +26232,7 @@ const struct BaseStats gBaseStats[] =
         80,
         115
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 10,
         .expYield = 335,
         //.evYield_Speed = 3,
@@ -27145,8 +26263,7 @@ const struct BaseStats gBaseStats[] =
         80,
         115
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
         .catchRate = 10,
         .expYield = 335,
         //.evYield_Speed = 3,
@@ -27177,8 +26294,7 @@ const struct BaseStats gBaseStats[] =
         145,
         95
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 255,
         .expYield = 345,
         //.evYield_HP = 3,
@@ -27209,8 +26325,7 @@ const struct BaseStats gBaseStats[] =
         53,
         50
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 77,
         //.evYield_Attack = 1,
@@ -27247,8 +26362,7 @@ const struct BaseStats gBaseStats[] =
         63,
         60
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_FIGHTING, TYPE_DARK),
         .catchRate = 3,
         .expYield = 275,
         //.evYield_Attack = 3,
@@ -27280,8 +26394,7 @@ const struct BaseStats gBaseStats[] =
         70,
         95
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_DARK, TYPE_GRASS),
         .catchRate = 3,
         .expYield = 300,
         //.evYield_Attack = 3,
@@ -27312,8 +26425,7 @@ const struct BaseStats gBaseStats[] =
         100,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_Speed = 3,
@@ -27344,8 +26456,7 @@ const struct BaseStats gBaseStats[] =
         100,
         50
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_HP = 3,
@@ -27376,8 +26487,7 @@ const struct BaseStats gBaseStats[] =
         65,
         110
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_Attack = 3,
@@ -27410,8 +26520,7 @@ const struct BaseStats gBaseStats[] =
         145,
         80
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_SpAttack = 3,
@@ -27445,8 +26554,7 @@ const struct BaseStats gBaseStats[] =
         80,
         80
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_GRASS),
         .catchRate = 3,
         .expYield = 250,
         //.evYield_HP = 3,
@@ -27480,8 +26588,7 @@ const struct BaseStats gBaseStats[] =
         105,
         75
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_Attack = 1,
@@ -27512,8 +26619,7 @@ const struct BaseStats gBaseStats[] =
         45,
         70
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_BUG, TYPE_ROCK),
         .catchRate = 25,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -27544,8 +26650,7 @@ const struct BaseStats gBaseStats[] =
         45,
         80
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_GROUND, TYPE_NORMAL),
         .catchRate = 75,
         .expYield = 194,
         //.evYield_Attack = 3,
@@ -27576,8 +26681,7 @@ const struct BaseStats gBaseStats[] =
         80,
         75
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_WATER, TYPE_GHOST),
         .catchRate = 25,
         .expYield = 186,
         //.evYield_HP = 2,
@@ -27609,8 +26713,7 @@ const struct BaseStats gBaseStats[] =
         40,
         80
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_FIGHTING, TYPE_POISON),
         .catchRate = 135,
         .expYield = 179,
         //.evYield_Attack = 1,
@@ -27643,8 +26746,7 @@ const struct BaseStats gBaseStats[] =
         65,
         65
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_DARK, TYPE_POISON),
         .catchRate = 135,
         .expYield = 180,
         //.evYield_Attack = 1,
@@ -27675,8 +26777,7 @@ const struct BaseStats gBaseStats[] =
         135,
         80
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FAIRY, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpAttack = 3,
@@ -27708,8 +26809,7 @@ const struct BaseStats gBaseStats[] =
         110,
         95
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_FLYING, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 184,
         //.evYield_SpDefense = 2,
@@ -27743,8 +26843,7 @@ const struct BaseStats gBaseStats[] =
         50,
         210
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_FAIRY, TYPE_GHOST),
         .catchRate = 13,
         .expYield = 384,
         //.evYield_SpDefense = 2,
@@ -36249,8 +35348,7 @@ const struct BaseStats gBaseStats[] =
         122,
         120
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 45,
         .expYield = 281,
         //.evYield_SpAttack = 2,
@@ -36284,8 +35382,7 @@ const struct BaseStats gBaseStats[] =
         130,
         85
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_FIRE, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 285,
         //.evYield_SpAttack = 3,
@@ -36321,8 +35418,7 @@ const struct BaseStats gBaseStats[] =
         139,
         115
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 285,
         //.evYield_SpAttack = 3,
@@ -36354,8 +35450,7 @@ const struct BaseStats gBaseStats[] =
         125,
         115
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_WATER, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 284,
         //.evYield_SpDefense = 3,
@@ -36390,8 +35485,7 @@ const struct BaseStats gBaseStats[] =
         15,
         115
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 45,
         .expYield = 223,
         //.evYield_Attack = 2,
@@ -36428,8 +35522,7 @@ const struct BaseStats gBaseStats[] =
         113,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 261,
         //.evYield_Speed = 3,
@@ -36464,8 +35557,7 @@ const struct BaseStats gBaseStats[] =
         175,
         105
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 50,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -36498,8 +35590,7 @@ const struct BaseStats gBaseStats[] =
         130,
         80
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 207,
         //.evYield_Defense = 2,
@@ -36532,8 +35623,7 @@ const struct BaseStats gBaseStats[] =
         170,
         95
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_GHOST, TYPE_POISON),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -36565,8 +35655,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 207,
         //.evYield_HP = 2,
@@ -36601,8 +35690,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 210,
         //.evYield_Attack = 2,
@@ -36637,8 +35725,7 @@ const struct BaseStats gBaseStats[] =
         70,
         120
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK, //this is its base type but w dark changes unsure if should keep as is, 
+        MON_TYPES(TYPE_WATER, TYPE_DARK), //this is its base type but w dark changes unsure if should keep as is, 
         .catchRate = 45,  //base gyarados may be better now w its type change?s
         .expYield = 224,
         //.evYield_Attack = 2,
@@ -36673,8 +35760,7 @@ const struct BaseStats gBaseStats[] =
         70,
         95
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_ROCK, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 215,
         //.evYield_Speed = 2,
@@ -36710,8 +35796,7 @@ const struct BaseStats gBaseStats[] =
         144,
         100
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 351,
         //.evYield_SpAttack = 3,
@@ -36748,8 +35833,7 @@ const struct BaseStats gBaseStats[] =
         174,
         120
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 351,
         //.evYield_SpAttack = 3,
@@ -36781,8 +35865,7 @@ const struct BaseStats gBaseStats[] =
         165,
         110
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 275,
         //.evYield_SpAttack = 3,
@@ -36817,8 +35900,7 @@ const struct BaseStats gBaseStats[] =
         55,
         95
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_STEEL, TYPE_GROUND),
         .catchRate = 25,
         .expYield = 214,
         //.evYield_Defense = 2,
@@ -36854,8 +35936,7 @@ const struct BaseStats gBaseStats[] =
         65,
         100
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 25,
         .expYield = 210,
         //.evYield_Attack = 2,
@@ -36890,8 +35971,7 @@ const struct BaseStats gBaseStats[] =
         40,
         105
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 210,
         //.evYield_Attack = 2,
@@ -36926,8 +36006,7 @@ const struct BaseStats gBaseStats[] =
         140,
         90
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_DARK, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 210,
         //.evYield_SpAttack = 2,
@@ -36963,8 +36042,7 @@ const struct BaseStats gBaseStats[] =
         95,
         120
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_ROCK, TYPE_DARK),
         .catchRate = 45,
         .expYield = 315,
         //.evYield_Attack = 3,
@@ -36996,8 +36074,7 @@ const struct BaseStats gBaseStats[] =
         125,
         85
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 284,
         //.evYield_Speed = 3,
@@ -37029,8 +36106,7 @@ const struct BaseStats gBaseStats[] =
         130,
         80
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 284,
         //.evYield_Attack = 3,
@@ -37062,8 +36138,7 @@ const struct BaseStats gBaseStats[] =
         95,
         110
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 286,
         //.evYield_Attack = 3,
@@ -37095,8 +36170,7 @@ const struct BaseStats gBaseStats[] =
         165,
         135
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 278,
         //.evYield_SpAttack = 3,
@@ -37131,8 +36205,7 @@ const struct BaseStats gBaseStats[] =
         85,
         115
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_DARK, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 168,
         //.evYield_Attack = 1,
@@ -37170,8 +36243,7 @@ const struct BaseStats gBaseStats[] =
         55,
         95
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 168,
         //.evYield_Attack = 1,
@@ -37204,8 +36276,7 @@ const struct BaseStats gBaseStats[] =
         60,
         80
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 284,
         //.evYield_Defense = 3,
@@ -37242,8 +36313,7 @@ const struct BaseStats gBaseStats[] =
         80,
         135
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 179,
         //.evYield_Speed = 2,
@@ -37275,8 +36345,7 @@ const struct BaseStats gBaseStats[] =
         135,
         80
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 201,
         //.evYield_Speed = 2,
@@ -37310,8 +36379,7 @@ const struct BaseStats gBaseStats[] =
         110,
         65
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 60,
         .expYield = 196,
         //.evYield_Attack = 2,
@@ -37347,8 +36415,7 @@ const struct BaseStats gBaseStats[] =
         145,
         105
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 150,
         .expYield = 196,
         //.evYield_Attack = 1,
@@ -37384,8 +36451,7 @@ const struct BaseStats gBaseStats[] =
         110,
         105
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_DRAGON, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 207,
         //.evYield_SpDefense = 2,
@@ -37420,8 +36486,7 @@ const struct BaseStats gBaseStats[] =
         123,
         83
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_GHOST, TYPE_DARK),
         .catchRate = 45,
         .expYield = 194,
         //.evYield_Attack = 2,
@@ -37457,8 +36522,7 @@ const struct BaseStats gBaseStats[] =
         115,
         60
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 30,
         .expYield = 198,
         //.evYield_Attack = 2,
@@ -37493,8 +36557,7 @@ const struct BaseStats gBaseStats[] =
         110,
         80
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ICE, TYPE_ROCK),
         .catchRate = 75,
         .expYield = 203,
         //.evYield_HP = 2,
@@ -37528,8 +36591,7 @@ const struct BaseStats gBaseStats[] =
         120,
         90
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 315,
         //.evYield_Attack = 3,
@@ -37565,8 +36627,7 @@ const struct BaseStats gBaseStats[] =
         105,
         105
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_Defense = 3,
@@ -37602,8 +36663,7 @@ const struct BaseStats gBaseStats[] =
         120,
         140
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_SpDefense = 3,
@@ -37637,8 +36697,7 @@ const struct BaseStats gBaseStats[] =
         145,
         120
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_SpAttack = 3,
@@ -37670,8 +36729,7 @@ const struct BaseStats gBaseStats[] =
         74,
         96
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
         .catchRate = 60,
         .expYield = 203,
         //.evYield_Speed = 2,
@@ -37706,8 +36764,7 @@ const struct BaseStats gBaseStats[] =
         105,
         95
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 315,
         //.evYield_Attack = 3,
@@ -37742,8 +36799,7 @@ const struct BaseStats gBaseStats[] =
         140,
         70
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 219,
         //.evYield_Attack = 1,
@@ -37779,8 +36835,7 @@ const struct BaseStats gBaseStats[] =
         132,
         105
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_GRASS, TYPE_ICE),
         .catchRate = 60,
         .expYield = 208,
         //.evYield_Attack = 1,
@@ -37817,8 +36872,7 @@ const struct BaseStats gBaseStats[] =
         65,
         115
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 278,
         //.evYield_Attack = 3,
@@ -37850,8 +36904,7 @@ const struct BaseStats gBaseStats[] =
         80,
         126
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
         .catchRate = 255,
         .expYield = 425,
         //.evYield_HP = 2,
@@ -37888,8 +36941,7 @@ const struct BaseStats gBaseStats[] =
         150,
         110
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ROCK, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_Defense = 1,
@@ -37926,8 +36978,7 @@ const struct BaseStats gBaseStats[] =
         175,
         100
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_Attack = 2,
@@ -37963,8 +37014,7 @@ const struct BaseStats gBaseStats[] =
         175,
         150
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 3,
         .expYield = 302,
         //.evYield_SpAttack = 3,
@@ -37999,8 +37049,7 @@ const struct BaseStats gBaseStats[] =
         120,
         90
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_GROUND, TYPE_FIRE),
         .catchRate = 3,
         .expYield = 302,
         //.evYield_Attack = 3,
@@ -38035,8 +37084,7 @@ const struct BaseStats gBaseStats[] =
         25,
         35
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 51,
         //.evYield_Speed = 1,
@@ -38070,8 +37118,7 @@ const struct BaseStats gBaseStats[] =
         40,
         80
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 127,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -38105,8 +37152,7 @@ const struct BaseStats gBaseStats[] =
         105,
         85
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 218,
         //.evYield_Speed = 3,
@@ -38141,8 +37187,7 @@ const struct BaseStats gBaseStats[] =
         10,
         35
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ICE, TYPE_STEEL),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -38178,8 +37223,7 @@ const struct BaseStats gBaseStats[] =
         25,
         65
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ICE, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 158,
         //.evYield_Defense = 2,
@@ -38212,8 +37256,7 @@ const struct BaseStats gBaseStats[] =
         50,
         65
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 190,
         .expYield = 60,
         //.evYield_Speed = 1,
@@ -38249,8 +37292,7 @@ const struct BaseStats gBaseStats[] =
         81,
         100
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ICE, TYPE_FAIRY),
         .catchRate = 75,
         .expYield = 177,
         //.evYield_Speed = 1,
@@ -38284,8 +37326,7 @@ const struct BaseStats gBaseStats[] =
         35,
         45
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GROUND, TYPE_STEEL),
         .catchRate = 255,
         .expYield = 53,
         //.evYield_Speed = 1,
@@ -38319,8 +37360,7 @@ const struct BaseStats gBaseStats[] =
         50,
         70
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GROUND, TYPE_STEEL),
         .catchRate = 50,
         .expYield = 149,
         //.evYield_Speed = 2,
@@ -38354,8 +37394,7 @@ const struct BaseStats gBaseStats[] =
         60,
         40
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Speed = 1,
@@ -38389,8 +37428,7 @@ const struct BaseStats gBaseStats[] =
         81,
         85
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_NORMAL, TYPE_DARK),
         .catchRate = 90,
         .expYield = 154,
         //.evYield_Speed = 2,
@@ -38424,8 +37462,7 @@ const struct BaseStats gBaseStats[] =
         30,
         45
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ROCK, TYPE_ELECTRIC),
         .catchRate = 255,
         .expYield = 60,
         //.evYield_Defense = 1,
@@ -38468,8 +37505,7 @@ const struct BaseStats gBaseStats[] =
         45,
         65
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ROCK, TYPE_ELECTRIC),
         .catchRate = 120,
         .expYield = 137,
         //.evYield_Defense = 2,
@@ -38512,8 +37548,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ROCK, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 223,
         //.evYield_Defense = 3,
@@ -38542,8 +37577,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 50, 25, 40, 65),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_POISON, TYPE_DARK),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_HP = 1,
@@ -38572,8 +37606,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 105, 75, 50, 65, 100),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_POISON, TYPE_DARK),
         .catchRate = 75,
         .expYield = 175,
         //.evYield_HP = 1,
@@ -38600,8 +37633,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 105, 85, 37, 125, 75),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 186,
         //.evYield_SpAttack = 2,
@@ -38627,8 +37659,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 88, 80, 65, 66, 118),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_FIRE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = 149,
         //.evYield_Defense = 2,
@@ -38661,8 +37692,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_DARK, TYPE_STEEL),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Attack = 1,
@@ -38695,8 +37725,7 @@ const struct BaseStats gBaseStats[] =
         65,
         65
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY, //why not make this fairy too?
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY), //why not make this fairy too?
         .catchRate = 190,
         .expYield = 82,
         //.evYield_Speed = 1,
@@ -38729,8 +37758,7 @@ const struct BaseStats gBaseStats[] =
         80,
         80
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 60,
         .expYield = 175,
         //.evYield_Speed = 2,
@@ -38763,8 +37791,7 @@ const struct BaseStats gBaseStats[] =
         40,
         40
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 63,
         //.evYield_HP = 1,
@@ -38803,8 +37830,7 @@ const struct BaseStats gBaseStats[] =
         100,
         70
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_POISON, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 172,
         //.evYield_Attack = 2,
@@ -38838,8 +37864,7 @@ const struct BaseStats gBaseStats[] =
         58,
         62
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 132,
         //.evYield_Attack = 1,
@@ -38873,8 +37898,7 @@ const struct BaseStats gBaseStats[] =
         85,
         90
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_POISON, TYPE_FAIRY),
         .catchRate = 60,
         .expYield = 172,
         //.evYield_Defense = 2,
@@ -38910,8 +37934,7 @@ const struct BaseStats gBaseStats[] =
         90,
         90
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ICE, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 161,
         //.evYield_Speed = 2,
@@ -38944,8 +37967,7 @@ const struct BaseStats gBaseStats[] =
         125,
         100
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_SpAttack = 3,
@@ -38980,8 +38002,7 @@ const struct BaseStats gBaseStats[] =
         85,
         90
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_Attack = 3,
@@ -39016,8 +38037,7 @@ const struct BaseStats gBaseStats[] =
         100,
         125
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_DARK, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 290,
         //.evYield_SpDefense = 3,
@@ -39052,8 +38072,7 @@ const struct BaseStats gBaseStats[] =
         110,
         110
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_POISON, TYPE_PSYCHIC),
         .catchRate = 70,
         .expYield = 172,
         //.evYield_SpDefense = 2,
@@ -39086,8 +38105,7 @@ const struct BaseStats gBaseStats[] =
         75,
         120
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_GHOST, TYPE_ROCK),
         .catchRate = 60,
         .expYield = 144,
         //.evYield_SpDefense = 1,
@@ -39121,8 +38139,7 @@ const struct BaseStats gBaseStats[] =
         30,
         41
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 56,
         //.evYield_Speed = 1,
@@ -39155,8 +38172,7 @@ const struct BaseStats gBaseStats[] =
         50,
         61
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 147,
         //.evYield_Speed = 2,
@@ -39189,8 +38205,7 @@ const struct BaseStats gBaseStats[] =
         15,
         45
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 120,
         .expYield = 63,
         //.evYield_Attack = 1,
@@ -39222,8 +38237,7 @@ const struct BaseStats gBaseStats[] =
         30,
         55
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_Attack = 2,
@@ -39256,8 +38270,7 @@ const struct BaseStats gBaseStats[] =
         30,
         65
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GROUND, TYPE_GHOST),
         .catchRate = 190,
         .expYield = 61,
         //.evYield_Defense = 1,
@@ -39292,8 +38305,7 @@ const struct BaseStats gBaseStats[] =
         66,
         84
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_GROUND, TYPE_STEEL),
         .catchRate = 75,
         .expYield = 165,
         //.evYield_HP = 2,
@@ -39328,8 +38340,7 @@ const struct BaseStats gBaseStats[] =
             65,
             50
             ),
-            .type1 = TYPE_FIRE,
-            .type2 = TYPE_ROCK,
+            MON_TYPES(TYPE_FIRE, TYPE_ROCK),
             .catchRate = 190,
             .expYield = 70,
             //.evYield_Attack = 1,
@@ -39361,8 +38372,7 @@ const struct BaseStats gBaseStats[] =
             95,
             80
             ),
-            .type1 = TYPE_FIRE,
-            .type2 = TYPE_ROCK,
+            MON_TYPES(TYPE_FIRE, TYPE_ROCK),
             .catchRate = 75,
             .expYield = 194,
             //.evYield_Attack = 2,
@@ -39394,8 +38404,7 @@ const struct BaseStats gBaseStats[] =
             65,
             70
             ),
-            .type1 = TYPE_ELECTRIC,
-            .type2 = TYPE_GRASS,
+            MON_TYPES(TYPE_ELECTRIC,TYPE_GRASS),
             .catchRate = 190,
             .expYield = 66,
             //.evYield_Speed = 1,
@@ -39427,8 +38436,7 @@ const struct BaseStats gBaseStats[] =
             90,
             90
             ),
-            .type1 = TYPE_ELECTRIC,
-            .type2 = TYPE_GRASS,
+            MON_TYPES(TYPE_ELECTRIC, TYPE_GRASS),
             .catchRate = 60,
             .expYield = 172,
             //.evYield_Speed = 2,
@@ -39460,8 +38468,7 @@ const struct BaseStats gBaseStats[] =
             119,
             85
             ),
-            .type1 = TYPE_FIRE,
-            .type2 = TYPE_GHOST,
+            MON_TYPES(TYPE_FIRE, TYPE_GHOST),
             .catchRate = 45,
             .expYield = 240,
             //.evYield_SpAttack = 3,
@@ -39493,8 +38500,7 @@ const struct BaseStats gBaseStats[] =
             55,
             55
             ),
-            .type1 = TYPE_DARK,
-            .type2 = TYPE_POISON,
+            MON_TYPES(TYPE_DARK, TYPE_POISON),
             .catchRate = 45,
             .expYield = 88,
             //.evYield_Attack = 1,
@@ -39527,8 +38533,7 @@ const struct BaseStats gBaseStats[] =
             35,
             90
             ),
-            .type1 = TYPE_POISON,
-            .type2 = TYPE_FIGHTING,
+            MON_TYPES(TYPE_POISON, TYPE_FIGHTING),
             .catchRate = 60,
             .expYield = 86,
             //.evYield_Speed = 1,
@@ -39563,8 +38568,7 @@ const struct BaseStats gBaseStats[] =
             100,
             65
             ),
-            .type1 = TYPE_WATER,
-            .type2 = TYPE_DARK,
+            MON_TYPES(TYPE_WATER, TYPE_DARK),
             .catchRate = 45,
             .expYield = 238,
             //.evYield_SpAttack = 3,
@@ -39596,8 +38600,7 @@ const struct BaseStats gBaseStats[] =
             50,
             75
             ),
-            .type1 = TYPE_GRASS,
-            .type2 = TYPE_FIGHTING,
+            MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
             .catchRate = 75,
             .expYield = 168,
             //.evYield_Attack = 2,
@@ -39630,8 +38633,7 @@ const struct BaseStats gBaseStats[] =
             85,
             40
             ),
-            .type1 = TYPE_NORMAL,
-            .type2 = TYPE_GHOST,
+            MON_TYPES(TYPE_NORMAL, TYPE_GHOST),
             .catchRate = 75,
             .expYield = 66,
             //.evYield_SpAttack = 1,
@@ -39663,8 +38665,7 @@ const struct BaseStats gBaseStats[] =
             125,
             60
             ),
-            .type1 = TYPE_NORMAL,
-            .type2 = TYPE_GHOST,
+            MON_TYPES(TYPE_NORMAL, TYPE_GHOST),
             .catchRate = 45,
             .expYield = 179,
             //.evYield_SpAttack = 2,
@@ -39696,8 +38697,7 @@ const struct BaseStats gBaseStats[] =
             112,
             70
             ),
-            .type1 = TYPE_PSYCHIC,
-            .type2 = TYPE_FLYING,
+            MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
             .catchRate = 60,
             .expYield = 179,
             //.evYield_SpAttack = 2,
@@ -39731,8 +38731,7 @@ const struct BaseStats gBaseStats[] =
             83,
             113
             ),
-            .type1 = TYPE_DRAGON,
-            .type2 = TYPE_STEEL,
+            MON_TYPES(TYPE_DRAGON, TYPE_STEEL),
             .catchRate = 45,
             .expYield = 158,
             //.evYield_SpDefense = 2,
@@ -39765,8 +38764,7 @@ const struct BaseStats gBaseStats[] =
             110,
             150
             ),
-            .type1 = TYPE_DRAGON,
-            .type2 = TYPE_STEEL,
+            MON_TYPES(TYPE_DRAGON, TYPE_STEEL),
             .catchRate = 45,
             .expYield = 270,
             //.evYield_SpDefense = 3,
@@ -39798,8 +38796,7 @@ const struct BaseStats gBaseStats[] =
             34,
             36
             ),
-            .type1 = TYPE_ICE,
-            .type2 = TYPE_ROCK,
+            MON_TYPES(TYPE_ICE, TYPE_ROCK),
             .catchRate = 55,
             .expYield = 180,
             //.evYield_Defense = 2,
@@ -39833,8 +38830,7 @@ const struct BaseStats gBaseStats[] =
             95,
             95
             ),
-            .type1 = TYPE_GRASS,
-            .type2 = TYPE_FIGHTING,
+            MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
             .catchRate = 45,
             .expYield = 239,
             //.evYield_Attack = 3,
@@ -39866,8 +38862,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -39900,8 +38895,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -39934,8 +38928,7 @@ const struct BaseStats gBaseStats[] =
         95,
         66
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ICE,    //lol cottage core
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ICE),    //lol cottage core
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -39967,8 +38960,7 @@ const struct BaseStats gBaseStats[] =
         105,
         70
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FAIRY),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40000,8 +38992,7 @@ const struct BaseStats gBaseStats[] =
         120,
         60
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_PSYCHIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40033,8 +39024,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FIGHTING),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40066,8 +39056,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40099,8 +39088,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40132,8 +39120,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40165,8 +39152,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40198,8 +39184,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40231,8 +39216,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40264,8 +39248,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40297,8 +39280,7 @@ const struct BaseStats gBaseStats[] =
         85,
         50
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 112,
         //.evYield_Speed = 2,
@@ -40330,8 +39312,7 @@ const struct BaseStats gBaseStats[] =
         85,
         70
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 41,
         //.evYield_Speed = 1,
@@ -40369,8 +39350,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40402,8 +39382,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40435,8 +39414,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40468,8 +39446,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40500,8 +39477,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40533,8 +39509,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40566,8 +39541,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40599,8 +39573,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40632,8 +39605,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40665,8 +39637,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40698,8 +39669,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40731,8 +39701,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40764,8 +39733,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40797,8 +39765,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40830,8 +39797,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40863,8 +39829,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40896,8 +39861,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40929,8 +39893,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40962,8 +39925,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -40995,8 +39957,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41028,8 +39989,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41061,8 +40021,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41094,8 +40053,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41127,8 +40085,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41160,8 +40117,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41193,8 +40149,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41226,8 +40181,7 @@ const struct BaseStats gBaseStats[] =
         72,
         48
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 225,
         .expYield = 118,
         //.evYield_Attack = 1,
@@ -41252,8 +40206,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -41278,8 +40231,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_NORMAL, TYPE_WATER),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -41304,8 +40256,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_NORMAL, TYPE_ICE),
         .catchRate = 45,
         .expYield = 147,
         //.evYield_HP = 1,
@@ -41330,8 +40281,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 180, 20, 150, 180, 20),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 2,
@@ -41356,8 +40306,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 160, 90, 70, 160),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Defense = 2,
@@ -41382,8 +40331,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 95, 90, 180, 95, 90),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Speed = 3,
@@ -41407,8 +40355,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 29, 45, 36, 29, 45),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 120,
         .expYield = 45,
         //.evYield_SpDefense = 1,
@@ -41434,8 +40381,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 29, 45, 36, 29, 45),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 120,
         .expYield = 45,
         //.evYield_SpDefense = 1,
@@ -41461,8 +40407,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 89, 125, 36, 59, 85),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_BUG, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 148,
         //.evYield_Defense = 2,
@@ -41488,8 +40433,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 69, 115, 36, 69, 115),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 148,
         //.evYield_Defense = 1,
@@ -41516,8 +40460,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 70, 70, 100, 97, 60),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FIRE, //makes no sense not to do this for grass mon that needs sun
+        MON_TYPES(TYPE_GRASS, TYPE_FIRE), //makes no sense not to do this for grass mon that needs sun
         .catchRate = 75,
         .expYield = 158,
         //.evYield_SpAttack = 2,
@@ -41542,8 +40485,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 48, 48, 34, 57, 62),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 190,
         .expYield = 65,
         //.evYield_HP = 1,
@@ -41568,8 +40510,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(111, 83, 68, 39, 92, 82),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_HP = 2,
@@ -41594,8 +40535,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 76, 110, 76, 107, 85),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FIRE),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Speed = 1,
@@ -41621,8 +40561,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 65, 97, 81, 75, 97),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_WATER),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Speed = 1,
@@ -41647,8 +40586,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 74, 107, 74, 81, 97),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ICE),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Speed = 1,
@@ -41673,8 +40611,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 67, 67, 112, 105, 87),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Speed = 1,
@@ -41701,8 +40638,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 102, 80, 90, 103, 77),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 182,
         //.evYield_Speed = 1,
@@ -41727,8 +40663,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 120, 100, 90, 120, 100),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_GHOST, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 306,
         //.evYield_HP = 3,
@@ -41752,8 +40687,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 103, 75, 127, 120, 75),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -41786,8 +40720,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -41821,8 +40754,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -41856,8 +40788,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -41891,8 +40822,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -41926,8 +40856,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_ROCK, TYPE_ROCK),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -41961,8 +40890,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_BUG,
+        MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -41996,8 +40924,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42031,8 +40958,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42066,8 +40992,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42101,8 +41026,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42136,8 +41060,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42171,8 +41094,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_ELECTRIC,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42206,8 +41128,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42241,8 +41162,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42276,8 +41196,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42311,8 +41230,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42346,8 +41264,7 @@ const struct BaseStats gBaseStats[] =
         120,
         120
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 324,
         //.evYield_HP = 3,
@@ -42374,8 +41291,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 92, 65, 98, 80, 55),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 25,
         .expYield = 161,
         //.evYield_Speed = 2,
@@ -42401,8 +41317,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 92, 65, 98, 80, 55),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 25,
         .expYield = 161,
         //.evYield_Speed = 2,
@@ -42432,8 +41347,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(155, 30, 105, 55, 140, 105),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_FIRE, TYPE_PSYCHIC),
         .catchRate = 60,
         .expYield = 189,
         //.evYield_SpAttack = 2,
@@ -42458,8 +41372,7 @@ const struct BaseStats gBaseStats[] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 160, 55, 135, 30, 55),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_FIRE,
+        MON_TYPES(TYPE_ICE, TYPE_FIRE),
         .catchRate = 60,
         .expYield = 189,
         //.evYield_SpAttack = 2,
@@ -42492,8 +41405,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_Speed = 1,
@@ -42525,8 +41437,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_Speed = 1,
@@ -42558,8 +41469,7 @@ const struct BaseStats gBaseStats[] =
         40,
         50
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_Speed = 1,
@@ -42591,8 +41501,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -42624,8 +41533,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -42657,8 +41565,7 @@ const struct BaseStats gBaseStats[] =
         60,
         70
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_NORMAL, TYPE_GRASS),
         .catchRate = 75,
         .expYield = 166,
         //.evYield_Attack = 2,
@@ -42690,8 +41597,7 @@ const struct BaseStats gBaseStats[] =
         110,
         90
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FLYING, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Attack = 3,
@@ -42728,8 +41634,7 @@ const struct BaseStats gBaseStats[] =
         145,
         80
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpAttack = 3,
@@ -42760,8 +41665,7 @@ const struct BaseStats gBaseStats[] =
         105,
         80
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GROUND, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 3,
@@ -42791,8 +41695,7 @@ const struct BaseStats gBaseStats[] =
         135,
         100
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_FAIRY, TYPE_FLYING),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -42824,8 +41727,7 @@ const struct BaseStats gBaseStats[] =
         170,
         100
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_SpAttack = 3,
@@ -42859,8 +41761,7 @@ const struct BaseStats gBaseStats[] =
         120,
         90
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_Attack = 3,
@@ -42894,8 +41795,7 @@ const struct BaseStats gBaseStats[] =
         129,
         90
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpAttack = 3,
@@ -42929,8 +41829,7 @@ const struct BaseStats gBaseStats[] =
         77,
         77
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FIGHTING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -42965,8 +41864,7 @@ const struct BaseStats gBaseStats[] =
         120,
         95
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -43002,8 +41900,7 @@ const struct BaseStats gBaseStats[] =
         120,
         95
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -43039,8 +41936,7 @@ const struct BaseStats gBaseStats[] =
         120,
         95
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -43076,8 +41972,7 @@ const struct BaseStats gBaseStats[] =
         120,
         95
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_BUG, TYPE_STEEL),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 1,
@@ -43113,8 +42008,7 @@ const struct BaseStats gBaseStats[] =
         153,
         71
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 45,
         .expYield = 288,
         //.evYield_Speed = 3,
@@ -43148,8 +42042,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43184,8 +42077,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43220,8 +42112,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43256,8 +42147,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43292,8 +42182,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43328,8 +42217,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43364,8 +42252,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43400,8 +42287,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43436,8 +42322,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43472,8 +42357,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43508,8 +42392,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43544,8 +42427,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43580,8 +42462,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43616,8 +42497,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43652,8 +42532,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43688,8 +42567,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43724,8 +42602,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43760,8 +42637,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43796,8 +42672,7 @@ const struct BaseStats gBaseStats[] =
         90,
         50
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 185,
         //.evYield_HP = 1,
@@ -43832,8 +42707,7 @@ const struct BaseStats gBaseStats[] =
         115,
         100
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 220,
         //.evYield_Attack = 3,
@@ -43866,8 +42740,7 @@ const struct BaseStats gBaseStats[] =
         109,
         66
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
         .catchRate = 65,
         .expYield = 177,
         //.evYield_SpAttack = 2,
@@ -43900,8 +42773,7 @@ const struct BaseStats gBaseStats[] =
         61,
         79
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 225,
         .expYield = 61,
         //.evYield_SpDefense = 1,
@@ -43933,8 +42805,7 @@ const struct BaseStats gBaseStats[] =
         61,
         79
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 225,
         .expYield = 61,
         //.evYield_SpDefense = 1,
@@ -43966,8 +42837,7 @@ const struct BaseStats gBaseStats[] =
         61,
         79
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 225,
         .expYield = 61,
         //.evYield_SpDefense = 1,
@@ -43999,8 +42869,7 @@ const struct BaseStats gBaseStats[] =
         61,
         79
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 225,
         .expYield = 61,
         //.evYield_SpDefense = 1,
@@ -44032,8 +42901,7 @@ const struct BaseStats gBaseStats[] =
         75,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpDefense = 2,
@@ -44065,8 +42933,7 @@ const struct BaseStats gBaseStats[] =
         75,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpDefense = 2,
@@ -44098,8 +42965,7 @@ const struct BaseStats gBaseStats[] =
         75,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpDefense = 2,
@@ -44131,8 +42997,7 @@ const struct BaseStats gBaseStats[] =
         75,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 130,
         //.evYield_SpDefense = 2,
@@ -44164,8 +43029,7 @@ const struct BaseStats gBaseStats[] =
         125,
         128
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 243,
         //.evYield_SpDefense = 2,
@@ -44197,8 +43061,7 @@ const struct BaseStats gBaseStats[] =
         112,
         154
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 248,
         //.evYield_SpDefense = 3,
@@ -44230,8 +43093,7 @@ const struct BaseStats gBaseStats[] =
         112,
         154
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 248,
         //.evYield_SpDefense = 3,
@@ -44263,8 +43125,7 @@ const struct BaseStats gBaseStats[] =
         112,
         154
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 248,
         //.evYield_SpDefense = 3,
@@ -44296,8 +43157,7 @@ const struct BaseStats gBaseStats[] =
         112,
         154
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 248,
         //.evYield_SpDefense = 3,
@@ -44329,8 +43189,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44364,8 +43223,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44399,8 +43257,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44434,8 +43291,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44469,8 +43325,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44504,8 +43359,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44539,8 +43393,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44574,8 +43427,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44609,8 +43461,7 @@ const struct BaseStats gBaseStats[] =
         65,
         90
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 160,
         .expYield = 165,
         //.evYield_Speed = 1,
@@ -44644,8 +43495,7 @@ const struct BaseStats gBaseStats[] =
         83,
         81
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_PSYCHIC,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 75,
         .expYield = 163,
         //.evYield_Speed = 2,
@@ -44678,8 +43528,7 @@ const struct BaseStats gBaseStats[] =
         150,
         50
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_STEEL, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 234,
         //.evYield_Defense = 2,
@@ -44714,8 +43563,7 @@ const struct BaseStats gBaseStats[] =
         44,
         55
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 67,
         //.evYield_Defense = 1,
@@ -44747,8 +43595,7 @@ const struct BaseStats gBaseStats[] =
         44,
         55
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 67,
         //.evYield_Defense = 1,
@@ -44780,8 +43627,7 @@ const struct BaseStats gBaseStats[] =
         44,
         55
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 67,
         //.evYield_Defense = 1,
@@ -44813,8 +43659,7 @@ const struct BaseStats gBaseStats[] =
         58,
         75
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 60,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -44846,8 +43691,7 @@ const struct BaseStats gBaseStats[] =
         58,
         75
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 60,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -44879,8 +43723,7 @@ const struct BaseStats gBaseStats[] =
         58,
         75
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_GHOST, TYPE_GRASS),
         .catchRate = 60,
         .expYield = 173,
         //.evYield_Defense = 2,
@@ -44912,8 +43755,7 @@ const struct BaseStats gBaseStats[] =
         131,
         98
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 306,
         //.evYield_HP = 3,
@@ -44947,8 +43789,7 @@ const struct BaseStats gBaseStats[] =
         61,
         85
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 219,
         //.evYield_HP = 3,
@@ -44982,8 +43823,7 @@ const struct BaseStats gBaseStats[] =
         61,
         85
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 219,
         //.evYield_HP = 3,
@@ -45017,8 +43857,7 @@ const struct BaseStats gBaseStats[] =
         81,
         95
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_HP = 3,
@@ -45052,8 +43891,7 @@ const struct BaseStats gBaseStats[] =
         91,
         95
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 3,
         .expYield = 319,
         //.evYield_HP = 3,
@@ -45087,8 +43925,7 @@ const struct BaseStats gBaseStats[] =
         170,
         130
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_DARK),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -45122,8 +43959,7 @@ const struct BaseStats gBaseStats[] =
         98,
         70
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 167,
         //.evYield_SpAttack = 2,
@@ -45160,8 +43996,7 @@ const struct BaseStats gBaseStats[] =
         98,
         70
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 167,
         //.evYield_SpAttack = 2,
@@ -45198,8 +44033,7 @@ const struct BaseStats gBaseStats[] =
         98,
         70
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_GHOST, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 167,
         //.evYield_SpAttack = 2,
@@ -45236,8 +44070,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_DARK, TYPE_ROCK),
         .catchRate = 90,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -45270,8 +44103,7 @@ const struct BaseStats gBaseStats[] =
         55,
         65
         ),
-        .type1 = TYPE_FIGHTING, //each form has different evo move, shift moves around to fit new typing, give counter
-        .type2 = TYPE_ROCK, //setup to evolve with dusk stone as well
+        MON_TYPES(TYPE_FIGHTING, TYPE_ROCK), //each form has different evo move, shift moves around to fit new typing, give counter TYPE_ROCK, //setup to evolve with dusk stone as well
         .catchRate = 90,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -45305,8 +44137,7 @@ const struct BaseStats gBaseStats[] =
         140,
         135
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 60,
         .expYield = 61,
         //.evYield_HP = 1,
@@ -45340,8 +44171,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_FIGHTING, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45375,8 +44205,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_FLYING, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45410,8 +44239,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_POISON, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45445,8 +44273,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_GROUND,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_GROUND, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45480,8 +44307,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_ROCK, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45515,8 +44341,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_BUG,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_BUG, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45550,8 +44375,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_GHOST, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45585,8 +44409,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_STEEL, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45620,8 +44443,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_FIRE,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_FIRE, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45655,8 +44477,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_WATER, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45690,8 +44511,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_GRASS, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45725,8 +44545,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45760,8 +44579,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45795,8 +44613,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_ICE, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45830,8 +44647,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_DRAGON,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_DRAGON, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45865,8 +44681,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_DARK, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45900,8 +44715,7 @@ const struct BaseStats gBaseStats[] =
         95,
         95
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_MYSTERY,
+        MON_TYPES(TYPE_FAIRY, TYPE_MYSTERY),
         .catchRate = 3,
         .expYield = 257,
         //.evYield_HP = 3,
@@ -45935,8 +44749,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -45972,8 +44785,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46009,8 +44821,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46046,8 +44857,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46083,8 +44893,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46120,8 +44929,7 @@ const struct BaseStats gBaseStats[] =
         60,
         100
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46157,8 +44965,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46194,8 +45001,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46231,8 +45037,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46268,8 +45073,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46305,8 +45109,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46342,8 +45145,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46379,8 +45181,7 @@ const struct BaseStats gBaseStats[] =
         100,
         60
         ),
-        .type1 = TYPE_ROCK,
-        .type2 = TYPE_FLYING,
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -46416,8 +45217,7 @@ const struct BaseStats gBaseStats[] =
         50,
         105
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 167,
         //.evYield_SpDefense = 2,
@@ -46451,8 +45251,7 @@ const struct BaseStats gBaseStats[] =
         113,
         109
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_STEEL),
         .catchRate = 255,
         .expYield = 306,
         //.evYield_Attack = 3,
@@ -46488,8 +45287,7 @@ const struct BaseStats gBaseStats[] =
         157,
         127
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_GHOST),
         .catchRate = 255,
         .expYield = 306,
         //.evYield_SpAttack = 3,
@@ -46523,8 +45321,7 @@ const struct BaseStats gBaseStats[] =
         167,
         97
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_DRAGON),
         .catchRate = 255,
         .expYield = 339,
         //.evYield_Attack = 1,
@@ -46560,8 +45357,7 @@ const struct BaseStats gBaseStats[] =
         130,
         115
         ),
-        .type1 = TYPE_STEEL,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpAttack = 3,
@@ -46595,8 +45391,7 @@ const struct BaseStats gBaseStats[] =
         85,
         95
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_FLYING, TYPE_WATER),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_SpDefense = 2,
@@ -46630,8 +45425,7 @@ const struct BaseStats gBaseStats[] =
         85,
         95
         ),
-        .type1 = TYPE_FLYING,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_FLYING, TYPE_WATER),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_SpDefense = 2,
@@ -46665,8 +45459,7 @@ const struct BaseStats gBaseStats[] =
         114,
         87
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_POISON,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_POISON),
         .catchRate = 45,
         .expYield = 176,
         //.evYield_SpAttack = 2,
@@ -46698,8 +45491,7 @@ const struct BaseStats gBaseStats[] =
         74,
         54
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 120,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -46731,8 +45523,7 @@ const struct BaseStats gBaseStats[] =
         134,
         114
         ),
-        .type1 = TYPE_GHOST,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 178,
         //.evYield_SpAttack = 2,
@@ -46764,8 +45555,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46797,8 +45587,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46830,8 +45619,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46863,8 +45651,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46896,8 +45683,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46929,8 +45715,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46962,8 +45747,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -46995,8 +45779,7 @@ const struct BaseStats gBaseStats[] =
         110,
         121
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_FAIRY,
+        MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
         .catchRate = 100,
         .expYield = 173,
         //.evYield_SpDefense = 2,
@@ -47028,8 +45811,7 @@ const struct BaseStats gBaseStats[] =
         65,
         50
         ),
-        .type1 = TYPE_ICE,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_ICE, TYPE_ICE),
         .catchRate = 60,
         .expYield = 165,
         //.evYield_Defense = 2,
@@ -47063,8 +45845,7 @@ const struct BaseStats gBaseStats[] =
         95,
         105
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_NORMAL,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_NORMAL),
         .catchRate = 30,
         .expYield = 166,
         //.evYield_SpDefense = 2,
@@ -47098,8 +45879,7 @@ const struct BaseStats gBaseStats[] =
         70,
         58
         ),
-        .type1 = TYPE_ELECTRIC,
-        .type2 = TYPE_DARK,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_DARK),
         .catchRate = 180,
         .expYield = 153,
         //.evYield_Speed = 2,
@@ -47133,8 +45913,7 @@ const struct BaseStats gBaseStats[] =
         80,
         115
         ),
-        .type1 = TYPE_FAIRY,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 10,
         .expYield = 360,
         //.evYield_Speed = 3,
@@ -47168,8 +45947,7 @@ const struct BaseStats gBaseStats[] =
         80,
         145
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_STEEL,
+        MON_TYPES(TYPE_FIGHTING, TYPE_STEEL),
         .catchRate = 10,
         .expYield = 360,
         //.evYield_Speed = 3,
@@ -47203,8 +45981,7 @@ const struct BaseStats gBaseStats[] =
         125,
         250
         ),
-        .type1 = TYPE_POISON,
-        .type2 = TYPE_DRAGON,
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 255,
         .expYield = 563,
         //.evYield_HP = 3,
@@ -47235,8 +46012,7 @@ const struct BaseStats gBaseStats[] =
         63,
         60
         ),
-        .type1 = TYPE_FIGHTING,
-        .type2 = TYPE_WATER,
+        MON_TYPES(TYPE_FIGHTING, TYPE_WATER),
         .catchRate = 3,
         .expYield = 275,
         //.evYield_Attack = 3,
@@ -47270,8 +46046,7 @@ const struct BaseStats gBaseStats[] =
         70,
         95
         ),
-        .type1 = TYPE_DARK,
-        .type2 = TYPE_GRASS,
+        MON_TYPES(TYPE_DARK, TYPE_GRASS),
         .catchRate = 3,
         .expYield = 300,
         //.evYield_Attack = 3,
@@ -47305,8 +46080,7 @@ const struct BaseStats gBaseStats[] =
         85,
         130
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_ICE,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_ICE),
         .catchRate = 3,
         .expYield = 340,
         //.evYield_Attack = 3,
@@ -47340,8 +46114,7 @@ const struct BaseStats gBaseStats[] =
         165,
         100
         ),
-        .type1 = TYPE_PSYCHIC,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_PSYCHIC, TYPE_GHOST),
         .catchRate = 3,
         .expYield = 340,
         //.evYield_SpAttack = 3,
@@ -47375,8 +46148,7 @@ const struct BaseStats gBaseStats[] =
             80,
             75
             ),
-            .type1 = TYPE_WATER,
-            .type2 = TYPE_GHOST,
+            MON_TYPES(TYPE_WATER, TYPE_GHOST),
             .catchRate = 25,
             .expYield = 186,
             //.evYield_HP = 2,
@@ -47408,8 +46180,7 @@ const struct BaseStats gBaseStats[] =
         65,
         85
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_WATER, TYPE_GHOST),
         .catchRate = 190,
         .expYield = 67,
         //.evYield_SpDefense = 1,
@@ -47441,8 +46212,7 @@ const struct BaseStats gBaseStats[] =
         85,
         105
         ),
-        .type1 = TYPE_WATER,
-        .type2 = TYPE_GHOST,
+        MON_TYPES(TYPE_WATER, TYPE_GHOST),
         .catchRate = 60,
         .expYield = 168,
         //.evYield_SpDefense = 2,
@@ -47474,8 +46244,7 @@ const struct BaseStats gBaseStats[] =
         92,
         106
         ),
-        .type1 = TYPE_GRASS,
-        .type2 = TYPE_ROCK,
+        MON_TYPES(TYPE_GRASS, TYPE_ROCK),
         .catchRate = 45,
         .expYield = 281,
         .genderRatio = PERCENT_FEMALE(12.5),
@@ -47506,8 +46275,7 @@ const struct BaseStats gBaseStats[] =
         31,
         106
         ),
-        .type1 = TYPE_NORMAL,
-        .type2 = TYPE_GROUND,
+        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 45,
         .expYield = 281,
         .genderRatio = PERCENT_FEMALE(50),
