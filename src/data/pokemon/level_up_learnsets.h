@@ -9138,7 +9138,7 @@ static const struct LevelUpMove sBasculinLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sBasculinHisuianLevelUpLearnset[] = {
+static const struct LevelUpMove sBasculinWhiteStripedLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),

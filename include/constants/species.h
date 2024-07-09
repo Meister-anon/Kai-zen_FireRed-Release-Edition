@@ -596,8 +596,8 @@
 #define SPECIES_ESCAVALIER 589
 #define SPECIES_FOONGUS 590
 #define SPECIES_AMOONGUSS 591
-#define SPECIES_FRILLISH 592
-#define SPECIES_JELLICENT 593
+#define SPECIES_FRILLISH_MALE 592
+#define SPECIES_JELLICENT_MALE 593
 #define SPECIES_ALOMOMOLA 594
 #define SPECIES_JOLTIK 595
 #define SPECIES_GALVANTULA 596
@@ -671,7 +671,7 @@
 #define SPECIES_TALONFLAME 663
 #define SPECIES_SCATTERBUG 664
 #define SPECIES_SPEWPA 665
-#define SPECIES_VIVILLON 666 // Icy Snow Pattern
+#define SPECIES_VIVILLON_SNOW 666 // Icy Snow Pattern
 #define SPECIES_LITLEO 667
 #define SPECIES_PYROAR_MALE 668
 #define SPECIES_FLABEBE 669 // Red Flower
@@ -715,8 +715,8 @@
 #define SPECIES_KLEFKI 707
 #define SPECIES_PHANTUMP 708
 #define SPECIES_TREVENANT 709
-#define SPECIES_PUMPKABOO 710
-#define SPECIES_GOURGEIST 711
+#define SPECIES_PUMPKABOO_AVERAGE_SIZE 710
+#define SPECIES_GOURGEIST_AVERAGE_SIZE 711
 #define SPECIES_BERGMITE 712
 #define SPECIES_AVALUGG 713
 #define SPECIES_NOIBAT 714
@@ -751,7 +751,7 @@
 #define SPECIES_CUTIEFLY 742
 #define SPECIES_RIBOMBEE 743
 #define SPECIES_ROCKRUFF 744
-#define SPECIES_LYCANROC 745
+#define SPECIES_LYCANROC_MIDDAY 745
 #define SPECIES_WISHIWASHI 746
 #define SPECIES_MAREANIE 747
 #define SPECIES_TOXAPEX 748
@@ -876,7 +876,7 @@
 #define SPECIES_MR_RIME 866
 #define SPECIES_RUNERIGUS 867
 #define SPECIES_MILCERY 868
-#define SPECIES_ALCREMIE 869
+#define SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM 869
 #define SPECIES_FALINKS 870
 #define SPECIES_PINCURCHIN 871
 #define SPECIES_SNOM 872
@@ -935,7 +935,6 @@
 #define SPECIES_QUAXWELL                                915
 #define SPECIES_QUAQUAVAL                               916
 #define SPECIES_LECHONK                                 917
-//#define SPECIES_OINKOLOGNE                              SPECIES_OINKOLOGNE_MALE
 #define SPECIES_OINKOLOGNE_MALE                         918
 #define SPECIES_OINKOLOGNE_FEMALE                       919
 #define SPECIES_TAROUNTULA                              920
@@ -946,7 +945,6 @@
 #define SPECIES_PAWMO                                   925
 #define SPECIES_PAWMOT                                  926
 #define SPECIES_TANDEMAUS                               927
-#define SPECIES_MAUSHOLD                                SPECIES_MAUSHOLD_FAMILY_OF_THREE
 #define SPECIES_MAUSHOLD_FAMILY_OF_THREE                928
 #define SPECIES_MAUSHOLD_FAMILY_OF_FOUR                 929
 #define SPECIES_FIDOUGH                                 930
@@ -954,7 +952,6 @@
 #define SPECIES_SMOLIV                                  932
 #define SPECIES_DOLLIV                                  933
 #define SPECIES_ARBOLIVA                                934
-#define SPECIES_SQUAWKABILLY                            SPECIES_SQUAWKABILLY_GREEN_PLUMAGE
 #define SPECIES_SQUAWKABILLY_GREEN_PLUMAGE              935
 #define SPECIES_SQUAWKABILLY_BLUE_PLUMAGE               936
 #define SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE             937
@@ -991,7 +988,7 @@
 #define SPECIES_WUGTRIO                                 968
 #define SPECIES_BOMBIRDIER                              969
 #define SPECIES_FINIZEN                                 970
-#define SPECIES_PALAFIN                                 SPECIES_PALAFIN_ZERO
+//#define SPECIES_PALAFIN                                 SPECIES_PALAFIN_ZERO
 #define SPECIES_PALAFIN_ZERO                            971
 #define SPECIES_PALAFIN_HERO                            972
 #define SPECIES_VAROOM                                  973
@@ -1007,14 +1004,12 @@
 #define SPECIES_CETITAN                                 983
 #define SPECIES_VELUZA                                  984
 #define SPECIES_DONDOZO                                 985
-#define SPECIES_TATSUGIRI                               SPECIES_TATSUGIRI_CURLY
 #define SPECIES_TATSUGIRI_CURLY                         986
 #define SPECIES_TATSUGIRI_DROOPY                        987
 #define SPECIES_TATSUGIRI_STRETCHY                      988
 #define SPECIES_ANNIHILAPE                              989
 #define SPECIES_CLODSIRE                                990
 #define SPECIES_FARIGIRAF                               991
-#define SPECIES_DUDUNSPARCE                             SPECIES_DUDUNSPARCE_TWO_SEGMENT
 #define SPECIES_DUDUNSPARCE_TWO_SEGMENT                 992
 #define SPECIES_DUDUNSPARCE_THREE_SEGMENT               993
 #define SPECIES_KINGAMBIT                               994
@@ -1516,15 +1511,16 @@
 // Polteageist
 #define SPECIES_POLTEAGEIST_ANTIQUE          FORMS_START + 308
 
-// Alcremie
-#define SPECIES_ALCREMIE_RUBY_CREAM          FORMS_START + 309
+// Alcremie //for sake of pokedex just show vanilla creme for each topping
+//so instead of +1 incrase alcremie form table in dex by like 9 or something however much needed to cover teh new topping
+/*#define SPECIES_ALCREMIE_RUBY_CREAM          FORMS_START + 309
 #define SPECIES_ALCREMIE_MATCHA_CREAM        FORMS_START + 310
 #define SPECIES_ALCREMIE_MINT_CREAM          FORMS_START + 311
 #define SPECIES_ALCREMIE_LEMON_CREAM         FORMS_START + 312
 #define SPECIES_ALCREMIE_SALTED_CREAM        FORMS_START + 313
 #define SPECIES_ALCREMIE_RUBY_SWIRL          FORMS_START + 314
 #define SPECIES_ALCREMIE_CARAMEL_SWIRL       FORMS_START + 315
-#define SPECIES_ALCREMIE_RAINBOW_SWIRL       FORMS_START + 316
+#define SPECIES_ALCREMIE_RAINBOW_SWIRL       FORMS_START + 316*/
 
 // Eiscue
 #define SPECIES_EISCUE_NOICE_FACE            FORMS_START + 317
@@ -1566,16 +1562,140 @@
 #define SPECIES_TORTERRA_MEGA				FORMS_START + 330
 #define SPECIES_MAROWAK_MEGA                FORMS_START + 331
 
+
+
 #define SPECIES_EGG SPECIES_MAROWAK_MEGA + 1
 #define NUM_SPECIES SPECIES_EGG	//Num species determins number dex entries now instead of pokemon slots
+//for base stats space saving, put all cosmetic forms at end of list
+//so they're after all values that actually get a base stat block
+//that way they can be excluded from array as size of array
+//is equal to value of last value, regarldess of how many actual entries it has
 
-#define SPECIES_UNFEZANT        NUM_SPECIES + 1
-#define SPECIES_PYROAR          NUM_SPECIES + 2
-#define SPECIES_MEOWSTIC        NUM_SPECIES + 3
-#define SPECIES_INDEEDEE        NUM_SPECIES + 4
-#define SPECIES_BASCULEGION     NUM_SPECIES + 5
-#define SPECIES_OINKOLOGNE      NUM_SPECIES + 6
-#define SPECIES_EARLY_RT_BIRDS   NUM_SPECIES + 7
+//believe num species is what mattters for ewram
+//because of this
+//#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
+//believe that goes into the saveblock
+//tested and confirmed
+//u8 seen1[DEX_FLAGS_NO];  from here, same for num flags, but to a lesser degree than num species
+//will need remove cosmetic mon from num species as they aren't necessary for dex
+
+//will need dif setup for adding cosmetic mon, guess copy unown or see if using my function
+//to pass species data of the base form will work in all cases
+//unsure how will affect form dex
+
+//but end logic cosmetics will need to be removed from num species
+//but doing so will save on space but physically via being able to exclude from base stats
+//and on ewram though not to as large a degree as base stats
+
+#define GENDER_FORMS_START      NUM_SPECIES
+
+#define SPECIES_UNFEZANT        GENDER_FORMS_START + 1
+#define SPECIES_PYROAR          GENDER_FORMS_START + 2
+#define SPECIES_MEOWSTIC        GENDER_FORMS_START + 3
+#define SPECIES_INDEEDEE        GENDER_FORMS_START + 4
+#define SPECIES_BASCULEGION     GENDER_FORMS_START + 5
+#define SPECIES_OINKOLOGNE      GENDER_FORMS_START + 6
+#define SPECIES_FRILLISH        GENDER_FORMS_START + 7
+#define SPECIES_JELLICENT       GENDER_FORMS_START + 8
+#define GENDER_FORMS_END        SPECIES_JELLICENT
+//would need add frillish and jellicent to this, 
+//but I removed all forms that aren't actually different
+//doesn't make sense to give different stats
+//because think their theme is a kingdom w an equal power monoarchy i.e men women equan in all respects
+//and there isn't anything particilurly different about them physically
+//so maybe just make different abilities?
+
+#define ALT_FORMS_START         GENDER_FORMS_END     
+
+#define SPECIES_MAUSHOLD        ALT_FORMS_START + 1
+#define SPECIES_SQUAWKABILLY    ALT_FORMS_START + 2
+#define SPECIES_TATSUGIRI       ALT_FORMS_START + 3
+#define SPECIES_DUDUNSPARCE     ALT_FORMS_START + 4
+#define SPECIES_VIVILLON        ALT_FORMS_START + 5
+#define SPECIES_ALCREMIE        ALT_FORMS_START + 6
+
+#define ALT_FORMS_END           SPECIES_ALCREMIE 
+//may add unown here depening on how setup, but rn it already works off personality to set
+
+#define GROUPED_SPECIES_START    ALT_FORMS_END
+#define SPECIES_EARLY_RT_BIRDS   GROUPED_SPECIES_START + 1
+
+#define GROUPED_SPECIES_END       SPECIES_EARLY_RT_BIRDS
+
+#define COSMETIC_FORMS_START      GROUPED_SPECIES_END
+
+// Alcremie //for sake of pokedex just show vanilla creme for each topping
+//so instead of +1 incrase alcremie form table in dex by like 9 or something however much needed to cover teh new topping
+#define SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM          COSMETIC_FORMS_START + 1
+#define SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM        COSMETIC_FORMS_START + 2
+#define SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM          COSMETIC_FORMS_START + 3
+#define SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM         COSMETIC_FORMS_START + 4
+#define SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM        COSMETIC_FORMS_START + 5
+#define SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL          COSMETIC_FORMS_START + 6
+#define SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL       COSMETIC_FORMS_START + 7
+#define SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL       COSMETIC_FORMS_START + 8
+
+#define SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM       COSMETIC_FORMS_START + 9
+#define SPECIES_ALCREMIE_BLUEBERRY_RUBY_CREAM          COSMETIC_FORMS_START + 10
+#define SPECIES_ALCREMIE_BLUEBERRY_MATCHA_CREAM        COSMETIC_FORMS_START + 11
+#define SPECIES_ALCREMIE_BLUEBERRY_MINT_CREAM          COSMETIC_FORMS_START + 12
+#define SPECIES_ALCREMIE_BLUEBERRY_LEMON_CREAM         COSMETIC_FORMS_START + 13
+#define SPECIES_ALCREMIE_BLUEBERRY_SALTED_CREAM        COSMETIC_FORMS_START + 14
+#define SPECIES_ALCREMIE_BLUEBERRY_RUBY_SWIRL          COSMETIC_FORMS_START + 15
+#define SPECIES_ALCREMIE_BLUEBERRY_CARAMEL_SWIRL       COSMETIC_FORMS_START + 16
+#define SPECIES_ALCREMIE_BLUEBERRY_RAINBOW_SWIRL       COSMETIC_FORMS_START + 17
+
+#define SPECIES_ALCREMIE_LOVE_VANILLA_CREAM       COSMETIC_FORMS_START + 18
+#define SPECIES_ALCREMIE_LOVE_RUBY_CREAM          COSMETIC_FORMS_START + 19
+#define SPECIES_ALCREMIE_LOVE_MATCHA_CREAM        COSMETIC_FORMS_START + 20
+#define SPECIES_ALCREMIE_LOVE_MINT_CREAM          COSMETIC_FORMS_START + 21
+#define SPECIES_ALCREMIE_LOVE_LEMON_CREAM         COSMETIC_FORMS_START + 22
+#define SPECIES_ALCREMIE_LOVE_SALTED_CREAM        COSMETIC_FORMS_START + 23
+#define SPECIES_ALCREMIE_LOVE_RUBY_SWIRL          COSMETIC_FORMS_START + 24
+#define SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL       COSMETIC_FORMS_START + 25
+#define SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL       COSMETIC_FORMS_START + 26
+
+#define SPECIES_ALCREMIE_STAR_VANILLA_CREAM       COSMETIC_FORMS_START + 27
+#define SPECIES_ALCREMIE_STAR_RUBY_CREAM          COSMETIC_FORMS_START + 28
+#define SPECIES_ALCREMIE_STAR_MATCHA_CREAM        COSMETIC_FORMS_START + 29
+#define SPECIES_ALCREMIE_STAR_MINT_CREAM          COSMETIC_FORMS_START + 30
+#define SPECIES_ALCREMIE_STAR_LEMON_CREAM         COSMETIC_FORMS_START + 31
+#define SPECIES_ALCREMIE_STAR_SALTED_CREAM        COSMETIC_FORMS_START + 32
+#define SPECIES_ALCREMIE_STAR_RUBY_SWIRL          COSMETIC_FORMS_START + 33
+#define SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL       COSMETIC_FORMS_START + 34
+#define SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL       COSMETIC_FORMS_START + 35
+
+#define SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM       COSMETIC_FORMS_START + 36
+#define SPECIES_ALCREMIE_CLOVER_RUBY_CREAM          COSMETIC_FORMS_START + 37
+#define SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM        COSMETIC_FORMS_START + 38
+#define SPECIES_ALCREMIE_CLOVER_MINT_CREAM          COSMETIC_FORMS_START + 39
+#define SPECIES_ALCREMIE_CLOVER_LEMON_CREAM         COSMETIC_FORMS_START + 40
+#define SPECIES_ALCREMIE_CLOVER_SALTED_CREAM        COSMETIC_FORMS_START + 41
+#define SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL          COSMETIC_FORMS_START + 42
+#define SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL       COSMETIC_FORMS_START + 43
+#define SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL       COSMETIC_FORMS_START + 44
+
+#define SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM       COSMETIC_FORMS_START + 45
+#define SPECIES_ALCREMIE_FLOWER_RUBY_CREAM          COSMETIC_FORMS_START + 46
+#define SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM        COSMETIC_FORMS_START + 47
+#define SPECIES_ALCREMIE_FLOWER_MINT_CREAM          COSMETIC_FORMS_START + 48
+#define SPECIES_ALCREMIE_FLOWER_LEMON_CREAM         COSMETIC_FORMS_START + 49
+#define SPECIES_ALCREMIE_FLOWER_SALTED_CREAM        COSMETIC_FORMS_START + 50
+#define SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL          COSMETIC_FORMS_START + 51
+#define SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL       COSMETIC_FORMS_START + 52
+#define SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL       COSMETIC_FORMS_START + 53
+
+#define SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM       COSMETIC_FORMS_START + 54
+#define SPECIES_ALCREMIE_RIBBON_RUBY_CREAM          COSMETIC_FORMS_START + 55
+#define SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM        COSMETIC_FORMS_START + 56
+#define SPECIES_ALCREMIE_RIBBON_MINT_CREAM          COSMETIC_FORMS_START + 57
+#define SPECIES_ALCREMIE_RIBBON_LEMON_CREAM         COSMETIC_FORMS_START + 58
+#define SPECIES_ALCREMIE_RIBBON_SALTED_CREAM        COSMETIC_FORMS_START + 59
+#define SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL          COSMETIC_FORMS_START + 60
+#define SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL       COSMETIC_FORMS_START + 61
+#define SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL       COSMETIC_FORMS_START + 62
+
+#define COSMETIC_FORMS_END
 
 /*since gender form array only has 5 values
   can't use [SPECIES_NAME] = value,
@@ -1614,11 +1734,7 @@
 
 */
 
-//believe num species is what mattters for ewram
-//because of this
-//#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
-//believe that goes into the saveblock
-//tested and confirmed
+
 
 // National Dex Index Defines
 
@@ -2373,7 +2489,7 @@
 #define NATIONAL_DEX_CUTIEFLY 742
 #define NATIONAL_DEX_RIBOMBEE 743
 #define NATIONAL_DEX_ROCKRUFF 744
-#define NATIONAL_DEX_LYCANROC 745
+#define NATIONAL_DEX_LYCANROC_MIDDAY 745
 #define NATIONAL_DEX_WISHIWASHI 746
 #define NATIONAL_DEX_MAREANIE 747
 #define NATIONAL_DEX_TOXAPEX 748

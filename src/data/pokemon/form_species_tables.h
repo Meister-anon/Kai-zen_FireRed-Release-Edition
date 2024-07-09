@@ -750,13 +750,13 @@ static const u16 sSawsbuckFormSpeciesIdTable[] = {
 };
 
 static const u16 sFrillishFormSpeciesIdTable[] = {
-    SPECIES_FRILLISH,
+    SPECIES_FRILLISH_MALE,
     SPECIES_FRILLISH_FEMALE,
     FORM_SPECIES_END,
 };
 
 static const u16 sJellicentFormSpeciesIdTable[] = {
-    SPECIES_JELLICENT,
+    SPECIES_JELLICENT_MALE,
     SPECIES_JELLICENT_FEMALE,
     FORM_SPECIES_END,
 };
@@ -826,7 +826,7 @@ static const u16 sGreninjaFormSpeciesIdTable[] = {
 };
 
 static const u16 sVivillonFormSpeciesIdTable[] = {
-    SPECIES_VIVILLON,
+    SPECIES_VIVILLON_SNOW,
     SPECIES_VIVILLON_POLAR,
     SPECIES_VIVILLON_TUNDRA,
     SPECIES_VIVILLON_CONTINENTAL,
@@ -922,7 +922,7 @@ static const u16 sGoodraFormSpeciesIdTable[] = {
 };
 
 static const u16 sPumpkabooFormSpeciesIdTable[] = {
-    SPECIES_PUMPKABOO,
+    SPECIES_PUMPKABOO_AVERAGE_SIZE,
     SPECIES_PUMPKABOO_SMALL,
     SPECIES_PUMPKABOO_LARGE,
     SPECIES_PUMPKABOO_SUPER,
@@ -930,7 +930,7 @@ static const u16 sPumpkabooFormSpeciesIdTable[] = {
 };
 
 static const u16 sGourgeistFormSpeciesIdTable[] = {
-    SPECIES_GOURGEIST,
+    SPECIES_GOURGEIST_AVERAGE_SIZE,
     SPECIES_GOURGEIST_SMALL,
     SPECIES_GOURGEIST_LARGE,
     SPECIES_GOURGEIST_SUPER,
@@ -985,7 +985,7 @@ static const u16 sOricorioFormSpeciesIdTable[] = {
 };
 
 static const u16 sLycanrocFormSpeciesIdTable[] = {
-    SPECIES_LYCANROC,
+    SPECIES_LYCANROC_MIDDAY,
     SPECIES_LYCANROC_MIDNIGHT,
     SPECIES_LYCANROC_DUSK,
     FORM_SPECIES_END,
@@ -1083,17 +1083,15 @@ static const u16 sPolteageistFormSpeciesIdTable[] = {
 };
 
 static const u16 sAlcremieFormSpeciesIdTable[] = {
-    SPECIES_ALCREMIE,
-    SPECIES_ALCREMIE_RUBY_CREAM,
-    SPECIES_ALCREMIE_MATCHA_CREAM,
-    SPECIES_ALCREMIE_MINT_CREAM,
-    SPECIES_ALCREMIE_LEMON_CREAM,
-    SPECIES_ALCREMIE_SALTED_CREAM,
-    SPECIES_ALCREMIE_RUBY_SWIRL,
-    SPECIES_ALCREMIE_CARAMEL_SWIRL,
-    SPECIES_ALCREMIE_RAINBOW_SWIRL,
+    SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM,
+    SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM,
+    SPECIES_ALCREMIE_LOVE_VANILLA_CREAM,
+    SPECIES_ALCREMIE_STAR_VANILLA_CREAM,
+    SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM,
+    SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM,
+    SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM,
     FORM_SPECIES_END,
-};
+};//hopefully works, removed forms from pointers list as greater than numspecies
 
 static const u16 sEiscueFormSpeciesIdTable[] = {
     SPECIES_EISCUE,

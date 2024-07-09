@@ -1103,8 +1103,8 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(ESCAVALIER),
     SPECIES_TO_NATIONAL(FOONGUS),
     SPECIES_TO_NATIONAL(AMOONGUSS),
-    SPECIES_TO_NATIONAL(FRILLISH),
-    SPECIES_TO_NATIONAL(JELLICENT),
+    [SPECIES_FRILLISH_MALE - 1] = NATIONAL_DEX_FRILLISH,
+    [SPECIES_JELLICENT_MALE - 1] = NATIONAL_DEX_JELLICENT,
     SPECIES_TO_NATIONAL(ALOMOMOLA),
     SPECIES_TO_NATIONAL(JOLTIK),
     SPECIES_TO_NATIONAL(GALVANTULA),
@@ -1177,7 +1177,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(TALONFLAME),
     SPECIES_TO_NATIONAL(SCATTERBUG),
     SPECIES_TO_NATIONAL(SPEWPA),
-    SPECIES_TO_NATIONAL(VIVILLON),
+    [SPECIES_VIVILLON_SNOW -1] = NATIONAL_DEX_VIVILLON,
     SPECIES_TO_NATIONAL(LITLEO),
     [SPECIES_PYROAR_MALE - 1] = NATIONAL_DEX_PYROAR,
     SPECIES_TO_NATIONAL(FLABEBE),
@@ -1221,8 +1221,8 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(KLEFKI),
     SPECIES_TO_NATIONAL(PHANTUMP),
     SPECIES_TO_NATIONAL(TREVENANT),
-    SPECIES_TO_NATIONAL(PUMPKABOO),
-    SPECIES_TO_NATIONAL(GOURGEIST),
+    [SPECIES_PUMPKABOO_AVERAGE_SIZE - 1] = NATIONAL_DEX_PUMPKABOO,
+    [SPECIES_GOURGEIST_AVERAGE_SIZE - 1] = NATIONAL_DEX_GOURGEIST,
     SPECIES_TO_NATIONAL(BERGMITE),
     SPECIES_TO_NATIONAL(AVALUGG),
     SPECIES_TO_NATIONAL(NOIBAT),
@@ -1256,7 +1256,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(CUTIEFLY),
     SPECIES_TO_NATIONAL(RIBOMBEE),
     SPECIES_TO_NATIONAL(ROCKRUFF),
-    SPECIES_TO_NATIONAL(LYCANROC),
+    SPECIES_TO_NATIONAL(LYCANROC_MIDDAY),
     SPECIES_TO_NATIONAL(WISHIWASHI),
     SPECIES_TO_NATIONAL(MAREANIE),
     SPECIES_TO_NATIONAL(TOXAPEX),
@@ -1380,7 +1380,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(MR_RIME),
     SPECIES_TO_NATIONAL(RUNERIGUS),
     SPECIES_TO_NATIONAL(MILCERY),
-    SPECIES_TO_NATIONAL(ALCREMIE),
+    [SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
     SPECIES_TO_NATIONAL(FALINKS),
     SPECIES_TO_NATIONAL(PINCURCHIN),
     SPECIES_TO_NATIONAL(SNOM),
@@ -1499,8 +1499,8 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(EXEGGUTOR_ALOLAN), // - 1] = NATIONAL_DEX_EXEGGUTOR,
     SPECIES_TO_NATIONAL(MAROWAK_ALOLAN), // - 1] = NATIONAL_DEX_MAROWAK,
     // Lycanroc
-    SPECIES_TO_NATIONAL(LYCANROC_MIDNIGHT), // - 1] = NATIONAL_DEX_LYCANROC,
-    SPECIES_TO_NATIONAL(LYCANROC_DUSK), // - 1] = NATIONAL_DEX_LYCANROC,
+    SPECIES_TO_NATIONAL(LYCANROC_MIDNIGHT), // - 1] = NATIONAL_DEX_LYCANROC_MIDDAY,
+    SPECIES_TO_NATIONAL(LYCANROC_DUSK), // - 1] = NATIONAL_DEX_LYCANROC_MIDDAY,
     // Galarian Forms
     SPECIES_TO_NATIONAL(MEOWTH_GALARIAN), // - 1] = NATIONAL_DEX_MEOWTH,
     SPECIES_TO_NATIONAL(PONYTA_GALARIAN), // - 1] = NATIONAL_DEX_PONYTA,
@@ -1796,14 +1796,15 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     // Polteageist
     [SPECIES_POLTEAGEIST_ANTIQUE - 1] = NATIONAL_DEX_POLTEAGEIST,
     // Alcremie
-    [SPECIES_ALCREMIE_RUBY_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
+    //remove for now depending on how later setup may not have at all
+    /*[SPECIES_ALCREMIE_RUBY_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_MATCHA_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_MINT_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_LEMON_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_SALTED_CREAM - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_RUBY_SWIRL - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_CARAMEL_SWIRL - 1] = NATIONAL_DEX_ALCREMIE,
-    [SPECIES_ALCREMIE_RAINBOW_SWIRL - 1] = NATIONAL_DEX_ALCREMIE,
+    [SPECIES_ALCREMIE_RAINBOW_SWIRL - 1] = NATIONAL_DEX_ALCREMIE,*/
     // Eiscue
     [SPECIES_EISCUE_NOICE_FACE - 1] = NATIONAL_DEX_EISCUE,
     // Indeedee
@@ -2877,10 +2878,56 @@ u16 CheckGenderForms(u16 species, bool8 Gender)
             return gGenderForms[FormTableId][Gender];
         }
         break;
+        case SPECIES_FRILLISH:
+        { 
+            FormTableId = FRILLISH;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
+        case SPECIES_JELLICENT:
+        { 
+            FormTableId = JELLICENT;
+            return gGenderForms[FormTableId][Gender];
+        }
+        break;
         default:
         return species;
         break;
     } 
+}
+
+u8 ReturnAltFormGenderRatio(u16 species)
+{
+    switch (species)
+    {
+        case SPECIES_UNFEZANT:
+            return PERCENT_FEMALE(50);
+            break;
+        case SPECIES_PYROAR:
+            return PERCENT_FEMALE(87.5);
+            break;
+        case SPECIES_MEOWSTIC:
+            return PERCENT_FEMALE(50);
+            break;
+        case SPECIES_INDEEDEE:
+            return PERCENT_FEMALE(50);
+            break;
+        case SPECIES_BASCULEGION:
+            return PERCENT_FEMALE(50);
+            break;
+        case SPECIES_OINKOLOGNE:
+            return PERCENT_FEMALE(50);
+            break;
+        case SPECIES_FRILLISH:
+            return PERCENT_FEMALE(50);
+            break;
+        case SPECIES_JELLICENT:
+            return PERCENT_FEMALE(50);
+            break;
+        default:
+            return PERCENT_FEMALE(50);
+            break;
+    }
 }
 
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature)
@@ -2901,7 +2948,7 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     //Filters for species/gender
     Speciesreturn = CheckSpeciesGroups(species);
     //doesn't set gender here but accurately extrapulates gender (same calc later)
-    if (gBaseStats[Speciesreturn].genderRatio > (personality & 0xFF))
+    if (ReturnAltFormGenderRatio(Speciesreturn) > (personality & 0xFF))
         Gender = FEMALE;
     else
         Gender = MALE;
@@ -5235,41 +5282,211 @@ u8 GetDefaultMoveTarget(u8 battlerId)
 
 //used for evo_method Milcery to swap target evo species
 //can use this for vivillion as well vivillion has 20 forms believe
-u16 GetTargetAlcremieForm(struct Pokemon *mon)
+////alcremie has far more forms than I thought, will have to change
+//7 toppings 9 flavors potentailly 63?
+u16 GetTargetAlcremieForm(struct Pokemon *mon) 
 {
     u8 TargetForm;
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
     
-    TargetForm = (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 0x3)) % 0x9;
+    TargetForm = (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 0x3)) % 63;
 
-    switch (TargetForm)
+    switch (TargetForm) //order by topping so even if falls in certain group can still have large variation
     {
         case 0:
-            return SPECIES_ALCREMIE;
+            return SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM;
         break;
         case 1:
-            return SPECIES_ALCREMIE_RUBY_CREAM;
+            return SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM;
         break;
         case 2:
-            return SPECIES_ALCREMIE_MATCHA_CREAM;
+            return SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM;
         break;
         case 3:
-            return SPECIES_ALCREMIE_MINT_CREAM;
+            return SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM;
         break;
         case 4:
-            return SPECIES_ALCREMIE_LEMON_CREAM;
+            return SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM;
         break;
         case 5:
-            return SPECIES_ALCREMIE_SALTED_CREAM;
+            return SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM;
         break;
         case 6:
-            return SPECIES_ALCREMIE_RUBY_SWIRL;
+            return SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL;
         break;
         case 7:
-            return SPECIES_ALCREMIE_CARAMEL_SWIRL;
+            return SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL;
         break;
         case 8:
-            return SPECIES_ALCREMIE_RAINBOW_SWIRL;
+            return SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL;
+        break;
+
+        case 9:
+            return SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM;
+        break;
+        case 10:
+            return SPECIES_ALCREMIE_BLUEBERRY_RUBY_CREAM;
+        break;
+        case 11:
+            return SPECIES_ALCREMIE_BLUEBERRY_MATCHA_CREAM;
+        break;
+        case 12:
+            return SPECIES_ALCREMIE_BLUEBERRY_MINT_CREAM;
+        break;
+        case 13:
+            return SPECIES_ALCREMIE_BLUEBERRY_LEMON_CREAM;
+        break;
+        case 14:
+            return SPECIES_ALCREMIE_BLUEBERRY_SALTED_CREAM;
+        break;
+        case 15:
+            return SPECIES_ALCREMIE_BLUEBERRY_RUBY_SWIRL;
+        break;
+        case 16:
+            return SPECIES_ALCREMIE_BLUEBERRY_CARAMEL_SWIRL;
+        break;
+        case 17:
+            return SPECIES_ALCREMIE_BLUEBERRY_RAINBOW_SWIRL;
+        break;
+
+        case 18:
+            return SPECIES_ALCREMIE_LOVE_VANILLA_CREAM;
+        break;
+        case 19:
+            return SPECIES_ALCREMIE_LOVE_RUBY_CREAM;
+        break;
+        case 20:
+            return SPECIES_ALCREMIE_LOVE_MATCHA_CREAM;
+        break;
+        case 21:
+            return SPECIES_ALCREMIE_LOVE_MINT_CREAM;
+        break;
+        case 22:
+            return SPECIES_ALCREMIE_LOVE_LEMON_CREAM;
+        break;
+        case 23:
+            return SPECIES_ALCREMIE_LOVE_SALTED_CREAM;
+        break;
+        case 24:
+            return SPECIES_ALCREMIE_LOVE_RUBY_SWIRL;
+        break;
+        case 25:
+            return SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL;
+        break;
+        case 26:
+            return SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL;
+        break;
+
+        case 27:
+            return SPECIES_ALCREMIE_STAR_VANILLA_CREAM;
+        break;
+        case 28:
+            return SPECIES_ALCREMIE_STAR_RUBY_CREAM;
+        break;
+        case 29:
+            return SPECIES_ALCREMIE_STAR_MATCHA_CREAM;
+        break;
+        case 30:
+            return SPECIES_ALCREMIE_STAR_MINT_CREAM;
+        break;
+        case 31:
+            return SPECIES_ALCREMIE_STAR_LEMON_CREAM;
+        break;
+        case 32:
+            return SPECIES_ALCREMIE_STAR_SALTED_CREAM;
+        break;
+        case 33:
+            return SPECIES_ALCREMIE_STAR_RUBY_SWIRL;
+        break;
+        case 34:
+            return SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL;
+        break;
+        case 35:
+            return SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL;
+        break;
+
+        case 36:
+            return SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM;
+        break;
+        case 37:
+            return SPECIES_ALCREMIE_CLOVER_RUBY_CREAM;
+        break;
+        case 38:
+            return SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM;
+        break;
+        case 39:
+            return SPECIES_ALCREMIE_CLOVER_MINT_CREAM;
+        break;
+        case 40:
+            return SPECIES_ALCREMIE_CLOVER_LEMON_CREAM;
+        break;
+        case 41:
+            return SPECIES_ALCREMIE_CLOVER_SALTED_CREAM;
+        break;
+        case 42:
+            return SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL;
+        break;
+        case 43:
+            return SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL;
+        break;
+        case 44:
+            return SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL;
+        break;
+
+        case 45:
+            return SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM;
+        break;
+        case 46:
+            return SPECIES_ALCREMIE_FLOWER_RUBY_CREAM;
+        break;
+        case 47:
+            return SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM;
+        break;
+        case 48:
+            return SPECIES_ALCREMIE_FLOWER_MINT_CREAM;
+        break;
+        case 49:
+            return SPECIES_ALCREMIE_FLOWER_LEMON_CREAM;
+        break;
+        case 50:
+            return SPECIES_ALCREMIE_FLOWER_SALTED_CREAM;
+        break;
+        case 51:
+            return SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL;
+        break;
+        case 52:
+            return SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL;
+        break;
+        case 53:
+            return SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL;
+        break;
+
+        case 54:
+            return SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM;
+        break;
+        case 55:
+            return SPECIES_ALCREMIE_RIBBON_RUBY_CREAM;
+        break;
+        case 56:
+            return SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM;
+        break;
+        case 57:
+            return SPECIES_ALCREMIE_RIBBON_MINT_CREAM;
+        break;
+        case 58:
+            return SPECIES_ALCREMIE_RIBBON_LEMON_CREAM;
+        break;
+        case 59:
+            return SPECIES_ALCREMIE_RIBBON_SALTED_CREAM;
+        break;
+        case 60:
+            return SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL;
+        break;
+        case 61:
+            return SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL;
+        break;
+        case 62:
+            return SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL;
         break;
 
         
@@ -5286,7 +5503,7 @@ u16 GetTargetVivillionForm(struct Pokemon *mon)
     switch (TargetForm)
     {
         case 0:
-            return SPECIES_VIVILLON;
+            return SPECIES_VIVILLON_SNOW;
         break;
         case 1:
             return SPECIES_VIVILLON_POLAR;

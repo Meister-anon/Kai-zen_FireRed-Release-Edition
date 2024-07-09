@@ -6238,7 +6238,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Amoonguss,
-[SPECIES_FRILLISH] = 
+[SPECIES_FRILLISH_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -6248,7 +6248,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Frillish,
-[SPECIES_JELLICENT] = 
+[SPECIES_JELLICENT_MALE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -6978,7 +6978,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Spewpa,
-[SPECIES_VIVILLON] = 
+[SPECIES_VIVILLON_SNOW] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -7418,7 +7418,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Trevenant,
-[SPECIES_PUMPKABOO] = 
+[SPECIES_PUMPKABOO_AVERAGE_SIZE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -7428,7 +7428,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Pumpkaboo,
-[SPECIES_GOURGEIST] = 
+[SPECIES_GOURGEIST_AVERAGE_SIZE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -7768,7 +7768,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Rockruff,
-[SPECIES_LYCANROC] = 
+[SPECIES_LYCANROC_MIDDAY] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
@@ -9008,16 +9008,16 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
     }, //Milcery,
-[SPECIES_ALCREMIE] = 
+[SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie,
+    }, //AlcremieStrawberry,
 [SPECIES_FALINKS] = 
     {  
       FRONT_PIC(CircledQuestionMark),
@@ -10947,7 +10947,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(CircledQuestionMark),
       ICON(QuestionMark,0),
       TAG(SPECIES_NONE),
-    }, //BasculinHisuian,
+    }, //BasculinWhiteStriped,
   [SPECIES_DARMANITAN_ZEN_MODE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
@@ -12170,86 +12170,692 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //Toxtricity_Low_key,
       //[SPECIES_SINISTEA_ANTIQUE]                = gMonIcon_Sinistea_Antique,
       //[SPECIES_POLTEAGEIST_ANTIQUE]             = gMonIcon_PolteaGeist_Antique,
-    [SPECIES_ALCREMIE_RUBY_CREAM] = 
+      
+    //Alcremie forms
+    [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_ruby,
-    [SPECIES_ALCREMIE_MATCHA_CREAM] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_matcha,
-    [SPECIES_ALCREMIE_MINT_CREAM] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_mint,
-    [SPECIES_ALCREMIE_LEMON_CREAM] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_lemon,
-    [SPECIES_ALCREMIE_SALTED_CREAM] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_salt,
-    [SPECIES_ALCREMIE_RUBY_SWIRL] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_ruby_swirl,
-    [SPECIES_ALCREMIE_CARAMEL_SWIRL] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_caramel_swirl,
-    [SPECIES_ALCREMIE_RAINBOW_SWIRL] = 
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(CircledQuestionMark),
       FRONT_COORD(0x88,0),
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
-      PALETTES(CircledQuestionMark),
-      ICON(QuestionMark,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
       TAG(SPECIES_NONE),
-    }, //Alcremie_rainbow_swirl,
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_RUBY_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_MATCHA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_MINT_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_LEMON_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_SALTED_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_RUBY_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_CARAMEL_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_BLUEBERRY_RAINBOW_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_VANILLA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_RUBY_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_MATCHA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_MINT_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_LEMON_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_SALTED_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_RUBY_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_VANILLA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_RUBY_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_MATCHA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_MINT_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_LEMON_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_SALTED_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_RUBY_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_RUBY_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_MINT_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_LEMON_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_SALTED_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_RUBY_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_MINT_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_LEMON_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_SALTED_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_RUBY_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_MINT_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_LEMON_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_SALTED_CREAM] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    [SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL] = 
+    {  
+      FRONT_PIC(CircledQuestionMark),
+      FRONT_COORD(0x88,0),
+      BACK_PIC(CircledQuestionMark),
+      BACK_COORD(0x88,0),
+      PALETTES(CircledQuestionMark), //gMonPalette_AlcremieStrawberryVanillaCream
+      ICON(QuestionMark,0), //gMonIcon_Alcremie
+      TAG(SPECIES_NONE),
+    }, //AlcremieStrawberry,
+
+    
+
     [SPECIES_EISCUE_NOICE_FACE] = 
     {  
       FRONT_PIC(CircledQuestionMark),
@@ -12337,7 +12943,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
       PALETTES(CircledQuestionMark),
-      ICON(Calyrex_Ice_Rider,0),
+      ICON(CalyrexIceRider,0),
       TAG(SPECIES_NONE),
     }, //Calyrex_Ice_Rider,
     [SPECIES_CALYREX_SHADOW_RIDER] = 
@@ -12347,7 +12953,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_PIC(CircledQuestionMark),
       BACK_COORD(0x88,0),
       PALETTES(CalyrexShadowRider),
-      ICON(Calyrex_Shadow_Rider,0), //names w dashes are in icons only, can be pushsed to pallete and front/back pics
+      ICON(CalyrexShadowRider,0), //names w dashes are in icons only, can be pushsed to pallete and front/back pics
     }, //Calyrex_Shadow_Rider,
     [SPECIES_BASCULEGION_FEMALE] = 
     {  

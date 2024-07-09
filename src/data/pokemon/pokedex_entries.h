@@ -8965,7 +8965,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_LYCANROC] =
+    [NATIONAL_DEX_LYCANROC_MIDDAY] =
     {
         .categoryName = _("Wolf"),
         .height = 8,

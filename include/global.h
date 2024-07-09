@@ -158,8 +158,8 @@ extern u8 gStringVar4[];
 
 #define ROUND_BITS_TO_BYTES(numBits)(((numBits) / 8) + (((numBits) % 8) ? 1 : 0))
 
-#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
-#define NUM_FLAG_BYTES (ROUND_BITS_TO_BYTES(FLAGS_COUNT))
+#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES)) //num species here affects ewram believe going into saveablock
+#define NUM_FLAG_BYTES (ROUND_BITS_TO_BYTES(FLAGS_COUNT)) //this also affects ewram but to a lesser degree than num_species
 
 // Calls m0/m1/.../m8 depending on how many arguments are passed.
 #define VARARG_8(m, ...) CAT(m, NARG_8(__VA_ARGS__))(__VA_ARGS__)
@@ -362,12 +362,14 @@ struct UCoords32
 #define GROUPED_SPECIES_ENUMS
 typedef enum
 {
-    UNFEZANT,
-    PYROAR,
-    MEOWSTIC,
-    INDEEDEE,
-    BASCULEGION,
-    OINKOLOGNE
+    UNFEZANT,       //PERCENT_FEMALE(50)
+    PYROAR,         //PERCENT_FEMALE(87.5)
+    MEOWSTIC,       //PERCENT_FEMALE(50)
+    INDEEDEE,       //PERCENT_FEMALE(50)
+    BASCULEGION,    //PERCENT_FEMALE(50)
+    OINKOLOGNE,     //PERCENT_FEMALE(50)
+    FRILLISH,       //PERCENT_FEMALE(50)
+    JELLICENT,      //PERCENT_FEMALE(50)
 }GenderForms;
 
 typedef enum
@@ -380,7 +382,7 @@ typedef enum
 typedef enum
 {
     EARLY_ROUTE_BIRDS_END = 2,
-    ALCREMIE_FORMS_END = 9,
+    ALCREMIE_FORMS_END = 63,
     VIVILLION_FORMS_END = 20,
 }SpeciesGroupsTerminators; //use size of array
 
@@ -1117,7 +1119,7 @@ struct SaveBlock1
     /*0x2F54*/ //struct EasyChatPair easyChatPairs[5]; // unused
     /*0x2F80*/ struct DayCare daycare;
     /*0x309C*/ u8 giftRibbons[11]; //check this since removed some this may not bneed to be 11
-    /*0x30A7*/ struct ExternalEventData externalEventData;
+    /*0x30A7*/ struct ExternalEventData externalEventData; //can remove external events would like make some way of giving within game
     /*0x30BB*/ struct ExternalEventFlags externalEventFlags;
     /*0x30D0*/ struct Roamer roamer; //remove other stuff then make copy of this but 6 array for rival mon data
                struct RivalParty rivalTeamData[PARTY_SIZE];

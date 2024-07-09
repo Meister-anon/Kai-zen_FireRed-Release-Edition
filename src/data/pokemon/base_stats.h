@@ -16505,7 +16505,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_FRILLISH] =
+    [SPECIES_FRILLISH_MALE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -16534,11 +16534,11 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sFrillishLevelUpLearnset,
         .tmhmLearnset = sFrillishTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT_MALE}), //Should hopefully blank these for now without issue
         //.flags = F_HAS_COSMETIC_FORMS,
-    }, //water with tentacruel
+    }, //water with tentacruel //cant make cosmetic, because of weird exclusion this is only cosmetic that evolves rather than being an end species
 
-    [SPECIES_JELLICENT] =
+    [SPECIES_JELLICENT_MALE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -18903,13 +18903,13 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sSpewpaLevelUpLearnset,
         .tmhmLearnset = sSpewpaTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_VIVILLON, RELATIVE_EVO(12, AVERAGE_EFFORT), 0, SPECIES_VIVILLON}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL_VIVILLON, RELATIVE_EVO(12, AVERAGE_EFFORT), 0, SPECIES_VIVILLON_SNOW}), //Should hopefully blank these for now without issue
     },//same setup as milcery, will evolve into diff forms based on personality
     //would mean you need certain forms are restricted to certain natures,
     //but with inclusion of nature mints etc. for changing that you're not stuck with a bad nature
     //negative nature as punishment
 
-    [SPECIES_VIVILLON] =
+    [SPECIES_VIVILLON_SNOW] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -20345,7 +20345,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_PUMPKABOO] =
+    [SPECIES_PUMPKABOO_AVERAGE_SIZE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -20374,10 +20374,10 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sPumpkabooLevelUpLearnset,
         .tmhmLearnset = sPumpkabooTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_GOURGEIST}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_GOURGEIST_AVERAGE_SIZE}), //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_GOURGEIST] =
+    [SPECIES_GOURGEIST_AVERAGE_SIZE] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -21490,8 +21490,8 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sRockruffLevelUpLearnset,
         .tmhmLearnset = sRockruffTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_DAY, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_LYCANROC},
-                                {EVO_ITEM, ITEM_DAWN_STONE, 0,  SPECIES_LYCANROC},
+        .evolutions = EVOLUTION({EVO_LEVEL_DAY, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_LYCANROC_MIDDAY},
+                                {EVO_ITEM, ITEM_DAWN_STONE, 0,  SPECIES_LYCANROC_MIDDAY},
                                 {EVO_LEVEL_NIGHT, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_LYCANROC_MIDNIGHT},
                                 {EVO_ITEM, ITEM_MOON_STONE, 0,  SPECIES_LYCANROC_MIDNIGHT},
                                 {EVO_LEVEL_DUSK, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_LYCANROC_DUSK},
@@ -21500,7 +21500,7 @@ const struct BaseStats gBaseStats[] =
     }, //give these normal secondary - give alt evo method, dawn stone, moon stone, dusk stone
     //vsonic need make sure check this
 
-    [SPECIES_LYCANROC] =
+    [SPECIES_LYCANROC_MIDDAY] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -25619,11 +25619,11 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sMilceryLevelUpLearnset,
         .tmhmLearnset = sMilceryTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_MILCERY, FILL, 0, SPECIES_ALCREMIE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_MILCERY, FILL, 0, SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM}), //Should hopefully blank these for now without issue
     },//will make special evo condition for, evo_milcery  plan use like unown
     //use personality value to determine form, but in this case will be used for evo rather than base form
 
-    [SPECIES_ALCREMIE] =
+    [SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -41367,7 +41367,7 @@ const struct BaseStats gBaseStats[] =
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
-        .levelUpLearnset = sBasculinHisuianLevelUpLearnset,
+        .levelUpLearnset = sBasculinWhiteStripedLevelUpLearnset,
         .tmhmLearnset = sBasculinTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION_MALE},
                                        {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_BASCULEGION_FEMALE}), //Should hopefully blank these for now without issue
@@ -45577,7 +45577,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_RUBY_CREAM] =
+    [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45609,7 +45609,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_MATCHA_CREAM] =
+    [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45641,7 +45641,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_MINT_CREAM] =
+    [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45673,7 +45673,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_LEMON_CREAM] =
+    [SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45705,7 +45705,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_SALTED_CREAM] =
+    [SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45737,7 +45737,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_RUBY_SWIRL] =
+    [SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45769,7 +45769,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_CARAMEL_SWIRL] =
+    [SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -45801,7 +45801,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ALCREMIE_RAINBOW_SWIRL] =
+    [SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -46231,7 +46231,7 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sFrillishLevelUpLearnset,
         .tmhmLearnset = sFrillishTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_JELLICENT_FEMALE}), //Should hopefully blank these for now without issue
     }, //water with tentacruel
 
     [SPECIES_JELLICENT_FEMALE] =
@@ -46328,33 +46328,6 @@ const struct BaseStats gBaseStats[] =
         .flags = F_MEGA_FORM,
     },
 
-    [SPECIES_UNFEZANT] =
-    {
-        .genderRatio = PERCENT_FEMALE(50),
-    },
-
-    [SPECIES_PYROAR] =
-    {
-        .genderRatio = PERCENT_FEMALE(87.5),
-    },
-
-    [SPECIES_MEOWSTIC] =
-    {
-        .genderRatio = PERCENT_FEMALE(50),
-    },
-
-    [SPECIES_INDEEDEE] =
-    {
-        .genderRatio = PERCENT_FEMALE(50),
-    },
-
-    [SPECIES_BASCULEGION] =
-    {
-        .genderRatio = PERCENT_FEMALE(50),
-    },
-
-    [SPECIES_OINKOLOGNE] =
-    {
-        .genderRatio = PERCENT_FEMALE(50),
-    },
-};
+}; //can remove gender ratio mon from base stats now, moved logic to function
+//OK removed 6 entrie and that seemed to save me about 300bytes
+//so 50 per entry so should be able to shave off a few megabytes with this nice
