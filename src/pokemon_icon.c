@@ -30,7 +30,7 @@ const u16 gMonIconPalettes[][16] = {
 };
 
 const u8 *const gMonIconTable[] = {
-    [SPECIES_NONE] = gMonIcon_QuestionMark,
+    [SPECIES_NONE] = gMonIcon_CircledQuestionMark,
     [SPECIES_BULBASAUR] = gMonIcon_Bulbasaur,
     [SPECIES_IVYSAUR] = gMonIcon_Ivysaur,
     [SPECIES_VENUSAUR] = gMonIcon_Venusaur,

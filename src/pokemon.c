@@ -2276,6 +2276,10 @@ static const s8 sNatureStatTable[][5] =
 #include "constants/region_map_sections.h"  //added this include because doc couldn't find map_sec names for evolution
 #include "constants/map_groups.h" // used to find specific map evolution
 
+#include "graphics.h"
+
+#include "data/graphics/pokemon.h" //this allows putting graphics in file without needing extern can remove all 
+#include "data/pokemon/species_graphic_info.h" //pokemon graphic extern regerences in graphics.h
 //#include "data/pokemon/evolution.h"
 //#include "data/pokemon/level_up_learnset_pointers.h" //removed as part of consolidation to base stats
 #include "data/pokemon/base_stats.h"  //fix thanks to Luvas in pret, now that base stats calls tm evo and learnset base stat include has to go AFTER those

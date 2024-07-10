@@ -8752,9 +8752,9 @@ const u32 gMonShinyPalette_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/q
 
 //#if P_FAMILY_CASTFORM
     const u32 gMonFrontPic_Castform[] = INCBIN_U32("graphics/pokemon/Gen_3/castform/front.4bpp.lz");
-    const u32 gMonPalette_Castform[] = INCBIN_U32("graphics/pokemon/Gen_3/castform/normal.gbapal.lz");
+    const u32 gMonPalette_Castform[] = INCBIN_U32("graphics/pokemon/Gen_3/castform/normal/normal.gbapal.lz");
     const u32 gMonBackPic_Castform[] = INCBIN_U32("graphics/pokemon/Gen_3/castform/back.4bpp.lz");
-    const u32 gMonShinyPalette_Castform[] = INCBIN_U32("graphics/pokemon/Gen_3/castform/shiny.gbapal.lz");
+    const u32 gMonShinyPalette_Castform[] = INCBIN_U32("graphics/pokemon/Gen_3/castform/normal/shiny.gbapal.lz");
     const u8 gMonIcon_Castform[] = INCBIN_U8("graphics/pokemon/Gen_3/castform/icon.4bpp");
 /*#if P_FOOTPRINTS
     const u8 gMonFootprint_Castform[] = INCBIN_U8("graphics/pokemon/Gen_3/castform/footprint.1bpp");

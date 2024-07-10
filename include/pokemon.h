@@ -610,10 +610,10 @@ struct SpeciesGraphicInfo
 {
 
     const u32 *frontPic;
- /* 0x74 */ u16 frontPicSize; // The dimensions of this drawn pixel area.
-            u16 tag;
+ /* 0x74 */ //u16 frontPicSize; // The dimensions of this drawn pixel area.
+            //u16 tag;
  /* 0x50 */ const u32 *backPic;
- /* 0x76 */ u16 backPicSize; // The dimensions of this drawn pixel area.
+ /* 0x76 */ //u16 backPicSize; // The dimensions of this drawn pixel area.
 
  /* 0x58 */ const u32 *palette;
  /* 0x60 */ const u32 *shinyPalette;
@@ -627,6 +627,7 @@ struct SpeciesGraphicInfo
  /* 0x77 */ u8 backPicYOffset; // The number of pixels between the drawn pixel area and the bottom edge.
 
  /* 0x78 */ u8 iconPalIndex:3;
+            u8 enemyMonElevation;
 }; //all of these values have macros excluding iconPalIndex which should allow me to copy directly from existing arrays
 //think take all extra values/functions in file excluding table and put in single graphics file
 //at make a macro to display place of each files start, and at top of consilidated file put goto MACRONAME  for each section

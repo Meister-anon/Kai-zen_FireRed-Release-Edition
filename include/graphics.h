@@ -4817,7 +4817,7 @@ extern const u32 gMonShinyPalette_Basculegion_Female[];
 extern const u32 gMonShinyPalette_Frillish_Female[];
 extern const u32 gMonShinyPalette_Jellicent_Female[];
 
-extern const u8 gMonIcon_QuestionMark[];
+extern const u8 gMonIcon_CircledQuestionMark[];
 extern const u8 gMonIcon_Bulbasaur[];
 extern const u8 gMonIcon_Ivysaur[];
 extern const u8 gMonIcon_Venusaur[];
@@ -9585,7 +9585,7 @@ extern const u8 gMonIcon_UnownY[];
 extern const u8 gMonIcon_UnownZ[];
 extern const u8 gMonIcon_UnownExclamationMark[];
 extern const u8 gMonIcon_UnownQuestionMark[];
-extern const u8 gMonIcon_QuestionMark[];
+extern const u8 gMonIcon_CircledQuestionMark[];
 
 // trade
 extern const u16 gTradeMenu_Pal[];
