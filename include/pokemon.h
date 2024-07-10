@@ -652,6 +652,7 @@ extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern const struct BaseStats gBaseStats[];
 extern const u16 *const gGenderForms[];
 extern const u16 *const gSpeciesGroups[];
+extern const struct SpeciesGraphicInfo gSpeciesGraphics[];
 extern const u8 *const gItemEffectTable[];
 //extern const struct Evolution gEvolutionTable[][EVOS_PER_MON]; //plan remove replace w EE version built into basestats
 extern const u8 gStatStageRatios[][2];
@@ -794,10 +795,13 @@ u16 SpeciesToPokedexNum(u16 species);
 void ClearBattleMonForms(void);
 void PlayBattleBGM(void);
 void PlayMapChosenOrBattleBGM(u16 songId);
-const u32 *GetMonFrontSpritePal(struct Pokemon *mon);
-const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality);
-const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
-const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
+const u32 *GetMonSpritePal(struct Pokemon *mon);
+const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality);
+//const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
+
+//const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
+//replaced previous
+const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 bool32 IsHMMove2(u16 move);
 bool8 IsPokeSpriteNotFlipped(u16 species);
 s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor);
@@ -807,7 +811,7 @@ void MonRestorePP(struct Pokemon *mon);
 void BoxMonRestorePP(struct BoxPokemon *boxMon);
 void SetMonPreventsSwitchingString(void);
 void SetWildMonHeldItem(void);
-bool8 IsMonShiny(struct Pokemon *mon);
+
 u8 *GetTrainerPartnerName(void);
 u8 GetPlayerPartyHighestLevel(void);
 u16 FacilityClassToPicIndex(u16 facilityClass);
@@ -837,6 +841,11 @@ const struct Evolution *GetSpeciesEvolutions(u16 species);
 u16 SanitizeSpeciesId(u16 species);
 //new functions for file reorg based on EE
 u8 GetFormType(u16 species); //set mostly for dex changes
+
+//u8 IsMonShiny(struct Pokemon *mon); //for species graphic file setup
+bool8 IsMonShiny(struct Pokemon *mon);
+bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
+const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, u32 personality);
 
 void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 

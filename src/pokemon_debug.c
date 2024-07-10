@@ -590,9 +590,9 @@ static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 
 static void SetConstSpriteValues(struct PokemonDebugMenu *data)
 {
     u16 species = data->currentmonId;
-    data->constSpriteValues.frontPicCoords = gMonFrontPicCoords[species].y_offset;
-    data->constSpriteValues.frontElevation = gEnemyMonElevation[species];
-    data->constSpriteValues.backPicCoords = gMonBackPicCoords[species].y_offset;
+    data->constSpriteValues.frontPicCoords = gSpeciesGraphics[species].frontPicYOffset;
+    data->constSpriteValues.frontElevation = gSpeciesGraphics[species].enemyMonElevation;
+    data->constSpriteValues.backPicCoords = gSpeciesGraphics[species].backPicYOffset;
 }
 
 static void ResetOffsetSpriteValues(struct PokemonDebugMenu *data)
@@ -609,10 +609,10 @@ static u8 GetBattlerSpriteFinal_YCustom(u16 species, s8 offset_picCoords, s8 off
     species = species > NUM_SPECIES - 1 ? SPECIES_BULBASAUR : species;
 
     //FrontPicCoords
-    offset = gMonFrontPicCoords[species].y_offset + offset_picCoords;
+    offset = gSpeciesGraphics[species].frontPicYOffset + offset_picCoords;
 
     //Elevation
-    offset -= gEnemyMonElevation[species] + offset_elevation;
+    offset -= gSpeciesGraphics[species].enemyMonElevation + offset_elevation;
 
     //Main position
     y = offset + sBattlerCoords[0][1].y;
@@ -645,7 +645,7 @@ static void LoadAndCreateEnemyShadowSpriteCustom(struct PokemonDebugMenu *data, 
     u8 x, y;
     bool8 invisible = FALSE;
     species = species > NUM_SPECIES - 1 ? SPECIES_BULBASAUR : species;
-    if (gEnemyMonElevation[species] == 0)
+    if (gSpeciesGraphics[species].enemyMonElevation == 0)
         invisible = TRUE;
     LoadCompressedSpriteSheet(&gSpriteSheet_EnemyShadow);
     LoadSpritePalette(&sSpritePalettes_HealthBoxHealthBar[0]);
@@ -1033,7 +1033,7 @@ void CB2_Debug_Pokemon(void)
 
             //Front
             battlerPos = B_POSITION_OPPONENT_LEFT;
-            HandleLoadSpecialPokePic(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
+            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
             data->isShiny = FALSE;
             BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 1);
             SetMultiuseSpriteTemplateToPokemon(species, battlerPos);
@@ -1043,7 +1043,8 @@ void CB2_Debug_Pokemon(void)
             gSprites[data->frontspriteId].oam.paletteNum = 1;
             gSprites[data->frontspriteId].callback = SpriteCallbackDummy;
             gSprites[data->frontspriteId].oam.priority = 0;
-            src = gMonFrontPicTable[species].data;
+            //src = gMonFrontPicTable[species].data;
+            src = gSpeciesGraphics[species].frontPic;
             dst = (void *)(VRAM + BG_VRAM_SIZE + gSprites[data->frontspriteId].oam.tileNum * 32);
             LZDecompressVram(src, dst);
 
@@ -1052,16 +1053,16 @@ void CB2_Debug_Pokemon(void)
 
             //Back
             battlerPos = B_POSITION_PLAYER_RIGHT;
-            HandleLoadSpecialPokePic(&gMonBackPicTable[species], gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
+            HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites[battlerPos], species, 0x0);
             BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 4);
             SetMultiuseSpriteTemplateToPokemon(species, battlerPos);
             gMultiuseSpriteTemplate.paletteTag = species;
-            offset_y = gMonBackPicCoords[species].y_offset;
+            offset_y = gSpeciesGraphics[species].backPicYOffset;
             data->backspriteId = CreateSprite(&gMultiuseSpriteTemplate, DEBUG_MON_BACK_X, DEBUG_MON_BACK_Y + offset_y, 0);
             gSprites[data->backspriteId].oam.paletteNum = 4;
             gSprites[data->backspriteId].callback = SpriteCallbackDummy;
             gSprites[data->backspriteId].oam.priority = 0;
-            src = gMonBackPicTable[species].data;
+            src = gSpeciesGraphics[species].backPic;
             dst = (void *)(VRAM + BG_VRAM_SIZE + gSprites[data->backspriteId].oam.tileNum * 32);
             LZDecompressVram(src, dst);
 
@@ -1148,7 +1149,7 @@ static void ApplyOffsetSpriteValues(struct PokemonDebugMenu *data)
 {
     u16 species = data->currentmonId;
     //Back
-    gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gMonBackPicCoords[species].y_offset + data->offsetsSpriteValues.offset_back_picCoords;
+    gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].backPicYOffset + data->offsetsSpriteValues.offset_back_picCoords;
     //Front
     gSprites[data->frontspriteId].pos1.y = GetBattlerSpriteFinal_YCustom(species, data->offsetsSpriteValues.offset_front_picCoords, data->offsetsSpriteValues.offset_front_elevation);
 
@@ -1198,7 +1199,7 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
                 offset -= 1;
         }
         data->offsetsSpriteValues.offset_back_picCoords = offset;
-        gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gMonFrontPicCoords[species].y_offset + offset;
+        gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].frontPicYOffset + offset;
         break;
     case 1: //Front picCoords
         offset = data->offsetsSpriteValues.offset_front_picCoords;
@@ -1525,7 +1526,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     LoadCompressedSpritePaletteWithTag(palette, species);
 
     //Front
-    HandleLoadSpecialPokePic(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites[1], species, 0x0);
+    HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[1], species, 0x0);
     BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 1);
     SetMultiuseSpriteTemplateToPokemon(species, 1);
     gMultiuseSpriteTemplate.paletteTag = species;
@@ -1534,7 +1535,8 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     gSprites[data->frontspriteId].oam.paletteNum = 1;
     gSprites[data->frontspriteId].callback = SpriteCallbackDummy;
     gSprites[data->frontspriteId].oam.priority = 0;
-    src = gMonFrontPicTable[species].data;
+    //src = gMonFrontPicTable[species].data;
+    src = gSpeciesGraphics[species].frontPic;
     dst = (void *)(VRAM + 0x10000 + gSprites[data->frontspriteId].oam.tileNum * 32);
     LZDecompressVram(src, dst);
 
@@ -1542,15 +1544,15 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     LoadAndCreateEnemyShadowSpriteCustom(data, species);
 
     //Back
-    HandleLoadSpecialPokePic(&gMonBackPicTable[species], gMonSpritesGfxPtr->sprites[2], species, 0x0);
+    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites[2], species, 0x0);
     BattleLoadOpponentMonSpriteGfxCustom(species, data->isShiny, 5);
     SetMultiuseSpriteTemplateToPokemon(species, 2);
-    offset_y = gMonBackPicCoords[species].y_offset;
+    offset_y = gSpeciesGraphics[species].backPicYOffset;
     data->backspriteId = CreateSprite(&gMultiuseSpriteTemplate, DEBUG_MON_BACK_X, DEBUG_MON_BACK_Y + offset_y, 0);
     gSprites[data->backspriteId].oam.paletteNum = 5;
     gSprites[data->backspriteId].callback = SpriteCallbackDummy;
     gSprites[data->backspriteId].oam.priority = 0;
-    src = gMonBackPicTable[species].data;
+    src = gSpeciesGraphics[species].backPic;
     dst = (void *)(VRAM + 0x10000 + gSprites[data->backspriteId].oam.tileNum * 32);
     LZDecompressVram(src, dst);
 

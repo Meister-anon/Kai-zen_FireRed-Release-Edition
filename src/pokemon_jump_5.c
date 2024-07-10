@@ -371,7 +371,7 @@ void sub_814ADCC(struct PokemonJump2 *arg0, struct PokemonJump1_MonInfo *jumpMon
     if (buffer && unusedBuffer)
     {
         HandleLoadSpecialPokePic(
-            &gMonFrontPicTable[jumpMon->species],
+            TRUE,
             buffer,
             jumpMon->species,
             jumpMon->personality);

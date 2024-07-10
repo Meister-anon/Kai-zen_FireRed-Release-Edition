@@ -82,7 +82,7 @@ static EWRAM_DATA struct OakSpeechNidoranFStruct *sOakSpeechNidoranResources = N
 
 //static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
-static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
+//static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
 static bool8 IsPokemonStorageFull(void);
@@ -10239,17 +10239,21 @@ void PlayMapChosenOrBattleBGM(u16 songId)
         PlayNewMapMusic(GetBattleBGM());
 }
 
-const u32 *GetMonFrontSpritePal(struct Pokemon *mon)
+
+//front and back use same pal so better to just say sprite pal
+const u32 *GetMonSpritePal(struct Pokemon *mon)
 {
+    
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    return GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality);
+    bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
+    return GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality);
 }
 
-const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality)
+const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality)
 {
-    u32 shinyValue;
+    /*u32 shinyValue;
 
     if (species > SPECIES_EGG)
         return gMonPaletteTable[0].data;
@@ -10258,26 +10262,60 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 p
     if (shinyValue < 8)
         return gMonShinyPaletteTable[species].data;
     else
-        return gMonPaletteTable[species].data;
+        return gMonPaletteTable[species].data;*/
+    return GetMonSpritePalFromSpecies(species, isShiny, personality);
+
 }
 
-const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
+const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, u32 personality)
+{
+    species = SanitizeSpeciesId(species);
+
+    if (isShiny)
+    {
+        if (gSpeciesGraphics[species].shinyPalette != NULL)
+            return gSpeciesGraphics[species].shinyPalette;
+        else
+            return gSpeciesGraphics[SPECIES_NONE].shinyPalette;
+    }
+    else
+    {
+        if (gSpeciesGraphics[species].palette != NULL)
+            return gSpeciesGraphics[species].palette;
+        else
+            return gSpeciesGraphics[SPECIES_NONE].palette;
+    }
+}
+
+//bottom 2 no longer used
+/*const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     return GetMonSpritePalStructFromOtIdPersonality(species, otId, personality);
-}
+}*/
 
-const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality)
+//repurpose can use this
+const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality)
 {
-    u32 shinyValue;
+    bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
 
-    shinyValue = HIHALF(otId) ^ LOHALF(otId) ^ HIHALF(personality) ^ LOHALF(personality);
-    if (shinyValue < 8)
-        return &gMonShinyPaletteTable[species];
+    //shinyValue = HIHALF(otId) ^ LOHALF(otId) ^ HIHALF(personality) ^ LOHALF(personality);
+    if (isShiny)
+    {
+        if (gSpeciesGraphics[species].shinyPalette != NULL)
+            return gSpeciesGraphics[species].shinyPalette;
+        else
+            return gSpeciesGraphics[SPECIES_NONE].shinyPalette;
+    }
     else
-        return &gMonPaletteTable[species];
+    {
+        if (gSpeciesGraphics[species].palette != NULL)
+            return gSpeciesGraphics[species].palette;
+        else
+            return gSpeciesGraphics[SPECIES_NONE].palette;
+    }
 }
 
 bool32 IsHMMove2(u16 move)//vsonic
@@ -10405,7 +10443,7 @@ bool8 IsMonShiny(struct Pokemon *mon)
     return IsShinyOtIdPersonality(otId, personality);
 }
 
-static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
+bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 {
     bool8 retVal = FALSE;
     u32 shinyValue = HIHALF(otId) ^ LOHALF(otId) ^ HIHALF(personality) ^ LOHALF(personality);

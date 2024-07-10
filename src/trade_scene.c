@@ -748,25 +748,26 @@ static void LoadTradeMonPic(u8 whichParty, u8 action)
         pos = 3;
     }
 
+    species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
     switch (action)
     {
     case 0:
         // Load graphics
-        species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+        //species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG); //-patterned after daycare changes should work
         personality = GetMonData(mon, MON_DATA_PERSONALITY);
 
         if (whichParty == 0)
-            HandleLoadSpecialPokePic(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites[1], species, personality);
+            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[1], species, personality);
         else
-            HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites[whichParty * 2 + 1], species, personality);
+            HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE, gMonSpritesGfxPtr->sprites[whichParty * 2 + 1], species, personality);
 
-        LoadCompressedSpritePalette(GetMonSpritePalStruct(mon));
+        LoadCompressedSpritePaletteWithTag(GetMonSpritePal(mon), species);
         sTradeData->tradeSpecies[whichParty] = species;
         sTradeData->monPersonalities[whichParty] = personality;
         break;
     case 1:
         // Create sprite
-        SetMultiuseSpriteTemplateToPokemon(GetMonSpritePalStruct(mon)->tag, pos);
+        SetMultiuseSpriteTemplateToPokemon(species, pos);
         sTradeData->pokePicSpriteIdxs[whichParty] = CreateSprite(&gMultiuseSpriteTemplate, 120, 60, 6);
         gSprites[sTradeData->pokePicSpriteIdxs[whichParty]].invisible = TRUE;
         gSprites[sTradeData->pokePicSpriteIdxs[whichParty]].callback = SpriteCallbackDummy;
@@ -1288,7 +1289,7 @@ static bool8 DoTradeAnim_Cable(void)
     case 0:
         gSprites[sTradeData->pokePicSpriteIdxs[0]].invisible = FALSE;
         gSprites[sTradeData->pokePicSpriteIdxs[0]].pos2.x = -180;
-        gSprites[sTradeData->pokePicSpriteIdxs[0]].pos2.y = gMonFrontPicCoords[sTradeData->tradeSpecies[0]].y_offset;
+        gSprites[sTradeData->pokePicSpriteIdxs[0]].pos2.y = gSpeciesGraphics[sTradeData->tradeSpecies[0]].frontPicYOffset;
         sTradeData->state++;
         sTradeData->cachedMapMusic = GetCurrentMapMusic();
         PlayNewMapMusic(MUS_EVOLUTION);
@@ -1663,13 +1664,13 @@ static bool8 DoTradeAnim_Cable(void)
     case 65:
         if (gSprites[sTradeData->pokeballSpriteId2].callback == SpriteCallbackDummy)
         {
-            HandleLoadSpecialPokePic(&gMonFrontPicTable[sTradeData->tradeSpecies[1]], gMonSpritesGfxPtr->sprites[3], sTradeData->tradeSpecies[1], sTradeData->monPersonalities[1]);
+            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[3], sTradeData->tradeSpecies[1], sTradeData->monPersonalities[1]);
             sTradeData->state++;
         }
         break;
     case 66:
         gSprites[sTradeData->pokePicSpriteIdxs[1]].pos1.x = 120;
-        gSprites[sTradeData->pokePicSpriteIdxs[1]].pos1.y = gMonFrontPicCoords[sTradeData->tradeSpecies[1]].y_offset + 60;
+        gSprites[sTradeData->pokePicSpriteIdxs[1]].pos1.y = gSpeciesGraphics[sTradeData->tradeSpecies[1]].frontPicYOffset + 60;
         gSprites[sTradeData->pokePicSpriteIdxs[1]].pos2.x = 0;
         gSprites[sTradeData->pokePicSpriteIdxs[1]].pos2.y = 0;
         StartSpriteAnim(&gSprites[sTradeData->pokePicSpriteIdxs[1]], 0);
@@ -1785,7 +1786,7 @@ static bool8 DoTradeAnim_Wireless(void)
     case 0:
         gSprites[sTradeData->pokePicSpriteIdxs[0]].invisible = FALSE;
         gSprites[sTradeData->pokePicSpriteIdxs[0]].pos2.x = -180;
-        gSprites[sTradeData->pokePicSpriteIdxs[0]].pos2.y = gMonFrontPicCoords[sTradeData->tradeSpecies[0]].y_offset;
+        gSprites[sTradeData->pokePicSpriteIdxs[0]].pos2.y = gSpeciesGraphics[sTradeData->tradeSpecies[0]].frontPicYOffset;
         sTradeData->state++;
         sTradeData->cachedMapMusic = GetCurrentMapMusic();
         PlayNewMapMusic(MUS_EVOLUTION);
@@ -2184,13 +2185,13 @@ static bool8 DoTradeAnim_Wireless(void)
     case 65:
         if (gSprites[sTradeData->pokeballSpriteId2].callback == SpriteCallbackDummy)
         {
-            HandleLoadSpecialPokePic(&gMonFrontPicTable[sTradeData->tradeSpecies[1]], gMonSpritesGfxPtr->sprites[3], sTradeData->tradeSpecies[1], sTradeData->monPersonalities[1]);
+            HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[3], sTradeData->tradeSpecies[1], sTradeData->monPersonalities[1]);
             sTradeData->state++;
         }
         break;
     case 66:
         gSprites[sTradeData->pokePicSpriteIdxs[1]].pos1.x = 120;
-        gSprites[sTradeData->pokePicSpriteIdxs[1]].pos1.y = gMonFrontPicCoords[sTradeData->tradeSpecies[1]].y_offset + 60;
+        gSprites[sTradeData->pokePicSpriteIdxs[1]].pos1.y = gSpeciesGraphics[sTradeData->tradeSpecies[1]].frontPicYOffset + 60;
         gSprites[sTradeData->pokePicSpriteIdxs[1]].pos2.x = 0;
         gSprites[sTradeData->pokePicSpriteIdxs[1]].pos2.y = 0;
         StartSpriteAnim(&gSprites[sTradeData->pokePicSpriteIdxs[1]], 0);

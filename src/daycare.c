@@ -2630,13 +2630,19 @@ bool8 DaycareMonReceivedMail(void)
     return sub_8046E34(&gSaveBlock1Ptr->daycare, gSpecialVar_0x8004);
 }*/
 
-extern const struct CompressedSpriteSheet gMonFrontPicTable[];
+//think can remove this but save for later so doesn't get lost
+//think is used for functino below as it use tag from compressed sheet
+//but I don't use that for my new setup nor does EE
+
+//NO LONGER useing tag so think fines
+//extern const struct CompressedSpriteSheet gMonFrontPicTable[];
 
 static u8 EggHatchCreateMonSprite(u8 a0, u8 switchID, u8 pokeID, u16* speciesLoc)
 {
     u8 r4 = 0;
     u8 spriteID = 0; // r7
     struct Pokemon* mon = NULL; // r5
+    u16 species = SPECIES_NONE;
 
     if (a0 == 0)
     {
@@ -2648,19 +2654,19 @@ static u8 EggHatchCreateMonSprite(u8 a0, u8 switchID, u8 pokeID, u16* speciesLoc
         mon = &gPlayerParty[pokeID];
         r4 = 3;
     }
+    species = GetMonData(mon, MON_DATA_SPECIES);
     switch (switchID)
     {
     case 0:
     {
-        u16 species = GetMonData(mon, MON_DATA_SPECIES);
         u32 pid = GetMonData(mon, MON_DATA_PERSONALITY);
-        HandleLoadSpecialPokePic(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
-        LoadCompressedSpritePalette(GetMonSpritePalStruct(mon));
+        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
+        LoadCompressedSpritePaletteWithTag(GetMonSpritePal(mon), species);
         *speciesLoc = species;
     }
         break;
     case 1:
-        SetMultiuseSpriteTemplateToPokemon(GetMonSpritePalStruct(mon)->tag, r4);
+        SetMultiuseSpriteTemplateToPokemon(species, r4);
         spriteID = CreateSprite(&gMultiuseSpriteTemplate, 120, 70, 6);
         gSprites[spriteID].invisible = TRUE;
         gSprites[spriteID].callback = SpriteCallbackDummy;
@@ -2987,7 +2993,7 @@ static void SpriteCB_Egg_2(struct Sprite* sprite)
             sprite->data[0] = 0;
             species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_SPECIES);
             gSprites[sEggHatchData->pokeSpriteID].pos2.x = 0;
-            gSprites[sEggHatchData->pokeSpriteID].pos2.y = gMonFrontPicCoords[species].y_offset; //was field1, just taking a guess
+            gSprites[sEggHatchData->pokeSpriteID].pos2.y = gSpeciesGraphics[species].frontPicYOffset; //was field1, just taking a guess
         }
         else
         {

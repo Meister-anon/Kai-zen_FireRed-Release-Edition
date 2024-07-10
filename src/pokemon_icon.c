@@ -2712,7 +2712,8 @@ u16 MailSpeciesToIconSpecies(u16 species)
 
 const u8 *GetMonIconTiles(u16 species, bool32 extra)
 {
-    const u8 *iconSprite = gMonIconTable[species];
+    //const u8 *iconSprite = gMonIconTable[species];
+    const u8 *iconSprite = gSpeciesGraphics[species].iconSprite;
     if (species == SPECIES_DEOXYS && extra == TRUE)
         iconSprite += 0x400;
     return iconSprite;
@@ -2738,9 +2739,14 @@ void LoadMonIconPalettes(void)
 void SafeLoadMonIconPalette(u16 species)
 {
     u8 palIndex;
-    if (species > NUM_SPECIES)
-        species = SPECIES_NONE;
-    palIndex = gMonIconPaletteIndices[species];
+    /*if (species > NUM_SPECIES) //could make new constant for total species
+        species = SPECIES_NONE;*/
+
+    //if (gSpeciesGraphics[species].iconSprite == NULL) //think this'll work better for my needs
+    //    species = SPECIES_NONE; //figure something out later
+
+    //palIndex = gMonIconPaletteIndices[species];
+    palIndex = gSpeciesGraphics[species].iconPalIndex;
     if (IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag) == 0xFF)
         LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
 }
@@ -2748,7 +2754,8 @@ void SafeLoadMonIconPalette(u16 species)
 void LoadMonIconPalette(u16 species)
 {
     u8 palIndex;
-    palIndex = gMonIconPaletteIndices[species];
+    //palIndex = gMonIconPaletteIndices[species];
+    palIndex = gSpeciesGraphics[species].iconPalIndex;
     if (IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag) == 0xFF)
         LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
 }

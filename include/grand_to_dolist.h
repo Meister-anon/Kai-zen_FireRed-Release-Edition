@@ -2509,6 +2509,24 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     I want to actually generate a diff species so can easily link
     directly to the graphic table
 
+    ok was able to get species grahpics file up and ready
+    pointers are set just need to populate table
+    then can remove the other files 
+    plan to add species names to base stats as well
+
+    Looking into python scripts to fill table
+
+    and will go back to pokedex screen and see about
+    getting the names to load in correctly
+    I got it to work for other things so feel it should work
+    think its just a matter of finding the correct buffer
+
+    ex. got item names to work, for the player pc
+    that scrolls and properly loads mon names.
+
+    so no reason shouldn't be able to do same for dex.
+    then can swap species name to base stats without issue
+
 
     so yeah instead just see about using the target species forms I made
     for alcremie and vivillon
