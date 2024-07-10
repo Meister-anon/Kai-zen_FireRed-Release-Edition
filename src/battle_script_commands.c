@@ -8786,31 +8786,37 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
     u8 *monData;
     u16 species,applied_species;
 
-    species = gBattleMons[gActiveBattler].species;
-
-
-    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
-      applied_species = GetFormSpeciesId(species, 0);
-    else
-        applied_species = species;
-
-    if (species == SPECIES_PIKACHU_ROCK_STAR
-    || species == SPECIES_PIKACHU_BELLE
-    || species == SPECIES_PIKACHU_POP_STAR
-    || species == SPECIES_PIKACHU_PH_D
-    || species == SPECIES_PIKACHU_LIBRE
-    || species == SPECIES_BASCULIN_WHITE_STRIPED)
-        applied_species = species;
+    
 
     if (!gBattleControllerExecFlags)
     {
         gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
         oldData = gBattleMons[gActiveBattler];
         monData = (u8 *)(&gBattleMons[gActiveBattler]);
+
         for (i = 0; i < sizeof(struct BattlePokemon); ++i)
         {
-            monData[i] = gBattleBufferB[gActiveBattler][4 + i];
-        }
+            monData[i] = gBattleBufferB[gActiveBattler][4 + i]; //not 100% what this does but seems tobe populating new mon data
+        } //if I put species checks above this it doesn't correctly load data
+
+        species = gBattleMons[gActiveBattler].species;
+        //for some reason broke shit and now loading wrong mon type when switching?
+        //turns everything into species 0, normal type
+        //I was putting it above definition of activebattler so poplated w nothing
+
+        if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+        applied_species = GetFormSpeciesId(species, 0);
+        else
+            applied_species = species;
+
+        if (species == SPECIES_PIKACHU_ROCK_STAR
+        || species == SPECIES_PIKACHU_BELLE
+        || species == SPECIES_PIKACHU_POP_STAR
+        || species == SPECIES_PIKACHU_PH_D
+        || species == SPECIES_PIKACHU_LIBRE
+        || species == SPECIES_BASCULIN_WHITE_STRIPED)
+            applied_species = species;
+
         gBattleMons[gActiveBattler].type1 = gBaseStats[applied_species].type1;
         gBattleMons[gActiveBattler].type2 = gBaseStats[applied_species].type2;
         gBattleMons[gActiveBattler].type3 = TYPE_MYSTERY;
