@@ -4266,9 +4266,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_NONE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_PHOTOSYNTHESIZE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_PHOTOSYNTHESIZE},
+            .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -4293,9 +4293,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_NONE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_PHOTOSYNTHESIZE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_PHOTOSYNTHESIZE},
+            .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -4320,9 +4320,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_NONE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_PHOTOSYNTHESIZE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_PHOTOSYNTHESIZE},
+            .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -4330,7 +4330,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMeganiumLevelUpLearnset,
         .tmhmLearnset = sMeganiumTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//DEX ENTRY says can heal plants so think grassy surge
 
     [SPECIES_CYNDAQUIL] =
     { 

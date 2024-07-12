@@ -6849,7 +6849,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //SHINYPAL(Arceus),
       //PALETTES(Arceus),
       PIC_DATA_ICON_INDEX(Arceus,0),
-      ICON(Arceus, 0),
+      //ICON(Arceus, 0),
       .enemyMonElevation = 0,
     }, //Arceus,
 [SPECIES_VICTINI] = 
@@ -8869,15 +8869,15 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //Meloetta,
 [SPECIES_GENESECT] = 
     {  
-      FRONT_PIC(Genesect),
+      //FRONT_PIC(Genesect),
       FRONT_COORD(0x88,0),
-      BACK_PIC(Genesect),
+      //BACK_PIC(Genesect),
       BACK_COORD(0x88,0),
       //PAL(Genesect),
       //SHINYPAL(Genesect),
       //PALETTES(Genesect),
       PIC_DATA_ICON_INDEX(Genesect,0),
-      ICON(Genesect, 0),
+      //ICON(Genesect, 0),
       .enemyMonElevation = 0,
     }, //Genesect,
 [SPECIES_CHESPIN] = 
@@ -10481,15 +10481,15 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //TypeNull,
 [SPECIES_SILVALLY] = 
     {  
-      FRONT_PIC(Silvally),
+      //FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      BACK_PIC(Silvally),
+      //BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(Silvally),
       //SHINYPAL(Silvally),
       //PALETTES(Silvally),
       PIC_DATA_ICON_INDEX(Silvally,0),
-      ICON(Silvally, 0),
+      //ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_MINIOR] = 
@@ -11735,8 +11735,6 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PAL(AlcremieStrawberryVanillaCream),
       SHINYPAL(AlcremieStrawberry),
-      .palette = gMonPalette_AlcremieStrawberryVanillaCream,
-      .shinyPalette = gMonShinyPalette_AlcremieStrawberry,
       //PALETTES(AlcremieStrawberryVanillaCream), //gMonPalette_AlcremieStrawberryVanillaCream
       //PIC_DATA_ICON_INDEX(AlcremieStrawberryVanillaCream,0), //gMonIcon_Alcremie
       ICON(Alcremie, 0),
