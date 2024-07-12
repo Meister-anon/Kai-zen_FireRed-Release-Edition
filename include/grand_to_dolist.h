@@ -2531,6 +2531,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     so yeah instead just see about using the target species forms I made
     for alcremie and vivillon
 
+    need to undo some things made to match existing tables
+    /grahpics.h extern names
+
+    also look into crt0.s file can prob remove uneeded tings
+    based on EE version?
+
+    and remove remainder of references to thos etablse
+    but looks like regex python scripting is goated
+    and I believe I have a handle on it
+
+    go in line when I need to can only replace by using full file
+    when I'm replacing distinct entries i.e species name
+    as it works by replacing every instance of the occurance throughout the entire file
+    can use it to quickly add species name to base stats file
+    useam filter as initial py script
+    but replace bracket species name
+
+    just need exlusions for mega alolan megaX etc.
+
 
     )
 
@@ -2618,6 +2637,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
   huh don't actually need to do that, effect is in pokemon.c apparently
   and I never actually setup venoshocks damage boost because I didn't realize that...
   -ok done perfect did added brine as well since I missed that
+  
 
   when done check if I have room, if so would add priority
   to give more room for numbers for priority
@@ -2873,6 +2893,27 @@ otherwise make a column along the entrance of the town
 between the gym and town entrance have oak aide call out 
 and approach player   - JULY 2024 - new quick way to find relevant notes just date them
 vsonic
+
+
+Note species name expansion caused issue with healthbox size
+but editnig box is insanely difficult so counter idea
+what if instead of changing the entire box I just shrink the health bar?
+make it a little smaller and should be able to move lvl to bottom right corner w status
+potentially...  actually no shirnk health bar and move to the side, then just bring lvl directly down, looks better that way
+
+also for double battles when can press start to change player health box to display numbers instead
+make that do same for enemy side, and see if can get that working for singles as well
+ok reason why its not on singles is , it already shows numbers for player health
+//but I can still make it show  enemy health as numbers, wouldn't need to break out a ruler
+to get exact calculations demystifies things a bit but still takes skill
+player needs to keep track of how much damage each move did and keep in mind random rolls etc.
+
+Note numbers are same size as health bar, so will need to move those down as well
+when I shrink the bar
+
+SwapHpBarsWithHpText(); function for swapping hp bar with text numbers
+doesn't fully work for opponenet side
+July 2024
 
    
     
@@ -7919,7 +7960,7 @@ goto CATCHING_LOGIC
 * it needs better time/reward investment
 * with my changes you'll spend more time catching the same mon, (or some people will)
 * so I want to add arceus style improvements where you receive items for releasing mon.
-* chose from multiple fields to add, at their own odds ev items, the items the mon gives/has a chance to hold (make sure every mon has some held item item1 & item2)
+* chose from multiple fields to add, at their own odds ev items, the items the mon gives/has a chance to hold (make sure every mon has some held item itemCommon & itemRare)
 * and other random odds ends to sell,  but keep in mind also plan to eventually setup timed events with nuggets other item give aways for economy management.
 * as well as plan to make all trainers rematchable which would make it easy to get more money from grinding battles.
 * plan to do via time or a stepp counter, when condition is met, reset trainer flags of all npc on map.
@@ -8605,7 +8646,7 @@ goto ABILITYBATTLE_FUNCTION	//	battle_util.c function other more complex ability
 *and a reason why it would last, passed switchout, i.e arena trap pop out of ground bite leg, to slow
 * can use IsRunningFromBattleImpossible != battle_run_success    actually nvm just gonna do for arena trap as the others don't make sense to last
 *
-* removed item1 item2 from base stat data to add back later when item expansion done
+* removed itemCommon itemRare from base stat data to add back later when item expansion done
 * also gender based forms, I moved to new species etc. won't show up in pokedex as of yet.
 * only the male/base form is displayed need to setup logic, for pokedex to move between the forms
 * when on the main one. do setup for mon variants as well. - IMPORTANT
