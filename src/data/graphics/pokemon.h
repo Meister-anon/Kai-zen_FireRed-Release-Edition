@@ -17118,11 +17118,11 @@ const u32 gMonShinyPalette_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/q
 //#endif //P_FAMILY_TYPE_NULL
 
 //#if P_FAMILY_MINIOR
-    const u32 gMonFrontPic_Minior[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/front.4bpp.lz");
-    const u32 gMonPalette_Minior[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/normal.gbapal.lz");
-    const u32 gMonBackPic_Minior[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/back.4bpp.lz");
-    const u32 gMonShinyPalette_Minior[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/shiny.gbapal.lz");
-    const u8 gMonIcon_Minior[] = INCBIN_U8("graphics/pokemon/Gen_7/minior/icon.4bpp");
+    const u32 gMonFrontPic_MiniorMeteor[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/front.4bpp.lz");
+    const u32 gMonPalette_MiniorMeteor[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/normal.gbapal.lz");
+    const u32 gMonBackPic_MiniorMeteor[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/back.4bpp.lz");
+    const u32 gMonShinyPalette_MiniorMeteor[] = INCBIN_U32("graphics/pokemon/Gen_7/minior/shiny.gbapal.lz");
+    const u8 gMonIcon_MiniorMeteor[] = INCBIN_U8("graphics/pokemon/Gen_7/minior/icon.4bpp");
 /*#if P_FOOTPRINTS
     const u8 gMonFootprint_Minior[] = INCBIN_U8("graphics/pokemon/Gen_7/minior/footprint.1bpp");
 #endif //P_FOOTPRINTS  */

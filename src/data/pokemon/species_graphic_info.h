@@ -10481,15 +10481,15 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //TypeNull,
 [SPECIES_SILVALLY] = 
     {  
-      //FRONT_PIC(Silvally),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(Silvally),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(Silvally),
       //SHINYPAL(Silvally),
       //PALETTES(Silvally),
       PIC_DATA_ICON_INDEX(Silvally,0),
-      //ICON(Silvally, 0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_MINIOR] = 
@@ -10501,7 +10501,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(Minior),
       //SHINYPAL(Minior),
       //PALETTES(Minior),
-      PIC_DATA_ICON_INDEX(Minior,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor,0),
       //ICON(Minior, 0),
       .enemyMonElevation = 0,
     }, //Minior,
@@ -11733,8 +11733,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x88,0),
       BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberryVanillaCream),
-      //SHINYPAL(AlcremieStrawberryVanillaCream),
+      PAL(AlcremieStrawberryVanillaCream),
+      SHINYPAL(AlcremieStrawberry),
       .palette = gMonPalette_AlcremieStrawberryVanillaCream,
       .shinyPalette = gMonShinyPalette_AlcremieStrawberry,
       //PALETTES(AlcremieStrawberryVanillaCream), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25145,223 +25145,223 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //WishiwashiSchool,
 [SPECIES_SILVALLY_FIGHTING] = 
     {  
-      //FRONT_PIC(SilvallyFighting),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyFighting),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyFighting),
       //SHINYPAL(SilvallyFighting),
-      //PALETTES(SilvallyFighting),
-      PIC_DATA_ICON_INDEX(SilvallyFighting,0),
-      //ICON(SilvallyFighting, 0),
+      PALETTES(SilvallyFighting),
+      //PIC_DATA_ICON_INDEX(SilvallyFighting,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_FLYING] = 
     {  
-      //FRONT_PIC(SilvallyFlying),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyFlying),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyFlying),
       //SHINYPAL(SilvallyFlying),
-      //PALETTES(SilvallyFlying),
-      PIC_DATA_ICON_INDEX(SilvallyFlying,0),
-      //ICON(SilvallyFlying, 0),
+      PALETTES(SilvallyFlying),
+      //PIC_DATA_ICON_INDEX(SilvallyFlying,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_POISON] = 
     {  
-      //FRONT_PIC(SilvallyPoison),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyPoison),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyPoison),
       //SHINYPAL(SilvallyPoison),
-      //PALETTES(SilvallyPoison),
-      PIC_DATA_ICON_INDEX(SilvallyPoison,0),
-      //ICON(SilvallyPoison, 0),
+      PALETTES(SilvallyPoison),
+      //PIC_DATA_ICON_INDEX(SilvallyPoison,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_GROUND] = 
     {  
-      //FRONT_PIC(SilvallyGround),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyGround),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyGround),
       //SHINYPAL(SilvallyGround),
-      //PALETTES(SilvallyGround),
-      PIC_DATA_ICON_INDEX(SilvallyGround,0),
-      //ICON(SilvallyGround, 0),
+      PALETTES(SilvallyGround),
+      //PIC_DATA_ICON_INDEX(SilvallyGround,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_ROCK] = 
     {  
-      //FRONT_PIC(SilvallyRock),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyRock),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyRock),
       //SHINYPAL(SilvallyRock),
-      //PALETTES(SilvallyRock),
-      PIC_DATA_ICON_INDEX(SilvallyRock,0),
-      //ICON(SilvallyRock, 0),
+      PALETTES(SilvallyRock),
+      //PIC_DATA_ICON_INDEX(SilvallyRock,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_BUG] = 
     {  
-      //FRONT_PIC(SilvallyBug),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyBug),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyBug),
       //SHINYPAL(SilvallyBug),
-      //PALETTES(SilvallyBug),
-      PIC_DATA_ICON_INDEX(SilvallyBug,0),
-      //ICON(SilvallyBug, 0),
+      PALETTES(SilvallyBug),
+      //PIC_DATA_ICON_INDEX(SilvallyBug,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_GHOST] = 
     {  
-      //FRONT_PIC(SilvallyGhost),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyGhost),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyGhost),
       //SHINYPAL(SilvallyGhost),
-      //PALETTES(SilvallyGhost),
-      PIC_DATA_ICON_INDEX(SilvallyGhost,0),
-      //ICON(SilvallyGhost, 0),
+      PALETTES(SilvallyGhost),
+      //PIC_DATA_ICON_INDEX(SilvallyGhost,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_STEEL] = 
     {  
-      //FRONT_PIC(SilvallySteel),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallySteel),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallySteel),
       //SHINYPAL(SilvallySteel),
-      //PALETTES(SilvallySteel),
-      PIC_DATA_ICON_INDEX(SilvallySteel,0),
-      //ICON(SilvallySteel, 0),
+      PALETTES(SilvallySteel),
+      //PIC_DATA_ICON_INDEX(SilvallySteel,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_FIRE] = 
     {  
-      //FRONT_PIC(SilvallyFire),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyFire),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyFire),
       //SHINYPAL(SilvallyFire),
-      //PALETTES(SilvallyFire),
-      PIC_DATA_ICON_INDEX(SilvallyFire,0),
-      //ICON(SilvallyFire, 0),
+      PALETTES(SilvallyFire),
+      //PIC_DATA_ICON_INDEX(SilvallyFire,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_WATER] = 
     {  
-      //FRONT_PIC(SilvallyWater),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyWater),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyWater),
       //SHINYPAL(SilvallyWater),
-      //PALETTES(SilvallyWater),
-      PIC_DATA_ICON_INDEX(SilvallyWater,0),
-      //ICON(SilvallyWater, 0),
+      PALETTES(SilvallyWater),
+      //PIC_DATA_ICON_INDEX(SilvallyWater,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_GRASS] = 
     {  
-      //FRONT_PIC(SilvallyGrass),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyGrass),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyGrass),
       //SHINYPAL(SilvallyGrass),
-      //PALETTES(SilvallyGrass),
-      PIC_DATA_ICON_INDEX(SilvallyGrass,0),
-      //ICON(SilvallyGrass, 0),
+      PALETTES(SilvallyGrass),
+      //PIC_DATA_ICON_INDEX(SilvallyGrass,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_ELECTRIC] = 
     {  
-      //FRONT_PIC(SilvallyElectric),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyElectric),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyElectric),
       //SHINYPAL(SilvallyElectric),
-      //PALETTES(SilvallyElectric),
-      PIC_DATA_ICON_INDEX(SilvallyElectric,0),
-      //ICON(SilvallyElectric, 0),
+      PALETTES(SilvallyElectric),
+      //PIC_DATA_ICON_INDEX(SilvallyElectric,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_PSYCHIC] = 
     {  
-      //FRONT_PIC(SilvallyPsychic),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyPsychic),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyPsychic),
       //SHINYPAL(SilvallyPsychic),
-      //PALETTES(SilvallyPsychic),
-      PIC_DATA_ICON_INDEX(SilvallyPsychic,0),
-      //ICON(SilvallyPsychic, 0),
+      PALETTES(SilvallyPsychic),
+      //PIC_DATA_ICON_INDEX(SilvallyPsychic,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_ICE] = 
     {  
-      //FRONT_PIC(SilvallyIce),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyIce),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyIce),
       //SHINYPAL(SilvallyIce),
-      //PALETTES(SilvallyIce),
-      PIC_DATA_ICON_INDEX(SilvallyIce,0),
-      //ICON(SilvallyIce, 0),
+      PALETTES(SilvallyIce),
+      //PIC_DATA_ICON_INDEX(SilvallyIce,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_DRAGON] = 
     {  
-      //FRONT_PIC(SilvallyDragon),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyDragon),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyDragon),
       //SHINYPAL(SilvallyDragon),
-      //PALETTES(SilvallyDragon),
-      PIC_DATA_ICON_INDEX(SilvallyDragon,0),
-      //ICON(SilvallyDragon, 0),
+      PALETTES(SilvallyDragon),
+      //PIC_DATA_ICON_INDEX(SilvallyDragon,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_DARK] = 
     {  
-      //FRONT_PIC(SilvallyDark),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyDark),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyDark),
       //SHINYPAL(SilvallyDark),
-      //PALETTES(SilvallyDark),
-      PIC_DATA_ICON_INDEX(SilvallyDark,0),
-      //ICON(SilvallyDark, 0),
+      PALETTES(SilvallyDark),
+      //PIC_DATA_ICON_INDEX(SilvallyDark,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_SILVALLY_FAIRY] = 
     {  
-      //FRONT_PIC(SilvallyFairy),
+      FRONT_PIC(Silvally),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(SilvallyFairy),
+      BACK_PIC(Silvally),
       BACK_COORD(0x88,0),
       //PAL(SilvallyFairy),
       //SHINYPAL(SilvallyFairy),
-      //PALETTES(SilvallyFairy),
-      PIC_DATA_ICON_INDEX(SilvallyFairy,0),
-      //ICON(SilvallyFairy, 0),
+      PALETTES(SilvallyFairy),
+      //PIC_DATA_ICON_INDEX(SilvallyFairy,0),
+      ICON(Silvally, 0),
       .enemyMonElevation = 0,
     }, //Silvally,
 [SPECIES_MINIOR_METEOR_ORANGE] = 
@@ -25373,7 +25373,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(MiniorMeteorOrange),
       //SHINYPAL(MiniorMeteorOrange),
       //PALETTES(MiniorMeteorOrange),
-      PIC_DATA_ICON_INDEX(MiniorMeteorOrange,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       //ICON(MiniorMeteorOrange, 0),
       .enemyMonElevation = 0,
     }, //Minior,
@@ -25386,7 +25386,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(MiniorMeteorYellow),
       //SHINYPAL(MiniorMeteorYellow),
       //PALETTES(MiniorMeteorYellow),
-      PIC_DATA_ICON_INDEX(MiniorMeteorYellow,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       //ICON(MiniorMeteorYellow, 0),
       .enemyMonElevation = 0,
     }, //Minior,
@@ -25399,7 +25399,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(MiniorMeteorGreen),
       //SHINYPAL(MiniorMeteorGreen),
       //PALETTES(MiniorMeteorGreen),
-      PIC_DATA_ICON_INDEX(MiniorMeteorGreen,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       //ICON(MiniorMeteorGreen, 0),
       .enemyMonElevation = 0,
     }, //Minior,
@@ -25412,7 +25412,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(MiniorMeteorBlue),
       //SHINYPAL(MiniorMeteorBlue),
       //PALETTES(MiniorMeteorBlue),
-      PIC_DATA_ICON_INDEX(MiniorMeteorBlue,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       //ICON(MiniorMeteorBlue, 0),
       .enemyMonElevation = 0,
     }, //Minior,
@@ -25425,7 +25425,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(MiniorMeteorIndigo),
       //SHINYPAL(MiniorMeteorIndigo),
       //PALETTES(MiniorMeteorIndigo),
-      PIC_DATA_ICON_INDEX(MiniorMeteorIndigo,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       //ICON(MiniorMeteorIndigo, 0),
       .enemyMonElevation = 0,
     }, //Minior,
@@ -25438,99 +25438,99 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //PAL(MiniorMeteorViolet),
       //SHINYPAL(MiniorMeteorViolet),
       //PALETTES(MiniorMeteorViolet),
-      PIC_DATA_ICON_INDEX(MiniorMeteorViolet,0),
+      PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       //ICON(MiniorMeteorViolet, 0),
       .enemyMonElevation = 0,
     }, //Minior,
 [SPECIES_MINIOR_CORE_RED] = 
     {  
-      //FRONT_PIC(MiniorCoreRed),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreRed),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreRed),
-      //SHINYPAL(MiniorCoreRed),
+      PAL(MiniorCoreRed),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreRed),
-      PIC_DATA_ICON_INDEX(MiniorCoreRed,0),
-      //ICON(MiniorCoreRed, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreRed,0),
+      ICON(MiniorCoreRed, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreRed,
 [SPECIES_MINIOR_CORE_ORANGE] = 
     {  
-      //FRONT_PIC(MiniorCoreOrange),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreOrange),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreOrange),
-      //SHINYPAL(MiniorCoreOrange),
+      PAL(MiniorCoreOrange),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreOrange),
-      PIC_DATA_ICON_INDEX(MiniorCoreOrange,0),
-      //ICON(MiniorCoreOrange, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreOrange,0),
+      ICON(MiniorCoreOrange, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreOrange,
 [SPECIES_MINIOR_CORE_YELLOW] = 
     {  
-      //FRONT_PIC(MiniorCoreYellow),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreYellow),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreYellow),
-      //SHINYPAL(MiniorCoreYellow),
+      PAL(MiniorCoreYellow),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreYellow),
-      PIC_DATA_ICON_INDEX(MiniorCoreYellow,0),
-      //ICON(MiniorCoreYellow, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreYellow,0),
+      ICON(MiniorCoreYellow, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreYellow,
 [SPECIES_MINIOR_CORE_GREEN] = 
     {  
-      //FRONT_PIC(MiniorCoreGreen),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreGreen),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreGreen),
-      //SHINYPAL(MiniorCoreGreen),
+      PAL(MiniorCoreGreen),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreGreen),
-      PIC_DATA_ICON_INDEX(MiniorCoreGreen,0),
-      //ICON(MiniorCoreGreen, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreGreen,0),
+      ICON(MiniorCoreGreen, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreGreen,
 [SPECIES_MINIOR_CORE_BLUE] = 
     {  
-      //FRONT_PIC(MiniorCoreBlue),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreBlue),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreBlue),
-      //SHINYPAL(MiniorCoreBlue),
+      PAL(MiniorCoreBlue),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreBlue),
-      PIC_DATA_ICON_INDEX(MiniorCoreBlue,0),
-      //ICON(MiniorCoreBlue, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreBlue,0),
+      ICON(MiniorCoreBlue, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreBlue,
 [SPECIES_MINIOR_CORE_INDIGO] = 
     {  
-      //FRONT_PIC(MiniorCoreIndigo),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreIndigo),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreIndigo),
-      //SHINYPAL(MiniorCoreIndigo),
+      PAL(MiniorCoreIndigo),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreIndigo),
-      PIC_DATA_ICON_INDEX(MiniorCoreIndigo,0),
-      //ICON(MiniorCoreIndigo, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreIndigo,0),
+      ICON(MiniorCoreIndigo, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreIndigo,
 [SPECIES_MINIOR_CORE_VIOLET] = 
     {  
-      //FRONT_PIC(MiniorCoreViolet),
+      FRONT_PIC(MiniorCore),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(MiniorCoreViolet),
+      BACK_PIC(MiniorCore),
       BACK_COORD(0x88,0),
-      //PAL(MiniorCoreViolet),
-      //SHINYPAL(MiniorCoreViolet),
+      PAL(MiniorCoreViolet),
+      SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreViolet),
-      PIC_DATA_ICON_INDEX(MiniorCoreViolet,0),
-      //ICON(MiniorCoreViolet, 0),
+      //PIC_DATA_ICON_INDEX(MiniorCoreViolet,0),
+      ICON(MiniorCoreViolet, 0),
       .enemyMonElevation = 0,
     }, //MiniorCoreViolet,
 [SPECIES_MIMIKYU_BUSTED] = 
@@ -25643,869 +25643,869 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     //Alcremie forms
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryRubyCream),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryMatchaCream),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryMintCream),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryLemonCream),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberrySaltedCream),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryRubySwirl),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryCaramelSwirl),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieStrawberry),
+      FRONT_PIC(AlcremieStrawberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStrawberry),
+      BACK_PIC(AlcremieStrawberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStrawberry),
-      //SHINYPAL(AlcremieStrawberry),
+      PAL(AlcremieStrawberryRainbowSwirl),
+      SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStrawberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStrawberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryVanillaCream),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryRubyCream),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryMatchaCream),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryMintCream),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryLemonCream),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberrySaltedCream),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryRubySwirl),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryCaramelSwirl),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieBlueberry),
+      FRONT_PIC(AlcremieBlueberry),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieBlueberry),
+      BACK_PIC(AlcremieBlueberry),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieBlueberry),
-      //SHINYPAL(AlcremieBlueberry),
+      PAL(AlcremieBlueberryRainbowSwirl),
+      SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
-      //ICON(AlcremieBlueberry, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieBlueberry,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_VANILLA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveVanillaCream),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveRubyCream),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveMatchaCream),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveMintCream),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveLemonCream),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveSaltedCream),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveRubySwirl),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveCaramelSwirl),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieLove),
+      FRONT_PIC(AlcremieLove),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieLove),
+      BACK_PIC(AlcremieLove),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieLove),
-      //SHINYPAL(AlcremieLove),
+      PAL(AlcremieLoveRainbowSwirl),
+      SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
-      //ICON(AlcremieLove, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieLove,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_VANILLA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarVanillaCream),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarRubyCream),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarMatchaCream),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarMintCream),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarLemonCream),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarSaltedCream),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarRubySwirl),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarCaramelSwirl),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieStar),
+      FRONT_PIC(AlcremieStar),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieStar),
+      BACK_PIC(AlcremieStar),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieStar),
-      //SHINYPAL(AlcremieStar),
+      PAL(AlcremieStarRainbowSwirl),
+      SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
-      //ICON(AlcremieStar, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieStar,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieClover),
+      FRONT_PIC(AlcremieClover),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieClover),
+      BACK_PIC(AlcremieClover),
       BACK_COORD(0x88,0),
       //PAL(AlcremieClover),
-      //SHINYPAL(AlcremieClover),
+      SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
-      //ICON(AlcremieClover, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieClover,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerVanillaCream),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerRubyCream),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerMatchaCream),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerMintCream),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerLemonCream),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerSaltedCream),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerRubySwirl),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerCaramelSwirl),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieFlower),
+      FRONT_PIC(AlcremieFlower),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieFlower),
+      BACK_PIC(AlcremieFlower),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieFlower),
-      //SHINYPAL(AlcremieFlower),
+      PAL(AlcremieFlowerRainbowSwirl),
+      SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
-      //ICON(AlcremieFlower, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieFlower,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonVanillaCream),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_RUBY_CREAM] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonRubyCream),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonMatchaCream),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_MINT_CREAM] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonMintCream),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_LEMON_CREAM] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonLemonCream),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_SALTED_CREAM] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonSaltedCream),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonRubySwirl),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonCaramelSwirl),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      //PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL] = 
     {  
-      //PIC_DATA(AlcremieRibbon),
+      FRONT_PIC(AlcremieRibbon),
       FRONT_COORD(0x88,0),
-      //BACK_PIC(AlcremieRibbon),
+      BACK_PIC(AlcremieRibbon),
       BACK_COORD(0x88,0),
-      //PAL(AlcremieRibbon),
-      //SHINYPAL(AlcremieRibbon),
+      PAL(AlcremieRibbonRainbowSwirl),
+      SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
-      PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
-      //ICON(AlcremieRibbon, 0),
+      ////PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
+      ICON(Alcremie, 0),
       .enemyMonElevation = 0,
     }, //AlcremieStrawberry,
 

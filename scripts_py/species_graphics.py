@@ -21,12 +21,13 @@ with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_g
 #replaceAll(data, regex, r"SPECIES_(.*)]")
 
 #believe assigns mon to captured value should be CAPPED species name
-for mon in re.findall(r"SPECIES_FLABEBE+(.*)]", data): 
+for mon in re.findall(r"SPECIES_MINIOR_CORE+(.*)]", data): 
     #monname = re.sub(r"_", " ", mon).title().replace(" ", "") 
     #print(monname)
-    data = re.sub(r"//FRONT_PIC\(Flabebe+(.*)\)","FRONT_PIC(Flabebe)",data)
-    data = re.sub(r"//BACK_PIC\(Flabebe+(.*)\)","BACK_PIC(Flabebe)",data)
-    #data = re.sub(r"//ICON\(Gourgeist+(.*)\)","ICON(Gourgeist, 0)",data)
+    data = re.sub(r"//FRONT_PIC\(MiniorCore+(.*)\)","FRONT_PIC(MiniorCore)",data)
+    data = re.sub(r"//BACK_PIC\(MiniorCore+(.*)\)","BACK_PIC(MiniorCore)",data)
+    data = re.sub(r"//SHINYPAL\(MiniorCore+(.*)\)","SHINYPAL(MiniorCore)",data)
+    #data = re.sub(r"PIC_DATA_ICON_INDEX\(MiniorMeteor+(.*)\)","PIC_DATA_ICON_INDEX(MiniorMeteor, 0)",data)
 #    replaceAll(data, regex, r"SPECIES_(.*)]")
     
     #data = re.sub(regex,monname,data) # I "think" should be all I need?

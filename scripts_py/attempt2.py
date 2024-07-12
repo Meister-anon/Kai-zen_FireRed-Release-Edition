@@ -75,11 +75,11 @@ for line in lines:
     if m := reg.match(line):
         species = m.group(1).replace('_', ' ').title().replace(' ', '')
     if species:
-        for x in exceptions:
-            if species == x[0]:
-                species = x[1]
-        #line = line.replace('CircledQuestionMark', species)
-        line = line.replace(r'//FRONT_PIC\(Arceus\w+?\)', 'FRONT_PIC\(Arceus\)')
+        #for x in exceptions:
+        #    if species == x[0]:
+        #        species = x[1]
+        line = line.replace('CircledQuestionMark', species)
+        #line = line.replace(r'//FRONT_PIC\(Arceus\w+?\)', 'FRONT_PIC\(Arceus\)')
     new_lines.append(line)
 infile.close()
 
