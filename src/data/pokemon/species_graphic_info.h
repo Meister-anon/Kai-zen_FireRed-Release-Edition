@@ -68,7 +68,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //BACK_PIC(None),
       BACK_COORD(0x88,0),
       //PALETTES(None),
-      PIC_DATA_ICON_INDEX(None,0),
+      PIC_DATA_ICON_INDEX(CircledQuestionMark,0),
       //ICON(None, 0),
       .enemyMonElevation = 0,
     }, //QuestionMark, 

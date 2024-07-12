@@ -5035,19 +5035,19 @@ const u32 gMonShinyPalette_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/q
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES */
 #endif //OW_POKEMON_OBJECT_EVENTS
 
-    const u32 gMonFrontPic_Feraligatr[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/front.4bpp.lz");
-    const u32 gMonPalette_Feraligatr[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/normal.gbapal.lz");
-    const u32 gMonBackPic_Feraligatr[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/back.4bpp.lz");
-    const u32 gMonShinyPalette_Feraligatr[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/shiny.gbapal.lz");
-    const u8 gMonIcon_Feraligatr[] = INCBIN_U8("graphics/pokemon/Gen_2/feraligatr/icon.4bpp");
+    const u32 gMonFrontPic_Feraligator[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/front.4bpp.lz");
+    const u32 gMonPalette_Feraligator[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/normal.gbapal.lz");
+    const u32 gMonBackPic_Feraligator[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/back.4bpp.lz");
+    const u32 gMonShinyPalette_Feraligator[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/shiny.gbapal.lz");
+    const u8 gMonIcon_Feraligator[] = INCBIN_U8("graphics/pokemon/Gen_2/feraligatr/icon.4bpp");
 /*#if P_FOOTPRINTS
-    const u8 gMonFootprint_Feraligatr[] = INCBIN_U8("graphics/pokemon/Gen_2/feraligatr/footprint.1bpp");
+    const u8 gMonFootprint_Feraligator[] = INCBIN_U8("graphics/pokemon/Gen_2/feraligatr/footprint.1bpp");
 #endif //P_FOOTPRINTS  */
 #if OW_POKEMON_OBJECT_EVENTS
-    //const u32 gObjectEventPic_Feraligatr[] = INCBIN_COMP("graphics/pokemon/Gen_2/feraligatr/overworld.4bpp");
+    //const u32 gObjectEventPic_Feraligator[] = INCBIN_COMP("graphics/pokemon/Gen_2/feraligatr/overworld.4bpp");
 /*#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
-    const u32 gOverworldPalette_Feraligatr[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/overworld_normal.gbapal.lz");
-    const u32 gShinyOverworldPalette_Feraligatr[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/overworld_shiny.gbapal.lz");
+    const u32 gOverworldPalette_Feraligator[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_Feraligator[] = INCBIN_U32("graphics/pokemon/Gen_2/feraligatr/overworld_shiny.gbapal.lz");
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES */
 #endif //OW_POKEMON_OBJECT_EVENTS
 //#endif //P_FAMILY_TOTODILE
