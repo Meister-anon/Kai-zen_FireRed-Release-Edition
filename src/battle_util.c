@@ -4850,6 +4850,13 @@ bool8 IsBattlerGrounded(u8 battlerId)
 
     if (gBattleMons[battlerId].status1 & STATUS1_PARALYSIS) 
         grounded = TRUE;
+
+    if (gDisableStructs[battlerId].FrozenTurns != 0) //frozen solid
+        grounded = TRUE;
+    //added status excemptions to replace lose of synergy with 
+    //ability removal/swap effects/moldbreaker likes
+    //needed some form of accessible effect removal besides just
+    //requiring speific moves
     
 
     if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_ROOST)
