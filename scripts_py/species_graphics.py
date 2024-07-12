@@ -1,16 +1,16 @@
 import re
-import fileinput
+#import fileinput
 #import sys
 
-def replaceAll(file, search,mon):
-        for line in fileinput.input(file, inplace=1):
-            if mon in line:
-                monname = re.sub(r"_", " ", mon).title().replace(" ", "")
-            if search in line:
-                line = line.replace(search, monname)
+#def replaceAll(file, search,mon):
+#        for line in fileinput.input(file, inplace=1):
+#            if mon in line:
+#                monname = re.sub(r"_", " ", mon).title().replace(" ", "")
+#            if search in line:
+#                line = line.replace(search, monname)
             #sys.stdout.write(line)
-            with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_graphic_info.h", "w") as f:
-                f.write(line)
+#            with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_graphic_info.h", "w") as f:
+#                f.write(line)
 
 regex = r"CircledQuestionMark"
 
@@ -18,13 +18,15 @@ regex = r"CircledQuestionMark"
 with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_graphic_info.h", "r") as f:
     data = f.read()
 
-replaceAll(data, regex, r"SPECIES_(.*)]")
+#replaceAll(data, regex, r"SPECIES_(.*)]")
 
 #believe assigns mon to captured value should be CAPPED species name
-#for mon in re.findall(r"SPECIES_(.*)]", data): 
-#    monname = re.sub(r"_", " ", mon).title().replace(" ", "") 
+for mon in re.findall(r"SPECIES_FLABEBE+(.*)]", data): 
+    #monname = re.sub(r"_", " ", mon).title().replace(" ", "") 
     #print(monname)
-    #data = re.sub(regex,monname,data)
+    data = re.sub(r"//FRONT_PIC\(Flabebe+(.*)\)","FRONT_PIC(Flabebe)",data)
+    data = re.sub(r"//BACK_PIC\(Flabebe+(.*)\)","BACK_PIC(Flabebe)",data)
+    #data = re.sub(r"//ICON\(Gourgeist+(.*)\)","ICON(Gourgeist, 0)",data)
 #    replaceAll(data, regex, r"SPECIES_(.*)]")
     
     #data = re.sub(regex,monname,data) # I "think" should be all I need?
@@ -35,5 +37,5 @@ replaceAll(data, regex, r"SPECIES_(.*)]")
 
     
 
-#with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_graphic_info.h", "w") as f:
-#    f.write(data)
+with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_graphic_info.h", "w") as f:
+    f.write(data)

@@ -717,7 +717,7 @@ const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1] = {
     [SPECIES_NOIVERN] = _("Noivern"),
     [SPECIES_XERNEAS] = _("Xerneas"),
     [SPECIES_YVELTAL] = _("Yveltal"),
-    [SPECIES_ZYGARDE] = _("Zygarde"),
+    [SPECIES_ZYGARDE_10] = _("Zygarde"),
     [SPECIES_DIANCIE] = _("Diancie"),
     [SPECIES_HOOPA] = _("Hoopa"),
     [SPECIES_VOLCANION] = _("Volcanion"),
@@ -1215,9 +1215,7 @@ const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1] = {
     // Xerneas
     [SPECIES_XERNEAS_ACTIVE] = _("Xerneas"),
     // Zygarde
-    [SPECIES_ZYGARDE_10] = _("Zygarde"),
-    [SPECIES_ZYGARDE_10_POWER_CONSTRUCT] = _("Zygarde"),
-    [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] = _("Zygarde"),
+    [SPECIES_ZYGARDE_50] = _("Zygarde"),
     [SPECIES_ZYGARDE_COMPLETE] = _("Zygarde"),
     // Hoopa
     [SPECIES_HOOPA_UNBOUND] = _("Hoopa"),
@@ -2097,7 +2095,7 @@ const u8 gSpeciesNamesUpperCase[][POKEMON_NAME_LENGTH + 1] = {
     [SPECIES_NOIVERN] = _("NOIVERN"),
     [SPECIES_XERNEAS] = _("XERNEAS"),
     [SPECIES_YVELTAL] = _("YVELTAL"),
-    [SPECIES_ZYGARDE] = _("ZYGARDE"),
+    [SPECIES_ZYGARDE_10] = _("ZYGARDE"),
     [SPECIES_DIANCIE] = _("DIANCIE"),
     [SPECIES_HOOPA] = _("HOOPA"),
     [SPECIES_VOLCANION] = _("VOLCANION"),
@@ -2595,9 +2593,7 @@ const u8 gSpeciesNamesUpperCase[][POKEMON_NAME_LENGTH + 1] = {
     // XERNEAS
     [SPECIES_XERNEAS_ACTIVE] = _("XERNEAS"),
     // ZYGARDE
-    [SPECIES_ZYGARDE_10] = _("ZYGARDE"),
-    [SPECIES_ZYGARDE_10_POWER_CONSTRUCT] = _("ZYGARDE"),
-    [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] = _("ZYGARDE"),
+    [SPECIES_ZYGARDE_50] = _("ZYGARDE"),
     [SPECIES_ZYGARDE_COMPLETE] = _("ZYGARDE"),
     // HOOPA
     [SPECIES_HOOPA_UNBOUND] = _("HOOPA"),

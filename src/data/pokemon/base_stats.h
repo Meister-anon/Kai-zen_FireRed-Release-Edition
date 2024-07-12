@@ -20605,20 +20605,20 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ZYGARDE] =
+    [SPECIES_ZYGARDE_10] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        108,
+        54,
         100,
-        121,
-        95,
-        81,
-        95
+        71,
+        115,
+        61,
+        85
         ),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 3,
-        .expYield = 270,
+        .expYield = 219,
         //.evYield_HP = 3,
         .genderRatio = MON_GENDERLESS,
         .eggCycles = 120,
@@ -20629,15 +20629,16 @@ const struct BaseStats gBaseStats[] =
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_AURA_BREAK, ABILITY_NONE},
        // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_POWER_CONSTRUCT, ABILITY_NONE},
         // #endif
-        .bodyColor = BODY_COLOR_GREEN,
+        .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sZygardeLevelUpLearnset,
         .tmhmLearnset = sZygardeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//finally adjusted species value so base form is 10,
+    //and power construct isn't a separate species
 
     [SPECIES_DIANCIE] =
     { 
@@ -43811,75 +43812,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ZYGARDE_10] =
-    { 
-           //hp, atk, def, spd, spatk, spdef
-         STATS(
-        54,
-        100,
-        71,
-        115,
-        61,
-        85
-        ),
-        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
-        .catchRate = 3,
-        .expYield = 219,
-        //.evYield_HP = 3,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 120,
-        .friendship = FRIENDSHIP_LEGENDARY,
-        .growthRate = GROWTH_SLOW,
-        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
-        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_AURA_BREAK, ABILITY_NONE},
-       // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        // #endif
-        .bodyColor = BODY_COLOR_BLACK,
-        .noFlip = FALSE,
-        .floating = FALSE,
-        .levelUpLearnset = sZygardeLevelUpLearnset,
-        .tmhmLearnset = sZygardeTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
-
-    [SPECIES_ZYGARDE_10_POWER_CONSTRUCT] =
-    { 
-           //hp, atk, def, spd, spatk, spdef
-         STATS(
-        54,
-        100,
-        71,
-        115,
-        61,
-        85
-        ),
-        MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
-        .catchRate = 3,
-        .expYield = 219,
-        //.evYield_HP = 3,
-        .genderRatio = MON_GENDERLESS,
-        .eggCycles = 120,
-        .friendship = FRIENDSHIP_LEGENDARY,
-        .growthRate = GROWTH_SLOW,
-        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
-        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_POWER_CONSTRUCT, ABILITY_NONE},
-       // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        // #endif
-        .bodyColor = BODY_COLOR_BLACK,
-        .noFlip = FALSE,
-        .floating = FALSE,
-        .levelUpLearnset = sZygardeLevelUpLearnset,
-        .tmhmLearnset = sZygardeTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
-
-    [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] =
+    [SPECIES_ZYGARDE_50] =
     { 
            //hp, atk, def, spd, spatk, spdef
          STATS(
@@ -43901,9 +43834,9 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_POWER_CONSTRUCT, ABILITY_NONE},
+            .abilities = {ABILITY_AURA_BREAK, ABILITY_NONE},
        // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_POWER_CONSTRUCT, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,

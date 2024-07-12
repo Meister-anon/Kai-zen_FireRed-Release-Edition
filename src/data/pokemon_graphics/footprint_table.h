@@ -722,7 +722,7 @@
     [SPECIES_NOIVERN] = gMonFootprint_None, //gMonFootprint_Noivern,
     [SPECIES_XERNEAS] = gMonFootprint_None, //gMonFootprint_Xerneas,
     [SPECIES_YVELTAL] = gMonFootprint_None, //gMonFootprint_Yveltal,
-    [SPECIES_ZYGARDE] = gMonFootprint_None, //gMonFootprint_Zygarde,
+    [SPECIES_ZYGARDE_10] = gMonFootprint_None, //gMonFootprint_Zygarde,
     [SPECIES_DIANCIE] = gMonFootprint_None, //gMonFootprint_None,
     [SPECIES_HOOPA] = gMonFootprint_None, //gMonFootprint_None,
     [SPECIES_VOLCANION] = gMonFootprint_None, //gMonFootprint_Volcanion,

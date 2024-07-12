@@ -15974,20 +15974,20 @@ const u32 gMonShinyPalette_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/q
 
 //#if P_FAMILY_ZYGARDE //50 percent form, redo this guess like minior
 //instead fo need multi species make do different things based on ability //vsonic
-    const u32 gMonFrontPic_Zygarde[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/front.4bpp.lz");
-    const u32 gMonPalette_Zygarde[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/normal.gbapal.lz");
-    const u32 gMonBackPic_Zygarde[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/back.4bpp.lz");
-    const u32 gMonShinyPalette_Zygarde[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/shiny.gbapal.lz");
-    const u8 gMonIcon_Zygarde[] = INCBIN_U8("graphics/pokemon/Gen_6/zygarde/icon.4bpp");
+    const u32 gMonFrontPic_Zygarde50[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/front.4bpp.lz");
+    const u32 gMonPalette_Zygarde50[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/normal.gbapal.lz");
+    const u32 gMonBackPic_Zygarde50[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/back.4bpp.lz");
+    const u32 gMonShinyPalette_Zygarde50[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/shiny.gbapal.lz");
+    const u8 gMonIcon_Zygarde50[] = INCBIN_U8("graphics/pokemon/Gen_6/zygarde/icon.4bpp");
 /*#if P_FOOTPRINTS
-    const u8 gMonFootprint_Zygarde[] = INCBIN_U8("graphics/pokemon/Gen_6/zygarde/footprint.1bpp");
+    const u8 gMonFootprint_Zygarde50[] = INCBIN_U8("graphics/pokemon/Gen_6/zygarde/footprint.1bpp");
 #endif //P_FOOTPRINTS  */
 
 #if OW_POKEMON_OBJECT_EVENTS
-    //const u32 gObjectEventPic_Zygarde[] = INCBIN_COMP("graphics/pokemon/Gen_6/zygarde/overworld.4bpp");
+    //const u32 gObjectEventPic_Zygarde50[] = INCBIN_COMP("graphics/pokemon/Gen_6/zygarde/overworld.4bpp");
 /*#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
-    const u32 gOverworldPalette_Zygarde[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/overworld_normal.gbapal.lz");
-    const u32 gShinyOverworldPalette_Zygarde[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/overworld_shiny.gbapal.lz");
+    const u32 gOverworldPalette_Zygarde50[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_Zygarde50[] = INCBIN_U32("graphics/pokemon/Gen_6/zygarde/overworld_shiny.gbapal.lz");
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES */
 #endif //OW_POKEMON_OBJECT_EVENTS
 

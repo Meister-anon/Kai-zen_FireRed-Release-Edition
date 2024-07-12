@@ -723,7 +723,7 @@ const u16 *const gTMHMLearnsets[NUM_SPECIES] =
     [SPECIES_NOIVERN] = sNoivernTMHMLearnset,
     [SPECIES_XERNEAS] = sXerneasTMHMLearnset,
     [SPECIES_YVELTAL] = sYveltalTMHMLearnset,
-    [SPECIES_ZYGARDE] = sZygardeTMHMLearnset,
+    [SPECIES_ZYGARDE_10] = sZygardeTMHMLearnset,
     [SPECIES_DIANCIE] = sDiancieTMHMLearnset,
     [SPECIES_HOOPA] = sHoopaTMHMLearnset,
     [SPECIES_VOLCANION] = sVolcanionTMHMLearnset,
@@ -1216,9 +1216,7 @@ const u16 *const gTMHMLearnsets[NUM_SPECIES] =
     // Xerneas
     [SPECIES_XERNEAS_ACTIVE] = sXerneasTMHMLearnset,
     // Zygarde
-    [SPECIES_ZYGARDE_10] = sZygardeTMHMLearnset,
-    [SPECIES_ZYGARDE_10_POWER_CONSTRUCT] = sZygardeTMHMLearnset,
-    [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] = sZygardeTMHMLearnset,
+    [SPECIES_ZYGARDE_50] = sZygardeTMHMLearnset,
     [SPECIES_ZYGARDE_COMPLETE] = sZygardeTMHMLearnset,
     // Hoopa
     [SPECIES_HOOPA_UNBOUND] = sHoopaUnboundTMHMLearnset,

@@ -7042,7 +7042,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 case ABILITY_POWER_CONSTRUCT:
                 {
                     side = GET_BATTLER_SIDE(battler);
-                    if ((gBattleMons[battler].species == SPECIES_ZYGARDE || gBattleMons[battler].species == SPECIES_ZYGARDE_10)
+                    if ((gBattleMons[battler].species == SPECIES_ZYGARDE_10 || gBattleMons[battler].species == SPECIES_ZYGARDE_50)
                         && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2)
                     {
                         gBattleStruct->changedSpecies[side][gBattlerPartyIndexes[battler]] = gBattleMons[battler].species;

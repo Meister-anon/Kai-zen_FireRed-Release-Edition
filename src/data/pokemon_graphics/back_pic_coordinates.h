@@ -3595,10 +3595,10 @@ const struct MonCoords gMonBackPicCoords[] =
         .size = 0x86,
         .y_offset = 10,
     },
-    [SPECIES_ZYGARDE] =
+    [SPECIES_ZYGARDE_10] =
     {
-        .size = 0x88,
-        .y_offset = 4,
+        .size = 0x77,
+        .y_offset = 9,
     },
     [SPECIES_DIANCIE] =
     {
@@ -5787,17 +5787,7 @@ const struct MonCoords gMonBackPicCoords[] =
         .y_offset = 0,
     },
     // Zygarde
-    [SPECIES_ZYGARDE_10] =
-    {
-        .size = 0x77,
-        .y_offset = 9,
-    },
-    [SPECIES_ZYGARDE_10_POWER_CONSTRUCT] =
-    {
-        .size = 0x77,
-        .y_offset = 9,
-    },
-    [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] =
+    [SPECIES_ZYGARDE_50] =
     {
         .size = 0x88,
         .y_offset = 4,
