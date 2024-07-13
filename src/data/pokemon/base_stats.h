@@ -116,6 +116,10 @@ if it would otherwise be 0/NONE except in the case of ability.
 * 
 [SPECIES_BULBASAUR] =
     {
+        .speciesName = _("Bulbasaur"),
+
+        .speciesName = _("Bulbasaur"),
+
         .baseHP = 45,
         .baseAttack = 49,
         .baseDefense = 49,
@@ -269,7 +273,9 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_NONE] = {.evolutions = EVOLUTION({}),},//need setup like this otehrwise broken starter select
 
     [SPECIES_BULBASAUR] =
-    { 
+    {
+        .speciesName = _("Bulbasaur"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 49, 49, 45, 65, 65),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -293,7 +299,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_IVYSAUR] =
-    { 
+    {
+        .speciesName = _("Ivysaur"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(72, 62, 63, 60, 80, 80),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -318,7 +326,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VENUSAUR] =
-    { 
+    {
+        .speciesName = _("Venusaur"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(93, 82, 83, 80, 100, 100),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -343,7 +353,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHARMANDER] =
-    { 
+    {
+        .speciesName = _("Charmander"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(39, 52, 43, 65, 60, 50),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -369,7 +381,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHARMELEON] =
-    { 
+    {
+        .speciesName = _("Charmeleon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(58, 64, 58, 80, 80, 65),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -396,7 +410,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHARIZARD] =
-    { 
+    {
+        .speciesName = _("Charizard"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 84, 78, 100, 109, 85),
         MON_TYPES(TYPE_FIRE, TYPE_FLYING),
@@ -422,7 +438,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SQUIRTLE] =
-    { 
+    {
+        .speciesName = _("Squirtle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(44, 48, 65, 43, 50, 64),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -446,7 +464,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WARTORTLE] =
-    { 
+    {
+        .speciesName = _("Wartortle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(59, 63, 80, 58, 65, 80),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -471,7 +491,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BLASTOISE] =
-    { 
+    {
+        .speciesName = _("Blastoise"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(79, 83, 100, 78, 85, 105),
         MON_TYPES(TYPE_WATER, TYPE_STEEL),
@@ -495,7 +517,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CATERPIE] =
-    { 
+    {
+        .speciesName = _("Caterpie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 35, 45, 20, 20),
         MON_TYPES(TYPE_BUG),
@@ -519,7 +543,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_METAPOD] =
-    { 
+    {
+        .speciesName = _("Metapod"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 20, 65, 30, 25, 25),
         MON_TYPES(TYPE_BUG, TYPE_BUG), //potentially make normal bug? would be stronger but then who would be normal but, keep aneye on this prob use type
@@ -544,7 +570,9 @@ const struct BaseStats gBaseStats[] =
   //ok augment hp for late game effectiveness hopefully balanced by you encountering them at such low level bc the hp formula isn't fully effective
 
     [SPECIES_BUTTERFREE] =
-    { 
+    {
+        .speciesName = _("Butterfree"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 50, 90, 95, 80),     
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
@@ -572,7 +600,9 @@ const struct BaseStats gBaseStats[] =
     }, //need test plague wings
 
     [SPECIES_WEEDLE] =
-    { 
+    {
+        .speciesName = _("Weedle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 35, 30, 50, 20, 40),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -596,7 +626,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KAKUNA] =
-    { 
+    {
+        .speciesName = _("Kakuna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 25, 50, 35, 25, 65),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -619,7 +651,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BEEDRILL] =
-    { 
+    {
+        .speciesName = _("Beedrill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 40, 95, 45, 98),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -647,7 +681,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIDGEY] =
-    { 
+    {
+        .speciesName = _("Pidgey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 40, 67, 45, 35),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -672,7 +708,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIDGEOTTO] =
-    { 
+    {
+        .speciesName = _("Pidgeotto"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(63, 70, 55, 91, 70, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -697,7 +735,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIDGEOT] =
-    { 
+    {
+        .speciesName = _("Pidgeot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 95, 85, 121, 85, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -722,7 +762,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RATTATA] =
-    { 
+    {
+        .speciesName = _("Rattata"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 56, 35, 72, 25, 35),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -746,7 +788,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RATICATE] =
-    { 
+    {
+        .speciesName = _("Raticate"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 87, 60, 109, 50, 70),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -770,7 +814,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SPEAROW] =
-    { 
+    {
+        .speciesName = _("Spearow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 60, 30, 70, 31, 31),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -797,7 +843,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FEAROW] =
-    { 
+    {
+        .speciesName = _("Fearow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 100, 65, 100, 61, 61),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -824,7 +872,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EKANS] =
-    { 
+    {
+        .speciesName = _("Ekans"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 60, 44, 70, 40, 64),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -850,7 +900,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARBOK] =
-    { 
+    {
+        .speciesName = _("Arbok"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 96, 69, 87, 80, 89),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -876,7 +928,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 75, 40, 95, 85, 50),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -900,10 +954,12 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0, SPECIES_RAICHU},
                                 {EVO_ITEM_FORM, ITEM_THUNDER_STONE, F_ALOLAN_FORM, SPECIES_RAICHU_ALOLAN}), //Should hopefully blank these for now without issue
         //.flags = F_HAS_COSMETIC_FORMS, exclude as not planning to use/add pika caps, but if you did would use this flag, and exclude cosplay forms
-    }, //figure hwo to do alolan evo/ evo method use 2nd param check flag, 
+    }, //figure hwo to do evo/ evo method use 2nd param check flag, 
 
     [SPECIES_RAICHU] =
-    { 
+    {
+        .speciesName = _("Raichu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 100, 75, 70, 95, 90),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -927,7 +983,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SANDSHREW] =
-    { 
+    {
+        .speciesName = _("Sandshrew"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 75, 85, 65, 20, 30),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -956,7 +1014,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SANDSLASH] =
-    { 
+    {
+        .speciesName = _("Sandslash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 100, 110, 75, 45, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -985,7 +1045,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIDORAN_F] =
-    { 
+    {
+        .speciesName = _("Nidoran♀"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 47, 52, 41, 40, 50),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -1011,7 +1073,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIDORINA] =
-    { 
+    {
+        .speciesName = _("Nidorina"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 62, 67, 56, 55, 75),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -1037,7 +1101,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIDOQUEEN] =
-    { 
+    {
+        .speciesName = _("Nidoqueen"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 92, 87, 76, 90, 105),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -1062,7 +1128,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIDORAN_M] =
-    { 
+    {
+        .speciesName = _("Nidoran♂"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(46, 57, 40, 50, 40, 50),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -1088,7 +1156,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIDORINO] =
-    { 
+    {
+        .speciesName = _("Nidorino"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 77, 57, 65, 55, 65),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -1114,7 +1184,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIDOKING] =
-    { 
+    {
+        .speciesName = _("Nidoking"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(81, 102, 77, 85, 91, 95),
         MON_TYPES(TYPE_POISON, TYPE_DARK), //initially forgot logic, but traded electric immunity for psychic immunity, while poison covers the bug and fighting weakness, 
@@ -1140,7 +1212,9 @@ const struct BaseStats gBaseStats[] =
     //they attempted to, it just didn't work, yeah find work around, similar idea to anger point
 
     [SPECIES_CLEFAIRY] =
-    { 
+    {
+        .speciesName = _("Clefairy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 50, 48, 35, 60, 75),
         MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
@@ -1166,7 +1240,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLEFABLE] =
-    { 
+    {
+        .speciesName = _("Clefable"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 70, 73, 60, 100, 95),
         MON_TYPES(TYPE_FAIRY, TYPE_FAIRY),
@@ -1192,7 +1268,9 @@ const struct BaseStats gBaseStats[] =
     }, //need test this and consider if normal type is worth give my changes
 
     [SPECIES_VULPIX] =
-    { 
+    {
+        .speciesName = _("Vulpix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(38, 41, 40, 65, 50, 65),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -1217,7 +1295,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NINETALES] =
-    { 
+    {
+        .speciesName = _("Ninetales"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 76, 75, 100, 81, 100),
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
@@ -1243,7 +1323,9 @@ const struct BaseStats gBaseStats[] =
     }, //give shadow ball , forgot I did this, this is horrifying
 
     [SPECIES_JIGGLYPUFF] =
-    { 
+    {
+        .speciesName = _("Jigglypuff"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 45, 37, 20, 45, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -1269,7 +1351,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WIGGLYTUFF] =
-    { 
+    {
+        .speciesName = _("Wigglytuff"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(140, 70, 55, 45, 85, 68),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -1295,7 +1379,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZUBAT] =
-    { 
+    {
+        .speciesName = _("Zubat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 35, 55, 30, 53),
         MON_TYPES(TYPE_POISON, TYPE_FLYING),
@@ -1321,7 +1407,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOLBAT] =
-    { 
+    {
+        .speciesName = _("Golbat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 80, 110, 80, 65, 85),
         MON_TYPES(TYPE_POISON, TYPE_FLYING),
@@ -1347,7 +1435,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ODDISH] =
-    { 
+    {
+        .speciesName = _("Oddish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 55, 30, 75, 75),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -1374,7 +1464,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLOOM] =
-    { 
+    {
+        .speciesName = _("Gloom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 65, 70, 40, 85, 85),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -1402,7 +1494,9 @@ const struct BaseStats gBaseStats[] =
     }, //potentially lower sp atk for addition of stench/additional bulk given?
 
     [SPECIES_VILEPLUME] =
-    { 
+    {
+        .speciesName = _("Vileplume"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 80, 85, 50, 110, 101),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -1429,7 +1523,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PARAS] =
-    { 
+    {
+        .speciesName = _("Paras"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 78, 67, 63, 45, 75),
         MON_TYPES(TYPE_BUG, TYPE_GRASS),
@@ -1459,7 +1555,9 @@ const struct BaseStats gBaseStats[] =
     //moveset special case, mostly bug, then physical ghost moves, grass moves only special
     // as mushroom attacks indirectly
     [SPECIES_PARASECT] =
-    { 
+    {
+        .speciesName = _("Parasect"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(88, 107, 115, 30, 60, 88),
         MON_TYPES(TYPE_GRASS, TYPE_GHOST),  //think prefer grass for mushroom, as bug is dead the mushroom is the only thing left to be affected TYPE_GHOST,    //changed back,its the body of a bug its abilities can represent the mushroom effect, plus type strength is about same
@@ -1496,7 +1594,9 @@ const struct BaseStats gBaseStats[] =
     //perhaps aftermath?
 
     [SPECIES_VENONAT] =
-    { 
+    {
+        .speciesName = _("Venonat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(67, 55, 50, 60, 45, 75),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -1522,7 +1622,9 @@ const struct BaseStats gBaseStats[] =
     }, //since it has tinted lens I kinda want this to be normal type..but its literlaly venom nat so poison bug
 
     [SPECIES_VENOMOTH] =
-    { 
+    {
+        .speciesName = _("Venomoth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 65, 60, 100, 100, 90),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -1552,7 +1654,9 @@ const struct BaseStats gBaseStats[] =
     },  //tis thing is strong AF
 
     [SPECIES_DIGLETT] =
-    { 
+    {
+        .speciesName = _("Diglett"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(10, 55, 25, 95, 35, 45),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
@@ -1579,7 +1683,9 @@ const struct BaseStats gBaseStats[] =
     },//making normal ground for more dmg, think this was before I changed joat, most moves are groud so w revert back
 
     [SPECIES_DUGTRIO] =
-    { 
+    {
+        .speciesName = _("Dugtrio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 105, 50, 120, 50, 70),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
@@ -1606,7 +1712,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEOWTH] =
-    { 
+    {
+        .speciesName = _("Meowth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 35, 97, 45, 40),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -1632,7 +1740,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PERSIAN] =
-    { 
+    {
+        .speciesName = _("Persian"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 77, 60, 115, 77, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -1658,7 +1768,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PSYDUCK] =
-    { 
+    {
+        .speciesName = _("Psyduck"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 56, 58, 55, 85, 65),
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
@@ -1683,7 +1795,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOLDUCK] =
-    { 
+    {
+        .speciesName = _("Golduck"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 95, 78, 85, 95, 87),
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
@@ -1707,7 +1821,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MANKEY] =
-    { 
+    {
+        .speciesName = _("Mankey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(48, 80, 50, 72, 35, 45),
         MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
@@ -1732,7 +1848,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PRIMEAPE] =
-    { 
+    {
+        .speciesName = _("Primeape"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 105, 65, 95, 60, 70),
         MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
@@ -1757,7 +1875,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROWLITHE] =
-    { 
+    {
+        .speciesName = _("Growlithe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 70, 45, 70, 70, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
@@ -1783,7 +1903,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCANINE] =
-    { 
+    {
+        .speciesName = _("Arcanine"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 110, 80, 105, 100, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
@@ -1809,7 +1931,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POLIWAG] =
-    { 
+    {
+        .speciesName = _("Poliwag"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 50, 40, 90, 40, 40),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -1834,7 +1958,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POLIWHIRL] =
-    { 
+    {
+        .speciesName = _("Poliwhirl"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 75, 90, 50, 50),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -1860,7 +1986,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POLIWRATH] =
-    { 
+    {
+        .speciesName = _("Poliwrath"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 105, 105, 70, 70, 90),
         MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
@@ -1885,7 +2013,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ABRA] =
-    { 
+    {
+        .speciesName = _("Abra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 20, 25, 90, 105, 55),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -1913,7 +2043,9 @@ const struct BaseStats gBaseStats[] =
     //thought hp was too high, but it doesn't change that much when it evolves, so I guess its fine?
 
     [SPECIES_KADABRA] =
-    { 
+    {
+        .speciesName = _("Kadabra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 35, 30, 105, 120, 70),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -1940,7 +2072,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALAKAZAM] =
-    { 
+    {
+        .speciesName = _("Alakazam"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 50, 45, 120, 135, 95),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -1967,7 +2101,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MACHOP] =
-    { 
+    {
+        .speciesName = _("Machop"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 80, 50, 35, 35, 35),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
@@ -1993,7 +2129,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MACHOKE] =
-    { 
+    {
+        .speciesName = _("Machoke"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 70, 45, 50, 60),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
@@ -2019,7 +2157,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MACHAMP] =
-    { 
+    {
+        .speciesName = _("Machamp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 130, 80, 60, 65, 85),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
@@ -2048,7 +2188,9 @@ const struct BaseStats gBaseStats[] =
     //for dynamic punch and since I've reworked that, the strat is no longer viable
 
     [SPECIES_BELLSPROUT] =
-    { 
+    {
+        .speciesName = _("Bellsprout"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 36, 89, 70, 56),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -2076,7 +2218,9 @@ const struct BaseStats gBaseStats[] =
     //can lower others as needed.
 
     [SPECIES_WEEPINBELL] =
-    { 
+    {
+        .speciesName = _("Weepinbell"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 90, 50, 55, 85, 65),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -2102,7 +2246,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VICTREEBEL] =
-    { 
+    {
+        .speciesName = _("Victreebel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(111, 105, 75, 57, 100, 87),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -2128,7 +2274,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TENTACOOL] =
-    { 
+    {
+        .speciesName = _("Tentacool"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 40, 75, 70, 50, 100),
         MON_TYPES(TYPE_WATER, TYPE_POISON),
@@ -2153,7 +2301,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TENTACRUEL] =
-    { 
+    {
+        .speciesName = _("Tentacruel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 70, 95, 100, 80, 130),
         MON_TYPES(TYPE_WATER, TYPE_POISON),
@@ -2178,7 +2328,9 @@ const struct BaseStats gBaseStats[] =
     },
    
     [SPECIES_GEODUDE] =
-    { 
+    {
+        .speciesName = _("Geodude"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 80, 100, 20, 30, 45),
         MON_TYPES(TYPE_ROCK, TYPE_GROUND),
@@ -2203,7 +2355,9 @@ const struct BaseStats gBaseStats[] =
     },//give geodude line endure
 
     [SPECIES_GRAVELER] =
-    { 
+    {
+        .speciesName = _("Graveler"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 115, 35, 45, 65),
         MON_TYPES(TYPE_ROCK, TYPE_GROUND),
@@ -2228,7 +2382,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOLEM] =
-    { 
+    {
+        .speciesName = _("Golem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 120, 130, 45, 55, 75),
         MON_TYPES(TYPE_ROCK, TYPE_GROUND),
@@ -2253,7 +2409,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PONYTA] =
-    { 
+    {
+        .speciesName = _("Ponyta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 85, 55, 90, 65, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
@@ -2277,7 +2435,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RAPIDASH] =
-    { 
+    {
+        .speciesName = _("Rapidash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 100, 70, 105, 80, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
@@ -2301,7 +2461,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLOWPOKE] =
-    { 
+    {
+        .speciesName = _("Slowpoke"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 65, 65, 15, 40, 40),
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
@@ -2332,7 +2494,9 @@ const struct BaseStats gBaseStats[] =
     }, //buff tm learnset and mvoe pool needs it badly  learning payvback,gyro ball slow moves, and more water moves early would be good
 
     [SPECIES_SLOWBRO] =
-    { 
+    {
+        .speciesName = _("Slowbro"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 75, 110, 30, 100, 80),
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
@@ -2359,7 +2523,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGNEMITE] =
-    { 
+    {
+        .speciesName = _("Magnemite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(25, 35, 70, 45, 95, 55),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
@@ -2386,7 +2552,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGNETON] =
-    { 
+    {
+        .speciesName = _("Magneton"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 60, 95, 70, 120, 70),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
@@ -2414,7 +2582,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FARFETCHD] =
-    { 
+    {
+        .speciesName = _("Farfetchd"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 105, 60, 60, 50, 62),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -2441,7 +2611,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DODUO] =
-    { 
+    {
+        .speciesName = _("Doduo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 85, 45, 75, 35, 35),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -2474,7 +2646,9 @@ const struct BaseStats gBaseStats[] =
 
 
     [SPECIES_DODRIO] =
-    { 
+    {
+        .speciesName = _("Dodrio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 70, 110, 60, 60),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),   //gave back flying type, a bit bigger of a change thean I want to make
@@ -2501,7 +2675,9 @@ const struct BaseStats gBaseStats[] =
     },//no idea why I gave aerialte puttgni tangled feet back after buffing
 
     [SPECIES_SEEL] =
-    { 
+    {
+        .speciesName = _("Seel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 45, 55, 45, 45, 70),
         MON_TYPES(TYPE_WATER, TYPE_ICE),
@@ -2526,7 +2702,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEWGONG] =
-    { 
+    {
+        .speciesName = _("Dewgong"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 70, 80, 76, 75, 95),
         MON_TYPES(TYPE_WATER, TYPE_ICE),
@@ -2551,7 +2729,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRIMER] =
-    { 
+    {
+        .speciesName = _("Grimer"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 50, 25, 40, 65),
         MON_TYPES(TYPE_POISON, TYPE_POISON),
@@ -2580,7 +2760,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUK] =
-    { 
+    {
+        .speciesName = _("Muk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 105, 75, 50, 65, 100),
         MON_TYPES(TYPE_POISON, TYPE_POISON),
@@ -2610,7 +2792,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHELLDER] =
-    { 
+    {
+        .speciesName = _("Shellder"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 65, 100, 54, 45, 25),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -2637,7 +2821,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLOYSTER] =
-    { 
+    {
+        .speciesName = _("Cloyster"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 95, 180, 65, 85, 50),
         MON_TYPES(TYPE_WATER, TYPE_ICE),  //most moves were ice rather than water related plus its a clam which makes pearls so kinda fitting TYPE_ICE, //ice rock was cool idea but doesn't make any sense for this to be a sandstorm mon
@@ -2664,7 +2850,9 @@ const struct BaseStats gBaseStats[] =
     },//need add rock moves
 
     [SPECIES_GASTLY] =
-    { 
+    {
+        .speciesName = _("Gastly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 55, 30, 80, 100, 45),
         MON_TYPES(TYPE_GHOST, TYPE_POISON),
@@ -2688,7 +2876,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HAUNTER] =
-    { 
+    {
+        .speciesName = _("Haunter"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 70, 45, 95, 115, 75),
         MON_TYPES(TYPE_GHOST, TYPE_POISON),
@@ -2712,7 +2902,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENGAR] =
-    { 
+    {
+        .speciesName = _("Gengar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 85, 60, 110, 130, 80),
         MON_TYPES(TYPE_GHOST, TYPE_POISON),
@@ -2738,7 +2930,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ONIX] =
-    { 
+    {
+        .speciesName = _("Onix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 62, 160, 113, 30, 55),//still not up to snuff, but can't do much more to its stats without breaking early game, think can only boost speed
         MON_TYPES(TYPE_ROCK, TYPE_GROUND),     //will be fastest rock type TYPE_GROUND),
@@ -2764,7 +2958,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DROWZEE] =
-    { 
+    {
+        .speciesName = _("Drowzee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 58, 60, 42, 53, 90),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -2789,7 +2985,9 @@ const struct BaseStats gBaseStats[] =
     }, 
 
     [SPECIES_HYPNO] =
-    { 
+    {
+        .speciesName = _("Hypno"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 73, 70, 67, 73, 115),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -2814,7 +3012,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KRABBY] =
-    { 
+    {
+        .speciesName = _("Krabby"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 105, 90, 55, 39, 25),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -2840,7 +3040,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KINGLER] =
-    { 
+    {
+        .speciesName = _("Kingler"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 130, 115, 75, 50, 50),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -2866,7 +3068,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VOLTORB] =
-    { 
+    {
+        .speciesName = _("Voltorb"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 30, 55, 105, 65, 75),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
@@ -2892,7 +3096,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ELECTRODE] =
-    { 
+    {
+        .speciesName = _("Electrode"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 75, 150, 95, 100),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
@@ -2918,7 +3124,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EXEGGCUTE] =
-    { 
+    {
+        .speciesName = _("Exeggcute"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 55, 101, 40, 60, 45),
         MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),
@@ -2949,7 +3157,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EXEGGUTOR] =
-    { 
+    {
+        .speciesName = _("Exeggutor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 95, 85, 55, 125, 75),
         MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),
@@ -2975,7 +3185,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CUBONE] =
-    { 
+    {
+        .speciesName = _("Cubone"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 50, 95, 45, 40, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -3002,7 +3214,9 @@ const struct BaseStats gBaseStats[] =
     },//fire stone temp measure, figure out how to do alt
 
     [SPECIES_MAROWAK] =
-    { 
+    {
+        .speciesName = _("Marowak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 88, 118, 65, 50, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -3024,10 +3238,12 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMarowakLevelUpLearnset,
         .tmhmLearnset = sMarowakTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //cant give muslce magic as that was meant to be main of mega marowak
+    }, //cant give muslce magic as that was meant to be main of marowak
 
     [SPECIES_HITMONLEE] =
-    { 
+    {
+        .speciesName = _("Hitmonlee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 121, 60, 87, 35, 110),
         MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
@@ -3052,7 +3268,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HITMONCHAN] =
-    { 
+    {
+        .speciesName = _("Hitmonchan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 105, 79, 76, 35, 123),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
@@ -3069,7 +3287,7 @@ const struct BaseStats gBaseStats[] =
             .abilities = {ABILITY_KEEN_EYE, ABILITY_IRON_FIST},
         .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_WEIGHTED_GI},
         .bodyColor = BODY_COLOR_BROWN,//dropped muscle magic for her, don't want spread to much
-        .noFlip = FALSE,//it was meant for mega marowak so should feel special
+        .noFlip = FALSE,//it was meant for marowak so should feel special
         .floating = FALSE,
         .levelUpLearnset = sHitmonchanLevelUpLearnset,
         .tmhmLearnset = sHitmonchanTMHMLearnset,
@@ -3079,7 +3297,9 @@ const struct BaseStats gBaseStats[] =
     //best I can do is make it for hitmonlee and hitmontop as they have claws and a tail in case of hitmontop,
 
     [SPECIES_LICKITUNG] =
-    { 
+    {
+        .speciesName = _("Lickitung"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(112, 55, 75, 30, 60, 96),
         MON_TYPES(TYPE_NORMAL, TYPE_POISON),
@@ -3106,7 +3326,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KOFFING] =
-    { 
+    {
+        .speciesName = _("Koffing"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 65, 75, 35, 60, 95),
         MON_TYPES(TYPE_POISON, TYPE_POISON),
@@ -3133,7 +3355,9 @@ const struct BaseStats gBaseStats[] =
     },//vsonic need figre how do these alt forms with identical evo values like pikachu
 
     [SPECIES_WEEZING] =
-    { 
+    {
+        .speciesName = _("Weezing"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 90, 88, 60, 85, 120),
         MON_TYPES(TYPE_POISON, TYPE_POISON),
@@ -3159,7 +3383,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RHYHORN] =
-    { 
+    {
+        .speciesName = _("Rhyhorn"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 85, 95, 25, 30, 45),
         MON_TYPES(TYPE_GROUND, TYPE_ROCK),
@@ -3186,7 +3412,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RHYDON] =
-    { 
+    {
+        .speciesName = _("Rhydon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 130, 120, 40, 45, 65),
         MON_TYPES(TYPE_GROUND, TYPE_ROCK),
@@ -3213,7 +3441,9 @@ const struct BaseStats gBaseStats[] =
     //removed reckless as only recoil moves were takedown and double edge
 
     [SPECIES_CHANSEY] =
-    { 
+    {
+        .speciesName = _("Chansey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(250, 15, 10, 50, 45, 105),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -3241,7 +3471,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TANGELA] =
-    { 
+    {
+        .speciesName = _("Tangela"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 54, 115, 60, 100, 51),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -3266,7 +3498,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KANGASKHAN] =
-    { 
+    {
+        .speciesName = _("Kangaskhan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 95, 80, 90, 40, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -3292,7 +3526,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HORSEA] =
-    { 
+    {
+        .speciesName = _("Horsea"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 40, 70, 60, 70, 25),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -3318,7 +3554,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SEADRA] =
-    { 
+    {
+        .speciesName = _("Seadra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 65, 95, 85, 95, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -3345,7 +3583,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOLDEEN] =
-    { 
+    {
+        .speciesName = _("Goldeen"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 67, 60, 63, 55, 50),
         MON_TYPES(TYPE_WATER, TYPE_NORMAL),
@@ -3371,7 +3611,9 @@ const struct BaseStats gBaseStats[] =
     },//thinking give unaware, keeping stall on pre evo for eviolite strats taht's about it
 
     [SPECIES_SEAKING] =
-    { 
+    {
+        .speciesName = _("Seaking"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 92, 65, 88, 65, 80),
         MON_TYPES(TYPE_WATER, TYPE_NORMAL),
@@ -3397,7 +3639,9 @@ const struct BaseStats gBaseStats[] =
     },//replaced abilities since they suck, and goldeen usually doesns't learn physical water moves, VSONIC
 
     [SPECIES_STARYU] =
-    { 
+    {
+        .speciesName = _("Staryu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 45, 55, 85, 70, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -3425,7 +3669,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STARMIE] =
-    { 
+    {
+        .speciesName = _("Starmie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 75, 85, 115, 100, 85),
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
@@ -3453,7 +3699,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MR_MIME] =
-    { 
+    {
+        .speciesName = _("Mr Mime"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(56, 45, 75, 90, 100, 120),
         MON_TYPES(TYPE_PSYCHIC, TYPE_NORMAL),
@@ -3478,7 +3726,9 @@ const struct BaseStats gBaseStats[] =
     }, //doesn't make sense tobe fairy, just makes weaker, doesn't even get any fairy moves usually
 
     [SPECIES_SCYTHER] =
-    { 
+    {
+        .speciesName = _("Scyther"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 80, 105, 55, 80),
         MON_TYPES(TYPE_BUG, TYPE_FLYING),
@@ -3505,7 +3755,9 @@ const struct BaseStats gBaseStats[] =
     },//give dual wingbeat / will bring in augurite have as graveler drop
 
     [SPECIES_JYNX] =
-    { 
+    {
+        .speciesName = _("Jynx"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 50, 45, 95, 115, 95),
         MON_TYPES(TYPE_ICE, TYPE_PSYCHIC),
@@ -3530,7 +3782,9 @@ const struct BaseStats gBaseStats[] =
     }, //need rebalance stats since ice is so much better defensively, oh nvm it was fine
 
     [SPECIES_ELECTABUZZ] =
-    { 
+    {
+        .speciesName = _("Electabuzz"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 83, 57, 105, 95, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -3557,7 +3811,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGMAR] =
-    { 
+    {
+        .speciesName = _("Magmar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 57, 93, 100, 85),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -3584,7 +3840,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PINSIR] =
-    { 
+    {
+        .speciesName = _("Pinsir"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 125, 100, 85, 55, 70),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -3610,7 +3868,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TAUROS] =
-    { 
+    {
+        .speciesName = _("Tauros"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 110, 95, 110, 40, 70),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -3637,7 +3897,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGIKARP] =
-    { 
+    {
+        .speciesName = _("Magikarp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 160, 125, 45, 155, 95),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -3664,7 +3926,9 @@ const struct BaseStats gBaseStats[] =
     },// [done]kek make troll dex entry[ and increase max lvl for old rod spawn
 
     [SPECIES_GYARADOS] =
-    { 
+    {
+        .speciesName = _("Gyarados"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 125, 79, 81, 60, 100),
         MON_TYPES(TYPE_WATER, TYPE_DRAGON),
@@ -3690,7 +3954,9 @@ const struct BaseStats gBaseStats[] =
     },  //give new version of rage, if doesn't already get rage
 
     [SPECIES_LAPRAS] =
-    { 
+    {
+        .speciesName = _("Lapras"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 85, 80, 60, 85, 95),
         MON_TYPES(TYPE_WATER, TYPE_ICE),
@@ -3718,7 +3984,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DITTO] =
-    { 
+    {
+        .speciesName = _("Ditto"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(48, 99, 99, 130, 99, 99),
         MON_TYPES(TYPE_NORMAL, TYPE_GHOST), //the ghost type was a joke but eh guess I'll give it night shade
@@ -3749,7 +4017,9 @@ const struct BaseStats gBaseStats[] =
     //-fixed
 
     [SPECIES_EEVEE] =
-    { 
+    {
+        .speciesName = _("Eevee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 55, 85, 85, 75),
         MON_TYPES(TYPE_NORMAL),   //change up eevee stats as its evo is more of a form change than a growth imo so stats are average but actually mid game viable
@@ -3787,7 +4057,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VAPOREON] =
-    { 
+    {
+        .speciesName = _("Vaporeon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 65, 60, 65, 110, 95),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -3813,7 +4085,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_JOLTEON] =
-    { 
+    {
+        .speciesName = _("Jolteon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 90, 50, 120, 110, 90),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -3839,7 +4113,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLAREON] =
-    { 
+    {
+        .speciesName = _("Flareon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 130, 60, 65, 95, 110),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -3863,7 +4139,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PORYGON] =
-    { 
+    {
+        .speciesName = _("Porygon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 60, 70, 40, 85, 75),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -3888,7 +4166,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_OMANYTE] =
-    { 
+    {
+        .speciesName = _("Omanyte"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 40, 100, 35, 90, 55),
         MON_TYPES(TYPE_ROCK, TYPE_WATER),
@@ -3914,7 +4194,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_OMASTAR] =
-    { 
+    {
+        .speciesName = _("Omastar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 125, 55, 115, 70),
         MON_TYPES(TYPE_ROCK, TYPE_WATER),
@@ -3940,7 +4222,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KABUTO] =
-    { 
+    {
+        .speciesName = _("Kabuto"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 80, 90, 55, 55, 45),
         MON_TYPES(TYPE_ROCK, TYPE_WATER),
@@ -3966,7 +4250,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KABUTOPS] =
-    { 
+    {
+        .speciesName = _("Kabutops"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 115, 105, 80, 65, 70),
         MON_TYPES(TYPE_ROCK, TYPE_WATER),
@@ -3992,7 +4278,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AERODACTYL] =
-    { 
+    {
+        .speciesName = _("Aerodactyl"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 105, 65, 130, 60, 75),
         MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
@@ -4018,7 +4306,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNORLAX] =
-    { 
+    {
+        .speciesName = _("Snorlax"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(160, 110, 65, 30, 65, 110),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -4047,7 +4337,9 @@ const struct BaseStats gBaseStats[] =
     //make function that checks lastuseditem from opposite side, and one that looks through berries just like neutralizing gas does abilities
 
     [SPECIES_ARTICUNO] =
-    { 
+    {
+        .speciesName = _("Articuno"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 100, 85, 115, 115),
         MON_TYPES(TYPE_ICE, TYPE_FLYING),
@@ -4073,7 +4365,9 @@ const struct BaseStats gBaseStats[] =
     },//think give rest if doesn't have it
 
     [SPECIES_ZAPDOS] =
-    { 
+    {
+        .speciesName = _("Zapdos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 90, 85, 100, 125, 90),
         MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
@@ -4097,7 +4391,9 @@ const struct BaseStats gBaseStats[] =
     },//based on JPRPokeTrainer98 youtube vid replace pressure for most legendaries, keep for mewtwo 
 
     [SPECIES_MOLTRES] =
-    { 
+    {
+        .speciesName = _("Moltres"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 100, 90, 90, 125, 85),
         MON_TYPES(TYPE_FIRE, TYPE_FLYING),
@@ -4123,7 +4419,9 @@ const struct BaseStats gBaseStats[] =
     //hit by fire heals status effects  phoenixification ?  phoenix riser  riser phoenix? lol rising phoenix
 
     [SPECIES_DRATINI] =
-    { 
+    {
+        .speciesName = _("Dratini"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(41, 64, 45, 50, 50, 50),
         MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
@@ -4149,7 +4447,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAGONAIR] =
-    { 
+    {
+        .speciesName = _("Dragonair"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 84, 65, 70, 70, 70),
         MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
@@ -4175,7 +4475,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAGONITE] =
-    { 
+    {
+        .speciesName = _("Dragonite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(91, 134, 95, 80, 100, 100),
         MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
@@ -4202,7 +4504,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEWTWO] =
-    { 
+    {
+        .speciesName = _("Mewtwo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 110, 90, 130, 154, 90),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -4228,7 +4532,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEW] =
-    { 
+    {
+        .speciesName = _("Mew"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 127, 100, 160),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -4253,7 +4559,9 @@ const struct BaseStats gBaseStats[] =
     },//buff to give realm of excellence as mewtwo is more offenseive whille mew was always about avoiding fights/damage
 
     [SPECIES_CHIKORITA] =
-    { 
+    {
+        .speciesName = _("Chikorita"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 49, 65, 45, 49, 75),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -4279,7 +4587,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BAYLEEF] =
-    { 
+    {
+        .speciesName = _("Bayleef"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(87, 57, 80, 60, 63, 95),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -4306,7 +4616,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEGANIUM] =
-    { 
+    {
+        .speciesName = _("Meganium"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 82, 100, 80, 83, 153),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -4333,7 +4645,9 @@ const struct BaseStats gBaseStats[] =
     },//DEX ENTRY says can heal plants so think grassy surge
 
     [SPECIES_CYNDAQUIL] =
-    { 
+    {
+        .speciesName = _("Cyndaquil"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(39, 52, 43, 72, 60, 50),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -4357,7 +4671,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_QUILAVA] =
-    { 
+    {
+        .speciesName = _("Quilava"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 64, 58, 87, 80, 70),
         MON_TYPES(TYPE_FIRE, TYPE_NORMAL), //could make fire ground but w my normal change still think fire normal is better?it has a somewhat varied move pool already
@@ -4383,7 +4699,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYPHLOSION] =
-    { 
+    {
+        .speciesName = _("Typhlosion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 84, 78, 100, 109, 95),
         MON_TYPES(TYPE_FIRE, TYPE_NORMAL),
@@ -4407,7 +4725,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOTODILE] =
-    { 
+    {
+        .speciesName = _("Totodile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 65, 64, 47, 44, 48),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -4433,7 +4753,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CROCONAW] =
-    { 
+    {
+        .speciesName = _("Croconaw"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 80, 80, 66, 59, 63),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -4461,7 +4783,9 @@ const struct BaseStats gBaseStats[] =
     //...oh I didn't these are the original levels oh god, figure something else for these, keep croconaw at 18 though
 
     [SPECIES_FERALIGATOR] =
-    { 
+    {
+        .speciesName = _("Feraligator"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 115, 100, 82, 79, 83),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -4488,7 +4812,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SENTRET] =
-    { 
+    {
+        .speciesName = _("Sentret"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 56, 34, 25, 35, 45),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -4514,7 +4840,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURRET] =
-    { 
+    {
+        .speciesName = _("Furret"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 86, 64, 100, 45, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -4540,7 +4868,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HOOTHOOT] =
-    { 
+    {
+        .speciesName = _("Hoothoot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 30, 50, 66, 56),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -4566,7 +4896,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NOCTOWL] =
-    { 
+    {
+        .speciesName = _("Noctowl"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 50, 50, 70, 120, 96),
         MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
@@ -4592,7 +4924,9 @@ const struct BaseStats gBaseStats[] =
     },//change the type to match grand colloseum [done]
 
     [SPECIES_LEDYBA] =
-    { 
+    {
+        .speciesName = _("Ledyba"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 50, 65, 20, 100),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL), //ok was thinking fighting but will keep this, use normal type joat  to make it super versatile
@@ -4618,7 +4952,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LEDIAN] =
-    { 
+    {
+        .speciesName = _("Ledian"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 85, 65, 95, 35, 135),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
@@ -4644,7 +4980,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SPINARAK] =
-    { 
+    {
+        .speciesName = _("Spinarak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 60, 40, 65, 40, 60),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -4670,7 +5008,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARIADOS] =
-    { 
+    {
+        .speciesName = _("Ariados"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 90, 70, 88, 60, 88),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -4696,7 +5036,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CROBAT] =
-    { 
+    {
+        .speciesName = _("Crobat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 90, 80, 130, 70, 90),
         MON_TYPES(TYPE_POISON, TYPE_FLYING),
@@ -4722,7 +5064,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHINCHOU] =
-    { 
+    {
+        .speciesName = _("Chinchou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 38, 48, 67, 66, 66),
         MON_TYPES(TYPE_WATER, TYPE_ELECTRIC),
@@ -4747,7 +5091,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LANTURN] =
-    { 
+    {
+        .speciesName = _("Lanturn"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(125, 58, 68, 67, 86, 86),
         MON_TYPES(TYPE_WATER, TYPE_ELECTRIC),
@@ -4772,7 +5118,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PICHU] =
-    { 
+    {
+        .speciesName = _("Pichu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 40, 30, 60, 55, 25),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -4797,7 +5145,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLEFFA] =
-    { 
+    {
+        .speciesName = _("Cleffa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 25, 28, 15, 45, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -4823,7 +5173,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_IGGLYBUFF] =
-    { 
+    {
+        .speciesName = _("Igglybuff"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 30, 25, 15, 40, 25),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -4848,7 +5200,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOGEPI] =
-    { 
+    {
+        .speciesName = _("Togepi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 20, 65, 20, 40, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -4874,7 +5228,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOGETIC] =
-    { 
+    {
+        .speciesName = _("Togetic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 40, 85, 40, 80, 115),
         MON_TYPES(TYPE_FAIRY, TYPE_FLYING),
@@ -4902,7 +5258,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NATU] =
-    { 
+    {
+        .speciesName = _("Natu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 50, 45, 70, 70, 50),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),   //Can't fly
@@ -4932,7 +5290,9 @@ const struct BaseStats gBaseStats[] =
     //but greater overall potential
 
     [SPECIES_XATU] =
-    { 
+    {
+        .speciesName = _("Xatu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 70, 100, 100, 75),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FLYING),
@@ -4959,7 +5319,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAREEP] =
-    { 
+    {
+        .speciesName = _("Mareep"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 40, 95, 35, 65, 86),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -4983,7 +5345,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLAAFFY] =
-    { 
+    {
+        .speciesName = _("Flaaffy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 55, 55, 65, 85, 60),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -5007,7 +5371,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AMPHAROS] =
-    { 
+    {
+        .speciesName = _("Ampharos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 85, 55, 115, 90),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -5031,7 +5397,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BELLOSSOM] =
-    { 
+    {
+        .speciesName = _("Bellossom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 80, 95, 75, 100, 110),
         MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
@@ -5060,7 +5428,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MARILL] =
-    { 
+    {
+        .speciesName = _("Marill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 35, 50, 40, 50, 50),
         MON_TYPES(TYPE_WATER, TYPE_FAIRY),
@@ -5086,7 +5456,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AZUMARILL] =
-    { 
+    {
+        .speciesName = _("Azumarill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 55, 80, 50, 90, 80),
         MON_TYPES(TYPE_WATER, TYPE_FAIRY),
@@ -5112,7 +5484,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SUDOWOODO] =
-    { 
+    {
+        .speciesName = _("Sudowoodo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 110, 115, 30, 30, 75),
         MON_TYPES(TYPE_ROCK, TYPE_GRASS),
@@ -5138,7 +5512,9 @@ const struct BaseStats gBaseStats[] =
     },//make revisions to add grass moves to lvl up and tm learnsets   thinkin ingrain & bullet seed
 
     [SPECIES_POLITOED] =
-    { 
+    {
+        .speciesName = _("Politoed"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 75, 75, 70, 90, 110),
         MON_TYPES(TYPE_WATER, TYPE_FAIRY),
@@ -5163,7 +5539,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HOPPIP] =
-    { 
+    {
+        .speciesName = _("Hoppip"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 45, 40, 50, 55, 65),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING), //keep flying for this, may not be a distance flyer but still good at maneovering itself throug the air
@@ -5188,7 +5566,9 @@ const struct BaseStats gBaseStats[] =
     }, //think give roost
 
     [SPECIES_SKIPLOOM] =
-    { 
+    {
+        .speciesName = _("Skiploom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 85, 84, 70, 70),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING),
@@ -5213,7 +5593,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_JUMPLUFF] =
-    { 
+    {
+        .speciesName = _("Jumpluff"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 55, 70, 128, 105, 95),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING),
@@ -5238,7 +5620,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AIPOM] =
-    { 
+    {
+        .speciesName = _("Aipom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 70, 55, 85, 40, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -5264,7 +5648,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SUNKERN] =
-    { 
+    {
+        .speciesName = _("Sunkern"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 30, 30, 55, 30),
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL),
@@ -5288,10 +5674,12 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_SUN_STONE, 0, SPECIES_SUNFLORA},
                           {EVO_LEVEL_DAY, RELATIVE_EVO(24, AVERAGE_EFFORT), 0, SPECIES_SUNFLORA}), //Should hopefully blank these for now without issue
     }, //what fire moves am I giving this lol (speaking for blaze) oh I gave it ember ok, could give leech seed,think give grass knot
-    //plan move mega drain to higher up, replace w grass knot,
+    //plan move drain to higher up, replace w grass knot,
 
     [SPECIES_SUNFLORA] =
-    { 
+    {
+        .speciesName = _("Sunflora"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 75, 85, 53, 135, 95),
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL), //zenmode yt may keep this normal too?
@@ -5316,7 +5704,9 @@ const struct BaseStats gBaseStats[] =
     },//made fire match grand colloseum changes - give the grass move that burns nettle whip
 
     [SPECIES_YANMA] =
-    { 
+    {
+        .speciesName = _("Yanma"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 45, 95, 75, 45),
         MON_TYPES(TYPE_BUG, TYPE_FLYING),
@@ -5345,7 +5735,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WOOPER] =
-    { 
+    {
+        .speciesName = _("Wooper"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 45, 15, 35, 32),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -5371,7 +5763,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_QUAGSIRE] =
-    { 
+    {
+        .speciesName = _("Quagsire"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 95, 95, 35, 65, 65),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -5397,7 +5791,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ESPEON] =
-    { 
+    {
+        .speciesName = _("Espeon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 60, 110, 130, 95),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -5423,7 +5819,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UMBREON] =
-    { 
+    {
+        .speciesName = _("Umbreon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 79, 110, 65, 66, 130),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
@@ -5447,7 +5845,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MURKROW] =
-    { 
+    {
+        .speciesName = _("Murkrow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 85, 42, 91, 85, 42),
         MON_TYPES(TYPE_DARK, TYPE_FLYING),
@@ -5473,7 +5873,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLOWKING] =
-    { 
+    {
+        .speciesName = _("Slowking"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 75, 80, 30, 100, 110),
         MON_TYPES(TYPE_WATER, TYPE_PSYCHIC),
@@ -5500,7 +5902,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MISDREAVUS] =
-    { 
+    {
+        .speciesName = _("Misdreavus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 60, 85, 85, 85),
         MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
@@ -5525,7 +5929,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 64, 48, 76, 64, 48),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -5555,7 +5961,9 @@ const struct BaseStats gBaseStats[] =
     //same as plus minus but if another unown is on field with it/meaning same side
 
     [SPECIES_WOBBUFFET] =
-    { 
+    {
+        .speciesName = _("Wobbuffet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(190, 33, 58, 33, 33, 58),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -5581,7 +5989,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GIRAFARIG] =
-    { 
+    {
+        .speciesName = _("Girafarig"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 77, 63, 95, 97, 64),
         MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
@@ -5607,7 +6017,9 @@ const struct BaseStats gBaseStats[] =
     },//stats lowered to allow use of eviolite / VSONIC remember add evo later
 
     [SPECIES_PINECO] =
-    { 
+    {
+        .speciesName = _("Pineco"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 65, 90, 15, 35, 35),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),   //bcuz
@@ -5633,7 +6045,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FORRETRESS] =
-    { 
+    {
+        .speciesName = _("Forretress"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 90, 140, 40, 60, 60),
         MON_TYPES(TYPE_BUG, TYPE_STEEL),
@@ -5659,7 +6073,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUNSPARCE] =
-    { 
+    {
+        .speciesName = _("Dunsparce"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 70, 70, 45, 65, 87),
         MON_TYPES(TYPE_NORMAL),   //keeping poison would hurt without floating
@@ -5700,7 +6116,9 @@ const struct BaseStats gBaseStats[] =
     //that end in drill tips
     //give toxungue ability
     [SPECIES_GLIGAR] =
-    { 
+    {
+        .speciesName = _("Gligar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 105, 85, 35, 65),
         MON_TYPES(TYPE_GROUND, TYPE_FLYING),
@@ -5724,7 +6142,9 @@ const struct BaseStats gBaseStats[] =
     },//from zenmodeyt give fly - done
 
     [SPECIES_STEELIX] =
-    { 
+    {
+        .speciesName = _("Steelix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 85, 200, 30, 55, 65),
         MON_TYPES(TYPE_STEEL, TYPE_GROUND),
@@ -5751,7 +6171,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNUBBULL] =
-    { 
+    {
+        .speciesName = _("Snubbull"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 80, 50, 30, 40, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -5777,7 +6199,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRANBULL] =
-    { 
+    {
+        .speciesName = _("Granbull"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 120, 75, 45, 60, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -5802,7 +6226,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_QWILFISH] =
-    { 
+    {
+        .speciesName = _("Qwilfish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 85, 85, 95, 65),
         MON_TYPES(TYPE_WATER, TYPE_POISON),
@@ -5827,7 +6253,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCIZOR] =
-    { 
+    {
+        .speciesName = _("Scizor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 130, 100, 80, 55, 80),
         MON_TYPES(TYPE_BUG, TYPE_STEEL),
@@ -5852,7 +6280,9 @@ const struct BaseStats gBaseStats[] =
     }, //give dual wingbeat and bug bite
 
     [SPECIES_SHUCKLE] =
-    { 
+    {
+        .speciesName = _("Shuckle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 10, 230, 5, 10, 230),
         MON_TYPES(TYPE_BUG, TYPE_ROCK),
@@ -5880,7 +6310,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HERACROSS] =
-    { 
+    {
+        .speciesName = _("Heracross"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 125, 75, 85, 40, 95),
         MON_TYPES(TYPE_BUG, TYPE_FIGHTING),
@@ -5906,7 +6338,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNEASEL] =
-    { 
+    {
+        .speciesName = _("Sneasel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 105, 55, 115, 35, 80),
         MON_TYPES(TYPE_DARK, TYPE_ICE),
@@ -5934,7 +6368,9 @@ const struct BaseStats gBaseStats[] =
     //will be a slash variant 2 typed move, arctic rake, ice/dark
 
     [SPECIES_TEDDIURSA] =
-    { 
+    {
+        .speciesName = _("Teddiursa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 80, 50, 40, 50, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -5959,7 +6395,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_URSARING] =
-    { 
+    {
+        .speciesName = _("Ursaring"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 130, 75, 55, 75, 75),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -5984,7 +6422,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLUGMA] =
-    { 
+    {
+        .speciesName = _("Slugma"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 40, 40, 20, 88, 56),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -6010,7 +6450,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGCARGO] =
-    { 
+    {
+        .speciesName = _("Magcargo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 120, 30, 115, 90),
         MON_TYPES(TYPE_FIRE, TYPE_ROCK),
@@ -6036,7 +6478,9 @@ const struct BaseStats gBaseStats[] =
     },//move give acid armor shell smash
 
     [SPECIES_SWINUB] =
-    { 
+    {
+        .speciesName = _("Swinub"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 50, 40, 50, 30, 30),
         MON_TYPES(TYPE_ICE, TYPE_GROUND),
@@ -6061,7 +6505,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PILOSWINE] =
-    { 
+    {
+        .speciesName = _("Piloswine"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 80, 50, 60, 60),
         MON_TYPES(TYPE_ICE, TYPE_GROUND),
@@ -6088,7 +6534,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CORSOLA] =
-    { 
+    {
+        .speciesName = _("Corsola"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 65, 115, 35, 85, 110),
         MON_TYPES(TYPE_WATER, TYPE_ROCK),
@@ -6118,7 +6566,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REMORAID] =
-    { 
+    {
+        .speciesName = _("Remoraid"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 65, 35, 65, 65, 35),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -6143,7 +6593,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_OCTILLERY] =
-    { 
+    {
+        .speciesName = _("Octillery"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 105, 75, 45, 105, 75),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -6169,7 +6621,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DELIBIRD] =
-    { 
+    {
+        .speciesName = _("Delibird"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(101, 95, 55, 95, 75, 55),
         MON_TYPES(TYPE_ICE, TYPE_FLYING),
@@ -6193,7 +6647,9 @@ const struct BaseStats gBaseStats[] =
     }, //idk if I like these abilities
 
     [SPECIES_MANTINE] =
-    { 
+    {
+        .speciesName = _("Mantine"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 40, 70, 70, 80, 140),
         MON_TYPES(TYPE_WATER, TYPE_FLYING),
@@ -6217,7 +6673,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SKARMORY] =
-    { 
+    {
+        .speciesName = _("Skarmory"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 80, 140, 70, 40, 70),
         MON_TYPES(TYPE_STEEL, TYPE_FLYING),
@@ -6244,7 +6702,9 @@ const struct BaseStats gBaseStats[] =
     }, //give better steel moves smart strike etc.
 
     [SPECIES_HOUNDOUR] =
-    { 
+    {
+        .speciesName = _("Houndour"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 85, 30, 65, 70, 50),
         MON_TYPES(TYPE_DARK, TYPE_FIRE),
@@ -6270,7 +6730,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HOUNDOOM] =
-    { 
+    {
+        .speciesName = _("Houndoom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 110, 50, 95, 95, 80),
         MON_TYPES(TYPE_DARK, TYPE_FIRE),
@@ -6296,7 +6758,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KINGDRA] =
-    { 
+    {
+        .speciesName = _("Kingdra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 95, 85, 95, 95),
         MON_TYPES(TYPE_WATER, TYPE_DRAGON),
@@ -6324,7 +6788,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PHANPY] =
-    { 
+    {
+        .speciesName = _("Phanpy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 60, 60, 46, 40, 40),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -6348,7 +6814,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DONPHAN] =
-    { 
+    {
+        .speciesName = _("Donphan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 120, 120, 65, 60, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
@@ -6373,7 +6841,9 @@ const struct BaseStats gBaseStats[] =
     },//I guess keep low speed for use in trick room?
 
     [SPECIES_PORYGON2] =
-    { 
+    {
+        .speciesName = _("Porygon2"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 80, 90, 60, 105, 95),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -6398,7 +6868,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STANTLER] =
-    { 
+    {
+        .speciesName = _("Stantler"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 100, 62, 85, 85, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
@@ -6424,7 +6896,9 @@ const struct BaseStats gBaseStats[] =
       
 
     [SPECIES_SMEARGLE] =
-    { 
+    {
+        .speciesName = _("Smeargle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 40, 35, 85, 40, 45),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -6449,7 +6923,9 @@ const struct BaseStats gBaseStats[] =
     }, //also slight increase in speed to help chose the right move
     
     [SPECIES_TYROGUE] =
-    { 
+    {
+        .speciesName = _("Tyrogue"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 35, 35, 35, 35, 35),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
@@ -6478,7 +6954,9 @@ const struct BaseStats gBaseStats[] =
     //but still evo function checks all methods that apply and takes last one
 
     [SPECIES_HITMONTOP] =
-    { 
+    {
+        .speciesName = _("Hitmontop"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 95, 95, 70, 35, 115),
         MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
@@ -6503,7 +6981,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SMOOCHUM] =
-    { 
+    {
+        .speciesName = _("Smoochum"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 25, 65, 85, 65),
         MON_TYPES(TYPE_ICE, TYPE_PSYCHIC),
@@ -6528,7 +7008,9 @@ const struct BaseStats gBaseStats[] =
     },//need rewrite dex for this, use bulbapedia info,  dex entries for this thing are kinda cursed... vsonic
 
     [SPECIES_ELEKID] =
-    { 
+    {
+        .speciesName = _("Elekid"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 63, 37, 95, 65, 55),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -6555,7 +7037,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGBY] =
-    { 
+    {
+        .speciesName = _("Magby"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 75, 37, 83, 70, 55),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -6582,7 +7066,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MILTANK] =
-    { 
+    {
+        .speciesName = _("Miltank"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 80, 105, 100, 40, 80),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -6609,7 +7095,9 @@ const struct BaseStats gBaseStats[] =
     }, //give move body press
 
     [SPECIES_BLISSEY] =
-    { 
+    {
+        .speciesName = _("Blissey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(255, 30, 20, 55, 75, 135),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -6636,7 +7124,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RAIKOU] =
-    { 
+    {
+        .speciesName = _("Raikou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 85, 75, 115, 115, 100),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -6670,7 +7160,9 @@ const struct BaseStats gBaseStats[] =
    
 
     [SPECIES_ENTEI] =
-    { 
+    {
+        .speciesName = _("Entei"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 115, 85, 100, 90, 75),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -6695,7 +7187,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SUICUNE] =
-    { 
+    {
+        .speciesName = _("Suicune"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 75, 115, 85, 90, 115),
         MON_TYPES(TYPE_WATER, TYPE_ICE),
@@ -6720,7 +7214,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LARVITAR] =
-    { 
+    {
+        .speciesName = _("Larvitar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 64, 50, 41, 45, 50),
         MON_TYPES(TYPE_ROCK, TYPE_GROUND),
@@ -6744,7 +7240,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PUPITAR] =
-    { 
+    {
+        .speciesName = _("Pupitar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 84, 70, 51, 65, 65),
         MON_TYPES(TYPE_ROCK, TYPE_GROUND),
@@ -6767,7 +7265,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYRANITAR] =
-    { 
+    {
+        .speciesName = _("Tyranitar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 134, 110, 61, 95, 100),
         MON_TYPES(TYPE_ROCK, TYPE_DARK),
@@ -6793,7 +7293,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUGIA] =
-    { 
+    {
+        .speciesName = _("Lugia"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 90, 130, 110, 90, 154),
         MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),  //dragon to resist 3 birds, and dragons have dominion over air and sea, psychic because it has bariers and is able to "talk"
@@ -6819,7 +7321,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HO_OH] =
-    { 
+    {
+        .speciesName = _("Ho Oh"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(106, 130, 90, 90, 110, 154),
         MON_TYPES(TYPE_FIRE, TYPE_FLYING),
@@ -6847,7 +7351,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CELEBI] =
-    { 
+    {
+        .speciesName = _("Celebi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 35, 110, 110, 130, 120),
         MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
@@ -6872,7 +7378,9 @@ const struct BaseStats gBaseStats[] =
     }, //Can make fairy type now that dual weakness is not so punishing
 
     [SPECIES_TREECKO] =
-    { 
+    {
+        .speciesName = _("Treecko"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 45, 35, 70, 65, 55),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -6898,7 +7406,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROVYLE] =
-    { 
+    {
+        .speciesName = _("Grovyle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(81, 65, 45, 95, 85, 65),
         MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
@@ -6924,7 +7434,9 @@ const struct BaseStats gBaseStats[] =
     }, //I think I'll actually make this dragon here since other mon are getting their secondary at mid evo
 
     [SPECIES_SCEPTILE] =
-    { 
+    {
+        .speciesName = _("Sceptile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 85, 65, 120, 105, 85),
         MON_TYPES(TYPE_GRASS, TYPE_DRAGON), //vintage white change, works for me as I made grass imune to fairy
@@ -6950,7 +7462,9 @@ const struct BaseStats gBaseStats[] =
     },//since is dragon may give flamethrower  //also acrobatics if doesn't already incinerate & fire blast & outrage
 
     [SPECIES_TORCHIC] =
-    { 
+    {
+        .speciesName = _("Torchic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 60, 40, 45, 70, 50),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -6974,7 +7488,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COMBUSKEN] =
-    { 
+    {
+        .speciesName = _("Combusken"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 85, 60, 55, 85, 60),
         MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
@@ -6999,7 +7515,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BLAZIKEN] =
-    { 
+    {
+        .speciesName = _("Blaziken"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 120, 70, 80, 110, 70),
         MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
@@ -7023,7 +7541,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUDKIP] =
-    { 
+    {
+        .speciesName = _("Mudkip"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 50, 40, 50, 50),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -7047,7 +7567,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MARSHTOMP] =
-    { 
+    {
+        .speciesName = _("Marshtomp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 85, 70, 50, 60, 70),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -7071,7 +7593,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWAMPERT] =
-    { 
+    {
+        .speciesName = _("Swampert"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 110, 90, 60, 85, 90),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -7095,7 +7619,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POOCHYENA] =
-    { 
+    {
+        .speciesName = _("Poochyena"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 75, 35, 35, 30, 30),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
@@ -7120,7 +7646,9 @@ const struct BaseStats gBaseStats[] =
     },//boosting making physical focused counter part to houndour line
 
     [SPECIES_MIGHTYENA] =
-    { 
+    {
+        .speciesName = _("Mightyena"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 105, 70, 77, 60, 60),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
@@ -7145,7 +7673,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZIGZAGOON] =
-    { 
+    {
+        .speciesName = _("Zigzagoon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(38, 40, 41, 70, 30, 41),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7172,7 +7702,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LINOONE] =
-    { 
+    {
+        .speciesName = _("Linoone"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 85, 61, 100, 50, 61),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7199,7 +7731,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WURMPLE] =
-    { 
+    {
+        .speciesName = _("Wurmple"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 45, 35, 20, 20, 30),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -7226,7 +7760,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILCOON] =
-    { 
+    {
+        .speciesName = _("Silcoon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 35, 55, 15, 25, 25),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -7249,7 +7785,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BEAUTIFLY] =
-    { 
+    {
+        .speciesName = _("Beautifly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 70, 60, 90, 105, 60),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
@@ -7282,7 +7820,9 @@ const struct BaseStats gBaseStats[] =
     //will do the same for dustox and other winged-non flying types
 
     [SPECIES_CASCOON] =
-    { 
+    {
+        .speciesName = _("Cascoon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 35, 55, 15, 25, 25),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -7305,7 +7845,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUSTOX] =
-    { 
+    {
+        .speciesName = _("Dustox"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 70, 85, 60, 105),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
@@ -7332,7 +7874,9 @@ const struct BaseStats gBaseStats[] =
     },//potentially give switchin ability that sets powder to enemy side? would allow free switch into fire
 
     [SPECIES_LOTAD] =
-    { 
+    {
+        .speciesName = _("Lotad"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(56, 30, 30, 30, 40, 50),
         MON_TYPES(TYPE_WATER, TYPE_GRASS),
@@ -7357,7 +7901,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LOMBRE] =
-    { 
+    {
+        .speciesName = _("Lombre"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 50, 50, 60, 60, 70),
         MON_TYPES(TYPE_WATER, TYPE_GRASS),
@@ -7382,7 +7928,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUDICOLO] =
-    { 
+    {
+        .speciesName = _("Ludicolo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(92, 70, 70, 70, 90, 100),
         MON_TYPES(TYPE_WATER, TYPE_GRASS),
@@ -7407,7 +7955,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SEEDOT] =
-    { 
+    {
+        .speciesName = _("Seedot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(59, 40, 50, 30, 30, 50),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -7436,7 +7986,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NUZLEAF] =
-    { 
+    {
+        .speciesName = _("Nuzleaf"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 82, 40, 80, 60, 40),
         MON_TYPES(TYPE_GRASS, TYPE_DARK),
@@ -7465,7 +8017,9 @@ const struct BaseStats gBaseStats[] =
     },//CONSIDER could give bandit king?
 
     [SPECIES_SHIFTRY] =
-    { 
+    {
+        .speciesName = _("Shiftry"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(92, 100, 88, 70, 90, 60),
         MON_TYPES(TYPE_GRASS, TYPE_DARK),
@@ -7483,7 +8037,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_CHLOROPHYLL, ABILITY_INFILTRATOR},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_WIND_RIDER},//ABILITY_WIND_RIDER
+            .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_WIND_RIDER},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -7496,7 +8050,9 @@ const struct BaseStats gBaseStats[] =
     //also gave aerilate - vsonic aerialate was a stupid idea no purpose
 
     [SPECIES_TAILLOW] =
-    { 
+    {
+        .speciesName = _("Taillow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 30, 85, 30, 30),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -7522,7 +8078,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWELLOW] =
-    { 
+    {
+        .speciesName = _("Swellow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 100, 60, 125, 75, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -7548,7 +8106,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WINGULL] =
-    { 
+    {
+        .speciesName = _("Wingull"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 30, 30, 85, 65, 30),
         MON_TYPES(TYPE_WATER, TYPE_FLYING),
@@ -7576,7 +8136,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PELIPPER] =
-    { 
+    {
+        .speciesName = _("Pelipper"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 120, 65, 100, 70),
         MON_TYPES(TYPE_WATER, TYPE_FLYING),
@@ -7603,7 +8165,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RALTS] =
-    { 
+    {
+        .speciesName = _("Ralts"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(32, 25, 25, 40, 45, 35),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -7630,7 +8194,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KIRLIA] =
-    { 
+    {
+        .speciesName = _("Kirlia"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(56, 35, 55, 50, 70, 55),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -7660,7 +8226,9 @@ const struct BaseStats gBaseStats[] =
     },//add stone evos for garde forms as well  //ITEM_DAWN_STONE
 
     [SPECIES_GARDEVOIR] =
-    { 
+    {
+        .speciesName = _("Gardevoir"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(78, 65, 65, 85, 125, 115),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -7687,7 +8255,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SURSKIT] =
-    { 
+    {
+        .speciesName = _("Surskit"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 42, 32, 65, 50, 52),
         MON_TYPES(TYPE_BUG, TYPE_WATER),
@@ -7714,7 +8284,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MASQUERAIN] =
-    { 
+    {
+        .speciesName = _("Masquerain"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 62, 90, 100, 102),
         MON_TYPES(TYPE_BUG, TYPE_WATER),
@@ -7742,7 +8314,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHROOMISH] =
-    { 
+    {
+        .speciesName = _("Shroomish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 60, 35, 40, 60),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -7769,7 +8343,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BRELOOM] =
-    { 
+    {
+        .speciesName = _("Breloom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 130, 80, 70, 60, 60),
         MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
@@ -7796,7 +8372,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLAKOTH] =
-    { 
+    {
+        .speciesName = _("Slakoth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 60, 30, 35, 35),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7820,7 +8398,9 @@ const struct BaseStats gBaseStats[] =
     },//fits w being lazy so low effort evo
 
     [SPECIES_VIGOROTH] =
-    { 
+    {
+        .speciesName = _("Vigoroth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 80, 90, 55, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7844,7 +8424,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLAKING] =
-    { 
+    {
+        .speciesName = _("Slaking"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 160, 100, 100, 95, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7869,7 +8451,9 @@ const struct BaseStats gBaseStats[] =
     //i could make somehting that would be a fusino of anger point and truant but not really much point
 
     [SPECIES_NINCADA] =
-    { 
+    {
+        .speciesName = _("Nincada"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(31, 45, 90, 40, 30, 30),
         MON_TYPES(TYPE_BUG, TYPE_GROUND),
@@ -7896,7 +8480,9 @@ const struct BaseStats gBaseStats[] =
     //the function that creats shedinja only checks for evo method 0, being that method
 
     [SPECIES_NINJASK] =
-    { 
+    {
+        .speciesName = _("Ninjask"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(61, 110, 45, 160, 50, 50),
         MON_TYPES(TYPE_BUG, TYPE_DARK),
@@ -7922,7 +8508,9 @@ const struct BaseStats gBaseStats[] =
     }, //give fell stinger
 
     [SPECIES_SHEDINJA] =
-    { 
+    {
+        .speciesName = _("Shedinja"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(27, 90, 45, 40, 30, 30), //potential debuff atk 90 ->75  sp atk/def 30 -> 35
         MON_TYPES(TYPE_BUG, TYPE_GHOST),
@@ -7946,7 +8534,9 @@ const struct BaseStats gBaseStats[] =
     //give buff/debuff moves to suit wraith identity 
 
     [SPECIES_WHISMUR] =
-    { 
+    {
+        .speciesName = _("Whismur"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 56, 36, 28, 51, 36),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7972,7 +8562,9 @@ const struct BaseStats gBaseStats[] =
     }, //add disarming voice to learn set
 
     [SPECIES_LOUDRED] =
-    { 
+    {
+        .speciesName = _("Loudred"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(84, 80, 43, 48, 80, 43),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -7998,7 +8590,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EXPLOUD] =
-    { 
+    {
+        .speciesName = _("Exploud"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(104, 91, 63, 68, 91, 73),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -8024,7 +8618,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAKUHITA] =
-    { 
+    {
+        .speciesName = _("Makuhita"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(72, 60, 30, 25, 20, 30),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING), //while would like to don't think can swing giving normal type
@@ -8052,7 +8648,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HARIYAMA] =
-    { 
+    {
+        .speciesName = _("Hariyama"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(144, 120, 60, 50, 40, 60),
         MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
@@ -8080,7 +8678,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AZURILL] =
-    { 
+    {
+        .speciesName = _("Azurill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 20, 40, 20, 36, 40),
         MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
@@ -8106,7 +8706,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NOSEPASS] =
-    { 
+    {
+        .speciesName = _("Nosepass"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 45, 135, 30, 45, 90),
         MON_TYPES(TYPE_ROCK, TYPE_ROCK),
@@ -8134,7 +8736,9 @@ const struct BaseStats gBaseStats[] =
     },//change evo to work with certain type in party, either electric type or electric & steel stype [DONE]
 
     [SPECIES_SKITTY] =
-    { 
+    {
+        .speciesName = _("Skitty"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 45, 45, 50, 35, 35),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -8159,7 +8763,9 @@ const struct BaseStats gBaseStats[] =
     },//higher hp isn't meant to denote bulk, but a high vitality/zest for life/energy
 
     [SPECIES_DELCATTY] =
-    { 
+    {
+        .speciesName = _("Delcatty"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 75, 65, 81, 75, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_GHOST),
@@ -8187,7 +8793,9 @@ const struct BaseStats gBaseStats[] =
     //new update made ghost type to cover its weaker stats, leans on the cats 9 lives thing
     //its a live but techinically could have been dead.  prob need tweak its pokedex entry to fit
     [SPECIES_SABLEYE] =
-    { 
+    {
+        .speciesName = _("Sableye"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 80, 75, 47, 65, 65),
         MON_TYPES(TYPE_DARK, TYPE_GHOST),
@@ -8219,7 +8827,9 @@ const struct BaseStats gBaseStats[] =
     //gabite has similar similar def/spdef but 20 more hp, 20 more atk and double speed...
     //think will boost hp, keep atk where it is, there's no reason for to be so low hp, its not a pre evo
     [SPECIES_MAWILE] =
-    { 
+    {
+        .speciesName = _("Mawile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 87, 90, 55, 65, 75),
         MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
@@ -8249,7 +8859,9 @@ const struct BaseStats gBaseStats[] =
     },//adjust learnset to give all bite moves
 
     [SPECIES_ARON] =
-    { 
+    {
+        .speciesName = _("Aron"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 100, 30, 40, 55),
         MON_TYPES(TYPE_STEEL, TYPE_ROCK),
@@ -8276,7 +8888,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LAIRON] =
-    { 
+    {
+        .speciesName = _("Lairon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 90, 140, 40, 50, 65),
         MON_TYPES(TYPE_STEEL, TYPE_ROCK),
@@ -8303,7 +8917,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AGGRON] =
-    { 
+    {
+        .speciesName = _("Aggron"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 180, 50, 60, 80),
         MON_TYPES(TYPE_STEEL, TYPE_ROCK),
@@ -8335,7 +8951,9 @@ const struct BaseStats gBaseStats[] =
     //should be good psych/fight is also much better defensively w my changes
     //has 0 resists, and what were neutral cancels are now slight resists
     [SPECIES_MEDITITE] =
-    { 
+    {
+        .speciesName = _("Meditite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 40, 115, 60, 40, 115),
         MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
@@ -8361,7 +8979,9 @@ const struct BaseStats gBaseStats[] =
     },//note add explosion and self destruct to list of immune moves
 
     [SPECIES_MEDICHAM] =
-    { 
+    {
+        .speciesName = _("Medicham"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 142, 80, 60, 142),
         MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
@@ -8393,7 +9013,9 @@ const struct BaseStats gBaseStats[] =
     //purepower etc. is  actually more effective than doubling base stat
 
     [SPECIES_ELECTRIKE] =
-    { 
+    {
+        .speciesName = _("Electrike"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 40, 65, 65, 40),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -8417,7 +9039,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MANECTRIC] =
-    { 
+    {
+        .speciesName = _("Manectric"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 75, 60, 105, 105, 60),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -8441,7 +9065,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PLUSLE] =
-    { 
+    {
+        .speciesName = _("Plusle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 50, 40, 95, 85, 75),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -8468,7 +9094,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINUN] =
-    { 
+    {
+        .speciesName = _("Minun"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 40, 50, 95, 75, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -8495,7 +9123,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VOLBEAT] =
-    { 
+    {
+        .speciesName = _("Volbeat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 53, 75, 85, 77, 85),
         MON_TYPES(TYPE_BUG, TYPE_ELECTRIC), 
@@ -8522,7 +9152,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ILLUMISE] =
-    { 
+    {
+        .speciesName = _("Illumise"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 47, 75, 95, 73, 85),
         MON_TYPES(TYPE_BUG, TYPE_GRASS),    //grass for sweet smelling  fragance/aroma
@@ -8548,7 +9180,9 @@ const struct BaseStats gBaseStats[] =
     }, //give grass and fairy moves and acrobatics  strength sap
 
     [SPECIES_ROSELIA] =
-    { 
+    {
+        .speciesName = _("Roselia"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 45, 65, 100, 90),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -8575,7 +9209,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GULPIN] =
-    { 
+    {
+        .speciesName = _("Gulpin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 43, 53, 40, 43, 63),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -8603,7 +9239,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWALOT] =
-    { 
+    {
+        .speciesName = _("Swalot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 73, 83, 55, 83, 87),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -8631,7 +9269,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CARVANHA] =
-    { 
+    {
+        .speciesName = _("Carvanha"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 90, 20, 65, 65, 20),
         MON_TYPES(TYPE_WATER, TYPE_DARK),
@@ -8656,7 +9296,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHARPEDO] =
-    { 
+    {
+        .speciesName = _("Sharpedo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 120, 40, 95, 95, 40),
         MON_TYPES(TYPE_WATER, TYPE_DARK),
@@ -8681,7 +9323,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WAILMER] =
-    { 
+    {
+        .speciesName = _("Wailmer"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 70, 35, 60, 70, 35),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -8705,7 +9349,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WAILORD] =
-    { 
+    {
+        .speciesName = _("Wailord"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(170, 90, 45, 60, 90, 45),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -8730,7 +9376,9 @@ const struct BaseStats gBaseStats[] =
     // -decided keep as is
 
     [SPECIES_NUMEL] =
-    { 
+    {
+        .speciesName = _("Numel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 60, 40, 35, 65, 45),
         MON_TYPES(TYPE_FIRE, TYPE_GROUND),
@@ -8758,7 +9406,9 @@ const struct BaseStats gBaseStats[] =
     //give MOVE_INCINERATE  as ember upgrade rather than stronger fire move
 
     [SPECIES_CAMERUPT] =
-    { 
+    {
+        .speciesName = _("Camerupt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 100, 70, 40, 105, 75),
         MON_TYPES(TYPE_FIRE, TYPE_GROUND),
@@ -8784,7 +9434,9 @@ const struct BaseStats gBaseStats[] =
     }, //keep an eye on this, vsonic, see if with super change it survives well enough or needs more bulk
 
     [SPECIES_TORKOAL] =
-    { 
+    {
+        .speciesName = _("Torkoal"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 95, 140, 20, 95, 70),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -8809,7 +9461,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SPOINK] =
-    { 
+    {
+        .speciesName = _("Spoink"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 25, 35, 60, 70, 80),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -8835,7 +9489,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRUMPIG] =
-    { 
+    {
+        .speciesName = _("Grumpig"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 45, 65, 80, 90, 110),
         MON_TYPES(TYPE_PSYCHIC, TYPE_DARK),
@@ -8859,11 +9515,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGrumpigTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//vsonic plan to adjust front sprite / prob need do back as well to match
-    //bro imagine mega grumpig o.0 Indiang god vishnu or something  but like a darker versions
+    //bro imagine grumpig o.0 Indiang god vishnu or something  but like a darker versions
     //would just be 100 in everything, maybe w dancer or own tempo
 
     [SPECIES_SPINDA] =
-    { 
+    {
+        .speciesName = _("Spinda"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(88, 88, 88, 88, 88, 88),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -8888,7 +9546,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TRAPINCH] =
-    { 
+    {
+        .speciesName = _("Trapinch"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 110, 55, 10, 45, 65),
         MON_TYPES(TYPE_GROUND, TYPE_BUG),
@@ -8917,7 +9577,9 @@ const struct BaseStats gBaseStats[] =
     //well could just do focus band for that, and eviolite is also an option now
 
     [SPECIES_VIBRAVA] =
-    { 
+    {
+        .speciesName = _("Vibrava"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 50, 70, 50, 50),
         MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
@@ -8943,7 +9605,9 @@ const struct BaseStats gBaseStats[] =
     }, //because of bioligy give vibrava gastro acid  vsonic
 
     [SPECIES_FLYGON] =
-    { 
+    {
+        .speciesName = _("Flygon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 80, 100, 80, 80),
         MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
@@ -8969,7 +9633,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CACNEA] =
-    { 
+    {
+        .speciesName = _("Cacnea"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 85, 40, 55, 85, 40),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -8996,7 +9662,9 @@ const struct BaseStats gBaseStats[] =
     }, //give crass equivalent of rough skin  tough spines 
 
     [SPECIES_CACTURNE] =
-    { 
+    {
+        .speciesName = _("Cacturne"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 115, 60, 75, 115, 60),
         MON_TYPES(TYPE_GRASS, TYPE_DARK),
@@ -9024,7 +9692,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWABLU] =
-    { 
+    {
+        .speciesName = _("Swablu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 40, 60, 50, 40, 75),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -9048,7 +9718,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALTARIA] =
-    { 
+    {
+        .speciesName = _("Altaria"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 90, 80, 77, 105),
         MON_TYPES(TYPE_DRAGON, TYPE_FAIRY),
@@ -9074,7 +9746,9 @@ const struct BaseStats gBaseStats[] =
     //idk somehting vsonic
 
     [SPECIES_ZANGOOSE] =
-    { 
+    {
+        .speciesName = _("Zangoose"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 115, 60, 100, 60, 60),
         MON_TYPES(TYPE_NORMAL, TYPE_DARK), //WOULD now be 4x  to fighting and fairy, but its fast enough to overcome that idea from Lockstin & Gnoggin
@@ -9101,7 +9775,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SEVIPER] =
-    { 
+    {
+        .speciesName = _("Seviper"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(73, 80, 70, 70, 95, 85),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
@@ -9131,7 +9807,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUNATONE] =
-    { 
+    {
+        .speciesName = _("Lunatone"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 65, 65, 70, 105, 85),
         MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
@@ -9164,7 +9842,9 @@ const struct BaseStats gBaseStats[] =
     //for opposite using sunny day from their would shift, from night, to twilight, to day.
 
     [SPECIES_SOLROCK] =
-    { 
+    {
+        .speciesName = _("Solrock"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 95, 85, 70, 85, 65),
         MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
@@ -9190,7 +9870,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BARBOACH] =
-    { 
+    {
+        .speciesName = _("Barboach"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 48, 73, 60, 46, 71),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -9215,7 +9897,9 @@ const struct BaseStats gBaseStats[] =
     }, //gave evolved defenses since its mostly hp that grows, speed was alraedy same
 
     [SPECIES_WHISCASH] =
-    { 
+    {
+        .speciesName = _("Whiscash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 98, 73, 60, 76, 71),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -9240,7 +9924,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CORPHISH] =
-    { 
+    {
+        .speciesName = _("Corphish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(43, 80, 65, 35, 50, 35),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -9266,7 +9952,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRAWDAUNT] =
-    { 
+    {
+        .speciesName = _("Crawdaunt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(63, 120, 85, 55, 90, 55),
         MON_TYPES(TYPE_WATER, TYPE_DARK),
@@ -9292,7 +9980,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BALTOY] =
-    { 
+    {
+        .speciesName = _("Baltoy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 40, 55, 55, 40, 70),
         MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
@@ -9318,7 +10008,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLAYDOL] =
-    { 
+    {
+        .speciesName = _("Claydol"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 70, 105, 75, 70, 120),
         MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
@@ -9344,7 +10036,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LILEEP] =
-    { 
+    {
+        .speciesName = _("Lileep"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 41, 77, 23, 61, 87),
         MON_TYPES(TYPE_ROCK, TYPE_GRASS),
@@ -9373,7 +10067,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRADILY] =
-    { 
+    {
+        .speciesName = _("Cradily"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(96, 81, 97, 43, 81, 107),
         MON_TYPES(TYPE_ROCK, TYPE_GRASS),
@@ -9402,7 +10098,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ANORITH] =
-    { 
+    {
+        .speciesName = _("Anorith"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 95, 70, 75, 40, 50),
         MON_TYPES(TYPE_ROCK, TYPE_BUG),
@@ -9426,7 +10124,9 @@ const struct BaseStats gBaseStats[] =
     },  //also let it learn rain dance tm
 
     [SPECIES_ARMALDO] =
-    { 
+    {
+        .speciesName = _("Armaldo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 125, 100, 45, 70, 80),
         MON_TYPES(TYPE_ROCK, TYPE_BUG),
@@ -9450,7 +10150,9 @@ const struct BaseStats gBaseStats[] =
     }, //think keep rock bug, give move forge to make it bug steel?
 
     [SPECIES_FEEBAS] =
-    { 
+    {
+        .speciesName = _("Feebas"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(37, 35, 40, 80, 30, 125),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -9478,7 +10180,9 @@ const struct BaseStats gBaseStats[] =
     },//change give high sp def think thick skin from everyone calling it ugly
 
     [SPECIES_MILOTIC] =
-    { 
+    {
+        .speciesName = _("Milotic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 60, 79, 81, 100, 125),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -9503,7 +10207,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CASTFORM] =
-    { 
+    {
+        .speciesName = _("Castform"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
         MON_TYPES(TYPE_NORMAL, TYPE_GHOST),    //with planned changes makes it a better switch mon, also kinda works think of like casper a friendly ghost
@@ -9530,7 +10236,9 @@ const struct BaseStats gBaseStats[] =
     },//body color changes see what that is used for
 
     [SPECIES_KECLEON] =
-    { 
+    {
+        .speciesName = _("Kecleon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 90, 70, 40, 75, 120),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -9556,7 +10264,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHUPPET] =
-    { 
+    {
+        .speciesName = _("Shuppet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(44, 75, 35, 45, 63, 33),
         MON_TYPES(TYPE_GHOST, TYPE_DARK),
@@ -9585,7 +10295,9 @@ const struct BaseStats gBaseStats[] =
     // - or not its not a field status its target based
 
     [SPECIES_BANETTE] =
-    { 
+    {
+        .speciesName = _("Banette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 115, 65, 65, 83, 63),
         MON_TYPES(TYPE_GHOST, TYPE_DARK),
@@ -9613,7 +10325,9 @@ const struct BaseStats gBaseStats[] =
     //pressure was given to help its slow nature but idk
 
     [SPECIES_DUSKULL] =
-    { 
+    {
+        .speciesName = _("Duskull"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 40, 90, 25, 30, 90),
         MON_TYPES(TYPE_GHOST), //think want to keep full ghost so banette is more unique
@@ -9640,7 +10354,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUSCLOPS] =
-    { 
+    {
+        .speciesName = _("Dusclops"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(41, 70, 130, 25, 70, 130),
         MON_TYPES(TYPE_GHOST, TYPE_GHOST),
@@ -9668,7 +10384,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TROPIUS] =
-    { 
+    {
+        .speciesName = _("Tropius"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 80, 83, 51, 72, 95),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING),
@@ -9693,7 +10411,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHIMECHO] =
-    { 
+    {
+        .speciesName = _("Chimecho"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 63, 49, 75, 95, 90),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -9719,7 +10439,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ABSOL] =
-    { 
+    {
+        .speciesName = _("Absol"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 130, 60, 75, 75, 60),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
@@ -9744,7 +10466,9 @@ const struct BaseStats gBaseStats[] =
     },//actually maybe keep justified over ABILITY_DARK_DEAL, absol isn't bad/evil plus w super mul drop it may survive to get the dbenefit?
 
     [SPECIES_WYNAUT] =
-    { 
+    {
+        .speciesName = _("Wynaut"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 23, 48, 23, 23, 48),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -9770,7 +10494,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNORUNT] =
-    { 
+    {
+        .speciesName = _("Snorunt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 50, 50, 50, 50, 50),
         MON_TYPES(TYPE_ICE, TYPE_ICE),
@@ -9799,7 +10525,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLALIE] =
-    { 
+    {
+        .speciesName = _("Glalie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 95, 100, 60, 60, 75),
         MON_TYPES(TYPE_ICE, TYPE_ROCK),
@@ -9824,7 +10552,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SPHEAL] =
-    { 
+    {
+        .speciesName = _("Spheal"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 40, 50, 25, 55, 50),
         MON_TYPES(TYPE_ICE, TYPE_WATER),
@@ -9849,7 +10579,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SEALEO] =
-    { 
+    {
+        .speciesName = _("Sealeo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 60, 70, 45, 75, 70),
         MON_TYPES(TYPE_ICE, TYPE_WATER),
@@ -9874,7 +10606,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WALREIN] =
-    { 
+    {
+        .speciesName = _("Walrein"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 80, 90, 65, 95, 90),
         MON_TYPES(TYPE_ICE, TYPE_WATER),
@@ -9899,7 +10633,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLAMPERL] =
-    { 
+    {
+        .speciesName = _("Clamperl"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 64, 125, 32, 74, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -9929,7 +10665,9 @@ const struct BaseStats gBaseStats[] =
     //but then can evolve to suit a different purpose/niche  keep an eye on this balance wise
 
     [SPECIES_HUNTAIL] =
-    { 
+    {
+        .speciesName = _("Huntail"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 104, 95, 72, 94, 75),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -9955,7 +10693,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOREBYSS] =
-    { 
+    {
+        .speciesName = _("Gorebyss"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 84, 75, 72, 114, 95),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -9982,7 +10722,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RELICANTH] =
-    { 
+    {
+        .speciesName = _("Relicanth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 90, 130, 55, 45, 65),
         MON_TYPES(TYPE_WATER, TYPE_ROCK),
@@ -10008,7 +10750,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUVDISC] =
-    { 
+    {
+        .speciesName = _("Luvdisc"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(43, 55, 71, 77, 55, 88),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -10035,7 +10779,9 @@ const struct BaseStats gBaseStats[] =
     }, //NEW ability will be 33% or 50% chance to infatuate on switch in loop check for target that can infatuate if double use trace targetting
     //stat ajustments made using numbers for love
     [SPECIES_BAGON] =
-    { 
+    {
+        .speciesName = _("Bagon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 75, 60, 50, 40, 30),
         MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
@@ -10062,7 +10808,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHELGON] =
-    { 
+    {
+        .speciesName = _("Shelgon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 95, 100, 50, 60, 50),
         MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
@@ -10089,7 +10837,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SALAMENCE] =
-    { 
+    {
+        .speciesName = _("Salamence"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 135, 80, 100, 110, 80),
         MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
@@ -10116,7 +10866,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BELDUM] =
-    { 
+    {
+        .speciesName = _("Beldum"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 80, 30, 35, 60),
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
@@ -10143,7 +10895,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_METANG] =
-    { 
+    {
+        .speciesName = _("Metang"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 75, 100, 50, 55, 80),
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
@@ -10170,7 +10924,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_METAGROSS] =
-    { 
+    {
+        .speciesName = _("Metagross"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 135, 130, 70, 95, 90),
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
@@ -10197,7 +10953,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REGIROCK] =
-    { 
+    {
+        .speciesName = _("Regirock"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 100, 200, 50, 50, 100),
         MON_TYPES(TYPE_ROCK, TYPE_ROCK),
@@ -10221,7 +10979,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REGICE] =
-    { 
+    {
+        .speciesName = _("Regice"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 50, 100, 50, 100, 200),
         MON_TYPES(TYPE_ICE, TYPE_ICE),
@@ -10247,7 +11007,9 @@ const struct BaseStats gBaseStats[] =
     }, 
 
     [SPECIES_REGISTEEL] =
-    { 
+    {
+        .speciesName = _("Registeel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 75, 150, 50, 75, 150),
         MON_TYPES(TYPE_STEEL, TYPE_STEEL),
@@ -10274,7 +11036,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LATIAS] =
-    { 
+    {
+        .speciesName = _("Latias"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 90, 110, 110, 130),
         MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
@@ -10300,7 +11064,9 @@ const struct BaseStats gBaseStats[] =
     //red spector blue spector?Spectre  or spectrum blend?  that works, just make it a switch in ability that would increase evasiveness, so they can effectively start boosted +1 potentially +2
 
     [SPECIES_LATIOS] =
-    { 
+    {
+        .speciesName = _("Latios"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 90, 80, 110, 130, 110),
         MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
@@ -10324,7 +11090,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KYOGRE] =
-    { 
+    {
+        .speciesName = _("Kyogre"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 90, 90, 150, 140),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -10348,7 +11116,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROUDON] =
-    { 
+    {
+        .speciesName = _("Groudon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 150, 140, 90, 100, 90),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
@@ -10372,7 +11142,9 @@ const struct BaseStats gBaseStats[] =
     },//now that it exists give solar blade instead
 
     [SPECIES_RAYQUAZA] =
-    { 
+    {
+        .speciesName = _("Rayquaza"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 150, 90, 95, 150, 90),
         MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
@@ -10397,7 +11169,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_JIRACHI] =
-    { 
+    {
+        .speciesName = _("Jirachi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
@@ -10423,7 +11197,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEOXYS] =
-    { 
+    {
+        .speciesName = _("Deoxys"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 150, 50, 150, 150, 50),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -10449,7 +11225,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TURTWIG] =
-    { 
+    {
+        .speciesName = _("Turtwig"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 68, 64, 31, 45, 55),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -10473,7 +11251,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROTLE] =
-    { 
+    {
+        .speciesName = _("Grotle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 89, 85, 36, 55, 65),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -10498,7 +11278,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TORTERRA] =
-    { 
+    {
+        .speciesName = _("Torterra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(112, 109, 105, 56, 75, 85),
         MON_TYPES(TYPE_GRASS, TYPE_GROUND),
@@ -10523,7 +11305,9 @@ const struct BaseStats gBaseStats[] =
     }, //give shell smash new gen 9 move changes
 
     [SPECIES_CHIMCHAR] =
-    { 
+    {
+        .speciesName = _("Chimchar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(44, 58, 44, 61, 58, 44),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -10549,7 +11333,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MONFERNO] =
-    { 
+    {
+        .speciesName = _("Monferno"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(64, 78, 52, 81, 78, 52),
         MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
@@ -10576,7 +11362,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_INFERNAPE] =
-    { 
+    {
+        .speciesName = _("Infernape"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 104, 71, 108, 104, 71),
         MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
@@ -10604,7 +11392,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIPLUP] =
-    { 
+    {
+        .speciesName = _("Piplup"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(53, 51, 53, 40, 61, 56),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -10630,7 +11420,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PRINPLUP] =
-    { 
+    {
+        .speciesName = _("Prinplup"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 66, 68, 50, 81, 76),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -10656,7 +11448,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EMPOLEON] =
-    { 
+    {
+        .speciesName = _("Empoleon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(104, 86, 88, 60, 111, 101),
         MON_TYPES(TYPE_WATER, TYPE_STEEL),
@@ -10682,7 +11476,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STARLY] =
-    { 
+    {
+        .speciesName = _("Starly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 55, 30, 60, 30, 30),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -10708,7 +11504,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STARAVIA] =
-    { 
+    {
+        .speciesName = _("Staravia"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 75, 50, 80, 40, 40),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -10734,7 +11532,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STARAPTOR] =
-    { 
+    {
+        .speciesName = _("Staraptor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 120, 70, 100, 50, 60),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -10760,7 +11560,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BIDOOF] =
-    { 
+    {
+        .speciesName = _("Bidoof"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 45, 40, 31, 35, 40),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -10785,7 +11587,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BIBAREL] =
-    { 
+    {
+        .speciesName = _("Bibarel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(89, 95, 80, 71, 55, 77),
         MON_TYPES(TYPE_NORMAL, TYPE_WATER),
@@ -10810,7 +11614,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KRICKETOT] =
-    { 
+    {
+        .speciesName = _("Kricketot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(37, 35, 51, 25, 25, 41),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -10837,7 +11643,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KRICKETUNE] =
-    { 
+    {
+        .speciesName = _("Kricketune"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 104, 51, 87, 55, 51),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -10866,7 +11674,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHINX] =
-    { 
+    {
+        .speciesName = _("Shinx"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 77, 34, 45, 50, 34),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -10891,7 +11701,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUXIO] =
-    { 
+    {
+        .speciesName = _("Luxio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 95, 49, 67, 70, 49),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -10916,7 +11728,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUXRAY] =
-    { 
+    {
+        .speciesName = _("Luxray"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 130, 79, 72, 95, 79),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -10944,7 +11758,9 @@ const struct BaseStats gBaseStats[] =
     //re-evaluate now weak to fairy & fighting
     //and not that fast
     [SPECIES_BUDEW] =
-    { 
+    {
+        .speciesName = _("Budew"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 30, 35, 55, 50, 77),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -10971,7 +11787,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROSERADE] =
-    { 
+    {
+        .speciesName = _("Roserade"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 70, 65, 90, 125, 105),
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
@@ -10998,7 +11816,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRANIDOS] =
-    { 
+    {
+        .speciesName = _("Cranidos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(67, 125, 40, 58, 30, 30),
         MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
@@ -11023,7 +11843,9 @@ const struct BaseStats gBaseStats[] =
     }, //THERE'S nothing rock like about most fossil mon, just them being from fossils, and from the stone age... most of this ones moves are normal too
 
     [SPECIES_RAMPARDOS] =
-    { 
+    {
+        .speciesName = _("Rampardos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(97, 165, 60, 58, 65, 50),
         MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
@@ -11048,7 +11870,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHIELDON] =
-    { 
+    {
+        .speciesName = _("Shieldon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 42, 118, 30, 42, 88),
         MON_TYPES(TYPE_ROCK, TYPE_STEEL),
@@ -11072,7 +11896,9 @@ const struct BaseStats gBaseStats[] =
     }, //gave light metal here heavy metal on evo, so this form can suit different niche
 
     [SPECIES_BASTIODON] =
-    { 
+    {
+        .speciesName = _("Bastiodon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 52, 168, 30, 47, 138),
         MON_TYPES(TYPE_ROCK, TYPE_STEEL),
@@ -11096,7 +11922,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BURMY] =
-    { 
+    {
+        .speciesName = _("Burmy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 29, 45, 36, 29, 45),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -11123,7 +11951,9 @@ const struct BaseStats gBaseStats[] =
     }, //boost with move variety rather than stats for early bugs like this vsonic
 
     [SPECIES_WORMADAM] =
-    { 
+    {
+        .speciesName = _("Wormadam"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 79, 75, 66, 89, 85),
         MON_TYPES(TYPE_BUG, TYPE_GRASS),
@@ -11149,7 +11979,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MOTHIM] =
-    { 
+    {
+        .speciesName = _("Mothim"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(77, 94, 50, 86, 94, 76),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
@@ -11177,7 +12009,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COMBEE] =
-    { 
+    {
+        .speciesName = _("Combee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(30, 30, 42, 70, 30, 42),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
@@ -11205,7 +12039,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VESPIQUEN] =
-    { 
+    {
+        .speciesName = _("Vespiquen"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 80, 102, 45, 80, 102),
         MON_TYPES(TYPE_BUG, TYPE_FLYING),
@@ -11233,7 +12069,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PACHIRISU] =
-    { 
+    {
+        .speciesName = _("Pachirisu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 45, 70, 95, 95, 90),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -11257,7 +12095,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BUIZEL] =
-    { 
+    {
+        .speciesName = _("Buizel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 65, 35, 85, 60, 30),
         MON_TYPES(TYPE_WATER, TYPE_NORMAL),
@@ -11281,7 +12121,9 @@ const struct BaseStats gBaseStats[] =
     },//semi aquatic made part normal,  also gets wide variety of moves, hgih speed so should still be able to handle fighting types
 
     [SPECIES_FLOATZEL] =
-    { 
+    {
+        .speciesName = _("Floatzel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 105, 55, 115, 85, 50),
         MON_TYPES(TYPE_WATER, TYPE_NORMAL),
@@ -11305,7 +12147,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHERUBI] =
-    { 
+    {
+        .speciesName = _("Cherubi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 35, 45, 35, 62, 53),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -11329,7 +12173,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHERRIM] =
-    { 
+    {
+        .speciesName = _("Cherrim"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 60, 90, 85, 77, 117),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -11357,7 +12203,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHELLOS] =
-    { 
+    {
+        .speciesName = _("Shellos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 48, 48, 34, 57, 62),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -11383,7 +12231,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GASTRODON] =
-    { 
+    {
+        .speciesName = _("Gastrodon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(111, 83, 68, 39, 92, 82),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -11409,7 +12259,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AMBIPOM] =
-    { 
+    {
+        .speciesName = _("Ambipom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 100, 66, 115, 60, 66),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -11434,7 +12286,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRIFLOON] =
-    { 
+    {
+        .speciesName = _("Drifloon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 50, 34, 70, 60, 44),
         MON_TYPES(TYPE_GHOST, TYPE_FLYING),
@@ -11459,7 +12313,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRIFBLIM] =
-    { 
+    {
+        .speciesName = _("Drifblim"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 80, 44, 80, 90, 54),
         MON_TYPES(TYPE_GHOST, TYPE_FLYING),
@@ -11484,7 +12340,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BUNEARY] =
-    { 
+    {
+        .speciesName = _("Buneary"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 66, 44, 85, 44, 56),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -11510,7 +12368,9 @@ const struct BaseStats gBaseStats[] =
     //klutz take 75% dmg and no damage from recoil effects i.e rockhead with dmg reduction DONE
 
     [SPECIES_LOPUNNY] =
-    { 
+    {
+        .speciesName = _("Lopunny"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 86, 84, 105, 74, 96),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -11535,7 +12395,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MISMAGIUS] =
-    { 
+    {
+        .speciesName = _("Mismagius"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 66, 66, 105, 105, 105),
         MON_TYPES(TYPE_GHOST, TYPE_FAIRY),
@@ -11560,7 +12422,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HONCHKROW] =
-    { 
+    {
+        .speciesName = _("Honchkrow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 125, 52, 71, 105, 52),
         MON_TYPES(TYPE_DARK, TYPE_FLYING),
@@ -11585,7 +12449,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLAMEOW] =
-    { 
+    {
+        .speciesName = _("Glameow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(49, 55, 42, 85, 42, 37),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -11609,7 +12475,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PURUGLY] =
-    { 
+    {
+        .speciesName = _("Purugly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(89, 82, 74, 112, 64, 69),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -11635,7 +12503,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHINGLING] =
-    { 
+    {
+        .speciesName = _("Chingling"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 30, 50, 45, 65, 60),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -11660,7 +12530,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STUNKY] =
-    { 
+    {
+        .speciesName = _("Stunky"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(63, 63, 47, 74, 41, 57),
         MON_TYPES(TYPE_POISON, TYPE_DARK),
@@ -11685,7 +12557,9 @@ const struct BaseStats gBaseStats[] =
     }, //see about giving its own uturn like, maybe dark one?  for aftermath well may not need. idk
 
     [SPECIES_SKUNTANK] =
-    { 
+    {
+        .speciesName = _("Skuntank"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(103, 93, 67, 84, 71, 84),
         MON_TYPES(TYPE_POISON, TYPE_DARK),
@@ -11710,7 +12584,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BRONZOR] =
-    { 
+    {
+        .speciesName = _("Bronzor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 24, 86, 23, 24, 86),
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
@@ -11736,7 +12612,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BRONZONG] =
-    { 
+    {
+        .speciesName = _("Bronzong"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(67, 89, 116, 33, 79, 116),
         MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
@@ -11763,7 +12641,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BONSLY] =
-    { 
+    {
+        .speciesName = _("Bonsly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 80, 95, 10, 10, 45),
         MON_TYPES(TYPE_ROCK, TYPE_GRASS),
@@ -11789,7 +12669,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MIME_JR] =
-    { 
+    {
+        .speciesName = _("Mime Jr"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 25, 45, 60, 70, 90),
         //#if P_UPDATED_TYPES >= GEN_6
@@ -11816,7 +12698,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HAPPINY] =
-    { 
+    {
+        .speciesName = _("Happiny"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 5, 5, 30, 35, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -11846,7 +12730,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHATOT] =
-    { 
+    {
+        .speciesName = _("Chatot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 65, 56, 91, 92, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -11874,7 +12760,9 @@ const struct BaseStats gBaseStats[] =
     }, //to differentiate give more sound moves
 
     [SPECIES_SPIRITOMB] =
-    { 
+    {
+        .speciesName = _("Spiritomb"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 92, 108, 35, 92, 108),
         MON_TYPES(TYPE_GHOST, TYPE_DARK),
@@ -11901,7 +12789,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GIBLE] =
-    { 
+    {
+        .speciesName = _("Gible"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(58, 70, 45, 42, 40, 45),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
@@ -11925,7 +12815,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GABITE] =
-    { 
+    {
+        .speciesName = _("Gabite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 90, 65, 82, 50, 55),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
@@ -11949,7 +12841,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GARCHOMP] =
-    { 
+    {
+        .speciesName = _("Garchomp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(108, 130, 95, 102, 80, 85),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
@@ -11973,7 +12867,9 @@ const struct BaseStats gBaseStats[] =
     },//MAKE new garchomp ability to replace sand spit, that works only on contact
 
     [SPECIES_MUNCHLAX] =
-    { 
+    {
+        .speciesName = _("Munchlax"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(135, 85, 40, 5, 40, 85),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
@@ -12001,7 +12897,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RIOLU] =
-    { 
+    {
+        .speciesName = _("Riolu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 70, 40, 60, 35, 40),
         MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
@@ -12026,7 +12924,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUCARIO] =
-    { 
+    {
+        .speciesName = _("Lucario"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 110, 70, 90, 115, 70),
         MON_TYPES(TYPE_FIGHTING, TYPE_STEEL),
@@ -12052,7 +12952,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HIPPOPOTAS] =
-    { 
+    {
+        .speciesName = _("Hippopotas"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 72, 78, 32, 38, 42),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
@@ -12078,7 +12980,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HIPPOWDON] =
-    { 
+    {
+        .speciesName = _("Hippowdon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(108, 112, 118, 47, 68, 72),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
@@ -12104,7 +13008,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SKORUPI] =
-    { 
+    {
+        .speciesName = _("Skorupi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 50, 90, 65, 30, 62),
         MON_TYPES(TYPE_POISON, TYPE_BUG),
@@ -12130,7 +13036,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAPION] =
-    { 
+    {
+        .speciesName = _("Drapion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 90, 110, 95, 60, 83),
         MON_TYPES(TYPE_POISON, TYPE_DARK),
@@ -12156,7 +13064,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CROAGUNK] =
-    { 
+    {
+        .speciesName = _("Croagunk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(52, 61, 40, 50, 61, 55),
         MON_TYPES(TYPE_POISON, TYPE_FIGHTING),
@@ -12184,7 +13094,9 @@ const struct BaseStats gBaseStats[] =
     }, //needs more fighting moves barely learns any
 
     [SPECIES_TOXICROAK] =
-    { 
+    {
+        .speciesName = _("Toxicroak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(83, 106, 65, 85, 86, 80),
         MON_TYPES(TYPE_POISON, TYPE_FIGHTING),
@@ -12212,7 +13124,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CARNIVINE] =
-    { 
+    {
+        .speciesName = _("Carnivine"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(84, 113, 72, 46, 96, 72),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -12236,7 +13150,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FINNEON] =
-    { 
+    {
+        .speciesName = _("Finneon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(49, 49, 56, 66, 49, 61),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -12265,7 +13181,9 @@ const struct BaseStats gBaseStats[] =
     //it doens't really work and having just that ability makes it better thematically, its the water mon you run on sun teams
 
     [SPECIES_LUMINEON] =
-    { 
+    {
+        .speciesName = _("Lumineon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(69, 69, 76, 112, 69, 96),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -12290,7 +13208,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MANTYKE] =
-    { 
+    {
+        .speciesName = _("Mantyke"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(45, 20, 50, 50, 65, 120),
         MON_TYPES(TYPE_WATER, TYPE_FLYING),
@@ -12314,7 +13234,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNOVER] =
-    { 
+    {
+        .speciesName = _("Snover"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 62, 50, 40, 62, 60),
         MON_TYPES(TYPE_GRASS, TYPE_ICE),
@@ -12340,7 +13262,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ABOMASNOW] =
-    { 
+    {
+        .speciesName = _("Abomasnow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(107, 92, 75, 60, 92, 85),
         MON_TYPES(TYPE_GRASS, TYPE_ICE),
@@ -12367,7 +13291,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WEAVILE] =
-    { 
+    {
+        .speciesName = _("Weavile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 120, 65, 125, 45, 85),
         MON_TYPES(TYPE_DARK, TYPE_ICE),
@@ -12395,7 +13321,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGNEZONE] =
-    { 
+    {
+        .speciesName = _("Magnezone"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 70, 115, 60, 130, 90),
         MON_TYPES(TYPE_ELECTRIC, TYPE_STEEL),
@@ -12422,7 +13350,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LICKILICKY] =
-    { 
+    {
+        .speciesName = _("Lickilicky"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 85, 95, 50, 80, 105),
         MON_TYPES(TYPE_NORMAL, TYPE_POISON),
@@ -12449,7 +13379,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RHYPERIOR] =
-    { 
+    {
+        .speciesName = _("Rhyperior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 140, 130, 40, 55, 85),
         MON_TYPES(TYPE_GROUND, TYPE_ROCK),
@@ -12474,7 +13406,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TANGROWTH] =
-    { 
+    {
+        .speciesName = _("Tangrowth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 100, 125, 50, 110, 50),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -12499,7 +13433,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ELECTIVIRE] =
-    { 
+    {
+        .speciesName = _("Electivire"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 123, 67, 95, 95, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
@@ -12527,7 +13463,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGMORTAR] =
-    { 
+    {
+        .speciesName = _("Magmortar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 67, 83, 125, 95),
         MON_TYPES(TYPE_FIRE, TYPE_FIRE),
@@ -12554,7 +13492,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOGEKISS] =
-    { 
+    {
+        .speciesName = _("Togekiss"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 50, 95, 80, 120, 115),
         //#if P_UPDATED_TYPES >= GEN_6
@@ -12583,7 +13523,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_YANMEGA] =
-    { 
+    {
+        .speciesName = _("Yanmega"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 76, 86, 105, 116, 56),
         MON_TYPES(TYPE_BUG, TYPE_DRAGON),
@@ -12611,7 +13553,9 @@ const struct BaseStats gBaseStats[] =
     },//give dragon rage, dragon breath outrage  dragon pulse draco meteor  //potentially rage
 
     [SPECIES_LEAFEON] =
-    { 
+    {
+        .speciesName = _("Leafeon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 110, 130, 95, 60, 65),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -12636,7 +13580,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLACEON] =
-    { 
+    {
+        .speciesName = _("Glaceon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 60, 110, 69, 130, 95),
         MON_TYPES(TYPE_ICE, TYPE_ICE),
@@ -12661,7 +13607,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLISCOR] =
-    { 
+    {
+        .speciesName = _("Gliscor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 95, 125, 95, 45, 75),
         MON_TYPES(TYPE_GROUND, TYPE_FLYING),
@@ -12687,7 +13635,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAMOSWINE] =
-    { 
+    {
+        .speciesName = _("Mamoswine"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 130, 80, 80, 70, 60),
         MON_TYPES(TYPE_ICE, TYPE_GROUND),
@@ -12712,7 +13662,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PORYGON_Z] =
-    { 
+    {
+        .speciesName = _("Porygon Z"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 80, 70, 90, 135, 75),
         MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
@@ -12737,7 +13689,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GALLADE] =
-    { 
+    {
+        .speciesName = _("Gallade"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(68, 125, 65, 80, 65, 115),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
@@ -12763,7 +13717,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PROBOPASS] =
-    { 
+    {
+        .speciesName = _("Probopass"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 55, 145, 40, 75, 150),
         MON_TYPES(TYPE_ROCK, TYPE_STEEL),
@@ -12791,7 +13747,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUSKNOIR] =
-    { 
+    {
+        .speciesName = _("Dusknoir"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 100, 135, 45, 65, 135),
         MON_TYPES(TYPE_GHOST, TYPE_DARK), //this keeps ghost dark),
@@ -12819,7 +13777,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FROSLASS] =
-    { 
+    {
+        .speciesName = _("Froslass"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 80, 70, 110, 90, 70),
         MON_TYPES(TYPE_ICE, TYPE_GHOST),
@@ -12844,7 +13804,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROTOM] =
-    { 
+    {
+        .speciesName = _("Rotom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 65, 77, 105, 103, 107), //shoudl be near fastest form as not weighed down by an object
         MON_TYPES(TYPE_ELECTRIC, TYPE_GHOST),
@@ -12869,7 +13831,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UXIE] =
-    { 
+    {
+        .speciesName = _("Uxie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 25, 130, 95, 75, 170),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -12902,7 +13866,9 @@ const struct BaseStats gBaseStats[] =
    //will need exit message - check bind setup
    //vsonic IMPORTANT
     [SPECIES_MESPRIT] =
-    { 
+    {
+        .speciesName = _("Mesprit"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 95, 100, 80, 95, 100),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -12932,7 +13898,9 @@ const struct BaseStats gBaseStats[] =
     //if so give this follow me to counter multi task and multi hit attackers
     //not in move end but with iron barbs so would work w multi hit
     [SPECIES_AZELF] =
-    { 
+    {
+        .speciesName = _("Azelf"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 125, 70, 115, 125, 70),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -12966,7 +13934,9 @@ const struct BaseStats gBaseStats[] =
     //actually to make more noticeable think need raise dmg reduction chance maybe 40%
 
     [SPECIES_DIALGA] =
-    { 
+    {
+        .speciesName = _("Dialga"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 120, 120, 90, 150, 100),
         MON_TYPES(TYPE_STEEL, TYPE_DRAGON),
@@ -13029,7 +13999,9 @@ const struct BaseStats gBaseStats[] =
    //god that really is going to be annnoying..  oh and add solar beam & future sight to its learnset skull bash too if it isn't already
 
     [SPECIES_PALKIA] =
-    { 
+    {
+        .speciesName = _("Palkia"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 120, 100, 100, 150, 120),
         MON_TYPES(TYPE_WATER, TYPE_DRAGON),
@@ -13062,7 +14034,9 @@ const struct BaseStats gBaseStats[] =
     
 
     [SPECIES_HEATRAN] =
-    { 
+    {
+        .speciesName = _("Heatran"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(91, 90, 106, 77, 130, 106),
         MON_TYPES(TYPE_FIRE, TYPE_STEEL),
@@ -13086,7 +14060,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REGIGIGAS] =
-    { 
+    {
+        .speciesName = _("Regigigas"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(110, 160, 110, 100, 80, 110),
         MON_TYPES(TYPE_NORMAL, TYPE_MYSTERY),  //just because its cool, its not in type chart so will just make everythinig neutral so has no effect
@@ -13110,7 +14086,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GIRATINA] =
-    { 
+    {
+        .speciesName = _("Giratina"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 100, 120, 90, 100, 120),
         MON_TYPES(TYPE_GHOST, TYPE_DRAGON),
@@ -13136,7 +14114,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRESSELIA] =
-    { 
+    {
+        .speciesName = _("Cresselia"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 70, 120, 85, 75, 130),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
@@ -13161,7 +14141,9 @@ const struct BaseStats gBaseStats[] =
     //like suicine ability heal should also work on switch in for anyone already asleep
 
     [SPECIES_PHIONE] =
-    { 
+    {
+        .speciesName = _("Phione"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(88, 88, 88, 88, 88, 88),
         MON_TYPES(TYPE_WATER, TYPE_FAIRY),
@@ -13185,7 +14167,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MANAPHY] =
-    { 
+    {
+        .speciesName = _("Manaphy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
         MON_TYPES(TYPE_WATER, TYPE_FAIRY),
@@ -13209,7 +14193,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARKRAI] =
-    { 
+    {
+        .speciesName = _("Darkrai"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 90, 90, 125, 135, 90),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
@@ -13234,7 +14220,9 @@ const struct BaseStats gBaseStats[] =
     },//haven't set despair effect yet      
 
     [SPECIES_SHAYMIN] =
-    { 
+    {
+        .speciesName = _("Shaymin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 100, 100, 100, 100, 100),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
@@ -13259,7 +14247,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 120, 120, 120, 120, 120),
         MON_TYPES(TYPE_MYSTERY, TYPE_MYSTERY),
@@ -13281,12 +14271,14 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sArceusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_HAS_COSMETIC_FORMS, //if just about type change could potentially setup like castform
-    },//nothing should ne higher normally - just finished mega readjust and wow its actually perfect
-    //all the megas have been brought down and the highest legendary megas are just slightly above arceus
+    },//nothing should ne higher normally - just finished readjust and wow its actually perfect
+    //all thes have been brought down and the highest legendarys are just slightly above arceus
     //while its still clearly better in every way
 
     [SPECIES_VICTINI] =
-    { 
+    {
+        .speciesName = _("Victini"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 100, 100, 100, 100, 100),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FIRE),
@@ -13310,7 +14302,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNIVY] =
-    { 
+    {
+        .speciesName = _("Snivy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -13342,7 +14336,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SERVINE] =
-    { 
+    {
+        .speciesName = _("Servine"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         73,
@@ -13375,7 +14371,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SERPERIOR] =
-    { 
+    {
+        .speciesName = _("Serperior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -13407,7 +14405,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TEPIG] =
-    { 
+    {
+        .speciesName = _("Tepig"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -13438,7 +14438,9 @@ const struct BaseStats gBaseStats[] =
     },//add ground moves to learnset  check add back adaptability? drayano style
 
     [SPECIES_PIGNITE] =
-    { 
+    {
+        .speciesName = _("Pignite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -13472,7 +14474,9 @@ const struct BaseStats gBaseStats[] =
     //note could make fire type u turn for doubles to self proc flash fire...hmm
     //still want to give flash fire
     [SPECIES_EMBOAR] =
-    { 
+    {
+        .speciesName = _("Emboar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         121,
@@ -13506,7 +14510,9 @@ const struct BaseStats gBaseStats[] =
     //also sandstorm for stat buff
 
     [SPECIES_OSHAWOTT] =
-    { 
+    {
+        .speciesName = _("Oshawott"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -13537,7 +14543,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEWOTT] =
-    { 
+    {
+        .speciesName = _("Dewott"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -13569,7 +14577,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SAMUROTT] =
-    { 
+    {
+        .speciesName = _("Samurott"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -13600,7 +14610,9 @@ const struct BaseStats gBaseStats[] =
     }, //give fighting moves
 
     [SPECIES_PATRAT] =
-    { 
+    {
+        .speciesName = _("Patrat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -13633,7 +14645,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WATCHOG] =
-    { 
+    {
+        .speciesName = _("Watchog"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -13666,7 +14680,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LILLIPUP] =
-    { 
+    {
+        .speciesName = _("Lillipup"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -13697,7 +14713,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HERDIER] =
-    { 
+    {
+        .speciesName = _("Herdier"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -13729,7 +14747,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STOUTLAND] =
-    { 
+    {
+        .speciesName = _("Stoutland"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -13761,7 +14781,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PURRLOIN] =
-    { 
+    {
+        .speciesName = _("Purrloin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         41,
@@ -13793,7 +14815,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LIEPARD] =
-    { 
+    {
+        .speciesName = _("Liepard"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         64,
@@ -13825,7 +14849,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PANSAGE] =
-    { 
+    {
+        .speciesName = _("Pansage"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         66,
@@ -13858,7 +14884,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SIMISAGE] =
-    { 
+    {
+        .speciesName = _("Simisage"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         86,
@@ -13890,7 +14918,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PANSEAR] =
-    { 
+    {
+        .speciesName = _("Pansear"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -13923,7 +14953,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SIMISEAR] =
-    { 
+    {
+        .speciesName = _("Simisear"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -13955,7 +14987,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PANPOUR] =
-    { 
+    {
+        .speciesName = _("Panpour"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -13988,7 +15022,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SIMIPOUR] =
-    { 
+    {
+        .speciesName = _("Simipour"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -14020,7 +15056,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUNNA] =
-    { 
+    {
+        .speciesName = _("Munna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         76,
@@ -14052,7 +15090,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUSHARNA] =
-    { 
+    {
+        .speciesName = _("Musharna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         116,
@@ -14084,7 +15124,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIDOVE] =
-    { 
+    {
+        .speciesName = _("Pidove"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -14116,7 +15158,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TRANQUILL] =
-    { 
+    {
+        .speciesName = _("Tranquill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -14150,7 +15194,9 @@ const struct BaseStats gBaseStats[] =
     //will need to reupdate species file again...
 
     [SPECIES_UNFEZANT_MALE] =
-    { 
+    {
+        .speciesName = _("Unfezant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -14183,7 +15229,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BLITZLE] =
-    { 
+    {
+        .speciesName = _("Blitzle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -14215,7 +15263,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZEBSTRIKA] =
-    { 
+    {
+        .speciesName = _("Zebstrika"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -14247,7 +15297,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROGGENROLA] =
-    { 
+    {
+        .speciesName = _("Roggenrola"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -14281,7 +15333,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BOLDORE] =
-    { 
+    {
+        .speciesName = _("Boldore"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -14316,7 +15370,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GIGALITH] =
-    { 
+    {
+        .speciesName = _("Gigalith"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -14351,7 +15407,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WOOBAT] =
-    { 
+    {
+        .speciesName = _("Woobat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -14383,7 +15441,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWOOBAT] =
-    { 
+    {
+        .speciesName = _("Swoobat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -14415,7 +15475,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRILBUR] =
-    { 
+    {
+        .speciesName = _("Drilbur"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -14447,7 +15509,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EXCADRILL] =
-    { 
+    {
+        .speciesName = _("Excadrill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -14479,7 +15543,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AUDINO] =
-    { 
+    {
+        .speciesName = _("Audino"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         103,
@@ -14513,7 +15579,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TIMBURR] =
-    { 
+    {
+        .speciesName = _("Timburr"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -14547,7 +15615,9 @@ const struct BaseStats gBaseStats[] =
     //or more they aren't well built to handle the added water/grass weakness
 
     [SPECIES_GURDURR] =
-    { 
+    {
+        .speciesName = _("Gurdurr"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -14579,7 +15649,9 @@ const struct BaseStats gBaseStats[] =
     },//changed now only rock fighting besides terrakion - changed back
 
     [SPECIES_CONKELDURR] =
-    { 
+    {
+        .speciesName = _("Conkeldurr"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -14611,7 +15683,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYMPOLE] =
-    { 
+    {
+        .speciesName = _("Tympole"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -14643,7 +15717,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PALPITOAD] =
-    { 
+    {
+        .speciesName = _("Palpitoad"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -14675,7 +15751,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SEISMITOAD] =
-    { 
+    {
+        .speciesName = _("Seismitoad"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -14707,7 +15785,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_THROH] =
-    { 
+    {
+        .speciesName = _("Throh"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -14741,7 +15821,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SAWK] =
-    { 
+    {
+        .speciesName = _("Sawk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -14775,7 +15857,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SEWADDLE] =
-    { 
+    {
+        .speciesName = _("Sewaddle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -14809,7 +15893,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWADLOON] =
-    { 
+    {
+        .speciesName = _("Swadloon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         74,
@@ -14842,7 +15928,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LEAVANNY] =
-    { 
+    {
+        .speciesName = _("Leavanny"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -14876,7 +15964,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VENIPEDE] =
-    { 
+    {
+        .speciesName = _("Venipede"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         30,
@@ -14908,7 +15998,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WHIRLIPEDE] =
-    { 
+    {
+        .speciesName = _("Whirlipede"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -14940,7 +16032,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCOLIPEDE] =
-    { 
+    {
+        .speciesName = _("Scolipede"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -14972,7 +16066,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COTTONEE] =
-    { 
+    {
+        .speciesName = _("Cottonee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         56,
@@ -15007,7 +16103,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WHIMSICOTT] =
-    { 
+    {
+        .speciesName = _("Whimsicott"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -15042,7 +16140,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PETILIL] =
-    { 
+    {
+        .speciesName = _("Petilil"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -15079,7 +16179,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LILLIGANT] =
-    { 
+    {
+        .speciesName = _("Lilligant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         89,
@@ -15115,7 +16217,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BASCULIN] =
-    { 
+    {
+        .speciesName = _("Basculin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -15149,7 +16253,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SANDILE] =
-    { 
+    {
+        .speciesName = _("Sandile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -15182,7 +16288,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KROKOROK] =
-    { 
+    {
+        .speciesName = _("Krokorok"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -15215,7 +16323,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KROOKODILE] =
-    { 
+    {
+        .speciesName = _("Krookodile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -15248,7 +16358,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARUMAKA] =
-    { 
+    {
+        .speciesName = _("Darumaka"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -15279,7 +16391,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARMANITAN] =
-    { 
+    {
+        .speciesName = _("Darmanitan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         155,
@@ -15311,7 +16425,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MARACTUS] =
-    { 
+    {
+        .speciesName = _("Maractus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -15345,7 +16461,9 @@ const struct BaseStats gBaseStats[] =
     },//LEARNS ingraine can counter solar power hp drop, could also just leech seed, either works
 
     [SPECIES_DWEBBLE] =
-    { 
+    {
+        .speciesName = _("Dwebble"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -15379,7 +16497,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRUSTLE] =
-    { 
+    {
+        .speciesName = _("Crustle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         84,
@@ -15413,7 +16533,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCRAGGY] =
-    { 
+    {
+        .speciesName = _("Scraggy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -15448,7 +16570,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCRAFTY] =
-    { 
+    {
+        .speciesName = _("Scrafty"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -15484,7 +16608,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SIGILYPH] =
-    { 
+    {
+        .speciesName = _("Sigilyph"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -15516,7 +16642,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_YAMASK] =
-    { 
+    {
+        .speciesName = _("Yamask"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         38,
@@ -15550,7 +16678,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COFAGRIGUS] =
-    { 
+    {
+        .speciesName = _("Cofagrigus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -15584,7 +16714,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TIRTOUGA] =
-    { 
+    {
+        .speciesName = _("Tirtouga"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -15616,7 +16748,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CARRACOSTA] =
-    { 
+    {
+        .speciesName = _("Carracosta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         74,
@@ -15648,7 +16782,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCHEN] =
-    { 
+    {
+        .speciesName = _("Archen"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -15681,7 +16817,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCHEOPS] =
-    { 
+    {
+        .speciesName = _("Archeops"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -15715,7 +16853,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TRUBBISH] =
-    { 
+    {
+        .speciesName = _("Trubbish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -15749,7 +16889,9 @@ const struct BaseStats gBaseStats[] =
     }, //ADD steel moves to garbodor
 
     [SPECIES_GARBODOR] =
-    { 
+    {
+        .speciesName = _("Garbodor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -15785,7 +16927,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZORUA] =
-    { 
+    {
+        .speciesName = _("Zorua"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -15818,7 +16962,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZOROARK] =
-    { 
+    {
+        .speciesName = _("Zoroark"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -15851,7 +16997,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINCCINO] =
-    { 
+    {
+        .speciesName = _("Minccino"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -15883,7 +17031,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CINCCINO] =
-    { 
+    {
+        .speciesName = _("Cinccino"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -15915,7 +17065,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOTHITA] =
-    { 
+    {
+        .speciesName = _("Gothita"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -15947,7 +17099,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOTHORITA] =
-    { 
+    {
+        .speciesName = _("Gothorita"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -15979,7 +17133,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOTHITELLE] =
-    { 
+    {
+        .speciesName = _("Gothitelle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -16011,7 +17167,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SOLOSIS] =
-    { 
+    {
+        .speciesName = _("Solosis"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -16043,7 +17201,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUOSION] =
-    { 
+    {
+        .speciesName = _("Duosion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -16075,7 +17235,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REUNICLUS] =
-    { 
+    {
+        .speciesName = _("Reuniclus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -16107,7 +17269,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUCKLETT] =
-    { 
+    {
+        .speciesName = _("Ducklett"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -16139,7 +17303,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWANNA] =
-    { 
+    {
+        .speciesName = _("Swanna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -16171,7 +17337,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VANILLITE] =
-    { 
+    {
+        .speciesName = _("Vanillite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         36,
@@ -16204,7 +17372,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VANILLISH] =
-    { 
+    {
+        .speciesName = _("Vanillish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         51,
@@ -16237,7 +17407,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VANILLUXE] =
-    { 
+    {
+        .speciesName = _("Vanilluxe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -16270,7 +17442,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEERLING] =
-    { 
+    {
+        .speciesName = _("Deerling"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -16303,7 +17477,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SAWSBUCK] =
-    { 
+    {
+        .speciesName = _("Sawsbuck"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         99,
@@ -16336,7 +17512,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EMOLGA] =
-    { 
+    {
+        .speciesName = _("Emolga"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -16369,7 +17547,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KARRABLAST] =
-    { 
+    {
+        .speciesName = _("Karrablast"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -16403,7 +17583,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ESCAVALIER] =
-    { 
+    {
+        .speciesName = _("Escavalier"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -16436,7 +17618,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FOONGUS] =
-    { 
+    {
+        .speciesName = _("Foongus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         69,
@@ -16471,7 +17655,9 @@ const struct BaseStats gBaseStats[] =
     },//adjusted for strength
 
     [SPECIES_AMOONGUSS] =
-    { 
+    {
+        .speciesName = _("Amoonguss"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         114,
@@ -16506,7 +17692,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FRILLISH_MALE] =
-    { 
+    {
+        .speciesName = _("Frillish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -16539,7 +17727,9 @@ const struct BaseStats gBaseStats[] =
     }, //water with tentacruel //cant make cosmetic, because of weird exclusion this is only cosmetic that evolves rather than being an end species
 
     [SPECIES_JELLICENT_MALE] =
-    { 
+    {
+        .speciesName = _("Jellicent"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -16572,7 +17762,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALOMOMOLA] =
-    { 
+    {
+        .speciesName = _("Alomomola"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         165,
@@ -16604,7 +17796,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_JOLTIK] =
-    { 
+    {
+        .speciesName = _("Joltik"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -16636,7 +17830,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GALVANTULA] =
-    { 
+    {
+        .speciesName = _("Galvantula"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -16668,7 +17864,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FERROSEED] =
-    { 
+    {
+        .speciesName = _("Ferroseed"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -16703,7 +17901,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FERROTHORN] =
-    { 
+    {
+        .speciesName = _("Ferrothorn"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -16738,7 +17938,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KLINK] =
-    { 
+    {
+        .speciesName = _("Klink"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -16769,7 +17971,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KLANG] =
-    { 
+    {
+        .speciesName = _("Klang"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -16800,7 +18004,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KLINKLANG] =
-    { 
+    {
+        .speciesName = _("Klinklang"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -16831,7 +18037,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYNAMO] =
-    { 
+    {
+        .speciesName = _("Tynamo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -16861,7 +18069,9 @@ const struct BaseStats gBaseStats[] =
     }, //why is it not water?
 
     [SPECIES_EELEKTRIK] =
-    { 
+    {
+        .speciesName = _("Eelektrik"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -16891,7 +18101,9 @@ const struct BaseStats gBaseStats[] =
     }, //LOWER EVolution and learnsets
 
     [SPECIES_EELEKTROSS] =
-    { 
+    {
+        .speciesName = _("Eelektross"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -16921,7 +18133,9 @@ const struct BaseStats gBaseStats[] =
     },//copy learnset of pre evo
 
     [SPECIES_ELGYEM] =
-    { 
+    {
+        .speciesName = _("Elgyem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -16953,7 +18167,9 @@ const struct BaseStats gBaseStats[] =
     }, //add round to learnset early on
 
     [SPECIES_BEHEEYEM] =
-    { 
+    {
+        .speciesName = _("Beheeyem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -16985,7 +18201,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LITWICK] =
-    { 
+    {
+        .speciesName = _("Litwick"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -17018,7 +18236,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LAMPENT] =
-    { 
+    {
+        .speciesName = _("Lampent"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -17051,7 +18271,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHANDELURE] =
-    { 
+    {
+        .speciesName = _("Chandelure"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -17084,7 +18306,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AXEW] =
-    { 
+    {
+        .speciesName = _("Axew"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         46,
@@ -17116,7 +18340,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FRAXURE] =
-    { 
+    {
+        .speciesName = _("Fraxure"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         66,
@@ -17148,7 +18374,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HAXORUS] =
-    { 
+    {
+        .speciesName = _("Haxorus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         76,
@@ -17180,7 +18408,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CUBCHOO] =
-    { 
+    {
+        .speciesName = _("Cubchoo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -17212,7 +18442,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BEARTIC] =
-    { 
+    {
+        .speciesName = _("Beartic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -17244,7 +18476,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRYOGONAL] =
-    { 
+    {
+        .speciesName = _("Cryogonal"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80, 
@@ -17276,7 +18510,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHELMET] =
-    { 
+    {
+        .speciesName = _("Shelmet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -17309,7 +18545,9 @@ const struct BaseStats gBaseStats[] =
     }, //think will also add mapssec evo for this and karrablast for powerplant
 
     [SPECIES_ACCELGOR] =
-    { 
+    {
+        .speciesName = _("Accelgor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -17341,7 +18579,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STUNFISK] =
-    { 
+    {
+        .speciesName = _("Stunfisk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         109,
@@ -17373,7 +18613,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MIENFOO] =
-    { 
+    {
+        .speciesName = _("Mienfoo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -17405,7 +18647,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MIENSHAO] =
-    { 
+    {
+        .speciesName = _("Mienshao"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -17437,7 +18681,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRUDDIGON] =
-    { 
+    {
+        .speciesName = _("Druddigon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -17470,7 +18716,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOLETT] =
-    { 
+    {
+        .speciesName = _("Golett"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         59,
@@ -17505,7 +18753,9 @@ const struct BaseStats gBaseStats[] =
     }, //victory road
 
     [SPECIES_GOLURK] =
-    { 
+    {
+        .speciesName = _("Golurk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         99,
@@ -17540,7 +18790,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PAWNIARD] =
-    { 
+    {
+        .speciesName = _("Pawniard"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -17571,7 +18823,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BISHARP] =
-    { 
+    {
+        .speciesName = _("Bisharp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -17602,7 +18856,9 @@ const struct BaseStats gBaseStats[] =
     },//GIVE Hi pressure ability //change mind normal pressure
 
     [SPECIES_BOUFFALANT] =
-    { 
+    {
+        .speciesName = _("Bouffalant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -17633,7 +18889,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RUFFLET] =
-    { 
+    {
+        .speciesName = _("Rufflet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -17665,7 +18923,9 @@ const struct BaseStats gBaseStats[] =
     },//still need work these alt form evos for mon without alt base form
 
     [SPECIES_BRAVIARY] =
-    { 
+    {
+        .speciesName = _("Braviary"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -17696,7 +18956,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VULLABY] =
-    { 
+    {
+        .speciesName = _("Vullaby"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -17728,7 +18990,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MANDIBUZZ] =
-    { 
+    {
+        .speciesName = _("Mandibuzz"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -17760,7 +19024,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HEATMOR] =
-    { 
+    {
+        .speciesName = _("Heatmor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -17792,7 +19058,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DURANT] =
-    { 
+    {
+        .speciesName = _("Durant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -17830,7 +19098,9 @@ const struct BaseStats gBaseStats[] =
     //its supported by official dex entry of pokemon black,y and alpha saphire
 
     [SPECIES_DEINO] =
-    { 
+    {
+        .speciesName = _("Deino"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         52,
@@ -17861,7 +19131,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZWEILOUS] =
-    { 
+    {
+        .speciesName = _("Zweilous"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -17892,7 +19164,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HYDREIGON] =
-    { 
+    {
+        .speciesName = _("Hydreigon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
@@ -17923,7 +19197,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LARVESTA] =
-    { 
+    {
+        .speciesName = _("Larvesta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -17954,7 +19230,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VOLCARONA] =
-    { 
+    {
+        .speciesName = _("Volcarona"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -17987,7 +19265,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COBALION] =
-    { 
+    {
+        .speciesName = _("Cobalion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         91,
@@ -18020,7 +19300,9 @@ const struct BaseStats gBaseStats[] =
     },//needs better moves
 
     [SPECIES_TERRAKION] =
-    { 
+    {
+        .speciesName = _("Terrakion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         91,
@@ -18053,7 +19335,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIRIZION] =
-    { 
+    {
+        .speciesName = _("Virizion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         91,
@@ -18086,7 +19370,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TORNADUS] =
-    { 
+    {
+        .speciesName = _("Tornadus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         79,
@@ -18118,7 +19404,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_THUNDURUS] =
-    { 
+    {
+        .speciesName = _("Thundurus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         79,
@@ -18150,7 +19438,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RESHIRAM] =
-    { 
+    {
+        .speciesName = _("Reshiram"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -18183,7 +19473,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZEKROM] =
-    { 
+    {
+        .speciesName = _("Zekrom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -18216,7 +19508,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LANDORUS] =
-    { 
+    {
+        .speciesName = _("Landorus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         89,
@@ -18247,7 +19541,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KYUREM] =
-    { 
+    {
+        .speciesName = _("Kyurem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         125,
@@ -18280,7 +19576,9 @@ const struct BaseStats gBaseStats[] =
     },//absolute zero, turns all water type attacks into ice type attacks field wide, think also change type effect like ecosystem eto resist ice - DONE
 
     [SPECIES_KELDEO] =
-    { 
+    {
+        .speciesName = _("Keldeo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         91,
@@ -18311,7 +19609,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MELOETTA] =
-    { 
+    {
+        .speciesName = _("Meloetta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -18346,7 +19646,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENESECT] =
-    { 
+    {
+        .speciesName = _("Genesect"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -18380,7 +19682,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHESPIN] =
-    { 
+    {
+        .speciesName = _("Chespin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         66,
@@ -18413,7 +19717,9 @@ const struct BaseStats gBaseStats[] =
     }, //making grass normal since has varied move pool, lil chespin love
 
     [SPECIES_QUILLADIN] =
-    { 
+    {
+        .speciesName = _("Quilladin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -18446,7 +19752,9 @@ const struct BaseStats gBaseStats[] =
     },//has takedown wood hammer so rock head could be useful plus has enough stats for eviolite to be worthwhile
 
     [SPECIES_CHESNAUGHT] =
-    { 
+    {
+        .speciesName = _("Chesnaught"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         98,
@@ -18481,7 +19789,9 @@ const struct BaseStats gBaseStats[] =
     //think what I'll do is split it into 2 effects, it'll scatter spikes when it gets hit
 
     [SPECIES_FENNEKIN] =
-    { 
+    {
+        .speciesName = _("Fennekin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -18514,7 +19824,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BRAIXEN] =
-    { 
+    {
+        .speciesName = _("Braixen"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         59,
@@ -18547,7 +19859,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DELPHOX] =
-    { 
+    {
+        .speciesName = _("Delphox"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -18580,7 +19894,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FROAKIE] =
-    { 
+    {
+        .speciesName = _("Froakie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         41,
@@ -18613,7 +19929,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FROGADIER] =
-    { 
+    {
+        .speciesName = _("Frogadier"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -18646,7 +19964,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRENINJA] =
-    { 
+    {
+        .speciesName = _("Greninja"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -18679,7 +19999,9 @@ const struct BaseStats gBaseStats[] =
     },// do same as I did special rock ruff, make evo method evolve w ability/form change w ability and set as hidden ability
 
     [SPECIES_BUNNELBY] =
-    { 
+    {
+        .speciesName = _("Bunnelby"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -18711,7 +20033,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DIGGERSBY] =
-    { 
+    {
+        .speciesName = _("Diggersby"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -18743,7 +20067,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLETCHLING] =
-    { 
+    {
+        .speciesName = _("Fletchling"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -18775,7 +20101,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLETCHINDER] =
-    { 
+    {
+        .speciesName = _("Fletchinder"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -18808,7 +20136,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TALONFLAME] =
-    { 
+    {
+        .speciesName = _("Talonflame"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -18841,7 +20171,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCATTERBUG] =
-    { 
+    {
+        .speciesName = _("Scatterbug"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -18874,7 +20206,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SPEWPA] =
-    { 
+    {
+        .speciesName = _("Spewpa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -18910,7 +20244,9 @@ const struct BaseStats gBaseStats[] =
     //negative nature as punishment
 
     [SPECIES_VIVILLON_SNOW] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -18946,7 +20282,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LITLEO] =
-    { 
+    {
+        .speciesName = _("Litleo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -18979,7 +20317,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PYROAR_MALE] =
-    { 
+    {
+        .speciesName = _("Pyroar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         106,
@@ -19012,7 +20352,9 @@ const struct BaseStats gBaseStats[] =
     },//add sunny day crunch extremespeed to learnet and have thunderbolt as tm move    vsonic
     
     [SPECIES_FLABEBE] =
-    { 
+    {
+        .speciesName = _("Flabebe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         44,
@@ -19045,7 +20387,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLOETTE] =
-    { 
+    {
+        .speciesName = _("Floette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -19078,7 +20422,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLORGES] =
-    { 
+    {
+        .speciesName = _("Florges"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -19111,7 +20457,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SKIDDO] =
-    { 
+    {
+        .speciesName = _("Skiddo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         66,
@@ -19143,7 +20491,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOGOAT] =
-    { 
+    {
+        .speciesName = _("Gogoat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         123,
@@ -19175,7 +20525,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PANCHAM] =
-    { 
+    {
+        .speciesName = _("Pancham"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         67,
@@ -19208,7 +20560,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PANGORO] =
-    { 
+    {
+        .speciesName = _("Pangoro"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -19241,7 +20595,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -19279,7 +20635,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ESPURR] =
-    { 
+    {
+        .speciesName = _("Espurr"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -19312,7 +20670,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEOWSTIC_MALE] =
-    { 
+    {
+        .speciesName = _("Meowstic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         74,
@@ -19345,7 +20705,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HONEDGE] =
-    { 
+    {
+        .speciesName = _("Honedge"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -19376,7 +20738,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DOUBLADE] =
-    { 
+    {
+        .speciesName = _("Doublade"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         59,
@@ -19407,7 +20771,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AEGISLASH] =
-    { 
+    {
+        .speciesName = _("Aegislash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -19439,7 +20805,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SPRITZEE] =
-    { 
+    {
+        .speciesName = _("Spritzee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -19470,7 +20838,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AROMATISSE] =
-    { 
+    {
+        .speciesName = _("Aromatisse"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         101,
@@ -19502,7 +20872,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SWIRLIX] =
-    { 
+    {
+        .speciesName = _("Swirlix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -19534,7 +20906,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLURPUFF] =
-    { 
+    {
+        .speciesName = _("Slurpuff"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         82,
@@ -19566,7 +20940,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_INKAY] =
-    { 
+    {
+        .speciesName = _("Inkay"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         53,
@@ -19598,7 +20974,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MALAMAR] =
-    { 
+    {
+        .speciesName = _("Malamar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         86,
@@ -19630,7 +21008,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BINACLE] =
-    { 
+    {
+        .speciesName = _("Binacle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         42,
@@ -19662,7 +21042,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BARBARACLE] =
-    { 
+    {
+        .speciesName = _("Barbaracle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -19694,7 +21076,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SKRELP] =
-    { 
+    {
+        .speciesName = _("Skrelp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -19726,7 +21110,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAGALGE] =
-    { 
+    {
+        .speciesName = _("Dragalge"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -19758,7 +21144,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLAUNCHER] =
-    { 
+    {
+        .speciesName = _("Clauncher"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -19789,7 +21177,9 @@ const struct BaseStats gBaseStats[] =
     }, //normal because highly varied learnset,  and I just need more normal types, lol nvm I'm good on normal types
 
     [SPECIES_CLAWITZER] =
-    { 
+    {
+        .speciesName = _("Clawitzer"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -19823,7 +21213,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HELIOPTILE] =
-    { 
+    {
+        .speciesName = _("Helioptile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         44,
@@ -19855,7 +21247,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HELIOLISK] =
-    { 
+    {
+        .speciesName = _("Heliolisk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -19888,7 +21282,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYRUNT] =
-    { 
+    {
+        .speciesName = _("Tyrunt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -19920,7 +21316,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYRANTRUM] =
-    { 
+    {
+        .speciesName = _("Tyrantrum"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         82,
@@ -19952,7 +21350,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AMAURA] =
-    { 
+    {
+        .speciesName = _("Amaura"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -19984,7 +21384,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AURORUS] =
-    { 
+    {
+        .speciesName = _("Aurorus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         123,
@@ -20016,7 +21418,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SYLVEON] =
-    { 
+    {
+        .speciesName = _("Sylveon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -20049,7 +21453,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HAWLUCHA] =
-    { 
+    {
+        .speciesName = _("Hawlucha"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -20083,7 +21489,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEDENNE] =
-    { 
+    {
+        .speciesName = _("Dedenne"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         67,
@@ -20115,7 +21523,9 @@ const struct BaseStats gBaseStats[] =
     },//potentially give recycle to go w pickup/cheek pouch? vsonic
 
     [SPECIES_CARBINK] =
-    { 
+    {
+        .speciesName = _("Carbink"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -20147,7 +21557,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOOMY] =
-    { 
+    {
+        .speciesName = _("Goomy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -20183,7 +21595,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLIGGOO] =
-    { 
+    {
+        .speciesName = _("Sliggoo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -20218,7 +21632,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOODRA] =
-    { 
+    {
+        .speciesName = _("Goodra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -20250,7 +21666,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KLEFKI] =
-    { 
+    {
+        .speciesName = _("Klefki"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         57,
@@ -20282,7 +21700,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PHANTUMP] =
-    { 
+    {
+        .speciesName = _("Phantump"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -20314,7 +21734,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TREVENANT] =
-    { 
+    {
+        .speciesName = _("Trevenant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -20346,7 +21768,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PUMPKABOO_AVERAGE_SIZE] =
-    { 
+    {
+        .speciesName = _("Pumpkaboo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         64,
@@ -20378,7 +21802,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOURGEIST_AVERAGE_SIZE] =
-    { 
+    {
+        .speciesName = _("Gourgeist"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -20410,7 +21836,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BERGMITE] =
-    { 
+    {
+        .speciesName = _("Bergmite"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -20421,7 +21849,7 @@ const struct BaseStats gBaseStats[] =
         35
         ),
         MON_TYPES(TYPE_ICE, TYPE_BUG), //made bug, for mite part, believe should be a plus),
-        .catchRate = 190, //plus more couterpart withi hisuian form which will resist rock
+        .catchRate = 190, //plus more couterpart withi form which will resist rock
         .expYield = 61,
         //.evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(50),//with bgu type no longer need own tempo, to keep intimidate block giving clearbody
@@ -20445,7 +21873,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AVALUGG] =
-    { 
+    {
+        .speciesName = _("Avalugg"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -20476,7 +21906,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NOIBAT] =
-    { 
+    {
+        .speciesName = _("Noibat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -20507,7 +21939,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NOIVERN] =
-    { 
+    {
+        .speciesName = _("Noivern"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -20538,7 +21972,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_XERNEAS] =
-    { 
+    {
+        .speciesName = _("Xerneas"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         126,
@@ -20572,7 +22008,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_YVELTAL] =
-    { 
+    {
+        .speciesName = _("Yveltal"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         126,
@@ -20606,7 +22044,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZYGARDE_10] =
-    { 
+    {
+        .speciesName = _("Zygarde"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -20641,7 +22081,9 @@ const struct BaseStats gBaseStats[] =
     //and power construct isn't a separate species
 
     [SPECIES_DIANCIE] =
-    { 
+    {
+        .speciesName = _("Diancie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -20673,7 +22115,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HOOPA] =
-    { 
+    {
+        .speciesName = _("Hoopa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -20705,7 +22149,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VOLCANION] =
-    { 
+    {
+        .speciesName = _("Volcanion"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -20736,7 +22182,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROWLET] =
-    { 
+    {
+        .speciesName = _("Rowlet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -20767,7 +22215,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARTRIX] =
-    { 
+    {
+        .speciesName = _("Dartrix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -20799,7 +22249,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DECIDUEYE] =
-    { 
+    {
+        .speciesName = _("Decidueye"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -20830,7 +22282,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LITTEN] =
-    { 
+    {
+        .speciesName = _("Litten"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -20861,7 +22315,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TORRACAT] =
-    { 
+    {
+        .speciesName = _("Torracat"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -20892,7 +22348,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_INCINEROAR] =
-    { 
+    {
+        .speciesName = _("Incineroar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -20923,7 +22381,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POPPLIO] =
-    { 
+    {
+        .speciesName = _("Popplio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -20956,7 +22416,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BRIONNE] =
-    { 
+    {
+        .speciesName = _("Brionne"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -20989,7 +22451,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PRIMARINA] =
-    { 
+    {
+        .speciesName = _("Primarina"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -21022,7 +22486,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKIPEK] =
-    { 
+    {
+        .speciesName = _("Pikipek"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -21055,7 +22521,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TRUMBEAK] =
-    { 
+    {
+        .speciesName = _("Trumbeak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -21088,7 +22556,9 @@ const struct BaseStats gBaseStats[] =
     },//to differentiate, based on dex give bullet seed and some sound moves
 
     [SPECIES_TOUCANNON] =
-    { 
+    {
+        .speciesName = _("Toucannon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -21121,7 +22591,9 @@ const struct BaseStats gBaseStats[] =
     }, //to differentiate based on dex give bullet seed, rock smash think flamethrower as well & sound move
 
     [SPECIES_YUNGOOS] =
-    { 
+    {
+        .speciesName = _("Yungoos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -21154,7 +22626,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GUMSHOOS] =
-    { 
+    {
+        .speciesName = _("Gumshoos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -21187,7 +22661,9 @@ const struct BaseStats gBaseStats[] =
     },//give first impressions as evo move & facade
 
     [SPECIES_GRUBBIN] =
-    { 
+    {
+        .speciesName = _("Grubbin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         47,
@@ -21218,7 +22694,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHARJABUG] =
-    { 
+    {
+        .speciesName = _("Charjabug"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         67,
@@ -21254,7 +22732,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIKAVOLT] =
-    { 
+    {
+        .speciesName = _("Vikavolt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -21285,7 +22765,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRABRAWLER] =
-    { 
+    {
+        .speciesName = _("Crabrawler"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         47,
@@ -21319,7 +22801,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRABOMINABLE] =
-    { 
+    {
+        .speciesName = _("Crabominable"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -21351,12 +22835,14 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//make new fighting move to take advantage of regenerator "cheap shot" idea is a hit after bell, will be low priority u-turn like
     //The user throws delayed punch when the foe doesn't expect it then retreats
-    //THINK USE astonish "!" on user  then do something like mega punch
+    //THINK USE astonish "!" on user  then do something like punch
     //...just gonna make new ability for it that is combination of regrigerate and regenerator aka "Wetiko"
     //which is algonuin for wendigo i.e original word
 
     [SPECIES_ORICORIO_BAILE] =
-    { 
+    {
+        .speciesName = _("Oricorio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -21392,7 +22878,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CUTIEFLY] =
-    { 
+    {
+        .speciesName = _("Cutiefly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -21427,7 +22915,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RIBOMBEE] =
-    { 
+    {
+        .speciesName = _("Ribombee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -21462,7 +22952,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROCKRUFF] =
-    { 
+    {
+        .speciesName = _("Rockruff"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -21502,7 +22994,9 @@ const struct BaseStats gBaseStats[] =
     //vsonic need make sure check this
 
     [SPECIES_LYCANROC_MIDDAY] =
-    { 
+    {
+        .speciesName = _("Lycanroc"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -21534,7 +23028,9 @@ const struct BaseStats gBaseStats[] =
     }, //give crush claw
 
     [SPECIES_WISHIWASHI] =
-    { 
+    {
+        .speciesName = _("Wishiwashi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -21568,7 +23064,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAREANIE] =
-    { 
+    {
+        .speciesName = _("Mareanie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -21601,7 +23099,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOXAPEX] =
-    { 
+    {
+        .speciesName = _("Toxapex"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -21634,7 +23134,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUDBRAY] =
-    { 
+    {
+        .speciesName = _("Mudbray"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -21669,7 +23171,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUDSDALE] =
-    { 
+    {
+        .speciesName = _("Mudsdale"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -21704,7 +23208,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEWPIDER] =
-    { 
+    {
+        .speciesName = _("Dewpider"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         38,
@@ -21737,7 +23243,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARAQUANID] =
-    { 
+    {
+        .speciesName = _("Araquanid"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         69,
@@ -21770,7 +23278,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FOMANTIS] =
-    { 
+    {
+        .speciesName = _("Fomantis"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         76,
@@ -21803,7 +23313,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LURANTIS] =
-    { 
+    {
+        .speciesName = _("Lurantis"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
@@ -21836,7 +23348,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MORELULL] =
-    { 
+    {
+        .speciesName = _("Morelull"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -21869,7 +23383,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHIINOTIC] =
-    { 
+    {
+        .speciesName = _("Shiinotic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -21902,7 +23418,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SALANDIT] =
-    { 
+    {
+        .speciesName = _("Salandit"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -21935,7 +23453,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SALAZZLE] =
-    { 
+    {
+        .speciesName = _("Salazzle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -21968,7 +23488,9 @@ const struct BaseStats gBaseStats[] =
     },//vsonic
 
     [SPECIES_STUFFUL] =
-    { 
+    {
+        .speciesName = _("Stufful"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -22000,7 +23522,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BEWEAR] =
-    { 
+    {
+        .speciesName = _("Bewear"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -22032,7 +23556,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BOUNSWEET] =
-    { 
+    {
+        .speciesName = _("Bounsweet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         52,
@@ -22067,7 +23593,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STEENEE] =
-    { 
+    {
+        .speciesName = _("Steenee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -22102,7 +23630,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TSAREENA] =
-    { 
+    {
+        .speciesName = _("Tsareena"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         87,
@@ -22137,7 +23667,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COMFEY] =
-    { 
+    {
+        .speciesName = _("Comfey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         51,
@@ -22172,7 +23704,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ORANGURU] =
-    { 
+    {
+        .speciesName = _("Oranguru"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -22204,7 +23738,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PASSIMIAN] =
-    { 
+    {
+        .speciesName = _("Passimian"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -22236,7 +23772,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WIMPOD] =
-    { 
+    {
+        .speciesName = _("Wimpod"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         25,
@@ -22268,7 +23806,9 @@ const struct BaseStats gBaseStats[] =
     }, //give uturn, the turn one flinch move, and good deal of status moves to keep enemy away something hazards or something
 
     [SPECIES_GOLISOPOD] =
-    { 
+    {
+        .speciesName = _("Golisopod"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         115,
@@ -22300,7 +23840,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SANDYGAST] =
-    { 
+    {
+        .speciesName = _("Sandygast"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -22333,7 +23875,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PALOSSAND] =
-    { 
+    {
+        .speciesName = _("Palossand"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -22366,7 +23910,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PYUKUMUKU] =
-    { 
+    {
+        .speciesName = _("Pyukumuku"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -22398,7 +23944,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TYPE_NULL] =
-    { 
+    {
+        .speciesName = _("Type Null"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -22429,7 +23977,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -22464,7 +24014,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -22502,7 +24054,9 @@ const struct BaseStats gBaseStats[] =
     //this will need specific logic to work w ddex changes
 
     [SPECIES_KOMALA] =
-    { 
+    {
+        .speciesName = _("Komala"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -22536,7 +24090,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TURTONATOR] =
-    { 
+    {
+        .speciesName = _("Turtonator"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -22568,7 +24124,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOGEDEMARU] =
-    { 
+    {
+        .speciesName = _("Togedemaru"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -22603,7 +24161,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MIMIKYU] =
-    { 
+    {
+        .speciesName = _("Mimikyu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -22639,7 +24199,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BRUXISH] =
-    { 
+    {
+        .speciesName = _("Bruxish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -22674,7 +24236,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAMPA] =
-    { 
+    {
+        .speciesName = _("Drampa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -22707,7 +24271,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DHELMISE] =
-    { 
+    {
+        .speciesName = _("Dhelmise"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -22741,7 +24307,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_JANGMO_O] =
-    { 
+    {
+        .speciesName = _("Jangmo O"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -22776,7 +24344,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HAKAMO_O] =
-    { 
+    {
+        .speciesName = _("Hakamo O"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -22811,7 +24381,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KOMMO_O] =
-    { 
+    {
+        .speciesName = _("Kommo O"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -22846,7 +24418,9 @@ const struct BaseStats gBaseStats[] =
     },//give vacuum wave
 
     [SPECIES_TAPU_KOKO] =
-    { 
+    {
+        .speciesName = _("Tapu Koko"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -22878,7 +24452,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TAPU_LELE] =
-    { 
+    {
+        .speciesName = _("Tapu Lele"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -22910,7 +24486,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TAPU_BULU] =
-    { 
+    {
+        .speciesName = _("Tapu Bulu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         83,
@@ -22942,7 +24520,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TAPU_FINI] =
-    { 
+    {
+        .speciesName = _("Tapu Fini"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -22974,7 +24554,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COSMOG] =
-    { 
+    {
+        .speciesName = _("Cosmog"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         43,
@@ -23008,7 +24590,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COSMOEM] =
-    { 
+    {
+        .speciesName = _("Cosmoem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         43,
@@ -23041,7 +24625,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SOLGALEO] =
-    { 
+    {
+        .speciesName = _("Solgaleo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         137,
@@ -23075,7 +24661,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LUNALA] =
-    { 
+    {
+        .speciesName = _("Lunala"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         137,
@@ -23109,7 +24697,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NIHILEGO] =
-    { 
+    {
+        .speciesName = _("Nihilego"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         109,
@@ -23144,7 +24734,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BUZZWOLE] =
-    { 
+    {
+        .speciesName = _("Buzzwole"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         107,
@@ -23180,7 +24772,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PHEROMOSA] =
-    { 
+    {
+        .speciesName = _("Pheromosa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -23215,7 +24809,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_XURKITREE] =
-    { 
+    {
+        .speciesName = _("Xurkitree"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         83,
@@ -23250,7 +24846,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CELESTEELA] =
-    { 
+    {
+        .speciesName = _("Celesteela"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -23287,7 +24885,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KARTANA] =
-    { 
+    {
+        .speciesName = _("Kartana"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         69,
@@ -23322,7 +24922,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GUZZLORD] =
-    { 
+    {
+        .speciesName = _("Guzzlord"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         223,
@@ -23355,7 +24957,9 @@ const struct BaseStats gBaseStats[] =
     },//apparently guzzlord is bad?
 
     [SPECIES_NECROZMA] =
-    { 
+    {
+        .speciesName = _("Necrozma"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -23392,7 +24996,9 @@ const struct BaseStats gBaseStats[] =
     //put im attack cancelor
 
     [SPECIES_MAGEARNA] =
-    { 
+    {
+        .speciesName = _("Magearna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -23426,7 +25032,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MARSHADOW] =
-    { 
+    {
+        .speciesName = _("Marshadow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -23461,7 +25069,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POIPOLE] =
-    { 
+    {
+        .speciesName = _("Poipole"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         67,
@@ -23496,7 +25106,9 @@ const struct BaseStats gBaseStats[] =
     },//changed evo, base was lvl 1 move was a progression locked evo til move tutor/relearner
 
     [SPECIES_NAGANADEL] =
-    { 
+    {
+        .speciesName = _("Naganadel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         73,
@@ -23531,7 +25143,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STAKATAKA] =
-    { 
+    {
+        .speciesName = _("Stakataka"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         61,
@@ -23565,7 +25179,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BLACEPHALON] =
-    { 
+    {
+        .speciesName = _("Blacephalon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         53,
@@ -23600,7 +25216,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZERAORA] =
-    { 
+    {
+        .speciesName = _("Zeraora"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -23631,7 +25249,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MELTAN] =
-    { 
+    {
+        .speciesName = _("Meltan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         46,
@@ -23662,7 +25282,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MELMETAL] =
-    { 
+    {
+        .speciesName = _("Melmetal"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         135,
@@ -23696,7 +25318,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROOKEY] =
-    { 
+    {
+        .speciesName = _("Grookey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -23729,7 +25353,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_THWACKEY] =
-    { 
+    {
+        .speciesName = _("Thwackey"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         86,
@@ -23762,7 +25388,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RILLABOOM] =
-    { 
+    {
+        .speciesName = _("Rillaboom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         130,
@@ -23795,7 +25423,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCORBUNNY] =
-    { 
+    {
+        .speciesName = _("Scorbunny"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -23828,7 +25458,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RABOOT] =
-    { 
+    {
+        .speciesName = _("Raboot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -23861,7 +25493,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CINDERACE] =
-    { 
+    {
+        .speciesName = _("Cinderace"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -23894,7 +25528,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SOBBLE] =
-    { 
+    {
+        .speciesName = _("Sobble"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -23928,7 +25564,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRIZZILE] =
-    { 
+    {
+        .speciesName = _("Drizzile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -23961,7 +25599,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_INTELEON] =
-    { 
+    {
+        .speciesName = _("Inteleon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -23994,7 +25634,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SKWOVET] =
-    { 
+    {
+        .speciesName = _("Skwovet"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -24027,7 +25669,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GREEDENT] =
-    { 
+    {
+        .speciesName = _("Greedent"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -24060,7 +25704,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROOKIDEE] =
-    { 
+    {
+        .speciesName = _("Rookidee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         38,
@@ -24092,7 +25738,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CORVISQUIRE] =
-    { 
+    {
+        .speciesName = _("Corvisquire"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -24124,7 +25772,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CORVIKNIGHT] =
-    { 
+    {
+        .speciesName = _("Corviknight"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         98,
@@ -24156,7 +25806,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BLIPBUG] =
-    { 
+    {
+        .speciesName = _("Blipbug"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -24189,7 +25841,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DOTTLER] =
-    { 
+    {
+        .speciesName = _("Dottler"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -24225,7 +25879,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ORBEETLE] =
-    { 
+    {
+        .speciesName = _("Orbeetle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         63,
@@ -24260,7 +25916,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NICKIT] =
-    { 
+    {
+        .speciesName = _("Nickit"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -24297,7 +25955,9 @@ const struct BaseStats gBaseStats[] =
     //will replace w pickpocket, gives it much needed defense and fits as alt to magician
 
     [SPECIES_THIEVUL] =
-    { 
+    {
+        .speciesName = _("Thievul"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -24329,7 +25989,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOSSIFLEUR] =
-    { 
+    {
+        .speciesName = _("Gossifleur"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         56,
@@ -24361,7 +26023,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ELDEGOSS] =
-    { 
+    {
+        .speciesName = _("Eldegoss"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -24393,7 +26057,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WOOLOO] =
-    { 
+    {
+        .speciesName = _("Wooloo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         42,
@@ -24425,7 +26091,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUBWOOL] =
-    { 
+    {
+        .speciesName = _("Dubwool"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -24457,7 +26125,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHEWTLE] =
-    { 
+    {
+        .speciesName = _("Chewtle"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -24489,7 +26159,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DREDNAW] =
-    { 
+    {
+        .speciesName = _("Drednaw"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -24521,7 +26193,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_YAMPER] =
-    { 
+    {
+        .speciesName = _("Yamper"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         59,
@@ -24553,7 +26227,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BOLTUND] =
-    { 
+    {
+        .speciesName = _("Boltund"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         69,
@@ -24585,7 +26261,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROLYCOLY] =
-    { 
+    {
+        .speciesName = _("Rolycoly"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         30,
@@ -24617,7 +26295,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CARKOL] =
-    { 
+    {
+        .speciesName = _("Carkol"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -24649,7 +26329,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COALOSSAL] =
-    { 
+    {
+        .speciesName = _("Coalossal"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -24681,7 +26363,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_APPLIN] =
-    { 
+    {
+        .speciesName = _("Applin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         51,
@@ -24715,7 +26399,9 @@ const struct BaseStats gBaseStats[] =
     },//HAVE TO define items, and figure how to do these 
 
     [SPECIES_FLAPPLE] =
-    { 
+    {
+        .speciesName = _("Flapple"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         87,
@@ -24747,7 +26433,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_APPLETUN] =
-    { 
+    {
+        .speciesName = _("Appletun"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         110,
@@ -24779,7 +26467,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILICOBRA] =
-    { 
+    {
+        .speciesName = _("Silicobra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         52,
@@ -24811,7 +26501,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SANDACONDA] =
-    { 
+    {
+        .speciesName = _("Sandaconda"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -24843,7 +26535,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRAMORANT] =
-    { 
+    {
+        .speciesName = _("Cramorant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -24878,7 +26572,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARROKUDA] =
-    { 
+    {
+        .speciesName = _("Arrokuda"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         41,
@@ -24911,7 +26607,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BARRASKEWDA] =
-    { 
+    {
+        .speciesName = _("Barraskewda"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         61,
@@ -24944,7 +26642,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOXEL] =
-    { 
+    {
+        .speciesName = _("Toxel"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -24979,7 +26679,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOXTRICITY] =
-    { 
+    {
+        .speciesName = _("Toxtricity"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -25013,7 +26715,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SIZZLIPEDE] =
-    { 
+    {
+        .speciesName = _("Sizzlipede"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -25044,7 +26748,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CENTISKORCH] =
-    { 
+    {
+        .speciesName = _("Centiskorch"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -25075,7 +26781,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CLOBBOPUS] =
-    { 
+    {
+        .speciesName = _("Clobbopus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -25108,7 +26816,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRAPPLOCT] =
-    { 
+    {
+        .speciesName = _("Grapploct"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -25141,7 +26851,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SINISTEA] =
-    { 
+    {
+        .speciesName = _("Sinistea"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -25173,7 +26885,9 @@ const struct BaseStats gBaseStats[] =
     },//change this to work like pika etc. alt forms, its rare it'll just be generated so use same evo condition rather than special item
 
     [SPECIES_POLTEAGEIST] =
-    { 
+    {
+        .speciesName = _("Polteageist"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -25205,7 +26919,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HATENNA] =
-    { 
+    {
+        .speciesName = _("Hatenna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         42,
@@ -25237,7 +26953,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HATTREM] =
-    { 
+    {
+        .speciesName = _("Hattrem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         57,
@@ -25269,7 +26987,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HATTERENE] =
-    { 
+    {
+        .speciesName = _("Hatterene"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         57,
@@ -25301,7 +27021,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_IMPIDIMP] =
-    { 
+    {
+        .speciesName = _("Impidimp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -25333,7 +27055,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MORGREM] =
-    { 
+    {
+        .speciesName = _("Morgrem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -25365,7 +27089,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRIMMSNARL] =
-    { 
+    {
+        .speciesName = _("Grimmsnarl"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -25397,7 +27123,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_OBSTAGOON] =
-    { 
+    {
+        .speciesName = _("Obstagoon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         93,
@@ -25429,7 +27157,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PERRSERKER] =
-    { 
+    {
+        .speciesName = _("Perrserker"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -25461,7 +27191,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CURSOLA] =
-    { 
+    {
+        .speciesName = _("Cursola"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -25493,7 +27225,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SIRFETCHD] =
-    { 
+    {
+        .speciesName = _("Sirfetchd"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         62,
@@ -25526,7 +27260,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MR_RIME] =
-    { 
+    {
+        .speciesName = _("Mr Rime"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -25558,7 +27294,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RUNERIGUS] =
-    { 
+    {
+        .speciesName = _("Runerigus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -25592,7 +27330,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MILCERY] =
-    { 
+    {
+        .speciesName = _("Milcery"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -25625,7 +27365,9 @@ const struct BaseStats gBaseStats[] =
     //use personality value to determine form, but in this case will be used for evo rather than base form
 
     [SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -25658,7 +27400,9 @@ const struct BaseStats gBaseStats[] =
     },//method will be friendhship evo, but target species will be shifted using personality to get form I want
 
     [SPECIES_FALINKS] =
-    { 
+    {
+        .speciesName = _("Falinks"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -25690,7 +27434,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PINCURCHIN] =
-    { 
+    {
+        .speciesName = _("Pincurchin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -25723,7 +27469,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNOM] =
-    { 
+    {
+        .speciesName = _("Snom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -25759,7 +27507,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FROSMOTH] =
-    { 
+    {
+        .speciesName = _("Frosmoth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         77,
@@ -25792,7 +27542,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STONJOURNER] =
-    { 
+    {
+        .speciesName = _("Stonjourner"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -25826,7 +27578,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EISCUE] =
-    { 
+    {
+        .speciesName = _("Eiscue"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -25860,7 +27614,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_INDEEDEE_MALE] =
-    { 
+    {
+        .speciesName = _("Indeedee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -25894,7 +27650,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MORPEKO] =
-    { 
+    {
+        .speciesName = _("Morpeko"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -25928,7 +27686,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CUFANT] =
-    { 
+    {
+        .speciesName = _("Cufant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -25963,7 +27723,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_COPPERAJAH] =
-    { 
+    {
+        .speciesName = _("Copperajah"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         122,
@@ -25998,7 +27760,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRACOZOLT] =
-    { 
+    {
+        .speciesName = _("Dracozolt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -26031,7 +27795,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCTOZOLT] =
-    { 
+    {
+        .speciesName = _("Arctozolt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -26064,7 +27830,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRACOVISH] =
-    { 
+    {
+        .speciesName = _("Dracovish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -26096,7 +27864,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCTOVISH] =
-    { 
+    {
+        .speciesName = _("Arctovish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -26128,7 +27898,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DURALUDON] =
-    { 
+    {
+        .speciesName = _("Duraludon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -26160,7 +27932,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DREEPY] =
-    { 
+    {
+        .speciesName = _("Dreepy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         28,
@@ -26192,7 +27966,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAKLOAK] =
-    { 
+    {
+        .speciesName = _("Drakloak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -26224,7 +28000,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DRAGAPULT] =
-    { 
+    {
+        .speciesName = _("Dragapult"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -26256,7 +28034,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZACIAN] =
-    { 
+    {
+        .speciesName = _("Zacian"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
@@ -26287,7 +28067,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZAMAZENTA] =
-    { 
+    {
+        .speciesName = _("Zamazenta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
@@ -26318,7 +28100,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ETERNATUS] =
-    { 
+    {
+        .speciesName = _("Eternatus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         140,
@@ -26349,7 +28133,9 @@ const struct BaseStats gBaseStats[] =
     }, //since it absorbs things to grow get stronger maybe boosts def spdef?
 
     [SPECIES_KUBFU] =
-    { 
+    {
+        .speciesName = _("Kubfu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -26386,7 +28172,9 @@ const struct BaseStats gBaseStats[] =
     //actually make it after beating giovanni vsonic
 
     [SPECIES_URSHIFU_SINGLE_STRIKE_STYLE] =
-    { 
+    {
+        .speciesName = _("Urshifu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -26418,7 +28206,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZARUDE] =
-    { 
+    {
+        .speciesName = _("Zarude"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -26449,7 +28239,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REGIELEKI] =
-    { 
+    {
+        .speciesName = _("Regieleki"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -26480,7 +28272,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_REGIDRAGO] =
-    { 
+    {
+        .speciesName = _("Regidrago"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         200,
@@ -26511,7 +28305,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLASTRIER] =
-    { 
+    {
+        .speciesName = _("Glastrier"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -26544,7 +28340,9 @@ const struct BaseStats gBaseStats[] =
     }, //note setup ability so it plays the cry before the stat boost
 
     [SPECIES_SPECTRIER] =
-    { 
+    {
+        .speciesName = _("Spectrier"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -26578,7 +28376,9 @@ const struct BaseStats gBaseStats[] =
     },//note setup ability so it plays the cry before the stat boost  /DONE
 
     [SPECIES_CALYREX] =
-    { 
+    {
+        .speciesName = _("Calyrex"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -26612,7 +28412,9 @@ const struct BaseStats gBaseStats[] =
     },//need to add below mon to species_to_national dex in pokemon.c
 
     [SPECIES_WYRDEER] =
-    { 
+    {
+        .speciesName = _("Wyrdeer"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         103,
@@ -26643,7 +28445,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KLEAVOR] =
-    { 
+    {
+        .speciesName = _("Kleavor"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         70,
@@ -26674,7 +28478,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_URSALUNA] =
-    { 
+    {
+        .speciesName = _("Ursaluna"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         130,
@@ -26705,7 +28511,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BASCULEGION_MALE] =
-    { 
+    {
+        .speciesName = _("Basculegion"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         120,
@@ -26737,7 +28545,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SNEASLER] =
-    { 
+    {
+        .speciesName = _("Sneasler"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         80,
@@ -26770,7 +28580,9 @@ const struct BaseStats gBaseStats[] =
     //give ABILITY_FEMME_FATALE when finish setup
 
     [SPECIES_OVERQWIL] =
-    { 
+    {
+        .speciesName = _("Overqwil"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         85,
@@ -26801,7 +28613,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ENAMORUS] =
-    { 
+    {
+        .speciesName = _("Enamorus"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         74,
@@ -26833,7 +28647,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CEFIREON] =
-    { 
+    {
+        .speciesName = _("Cefireon"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         65,
@@ -26867,7 +28683,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FRAEYJTA] =
-    { 
+    {
+        .speciesName = _("Fraeyjta"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         170,  //hp betweeen snorlax and chansey
@@ -26907,6 +28725,8 @@ const struct BaseStats gBaseStats[] =
     //#if p_fAMILY_SPRIGATITO
     [SPECIES_SPRIGATITO] =
     {
+        .speciesName = _("Sprigatito"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -26967,6 +28787,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_FLORAGATO] =
     {
+        .speciesName = _("Floragato"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               61,
@@ -27027,6 +28849,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_MEOWSCARADA] =
     {
+        .speciesName = _("Meowscarada"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               76,
@@ -27088,6 +28912,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FUECOCO
     [SPECIES_FUECOCO] =
     {
+        .speciesName = _("Fuecoco"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               67,
@@ -27148,6 +28974,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_CROCALOR] =
     {
+        .speciesName = _("Crocalor"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               81,
@@ -27208,6 +29036,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SKELEDIRGE] =
     {
+        .speciesName = _("Skeledirge"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               104,
@@ -27269,6 +29099,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_QUAXLY
     [SPECIES_QUAXLY] =
     {
+        .speciesName = _("Quaxly"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
@@ -27329,6 +29161,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_QUAXWELL] =
     {
+        .speciesName = _("Quaxwell"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -27389,6 +29223,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_QUAQUAVAL] =
     {
+        .speciesName = _("Quaquaval"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               85,
@@ -27450,6 +29286,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_LECHONK
     [SPECIES_LECHONK] =
     {
+        .speciesName = _("Lechonk"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               54,
@@ -27511,6 +29349,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_OINKOLOGNE_MALE] =
     {
+        .speciesName = _("Oinkologne"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               110,
@@ -27571,6 +29411,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_OINKOLOGNE_FEMALE] =
     {
+        .speciesName = _("Oinkologne"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               115,
@@ -27634,6 +29476,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TAROUNTULA
     [SPECIES_TAROUNTULA] =
     {
+        .speciesName = _("Tarountula"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               35,
@@ -27694,6 +29538,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SPIDOPS] =
     {
+        .speciesName = _("Spidops"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               60,
@@ -27755,6 +29601,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_NYMBLE
     [SPECIES_NYMBLE] =
     {
+        .speciesName = _("Nymble"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               33,
@@ -27815,6 +29663,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_LOKIX] =
     {
+        .speciesName = _("Lokix"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               71,
@@ -27876,6 +29726,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_PAWMI
     [SPECIES_PAWMI] =
     {
+        .speciesName = _("Pawmi"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               45,
@@ -27936,6 +29788,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_PAWMO] =
     {
+        .speciesName = _("Pawmo"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               60,
@@ -27996,6 +29850,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_PAWMOT] =
     {
+        .speciesName = _("Pawmot"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -28057,6 +29913,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TANDEMAUS
     [SPECIES_TANDEMAUS] =
     {
+        .speciesName = _("Tandemaus"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               50,
@@ -28118,6 +29976,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_MAUSHOLD_FAMILY_OF_THREE] =
     {
+        .speciesName = _("Maushold"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               74,
@@ -28177,6 +30037,8 @@ const struct BaseStats gBaseStats[] =
     },
     [SPECIES_MAUSHOLD_FAMILY_OF_FOUR] =
     {
+        .speciesName = _("Maushold"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               74,
@@ -28236,6 +30098,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FIDOUGH
     [SPECIES_FIDOUGH] =
     {
+        .speciesName = _("Fidough"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               37,
@@ -28296,6 +30160,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_DACHSBUN] =
     {
+        .speciesName = _("Dachsbun"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               57,
@@ -28357,6 +30223,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_SMOLIV
     [SPECIES_SMOLIV] =
     {
+        .speciesName = _("Smoliv"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               41,
@@ -28417,6 +30285,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_DOLLIV] =
     {
+        .speciesName = _("Dolliv"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               52,
@@ -28477,6 +30347,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_ARBOLIVA] =
     {
+        .speciesName = _("Arboliva"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               78,
@@ -28538,6 +30410,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_SQUAWKABILLY
     [SPECIES_SQUAWKABILLY_GREEN_PLUMAGE] =
     {
+        .speciesName = _("Squawkabilly"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               82,
@@ -28589,7 +30463,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_SquawkabillyGreenPlumage,
         .iconSprite = gMonIcon_SquawkabillyGreenPlumage,
         .iconPalIndex = 1,
-        //FOOTPRINT(Squawkabilly)
+        //FOOTPRINT(Squawkabilly")
         */
         //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
         //.teachableLearnset = sSquawkabillyTeachableLearnset,
@@ -28598,6 +30472,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SQUAWKABILLY_BLUE_PLUMAGE] =
     {
+        .speciesName = _("Squawkabilly"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               82,
@@ -28649,7 +30525,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_SquawkabillyBluePlumage,
         .iconSprite = gMonIcon_SquawkabillyBluePlumage,
         .iconPalIndex = 0,
-        //FOOTPRINT(Squawkabilly)
+        //FOOTPRINT(Squawkabilly")
         */
         //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
         //.teachableLearnset = sSquawkabillyTeachableLearnset,
@@ -28658,6 +30534,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE] =
     {
+        .speciesName = _("Squawkabilly"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               82,
@@ -28709,7 +30587,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_SquawkabillyYellowPlumage,
         .iconSprite = gMonIcon_SquawkabillyYellowPlumage,
         .iconPalIndex = 1,
-        //FOOTPRINT(Squawkabilly)
+        //FOOTPRINT(Squawkabilly")
         */
         //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
         //.teachableLearnset = sSquawkabillyTeachableLearnset,
@@ -28718,6 +30596,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SQUAWKABILLY_WHITE_PLUMAGE] =
     {
+        .speciesName = _("Squawkabilly"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               82,
@@ -28769,7 +30649,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_SquawkabillyWhitePlumage,
         .iconSprite = gMonIcon_SquawkabillyWhitePlumage,
         .iconPalIndex = 0,
-        //FOOTPRINT(Squawkabilly)
+        //FOOTPRINT(Squawkabilly")
         */
         //.levelUpLearnset = sSquawkabillyLevelUpLearnset,
         //.teachableLearnset = sSquawkabillyTeachableLearnset,
@@ -28780,6 +30660,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_NACLI
     [SPECIES_NACLI] =
     {
+        .speciesName = _("Nacli"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
@@ -28840,6 +30722,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_NACLSTACK] =
     {
+        .speciesName = _("Naclstack"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               60,
@@ -28900,6 +30784,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_GARGANACL] =
     {
+        .speciesName = _("Garganacl"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -28961,6 +30847,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_CHARCADET
     [SPECIES_CHARCADET] =
     {
+        .speciesName = _("Charcadet"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -29022,6 +30910,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_ARMAROUGE] =
     {
+        .speciesName = _("Armarouge"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               85,
@@ -29081,6 +30971,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_CERULEDGE] =
     {
+        .speciesName = _("Ceruledge"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
@@ -29142,6 +31034,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TADBULB
     [SPECIES_TADBULB] =
     {
+        .speciesName = _("Tadbulb"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               61,
@@ -29203,6 +31097,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_BELLIBOLT] =
     {
+        .speciesName = _("Bellibolt"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               109,
@@ -29264,6 +31160,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_WATTREL
     [SPECIES_WATTREL] =
     {
+        .speciesName = _("Wattrel"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -29324,6 +31222,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_KILOWATTREL] =
     {
+        .speciesName = _("Kilowattrel"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -29385,6 +31285,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_MASCHIFF
     [SPECIES_MASCHIFF] =
     {
+        .speciesName = _("Maschiff"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               60,
@@ -29445,6 +31347,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_MABOSSTIFF] =
     {
+        .speciesName = _("Mabosstiff"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               80,
@@ -29506,6 +31410,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_SHROODLE
     [SPECIES_SHROODLE] =
     {
+        .speciesName = _("Shroodle"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -29566,6 +31472,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_GRAFAIAI] =
     {
+        .speciesName = _("Grafaiai"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               63,
@@ -29627,6 +31535,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_BRAMBLIN
     [SPECIES_BRAMBLIN] =
     {
+        .speciesName = _("Bramblin"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -29687,6 +31597,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_BRAMBLEGHAST] =
     {
+        .speciesName = _("Brambleghast"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
@@ -29748,6 +31660,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TOEDSCOOL
     [SPECIES_TOEDSCOOL] =
     {
+        .speciesName = _("Toedscool"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -29806,6 +31720,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TOEDSCRUEL] =
     {
+        .speciesName = _("Toedscruel"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               80,
@@ -29867,6 +31783,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_KLAWF
     [SPECIES_KLAWF] =
     {
+        .speciesName = _("Klawf"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -29928,6 +31846,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_CAPSAKID
     [SPECIES_CAPSAKID] =
     {
+        .speciesName = _("Capsakid"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               50,
@@ -29988,6 +31908,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SCOVILLAIN] =
     {
+        .speciesName = _("Scovillain"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               65,
@@ -30049,6 +31971,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_RELLOR
     [SPECIES_RELLOR] =
     {
+        .speciesName = _("Rellor"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               41,
@@ -30109,6 +32033,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_RABSCA] =
     {
+        .speciesName = _("Rabsca"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
@@ -30170,6 +32096,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FLITTLE
     [SPECIES_FLITTLE] =
     {
+        .speciesName = _("Flittle"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               30,
@@ -30230,6 +32158,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_ESPATHRA] =
     {
+        .speciesName = _("Espathra"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               95,
@@ -30291,6 +32221,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TINKATINK
     [SPECIES_TINKATINK] =
     {
+        .speciesName = _("Tinkatink"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               50,
@@ -30351,6 +32283,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TINKATUFF] =
     {
+        .speciesName = _("Tinkatuff"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               65,
@@ -30411,6 +32345,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TINKATON] =
     {
+        .speciesName = _("Tinkaton"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               85,
@@ -30472,6 +32408,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_WIGLETT
     [SPECIES_WIGLETT] =
     {
+        .speciesName = _("Wiglett"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               10,
@@ -30531,6 +32469,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_WUGTRIO] =
     {
+        .speciesName = _("Wugtrio"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               35,
@@ -30591,6 +32531,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_BOMBIRDIER
     [SPECIES_BOMBIRDIER] =
     {
+        .speciesName = _("Bombirdier"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -30653,6 +32595,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FINIZEN
     [SPECIES_FINIZEN] =
     {
+        .speciesName = _("Finizen"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -30712,6 +32656,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_PALAFIN_ZERO] =
     {
+        .speciesName = _("Palafin"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -30763,7 +32709,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_PalafinZero,
         .iconSprite = gMonIcon_PalafinZero,
         .iconPalIndex = 0,
-        //FOOTPRINT(Palafin)
+        //FOOTPRINT(Palafin")
         */
         //.levelUpLearnset = sPalafinLevelUpLearnset,
         //.teachableLearnset = sPalafinTeachableLearnset,
@@ -30773,6 +32719,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_PALAFIN_HERO] =
     {
+        .speciesName = _("Palafin"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -30824,7 +32772,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_PalafinHero,
         .iconSprite = gMonIcon_PalafinHero,
         .iconPalIndex = 0,
-        //FOOTPRINT(Palafin)
+        //FOOTPRINT(Palafin")
         */
         //.levelUpLearnset = sPalafinLevelUpLearnset,
         //.teachableLearnset = sPalafinTeachableLearnset,
@@ -30836,6 +32784,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_VAROOM
     [SPECIES_VAROOM] =
     {
+        .speciesName = _("Varoom"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               45,
@@ -30896,6 +32846,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_REVAVROOM] =
     {
+        .speciesName = _("Revavroom"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               80,
@@ -30957,6 +32909,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_CYCLIZAR
     [SPECIES_CYCLIZAR] =
     {
+        .speciesName = _("Cyclizar"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -31018,6 +32972,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_ORTHWORM
     [SPECIES_ORTHWORM] =
     {
+        .speciesName = _("Orthworm"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               70,
@@ -31079,6 +33035,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_GLIMMET
     [SPECIES_GLIMMET] =
     {
+        .speciesName = _("Glimmet"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
         48,
@@ -31140,6 +33098,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_GLIMMORA] =
     {
+        .speciesName = _("Glimmora"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               83,
@@ -31202,6 +33162,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_GREAVARD
     [SPECIES_GREAVARD] =
     {
+        .speciesName = _("Greavard"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               50,
@@ -31262,6 +33224,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_HOUNDSTONE] =
     {
+        .speciesName = _("Houndstone"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               72,
@@ -31323,6 +33287,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FLAMIGO
     [SPECIES_FLAMIGO] =
     {
+        .speciesName = _("Flamigo"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               82,
@@ -31384,6 +33350,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_CETODDLE
     [SPECIES_CETODDLE] =
     {
+        .speciesName = _("Cetoddle"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               108,
@@ -31444,6 +33412,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_CETITAN] =
     {
+        .speciesName = _("Cetitan"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               170,
@@ -31505,6 +33475,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_VELUZA
     [SPECIES_VELUZA] =
     {
+        .speciesName = _("Veluza"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -31567,6 +33539,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_DONDOZO
     [SPECIES_DONDOZO] =
     {
+        .speciesName = _("Dondozo"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               150,
@@ -31629,6 +33603,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TATSUGIRI
     [SPECIES_TATSUGIRI_CURLY] =
     {
+        .speciesName = _("Tatsugiri"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               68,
@@ -31680,7 +33656,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_TatsugiriCurly,
         .iconSprite = gMonIcon_TatsugiriCurly,
         .iconPalIndex = 0,
-        //FOOTPRINT(Tatsugiri)
+        //FOOTPRINT(Tatsugiri")
         */
         //.levelUpLearnset = sTatsugiriLevelUpLearnset,
         //.teachableLearnset = sTatsugiriTeachableLearnset,
@@ -31689,6 +33665,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TATSUGIRI_DROOPY] =
     {
+        .speciesName = _("Tatsugiri"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               68,
@@ -31739,7 +33717,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_TatsugiriDroopy,
         .iconSprite = gMonIcon_TatsugiriDroopy,
         .iconPalIndex = 0,
-        //FOOTPRINT(Tatsugiri)
+        //FOOTPRINT(Tatsugiri")
         */
         //.levelUpLearnset = sTatsugiriLevelUpLearnset,
         //.teachableLearnset = sTatsugiriTeachableLearnset,
@@ -31748,6 +33726,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TATSUGIRI_STRETCHY] =
     {
+        .speciesName = _("Tatsugiri"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               68,
@@ -31798,7 +33778,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_TatsugiriStretchy,
         .iconSprite = gMonIcon_TatsugiriStretchy,
         .iconPalIndex = 0,
-        //FOOTPRINT(Tatsugiri)
+        //FOOTPRINT(Tatsugiri")
         */
         //.levelUpLearnset = sTatsugiriLevelUpLearnset,
         //.teachableLearnset = sTatsugiriTeachableLearnset,
@@ -31807,6 +33787,8 @@ const struct BaseStats gBaseStats[] =
 //#endif //P_FAMILY_TATSUGIRI
     [SPECIES_ANNIHILAPE] =
     {
+        .speciesName = _("Annihilape"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               110,
@@ -31865,6 +33847,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_CLODSIRE] =
     {
+        .speciesName = _("Clodsire"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               130,
@@ -31922,6 +33906,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_FARIGIRAF] =
     {
+        .speciesName = _("Farigiraf"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               120,
@@ -31979,6 +33965,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_DUDUNSPARCE_TWO_SEGMENT] =
     {
+        .speciesName = _("Dudunsparce"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               125,
@@ -32028,7 +34016,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_Dudunsparce,
         .iconSprite = gMonIcon_Dudunsparce,
         .iconPalIndex = 0,
-        //FOOTPRINT(Dudunsparce)
+        //FOOTPRINT(Dudunsparce")
        */
         //.levelUpLearnset = sDudunsparceLevelUpLearnset,
         //.teachableLearnset = sDudunsparceTeachableLearnset,
@@ -32037,6 +34025,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_DUDUNSPARCE_THREE_SEGMENT] =
     {
+        .speciesName = _("Dudunsparce"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               125,
@@ -32086,7 +34076,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_Dudunsparce,
         .iconSprite = gMonIcon_Dudunsparce,
         .iconPalIndex = 0,
-        //FOOTPRINT(Dudunsparce)
+        //FOOTPRINT(Dudunsparce")
        */
         //.levelUpLearnset = sDudunsparceLevelUpLearnset,
         //.teachableLearnset = sDudunsparceTeachableLearnset,
@@ -32095,6 +34085,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_KINGAMBIT] =
     {
+        .speciesName = _("Kingambit"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -32152,6 +34144,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_GREAT_TUSK
     [SPECIES_GREAT_TUSK] =
     {
+        .speciesName = _("Great Tusk"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               115,
@@ -32214,6 +34208,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_SCREAM_TAIL
     [SPECIES_SCREAM_TAIL] =
     {
+        .speciesName = _("Scream Tail"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               115,
@@ -32276,6 +34272,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_BRUTE_BONNET
     [SPECIES_BRUTE_BONNET] =
     {
+        .speciesName = _("Brute Bonnet"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               111,
@@ -32338,6 +34336,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FLUTTER_MANE
     [SPECIES_FLUTTER_MANE] =
     {
+        .speciesName = _("Flutter Mane"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
@@ -32403,6 +34403,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_SLITHER_WING
     [SPECIES_SLITHER_WING] =
     {
+        .speciesName = _("Slither Wing"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               85,
@@ -32464,6 +34466,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_SANDY_SHOCKS
     [SPECIES_SANDY_SHOCKS] =
     {
+        .speciesName = _("Sandy Shocks"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               85,
@@ -32526,6 +34530,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_TREADS
     [SPECIES_IRON_TREADS] =
     {
+        .speciesName = _("Iron Treads"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -32588,6 +34594,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_BUNDLE
     [SPECIES_IRON_BUNDLE] =
     {
+        .speciesName = _("Iron Bundle"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               56,
@@ -32650,6 +34658,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_HANDS
     [SPECIES_IRON_HANDS] =
     {
+        .speciesName = _("Iron Hands"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               154,
@@ -32712,6 +34722,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_JUGULIS
     [SPECIES_IRON_JUGULIS] =
     {
+        .speciesName = _("Iron Jugulis"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               94,
@@ -32775,6 +34787,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_MOTH
     [SPECIES_IRON_MOTH] =
     {
+        .speciesName = _("Iron Moth"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               80,
@@ -32838,6 +34852,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_THORNS
     [SPECIES_IRON_THORNS] =
     {
+        .speciesName = _("Iron Thorns"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -32900,6 +34916,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FRIGIBAX
     [SPECIES_FRIGIBAX] =
     {
+        .speciesName = _("Frigibax"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               65,
@@ -32960,6 +34978,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_ARCTIBAX] =
     {
+        .speciesName = _("Arctibax"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -33020,6 +35040,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_BAXCALIBUR] =
     {
+        .speciesName = _("Baxcalibur"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               115,
@@ -33081,6 +35103,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_GIMMIGHOUL
     [SPECIES_GIMMIGHOUL_CHEST] =
     {
+        .speciesName = _("Gimmighoul"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               45,
@@ -33132,7 +35156,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_GimmighoulChest,
         .iconSprite = gMonIcon_GimmighoulChest,
         .iconPalIndex = 0,
-        //FOOTPRINT(Gimmighoul)
+        //FOOTPRINT(Gimmighoul")
         */
         //.levelUpLearnset = sGimmighoulLevelUpLearnset,
         //.teachableLearnset = sGimmighoulTeachableLearnset,
@@ -33143,6 +35167,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_GIMMIGHOUL_ROAMING] =
     {
+        .speciesName = _("Gimmighoul"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               45,
@@ -33194,7 +35220,7 @@ const struct BaseStats gBaseStats[] =
         .shinyPalette = gMonShinyPalette_GimmighoulRoaming,
         .iconSprite = gMonIcon_GimmighoulRoaming,
         .iconPalIndex = 0,
-        //FOOTPRINT(Gimmighoul)
+        //FOOTPRINT(Gimmighoul")
         */
         //.levelUpLearnset = sGimmighoulLevelUpLearnset,
         //.teachableLearnset = sGimmighoulTeachableLearnset,
@@ -33204,6 +35230,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_GHOLDENGO] =
     {
+        .speciesName = _("Gholdengo"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               87,
@@ -33265,6 +35293,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_WO_CHIEN
     [SPECIES_WO_CHIEN] =
     {
+        .speciesName = _("Wo Chien"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               105,
@@ -33325,6 +35355,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_CHIEN_PAO
     [SPECIES_CHIEN_PAO] =
     {
+        .speciesName = _("Chien Pao"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               80,
@@ -33387,6 +35419,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TING_LU
     [SPECIES_TING_LU] =
     {
+        .speciesName = _("Ting Lu"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               155,
@@ -33449,6 +35483,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_CHI_YU
     [SPECIES_CHI_YU] =
     {
+        .speciesName = _("Chi Yu"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
@@ -33512,6 +35548,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_ROARING_MOON
     [SPECIES_ROARING_MOON] =
     {
+        .speciesName = _("Roaring Moon"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               105,
@@ -33544,7 +35582,7 @@ const struct BaseStats gBaseStats[] =
         .description = COMPOUND_STRING(
             "According to an article in a\n"
             "dubious magazine, this Pokémon has some\n"
-            "connection to Mega Evolution that\n"
+            "connection to Evolution that\n"
             "occurs in Hoenn."),
         .pokemonScale = 356,
         .pokemonOffset = 17,
@@ -33575,6 +35613,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_VALIANT
     [SPECIES_IRON_VALIANT] =
     {
+        .speciesName = _("Iron Valiant"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               74,
@@ -33636,6 +35676,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_KORAIDON
     [SPECIES_KORAIDON] =
     {
+        .speciesName = _("Koraidon"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -33699,6 +35741,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_MIRAIDON
     [SPECIES_MIRAIDON] =
     {
+        .speciesName = _("Miraidon"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               100,
@@ -33767,6 +35811,8 @@ const struct BaseStats gBaseStats[] =
 //w loss of stab w most of its moveset boosted attack
 [SPECIES_TAUROS_PALDEAN_COMBAT_BREED] =
     {
+        .speciesName = _("Tauros"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
@@ -33826,6 +35872,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] =
     {
+        .speciesName = _("Tauros"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
@@ -33885,6 +35933,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TAUROS_PALDEAN_AQUA_BREED] =
     {
+        .speciesName = _("Tauros"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               75,
@@ -33944,6 +35994,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_WOOPER_PALDEAN] =
     {
+        .speciesName = _("Wooper"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               55,
@@ -34005,6 +36057,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_WALKING_WAKE
     [SPECIES_WALKING_WAKE] =
     {
+        .speciesName = _("Walking Wake"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               99,
@@ -34066,6 +36120,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_LEAVES - vsonic do something with this
     [SPECIES_IRON_LEAVES] =
     {
+        .speciesName = _("Iron Leaves"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -34125,6 +36181,8 @@ const struct BaseStats gBaseStats[] =
 //#endif //P_FAMILY_IRON_LEAVES
 [SPECIES_DIPPLIN] =
     {
+        .speciesName = _("Dipplin"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               80,
@@ -34183,6 +36241,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_POLTCHAGEIST
     [SPECIES_POLTCHAGEIST_COUNTERFEIT] =
     {
+        .speciesName = _("Poltchageist"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -34244,6 +36304,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_POLTCHAGEIST_ARTISAN] =
     {
+        .speciesName = _("Poltchageist"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -34305,6 +36367,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_SINISTCHA_UNREMARKABLE] =
     {
+        .speciesName = _("Sinistcha"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               71,
@@ -34364,6 +36428,8 @@ const struct BaseStats gBaseStats[] =
     },
     [SPECIES_SINISTCHA_MASTERPIECE] =
     {
+        .speciesName = _("Sinistcha"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               71,
@@ -34426,6 +36492,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_OKIDOGI
     [SPECIES_OKIDOGI] =
     {
+        .speciesName = _("Okidogi"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               88,
@@ -34491,6 +36559,8 @@ const struct BaseStats gBaseStats[] =
     //over max power,
     [SPECIES_MUNKIDORI] =
     {
+        .speciesName = _("Munkidori"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               88,
@@ -34553,6 +36623,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_FEZANDIPITI
     [SPECIES_FEZANDIPITI] =
     {
+        .speciesName = _("Fezandipiti"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               88,
@@ -34636,8 +36708,8 @@ const struct BaseStats gBaseStats[] =
         .abilities = { ability, ABILITY_NONE },                                         \
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},                                  \
         .bodyColor = color,                                                             \
-        /*.speciesName = _("Ogerpon"),                                                    \
-        .cryId = CRY_OGERPON,                                                           \
+        .speciesName = _("Ogerpon"),                                                    \
+        /*.cryId = CRY_OGERPON,                                                           \
         .natDexNum = NATIONAL_DEX_OGERPON,                                              \
         .categoryName = _("Mask"),                                                      \
         .height = 12,                                                                   \
@@ -34682,6 +36754,8 @@ const struct BaseStats gBaseStats[] =
 
 [SPECIES_URSALUNA_BLOODMOON] =
     {
+        .speciesName = _("Ursaluna"),
+
         //hp, atk, def, spd, spatk, spdef
         STATS(
               113,
@@ -34746,6 +36820,8 @@ const struct BaseStats gBaseStats[] =
 
 [SPECIES_ARCHALUDON] =
     {
+        .speciesName = _("Archaludon"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -34805,6 +36881,8 @@ const struct BaseStats gBaseStats[] =
 //missing archaludon and hydrapple flapple evo
 [SPECIES_HYDRAPPLE] =
     {
+        .speciesName = _("Hydrapple"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               106,
@@ -34865,6 +36943,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_GOUGING_FIRE
     [SPECIES_GOUGING_FIRE] =
     {
+        .speciesName = _("Gouging Fire"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               105,
@@ -34927,6 +37007,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_RAGING_BOLT
     [SPECIES_RAGING_BOLT] =
     {
+        .speciesName = _("Raging Bolt"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               125,
@@ -34989,6 +37071,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_BOULDER
     [SPECIES_IRON_BOULDER] =
     {
+        .speciesName = _("Iron Boulder"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -35050,6 +37134,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_IRON_CROWN
     [SPECIES_IRON_CROWN] =
     {
+        .speciesName = _("Iron Crown"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -35112,6 +37198,8 @@ const struct BaseStats gBaseStats[] =
 //#if p_fAMILY_TERAPAGOS
     [SPECIES_TERAPAGOS_NORMAL] =
     {
+        .speciesName = _("Terapagos"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               90,
@@ -35174,6 +37262,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TERAPAGOS_TERASTAL] =
     {
+        .speciesName = _("Terapagos"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               95,
@@ -35237,6 +37327,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_TERAPAGOS_STELLAR] =
     {
+        .speciesName = _("Terapagos"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               160,
@@ -35307,6 +37399,8 @@ const struct BaseStats gBaseStats[] =
 ////#if p_fAMILY_PECHARUNT
     [SPECIES_PECHARUNT] =
     {
+        .speciesName = _("Pecharunt"),
+
             //hp, atk, def, spd, spatk, spdef
         STATS(
               88,
@@ -35368,11 +37462,13 @@ const struct BaseStats gBaseStats[] =
     
    //End of Gen 9
 
-    //forgot never got aroudn to mega stat reworks,
+    //forgot never got aroudn to stat reworks,
     //bring more in line, retool the mon to a specialty and git stats
     //up to 600 for making on psuedo legendary status //can go slightly higher but not much about 15+ max
     [SPECIES_VENUSAUR_MEGA] =
-    { 
+    {
+        .speciesName = _("Venusaur"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -35406,7 +37502,9 @@ const struct BaseStats gBaseStats[] =
 
     //mix atk sp atk
     [SPECIES_CHARIZARD_MEGA_X] =
-    { 
+    {
+        .speciesName = _("Charizard"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -35442,7 +37540,9 @@ const struct BaseStats gBaseStats[] =
 
     //full pooled in sp atk  
     [SPECIES_CHARIZARD_MEGA_Y] =
-    { 
+    {
+        .speciesName = _("Charizard"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -35474,7 +37574,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BLASTOISE_MEGA] =
-    { 
+    {
+        .speciesName = _("Blastoise"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         79,
@@ -35509,7 +37611,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BEEDRILL_MEGA] =
-    { 
+    {
+        .speciesName = _("Beedrill"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -35546,7 +37650,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIDGEOT_MEGA] =
-    { 
+    {
+        .speciesName = _("Pidgeot"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         83,
@@ -35581,7 +37687,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALAKAZAM_MEGA] =
-    { 
+    {
+        .speciesName = _("Alakazam"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -35614,7 +37722,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLOWBRO_MEGA] =
-    { 
+    {
+        .speciesName = _("Slowbro"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -35647,7 +37757,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENGAR_MEGA] =
-    { 
+    {
+        .speciesName = _("Gengar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -35679,7 +37791,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KANGASKHAN_MEGA] =
-    { 
+    {
+        .speciesName = _("Kangaskhan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -35714,7 +37828,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PINSIR_MEGA] =
-    { 
+    {
+        .speciesName = _("Pinsir"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -35749,7 +37865,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GYARADOS_MEGA] =
-    { 
+    {
+        .speciesName = _("Gyarados"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -35784,7 +37902,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AERODACTYL_MEGA] =
-    { 
+    {
+        .speciesName = _("Aerodactyl"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -35820,7 +37940,9 @@ const struct BaseStats gBaseStats[] =
 
     //focus on physical attack, most stats remain same
     [SPECIES_MEWTWO_MEGA_X] =
-    { 
+    {
+        .speciesName = _("Mewtwo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         86,
@@ -35857,7 +37979,9 @@ const struct BaseStats gBaseStats[] =
     //mostl boost sp atk, lower defense
     //this came out well, try to make this standard, +30 overall w respec
     [SPECIES_MEWTWO_MEGA_Y] =
-    { 
+    {
+        .speciesName = _("Mewtwo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         96,
@@ -35889,7 +38013,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AMPHAROS_MEGA] =
-    { 
+    {
+        .speciesName = _("Ampharos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -35924,7 +38050,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STEELIX_MEGA] =
-    { 
+    {
+        .speciesName = _("Steelix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -35960,7 +38088,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCIZOR_MEGA] =
-    { 
+    {
+        .speciesName = _("Scizor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -35995,7 +38125,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HERACROSS_MEGA] =
-    { 
+    {
+        .speciesName = _("Heracross"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -36030,7 +38162,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HOUNDOOM_MEGA] =
-    { 
+    {
+        .speciesName = _("Houndoom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -36066,7 +38200,9 @@ const struct BaseStats gBaseStats[] =
 
     //use this as standard for mon already psuedoes put in middle ground +50
     [SPECIES_TYRANITAR_MEGA] =
-    { 
+    {
+        .speciesName = _("Tyranitar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -36098,7 +38234,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SCEPTILE_MEGA] =
-    { 
+    {
+        .speciesName = _("Sceptile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -36130,7 +38268,9 @@ const struct BaseStats gBaseStats[] =
     }, //give sceptile flamethrower incinerate & fire blast (incinerate is for technician)
 
     [SPECIES_BLAZIKEN_MEGA] =
-    { 
+    {
+        .speciesName = _("Blaziken"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -36162,7 +38302,9 @@ const struct BaseStats gBaseStats[] =
     }, //potentially drop defenses
 
     [SPECIES_SWAMPERT_MEGA] =
-    { 
+    {
+        .speciesName = _("Swampert"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -36194,7 +38336,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GARDEVOIR_MEGA] =
-    { 
+    {
+        .speciesName = _("Gardevoir"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -36229,7 +38373,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SABLEYE_MEGA] =
-    { 
+    {
+        .speciesName = _("Sableye"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -36267,7 +38413,9 @@ const struct BaseStats gBaseStats[] =
     //because of defensive typing and its ability will keep stats here sub 600
     //think its only weaknesses are fire and electricity
     [SPECIES_MAWILE_MEGA] =
-    { 
+    {
+        .speciesName = _("Mawile"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -36300,7 +38448,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AGGRON_MEGA] =
-    { 
+    {
+        .speciesName = _("Aggron"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -36337,7 +38487,9 @@ const struct BaseStats gBaseStats[] =
 
     //w pure power worry bout bringingbase changes so just incrase hp instead
     [SPECIES_MEDICHAM_MEGA] =
-    { 
+    {
+        .speciesName = _("Medicham"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -36369,7 +38521,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MANECTRIC_MEGA] =
-    { 
+    {
+        .speciesName = _("Manectric"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -36403,7 +38557,9 @@ const struct BaseStats gBaseStats[] =
     //since has bad moves think can get away with higher attack
     //with strong jaw the main plan is for this to use the biting moves only prob w a priority move
     [SPECIES_SHARPEDO_MEGA] =
-    { 
+    {
+        .speciesName = _("Sharpedo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -36439,7 +38595,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CAMERUPT_MEGA] =
-    { 
+    {
+        .speciesName = _("Camerupt"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -36475,7 +38633,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALTARIA_MEGA] =
-    { 
+    {
+        .speciesName = _("Altaria"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -36510,7 +38670,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BANETTE_MEGA] =
-    { 
+    {
+        .speciesName = _("Banette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         84,
@@ -36546,7 +38708,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ABSOL_MEGA] =
-    { 
+    {
+        .speciesName = _("Absol"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -36581,7 +38745,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GLALIE_MEGA] =
-    { 
+    {
+        .speciesName = _("Glalie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -36615,7 +38781,9 @@ const struct BaseStats gBaseStats[] =
 
     //think this is best i can do
     [SPECIES_SALAMENCE_MEGA] =
-    { 
+    {
+        .speciesName = _("Salamence"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -36651,7 +38819,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_METAGROSS_MEGA] =
-    { 
+    {
+        .speciesName = _("Metagross"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -36687,7 +38857,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LATIAS_MEGA] =
-    { 
+    {
+        .speciesName = _("Latias"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -36721,7 +38893,9 @@ const struct BaseStats gBaseStats[] =
 
     //mega latios is suppoed to be bigger and faster, but speed stat is the same...
     [SPECIES_LATIOS_MEGA] =
-    { 
+    {
+        .speciesName = _("Latios"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -36753,7 +38927,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LOPUNNY_MEGA] =
-    { 
+    {
+        .speciesName = _("Lopunny"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -36788,7 +38964,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GARCHOMP_MEGA] =
-    { 
+    {
+        .speciesName = _("Garchomp"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         108,
@@ -36823,7 +39001,9 @@ const struct BaseStats gBaseStats[] =
     }, //ugly don't want to use
 
     [SPECIES_LUCARIO_MEGA] =
-    { 
+    {
+        .speciesName = _("Lucario"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -36859,7 +39039,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ABOMASNOW_MEGA] =
-    { 
+    {
+        .speciesName = _("Abomasnow"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -36896,7 +39078,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GALLADE_MEGA] =
-    { 
+    {
+        .speciesName = _("Gallade"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         68,
@@ -36928,7 +39112,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AUDINO_MEGA] =
-    { 
+    {
+        .speciesName = _("Audino"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         123,
@@ -36965,7 +39151,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DIANCIE_MEGA] =
-    { 
+    {
+        .speciesName = _("Diancie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -37002,7 +39190,9 @@ const struct BaseStats gBaseStats[] =
 
     //holy shit this is the already nerfed version o.0
     [SPECIES_RAYQUAZA_MEGA] =
-    { 
+    {
+        .speciesName = _("Rayquaza"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -37035,10 +39225,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRayquazaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = F_MEGA_FORM,
-    }, //need bring this down in mega/primal readjust
+    }, //need bring this down in/primal readjust
 
     [SPECIES_KYOGRE_PRIMAL] =
-    { 
+    {
+        .speciesName = _("Kyogre"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -37073,7 +39265,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROUDON_PRIMAL] =
-    { 
+    {
+        .speciesName = _("Groudon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -37108,7 +39302,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RATTATA_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Rattata"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         30,
@@ -37142,7 +39338,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RATICATE_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Raticate"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -37176,7 +39374,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RAICHU_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Raichu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -37211,7 +39411,9 @@ const struct BaseStats gBaseStats[] =
     },//give move electrify
 
     [SPECIES_SANDSHREW_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Sandshrew"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -37247,7 +39449,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SANDSLASH_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Sandslash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -37280,7 +39484,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VULPIX_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Vulpix"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         38,
@@ -37316,7 +39522,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NINETALES_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Ninetales"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         73,
@@ -37350,7 +39558,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DIGLETT_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Diglett"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         10,
@@ -37384,7 +39594,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DUGTRIO_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Dugtrio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -37418,7 +39630,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEOWTH_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Meowth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -37452,7 +39666,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PERSIAN_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Persian"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -37486,7 +39702,9 @@ const struct BaseStats gBaseStats[] =
     }, //changed up sprite face
 
     [SPECIES_GEODUDE_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Geodude"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -37529,7 +39747,9 @@ const struct BaseStats gBaseStats[] =
     //done
 
     [SPECIES_GRAVELER_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Graveler"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -37572,7 +39792,9 @@ const struct BaseStats gBaseStats[] =
     //will make task that sets selectred ability to field
 
     [SPECIES_GOLEM_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Golem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -37608,7 +39830,9 @@ const struct BaseStats gBaseStats[] =
     //make sure learns it
 
     [SPECIES_GRIMER_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Grimer"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 50, 25, 40, 65),
         MON_TYPES(TYPE_POISON, TYPE_DARK),
@@ -37637,7 +39861,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MUK_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Muk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 105, 75, 50, 65, 100),
         MON_TYPES(TYPE_POISON, TYPE_DARK),
@@ -37664,7 +39890,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EXEGGUTOR_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Exeggutor"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 105, 85, 37, 125, 75),
         MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
@@ -37690,7 +39918,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAROWAK_ALOLAN] =
-    { 
+    {
+        .speciesName = _("Marowak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 88, 80, 65, 66, 118),
         MON_TYPES(TYPE_FIRE, TYPE_GHOST),
@@ -37716,7 +39946,9 @@ const struct BaseStats gBaseStats[] =
     }, //can keep phantom touch to just normal marowak, makes more sense since this version turned the ghost into a flame that's always with them
 
     [SPECIES_MEOWTH_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Meowth"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -37749,7 +39981,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PONYTA_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Ponyta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -37782,7 +40016,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_RAPIDASH_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Rapidash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -37815,7 +40051,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SLOWPOKE_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Slowpoke"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -37849,12 +40087,14 @@ const struct BaseStats gBaseStats[] =
                                 {EVO_ITEM, ITEM_GALARICA_WREATH, 0, SPECIES_SLOWKING_GALARIAN}),*/
         .flags = F_GALARIAN_FORM,
     },//need come up with something for this, did, only move option is tm toxic
-    //. It evolves into either Galarian Slowbro when exposed to a Galarica Cuff 
-    //or Galarian Slowking when exposed to a Galarica Wreath. 
+    //. It evolves into either Slowbro when exposed to a Galarica Cuff 
+    //or Slowking when exposed to a Galarica Wreath. 
 
 
     [SPECIES_SLOWBRO_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Slowbro"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -37888,7 +40128,9 @@ const struct BaseStats gBaseStats[] =
 
     //uses much bigger stalk/leek cant fly so will be grouded
     [SPECIES_FARFETCHD_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Farfetchd"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         57,
@@ -37922,7 +40164,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WEEZING_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Weezing"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -37958,7 +40202,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MR_MIME_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Mr Mime"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -37991,7 +40237,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARTICUNO_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Articuno"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -38026,7 +40274,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZAPDOS_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Zapdos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -38061,7 +40311,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MOLTRES_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Moltres"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         90,
@@ -38096,7 +40348,9 @@ const struct BaseStats gBaseStats[] =
     }, //lacks special dark moves, as they pretty much don't exist outside of its unique move
 
     [SPECIES_SLOWKING_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Slowking"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -38129,7 +40383,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CORSOLA_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Corsola"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -38163,7 +40419,9 @@ const struct BaseStats gBaseStats[] =
     }, //gave this line liquid ooze to double up on absorb damage from ghost tweak :)
 
     [SPECIES_ZIGZAGOON_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Zigzagoon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         38,
@@ -38196,7 +40454,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_LINOONE_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Linoone"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -38229,7 +40489,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARUMAKA_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Darumaka"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -38261,7 +40523,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARMANITAN_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Darmanitan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -38294,7 +40558,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_YAMASK_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Yamask"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         38,
@@ -38329,7 +40595,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_STUNFISK_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Stunfisk"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         109,
@@ -38364,7 +40632,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GROWLITHE_HISUIAN] =
-        { 
+    {
+        .speciesName = _("Growlithe"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             60,
@@ -38395,8 +40665,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_ARCANINE_HISUIAN] =
-        { 
+    [SPECIES_ARCANINE_HISUIAN] =
+    {
+        .speciesName = _("Arcanine"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             95,
@@ -38427,8 +40699,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_VOLTORB_HISUIAN] =
-        { 
+    [SPECIES_VOLTORB_HISUIAN] =
+    {
+        .speciesName = _("Voltorb"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             56,
@@ -38459,8 +40733,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_ELECTRODE_HISUIAN] =
-        { 
+    [SPECIES_ELECTRODE_HISUIAN] =
+    {
+        .speciesName = _("Electrode"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             76,
@@ -38491,8 +40767,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_TYPHLOSION_HISUIAN] =
-        { 
+    [SPECIES_TYPHLOSION_HISUIAN] =
+    {
+        .speciesName = _("Typhlosion"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             73,
@@ -38523,8 +40801,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_QWILFISH_HISUIAN] =
-        { 
+    [SPECIES_QWILFISH_HISUIAN] =
+    {
+        .speciesName = _("Qwilfish"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             65,
@@ -38556,8 +40836,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },//barb barrage and several other LEgends moves aren't complete far as animation/effect, but are defined
 
-        [SPECIES_SNEASEL_HISUIAN] =
-        { 
+    [SPECIES_SNEASEL_HISUIAN] =
+    {
+        .speciesName = _("Sneasel"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             55,
@@ -38591,8 +40873,10 @@ const struct BaseStats gBaseStats[] =
         },
 
 //////#if P_GEN_5_POKEMON == TRUE
-        [SPECIES_SAMUROTT_HISUIAN] =
-        { 
+    [SPECIES_SAMUROTT_HISUIAN] =
+    {
+        .speciesName = _("Samurott"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             90,
@@ -38623,8 +40907,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_LILLIGANT_HISUIAN] =
-        { 
+    [SPECIES_LILLIGANT_HISUIAN] =
+    {
+        .speciesName = _("Lilligant"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             70,
@@ -38656,8 +40942,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_ZORUA_HISUIAN] =
-        { 
+    [SPECIES_ZORUA_HISUIAN] =
+    {
+        .speciesName = _("Zorua"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             35,
@@ -38688,8 +40976,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_ZOROARK_HISUIAN] =
-        { 
+    [SPECIES_ZOROARK_HISUIAN] =
+    {
+        .speciesName = _("Zoroark"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             55,
@@ -38720,8 +41010,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_BRAVIARY_HISUIAN] =
-        { 
+    [SPECIES_BRAVIARY_HISUIAN] =
+    {
+        .speciesName = _("Braviary"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             110,
@@ -38754,8 +41046,10 @@ const struct BaseStats gBaseStats[] =
 //// #endif
 
 ////#if P_GEN_6_POKEMON == TRUE
-        [SPECIES_SLIGGOO_HISUIAN] =
-        { 
+    [SPECIES_SLIGGOO_HISUIAN] =
+    {
+        .speciesName = _("Sliggoo"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             58,
@@ -38787,8 +41081,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_GOODRA_HISUIAN] =
-        { 
+    [SPECIES_GOODRA_HISUIAN] =
+    {
+        .speciesName = _("Goodra"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             80,
@@ -38819,8 +41115,10 @@ const struct BaseStats gBaseStats[] =
         .flags = F_HISUIAN_FORM,
         },
 
-        [SPECIES_AVALUGG_HISUIAN] =
-        { 
+    [SPECIES_AVALUGG_HISUIAN] =
+    {
+        .speciesName = _("Avalugg"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             95,
@@ -38853,8 +41151,10 @@ const struct BaseStats gBaseStats[] =
 //// #endif
 
 ////#if P_GEN_7_POKEMON == TRUE
-        [SPECIES_DECIDUEYE_HISUIAN] =
-        { 
+    [SPECIES_DECIDUEYE_HISUIAN] =
+    {
+        .speciesName = _("Decidueye"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             98,
@@ -38886,7 +41186,9 @@ const struct BaseStats gBaseStats[] =
         },
 
     [SPECIES_PIKACHU_COSPLAY] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -38919,7 +41221,9 @@ const struct BaseStats gBaseStats[] =
     //doing plus 40 bst for each form to make unique/
 
     [SPECIES_PIKACHU_ROCK_STAR] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -38952,7 +41256,9 @@ const struct BaseStats gBaseStats[] =
     //nvm just keeping lightning rod,  as that's what it had in game change typing and stats and instead of doing like rotom forms give each its own learnset
     
     [SPECIES_PIKACHU_BELLE] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -38984,7 +41290,9 @@ const struct BaseStats gBaseStats[] =
     }, //ok can't make this grass, but would really really want a grass/electric one so I could do a cottage core pikachu idea.  but idk maybe still fits
 
     [SPECIES_PIKACHU_POP_STAR] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -39016,7 +41324,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_PH_D] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39048,7 +41358,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_LIBRE] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         50,
@@ -39080,7 +41392,9 @@ const struct BaseStats gBaseStats[] =
     }, //not taking cap forms
 
     [SPECIES_PIKACHU_ORIGINAL_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39112,7 +41426,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_HOENN_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39144,7 +41460,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_SINNOH_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39176,7 +41494,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_UNOVA_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39208,7 +41528,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_KALOS_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39240,7 +41562,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_ALOLA_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39272,7 +41596,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_PARTNER_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39304,7 +41630,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PIKACHU_WORLD_CAP] =
-    { 
+    {
+        .speciesName = _("Pikachu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
@@ -39336,7 +41664,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PICHU_SPIKY_EARED] =
-    { 
+    {
+        .speciesName = _("Pichu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         20,
@@ -39374,7 +41704,9 @@ const struct BaseStats gBaseStats[] =
     //make it always hold light ball, well it'll be an event thing so I'll just be given with light ball
 
     [SPECIES_UNOWN_B] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39406,7 +41738,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_C] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39438,7 +41772,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_D] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39470,7 +41806,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_E] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39501,7 +41839,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_F] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39533,7 +41873,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_G] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39565,7 +41907,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_H] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39597,7 +41941,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_I] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39629,7 +41975,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_J] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39661,7 +42009,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_K] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39693,7 +42043,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_L] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39725,7 +42077,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_M] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39757,7 +42111,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_N] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39789,7 +42145,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_O] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39821,7 +42179,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_P] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39853,7 +42213,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_Q] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39885,7 +42247,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_R] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39917,7 +42281,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_S] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39949,7 +42315,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_T] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -39981,7 +42349,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_U] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40013,7 +42383,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_V] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40045,7 +42417,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_W] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40077,7 +42451,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_X] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40109,7 +42485,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_Y] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40141,7 +42519,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_Z] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40173,7 +42553,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_EMARK] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40205,7 +42587,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNOWN_QMARK] =
-    { 
+    {
+        .speciesName = _("Unown"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         48,
@@ -40237,7 +42621,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CASTFORM_SUNNY] =
-    { 
+    {
+        .speciesName = _("Castform"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
         MON_TYPES(TYPE_NORMAL, TYPE_FIRE),
@@ -40262,7 +42648,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CASTFORM_RAINY] =
-    { 
+    {
+        .speciesName = _("Castform"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
         MON_TYPES(TYPE_NORMAL, TYPE_WATER),
@@ -40287,7 +42675,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CASTFORM_SNOWY] =
-    { 
+    {
+        .speciesName = _("Castform"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 70, 70, 70, 70, 70),
         MON_TYPES(TYPE_NORMAL, TYPE_ICE),
@@ -40312,7 +42702,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEOXYS_ATTACK] =
-    { 
+    {
+        .speciesName = _("Deoxys"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 180, 20, 150, 180, 20),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -40337,7 +42729,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEOXYS_DEFENSE] =
-    { 
+    {
+        .speciesName = _("Deoxys"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 70, 160, 90, 70, 160),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -40362,7 +42756,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEOXYS_SPEED] =
-    { 
+    {
+        .speciesName = _("Deoxys"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 95, 90, 180, 95, 90),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
@@ -40386,7 +42782,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BURMY_SANDY_CLOAK] =
-    { 
+    {
+        .speciesName = _("Burmy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 29, 45, 36, 29, 45),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -40412,7 +42810,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BURMY_TRASH_CLOAK] =
-    { 
+    {
+        .speciesName = _("Burmy"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 29, 45, 36, 29, 45),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
@@ -40438,7 +42838,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WORMADAM_SANDY_CLOAK] =
-    { 
+    {
+        .speciesName = _("Wormadam"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 89, 125, 36, 59, 85),
         MON_TYPES(TYPE_BUG, TYPE_GROUND),
@@ -40464,7 +42866,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WORMADAM_TRASH_CLOAK] =
-    { 
+    {
+        .speciesName = _("Wormadam"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 69, 115, 36, 69, 115),
         MON_TYPES(TYPE_BUG, TYPE_STEEL),
@@ -40491,7 +42895,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CHERRIM_SUNSHINE] =
-    { 
+    {
+        .speciesName = _("Cherrim"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 70, 70, 100, 97, 60),
         MON_TYPES(TYPE_GRASS, TYPE_FIRE), //makes no sense not to do this for grass mon that needs sun
@@ -40516,7 +42922,9 @@ const struct BaseStats gBaseStats[] =
     }, //dropped attack back to 70 as ability is meant to boost atk & sp def in sun
 
     [SPECIES_SHELLOS_EAST_SEA] =
-    { 
+    {
+        .speciesName = _("Shellos"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 48, 48, 34, 57, 62),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -40541,7 +42949,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GASTRODON_EAST_SEA] =
-    { 
+    {
+        .speciesName = _("Gastrodon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(111, 83, 68, 39, 92, 82),
         MON_TYPES(TYPE_WATER, TYPE_GROUND),
@@ -40566,7 +42976,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ROTOM_HEAT] =
-    { 
+    {
+        .speciesName = _("Rotom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 76, 110, 76, 107, 85),
         MON_TYPES(TYPE_ELECTRIC, TYPE_FIRE),
@@ -40592,7 +43004,9 @@ const struct BaseStats gBaseStats[] =
     //need to change weight for these forms as well
 
     [SPECIES_ROTOM_WASH] =
-    { 
+    {
+        .speciesName = _("Rotom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 65, 97, 81, 75, 97),
         MON_TYPES(TYPE_ELECTRIC, TYPE_WATER),
@@ -40617,7 +43031,9 @@ const struct BaseStats gBaseStats[] =
     },//bulk
 
     [SPECIES_ROTOM_FROST] =
-    { 
+    {
+        .speciesName = _("Rotom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 74, 107, 74, 81, 97),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ICE),
@@ -40642,7 +43058,9 @@ const struct BaseStats gBaseStats[] =
     }, //all in floating list so immune to ground by base, so while not ghost still retains ghost elements / bulk
 
     [SPECIES_ROTOM_FAN] =
-    { 
+    {
+        .speciesName = _("Rotom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(66, 67, 67, 112, 105, 87),
         MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING),
@@ -40669,7 +43087,9 @@ const struct BaseStats gBaseStats[] =
     //ability name wind tunnel or turbine (still worksshopping name)  /Galeforce!!
 
     [SPECIES_ROTOM_MOW] =
-    { 
+    {
+        .speciesName = _("Rotom"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 102, 80, 90, 103, 77),
         MON_TYPES(TYPE_ELECTRIC, TYPE_GRASS),
@@ -40694,7 +43114,9 @@ const struct BaseStats gBaseStats[] =
     }, //speed attacker
 
     [SPECIES_GIRATINA_ORIGIN] =
-    { 
+    {
+        .speciesName = _("Giratina"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(150, 120, 100, 90, 120, 100),
         MON_TYPES(TYPE_GHOST, TYPE_DRAGON),
@@ -40718,7 +43140,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SHAYMIN_SKY] =
-    { 
+    {
+        .speciesName = _("Shaymin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(130, 103, 75, 127, 120, 75),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING),
@@ -40744,7 +43168,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_FIGHTING] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40778,7 +43204,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_FLYING] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40812,7 +43240,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_POISON] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40846,7 +43276,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_GROUND] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40880,7 +43312,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_ROCK] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40914,7 +43348,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_BUG] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40948,7 +43384,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_GHOST] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -40982,7 +43420,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_STEEL] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41016,7 +43456,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_FIRE] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41050,7 +43492,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_WATER] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41084,7 +43528,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_GRASS] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41118,7 +43564,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_ELECTRIC] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41152,7 +43600,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_PSYCHIC] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41186,7 +43636,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_ICE] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41220,7 +43672,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_DRAGON] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41254,7 +43708,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_DARK] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41288,7 +43744,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ARCEUS_FAIRY] =
-    { 
+    {
+        .speciesName = _("Arceus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         120,
@@ -41322,7 +43780,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BASCULIN_BLUE_STRIPED] =
-    { 
+    {
+        .speciesName = _("Basculin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 92, 65, 98, 80, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -41348,7 +43808,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_BASCULIN_WHITE_STRIPED] =
-    { 
+    {
+        .speciesName = _("Basculin"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 92, 65, 98, 80, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
@@ -41378,7 +43840,9 @@ const struct BaseStats gBaseStats[] =
     // like the other forms and can evolve into Basculegion.
 
     [SPECIES_DARMANITAN_ZEN_MODE] =
-    { 
+    {
+        .speciesName = _("Darmanitan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(155, 30, 105, 55, 140, 105),
         MON_TYPES(TYPE_FIRE, TYPE_PSYCHIC),
@@ -41403,7 +43867,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DARMANITAN_ZEN_MODE_GALARIAN] =
-    { 
+    {
+        .speciesName = _("Darmanitan"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 160, 55, 135, 30, 55),
         MON_TYPES(TYPE_ICE, TYPE_FIRE),
@@ -41429,7 +43895,9 @@ const struct BaseStats gBaseStats[] =
     },//hmm pretty sure ability should only be zen mode for these forms?
 
     [SPECIES_DEERLING_SUMMER] =
-    { 
+    {
+        .speciesName = _("Deerling"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -41461,7 +43929,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEERLING_AUTUMN] =
-    { 
+    {
+        .speciesName = _("Deerling"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -41493,7 +43963,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_DEERLING_WINTER] =
-    { 
+    {
+        .speciesName = _("Deerling"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -41525,7 +43997,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SAWSBUCK_SUMMER] =
-    { 
+    {
+        .speciesName = _("Sawsbuck"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         99,
@@ -41557,7 +44031,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SAWSBUCK_AUTUMN] =
-    { 
+    {
+        .speciesName = _("Sawsbuck"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         99,
@@ -41589,7 +44065,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SAWSBUCK_WINTER] =
-    { 
+    {
+        .speciesName = _("Sawsbuck"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         99,
@@ -41621,7 +44099,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TORNADUS_THERIAN] =
-    { 
+    {
+        .speciesName = _("Tornadus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         79,
@@ -41658,7 +44138,9 @@ const struct BaseStats gBaseStats[] =
     //yeah that works for me
 
     [SPECIES_THUNDURUS_THERIAN] =
-    { 
+    {
+        .speciesName = _("Thundurus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         79,
@@ -41689,7 +44171,9 @@ const struct BaseStats gBaseStats[] =
     },//VOlt Dash or something  volt absorb with speed boost, since mean to be fast and every at once
 
     [SPECIES_LANDORUS_THERIAN] =
-    { 
+    {
+        .speciesName = _("Landorus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         89,
@@ -41719,7 +44203,9 @@ const struct BaseStats gBaseStats[] =
     },//give flying move, think aeroblast that's it
 
     [SPECIES_ENAMORUS_THERIAN] =
-    { 
+    {
+        .speciesName = _("Enamorus"),
+ 
         //hp, atk, def, spd, spatk, spdef
         STATS(
         74,
@@ -41751,7 +44237,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KYUREM_WHITE] =
-    { 
+    {
+        .speciesName = _("Kyurem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         125,
@@ -41785,7 +44273,9 @@ const struct BaseStats gBaseStats[] =
     },//lookiknto this may prob need specific tmhm set for black/white form  vsonic
 
     [SPECIES_KYUREM_BLACK] =
-    { 
+    {
+        .speciesName = _("Kyurem"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         125,
@@ -41819,7 +44309,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_KELDEO_RESOLUTE] =
-    { 
+    {
+        .speciesName = _("Keldeo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         91,
@@ -41853,7 +44345,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MELOETTA_PIROUETTE] =
-    { 
+    {
+        .speciesName = _("Meloetta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -41888,7 +44382,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENESECT_DOUSE_DRIVE] =
-    { 
+    {
+        .speciesName = _("Genesect"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -41924,7 +44420,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENESECT_SHOCK_DRIVE] =
-    { 
+    {
+        .speciesName = _("Genesect"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -41960,7 +44458,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENESECT_BURN_DRIVE] =
-    { 
+    {
+        .speciesName = _("Genesect"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -41996,7 +44496,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GENESECT_CHILL_DRIVE] =
-    { 
+    {
+        .speciesName = _("Genesect"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         71,
@@ -42032,7 +44534,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GRENINJA_ASH] =
-    { 
+    {
+        .speciesName = _("Greninja"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         72,
@@ -42066,7 +44570,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_POLAR] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42101,7 +44607,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_TUNDRA] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42136,7 +44644,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_CONTINENTAL] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42171,7 +44681,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_GARDEN] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42206,7 +44718,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_ELEGANT] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42241,7 +44755,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_MEADOW] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42276,7 +44792,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_MODERN] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42311,7 +44829,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_MARINE] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42346,7 +44866,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_ARCHIPELAGO] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42381,7 +44903,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_HIGH_PLAINS] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42416,7 +44940,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_SANDSTORM] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42451,7 +44977,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_RIVER] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42486,7 +45014,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_MONSOON] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42521,7 +45051,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_SAVANNA] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42556,7 +45088,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_SUN] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42591,7 +45125,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_OCEAN] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42626,7 +45162,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_JUNGLE] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42661,7 +45199,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_FANCY] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42696,7 +45236,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_VIVILLON_POKE_BALL] =
-    { 
+    {
+        .speciesName = _("Vivillon"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -42731,7 +45273,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_UNFEZANT_FEMALE] =
-    { 
+    {
+        .speciesName = _("Unfezant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -42764,7 +45308,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PYROAR_FEMALE] =
-    { 
+    {
+        .speciesName = _("Pyroar"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         89,
@@ -42797,7 +45343,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLABEBE_YELLOW_FLOWER] =
-    { 
+    {
+        .speciesName = _("Flabebe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         44,
@@ -42829,7 +45377,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLABEBE_ORANGE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Flabebe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         44,
@@ -42861,7 +45411,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLABEBE_BLUE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Flabebe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         44,
@@ -42893,7 +45445,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLABEBE_WHITE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Flabebe"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         44,
@@ -42925,7 +45479,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLOETTE_YELLOW_FLOWER] =
-    { 
+    {
+        .speciesName = _("Floette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -42957,7 +45513,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLOETTE_ORANGE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Floette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -42989,7 +45547,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLOETTE_BLUE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Floette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -43021,7 +45581,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLOETTE_WHITE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Floette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         54,
@@ -43053,7 +45615,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLOETTE_ETERNAL_FLOWER] =
-    { 
+    {
+        .speciesName = _("Floette"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         74,
@@ -43085,7 +45649,9 @@ const struct BaseStats gBaseStats[] =
     },//special az version
 
     [SPECIES_FLORGES_YELLOW_FLOWER] =
-    { 
+    {
+        .speciesName = _("Florges"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -43117,7 +45683,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLORGES_ORANGE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Florges"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -43149,7 +45717,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLORGES_BLUE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Florges"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -43181,7 +45751,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FLORGES_WHITE_FLOWER] =
-    { 
+    {
+        .speciesName = _("Florges"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
@@ -43213,7 +45785,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_HEART_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43247,7 +45821,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_STAR_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43281,7 +45857,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_DIAMOND_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43315,7 +45893,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_DEBUTANTE_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43349,7 +45929,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_MATRON_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43383,7 +45965,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_DANDY_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43417,7 +46001,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_LA_REINE_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43451,7 +46037,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_KABUKI_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43485,7 +46073,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_FURFROU_PHARAOH_TRIM] =
-    { 
+    {
+        .speciesName = _("Furfrou"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43519,7 +46109,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MEOWSTIC_FEMALE] =
-    { 
+    {
+        .speciesName = _("Meowstic"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         74,
@@ -43552,7 +46144,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_AEGISLASH_BLADE] =
-    { 
+    {
+        .speciesName = _("Aegislash"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -43587,7 +46181,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PUMPKABOO_SMALL] =
-    { 
+    {
+        .speciesName = _("Pumpkaboo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         59,
@@ -43619,7 +46215,9 @@ const struct BaseStats gBaseStats[] =
     },//prob get rid of speed drop? / nah that's how it works by default surprisingly
 
     [SPECIES_PUMPKABOO_LARGE] =
-    { 
+    {
+        .speciesName = _("Pumpkaboo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         69,
@@ -43651,7 +46249,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_PUMPKABOO_SUPER] =
-    { 
+    {
+        .speciesName = _("Pumpkaboo"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         79,
@@ -43683,7 +46283,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOURGEIST_SMALL] =
-    { 
+    {
+        .speciesName = _("Gourgeist"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43715,7 +46317,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOURGEIST_LARGE] =
-    { 
+    {
+        .speciesName = _("Gourgeist"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -43747,7 +46351,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_GOURGEIST_SUPER] =
-    { 
+    {
+        .speciesName = _("Gourgeist"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -43779,7 +46385,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_XERNEAS_ACTIVE] =
-    { 
+    {
+        .speciesName = _("Xerneas"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         126,
@@ -43813,7 +46421,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZYGARDE_50] =
-    { 
+    {
+        .speciesName = _("Zygarde"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         108,
@@ -43847,7 +46457,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZYGARDE_COMPLETE] =
-    { 
+    {
+        .speciesName = _("Zygarde"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         216,
@@ -43881,7 +46493,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_HOOPA_UNBOUND] =
-    { 
+    {
+        .speciesName = _("Hoopa"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -43915,7 +46529,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ORICORIO_POM_POM] =
-    { 
+    {
+        .speciesName = _("Oricorio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43952,7 +46568,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ORICORIO_PAU] =
-    { 
+    {
+        .speciesName = _("Oricorio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -43989,7 +46607,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ORICORIO_SENSU] =
-    { 
+    {
+        .speciesName = _("Oricorio"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -44026,7 +46646,9 @@ const struct BaseStats gBaseStats[] =
     }, //check if need dif learnsets
 
     [SPECIES_LYCANROC_MIDNIGHT] =
-    { 
+    {
+        .speciesName = _("Lycanroc"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
@@ -44059,7 +46681,9 @@ const struct BaseStats gBaseStats[] =
     },  //give sucker punch /setup to also evolve with moon stone, make no guard first abiility, think buff keen eye
 
     [SPECIES_LYCANROC_DUSK] =
-    { 
+    {
+        .speciesName = _("Lycanroc"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -44093,7 +46717,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_WISHIWASHI_SCHOOL] =
-    { 
+    {
+        .speciesName = _("Wishiwashi"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
@@ -44127,7 +46753,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_FIGHTING] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44161,7 +46789,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_FLYING] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44195,7 +46825,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_POISON] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44229,7 +46861,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_GROUND] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44263,7 +46897,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_ROCK] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44297,7 +46933,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_BUG] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44331,7 +46969,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_GHOST] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44365,7 +47005,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_STEEL] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44399,7 +47041,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_FIRE] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44433,7 +47077,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_WATER] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44467,7 +47113,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_GRASS] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44501,7 +47149,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_ELECTRIC] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44535,7 +47185,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_PSYCHIC] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44569,7 +47221,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_ICE] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44603,7 +47257,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_DRAGON] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44637,7 +47293,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_DARK] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44671,7 +47329,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SILVALLY_FAIRY] =
-    { 
+    {
+        .speciesName = _("Silvally"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         95,
@@ -44705,7 +47365,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_METEOR_ORANGE] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44741,7 +47403,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_METEOR_YELLOW] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44777,7 +47441,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_METEOR_GREEN] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44813,7 +47479,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_METEOR_BLUE] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44849,7 +47517,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_METEOR_INDIGO] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44885,7 +47555,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_METEOR_VIOLET] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44921,7 +47593,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_RED] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44957,7 +47631,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_ORANGE] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -44993,7 +47669,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_YELLOW] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -45029,7 +47707,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_GREEN] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -45065,7 +47745,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_BLUE] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -45101,7 +47783,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_INDIGO] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -45137,7 +47821,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MINIOR_CORE_VIOLET] =
-    { 
+    {
+        .speciesName = _("Minior"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -45173,7 +47859,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MIMIKYU_BUSTED] =
-    { 
+    {
+        .speciesName = _("Mimikyu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -45207,7 +47895,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NECROZMA_DUSK_MANE] =
-    { 
+    {
+        .speciesName = _("Necrozma"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -45243,7 +47933,9 @@ const struct BaseStats gBaseStats[] =
     //but look into it, ultra was already strong but is it good without moves that get its typing?
 
     [SPECIES_NECROZMA_DAWN_WINGS] =
-    { 
+    {
+        .speciesName = _("Necrozma"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -45277,7 +47969,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_NECROZMA_ULTRA] =
-    { 
+    {
+        .speciesName = _("Necrozma"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         97,
@@ -45313,7 +48007,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAGEARNA_ORIGINAL_COLOR] =
-    { 
+    {
+        .speciesName = _("Magearna"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         80,
@@ -45347,7 +48043,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRAMORANT_GULPING] =
-    { 
+    {
+        .speciesName = _("Cramorant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -45381,7 +48079,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CRAMORANT_GORGING] =
-    { 
+    {
+        .speciesName = _("Cramorant"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -45415,7 +48115,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TOXTRICITY_LOW_KEY] =
-    { 
+    {
+        .speciesName = _("Toxtricity"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -45447,7 +48149,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_SINISTEA_ANTIQUE] =
-    { 
+    {
+        .speciesName = _("Sinistea"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         40,
@@ -45479,7 +48183,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_POLTEAGEIST_ANTIQUE] =
-    { 
+    {
+        .speciesName = _("Polteageist"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
@@ -45511,7 +48217,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45543,7 +48251,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45575,7 +48285,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45607,7 +48319,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45639,7 +48353,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45671,7 +48387,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45703,7 +48421,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45735,7 +48455,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL] =
-    { 
+    {
+        .speciesName = _("Alcremie"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         65,
@@ -45767,7 +48489,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_EISCUE_NOICE_FACE] =
-    { 
+    {
+        .speciesName = _("Eiscue"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
@@ -45801,7 +48525,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_INDEEDEE_FEMALE] =
-    { 
+    {
+        .speciesName = _("Indeedee"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
@@ -45835,7 +48561,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MORPEKO_HANGRY] =
-    { 
+    {
+        .speciesName = _("Morpeko"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         58,
@@ -45869,7 +48597,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZACIAN_CROWNED_SWORD] =
-    { 
+    {
+        .speciesName = _("Zacian"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
@@ -45903,7 +48633,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZAMAZENTA_CROWNED_SHIELD] =
-    { 
+    {
+        .speciesName = _("Zamazenta"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
@@ -45937,7 +48669,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ETERNATUS_ETERNAMAX] =
-    { 
+    {
+        .speciesName = _("Eternatus"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         255,
@@ -45968,7 +48702,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_URSHIFU_RAPID_STRIKE_STYLE] =
-    { 
+    {
+        .speciesName = _("Urshifu"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -46002,7 +48738,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_ZARUDE_DADA] =
-    { 
+    {
+        .speciesName = _("Zarude"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         105,
@@ -46036,7 +48774,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_CALYREX_ICE_RIDER] =
-    { 
+    {
+        .speciesName = _("Calyrex"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -46070,7 +48810,9 @@ const struct BaseStats gBaseStats[] =
     },//note setup ability so it plays the cry of glastrier before the stat boost
     
     [SPECIES_CALYREX_SHADOW_RIDER] =
-    { 
+    {
+        .speciesName = _("Calyrex"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -46104,7 +48846,9 @@ const struct BaseStats gBaseStats[] =
     },//note setup ability so it plays the cry of spectrier before the stat boost IMPORTANT - DONE
 
     [SPECIES_BASCULEGION_FEMALE] =
-        { 
+    {
+        .speciesName = _("Basculegion"),
+
            //hp, atk, def, spd, spatk, spdef
          STATS(
             120,
@@ -46136,7 +48880,9 @@ const struct BaseStats gBaseStats[] =
         },
 
     [SPECIES_FRILLISH_FEMALE] =
-    { 
+    {
+        .speciesName = _("Frillish"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
@@ -46168,7 +48914,9 @@ const struct BaseStats gBaseStats[] =
     }, //water with tentacruel
 
     [SPECIES_JELLICENT_FEMALE] =
-    { 
+    {
+        .speciesName = _("Jellicent"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         100,
@@ -46200,7 +48948,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_TORTERRA_MEGA] =
-    { 
+    {
+        .speciesName = _("Torterra"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         175,
@@ -46231,7 +48981,9 @@ const struct BaseStats gBaseStats[] =
     },
 
     [SPECIES_MAROWAK_MEGA] =
-    { 
+    {
+        .speciesName = _("Marowak"),
+ 
            //hp, atk, def, spd, spatk, spdef
          STATS(
         88,
@@ -46263,4 +49015,4 @@ const struct BaseStats gBaseStats[] =
 
 }; //can remove gender ratio mon from base stats now, moved logic to function
 //OK removed 6 entrie and that seemed to save me about 300bytes
-//so 50 per entry so should be able to shave off a few megabytes with this nice
+//so 50 per entry so should be able to shave off a fewbytes with this nice

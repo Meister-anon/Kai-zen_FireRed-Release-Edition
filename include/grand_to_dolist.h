@@ -2583,9 +2583,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     I used an if when I should have used an else if
     and it triggered the other input function.
 
-    think issue in move learn or more likely in summary screen logic
-    loads correct screen but them somehow scrolls when it shouldn't
-    for all I know could be party menu
+    //need rework pp set on from debug,
+    return to battle doesn't keep the pp change
+    think its an issue of how I changed pp setup for the structs/getmon stuff.
+    fixed, wasn't something I broke was part of debug that was never setup
+
+    also added species name to base stats now calling from there
+    fix name use for dex and cane remove gspeciesname to save space
 
     replce cat icon split icons symbols, plan use gen 9 versions
     more minimalistic not ugly as sin

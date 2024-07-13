@@ -6858,9 +6858,9 @@ void GetSpeciesName(u8 *name, u16 species)
         for (i = 0; i < POKEMON_NAME_LENGTH; i++)
         {
             if (species > NUM_SPECIES)
-                name[i] = gSpeciesNames[0][i];
+                name[i] = gBaseStats[0].speciesName[i];
             else
-                name[i] = gSpeciesNames[species][i];
+                name[i] = gBaseStats[species].speciesName[i];
 
             if (name[i] == EOS)
                 break;
