@@ -5165,7 +5165,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_HOPPIP] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(35, 45, 40, 50, 45, 65),
+         STATS(35, 45, 40, 50, 55, 65),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING), //keep flying for this, may not be a distance flyer but still good at maneovering itself throug the air
         .catchRate = 255,
         .expYield = 50,
@@ -5190,7 +5190,7 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SKIPLOOM] =
     { 
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 45, 85, 84, 45, 70),
+         STATS(60, 45, 85, 84, 70, 70),
         MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 119,
@@ -5202,13 +5202,13 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_GRASS,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_CHLOROPHYLL, ABILITY_PRANKSTER},
-            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_FLUFFY},
-        .bodyColor = BODY_COLOR_GREEN,
+            .abilities = {ABILITY_CHLOROPHYLL, ABILITY_PRANKSTER}, //brankster allows for safe heals even against priority moves
+            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_FLUFFY},//infiltrator ignores walls veils and substitute
+        .bodyColor = BODY_COLOR_GREEN,//so think its down to fluffy vs wind rider
         .noFlip = FALSE,
         .floating = TRUE,
-        .levelUpLearnset = sSkiploomLevelUpLearnset,
-        .tmhmLearnset = sSkiploomTMHMLearnset,
+        .levelUpLearnset = sSkiploomLevelUpLearnset, //wind rider is good and makes sense but it only partially removes weakness
+        .tmhmLearnset = sSkiploomTMHMLearnset,//fluffy has about the same effect most flying moves are physical so would be affected, even though it does exacerbate the fire weakness
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(27, AVERAGE_EFFORT), 0, SPECIES_JUMPLUFF}), //Should hopefully blank these for now without issue
     },
 
@@ -5227,9 +5227,9 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_GRASS,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_PHOTOSYNTHESIZE, ABILITY_PRANKSTER},
-            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_FLUFFY},
-        .bodyColor = BODY_COLOR_BLUE,
+            .abilities = {ABILITY_PHOTOSYNTHESIZE, ABILITY_PRANKSTER},//ABILITY_WIND_RIDER  //ABILITY_LEAF_GUARD
+            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_FLUFFY},//wind rider makes more sense than leaf guard its not covreed in leaves and it floats
+        .bodyColor = BODY_COLOR_BLUE,   //decided to stick with what I have
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sJumpluffLevelUpLearnset,
@@ -7483,7 +7483,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_CHLOROPHYLL, ABILITY_INFILTRATOR},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_AERILATE},
+            .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_WIND_RIDER},//ABILITY_WIND_RIDER
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -7493,7 +7493,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give knock off grassy glide
     //and some flying moves apparently it can whip up wind storms
-    //also gave aerilate - vsonic
+    //also gave aerilate - vsonic aerialate was a stupid idea no purpose
 
     [SPECIES_TAILLOW] =
     { 
