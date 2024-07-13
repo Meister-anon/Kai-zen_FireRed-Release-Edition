@@ -2553,6 +2553,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     )
 
+    got graphics working still to do is pull in pal icon indexes
+    and gen 9 indexes would need to pull from base stats
+    and add species name
+
     replce cat icon split icons symbols, plan use gen 9 versions
     more minimalistic not ugly as sin
 

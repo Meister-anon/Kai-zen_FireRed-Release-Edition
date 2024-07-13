@@ -32,7 +32,7 @@ extern const u32 gOpenPokeballGfx[];
 // pokemon gfx
 extern const u32 gMonFrontPic_CircledQuestionMark[];
 extern const u32 gMonFrontPic_DoubleQuestionMark[];
-extern const u32 gMonFrontPic_Bulbasaur[];
+/*extern const u32 gMonFrontPic_Bulbasaur[];
 extern const u32 gMonFrontPic_Ivysaur[];
 extern const u32 gMonFrontPic_Venusaur[];
 extern const u32 gMonFrontPic_Charmander[];
@@ -774,7 +774,7 @@ extern const u32 gMonFrontPic_Charjabug[];
 extern const u32 gMonFrontPic_Vikavolt[];
 extern const u32 gMonFrontPic_Crabrawler[];
 extern const u32 gMonFrontPic_Crabominable[];
-extern const u32 gMonFrontPic_Oricorio_Baile[];
+extern const u32 gMonFrontPic_OricorioBaile[];
 extern const u32 gMonFrontPic_Cutiefly[];
 extern const u32 gMonFrontPic_Ribombee[];
 extern const u32 gMonFrontPic_Rockruff[];
@@ -1199,11 +1199,11 @@ extern const u32 gMonFrontPic_EnamorusTherian[];
 extern const u32 gMonFrontPic_Basculegion_Female[];
 extern const u32 gMonFrontPic_Frillish_Female[];
 extern const u32 gMonFrontPic_Jellicent_Female[];
-extern const u32 gMonFrontPic_Egg[];
+extern const u32 gMonFrontPic_Egg[];*/
 
 extern const u32 gMonBackPic_CircledQuestionMark[];
 extern const u32 gMonBackPic_DoubleQuestionMark[];
-extern const u32 gMonBackPic_Bulbasaur[];
+/*extern const u32 gMonBackPic_Bulbasaur[];
 extern const u32 gMonBackPic_Ivysaur[];
 extern const u32 gMonBackPic_Venusaur[];
 extern const u32 gMonBackPic_Charmander[];
@@ -1945,7 +1945,7 @@ extern const u32 gMonBackPic_Charjabug[];
 extern const u32 gMonBackPic_Vikavolt[];
 extern const u32 gMonBackPic_Crabrawler[];
 extern const u32 gMonBackPic_Crabominable[];
-extern const u32 gMonBackPic_Oricorio_Baile[];
+extern const u32 gMonBackPic_OricorioBaile[];
 extern const u32 gMonBackPic_Cutiefly[];
 extern const u32 gMonBackPic_Ribombee[];
 extern const u32 gMonBackPic_Rockruff[];
@@ -2368,11 +2368,11 @@ extern const u32 gMonBackPic_CalyrexShadowRider[];
 extern const u32 gMonBackPic_EnamorusTherian[];
 extern const u32 gMonBackPic_Basculegion_Female[];
 extern const u32 gMonBackPic_Frillish_Female[];
-extern const u32 gMonBackPic_Jellicent_Female[];
+extern const u32 gMonBackPic_Jellicent_Female[];*/
 
 extern const u32 gMonPalette_CircledQuestionMark[];
 extern const u32 gMonPalette_DoubleQuestionMark[];
-extern const u32 gMonPalette_Bulbasaur[];
+/*extern const u32 gMonPalette_Bulbasaur[];
 extern const u32 gMonPalette_Ivysaur[];
 extern const u32 gMonPalette_Venusaur[];
 extern const u32 gMonPalette_Charmander[];
@@ -3114,7 +3114,7 @@ extern const u32 gMonPalette_Charjabug[];
 extern const u32 gMonPalette_Vikavolt[];
 extern const u32 gMonPalette_Crabrawler[];
 extern const u32 gMonPalette_Crabominable[];
-extern const u32 gMonPalette_Oricorio_Baile[];
+extern const u32 gMonPalette_OricorioBaile[];
 extern const u32 gMonPalette_Cutiefly[];
 extern const u32 gMonPalette_Ribombee[];
 extern const u32 gMonPalette_Rockruff[];
@@ -3626,11 +3626,11 @@ extern const u32 gMonPalette_EnamorusTherian[];
 extern const u32 gMonPalette_Basculegion_Female[];
 extern const u32 gMonPalette_Frillish_Female[];
 extern const u32 gMonPalette_Jellicent_Female[];
-extern const u32 gMonPalette_Egg[];
+extern const u32 gMonPalette_Egg[];*/
 
 extern const u32 gMonShinyPalette_CircledQuestionMark[];
 extern const u32 gMonShinyPalette_DoubleQuestionMark[];
-extern const u32 gMonShinyPalette_Bulbasaur[];
+/*extern const u32 gMonShinyPalette_Bulbasaur[];
 extern const u32 gMonShinyPalette_Ivysaur[];
 extern const u32 gMonShinyPalette_Venusaur[];
 extern const u32 gMonShinyPalette_Charmander[];
@@ -4372,7 +4372,7 @@ extern const u32 gMonShinyPalette_Charjabug[];
 extern const u32 gMonShinyPalette_Vikavolt[];
 extern const u32 gMonShinyPalette_Crabrawler[];
 extern const u32 gMonShinyPalette_Crabominable[];
-extern const u32 gMonShinyPalette_Oricorio_Baile[];
+extern const u32 gMonShinyPalette_OricorioBaile[];
 extern const u32 gMonShinyPalette_Cutiefly[];
 extern const u32 gMonShinyPalette_Ribombee[];
 extern const u32 gMonShinyPalette_Rockruff[];
@@ -4815,10 +4815,10 @@ extern const u32 gMonShinyPalette_CalyrexShadowRider[];
 extern const u32 gMonShinyPalette_EnamorusTherian[];
 extern const u32 gMonShinyPalette_Basculegion_Female[];
 extern const u32 gMonShinyPalette_Frillish_Female[];
-extern const u32 gMonShinyPalette_Jellicent_Female[];
+extern const u32 gMonShinyPalette_Jellicent_Female[];*/
 
 extern const u8 gMonIcon_CircledQuestionMark[];
-extern const u8 gMonIcon_Bulbasaur[];
+/*extern const u8 gMonIcon_Bulbasaur[];
 extern const u8 gMonIcon_Ivysaur[];
 extern const u8 gMonIcon_Venusaur[];
 extern const u8 gMonIcon_Charmander[];
@@ -5560,7 +5560,7 @@ extern const u8 gMonIcon_Charjabug[];
 extern const u8 gMonIcon_Vikavolt[];
 extern const u8 gMonIcon_Crabrawler[];
 extern const u8 gMonIcon_Crabominable[];
-extern const u8 gMonIcon_Oricorio_Baile[];
+extern const u8 gMonIcon_OricorioBaile[];
 extern const u8 gMonIcon_Cutiefly[];
 extern const u8 gMonIcon_Ribombee[];
 extern const u8 gMonIcon_Rockruff[];
@@ -5959,7 +5959,7 @@ extern const u8 gMonIcon_Alcremie_lemon[];
 extern const u8 gMonIcon_Alcremie_salt[];
 extern const u8 gMonIcon_Alcremie_ruby_swirl[];
 extern const u8 gMonIcon_Alcremie_caramel_swirl[];
-extern const u8 gMonIcon_Alcremie_rainbow_swirl[];*/
+extern const u8 gMonIcon_Alcremie_rainbow_swirl[];
 extern const u8 gMonIcon_EiscueNoiceFace[];
 extern const u8 gMonIcon_Indeedee_Female[];
 extern const u8 gMonIcon_MorpekoHangry[];
@@ -5974,7 +5974,7 @@ extern const u8 gMonIcon_EnamorusTherian[];
 extern const u8 gMonIcon_Basculegion_Female[];
 extern const u8 gMonIcon_Frillish_Female[];
 extern const u8 gMonIcon_Jellicent_Female[];
-extern const u8 gMonIcon_Egg[];
+extern const u8 gMonIcon_Egg[];*/
 
 extern const u8 gMonFootprint_QuestionMark[];
 extern const u8 gMonFootprint_None[]; //floating etc.
@@ -6720,7 +6720,7 @@ extern const u8 gMonFootprint_None[]; //floating etc.
 //extern const u8 gMonFootprint_Vikavolt[];
 //extern const u8 gMonFootprint_Crabrawler[];
 //extern const u8 gMonFootprint_Crabominable[];
-//extern const u8 gMonFootprint_Oricorio_Baile[];
+//extern const u8 gMonFootprint_OricorioBaile[];
 //extern const u8 gMonFootprint_Cutiefly[];
 //extern const u8 gMonFootprint_Ribombee[];
 //extern const u8 gMonFootprint_Rockruff[];
@@ -9171,7 +9171,7 @@ extern const u32 gFile_graphics_mail_fab_map_tilemap[];
 extern const u32 gFile_graphics_mail_retro_map_tilemap[];
 
 // pokemon_icons
-extern const u8 gMonIcon_Bulbasaur[];
+/*extern const u8 gMonIcon_Bulbasaur[];
 extern const u8 gMonIcon_Ivysaur[];
 extern const u8 gMonIcon_Venusaur[];
 extern const u8 gMonIcon_Charmander[];
@@ -9584,7 +9584,7 @@ extern const u8 gMonIcon_UnownX[];
 extern const u8 gMonIcon_UnownY[];
 extern const u8 gMonIcon_UnownZ[];
 extern const u8 gMonIcon_UnownExclamationMark[];
-extern const u8 gMonIcon_UnownQuestionMark[];
+extern const u8 gMonIcon_UnownQuestionMark[];*/
 extern const u8 gMonIcon_CircledQuestionMark[];
 
 // trade

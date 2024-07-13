@@ -543,17 +543,17 @@ static const u32 *GetMonSpritePalStructCustom(u16 species, bool8 isShiny)
 {
     if (isShiny)
     {
-        if (gMonShinyPaletteTable[species].data != NULL)
-            return gMonShinyPaletteTable[species].data;
+        if (gSpeciesGraphics[species].shinyPalette != NULL)
+            return gSpeciesGraphics[species].shinyPalette;
         else
-            return gMonShinyPaletteTable[SPECIES_NONE].data;
+            return gSpeciesGraphics[SPECIES_NONE].shinyPalette;
     }
     else
     {
-        if (gMonPaletteTable[species].data != NULL)
-            return gMonPaletteTable[species].data;
+        if (gSpeciesGraphics[species].palette != NULL)
+            return gSpeciesGraphics[species].palette;
         else
-            return gMonPaletteTable[SPECIES_NONE].data;
+            return gSpeciesGraphics[SPECIES_NONE].palette;
     }
 }
 
@@ -565,17 +565,17 @@ static void BattleLoadOpponentMonSpriteGfxCustom(u16 species, bool8 isShiny, u8 
 
     if (isShiny)
     {
-        if (gMonShinyPaletteTable[species].data != NULL)
-            lzPaletteData = gMonShinyPaletteTable[species].data;
+        if (gSpeciesGraphics[species].shinyPalette != NULL)
+            lzPaletteData =  gSpeciesGraphics[species].shinyPalette;
         else
-            lzPaletteData = gMonShinyPaletteTable[SPECIES_NONE].data;
+            lzPaletteData =  gSpeciesGraphics[SPECIES_NONE].shinyPalette;
     }
     else
     {
-        if (gMonPaletteTable[species].data != NULL)
-            lzPaletteData = gMonPaletteTable[species].data;
+        if (gSpeciesGraphics[species].palette != NULL)
+            lzPaletteData =  gSpeciesGraphics[species].palette;
         else
-            lzPaletteData = gMonPaletteTable[SPECIES_NONE].data;
+            lzPaletteData =  gSpeciesGraphics[SPECIES_NONE].palette;
     }
 
     //buffer = Alloc(sizeof(lzPaletteData) * 2);

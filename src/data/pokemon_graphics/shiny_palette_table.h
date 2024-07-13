@@ -1367,24 +1367,3 @@ const struct CompressedSpritePalette gMonShinyPaletteTable[] =
 
     SPECIES_SHINY_PAL(EGG, gMonPalette_Egg),
 };
-
-//think I'll only include gender variations  that are actually distinct enough to be a different mon like meosic & unfezant & pyroar
-//actually this struct isn't even referenced anywhere yet, so its prob better for me to just make them all distinct species
-//like indeedee & meowstic are already done vsonic
-const struct CompressedSpritePalette gMonShinyPaletteTableFemale[] =
-{
-    SPECIES_SHINY_PAL(EEVEE, gMonShinyPalette_Eevee),
-    SPECIES_SHINY_PAL(STARLY, gMonShinyPalette_Starly),
-    SPECIES_SHINY_PAL(STARAVIA, gMonShinyPalette_Staravia),
-    SPECIES_SHINY_PAL(STARAPTOR, gMonShinyPalette_Staraptor),
-    SPECIES_SHINY_PAL(BIDOOF, gMonShinyPalette_Bidoof),
-    SPECIES_SHINY_PAL(KRICKETOT, gMonShinyPalette_Kricketot),
-    SPECIES_SHINY_PAL(KRICKETUNE, gMonShinyPalette_Kricketune),
-    SPECIES_SHINY_PAL(SHINX, gMonShinyPalette_Shinx),
-    SPECIES_SHINY_PAL(COMBEE, gMonShinyPalette_Combee),
-   // SPECIES_SHINY_PAL(HIPPOPOTAS, gMonShinyPalette_HippopotasF),
-    //SPECIES_SHINY_PAL(HIPPOWDON, gMonShinyPalette_HippowdonF),
-    
-    /*SPECIES_SHINY_PAL(FRILLISH_MALE, gMonShinyPalette_FrillishF),
-    SPECIES_SHINY_PAL(JELLICENT_MALE, gMonShinyPalette_JellicentF),*/
-};//think I'll only include gender variations  that are actually distinct enough to be a different mon like meosic & unfezant & pyroar

@@ -29,7 +29,7 @@ const u16 gMonIconPalettes[][16] = {
     INCBIN_U16("graphics/pokemon/icon_palettes/pal5.gbapal"),
 };
 
-const u8 *const gMonIconTable[] = {
+/*const u8 *const gMonIconTable[] = {
     [SPECIES_NONE] = gMonIcon_CircledQuestionMark,
     [SPECIES_BULBASAUR] = gMonIcon_Bulbasaur,
     [SPECIES_IVYSAUR] = gMonIcon_Ivysaur,
@@ -1242,8 +1242,8 @@ const u8 *const gMonIconTable[] = {
       [SPECIES_CRAMORANT_GULPING] = gMonIcon_CramorantGulping,
       [SPECIES_CRAMORANT_GORGING] = gMonIcon_CramorantGorging,
       [SPECIES_TOXTRICITY_LOW_KEY] = gMonIcon_ToxtricityLowKey,
-      /*    [SPECIES_SINISTEA_ANTIQUE]                = gMonIcon_Sinistea_Antique,
-          [SPECIES_POLTEAGEIST_ANTIQUE]             = gMonIcon_PolteaGeist_Antique,*/
+          [SPECIES_SINISTEA_ANTIQUE]                = gMonIcon_Sinistea_Antique,
+          [SPECIES_POLTEAGEIST_ANTIQUE]             = gMonIcon_PolteaGeist_Antique,
         [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] = gMonIcon_Alcremie,
         [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] = gMonIcon_Alcremie,
         [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] = gMonIcon_Alcremie,
@@ -1267,6 +1267,7 @@ const u8 *const gMonIconTable[] = {
         [SPECIES_JELLICENT_FEMALE] = gMonIcon_Jellicent_Female,
 };//was changing namme so could fit with graphics species info 
 //actually no that doesn't matter for that
+*/
 
 //don't know if need be in hex
 //seems can go to 0-5

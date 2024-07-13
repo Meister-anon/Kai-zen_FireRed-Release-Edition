@@ -61,13 +61,13 @@ CartIdent:
 	.endif
 	.endif
 	.space .game_name+0x20-.
-	.4byte  gMonFrontPicTable
-	.4byte  gMonBackPicTable
-	.4byte  gMonPaletteTable
-	.4byte  gMonShinyPaletteTable
-	.4byte  gMonIconTable
-	.4byte  gMonIconPaletteIndices
-	.4byte  gMonIconPaletteTable
+	@.4byte  gMonFrontPicTable
+	@.4byte  gMonBackPicTable
+	@.4byte  gMonPaletteTable
+	@.4byte  gMonShinyPaletteTable
+	@.4byte  gMonIconTable
+	@.4byte  gMonIconPaletteIndices
+	@.4byte  gMonIconPaletteTable
 	.4byte  gSpeciesNames
 	.4byte  gMoveNames
 	.4byte  gDecorations
