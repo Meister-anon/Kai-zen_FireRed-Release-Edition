@@ -1716,7 +1716,10 @@ static void UpdateMonData(struct BattleDebugMenu *data)
             SetMonData(mon, MON_DATA_HP, &battleMon->hp);
             SetMonData(mon, MON_DATA_MAX_HP, &battleMon->maxHP);
             for (j = 0; j < 4; j++)
+            {
                 SetMonData(mon, MON_DATA_MOVE1 + j, &battleMon->moves[j]);
+                SetMonData(mon, MON_DATA_PP1 + j, &battleMon->pp[j]);
+            }
         }
     }
 }
