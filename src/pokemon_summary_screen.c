@@ -2895,7 +2895,7 @@ static void PokeSum_FinishSetup(void)
 {
     if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE)
         sMonSummaryScreen->inputHandlerTaskId = CreateTask(Task_InputHandler_SelectOrForgetMove, 0);
-    if (sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
+    else if (sMonSummaryScreen->mode == PSS_MODE_BATTLE_INFO)
         sMonSummaryScreen->inputHandlerTaskId = CreateTask(Task_InputHandler_BattleMoveInfo, 0);
     else
         sMonSummaryScreen->inputHandlerTaskId = CreateTask(Task_InputHandler_Info, 0);

@@ -2566,10 +2566,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     need fix type effectiveness for single battles
     to add exclusion for move that target user
+    -done
+
+    but believe may still be some issue w dmg formula round lvl 9?
+    for lvl scaling mon was just chickorita tested but
+    w lvl scaling setup got destroyed by mon 5 levels above
+    did barely any damage
 
     for some reason learn move dpads go to differnet battler no idea 
     how the hell that happened caused horrific strobe effect
     do NOT release patch until fix this
+
+    was able to track and fix, whenI added summary screen battle callback
+    meant to be used for move info in battle.
+
+    I used an if when I should have used an else if
+    and it triggered the other input function.
 
     think issue in move learn or more likely in summary screen logic
     loads correct screen but them somehow scrolls when it shouldn't
