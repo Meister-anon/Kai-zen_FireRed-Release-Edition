@@ -85,9 +85,9 @@ void LoadCompressedSpritePaletteOverrideBuffer(const struct CompressedSpritePale
 //ok replaced every instance its used w pokemon w handle pokepic
 void DecompressPicFromTable(const struct CompressedSpriteSheet *src, void* buffer, s32 species)
 {
-
+    LZ77UnCompWram(src->data, buffer);
     DuplicateDeoxysTiles(buffer, species);
-}
+}//accidentally removed compr from this leaving just deoxys logic
 
 void HandleLoadSpecialPokePic(bool32 isFrontPic,void *dest, s32 species, u32 personality)
 {

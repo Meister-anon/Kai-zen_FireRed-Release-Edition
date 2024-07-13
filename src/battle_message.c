@@ -4053,6 +4053,10 @@ u8 GetTypeEffectivenessState_Singles(u16 move, u8 moveType) //for singles
     }
     //else
     //    return 0;
+    if (gBattleMoves[move].target == MOVE_TARGET_USER
+    || gBattleMoves[move].target == MOVE_TARGET_OPPONENTS_FIELD
+    || !IsDisplayTypeEffectivenessOn())
+        return 0; //initially forgot this part for self target moves
 
     if (CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12(1.0))
     {
