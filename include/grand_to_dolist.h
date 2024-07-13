@@ -2555,7 +2555,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     got graphics working still to do is pull in pal icon indexes
     and gen 9 indexes would need to pull from base stats
-    and add species name
+    and add species name and cry data of course
+    was able to save some space with the graphic file not needing to use multiple arrays
+    so hopefully will still be under after audio additions
+
+    sigh ok graphics file update somehow broke trainer graphic callback
+    so need to figure that out
+    just look at functions that call trainer and mon pics think
+    in decompress & pokemon.c
+
+    need fix type effectiveness for single battles
+    to add exclusion for move that target user
+
+    for some reason learn move dpads go to differnet battler no idea 
+    how the hell that happened caused horrific strobe effect
+    do NOT release patch until fix this
+
+    think issue in move learn or more likely in summary screen logic
+    loads correct screen but them somehow scrolls when it shouldn't
+    for all I know could be party menu
 
     replce cat icon split icons symbols, plan use gen 9 versions
     more minimalistic not ugly as sin
