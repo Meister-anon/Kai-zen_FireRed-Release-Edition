@@ -14314,7 +14314,7 @@ const struct BaseStats gBaseStats[] =
         63,
         45,
         55),
-        MON_TYPES(TYPE_GRASS, TYPE_GROUND),
+        MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -14418,7 +14418,7 @@ const struct BaseStats gBaseStats[] =
         45,
         45
         ),
-        MON_TYPES(TYPE_GROUND, TYPE_FIRE),
+        MON_TYPES(TYPE_FIRE),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_HP = 1,
