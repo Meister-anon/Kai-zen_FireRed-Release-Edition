@@ -12208,6 +12208,32 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //ICON(Enamorus, 0),
       .enemyMonElevation = 0,
     }, //Enamorus,
+    [SPECIES_CEFIREON] = 
+    {  
+      //FRONT_PIC(Enamorus),
+      FRONT_COORD(0x88,0),
+      //BACK_PIC(Enamorus),
+      BACK_COORD(0x88,0),
+      //PAL(Enamorus),
+      //SHINYPAL(Enamorus),
+      //PALETTES(Enamorus),
+      PIC_DATA_ICON_INDEX(CircledQuestionMark,0),
+      //ICON(Enamorus, 0),
+      .enemyMonElevation = 0,
+    }, //Enamorus,
+    [SPECIES_FRAEYJTA] = 
+    {  
+      //FRONT_PIC(Enamorus),
+      FRONT_COORD(0x88,0),
+      //BACK_PIC(Enamorus),
+      BACK_COORD(0x88,0),
+      //PAL(Enamorus),
+      //SHINYPAL(Enamorus),
+      //PALETTES(Enamorus),
+      PIC_DATA_ICON_INDEX(CircledQuestionMark,0),
+      //ICON(Enamorus, 0),
+      .enemyMonElevation = 0,
+    }, //Enamorus,
 [SPECIES_SPRIGATITO] =
     {
       //FRONT_PIC(Sprigatito),
@@ -25637,7 +25663,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
     }, //Toxtricity_Low_key,
       //[SPECIES_SINISTEA_ANTIQUE]                = gMonIcon_Sinistea_Antique,
       //[SPECIES_POLTEAGEIST_ANTIQUE]             = gMonIcon_PolteaGeist_Antique,
-      
+[SPECIES_SINISTEA_ANTIQUE]  =
+{
+  FRONT_COORD(0x88,0),
+  BACK_COORD(0x88,0),
+  PIC_DATA_ICON_INDEX(Sinistea,0),
+  .enemyMonElevation = 0,
+
+},
+[SPECIES_POLTEAGEIST_ANTIQUE]  =
+{
+  FRONT_COORD(0x88,0),
+  BACK_COORD(0x88,0),
+  PIC_DATA_ICON_INDEX(Polteageist,0),
+  .enemyMonElevation = 0,
+
+},
     //Alcremie forms
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] = 
     {  

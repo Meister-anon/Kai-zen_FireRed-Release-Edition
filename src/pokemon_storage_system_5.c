@@ -1066,6 +1066,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         if (gPSSData->cursorMonSpecies != SPECIES_NONE)
         {
             u32 otId = GetBoxMonData(boxMon, MON_DATA_OT_ID);
+            bool32 isShiny;
             sanityIsBagEgg = GetBoxMonData(boxMon, MON_DATA_SANITY_IS_BAD_EGG);
             if (sanityIsBagEgg)
                 gPSSData->cursorMonIsEgg = TRUE;
@@ -1078,7 +1079,9 @@ static void SetCursorMonData(void *pokemon, u8 mode)
             gPSSData->cursorMonLevel = GetLevelFromBoxMonExp(boxMon);
             //gPSSData->cursorMonMarkings = GetBoxMonData(boxMon, MON_DATA_MARKINGS);
             gPSSData->cursorMonPersonality = GetBoxMonData(boxMon, MON_DATA_PERSONALITY);
-            gPSSData->cursorMonPalette = GetMonSpritePalFromSpeciesAndPersonality(gPSSData->cursorMonSpecies, otId, gPSSData->cursorMonPersonality);
+
+            isShiny = IsShinyOtIdPersonality(otId,gPSSData->cursorMonPersonality);
+            gPSSData->cursorMonPalette = GetMonSpritePalFromSpeciesAndPersonality(gPSSData->cursorMonSpecies, isShiny, gPSSData->cursorMonPersonality);
             gender = GetGenderFromSpeciesAndPersonality(gPSSData->cursorMonSpecies, gPSSData->cursorMonPersonality);
             gPSSData->cursorMonItem = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
         }

@@ -1125,7 +1125,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sNidoqueenLevelUpLearnset,
         .tmhmLearnset = sNidoqueenTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//think atk stats are too high, w normal boost its just better
+    //nope nvm there is adequate diference
 
     [SPECIES_NIDORAN_M] =
     {

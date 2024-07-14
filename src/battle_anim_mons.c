@@ -1970,12 +1970,13 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16
     u8 spriteId;
     u16 sheet = LoadSpriteSheet(&gUnknown_83AE084[a3]);
     u16 palette = AllocSpritePalette(gUnknown_83AE054[a3].paletteTag);
+    bool32 isShiny = IsShinyOtIdPersonality(trainerId,personality);
 
     if (gMonSpritesGfxPtr != NULL && gMonSpritesGfxPtr->multiUseBuffer == NULL)
         gMonSpritesGfxPtr->multiUseBuffer = AllocZeroed(0x2000);
     if (!isBackpic)
-    {
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality), (palette * 0x10) + 0x100, 0x20);
+    {        
+        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), (palette * 0x10) + 0x100, 0x20);
         if (a10 == 1 || ShouldIgnoreDeoxysForm(5, battlerId) == 1 || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
             LoadSpecialPokePic_DontHandleDeoxys(
                                                 gMonSpritesGfxPtr->multiUseBuffer,
@@ -1991,7 +1992,7 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16
     }
     else
     {
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality), (palette * 0x10) + 0x100, 0x20);
+        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), (palette * 0x10) + 0x100, 0x20);
         if (a10 == 1 || ShouldIgnoreDeoxysForm(5, battlerId) == 1 || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
             LoadSpecialPokePic_DontHandleDeoxys(
                                                 gMonSpritesGfxPtr->multiUseBuffer,

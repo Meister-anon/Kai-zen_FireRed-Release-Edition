@@ -3617,7 +3617,7 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     u16 generatedSpecies;
 
     if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
-      generatedSpecies = GetFormSpeciesId(species, 0);
+        generatedSpecies = GetFormSpeciesId(species, 0);
     else
         generatedSpecies = species;
 

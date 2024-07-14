@@ -2583,6 +2583,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     I used an if when I should have used an else if
     and it triggered the other input function.
 
+    can give new mon think issue is lack of dex data? no nat dex data
+    idk but doesn't work to givee resets mon, guess need check 
+    give via main scrit not debug even though uses same script?
+
+    noticed list stil loads as 3 digit instead of 4 until scrolls?
+
+    hmm or not, since even for pre-existing mon debugger is being buggy 
+    and just not giving me the mon? -  nah was cuz of somethig I had removed apparently
+
+    *FACEPALM ok now for soem reason all mon are showing shiny in pc wonderful
+    -fixedissue was hadn't properly updated all places new palette logic was setup
+    was still using otid rather than shinycheck
+
     //need rework pp set on from debug,
     return to battle doesn't keep the pp change
     think its an issue of how I changed pp setup for the structs/getmon stuff.

@@ -1504,7 +1504,7 @@
 #define SPECIES_TOXTRICITY_LOW_KEY           FORMS_START + 304
 
 // Sinistea
-#define SPECIES_SINISTEA_ANTIQUE             FORMS_START + 305
+#define SPECIES_SINISTEA_ANTIQUE             FORMS_START + 305 //these two be cosmetics as well
 
 // Polteageist
 #define SPECIES_POLTEAGEIST_ANTIQUE          FORMS_START + 306
