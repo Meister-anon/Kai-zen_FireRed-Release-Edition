@@ -624,7 +624,7 @@ static const struct ListMenuTemplate sListMenuTemplate_KantoDexModeSelect = {
     .cursorPal = 1,
     .fillValue = 0,
     .cursorShadowPal = 3,
-    .lettersSpacing = 1,
+    .lettersSpacing = 0,
     .itemVerticalPadding = 0,
     .scrollMultiple = 0,
     .fontId = FONT_NORMAL,
@@ -668,7 +668,7 @@ static const struct ListMenuTemplate sListMenuTemplate_NatDexModeSelect = {
     .cursorPal = 1,
     .fillValue = 0,
     .cursorShadowPal = 3,
-    .lettersSpacing = 1,
+    .lettersSpacing = 0,
     .itemVerticalPadding = 0,
     .scrollMultiple = 0,
     .fontId = FONT_NORMAL,
@@ -792,7 +792,7 @@ static const struct ListMenuTemplate sListMenuTemplate_OrderedListMenu = {
     .cursorPal = 1,
     .fillValue = 0,
     .cursorShadowPal = 3,
-    .lettersSpacing = 1,
+    .lettersSpacing = 0,
     .itemVerticalPadding = 0,
     .scrollMultiple = 1,
     .fontId = FONT_NORMAL,
@@ -3778,7 +3778,8 @@ static void DexScreen_AddTextPrinterParameterized(u8 windowId, u8 fontId, const 
         textColor[2] = 2;
         break;
     }
-    AddTextPrinterParameterized4(windowId, fontId, x, y, fontId == FONT_SMALL ? 0 : 1, 0, textColor, -1, str);
+    AddTextPrinterParameterized4(windowId, fontId, x, y, 0, 0, textColor, -1, str);
+    //AddTextPrinterParameterized4(windowId, fontId, x, y, fontId == FONT_SMALL ? 0 : 1, 0, textColor, -1, str);
 }
 
 static void DexScreen_PrintNum3LeadingZeroes(u8 windowId, u8 fontId, u16 num, u8 x, u8 y, u8 colorIdx)
@@ -4474,7 +4475,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     i = 0;
     buffer[i++] = EXT_CTRL_CODE_BEGIN;
     buffer[i++] = EXT_CTRL_CODE_MIN_LETTER_SPACING;
-    buffer[i++] = 5;
+    buffer[i++] = 0;
     buffer[i++] = CHAR_SPACE;
 
     if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE)) //this needs to use source value nto species
@@ -4553,7 +4554,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     i = 0;
     buffer[i++] = EXT_CTRL_CODE_BEGIN;
     buffer[i++] = EXT_CTRL_CODE_MIN_LETTER_SPACING;
-    buffer[i++] = 5;
+    buffer[i++] = 0;
 
     //realized don't need formspecies for thsi dexspecies is best since you've already caught it to trigger this
     //what I need is for catching a form to make the base form seen so you're able to navigate to form page in dex.
@@ -4685,7 +4686,7 @@ void DexScreen_PrintMonStatPage(u8 windowId, u16 species, u8 x, u8 y)
     i = 0;
     bufferTotal[i++] = EXT_CTRL_CODE_BEGIN;
     bufferTotal[i++] = EXT_CTRL_CODE_MIN_LETTER_SPACING;
-    bufferTotal[i++] = 5; 
+    bufferTotal[i++] = 0; 
 
 
     //this to isolate individual numbers place to add to string
@@ -4828,7 +4829,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
 
         printerTemplate.windowId = windowId;
         printerTemplate.fontId = FONT_NORMAL;
-        printerTemplate.letterSpacing = 1;
+        printerTemplate.letterSpacing = 0;
         printerTemplate.lineSpacing = 0;
         printerTemplate.unk = 0;
         printerTemplate.fgColor = 1;

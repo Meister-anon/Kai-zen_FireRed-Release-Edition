@@ -348,7 +348,8 @@ static void WCSS_AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 * 
         break;
     // default: UB
     }
-    AddTextPrinterParameterized4(windowId, fontId,x, y, fontId == 0 ? 0 : 1, 0, textColor, -1, str);
+    AddTextPrinterParameterized4(windowId, fontId,x, y, 0, 0, textColor, -1, str);
+    //AddTextPrinterParameterized4(windowId, fontId,x, y, fontId == 0 ? 0 : 1, 0, textColor, -1, str);
 }
 
 static u32 CountMembersInGroup(struct UnkStruct_x20 * unk20, u32 * counts)

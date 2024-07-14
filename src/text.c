@@ -974,10 +974,10 @@ u16 RenderText(struct TextPrinter *textPrinter)
         if (textPrinter->minLetterSpacing)
         {
             textPrinter->printerTemplate.currentX += gGlyphInfo.width;
-            width = textPrinter->minLetterSpacing - gGlyphInfo.width;
+            width = textPrinter->minLetterSpacing;
             if (width > 0)
             {
-                ClearTextSpan(textPrinter, width);
+                ClearTextSpanDebug(textPrinter, width);
                 textPrinter->printerTemplate.currentX += width;
             }
         }
@@ -1293,10 +1293,10 @@ u16 RenderText(struct TextPrinter *textPrinter)
             if (textPrinter->minLetterSpacing)
             {
                 textPrinter->printerTemplate.currentX += gGlyphInfo.width;
-                width = textPrinter->minLetterSpacing - gGlyphInfo.width;
+                width = textPrinter->minLetterSpacing;
                 if (width > 0)
                 {
-                    ClearTextSpan(textPrinter, width);
+                    ClearTextSpanDebug(textPrinter, width);
                     textPrinter->printerTemplate.currentX += width;
                 }
             }
@@ -1369,6 +1369,7 @@ u16 RenderText(struct TextPrinter *textPrinter)
     return RENDER_FINISH;
 }
 
+//seems never used
 s32 GetStringWidthFixedWidthFont(const u8 *str, u8 fontId, u8 letterSpacing)
 {
     int i;

@@ -64,7 +64,7 @@ static void SetUpPartiesAndStartBattle(void)
 
 static void UnionRoomBattle_CreateTextPrinter(u8 windowId, const u8 * str, u8 x, u8 y, s32 speed)
 {
-    s32 letterSpacing = 1;
+    s32 letterSpacing = 0;
     s32 lineSpacing = 1;
     FillWindowPixelBuffer(windowId, PIXEL_FILL(gUnknown_84571A8[0]));
     AddTextPrinterParameterized4(windowId, 3, x, y, letterSpacing, lineSpacing, gUnknown_84571A8, speed, str);

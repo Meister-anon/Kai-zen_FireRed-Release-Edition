@@ -503,7 +503,7 @@ void DrawPreviouslyOnQuestHeader(u8 sceneNum)
         StringAppend(gStringVar4, gStringVar1);
     }
 
-    AddTextPrinterParameterized4(sQuestLogHeaderWindowIds[0], 2, 2, 2, 1, 2, sTextColors, 0, gStringVar4);
+    AddTextPrinterParameterized4(sQuestLogHeaderWindowIds[0], 2, 2, 2, 0, 2, sTextColors, 0, gStringVar4);
     PutWindowTilemap(sQuestLogHeaderWindowIds[0]);
     PutWindowTilemap(sQuestLogHeaderWindowIds[1]);
     CopyWindowToVram(sQuestLogHeaderWindowIds[0], COPYWIN_GFX);
@@ -998,7 +998,7 @@ static void DrawQuestLogSceneDescription(void)
 
     PutWindowTilemap(sQuestLogHeaderWindowIds[2]);
     sub_8111D90(sQuestLogHeaderWindowIds[2]);
-    AddTextPrinterParameterized4(sQuestLogHeaderWindowIds[2], 2, 2, sQuestLogTextLineYCoords[numLines], 1, 0, sTextColors, 0, gStringVar4);
+    AddTextPrinterParameterized4(sQuestLogHeaderWindowIds[2], 2, 2, sQuestLogTextLineYCoords[numLines], 0, 0, sTextColors, 0, gStringVar4);
     ScheduleBgCopyTilemapToVram(0);
 }
 

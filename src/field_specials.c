@@ -1406,7 +1406,7 @@ static void CreateScriptListMenu(void)
     sFieldSpecialsListMenuTemplate.cursorPal = 2;
     sFieldSpecialsListMenuTemplate.fillValue = 1;
     sFieldSpecialsListMenuTemplate.cursorShadowPal = 3;
-    sFieldSpecialsListMenuTemplate.lettersSpacing = 1;
+    sFieldSpecialsListMenuTemplate.lettersSpacing = 0;
     sFieldSpecialsListMenuTemplate.itemVerticalPadding = 0;
     sFieldSpecialsListMenuTemplate.scrollMultiple = 0;
     sFieldSpecialsListMenuTemplate.fontId = 2;

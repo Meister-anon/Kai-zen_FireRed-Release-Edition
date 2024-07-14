@@ -760,7 +760,7 @@ static void PrintSelectedBerryDescription(s32 itemIdx)
     else
         str = gText_TheBerryPouchWillBePutAway;
     FillWindowPixelBuffer(1, PIXEL_FILL(0));
-    BerryPouchPrint(1, 2, str, 0, 2, 2, 0, 0, 0);
+    BerryPouchPrint(1, 2, str, 0, 2, 0, 0, 0, 0);
 }
 
 static void SetDescriptionWindowBorderPalette(s32 pal)
@@ -914,11 +914,11 @@ void InitTossQuantitySelectUI(u8 taskId, const u8 * str)
     u8 windowId2;
     CopySelectedListMenuItemName(data[1], gStringVar1);
     StringExpandPlaceholders(gStringVar4, str);
-    BerryPouchPrint(windowId, 2, gStringVar4, 0, 2, 1, 2, 0, 1);
+    BerryPouchPrint(windowId, 2, gStringVar4, 0, 2, 0, 2, 0, 1);
     windowId2 = GetOrCreateVariableWindow(0);
     ConvertIntToDecimalStringN(gStringVar1, 1, STR_CONV_MODE_LEADING_ZEROS, 3);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    BerryPouchPrint(windowId2, 0, gStringVar4, 4, 10, 1, 0, 0, 1);
+    BerryPouchPrint(windowId2, 0, gStringVar4, 4, 10, 0, 0, 0, 1);
 }
 
 static void PrintxQuantityOnWindow(u8 whichWindow, s16 quantity, u8 ndigits)
@@ -927,7 +927,7 @@ static void PrintxQuantityOnWindow(u8 whichWindow, s16 quantity, u8 ndigits)
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
     ConvertIntToDecimalStringN(gStringVar1, quantity, STR_CONV_MODE_LEADING_ZEROS, ndigits);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    BerryPouchPrint(windowId, 0, gStringVar4, 4, 10, 1, 0, 0, 1);
+    BerryPouchPrint(windowId, 0, gStringVar4, 4, 10, 0, 0, 0, 1);
 }
 
 static void Task_BerryPouchMain(u8 taskId)
@@ -1028,7 +1028,7 @@ static void CreateNormalContextMenu(u8 taskId)
     windowId2 = GetOrCreateVariableWindow(6);
     CopySelectedListMenuItemName(data[1], gStringVar1);
     StringExpandPlaceholders(gStringVar4, gText_Var1IsSelected);
-    BerryPouchPrint(windowId2, 2, gStringVar4, 0, 2, 1, 2, 0, 1);
+    BerryPouchPrint(windowId2, 2, gStringVar4, 0, 2, 0, 2, 0, 1);
 }
 
 static void Task_NormalContextMenu(u8 taskId)
@@ -1104,7 +1104,7 @@ static void Task_AskTossMultiple(u8 taskId)
     s16 * data = gTasks[taskId].data;
     ConvertIntToDecimalStringN(gStringVar2, data[8], STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar4, gText_ThrowAwayStrVar2OfThisItemQM);
-    BerryPouchPrint(GetOrCreateVariableWindow(7), 2, gStringVar4, 0, 2, 1, 2, 0, 1);
+    BerryPouchPrint(GetOrCreateVariableWindow(7), 2, gStringVar4, 0, 2, 0, 2, 0, 1);
     CreateYesNoMenuWin3(taskId, &sYesNoFuncs_Toss);
 }
 
@@ -1158,7 +1158,7 @@ static void Task_TossYes(u8 taskId)
     CopySelectedListMenuItemName(data[1], gStringVar1);
     ConvertIntToDecimalStringN(gStringVar2, data[8], STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar4, gText_ThrewAwayStrVar2StrVar1s);
-    BerryPouchPrint(GetOrCreateVariableWindow(9), 2, gStringVar4, 0, 2, 1, 2, 0, 1);
+    BerryPouchPrint(GetOrCreateVariableWindow(9), 2, gStringVar4, 0, 2, 0, 2, 0, 1);
     gTasks[taskId].func = Task_WaitButtonThenTossBerries;
 }
 
@@ -1322,7 +1322,7 @@ static void Task_Sell_PrintSelectMultipleUI(u8 taskId)
     u8 windowId = GetOrCreateVariableWindow(1);
     ConvertIntToDecimalStringN(gStringVar1, 1, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    BerryPouchPrint(windowId, 0, gStringVar4, 4, 10, 1, 0, 0xFF, 1);
+    BerryPouchPrint(windowId, 0, gStringVar4, 4, 10, 0, 0, 0xFF, 1);
     SellMultiple_UpdateSellPriceDisplay(itemid_get_market_price(BagGetItemIdByPocketPosition(POCKET_BERRY_POUCH, data[1])) / 2 * data[8]);
     PrintMoneyInWin2();
     CreateScrollIndicatorArrows_SellQuantity();

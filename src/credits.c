@@ -858,7 +858,7 @@ static s32 RollCredits(void)
         if (sCreditsMgr->timer == 0)
         {
             sCreditsMgr->timer = 360;
-            AddTextPrinterParameterized4(sCreditsMgr->windowId, 1, 0x08, 0x29, 1, 2, sTextColor_Header, 0, TITLE_TEXT);
+            AddTextPrinterParameterized4(sCreditsMgr->windowId, 1, 0x08, 0x29, 0, 2, sTextColor_Header, 0, TITLE_TEXT);
             sCreditsMgr->mainseqno = CREDITSSCENE_WAIT_TITLE_STAFF;
         }
         else

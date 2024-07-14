@@ -126,7 +126,7 @@ static const struct ListMenuTemplate sDaycareListMenuLevelTemplate =
     .cursorPal = 2,
     .fillValue = 1,
     .cursorShadowPal = 3,
-    .lettersSpacing = 1,
+    .lettersSpacing = 0,
     .itemVerticalPadding = 0,
     .scrollMultiple = 0,
     .fontId = 3,
@@ -2330,7 +2330,7 @@ static void DaycareAddTextPrinter(u8 windowId, const u8 *text, u32 x, u32 y)
     printer.currentY = y;
     printer.unk = 0;
     gTextFlags.useAlternateDownArrow = 0;
-    printer.letterSpacing = 1;
+    printer.letterSpacing = 0;
     printer.lineSpacing = 1;
     printer.fgColor = 2;
     printer.bgColor = 1;
@@ -3097,5 +3097,5 @@ static void EggHatchPrintMessage(u8 windowId, u8* string, u8 x, u8 y, u8 speed)
     sEggHatchData->textColor[0] = 0;
     sEggHatchData->textColor[1] = 5;
     sEggHatchData->textColor[2] = 6;
-    AddTextPrinterParameterized4(windowId, 3, x, y, 1, 1, sEggHatchData->textColor, speed, string);
+    AddTextPrinterParameterized4(windowId, 3, x, y, 0, 1, sEggHatchData->textColor, speed, string);
 }

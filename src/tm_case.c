@@ -856,7 +856,7 @@ static void TMCase_MoveCursor_UpdatePrintedDescription(s32 itemIndex)
         str = gText_TMCaseWillBePutAway;
     }
     FillWindowPixelBuffer(1, 0);
-    AddTextPrinterParameterized_ColorByIndex(1, 2, str, 2, 3, 1, 0, 0, 0);
+    AddTextPrinterParameterized_ColorByIndex(1, 2, str, 2, 3, 0, 0, 0, 0);
 
     // update icons
     if (sSelectTMActionTasks[sTMCaseStaticResources.tmCaseMenuType] != sSelectTMActionTasks[2])
@@ -1072,7 +1072,7 @@ static void Task_SelectTMAction_FromFieldBag(u8 taskId)
     strbuf = Alloc(256);
     GetTMNumberAndMoveString(strbuf, gSpecialVar_ItemId);
     StringAppend(strbuf, gText_Var1IsSelected + 2); // +2 skips over the stringvar
-    AddTextPrinterParameterized_ColorByIndex(2, 2, strbuf, 0, 2, 1, 0, 0, 1);
+    AddTextPrinterParameterized_ColorByIndex(2, 2, strbuf, 0, 2, 0, 0, 0, 1);
     Free(strbuf);
     
     //RemoveTMContextMenu(&sTMCaseDynamicResources->contextMenuWindowId); //below is essentially this funtion, but couldnt get to take arg 2
@@ -1316,7 +1316,7 @@ static void Task_InitQuantitySelectUI(u8 taskId)
     TMCase_SetWindowBorder1(7);
     ConvertIntToDecimalStringN(gStringVar1, 1, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    AddTextPrinterParameterized_ColorByIndex(7, 0, gStringVar4, 4, 10, 1, 0, 0, 1);
+    AddTextPrinterParameterized_ColorByIndex(7, 0, gStringVar4, 4, 10, 0, 0, 0, 1);
     SellTM_PrintQuantityAndSalePrice(1, itemid_get_market_price(BagGetItemIdByPocketPosition(POCKET_TM_CASE, data[1])) / 2 * data[8]);
     HandlePrintMoneyOnHand();
     CreateTMCaseScrollIndicatorArrowPair_SellQuantitySelect();
@@ -1330,7 +1330,7 @@ static void SellTM_PrintQuantityAndSalePrice(s16 quantity, s32 amount)
     FillWindowPixelBuffer(7, 0x11);
     ConvertIntToDecimalStringN(gStringVar1, quantity, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    AddTextPrinterParameterized_ColorByIndex(7, 0, gStringVar4, 4, 10, 1, 0, 0, 1);
+    AddTextPrinterParameterized_ColorByIndex(7, 0, gStringVar4, 4, 10, 0, 0, 0, 1);
     PrintMoneyAmount(7, 0x38, 0x0A, amount, 0);
 }
 

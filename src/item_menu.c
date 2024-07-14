@@ -758,7 +758,7 @@ static void PrintItemDescriptionOnMessageWindow(s32 itemIndex)
     else
         description = gText_CloseBag;
     FillWindowPixelBuffer(1, PIXEL_FILL(0));
-    BagPrintTextOnWindow(1, 2, description, 0, 3, 2, 0, 0, 0);
+    BagPrintTextOnWindow(1, 2, description, 0, 3, 0, 0, 0, 0);
 }
 
 static void CreatePocketScrollArrowPair(void)
@@ -1230,7 +1230,7 @@ static void BeginMovingItemInPocket(u8 taskId, s16 itemIndex)
     StringCopy(gStringVar1, ItemId_GetName(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])));
     StringExpandPlaceholders(gStringVar4, gOtherText_WhereShouldTheStrVar1BePlaced);
     FillWindowPixelBuffer(1, PIXEL_FILL(0));
-    BagPrintTextOnWindow(1, 2, gStringVar4, 0, 3, 2, 0, 0, 0);
+    BagPrintTextOnWindow(1, 2, gStringVar4, 0, 3, 0, 0, 0, 0);
     ItemMenuIcons_MoveInsertIndicatorBar(0, ListMenuGetYCoordForPrintingArrowCursor(data[0]));
     ItemMenuIcons_ToggleInsertIndicatorBarVisibility(FALSE);
     BagDestroyPocketSwitchArrowPair();
@@ -1329,7 +1329,7 @@ static void UpdateQuantityToTossOrDeposit(s16 value, u8 ndigits)
     FillWindowPixelBuffer(r6, PIXEL_FILL(1));
     ConvertIntToDecimalStringN(gStringVar1, value, STR_CONV_MODE_LEADING_ZEROS, ndigits);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    BagPrintTextOnWindow(r6, 0, gStringVar4, 4, 10, 1, 0, 0, 1);
+    BagPrintTextOnWindow(r6, 0, gStringVar4, 4, 10, 0, 0, 0, 1);
 }
 
 static void CopyBagListBgTileRowToTilemapBuffer(u8 frame)
@@ -1436,7 +1436,7 @@ static void OpenContextMenu(u8 taskId)
     r4 = ShowBagWindow(6, 0);
     CopyItemName(gSpecialVar_ItemId, gStringVar1);
     StringExpandPlaceholders(gStringVar4, gText_Var1IsSelected);
-    BagPrintTextOnWindow(r4, 2, gStringVar4, 0, 2, 1, 0, 0, 1);
+    BagPrintTextOnWindow(r4, 2, gStringVar4, 0, 2, 0, 0, 0, 1);
 }
 
 static void Task_ItemContext_FieldOrBattle(u8 taskId)
@@ -1508,7 +1508,7 @@ static void Task_ConfirmTossItems(u8 taskId)
     s16 *data = gTasks[taskId].data;
     ConvertIntToDecimalStringN(gStringVar2, data[8], STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar4, gText_ThrowAwayStrVar2OfThisItemQM);
-    BagPrintTextOnWindow(ShowBagWindow(6, 1), 2, gStringVar4, 0, 2, 1, 0, 0, 1);
+    BagPrintTextOnWindow(ShowBagWindow(6, 1), 2, gStringVar4, 0, 2, 0, 0, 0, 1);
     BagCreateYesNoMenuBottomRight(taskId, &sYesNoMenu_Toss);
 }
 
@@ -1560,7 +1560,7 @@ static void Task_TossItem_Yes(u8 taskId)
     CopyItemName(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1]), gStringVar1);
     ConvertIntToDecimalStringN(gStringVar2, data[8], STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar4, gText_ThrewAwayStrVar2StrVar1s);
-    BagPrintTextOnWindow(ShowBagWindow(6, 3), 2, gStringVar4, 0, 2, 1, 0, 0, 1);
+    BagPrintTextOnWindow(ShowBagWindow(6, 3), 2, gStringVar4, 0, 2, 0, 0, 0, 1);
     gTasks[taskId].func = Task_WaitAB_RedrawAndReturnToBag;
 }
 
@@ -1873,7 +1873,7 @@ static void Task_InitSaleQuantitySelectInterface(u8 taskId)
     u8 r4 = ShowBagWindow(0, 1);
     ConvertIntToDecimalStringN(gStringVar1, 1, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    BagPrintTextOnWindow(r4, 0, gStringVar4, 4, 10, 1, 0, 0xFF, 1);
+    BagPrintTextOnWindow(r4, 0, gStringVar4, 4, 10, 0, 0, 0xFF, 1);
     UpdateSalePriceDisplay(itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * data[8]);
     BagPrintMoneyAmount();
     CreatePocketScrollArrowPair_SellQuantity();
@@ -2014,7 +2014,7 @@ static void Task_TryDoItemDeposit(u8 taskId)
         CopyItemName(gSpecialVar_ItemId, gStringVar1);
         ConvertIntToDecimalStringN(gStringVar2, data[8], STR_CONV_MODE_LEFT_ALIGN, 3);
         StringExpandPlaceholders(gStringVar4, gText_DepositedStrVar2StrVar1s);
-        BagPrintTextOnWindow(ShowBagWindow(6, 3), 2, gStringVar4, 0, 2, 1, 0, 0, 1);
+        BagPrintTextOnWindow(ShowBagWindow(6, 3), 2, gStringVar4, 0, 2, 0, 0, 0, 1);
         gTasks[taskId].func = Task_WaitAB_RedrawAndReturnToBag;
     }
     else

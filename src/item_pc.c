@@ -511,7 +511,7 @@ static void ItemPc_BuildListMenuTemplate(void)
     gMultiuseListMenuTemplate.header_X = 0;
     gMultiuseListMenuTemplate.item_X = 9;
     gMultiuseListMenuTemplate.cursor_X = 1;
-    gMultiuseListMenuTemplate.lettersSpacing = 1;
+    gMultiuseListMenuTemplate.lettersSpacing = 0;
     gMultiuseListMenuTemplate.itemVerticalPadding = 2;
     gMultiuseListMenuTemplate.upText_Y = 2;
     gMultiuseListMenuTemplate.maxShowed = sStateDataPtr->maxShowed;
@@ -565,7 +565,7 @@ static void ItemPc_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *
         }
         sStateDataPtr->itemMenuIconSlot ^= 1;
         FillWindowPixelBuffer(1, 0);
-        ItemPc_AddTextPrinterParameterized(1, 2, desc, 0, 3, 2, 0, 0, 3);
+        ItemPc_AddTextPrinterParameterized(1, 2, desc, 0, 3, 0, 0, 0, 3);
     }
 }
 
@@ -804,7 +804,7 @@ static void ItemPc_MoveItemModeInit(u8 taskId, s16 pos)
     StringCopy(gStringVar1, ItemId_GetName(ItemPc_GetItemIdBySlotId(data[1])));
     StringExpandPlaceholders(gStringVar4, gOtherText_WhereShouldTheStrVar1BePlaced); //ok with this confirm talking about player pc for item use at pokecenter
     FillWindowPixelBuffer(1, 0x00);
-    ItemPc_AddTextPrinterParameterized(1, 2, gStringVar4, 0, 3, 2, 3, 0, 0);
+    ItemPc_AddTextPrinterParameterized(1, 2, gStringVar4, 0, 3, 0, 3, 0, 0);
     ItemMenuIcons_MoveInsertIndicatorBar(-32, ListMenuGetYCoordForPrintingArrowCursor(data[0]));
     ItemMenuIcons_ToggleInsertIndicatorBarVisibility(FALSE);
     ItemPc_PrintOrRemoveCursor(data[0], 2);
@@ -874,7 +874,7 @@ static void Task_ItemPcSubmenuInit(u8 taskId)
     Menu_InitCursor(4, 2, 0, 2, GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT) + 2, 3, 0);
     CopyItemName(ItemPc_GetItemIdBySlotId(data[1]), gStringVar1);
     StringExpandPlaceholders(gStringVar4, gText_Var1IsSelected);
-    ItemPc_AddTextPrinterParameterized(windowId, 2, gStringVar4, 0, 2, 1, 0, 0, 1);
+    ItemPc_AddTextPrinterParameterized(windowId, 2, gStringVar4, 0, 2, 0, 0, 0, 1);
     ScheduleBgCopyTilemapToVram(0);
     gTasks[taskId].func = Task_ItemPcSubmenuRun;
 }
@@ -992,7 +992,7 @@ static void ItemPc_WithdrawMultipleInitWindow(u16 slotId)
     ConvertIntToDecimalStringN(gStringVar1, 1, STR_CONV_MODE_LEADING_ZEROS, 3);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
     ItemPc_SetBorderStyleOnWindow(3);
-    ItemPc_AddTextPrinterParameterized(3, 0, gStringVar4, 8, 10, 1, 0, 0, 1);
+    ItemPc_AddTextPrinterParameterized(3, 0, gStringVar4, 8, 10, 0, 0, 0, 1);
     ScheduleBgCopyTilemapToVram(0);
 }
 
@@ -1001,7 +1001,7 @@ static void UpdateWithdrawQuantityDisplay(s16 quantity)
     FillWindowPixelRect(3, PIXEL_FILL(1), 10, 10, 28, 12);
     ConvertIntToDecimalStringN(gStringVar1, quantity, STR_CONV_MODE_LEADING_ZEROS, 3);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
-    ItemPc_AddTextPrinterParameterized(3, 0, gStringVar4, 8, 10, 1, 0, 0, 1);
+    ItemPc_AddTextPrinterParameterized(3, 0, gStringVar4, 8, 10, 0, 0, 0, 1);
 }
 
 static void Task_ItemPcHandleWithdrawMultiple(u8 taskId)

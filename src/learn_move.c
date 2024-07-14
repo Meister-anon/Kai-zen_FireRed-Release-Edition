@@ -352,7 +352,7 @@ static const struct ListMenuTemplate sMoveRelearnerListMenuTemplate = {
     .cursorPal = 2,
     .fillValue = 1,
     .cursorShadowPal = 3,
-    .lettersSpacing = 1,
+    .lettersSpacing = 0,
     .itemVerticalPadding = 0,
     .scrollMultiple = 0,
     .fontId = 2,
@@ -917,7 +917,7 @@ static s8 YesNoMenuProcessInput(void)
 
 static void PrintTextOnWindow(u8 windowId, const u8 *str, u8 x, u8 y, s32 speed, s32 colorIdx)
 {
-    s32 letterSpacing = 1;
+    s32 letterSpacing = 0;
     s32 lineSpacing = 1;
     if (colorIdx == 0 || colorIdx == 1)
     {

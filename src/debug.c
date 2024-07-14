@@ -867,7 +867,7 @@ static void Debug_ShowMenu(void (*HandleInput)(u8), struct ListMenuTemplate LMte
     menuTemplate.cursorPal = 2;
     menuTemplate.fillValue = 1;
     menuTemplate.cursorShadowPal = 3;
-    menuTemplate.lettersSpacing = 1;
+    menuTemplate.lettersSpacing = 0;
     menuTemplate.itemVerticalPadding = 0;
     menuTemplate.scrollMultiple = LIST_NO_MULTIPLE_SCROLL;
     menuTemplate.fontId = DEBUG_MENU_FONT;
@@ -1094,7 +1094,7 @@ static void Debug_RefreshListMenu(u8 taskId)
     gMultiuseListMenuTemplate.cursorPal = 2;
     gMultiuseListMenuTemplate.fillValue = 1;
     gMultiuseListMenuTemplate.cursorShadowPal = 3;
-    gMultiuseListMenuTemplate.lettersSpacing = 1;
+    gMultiuseListMenuTemplate.lettersSpacing = 0;
     gMultiuseListMenuTemplate.itemVerticalPadding = 0;
     gMultiuseListMenuTemplate.scrollMultiple = LIST_NO_MULTIPLE_SCROLL;
     gMultiuseListMenuTemplate.fontId = DEBUG_MENU_FONT;
