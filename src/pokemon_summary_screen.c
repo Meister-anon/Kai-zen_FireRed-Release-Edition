@@ -3220,17 +3220,17 @@ static const u8* GetNatureStatColor(u16 *string)
 static void PrintSkillsPage(void)//vsonic 
 {
     AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[3], FONT_NORMAL, 14 + sMonSkillsPrinterXpos->curHpStr, 4, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.curHpStrBuf);
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->atkStr, 22, GetNatureStatColor(&sMonSkillsPrinterXpos->atkStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->defStr, 35, GetNatureStatColor(&sMonSkillsPrinterXpos->defStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->spAStr, 48, GetNatureStatColor(&sMonSkillsPrinterXpos->spAStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->spDStr, 61, GetNatureStatColor(&sMonSkillsPrinterXpos->spDStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->speStr, 74, GetNatureStatColor(&sMonSkillsPrinterXpos->speStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->atkStr, 22,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->atkStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->defStr, 35,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->defStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->spAStr, 48,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->spAStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->spDStr, 61,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->spDStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 50 + sMonSkillsPrinterXpos->speStr, 74,  1, GetFontAttribute(FONT_NORMAL, FONTATTR_LINE_SPACING), GetNatureStatColor(&sMonSkillsPrinterXpos->speStr), TEXT_SKIP_DRAW, sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
     //AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 15 + sMonSkillsPrinterXpos->expStr, 87, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.expPointsStrBuf);
     AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 15 + sMonSkillsPrinterXpos->toNextLevel, 87, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.expToNextLevelStrBuf);
 }   //ok since this is going on window 3, and I need to move up abilities which are on window 5 think need decrease height of 3 for skills menu
 
 #define GetOtherMoveNamePrinterYpos(x) ((x) * 28 + 2)    //used for pp of move box 0 & 2, subtracted 3 to match hopefuly
-#define SpecialMove1NamePrinterYpos(x) ((x) * 28 + 3)   //specic for id 1 move slot 2
+#define SpecialMove1NamePrinterYpos(x) ((x) * 28 + 3)   //specic for id 1 move slot 2GetFontAttribute(fontId, 3)
 #define GetMoveNamePrinterYpos(x) ((x) * 28 + 5)    //used for pp
 #define GetOtherMovePpPinterYpos(x) ((x) * 28 + 13) //used for moveename
 

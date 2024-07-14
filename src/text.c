@@ -678,9 +678,6 @@ u16 RenderText(struct TextPrinter *textPrinter)
 				charsPerFrame = 3;
                 repeat = TRUE;
 				break;
-			/*case OPTIONS_TEXT_SPEED_FAST:
-				charsPerFrame = 4;
-				break;*/
         }
         do
         {

@@ -792,7 +792,7 @@ u8 GetExtCtrlCodeLength(u8 code)
         [EXT_CTRL_CODE_WAIT_SE]                = 1,
         [EXT_CTRL_CODE_PLAY_BGM]               = 3,
         [EXT_CTRL_CODE_ESCAPE]                 = 2,
-        [EXT_CTRL_CODE_SHIFT_RIGHT]             = 2,
+        [EXT_CTRL_CODE_SHIFT_RIGHT]            = 2,
         [EXT_CTRL_CODE_SHIFT_DOWN]             = 2,
         [EXT_CTRL_CODE_FILL_WINDOW]            = 1,
         [EXT_CTRL_CODE_PLAY_SE]                = 3,

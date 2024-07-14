@@ -2589,6 +2589,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     noticed list stil loads as 3 digit instead of 4 until scrolls?
 
+    think should look into summary screen and see about increasing
+    text spacing for stat display, if possible
+
+    was apparently an unaddressed issue w letter spacing
+    value was never actually being passed/used
+
+    Redid the setup and now it works as expected
+
     hmm or not, since even for pre-existing mon debugger is being buggy 
     and just not giving me the mon? -  nah was cuz of somethig I had removed apparently
 
