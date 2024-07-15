@@ -2711,8 +2711,8 @@ const u8 *GetMonIconTiles(u16 species, bool32 extra)
 {
     //const u8 *iconSprite = gMonIconTable[species];
     const u8 *iconSprite = gSpeciesGraphics[species].iconSprite;
-    if (species == SPECIES_DEOXYS && extra == TRUE)
-        iconSprite += 0x400;
+    //if (species == SPECIES_DEOXYS && extra == TRUE)
+    //    iconSprite += 0x400;
     return iconSprite;
 }
 

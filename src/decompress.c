@@ -86,7 +86,7 @@ void LoadCompressedSpritePaletteOverrideBuffer(const struct CompressedSpritePale
 void DecompressPicFromTable(const struct CompressedSpriteSheet *src, void* buffer, s32 species)
 {
     LZ77UnCompWram(src->data, buffer);
-    DuplicateDeoxysTiles(buffer, species);
+    //DuplicateDeoxysTiles(buffer, species);
 }//accidentally removed compr from this leaving just deoxys logic
 
 void HandleLoadSpecialPokePic(bool32 isFrontPic,void *dest, s32 species, u32 personality)
@@ -136,10 +136,11 @@ void LoadSpecialPokePic(void *dest, s32 species, u32 personality, bool8 isFrontP
             LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].backPic, dest);
     }
 
-    DuplicateDeoxysTiles(dest, species);
+    //DuplicateDeoxysTiles(dest, species);
     DrawSpindaSpots(species, personality, dest, isFrontPic);
 }
 
+//tryue seems no longer need this, however it wasused
 static void DuplicateDeoxysTiles(void *pointer, s32 species)
 {
     if (species == SPECIES_DEOXYS)

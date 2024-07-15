@@ -2609,6 +2609,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     think its an issue of how I changed pp setup for the structs/getmon stuff.
     fixed, wasn't something I broke was part of debug that was never setup
 
+    double check handle deoxys pic logic, causing some issue.
+    may no longer need logic?
+
+    checked removed and still same result, weird thing
+    only base form deoxys icon is busted other forms work fine
+
+    so is something directly linked to deoxys
+    fixed 
+
     also added species name to base stats now calling from there
     fix name use for dex and cane remove gspeciesname to save space
 
