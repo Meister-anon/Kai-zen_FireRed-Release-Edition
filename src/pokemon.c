@@ -4239,9 +4239,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack = (130 * attack) / 100;
     if (attacker->ability == ABILITY_COMPETITIVE && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
         spAttack = (130 * spAttack) / 100;  //CUT Back to 130, because it already has stat raise component
-    if (attacker->ability == ABILITY_PLUS && ABILITY_ON_FIELD2(ABILITY_MINUS))
+    if (attacker->ability == ABILITY_PLUS 
+    && (ABILITY_ON_FIELD2(ABILITY_MINUS)
+    || IsTypeOnField(TYPE_ELECTRIC)))
         spAttack = (150 * spAttack) / 100;
-    if (attacker->ability == ABILITY_MINUS && ABILITY_ON_FIELD2(ABILITY_PLUS))
+    if (attacker->ability == ABILITY_MINUS 
+    && (ABILITY_ON_FIELD2(ABILITY_PLUS)
+    || IsTypeOnField(TYPE_ELECTRIC)))
         spAttack = (150 * spAttack) / 100;
     if (attacker->ability == ABILTY_UNKNOWN_POWER && (BATTLE_PARTNER(attacker->species) == SPECIES_UNOWN))
         OffensiveModifer(200);
