@@ -1868,6 +1868,7 @@ u8 DoFieldEndTurnEffects(void)
                         ++effect;
                     }//belive I have healing moves, & healing items blocked by need to make logic for held berries/items  /just check hold effect for healing done, 
                     //added !(gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK)  to itembattleeffects function, should cover everything now??
+                    //do llik embargo make specific messsage dnt use buferendturn
                 }
                 ++gBattleStruct->turnSideTracker;
                 if (effect)
@@ -1892,7 +1893,7 @@ u8 DoFieldEndTurnEffects(void)
                     {
                         gSideStatuses[side] &= ~SIDE_STATUS_EMBARGO; //clears side status
                         //gStatuses3[gActiveBattler] &= ~STATUS3_HEAL_BLOCK;  //clears battler status   //think dont need this?
-                        BattleScriptExecute(BattleScript_BufferEndTurn); //unsure if this message will print for both parties to see
+                        BattleScriptExecute(BattleScript_EmbargoEndTurn); //unsure if this message will print for both parties to see
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_EMBARGO); //need to make sure player is aware heal block ends if its used by or against them
                         ++effect;
                     }//belive I have healing moves, & healing items blocked by need to make logic for held berries/items  /just check hold effect for healing done, 
@@ -6160,7 +6161,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                     //gStatuses3[gBattlerTarget] |= STATUS3_HEAL_BLOCK;
                     //gDisableStructs[gBattlerTarget].healBlockTimer = 5;
-                    gBattlerTarget = battler;
+                    gBattlerAttacker = battler;
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_CORRUPTION;
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
@@ -6169,7 +6170,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 else if (!gSpecialStatuses[battler].switchInAbilityDone && gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] & SIDE_STATUS_HEAL_BLOCK)
                 {
                     gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].healBlockTimer += 5; //adds on to existing timer on switchin
-                    gBattlerTarget = battler;
+                    gBattlerAttacker = battler;
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_CORRUPTION;
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
@@ -6179,22 +6180,23 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case ABILITY_BANDIT_KING:
                 if (!gSpecialStatuses[battler].switchInAbilityDone && !(gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] & SIDE_STATUS_EMBARGO))
                 {
-
+                    gBattlerAttacker = battler;
                     gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] |= SIDE_STATUS_EMBARGO;
                     gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].embargoTimer = 5;  //hope works, need test
                     gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].embargoBattlerId = BATTLE_OPPOSITE(battler);
 
 
-                    gBattlerTarget = battler;
+                    //gBattlerTarget = battler;
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_BANDIT;
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     ++effect;
                 }
-                else if (!gSpecialStatuses[battler].switchInAbilityDone && gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_EMBARGO)
+                else if (!gSpecialStatuses[battler].switchInAbilityDone && gSideStatuses[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))] & SIDE_STATUS_EMBARGO)
                 {
-                    gSideTimers[GET_BATTLER_SIDE(battler)].embargoTimer += 5; //adds on to existing timer on switchin
-                    gBattlerTarget = battler;
+                    gBattlerAttacker = battler;
+                    gSideTimers[GET_BATTLER_SIDE(BATTLE_OPPOSITE(battler))].embargoTimer += 5; //adds on to existing timer on switchin
+                    //gBattlerTarget = battler;
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_BANDIT;
                     BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
@@ -6507,6 +6509,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case ABILITY_INTREPID_SWORD:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
+                    gBattlerAttacker = battler;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     SET_STATCHANGER(STAT_ATK, 1, FALSE);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
@@ -6516,6 +6519,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case ABILITY_DAUNTLESS_SHIELD:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
+                    gBattlerAttacker = battler; //fixed statset this was what was mising
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     SET_STATCHANGER(STAT_DEF, 1, FALSE);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
@@ -11457,6 +11461,21 @@ u32 DoesSideHaveAbility(u32 battlerId, u32 ability) //adapted ability search fun
 u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability) // use for intimidate on enemy team
 {
     return IsAbilityOnSide(BATTLE_OPPOSITE(battlerId), ability);
+}
+
+//checks for type other than user
+u32 IsTypeOnField(u32 type)
+{
+    
+    u32 i;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (i != gActiveBattler && IsBattlerAlive(i) && IS_BATTLER_OF_TYPE(i, type))
+            return i + 1;
+    }
+
+    return 0;
 }
 
 //can be used as true false, but also can be used to return battler with ability in question

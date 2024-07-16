@@ -834,7 +834,7 @@ static const u8 sText_SwappedAbilities[] = _("{B_DEF_NAME_WITH_PREFIX} swapped A
 static const u8 sText_PastelVeilProtected[] = _("{B_DEF_NAME_WITH_PREFIX} is protected\nby a pastel veil!");
 static const u8 sText_PastelVeilEnters[] = _("{B_DEF_NAME_WITH_PREFIX} was cured\nof its poisoning!");
 static const u8 sText_CorruptionActivates[] = _("{B_ATK_NAME_WITH_PREFIX} spread {B_ATK_ABILITY}!\n{B_DEF_TEAM1} side can't heal!\p");
-static const u8 sText_BanditActivates[] = _("The {B_ATK_ABILITY} is on the scene!\n{B_DEF_TEAM1} side can't use items!\p");
+static const u8 sText_BanditActivates[] = _("The {B_ATK_ABILITY} is on the scene!\n{B_DEF_TEAM1} side can't use items!{PAUSE 32}");
 static const u8 sText_BattlerTypeChangedTo[] = _("{B_BUFF1}'s type\nchanged to {B_BUFF2}!");
 static const u8 sText_BothCanNoLongerEscape[] = _("Neither Pokémon can run away!");
 static const u8 sText_CantEscapeDueToUsedMove[] = _("{B_ATK_NAME_WITH_PREFIX} can no longer escape\nbecause it used {B_CURRENT_MOVE}!");
@@ -3243,15 +3243,15 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst) //logic for buffers t
                 break;
             case B_DEF_TEAM1:   //B_DEF_TEAM1
                 if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
-                    toCpy = sText_Your1;
-                else
                     toCpy = sText_Opposing1;
+                else
+                    toCpy = sText_Your1;
                 break;
             case B_DEF_TEAM2:   //B_DEF_TEAM2
                 if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
-                    toCpy = sText_Your2;
-                else
                     toCpy = sText_Opposing2;
+                else
+                    toCpy = sText_Your2;
                 break;
             }
 

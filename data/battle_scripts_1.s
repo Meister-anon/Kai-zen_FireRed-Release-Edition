@@ -4381,7 +4381,8 @@ BattleScript_DoTripleKickAttack::
 	@jumpifmove MOVE_SURGING_STRIKES, EffectTripleKick_DoDmgCalcs    @ no power boost each hit
 	@jumpifmove MOVE_TRIPLE_AXEL, EffectTripleKick_TripleAxelBoost   @ triple axel gets +20 power
 	@addbyte sTRIPLE_KICK_POWER, 10                                  @ triple kick gets +10 power
-	addbyte gBattleScripting + 12, 1		@leaving this, think its a multi hit string?
+	@addbyte gBattleScripting + 12, 1		@leaving this, think its a multi hit string?
+	addbyte sMULTIHIT_STRING + 4, 1	@seems to work
 	goto EffectTripleKick_DoDmgCalcs
 EffectTripleKick_TripleAxelBoost:
 	@addbyte sTRIPLE_KICK_POWER, 20
@@ -9514,7 +9515,7 @@ BattleScript_TargetAbilityStatRaiseOnMoveEnd::
 	setgraphicalstatchangevalues
 	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
 	waitanimation
-	printstring STRINGID_ABILITYRAISEDSTATDRASTICALLY
+	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
@@ -10387,6 +10388,9 @@ BattleScript_ApplySecondaryEffect::
 	seteffectsecondary
 	return
 
+@used for a lot but don't want for side stuff
+@ie embargo healblock don't want as would
+@store wrong battler when end and battler that set not on field
 BattleScript_BufferEndTurn::
 	printstring STRINGID_BUFFERENDS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
