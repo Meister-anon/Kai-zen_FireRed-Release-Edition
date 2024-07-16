@@ -2001,6 +2001,10 @@ static void atk01_accuracycheck(void)
             || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   
             calc = (calc * 130) / 100; // 1.3 compound eyes boost
 
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_VICTORY_STAR
+        ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR)
+            calc = (calc * 110) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
+
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)

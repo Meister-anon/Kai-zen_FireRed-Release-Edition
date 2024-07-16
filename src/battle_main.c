@@ -5579,6 +5579,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     u32 speed = gBattleMons[battlerId].speed; //activebattler /attacker
     u32 targetspeed = gBattleMons[gBattlerTarget].speed; //may work may not, for now use ability on opposing field
     u32 ability = GetBattlerAbility(battlerId);
+    u32 partnerability = GetBattlerAbility(BATTLE_PARTNER(battlerId));
     u32 holdEffect = GetBattlerHoldEffect(battlerId, TRUE);
     u32 highestStat = GetHighestStatId(battlerId);  //3was for protosynthesis will use for ultranerozma move instead i think
 
@@ -5613,7 +5614,11 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
 
     else if (IsAbilityOnField(ABILITY_TABLETS_OF_RUIN) && GetBattlerAbility(battlerId) != ABILITY_TABLETS_OF_RUIN)
         speed = (speed * 75) / 100;  //wo chien ability buff
+        
 
+    if (ability == ABILITY_VICTORY_STAR
+    ||  partnerability == ABILITY_VICTORY_STAR) //gave speed buff rather than crit or dmg, sinc acc & speed are biggest factors for victory usually
+        speed = (speed * 120) / 100;    //extra synergy with wo chien
 
     if (IsAbilityPreventingEscape(battlerId)) //realize this need be an if, to always trigger
         speed = (speed * 67) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop

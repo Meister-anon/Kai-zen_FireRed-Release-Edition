@@ -2617,6 +2617,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     so is something directly linked to deoxys
     fixed 
+    zacian zamazenta ability being applied to enemy side on switch in
+    need change text for embargo to not load battler name
+
+    check count byte values for battle scripting struct also 
+    have things should have removed already
+    tried to update things for triple kick need test still works correctly
+
+    gBattleScripting + 29  is battlescripting.battler
+
+    -seems tobe working
+
+    make sure go through abilities file search each
+    to mkake sure abilities are actually setup
+    ported lotof things but not all setup
+
 
     also added species name to base stats now calling from there
     fix name use for dex and cane remove gspeciesname to save space
