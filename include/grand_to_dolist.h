@@ -2632,6 +2632,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to mkake sure abilities are actually setup
     ported lotof things but not all setup
 
+    need update abilities changed to draw in move types
+    attempted add accuracy bypass for absorb type abilities
 
     also added species name to base stats now calling from there
     fix name use for dex and cane remove gspeciesname to save space
