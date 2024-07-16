@@ -7673,14 +7673,13 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     // Had more than half of hp at move select, now has less
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2
-                    && (gMultiHitCounter == 0 || gMultiHitCounter == 1)
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
                     gBattleResources->flags->flags[battler] |= RESOURCE_FLAG_EMERGENCY_EXIT;
                     ++effect;
-                }
+                }//removed multihit check for both as just made not activate if hit by multihit
                 break;
             case ABILITY_EMERGENCY_EXIT: //change to switch after next turn move end w priority ahnd dmg boost
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)//will attempt setup after can build/compile
@@ -7689,9 +7688,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     // Had more than half of hp before, now has less
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2 //made or equal to prevent miss triggering at exact hp
-                    && (gMultiHitCounter == 0 || gMultiHitCounter == 1) //is if it lands on exact half it'll never trigger after -_-
-                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    // Not currently held by Sky Drop
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg 
+                    // Not currently held by Sky Drop                   
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
                     gDisableStructs[battler].EmergencyExitTimer = 1;

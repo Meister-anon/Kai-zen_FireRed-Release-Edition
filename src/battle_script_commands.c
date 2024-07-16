@@ -8329,7 +8329,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 //using special status this never triggered because status was alraedy cleared for wimpout
                 if ((gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_EMERGENCY_EXIT
                 || gSpecialStatuses[gBattlerAttacker].EmergencyExit)
-                && (!(gHitMarker & HITMARKER_FAINTED(gBattlerTarget)) || CountUsablePartyMons(gBattlerTarget) > 0))
+                && (!(gHitMarker & HITMARKER_FAINTED(gBattlerTarget)) || CountUsablePartyMons(gBattlerTarget) > 0)
+                && gMultiHitCounter == 0) //to prevent switchout before multihit move ends
                 {
                     gBattleResources->flags->flags[gBattlerAttacker] &= ~RESOURCE_FLAG_EMERGENCY_EXIT;
                     //needed this part to prevent repeat switchout
