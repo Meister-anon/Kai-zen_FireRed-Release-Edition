@@ -2631,8 +2631,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     doesn't need max
 
     ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2)
+    remember remove ditto from starter list instead give at first daycare
+    removed castform ditto thievul from starter list
+    added liepard line, gen 9 starters
+
     adjusted formula seems ok?
     still unsure
+
+    I FUCKING CAN'T I SOMEHOW BROKE BIND
+    AGAIN!!!
+
+    it makes them attack themselves with their moves
+    instead of picking a random one *facepalm
+
+    may have found bind issue  bind uses GetMoveTarget
+    and I change that around when I was doing my logic for
+    absorb abilities, so it may be gettign caught in that?
+    - yeah issue was getmovetarget idk why I did it way I did,
+    but was using gbattletarget before it was assigned so set to self
+    works now doesn't break  move type absorb
 
     zacian zamazenta ability being applied to enemy side on switch in
     need change text for embargo to not load battler name

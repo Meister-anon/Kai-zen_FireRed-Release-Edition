@@ -10851,7 +10851,7 @@ u8 CanMovebeRedirected(void)
 u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who gets attacked?
 {
     u8 targetBattler = 0;
-    u8 moveTarget, moveType, argument;
+    u8 targetType, moveType, argument;
     u8 moveArgument = 0;
     u8 side;
 
@@ -10866,14 +10866,14 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
         moveArgument = argument;
 
     if (setTarget != NO_TARGET_OVERRIDE)
-        moveTarget = setTarget - 1;
+        targetType = setTarget - 1;
     else
-        moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, move);
+        targetType = GetBattlerMoveTargetType(gBattlerAttacker, move);
 
     // Special cases
     if (move == MOVE_CURSE && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
-        moveTarget = MOVE_TARGET_USER;
-    switch (moveTarget)
+        targetType = MOVE_TARGET_USER;
+    switch (targetType)
     {
     case MOVE_TARGET_SELECTED:
         side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
@@ -10886,18 +10886,21 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
             
 
             //with this, if move isn't redirected reasserts original target
-            targetBattler = gBattlerTarget;         
+            //this is the issue, for some reason gbattlertarget is self?
+            //ok gbatlertarget isn't set at this piont that's why can't use that
+            //idk why I didn't just have what expansion had?
+            targetBattler = SetRandomTarget(gBattlerAttacker);//gBattlerTarget;   seems works doesn't reset target      
             
 
 
 
                 if (moveType == TYPE_ELECTRIC || moveArgument == TYPE_ELECTRIC)   //if multiple absorb abilities think would trigger in order of top to bottom
                 {
-                    //if opposing battler has absorb ability and can absorb 
-                    //and original target does not have ability absorb assign battler id
-                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    //if redirect target has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign new battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType)
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
                         
@@ -10910,7 +10913,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     //essentially does is ability check logic without function
                     else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
 
@@ -10922,10 +10925,11 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                 }
                 else if (moveType == TYPE_WATER || moveArgument == TYPE_WATER)
                 {
-                    //if opposing battler has absorb ability and can absorb assign battler id
-                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    //if redirect target has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign new battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType)
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -10934,7 +10938,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     //essentially does is ability check logic without function
                     else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -10944,10 +10948,11 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                 }
                 else if (moveType == TYPE_FIRE || moveArgument == TYPE_FIRE)
                 {
-                    //if opposing battler has absorb ability and can absorb assign battler id
-                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    //if redirect target has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign new battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType)
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -10956,7 +10961,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     //essentially does is ability check logic without function
                     else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -10967,10 +10972,11 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                 }
                 else if (moveType == TYPE_ROCK || moveArgument == TYPE_ROCK)
                 {
-                    //if opposing battler has absorb ability and can absorb assign battler id
-                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    //if redirect target has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign new battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType)
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -10979,7 +10985,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     //essentially does is ability check logic without function
                     else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -10989,10 +10995,11 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                 }
                 else if (moveType == TYPE_GRASS || moveArgument == TYPE_GRASS)
                 {
-                    //if opposing battler has absorb ability and can absorb assign battler id
-                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    //if redirect target has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign new battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType)
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -11001,7 +11008,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     //essentially does is ability check logic without function
                     else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -11011,10 +11018,11 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                 }
                 else if (moveType == TYPE_ICE || moveArgument == TYPE_ICE)
                 {
-                    //if opposing battler has absorb ability and can absorb assign battler id
-                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType) 
+                    //if redirect target has absorb ability and can absorb 
+                    //and original target does not have ability absorb assign new battler id
+                    if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType)
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(gBattlerAttacker))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(gBattlerAttacker);
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -11023,7 +11031,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
                     //essentially does is ability check logic without function
                     else if (DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)), moveType) 
                     && CAN_ABILITY_ABSORB(BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker)))
-                    && !DoesBattlerAbilityAbsorbMoveType(targetBattler, moveType))
+                    && !DoesBattlerAbilityAbsorbMoveType(BATTLE_OPPOSITE(gBattlerAttacker), moveType))
                     {
                         targetBattler = BATTLE_OPPOSITE(BATTLE_PARTNER(gBattlerAttacker));
                         RecordAbilityBattle(targetBattler, GetBattlerAbility(targetBattler));
@@ -11047,7 +11055,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
         side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE;
         if (gSideTimers[side].followmeTimer && gBattleMons[gSideTimers[side].followmeTarget].hp)
             targetBattler = gSideTimers[side].followmeTarget;
-        else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && moveTarget & MOVE_TARGET_RANDOM)
+        else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && targetType & MOVE_TARGET_RANDOM)
             targetBattler = SetRandomTarget(gBattlerAttacker);
         else
             targetBattler = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker)));

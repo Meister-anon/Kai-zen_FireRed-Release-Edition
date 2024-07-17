@@ -12695,7 +12695,8 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sMimeJrLevelUpLearnset,
         .tmhmLearnset = sMimeJrTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_MOVE, MOVE_MIMIC, 0, SPECIES_MR_MIME}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_MIMIC, 0, SPECIES_MR_MIME},
+        {EVO_MOVE_FORM, MOVE_MIMIC, F_GALARIAN_FORM, SPECIES_MR_MIME_GALARIAN}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_HAPPINY] =
@@ -27288,7 +27289,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_TANGLED_FEET, ABILITY_SCREEN_CLEANER},
-            .abilityHidden = {ABILITY_ICE_BODY, ABILITY_NONE},
+            .abilityHidden = {ABILITY_ICE_BODY, ABILITY_DANCER},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -40230,7 +40231,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_VITAL_SPIRIT, ABILITY_SCREEN_CLEANER},
-            .abilityHidden = {ABILITY_ICE_BODY, ABILITY_NONE},
+            .abilityHidden = {ABILITY_ICE_BODY, ABILITY_DANCER},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,

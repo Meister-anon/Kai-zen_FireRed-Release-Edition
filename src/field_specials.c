@@ -1584,6 +1584,7 @@ const u16 sBulbasaurBall[] = {
     SPECIES_SPRITZEE, //replace
     SPECIES_FOONGUS, //doesnt work well, breaks relation of lists, hmm replace w voltorb, pokeball in a pokeball - replaced w foongus instead as voltorbn common
     SPECIES_PANSAGE,
+    SPECIES_SPRIGATITO,
     SPECIES_TOGEDEMARU
     //LIST_END
 }; //this list matches the best the others need more work -think will move swinub and ditto to squirtle list, and just add 2 to other lists
@@ -1604,6 +1605,7 @@ const u16 sSquirtleBall[] = {
     SPECIES_EEVEE,
     SPECIES_TEDDIURSA, //replaced lotad
     SPECIES_HELIOPTILE,
+    SPECIES_QUAXLY,
     SPECIES_PHANPY,
     SPECIES_AZURILL, //I like azurill but others maybe not, so replace w just marill, as it works for type checklist, while marill doesn't as its not watter, 'w fix for selection function can put back?
     SPECIES_ROCKRUFF,
@@ -1614,7 +1616,8 @@ const u16 sSquirtleBall[] = {
     SPECIES_WOOPER,
     SPECIES_BUNNELBY, //works but I like SPECIES_GOLETT better? is more interesting/popular , replaced rogenrolla //oh right didn't use cuz ghost was free early game wins
     SPECIES_LOTAD,  //REPLACED wailmer
-    SPECIES_CASTFORM,   //easter egg mon, not really good for starter otherwise/ rebalancing ability effect would be better in squirtle set can swap w ditto
+    SPECIES_MIME_JR,
+    //SPECIES_CASTFORM,   //easter egg mon, not really good for starter otherwise/ rebalancing ability effect would be better in squirtle set can swap w ditto
     SPECIES_SANDILE,
     //SPECIES_SOBBLE,  //make new area sevii island to get all gen starters, rare safari zone, mon will be higher level but all starter form
     SPECIES_SPHEAL
@@ -1632,14 +1635,15 @@ const u16 sCharmanderBall[] = {
     SPECIES_LITTEN,
     SPECIES_SCORBUNNY,
     SPECIES_GLIGAR, //weak to water, poison beats grass
-    SPECIES_DITTO,
+    SPECIES_SIZZLIPEDE,
     SPECIES_EEVEE,
     SPECIES_MURKROW,    //beats grass no relation to water
-    SPECIES_NICKIT,
+    SPECIES_PURRLOIN,
     SPECIES_LICKITUNG,
     SPECIES_RIOLU,
     SPECIES_PANSEAR,
     SPECIES_PONYTA,
+    SPECIES_FUECOCO,
     SPECIES_NUMEL, //removed litwick put them in laverge tower
     SPECIES_NOIBAT, //replaced tediursa, looks like a starter but doesn't quite match type since it resists water, but keeping
     SPECIES_STUNKY, //can show off new ability?
@@ -1995,7 +1999,7 @@ u8 ShouldResetRivalStarter(void)
 
         if (species == SPECIES_EEVEE && PlayeStarterSpecies == SPECIES_EEVEE)
             passedChecks = FALSE;
-        else if (species == SPECIES_EEVEE || species == SPECIES_DITTO)
+        else if (species == SPECIES_EEVEE)
             passedChecks = TRUE;
         else
         {
@@ -2068,7 +2072,7 @@ u8 ShouldResetRivalStarter(void)
 
         if (species == SPECIES_EEVEE && PlayeStarterSpecies == SPECIES_EEVEE)
             passedChecks = FALSE;
-        else if (species == SPECIES_EEVEE || species == SPECIES_DITTO)
+        else if (species == SPECIES_EEVEE)
             passedChecks = TRUE;
         else
         {
@@ -2144,7 +2148,7 @@ u8 ShouldResetRivalStarter(void)
 
         if (species == SPECIES_EEVEE && PlayeStarterSpecies == SPECIES_EEVEE)
             passedChecks = FALSE;
-        else if (species == SPECIES_EEVEE || species == SPECIES_DITTO)
+        else if (species == SPECIES_EEVEE)
             passedChecks = TRUE;
         else
         {

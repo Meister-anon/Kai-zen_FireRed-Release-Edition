@@ -8279,6 +8279,7 @@ static u8 GetEvoMethodPriority(u16 EvoMethod)
         case EVO_MOVE:  //this and below could be tricky together
             return 0xa;
         break;      
+        case EVO_MOVE_FORM:
         case EVO_MOVE_TYPE_ATK_LT_DEF:
         case EVO_MOVE_TYPE_ATK_GT_DEF:
             return 0xb;
@@ -8627,6 +8628,13 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 break;
             case EVO_MOVE:
                 if (MonKnowsMove(mon, evolutions[i].param))
+                    {
+                        EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
+                        targetSpecies = evolutions[i].targetSpecies;
+                    }
+                break;
+            case EVO_MOVE_FORM:
+                if (MonKnowsMove(mon, evolutions[i].param) && CanEvolveToRegionalForm(mon, i))
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                         targetSpecies = evolutions[i].targetSpecies;
