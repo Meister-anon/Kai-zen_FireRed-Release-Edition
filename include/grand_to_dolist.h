@@ -2634,6 +2634,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list
     added liepard line, gen 9 starters
+    ok so I apparently broke accuracy -_-
+    hit mon with 7 sand attacks they never missed
+    EVER
+
+    issue was forgot put negative return in
+    DoesBattlerAbilityAbsorbMoveType, so alawys was true
+
+    was part of it, major issue was adding the ability check logic
+    to skip acc check for absorb abilities to fit modern use
+    made it skip teh abilityefect check that did the logic in the first place...
+    so replaced w what oak battle uses and its fixed
 
     adjusted formula seems ok?
     still unsure

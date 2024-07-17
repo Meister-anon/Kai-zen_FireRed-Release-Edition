@@ -4995,8 +4995,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
         //think the higher multiplier means level is more impactful for damage,
         */
-        if (defender->level - attacker->level >= 7)
-            damage *= (max(2 * attacker->level / 5, 1) + 2);
+        if (defender->level - attacker->level >= 7
+        || (attacker->level < 6 && defender->level < 6 && !GetNumBadges()))
+            damage *= (max(2 * attacker->level / 5, 1) + 3); //speed up early leveling a bit
         else
             damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
 
@@ -5191,8 +5192,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //alt idea just use level on damage itself
         //rather than all this extra code simpler to just shift directly
         //isn't much need for using multiple curves with how good the new one is
-        if (defender->level - attacker->level >= 7)
-            damage *= (max(2 * attacker->level / 5, 1) + 2);
+        if (defender->level - attacker->level >= 7
+        || (attacker->level < 6 && defender->level < 6 && !GetNumBadges()))
+            damage *= (max(2 * attacker->level / 5, 1) + 3); //speed up early leveling a bit
         else
             damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
 

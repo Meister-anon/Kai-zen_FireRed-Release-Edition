@@ -1876,7 +1876,9 @@ static void atk01_accuracycheck(void)
             || DoesBattlerAbilityAbsorbMoveType(BATTLE_PARTNER(gBattlerTarget), moveType)) //drawn in moves are supposed to never miss so this should hopefully do that
     {
         // No acc checks for second hit of Parental Bond or skill linked moves, removed other multihit as I want those to work differently, now all go through acc check on each hit
-        gBattlescriptCurrInstr += 7;
+        //gBattlescriptCurrInstr += 7;
+        JumpIfMoveFailed(7, gCurrentMove); //ok so was RAELLY stupid, adding ability absorb to skip here,
+        //messed up the call to the abilityeffect in the firstplace somehow so had I wasn't calling the ability bracket at all
     }
 
     else
