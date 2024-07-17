@@ -2007,8 +2007,8 @@ static void atk01_accuracycheck(void)
             calc = (calc * 130) / 100; // 1.3 compound eyes boost
 
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_VICTORY_STAR
-        ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR)
-            calc = (calc * 110) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
+        ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
+            calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
 
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
@@ -14942,10 +14942,13 @@ static void atk9F_dmgtolevel(void)
 
     if (gCurrentMove == MOVE_SEISMIC_TOSS)
     {
-        if (GetBattlerWeight(gBattlerTarget) > (GetBattlerWeight(gBattlerAttacker) * 4))
-            gMoveResultFlags |= MOVE_RESULT_FAILED;
+        //need to remove this, was bad idea,
+        //logically makes sense, but if I do dmg based on weight
+        //doesn't really work
+        //if (GetBattlerWeight(gBattlerTarget) > (GetBattlerWeight(gBattlerAttacker) * 4))
+        //    gMoveResultFlags |= MOVE_RESULT_FAILED;
 
-        else if (level_Limiter < max_skill_lvl)
+        //if (level_Limiter < max_skill_lvl)
         {
             gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100) + ((weightscaling / 4) * (level_Limiter / max_skill_lvl)); //max 145 or +45% lvl
         }

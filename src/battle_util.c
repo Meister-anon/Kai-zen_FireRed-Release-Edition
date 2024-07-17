@@ -4846,10 +4846,10 @@ bool8 IsBattlerGrounded(u8 battlerId)
     //turnstartgroundedcheck  just a true false assignment
     //then in endturn/moveend can do what I need to, to update
     //MOVE_END_GROUND_TARGET already handle that without new ewram thing
-    if (gBattleMons[battlerId].status1 & STATUS1_SLEEP) 
-        grounded = TRUE;
-
     if (gBattleMons[battlerId].status1 & STATUS1_PARALYSIS) 
+        grounded = TRUE;
+    
+    if (gBattleMons[battlerId].status1 & STATUS1_SLEEP) 
         grounded = TRUE;
 
     if (gDisableStructs[battlerId].FrozenTurns != 0) //frozen solid
@@ -7674,6 +7674,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && (!gBattleMons[battler].status1 & STATUS1_SLEEP) 
+                    && (gDisableStructs[battler].FrozenTurns == 0) //frozen solid
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
@@ -7688,7 +7690,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     // Had more than half of hp before, now has less
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2 //made or equal to prevent miss triggering at exact hp
-                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg 
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && (!gBattleMons[battler].status1 & STATUS1_SLEEP) 
+                    && (gDisableStructs[battler].FrozenTurns == 0) //frozen solid
                     // Not currently held by Sky Drop                   
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
