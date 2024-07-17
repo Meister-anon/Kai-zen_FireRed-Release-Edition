@@ -384,7 +384,7 @@ const u8 gMoveDescription_PowerTrick[MOVE_DESCRIPTION_LENGTH + 5] = _("The user 
 const u8 gMoveDescription_Gastro_Acid[MOVE_DESCRIPTION_LENGTH + 5] = _("Stomach acid\nsuppresses the\nfoe's ability.");
 const u8 gMoveDescription_LuckyChant[MOVE_DESCRIPTION_LENGTH + 5] = _("Prevents foes from\nlanding critical hits.");
 const u8 gMoveDescription_Me_First[MOVE_DESCRIPTION_LENGTH + 5] = _("Executes the foe's\nattack with\ngreater power.");
-const u8 gMoveDescription_Copycat[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mimics\nthe last move\n used by a foe.");
+const u8 gMoveDescription_Copycat[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mimics\nthe last move\nused by a foe.");
 const u8 gMoveDescription_Power_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nAttack and\nSp. Atk with\nthe foe.");
 const u8 gMoveDescription_Guard_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nDefense and\nSp. Def with\nthe foe.");
 const u8 gMoveDescription_Punishment[MOVE_DESCRIPTION_LENGTH + 5] = _("Does more damage if the\nfoe has powered up.");
@@ -520,7 +520,7 @@ const u8 gDRACO_METEOR_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Casts comets onto the foe.\nHarshly lowers the Sp. Atk.");
 
 const u8 gDISCHARGE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\neverything around it\nby letting loose\n a flare of electricity.\nThis may also\ncause paralysis.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\neverything around it\nby letting loose\na flare of electricity.\nThis may also\ncause paralysis.");
 
 const u8 gPOWER_WHIP_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Violently lashes the foe\nwith vines or tentacles.");
@@ -1025,7 +1025,7 @@ const u8 gPRECIPICE_BLADES_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Fearsome blades of stone\nattack both foes.");
 
 const u8 gLAVA_PLUME_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user torches\neverything around\nit in an inferno of\n scarlet flames.\nThis may also leave\nfoes with a burn.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user torches\neverything around\nit in an inferno of\nscarlet flames.\nThis may also leave\nfoes with a burn.");
 
 const u8 gLEAF_STORM_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Whips up a storm of leaves.\nHarshly lowers the Sp. Atk.");
@@ -1121,7 +1121,7 @@ const u8 gTROP_KICK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("An intense kick\nfrom the tropics.\nLowers Attack.");
 
 const u8 gINSTRUCT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Orders the target\n to use its\nlast move again.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Orders the target\nto use its\nlast move again.");
 
 const u8 gBEAK_BLAST_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Heats up beak\nto attack.\nBurns the foe\non contact.");
@@ -1223,7 +1223,7 @@ const u8 gBADDY_BAD_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Throws a tantrum,\nand lashes out.\nThen puts a reflect\nwall, between them\nand the opponent.\nRaising Defense.");
 
 const u8 gSAPPY_SEED_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Giant stalk scatters\nseeds that drain\n HP every turn.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Giant stalk scatters\nseeds that drain\nHP every turn.");
 
     //change to potentially also have 30 % freeze chance but lower pp
 const u8 gFREEZY_FROST_Description 
