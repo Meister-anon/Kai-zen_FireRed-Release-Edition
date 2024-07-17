@@ -2617,6 +2617,23 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     so is something directly linked to deoxys
     fixed 
+
+    ok yeah dmg formula seems still fucked
+    lowering dmg scaling lets you live better but
+    that also means levels matter more, so you can't take out
+    enemies levels above you
+
+    //using desmos graphic tool and w3schools printfs
+    was ableto come up with a much better dmg formula
+    will use mix of that and previous found formula.
+    will use old formula for early game to about lvl 5
+    so it goes a bit faster  then use the better scaled formula throughout.
+    doesn't need max
+
+    ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2)
+    adjusted formula seems ok?
+    still unsure
+
     zacian zamazenta ability being applied to enemy side on switch in
     need change text for embargo to not load battler name
 

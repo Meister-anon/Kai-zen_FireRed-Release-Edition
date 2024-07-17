@@ -4968,18 +4968,37 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //damage *= (2 * attacker->level / 5 + 2); //offense side of damage formula for level scaled damage  42.92
         //damage *= (((attacker->level * 160) / 100) / 5 + 3);  //alt lower scaling dmg formula
 
+            //test to wokr off defender ststas?
+            //would mean dmg scales up still but just does less 
+            //for lower levelenemies,
         //further test potentially remove max
-        if (attacker->level <= 5)
-            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-        else if (attacker->level <= 7)
-            damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
-        else if (attacker->level == 8)
-            damage *= (max(((attacker->level * 105) / 100) / 4, 1) + 3);
+        /*if (attacker->level <= defender->level)
+        {
+            if (attacker->level < 10)
+            {
+                if (defender->level <= 5)
+                    damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
+                else if (defender->level <= 7)
+                    damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
+                else
+                    damage *= (max(((attacker->level * 105) / 100) / 4, 1) + 3);
+            }
+            else if (defender->level - attacker->level >= 5)
+                damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
+            else
+                damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
+        }
         else
             damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
+            //damage *= ((2 * attack / 21) + (max(((attacker->level * 110) / 100) / 6, 1) + 1));
         //damage *= (((attacker->level * 148) / 100) / 4); //the difference in dmg here seems very small, i'm unsure if I should lower? //hmm higher effect the higher your stat is
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
         //think the higher multiplier means level is more impactful for damage,
+        */
+        if (defender->level - attacker->level >= 7)
+            damage *= (max(2 * attacker->level / 5, 1) + 2);
+        else
+            damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
 
         //trap effects & bug status def drop
         if ((gBattleMons[battlerIdDef].status1 & STATUS1_INFESTATION) //this is bug status
@@ -5022,11 +5041,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //to overwrite the typical damage calc?
 
         damage = damage / damageHelper;
+
+       if (attacker->level - defender->level >= 4) //dmg feels GOOD,w new formula may inreas this to 10
+            damage /= 60;
+        else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
+            damage /= 42;
+        else
+            damage /= 47;
         
-        if (attacker->level <= 9)
+        //if (attacker->level <= 9)
+        /*if ((attacker->level - defender->level >= 4) || defender->level <= 4)
             damage /= 50;  //adjusted form should scale higher for low level slight lower later
         else//defense side of dmg formula
-            damage /= 41;
+            damage /= 41;*/
 
         
 
@@ -5126,19 +5153,48 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //damage *= (2 * attacker->level / 5 + 2); //it isn't, realized that's calc for normal level scaling damage.
         //damage *= (((attacker->level * 160) / 100) / 5 + 3);  //alt lower scaling dmg formula
 
-        //further test potentially remove max value
-        if (attacker->level <= 5)
-            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-        else if (attacker->level <= 7)
-            damage *= (max(((attacker->level * 170) / 100) / 6, 1) + 3);
-        else if (attacker->level == 8)
-            damage *= (max(((attacker->level * 105) / 100) / 4, 1) + 3);
-        else
-            damage *= (max(((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
-
+        //expirementing to shift scale to enemy level in early game
+        //should do less dmg to lower level, more dmg to higher level
+        //so gives advantage to weaker enemeies
+        //further test potentially remove max value - yes - except early lvl scaling
+       
+       /*if (attacker->level <= defender->level) //underdog 
+        {
+            if (attacker->level < 8)
+            {
+                if (defender->level - attacker->level >= 5)
+                    damage *= ((((attacker->level * 170) / 100) / 6, 1) + 3);
+                else
+                    damage *= ((((attacker->level * 110) / 100) / 5, 1) + 3);
+            }
+            else
+            {
+                if (defender->level - attacker->level >= 7)
+                    damage *= ((((attacker->level * 170) / 100) / 6, 1) + 3);
+                else
+                    damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
+            }
+        }
+        else //over level
+        {
+            if (attacker->level < 8)
+                damage *= ((((attacker->level * 110) / 100) / 5, 1) + 3);  //redone balance
+            else
+                damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
+            //  //shift 168 or 13 to adjust curve if decide to further tweak
+        }
+        */
         //damage *= (((attacker->level * 148) / 100) / 4); //the difference in dmg here seems very small, i'm unsure if I should lower? //hmm higher effect the higher your stat is
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
         //think the higher multiplier means level is more impactful for damage,
+
+        //alt idea just use level on damage itself
+        //rather than all this extra code simpler to just shift directly
+        //isn't much need for using multiple curves with how good the new one is
+        if (defender->level - attacker->level >= 7)
+            damage *= (max(2 * attacker->level / 5, 1) + 2);
+        else
+            damage *= ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2); //perfect formula
 
 
         
@@ -5165,11 +5221,28 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             damageHelper = spDefense;
         
         damage = damage / damageHelper; 
+
+        //replacment for below given new formula
+        //player assist to have more room for strategy
+        //smth might be wrong w damage anger point maxed mankey did no dmg 
+        //to super morpeko can't tell if its issue of transform or something idk
+        if (attacker->level - defender->level >= 4) //dmg feels GOOD,w new formula may inreas this to 10
+            damage /= 60;
+        else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
+            damage /= 42;
+        else
+            damage /= 47;
+
+        //rn don't have value that incraesed dmg from underlevel enemies
+        //test and decide if need to add back seems I don't?
         
-        if (attacker->level <= 9)
+        
+        /*//if attacker abonve threshold do less dmg
+        if ((attacker->level - defender->level >= 4) || defender->level <= 4)
             damage /= 50;  //adjusted form should scale higher for low level slight lower later
         else//defense side of sp. damage formula
-            damage /= 41;
+            damage /= 41; //was almos talways using this portion
+            //about 20% diff in dmg*/
         
 
         //testing w average defense of 10 divide by 10 is enough to bring values back down to just above 100
