@@ -2631,6 +2631,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     doesn't need max
 
     ((((attacker->level*110)/100)/5)+(((attacker->level*168)/100)/13)+2)
+
+    scaling is much better but it still falls off far too much at higher levels (20-30)
+    so looks like i'll have to adjust curve at multiple quartiles to work.
+    want to keep my balance mechanics so wrap those in..
+    actually no those are perfect as is I think,
+    what I need is just to adjust the normaldamage formula scaling by bracket
+    i.e don't divide by 47  lower it 
+
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list
     added liepard line, gen 9 starters
