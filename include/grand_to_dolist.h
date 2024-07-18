@@ -2682,6 +2682,26 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     may still sound like a lot but that's still about a 50% cut,
     so everything should die twice as fast.
 
+    ok emergency exit failed when taking fury cutter
+    not sure why, look into that
+
+    actually think I figured it out, hp before is
+    set on move choice?
+    rather than switch in which makes it fail to check for hp on switch in
+    in case switched into damage
+    fix for that is setup hp before on switchinl,
+    then set hpbefore in move choice only if not first turn
+    i.e firstturn != 2, so only do that if not the switch in turn
+    -yup that fixed it
+
+    emergency exit just broken all together
+    dmg formula weight more towards defense from getgo
+    if you're lower level than enemy, you're still weighing
+    directly against their defense,
+    while your offense is not on the same level because
+    of level scaling
+
+
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list
     added liepard line, gen 9 starters

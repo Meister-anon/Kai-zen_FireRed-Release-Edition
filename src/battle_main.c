@@ -332,7 +332,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
       /*flying*/ {X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),  X(1.0),   X(1.0),   X(1.55),   X(0.5),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // flying
 
-      /*poison*/ {X(1.0),   X(1.55),   X(1.0),   X(0.0),   X(0.5),   X(0.0),   X(1.0),   X(0.5),   X(0.0),   X(1.0),    X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.55),   X(1.0)}, // poison
+      /*poison*/ {X(1.0),   X(1.55),   X(1.0),   X(0.0),   X(0.5),   X(0.0),   X(1.0),   X(0.5),   X(0.0),   X(1.0),    X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.0),  X(0.5),   X(1.55),   X(1.0)}, // poison
 
       /*ground*/ {X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.55),  X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // ground
 
@@ -360,7 +360,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
       /*dragon*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),    X(0.5),   X(1.0)}, // dragon
 
-        /*dark*/ {X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0)}, // dark
+        /*dark*/ {X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0)}, // dark
 
        /*fairy*/ {X(1.55),  X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(0.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0),   X(1.0)}, // fairy
 
@@ -450,6 +450,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_POISON, TYPE_FIGHTING, TYPE_MUL_SUPER_EFFECTIVE,   //poison resists fighting, usually type is super against what it resists, also poison spreads faster in more active, and best way to take out physically strong opponents
     TYPE_POISON, TYPE_GROUND, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_POISON, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,  //cold slows spread of poison
+    TYPE_POISON, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE, //doing this way works even better than I thought as makes triangle relation w bug, psn resist bug, bug beats dark, dark resist psn
     TYPE_POISON, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_POISON, TYPE_POISON, TYPE_MUL_NO_EFFECT,       //furthering of late gen poison can't be poisoned logic, also makes better as a pivot/defensive typing
     TYPE_POISON, TYPE_STEEL, TYPE_MUL_NO_EFFECT,
@@ -506,7 +507,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_DARK, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,  //-keeping psychic weakness to dark post ghost change as dark is living and able to do physical attacks while psychic is usually phsycially weak
     TYPE_DARK, TYPE_GHOST, TYPE_MUL_NOT_EFFECTIVE,  //changed there's nothing significant bout dark, its more or less same as ghost but alive, and ghosts thrive in darkness
     //TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //change essentially makes ghost inverse of normal type effect wise, where most things are neutral and it has 1 weakness
-    TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions
+    //TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions, actually think will reverse this make dark resist poison, will go more to make counter to fairy who is weak to poison
     TYPE_DARK, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,//removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
     TYPE_DARK, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE, //plus dosen't really make sense when you really cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
     TYPE_STEEL, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,//NEW type relation for dark types, showed positively for offense capability and makes sense sneaky backstabbers bad guys take each other out often.
@@ -4101,6 +4102,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = 0xFF;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
+        // Record HP of each battler
+        gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
     }
 
     gLastUsedMove = 0;
@@ -4338,6 +4341,10 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     gBattleStruct->choicedMove[gActiveBattler] = MOVE_NONE;
     gBattleResources->flags->flags[gActiveBattler] = 0;
     gCurrentMove = MOVE_NONE;
+
+    // Record HP of incoming battler
+    gBattleStruct->hpBefore[gActiveBattler] = gBattleMons[gActiveBattler].hp;
+
 
     // Reset damage to prevent things like red card activating if the switched-in mon is holding it
     gSpecialStatuses[gActiveBattler].physicalDmg = 0;
@@ -6692,7 +6699,10 @@ static void HandleAction_UseMove(void)
 
     // Record HP of each battler
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+    {
+        if (gDisableStructs[i].isFirstTurn != 2) //if not first turn in battle
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
+    }
 
     gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];   //important, link for battle_1.s effects at top to effects from battle_effects.h   vsonic
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;

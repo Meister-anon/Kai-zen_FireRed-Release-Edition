@@ -4593,202 +4593,7 @@ u8 AtkCanceller_UnableToUseMove2(void)
     return effect;
 }
 
-//logic for this is non-flying type pokemon that are typically
-//floating or attack while in the air/ can fly
-//already checked to add all pokemon that have levitate as their ability
-//2nd pass add ghosts to grounded clause  with specific exclusions spirit tomb cursola galarian corsola etc object linked ghost, just like doduo
-//looked over and realized still mising some pokemon that float, but aren't flying types, and also just don't get levitate
-//i.e porygon and magnemite line, may be others
-//delete value in bracket to see actual list total w intellisense to make sure total is correct before final save
-//update define in battle_util.h if diff
-//hmm so logically dialga palkia most legendaries should be here,
-//since most all of them can fly, but while logical, would pretty much destroy ground types...
-//ok then think will exclude the non obvious flying legendaries from this lsit then,
-//but still give them flight - ...WELL since darkrai and arceus are already onthis
-//might as well just add dialga and palkia...
-//idk for now just do it and figure out what to do with it later,
-//so adding victini to list,
-//decied exclude klink klang etc from this...nvm sigh
-//sigh think with all these will need to bring back rock boost for ground types
 
-//or tighten field, because this is bad, its most legendaries and a large amount of other mon,
-//at 177 amounts to more mon than gen 1...
-//think instead of can fly, should be natural state is floating/flying, with the clear ability to elevate higher
-//not just magnetism to float off the ground but required to stay at a set distance from the ground. hmm
-//like while most legendaries CAN fly, they are not by default attacking from the air, so dialga palkia etc.
-//can prob be kept grounded by that logic think can exclude, things like cresellia darkrai victiniee and prob arceus
-/*const u16 gFloatingSpecies[156] = {
-    SPECIES_BUTTERFREE,
-    SPECIES_BEAUTIFLY,
-    SPECIES_VIVILLON,
-    SPECIES_MOTHIM,
-    SPECIES_COMBEE,
-    SPECIES_DUSTOX,
-    SPECIES_BEEDRILL,
-    SPECIES_MASQUERAIN,
-    SPECIES_CRYOGONAL,
-    SPECIES_NINJASK,
-    //SPECIES_SHEDINJA, //doesn't really move, and would cause issues for dispirit guard
-    SPECIES_VOLBEAT,
-    SPECIES_ILLUMISE,
-    SPECIES_VIKAVOLT,
-    //SPECIES_DUSCLOPS,
-    SPECIES_DUSKNOIR,   //no legs so give back
-    SPECIES_DUSKULL,    //had levitate evo lost it,
-    SPECIES_CHARIZARD_MEGA_X,
-    SPECIES_VENOMOTH,
-    SPECIES_GASTLY,
-    SPECIES_HAUNTER,
-    SPECIES_GENGAR,
-    SPECIES_LITWICK, //unsure about adding all this floating mon to ground immunity
-    SPECIES_LAMPENT,    //thinking they can float but not high or easily enough to avoid all ground moves
-    SPECIES_CHANDELURE,
-    SPECIES_TAPU_BULU,
-    SPECIES_TAPU_FINI,
-    SPECIES_TAPU_KOKO,
-    SPECIES_TAPU_LELE, //rare diety mon can all fly, and all float so think keep
-    SPECIES_AERODACTYL, //ABOVE this
-    SPECIES_AERODACTYL_MEGA,
-    SPECIES_MEW,
-    //SPECIES_MEWTWO, //for more differentiation between the two
-    SPECIES_LUGIA,
-    //SPECIES_MEWTWO_MEGA_X,
-    SPECIES_MEWTWO_MEGA_Y,
-    SPECIES_SCIZOR,
-    SPECIES_LEDYBA,
-    SPECIES_LEDIAN,
-    SPECIES_CHINGLING, //via levitate
-    SPECIES_CHIMECHO,
-    SPECIES_CELEBI,
-    SPECIES_TOGETIC,
-    SPECIES_ALTARIA,
-    SPECIES_ALTARIA_MEGA,
-    SPECIES_NOCTOWL,
-    SPECIES_LUNATONE,
-    SPECIES_SOLROCK,    //via levitate and lore showes them flying high
-    SPECIES_MISDREAVUS,
-    SPECIES_MISMAGIUS,
-    SPECIES_BALTOY,
-    SPECIES_CLAYDOL, // via levitate
-    SPECIES_PORYGON,
-    SPECIES_PORYGON2,
-    SPECIES_PORYGON_Z, //always floating and a little extra love
-    SPECIES_BELDUM,
-    SPECIES_METANG,
-    SPECIES_METAGROSS,
-    SPECIES_LATIAS,
-    SPECIES_LATIOS,
-    SPECIES_BRONZOR,
-    SPECIES_BRONZONG, //via levitate
-    //SPECIES_PROBOPASS,
-    SPECIES_YANMEGA,
-    SPECIES_MAGNEMITE,
-    SPECIES_MAGNETON,
-    SPECIES_MAGNEZONE,
-    SPECIES_CHATOT,
-    SPECIES_CARNIVINE, // via levitate
-    SPECIES_ROTOM,
-    SPECIES_UXIE,
-    SPECIES_AZELF,
-    SPECIES_MESPRIT,
-    SPECIES_JIRACHI,
-    SPECIES_DEOXYS,
-    SPECIES_DEOXYS_ATTACK,
-    SPECIES_DEOXYS_DEFENSE,
-    SPECIES_DEOXYS_SPEED,
-    SPECIES_GIRATINA_ORIGIN,
-    SPECIES_GENGAR_MEGA,
-    SPECIES_LATIAS_MEGA,
-    SPECIES_LATIOS_MEGA,
-    SPECIES_CRESSELIA,
-    SPECIES_MUNNA,
-    SPECIES_MUSHARNA,
-    SPECIES_DARKRAI,
-    SPECIES_VIBRAVA,
-    SPECIES_FLYGON,
-    SPECIES_VICTINI,
-    SPECIES_HYDREIGON,
-    SPECIES_VOLCARONA,
-    SPECIES_TYNAMO, //via levitate
-    SPECIES_EELEKTRIK,
-    SPECIES_EELEKTROSS,
-    SPECIES_KOFFING,
-    SPECIES_WEEZING,
-    SPECIES_WEEZING_GALARIAN,
-    SPECIES_RAICHU_ALOLAN,
-    SPECIES_UNOWN,
-    SPECIES_UNOWN_B,
-    SPECIES_UNOWN_C,
-    SPECIES_UNOWN_D,
-    SPECIES_UNOWN_E,
-    SPECIES_UNOWN_EMARK,
-    SPECIES_UNOWN_F,
-    SPECIES_UNOWN_QMARK,
-    SPECIES_UNOWN_G,
-    SPECIES_UNOWN_H,
-    SPECIES_UNOWN_I,
-    SPECIES_UNOWN_J,
-    SPECIES_UNOWN_K,
-    SPECIES_UNOWN_L,
-    SPECIES_UNOWN_M,
-    SPECIES_UNOWN_N,
-    SPECIES_UNOWN_O,
-    SPECIES_UNOWN_P,
-    SPECIES_UNOWN_Q,
-    SPECIES_UNOWN_R,
-    SPECIES_UNOWN_S,
-    SPECIES_UNOWN_T,
-    SPECIES_UNOWN_U,
-    SPECIES_UNOWN_V,
-    SPECIES_UNOWN_W,
-    SPECIES_UNOWN_X,
-    SPECIES_UNOWN_Y,
-    SPECIES_UNOWN_Z,
-    SPECIES_CASTFORM,
-    SPECIES_CASTFORM_RAINY,
-    SPECIES_CASTFORM_SNOWY,
-    SPECIES_CASTFORM_SUNNY,
-    //SPECIES_ROTOM_FAN, //rotom fan is alraedy flyign type
-    SPECIES_ROTOM_WASH,  //only makes sense for fan to be in flight
-    SPECIES_ROTOM_FROST,
-    SPECIES_ROTOM_MOW,  //well nvm, had levitate
-    SPECIES_ROTOM_HEAT,
-    SPECIES_CUTIEFLY,
-    SPECIES_RIBOMBEE,
-    SPECIES_SOLOSIS,
-    SPECIES_DUOSION,
-    SPECIES_REUNICLUS,
-    SPECIES_COMFEY,
-    SPECIES_BEEDRILL_MEGA,
-    //SPECIES_RESHIRAM, ? capable of flight but flying si not their default state
-    //SPECIES_ZEKROM,
-    //SPECIES_KYUREM,
-    //SPECIES_KYUREM_WHITE,
-    //SPECIES_KYUREM_BLACK,
-    SPECIES_COSMOG,
-    SPECIES_COSMOEM,
-    SPECIES_LUNALA,
-    SPECIES_NECROZMA,
-    SPECIES_NECROZMA_DUSK_MANE,
-    SPECIES_NECROZMA_DAWN_WINGS,
-    SPECIES_NECROZMA_ULTRA,
-    SPECIES_NIHILEGO,
-    SPECIES_KARTANA,
-    SPECIES_ORBEETLE,
-    SPECIES_POIPOLE,
-    SPECIES_NAGANADEL,
-    SPECIES_FLAPPLE,
-    SPECIES_FROSMOTH,
-    SPECIES_DREEPY,
-    SPECIES_DRAKLOAK,
-    SPECIES_DRAGAPULT,
-    //SPECIES_REGIDRAGO,
-    //SPECIES_DIALGA,
-    //SPECIES_PALKIA,
-    SPECIES_ARCEUS,
-    SPECIES_ETERNATUS,
-    SPECIES_ETERNATUS_ETERNAMAX
-};*/  //kept list here for record of process
 
 //can use this for mon or battler
 //for battler take gBattleMons[battlerId].species
@@ -7674,8 +7479,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && (!gBattleMons[battler].status1 & STATUS1_SLEEP) 
-                    && (gDisableStructs[battler].FrozenTurns == 0) //frozen solid
+                    && (gBattleMons[battler].status1 != STATUS1_SLEEP) 
+                    && (gDisableStructs[battler].FrozenTurns == 0) //not frozen solid
                     // Not currently held by Sky Drop
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
@@ -7691,8 +7496,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleStruct->hpBefore[battler] > gBattleMons[battler].maxHP / 2
                     && gBattleMons[battler].hp <= gBattleMons[battler].maxHP / 2 //made or equal to prevent miss triggering at exact hp
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && (!gBattleMons[battler].status1 & STATUS1_SLEEP) 
-                    && (gDisableStructs[battler].FrozenTurns == 0) //frozen solid
+                    && (gBattleMons[battler].status1 != STATUS1_SLEEP) 
+                    && (gDisableStructs[battler].FrozenTurns == 0) //not frozen solid
                     // Not currently held by Sky Drop                   
                     && !(gStatuses3[battler] & STATUS3_SKY_DROPPED))
                 {
@@ -8208,10 +8013,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
             }
             break;
-            case ABILITY_INTHRALL:    //this and pickpocket should go in abilityeffects function instead, this should only be for   actual move effect only, think wil move the item stuff recently ported from emerald out too
+            case ABILITY_INTHRALL:    
                 if (IsBattlerAlive(gBattlerTarget)
                     && TARGET_TURN_DAMAGED
-                    //&& !(gWishFutureKnock.knockedOffMons[GetBattlerSide(gBattlerTarget)] & gBitTable[gBattlerPartyIndexes[gBattlerTarget]])
                     && !DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove)
                     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && !gDisableStructs[gBattlerTarget].inthralled)
