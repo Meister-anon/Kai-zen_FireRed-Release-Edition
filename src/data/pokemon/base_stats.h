@@ -46659,8 +46659,8 @@ const struct BaseStats gBaseStats[] =
         85,
         115,
         75,
-        82,
-        55,
+        92,
+        45,
         75
         ),
         MON_TYPES(TYPE_DARK, TYPE_ROCK),

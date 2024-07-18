@@ -13282,7 +13282,7 @@ static const struct LevelUpMove sRockruffLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sLycanrocLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_ACCELEROCK),
+    LEVEL_UP_MOVE( 0, MOVE_CRUSH_CLAW),
     LEVEL_UP_MOVE( 1, MOVE_ACCELEROCK),
     LEVEL_UP_MOVE( 1, MOVE_QUICK_GUARD),
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
@@ -17471,7 +17471,7 @@ static const struct LevelUpMove sHoopaUnboundLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sLycanrocMidnightLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_COUNTER),
+    LEVEL_UP_MOVE( 0, MOVE_SUCKER_PUNCH),
     LEVEL_UP_MOVE( 1, MOVE_REVERSAL),
     LEVEL_UP_MOVE( 1, MOVE_TAUNT),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
@@ -17493,7 +17493,7 @@ static const struct LevelUpMove sLycanrocMidnightLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sLycanrocDuskLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_THRASH),
+    LEVEL_UP_MOVE( 0, MOVE_COUNTER),
     LEVEL_UP_MOVE( 1, MOVE_ACCELEROCK),
     LEVEL_UP_MOVE( 1, MOVE_COUNTER),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
@@ -17509,6 +17509,7 @@ static const struct LevelUpMove sLycanrocDuskLevelUpLearnset[] = {
     LEVEL_UP_MOVE(34, MOVE_ROCK_SLIDE),
     LEVEL_UP_MOVE(37, MOVE_SCARY_FACE),
     LEVEL_UP_MOVE(40, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(42, MOVE_THRASH),
     LEVEL_UP_MOVE(45, MOVE_ROCK_CLIMB),
     LEVEL_UP_MOVE(48, MOVE_STONE_EDGE),
     LEVEL_UP_END
