@@ -12974,37 +12974,26 @@ s32 CountUsablePartyMons(u32 battlerId)//this counts mon in party excepting batt
 //BATTLER id only needed for getting correct side
 u32 IsmonOnField(u32 battlerId, u8 method)
 {
-    s32 battlerOnField1, battlerOnField2, i;
-    struct Pokemon *party;
 
-    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
-        party = gPlayerParty;
-    else
-        party = gEnemyParty;
+    u8 FAILED = 0xFF;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-    {
-        battlerOnField1 = gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)];
-        battlerOnField2 = gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)];
-    }
-    else // In singles there's only one battlerId by side.
-    {
-        battlerOnField1 = gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)];
-        battlerOnField2 = gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)];
-    }
 
     switch (method)
     {
         case B_POSITION_PLAYER_LEFT:
-        if (GetMonData(gBattlerPartyIndexes[battlerOnField1], MON_DATA_HP) != 0)
+        //if (GetMonData(gBattlerPartyIndexes[battlerOnField1], MON_DATA_HP) != 0)
+         if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp != 0)
             return GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
         break;
         case B_POSITION_PLAYER_RIGHT:
-        if (GetMonData(gBattlerPartyIndexes[battlerOnField2], MON_DATA_HP) != 0)
+        //if (GetMonData(gBattlerPartyIndexes[battlerOnField2], MON_DATA_HP) != 0)
+        if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp != 0)
             return GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
         break;
 
-    }
+    }//this function is so fucked
+
+    return FAILED;
 }
 
 
