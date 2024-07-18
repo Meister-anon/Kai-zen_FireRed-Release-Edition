@@ -3187,7 +3187,7 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
 #define CALC_STAT(base, iv, ev, statIndex, field)                               \
 {                                                                               \
     u8 baseStat = gBaseStats[species].base;                                     \
-    s32 n = (((2 * baseStat + ((iv * 210) /100) + ev / 4) * level) / 100) + 5;  \
+    s32 n = (((2 * baseStat + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;  \
     u8 nature = GetNature(mon);                                                 \
     n = ModifyStatByNature(nature, n, statIndex);                               \
     SetMonData(mon, field, &n);                                                 \
@@ -3229,13 +3229,13 @@ void CalculateMonStats(struct Pokemon *mon)
     
     else if (ability == ABILITY_DISPIRIT_GUARD)
     {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
+        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level;
     }
 
    else
    {
-        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
+        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
    }
 
@@ -4995,7 +4995,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //every little bit helps I guess, //means level matters more than stats? or stats matter mor ethan level?
         //think the higher multiplier means level is more impactful for damage,
         */
-        if (defender->level - attacker->level >= 7
+        if (defender->level - attacker->level > 5
         || (attacker->level < 6 && defender->level < 6 && !GetNumBadges()))
             damage *= (max(2 * attacker->level / 5, 1) + 3); //speed up early leveling a bit
         else
@@ -5048,7 +5048,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
             damage /= 42;
         else
-            damage /= 47;
+            damage /= 46;
         
         //if (attacker->level <= 9)
         /*if ((attacker->level - defender->level >= 4) || defender->level <= 4)
@@ -5192,7 +5192,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //alt idea just use level on damage itself
         //rather than all this extra code simpler to just shift directly
         //isn't much need for using multiple curves with how good the new one is
-        if (defender->level - attacker->level >= 7
+        if (defender->level - attacker->level > 5
         || (attacker->level < 6 && defender->level < 6 && !GetNumBadges()))
             damage *= (max(2 * attacker->level / 5, 1) + 3); //speed up early leveling a bit
         else
@@ -5233,7 +5233,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
             damage /= 42;
         else
-            damage /= 47;
+            damage /= 46;
 
         //rn don't have value that incraesed dmg from underlevel enemies
         //test and decide if need to add back seems I don't?

@@ -2639,6 +2639,49 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     what I need is just to adjust the normaldamage formula scaling by bracket
     i.e don't divide by 47  lower it 
 
+    tested values in w3 and as levels grow slope gets
+    closer to normal scaling level.
+    and is more consistent.
+
+    So idk what I need, using 46 should be as low as I go,
+    but there are some points where its exactly at original scaling.
+
+    I'm not sure why the scaling is seemingly so low with the values Ihave
+
+    hmm remembered I also changed the stat formula so hp scaling is different.
+    looking into difference of hp formula changes
+
+    first look it scales about 20% higher on ave, but the higher base hp
+    the lesser the effect is which is good, whith levels around 200
+    its down to half averaging just 10%
+    but that said it was made that way with the increased stat scaling in mind
+    for other things, but it not acrsos the board this is just for max ivs.
+    as I increased their potential so hunting multiple mon would be more relevant.
+
+
+
+    idk why but I completely fucked the hp formula
+    instead of hp and relevant stats being  relatively comparable
+    I made the hp formula able to scale up to near 4x the size fuck me
+
+    ok reworking lowering hp formula,
+    lowering iv boost from 210 to 170 to approximate a mon
+    that is 80% ev trained
+
+    replace 200 with 2 and use other adjustment
+    now hp scaled up by up to 30% with this stupid nonsense I did
+    what this means is all my damagecalc adjustments are off.
+    so all those numbers will have to be raised
+    (by that I mean the part where you divide by a value to augmnet dmg)
+    increase the numbers below 50 so they do less
+    lower the number above 50 so it doesn't cut off as much
+
+    ok new formula seems ok? overall bad cusotm formula added about 50 points to hp
+    new cusom adds 30.  (at relevant level)
+
+    may still sound like a lot but that's still about a 50% cut,
+    so everything should die twice as fast.
+
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list
     added liepard line, gen 9 starters
