@@ -3235,7 +3235,7 @@ static void Task_RunUnionRoom(u8 taskId)
             }
             else
             {
-                StringCopy(gStringVar1, gSpeciesNames[GetHostRFUtgtGname()->species]);
+                StringCopy(gStringVar1, gBaseStats[GetHostRFUtgtGname()->species].speciesName);
                 ConvertIntToDecimalStringN(gStringVar2, GetHostRFUtgtGname()->level, STR_CONV_MODE_LEFT_ALIGN, 3);
                 StringExpandPlaceholders(gStringVar4, gUnknown_8458DBC);
             }
@@ -4488,13 +4488,13 @@ static s32 GetChatLeaderActionRequestMessage(u8 *dst, u32 gender, u16 *activity_
         break;
     case ACTIVITY_TRADE | IN_UNION_ROOM:
         ConvertIntToDecimalStringN(arg3->activityRequestStrbufs[0], sUnionRoomTrade.playerLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
-        StringCopy(arg3->activityRequestStrbufs[1], gSpeciesNames[sUnionRoomTrade.playerSpecies]);
+        StringCopy(arg3->activityRequestStrbufs[1], gBaseStats[sUnionRoomTrade.playerSpecies].speciesName);
         for (i = 0; i < RFU_CHILD_MAX; i++)
         {
             if (gRfuLinkStatus->partner[i].serialNo == 0x0002)
             {
                 ConvertIntToDecimalStringN(arg3->activityRequestStrbufs[2], activity_p[2], STR_CONV_MODE_LEFT_ALIGN, 3);
-                StringCopy(arg3->activityRequestStrbufs[3], gSpeciesNames[activity_p[1]]);
+                StringCopy(arg3->activityRequestStrbufs[3], gBaseStats[activity_p[1]].speciesName);
                 species = activity_p[1];
                 break;
             }

@@ -9076,8 +9076,8 @@ void EvolutionRenameMon(struct Pokemon *mon, u16 oldSpecies, u16 newSpecies)
     u8 language;
     GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
     language = GetMonData(mon, MON_DATA_LANGUAGE, &language);
-    if (language == GAME_LANGUAGE && !StringCompare(gSpeciesNames[oldSpecies], gStringVar1))
-        SetMonData(mon, MON_DATA_NICKNAME, gSpeciesNames[newSpecies]);
+    if (language == GAME_LANGUAGE && !StringCompare(gBaseStats[oldSpecies].speciesName, gStringVar1))
+        SetMonData(mon, MON_DATA_NICKNAME, gBaseStats[newSpecies].speciesName);
 }//if current name matches old species name, rename mon?
 
 bool8 GetPlayerFlankId(void)
@@ -10028,10 +10028,10 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
     u16 ComparisonEggSpecies = GetEggSpecies(comparisonSpecies);
     u16 SourceEggSpecies = GetEggSpecies(sourceSpecies);
 
-    if (StringCompare(gSpeciesNames[sourceSpecies], gSpeciesNames[comparisonSpecies]) == IDENTICAL)
+    if (StringCompare(gBaseStats[sourceSpecies].speciesName, gBaseStats[comparisonSpecies].speciesName) == IDENTICAL)
         return TRUE;
 
-    if (StringCompare(gSpeciesNames[SourceEggSpecies], gSpeciesNames[ComparisonEggSpecies]) == IDENTICAL)
+    if (StringCompare(gBaseStats[SourceEggSpecies].speciesName, gBaseStats[ComparisonEggSpecies].speciesName) == IDENTICAL)
         return TRUE; //actually using geteggspecies is better than looping through pre evos in this function
     
     //with how egg check works will prob never trigger below logic...
@@ -10040,7 +10040,7 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
     {
         for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
         {
-            if (StringCompare(gSpeciesNames[sourceSpecies], gSpeciesNames[evolutions[i].targetSpecies]) == IDENTICAL)
+            if (StringCompare(gBaseStats[sourceSpecies].speciesName, gBaseStats[evolutions[i].targetSpecies].speciesName) == IDENTICAL)
             {
                 return TRUE; //for extra caution believe I need to set filter to ensure don't attempt reset same flag
                 
@@ -10052,7 +10052,7 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
 
                     for (j = 0; gBaseStats[evolutions[i].targetSpecies].evolutions[j].method != EVOLUTIONS_END; j++)
                     {
-                        if (StringCompare(gSpeciesNames[sourceSpecies], gSpeciesNames[gBaseStats[evolutions[i].targetSpecies].evolutions[j].targetSpecies]) == IDENTICAL)
+                        if (StringCompare(gBaseStats[sourceSpecies].speciesName, gBaseStats[gBaseStats[evolutions[i].targetSpecies].evolutions[j].targetSpecies].speciesName) == IDENTICAL)
                         {
                             return TRUE;
                             
@@ -10079,7 +10079,7 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
 
                 if (SanitizeSpeciesId(evolutions[j].targetSpecies) == comparisonSpecies)
                 {
-                    if (StringCompare(gSpeciesNames[sourceSpecies], gSpeciesNames[k]) == IDENTICAL)
+                    if (StringCompare(gBaseStats[sourceSpecies].speciesName, gSpeciesNames[k]) == IDENTICAL)
                         return TRUE; //breaks loop check pre evo 
 
                     comparisonSpecies = k; //checks pre evo if pre evo dooesn't match, get ready for loop next pre evo

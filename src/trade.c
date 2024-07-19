@@ -1467,7 +1467,7 @@ static bool8 shedinja_maker_maybe(void)
 
                     if (!StringCompareWithoutExtCtrlCodes(name, gJPText_Shedinja))
                     {
-                        SetMonData(mon, MON_DATA_NICKNAME, gSpeciesNames[SPECIES_SHEDINJA]);
+                        SetMonData(mon, MON_DATA_NICKNAME, gBaseStats[SPECIES_SHEDINJA].speciesName);
                     }
                 }
             }

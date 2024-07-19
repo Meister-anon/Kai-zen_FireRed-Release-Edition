@@ -2434,8 +2434,6 @@ u16 GetInGameTradeSpeciesInfo(void)
     GetSpeciesName(gStringVar1, inGameTrade->requestedSpecies);
     GetSpeciesName(gStringVar2, inGameTrade->species);
 
-    //StringCopy(gStringVar1, gSpeciesNames[inGameTrade->requestedSpecies]);
-    //StringCopy(gStringVar2, gSpeciesNames[inGameTrade->species]);
     return inGameTrade->requestedSpecies;
 }
 
@@ -2450,9 +2448,9 @@ static void BufferInGameTradeMonName(void)
     GetMonData(&gPlayerParty[gSpecialVar_0x8005], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gStringVar1, nickname);
     GetSpeciesName(gStringVar1, species);
-    StringCopy(gStringVar2, gSpeciesNames[inGameTrade->species]);
+    StringCopy(gStringVar2, gBaseStats[inGameTrade->species].speciesName);
     GetSpeciesName(gStringVar2, inGameTrade->species);
-}
+}//ok looks weird but is correct/works
 
 static void CreateInGameTradePokemonInternal(u8 playerSlot, u8 inGameTradeIdx) //make sure to remove any mail items from in game trades
 {
