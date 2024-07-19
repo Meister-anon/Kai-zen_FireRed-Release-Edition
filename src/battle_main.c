@@ -6700,7 +6700,7 @@ static void HandleAction_UseMove(void)
     // Record HP of each battler
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
     {
-        if (gDisableStructs[i].isFirstTurn != 2) //if not first turn in battle
+        if (gBattleStruct->hpBefore[i] != gBattleMons[i].hp) //change to catch potential hp adjustments
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
     }
 
