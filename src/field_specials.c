@@ -707,7 +707,6 @@ void SampleResortGorgeousMonAndReward(void)
         VarSet(VAR_RESORT_GOREGEOUS_STEP_COUNTER, 0);
     }
     GetSpeciesName(gStringVar1, VarGet(VAR_RESORT_GORGEOUS_REQUESTED_MON));
-    //StringCopy(gStringVar1, gSpeciesNames[VarGet(VAR_RESORT_GORGEOUS_REQUESTED_MON)]);
 }
 
 static u16 SampleResortGorgeousMon(void)
@@ -2268,7 +2267,7 @@ static bool8 HasMonBeenRenamed(u8 idx)
     language = GetMonData(pokemon, MON_DATA_LANGUAGE, &language);
     if (language != LANGUAGE_ENGLISH)
         return TRUE;
-    else if (StringCompare(gSpeciesNames[GetMonData(pokemon, MON_DATA_SPECIES, NULL)], gStringVar1) != IDENTICAL)
+    else if (StringCompare(gBaseStats[GetMonData(pokemon, MON_DATA_SPECIES, NULL)].speciesName, gStringVar1) != IDENTICAL)
         return TRUE;
     else
         return FALSE;

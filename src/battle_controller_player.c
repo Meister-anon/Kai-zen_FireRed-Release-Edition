@@ -1973,7 +1973,7 @@ static u32 CopyPlayerMonData(u8 monId, u8 *dst)
         battleMon.abilityNum = GetMonData(&gPlayerParty[monId], MON_DATA_ABILITY_NUM);
         battleMon.otId = GetMonData(&gPlayerParty[monId], MON_DATA_OT_ID);
         GetMonData(&gPlayerParty[monId], MON_DATA_NICKNAME, nickname);
-        if (StringCompare(gSpeciesNames[battleMon.species], nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+        if (StringCompare(gBaseStats[battleMon.species].speciesName, nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(nickname, battleMon.species);
         StringCopy_Nickname(battleMon.nickname, nickname);
         GetMonData(&gPlayerParty[monId], MON_DATA_OT_NAME, battleMon.otName);

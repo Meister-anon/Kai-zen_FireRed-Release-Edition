@@ -805,10 +805,15 @@ static void QuestLog_GetSpeciesName(u16 species, u8 *dest, u8 stringVarId)
     {
         if (species != SPECIES_EGG)
         {   
-            if (!ShouldCapitalizeSpecies())
-                DynamicPlaceholderTextUtil_SetPlaceholderPtr(stringVarId, gSpeciesNames[species]);
+            /*if (!ShouldCapitalizeSpecies())
+                DynamicPlaceholderTextUtil_SetPlaceholderPtr(stringVarId, gBaseStats[species].speciesName);
             else
                 DynamicPlaceholderTextUtil_SetPlaceholderPtr(stringVarId, gSpeciesNamesUpperCase[species]);
+            */
+           //hopefully works
+           GetSpeciesName(gStringVar1,species);
+           DynamicPlaceholderTextUtil_SetPlaceholderPtr(stringVarId, gStringVar1);
+
         }            
         else
             DynamicPlaceholderTextUtil_SetPlaceholderPtr(stringVarId, gText_EggNickname);

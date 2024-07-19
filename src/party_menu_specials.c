@@ -65,7 +65,7 @@ void BufferMoveDeleterNicknameAndMove(void)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     GetMonNickname(mon, gStringVar1);
-    if (StringCompare(gSpeciesNames[species], gStringVar1) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(gStringVar1, species);
 
     //StringCopy(gStringVar2, gMoveNames[move]);

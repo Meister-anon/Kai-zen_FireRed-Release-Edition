@@ -1222,7 +1222,7 @@ static void AlterEggSpeciesWithIncenseItem(u16 *species, struct DayCare *daycare
 //ex zigzagoon and galarian zigzagoon are both zigzagoon.
 //so change species to that of galraian form if either parent held galrian item
 
-//if (StringCompare(gSpeciesNames[GetMonData(pokemon, MON_DATA_SPECIES, NULL)], gStringVar1) != 0)
+//if (StringCompare(gBaseStats[GetMonData(pokemon, MON_DATA_SPECIES, NULL)]].speciesName, gStringVar1) != 0)
 //this what I use,  first value should be mother species, look for mon that shares name
 //that base stat flag matches the item value to set
 //replace gStringVar1  with target species  
@@ -1319,7 +1319,7 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         if (IsRegionalVariant(j)) //need this as ran into cosplay forms instead of regionals
         {
             //if mother species has alt form reset species, i..e a species with same name (excluding megas)
-            if (((StringCompare(gSpeciesNames[j], gSpeciesNames[MotherSpecies])) == IDENTICAL)
+            if (((StringCompare(gBaseStats[j].speciesName, gBaseStats[MotherSpecies].speciesName)) == IDENTICAL)
             &&  !IsRegionalVariant(GetMonData(&daycare->mons[parentSlots[Mother]].mon, MON_DATA_SPECIES, NULL))) //and mother species isn't already a variant
             {
                 if ((ItemId_GetSecondaryId(motherItem) == gBaseStats[j].flags)

@@ -1120,10 +1120,14 @@ static void SetCursorMonData(void *pokemon, u8 mode)
 
         txtPtr = gPSSData->cursorMonTexts[1];
         *(txtPtr)++ = CHAR_SLASH;
-        if (!ShouldCapitalizeSpecies()) //not storing a value, just the text that gets displayed when holding mon in pc
+        
+        /*if (!ShouldCapitalizeSpecies()) //not storing a value, just the text that gets displayed when holding mon in pc
             StringCopyPadded(txtPtr, gSpeciesNames[gPSSData->cursorMonSpecies], CHAR_SPACE, 5);
         else
-            StringCopyPadded(txtPtr, gSpeciesNamesUpperCase[gPSSData->cursorMonSpecies], CHAR_SPACE, 5);
+            StringCopyPadded(txtPtr, GetSpeciesName(), CHAR_SPACE, 5);*/
+
+        GetSpeciesName(gStringVar1,gPSSData->cursorMonSpecies);
+        StringCopyPadded(txtPtr, gStringVar1, CHAR_SPACE, 5);
 
         txtPtr = gPSSData->cursorMonTexts[2];
         *(txtPtr)++ = EXT_CTRL_CODE_BEGIN;

@@ -1503,7 +1503,7 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
     gender = GetMonGender(mon);
     species = GetMonData(mon, MON_DATA_SPECIES);
 
-    if (StringCompare(gSpeciesNames[species], nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[species].speciesName, nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(nickname, species); //seems need this?
 
     StringGet_Nickname(nickname);
@@ -1513,7 +1513,7 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
 
     
 
-    if ((species == SPECIES_NIDORAN_F || species == SPECIES_NIDORAN_M) && StringCompare(nickname, gSpeciesNames[species]) == IDENTICAL)
+    if ((species == SPECIES_NIDORAN_F || species == SPECIES_NIDORAN_M) && StringCompare(nickname, gBaseStats[species].speciesName) == IDENTICAL)
         gender = 100;
 
     if (CheckBattleTypeGhost(mon, gSprites[healthboxSpriteId].hMain_Battler))

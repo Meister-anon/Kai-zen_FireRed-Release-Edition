@@ -2746,7 +2746,7 @@ static void GetBattlerNick(u32 battlerId, u8 *dst)
     if (illusionMon != NULL)
         mon = illusionMon;
     GetMonData(mon, MON_DATA_NICKNAME, dst);
-    if (StringCompare(gSpeciesNames[species], dst) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
+    if (StringCompare(gBaseStats[species].speciesName, dst) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(dst, species);
     else
         StringGet_Nickname(dst);
@@ -2940,7 +2940,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst) //logic for buffers t
                 else*/
                     GetMonData(&party[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_NICKNAME, text);
                 
-                if (StringCompare(gSpeciesNames[species], text) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
+                if (StringCompare(gBaseStats[species].speciesName, text) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
                     GetSpeciesName(text, species);
                 else
                     StringGet_Nickname(text);
@@ -3352,7 +3352,7 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
                 GetMonData(&gEnemyParty[src[srcId + 2]], MON_DATA_NICKNAME, nickname);
             } //think overflow issue came from this, bellsprout is at 13 w + 6 from this its at 21 above text buffer
             
-            if (StringCompare(gSpeciesNames[GetMonData(&party[src[srcId + 2]], MON_DATA_SPECIES)], nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+            if (StringCompare(gBaseStats[GetMonData(&party[src[srcId + 2]], MON_DATA_SPECIES)].speciesName, nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(nickname, GetMonData(&party[src[srcId + 2]], MON_DATA_SPECIES));
             else
                 StringGet_Nickname(nickname);

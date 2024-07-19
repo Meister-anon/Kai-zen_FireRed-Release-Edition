@@ -2492,7 +2492,7 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
             sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
         }
 
-    if (StringCompare(gSpeciesNames[dexNum], tempStr) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[dexNum].speciesName, tempStr) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(tempStr, dexNum);
     //else
     //    GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_NICKNAME, tempStr); //this part is reason info box doesn't update name, its using nickname not speciesnamestr
@@ -2511,7 +2511,7 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
         StringCopy(sMonSummaryScreen->summary.genderSymbolStrBuf, gString_Dummy);
 
     if (dexNum == SPECIES_NIDORAN_M || dexNum == SPECIES_NIDORAN_F)
-        if (StringCompare(sMonSummaryScreen->summary.nicknameStrBuf, gSpeciesNames[dexNum]) == IDENTICAL)
+        if (StringCompare(sMonSummaryScreen->summary.nicknameStrBuf, gBaseStats[dexNum].speciesName) == IDENTICAL)
             StringCopy(sMonSummaryScreen->summary.genderSymbolStrBuf, gString_Dummy); //important may use for other gender difference mon
 
     GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_OT_NAME, tempStr);

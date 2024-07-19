@@ -2705,6 +2705,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list
     added liepard line, gen 9 starters
+
+    need fix issue w gen 9 mon failing to give before can do anything else now
+    checked w give mon issue starts w cefireon
+    -issue was use of gspeciesname where didn't have entires
+    for those mon added, inprocess of removing uses of gspeciesname
     ok so I apparently broke accuracy -_-
     hit mon with 7 sand attacks they never missed
     EVER

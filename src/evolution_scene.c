@@ -244,11 +244,11 @@ void EvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, bool8 canStopEvo, 
     currSpecies = GetMonData(mon, MON_DATA_SPECIES);
 
     GetMonData(mon, MON_DATA_NICKNAME, name);
-    if (StringCompare(gSpeciesNames[currSpecies], name) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[currSpecies].speciesName, name) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(name, currSpecies);
 
         StringCopy_Nickname(gStringVar1, name);
-    StringCopy(gStringVar2, gSpeciesNames[speciesToEvolve]);
+    StringCopy(gStringVar2, gBaseStats[speciesToEvolve].speciesName);
     GetSpeciesName(gStringVar2, speciesToEvolve);
     // preEvo sprite
     
@@ -476,16 +476,16 @@ void TradeEvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, u8 preEvoSpri
 
     /*GetMonData(mon, MON_DATA_NICKNAME, name);
     StringCopy_Nickname(gStringVar1, name);
-    StringCopy(gStringVar2, gSpeciesNames[speciesToEvolve]);*/
+    StringCopy(gStringVar2, gBaseStats[speciesToEvolve].speciesName);*/
 
     currSpecies = GetMonData(mon, MON_DATA_SPECIES);
 
     GetMonData(mon, MON_DATA_NICKNAME, name);
-    if (StringCompare(gSpeciesNames[currSpecies], name) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[currSpecies].speciesName, name) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(name, currSpecies);
 
         StringCopy_Nickname(gStringVar1, name);
-    StringCopy(gStringVar2, gSpeciesNames[speciesToEvolve]);
+    StringCopy(gStringVar2, gBaseStats[speciesToEvolve].speciesName);
     GetSpeciesName(gStringVar2, speciesToEvolve);
 
     gAffineAnimsDisabled = TRUE;
@@ -577,7 +577,7 @@ static void CreateShedinja(u16 preEvoSpecies, struct Pokemon* mon)
 
         CopyMon(&gPlayerParty[gPlayerPartyCount], mon, sizeof(struct Pokemon));
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_SPECIES, (&evolutions[1].targetSpecies));
-        SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_NICKNAME, (gSpeciesNames[evolutions[1].targetSpecies]));
+        SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_NICKNAME, (gBaseStats[evolutions[1].targetSpecies].speciesName));
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_HELD_ITEM, (&data));
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_MARKINGS, (&data));
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_ENCRYPT_SEPARATOR, (&data));

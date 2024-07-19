@@ -1642,7 +1642,7 @@ bool8 ScrCmd_bufferspeciesname(struct ScriptContext * ctx)
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 species = VarGet(ScriptReadHalfword(ctx));
 
-    //StringCopy(sScriptStringVars[stringVarIndex], gSpeciesNames[species]);
+    //StringCopy(sScriptStringVars[stringVarIndex], gBaseStats[species].speciesName);
     GetSpeciesName(sScriptStringVars[stringVarIndex], species);
     return FALSE;
 } //if using u16 src for new string copy function doesn't workr, try make gStringVar1 u16
@@ -1681,7 +1681,7 @@ bool8 ScrCmd_bufferleadmonspeciesname(struct ScriptContext * ctx)
     u8 *dest = sScriptStringVars[stringVarIndex];
     u8 partyIndex = GetLeadMonIndex();
     u32 species = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES, NULL);
-    //StringCopy(dest, gSpeciesNames[species]);
+    //StringCopy(dest, gBaseStats[species].speciesName);
     GetSpeciesName(dest, species);
     return FALSE;
 }
@@ -1694,7 +1694,7 @@ bool8 ScrCmd_bufferpartymonnick(struct ScriptContext * ctx)
 
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, sScriptStringVars[stringVarIndex]);
     
-    if (StringCompare(gSpeciesNames[species], sScriptStringVars[stringVarIndex]) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[species].speciesName, sScriptStringVars[stringVarIndex]) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(sScriptStringVars[stringVarIndex], species);
     
     StringGet_Nickname(sScriptStringVars[stringVarIndex]);    

@@ -765,7 +765,7 @@ static void MoveRelearnerInitListMenuBuffersEtc(void)
     
     GetMonData(&gPlayerParty[sMoveRelearner->selectedPartyMember], MON_DATA_NICKNAME, nickname);
     
-    if (StringCompare(gSpeciesNames[GetMonData(&gPlayerParty[sMoveRelearner->selectedPartyMember], MON_DATA_SPECIES)], nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+    if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[sMoveRelearner->selectedPartyMember], MON_DATA_SPECIES)].speciesName, nickname) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(nickname, GetMonData(&gPlayerParty[sMoveRelearner->selectedPartyMember], MON_DATA_SPECIES));
 
     StringCopy_Nickname(gStringVar1, nickname);

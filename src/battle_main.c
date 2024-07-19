@@ -2355,8 +2355,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 else
                     species = partyData[i].species;
 
-                for (j = 0; gSpeciesNames[species][j] != EOS; ++j) //starting from 0, loops through all the species names until it matches for each slot in party
-                    nameHash += gSpeciesNames[species][j];
+                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j) //starting from 0, loops through all the species names until it matches for each slot in party
+                    nameHash += gBaseStats[species].speciesName[j];
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv;   //I think actually is Ivs, uses weird logic to make fixed iv, think will set to random
                 //but if I set it to random, but refight trainers, does it keep the iv distribution or generate a new one..?
@@ -2655,8 +2655,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 else// for non rival battles
                     species = partyData[i].species;
 
-                for (j = 0; gSpeciesNames[species][j] != EOS; ++j)
-                    nameHash += gSpeciesNames[species][j];
+                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
+                    nameHash += gBaseStats[species].speciesName[j];
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv;
                 if (fixedIV > MAX_PER_STAT_IVS)
@@ -2960,8 +2960,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 else// for non rival battles
                     species = partyData[i].species;
 
-                for (j = 0; gSpeciesNames[species][j] != EOS; ++j)
-                    nameHash += gSpeciesNames[species][j];
+                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
+                    nameHash += gBaseStats[species].speciesName[j];
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv;
                 if (fixedIV > MAX_PER_STAT_IVS)
@@ -3255,8 +3255,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 else// for non rival mon
                     species = partyData[i].species;
 
-                for (j = 0; gSpeciesNames[species][j] != EOS; ++j)
-                    nameHash += gSpeciesNames[species][j];
+                for (j = 0; gBaseStats[species].speciesName[j] != EOS; ++j)
+                    nameHash += gBaseStats[species].speciesName[j];
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv;
                 if (fixedIV > MAX_PER_STAT_IVS)

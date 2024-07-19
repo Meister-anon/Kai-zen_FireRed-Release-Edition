@@ -3955,8 +3955,7 @@ bool8 DexScreen_DrawMonPicInCategoryPage(u16 species, u8 slot, u8 numSlots)
             CopyToWindowPixelBuffer(sPokedexScreenData->categoryMonInfoWindowIds[slot], sCategoryMonInfoBgTiles, 0, 0);
             DexScreen_PrintMonDexNo(sPokedexScreenData->categoryMonInfoWindowIds[slot], FONT_SMALL, species, 12, 0);
             
-            GetSpeciesName(gStringVar1, species); //keep an eye on this, may be a prblem if multiple mon inpage
-            //DexScreen_AddTextPrinterParameterized(sPokedexScreenData->categoryMonInfoWindowIds[slot], FONT_NORMAL, gSpeciesNames[species], 2, 13, 0);
+            GetSpeciesName(gStringVar1, species); 
             DexScreen_AddTextPrinterParameterized(sPokedexScreenData->categoryMonInfoWindowIds[slot], FONT_NORMAL, gStringVar1, 2, 13, 0);
 
             if (DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE))
@@ -5490,7 +5489,6 @@ u8 DexScreen_DrawMonAreaPage(void)
     // Print species name
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[8], PIXEL_FILL(0));
     DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[8], FONT_SMALL, species, 0, 4);
-    //DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[8], FONT_NORMAL, gSpeciesNames[species], 3, 16, 0);
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[8], FONT_NORMAL, gStringVar1, 3, 16, 0);
     PutWindowTilemap(sPokedexScreenData->windowIds[8]);
     CopyWindowToVram(sPokedexScreenData->windowIds[8], COPYWIN_GFX);
@@ -7844,7 +7842,6 @@ static void HandlePreEvolutionSpeciesPrint(u8 taskId, u16 preSpecies, u16 specie
 {
     bool8 seen = GetSetPokedexFlag(SpeciesToNationalPokedexNum(preSpecies), FLAG_GET_SEEN);
 
-    //StringCopy(gStringVar1, gSpeciesNames[species]); //evolution mon name
     GetSpeciesName(gStringVar1, species);
 
     #ifdef POKEMON_EXPANSION
@@ -8147,7 +8144,6 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
         return 0;
     #endif
 
-   // StringCopy(gStringVar1, gSpeciesNames[species]);
 
     GetSpeciesName(gStringVar1, species);
 
@@ -8401,9 +8397,9 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
         if (evolutions[0].method != 0)
         {
             //rough estiate but believe about +5 needed for each additional char?
-            if (StringLength(gSpeciesNames[targetSpecies]) <= 8) //think string length removes terminator so need -1 from speciesname value
+            if (StringLength(gBaseStats[targetSpecies].speciesName) <= 8) //think string length removes terminator so need -1 from speciesname value
                 PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset - 15, base_y + base_y_offset*base_i); //Print actual instructions
-            else if (StringLength(gSpeciesNames[targetSpecies]) <= 10)
+            else if (StringLength(gBaseStats[targetSpecies].speciesName) <= 10)
                 PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset - 5, base_y + base_y_offset*base_i); //Print actual instructions
             else
                 PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset + 5, base_y + base_y_offset*base_i); //Print actual instructions

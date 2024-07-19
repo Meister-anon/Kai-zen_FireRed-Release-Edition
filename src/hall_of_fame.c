@@ -394,7 +394,7 @@ static void Task_Hof_InitMonData(u8 taskId)
             sHofMonPtr[0].mon[i].lvl = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
             GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nick);
 
-            if (StringCompare(gSpeciesNames[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)], nick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+            if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)].speciesName, nick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
                 GetSpeciesName(nick, GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)); //seems need this?
 
             for (j = 0; j < POKEMON_NAME_LENGTH; j++)
@@ -1046,10 +1046,13 @@ static void HallOfFame_PrintMonInfo(struct HallofFameMon* currMon, u8 unused1, u
     {
         text[0] = CHAR_SLASH;
 
-        if (!ShouldCapitalizeSpecies())//not sureif right or not
+        /*if (!ShouldCapitalizeSpecies())//not sureif right or not
             stringPtr = StringCopy(text + 1, gSpeciesNames[currMon->species]);
         else
             stringPtr = StringCopy(text + 1, gSpeciesNamesUpperCase[currMon->species]);
+        */
+        GetSpeciesName(text + 1,currMon->species);
+        StringCopy(stringPtr,text + 1); //think this might work
 
         if (currMon->species == SPECIES_NIDORAN_M || currMon->species == SPECIES_NIDORAN_F)
             gender = MON_GENDERLESS;

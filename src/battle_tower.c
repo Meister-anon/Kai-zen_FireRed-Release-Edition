@@ -720,7 +720,7 @@ static u8 AppendBattleTowerBannedSpeciesName(u16 species, u8 count)
         if (count == 0)
             StringAppend(gStringVar1, gUnknown_83FE859);
         count++;
-        //StringAppend(gStringVar1, gSpeciesNames[species]);
+        //StringAppend(gStringVar1, gBaseStats[species].speciesName);
         StringAppend(gStringVar1, speciesBuffer); //attempt get cap string
         switch (count)
         {
