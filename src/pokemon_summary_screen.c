@@ -2636,14 +2636,14 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     }
     else
     {
-        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM)));
-        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM))]);
+        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf,GetMonAbility(&sMonSummaryScreen->currentMon));
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetMonAbility(&sMonSummaryScreen->currentMon)]);
     }
     }
     else
     {
-        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM)));
-        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetAbilityBySpecies(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES), GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ABILITY_NUM))]);
+        GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, GetMonAbility(&sMonSummaryScreen->currentMon));
+        StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[GetMonAbility(&sMonSummaryScreen->currentMon)]);
     }
     
     
