@@ -3485,7 +3485,7 @@ static void atk07_adjustnormaldamage(void)
         }
         else if (gSpecialStatuses[gBattlerTarget].sturdied)
         {
-            gMoveResultFlags |= MOVE_RESULT_STURDIED;
+            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedAbility = ABILITY_STURDY;
         }
     }
@@ -3552,7 +3552,7 @@ static void atk08_adjustnormaldamage2(void)
         }
         else if (gSpecialStatuses[gBattlerTarget].sturdied)
         {
-            gMoveResultFlags |= MOVE_RESULT_STURDIED;
+            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedAbility = ABILITY_STURDY;
         }
     }
@@ -3921,22 +3921,22 @@ static void atk0F_resultmessage(void) //covers the battle message displayed afte
             switch (gMoveResultFlags & (u8)(~(MOVE_RESULT_MISSED)))
             {
             case MOVE_RESULT_SUPER_EFFECTIVE:
-            if (!(gBattleMoves[gCurrentMove].power)) //try skip message  if status move, works - its f ppower 0, will use to exclude moves that should ignore type like counter
-               break;
-            else if (VarGet(VAR_LAST_MULTIHIT_RESULT) == STRINGID_SUPEREFFECTIVE)
-               break;
-            else
-                stringId = STRINGID_SUPEREFFECTIVE;
+                if (!(gBattleMoves[gCurrentMove].power)) //try skip message  if status move, works - its f ppower 0, will use to exclude moves that should ignore type like counter
+                    break;
+                else if (VarGet(VAR_LAST_MULTIHIT_RESULT) == STRINGID_SUPEREFFECTIVE)
+                    break;
+                else
+                    stringId = STRINGID_SUPEREFFECTIVE;
                 break;
             case MOVE_RESULT_NOT_VERY_EFFECTIVE:
-            if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
-                gBattleCommunication[MSG_DISPLAY] = 0; //should keep effect remove message, keep not very effective sound
-            else if (!(gBattleMoves[gCurrentMove].power)) //try skip message  if status move, seems to work
-               break;//think can use var to store multihit result message string id, (at end, if super or not effective)
-            else if (VarGet(VAR_LAST_MULTIHIT_RESULT) == STRINGID_NOTVERYEFFECTIVE)
-               break;
-            else //then here can compare value to be set and do else if  break if they match then just need to reset value of var in endurn continue battle & finish battle
-                stringId = STRINGID_NOTVERYEFFECTIVE;
+                if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE) == UQ_4_12_TO_INT((UQ_4_12(1.55) * UQ_4_12(0.5)) + UQ_4_12_ROUND))
+                    gBattleCommunication[MSG_DISPLAY] = 0; //should keep effect remove message, keep not very effective sound
+                else if (!(gBattleMoves[gCurrentMove].power)) //try skip message  if status move, seems to work
+                    break;//think can use var to store multihit result message string id, (at end, if super or not effective)
+                else if (VarGet(VAR_LAST_MULTIHIT_RESULT) == STRINGID_NOTVERYEFFECTIVE)
+                    break;//looks odd but works, I made sure to clear it, point of this was to save on ewram consumptiion
+                else //then here can compare value to be set and do else if  break if they match then just need to reset value of var in endurn continue battle & finish battle
+                    stringId = STRINGID_NOTVERYEFFECTIVE;
                 break;
             case MOVE_RESULT_ONE_HIT_KO:
                 stringId = STRINGID_ONEHITKO;
@@ -3951,12 +3951,26 @@ static void atk0F_resultmessage(void) //covers the battle message displayed afte
                 stringId = STRINGID_ITDOESNTAFFECT;
                 break;
             case MOVE_RESULT_FOE_HUNG_ON:
-                gLastUsedItem = gBattleMons[gBattlerTarget].item;
-                gPotentialItemEffectBattler = gBattlerTarget;
-                gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
-                return;
+                {
+                    gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
+
+                    if (gSpecialStatuses[gBattlerTarget].sturdied)
+                    {
+                        gSpecialStatuses[gBattlerTarget].sturdied = FALSE;
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_SturdiedMsg;
+
+                    }
+
+                    else
+                    {
+                        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+                        gPotentialItemEffectBattler = gBattlerTarget;                    
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
+                    }
+                    return;
+                }
             default:
                 if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
                 {
@@ -3971,14 +3985,6 @@ static void atk0F_resultmessage(void) //covers the battle message displayed afte
                     gBattlescriptCurrInstr = BattleScript_OneHitKOMsg;
                     return;
                 }
-                else if (gMoveResultFlags & MOVE_RESULT_STURDIED)
-                {
-                    gMoveResultFlags &= ~(MOVE_RESULT_STURDIED | MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-                    gSpecialStatuses[gBattlerTarget].sturdied = FALSE;
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_SturdiedMsg;
-                    return;
-                }
                 else if (gMoveResultFlags & MOVE_RESULT_FOE_ENDURED)
                 {
                     gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
@@ -3988,11 +3994,23 @@ static void atk0F_resultmessage(void) //covers the battle message displayed afte
                 }
                 else if (gMoveResultFlags & MOVE_RESULT_FOE_HUNG_ON)
                 {
-                    gLastUsedItem = gBattleMons[gBattlerTarget].item;
-                    gPotentialItemEffectBattler = gBattlerTarget;
                     gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
+
+                    if (gSpecialStatuses[gBattlerTarget].sturdied)
+                    {
+                        gSpecialStatuses[gBattlerTarget].sturdied = FALSE;
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_SturdiedMsg;
+
+                    }
+
+                    else
+                    {
+                        gLastUsedItem = gBattleMons[gBattlerTarget].item;
+                        gPotentialItemEffectBattler = gBattlerTarget;                    
+                        BattleScriptPushCursor();
+                        gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
+                    }
                     return;
                 }
                 else if (gMoveResultFlags & MOVE_RESULT_FAILED)
@@ -10495,7 +10513,7 @@ static void atk69_adjustsetdamage(void)
         }
         else if (gSpecialStatuses[gBattlerTarget].sturdied)
         {
-            gMoveResultFlags |= MOVE_RESULT_STURDIED;
+            gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedAbility = ABILITY_STURDY;
         }
     }
@@ -14407,7 +14425,7 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
             else if (gSpecialStatuses[gBattlerTarget].sturdied)
             {
                 gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-                gMoveResultFlags |= MOVE_RESULT_STURDIED;
+                gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
                 gLastUsedAbility = ABILITY_STURDY;
             }
             else
