@@ -2700,12 +2700,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     directly against their defense,
     while your offense is not on the same level because
     of level scaling
+    */
+
+   #define WILDMON_LEVELSET
+   /*
 
     sturdy not displaying hung on message..
     -fixed sturdy message issue was I made the flag valuie
     too big for type,  removed use of moveresult sturdied just wrapped in hang on logic
     works fine and don't need to take ewram to upgrade move result
 
+
+    decided want to turn off level scaling until I can properly set up
+    so its not scaled until after you've already passed through an area once
+
+    also of note, professors aide's dex check is still
 
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list

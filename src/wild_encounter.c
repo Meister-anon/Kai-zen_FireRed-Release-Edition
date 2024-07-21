@@ -177,6 +177,7 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
 
 //need test but shoudl work then need make
 //option setup for scale down, and setup for that
+#define WILDMON_LEVELSET
 static u8 ChooseWildMonLevel(const struct WildPokemon * info)
 {
     u8 lo;
@@ -202,7 +203,7 @@ static u8 ChooseWildMonLevel(const struct WildPokemon * info)
     //pretty much use range and weight based on size of range
     //larger range means player levels are higher and we 
     //can afford to toss more mon on the higher side at them more often
-    if (GetAveragePlayerPartyLevel() >= hi && GetNumBadges() >= 1) //didn't have that made early encouters lvl 10...
+    /*if (GetAveragePlayerPartyLevel() >= hi && GetNumBadges() >= 1) //didn't have that made early encouters lvl 10...
     {
         hi = (GetAveragePlayerPartyLevel() + variance);
         
@@ -210,7 +211,9 @@ static u8 ChooseWildMonLevel(const struct WildPokemon * info)
 
         if (range > WILD_ENCOUNTER_MAX_LEVEL_RANGE)
             lo = max(hi - WILD_ENCOUNTER_MAX_LEVEL_RANGE,1);
-    }
+    }*/
+   //removed for now till make function to better setup effect
+
     //make option toggle so add that here when setup
     /*else if (GetAveragePlayerPartyLevel() < lo && GetNumBadges() >= 1) //to not make early rt mon go lower
     {
@@ -318,7 +321,7 @@ static void GenerateWildMon(u16 species, u8 level, u8 slot)
 //and that the forms are somewhat balanced in odd of generation
 //what I will need is get personlaity of mon,
 //if equals value 0-8 return value adn then link that 
-//to a specific alcremie form i.e 0 is enum 0 SPECIES_ALCREMIE base form etc
+//to a specific alcremie form i.e 0 is enum 0 SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM base form etc
 static u32 GenerateUnownPersonalityByLetter(u8 letter)
 {
     u32 personality;

@@ -6087,9 +6087,9 @@ static void atk19_tryfaintmon(void)
                     
             }
             if ((gStatuses3[gBattlerTarget] & STATUS3_GRUDGE)
-             && !(gHitMarker & HITMARKER_GRUDGE)
+             && !(gHitMarker & HITMARKER_GRUDGE) //unsuire why thsi si here far as I can tell its just skips if other end turn effects are in play?
              && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget)
-             && gBattleMons[gBattlerAttacker].hp != 0
+             && IsBattlerAlive(gBattlerAttacker)
              && gCurrentMove != MOVE_STRUGGLE)
             {
                 u8 moveIndex = *(gBattleStruct->chosenMovePositions + gBattlerAttacker);
