@@ -68,7 +68,7 @@ CartIdent:
 	@.4byte  gMonIconTable
 	@.4byte  gMonIconPaletteIndices
 	@.4byte  gMonIconPaletteTable
-	.4byte  gSpeciesNames
+	@.4byte  gSpeciesNames
 	.4byte  gMoveNames
 	.4byte  gDecorations
 	.4byte      0xEE0 @ offsetof(struct SaveBlock1, flags)

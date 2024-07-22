@@ -1046,11 +1046,7 @@ static void HallOfFame_PrintMonInfo(struct HallofFameMon* currMon, u8 unused1, u
     {
         text[0] = CHAR_SLASH;
 
-        /*if (!ShouldCapitalizeSpecies())//not sureif right or not
-            stringPtr = StringCopy(text + 1, gSpeciesNames[currMon->species]);
-        else
-            stringPtr = StringCopy(text + 1, gSpeciesNamesUpperCase[currMon->species]);
-        */
+
         GetSpeciesName(text + 1,currMon->species);
         StringCopy(stringPtr,text + 1); //think this might work
 

@@ -1630,7 +1630,6 @@ static void DrawMonTextEntryBox(void)
 {
     u8 buffer[0x20];
 
-    //StringCopy(buffer, gSpeciesNames[sNamingScreenData->monSpecies]);
     GetSpeciesName(buffer,sNamingScreenData->monSpecies);
     StringAppendN(buffer, sNamingScreenData->template->title, 15);
     FillWindowPixelBuffer(sNamingScreenData->windows[3], PIXEL_FILL(1));
