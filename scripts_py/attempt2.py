@@ -80,8 +80,11 @@ for line in lines:
         #        species = x[1]
         line = line.replace('CircledQuestionMark', species)
         #line = line.replace(r'//FRONT_PIC\(Arceus\w+?\)', 'FRONT_PIC\(Arceus\)')
+        #think can use, if put in all exceptions
     new_lines.append(line)
-infile.close()
+infile.close()#think group is reg stuff reg are broken into groups
+#if that is correct than I might be able to use that to store 2 values
+#say match group1 for mon size  and group2 for the yoffset?
 
 outfile = open('/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/species_graphic_info.h', 'w')
 outfile.writelines(new_lines)
