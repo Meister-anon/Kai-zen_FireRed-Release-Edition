@@ -2706,6 +2706,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     still unsure that dex isn't causing a memory leak but its working without issue
     for now.
 
+    IMPORTANT discovered some form of issue w quest log
+    not sure if its event 2 itself
+    or something directly tied to the shop
+    but quest log of buying items in shop failed to load
+    and froze game unless quickly clicked through
+    -2nd thought think its change to mart logic
+    I used dynamic setup now instead of the static mart list
+    so could just be that I didn't make this info available to the quest log
+    -checked and confirmed it is the mart that's doing this,
+    check gShopMenuHistory see if can make work
+
+    ok reverted mart command change it still doesn't work
+    *facepalm, so idk how its broken great
+    -fixed quest log issue, issue was bad item name logic
+
+
     fixed nature power so recognizes called move
     double check it would change move type with abilities that change type
     -tested it does work
