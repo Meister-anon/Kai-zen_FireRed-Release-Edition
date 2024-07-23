@@ -621,17 +621,24 @@ u16 SanitizeItemId(u16 itemId)
     return itemId;
 }
 
-//special trick for passing const
+//special trick for passing const - didn't work won't use
 static const u8* ReturnItemNameConst(u16 itemId)
 {
     GetItemName(gStringVar4, itemId);
     return gStringVar4;
 }//not working with player pc, wondering if use free adn custom buffer it would work?
 
+//this was the issue bad attmpt pass const value without memory allocation
 const u8 * ItemId_GetName(u16 itemId)
 {
-    return ReturnItemNameConst(itemId);//gItems[SanitizeItemId(itemId)].name;
-}
+    u8 text[ITEM_NAME_LENGTH + 1];
+    u8 * name = Alloc(sizeof(text));
+    GetItemName(name, itemId);
+
+    return name;//gItems[SanitizeItemId(itemId)].name;
+
+    free(name);
+} //based on pc itemfix don't know if free does anything but adding
 
 u16 itemid_get_Id(u16 itemId)
 {

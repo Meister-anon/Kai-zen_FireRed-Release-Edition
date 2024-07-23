@@ -6990,14 +6990,14 @@ void GetItemName(u8 *name, u16 item)
         // Hmm? FRLG has < while Ruby/Emerald has <=
         for (i = 0; i < ITEM_NAME_LENGTH; i++)
         {
-            if (item > ITEMS_COUNT)
+            if (item >= ITEMS_COUNT)
                 name[i] = gItems[SanitizeItemId(0)].name[i];
             else
                 name[i] = gItems[SanitizeItemId(item)].name[i];
 
             if (name[i] == EOS)
                 break;
-        }
+        }//changed to greater or equal as realized items count doesn't have anentry either
 
     name[i] = EOS;
    //if should cap species
