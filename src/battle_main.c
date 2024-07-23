@@ -7112,6 +7112,7 @@ s8 GetChosenMovePriority(u8 battlerId) //made u8 (in test build)
 s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing I needed to make nuisance work (facepalm)
 { //adjusted battlerId made u8,
     s8 priority;
+    u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gBattleMovePower;
 
 
     priority = gBattleMoves[move].priority;
@@ -7194,8 +7195,17 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         }
     }
     //potentially boost to 65 vsonic
+    //doesn't seem to be working right, have 63 bp hidden power
+    //and it still boosts the move priority
+    //just realized this is dumb, if power is variable
+    //i.e a lvl 1 move, it'd always be true
+    //ok can't do anything with this, since moved dynamic power to dmg calc
+    //and this is triggered in attack calnceler
+    //it'll use gbalttmovepower which is 1
+    //I might need to just exclude variable power moves from the list hmm
+    //ok works better I guess
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
-        && (gBattleMoves[move].power <= 60 || gDynamicBasePower <= 60) //added dynamic for moves like hidden power
+        && (power <= 60 && gBattleMoves[move].power != 1) //added dynamic for moves like hidden power
         && gBattleMoves[gCurrentMove].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
     {
         gProtectStructs[battlerId].NuisanceElevated = TRUE;

@@ -2700,6 +2700,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     directly against their defense,
     while your offense is not on the same level because
     of level scaling
+
+    seems finished removals for removing species name
+    saved .10% on rom space seems to be no issues?
+    still unsure that dex isn't causing a memory leak but its working without issue
+    for now.
+
+    fixed nature power so recognizes called move
+    double check it would change move type with abilities that change type
+    -tested it does work
+
+    also adjusted nuisance so it excludes 1 power variable power moves
     */
 
    #define WILDMON_LEVELSET
