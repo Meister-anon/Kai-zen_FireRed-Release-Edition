@@ -2682,6 +2682,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     may still sound like a lot but that's still about a 50% cut,
     so everything should die twice as fast.
 
+    seems tobe doing ok, didn't need to change dmg from scaling?
+
+    also of note ghost absorb dmg + liquid ooze seems to be working
+    just fine, for clarity still better to make its own script effect
+    move end ghost absorb or something?
+    rather htan needing to calc damage twice
+    with heal logic function think can just use hpdealt
+    copy logic for endturnheal just make effect and call it
+    well most liley a pushcursor callback w a return in script but yeah
+
+
     ok emergency exit failed when taking fury cutter
     not sure why, look into that
 
@@ -2706,6 +2717,51 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     still unsure that dex isn't causing a memory leak but its working without issue
     for now.
 
+    now back to python to finish making species graphic file
+
+    see about using python to create new physical array for
+    type weight etc.
+    rn specifically thinking of the type arrays since my type changes have changed things
+    chart organized by order of types, lists type 1 matching type 2 first
+    and then it lists alternate type 2s based on numerical order of type constants
+    should their be a matching type, it defaults to printing
+    them in order of dex number low to high
+
+    would need track mon, montype and create logic for determine type is matching
+    and use that to say if mon type2 matches type1
+
+    may need to do multiple passes at it,
+    loop checking and adjusting for multiple conditions
+
+    first pass just to print the types in order,
+    then check for if order of matching mon are listed
+    in order of lowest species number
+
+    think can do check entry and entry + 1
+    if entry + 1 is matching type to current entry
+    and it has a lower dex number swap their placement 
+    with current list
+
+    looked into python it has sort function
+    once i make the list I can make logic for
+    sorting it with my own function
+    so no problems there
+
+   
+
+
+    note for some reason area windows are off,
+    area screen covers up portion of sevii map.
+    not sure how that happened will need compare
+    to base firered area page, as I don't remember ever
+    changing anything
+
+     think it may be the expanded mon name
+    and for some reason addition of the bst stuff?
+    seems its all using same window so same dimmenssions 
+    can fix by making new window for area page,
+    that or I'm missing a clear when I move to area page?
+
     IMPORTANT discovered some form of issue w quest log
     not sure if its event 2 itself
     or something directly tied to the shop
@@ -2721,27 +2777,192 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     *facepalm, so idk how its broken great
     -fixed quest log issue, issue was bad item name logic
 
+    setup move type function
+    not often used but in move priority & for charge
+
+    had idea for two typed move to change move type
+    for two type moves with type change ability
+    but game isn't setup to change 2nd move type
+
+    so may just leave it as is?
+    idea being ability is only strong enough to change main type?
 
     fixed nature power so recognizes called move
     double check it would change move type with abilities that change type
     -tested it does work
 
     also adjusted nuisance so it excludes 1 power variable power moves
+    don't really like this change but couldn't figure out how best to 
+    do it unless I potentially move all variable power moves into attack canceler?
+    (think atk canceler is when prioritu is set)
+    if I can do that then dynamicbasepower can be used
+    can make a big function for this and save on some battle scripts
+    but that's a big change so befor I do that need be 100% sure
+    that priority is set/called in atk canceler
+    and not because doesn't quite make sense makes more sense
+    for it to be done before move use?
+
+    ok we have a speed chek, then a priority check
+
+    NOTE**(
+    major IMPORTANT  idea
+    item cloner, with addition of more mon  remove need
+    for multiple means of having the same good item/battle item
+    so you get the itme and then you can clone it.
+
+    Now don't want this used for everything to invalidate
+    everything, but would actually do really well for improving gameplay
+
+    plan is to make it cost money as the resource to use it,
+    think like an "app" so premium feature/in-app purchas to make it work.
+    "Thank you for using Item-cloner, we look forward
+    to your continued patronage!"
+
+    rn thinking make around 700 maybe 850/900
+    so its still more expensive than just buying 
+    most items itself.
+
+    only issue is poke stat items i.e calcium protien etc.
+    could make exclude them as in-game pharmaceutical ban
+    but wouold be nice for the player.
+
+    lol fossils aren't key iteme so you can delay your fossil
+    and have multiple and cloning fossils would be massive
+    for money farming
+
+    double check fossil, see if it uses level scaled function
+    or it still comes out at level 5.
+    alraedy fixed scaling its good,  but also fossil logic seems to be weird
+    in script, seems potentialy only allows you to revive same fossil once?
+    need test, but also change script to use a new command
+    that handles all fossil logic, so can do it all with a single script,
+    instead of jumping for each type of givemon for the fossil
+
+    especially since will be adding like 10 more fossils to the list
+    will do string buffers and flag sets based on item value given to revive
+    like, oh that's a item_name fossil, it turns into stringvar species
+    on give mon, set flag revived x fossil, if not set
+
+    set var value to determine what sets
+    so need 2 functions  one ot populate info for first phase
+    giving item, and populating names for script
+
+    and for giving the mon, and setting the flag on return.
+    just have same table in each to build values off of,
+    set var in first function to identify which fossil is being revived
+    think will is have var be fossil being revived
+    and have it store itemvalue
+
+    if var fossil not 0 do stuff etc
+
+    if I'm going to have players delay fossil to clone it 
+    and have multiple. no  point in making it not scale
+
+    but will exclude key items obviously.
+    Think could give this at silph co?
+
+    That way also won't need to give multiple of an item
+
+    *Decided WILL add de-evolve to cinnibar
+    with plan fix for learnset nothing will ever be missed
+    and opens up room for strategy
+    as certain abilities now work off nto being fully evolved
+    and offers eviolite option
+
+    even better with my changefs to see stat dist. and bst
+    to know beforehand if eviolite would work
+
+    )
+
+
+    NOTE**(
+      with encounter changes planned would not be able to repel filter stuff
+    but if setup right I would still be able to use magnet pull etc.
+    to pull out specific type mon...ok here's what I could do
+    intead of limiting based on level, could intead do based on bst.
+
+    would require indepth knowledge but that's fine
+    check would be with repel up, you keep away 
+    all mon that have bst below or equal to lead mon.
+
+    with expanded effects for repel items pretty sure
+    would specifically need base repel to do this??
+
+    ok repel is 1, 1.5 and 2, technically I could still use those levels
+    for the encounter filteriong  in TryGenerateWildMon function
+    need figure wtf WILD_CHECK_REPEL  flag is for??
+
+    as of yet haven't setup abilities that filter encounter
+    so it'll filter level then use bst to filter species for repel
+
+    )
+
+    
+
+
+
+    alt idea rather than directly take player level 
+    can just set high to a function of original level and player level
+    that way actual level is still dependent on area of the game
+    so it different places are still different strength?
+
+    I'm thinking 2x original high, + 1/3rd player team level?
+    ex. viridian forest where things usually hit max 5/6
+    given a team of around level 22
+    it'd put the new level at around 17
+
+    or use it for the low instead
     */
 
    #define WILDMON_LEVELSET
    /*
+
+    make sure trainer pic slide in 
+    is mover  over just slightly so its within circle
+    -compared base firered its actually good,
+    its working as it should
 
     sturdy not displaying hung on message..
     -fixed sturdy message issue was I made the flag valuie
     too big for type,  removed use of moveresult sturdied just wrapped in hang on logic
     works fine and don't need to take ewram to upgrade move result
 
+    note remember tweak tentacool potentially
+    to make a bulk mon that kills with status
+    use poisoning and confusion/other passive damage
+    (maybe)
+
+    also need tweak nature power other callable moves
+    they bypass type exceptions
+    since it uses the original move type not the called move type
+    ex. nature power turning into stun spore
+    and stil affecting a grass type despite being a powder move
 
     decided want to turn off level scaling until I can properly set up
     so its not scaled until after you've already passed through an area once
 
     also of note, professors aide's dex check is still
+    limited to kanto dex only
+    need swap that for a national check
+
+    sigh apparently I never fixed the leech seed toxic poison issue -_-
+    works fine  when its normal poinson but if it increases
+    to toxic poison it never increments/does damage
+
+    ok nvm it works but sometimes doesn't?
+
+    give beedrill fury cutter
+
+    thoughts on scaling progression,
+    best vrsion of open world has a world that changes as you progres
+    to make it feel alive, nier style,  could do with level but thnk will do with badges instead
+    add function for evolving encounter table based on badge count
+    pt is for early areas to change think will make it 2-3 badges
+    passed what you're expectd to have for the area,
+    so last place that would be affected would be around 
+    area available for 5th badge so I guess aroudn celadon fuchisia?
+
+    random chance to evolve if able to evolve
 
     remember remove ditto from starter list instead give at first daycare
     removed castform ditto thievul from starter list
@@ -2751,6 +2972,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     checked w give mon issue starts w cefireon
     -issue was use of gspeciesname where didn't have entires
     for those mon added, inprocess of removing uses of gspeciesname
+
+    Think do for all maps post league champion,
+    I guess exclude teh seviis?
+    but for league champion think will increase odds of happening
+    with this world itself will be a bit more challenging,
+    since player has badge boosts even if they go back through
+    with weaker mon, they have an easier time of it.
+
     ok so I apparently broke accuracy -_-
     hit mon with 7 sand attacks they never missed
     EVER
@@ -2762,6 +2991,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to skip acc check for absorb abilities to fit modern use
     made it skip teh abilityefect check that did the logic in the first place...
     so replaced w what oak battle uses and its fixed
+
+
+
+    can implement for  new game plus as well.
+    NOTE**(
+    ShouldCapitalizeSpecies isstill used in several places
+    can't remove gspeciesname use until all are replaced)
+
+    Then after champion do all maps
+    and increase odds of evolving
+    get num evolutions random chance set
+    of what evolution to set once decide to evolve
+    tier 1 or tier 2 etc..
 
     adjusted formula seems ok?
     still unsure
@@ -2778,6 +3020,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     - yeah issue was getmovetarget idk why I did it way I did,
     but was using gbattletarget before it was assigned so set to self
     works now doesn't break  move type absorb
+
+
+    also something still off w damage calc
+
+    anger point super effective move against morpeko 
+    did like no dmg
+
+
+    could be an issue w the transformation,
+    also need change that so it doesn't grey out the mon
 
     zacian zamazenta ability being applied to enemy side on switch in
     need change text for embargo to not load battler name
@@ -2796,6 +3048,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     need update abilities changed to draw in move types
     attempted add accuracy bypass for absorb type abilities
+
+    actually don't need change description still accurate
+
+    note for wild/ai move learn 
+    check moves for should delete
+    based on if stab or if have damaging move
+
+    issue ability gets removed when faint and try to view
+    mon from summary
+
+    so its issue with summary screen logic, if mon is
+    fainted should default ot other thing
 
     also added species name to base stats now calling from there
     fix name use for dex and cane remove gspeciesname to save space
