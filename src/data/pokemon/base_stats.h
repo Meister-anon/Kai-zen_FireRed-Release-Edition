@@ -4006,7 +4006,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_DITTO,
         .abilities = {ABILITY_IMMUNITY, ABILITY_IMPOSTER},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_INVERSION, ABILITY_NONE}, //inversion still to do //think will add bst to logic to avoid transforming into legendaries
+            .abilityHidden = {ABILITY_INVERSION, ABILITY_DISGUISE}, //inversion still to do //think will add bst to logic to avoid transforming into legendaries
         // #endif
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
@@ -4015,7 +4015,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDittoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//levle up is broken...pretty sure its not able to read the species properly if you level up while transformed, or someother part of data
-    //-fixed
+    //-fixed    //think also give disguise, would just be something fun
+    //and makes sense, would allow double fakeout, as could then transform lol
 
     [SPECIES_EEVEE] =
     {

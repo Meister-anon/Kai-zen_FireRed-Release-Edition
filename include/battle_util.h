@@ -226,6 +226,7 @@ bool8 ShouldCacophonyBoostAccuracy(u16 move);
 bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
+u8 GetMoveType(u8 moveType, u8 btlAttacker);
 
 //added from EE for form change update (not planning to use for transform/ditto)
 bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false

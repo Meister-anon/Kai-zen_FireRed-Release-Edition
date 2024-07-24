@@ -699,7 +699,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battlerAtk]], gBattleMonForms[battlerAtk]);
         SetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_NICKNAME, gBaseStats[targetSpecies].speciesName);
         UpdateNickInHealthbox(gHealthboxSpriteIds[battlerAtk], &gEnemyParty[gBattlerPartyIndexes[battlerAtk]]);
-        TryAddPokeballIconToHealthbox(gHealthboxSpriteIds[battlerAtk], 1); //don'tneed to change gspeciesname that's alreayd handled in updatenick inhealthbox
+        TryAddPokeballIconToHealthbox(gHealthboxSpriteIds[battlerAtk], 1); 
     }
     else if (notTransform)
     {

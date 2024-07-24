@@ -3943,7 +3943,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (!typeOverride)
         type = gBattleMoves[move].type;
     else
-        GET_MOVE_TYPE(move, type);
+        GET_MOVE_TYPE(move, type); //should all I need, type already set before this point
 
     attack = attacker->attack;
     defense = defender->defense;

@@ -2404,7 +2404,7 @@ static void atk05_damagecalc(void)
                                             gBattlerAttacker,
                                             gBattlerTarget);
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier; // this makes it so gcritmultiplier value is how much crit is, so sniper shuold work
-    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)//pretty sure no longer using dmgMultiplier?
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, gBattlerAttacker) == TYPE_ELECTRIC)//pretty sure no longer using dmgMultiplier?
         gBattleMoveDamage *= 2;
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10; 
@@ -2428,7 +2428,7 @@ s32 AI_CalcDmgFormula(u8 attacker, u8 defender) //made for ai .c update
                                             defender);
     //gMultiTask = 0;
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier; //so dmgMultiplier isn't used so does it default to 0? vsonic checekd it defaults to 1 so not a problem
-    if (gStatuses3[attacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)  //but its actually something I can remove, just replace with gbattlemovedmg *=2 need do not rn
+    if (gStatuses3[attacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, attacker) == TYPE_ELECTRIC)  //but its actually something I can remove, just replace with gbattlemovedmg *=2 need do not rn
         gBattleMoveDamage *= 2;
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
@@ -2452,7 +2452,7 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
                                             defender);
     //gMultiTask = 0;
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier;
-    if (gStatuses3[attacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+    if (gStatuses3[attacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, attacker) == TYPE_ELECTRIC)
         gBattleMoveDamage *= 2;
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;

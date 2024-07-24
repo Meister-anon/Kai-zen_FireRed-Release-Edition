@@ -13016,3 +13016,50 @@ bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions
 
     
 }
+
+//can't use before use move battle controller is done
+//need execute as part of bs
+u8 GetMoveType(u8 moveType, u8 btlAttacker)
+{
+    u8 move; //move should be current move unless move that calls move than instead is calledmove
+    u8 Type, moveArgument;
+
+    move = gCalledMove == 0 ? gCurrentMove : gCalledMove;
+    SetTypeBeforeUsingMove(move, btlAttacker);
+    GET_MOVE_TYPE(move, Type); //need add argument type, for two type move
+
+    /*if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
+    {    
+        GET_MOVE_ARGUMENT(move, moveArgument);
+
+        if (moveArgument == moveType)
+            return moveArgument;
+
+        else if (Type == moveType)
+            return Type;
+        
+        else
+            return 0xFF; //return this if not find type to avoid issue w type none
+        
+
+
+    }
+    else*/
+    {
+        if (Type == moveType)
+            return Type;
+        else
+            return 0xFF; //return this if not find type to avoid issue w type none
+
+    }
+
+
+}
+
+//syntax gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED;
+void SetAbilityStatGraphic(u8 StatVal1, u8 StatChange1, u8 StatVal2, u8 StatChange2)
+{
+    gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED; //find what this is referencing so I don't accidentally break,
+    gBattleScripting.animArg1 = StatChange1 + StatVal1;
+    gBattleScripting.animArg2 = 0; //figured out
+}
