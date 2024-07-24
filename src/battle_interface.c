@@ -1001,11 +1001,13 @@ void SwapHpBarsWithHpText(void)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (gSprites[gHealthboxSpriteIds[i]].callback == SpriteCallbackDummy
-            && GetBattlerSide(i) != B_SIDE_OPPONENT
-            && (IsDoubleBattle() || GetBattlerSide(i) != B_SIDE_PLAYER))
+        if (gSprites[gHealthboxSpriteIds[i]].callback == SpriteCallbackDummy //without that works but not fully right,
+            && GetBattlerSide(i) != B_SIDE_OPPONENT                       //piece of hp bar still showing for opponent
+            && (IsDoubleBattle() || GetBattlerSide(i) != B_SIDE_PLAYER))    //and doesn't clear well when change menu
         {
-            bool8 noBars;
+            bool8 noBars;   //simple thing make it load back to hp bars when change menu/page
+                            //it works correctly for player side
+                            //want to remove exclusion for battler side opponent to use for both sides
 
             gBattleSpritesDataPtr->battlerData[i].hpNumbersNoBars ^= 1;
             noBars = gBattleSpritesDataPtr->battlerData[i].hpNumbersNoBars;
@@ -1033,6 +1035,9 @@ void SwapHpBarsWithHpText(void)
             }
             else
             {
+                if (gBattleTypeFlags & BATTLE_TYPE_SAFARI) //skip debug stuff
+                    continue;
+
                 if (noBars == TRUE) // bars to text
                 {
                     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
@@ -1044,7 +1049,7 @@ void SwapHpBarsWithHpText(void)
                     {
                         healthBarSpriteId = gSprites[gHealthboxSpriteIds[i]].hMain_HealthBarSpriteId;
 
-                        CpuFill32(0, (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * 32), 0x100);
+                        CpuFill32(0, (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * TILE_SIZE_4BPP), 0x100);
                         UpdateHpTextInHealthboxInDoubles(gHealthboxSpriteIds[i], GetMonData(&gEnemyParty[gBattlerPartyIndexes[i]], MON_DATA_HP), HP_CURRENT);
                         UpdateHpTextInHealthboxInDoubles(gHealthboxSpriteIds[i], GetMonData(&gEnemyParty[gBattlerPartyIndexes[i]], MON_DATA_MAX_HP), HP_MAX);
                     }
@@ -1619,12 +1624,13 @@ enum
     //PAL_STATUS_SPRT
 };
 
+//rgb uses 32 max range so divide colors 255 range by 8 to get value
 static const u16 sStatusIconColors[] = {
     [PAL_STATUS_PSN] = RGB(24, 12, 24),
     [PAL_STATUS_PAR] = RGB(23, 23, 3),
     [PAL_STATUS_SLP] = RGB(20, 20, 17),
     [PAL_STATUS_FRZ] = RGB(17, 22, 28),
-    [PAL_STATUS_BRN] = RGB(28, 14, 10)
+    [PAL_STATUS_BRN] = RGB(28, 14, 10),
     //[PAL_STATUS_SPRT] = RGB(6, 26, 24)
 };
 

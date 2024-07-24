@@ -1060,6 +1060,15 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
         gBattlescriptCurrInstr = BattleScript_AttackerAbilityStatRaise;  //need test
         SET_STATCHANGER(STAT_SPEED, 2, FALSE);
     }
+    /*else if ((stringId == STRINGID_PKMNWASCONFUSED)
+    && battlerAbility == ABILITY_TANGLED_FEET)
+    {
+        gBattlerAbility = gBattlerTarget;
+        BattleScriptPushCursor();
+        //SetAbilityStatGraphic();
+        gBattlescriptCurrInstr = BattleScript_DefenderAbilityStatBoost;
+    }*/
+   //attempt set stat graphic for ability  boost
 
     gActiveBattler = battler;
     BtlController_EmitPrintString(0, stringId);
@@ -12136,6 +12145,8 @@ s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fi
         gBattleMovePower = fixedBasePower;// don't want to but will need to fill this out, effectively copy all the dmg modifier stuff from CalculateBaseDamage but just for use here
     /*else
         gBattleMovePower = CalcMoveBasePowerAfterModifiers(move, battlerAtk, battlerDef, moveType, updateFlags);
+
+    //may not need do that I have effectiveness check already not sure what needed this for
 
     // long dmg basic formula
     dmg = ((gBattleMons[battlerAtk].level * 2) / 5) + 2;

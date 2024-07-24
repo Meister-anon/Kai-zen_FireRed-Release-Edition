@@ -8497,6 +8497,20 @@ BattleScript_SpeedBoostActivates::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 
+@idea call this to show target stat boosts
+@things that don't necessarily raise stat stages
+@could also do in a pinch stuff with this
+@make function that sets anim_arg1 and 2 if 2 stats change
+@when graphics go off make play cry as well
+@think make new string array for this just like statupstring will be diff
+@based on ability
+BattleScript_DefenderAbilityStatBoost::
+	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	@printstring STRINGID_PKMNRAISEDSPEED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end3
+
 @CHECK may need to customizee buff anim that plays
 @or potentially need 2 different scripts one for switch in
 BattleScript_DefeatistActivates::	

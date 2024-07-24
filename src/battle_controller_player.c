@@ -319,7 +319,7 @@ static void HandleInputChooseAction(void)
     }
     else if (JOY_NEW(START_BUTTON)) //broken? haven't seen thsi work yet
     {
-        SwapHpBarsWithHpText();
+        SwapHpBarsWithHpText(); //eventually get this to work for both sides
 
     }//could set to Joy_rept to avoid accident press?
     /*else if (JOY_NEW(L_BUTTON)) // should display message on atk turn, and skip turn.

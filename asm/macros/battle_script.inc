@@ -2231,6 +2231,7 @@
 	goto \jumpptr
 	.endm
 
+	@double check both are standard w new effect
 	.macro jumpifleafguardprotected battler:req, jumpptr:req
 	various \battler, VARIOUS_JUMP_IF_LEAF_GUARD_PROTECTED
 	.4byte \jumpptr
@@ -2243,6 +2244,7 @@
 	1:
 	.endm
 
+	@Double check using this right w cacophony addition
 	.macro jumpifsafeguard jumpptr:req
 	jumpifability BS_ATTACKER, ABILITY_INFILTRATOR, 1f
 	jumpifability BS_ATTACKER_PARTNER, ABILITY_CACOPHONY, 1f	@put suond move condition in function

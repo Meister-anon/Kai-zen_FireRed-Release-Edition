@@ -1491,6 +1491,7 @@
 	@idea from zatsu replace getspecies etc.
 	@direct call mon data and select slot then 
 	@assignto result var
+	@idk if I finished setting up
 	.macro getmondata data:req, slot:req
     .2byte \data
     .byte \slot
