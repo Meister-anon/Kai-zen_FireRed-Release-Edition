@@ -7205,8 +7205,12 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     //it'll use gbalttmovepower which is 1
     //I might need to just exclude variable power moves from the list hmm
     //ok works better I guess
+    //ok gbattlemovepower  is set in damagecalc, 
+    //its NOT the same things as gbattlemoves[move].power
+    //gbattlemovepower stores either base power or gdynamicbasepower and is augmented in calbasedamage 
+    //function in pokemon.c
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
-        && (power <= 60 && gBattleMoves[move].power != 1) //added dynamic for moves like hidden power
+        && (gBattleMoves[move].power != 1) //added dynamic for moves like hidden power
         && gBattleMoves[gCurrentMove].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
     {
         gProtectStructs[battlerId].NuisanceElevated = TRUE;

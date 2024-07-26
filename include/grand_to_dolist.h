@@ -2803,6 +2803,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for it to be done before move use?
 
     ok we have a speed chek, then a priority check
+    -think can't do  will just  leave to exclude pwr 1 moves
+
 
     NOTE**(
     major IMPORTANT  idea

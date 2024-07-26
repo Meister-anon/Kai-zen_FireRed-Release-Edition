@@ -3706,7 +3706,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HIDDEN_POWER] =
     {
-            .power = 1, //change to show varying power
+        .power = 1, //change to show varying power
         .effect = EFFECT_HIT,
         .type = TYPE_MYSTERY, //MOVED power set to damagecalc
         .accuracy = 100,    

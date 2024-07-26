@@ -18717,7 +18717,7 @@ void BS_typebaseddmgboost(void)
 void BS_AttacksThisTurn(void) // Note: returns 1 if it's a charging turn, otherwise 2
 {
     NATIVE_ARGS(const u8 *ptr);
-    bool8 Thisturn;
+    bool8 Thisturn = FALSE;
     // first argument is unused
     if ((gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM) //rebalanced effect not using special status for
      && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
@@ -18943,6 +18943,13 @@ void BS_call_if(void) //comparing to jumpifholdeffect
     //will only trigger for whatever effect is listed here, but still needs to be put where it makes senes for the effect
     //+3 because effects are 2 bytes, and macro is 1 actually wrong, talked witwh griffinR, callnative is 5, then effect is 2, so should be 7
 }
+
+/*static void atk41_call(void)
+{
+    BattleScriptPush(gBattlescriptCurrInstr + 5);
+    gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+}
+*/
 
 void BS_getmoveeffect(void)//transfer move effects mostly for multihit but also used for multitask so each hit can apply aeffect
 {
