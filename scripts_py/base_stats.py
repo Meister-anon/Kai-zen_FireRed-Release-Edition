@@ -39,7 +39,7 @@ with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/base_stat
 #believe assigns mon to captured value should be CAPPED species name
 for mon in re.findall(r'SPECIES_+(.*)]', data): 
     monname = re.sub(r'_', ' ', mon).title()
-    #print(monname)
+    print(monname)
     #data = re.sub(r'SPECIES_'+ mon +r'\] =\n    {', 'SPECIES_'+ mon +'] =\n    {\n        .speciesName = _(\"%s\"),\n'% monname, data)
     
     data = re.sub(r'Wishiwashi'+r'(.*)\)','Wishiwashi\")',data)

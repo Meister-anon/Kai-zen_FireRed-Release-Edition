@@ -67,9 +67,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NONE] = 
     {  
       //FRONT_PIC(CircledQuestionMark),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(CircledQuestionMark),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(CircledQuestionMark),
       //SHINYPAL(CircledQuestionMark),
       //PALETTES(CircledQuestionMark),
@@ -80,9 +80,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BULBASAUR] = 
     {  
       //FRONT_PIC(Bulbasaur),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Bulbasaur),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 0x10),
       //PAL(Bulbasaur),
       //SHINYPAL(Bulbasaur),
       //PALETTES(Bulbasaur),
@@ -93,9 +93,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_IVYSAUR] = 
     {  
       //FRONT_PIC(Ivysaur),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Ivysaur),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Ivysaur),
       //SHINYPAL(Ivysaur),
       //PALETTES(Ivysaur),
@@ -106,9 +106,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VENUSAUR] = 
     {  
       //FRONT_PIC(Venusaur),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Venusaur),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Venusaur),
       //SHINYPAL(Venusaur),
       //PALETTES(Venusaur),
@@ -119,9 +119,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHARMANDER] = 
     {  
       //FRONT_PIC(Charmander),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(Charmander),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Charmander),
       //SHINYPAL(Charmander),
       //PALETTES(Charmander),
@@ -132,9 +132,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHARMELEON] = 
     {  
       //FRONT_PIC(Charmeleon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 7),
       //BACK_PIC(Charmeleon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Charmeleon),
       //SHINYPAL(Charmeleon),
       //PALETTES(Charmeleon),
@@ -145,9 +145,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHARIZARD] = 
     {  
       //FRONT_PIC(Charizard),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Charizard),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Charizard),
       //SHINYPAL(Charizard),
       //PALETTES(Charizard),
@@ -158,9 +158,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SQUIRTLE] = 
     {  
       //FRONT_PIC(Squirtle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 11),
       //BACK_PIC(Squirtle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0f),
       //PAL(Squirtle),
       //SHINYPAL(Squirtle),
       //PALETTES(Squirtle),
@@ -171,9 +171,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WARTORTLE] = 
     {  
       //FRONT_PIC(Wartortle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 7),
       //BACK_PIC(Wartortle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Wartortle),
       //SHINYPAL(Wartortle),
       //PALETTES(Wartortle),
@@ -184,9 +184,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLASTOISE] = 
     {  
       //FRONT_PIC(Blastoise),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Blastoise),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Blastoise),
       //SHINYPAL(Blastoise),
       //PALETTES(Blastoise),
@@ -197,9 +197,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CATERPIE] = 
     {  
       //FRONT_PIC(Caterpie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Caterpie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 0x0f),
       //PAL(Caterpie),
       //SHINYPAL(Caterpie),
       //PALETTES(Caterpie),
@@ -210,9 +210,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_METAPOD] = 
     {  
       //FRONT_PIC(Metapod),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 14),
       //BACK_PIC(Metapod),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Metapod),
       //SHINYPAL(Metapod),
       //PALETTES(Metapod),
@@ -223,22 +223,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BUTTERFREE] = 
     {  
       //FRONT_PIC(Butterfree),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 10),
       //BACK_PIC(Butterfree),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Butterfree),
       //SHINYPAL(Butterfree),
       //PALETTES(Butterfree),
       PIC_DATA_ICON_INDEX(Butterfree,0),
       //ICON(Butterfree, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Butterfree,
 [SPECIES_WEEDLE] = 
     {  
       //FRONT_PIC(Weedle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 13),
       //BACK_PIC(Weedle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x0b),
       //PAL(Weedle),
       //SHINYPAL(Weedle),
       //PALETTES(Weedle),
@@ -249,9 +249,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KAKUNA] = 
     {  
       //FRONT_PIC(Kakuna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Kakuna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 0x0a),
       //PAL(Kakuna),
       //SHINYPAL(Kakuna),
       //PALETTES(Kakuna),
@@ -262,22 +262,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BEEDRILL] = 
     {  
       //FRONT_PIC(Beedrill),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 5),
       //BACK_PIC(Beedrill),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Beedrill),
       //SHINYPAL(Beedrill),
       //PALETTES(Beedrill),
       PIC_DATA_ICON_INDEX(Beedrill,0),
       //ICON(Beedrill, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 9,
     }, //Beedrill,
 [SPECIES_PIDGEY] = 
     {  
       //FRONT_PIC(Pidgey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 12),
       //BACK_PIC(Pidgey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Pidgey),
       //SHINYPAL(Pidgey),
       //PALETTES(Pidgey),
@@ -288,9 +288,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIDGEOTTO] = 
     {  
       //FRONT_PIC(Pidgeotto),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Pidgeotto),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0c),
       //PAL(Pidgeotto),
       //SHINYPAL(Pidgeotto),
       //PALETTES(Pidgeotto),
@@ -301,22 +301,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIDGEOT] = 
     {  
       //FRONT_PIC(Pidgeot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Pidgeot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Pidgeot),
       //SHINYPAL(Pidgeot),
       //PALETTES(Pidgeot),
       PIC_DATA_ICON_INDEX(Pidgeot,0),
       //ICON(Pidgeot, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Pidgeot,
 [SPECIES_RATTATA] = 
     {  
       //FRONT_PIC(Rattata),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 13),
       //BACK_PIC(Rattata),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0d),
       //PAL(Rattata),
       //SHINYPAL(Rattata),
       //PALETTES(Rattata),
@@ -327,9 +327,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RATICATE] = 
     {  
       //FRONT_PIC(Raticate),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 6),
       //BACK_PIC(Raticate),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0d),
       //PAL(Raticate),
       //SHINYPAL(Raticate),
       //PALETTES(Raticate),
@@ -340,9 +340,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPEAROW] = 
     {  
       //FRONT_PIC(Spearow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Spearow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Spearow),
       //SHINYPAL(Spearow),
       //PALETTES(Spearow),
@@ -353,22 +353,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FEAROW] = 
     {  
       //FRONT_PIC(Fearow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Fearow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Fearow),
       //SHINYPAL(Fearow),
       //PALETTES(Fearow),
       PIC_DATA_ICON_INDEX(Fearow,0),
       //ICON(Fearow, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Fearow,
 [SPECIES_EKANS] = 
     {  
       //FRONT_PIC(Ekans),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 10),
       //BACK_PIC(Ekans),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Ekans),
       //SHINYPAL(Ekans),
       //PALETTES(Ekans),
@@ -379,9 +379,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARBOK] = 
     {  
       //FRONT_PIC(Arbok),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Arbok),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Arbok),
       //SHINYPAL(Arbok),
       //PALETTES(Arbok),
@@ -392,9 +392,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU] = 
     {  
       //FRONT_PIC(Pikachu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(Pikachu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Pikachu),
       //SHINYPAL(Pikachu),
       //PALETTES(Pikachu),
@@ -405,9 +405,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAICHU] = 
     {  
       //FRONT_PIC(Raichu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 3),
       //BACK_PIC(Raichu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Raichu),
       //SHINYPAL(Raichu),
       //PALETTES(Raichu),
@@ -418,9 +418,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDSHREW] = 
     {  
       //FRONT_PIC(Sandshrew),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 11),
       //BACK_PIC(Sandshrew),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Sandshrew),
       //SHINYPAL(Sandshrew),
       //PALETTES(Sandshrew),
@@ -431,9 +431,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDSLASH] = 
     {  
       //FRONT_PIC(Sandslash),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 6),
       //BACK_PIC(Sandslash),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Sandslash),
       //SHINYPAL(Sandslash),
       //PALETTES(Sandslash),
@@ -444,9 +444,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIDORAN_F] = 
     {  
       //FRONT_PIC(NidoranF),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(NidoranF),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 0x0c),
       //PAL(NidoranF),
       //SHINYPAL(NidoranF),
       //PALETTES(NidoranF),
@@ -457,9 +457,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIDORINA] = 
     {  
       //FRONT_PIC(Nidorina),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Nidorina),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Nidorina),
       //SHINYPAL(Nidorina),
       //PALETTES(Nidorina),
@@ -470,9 +470,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIDOQUEEN] = 
     {  
       //FRONT_PIC(Nidoqueen),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 2),
       //BACK_PIC(Nidoqueen),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x06),
       //PAL(Nidoqueen),
       //SHINYPAL(Nidoqueen),
       //PALETTES(Nidoqueen),
@@ -483,9 +483,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIDORAN_M] = 
     {  
       //FRONT_PIC(NidoranM),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(NidoranM),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x08),
       //PAL(NidoranM),
       //SHINYPAL(NidoranM),
       //PALETTES(NidoranM),
@@ -496,9 +496,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIDORINO] = 
     {  
       //FRONT_PIC(Nidorino),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Nidorino),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Nidorino),
       //SHINYPAL(Nidorino),
       //PALETTES(Nidorino),
@@ -509,9 +509,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIDOKING] = 
     {  
       //FRONT_PIC(Nidoking),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 2),
       //BACK_PIC(Nidoking),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Nidoking),
       //SHINYPAL(Nidoking),
       //PALETTES(Nidoking),
@@ -522,9 +522,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLEFAIRY] = 
     {  
       //FRONT_PIC(Clefairy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Clefairy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Clefairy),
       //SHINYPAL(Clefairy),
       //PALETTES(Clefairy),
@@ -535,9 +535,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLEFABLE] = 
     {  
       //FRONT_PIC(Clefable),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 6),
       //BACK_PIC(Clefable),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Clefable),
       //SHINYPAL(Clefable),
       //PALETTES(Clefable),
@@ -548,9 +548,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VULPIX] = 
     {  
       //FRONT_PIC(Vulpix),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 11),
       //BACK_PIC(Vulpix),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Vulpix),
       //SHINYPAL(Vulpix),
       //PALETTES(Vulpix),
@@ -561,9 +561,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NINETALES] = 
     {  
       //FRONT_PIC(Ninetales),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Ninetales),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Ninetales),
       //SHINYPAL(Ninetales),
       //PALETTES(Ninetales),
@@ -574,9 +574,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JIGGLYPUFF] = 
     {  
       //FRONT_PIC(Jigglypuff),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Jigglypuff),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Jigglypuff),
       //SHINYPAL(Jigglypuff),
       //PALETTES(Jigglypuff),
@@ -587,9 +587,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WIGGLYTUFF] = 
     {  
       //FRONT_PIC(Wigglytuff),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Wigglytuff),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Wigglytuff),
       //SHINYPAL(Wigglytuff),
       //PALETTES(Wigglytuff),
@@ -600,35 +600,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZUBAT] = 
     {  
       //FRONT_PIC(Zubat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Zubat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Zubat),
       //SHINYPAL(Zubat),
       //PALETTES(Zubat),
       PIC_DATA_ICON_INDEX(Zubat,0),
       //ICON(Zubat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Zubat,
 [SPECIES_GOLBAT] = 
     {  
       //FRONT_PIC(Golbat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 7),
       //BACK_PIC(Golbat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Golbat),
       //SHINYPAL(Golbat),
       //PALETTES(Golbat),
       PIC_DATA_ICON_INDEX(Golbat,0),
       //ICON(Golbat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Golbat,
 [SPECIES_ODDISH] = 
     {  
       //FRONT_PIC(Oddish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Oddish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Oddish),
       //SHINYPAL(Oddish),
       //PALETTES(Oddish),
@@ -639,9 +639,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLOOM] = 
     {  
       //FRONT_PIC(Gloom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Gloom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Gloom),
       //SHINYPAL(Gloom),
       //PALETTES(Gloom),
@@ -652,9 +652,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VILEPLUME] = 
     {  
       //FRONT_PIC(Vileplume),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 7),
       //BACK_PIC(Vileplume),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Vileplume),
       //SHINYPAL(Vileplume),
       //PALETTES(Vileplume),
@@ -665,9 +665,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PARAS] = 
     {  
       //FRONT_PIC(Paras),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 14),
       //BACK_PIC(Paras),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x63, 0x14),
       //PAL(Paras),
       //SHINYPAL(Paras),
       //PALETTES(Paras),
@@ -678,9 +678,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PARASECT] = 
     {  
       //FRONT_PIC(Parasect),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 7),
       //BACK_PIC(Parasect),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Parasect),
       //SHINYPAL(Parasect),
       //PALETTES(Parasect),
@@ -691,9 +691,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VENONAT] = 
     {  
       //FRONT_PIC(Venonat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Venonat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x06),
       //PAL(Venonat),
       //SHINYPAL(Venonat),
       //PALETTES(Venonat),
@@ -704,22 +704,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VENOMOTH] = 
     {  
       //FRONT_PIC(Venomoth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 9),
       //BACK_PIC(Venomoth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Venomoth),
       //SHINYPAL(Venomoth),
       //PALETTES(Venomoth),
       PIC_DATA_ICON_INDEX(Venomoth,0),
       //ICON(Venomoth, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 11,
     }, //Venomoth,
 [SPECIES_DIGLETT] = 
     {  
       //FRONT_PIC(Diglett),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 17),
       //BACK_PIC(Diglett),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 0x10),
       //PAL(Diglett),
       //SHINYPAL(Diglett),
       //PALETTES(Diglett),
@@ -730,9 +730,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUGTRIO] = 
     {  
       //FRONT_PIC(Dugtrio),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 11),
       //BACK_PIC(Dugtrio),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Dugtrio),
       //SHINYPAL(Dugtrio),
       //PALETTES(Dugtrio),
@@ -743,9 +743,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEOWTH] = 
     {  
       //FRONT_PIC(Meowth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(Meowth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Meowth),
       //SHINYPAL(Meowth),
       //PALETTES(Meowth),
@@ -756,9 +756,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PERSIAN] = 
     {  
       //FRONT_PIC(Persian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 9),
       //BACK_PIC(Persian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Persian),
       //SHINYPAL(Persian),
       //PALETTES(Persian),
@@ -769,9 +769,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PSYDUCK] = 
     {  
       //FRONT_PIC(Psyduck),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 11),
       //BACK_PIC(Psyduck),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x07),
       //PAL(Psyduck),
       //SHINYPAL(Psyduck),
       //PALETTES(Psyduck),
@@ -782,9 +782,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLDUCK] = 
     {  
       //FRONT_PIC(Golduck),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 2),
       //BACK_PIC(Golduck),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Golduck),
       //SHINYPAL(Golduck),
       //PALETTES(Golduck),
@@ -795,9 +795,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANKEY] = 
     {  
       //FRONT_PIC(Mankey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 11),
       //BACK_PIC(Mankey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Mankey),
       //SHINYPAL(Mankey),
       //PALETTES(Mankey),
@@ -808,9 +808,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PRIMEAPE] = 
     {  
       //FRONT_PIC(Primeape),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Primeape),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Primeape),
       //SHINYPAL(Primeape),
       //PALETTES(Primeape),
@@ -821,9 +821,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROWLITHE] = 
     {  
       //FRONT_PIC(Growlithe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Growlithe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Growlithe),
       //SHINYPAL(Growlithe),
       //PALETTES(Growlithe),
@@ -834,9 +834,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCANINE] = 
     {  
       //FRONT_PIC(Arcanine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Arcanine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Arcanine),
       //SHINYPAL(Arcanine),
       //PALETTES(Arcanine),
@@ -847,9 +847,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POLIWAG] = 
     {  
       //FRONT_PIC(Poliwag),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 13),
       //BACK_PIC(Poliwag),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x74, 0x10),
       //PAL(Poliwag),
       //SHINYPAL(Poliwag),
       //PALETTES(Poliwag),
@@ -860,9 +860,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POLIWHIRL] = 
     {  
       //FRONT_PIC(Poliwhirl),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 9),
       //BACK_PIC(Poliwhirl),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Poliwhirl),
       //SHINYPAL(Poliwhirl),
       //PALETTES(Poliwhirl),
@@ -873,9 +873,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POLIWRATH] = 
     {  
       //FRONT_PIC(Poliwrath),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 6),
       //BACK_PIC(Poliwrath),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Poliwrath),
       //SHINYPAL(Poliwrath),
       //PALETTES(Poliwrath),
@@ -886,9 +886,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ABRA] = 
     {  
       //FRONT_PIC(Abra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 10),
       //BACK_PIC(Abra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 0x0c),
       //PAL(Abra),
       //SHINYPAL(Abra),
       //PALETTES(Abra),
@@ -899,9 +899,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KADABRA] = 
     {  
       //FRONT_PIC(Kadabra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 5),
       //BACK_PIC(Kadabra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Kadabra),
       //SHINYPAL(Kadabra),
       //PALETTES(Kadabra),
@@ -912,9 +912,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALAKAZAM] = 
     {  
       //FRONT_PIC(Alakazam),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 2),
       //BACK_PIC(Alakazam),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Alakazam),
       //SHINYPAL(Alakazam),
       //PALETTES(Alakazam),
@@ -925,9 +925,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MACHOP] = 
     {  
       //FRONT_PIC(Machop),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 10),
       //BACK_PIC(Machop),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Machop),
       //SHINYPAL(Machop),
       //PALETTES(Machop),
@@ -938,9 +938,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MACHOKE] = 
     {  
       //FRONT_PIC(Machoke),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Machoke),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Machoke),
       //SHINYPAL(Machoke),
       //PALETTES(Machoke),
@@ -951,9 +951,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MACHAMP] = 
     {  
       //FRONT_PIC(Machamp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Machamp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x04),
       //PAL(Machamp),
       //SHINYPAL(Machamp),
       //PALETTES(Machamp),
@@ -964,9 +964,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BELLSPROUT] = 
     {  
       //FRONT_PIC(Bellsprout),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 12),
       //BACK_PIC(Bellsprout),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Bellsprout),
       //SHINYPAL(Bellsprout),
       //PALETTES(Bellsprout),
@@ -977,9 +977,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WEEPINBELL] = 
     {  
       //FRONT_PIC(Weepinbell),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Weepinbell),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Weepinbell),
       //SHINYPAL(Weepinbell),
       //PALETTES(Weepinbell),
@@ -990,9 +990,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VICTREEBEL] = 
     {  
       //FRONT_PIC(Victreebel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Victreebel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Victreebel),
       //SHINYPAL(Victreebel),
       //PALETTES(Victreebel),
@@ -1003,9 +1003,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TENTACOOL] = 
     {  
       //FRONT_PIC(Tentacool),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 7),
       //BACK_PIC(Tentacool),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x0a),
       //PAL(Tentacool),
       //SHINYPAL(Tentacool),
       //PALETTES(Tentacool),
@@ -1016,9 +1016,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TENTACRUEL] = 
     {  
       //FRONT_PIC(Tentacruel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(Tentacruel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0b),
       //PAL(Tentacruel),
       //SHINYPAL(Tentacruel),
       //PALETTES(Tentacruel),
@@ -1029,22 +1029,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GEODUDE] = 
     {  
       //FRONT_PIC(Geodude),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 10),
       //BACK_PIC(Geodude),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Geodude),
       //SHINYPAL(Geodude),
       //PALETTES(Geodude),
       PIC_DATA_ICON_INDEX(Geodude,0),
       //ICON(Geodude, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 16,
     }, //Geodude,
 [SPECIES_GRAVELER] = 
     {  
       //FRONT_PIC(Graveler),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       //BACK_PIC(Graveler),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0c),
       //PAL(Graveler),
       //SHINYPAL(Graveler),
       //PALETTES(Graveler),
@@ -1055,9 +1055,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLEM] = 
     {  
       //FRONT_PIC(Golem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Golem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x10),
       //PAL(Golem),
       //SHINYPAL(Golem),
       //PALETTES(Golem),
@@ -1068,9 +1068,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PONYTA] = 
     {  
       //FRONT_PIC(Ponyta),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 6),
       //BACK_PIC(Ponyta),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Ponyta),
       //SHINYPAL(Ponyta),
       //PALETTES(Ponyta),
@@ -1081,9 +1081,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAPIDASH] = 
     {  
       //FRONT_PIC(Rapidash),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Rapidash),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Rapidash),
       //SHINYPAL(Rapidash),
       //PALETTES(Rapidash),
@@ -1094,9 +1094,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLOWPOKE] = 
     {  
       //FRONT_PIC(Slowpoke),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 16),
       //BACK_PIC(Slowpoke),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Slowpoke),
       //SHINYPAL(Slowpoke),
       //PALETTES(Slowpoke),
@@ -1107,9 +1107,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLOWBRO] = 
     {  
       //FRONT_PIC(Slowbro),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 4),
       //BACK_PIC(Slowbro),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Slowbro),
       //SHINYPAL(Slowbro),
       //PALETTES(Slowbro),
@@ -1120,35 +1120,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGNEMITE] = 
     {  
       //FRONT_PIC(Magnemite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x43, 20),
       //BACK_PIC(Magnemite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x43, 0x14),
       //PAL(Magnemite),
       //SHINYPAL(Magnemite),
       //PALETTES(Magnemite),
       PIC_DATA_ICON_INDEX(Magnemite,0),
       //ICON(Magnemite, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 16,
     }, //Magnemite,
 [SPECIES_MAGNETON] = 
     {  
       //FRONT_PIC(Magneton),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 7),
       //BACK_PIC(Magneton),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Magneton),
       //SHINYPAL(Magneton),
       //PALETTES(Magneton),
       PIC_DATA_ICON_INDEX(Magneton,0),
       //ICON(Magneton, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 11,
     }, //Magneton,
 [SPECIES_FARFETCHD] = 
     {  
       //FRONT_PIC(Farfetchd),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 7),
       //BACK_PIC(Farfetchd),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Farfetchd),
       //SHINYPAL(Farfetchd),
       //PALETTES(Farfetchd),
@@ -1159,9 +1159,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DODUO] = 
     {  
       //FRONT_PIC(Doduo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       //BACK_PIC(Doduo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Doduo),
       //SHINYPAL(Doduo),
       //PALETTES(Doduo),
@@ -1172,9 +1172,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DODRIO] = 
     {  
       //FRONT_PIC(Dodrio),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Dodrio),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Dodrio),
       //SHINYPAL(Dodrio),
       //PALETTES(Dodrio),
@@ -1185,9 +1185,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEEL] = 
     {  
       //FRONT_PIC(Seel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Seel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Seel),
       //SHINYPAL(Seel),
       //PALETTES(Seel),
@@ -1198,9 +1198,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEWGONG] = 
     {  
       //FRONT_PIC(Dewgong),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 2),
       //BACK_PIC(Dewgong),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Dewgong),
       //SHINYPAL(Dewgong),
       //PALETTES(Dewgong),
@@ -1211,9 +1211,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRIMER] = 
     {  
       //FRONT_PIC(Grimer),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 9),
       //BACK_PIC(Grimer),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0d),
       //PAL(Grimer),
       //SHINYPAL(Grimer),
       //PALETTES(Grimer),
@@ -1224,9 +1224,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUK] = 
     {  
       //FRONT_PIC(Muk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(Muk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Muk),
       //SHINYPAL(Muk),
       //PALETTES(Muk),
@@ -1237,9 +1237,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHELLDER] = 
     {  
       //FRONT_PIC(Shellder),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 13),
       //BACK_PIC(Shellder),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Shellder),
       //SHINYPAL(Shellder),
       //PALETTES(Shellder),
@@ -1250,9 +1250,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLOYSTER] = 
     {  
       //FRONT_PIC(Cloyster),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 3),
       //BACK_PIC(Cloyster),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Cloyster),
       //SHINYPAL(Cloyster),
       //PALETTES(Cloyster),
@@ -1263,48 +1263,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GASTLY] = 
     {  
       //FRONT_PIC(Gastly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 13),
       //BACK_PIC(Gastly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Gastly),
       //SHINYPAL(Gastly),
       //PALETTES(Gastly),
       PIC_DATA_ICON_INDEX(Gastly,0),
       //ICON(Gastly, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 5,
     }, //Gastly,
 [SPECIES_HAUNTER] = 
     {  
       //FRONT_PIC(Haunter),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 13),
       //BACK_PIC(Haunter),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Haunter),
       //SHINYPAL(Haunter),
       //PALETTES(Haunter),
       PIC_DATA_ICON_INDEX(Haunter,0),
       //ICON(Haunter, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Haunter,
 [SPECIES_GENGAR] = 
     {  
       //FRONT_PIC(Gengar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 7),
       //BACK_PIC(Gengar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Gengar),
       //SHINYPAL(Gengar),
       //PALETTES(Gengar),
       PIC_DATA_ICON_INDEX(Gengar,0),
       //ICON(Gengar, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 1,
     }, //Gengar,
 [SPECIES_ONIX] = 
     {  
       //FRONT_PIC(Onix),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 3),
       //BACK_PIC(Onix),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x00),
       //PAL(Onix),
       //SHINYPAL(Onix),
       //PALETTES(Onix),
@@ -1315,9 +1315,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DROWZEE] = 
     {  
       //FRONT_PIC(Drowzee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 7),
       //BACK_PIC(Drowzee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Drowzee),
       //SHINYPAL(Drowzee),
       //PALETTES(Drowzee),
@@ -1328,9 +1328,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HYPNO] = 
     {  
       //FRONT_PIC(Hypno),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 3),
       //BACK_PIC(Hypno),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Hypno),
       //SHINYPAL(Hypno),
       //PALETTES(Hypno),
@@ -1341,9 +1341,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KRABBY] = 
     {  
       //FRONT_PIC(Krabby),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 14),
       //BACK_PIC(Krabby),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Krabby),
       //SHINYPAL(Krabby),
       //PALETTES(Krabby),
@@ -1354,9 +1354,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KINGLER] = 
     {  
       //FRONT_PIC(Kingler),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 8),
       //BACK_PIC(Kingler),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Kingler),
       //SHINYPAL(Kingler),
       //PALETTES(Kingler),
@@ -1367,35 +1367,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VOLTORB] = 
     {  
       //FRONT_PIC(Voltorb),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 10),
       //BACK_PIC(Voltorb),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 0x0e),
       //PAL(Voltorb),
       //SHINYPAL(Voltorb),
       //PALETTES(Voltorb),
       PIC_DATA_ICON_INDEX(Voltorb,0),
       //ICON(Voltorb, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Voltorb,
 [SPECIES_ELECTRODE] = 
     {  
       //FRONT_PIC(Electrode),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 6),
       //BACK_PIC(Electrode),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Electrode),
       //SHINYPAL(Electrode),
       //PALETTES(Electrode),
       PIC_DATA_ICON_INDEX(Electrode,0),
       //ICON(Electrode, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Electrode,
 [SPECIES_EXEGGCUTE] = 
     {  
       //FRONT_PIC(Exeggcute),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 12),
       //BACK_PIC(Exeggcute),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Exeggcute),
       //SHINYPAL(Exeggcute),
       //PALETTES(Exeggcute),
@@ -1406,9 +1406,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EXEGGUTOR] = 
     {  
       //FRONT_PIC(Exeggutor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Exeggutor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Exeggutor),
       //SHINYPAL(Exeggutor),
       //PALETTES(Exeggutor),
@@ -1419,9 +1419,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CUBONE] = 
     {  
       //FRONT_PIC(Cubone),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 13),
       //BACK_PIC(Cubone),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Cubone),
       //SHINYPAL(Cubone),
       //PALETTES(Cubone),
@@ -1432,9 +1432,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAROWAK] = 
     {  
       //FRONT_PIC(Marowak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Marowak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Marowak),
       //SHINYPAL(Marowak),
       //PALETTES(Marowak),
@@ -1445,9 +1445,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HITMONLEE] = 
     {  
       //FRONT_PIC(Hitmonlee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 3),
       //BACK_PIC(Hitmonlee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Hitmonlee),
       //SHINYPAL(Hitmonlee),
       //PALETTES(Hitmonlee),
@@ -1458,9 +1458,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HITMONCHAN] = 
     {  
       //FRONT_PIC(Hitmonchan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 3),
       //BACK_PIC(Hitmonchan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Hitmonchan),
       //SHINYPAL(Hitmonchan),
       //PALETTES(Hitmonchan),
@@ -1471,9 +1471,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LICKITUNG] = 
     {  
       //FRONT_PIC(Lickitung),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 7),
       //BACK_PIC(Lickitung),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Lickitung),
       //SHINYPAL(Lickitung),
       //PALETTES(Lickitung),
@@ -1484,35 +1484,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KOFFING] = 
     {  
       //FRONT_PIC(Koffing),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 10),
       //BACK_PIC(Koffing),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Koffing),
       //SHINYPAL(Koffing),
       //PALETTES(Koffing),
       PIC_DATA_ICON_INDEX(Koffing,0),
       //ICON(Koffing, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Koffing,
 [SPECIES_WEEZING] = 
     {  
       //FRONT_PIC(Weezing),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Weezing),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0c),
       //PAL(Weezing),
       //SHINYPAL(Weezing),
       //PALETTES(Weezing),
       PIC_DATA_ICON_INDEX(Weezing,0),
       //ICON(Weezing, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Weezing,
 [SPECIES_RHYHORN] = 
     {  
       //FRONT_PIC(Rhyhorn),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 12),
       //BACK_PIC(Rhyhorn),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0c),
       //PAL(Rhyhorn),
       //SHINYPAL(Rhyhorn),
       //PALETTES(Rhyhorn),
@@ -1523,9 +1523,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RHYDON] = 
     {  
       //FRONT_PIC(Rhydon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 4),
       //BACK_PIC(Rhydon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Rhydon),
       //SHINYPAL(Rhydon),
       //PALETTES(Rhydon),
@@ -1536,9 +1536,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHANSEY] = 
     {  
       //FRONT_PIC(Chansey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 9),
       //BACK_PIC(Chansey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Chansey),
       //SHINYPAL(Chansey),
       //PALETTES(Chansey),
@@ -1549,9 +1549,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TANGELA] = 
     {  
       //FRONT_PIC(Tangela),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 12),
       //BACK_PIC(Tangela),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Tangela),
       //SHINYPAL(Tangela),
       //PALETTES(Tangela),
@@ -1562,9 +1562,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KANGASKHAN] = 
     {  
       //FRONT_PIC(Kangaskhan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Kangaskhan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Kangaskhan),
       //SHINYPAL(Kangaskhan),
       //PALETTES(Kangaskhan),
@@ -1575,9 +1575,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HORSEA] = 
     {  
       //FRONT_PIC(Horsea),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Horsea),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Horsea),
       //SHINYPAL(Horsea),
       //PALETTES(Horsea),
@@ -1588,9 +1588,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEADRA] = 
     {  
       //FRONT_PIC(Seadra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Seadra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Seadra),
       //SHINYPAL(Seadra),
       //PALETTES(Seadra),
@@ -1601,9 +1601,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLDEEN] = 
     {  
       //FRONT_PIC(Goldeen),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 13),
       //BACK_PIC(Goldeen),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Goldeen),
       //SHINYPAL(Goldeen),
       //PALETTES(Goldeen),
@@ -1614,9 +1614,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEAKING] = 
     {  
       //FRONT_PIC(Seaking),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 5),
       //BACK_PIC(Seaking),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Seaking),
       //SHINYPAL(Seaking),
       //PALETTES(Seaking),
@@ -1627,9 +1627,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STARYU] = 
     {  
       //FRONT_PIC(Staryu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Staryu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0d),
       //PAL(Staryu),
       //SHINYPAL(Staryu),
       //PALETTES(Staryu),
@@ -1640,9 +1640,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STARMIE] = 
     {  
       //FRONT_PIC(Starmie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Starmie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Starmie),
       //SHINYPAL(Starmie),
       //PALETTES(Starmie),
@@ -1653,9 +1653,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MR_MIME] = 
     {  
       //FRONT_PIC(MrMime),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(MrMime),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(MrMime),
       //SHINYPAL(MrMime),
       //PALETTES(MrMime),
@@ -1666,9 +1666,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCYTHER] = 
     {  
       //FRONT_PIC(Scyther),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Scyther),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Scyther),
       //SHINYPAL(Scyther),
       //PALETTES(Scyther),
@@ -1679,9 +1679,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JYNX] = 
     {  
       //FRONT_PIC(Jynx),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 9),
       //BACK_PIC(Jynx),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Jynx),
       //SHINYPAL(Jynx),
       //PALETTES(Jynx),
@@ -1692,9 +1692,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ELECTABUZZ] = 
     {  
       //FRONT_PIC(Electabuzz),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 4),
       //BACK_PIC(Electabuzz),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Electabuzz),
       //SHINYPAL(Electabuzz),
       //PALETTES(Electabuzz),
@@ -1705,9 +1705,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGMAR] = 
     {  
       //FRONT_PIC(Magmar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 4),
       //BACK_PIC(Magmar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Magmar),
       //SHINYPAL(Magmar),
       //PALETTES(Magmar),
@@ -1718,9 +1718,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PINSIR] = 
     {  
       //FRONT_PIC(Pinsir),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 5),
       //BACK_PIC(Pinsir),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Pinsir),
       //SHINYPAL(Pinsir),
       //PALETTES(Pinsir),
@@ -1731,9 +1731,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TAUROS] = 
     {  
       //FRONT_PIC(Tauros),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 5),
       //BACK_PIC(Tauros),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Tauros),
       //SHINYPAL(Tauros),
       //PALETTES(Tauros),
@@ -1744,9 +1744,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGIKARP] = 
     {  
       //FRONT_PIC(Magikarp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Magikarp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Magikarp),
       //SHINYPAL(Magikarp),
       //PALETTES(Magikarp),
@@ -1757,9 +1757,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GYARADOS] = 
     {  
       //FRONT_PIC(Gyarados),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Gyarados),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Gyarados),
       //SHINYPAL(Gyarados),
       //PALETTES(Gyarados),
@@ -1770,9 +1770,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LAPRAS] = 
     {  
       //FRONT_PIC(Lapras),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 2),
       //BACK_PIC(Lapras),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Lapras),
       //SHINYPAL(Lapras),
       //PALETTES(Lapras),
@@ -1783,9 +1783,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DITTO] = 
     {  
       //FRONT_PIC(Ditto),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 15),
       //BACK_PIC(Ditto),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 0x11),
       //PAL(Ditto),
       //SHINYPAL(Ditto),
       //PALETTES(Ditto),
@@ -1796,9 +1796,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EEVEE] = 
     {  
       //FRONT_PIC(Eevee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 11),
       //BACK_PIC(Eevee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Eevee),
       //SHINYPAL(Eevee),
       //PALETTES(Eevee),
@@ -1809,9 +1809,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VAPOREON] = 
     {  
       //FRONT_PIC(Vaporeon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(Vaporeon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Vaporeon),
       //SHINYPAL(Vaporeon),
       //PALETTES(Vaporeon),
@@ -1822,9 +1822,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JOLTEON] = 
     {  
       //FRONT_PIC(Jolteon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 10),
       //BACK_PIC(Jolteon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Jolteon),
       //SHINYPAL(Jolteon),
       //PALETTES(Jolteon),
@@ -1835,9 +1835,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLAREON] = 
     {  
       //FRONT_PIC(Flareon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Flareon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x05),
       //PAL(Flareon),
       //SHINYPAL(Flareon),
       //PALETTES(Flareon),
@@ -1848,9 +1848,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PORYGON] = 
     {  
       //FRONT_PIC(Porygon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 14),
       //BACK_PIC(Porygon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Porygon),
       //SHINYPAL(Porygon),
       //PALETTES(Porygon),
@@ -1861,9 +1861,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OMANYTE] = 
     {  
       //FRONT_PIC(Omanyte),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Omanyte),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Omanyte),
       //SHINYPAL(Omanyte),
       //PALETTES(Omanyte),
@@ -1874,9 +1874,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OMASTAR] = 
     {  
       //FRONT_PIC(Omastar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(Omastar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Omastar),
       //SHINYPAL(Omastar),
       //PALETTES(Omastar),
@@ -1887,9 +1887,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KABUTO] = 
     {  
       //FRONT_PIC(Kabuto),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 16),
       //BACK_PIC(Kabuto),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Kabuto),
       //SHINYPAL(Kabuto),
       //PALETTES(Kabuto),
@@ -1900,9 +1900,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KABUTOPS] = 
     {  
       //FRONT_PIC(Kabutops),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Kabutops),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Kabutops),
       //SHINYPAL(Kabutops),
       //PALETTES(Kabutops),
@@ -1913,22 +1913,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AERODACTYL] = 
     {  
       //FRONT_PIC(Aerodactyl),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 4),
       //BACK_PIC(Aerodactyl),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Aerodactyl),
       //SHINYPAL(Aerodactyl),
       //PALETTES(Aerodactyl),
       PIC_DATA_ICON_INDEX(Aerodactyl,0),
       //ICON(Aerodactyl, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Aerodactyl,
 [SPECIES_SNORLAX] = 
     {  
       //FRONT_PIC(Snorlax),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Snorlax),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0b),
       //PAL(Snorlax),
       //SHINYPAL(Snorlax),
       //PALETTES(Snorlax),
@@ -1939,48 +1939,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARTICUNO] = 
     {  
       //FRONT_PIC(Articuno),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Articuno),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Articuno),
       //SHINYPAL(Articuno),
       //PALETTES(Articuno),
       PIC_DATA_ICON_INDEX(Articuno,0),
       //ICON(Articuno, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Articuno,
 [SPECIES_ZAPDOS] = 
     {  
       //FRONT_PIC(Zapdos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(Zapdos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Zapdos),
       //SHINYPAL(Zapdos),
       //PALETTES(Zapdos),
       PIC_DATA_ICON_INDEX(Zapdos,0),
       //ICON(Zapdos, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Zapdos,
 [SPECIES_MOLTRES] = 
     {  
       //FRONT_PIC(Moltres),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Moltres),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Moltres),
       //SHINYPAL(Moltres),
       //PALETTES(Moltres),
       PIC_DATA_ICON_INDEX(Moltres,0),
       //ICON(Moltres, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 5,
     }, //Moltres,
 [SPECIES_DRATINI] = 
     {  
       //FRONT_PIC(Dratini),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 9),
       //BACK_PIC(Dratini),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Dratini),
       //SHINYPAL(Dratini),
       //PALETTES(Dratini),
@@ -1991,9 +1991,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAGONAIR] = 
     {  
       //FRONT_PIC(Dragonair),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 1),
       //BACK_PIC(Dragonair),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x00),
       //PAL(Dragonair),
       //SHINYPAL(Dragonair),
       //PALETTES(Dragonair),
@@ -2004,22 +2004,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAGONITE] = 
     {  
       //FRONT_PIC(Dragonite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 0),
       //BACK_PIC(Dragonite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Dragonite),
       //SHINYPAL(Dragonite),
       //PALETTES(Dragonite),
       PIC_DATA_ICON_INDEX(Dragonite,0),
       //ICON(Dragonite, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 2,
     }, //Dragonite,
 [SPECIES_MEWTWO] = 
     {  
       //FRONT_PIC(Mewtwo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Mewtwo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x01),
       //PAL(Mewtwo),
       //SHINYPAL(Mewtwo),
       //PALETTES(Mewtwo),
@@ -2030,22 +2030,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEW] = 
     {  
       //FRONT_PIC(Mew),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 9),
       //BACK_PIC(Mew),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Mew),
       //SHINYPAL(Mew),
       //PALETTES(Mew),
       PIC_DATA_ICON_INDEX(Mew,0),
       //ICON(Mew, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Mew,
 [SPECIES_CHIKORITA] = 
     {  
       //FRONT_PIC(Chikorita),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 10),
       //BACK_PIC(Chikorita),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x0a),
       //PAL(Chikorita),
       //SHINYPAL(Chikorita),
       //PALETTES(Chikorita),
@@ -2056,9 +2056,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BAYLEEF] = 
     {  
       //FRONT_PIC(Bayleef),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 3),
       //BACK_PIC(Bayleef),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Bayleef),
       //SHINYPAL(Bayleef),
       //PALETTES(Bayleef),
@@ -2069,9 +2069,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEGANIUM] = 
     {  
       //FRONT_PIC(Meganium),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Meganium),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x00),
       //PAL(Meganium),
       //SHINYPAL(Meganium),
       //PALETTES(Meganium),
@@ -2082,9 +2082,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CYNDAQUIL] = 
     {  
       //FRONT_PIC(Cyndaquil),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 14),
       //BACK_PIC(Cyndaquil),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Cyndaquil),
       //SHINYPAL(Cyndaquil),
       //PALETTES(Cyndaquil),
@@ -2095,9 +2095,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_QUILAVA] = 
     {  
       //FRONT_PIC(Quilava),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 6),
       //BACK_PIC(Quilava),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Quilava),
       //SHINYPAL(Quilava),
       //PALETTES(Quilava),
@@ -2108,9 +2108,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYPHLOSION] = 
     {  
       //FRONT_PIC(Typhlosion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Typhlosion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Typhlosion),
       //SHINYPAL(Typhlosion),
       //PALETTES(Typhlosion),
@@ -2121,9 +2121,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOTODILE] = 
     {  
       //FRONT_PIC(Totodile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 14),
       //BACK_PIC(Totodile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Totodile),
       //SHINYPAL(Totodile),
       //PALETTES(Totodile),
@@ -2134,9 +2134,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CROCONAW] = 
     {  
       //FRONT_PIC(Croconaw),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Croconaw),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x07),
       //PAL(Croconaw),
       //SHINYPAL(Croconaw),
       //PALETTES(Croconaw),
@@ -2147,9 +2147,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FERALIGATOR] = 
     {  
       //FRONT_PIC(Feraligator),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Feraligator),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Feraligator),
       //SHINYPAL(Feraligator),
       //PALETTES(Feraligator),
@@ -2160,9 +2160,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SENTRET] = 
     {  
       //FRONT_PIC(Sentret),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x47, 2),
       //BACK_PIC(Sentret),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x05),
       //PAL(Sentret),
       //SHINYPAL(Sentret),
       //PALETTES(Sentret),
@@ -2173,9 +2173,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURRET] = 
     {  
       //FRONT_PIC(Furret),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Furret),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Furret),
       //SHINYPAL(Furret),
       //PALETTES(Furret),
@@ -2186,9 +2186,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOOTHOOT] = 
     {  
       //FRONT_PIC(Hoothoot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Hoothoot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Hoothoot),
       //SHINYPAL(Hoothoot),
       //PALETTES(Hoothoot),
@@ -2199,9 +2199,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NOCTOWL] = 
     {  
       //FRONT_PIC(Noctowl),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x58, 2),
       //BACK_PIC(Noctowl),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0x03),
       //PAL(Noctowl),
       //SHINYPAL(Noctowl),
       //PALETTES(Noctowl),
@@ -2212,35 +2212,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LEDYBA] = 
     {  
       //FRONT_PIC(Ledyba),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 10),
       //BACK_PIC(Ledyba),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Ledyba),
       //SHINYPAL(Ledyba),
       //PALETTES(Ledyba),
       PIC_DATA_ICON_INDEX(Ledyba,0),
       //ICON(Ledyba, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Ledyba,
 [SPECIES_LEDIAN] = 
     {  
       //FRONT_PIC(Ledian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Ledian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Ledian),
       //SHINYPAL(Ledian),
       //PALETTES(Ledian),
       PIC_DATA_ICON_INDEX(Ledian,0),
       //ICON(Ledian, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Ledian,
 [SPECIES_SPINARAK] = 
     {  
       //FRONT_PIC(Spinarak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 16),
       //BACK_PIC(Spinarak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x73, 0x15),
       //PAL(Spinarak),
       //SHINYPAL(Spinarak),
       //PALETTES(Spinarak),
@@ -2251,9 +2251,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARIADOS] = 
     {  
       //FRONT_PIC(Ariados),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 6),
       //BACK_PIC(Ariados),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0b),
       //PAL(Ariados),
       //SHINYPAL(Ariados),
       //PALETTES(Ariados),
@@ -2264,22 +2264,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CROBAT] = 
     {  
       //FRONT_PIC(Crobat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 6),
       //BACK_PIC(Crobat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Crobat),
       //SHINYPAL(Crobat),
       //PALETTES(Crobat),
       PIC_DATA_ICON_INDEX(Crobat,0),
       //ICON(Crobat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Crobat,
 [SPECIES_CHINCHOU] = 
     {  
       //FRONT_PIC(Chinchou),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 12),
       //BACK_PIC(Chinchou),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Chinchou),
       //SHINYPAL(Chinchou),
       //PALETTES(Chinchou),
@@ -2290,9 +2290,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LANTURN] = 
     {  
       //FRONT_PIC(Lanturn),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 11),
       //BACK_PIC(Lanturn),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Lanturn),
       //SHINYPAL(Lanturn),
       //PALETTES(Lanturn),
@@ -2303,9 +2303,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PICHU] = 
     {  
       //FRONT_PIC(Pichu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Pichu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Pichu),
       //SHINYPAL(Pichu),
       //PALETTES(Pichu),
@@ -2316,9 +2316,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLEFFA] = 
     {  
       //FRONT_PIC(Cleffa),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 18),
       //BACK_PIC(Cleffa),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0f),
       //PAL(Cleffa),
       //SHINYPAL(Cleffa),
       //PALETTES(Cleffa),
@@ -2329,9 +2329,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_IGGLYBUFF] = 
     {  
       //FRONT_PIC(Igglybuff),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 17),
       //BACK_PIC(Igglybuff),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Igglybuff),
       //SHINYPAL(Igglybuff),
       //PALETTES(Igglybuff),
@@ -2342,9 +2342,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOGEPI] = 
     {  
       //FRONT_PIC(Togepi),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 16),
       //BACK_PIC(Togepi),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 0x10),
       //PAL(Togepi),
       //SHINYPAL(Togepi),
       //PALETTES(Togepi),
@@ -2355,9 +2355,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOGETIC] = 
     {  
       //FRONT_PIC(Togetic),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 8),
       //BACK_PIC(Togetic),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Togetic),
       //SHINYPAL(Togetic),
       //PALETTES(Togetic),
@@ -2368,9 +2368,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NATU] = 
     {  
       //FRONT_PIC(Natu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 17),
       //BACK_PIC(Natu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 0x11),
       //PAL(Natu),
       //SHINYPAL(Natu),
       //PALETTES(Natu),
@@ -2381,9 +2381,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_XATU] = 
     {  
       //FRONT_PIC(Xatu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x47, 5),
       //BACK_PIC(Xatu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x08),
       //PAL(Xatu),
       //SHINYPAL(Xatu),
       //PALETTES(Xatu),
@@ -2394,9 +2394,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAREEP] = 
     {  
       //FRONT_PIC(Mareep),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Mareep),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Mareep),
       //SHINYPAL(Mareep),
       //PALETTES(Mareep),
@@ -2407,9 +2407,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLAAFFY] = 
     {  
       //FRONT_PIC(Flaaffy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Flaaffy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Flaaffy),
       //SHINYPAL(Flaaffy),
       //PALETTES(Flaaffy),
@@ -2420,9 +2420,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AMPHAROS] = 
     {  
       //FRONT_PIC(Ampharos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 2),
       //BACK_PIC(Ampharos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Ampharos),
       //SHINYPAL(Ampharos),
       //PALETTES(Ampharos),
@@ -2433,9 +2433,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BELLOSSOM] = 
     {  
       //FRONT_PIC(Bellossom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Bellossom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Bellossom),
       //SHINYPAL(Bellossom),
       //PALETTES(Bellossom),
@@ -2446,9 +2446,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MARILL] = 
     {  
       //FRONT_PIC(Marill),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 14),
       //BACK_PIC(Marill),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0c),
       //PAL(Marill),
       //SHINYPAL(Marill),
       //PALETTES(Marill),
@@ -2459,9 +2459,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AZUMARILL] = 
     {  
       //FRONT_PIC(Azumarill),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 6),
       //BACK_PIC(Azumarill),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Azumarill),
       //SHINYPAL(Azumarill),
       //PALETTES(Azumarill),
@@ -2472,9 +2472,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SUDOWOODO] = 
     {  
       //FRONT_PIC(Sudowoodo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 7),
       //BACK_PIC(Sudowoodo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Sudowoodo),
       //SHINYPAL(Sudowoodo),
       //PALETTES(Sudowoodo),
@@ -2485,9 +2485,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POLITOED] = 
     {  
       //FRONT_PIC(Politoed),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Politoed),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Politoed),
       //SHINYPAL(Politoed),
       //PALETTES(Politoed),
@@ -2498,48 +2498,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOPPIP] = 
     {  
       //FRONT_PIC(Hoppip),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 14),
       //BACK_PIC(Hoppip),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Hoppip),
       //SHINYPAL(Hoppip),
       //PALETTES(Hoppip),
       PIC_DATA_ICON_INDEX(Hoppip,0),
       //ICON(Hoppip, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 11,
     }, //Hoppip,
 [SPECIES_SKIPLOOM] = 
     {  
       //FRONT_PIC(Skiploom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(Skiploom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0d),
       //PAL(Skiploom),
       //SHINYPAL(Skiploom),
       //PALETTES(Skiploom),
       PIC_DATA_ICON_INDEX(Skiploom,0),
       //ICON(Skiploom, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Skiploom,
 [SPECIES_JUMPLUFF] = 
     {  
       //FRONT_PIC(Jumpluff),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 9),
       //BACK_PIC(Jumpluff),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Jumpluff),
       //SHINYPAL(Jumpluff),
       //PALETTES(Jumpluff),
       PIC_DATA_ICON_INDEX(Jumpluff,0),
       //ICON(Jumpluff, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 9,
     }, //Jumpluff,
 [SPECIES_AIPOM] = 
     {  
       //FRONT_PIC(Aipom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x58, 1),
       //BACK_PIC(Aipom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Aipom),
       //SHINYPAL(Aipom),
       //PALETTES(Aipom),
@@ -2550,9 +2550,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SUNKERN] = 
     {  
       //FRONT_PIC(Sunkern),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 17),
       //BACK_PIC(Sunkern),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x0a),
       //PAL(Sunkern),
       //SHINYPAL(Sunkern),
       //PALETTES(Sunkern),
@@ -2563,9 +2563,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SUNFLORA] = 
     {  
       //FRONT_PIC(Sunflora),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 8),
       //BACK_PIC(Sunflora),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Sunflora),
       //SHINYPAL(Sunflora),
       //PALETTES(Sunflora),
@@ -2576,22 +2576,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_YANMA] = 
     {  
       //FRONT_PIC(Yanma),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 14),
       //BACK_PIC(Yanma),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Yanma),
       //SHINYPAL(Yanma),
       //PALETTES(Yanma),
       PIC_DATA_ICON_INDEX(Yanma,0),
       //ICON(Yanma, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Yanma,
 [SPECIES_WOOPER] = 
     {  
       //FRONT_PIC(Wooper),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 16),
       //BACK_PIC(Wooper),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0f),
       //PAL(Wooper),
       //SHINYPAL(Wooper),
       //PALETTES(Wooper),
@@ -2602,9 +2602,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_QUAGSIRE] = 
     {  
       //FRONT_PIC(Quagsire),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 5),
       //BACK_PIC(Quagsire),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x08),
       //PAL(Quagsire),
       //SHINYPAL(Quagsire),
       //PALETTES(Quagsire),
@@ -2615,9 +2615,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ESPEON] = 
     {  
       //FRONT_PIC(Espeon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Espeon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Espeon),
       //SHINYPAL(Espeon),
       //PALETTES(Espeon),
@@ -2628,9 +2628,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UMBREON] = 
     {  
       //FRONT_PIC(Umbreon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(Umbreon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Umbreon),
       //SHINYPAL(Umbreon),
       //PALETTES(Umbreon),
@@ -2641,9 +2641,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MURKROW] = 
     {  
       //FRONT_PIC(Murkrow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 15),
       //BACK_PIC(Murkrow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x09),
       //PAL(Murkrow),
       //SHINYPAL(Murkrow),
       //PALETTES(Murkrow),
@@ -2654,9 +2654,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLOWKING] = 
     {  
       //FRONT_PIC(Slowking),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x58, 1),
       //BACK_PIC(Slowking),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Slowking),
       //SHINYPAL(Slowking),
       //PALETTES(Slowking),
@@ -2667,35 +2667,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MISDREAVUS] = 
     {  
       //FRONT_PIC(Misdreavus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 13),
       //BACK_PIC(Misdreavus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Misdreavus),
       //SHINYPAL(Misdreavus),
       //PALETTES(Misdreavus),
       PIC_DATA_ICON_INDEX(Misdreavus,0),
       //ICON(Misdreavus, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Misdreavus,
 [SPECIES_UNOWN] = 
     {  
       //FRONT_PIC(Unown),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x35, 15),
       //BACK_PIC(Unown),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x36, 0x08),
       //PAL(Unown),
       //SHINYPAL(Unown),
       //PALETTES(Unown),
       PIC_DATA_ICON_INDEX(Unown,0),
       //ICON(Unown, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 14,
     }, //Unown,
 [SPECIES_WOBBUFFET] = 
     {  
       //FRONT_PIC(Wobbuffet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 5),
       //BACK_PIC(Wobbuffet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0c),
       //PAL(Wobbuffet),
       //SHINYPAL(Wobbuffet),
       //PALETTES(Wobbuffet),
@@ -2706,9 +2706,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIRAFARIG] = 
     {  
       //FRONT_PIC(Girafarig),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Girafarig),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Girafarig),
       //SHINYPAL(Girafarig),
       //PALETTES(Girafarig),
@@ -2719,9 +2719,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PINECO] = 
     {  
       //FRONT_PIC(Pineco),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 12),
       //BACK_PIC(Pineco),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0f),
       //PAL(Pineco),
       //SHINYPAL(Pineco),
       //PALETTES(Pineco),
@@ -2732,9 +2732,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FORRETRESS] = 
     {  
       //FRONT_PIC(Forretress),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Forretress),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x10),
       //PAL(Forretress),
       //SHINYPAL(Forretress),
       //PALETTES(Forretress),
@@ -2745,9 +2745,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUNSPARCE] = 
     {  
       //FRONT_PIC(Dunsparce),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 9),
       //BACK_PIC(Dunsparce),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0f),
       //PAL(Dunsparce),
       //SHINYPAL(Dunsparce),
       //PALETTES(Dunsparce),
@@ -2758,22 +2758,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLIGAR] = 
     {  
       //FRONT_PIC(Gligar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 4),
       //BACK_PIC(Gligar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Gligar),
       //SHINYPAL(Gligar),
       //PALETTES(Gligar),
       PIC_DATA_ICON_INDEX(Gligar,0),
       //ICON(Gligar, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Gligar,
 [SPECIES_STEELIX] = 
     {  
       //FRONT_PIC(Steelix),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Steelix),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Steelix),
       //SHINYPAL(Steelix),
       //PALETTES(Steelix),
@@ -2784,9 +2784,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNUBBULL] = 
     {  
       //FRONT_PIC(Snubbull),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Snubbull),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Snubbull),
       //SHINYPAL(Snubbull),
       //PALETTES(Snubbull),
@@ -2797,9 +2797,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRANBULL] = 
     {  
       //FRONT_PIC(Granbull),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 4),
       //BACK_PIC(Granbull),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Granbull),
       //SHINYPAL(Granbull),
       //PALETTES(Granbull),
@@ -2810,9 +2810,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_QWILFISH] = 
     {  
       //FRONT_PIC(Qwilfish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 8),
       //BACK_PIC(Qwilfish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Qwilfish),
       //SHINYPAL(Qwilfish),
       //PALETTES(Qwilfish),
@@ -2823,22 +2823,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCIZOR] = 
     {  
       //FRONT_PIC(Scizor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Scizor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Scizor),
       //SHINYPAL(Scizor),
       //PALETTES(Scizor),
       PIC_DATA_ICON_INDEX(Scizor,0),
       //ICON(Scizor, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Scizor,
 [SPECIES_SHUCKLE] = 
     {  
       //FRONT_PIC(Shuckle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Shuckle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x0b),
       //PAL(Shuckle),
       //SHINYPAL(Shuckle),
       //PALETTES(Shuckle),
@@ -2849,9 +2849,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HERACROSS] = 
     {  
       //FRONT_PIC(Heracross),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Heracross),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Heracross),
       //SHINYPAL(Heracross),
       //PALETTES(Heracross),
@@ -2862,9 +2862,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNEASEL] = 
     {  
       //FRONT_PIC(Sneasel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 7),
       //BACK_PIC(Sneasel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Sneasel),
       //SHINYPAL(Sneasel),
       //PALETTES(Sneasel),
@@ -2875,9 +2875,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TEDDIURSA] = 
     {  
       //FRONT_PIC(Teddiursa),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Teddiursa),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Teddiursa),
       //SHINYPAL(Teddiursa),
       //PALETTES(Teddiursa),
@@ -2888,9 +2888,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_URSARING] = 
     {  
       //FRONT_PIC(Ursaring),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Ursaring),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Ursaring),
       //SHINYPAL(Ursaring),
       //PALETTES(Ursaring),
@@ -2901,9 +2901,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLUGMA] = 
     {  
       //FRONT_PIC(Slugma),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Slugma),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Slugma),
       //SHINYPAL(Slugma),
       //PALETTES(Slugma),
@@ -2914,9 +2914,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGCARGO] = 
     {  
       //FRONT_PIC(Magcargo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 6),
       //BACK_PIC(Magcargo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Magcargo),
       //SHINYPAL(Magcargo),
       //PALETTES(Magcargo),
@@ -2927,9 +2927,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWINUB] = 
     {  
       //FRONT_PIC(Swinub),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x43, 18),
       //BACK_PIC(Swinub),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x63, 0x15),
       //PAL(Swinub),
       //SHINYPAL(Swinub),
       //PALETTES(Swinub),
@@ -2940,9 +2940,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PILOSWINE] = 
     {  
       //FRONT_PIC(Piloswine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Piloswine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0d),
       //PAL(Piloswine),
       //SHINYPAL(Piloswine),
       //PALETTES(Piloswine),
@@ -2953,9 +2953,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CORSOLA] = 
     {  
       //FRONT_PIC(Corsola),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 12),
       //BACK_PIC(Corsola),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Corsola),
       //SHINYPAL(Corsola),
       //PALETTES(Corsola),
@@ -2966,9 +2966,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REMORAID] = 
     {  
       //FRONT_PIC(Remoraid),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 11),
       //BACK_PIC(Remoraid),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0d),
       //PAL(Remoraid),
       //SHINYPAL(Remoraid),
       //PALETTES(Remoraid),
@@ -2979,9 +2979,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OCTILLERY] = 
     {  
       //FRONT_PIC(Octillery),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Octillery),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Octillery),
       //SHINYPAL(Octillery),
       //PALETTES(Octillery),
@@ -2992,9 +2992,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DELIBIRD] = 
     {  
       //FRONT_PIC(Delibird),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 7),
       //BACK_PIC(Delibird),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x06),
       //PAL(Delibird),
       //SHINYPAL(Delibird),
       //PALETTES(Delibird),
@@ -3005,9 +3005,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANTINE] = 
     {  
       //FRONT_PIC(Mantine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 5),
       //BACK_PIC(Mantine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Mantine),
       //SHINYPAL(Mantine),
       //PALETTES(Mantine),
@@ -3018,9 +3018,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKARMORY] = 
     {  
       //FRONT_PIC(Skarmory),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Skarmory),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Skarmory),
       //SHINYPAL(Skarmory),
       //PALETTES(Skarmory),
@@ -3031,9 +3031,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOUNDOUR] = 
     {  
       //FRONT_PIC(Houndour),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Houndour),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 0x0c),
       //PAL(Houndour),
       //SHINYPAL(Houndour),
       //PALETTES(Houndour),
@@ -3044,9 +3044,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOUNDOOM] = 
     {  
       //FRONT_PIC(Houndoom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 0),
       //BACK_PIC(Houndoom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Houndoom),
       //SHINYPAL(Houndoom),
       //PALETTES(Houndoom),
@@ -3057,9 +3057,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KINGDRA] = 
     {  
       //FRONT_PIC(Kingdra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 1),
       //BACK_PIC(Kingdra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Kingdra),
       //SHINYPAL(Kingdra),
       //PALETTES(Kingdra),
@@ -3070,9 +3070,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PHANPY] = 
     {  
       //FRONT_PIC(Phanpy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 16),
       //BACK_PIC(Phanpy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0e),
       //PAL(Phanpy),
       //SHINYPAL(Phanpy),
       //PALETTES(Phanpy),
@@ -3083,9 +3083,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DONPHAN] = 
     {  
       //FRONT_PIC(Donphan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 9),
       //BACK_PIC(Donphan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Donphan),
       //SHINYPAL(Donphan),
       //PALETTES(Donphan),
@@ -3096,22 +3096,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PORYGON2] = 
     {  
       //FRONT_PIC(Porygon2),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(Porygon2),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Porygon2),
       //SHINYPAL(Porygon2),
       //PALETTES(Porygon2),
       PIC_DATA_ICON_INDEX(Porygon2,0),
       //ICON(Porygon2, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Porygon2,
 [SPECIES_STANTLER] = 
     {  
       //FRONT_PIC(Stantler),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Stantler),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x03),
       //PAL(Stantler),
       //SHINYPAL(Stantler),
       //PALETTES(Stantler),
@@ -3122,9 +3122,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SMEARGLE] = 
     {  
       //FRONT_PIC(Smeargle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Smeargle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Smeargle),
       //SHINYPAL(Smeargle),
       //PALETTES(Smeargle),
@@ -3135,9 +3135,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYROGUE] = 
     {  
       //FRONT_PIC(Tyrogue),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 9),
       //BACK_PIC(Tyrogue),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Tyrogue),
       //SHINYPAL(Tyrogue),
       //PALETTES(Tyrogue),
@@ -3148,9 +3148,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HITMONTOP] = 
     {  
       //FRONT_PIC(Hitmontop),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Hitmontop),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Hitmontop),
       //SHINYPAL(Hitmontop),
       //PALETTES(Hitmontop),
@@ -3161,9 +3161,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SMOOCHUM] = 
     {  
       //FRONT_PIC(Smoochum),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x35, 13),
       //BACK_PIC(Smoochum),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x09),
       //PAL(Smoochum),
       //SHINYPAL(Smoochum),
       //PALETTES(Smoochum),
@@ -3174,9 +3174,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ELEKID] = 
     {  
       //FRONT_PIC(Elekid),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 12),
       //BACK_PIC(Elekid),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Elekid),
       //SHINYPAL(Elekid),
       //PALETTES(Elekid),
@@ -3187,9 +3187,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGBY] = 
     {  
       //FRONT_PIC(Magby),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Magby),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Magby),
       //SHINYPAL(Magby),
       //PALETTES(Magby),
@@ -3200,9 +3200,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MILTANK] = 
     {  
       //FRONT_PIC(Miltank),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 8),
       //BACK_PIC(Miltank),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Miltank),
       //SHINYPAL(Miltank),
       //PALETTES(Miltank),
@@ -3213,9 +3213,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLISSEY] = 
     {  
       //FRONT_PIC(Blissey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 5),
       //BACK_PIC(Blissey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Blissey),
       //SHINYPAL(Blissey),
       //PALETTES(Blissey),
@@ -3226,9 +3226,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAIKOU] = 
     {  
       //FRONT_PIC(Raikou),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 5),
       //BACK_PIC(Raikou),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Raikou),
       //SHINYPAL(Raikou),
       //PALETTES(Raikou),
@@ -3239,9 +3239,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ENTEI] = 
     {  
       //FRONT_PIC(Entei),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Entei),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Entei),
       //SHINYPAL(Entei),
       //PALETTES(Entei),
@@ -3252,9 +3252,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SUICUNE] = 
     {  
       //FRONT_PIC(Suicune),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Suicune),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Suicune),
       //SHINYPAL(Suicune),
       //PALETTES(Suicune),
@@ -3265,9 +3265,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LARVITAR] = 
     {  
       //FRONT_PIC(Larvitar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 10),
       //BACK_PIC(Larvitar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Larvitar),
       //SHINYPAL(Larvitar),
       //PALETTES(Larvitar),
@@ -3278,9 +3278,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PUPITAR] = 
     {  
       //FRONT_PIC(Pupitar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 11),
       //BACK_PIC(Pupitar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x05),
       //PAL(Pupitar),
       //SHINYPAL(Pupitar),
       //PALETTES(Pupitar),
@@ -3291,9 +3291,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYRANITAR] = 
     {  
       //FRONT_PIC(Tyranitar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Tyranitar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Tyranitar),
       //SHINYPAL(Tyranitar),
       //PALETTES(Tyranitar),
@@ -3304,49 +3304,49 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUGIA] = 
     {  
       //FRONT_PIC(Lugia),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Lugia),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Lugia),
       //SHINYPAL(Lugia),
       //PALETTES(Lugia),
       PIC_DATA_ICON_INDEX(Lugia,0),
       //ICON(Lugia, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Lugia,
 [SPECIES_HO_OH] = 
     {  
       //FRONT_PIC(HoOh),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(HoOh),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(HoOh),
       //SHINYPAL(HoOh),
       //PALETTES(HoOh),
       PIC_DATA_ICON_INDEX(HoOh,0),
       //ICON(HoOh, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //HoOh,
 [SPECIES_CELEBI] = 
     {  
       //FRONT_PIC(Celebi),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Celebi),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Celebi),
       //SHINYPAL(Celebi),
       //PALETTES(Celebi),
       PIC_DATA_ICON_INDEX(Celebi,0),
       //ICON(Celebi, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 15,
     }, //Celebi,
     
 [SPECIES_TREECKO] = 
     {  
       //FRONT_PIC(Treecko),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Treecko),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Treecko),
       //SHINYPAL(Treecko),
       //PALETTES(Treecko),
@@ -3357,9 +3357,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROVYLE] = 
     {  
       //FRONT_PIC(Grovyle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Grovyle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Grovyle),
       //SHINYPAL(Grovyle),
       //PALETTES(Grovyle),
@@ -3370,9 +3370,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCEPTILE] = 
     {  
       //FRONT_PIC(Sceptile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Sceptile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Sceptile),
       //SHINYPAL(Sceptile),
       //PALETTES(Sceptile),
@@ -3383,9 +3383,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TORCHIC] = 
     {  
       //FRONT_PIC(Torchic),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 12),
       //BACK_PIC(Torchic),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x05),
       //PAL(Torchic),
       //SHINYPAL(Torchic),
       //PALETTES(Torchic),
@@ -3396,9 +3396,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COMBUSKEN] = 
     {  
       //FRONT_PIC(Combusken),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Combusken),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Combusken),
       //SHINYPAL(Combusken),
       //PALETTES(Combusken),
@@ -3409,9 +3409,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLAZIKEN] = 
     {  
       //FRONT_PIC(Blaziken),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Blaziken),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Blaziken),
       //SHINYPAL(Blaziken),
       //PALETTES(Blaziken),
@@ -3422,9 +3422,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUDKIP] = 
     {  
       //FRONT_PIC(Mudkip),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 13),
       //BACK_PIC(Mudkip),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Mudkip),
       //SHINYPAL(Mudkip),
       //PALETTES(Mudkip),
@@ -3435,9 +3435,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MARSHTOMP] = 
     {  
       //FRONT_PIC(Marshtomp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Marshtomp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Marshtomp),
       //SHINYPAL(Marshtomp),
       //PALETTES(Marshtomp),
@@ -3448,9 +3448,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWAMPERT] = 
     {  
       //FRONT_PIC(Swampert),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 6),
       //BACK_PIC(Swampert),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Swampert),
       //SHINYPAL(Swampert),
       //PALETTES(Swampert),
@@ -3461,9 +3461,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POOCHYENA] = 
     {  
       //FRONT_PIC(Poochyena),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 11),
       //BACK_PIC(Poochyena),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x09),
       //PAL(Poochyena),
       //SHINYPAL(Poochyena),
       //PALETTES(Poochyena),
@@ -3474,9 +3474,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIGHTYENA] = 
     {  
       //FRONT_PIC(Mightyena),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 3),
       //BACK_PIC(Mightyena),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Mightyena),
       //SHINYPAL(Mightyena),
       //PALETTES(Mightyena),
@@ -3487,9 +3487,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZIGZAGOON] = 
     {  
       //FRONT_PIC(Zigzagoon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 12),
       //BACK_PIC(Zigzagoon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Zigzagoon),
       //SHINYPAL(Zigzagoon),
       //PALETTES(Zigzagoon),
@@ -3500,9 +3500,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LINOONE] = 
     {  
       //FRONT_PIC(Linoone),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 13),
       //BACK_PIC(Linoone),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0f),
       //PAL(Linoone),
       //SHINYPAL(Linoone),
       //PALETTES(Linoone),
@@ -3513,9 +3513,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WURMPLE] = 
     {  
       //FRONT_PIC(Wurmple),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Wurmple),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Wurmple),
       //SHINYPAL(Wurmple),
       //PALETTES(Wurmple),
@@ -3526,9 +3526,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILCOON] = 
     {  
       //FRONT_PIC(Silcoon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 10),
       //BACK_PIC(Silcoon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x15),
       //PAL(Silcoon),
       //SHINYPAL(Silcoon),
       //PALETTES(Silcoon),
@@ -3539,22 +3539,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BEAUTIFLY] = 
     {  
       //FRONT_PIC(Beautifly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 9),
       //BACK_PIC(Beautifly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Beautifly),
       //SHINYPAL(Beautifly),
       //PALETTES(Beautifly),
       PIC_DATA_ICON_INDEX(Beautifly,0),
       //ICON(Beautifly, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Beautifly,
 [SPECIES_CASCOON] = 
     {  
       //FRONT_PIC(Cascoon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 10),
       //BACK_PIC(Cascoon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x73, 0x14),
       //PAL(Cascoon),
       //SHINYPAL(Cascoon),
       //PALETTES(Cascoon),
@@ -3565,22 +3565,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUSTOX] = 
     {  
       //FRONT_PIC(Dustox),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 12),
       //BACK_PIC(Dustox),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x14),
       //PAL(Dustox),
       //SHINYPAL(Dustox),
       //PALETTES(Dustox),
       PIC_DATA_ICON_INDEX(Dustox,0),
       //ICON(Dustox, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Dustox,
 [SPECIES_LOTAD] = 
     {  
       //FRONT_PIC(Lotad),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 13),
       //BACK_PIC(Lotad),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0f),
       //PAL(Lotad),
       //SHINYPAL(Lotad),
       //PALETTES(Lotad),
@@ -3591,9 +3591,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LOMBRE] = 
     {  
       //FRONT_PIC(Lombre),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Lombre),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Lombre),
       //SHINYPAL(Lombre),
       //PALETTES(Lombre),
@@ -3604,9 +3604,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUDICOLO] = 
     {  
       //FRONT_PIC(Ludicolo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Ludicolo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Ludicolo),
       //SHINYPAL(Ludicolo),
       //PALETTES(Ludicolo),
@@ -3617,9 +3617,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEEDOT] = 
     {  
       //FRONT_PIC(Seedot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 12),
       //BACK_PIC(Seedot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Seedot),
       //SHINYPAL(Seedot),
       //PALETTES(Seedot),
@@ -3630,9 +3630,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NUZLEAF] = 
     {  
       //FRONT_PIC(Nuzleaf),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 7),
       //BACK_PIC(Nuzleaf),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Nuzleaf),
       //SHINYPAL(Nuzleaf),
       //PALETTES(Nuzleaf),
@@ -3643,9 +3643,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHIFTRY] = 
     {  
       //FRONT_PIC(Shiftry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 7),
       //BACK_PIC(Shiftry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Shiftry),
       //SHINYPAL(Shiftry),
       //PALETTES(Shiftry),
@@ -3656,9 +3656,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NINCADA] = 
     {  
       //FRONT_PIC(Nincada),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 16),
       //BACK_PIC(Nincada),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x14),
       //PAL(Nincada),
       //SHINYPAL(Nincada),
       //PALETTES(Nincada),
@@ -3669,35 +3669,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NINJASK] = 
     {  
       //FRONT_PIC(Ninjask),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 11),
       //BACK_PIC(Ninjask),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Ninjask),
       //SHINYPAL(Ninjask),
       //PALETTES(Ninjask),
       PIC_DATA_ICON_INDEX(Ninjask,0),
       //ICON(Ninjask, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Ninjask,
 [SPECIES_SHEDINJA] = 
     {  
       //FRONT_PIC(Shedinja),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 10),
       //BACK_PIC(Shedinja),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x06),
       //PAL(Shedinja),
       //SHINYPAL(Shedinja),
       //PALETTES(Shedinja),
       PIC_DATA_ICON_INDEX(Shedinja,0),
       //ICON(Shedinja, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Shedinja,
 [SPECIES_TAILLOW] = 
     {  
       //FRONT_PIC(Taillow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x64, 11),
       //BACK_PIC(Taillow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 0x11),
       //PAL(Taillow),
       //SHINYPAL(Taillow),
       //PALETTES(Taillow),
@@ -3708,9 +3708,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWELLOW] = 
     {  
       //FRONT_PIC(Swellow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Swellow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Swellow),
       //SHINYPAL(Swellow),
       //PALETTES(Swellow),
@@ -3721,9 +3721,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHROOMISH] = 
     {  
       //FRONT_PIC(Shroomish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 14),
       //BACK_PIC(Shroomish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Shroomish),
       //SHINYPAL(Shroomish),
       //PALETTES(Shroomish),
@@ -3734,9 +3734,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRELOOM] = 
     {  
       //FRONT_PIC(Breloom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 3),
       //BACK_PIC(Breloom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Breloom),
       //SHINYPAL(Breloom),
       //PALETTES(Breloom),
@@ -3747,9 +3747,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPINDA] = 
     {  
       //FRONT_PIC(Spinda),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 8),
       //BACK_PIC(Spinda),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Spinda),
       //SHINYPAL(Spinda),
       //PALETTES(Spinda),
@@ -3760,35 +3760,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WINGULL] = 
     {  
       //FRONT_PIC(Wingull),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x84, 11),
       //BACK_PIC(Wingull),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Wingull),
       //SHINYPAL(Wingull),
       //PALETTES(Wingull),
       PIC_DATA_ICON_INDEX(Wingull,0),
       //ICON(Wingull, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 16,
     }, //Wingull,
 [SPECIES_PELIPPER] = 
     {  
       //FRONT_PIC(Pelipper),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 2),
       //BACK_PIC(Pelipper),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Pelipper),
       //SHINYPAL(Pelipper),
       //PALETTES(Pelipper),
       PIC_DATA_ICON_INDEX(Pelipper,0),
       //ICON(Pelipper, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Pelipper,
 [SPECIES_SURSKIT] = 
     {  
       //FRONT_PIC(Surskit),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 8),
       //BACK_PIC(Surskit),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0b),
       //PAL(Surskit),
       //SHINYPAL(Surskit),
       //PALETTES(Surskit),
@@ -3799,22 +3799,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MASQUERAIN] = 
     {  
       //FRONT_PIC(Masquerain),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 4),
       //BACK_PIC(Masquerain),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x00),
       //PAL(Masquerain),
       //SHINYPAL(Masquerain),
       //PALETTES(Masquerain),
       PIC_DATA_ICON_INDEX(Masquerain,0),
       //ICON(Masquerain, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Masquerain,
 [SPECIES_WAILMER] = 
     {  
       //FRONT_PIC(Wailmer),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 10),
       //BACK_PIC(Wailmer),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x15),
       //PAL(Wailmer),
       //SHINYPAL(Wailmer),
       //PALETTES(Wailmer),
@@ -3825,9 +3825,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WAILORD] = 
     {  
       //FRONT_PIC(Wailord),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(Wailord),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x16),
       //PAL(Wailord),
       //SHINYPAL(Wailord),
       //PALETTES(Wailord),
@@ -3838,9 +3838,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKITTY] = 
     {  
       //FRONT_PIC(Skitty),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 12),
       //BACK_PIC(Skitty),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Skitty),
       //SHINYPAL(Skitty),
       //PALETTES(Skitty),
@@ -3851,9 +3851,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DELCATTY] = 
     {  
       //FRONT_PIC(Delcatty),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 4),
       //BACK_PIC(Delcatty),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Delcatty),
       //SHINYPAL(Delcatty),
       //PALETTES(Delcatty),
@@ -3864,9 +3864,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KECLEON] = 
     {  
       //FRONT_PIC(Kecleon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Kecleon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Kecleon),
       //SHINYPAL(Kecleon),
       //PALETTES(Kecleon),
@@ -3877,35 +3877,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BALTOY] = 
     {  
       //FRONT_PIC(Baltoy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 8),
       //BACK_PIC(Baltoy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Baltoy),
       //SHINYPAL(Baltoy),
       //PALETTES(Baltoy),
       PIC_DATA_ICON_INDEX(Baltoy,0),
       //ICON(Baltoy, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Baltoy,
 [SPECIES_CLAYDOL] = 
     {  
       //FRONT_PIC(Claydol),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 3),
       //BACK_PIC(Claydol),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Claydol),
       //SHINYPAL(Claydol),
       //PALETTES(Claydol),
       PIC_DATA_ICON_INDEX(Claydol,0),
       //ICON(Claydol, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Claydol,
 [SPECIES_NOSEPASS] = 
     {  
       //FRONT_PIC(Nosepass),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 10),
       //BACK_PIC(Nosepass),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0c),
       //PAL(Nosepass),
       //SHINYPAL(Nosepass),
       //PALETTES(Nosepass),
@@ -3916,9 +3916,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TORKOAL] = 
     {  
       //FRONT_PIC(Torkoal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Torkoal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Torkoal),
       //SHINYPAL(Torkoal),
       //PALETTES(Torkoal),
@@ -3929,9 +3929,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SABLEYE] = 
     {  
       //FRONT_PIC(Sableye),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 10),
       //BACK_PIC(Sableye),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x08),
       //PAL(Sableye),
       //SHINYPAL(Sableye),
       //PALETTES(Sableye),
@@ -3942,9 +3942,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BARBOACH] = 
     {  
       //FRONT_PIC(Barboach),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 12),
       //BACK_PIC(Barboach),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Barboach),
       //SHINYPAL(Barboach),
       //PALETTES(Barboach),
@@ -3955,9 +3955,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WHISCASH] = 
     {  
       //FRONT_PIC(Whiscash),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 9),
       //BACK_PIC(Whiscash),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Whiscash),
       //SHINYPAL(Whiscash),
       //PALETTES(Whiscash),
@@ -3968,9 +3968,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUVDISC] = 
     {  
       //FRONT_PIC(Luvdisc),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 14),
       //BACK_PIC(Luvdisc),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 0x0a),
       //PAL(Luvdisc),
       //SHINYPAL(Luvdisc),
       //PALETTES(Luvdisc),
@@ -3981,9 +3981,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CORPHISH] = 
     {  
       //FRONT_PIC(Corphish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Corphish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Corphish),
       //SHINYPAL(Corphish),
       //PALETTES(Corphish),
@@ -3994,9 +3994,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRAWDAUNT] = 
     {  
       //FRONT_PIC(Crawdaunt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 4),
       //BACK_PIC(Crawdaunt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Crawdaunt),
       //SHINYPAL(Crawdaunt),
       //PALETTES(Crawdaunt),
@@ -4007,9 +4007,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FEEBAS] = 
     {  
       //FRONT_PIC(Feebas),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 10),
       //BACK_PIC(Feebas),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x07),
       //PAL(Feebas),
       //SHINYPAL(Feebas),
       //PALETTES(Feebas),
@@ -4020,9 +4020,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MILOTIC] = 
     {  
       //FRONT_PIC(Milotic),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Milotic),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0x02),
       //PAL(Milotic),
       //SHINYPAL(Milotic),
       //PALETTES(Milotic),
@@ -4033,9 +4033,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CARVANHA] = 
     {  
       //FRONT_PIC(Carvanha),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Carvanha),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Carvanha),
       //SHINYPAL(Carvanha),
       //PALETTES(Carvanha),
@@ -4046,9 +4046,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHARPEDO] = 
     {  
       //FRONT_PIC(Sharpedo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Sharpedo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x02),
       //PAL(Sharpedo),
       //SHINYPAL(Sharpedo),
       //PALETTES(Sharpedo),
@@ -4059,9 +4059,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TRAPINCH] = 
     {  
       //FRONT_PIC(Trapinch),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 12),
       //BACK_PIC(Trapinch),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 0x0e),
       //PAL(Trapinch),
       //SHINYPAL(Trapinch),
       //PALETTES(Trapinch),
@@ -4072,9 +4072,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIBRAVA] = 
     {  
       //FRONT_PIC(Vibrava),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 10),
       //BACK_PIC(Vibrava),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x74, 0x11),
       //PAL(Vibrava),
       //SHINYPAL(Vibrava),
       //PALETTES(Vibrava),
@@ -4085,22 +4085,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLYGON] = 
     {  
       //FRONT_PIC(Flygon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Flygon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x02),
       //PAL(Flygon),
       //SHINYPAL(Flygon),
       //PALETTES(Flygon),
       PIC_DATA_ICON_INDEX(Flygon,0),
       //ICON(Flygon, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Flygon,
 [SPECIES_MAKUHITA] = 
     {  
       //FRONT_PIC(Makuhita),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 8),
       //BACK_PIC(Makuhita),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Makuhita),
       //SHINYPAL(Makuhita),
       //PALETTES(Makuhita),
@@ -4111,9 +4111,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HARIYAMA] = 
     {  
       //FRONT_PIC(Hariyama),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Hariyama),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Hariyama),
       //SHINYPAL(Hariyama),
       //PALETTES(Hariyama),
@@ -4124,9 +4124,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ELECTRIKE] = 
     {  
       //FRONT_PIC(Electrike),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x64, 14),
       //BACK_PIC(Electrike),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x10),
       //PAL(Electrike),
       //SHINYPAL(Electrike),
       //PALETTES(Electrike),
@@ -4137,9 +4137,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANECTRIC] = 
     {  
       //FRONT_PIC(Manectric),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 2),
       //BACK_PIC(Manectric),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Manectric),
       //SHINYPAL(Manectric),
       //PALETTES(Manectric),
@@ -4150,9 +4150,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NUMEL] = 
     {  
       //FRONT_PIC(Numel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 9),
       //BACK_PIC(Numel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0b),
       //PAL(Numel),
       //SHINYPAL(Numel),
       //PALETTES(Numel),
@@ -4163,9 +4163,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CAMERUPT] = 
     {  
       //FRONT_PIC(Camerupt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 6),
       //BACK_PIC(Camerupt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x13),
       //PAL(Camerupt),
       //SHINYPAL(Camerupt),
       //PALETTES(Camerupt),
@@ -4176,9 +4176,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPHEAL] = 
     {  
       //FRONT_PIC(Spheal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 11),
       //BACK_PIC(Spheal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 0x12),
       //PAL(Spheal),
       //SHINYPAL(Spheal),
       //PALETTES(Spheal),
@@ -4189,9 +4189,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEALEO] = 
     {  
       //FRONT_PIC(Sealeo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 10),
       //BACK_PIC(Sealeo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Sealeo),
       //SHINYPAL(Sealeo),
       //PALETTES(Sealeo),
@@ -4202,9 +4202,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WALREIN] = 
     {  
       //FRONT_PIC(Walrein),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Walrein),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Walrein),
       //SHINYPAL(Walrein),
       //PALETTES(Walrein),
@@ -4215,9 +4215,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CACNEA] = 
     {  
       //FRONT_PIC(Cacnea),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 13),
       //BACK_PIC(Cacnea),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0f),
       //PAL(Cacnea),
       //SHINYPAL(Cacnea),
       //PALETTES(Cacnea),
@@ -4228,9 +4228,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CACTURNE] = 
     {  
       //FRONT_PIC(Cacturne),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Cacturne),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Cacturne),
       //SHINYPAL(Cacturne),
       //PALETTES(Cacturne),
@@ -4241,9 +4241,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNORUNT] = 
     {  
       //FRONT_PIC(Snorunt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 12),
       //BACK_PIC(Snorunt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0a),
       //PAL(Snorunt),
       //SHINYPAL(Snorunt),
       //PALETTES(Snorunt),
@@ -4254,48 +4254,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLALIE] = 
     {  
       //FRONT_PIC(Glalie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Glalie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0c),
       //PAL(Glalie),
       //SHINYPAL(Glalie),
       //PALETTES(Glalie),
       PIC_DATA_ICON_INDEX(Glalie,0),
       //ICON(Glalie, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Glalie,
 [SPECIES_LUNATONE] = 
     {  
       //FRONT_PIC(Lunatone),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 9),
       //BACK_PIC(Lunatone),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Lunatone),
       //SHINYPAL(Lunatone),
       //PALETTES(Lunatone),
       PIC_DATA_ICON_INDEX(Lunatone,0),
       //ICON(Lunatone, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 13,
     }, //Lunatone,
 [SPECIES_SOLROCK] = 
     {  
       //FRONT_PIC(Solrock),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Solrock),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Solrock),
       //SHINYPAL(Solrock),
       //PALETTES(Solrock),
       PIC_DATA_ICON_INDEX(Solrock,0),
       //ICON(Solrock, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Solrock,
 [SPECIES_AZURILL] = 
     {  
       //FRONT_PIC(Azurill),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 11),
       //BACK_PIC(Azurill),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Azurill),
       //SHINYPAL(Azurill),
       //PALETTES(Azurill),
@@ -4306,9 +4306,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPOINK] = 
     {  
       //FRONT_PIC(Spoink),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 9),
       //BACK_PIC(Spoink),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 0x0b),
       //PAL(Spoink),
       //SHINYPAL(Spoink),
       //PALETTES(Spoink),
@@ -4319,9 +4319,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRUMPIG] = 
     {  
       //FRONT_PIC(Grumpig),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 2),
       //BACK_PIC(Grumpig),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Grumpig),
       //SHINYPAL(Grumpig),
       //PALETTES(Grumpig),
@@ -4332,9 +4332,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PLUSLE] = 
     {  
       //FRONT_PIC(Plusle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 11),
       //BACK_PIC(Plusle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x08),
       //PAL(Plusle),
       //SHINYPAL(Plusle),
       //PALETTES(Plusle),
@@ -4345,9 +4345,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINUN] = 
     {  
       //FRONT_PIC(Minun),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Minun),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x08),
       //PAL(Minun),
       //SHINYPAL(Minun),
       //PALETTES(Minun),
@@ -4358,9 +4358,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAWILE] = 
     {  
       //FRONT_PIC(Mawile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Mawile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x04),
       //PAL(Mawile),
       //SHINYPAL(Mawile),
       //PALETTES(Mawile),
@@ -4371,9 +4371,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEDITITE] = 
     {  
       //FRONT_PIC(Meditite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 10),
       //BACK_PIC(Meditite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x0b),
       //PAL(Meditite),
       //SHINYPAL(Meditite),
       //PALETTES(Meditite),
@@ -4384,9 +4384,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEDICHAM] = 
     {  
       //FRONT_PIC(Medicham),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 0),
       //BACK_PIC(Medicham),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0x03),
       //PAL(Medicham),
       //SHINYPAL(Medicham),
       //PALETTES(Medicham),
@@ -4397,35 +4397,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWABLU] = 
     {  
       //FRONT_PIC(Swablu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 14),
       //BACK_PIC(Swablu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Swablu),
       //SHINYPAL(Swablu),
       //PALETTES(Swablu),
       PIC_DATA_ICON_INDEX(Swablu,0),
       //ICON(Swablu, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Swablu,
 [SPECIES_ALTARIA] = 
     {  
       //FRONT_PIC(Altaria),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Altaria),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x06),
       //PAL(Altaria),
       //SHINYPAL(Altaria),
       //PALETTES(Altaria),
       PIC_DATA_ICON_INDEX(Altaria,0),
       //ICON(Altaria, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Altaria,
 [SPECIES_WYNAUT] = 
     {  
       //FRONT_PIC(Wynaut),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Wynaut),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x07),
       //PAL(Wynaut),
       //SHINYPAL(Wynaut),
       //PALETTES(Wynaut),
@@ -4436,22 +4436,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUSKULL] = 
     {  
       //FRONT_PIC(Duskull),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 12),
       //BACK_PIC(Duskull),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Duskull),
       //SHINYPAL(Duskull),
       //PALETTES(Duskull),
       PIC_DATA_ICON_INDEX(Duskull,0),
       //ICON(Duskull, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 9,
     }, //Duskull,
 [SPECIES_DUSCLOPS] = 
     {  
       //FRONT_PIC(Dusclops),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 3),
       //BACK_PIC(Dusclops),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Dusclops),
       //SHINYPAL(Dusclops),
       //PALETTES(Dusclops),
@@ -4462,9 +4462,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROSELIA] = 
     {  
       //FRONT_PIC(Roselia),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 11),
       //BACK_PIC(Roselia),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Roselia),
       //SHINYPAL(Roselia),
       //PALETTES(Roselia),
@@ -4475,9 +4475,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLAKOTH] = 
     {  
       //FRONT_PIC(Slakoth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 15),
       //BACK_PIC(Slakoth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0f),
       //PAL(Slakoth),
       //SHINYPAL(Slakoth),
       //PALETTES(Slakoth),
@@ -4488,9 +4488,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIGOROTH] = 
     {  
       //FRONT_PIC(Vigoroth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 7),
       //BACK_PIC(Vigoroth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Vigoroth),
       //SHINYPAL(Vigoroth),
       //PALETTES(Vigoroth),
@@ -4501,9 +4501,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLAKING] = 
     {  
       //FRONT_PIC(Slaking),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 7),
       //BACK_PIC(Slaking),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x08),
       //PAL(Slaking),
       //SHINYPAL(Slaking),
       //PALETTES(Slaking),
@@ -4514,9 +4514,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GULPIN] = 
     {  
       //FRONT_PIC(Gulpin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(Gulpin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0b),
       //PAL(Gulpin),
       //SHINYPAL(Gulpin),
       //PALETTES(Gulpin),
@@ -4527,9 +4527,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWALOT] = 
     {  
       //FRONT_PIC(Swalot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 5),
       //BACK_PIC(Swalot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x06),
       //PAL(Swalot),
       //SHINYPAL(Swalot),
       //PALETTES(Swalot),
@@ -4540,9 +4540,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TROPIUS] = 
     {  
       //FRONT_PIC(Tropius),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Tropius),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Tropius),
       //SHINYPAL(Tropius),
       //PALETTES(Tropius),
@@ -4553,9 +4553,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WHISMUR] = 
     {  
       //FRONT_PIC(Whismur),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 13),
       //BACK_PIC(Whismur),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Whismur),
       //SHINYPAL(Whismur),
       //PALETTES(Whismur),
@@ -4566,9 +4566,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LOUDRED] = 
     {  
       //FRONT_PIC(Loudred),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 3),
       //BACK_PIC(Loudred),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Loudred),
       //SHINYPAL(Loudred),
       //PALETTES(Loudred),
@@ -4579,9 +4579,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EXPLOUD] = 
     {  
       //FRONT_PIC(Exploud),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Exploud),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Exploud),
       //SHINYPAL(Exploud),
       //PALETTES(Exploud),
@@ -4592,9 +4592,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLAMPERL] = 
     {  
       //FRONT_PIC(Clamperl),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 11),
       //BACK_PIC(Clamperl),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Clamperl),
       //SHINYPAL(Clamperl),
       //PALETTES(Clamperl),
@@ -4605,9 +4605,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HUNTAIL] = 
     {  
       //FRONT_PIC(Huntail),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 3),
       //BACK_PIC(Huntail),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0x02),
       //PAL(Huntail),
       //SHINYPAL(Huntail),
       //PALETTES(Huntail),
@@ -4618,9 +4618,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOREBYSS] = 
     {  
       //FRONT_PIC(Gorebyss),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 6),
       //BACK_PIC(Gorebyss),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Gorebyss),
       //SHINYPAL(Gorebyss),
       //PALETTES(Gorebyss),
@@ -4631,9 +4631,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ABSOL] = 
     {  
       //FRONT_PIC(Absol),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Absol),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x03),
       //PAL(Absol),
       //SHINYPAL(Absol),
       //PALETTES(Absol),
@@ -4644,35 +4644,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHUPPET] = 
     {  
       //FRONT_PIC(Shuppet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 13),
       //BACK_PIC(Shuppet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x06),
       //PAL(Shuppet),
       //SHINYPAL(Shuppet),
       //PALETTES(Shuppet),
       PIC_DATA_ICON_INDEX(Shuppet,0),
       //ICON(Shuppet, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Shuppet,
 [SPECIES_BANETTE] = 
     {  
       //FRONT_PIC(Banette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 7),
       //BACK_PIC(Banette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 0x0c),
       //PAL(Banette),
       //SHINYPAL(Banette),
       //PALETTES(Banette),
       PIC_DATA_ICON_INDEX(Banette,0),
       //ICON(Banette, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Banette,
 [SPECIES_SEVIPER] = 
     {  
       //FRONT_PIC(Seviper),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Seviper),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Seviper),
       //SHINYPAL(Seviper),
       //PALETTES(Seviper),
@@ -4683,9 +4683,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZANGOOSE] = 
     {  
       //FRONT_PIC(Zangoose),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Zangoose),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x01),
       //PAL(Zangoose),
       //SHINYPAL(Zangoose),
       //PALETTES(Zangoose),
@@ -4696,9 +4696,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RELICANTH] = 
     {  
       //FRONT_PIC(Relicanth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 10),
       //BACK_PIC(Relicanth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Relicanth),
       //SHINYPAL(Relicanth),
       //PALETTES(Relicanth),
@@ -4709,9 +4709,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARON] = 
     {  
       //FRONT_PIC(Aron),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x43, 14),
       //BACK_PIC(Aron),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 0x11),
       //PAL(Aron),
       //SHINYPAL(Aron),
       //PALETTES(Aron),
@@ -4722,9 +4722,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LAIRON] = 
     {  
       //FRONT_PIC(Lairon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 8),
       //BACK_PIC(Lairon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x11),
       //PAL(Lairon),
       //SHINYPAL(Lairon),
       //PALETTES(Lairon),
@@ -4735,9 +4735,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AGGRON] = 
     {  
       //FRONT_PIC(Aggron),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Aggron),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Aggron),
       //SHINYPAL(Aggron),
       //PALETTES(Aggron),
@@ -4748,48 +4748,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CASTFORM] = 
     {  
       //FRONT_PIC(Castform),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 17),
       //BACK_PIC(Castform),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x45, 0x0d),
       //PAL(Castform),
       //SHINYPAL(Castform),
       //PALETTES(Castform),
       PIC_DATA_ICON_INDEX(Castform,0),
       //ICON(Castform, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 16,
     }, //Castform,
 [SPECIES_VOLBEAT] = 
     {  
       //FRONT_PIC(Volbeat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Volbeat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 0x08),
       //PAL(Volbeat),
       //SHINYPAL(Volbeat),
       //PALETTES(Volbeat),
       PIC_DATA_ICON_INDEX(Volbeat,0),
       //ICON(Volbeat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Volbeat,
 [SPECIES_ILLUMISE] = 
     {  
       //FRONT_PIC(Illumise),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 10),
       //BACK_PIC(Illumise),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 0x06),
       //PAL(Illumise),
       //SHINYPAL(Illumise),
       //PALETTES(Illumise),
       PIC_DATA_ICON_INDEX(Illumise,0),
       //ICON(Illumise, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Illumise,
 [SPECIES_LILEEP] = 
     {  
       //FRONT_PIC(Lileep),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 7),
       //BACK_PIC(Lileep),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x09),
       //PAL(Lileep),
       //SHINYPAL(Lileep),
       //PALETTES(Lileep),
@@ -4800,9 +4800,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRADILY] = 
     {  
       //FRONT_PIC(Cradily),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Cradily),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Cradily),
       //SHINYPAL(Cradily),
       //PALETTES(Cradily),
@@ -4813,9 +4813,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ANORITH] = 
     {  
       //FRONT_PIC(Anorith),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 7),
       //BACK_PIC(Anorith),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x17),
       //PAL(Anorith),
       //SHINYPAL(Anorith),
       //PALETTES(Anorith),
@@ -4826,9 +4826,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARMALDO] = 
     {  
       //FRONT_PIC(Armaldo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Armaldo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x05),
       //PAL(Armaldo),
       //SHINYPAL(Armaldo),
       //PALETTES(Armaldo),
@@ -4839,9 +4839,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RALTS] = 
     {  
       //FRONT_PIC(Ralts),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x35, 12),
       //BACK_PIC(Ralts),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x45, 0x0d),
       //PAL(Ralts),
       //SHINYPAL(Ralts),
       //PALETTES(Ralts),
@@ -4852,9 +4852,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KIRLIA] = 
     {  
       //FRONT_PIC(Kirlia),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x47, 6),
       //BACK_PIC(Kirlia),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 0x06),
       //PAL(Kirlia),
       //SHINYPAL(Kirlia),
       //PALETTES(Kirlia),
@@ -4865,9 +4865,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GARDEVOIR] = 
     {  
       //FRONT_PIC(Gardevoir),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Gardevoir),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x04),
       //PAL(Gardevoir),
       //SHINYPAL(Gardevoir),
       //PALETTES(Gardevoir),
@@ -4878,9 +4878,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BAGON] = 
     {  
       //FRONT_PIC(Bagon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Bagon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x08),
       //PAL(Bagon),
       //SHINYPAL(Bagon),
       //PALETTES(Bagon),
@@ -4891,9 +4891,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHELGON] = 
     {  
       //FRONT_PIC(Shelgon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 9),
       //BACK_PIC(Shelgon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0d),
       //PAL(Shelgon),
       //SHINYPAL(Shelgon),
       //PALETTES(Shelgon),
@@ -4904,9 +4904,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SALAMENCE] = 
     {  
       //FRONT_PIC(Salamence),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 3),
       //BACK_PIC(Salamence),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 0x06),
       //PAL(Salamence),
       //SHINYPAL(Salamence),
       //PALETTES(Salamence),
@@ -4917,22 +4917,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BELDUM] = 
     {  
       //FRONT_PIC(Beldum),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(Beldum),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 0x0a),
       //PAL(Beldum),
       //SHINYPAL(Beldum),
       //PALETTES(Beldum),
       PIC_DATA_ICON_INDEX(Beldum,0),
       //ICON(Beldum, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Beldum,
 [SPECIES_METANG] = 
     {  
       //FRONT_PIC(Metang),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       //BACK_PIC(Metang),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x10),
       //PAL(Metang),
       //SHINYPAL(Metang),
       //PALETTES(Metang),
@@ -4943,9 +4943,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_METAGROSS] = 
     {  
       //FRONT_PIC(Metagross),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       //BACK_PIC(Metagross),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 0x14),
       //PAL(Metagross),
       //SHINYPAL(Metagross),
       //PALETTES(Metagross),
@@ -4956,9 +4956,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGIROCK] = 
     {  
       //FRONT_PIC(Regirock),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 3),
       //BACK_PIC(Regirock),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 0x0a),
       //PAL(Regirock),
       //SHINYPAL(Regirock),
       //PALETTES(Regirock),
@@ -4969,9 +4969,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGICE] = 
     {  
       //FRONT_PIC(Regice),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Regice),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Regice),
       //SHINYPAL(Regice),
       //PALETTES(Regice),
@@ -4982,9 +4982,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGISTEEL] = 
     {  
       //FRONT_PIC(Registeel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 5),
       //BACK_PIC(Registeel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 0x0e),
       //PAL(Registeel),
       //SHINYPAL(Registeel),
       //PALETTES(Registeel),
@@ -4995,9 +4995,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KYOGRE] = 
     {  
       //FRONT_PIC(Kyogre),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 0),
       //BACK_PIC(Kyogre),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 0x13),
       //PAL(Kyogre),
       //SHINYPAL(Kyogre),
       //PALETTES(Kyogre),
@@ -5008,9 +5008,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROUDON] = 
     {  
       //FRONT_PIC(Groudon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Groudon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Groudon),
       //SHINYPAL(Groudon),
       //PALETTES(Groudon),
@@ -5021,87 +5021,87 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAYQUAZA] = 
     {  
       //FRONT_PIC(Rayquaza),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Rayquaza),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0x00),
       //PAL(Rayquaza),
       //SHINYPAL(Rayquaza),
       //PALETTES(Rayquaza),
       PIC_DATA_ICON_INDEX(Rayquaza,0),
       //ICON(Rayquaza, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Rayquaza,
 [SPECIES_LATIAS] = 
     {  
       //FRONT_PIC(Latias),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Latias),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x02),
       //PAL(Latias),
       //SHINYPAL(Latias),
       //PALETTES(Latias),
       PIC_DATA_ICON_INDEX(Latias,0),
       //ICON(Latias, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Latias,
 [SPECIES_LATIOS] = 
     {  
       //FRONT_PIC(Latios),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Latios),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0x03),
       //PAL(Latios),
       //SHINYPAL(Latios),
       //PALETTES(Latios),
       PIC_DATA_ICON_INDEX(Latios,0),
       //ICON(Latios, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Latios,
 [SPECIES_JIRACHI] = 
     {  
       //FRONT_PIC(Jirachi),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 13),
       //BACK_PIC(Jirachi),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x05),
       //PAL(Jirachi),
       //SHINYPAL(Jirachi),
       //PALETTES(Jirachi),
       PIC_DATA_ICON_INDEX(Jirachi,0),
       //ICON(Jirachi, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Jirachi,
 [SPECIES_DEOXYS] = 
     {  
       //FRONT_PIC(Deoxys),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Deoxys),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0x07),
       //PAL(Deoxys),
       //SHINYPAL(Deoxys),
       //PALETTES(Deoxys),
       PIC_DATA_ICON_INDEX(Deoxys,0),
       //ICON(Deoxys, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Deoxys,
 [SPECIES_CHIMECHO] = 
     {  
       //FRONT_PIC(Chimecho),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x37, 6),
       //BACK_PIC(Chimecho),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x47, 0x07),
       //PAL(Chimecho),
       //SHINYPAL(Chimecho),
       //PALETTES(Chimecho),
       PIC_DATA_ICON_INDEX(Chimecho,0),
       //ICON(Chimecho, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Chimecho,
 [SPECIES_EGG] = 
     {  
       FRONT_PIC(Egg),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x33, 20),
       //BACK_PIC(Egg),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x36, 10),
       //PAL(Egg),
       //SHINYPAL(Egg),
       .palette = gMonPalette_Egg,
@@ -5113,9 +5113,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_B] = 
     {  
       FRONT_PIC(UnownB),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 16),
       BACK_PIC(UnownB),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 9),
       //PAL(UnownB),
       //SHINYPAL(UnownB),
       PALETTES(Unown),
@@ -5126,9 +5126,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_C] = 
     {  
       FRONT_PIC(UnownC),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 16),
       BACK_PIC(UnownC),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 6),
       //PAL(UnownC),
       //SHINYPAL(UnownC),
       PALETTES(Unown),
@@ -5139,9 +5139,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_D] = 
     {  
       FRONT_PIC(UnownD),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 16),
       BACK_PIC(UnownD),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 8),
       //PAL(UnownD),
       //SHINYPAL(UnownD),
       PALETTES(Unown),
@@ -5152,9 +5152,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_E] = 
     {  
       FRONT_PIC(UnownE),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 17),
       BACK_PIC(UnownE),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 10),
       //PAL(UnownE),
       //SHINYPAL(UnownE),
       PALETTES(Unown),
@@ -5165,9 +5165,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_F] = 
     {  
       FRONT_PIC(UnownF),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 17),
       BACK_PIC(UnownF),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 10),
       //PAL(UnownF),
       //SHINYPAL(UnownF),
       PALETTES(Unown),
@@ -5178,9 +5178,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_G] = 
     {  
       FRONT_PIC(UnownG),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x35, 14),
       BACK_PIC(UnownG),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 5),
       //PAL(UnownG),
       //SHINYPAL(UnownG),
       PALETTES(Unown),
@@ -5191,9 +5191,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_H] = 
     {  
       FRONT_PIC(UnownH),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 16),
       BACK_PIC(UnownH),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 8),
       //PAL(UnownH),
       //SHINYPAL(UnownH),
       PALETTES(Unown),
@@ -5204,9 +5204,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_I] = 
     {  
       FRONT_PIC(UnownI),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 16),
       BACK_PIC(UnownI),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x37, 7),
       //PAL(UnownI),
       //SHINYPAL(UnownI),
       PALETTES(Unown),
@@ -5217,9 +5217,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_J] = 
     {  
       FRONT_PIC(UnownJ),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 17),
       BACK_PIC(UnownJ),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 9),
       //PAL(UnownJ),
       //SHINYPAL(UnownJ),
       PALETTES(Unown),
@@ -5230,9 +5230,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_K] = 
     {  
       FRONT_PIC(UnownK),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 17),
       BACK_PIC(UnownK),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 7),
       //PAL(UnownK),
       //SHINYPAL(UnownK),
       PALETTES(Unown),
@@ -5243,9 +5243,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_L] = 
     {  
       FRONT_PIC(UnownL),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 19),
       BACK_PIC(UnownL),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 10),
       //PAL(UnownL),
       //SHINYPAL(UnownL),
       PALETTES(Unown),
@@ -5256,9 +5256,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_M] = 
     {  
       FRONT_PIC(UnownM),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 19),
       BACK_PIC(UnownM),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(UnownM),
       //SHINYPAL(UnownM),
       PALETTES(Unown),
@@ -5269,9 +5269,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_N] = 
     {  
       FRONT_PIC(UnownN),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x43, 20),
       BACK_PIC(UnownN),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(UnownN),
       //SHINYPAL(UnownN),
       PALETTES(Unown),
@@ -5282,9 +5282,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_O] = 
     {  
       FRONT_PIC(UnownO),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 16),
       BACK_PIC(UnownO),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 8),
       //PAL(UnownO),
       //SHINYPAL(UnownO),
       PALETTES(Unown),
@@ -5295,9 +5295,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_P] = 
     {  
       FRONT_PIC(UnownP),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 19),
       BACK_PIC(UnownP),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 10),
       //PAL(UnownP),
       //SHINYPAL(UnownP),
       PALETTES(Unown),
@@ -5308,9 +5308,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_Q] = 
     {  
       FRONT_PIC(UnownQ),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x43, 21),
       BACK_PIC(UnownQ),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 15),
       //PAL(UnownQ),
       //SHINYPAL(UnownQ),
       PALETTES(Unown),
@@ -5321,9 +5321,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_R] = 
     {  
       FRONT_PIC(UnownR),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 19),
       BACK_PIC(UnownR),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x45, 12),
       //PAL(UnownR),
       //SHINYPAL(UnownR),
       PALETTES(Unown),
@@ -5334,9 +5334,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_S] = 
     {  
       FRONT_PIC(UnownS),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       BACK_PIC(UnownS),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 4),
       //PAL(UnownS),
       //SHINYPAL(UnownS),
       PALETTES(Unown),
@@ -5347,9 +5347,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_T] = 
     {  
       FRONT_PIC(UnownT),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 18),
       BACK_PIC(UnownT),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x45, 13),
       //PAL(UnownT),
       //SHINYPAL(UnownT),
       PALETTES(Unown),
@@ -5360,9 +5360,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_U] = 
     {  
       FRONT_PIC(UnownU),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 18),
       BACK_PIC(UnownU),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(UnownU),
       //SHINYPAL(UnownU),
       PALETTES(Unown),
@@ -5373,9 +5373,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_V] = 
     {  
       FRONT_PIC(UnownV),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 18),
       BACK_PIC(UnownV),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 11),
       //PAL(UnownV),
       //SHINYPAL(UnownV),
       PALETTES(Unown),
@@ -5386,9 +5386,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_W] = 
     {  
       FRONT_PIC(UnownW),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 19),
       BACK_PIC(UnownW),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 13),
       //PAL(UnownW),
       //SHINYPAL(UnownW),
       PALETTES(Unown),
@@ -5399,9 +5399,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_X] = 
     {  
       FRONT_PIC(UnownX),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x33, 21),
       BACK_PIC(UnownX),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 15),
       //PAL(UnownX),
       //SHINYPAL(UnownX),
       PALETTES(Unown),
@@ -5412,9 +5412,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_Y] = 
     {  
       FRONT_PIC(UnownY),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 17),
       BACK_PIC(UnownY),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 10),
       //PAL(UnownY),
       //SHINYPAL(UnownY),
       PALETTES(Unown),
@@ -5425,9 +5425,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_Z] = 
     {  
       FRONT_PIC(UnownZ),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 16),
       BACK_PIC(UnownZ),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x46, 10),
       //PAL(UnownZ),
       //SHINYPAL(UnownZ),
       PALETTES(Unown),
@@ -5438,9 +5438,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_EMARK] = 
     {  
       FRONT_PIC(UnownExclamationMark),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x35, 15),
       BACK_PIC(UnownExclamationMark),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x37, 6),
       //PAL(UnownEmark),
       //SHINYPAL(UnownEmark),
       PALETTES(Unown),
@@ -5451,9 +5451,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNOWN_QMARK] = 
     {  
       FRONT_PIC(UnownQuestionMark),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x35, 13),
       BACK_PIC(UnownQuestionMark),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x47, 6),
       //PAL(UnownQmark),
       //SHINYPAL(UnownQmark),
       PALETTES(Unown),
@@ -5464,9 +5464,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TURTWIG] = 
     {  
       //FRONT_PIC(Turtwig),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Turtwig),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 6),
       //PAL(Turtwig),
       //SHINYPAL(Turtwig),
       //PALETTES(Turtwig),
@@ -5477,9 +5477,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROTLE] = 
     {  
       //FRONT_PIC(Grotle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 7),
       //BACK_PIC(Grotle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Grotle),
       //SHINYPAL(Grotle),
       //PALETTES(Grotle),
@@ -5490,9 +5490,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TORTERRA] = 
     {  
       //FRONT_PIC(Torterra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Torterra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Torterra),
       //SHINYPAL(Torterra),
       //PALETTES(Torterra),
@@ -5503,9 +5503,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHIMCHAR] = 
     {  
       //FRONT_PIC(Chimchar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(Chimchar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Chimchar),
       //SHINYPAL(Chimchar),
       //PALETTES(Chimchar),
@@ -5516,9 +5516,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MONFERNO] = 
     {  
       //FRONT_PIC(Monferno),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 8),
       //BACK_PIC(Monferno),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Monferno),
       //SHINYPAL(Monferno),
       //PALETTES(Monferno),
@@ -5529,9 +5529,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_INFERNAPE] = 
     {  
       //FRONT_PIC(Infernape),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Infernape),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Infernape),
       //SHINYPAL(Infernape),
       //PALETTES(Infernape),
@@ -5542,9 +5542,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIPLUP] = 
     {  
       //FRONT_PIC(Piplup),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 14),
       //BACK_PIC(Piplup),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 10),
       //PAL(Piplup),
       //SHINYPAL(Piplup),
       //PALETTES(Piplup),
@@ -5555,9 +5555,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PRINPLUP] = 
     {  
       //FRONT_PIC(Prinplup),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 7),
       //BACK_PIC(Prinplup),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 7),
       //PAL(Prinplup),
       //SHINYPAL(Prinplup),
       //PALETTES(Prinplup),
@@ -5568,9 +5568,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EMPOLEON] = 
     {  
       //FRONT_PIC(Empoleon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Empoleon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Empoleon),
       //SHINYPAL(Empoleon),
       //PALETTES(Empoleon),
@@ -5581,9 +5581,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STARLY] = 
     {  
       //FRONT_PIC(Starly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Starly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(Starly),
       //SHINYPAL(Starly),
       //PALETTES(Starly),
@@ -5594,9 +5594,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STARAVIA] = 
     {  
       //FRONT_PIC(Staravia),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 8),
       //BACK_PIC(Staravia),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Staravia),
       //SHINYPAL(Staravia),
       //PALETTES(Staravia),
@@ -5607,9 +5607,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STARAPTOR] = 
     {  
       //FRONT_PIC(Staraptor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 3),
       //BACK_PIC(Staraptor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Staraptor),
       //SHINYPAL(Staraptor),
       //PALETTES(Staraptor),
@@ -5620,9 +5620,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BIDOOF] = 
     {  
       //FRONT_PIC(Bidoof),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 12),
       //BACK_PIC(Bidoof),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Bidoof),
       //SHINYPAL(Bidoof),
       //PALETTES(Bidoof),
@@ -5633,9 +5633,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BIBAREL] = 
     {  
       //FRONT_PIC(Bibarel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Bibarel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Bibarel),
       //SHINYPAL(Bibarel),
       //PALETTES(Bibarel),
@@ -5646,9 +5646,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KRICKETOT] = 
     {  
       //FRONT_PIC(Kricketot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 11),
       //BACK_PIC(Kricketot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 6),
       //PAL(Kricketot),
       //SHINYPAL(Kricketot),
       //PALETTES(Kricketot),
@@ -5659,9 +5659,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KRICKETUNE] = 
     {  
       //FRONT_PIC(Kricketune),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 7),
       //BACK_PIC(Kricketune),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(Kricketune),
       //SHINYPAL(Kricketune),
       //PALETTES(Kricketune),
@@ -5672,9 +5672,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHINX] = 
     {  
       //FRONT_PIC(Shinx),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 13),
       //BACK_PIC(Shinx),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Shinx),
       //SHINYPAL(Shinx),
       //PALETTES(Shinx),
@@ -5685,9 +5685,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUXIO] = 
     {  
       //FRONT_PIC(Luxio),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 10),
       //BACK_PIC(Luxio),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Luxio),
       //SHINYPAL(Luxio),
       //PALETTES(Luxio),
@@ -5698,9 +5698,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUXRAY] = 
     {  
       //FRONT_PIC(Luxray),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 2),
       //BACK_PIC(Luxray),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Luxray),
       //SHINYPAL(Luxray),
       //PALETTES(Luxray),
@@ -5711,9 +5711,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BUDEW] = 
     {  
       //FRONT_PIC(Budew),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 14),
       //BACK_PIC(Budew),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 11),
       //PAL(Budew),
       //SHINYPAL(Budew),
       //PALETTES(Budew),
@@ -5724,9 +5724,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROSERADE] = 
     {  
       //FRONT_PIC(Roserade),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Roserade),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Roserade),
       //SHINYPAL(Roserade),
       //PALETTES(Roserade),
@@ -5737,9 +5737,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRANIDOS] = 
     {  
       //FRONT_PIC(Cranidos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 10),
       //BACK_PIC(Cranidos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Cranidos),
       //SHINYPAL(Cranidos),
       //PALETTES(Cranidos),
@@ -5750,9 +5750,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAMPARDOS] = 
     {  
       //FRONT_PIC(Rampardos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 3),
       //BACK_PIC(Rampardos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Rampardos),
       //SHINYPAL(Rampardos),
       //PALETTES(Rampardos),
@@ -5763,9 +5763,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHIELDON] = 
     {  
       //FRONT_PIC(Shieldon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 15),
       //BACK_PIC(Shieldon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(Shieldon),
       //SHINYPAL(Shieldon),
       //PALETTES(Shieldon),
@@ -5776,9 +5776,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASTIODON] = 
     {  
       //FRONT_PIC(Bastiodon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Bastiodon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Bastiodon),
       //SHINYPAL(Bastiodon),
       //PALETTES(Bastiodon),
@@ -5789,9 +5789,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BURMY] = 
     {  
       //FRONT_PIC(Burmy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 13),
       //BACK_PIC(Burmy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 6),
       //PAL(Burmy),
       //SHINYPAL(Burmy),
       //PALETTES(Burmy),
@@ -5802,9 +5802,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WORMADAM] = 
     {  
       //FRONT_PIC(Wormadam),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(Wormadam),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(Wormadam),
       //SHINYPAL(Wormadam),
       //PALETTES(Wormadam),
@@ -5815,48 +5815,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MOTHIM] = 
     {  
       //FRONT_PIC(Mothim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 12),
       //BACK_PIC(Mothim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Mothim),
       //SHINYPAL(Mothim),
       //PALETTES(Mothim),
       PIC_DATA_ICON_INDEX(Mothim,0),
       //ICON(Mothim, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Mothim,
 [SPECIES_COMBEE] = 
     {  
       //FRONT_PIC(Combee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Combee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 22),
       //PAL(Combee),
       //SHINYPAL(Combee),
       //PALETTES(Combee),
       PIC_DATA_ICON_INDEX(Combee,0),
       //ICON(Combee, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Combee,
 [SPECIES_VESPIQUEN] = 
     {  
       //FRONT_PIC(Vespiquen),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 4),
       //BACK_PIC(Vespiquen),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Vespiquen),
       //SHINYPAL(Vespiquen),
       //PALETTES(Vespiquen),
       PIC_DATA_ICON_INDEX(Vespiquen,0),
       //ICON(Vespiquen, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Vespiquen,
 [SPECIES_PACHIRISU] = 
     {  
       //FRONT_PIC(Pachirisu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 12),
       //BACK_PIC(Pachirisu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Pachirisu),
       //SHINYPAL(Pachirisu),
       //PALETTES(Pachirisu),
@@ -5867,9 +5867,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BUIZEL] = 
     {  
       //FRONT_PIC(Buizel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(Buizel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Buizel),
       //SHINYPAL(Buizel),
       //PALETTES(Buizel),
@@ -5880,9 +5880,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOATZEL] = 
     {  
       //FRONT_PIC(Floatzel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 3),
       //BACK_PIC(Floatzel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Floatzel),
       //SHINYPAL(Floatzel),
       //PALETTES(Floatzel),
@@ -5893,9 +5893,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHERUBI] = 
     {  
       //FRONT_PIC(Cherubi),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 16),
       //BACK_PIC(Cherubi),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(Cherubi),
       //SHINYPAL(Cherubi),
       //PALETTES(Cherubi),
@@ -5906,9 +5906,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHERRIM] = 
     {  
       //FRONT_PIC(Cherrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 8),
       //BACK_PIC(Cherrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 9),
       //PAL(Cherrim),
       //SHINYPAL(Cherrim),
       //PALETTES(Cherrim),
@@ -5919,9 +5919,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHELLOS] = 
     {  
       //FRONT_PIC(Shellos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 13),
       //BACK_PIC(Shellos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 8),
       //PAL(Shellos),
       //SHINYPAL(Shellos),
       //PALETTES(Shellos),
@@ -5932,9 +5932,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GASTRODON] = 
     {  
       //FRONT_PIC(Gastrodon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 8),
       //BACK_PIC(Gastrodon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(Gastrodon),
       //SHINYPAL(Gastrodon),
       //PALETTES(Gastrodon),
@@ -5945,9 +5945,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AMBIPOM] = 
     {  
       //FRONT_PIC(Ambipom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Ambipom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Ambipom),
       //SHINYPAL(Ambipom),
       //PALETTES(Ambipom),
@@ -5958,35 +5958,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRIFLOON] = 
     {  
       //FRONT_PIC(Drifloon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Drifloon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x58, 0),
       //PAL(Drifloon),
       //SHINYPAL(Drifloon),
       //PALETTES(Drifloon),
       PIC_DATA_ICON_INDEX(Drifloon,0),
       //ICON(Drifloon, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 5,
     }, //Drifloon,
 [SPECIES_DRIFBLIM] = 
     {  
       //FRONT_PIC(Drifblim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 7),
       //BACK_PIC(Drifblim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Drifblim),
       //SHINYPAL(Drifblim),
       //PALETTES(Drifblim),
       PIC_DATA_ICON_INDEX(Drifblim,0),
       //ICON(Drifblim, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Drifblim,
 [SPECIES_BUNEARY] = 
     {  
       //FRONT_PIC(Buneary),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(Buneary),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Buneary),
       //SHINYPAL(Buneary),
       //PALETTES(Buneary),
@@ -5997,9 +5997,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LOPUNNY] = 
     {  
       //FRONT_PIC(Lopunny),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 4),
       //BACK_PIC(Lopunny),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Lopunny),
       //SHINYPAL(Lopunny),
       //PALETTES(Lopunny),
@@ -6010,22 +6010,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MISMAGIUS] = 
     {  
       //FRONT_PIC(Mismagius),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Mismagius),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(Mismagius),
       //SHINYPAL(Mismagius),
       //PALETTES(Mismagius),
       PIC_DATA_ICON_INDEX(Mismagius,0),
       //ICON(Mismagius, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Mismagius,
 [SPECIES_HONCHKROW] = 
     {  
       //FRONT_PIC(Honchkrow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 6),
       //BACK_PIC(Honchkrow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Honchkrow),
       //SHINYPAL(Honchkrow),
       //PALETTES(Honchkrow),
@@ -6036,9 +6036,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLAMEOW] = 
     {  
       //FRONT_PIC(Glameow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 8),
       //BACK_PIC(Glameow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Glameow),
       //SHINYPAL(Glameow),
       //PALETTES(Glameow),
@@ -6049,9 +6049,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PURUGLY] = 
     {  
       //FRONT_PIC(Purugly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 5),
       //BACK_PIC(Purugly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Purugly),
       //SHINYPAL(Purugly),
       //PALETTES(Purugly),
@@ -6062,9 +6062,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHINGLING] = 
     {  
       //FRONT_PIC(Chingling),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 15),
       //BACK_PIC(Chingling),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 13),
       //PAL(Chingling),
       //SHINYPAL(Chingling),
       //PALETTES(Chingling),
@@ -6075,9 +6075,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STUNKY] = 
     {  
       //FRONT_PIC(Stunky),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 13),
       //BACK_PIC(Stunky),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Stunky),
       //SHINYPAL(Stunky),
       //PALETTES(Stunky),
@@ -6088,9 +6088,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKUNTANK] = 
     {  
       //FRONT_PIC(Skuntank),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 7),
       //BACK_PIC(Skuntank),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Skuntank),
       //SHINYPAL(Skuntank),
       //PALETTES(Skuntank),
@@ -6101,9 +6101,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRONZOR] = 
     {  
       //FRONT_PIC(Bronzor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 14),
       //BACK_PIC(Bronzor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 9),
       //PAL(Bronzor),
       //SHINYPAL(Bronzor),
       //PALETTES(Bronzor),
@@ -6114,22 +6114,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRONZONG] = 
     {  
       //FRONT_PIC(Bronzong),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 6),
       //BACK_PIC(Bronzong),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Bronzong),
       //SHINYPAL(Bronzong),
       //PALETTES(Bronzong),
       PIC_DATA_ICON_INDEX(Bronzong,0),
       //ICON(Bronzong, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Bronzong,
 [SPECIES_BONSLY] = 
     {  
       //FRONT_PIC(Bonsly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 9),
       //BACK_PIC(Bonsly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x58, 6),
       //PAL(Bonsly),
       //SHINYPAL(Bonsly),
       //PALETTES(Bonsly),
@@ -6140,9 +6140,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIME_JR] = 
     {  
       //FRONT_PIC(MimeJr),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 9),
       //BACK_PIC(MimeJr),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(MimeJr),
       //SHINYPAL(MimeJr),
       //PALETTES(MimeJr),
@@ -6153,9 +6153,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HAPPINY] = 
     {  
       //FRONT_PIC(Happiny),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 12),
       //BACK_PIC(Happiny),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(Happiny),
       //SHINYPAL(Happiny),
       //PALETTES(Happiny),
@@ -6166,9 +6166,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHATOT] = 
     {  
       //FRONT_PIC(Chatot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 11),
       //BACK_PIC(Chatot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 9),
       //PAL(Chatot),
       //SHINYPAL(Chatot),
       //PALETTES(Chatot),
@@ -6179,9 +6179,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPIRITOMB] = 
     {  
       //FRONT_PIC(Spiritomb),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 6),
       //BACK_PIC(Spiritomb),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Spiritomb),
       //SHINYPAL(Spiritomb),
       //PALETTES(Spiritomb),
@@ -6192,9 +6192,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIBLE] = 
     {  
       //FRONT_PIC(Gible),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 9),
       //BACK_PIC(Gible),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Gible),
       //SHINYPAL(Gible),
       //PALETTES(Gible),
@@ -6205,9 +6205,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GABITE] = 
     {  
       //FRONT_PIC(Gabite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 2),
       //BACK_PIC(Gabite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Gabite),
       //SHINYPAL(Gabite),
       //PALETTES(Gabite),
@@ -6218,9 +6218,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GARCHOMP] = 
     {  
       //FRONT_PIC(Garchomp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Garchomp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Garchomp),
       //SHINYPAL(Garchomp),
       //PALETTES(Garchomp),
@@ -6231,9 +6231,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUNCHLAX] = 
     {  
       //FRONT_PIC(Munchlax),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 10),
       //BACK_PIC(Munchlax),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 7),
       //PAL(Munchlax),
       //SHINYPAL(Munchlax),
       //PALETTES(Munchlax),
@@ -6244,9 +6244,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RIOLU] = 
     {  
       //FRONT_PIC(Riolu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 10),
       //BACK_PIC(Riolu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 8),
       //PAL(Riolu),
       //SHINYPAL(Riolu),
       //PALETTES(Riolu),
@@ -6257,9 +6257,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUCARIO] = 
     {  
       //FRONT_PIC(Lucario),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 7),
       //BACK_PIC(Lucario),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Lucario),
       //SHINYPAL(Lucario),
       //PALETTES(Lucario),
@@ -6270,9 +6270,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HIPPOPOTAS] = 
     {  
       //FRONT_PIC(Hippopotas),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 12),
       //BACK_PIC(Hippopotas),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 14),
       //PAL(Hippopotas),
       //SHINYPAL(Hippopotas),
       //PALETTES(Hippopotas),
@@ -6283,9 +6283,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HIPPOWDON] = 
     {  
       //FRONT_PIC(Hippowdon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Hippowdon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Hippowdon),
       //SHINYPAL(Hippowdon),
       //PALETTES(Hippowdon),
@@ -6296,9 +6296,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKORUPI] = 
     {  
       //FRONT_PIC(Skorupi),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 11),
       //BACK_PIC(Skorupi),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Skorupi),
       //SHINYPAL(Skorupi),
       //PALETTES(Skorupi),
@@ -6309,9 +6309,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAPION] = 
     {  
       //FRONT_PIC(Drapion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 8),
       //BACK_PIC(Drapion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Drapion),
       //SHINYPAL(Drapion),
       //PALETTES(Drapion),
@@ -6322,9 +6322,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CROAGUNK] = 
     {  
       //FRONT_PIC(Croagunk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(Croagunk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Croagunk),
       //SHINYPAL(Croagunk),
       //PALETTES(Croagunk),
@@ -6335,9 +6335,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOXICROAK] = 
     {  
       //FRONT_PIC(Toxicroak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 5),
       //BACK_PIC(Toxicroak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Toxicroak),
       //SHINYPAL(Toxicroak),
       //PALETTES(Toxicroak),
@@ -6348,9 +6348,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CARNIVINE] = 
     {  
       //FRONT_PIC(Carnivine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 10),
       //BACK_PIC(Carnivine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Carnivine),
       //SHINYPAL(Carnivine),
       //PALETTES(Carnivine),
@@ -6361,9 +6361,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FINNEON] = 
     {  
       //FRONT_PIC(Finneon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 14),
       //BACK_PIC(Finneon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 13),
       //PAL(Finneon),
       //SHINYPAL(Finneon),
       //PALETTES(Finneon),
@@ -6374,9 +6374,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUMINEON] = 
     {  
       //FRONT_PIC(Lumineon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Lumineon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Lumineon),
       //SHINYPAL(Lumineon),
       //PALETTES(Lumineon),
@@ -6387,9 +6387,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANTYKE] = 
     {  
       //FRONT_PIC(Mantyke),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 12),
       //BACK_PIC(Mantyke),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Mantyke),
       //SHINYPAL(Mantyke),
       //PALETTES(Mantyke),
@@ -6400,9 +6400,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNOVER] = 
     {  
       //FRONT_PIC(Snover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 10),
       //BACK_PIC(Snover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Snover),
       //SHINYPAL(Snover),
       //PALETTES(Snover),
@@ -6413,9 +6413,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ABOMASNOW] = 
     {  
       //FRONT_PIC(Abomasnow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 0),
       //BACK_PIC(Abomasnow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Abomasnow),
       //SHINYPAL(Abomasnow),
       //PALETTES(Abomasnow),
@@ -6426,9 +6426,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WEAVILE] = 
     {  
       //FRONT_PIC(Weavile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(Weavile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Weavile),
       //SHINYPAL(Weavile),
       //PALETTES(Weavile),
@@ -6439,22 +6439,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGNEZONE] = 
     {  
       //FRONT_PIC(Magnezone),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 4),
       //BACK_PIC(Magnezone),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Magnezone),
       //SHINYPAL(Magnezone),
       //PALETTES(Magnezone),
       PIC_DATA_ICON_INDEX(Magnezone,0),
       //ICON(Magnezone, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Magnezone,
 [SPECIES_LICKILICKY] = 
     {  
       //FRONT_PIC(Lickilicky),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 2),
       //BACK_PIC(Lickilicky),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Lickilicky),
       //SHINYPAL(Lickilicky),
       //PALETTES(Lickilicky),
@@ -6465,9 +6465,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RHYPERIOR] = 
     {  
       //FRONT_PIC(Rhyperior),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Rhyperior),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Rhyperior),
       //SHINYPAL(Rhyperior),
       //PALETTES(Rhyperior),
@@ -6478,9 +6478,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TANGROWTH] = 
     {  
       //FRONT_PIC(Tangrowth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 2),
       //BACK_PIC(Tangrowth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Tangrowth),
       //SHINYPAL(Tangrowth),
       //PALETTES(Tangrowth),
@@ -6491,9 +6491,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ELECTIVIRE] = 
     {  
       //FRONT_PIC(Electivire),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 0),
       //BACK_PIC(Electivire),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Electivire),
       //SHINYPAL(Electivire),
       //PALETTES(Electivire),
@@ -6504,9 +6504,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGMORTAR] = 
     {  
       //FRONT_PIC(Magmortar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x43, 0),
       //BACK_PIC(Magmortar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Magmortar),
       //SHINYPAL(Magmortar),
       //PALETTES(Magmortar),
@@ -6517,35 +6517,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOGEKISS] = 
     {  
       //FRONT_PIC(Togekiss),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 10),
       //BACK_PIC(Togekiss),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Togekiss),
       //SHINYPAL(Togekiss),
       //PALETTES(Togekiss),
       PIC_DATA_ICON_INDEX(Togekiss,0),
       //ICON(Togekiss, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 14,
     }, //Togekiss,
 [SPECIES_YANMEGA] = 
     {  
       //FRONT_PIC(Yanmega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 5),
       //BACK_PIC(Yanmega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Yanmega),
       //SHINYPAL(Yanmega),
       //PALETTES(Yanmega),
       PIC_DATA_ICON_INDEX(Yanmega,0),
       //ICON(Yanmega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Yanmega,
 [SPECIES_LEAFEON] = 
     {  
       //FRONT_PIC(Leafeon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 9),
       //BACK_PIC(Leafeon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(Leafeon),
       //SHINYPAL(Leafeon),
       //PALETTES(Leafeon),
@@ -6556,9 +6556,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLACEON] = 
     {  
       //FRONT_PIC(Glaceon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 10),
       //BACK_PIC(Glaceon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 6),
       //PAL(Glaceon),
       //SHINYPAL(Glaceon),
       //PALETTES(Glaceon),
@@ -6569,22 +6569,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLISCOR] = 
     {  
       //FRONT_PIC(Gliscor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 7),
       //BACK_PIC(Gliscor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Gliscor),
       //SHINYPAL(Gliscor),
       //PALETTES(Gliscor),
       PIC_DATA_ICON_INDEX(Gliscor,0),
       //ICON(Gliscor, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Gliscor,
 [SPECIES_MAMOSWINE] = 
     {  
       //FRONT_PIC(Mamoswine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(Mamoswine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Mamoswine),
       //SHINYPAL(Mamoswine),
       //PALETTES(Mamoswine),
@@ -6595,9 +6595,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PORYGON_Z] = 
     {  
       //FRONT_PIC(PorygonZ),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 6),
       //BACK_PIC(PorygonZ),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(PorygonZ),
       //SHINYPAL(PorygonZ),
       //PALETTES(PorygonZ),
@@ -6608,9 +6608,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GALLADE] = 
     {  
       //FRONT_PIC(Gallade),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 1),
       //BACK_PIC(Gallade),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Gallade),
       //SHINYPAL(Gallade),
       //PALETTES(Gallade),
@@ -6621,9 +6621,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PROBOPASS] = 
     {  
       //FRONT_PIC(Probopass),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 4),
       //BACK_PIC(Probopass),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Probopass),
       //SHINYPAL(Probopass),
       //PALETTES(Probopass),
@@ -6634,9 +6634,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUSKNOIR] = 
     {  
       //FRONT_PIC(Dusknoir),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(Dusknoir),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Dusknoir),
       //SHINYPAL(Dusknoir),
       //PALETTES(Dusknoir),
@@ -6647,9 +6647,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FROSLASS] = 
     {  
       //FRONT_PIC(Froslass),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 8),
       //BACK_PIC(Froslass),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Froslass),
       //SHINYPAL(Froslass),
       //PALETTES(Froslass),
@@ -6660,61 +6660,61 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM] = 
     {  
       //FRONT_PIC(Rotom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 11),
       //BACK_PIC(Rotom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(Rotom),
       //SHINYPAL(Rotom),
       //PALETTES(Rotom),
       PIC_DATA_ICON_INDEX(Rotom,0),
       //ICON(Rotom, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Rotom,
 [SPECIES_UXIE] = 
     {  
       //FRONT_PIC(Uxie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(Uxie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(Uxie),
       //SHINYPAL(Uxie),
       //PALETTES(Uxie),
       PIC_DATA_ICON_INDEX(Uxie,0),
       //ICON(Uxie, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Uxie,
 [SPECIES_MESPRIT] = 
     {  
       //FRONT_PIC(Mesprit),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 4),
       //BACK_PIC(Mesprit),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Mesprit),
       //SHINYPAL(Mesprit),
       //PALETTES(Mesprit),
       PIC_DATA_ICON_INDEX(Mesprit,0),
       //ICON(Mesprit, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Mesprit,
 [SPECIES_AZELF] = 
     {  
       //FRONT_PIC(Azelf),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 0),
       //BACK_PIC(Azelf),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Azelf),
       //SHINYPAL(Azelf),
       //PALETTES(Azelf),
       PIC_DATA_ICON_INDEX(Azelf,0),
       //ICON(Azelf, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Azelf,
 [SPECIES_DIALGA] = 
     {  
       //FRONT_PIC(Dialga),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 0),
       //BACK_PIC(Dialga),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Dialga),
       //SHINYPAL(Dialga),
       //PALETTES(Dialga),
@@ -6725,9 +6725,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PALKIA] = 
     {  
       //FRONT_PIC(Palkia),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 0),
       //BACK_PIC(Palkia),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Palkia),
       //SHINYPAL(Palkia),
       //PALETTES(Palkia),
@@ -6738,9 +6738,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HEATRAN] = 
     {  
       //FRONT_PIC(Heatran),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 5),
       //BACK_PIC(Heatran),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Heatran),
       //SHINYPAL(Heatran),
       //PALETTES(Heatran),
@@ -6751,9 +6751,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGIGIGAS] = 
     {  
       //FRONT_PIC(Regigigas),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 4),
       //BACK_PIC(Regigigas),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Regigigas),
       //SHINYPAL(Regigigas),
       //PALETTES(Regigigas),
@@ -6764,9 +6764,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIRATINA] = 
     {  
       //FRONT_PIC(Giratina),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 0),
       //BACK_PIC(Giratina),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Giratina),
       //SHINYPAL(Giratina),
       //PALETTES(Giratina),
@@ -6777,22 +6777,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRESSELIA] = 
     {  
       //FRONT_PIC(Cresselia),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 2),
       //BACK_PIC(Cresselia),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Cresselia),
       //SHINYPAL(Cresselia),
       //PALETTES(Cresselia),
       PIC_DATA_ICON_INDEX(Cresselia,0),
       //ICON(Cresselia, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Cresselia,
 [SPECIES_PHIONE] = 
     {  
       //FRONT_PIC(Phione),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 9),
       //BACK_PIC(Phione),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Phione),
       //SHINYPAL(Phione),
       //PALETTES(Phione),
@@ -6803,9 +6803,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANAPHY] = 
     {  
       //FRONT_PIC(Manaphy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 13),
       //BACK_PIC(Manaphy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 10),
       //PAL(Manaphy),
       //SHINYPAL(Manaphy),
       //PALETTES(Manaphy),
@@ -6816,22 +6816,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARKRAI] = 
     {  
       //FRONT_PIC(Darkrai),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 3),
       //BACK_PIC(Darkrai),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Darkrai),
       //SHINYPAL(Darkrai),
       //PALETTES(Darkrai),
       PIC_DATA_ICON_INDEX(Darkrai,0),
       //ICON(Darkrai, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Darkrai,
 [SPECIES_SHAYMIN] = 
     {  
       //FRONT_PIC(Shaymin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 16),
       //BACK_PIC(Shaymin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 15),
       //PAL(Shaymin),
       //SHINYPAL(Shaymin),
       //PALETTES(Shaymin),
@@ -6842,9 +6842,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS] = 
     {  
       //FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       //BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Arceus),
       //SHINYPAL(Arceus),
       //PALETTES(Arceus),
@@ -6855,9 +6855,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VICTINI] = 
     {  
       //FRONT_PIC(Victini),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Victini),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x58, 7),
       //PAL(Victini),
       //SHINYPAL(Victini),
       //PALETTES(Victini),
@@ -6868,9 +6868,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNIVY] = 
     {  
       //FRONT_PIC(Snivy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Snivy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(Snivy),
       //SHINYPAL(Snivy),
       //PALETTES(Snivy),
@@ -6881,9 +6881,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SERVINE] = 
     {  
       //FRONT_PIC(Servine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Servine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 5),
       //PAL(Servine),
       //SHINYPAL(Servine),
       //PALETTES(Servine),
@@ -6894,9 +6894,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SERPERIOR] = 
     {  
       //FRONT_PIC(Serperior),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Serperior),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(Serperior),
       //SHINYPAL(Serperior),
       //PALETTES(Serperior),
@@ -6907,9 +6907,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TEPIG] = 
     {  
       //FRONT_PIC(Tepig),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 15),
       //BACK_PIC(Tepig),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(Tepig),
       //SHINYPAL(Tepig),
       //PALETTES(Tepig),
@@ -6920,9 +6920,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIGNITE] = 
     {  
       //FRONT_PIC(Pignite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Pignite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 9),
       //PAL(Pignite),
       //SHINYPAL(Pignite),
       //PALETTES(Pignite),
@@ -6933,9 +6933,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EMBOAR] = 
     {  
       //FRONT_PIC(Emboar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Emboar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Emboar),
       //SHINYPAL(Emboar),
       //PALETTES(Emboar),
@@ -6946,9 +6946,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OSHAWOTT] = 
     {  
       //FRONT_PIC(Oshawott),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Oshawott),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 14),
       //PAL(Oshawott),
       //SHINYPAL(Oshawott),
       //PALETTES(Oshawott),
@@ -6959,9 +6959,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEWOTT] = 
     {  
       //FRONT_PIC(Dewott),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Dewott),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 5),
       //PAL(Dewott),
       //SHINYPAL(Dewott),
       //PALETTES(Dewott),
@@ -6972,9 +6972,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAMUROTT] = 
     {  
       //FRONT_PIC(Samurott),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Samurott),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Samurott),
       //SHINYPAL(Samurott),
       //PALETTES(Samurott),
@@ -6985,9 +6985,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PATRAT] = 
     {  
       //FRONT_PIC(Patrat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Patrat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Patrat),
       //SHINYPAL(Patrat),
       //PALETTES(Patrat),
@@ -6998,9 +6998,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WATCHOG] = 
     {  
       //FRONT_PIC(Watchog),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Watchog),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(Watchog),
       //SHINYPAL(Watchog),
       //PALETTES(Watchog),
@@ -7011,9 +7011,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LILLIPUP] = 
     {  
       //FRONT_PIC(Lillipup),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Lillipup),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 12),
       //PAL(Lillipup),
       //SHINYPAL(Lillipup),
       //PALETTES(Lillipup),
@@ -7024,9 +7024,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HERDIER] = 
     {  
       //FRONT_PIC(Herdier),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Herdier),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 10),
       //PAL(Herdier),
       //SHINYPAL(Herdier),
       //PALETTES(Herdier),
@@ -7037,9 +7037,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STOUTLAND] = 
     {  
       //FRONT_PIC(Stoutland),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Stoutland),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Stoutland),
       //SHINYPAL(Stoutland),
       //PALETTES(Stoutland),
@@ -7050,9 +7050,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PURRLOIN] = 
     {  
       //FRONT_PIC(Purrloin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Purrloin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Purrloin),
       //SHINYPAL(Purrloin),
       //PALETTES(Purrloin),
@@ -7063,9 +7063,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LIEPARD] = 
     {  
       //FRONT_PIC(Liepard),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Liepard),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Liepard),
       //SHINYPAL(Liepard),
       //PALETTES(Liepard),
@@ -7076,9 +7076,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PANSAGE] = 
     {  
       //FRONT_PIC(Pansage),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Pansage),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 9),
       //PAL(Pansage),
       //SHINYPAL(Pansage),
       //PALETTES(Pansage),
@@ -7089,9 +7089,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SIMISAGE] = 
     {  
       //FRONT_PIC(Simisage),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Simisage),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 6),
       //PAL(Simisage),
       //SHINYPAL(Simisage),
       //PALETTES(Simisage),
@@ -7102,9 +7102,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PANSEAR] = 
     {  
       //FRONT_PIC(Pansear),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Pansear),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 10),
       //PAL(Pansear),
       //SHINYPAL(Pansear),
       //PALETTES(Pansear),
@@ -7115,9 +7115,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SIMISEAR] = 
     {  
       //FRONT_PIC(Simisear),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Simisear),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Simisear),
       //SHINYPAL(Simisear),
       //PALETTES(Simisear),
@@ -7128,9 +7128,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PANPOUR] = 
     {  
       //FRONT_PIC(Panpour),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Panpour),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 9),
       //PAL(Panpour),
       //SHINYPAL(Panpour),
       //PALETTES(Panpour),
@@ -7141,9 +7141,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SIMIPOUR] = 
     {  
       //FRONT_PIC(Simipour),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Simipour),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Simipour),
       //SHINYPAL(Simipour),
       //PALETTES(Simipour),
@@ -7154,9 +7154,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUNNA] = 
     {  
       //FRONT_PIC(Munna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Munna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 16),
       //PAL(Munna),
       //SHINYPAL(Munna),
       //PALETTES(Munna),
@@ -7167,9 +7167,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUSHARNA] = 
     {  
       //FRONT_PIC(Musharna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Musharna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 8),
       //PAL(Musharna),
       //SHINYPAL(Musharna),
       //PALETTES(Musharna),
@@ -7180,9 +7180,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIDOVE] = 
     {  
       //FRONT_PIC(Pidove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Pidove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(Pidove),
       //SHINYPAL(Pidove),
       //PALETTES(Pidove),
@@ -7193,9 +7193,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TRANQUILL] = 
     {  
       //FRONT_PIC(Tranquill),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Tranquill),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Tranquill),
       //SHINYPAL(Tranquill),
       //PALETTES(Tranquill),
@@ -7206,9 +7206,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNFEZANT_MALE] = 
     {  
       //FRONT_PIC(UnfezantMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(UnfezantMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(UnfezantMale),
       //SHINYPAL(UnfezantMale),
       //PALETTES(UnfezantMale),
@@ -7219,9 +7219,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLITZLE] = 
     {  
       //FRONT_PIC(Blitzle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Blitzle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Blitzle),
       //SHINYPAL(Blitzle),
       //PALETTES(Blitzle),
@@ -7232,9 +7232,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZEBSTRIKA] = 
     {  
       //FRONT_PIC(Zebstrika),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Zebstrika),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Zebstrika),
       //SHINYPAL(Zebstrika),
       //PALETTES(Zebstrika),
@@ -7245,9 +7245,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROGGENROLA] = 
     {  
       //FRONT_PIC(Roggenrola),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Roggenrola),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 13),
       //PAL(Roggenrola),
       //SHINYPAL(Roggenrola),
       //PALETTES(Roggenrola),
@@ -7258,9 +7258,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BOLDORE] = 
     {  
       //FRONT_PIC(Boldore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Boldore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 16),
       //PAL(Boldore),
       //SHINYPAL(Boldore),
       //PALETTES(Boldore),
@@ -7271,9 +7271,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIGALITH] = 
     {  
       //FRONT_PIC(Gigalith),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Gigalith),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(Gigalith),
       //SHINYPAL(Gigalith),
       //PALETTES(Gigalith),
@@ -7284,35 +7284,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WOOBAT] = 
     {  
       //FRONT_PIC(Woobat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Woobat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 16),
       //PAL(Woobat),
       //SHINYPAL(Woobat),
       //PALETTES(Woobat),
       PIC_DATA_ICON_INDEX(Woobat,0),
       //ICON(Woobat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 19,
     }, //Woobat,
 [SPECIES_SWOOBAT] = 
     {  
       //FRONT_PIC(Swoobat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Swoobat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Swoobat),
       //SHINYPAL(Swoobat),
       //PALETTES(Swoobat),
       PIC_DATA_ICON_INDEX(Swoobat,0),
       //ICON(Swoobat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     }, //Swoobat,
 [SPECIES_DRILBUR] = 
     {  
       //FRONT_PIC(Drilbur),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Drilbur),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Drilbur),
       //SHINYPAL(Drilbur),
       //PALETTES(Drilbur),
@@ -7323,9 +7323,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EXCADRILL] = 
     {  
       //FRONT_PIC(Excadrill),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Excadrill),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 11),
       //PAL(Excadrill),
       //SHINYPAL(Excadrill),
       //PALETTES(Excadrill),
@@ -7336,9 +7336,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AUDINO] = 
     {  
       //FRONT_PIC(Audino),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Audino),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 9),
       //PAL(Audino),
       //SHINYPAL(Audino),
       //PALETTES(Audino),
@@ -7349,9 +7349,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TIMBURR] = 
     {  
       //FRONT_PIC(Timburr),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Timburr),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 15),
       //PAL(Timburr),
       //SHINYPAL(Timburr),
       //PALETTES(Timburr),
@@ -7362,9 +7362,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GURDURR] = 
     {  
       //FRONT_PIC(Gurdurr),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Gurdurr),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Gurdurr),
       //SHINYPAL(Gurdurr),
       //PALETTES(Gurdurr),
@@ -7375,9 +7375,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CONKELDURR] = 
     {  
       //FRONT_PIC(Conkeldurr),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Conkeldurr),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 13),
       //PAL(Conkeldurr),
       //SHINYPAL(Conkeldurr),
       //PALETTES(Conkeldurr),
@@ -7388,9 +7388,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYMPOLE] = 
     {  
       //FRONT_PIC(Tympole),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Tympole),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 17),
       //PAL(Tympole),
       //SHINYPAL(Tympole),
       //PALETTES(Tympole),
@@ -7401,9 +7401,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PALPITOAD] = 
     {  
       //FRONT_PIC(Palpitoad),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Palpitoad),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 12),
       //PAL(Palpitoad),
       //SHINYPAL(Palpitoad),
       //PALETTES(Palpitoad),
@@ -7414,9 +7414,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEISMITOAD] = 
     {  
       //FRONT_PIC(Seismitoad),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Seismitoad),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Seismitoad),
       //SHINYPAL(Seismitoad),
       //PALETTES(Seismitoad),
@@ -7427,9 +7427,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_THROH] = 
     {  
       //FRONT_PIC(Throh),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Throh),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Throh),
       //SHINYPAL(Throh),
       //PALETTES(Throh),
@@ -7440,9 +7440,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAWK] = 
     {  
       //FRONT_PIC(Sawk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Sawk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Sawk),
       //SHINYPAL(Sawk),
       //PALETTES(Sawk),
@@ -7453,9 +7453,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SEWADDLE] = 
     {  
       //FRONT_PIC(Sewaddle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Sewaddle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 13),
       //PAL(Sewaddle),
       //SHINYPAL(Sewaddle),
       //PALETTES(Sewaddle),
@@ -7466,9 +7466,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWADLOON] = 
     {  
       //FRONT_PIC(Swadloon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Swadloon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 10),
       //PAL(Swadloon),
       //SHINYPAL(Swadloon),
       //PALETTES(Swadloon),
@@ -7479,9 +7479,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LEAVANNY] = 
     {  
       //FRONT_PIC(Leavanny),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Leavanny),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Leavanny),
       //SHINYPAL(Leavanny),
       //PALETTES(Leavanny),
@@ -7492,9 +7492,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VENIPEDE] = 
     {  
       //FRONT_PIC(Venipede),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Venipede),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 14),
       //PAL(Venipede),
       //SHINYPAL(Venipede),
       //PALETTES(Venipede),
@@ -7505,9 +7505,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WHIRLIPEDE] = 
     {  
       //FRONT_PIC(Whirlipede),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Whirlipede),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 15),
       //PAL(Whirlipede),
       //SHINYPAL(Whirlipede),
       //PALETTES(Whirlipede),
@@ -7518,9 +7518,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCOLIPEDE] = 
     {  
       //FRONT_PIC(Scolipede),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Scolipede),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Scolipede),
       //SHINYPAL(Scolipede),
       //PALETTES(Scolipede),
@@ -7531,9 +7531,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COTTONEE] = 
     {  
       //FRONT_PIC(Cottonee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 18),
       //BACK_PIC(Cottonee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 18),
       //PAL(Cottonee),
       //SHINYPAL(Cottonee),
       //PALETTES(Cottonee),
@@ -7544,9 +7544,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WHIMSICOTT] = 
     {  
       //FRONT_PIC(Whimsicott),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Whimsicott),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Whimsicott),
       //SHINYPAL(Whimsicott),
       //PALETTES(Whimsicott),
@@ -7557,22 +7557,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PETILIL] = 
     {  
       //FRONT_PIC(Petilil),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Petilil),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 9),
       //PAL(Petilil),
       //SHINYPAL(Petilil),
       //PALETTES(Petilil),
       PIC_DATA_ICON_INDEX(Petilil,0),
       //ICON(Petilil, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Petilil,
 [SPECIES_LILLIGANT] = 
     {  
       //FRONT_PIC(Lilligant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Lilligant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Lilligant),
       //SHINYPAL(Lilligant),
       //PALETTES(Lilligant),
@@ -7583,9 +7583,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASCULIN] = 
     {  
       //FRONT_PIC(Basculin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Basculin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 16),
       //PAL(Basculin),
       //SHINYPAL(Basculin),
       //PALETTES(Basculin),
@@ -7596,9 +7596,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDILE] = 
     {  
       //FRONT_PIC(Sandile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 18),
       //BACK_PIC(Sandile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 18),
       //PAL(Sandile),
       //SHINYPAL(Sandile),
       //PALETTES(Sandile),
@@ -7609,9 +7609,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KROKOROK] = 
     {  
       //FRONT_PIC(Krokorok),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Krokorok),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(Krokorok),
       //SHINYPAL(Krokorok),
       //PALETTES(Krokorok),
@@ -7622,9 +7622,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KROOKODILE] = 
     {  
       //FRONT_PIC(Krookodile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Krookodile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Krookodile),
       //SHINYPAL(Krookodile),
       //PALETTES(Krookodile),
@@ -7635,9 +7635,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARUMAKA] = 
     {  
       //FRONT_PIC(Darumaka),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Darumaka),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 12),
       //PAL(Darumaka),
       //SHINYPAL(Darumaka),
       //PALETTES(Darumaka),
@@ -7648,9 +7648,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARMANITAN] = 
     {  
       //FRONT_PIC(Darmanitan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Darmanitan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Darmanitan),
       //SHINYPAL(Darmanitan),
       //PALETTES(Darmanitan),
@@ -7661,9 +7661,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MARACTUS] = 
     {  
       //FRONT_PIC(Maractus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Maractus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Maractus),
       //SHINYPAL(Maractus),
       //PALETTES(Maractus),
@@ -7674,9 +7674,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DWEBBLE] = 
     {  
       //FRONT_PIC(Dwebble),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Dwebble),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x74, 17),
       //PAL(Dwebble),
       //SHINYPAL(Dwebble),
       //PALETTES(Dwebble),
@@ -7687,9 +7687,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRUSTLE] = 
     {  
       //FRONT_PIC(Crustle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Crustle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(Crustle),
       //SHINYPAL(Crustle),
       //PALETTES(Crustle),
@@ -7700,9 +7700,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCRAGGY] = 
     {  
       //FRONT_PIC(Scraggy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Scraggy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 7),
       //PAL(Scraggy),
       //SHINYPAL(Scraggy),
       //PALETTES(Scraggy),
@@ -7713,9 +7713,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCRAFTY] = 
     {  
       //FRONT_PIC(Scrafty),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Scrafty),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 5),
       //PAL(Scrafty),
       //SHINYPAL(Scrafty),
       //PALETTES(Scrafty),
@@ -7726,35 +7726,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SIGILYPH] = 
     {  
       //FRONT_PIC(Sigilyph),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Sigilyph),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Sigilyph),
       //SHINYPAL(Sigilyph),
       //PALETTES(Sigilyph),
       PIC_DATA_ICON_INDEX(Sigilyph,0),
       //ICON(Sigilyph, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Sigilyph,
 [SPECIES_YAMASK] = 
     {  
       //FRONT_PIC(Yamask),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 15),
       //BACK_PIC(Yamask),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 14),
       //PAL(Yamask),
       //SHINYPAL(Yamask),
       //PALETTES(Yamask),
       PIC_DATA_ICON_INDEX(Yamask,0),
       //ICON(Yamask, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Yamask,
 [SPECIES_COFAGRIGUS] = 
     {  
       //FRONT_PIC(Cofagrigus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Cofagrigus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Cofagrigus),
       //SHINYPAL(Cofagrigus),
       //PALETTES(Cofagrigus),
@@ -7765,9 +7765,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TIRTOUGA] = 
     {  
       //FRONT_PIC(Tirtouga),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Tirtouga),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 16),
       //PAL(Tirtouga),
       //SHINYPAL(Tirtouga),
       //PALETTES(Tirtouga),
@@ -7778,9 +7778,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CARRACOSTA] = 
     {  
       //FRONT_PIC(Carracosta),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Carracosta),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Carracosta),
       //SHINYPAL(Carracosta),
       //PALETTES(Carracosta),
@@ -7791,9 +7791,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCHEN] = 
     {  
       //FRONT_PIC(Archen),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Archen),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 16),
       //PAL(Archen),
       //SHINYPAL(Archen),
       //PALETTES(Archen),
@@ -7804,22 +7804,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCHEOPS] = 
     {  
       //FRONT_PIC(Archeops),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Archeops),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Archeops),
       //SHINYPAL(Archeops),
       //PALETTES(Archeops),
       PIC_DATA_ICON_INDEX(Archeops,0),
       //ICON(Archeops, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Archeops,
 [SPECIES_TRUBBISH] = 
     {  
       //FRONT_PIC(Trubbish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 15),
       //BACK_PIC(Trubbish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 13),
       //PAL(Trubbish),
       //SHINYPAL(Trubbish),
       //PALETTES(Trubbish),
@@ -7830,9 +7830,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GARBODOR] = 
     {  
       //FRONT_PIC(Garbodor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Garbodor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Garbodor),
       //SHINYPAL(Garbodor),
       //PALETTES(Garbodor),
@@ -7843,9 +7843,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZORUA] = 
     {  
       //FRONT_PIC(Zorua),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Zorua),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Zorua),
       //SHINYPAL(Zorua),
       //PALETTES(Zorua),
@@ -7856,9 +7856,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZOROARK] = 
     {  
       //FRONT_PIC(Zoroark),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Zoroark),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 10),
       //PAL(Zoroark),
       //SHINYPAL(Zoroark),
       //PALETTES(Zoroark),
@@ -7869,9 +7869,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINCCINO] = 
     {  
       //FRONT_PIC(Minccino),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Minccino),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Minccino),
       //SHINYPAL(Minccino),
       //PALETTES(Minccino),
@@ -7882,9 +7882,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CINCCINO] = 
     {  
       //FRONT_PIC(Cinccino),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Cinccino),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Cinccino),
       //SHINYPAL(Cinccino),
       //PALETTES(Cinccino),
@@ -7895,9 +7895,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOTHITA] = 
     {  
       //FRONT_PIC(Gothita),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Gothita),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 10),
       //PAL(Gothita),
       //SHINYPAL(Gothita),
       //PALETTES(Gothita),
@@ -7908,9 +7908,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOTHORITA] = 
     {  
       //FRONT_PIC(Gothorita),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Gothorita),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Gothorita),
       //SHINYPAL(Gothorita),
       //PALETTES(Gothorita),
@@ -7921,9 +7921,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOTHITELLE] = 
     {  
       //FRONT_PIC(Gothitelle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Gothitelle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Gothitelle),
       //SHINYPAL(Gothitelle),
       //PALETTES(Gothitelle),
@@ -7934,48 +7934,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SOLOSIS] = 
     {  
       //FRONT_PIC(Solosis),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 17),
       //BACK_PIC(Solosis),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 19),
       //PAL(Solosis),
       //SHINYPAL(Solosis),
       //PALETTES(Solosis),
       PIC_DATA_ICON_INDEX(Solosis,0),
       //ICON(Solosis, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 14,
     }, //Solosis,
 [SPECIES_DUOSION] = 
     {  
       //FRONT_PIC(Duosion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Duosion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 13),
       //PAL(Duosion),
       //SHINYPAL(Duosion),
       //PALETTES(Duosion),
       PIC_DATA_ICON_INDEX(Duosion,0),
       //ICON(Duosion, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Duosion,
 [SPECIES_REUNICLUS] = 
     {  
       //FRONT_PIC(Reuniclus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Reuniclus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 13),
       //PAL(Reuniclus),
       //SHINYPAL(Reuniclus),
       //PALETTES(Reuniclus),
       PIC_DATA_ICON_INDEX(Reuniclus,0),
       //ICON(Reuniclus, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Reuniclus,
 [SPECIES_DUCKLETT] = 
     {  
       //FRONT_PIC(Ducklett),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Ducklett),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 10),
       //PAL(Ducklett),
       //SHINYPAL(Ducklett),
       //PALETTES(Ducklett),
@@ -7986,9 +7986,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWANNA] = 
     {  
       //FRONT_PIC(Swanna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Swanna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(Swanna),
       //SHINYPAL(Swanna),
       //PALETTES(Swanna),
@@ -7999,9 +7999,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VANILLITE] = 
     {  
       //FRONT_PIC(Vanillite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Vanillite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 9),
       //PAL(Vanillite),
       //SHINYPAL(Vanillite),
       //PALETTES(Vanillite),
@@ -8012,9 +8012,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VANILLISH] = 
     {  
       //FRONT_PIC(Vanillish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Vanillish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 4),
       //PAL(Vanillish),
       //SHINYPAL(Vanillish),
       //PALETTES(Vanillish),
@@ -8025,9 +8025,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VANILLUXE] = 
     {  
       //FRONT_PIC(Vanilluxe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Vanilluxe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 6),
       //PAL(Vanilluxe),
       //SHINYPAL(Vanilluxe),
       //PALETTES(Vanilluxe),
@@ -8038,9 +8038,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEERLING] = 
     {  
       //FRONT_PIC(Deerling),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Deerling),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(Deerling),
       //SHINYPAL(Deerling),
       //PALETTES(Deerling),
@@ -8051,9 +8051,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAWSBUCK] = 
     {  
       //FRONT_PIC(Sawsbuck),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Sawsbuck),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 5),
       //PAL(Sawsbuck),
       //SHINYPAL(Sawsbuck),
       //PALETTES(Sawsbuck),
@@ -8064,22 +8064,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EMOLGA] = 
     {  
       //FRONT_PIC(Emolga),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 17),
       //BACK_PIC(Emolga),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 16),
       //PAL(Emolga),
       //SHINYPAL(Emolga),
       //PALETTES(Emolga),
       PIC_DATA_ICON_INDEX(Emolga,0),
       //ICON(Emolga, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 19,
     }, //Emolga,
 [SPECIES_KARRABLAST] = 
     {  
       //FRONT_PIC(Karrablast),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Karrablast),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 14),
       //PAL(Karrablast),
       //SHINYPAL(Karrablast),
       //PALETTES(Karrablast),
@@ -8090,9 +8090,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ESCAVALIER] = 
     {  
       //FRONT_PIC(Escavalier),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Escavalier),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(Escavalier),
       //SHINYPAL(Escavalier),
       //PALETTES(Escavalier),
@@ -8103,9 +8103,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FOONGUS] = 
     {  
       //FRONT_PIC(Foongus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Foongus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(Foongus),
       //SHINYPAL(Foongus),
       //PALETTES(Foongus),
@@ -8116,9 +8116,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AMOONGUSS] = 
     {  
       //FRONT_PIC(Amoonguss),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Amoonguss),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 12),
       //PAL(Amoonguss),
       //SHINYPAL(Amoonguss),
       //PALETTES(Amoonguss),
@@ -8129,9 +8129,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FRILLISH_MALE] = 
     {  
       //FRONT_PIC(FrillishMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(FrillishMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 7),
       //PAL(FrillishMale),
       //SHINYPAL(FrillishMale),
       //PALETTES(FrillishMale),
@@ -8142,9 +8142,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JELLICENT_MALE] = 
     {  
       //FRONT_PIC(JellicentMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(JellicentMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(JellicentMale),
       //SHINYPAL(JellicentMale),
       //PALETTES(JellicentMale),
@@ -8155,9 +8155,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALOMOMOLA] = 
     {  
       //FRONT_PIC(Alomomola),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Alomomola),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(Alomomola),
       //SHINYPAL(Alomomola),
       //PALETTES(Alomomola),
@@ -8168,9 +8168,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JOLTIK] = 
     {  
       //FRONT_PIC(Joltik),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 17),
       //BACK_PIC(Joltik),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 19),
       //PAL(Joltik),
       //SHINYPAL(Joltik),
       //PALETTES(Joltik),
@@ -8181,9 +8181,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GALVANTULA] = 
     {  
       //FRONT_PIC(Galvantula),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Galvantula),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 18),
       //PAL(Galvantula),
       //SHINYPAL(Galvantula),
       //PALETTES(Galvantula),
@@ -8194,9 +8194,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FERROSEED] = 
     {  
       //FRONT_PIC(Ferroseed),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Ferroseed),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 15),
       //PAL(Ferroseed),
       //SHINYPAL(Ferroseed),
       //PALETTES(Ferroseed),
@@ -8207,9 +8207,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FERROTHORN] = 
     {  
       //FRONT_PIC(Ferrothorn),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Ferrothorn),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 14),
       //PAL(Ferrothorn),
       //SHINYPAL(Ferrothorn),
       //PALETTES(Ferrothorn),
@@ -8220,9 +8220,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KLINK] = 
     {  
       //FRONT_PIC(Klink),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Klink),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 17),
       //PAL(Klink),
       //SHINYPAL(Klink),
       //PALETTES(Klink),
@@ -8233,9 +8233,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KLANG] = 
     {  
       //FRONT_PIC(Klang),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Klang),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Klang),
       //SHINYPAL(Klang),
       //PALETTES(Klang),
@@ -8246,9 +8246,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KLINKLANG] = 
     {  
       //FRONT_PIC(Klinklang),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Klinklang),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Klinklang),
       //SHINYPAL(Klinklang),
       //PALETTES(Klinklang),
@@ -8259,48 +8259,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYNAMO] = 
     {  
       //FRONT_PIC(Tynamo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 22),
       //BACK_PIC(Tynamo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 21),
       //PAL(Tynamo),
       //SHINYPAL(Tynamo),
       //PALETTES(Tynamo),
       PIC_DATA_ICON_INDEX(Tynamo,0),
       //ICON(Tynamo, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 16,
     }, //Tynamo,
 [SPECIES_EELEKTRIK] = 
     {  
       //FRONT_PIC(Eelektrik),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Eelektrik),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 4),
       //PAL(Eelektrik),
       //SHINYPAL(Eelektrik),
       //PALETTES(Eelektrik),
       PIC_DATA_ICON_INDEX(Eelektrik,0),
       //ICON(Eelektrik, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Eelektrik,
 [SPECIES_EELEKTROSS] = 
     {  
       //FRONT_PIC(Eelektross),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Eelektross),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Eelektross),
       //SHINYPAL(Eelektross),
       //PALETTES(Eelektross),
       PIC_DATA_ICON_INDEX(Eelektross,0),
       //ICON(Eelektross, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Eelektross,
 [SPECIES_ELGYEM] = 
     {  
       //FRONT_PIC(Elgyem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Elgyem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 10),
       //PAL(Elgyem),
       //SHINYPAL(Elgyem),
       //PALETTES(Elgyem),
@@ -8311,9 +8311,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BEHEEYEM] = 
     {  
       //FRONT_PIC(Beheeyem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Beheeyem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Beheeyem),
       //SHINYPAL(Beheeyem),
       //PALETTES(Beheeyem),
@@ -8324,9 +8324,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LITWICK] = 
     {  
       //FRONT_PIC(Litwick),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Litwick),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 14),
       //PAL(Litwick),
       //SHINYPAL(Litwick),
       //PALETTES(Litwick),
@@ -8337,9 +8337,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LAMPENT] = 
     {  
       //FRONT_PIC(Lampent),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Lampent),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 12),
       //PAL(Lampent),
       //SHINYPAL(Lampent),
       //PALETTES(Lampent),
@@ -8350,9 +8350,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHANDELURE] = 
     {  
       //FRONT_PIC(Chandelure),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Chandelure),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Chandelure),
       //SHINYPAL(Chandelure),
       //PALETTES(Chandelure),
@@ -8363,9 +8363,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AXEW] = 
     {  
       //FRONT_PIC(Axew),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Axew),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(Axew),
       //SHINYPAL(Axew),
       //PALETTES(Axew),
@@ -8376,9 +8376,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FRAXURE] = 
     {  
       //FRONT_PIC(Fraxure),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Fraxure),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 13),
       //PAL(Fraxure),
       //SHINYPAL(Fraxure),
       //PALETTES(Fraxure),
@@ -8389,9 +8389,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HAXORUS] = 
     {  
       //FRONT_PIC(Haxorus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Haxorus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Haxorus),
       //SHINYPAL(Haxorus),
       //PALETTES(Haxorus),
@@ -8402,9 +8402,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CUBCHOO] = 
     {  
       //FRONT_PIC(Cubchoo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Cubchoo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 12),
       //PAL(Cubchoo),
       //SHINYPAL(Cubchoo),
       //PALETTES(Cubchoo),
@@ -8415,9 +8415,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BEARTIC] = 
     {  
       //FRONT_PIC(Beartic),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Beartic),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Beartic),
       //SHINYPAL(Beartic),
       //PALETTES(Beartic),
@@ -8428,9 +8428,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRYOGONAL] = 
     {  
       //FRONT_PIC(Cryogonal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Cryogonal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 4),
       //PAL(Cryogonal),
       //SHINYPAL(Cryogonal),
       //PALETTES(Cryogonal),
@@ -8441,9 +8441,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHELMET] = 
     {  
       //FRONT_PIC(Shelmet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Shelmet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 19),
       //PAL(Shelmet),
       //SHINYPAL(Shelmet),
       //PALETTES(Shelmet),
@@ -8454,9 +8454,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ACCELGOR] = 
     {  
       //FRONT_PIC(Accelgor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Accelgor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Accelgor),
       //SHINYPAL(Accelgor),
       //PALETTES(Accelgor),
@@ -8467,9 +8467,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STUNFISK] = 
     {  
       //FRONT_PIC(Stunfisk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Stunfisk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 22),
       //PAL(Stunfisk),
       //SHINYPAL(Stunfisk),
       //PALETTES(Stunfisk),
@@ -8480,9 +8480,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIENFOO] = 
     {  
       //FRONT_PIC(Mienfoo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Mienfoo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(Mienfoo),
       //SHINYPAL(Mienfoo),
       //PALETTES(Mienfoo),
@@ -8493,9 +8493,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIENSHAO] = 
     {  
       //FRONT_PIC(Mienshao),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Mienshao),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Mienshao),
       //SHINYPAL(Mienshao),
       //PALETTES(Mienshao),
@@ -8506,9 +8506,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRUDDIGON] = 
     {  
       //FRONT_PIC(Druddigon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Druddigon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Druddigon),
       //SHINYPAL(Druddigon),
       //PALETTES(Druddigon),
@@ -8519,9 +8519,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLETT] = 
     {  
       //FRONT_PIC(Golett),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Golett),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Golett),
       //SHINYPAL(Golett),
       //PALETTES(Golett),
@@ -8532,9 +8532,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLURK] = 
     {  
       //FRONT_PIC(Golurk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Golurk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Golurk),
       //SHINYPAL(Golurk),
       //PALETTES(Golurk),
@@ -8545,9 +8545,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PAWNIARD] = 
     {  
       //FRONT_PIC(Pawniard),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Pawniard),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Pawniard),
       //SHINYPAL(Pawniard),
       //PALETTES(Pawniard),
@@ -8558,9 +8558,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BISHARP] = 
     {  
       //FRONT_PIC(Bisharp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Bisharp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Bisharp),
       //SHINYPAL(Bisharp),
       //PALETTES(Bisharp),
@@ -8571,9 +8571,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BOUFFALANT] = 
     {  
       //FRONT_PIC(Bouffalant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Bouffalant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Bouffalant),
       //SHINYPAL(Bouffalant),
       //PALETTES(Bouffalant),
@@ -8584,9 +8584,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RUFFLET] = 
     {  
       //FRONT_PIC(Rufflet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Rufflet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(Rufflet),
       //SHINYPAL(Rufflet),
       //PALETTES(Rufflet),
@@ -8597,22 +8597,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRAVIARY] = 
     {  
       //FRONT_PIC(Braviary),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Braviary),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Braviary),
       //SHINYPAL(Braviary),
       //PALETTES(Braviary),
       PIC_DATA_ICON_INDEX(Braviary,0),
       //ICON(Braviary, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Braviary,
 [SPECIES_VULLABY] = 
     {  
       //FRONT_PIC(Vullaby),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Vullaby),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 14),
       //PAL(Vullaby),
       //SHINYPAL(Vullaby),
       //PALETTES(Vullaby),
@@ -8623,9 +8623,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANDIBUZZ] = 
     {  
       //FRONT_PIC(Mandibuzz),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Mandibuzz),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Mandibuzz),
       //SHINYPAL(Mandibuzz),
       //PALETTES(Mandibuzz),
@@ -8636,9 +8636,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HEATMOR] = 
     {  
       //FRONT_PIC(Heatmor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Heatmor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 21),
       //PAL(Heatmor),
       //SHINYPAL(Heatmor),
       //PALETTES(Heatmor),
@@ -8649,9 +8649,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DURANT] = 
     {  
       //FRONT_PIC(Durant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 17),
       //BACK_PIC(Durant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 17),
       //PAL(Durant),
       //SHINYPAL(Durant),
       //PALETTES(Durant),
@@ -8662,9 +8662,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEINO] = 
     {  
       //FRONT_PIC(Deino),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Deino),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 14),
       //PAL(Deino),
       //SHINYPAL(Deino),
       //PALETTES(Deino),
@@ -8675,9 +8675,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZWEILOUS] = 
     {  
       //FRONT_PIC(Zweilous),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Zweilous),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(Zweilous),
       //SHINYPAL(Zweilous),
       //PALETTES(Zweilous),
@@ -8688,22 +8688,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HYDREIGON] = 
     {  
       //FRONT_PIC(Hydreigon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Hydreigon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 11),
       //PAL(Hydreigon),
       //SHINYPAL(Hydreigon),
       //PALETTES(Hydreigon),
       PIC_DATA_ICON_INDEX(Hydreigon,0),
       //ICON(Hydreigon, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Hydreigon,
 [SPECIES_LARVESTA] = 
     {  
       //FRONT_PIC(Larvesta),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Larvesta),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 12),
       //PAL(Larvesta),
       //SHINYPAL(Larvesta),
       //PALETTES(Larvesta),
@@ -8714,9 +8714,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VOLCARONA] = 
     {  
       //FRONT_PIC(Volcarona),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Volcarona),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Volcarona),
       //SHINYPAL(Volcarona),
       //PALETTES(Volcarona),
@@ -8727,9 +8727,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COBALION] = 
     {  
       //FRONT_PIC(Cobalion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Cobalion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 6),
       //PAL(Cobalion),
       //SHINYPAL(Cobalion),
       //PALETTES(Cobalion),
@@ -8740,9 +8740,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TERRAKION] = 
     {  
       //FRONT_PIC(Terrakion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Terrakion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Terrakion),
       //SHINYPAL(Terrakion),
       //PALETTES(Terrakion),
@@ -8753,9 +8753,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIRIZION] = 
     {  
       //FRONT_PIC(Virizion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Virizion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Virizion),
       //SHINYPAL(Virizion),
       //PALETTES(Virizion),
@@ -8766,35 +8766,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TORNADUS] = 
     {  
       //FRONT_PIC(Tornadus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Tornadus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Tornadus),
       //SHINYPAL(Tornadus),
       //PALETTES(Tornadus),
       PIC_DATA_ICON_INDEX(Tornadus,0),
       //ICON(Tornadus, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Tornadus,
 [SPECIES_THUNDURUS] = 
     {  
       //FRONT_PIC(Thundurus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Thundurus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Thundurus),
       //SHINYPAL(Thundurus),
       //PALETTES(Thundurus),
       PIC_DATA_ICON_INDEX(Thundurus,0),
       //ICON(Thundurus, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Thundurus,
 [SPECIES_RESHIRAM] = 
     {  
       //FRONT_PIC(Reshiram),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Reshiram),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Reshiram),
       //SHINYPAL(Reshiram),
       //PALETTES(Reshiram),
@@ -8805,9 +8805,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZEKROM] = 
     {  
       //FRONT_PIC(Zekrom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Zekrom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Zekrom),
       //SHINYPAL(Zekrom),
       //PALETTES(Zekrom),
@@ -8818,22 +8818,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LANDORUS] = 
     {  
       //FRONT_PIC(Landorus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Landorus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Landorus),
       //SHINYPAL(Landorus),
       //PALETTES(Landorus),
       PIC_DATA_ICON_INDEX(Landorus,0),
       //ICON(Landorus, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Landorus,
 [SPECIES_KYUREM] = 
     {  
       //FRONT_PIC(Kyurem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Kyurem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Kyurem),
       //SHINYPAL(Kyurem),
       //PALETTES(Kyurem),
@@ -8844,9 +8844,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KELDEO] = 
     {  
       //FRONT_PIC(Keldeo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Keldeo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 4),
       //PAL(Keldeo),
       //SHINYPAL(Keldeo),
       //PALETTES(Keldeo),
@@ -8857,9 +8857,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MELOETTA] = 
     {  
       //FRONT_PIC(Meloetta),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 9),
       //BACK_PIC(Meloetta),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 7),
       //PAL(Meloetta),
       //SHINYPAL(Meloetta),
       //PALETTES(Meloetta),
@@ -8870,9 +8870,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GENESECT] = 
     {  
       //FRONT_PIC(Genesect),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Genesect),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Genesect),
       //SHINYPAL(Genesect),
       //PALETTES(Genesect),
@@ -8883,9 +8883,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHESPIN] = 
     {  
       //FRONT_PIC(Chespin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Chespin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 6),
       //PAL(Chespin),
       //SHINYPAL(Chespin),
       //PALETTES(Chespin),
@@ -8896,9 +8896,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_QUILLADIN] = 
     {  
       //FRONT_PIC(Quilladin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Quilladin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Quilladin),
       //SHINYPAL(Quilladin),
       //PALETTES(Quilladin),
@@ -8909,9 +8909,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHESNAUGHT] = 
     {  
       //FRONT_PIC(Chesnaught),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Chesnaught),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 10),
       //PAL(Chesnaught),
       //SHINYPAL(Chesnaught),
       //PALETTES(Chesnaught),
@@ -8922,9 +8922,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FENNEKIN] = 
     {  
       //FRONT_PIC(Fennekin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Fennekin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(Fennekin),
       //SHINYPAL(Fennekin),
       //PALETTES(Fennekin),
@@ -8935,9 +8935,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRAIXEN] = 
     {  
       //FRONT_PIC(Braixen),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Braixen),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 10),
       //PAL(Braixen),
       //SHINYPAL(Braixen),
       //PALETTES(Braixen),
@@ -8948,9 +8948,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DELPHOX] = 
     {  
       //FRONT_PIC(Delphox),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Delphox),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Delphox),
       //SHINYPAL(Delphox),
       //PALETTES(Delphox),
@@ -8961,9 +8961,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FROAKIE] = 
     {  
       //FRONT_PIC(Froakie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Froakie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Froakie),
       //SHINYPAL(Froakie),
       //PALETTES(Froakie),
@@ -8974,9 +8974,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FROGADIER] = 
     {  
       //FRONT_PIC(Frogadier),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Frogadier),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Frogadier),
       //SHINYPAL(Frogadier),
       //PALETTES(Frogadier),
@@ -8987,9 +8987,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRENINJA] = 
     {  
       //FRONT_PIC(Greninja),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Greninja),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Greninja),
       //SHINYPAL(Greninja),
       //PALETTES(Greninja),
@@ -9000,9 +9000,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BUNNELBY] = 
     {  
       //FRONT_PIC(Bunnelby),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Bunnelby),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(Bunnelby),
       //SHINYPAL(Bunnelby),
       //PALETTES(Bunnelby),
@@ -9013,9 +9013,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DIGGERSBY] = 
     {  
       //FRONT_PIC(Diggersby),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Diggersby),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Diggersby),
       //SHINYPAL(Diggersby),
       //PALETTES(Diggersby),
@@ -9026,9 +9026,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLETCHLING] = 
     {  
       //FRONT_PIC(Fletchling),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Fletchling),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 14),
       //PAL(Fletchling),
       //SHINYPAL(Fletchling),
       //PALETTES(Fletchling),
@@ -9039,35 +9039,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLETCHINDER] = 
     {  
       //FRONT_PIC(Fletchinder),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Fletchinder),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Fletchinder),
       //SHINYPAL(Fletchinder),
       //PALETTES(Fletchinder),
       PIC_DATA_ICON_INDEX(Fletchinder,0),
       //ICON(Fletchinder, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 9,
     }, //Fletchinder,
 [SPECIES_TALONFLAME] = 
     {  
       //FRONT_PIC(Talonflame),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Talonflame),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Talonflame),
       //SHINYPAL(Talonflame),
       //PALETTES(Talonflame),
       PIC_DATA_ICON_INDEX(Talonflame,0),
       //ICON(Talonflame, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //Talonflame,
 [SPECIES_SCATTERBUG] = 
     {  
       //FRONT_PIC(Scatterbug),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Scatterbug),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 12),
       //PAL(Scatterbug),
       //SHINYPAL(Scatterbug),
       //PALETTES(Scatterbug),
@@ -9078,9 +9078,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPEWPA] = 
     {  
       //FRONT_PIC(Spewpa),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Spewpa),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 12),
       //PAL(Spewpa),
       //SHINYPAL(Spewpa),
       //PALETTES(Spewpa),
@@ -9091,22 +9091,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_SNOW] = 
     {  
       //FRONT_PIC(VivillonSnow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonSnow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonSnow),
       //SHINYPAL(VivillonSnow),
       //PALETTES(VivillonSnow),
       PIC_DATA_ICON_INDEX(VivillonSnow,0),
       //ICON(VivillonSnow, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 9,
     }, //Vivillon,
 [SPECIES_LITLEO] = 
     {  
       //FRONT_PIC(Litleo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Litleo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Litleo),
       //SHINYPAL(Litleo),
       //PALETTES(Litleo),
@@ -9117,9 +9117,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PYROAR_MALE] = 
     {  
       //FRONT_PIC(PyroarMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(PyroarMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(PyroarMale),
       //SHINYPAL(PyroarMale),
       //PALETTES(PyroarMale),
@@ -9130,9 +9130,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLABEBE] = 
     {  
       //FRONT_PIC(Flabebe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Flabebe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Flabebe),
       //SHINYPAL(Flabebe),
       //PALETTES(Flabebe),
@@ -9143,9 +9143,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE] = 
     {  
       //FRONT_PIC(Floette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Floette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Floette),
       //SHINYPAL(Floette),
       //PALETTES(Floette),
@@ -9156,9 +9156,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLORGES] = 
     {  
       //FRONT_PIC(Florges),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Florges),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Florges),
       //SHINYPAL(Florges),
       //PALETTES(Florges),
@@ -9169,9 +9169,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKIDDO] = 
     {  
       //FRONT_PIC(Skiddo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Skiddo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(Skiddo),
       //SHINYPAL(Skiddo),
       //PALETTES(Skiddo),
@@ -9182,9 +9182,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOGOAT] = 
     {  
       //FRONT_PIC(Gogoat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Gogoat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(Gogoat),
       //SHINYPAL(Gogoat),
       //PALETTES(Gogoat),
@@ -9195,9 +9195,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PANCHAM] = 
     {  
       //FRONT_PIC(Pancham),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Pancham),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(Pancham),
       //SHINYPAL(Pancham),
       //PALETTES(Pancham),
@@ -9208,9 +9208,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PANGORO] = 
     {  
       //FRONT_PIC(Pangoro),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Pangoro),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Pangoro),
       //SHINYPAL(Pangoro),
       //PALETTES(Pangoro),
@@ -9221,9 +9221,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU] = 
     {  
       //FRONT_PIC(Furfrou),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Furfrou),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Furfrou),
       //SHINYPAL(Furfrou),
       //PALETTES(Furfrou),
@@ -9234,9 +9234,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ESPURR] = 
     {  
       //FRONT_PIC(Espurr),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Espurr),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Espurr),
       //SHINYPAL(Espurr),
       //PALETTES(Espurr),
@@ -9247,9 +9247,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEOWSTIC_MALE] = 
     {  
       //FRONT_PIC(MeowsticMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(MeowsticMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 9),
       //PAL(MeowsticMale),
       //SHINYPAL(MeowsticMale),
       //PALETTES(MeowsticMale),
@@ -9260,9 +9260,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HONEDGE] = 
     {  
       //FRONT_PIC(Honedge),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Honedge),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 4),
       //PAL(Honedge),
       //SHINYPAL(Honedge),
       //PALETTES(Honedge),
@@ -9273,9 +9273,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DOUBLADE] = 
     {  
       //FRONT_PIC(Doublade),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Doublade),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Doublade),
       //SHINYPAL(Doublade),
       //PALETTES(Doublade),
@@ -9286,9 +9286,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AEGISLASH] = 
     {  
       //FRONT_PIC(Aegislash),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Aegislash),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 9),
       //PAL(Aegislash),
       //SHINYPAL(Aegislash),
       //PALETTES(Aegislash),
@@ -9299,9 +9299,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPRITZEE] = 
     {  
       //FRONT_PIC(Spritzee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Spritzee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(Spritzee),
       //SHINYPAL(Spritzee),
       //PALETTES(Spritzee),
@@ -9312,9 +9312,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AROMATISSE] = 
     {  
       //FRONT_PIC(Aromatisse),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Aromatisse),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Aromatisse),
       //SHINYPAL(Aromatisse),
       //PALETTES(Aromatisse),
@@ -9325,9 +9325,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWIRLIX] = 
     {  
       //FRONT_PIC(Swirlix),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Swirlix),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 12),
       //PAL(Swirlix),
       //SHINYPAL(Swirlix),
       //PALETTES(Swirlix),
@@ -9338,9 +9338,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLURPUFF] = 
     {  
       //FRONT_PIC(Slurpuff),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Slurpuff),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Slurpuff),
       //SHINYPAL(Slurpuff),
       //PALETTES(Slurpuff),
@@ -9351,9 +9351,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_INKAY] = 
     {  
       //FRONT_PIC(Inkay),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Inkay),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 9),
       //PAL(Inkay),
       //SHINYPAL(Inkay),
       //PALETTES(Inkay),
@@ -9364,9 +9364,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MALAMAR] = 
     {  
       //FRONT_PIC(Malamar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Malamar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Malamar),
       //SHINYPAL(Malamar),
       //PALETTES(Malamar),
@@ -9377,9 +9377,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BINACLE] = 
     {  
       //FRONT_PIC(Binacle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 9),
       //BACK_PIC(Binacle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Binacle),
       //SHINYPAL(Binacle),
       //PALETTES(Binacle),
@@ -9390,9 +9390,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BARBARACLE] = 
     {  
       //FRONT_PIC(Barbaracle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Barbaracle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Barbaracle),
       //SHINYPAL(Barbaracle),
       //PALETTES(Barbaracle),
@@ -9403,9 +9403,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKRELP] = 
     {  
       //FRONT_PIC(Skrelp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Skrelp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Skrelp),
       //SHINYPAL(Skrelp),
       //PALETTES(Skrelp),
@@ -9416,9 +9416,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAGALGE] = 
     {  
       //FRONT_PIC(Dragalge),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Dragalge),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Dragalge),
       //SHINYPAL(Dragalge),
       //PALETTES(Dragalge),
@@ -9429,9 +9429,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLAUNCHER] = 
     {  
       //FRONT_PIC(Clauncher),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Clauncher),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Clauncher),
       //SHINYPAL(Clauncher),
       //PALETTES(Clauncher),
@@ -9442,9 +9442,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLAWITZER] = 
     {  
       //FRONT_PIC(Clawitzer),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Clawitzer),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Clawitzer),
       //SHINYPAL(Clawitzer),
       //PALETTES(Clawitzer),
@@ -9455,9 +9455,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HELIOPTILE] = 
     {  
       //FRONT_PIC(Helioptile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Helioptile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Helioptile),
       //SHINYPAL(Helioptile),
       //PALETTES(Helioptile),
@@ -9468,9 +9468,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HELIOLISK] = 
     {  
       //FRONT_PIC(Heliolisk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Heliolisk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(Heliolisk),
       //SHINYPAL(Heliolisk),
       //PALETTES(Heliolisk),
@@ -9481,9 +9481,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYRUNT] = 
     {  
       //FRONT_PIC(Tyrunt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Tyrunt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Tyrunt),
       //SHINYPAL(Tyrunt),
       //PALETTES(Tyrunt),
@@ -9494,9 +9494,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYRANTRUM] = 
     {  
       //FRONT_PIC(Tyrantrum),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Tyrantrum),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 11),
       //PAL(Tyrantrum),
       //SHINYPAL(Tyrantrum),
       //PALETTES(Tyrantrum),
@@ -9507,9 +9507,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AMAURA] = 
     {  
       //FRONT_PIC(Amaura),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Amaura),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x58, 3),
       //PAL(Amaura),
       //SHINYPAL(Amaura),
       //PALETTES(Amaura),
@@ -9520,9 +9520,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AURORUS] = 
     {  
       //FRONT_PIC(Aurorus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Aurorus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Aurorus),
       //SHINYPAL(Aurorus),
       //PALETTES(Aurorus),
@@ -9533,9 +9533,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SYLVEON] = 
     {  
       //FRONT_PIC(Sylveon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Sylveon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Sylveon),
       //SHINYPAL(Sylveon),
       //PALETTES(Sylveon),
@@ -9546,9 +9546,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HAWLUCHA] = 
     {  
       //FRONT_PIC(Hawlucha),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Hawlucha),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Hawlucha),
       //SHINYPAL(Hawlucha),
       //PALETTES(Hawlucha),
@@ -9559,9 +9559,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEDENNE] = 
     {  
       //FRONT_PIC(Dedenne),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Dedenne),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 12),
       //PAL(Dedenne),
       //SHINYPAL(Dedenne),
       //PALETTES(Dedenne),
@@ -9572,9 +9572,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CARBINK] = 
     {  
       //FRONT_PIC(Carbink),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Carbink),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Carbink),
       //SHINYPAL(Carbink),
       //PALETTES(Carbink),
@@ -9585,9 +9585,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOOMY] = 
     {  
       //FRONT_PIC(Goomy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Goomy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(Goomy),
       //SHINYPAL(Goomy),
       //PALETTES(Goomy),
@@ -9598,9 +9598,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLIGGOO] = 
     {  
       //FRONT_PIC(Sliggoo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Sliggoo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(Sliggoo),
       //SHINYPAL(Sliggoo),
       //PALETTES(Sliggoo),
@@ -9611,9 +9611,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOODRA] = 
     {  
       //FRONT_PIC(Goodra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Goodra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Goodra),
       //SHINYPAL(Goodra),
       //PALETTES(Goodra),
@@ -9624,9 +9624,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KLEFKI] = 
     {  
       //FRONT_PIC(Klefki),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Klefki),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 8),
       //PAL(Klefki),
       //SHINYPAL(Klefki),
       //PALETTES(Klefki),
@@ -9637,9 +9637,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PHANTUMP] = 
     {  
       //FRONT_PIC(Phantump),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Phantump),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(Phantump),
       //SHINYPAL(Phantump),
       //PALETTES(Phantump),
@@ -9650,9 +9650,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TREVENANT] = 
     {  
       //FRONT_PIC(Trevenant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Trevenant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 5),
       //PAL(Trevenant),
       //SHINYPAL(Trevenant),
       //PALETTES(Trevenant),
@@ -9663,9 +9663,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PUMPKABOO_AVERAGE_SIZE] = 
     {  
       FRONT_PIC(PumpkabooAverageSize),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooAverageSize),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 13),
       //PAL(PumpkabooAverageSize),
       //SHINYPAL(PumpkabooAverageSize),
       PALETTES(Pumpkaboo),
@@ -9676,9 +9676,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOURGEIST_AVERAGE_SIZE] = 
     {  
       FRONT_PIC(GourgeistAverageSize),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       BACK_PIC(GourgeistAverageSize),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 3),
       //PAL(GourgeistAverageSize),
       //SHINYPAL(GourgeistAverageSize),
       PALETTES(Gourgeist),
@@ -9689,9 +9689,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BERGMITE] = 
     {  
       //FRONT_PIC(Bergmite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Bergmite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 13),
       //PAL(Bergmite),
       //SHINYPAL(Bergmite),
       //PALETTES(Bergmite),
@@ -9702,9 +9702,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AVALUGG] = 
     {  
       //FRONT_PIC(Avalugg),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Avalugg),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(Avalugg),
       //SHINYPAL(Avalugg),
       //PALETTES(Avalugg),
@@ -9715,22 +9715,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NOIBAT] = 
     {  
       //FRONT_PIC(Noibat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Noibat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 7),
       //PAL(Noibat),
       //SHINYPAL(Noibat),
       //PALETTES(Noibat),
       PIC_DATA_ICON_INDEX(Noibat,0),
       //ICON(Noibat, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Noibat,
 [SPECIES_NOIVERN] = 
     {  
       //FRONT_PIC(Noivern),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Noivern),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Noivern),
       //SHINYPAL(Noivern),
       //PALETTES(Noivern),
@@ -9741,9 +9741,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_XERNEAS] = 
     {  
       //FRONT_PIC(Xerneas),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Xerneas),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Xerneas),
       //SHINYPAL(Xerneas),
       //PALETTES(Xerneas),
@@ -9754,9 +9754,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_YVELTAL] = 
     {  
       //FRONT_PIC(Yveltal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Yveltal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Yveltal),
       //SHINYPAL(Yveltal),
       //PALETTES(Yveltal),
@@ -9767,9 +9767,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZYGARDE_10] = 
     {  
       //FRONT_PIC(Zygarde),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Zygarde),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 9),
       //PAL(Zygarde),
       //SHINYPAL(Zygarde),
       //PALETTES(Zygarde),
@@ -9780,9 +9780,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DIANCIE] = 
     {  
       //FRONT_PIC(Diancie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Diancie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(Diancie),
       //SHINYPAL(Diancie),
       //PALETTES(Diancie),
@@ -9793,22 +9793,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOOPA] = 
     {  
       //FRONT_PIC(Hoopa),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Hoopa),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Hoopa),
       //SHINYPAL(Hoopa),
       //PALETTES(Hoopa),
       PIC_DATA_ICON_INDEX(Hoopa,0),
       //ICON(Hoopa, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 13,
     }, //Hoopa,
 [SPECIES_VOLCANION] = 
     {  
       //FRONT_PIC(Volcanion),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Volcanion),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Volcanion),
       //SHINYPAL(Volcanion),
       //PALETTES(Volcanion),
@@ -9819,9 +9819,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROWLET] = 
     {  
       //FRONT_PIC(Rowlet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Rowlet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 15),
       //PAL(Rowlet),
       //SHINYPAL(Rowlet),
       //PALETTES(Rowlet),
@@ -9832,9 +9832,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARTRIX] = 
     {  
       //FRONT_PIC(Dartrix),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Dartrix),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 4),
       //PAL(Dartrix),
       //SHINYPAL(Dartrix),
       //PALETTES(Dartrix),
@@ -9845,9 +9845,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DECIDUEYE] = 
     {  
       //FRONT_PIC(Decidueye),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Decidueye),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(Decidueye),
       //SHINYPAL(Decidueye),
       //PALETTES(Decidueye),
@@ -9858,9 +9858,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LITTEN] = 
     {  
       //FRONT_PIC(Litten),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Litten),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Litten),
       //SHINYPAL(Litten),
       //PALETTES(Litten),
@@ -9871,9 +9871,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TORRACAT] = 
     {  
       //FRONT_PIC(Torracat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Torracat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Torracat),
       //SHINYPAL(Torracat),
       //PALETTES(Torracat),
@@ -9884,9 +9884,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_INCINEROAR] = 
     {  
       //FRONT_PIC(Incineroar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Incineroar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Incineroar),
       //SHINYPAL(Incineroar),
       //PALETTES(Incineroar),
@@ -9897,9 +9897,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POPPLIO] = 
     {  
       //FRONT_PIC(Popplio),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Popplio),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 11),
       //PAL(Popplio),
       //SHINYPAL(Popplio),
       //PALETTES(Popplio),
@@ -9910,9 +9910,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRIONNE] = 
     {  
       //FRONT_PIC(Brionne),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Brionne),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(Brionne),
       //SHINYPAL(Brionne),
       //PALETTES(Brionne),
@@ -9923,9 +9923,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PRIMARINA] = 
     {  
       //FRONT_PIC(Primarina),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Primarina),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Primarina),
       //SHINYPAL(Primarina),
       //PALETTES(Primarina),
@@ -9936,9 +9936,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKIPEK] = 
     {  
       //FRONT_PIC(Pikipek),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Pikipek),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 8),
       //PAL(Pikipek),
       //SHINYPAL(Pikipek),
       //PALETTES(Pikipek),
@@ -9949,9 +9949,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TRUMBEAK] = 
     {  
       //FRONT_PIC(Trumbeak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Trumbeak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Trumbeak),
       //SHINYPAL(Trumbeak),
       //PALETTES(Trumbeak),
@@ -9962,9 +9962,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOUCANNON] = 
     {  
       //FRONT_PIC(Toucannon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Toucannon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Toucannon),
       //SHINYPAL(Toucannon),
       //PALETTES(Toucannon),
@@ -9975,9 +9975,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_YUNGOOS] = 
     {  
       //FRONT_PIC(Yungoos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Yungoos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 14),
       //PAL(Yungoos),
       //SHINYPAL(Yungoos),
       //PALETTES(Yungoos),
@@ -9988,9 +9988,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GUMSHOOS] = 
     {  
       //FRONT_PIC(Gumshoos),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Gumshoos),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 7),
       //PAL(Gumshoos),
       //SHINYPAL(Gumshoos),
       //PALETTES(Gumshoos),
@@ -10001,9 +10001,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRUBBIN] = 
     {  
       //FRONT_PIC(Grubbin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 17),
       //BACK_PIC(Grubbin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 16),
       //PAL(Grubbin),
       //SHINYPAL(Grubbin),
       //PALETTES(Grubbin),
@@ -10014,9 +10014,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHARJABUG] = 
     {  
       //FRONT_PIC(Charjabug),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Charjabug),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 15),
       //PAL(Charjabug),
       //SHINYPAL(Charjabug),
       //PALETTES(Charjabug),
@@ -10027,22 +10027,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIKAVOLT] = 
     {  
       //FRONT_PIC(Vikavolt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(Vikavolt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Vikavolt),
       //SHINYPAL(Vikavolt),
       //PALETTES(Vikavolt),
       PIC_DATA_ICON_INDEX(Vikavolt,0),
       //ICON(Vikavolt, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //Vikavolt,
 [SPECIES_CRABRAWLER] = 
     {  
       //FRONT_PIC(Crabrawler),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Crabrawler),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Crabrawler),
       //SHINYPAL(Crabrawler),
       //PALETTES(Crabrawler),
@@ -10053,9 +10053,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRABOMINABLE] = 
     {  
       //FRONT_PIC(Crabominable),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Crabominable),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Crabominable),
       //SHINYPAL(Crabominable),
       //PALETTES(Crabominable),
@@ -10066,9 +10066,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ORICORIO_BAILE] = 
     {  
       //FRONT_PIC(Oricorio_Baile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Oricorio_Baile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(OricorioBaile),
       //SHINYPAL(OricorioBaile),
       //PALETTES(Oricorio_Baile),
@@ -10079,22 +10079,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CUTIEFLY] = 
     {  
       //FRONT_PIC(Cutiefly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Cutiefly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 15),
       //PAL(Cutiefly),
       //SHINYPAL(Cutiefly),
       //PALETTES(Cutiefly),
       PIC_DATA_ICON_INDEX(Cutiefly,0),
       //ICON(Cutiefly, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     }, //Cutiefly,
 [SPECIES_RIBOMBEE] = 
     {  
       //FRONT_PIC(Ribombee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Ribombee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(Ribombee),
       //SHINYPAL(Ribombee),
       //PALETTES(Ribombee),
@@ -10105,9 +10105,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROCKRUFF] = 
     {  
       //FRONT_PIC(Rockruff),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Rockruff),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Rockruff),
       //SHINYPAL(Rockruff),
       //PALETTES(Rockruff),
@@ -10118,9 +10118,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LYCANROC_MIDDAY] = 
     {  
       //FRONT_PIC(LycanrocMidday),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(LycanrocMidday),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(LycanrocMidday),
       //SHINYPAL(LycanrocMidday),
       //PALETTES(LycanrocMidday),
@@ -10131,9 +10131,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WISHIWASHI] = 
     {  
       //FRONT_PIC(Wishiwashi),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 15),
       //BACK_PIC(Wishiwashi),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x74, 18),
       //PAL(Wishiwashi),
       //SHINYPAL(Wishiwashi),
       //PALETTES(Wishiwashi),
@@ -10144,9 +10144,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAREANIE] = 
     {  
       //FRONT_PIC(Mareanie),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Mareanie),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 15),
       //PAL(Mareanie),
       //SHINYPAL(Mareanie),
       //PALETTES(Mareanie),
@@ -10157,9 +10157,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOXAPEX] = 
     {  
       //FRONT_PIC(Toxapex),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Toxapex),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Toxapex),
       //SHINYPAL(Toxapex),
       //PALETTES(Toxapex),
@@ -10170,9 +10170,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUDBRAY] = 
     {  
       //FRONT_PIC(Mudbray),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Mudbray),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Mudbray),
       //SHINYPAL(Mudbray),
       //PALETTES(Mudbray),
@@ -10183,9 +10183,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUDSDALE] = 
     {  
       //FRONT_PIC(Mudsdale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Mudsdale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Mudsdale),
       //SHINYPAL(Mudsdale),
       //PALETTES(Mudsdale),
@@ -10196,9 +10196,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEWPIDER] = 
     {  
       //FRONT_PIC(Dewpider),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(Dewpider),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 8),
       //PAL(Dewpider),
       //SHINYPAL(Dewpider),
       //PALETTES(Dewpider),
@@ -10209,9 +10209,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARAQUANID] = 
     {  
       //FRONT_PIC(Araquanid),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Araquanid),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 12),
       //PAL(Araquanid),
       //SHINYPAL(Araquanid),
       //PALETTES(Araquanid),
@@ -10222,9 +10222,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FOMANTIS] = 
     {  
       //FRONT_PIC(Fomantis),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Fomantis),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 5),
       //PAL(Fomantis),
       //SHINYPAL(Fomantis),
       //PALETTES(Fomantis),
@@ -10235,9 +10235,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LURANTIS] = 
     {  
       //FRONT_PIC(Lurantis),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Lurantis),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 1),
       //PAL(Lurantis),
       //SHINYPAL(Lurantis),
       //PALETTES(Lurantis),
@@ -10248,9 +10248,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MORELULL] = 
     {  
       //FRONT_PIC(Morelull),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Morelull),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 9),
       //PAL(Morelull),
       //SHINYPAL(Morelull),
       //PALETTES(Morelull),
@@ -10261,9 +10261,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHIINOTIC] = 
     {  
       //FRONT_PIC(Shiinotic),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Shiinotic),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Shiinotic),
       //SHINYPAL(Shiinotic),
       //PALETTES(Shiinotic),
@@ -10274,9 +10274,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SALANDIT] = 
     {  
       //FRONT_PIC(Salandit),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Salandit),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 12),
       //PAL(Salandit),
       //SHINYPAL(Salandit),
       //PALETTES(Salandit),
@@ -10287,9 +10287,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SALAZZLE] = 
     {  
       //FRONT_PIC(Salazzle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Salazzle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 3),
       //PAL(Salazzle),
       //SHINYPAL(Salazzle),
       //PALETTES(Salazzle),
@@ -10300,9 +10300,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STUFFUL] = 
     {  
       //FRONT_PIC(Stufful),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Stufful),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 12),
       //PAL(Stufful),
       //SHINYPAL(Stufful),
       //PALETTES(Stufful),
@@ -10313,9 +10313,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BEWEAR] = 
     {  
       //FRONT_PIC(Bewear),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Bewear),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Bewear),
       //SHINYPAL(Bewear),
       //PALETTES(Bewear),
@@ -10326,9 +10326,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BOUNSWEET] = 
     {  
       //FRONT_PIC(Bounsweet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Bounsweet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 14),
       //PAL(Bounsweet),
       //SHINYPAL(Bounsweet),
       //PALETTES(Bounsweet),
@@ -10339,9 +10339,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STEENEE] = 
     {  
       //FRONT_PIC(Steenee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(Steenee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 8),
       //PAL(Steenee),
       //SHINYPAL(Steenee),
       //PALETTES(Steenee),
@@ -10352,9 +10352,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TSAREENA] = 
     {  
       //FRONT_PIC(Tsareena),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Tsareena),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Tsareena),
       //SHINYPAL(Tsareena),
       //PALETTES(Tsareena),
@@ -10365,9 +10365,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COMFEY] = 
     {  
       //FRONT_PIC(Comfey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Comfey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 11),
       //PAL(Comfey),
       //SHINYPAL(Comfey),
       //PALETTES(Comfey),
@@ -10378,9 +10378,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ORANGURU] = 
     {  
       //FRONT_PIC(Oranguru),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Oranguru),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 12),
       //PAL(Oranguru),
       //SHINYPAL(Oranguru),
       //PALETTES(Oranguru),
@@ -10391,9 +10391,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PASSIMIAN] = 
     {  
       //FRONT_PIC(Passimian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Passimian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Passimian),
       //SHINYPAL(Passimian),
       //PALETTES(Passimian),
@@ -10404,9 +10404,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WIMPOD] = 
     {  
       //FRONT_PIC(Wimpod),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Wimpod),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Wimpod),
       //SHINYPAL(Wimpod),
       //PALETTES(Wimpod),
@@ -10417,9 +10417,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLISOPOD] = 
     {  
       //FRONT_PIC(Golisopod),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Golisopod),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Golisopod),
       //SHINYPAL(Golisopod),
       //PALETTES(Golisopod),
@@ -10430,9 +10430,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDYGAST] = 
     {  
       //FRONT_PIC(Sandygast),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       //BACK_PIC(Sandygast),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 11),
       //PAL(Sandygast),
       //SHINYPAL(Sandygast),
       //PALETTES(Sandygast),
@@ -10443,9 +10443,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PALOSSAND] = 
     {  
       //FRONT_PIC(Palossand),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Palossand),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Palossand),
       //SHINYPAL(Palossand),
       //PALETTES(Palossand),
@@ -10456,9 +10456,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PYUKUMUKU] = 
     {  
       //FRONT_PIC(Pyukumuku),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 15),
       //BACK_PIC(Pyukumuku),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 16),
       //PAL(Pyukumuku),
       //SHINYPAL(Pyukumuku),
       //PALETTES(Pyukumuku),
@@ -10469,9 +10469,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYPE_NULL] = 
     {  
       //FRONT_PIC(TypeNull),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(TypeNull),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 1),
       //PAL(TypeNull),
       //SHINYPAL(TypeNull),
       //PALETTES(TypeNull),
@@ -10482,9 +10482,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY] = 
     {  
       //FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Silvally),
       //SHINYPAL(Silvally),
       //PALETTES(Silvally),
@@ -10495,22 +10495,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR] = 
     {  
       //FRONT_PIC(Minior),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Minior),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(Minior),
       //SHINYPAL(Minior),
       //PALETTES(Minior),
       PIC_DATA_ICON_INDEX(MiniorMeteor,0),
       //ICON(Minior, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 17,
     }, //Minior,
 [SPECIES_KOMALA] = 
     {  
       //FRONT_PIC(Komala),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Komala),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Komala),
       //SHINYPAL(Komala),
       //PALETTES(Komala),
@@ -10521,9 +10521,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TURTONATOR] = 
     {  
       //FRONT_PIC(Turtonator),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Turtonator),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(Turtonator),
       //SHINYPAL(Turtonator),
       //PALETTES(Turtonator),
@@ -10534,9 +10534,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOGEDEMARU] = 
     {  
       //FRONT_PIC(Togedemaru),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Togedemaru),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 13),
       //PAL(Togedemaru),
       //SHINYPAL(Togedemaru),
       //PALETTES(Togedemaru),
@@ -10547,9 +10547,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIMIKYU] = 
     {  
       //FRONT_PIC(Mimikyu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Mimikyu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(Mimikyu),
       //SHINYPAL(Mimikyu),
       //PALETTES(Mimikyu),
@@ -10560,9 +10560,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRUXISH] = 
     {  
       //FRONT_PIC(Bruxish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Bruxish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 14),
       //PAL(Bruxish),
       //SHINYPAL(Bruxish),
       //PALETTES(Bruxish),
@@ -10573,9 +10573,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAMPA] = 
     {  
       //FRONT_PIC(Drampa),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Drampa),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Drampa),
       //SHINYPAL(Drampa),
       //PALETTES(Drampa),
@@ -10586,9 +10586,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DHELMISE] = 
     {  
       //FRONT_PIC(Dhelmise),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Dhelmise),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Dhelmise),
       //SHINYPAL(Dhelmise),
       //PALETTES(Dhelmise),
@@ -10599,9 +10599,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JANGMO_O] = 
     {  
       //FRONT_PIC(JangmoO),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(JangmoO),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 7),
       //PAL(JangmoO),
       //SHINYPAL(JangmoO),
       //PALETTES(JangmoO),
@@ -10612,9 +10612,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HAKAMO_O] = 
     {  
       //FRONT_PIC(HakamoO),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(HakamoO),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 5),
       //PAL(HakamoO),
       //SHINYPAL(HakamoO),
       //PALETTES(HakamoO),
@@ -10625,9 +10625,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KOMMO_O] = 
     {  
       //FRONT_PIC(KommoO),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(KommoO),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(KommoO),
       //SHINYPAL(KommoO),
       //PALETTES(KommoO),
@@ -10638,9 +10638,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TAPU_KOKO] = 
     {  
       //FRONT_PIC(TapuKoko),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(TapuKoko),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(TapuKoko),
       //SHINYPAL(TapuKoko),
       //PALETTES(TapuKoko),
@@ -10651,9 +10651,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TAPU_LELE] = 
     {  
       //FRONT_PIC(TapuLele),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(TapuLele),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(TapuLele),
       //SHINYPAL(TapuLele),
       //PALETTES(TapuLele),
@@ -10664,9 +10664,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TAPU_BULU] = 
     {  
       //FRONT_PIC(TapuBulu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(TapuBulu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(TapuBulu),
       //SHINYPAL(TapuBulu),
       //PALETTES(TapuBulu),
@@ -10677,9 +10677,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TAPU_FINI] = 
     {  
       //FRONT_PIC(TapuFini),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(TapuFini),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(TapuFini),
       //SHINYPAL(TapuFini),
       //PALETTES(TapuFini),
@@ -10690,9 +10690,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COSMOG] = 
     {  
       //FRONT_PIC(Cosmog),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 10),
       //BACK_PIC(Cosmog),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Cosmog),
       //SHINYPAL(Cosmog),
       //PALETTES(Cosmog),
@@ -10703,9 +10703,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COSMOEM] = 
     {  
       //FRONT_PIC(Cosmoem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 9),
       //BACK_PIC(Cosmoem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 17),
       //PAL(Cosmoem),
       //SHINYPAL(Cosmoem),
       //PALETTES(Cosmoem),
@@ -10716,9 +10716,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SOLGALEO] = 
     {  
       //FRONT_PIC(Solgaleo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Solgaleo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Solgaleo),
       //SHINYPAL(Solgaleo),
       //PALETTES(Solgaleo),
@@ -10729,9 +10729,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUNALA] = 
     {  
       //FRONT_PIC(Lunala),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Lunala),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Lunala),
       //SHINYPAL(Lunala),
       //PALETTES(Lunala),
@@ -10742,9 +10742,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NIHILEGO] = 
     {  
       //FRONT_PIC(Nihilego),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Nihilego),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Nihilego),
       //SHINYPAL(Nihilego),
       //PALETTES(Nihilego),
@@ -10755,9 +10755,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BUZZWOLE] = 
     {  
       //FRONT_PIC(Buzzwole),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Buzzwole),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 14),
       //PAL(Buzzwole),
       //SHINYPAL(Buzzwole),
       //PALETTES(Buzzwole),
@@ -10768,9 +10768,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PHEROMOSA] = 
     {  
       //FRONT_PIC(Pheromosa),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Pheromosa),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Pheromosa),
       //SHINYPAL(Pheromosa),
       //PALETTES(Pheromosa),
@@ -10781,9 +10781,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_XURKITREE] = 
     {  
       //FRONT_PIC(Xurkitree),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Xurkitree),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Xurkitree),
       //SHINYPAL(Xurkitree),
       //PALETTES(Xurkitree),
@@ -10794,9 +10794,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CELESTEELA] = 
     {  
       //FRONT_PIC(Celesteela),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Celesteela),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(Celesteela),
       //SHINYPAL(Celesteela),
       //PALETTES(Celesteela),
@@ -10807,9 +10807,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KARTANA] = 
     {  
       //FRONT_PIC(Kartana),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Kartana),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Kartana),
       //SHINYPAL(Kartana),
       //PALETTES(Kartana),
@@ -10820,9 +10820,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GUZZLORD] = 
     {  
       //FRONT_PIC(Guzzlord),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(Guzzlord),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 10),
       //PAL(Guzzlord),
       //SHINYPAL(Guzzlord),
       //PALETTES(Guzzlord),
@@ -10833,9 +10833,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NECROZMA] = 
     {  
       //FRONT_PIC(Necrozma),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(Necrozma),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Necrozma),
       //SHINYPAL(Necrozma),
       //PALETTES(Necrozma),
@@ -10846,9 +10846,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGEARNA] = 
     {  
       //FRONT_PIC(Magearna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Magearna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Magearna),
       //SHINYPAL(Magearna),
       //PALETTES(Magearna),
@@ -10859,9 +10859,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MARSHADOW] = 
     {  
       //FRONT_PIC(Marshadow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 9),
       //BACK_PIC(Marshadow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 6),
       //PAL(Marshadow),
       //SHINYPAL(Marshadow),
       //PALETTES(Marshadow),
@@ -10872,9 +10872,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POIPOLE] = 
     {  
       //FRONT_PIC(Poipole),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Poipole),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 6),
       //PAL(Poipole),
       //SHINYPAL(Poipole),
       //PALETTES(Poipole),
@@ -10885,9 +10885,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NAGANADEL] = 
     {  
       //FRONT_PIC(Naganadel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Naganadel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Naganadel),
       //SHINYPAL(Naganadel),
       //PALETTES(Naganadel),
@@ -10898,9 +10898,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STAKATAKA] = 
     {  
       //FRONT_PIC(Stakataka),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Stakataka),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 12),
       //PAL(Stakataka),
       //SHINYPAL(Stakataka),
       //PALETTES(Stakataka),
@@ -10911,9 +10911,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLACEPHALON] = 
     {  
       //FRONT_PIC(Blacephalon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 1),
       //BACK_PIC(Blacephalon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Blacephalon),
       //SHINYPAL(Blacephalon),
       //PALETTES(Blacephalon),
@@ -10924,9 +10924,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZERAORA] = 
     {  
       //FRONT_PIC(Zeraora),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Zeraora),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 11),
       //PAL(Zeraora),
       //SHINYPAL(Zeraora),
       //PALETTES(Zeraora),
@@ -10937,9 +10937,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MELTAN] = 
     {  
       //FRONT_PIC(Meltan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 8),
       //BACK_PIC(Meltan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 12),
       //PAL(Meltan),
       //SHINYPAL(Meltan),
       //PALETTES(Meltan),
@@ -10950,9 +10950,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MELMETAL] = 
     {  
       //FRONT_PIC(Melmetal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 4),
       //BACK_PIC(Melmetal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Melmetal),
       //SHINYPAL(Melmetal),
       //PALETTES(Melmetal),
@@ -10963,9 +10963,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROOKEY] = 
     {  
       //FRONT_PIC(Grookey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 12),
       //BACK_PIC(Grookey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(Grookey),
       //SHINYPAL(Grookey),
       //PALETTES(Grookey),
@@ -10976,9 +10976,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_THWACKEY] = 
     {  
       //FRONT_PIC(Thwackey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 7),
       //BACK_PIC(Thwackey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(Thwackey),
       //SHINYPAL(Thwackey),
       //PALETTES(Thwackey),
@@ -10989,9 +10989,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RILLABOOM] = 
     {  
       //FRONT_PIC(Rillaboom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 4),
       //BACK_PIC(Rillaboom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Rillaboom),
       //SHINYPAL(Rillaboom),
       //PALETTES(Rillaboom),
@@ -11002,9 +11002,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCORBUNNY] = 
     {  
       //FRONT_PIC(Scorbunny),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 8),
       //BACK_PIC(Scorbunny),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 4),
       //PAL(Scorbunny),
       //SHINYPAL(Scorbunny),
       //PALETTES(Scorbunny),
@@ -11015,9 +11015,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RABOOT] = 
     {  
       //FRONT_PIC(Raboot),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       //BACK_PIC(Raboot),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 6),
       //PAL(Raboot),
       //SHINYPAL(Raboot),
       //PALETTES(Raboot),
@@ -11028,9 +11028,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CINDERACE] = 
     {  
       //FRONT_PIC(Cinderace),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x58, 0),
       //BACK_PIC(Cinderace),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 4),
       //PAL(Cinderace),
       //SHINYPAL(Cinderace),
       //PALETTES(Cinderace),
@@ -11041,9 +11041,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SOBBLE] = 
     {  
       //FRONT_PIC(Sobble),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 11),
       //BACK_PIC(Sobble),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 8),
       //PAL(Sobble),
       //SHINYPAL(Sobble),
       //PALETTES(Sobble),
@@ -11054,9 +11054,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRIZZILE] = 
     {  
       //FRONT_PIC(Drizzile),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Drizzile),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Drizzile),
       //SHINYPAL(Drizzile),
       //PALETTES(Drizzile),
@@ -11067,9 +11067,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_INTELEON] = 
     {  
       //FRONT_PIC(Inteleon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 4),
       //BACK_PIC(Inteleon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Inteleon),
       //SHINYPAL(Inteleon),
       //PALETTES(Inteleon),
@@ -11080,9 +11080,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SKWOVET] = 
     {  
       //FRONT_PIC(Skwovet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Skwovet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Skwovet),
       //SHINYPAL(Skwovet),
       //PALETTES(Skwovet),
@@ -11093,9 +11093,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GREEDENT] = 
     {  
       //FRONT_PIC(Greedent),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 4),
       //BACK_PIC(Greedent),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Greedent),
       //SHINYPAL(Greedent),
       //PALETTES(Greedent),
@@ -11106,9 +11106,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROOKIDEE] = 
     {  
       //FRONT_PIC(Rookidee),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 16),
       //BACK_PIC(Rookidee),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 17),
       //PAL(Rookidee),
       //SHINYPAL(Rookidee),
       //PALETTES(Rookidee),
@@ -11119,22 +11119,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CORVISQUIRE] = 
     {  
       //FRONT_PIC(Corvisquire),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Corvisquire),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Corvisquire),
       //SHINYPAL(Corvisquire),
       //PALETTES(Corvisquire),
       PIC_DATA_ICON_INDEX(Corvisquire,0),
       //ICON(Corvisquire, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //Corvisquire,
 [SPECIES_CORVIKNIGHT] = 
     {  
       //FRONT_PIC(Corviknight),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 2),
       //BACK_PIC(Corviknight),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Corviknight),
       //SHINYPAL(Corviknight),
       //PALETTES(Corviknight),
@@ -11145,9 +11145,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLIPBUG] = 
     {  
       //FRONT_PIC(Blipbug),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(Blipbug),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 7),
       //PAL(Blipbug),
       //SHINYPAL(Blipbug),
       //PALETTES(Blipbug),
@@ -11158,9 +11158,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DOTTLER] = 
     {  
       //FRONT_PIC(Dottler),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 13),
       //BACK_PIC(Dottler),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x74, 17),
       //PAL(Dottler),
       //SHINYPAL(Dottler),
       //PALETTES(Dottler),
@@ -11171,9 +11171,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ORBEETLE] = 
     {  
       //FRONT_PIC(Orbeetle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Orbeetle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Orbeetle),
       //SHINYPAL(Orbeetle),
       //PALETTES(Orbeetle),
@@ -11184,9 +11184,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NICKIT] = 
     {  
       //FRONT_PIC(Nickit),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 9),
       //BACK_PIC(Nickit),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Nickit),
       //SHINYPAL(Nickit),
       //PALETTES(Nickit),
@@ -11197,9 +11197,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_THIEVUL] = 
     {  
       //FRONT_PIC(Thievul),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(Thievul),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(Thievul),
       //SHINYPAL(Thievul),
       //PALETTES(Thievul),
@@ -11210,9 +11210,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOSSIFLEUR] = 
     {  
       //FRONT_PIC(Gossifleur),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 11),
       //BACK_PIC(Gossifleur),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 15),
       //PAL(Gossifleur),
       //SHINYPAL(Gossifleur),
       //PALETTES(Gossifleur),
@@ -11223,9 +11223,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ELDEGOSS] = 
     {  
       //FRONT_PIC(Eldegoss),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 4),
       //BACK_PIC(Eldegoss),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 15),
       //PAL(Eldegoss),
       //SHINYPAL(Eldegoss),
       //PALETTES(Eldegoss),
@@ -11236,9 +11236,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WOOLOO] = 
     {  
       //FRONT_PIC(Wooloo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Wooloo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x74, 18),
       //PAL(Wooloo),
       //SHINYPAL(Wooloo),
       //PALETTES(Wooloo),
@@ -11249,9 +11249,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUBWOOL] = 
     {  
       //FRONT_PIC(Dubwool),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Dubwool),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Dubwool),
       //SHINYPAL(Dubwool),
       //PALETTES(Dubwool),
@@ -11262,9 +11262,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHEWTLE] = 
     {  
       //FRONT_PIC(Chewtle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x46, 13),
       //BACK_PIC(Chewtle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 8),
       //PAL(Chewtle),
       //SHINYPAL(Chewtle),
       //PALETTES(Chewtle),
@@ -11275,9 +11275,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DREDNAW] = 
     {  
       //FRONT_PIC(Drednaw),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(Drednaw),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 18),
       //PAL(Drednaw),
       //SHINYPAL(Drednaw),
       //PALETTES(Drednaw),
@@ -11288,9 +11288,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_YAMPER] = 
     {  
       //FRONT_PIC(Yamper),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 10),
       //BACK_PIC(Yamper),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 13),
       //PAL(Yamper),
       //SHINYPAL(Yamper),
       //PALETTES(Yamper),
@@ -11301,9 +11301,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BOLTUND] = 
     {  
       //FRONT_PIC(Boltund),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Boltund),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Boltund),
       //SHINYPAL(Boltund),
       //PALETTES(Boltund),
@@ -11314,9 +11314,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROLYCOLY] = 
     {  
       //FRONT_PIC(Rolycoly),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 16),
       //BACK_PIC(Rolycoly),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 17),
       //PAL(Rolycoly),
       //SHINYPAL(Rolycoly),
       //PALETTES(Rolycoly),
@@ -11327,9 +11327,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CARKOL] = 
     {  
       //FRONT_PIC(Carkol),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 8),
       //BACK_PIC(Carkol),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Carkol),
       //SHINYPAL(Carkol),
       //PALETTES(Carkol),
@@ -11340,9 +11340,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COALOSSAL] = 
     {  
       //FRONT_PIC(Coalossal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Coalossal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Coalossal),
       //SHINYPAL(Coalossal),
       //PALETTES(Coalossal),
@@ -11353,9 +11353,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_APPLIN] = 
     {  
       //FRONT_PIC(Applin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 16),
       //BACK_PIC(Applin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x56, 15),
       //PAL(Applin),
       //SHINYPAL(Applin),
       //PALETTES(Applin),
@@ -11366,9 +11366,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLAPPLE] = 
     {  
       //FRONT_PIC(Flapple),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 9),
       //BACK_PIC(Flapple),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(Flapple),
       //SHINYPAL(Flapple),
       //PALETTES(Flapple),
@@ -11379,9 +11379,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_APPLETUN] = 
     {  
       //FRONT_PIC(Appletun),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Appletun),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 11),
       //PAL(Appletun),
       //SHINYPAL(Appletun),
       //PALETTES(Appletun),
@@ -11392,9 +11392,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILICOBRA] = 
     {  
       //FRONT_PIC(Silicobra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 12),
       //BACK_PIC(Silicobra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 10),
       //PAL(Silicobra),
       //SHINYPAL(Silicobra),
       //PALETTES(Silicobra),
@@ -11405,9 +11405,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDACONDA] = 
     {  
       //FRONT_PIC(Sandaconda),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 12),
       //BACK_PIC(Sandaconda),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Sandaconda),
       //SHINYPAL(Sandaconda),
       //PALETTES(Sandaconda),
@@ -11418,9 +11418,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRAMORANT] = 
     {  
       //FRONT_PIC(Cramorant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Cramorant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 1),
       //PAL(Cramorant),
       //SHINYPAL(Cramorant),
       //PALETTES(Cramorant),
@@ -11431,9 +11431,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARROKUDA] = 
     {  
       //FRONT_PIC(Arrokuda),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 17),
       //BACK_PIC(Arrokuda),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 15),
       //PAL(Arrokuda),
       //SHINYPAL(Arrokuda),
       //PALETTES(Arrokuda),
@@ -11444,9 +11444,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BARRASKEWDA] = 
     {  
       //FRONT_PIC(Barraskewda),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Barraskewda),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Barraskewda),
       //SHINYPAL(Barraskewda),
       //PALETTES(Barraskewda),
@@ -11457,9 +11457,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOXEL] = 
     {  
       //FRONT_PIC(Toxel),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 11),
       //BACK_PIC(Toxel),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(Toxel),
       //SHINYPAL(Toxel),
       //PALETTES(Toxel),
@@ -11470,9 +11470,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOXTRICITY] = 
     {  
       //FRONT_PIC(Toxtricity),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 1),
       //BACK_PIC(Toxtricity),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Toxtricity),
       //SHINYPAL(Toxtricity),
       //PALETTES(Toxtricity),
@@ -11483,9 +11483,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SIZZLIPEDE] = 
     {  
       //FRONT_PIC(Sizzlipede),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x64, 17),
       //BACK_PIC(Sizzlipede),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 16),
       //PAL(Sizzlipede),
       //SHINYPAL(Sizzlipede),
       //PALETTES(Sizzlipede),
@@ -11496,9 +11496,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CENTISKORCH] = 
     {  
       //FRONT_PIC(Centiskorch),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(Centiskorch),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(Centiskorch),
       //SHINYPAL(Centiskorch),
       //PALETTES(Centiskorch),
@@ -11509,9 +11509,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CLOBBOPUS] = 
     {  
       //FRONT_PIC(Clobbopus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 15),
       //BACK_PIC(Clobbopus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 14),
       //PAL(Clobbopus),
       //SHINYPAL(Clobbopus),
       //PALETTES(Clobbopus),
@@ -11522,9 +11522,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRAPPLOCT] = 
     {  
       //FRONT_PIC(Grapploct),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 5),
       //BACK_PIC(Grapploct),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(Grapploct),
       //SHINYPAL(Grapploct),
       //PALETTES(Grapploct),
@@ -11535,9 +11535,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SINISTEA] = 
     {  
       //FRONT_PIC(Sinistea),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 17),
       //BACK_PIC(Sinistea),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 16),
       //PAL(Sinistea),
       //SHINYPAL(Sinistea),
       //PALETTES(Sinistea),
@@ -11548,9 +11548,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_POLTEAGEIST] = 
     {  
       //FRONT_PIC(Polteageist),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(Polteageist),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Polteageist),
       //SHINYPAL(Polteageist),
       //PALETTES(Polteageist),
@@ -11561,9 +11561,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HATENNA] = 
     {  
       //FRONT_PIC(Hatenna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 12),
       //BACK_PIC(Hatenna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 12),
       //PAL(Hatenna),
       //SHINYPAL(Hatenna),
       //PALETTES(Hatenna),
@@ -11574,9 +11574,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HATTREM] = 
     {  
       //FRONT_PIC(Hattrem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Hattrem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(Hattrem),
       //SHINYPAL(Hattrem),
       //PALETTES(Hattrem),
@@ -11587,9 +11587,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HATTERENE] = 
     {  
       //FRONT_PIC(Hatterene),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 0),
       //BACK_PIC(Hatterene),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(Hatterene),
       //SHINYPAL(Hatterene),
       //PALETTES(Hatterene),
@@ -11600,9 +11600,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_IMPIDIMP] = 
     {  
       //FRONT_PIC(Impidimp),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 12),
       //BACK_PIC(Impidimp),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(Impidimp),
       //SHINYPAL(Impidimp),
       //PALETTES(Impidimp),
@@ -11613,9 +11613,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MORGREM] = 
     {  
       //FRONT_PIC(Morgrem),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 6),
       //BACK_PIC(Morgrem),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(Morgrem),
       //SHINYPAL(Morgrem),
       //PALETTES(Morgrem),
@@ -11626,9 +11626,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRIMMSNARL] = 
     {  
       //FRONT_PIC(Grimmsnarl),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Grimmsnarl),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(Grimmsnarl),
       //SHINYPAL(Grimmsnarl),
       //PALETTES(Grimmsnarl),
@@ -11639,9 +11639,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OBSTAGOON] = 
     {  
       //FRONT_PIC(Obstagoon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Obstagoon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(Obstagoon),
       //SHINYPAL(Obstagoon),
       //PALETTES(Obstagoon),
@@ -11652,9 +11652,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PERRSERKER] = 
     {  
       //FRONT_PIC(Perrserker),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Perrserker),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Perrserker),
       //SHINYPAL(Perrserker),
       //PALETTES(Perrserker),
@@ -11665,9 +11665,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CURSOLA] = 
     {  
       //FRONT_PIC(Cursola),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Cursola),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Cursola),
       //SHINYPAL(Cursola),
       //PALETTES(Cursola),
@@ -11678,9 +11678,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SIRFETCHD] = 
     {  
       //FRONT_PIC(Sirfetchd),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Sirfetchd),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(Sirfetchd),
       //SHINYPAL(Sirfetchd),
       //PALETTES(Sirfetchd),
@@ -11691,9 +11691,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MR_RIME] = 
     {  
       //FRONT_PIC(MrRime),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 4),
       //BACK_PIC(MrRime),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(MrRime),
       //SHINYPAL(MrRime),
       //PALETTES(MrRime),
@@ -11704,9 +11704,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RUNERIGUS] = 
     {  
       //FRONT_PIC(Runerigus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Runerigus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(Runerigus),
       //SHINYPAL(Runerigus),
       //PALETTES(Runerigus),
@@ -11717,9 +11717,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MILCERY] = 
     {  
       //FRONT_PIC(Milcery),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(Milcery),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 16),
       //PAL(Milcery),
       //SHINYPAL(Milcery),
       //PALETTES(Milcery),
@@ -11730,9 +11730,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryVanillaCream),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberryVanillaCream), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -11743,9 +11743,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FALINKS] = 
     {  
       //FRONT_PIC(Falinks),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(Falinks),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 15),
       //PAL(Falinks),
       //SHINYPAL(Falinks),
       //PALETTES(Falinks),
@@ -11756,9 +11756,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PINCURCHIN] = 
     {  
       //FRONT_PIC(Pincurchin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(Pincurchin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 13),
       //PAL(Pincurchin),
       //SHINYPAL(Pincurchin),
       //PALETTES(Pincurchin),
@@ -11769,9 +11769,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNOM] = 
     {  
       //FRONT_PIC(Snom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 20),
       //BACK_PIC(Snom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x64, 17),
       //PAL(Snom),
       //SHINYPAL(Snom),
       //PALETTES(Snom),
@@ -11782,22 +11782,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FROSMOTH] = 
     {  
       //FRONT_PIC(Frosmoth),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Frosmoth),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(Frosmoth),
       //SHINYPAL(Frosmoth),
       //PALETTES(Frosmoth),
       PIC_DATA_ICON_INDEX(Frosmoth,0),
       //ICON(Frosmoth, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Frosmoth,
 [SPECIES_STONJOURNER] = 
     {  
       //FRONT_PIC(Stonjourner),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Stonjourner),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Stonjourner),
       //SHINYPAL(Stonjourner),
       //PALETTES(Stonjourner),
@@ -11808,9 +11808,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EISCUE] = 
     {  
       //FRONT_PIC(Eiscue),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x58, 0),
       //BACK_PIC(Eiscue),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(Eiscue),
       //SHINYPAL(Eiscue),
       //PALETTES(Eiscue),
@@ -11821,9 +11821,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_INDEEDEE_MALE] = 
     {  
       //FRONT_PIC(IndeedeeMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 9),
       //BACK_PIC(IndeedeeMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(IndeedeeMale),
       //SHINYPAL(IndeedeeMale),
       //PALETTES(IndeedeeMale),
@@ -11834,9 +11834,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MORPEKO] = 
     {  
       //FRONT_PIC(Morpeko),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(Morpeko),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(Morpeko),
       //SHINYPAL(Morpeko),
       //PALETTES(Morpeko),
@@ -11847,9 +11847,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CUFANT] = 
     {  
       //FRONT_PIC(Cufant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 11),
       //BACK_PIC(Cufant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Cufant),
       //SHINYPAL(Cufant),
       //PALETTES(Cufant),
@@ -11860,9 +11860,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_COPPERAJAH] = 
     {  
       //FRONT_PIC(Copperajah),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 5),
       //BACK_PIC(Copperajah),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 16),
       //PAL(Copperajah),
       //SHINYPAL(Copperajah),
       //PALETTES(Copperajah),
@@ -11873,9 +11873,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRACOZOLT] = 
     {  
       //FRONT_PIC(Dracozolt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Dracozolt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(Dracozolt),
       //SHINYPAL(Dracozolt),
       //PALETTES(Dracozolt),
@@ -11886,9 +11886,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCTOZOLT] = 
     {  
       //FRONT_PIC(Arctozolt),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 1),
       //BACK_PIC(Arctozolt),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(Arctozolt),
       //SHINYPAL(Arctozolt),
       //PALETTES(Arctozolt),
@@ -11899,9 +11899,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRACOVISH] = 
     {  
       //FRONT_PIC(Dracovish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 0),
       //BACK_PIC(Dracovish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Dracovish),
       //SHINYPAL(Dracovish),
       //PALETTES(Dracovish),
@@ -11912,9 +11912,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCTOVISH] = 
     {  
       //FRONT_PIC(Arctovish),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Arctovish),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Arctovish),
       //SHINYPAL(Arctovish),
       //PALETTES(Arctovish),
@@ -11925,9 +11925,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DURALUDON] = 
     {  
       //FRONT_PIC(Duraludon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Duraludon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(Duraludon),
       //SHINYPAL(Duraludon),
       //PALETTES(Duraludon),
@@ -11938,9 +11938,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DREEPY] = 
     {  
       //FRONT_PIC(Dreepy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 14),
       //BACK_PIC(Dreepy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 15),
       //PAL(Dreepy),
       //SHINYPAL(Dreepy),
       //PALETTES(Dreepy),
@@ -11951,9 +11951,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAKLOAK] = 
     {  
       //FRONT_PIC(Drakloak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(Drakloak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(Drakloak),
       //SHINYPAL(Drakloak),
       //PALETTES(Drakloak),
@@ -11964,22 +11964,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DRAGAPULT] = 
     {  
       //FRONT_PIC(Dragapult),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Dragapult),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(Dragapult),
       //SHINYPAL(Dragapult),
       //PALETTES(Dragapult),
       PIC_DATA_ICON_INDEX(Dragapult,0),
       //ICON(Dragapult, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //Dragapult,
 [SPECIES_ZACIAN] = 
     {  
       //FRONT_PIC(Zacian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(Zacian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(Zacian),
       //SHINYPAL(Zacian),
       //PALETTES(Zacian),
@@ -11990,9 +11990,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZAMAZENTA] = 
     {  
       //FRONT_PIC(Zamazenta),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Zamazenta),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Zamazenta),
       //SHINYPAL(Zamazenta),
       //PALETTES(Zamazenta),
@@ -12003,9 +12003,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ETERNATUS] = 
     {  
       //FRONT_PIC(Eternatus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Eternatus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(Eternatus),
       //SHINYPAL(Eternatus),
       //PALETTES(Eternatus),
@@ -12016,9 +12016,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KUBFU] = 
     {  
       //FRONT_PIC(Kubfu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 8),
       //BACK_PIC(Kubfu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(Kubfu),
       //SHINYPAL(Kubfu),
       //PALETTES(Kubfu),
@@ -12029,9 +12029,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_URSHIFU_SINGLE_STRIKE_STYLE] = 
     {  
       FRONT_PIC(UrshifuSingleStrikeStyle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       BACK_PIC(UrshifuSingleStrikeStyle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(UrshifuSingleStrikeStyle),
       //SHINYPAL(UrshifuSingleStrikeStyle),
       PALETTES(UrshifuSingleStrikeStyle),
@@ -12042,9 +12042,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZARUDE] = 
     {  
       //FRONT_PIC(Zarude),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(Zarude),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(Zarude),
       //SHINYPAL(Zarude),
       //PALETTES(Zarude),
@@ -12055,9 +12055,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGIELEKI] = 
     {  
       //FRONT_PIC(Regieleki),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 4),
       //BACK_PIC(Regieleki),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(Regieleki),
       //SHINYPAL(Regieleki),
       //PALETTES(Regieleki),
@@ -12068,9 +12068,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGIDRAGO] = 
     {  
       //FRONT_PIC(Regidrago),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(Regidrago),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(Regidrago),
       //SHINYPAL(Regidrago),
       //PALETTES(Regidrago),
@@ -12081,9 +12081,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLASTRIER] = 
     {  
       //FRONT_PIC(Glastrier),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Glastrier),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 5),
       //PAL(Glastrier),
       //SHINYPAL(Glastrier),
       //PALETTES(Glastrier),
@@ -12094,9 +12094,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SPECTRIER] = 
     {  
       //FRONT_PIC(Spectrier),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(Spectrier),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(Spectrier),
       //SHINYPAL(Spectrier),
       //PALETTES(Spectrier),
@@ -12107,9 +12107,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CALYREX] = 
     {  
       //FRONT_PIC(Calyrex),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Calyrex),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 10),
       //PAL(Calyrex),
       //SHINYPAL(Calyrex),
       //PALETTES(Calyrex),
@@ -12120,9 +12120,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WYRDEER] = 
     {  
       //FRONT_PIC(Wyrdeer),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Wyrdeer),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 5),
       //PAL(Wyrdeer),
       //SHINYPAL(Wyrdeer),
       //PALETTES(Wyrdeer),
@@ -12133,9 +12133,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KLEAVOR] = 
     {  
       //FRONT_PIC(Kleavor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Kleavor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 5),
       //PAL(Kleavor),
       //SHINYPAL(Kleavor),
       //PALETTES(Kleavor),
@@ -12146,9 +12146,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_URSALUNA] = 
     {  
       //FRONT_PIC(Ursaluna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(Ursaluna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(Ursaluna),
       //SHINYPAL(Ursaluna),
       //PALETTES(Ursaluna),
@@ -12159,9 +12159,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASCULEGION_MALE] = 
     {  
       //FRONT_PIC(BasculegionMale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(BasculegionMale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x72, 5),
       //PAL(BasculegionMale),
       //SHINYPAL(BasculegionMale),
       //PALETTES(BasculegionMale),
@@ -12172,9 +12172,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNEASLER] = 
     {  
       //FRONT_PIC(Sneasler),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Sneasler),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 10),
       //PAL(Sneasler),
       //SHINYPAL(Sneasler),
       //PALETTES(Sneasler),
@@ -12185,9 +12185,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OVERQWIL] = 
     {  
       //FRONT_PIC(Overqwil),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x62, 5),
       //BACK_PIC(Overqwil),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x62, 10),
       //PAL(Overqwil),
       //SHINYPAL(Overqwil),
       //PALETTES(Overqwil),
@@ -12198,9 +12198,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ENAMORUS] = 
     {  
       //FRONT_PIC(Enamorus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Enamorus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 7),
       //PAL(Enamorus),
       //SHINYPAL(Enamorus),
       //PALETTES(Enamorus),
@@ -14907,7 +14907,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         //.levelUpLearnset = sTadbulbLevelUpLearnset,
         //.teachableLearnset = sTadbulbTeachableLearnset,
         //.evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0,  SPECIES_BELLIBOLT}),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 12,
     },
 
 [SPECIES_BELLIBOLT] =
@@ -16595,7 +16595,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sBombirdierLevelUpLearnset,
         //.teachableLearnset = sBombirdierTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     },
 //#endif //P_FAMILY_BOMBIRDIER
 
@@ -17164,7 +17164,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         //.levelUpLearnset = sGlimmetLevelUpLearnset,
         //.teachableLearnset = sGlimmetTeachableLearnset,
         //.evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_GLIMMORA}),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 11,
     },
 
 [SPECIES_GLIMMORA] =
@@ -17234,7 +17234,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sGlimmoraLevelUpLearnset,
         //.teachableLearnset = sGlimmoraTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     },
 //#endif //P_FAMILY_GLIMMET
 
@@ -17659,7 +17659,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sVeluzaLevelUpLearnset,
         //.teachableLearnset = sVeluzaTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 5,
     },
 //#endif //P_FAMILY_VELUZA
 
@@ -17731,7 +17731,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sDondozoLevelUpLearnset,
         //.teachableLearnset = sDondozoTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 1,
     },
 //#endif //P_FAMILY_DONDOZO
 
@@ -18635,7 +18635,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sFlutterManeLevelUpLearnset,
         //.teachableLearnset = sFlutterManeTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 18,
     },
 //#endif //P_FAMILY_FLUTTER_MANE
 
@@ -19067,7 +19067,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sIronJugulisLevelUpLearnset,
         //.teachableLearnset = sIronJugulisTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     },
 //#endif //P_FAMILY_IRON_JUGULIS
 
@@ -19140,7 +19140,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sIronMothLevelUpLearnset,
         //.teachableLearnset = sIronMothTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     },
 //#endif //P_FAMILY_IRON_MOTH
 
@@ -19924,7 +19924,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sChiYuLevelUpLearnset,
         //.teachableLearnset = sChiYuTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 15,
     },
 //#endif //P_FAMILY_CHI_YU
 
@@ -19997,7 +19997,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sRoaringMoonLevelUpLearnset,
         //.teachableLearnset = sRoaringMoonTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     },
 //#endif //P_FAMILY_ROARING_MOON
 
@@ -20778,7 +20778,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         //.levelUpLearnset = sPoltchageistLevelUpLearnset,
         //.teachableLearnset = sPoltchageistTeachableLearnset,
         //.evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_UNREMARKABLE_TEACUP*/, 0,  SPECIES_SINISTCHA_UNREMARKABLE}),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     },//vsonic
 
 [SPECIES_POLTCHAGEIST_ARTISAN] =
@@ -20849,7 +20849,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         //.levelUpLearnset = sPoltchageistLevelUpLearnset,
         //.teachableLearnset = sPoltchageistTeachableLearnset,
         //.evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_MASTERPIECE_TEACUP*/, 0,  SPECIES_SINISTCHA_MASTERPIECE}),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     },//vsonic
 
 [SPECIES_SINISTCHA_UNREMARKABLE] =
@@ -20919,7 +20919,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sSinistchaLevelUpLearnset,
         //.teachableLearnset = sSinistchaTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     },
 [SPECIES_SINISTCHA_MASTERPIECE] =
     {
@@ -20988,7 +20988,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
         */
         //.levelUpLearnset = sSinistchaLevelUpLearnset,
         //.teachableLearnset = sSinistchaTeachableLearnset,
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 10,
     },
 //#endif //P_FAMILY_POLTCHAGEIST
 
@@ -22063,9 +22063,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VENUSAUR_MEGA] = 
     {  
       //FRONT_PIC(VenusaurMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 6),
       //BACK_PIC(VenusaurMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 10),
       //PAL(VenusaurMega),
       //SHINYPAL(VenusaurMega),
       //PALETTES(VenusaurMega),
@@ -22076,9 +22076,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHARIZARD_MEGA_X] = 
     {  
       //FRONT_PIC(CharizardMegaX),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 1),
       //BACK_PIC(CharizardMegaX),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 2),
       //PAL(CharizardMegaX),
       //SHINYPAL(CharizardMegaX),
       //PALETTES(CharizardMegaX),
@@ -22089,9 +22089,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHARIZARD_MEGA_Y] = 
     {  
       //FRONT_PIC(CharizardMegaY),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(CharizardMegaY),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(CharizardMegaY),
       //SHINYPAL(CharizardMegaY),
       //PALETTES(CharizardMegaY),
@@ -22102,9 +22102,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLASTOISE_MEGA] = 
     {  
       //FRONT_PIC(BlastoiseMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(BlastoiseMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 3),
       //PAL(BlastoiseMega),
       //SHINYPAL(BlastoiseMega),
       //PALETTES(BlastoiseMega),
@@ -22115,48 +22115,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BEEDRILL_MEGA] = 
     {  
       //FRONT_PIC(BeedrillMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(BeedrillMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 5),
       //PAL(BeedrillMega),
       //SHINYPAL(BeedrillMega),
       //PALETTES(BeedrillMega),
       PIC_DATA_ICON_INDEX(BeedrillMega,0),
       //ICON(BeedrillMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 5,
     }, //BeedrillMega,
 [SPECIES_PIDGEOT_MEGA] = 
     {  
       //FRONT_PIC(PidgeotMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(PidgeotMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 7),
       //PAL(PidgeotMega),
       //SHINYPAL(PidgeotMega),
       //PALETTES(PidgeotMega),
       PIC_DATA_ICON_INDEX(PidgeotMega,0),
       //ICON(PidgeotMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //PidgeotMega,
 [SPECIES_ALAKAZAM_MEGA] = 
     {  
       //FRONT_PIC(AlakazamMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(AlakazamMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 8),
       //PAL(AlakazamMega),
       //SHINYPAL(AlakazamMega),
       //PALETTES(AlakazamMega),
       PIC_DATA_ICON_INDEX(AlakazamMega,0),
       //ICON(AlakazamMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //AlakazamMega,
 [SPECIES_SLOWBRO_MEGA] = 
     {  
       //FRONT_PIC(SlowbroMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(SlowbroMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 9),
       //PAL(SlowbroMega),
       //SHINYPAL(SlowbroMega),
       //PALETTES(SlowbroMega),
@@ -22167,9 +22167,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GENGAR_MEGA] = 
     {  
       //FRONT_PIC(GengarMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 8),
       //BACK_PIC(GengarMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(GengarMega),
       //SHINYPAL(GengarMega),
       //PALETTES(GengarMega),
@@ -22180,9 +22180,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KANGASKHAN_MEGA] = 
     {  
       //FRONT_PIC(KangaskhanMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(KangaskhanMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 6),
       //PAL(KangaskhanMega),
       //SHINYPAL(KangaskhanMega),
       //PALETTES(KangaskhanMega),
@@ -22193,48 +22193,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PINSIR_MEGA] = 
     {  
       //FRONT_PIC(PinsirMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 4),
       //BACK_PIC(PinsirMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 7),
       //PAL(PinsirMega),
       //SHINYPAL(PinsirMega),
       //PALETTES(PinsirMega),
       PIC_DATA_ICON_INDEX(PinsirMega,0),
       //ICON(PinsirMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //PinsirMega,
 [SPECIES_GYARADOS_MEGA] = 
     {  
       //FRONT_PIC(GyaradosMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 1),
       //BACK_PIC(GyaradosMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 3),
       //PAL(GyaradosMega),
       //SHINYPAL(GyaradosMega),
       //PALETTES(GyaradosMega),
       PIC_DATA_ICON_INDEX(GyaradosMega,0),
       //ICON(GyaradosMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //GyaradosMega,
 [SPECIES_AERODACTYL_MEGA] = 
     {  
       //FRONT_PIC(AerodactylMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(AerodactylMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 8),
       //PAL(AerodactylMega),
       //SHINYPAL(AerodactylMega),
       //PALETTES(AerodactylMega),
       PIC_DATA_ICON_INDEX(AerodactylMega,0),
       //ICON(AerodactylMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //AerodactylMega,
 [SPECIES_MEWTWO_MEGA_X] = 
     {  
       //FRONT_PIC(MewtwoMegaX),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 1),
       //BACK_PIC(MewtwoMegaX),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(MewtwoMegaX),
       //SHINYPAL(MewtwoMegaX),
       //PALETTES(MewtwoMegaX),
@@ -22245,22 +22245,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEWTWO_MEGA_Y] = 
     {  
       //FRONT_PIC(MewtwoMegaY),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(MewtwoMegaY),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 2),
       //PAL(MewtwoMegaY),
       //SHINYPAL(MewtwoMegaY),
       //PALETTES(MewtwoMegaY),
       PIC_DATA_ICON_INDEX(MewtwoMegaY,0),
       //ICON(MewtwoMegaY, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //MewtwoMegaY,
 [SPECIES_AMPHAROS_MEGA] = 
     {  
       //FRONT_PIC(AmpharosMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 2),
       //BACK_PIC(AmpharosMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(AmpharosMega),
       //SHINYPAL(AmpharosMega),
       //PALETTES(AmpharosMega),
@@ -22271,9 +22271,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_STEELIX_MEGA] = 
     {  
       //FRONT_PIC(SteelixMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(SteelixMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(SteelixMega),
       //SHINYPAL(SteelixMega),
       //PALETTES(SteelixMega),
@@ -22284,9 +22284,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCIZOR_MEGA] = 
     {  
       //FRONT_PIC(ScizorMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(ScizorMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 4),
       //PAL(ScizorMega),
       //SHINYPAL(ScizorMega),
       //PALETTES(ScizorMega),
@@ -22297,9 +22297,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HERACROSS_MEGA] = 
     {  
       //FRONT_PIC(HeracrossMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(HeracrossMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(HeracrossMega),
       //SHINYPAL(HeracrossMega),
       //PALETTES(HeracrossMega),
@@ -22310,9 +22310,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOUNDOOM_MEGA] = 
     {  
       //FRONT_PIC(HoundoomMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(HoundoomMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(HoundoomMega),
       //SHINYPAL(HoundoomMega),
       //PALETTES(HoundoomMega),
@@ -22323,9 +22323,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYRANITAR_MEGA] = 
     {  
       //FRONT_PIC(TyranitarMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(TyranitarMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(TyranitarMega),
       //SHINYPAL(TyranitarMega),
       //PALETTES(TyranitarMega),
@@ -22336,9 +22336,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SCEPTILE_MEGA] = 
     {  
       //FRONT_PIC(SceptileMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 2),
       //BACK_PIC(SceptileMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 3),
       //PAL(SceptileMega),
       //SHINYPAL(SceptileMega),
       //PALETTES(SceptileMega),
@@ -22349,9 +22349,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLAZIKEN_MEGA] = 
     {  
       //FRONT_PIC(BlazikenMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 1),
       //BACK_PIC(BlazikenMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(BlazikenMega),
       //SHINYPAL(BlazikenMega),
       //PALETTES(BlazikenMega),
@@ -22362,9 +22362,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SWAMPERT_MEGA] = 
     {  
       //FRONT_PIC(SwampertMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 4),
       //BACK_PIC(SwampertMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 6),
       //PAL(SwampertMega),
       //SHINYPAL(SwampertMega),
       //PALETTES(SwampertMega),
@@ -22375,9 +22375,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GARDEVOIR_MEGA] = 
     {  
       //FRONT_PIC(GardevoirMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(GardevoirMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 6),
       //PAL(GardevoirMega),
       //SHINYPAL(GardevoirMega),
       //PALETTES(GardevoirMega),
@@ -22388,9 +22388,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SABLEYE_MEGA] = 
     {  
       //FRONT_PIC(SableyeMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 7),
       //BACK_PIC(SableyeMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 13),
       //PAL(SableyeMega),
       //SHINYPAL(SableyeMega),
       //PALETTES(SableyeMega),
@@ -22401,9 +22401,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAWILE_MEGA] = 
     {  
       //FRONT_PIC(MawileMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 5),
       //BACK_PIC(MawileMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 6),
       //PAL(MawileMega),
       //SHINYPAL(MawileMega),
       //PALETTES(MawileMega),
@@ -22414,9 +22414,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AGGRON_MEGA] = 
     {  
       //FRONT_PIC(AggronMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 2),
       //BACK_PIC(AggronMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 7),
       //PAL(AggronMega),
       //SHINYPAL(AggronMega),
       //PALETTES(AggronMega),
@@ -22427,9 +22427,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEDICHAM_MEGA] = 
     {  
       //FRONT_PIC(MedichamMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(MedichamMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 2),
       //PAL(MedichamMega),
       //SHINYPAL(MedichamMega),
       //PALETTES(MedichamMega),
@@ -22440,9 +22440,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MANECTRIC_MEGA] = 
     {  
       //FRONT_PIC(ManectricMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 3),
       //BACK_PIC(ManectricMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(ManectricMega),
       //SHINYPAL(ManectricMega),
       //PALETTES(ManectricMega),
@@ -22453,22 +22453,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHARPEDO_MEGA] = 
     {  
       //FRONT_PIC(SharpedoMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(SharpedoMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 3),
       //PAL(SharpedoMega),
       //SHINYPAL(SharpedoMega),
       //PALETTES(SharpedoMega),
       PIC_DATA_ICON_INDEX(SharpedoMega,0),
       //ICON(SharpedoMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 1,
     }, //SharpedoMega,
 [SPECIES_CAMERUPT_MEGA] = 
     {  
       //FRONT_PIC(CameruptMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 6),
       //BACK_PIC(CameruptMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 9),
       //PAL(CameruptMega),
       //SHINYPAL(CameruptMega),
       //PALETTES(CameruptMega),
@@ -22479,35 +22479,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALTARIA_MEGA] = 
     {  
       //FRONT_PIC(AltariaMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(AltariaMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 10),
       //PAL(AltariaMega),
       //SHINYPAL(AltariaMega),
       //PALETTES(AltariaMega),
       PIC_DATA_ICON_INDEX(AltariaMega,0),
       //ICON(AltariaMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
     }, //AltariaMega,
 [SPECIES_BANETTE_MEGA] = 
     {  
       //FRONT_PIC(BanetteMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(BanetteMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(BanetteMega),
       //SHINYPAL(BanetteMega),
       //PALETTES(BanetteMega),
       PIC_DATA_ICON_INDEX(BanetteMega,0),
       //ICON(BanetteMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 5,
     }, //BanetteMega,
 [SPECIES_ABSOL_MEGA] = 
     {  
       //FRONT_PIC(AbsolMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 5),
       //BACK_PIC(AbsolMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(AbsolMega),
       //SHINYPAL(AbsolMega),
       //PALETTES(AbsolMega),
@@ -22518,22 +22518,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GLALIE_MEGA] = 
     {  
       //FRONT_PIC(GlalieMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 4),
       //BACK_PIC(GlalieMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 10),
       //PAL(GlalieMega),
       //SHINYPAL(GlalieMega),
       //PALETTES(GlalieMega),
       PIC_DATA_ICON_INDEX(GlalieMega,0),
       //ICON(GlalieMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //GlalieMega,
 [SPECIES_SALAMENCE_MEGA] = 
     {  
       //FRONT_PIC(SalamenceMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 5),
       //BACK_PIC(SalamenceMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 4),
       //PAL(SalamenceMega),
       //SHINYPAL(SalamenceMega),
       //PALETTES(SalamenceMega),
@@ -22544,48 +22544,48 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_METAGROSS_MEGA] = 
     {  
       //FRONT_PIC(MetagrossMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(MetagrossMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 6),
       //PAL(MetagrossMega),
       //SHINYPAL(MetagrossMega),
       //PALETTES(MetagrossMega),
       PIC_DATA_ICON_INDEX(MetagrossMega,0),
       //ICON(MetagrossMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //MetagrossMega,
 [SPECIES_LATIAS_MEGA] = 
     {  
       //FRONT_PIC(LatiasMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(LatiasMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(LatiasMega),
       //SHINYPAL(LatiasMega),
       //PALETTES(LatiasMega),
       PIC_DATA_ICON_INDEX(LatiasMega,0),
       //ICON(LatiasMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //LatiasMega,
 [SPECIES_LATIOS_MEGA] = 
     {  
       //FRONT_PIC(LatiosMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(LatiosMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(LatiosMega),
       //SHINYPAL(LatiosMega),
       //PALETTES(LatiosMega),
       PIC_DATA_ICON_INDEX(LatiosMega,0),
       //ICON(LatiosMega, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
     }, //LatiosMega,
 [SPECIES_LOPUNNY_MEGA] = 
     {  
       //FRONT_PIC(LopunnyMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 2),
       //BACK_PIC(LopunnyMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 4),
       //PAL(LopunnyMega),
       //SHINYPAL(LopunnyMega),
       //PALETTES(LopunnyMega),
@@ -22596,9 +22596,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GARCHOMP_MEGA] = 
     {  
       //FRONT_PIC(GarchompMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 3),
       //BACK_PIC(GarchompMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 4),
       //PAL(GarchompMega),
       //SHINYPAL(GarchompMega),
       //PALETTES(GarchompMega),
@@ -22609,9 +22609,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LUCARIO_MEGA] = 
     {  
       //FRONT_PIC(LucarioMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(LucarioMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(LucarioMega),
       //SHINYPAL(LucarioMega),
       //PALETTES(LucarioMega),
@@ -22622,9 +22622,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ABOMASNOW_MEGA] = 
     {  
       //FRONT_PIC(AbomasnowMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(AbomasnowMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(AbomasnowMega),
       //SHINYPAL(AbomasnowMega),
       //PALETTES(AbomasnowMega),
@@ -22635,9 +22635,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GALLADE_MEGA] = 
     {  
       //FRONT_PIC(GalladeMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 1),
       //BACK_PIC(GalladeMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 3),
       //PAL(GalladeMega),
       //SHINYPAL(GalladeMega),
       //PALETTES(GalladeMega),
@@ -22648,9 +22648,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AUDINO_MEGA] = 
     {  
       //FRONT_PIC(AudinoMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 5),
       //BACK_PIC(AudinoMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 0),
       //PAL(AudinoMega),
       //SHINYPAL(AudinoMega),
       //PALETTES(AudinoMega),
@@ -22661,9 +22661,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DIANCIE_MEGA] = 
     {  
       //FRONT_PIC(DiancieMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(DiancieMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 6),
       //PAL(DiancieMega),
       //SHINYPAL(DiancieMega),
       //PALETTES(DiancieMega),
@@ -22674,9 +22674,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAYQUAZA_MEGA] = 
     {  
       //FRONT_PIC(RayquazaMega),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0, 0),
       //BACK_PIC(RayquazaMega),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0, 1),
       //PAL(RayquazaMega),
       //SHINYPAL(RayquazaMega),
       //PALETTES(RayquazaMega),
@@ -22687,9 +22687,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KYOGRE_PRIMAL] = 
     {  
       //FRONT_PIC(KyogrePrimal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 0),
       //BACK_PIC(KyogrePrimal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 18),
       //PAL(KyogrePrimal),
       //SHINYPAL(KyogrePrimal),
       //PALETTES(KyogrePrimal),
@@ -22700,9 +22700,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROUDON_PRIMAL] = 
     {  
       //FRONT_PIC(GroudonPrimal),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(GroudonPrimal),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(GroudonPrimal),
       //SHINYPAL(GroudonPrimal),
       //PALETTES(GroudonPrimal),
@@ -22713,9 +22713,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RATTATA_ALOLAN] = 
     {  
       //FRONT_PIC(RattataAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x44, 13),
       //BACK_PIC(RattataAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 7),
       //PAL(RattataAlolan),
       //SHINYPAL(RattataAlolan),
       //PALETTES(RattataAlolan),
@@ -22726,9 +22726,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RATICATE_ALOLAN] = 
     {  
       //FRONT_PIC(RaticateAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 6),
       //BACK_PIC(RaticateAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 10),
       //PAL(RaticateAlolan),
       //SHINYPAL(RaticateAlolan),
       //PALETTES(RaticateAlolan),
@@ -22739,9 +22739,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAICHU_ALOLAN] = 
     {  
       //FRONT_PIC(RaichuAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 3),
       //BACK_PIC(RaichuAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 6),
       //PAL(RaichuAlolan),
       //SHINYPAL(RaichuAlolan),
       //PALETTES(RaichuAlolan),
@@ -22752,9 +22752,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDSHREW_ALOLAN] = 
     {  
       //FRONT_PIC(SandshrewAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 11),
       //BACK_PIC(SandshrewAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 13),
       //PAL(SandshrewAlolan),
       //SHINYPAL(SandshrewAlolan),
       //PALETTES(SandshrewAlolan),
@@ -22765,9 +22765,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDSLASH_ALOLAN] = 
     {  
       //FRONT_PIC(SandslashAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 6),
       //BACK_PIC(SandslashAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(SandslashAlolan),
       //SHINYPAL(SandslashAlolan),
       //PALETTES(SandslashAlolan),
@@ -22778,9 +22778,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VULPIX_ALOLAN] = 
     {  
       //FRONT_PIC(VulpixAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 11),
       //BACK_PIC(VulpixAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(VulpixAlolan),
       //SHINYPAL(VulpixAlolan),
       //PALETTES(VulpixAlolan),
@@ -22791,9 +22791,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NINETALES_ALOLAN] = 
     {  
       //FRONT_PIC(NinetalesAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 3),
       //BACK_PIC(NinetalesAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(NinetalesAlolan),
       //SHINYPAL(NinetalesAlolan),
       //PALETTES(NinetalesAlolan),
@@ -22804,9 +22804,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DIGLETT_ALOLAN] = 
     {  
       //FRONT_PIC(DiglettAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 17),
       //BACK_PIC(DiglettAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x54, 14),
       //PAL(DiglettAlolan),
       //SHINYPAL(DiglettAlolan),
       //PALETTES(DiglettAlolan),
@@ -22817,9 +22817,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DUGTRIO_ALOLAN] = 
     {  
       //FRONT_PIC(DugtrioAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 11),
       //BACK_PIC(DugtrioAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 17),
       //PAL(DugtrioAlolan),
       //SHINYPAL(DugtrioAlolan),
       //PALETTES(DugtrioAlolan),
@@ -22830,9 +22830,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEOWTH_ALOLAN] = 
     {  
       //FRONT_PIC(MeowthAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(MeowthAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 7),
       //PAL(MeowthAlolan),
       //SHINYPAL(MeowthAlolan),
       //PALETTES(MeowthAlolan),
@@ -22843,9 +22843,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PERSIAN_ALOLAN] = 
     {  
       //FRONT_PIC(PersianAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 4),
       //BACK_PIC(PersianAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(PersianAlolan),
       //SHINYPAL(PersianAlolan),
       //PALETTES(PersianAlolan),
@@ -22856,9 +22856,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GEODUDE_ALOLAN] = 
     {  
       //FRONT_PIC(GeodudeAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x54, 10),
       //BACK_PIC(GeodudeAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 13),
       //PAL(GeodudeAlolan),
       //SHINYPAL(GeodudeAlolan),
       //PALETTES(GeodudeAlolan),
@@ -22869,9 +22869,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRAVELER_ALOLAN] = 
     {  
       //FRONT_PIC(GravelerAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       //BACK_PIC(GravelerAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 10),
       //PAL(GravelerAlolan),
       //SHINYPAL(GravelerAlolan),
       //PALETTES(GravelerAlolan),
@@ -22882,9 +22882,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOLEM_ALOLAN] = 
     {  
       //FRONT_PIC(GolemAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(GolemAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x84, 13),
       //PAL(GolemAlolan),
       //SHINYPAL(GolemAlolan),
       //PALETTES(GolemAlolan),
@@ -22895,9 +22895,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRIMER_ALOLAN] = 
     {  
       //FRONT_PIC(GrimerAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 9),
       //BACK_PIC(GrimerAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(GrimerAlolan),
       //SHINYPAL(GrimerAlolan),
       //PALETTES(GrimerAlolan),
@@ -22908,9 +22908,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUK_ALOLAN] = 
     {  
       //FRONT_PIC(MukAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(MukAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 9),
       //PAL(MukAlolan),
       //SHINYPAL(MukAlolan),
       //PALETTES(MukAlolan),
@@ -22921,9 +22921,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EXEGGUTOR_ALOLAN] = 
     {  
       //FRONT_PIC(ExeggutorAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(ExeggutorAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(ExeggutorAlolan),
       //SHINYPAL(ExeggutorAlolan),
       //PALETTES(ExeggutorAlolan),
@@ -22934,9 +22934,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAROWAK_ALOLAN] = 
     {  
       //FRONT_PIC(MarowakAlolan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x76, 8),
       //BACK_PIC(MarowakAlolan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 8),
       //PAL(MarowakAlolan),
       //SHINYPAL(MarowakAlolan),
       //PALETTES(MarowakAlolan),
@@ -22947,9 +22947,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEOWTH_GALARIAN] = 
     {  
       //FRONT_PIC(MeowthGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 9),
       //BACK_PIC(MeowthGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(MeowthGalarian),
       //SHINYPAL(MeowthGalarian),
       //PALETTES(MeowthGalarian),
@@ -22960,9 +22960,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PONYTA_GALARIAN] = 
     {  
       //FRONT_PIC(PonytaGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 8),
       //BACK_PIC(PonytaGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PonytaGalarian),
       //SHINYPAL(PonytaGalarian),
       //PALETTES(PonytaGalarian),
@@ -22973,9 +22973,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_RAPIDASH_GALARIAN] = 
     {  
       //FRONT_PIC(RapidashGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(RapidashGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(RapidashGalarian),
       //SHINYPAL(RapidashGalarian),
       //PALETTES(RapidashGalarian),
@@ -22986,9 +22986,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLOWPOKE_GALARIAN] = 
     {  
       //FRONT_PIC(SlowpokeGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x74, 19),
       //BACK_PIC(SlowpokeGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(SlowpokeGalarian),
       //SHINYPAL(SlowpokeGalarian),
       //PALETTES(SlowpokeGalarian),
@@ -22999,9 +22999,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLOWBRO_GALARIAN] = 
     {  
       //FRONT_PIC(SlowbroGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 4),
       //BACK_PIC(SlowbroGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(SlowbroGalarian),
       //SHINYPAL(SlowbroGalarian),
       //PALETTES(SlowbroGalarian),
@@ -23012,9 +23012,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FARFETCHD_GALARIAN] = 
     {  
       //FRONT_PIC(FarfetchdGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 9),
       //BACK_PIC(FarfetchdGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(FarfetchdGalarian),
       //SHINYPAL(FarfetchdGalarian),
       //PALETTES(FarfetchdGalarian),
@@ -23025,22 +23025,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WEEZING_GALARIAN] = 
     {  
       //FRONT_PIC(WeezingGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(WeezingGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(WeezingGalarian),
       //SHINYPAL(WeezingGalarian),
       //PALETTES(WeezingGalarian),
       PIC_DATA_ICON_INDEX(WeezingGalarian,0),
       //ICON(WeezingGalarian, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 3,
     }, //WeezingGalarian,
 [SPECIES_MR_MIME_GALARIAN] = 
     {  
       //FRONT_PIC(MrMimeGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 7),
       //BACK_PIC(MrMimeGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(MrMimeGalarian),
       //SHINYPAL(MrMimeGalarian),
       //PALETTES(MrMimeGalarian),
@@ -23051,9 +23051,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARTICUNO_GALARIAN] = 
     {  
       //FRONT_PIC(ArticunoGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(ArticunoGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(ArticunoGalarian),
       //SHINYPAL(ArticunoGalarian),
       //PALETTES(ArticunoGalarian),
@@ -23064,9 +23064,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZAPDOS_GALARIAN] = 
     {  
       //FRONT_PIC(ZapdosGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 0),
       //BACK_PIC(ZapdosGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 9),
       //PAL(ZapdosGalarian),
       //SHINYPAL(ZapdosGalarian),
       //PALETTES(ZapdosGalarian),
@@ -23077,9 +23077,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MOLTRES_GALARIAN] = 
     {  
       //FRONT_PIC(MoltresGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 1),
       //BACK_PIC(MoltresGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(MoltresGalarian),
       //SHINYPAL(MoltresGalarian),
       //PALETTES(MoltresGalarian),
@@ -23090,9 +23090,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLOWKING_GALARIAN] = 
     {  
       //FRONT_PIC(SlowkingGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 0),
       //BACK_PIC(SlowkingGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(SlowkingGalarian),
       //SHINYPAL(SlowkingGalarian),
       //PALETTES(SlowkingGalarian),
@@ -23103,9 +23103,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CORSOLA_GALARIAN] = 
     {  
       //FRONT_PIC(CorsolaGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 11),
       //BACK_PIC(CorsolaGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(CorsolaGalarian),
       //SHINYPAL(CorsolaGalarian),
       //PALETTES(CorsolaGalarian),
@@ -23116,9 +23116,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZIGZAGOON_GALARIAN] = 
     {  
       //FRONT_PIC(ZigzagoonGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x75, 13),
       //BACK_PIC(ZigzagoonGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 12),
       //PAL(ZigzagoonGalarian),
       //SHINYPAL(ZigzagoonGalarian),
       //PALETTES(ZigzagoonGalarian),
@@ -23129,9 +23129,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LINOONE_GALARIAN] = 
     {  
       //FRONT_PIC(LinooneGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 13),
       //BACK_PIC(LinooneGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(LinooneGalarian),
       //SHINYPAL(LinooneGalarian),
       //PALETTES(LinooneGalarian),
@@ -23142,9 +23142,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARUMAKA_GALARIAN] = 
     {  
       //FRONT_PIC(DarumakaGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 15),
       //BACK_PIC(DarumakaGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 11),
       //PAL(DarumakaGalarian),
       //SHINYPAL(DarumakaGalarian),
       //PALETTES(DarumakaGalarian),
@@ -23155,9 +23155,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARMANITAN_GALARIAN] = 
     {  
       //FRONT_PIC(DarmanitanGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(DarmanitanGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(DarmanitanGalarian),
       //SHINYPAL(DarmanitanGalarian),
       //PALETTES(DarmanitanGalarian),
@@ -23168,22 +23168,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_YAMASK_GALARIAN] = 
     {  
       //FRONT_PIC(YamaskGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 13),
       //BACK_PIC(YamaskGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 13),
       //PAL(YamaskGalarian),
       //SHINYPAL(YamaskGalarian),
       //PALETTES(YamaskGalarian),
       PIC_DATA_ICON_INDEX(YamaskGalarian,0),
       //ICON(YamaskGalarian, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //YamaskGalarian,
 [SPECIES_STUNFISK_GALARIAN] = 
     {  
       //FRONT_PIC(StunfiskGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 14),
       //BACK_PIC(StunfiskGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x83, 23),
       //PAL(StunfiskGalarian),
       //SHINYPAL(StunfiskGalarian),
       //PALETTES(StunfiskGalarian),
@@ -23194,9 +23194,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GROWLITHE_HISUIAN] = 
     {  
       //FRONT_PIC(GrowlitheHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 6),
       //BACK_PIC(GrowlitheHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 8),
       //PAL(GrowlitheHisuian),
       //SHINYPAL(GrowlitheHisuian),
       //PALETTES(GrowlitheHisuian),
@@ -23207,9 +23207,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCANINE_HISUIAN] = 
     {  
       //FRONT_PIC(ArcanineHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 2),
       //BACK_PIC(ArcanineHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 3),
       //PAL(ArcanineHisuian),
       //SHINYPAL(ArcanineHisuian),
       //PALETTES(ArcanineHisuian),
@@ -23220,9 +23220,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VOLTORB_HISUIAN] = 
     {  
       //FRONT_PIC(VoltorbHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 0),
       //BACK_PIC(VoltorbHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 10),
       //PAL(VoltorbHisuian),
       //SHINYPAL(VoltorbHisuian),
       //PALETTES(VoltorbHisuian),
@@ -23233,9 +23233,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ELECTRODE_HISUIAN] = 
     {  
       //FRONT_PIC(ElectrodeHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 0),
       //BACK_PIC(ElectrodeHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(ElectrodeHisuian),
       //SHINYPAL(ElectrodeHisuian),
       //PALETTES(ElectrodeHisuian),
@@ -23246,9 +23246,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TYPHLOSION_HISUIAN] = 
     {  
       //FRONT_PIC(TyphlosionHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 0),
       //BACK_PIC(TyphlosionHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 2),
       //PAL(TyphlosionHisuian),
       //SHINYPAL(TyphlosionHisuian),
       //PALETTES(TyphlosionHisuian),
@@ -23259,9 +23259,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_QWILFISH_HISUIAN] = 
     {  
       //FRONT_PIC(QwilfishHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 8),
       //BACK_PIC(QwilfishHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 6),
       //PAL(QwilfishHisuian),
       //SHINYPAL(QwilfishHisuian),
       //PALETTES(QwilfishHisuian),
@@ -23272,9 +23272,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SNEASEL_HISUIAN] = 
     {  
       //FRONT_PIC(SneaselHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 7),
       //BACK_PIC(SneaselHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 3),
       //PAL(SneaselHisuian),
       //SHINYPAL(SneaselHisuian),
       //PALETTES(SneaselHisuian),
@@ -23285,9 +23285,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAMUROTT_HISUIAN] = 
     {  
       //FRONT_PIC(SamurottHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 0),
       //BACK_PIC(SamurottHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 8),
       //PAL(SamurottHisuian),
       //SHINYPAL(SamurottHisuian),
       //PALETTES(SamurottHisuian),
@@ -23298,9 +23298,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LILLIGANT_HISUIAN] = 
     {  
       //FRONT_PIC(LilligantHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 1),
       //BACK_PIC(LilligantHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(LilligantHisuian),
       //SHINYPAL(LilligantHisuian),
       //PALETTES(LilligantHisuian),
@@ -23311,9 +23311,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZORUA_HISUIAN] = 
     {  
       //FRONT_PIC(ZoruaHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 2),
       //BACK_PIC(ZoruaHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 1),
       //PAL(ZoruaHisuian),
       //SHINYPAL(ZoruaHisuian),
       //PALETTES(ZoruaHisuian),
@@ -23324,9 +23324,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZOROARK_HISUIAN] = 
     {  
       //FRONT_PIC(ZoroarkHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 1),
       //BACK_PIC(ZoroarkHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0),
       //PAL(ZoroarkHisuian),
       //SHINYPAL(ZoroarkHisuian),
       //PALETTES(ZoroarkHisuian),
@@ -23337,9 +23337,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BRAVIARY_HISUIAN] = 
     {  
       //FRONT_PIC(BraviaryHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 0),
       //BACK_PIC(BraviaryHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(BraviaryHisuian),
       //SHINYPAL(BraviaryHisuian),
       //PALETTES(BraviaryHisuian),
@@ -23350,9 +23350,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLIGGOO_HISUIAN] = 
     {  
       //FRONT_PIC(SliggooHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 6),
       //BACK_PIC(SliggooHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x55, 0),
       //PAL(SliggooHisuian),
       //SHINYPAL(SliggooHisuian),
       //PALETTES(SliggooHisuian),
@@ -23363,9 +23363,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOODRA_HISUIAN] = 
     {  
       //FRONT_PIC(GoodraHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(GoodraHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0),
       //PAL(GoodraHisuian),
       //SHINYPAL(GoodraHisuian),
       //PALETTES(GoodraHisuian),
@@ -23376,9 +23376,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AVALUGG_HISUIAN] = 
     {  
       //FRONT_PIC(AvaluggHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x85, 5),
       //BACK_PIC(AvaluggHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 16),
       //PAL(AvaluggHisuian),
       //SHINYPAL(AvaluggHisuian),
       //PALETTES(AvaluggHisuian),
@@ -23389,9 +23389,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DECIDUEYE_HISUIAN] = 
     {  
       //FRONT_PIC(DecidueyeHisuian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 0),
       //BACK_PIC(DecidueyeHisuian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 0),
       //PAL(DecidueyeHisuian),
       //SHINYPAL(DecidueyeHisuian),
       //PALETTES(DecidueyeHisuian),
@@ -23402,9 +23402,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_COSPLAY] = 
     {  
       //FRONT_PIC(PikachuCosplay),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuCosplay),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuCosplay),
       //SHINYPAL(PikachuCosplay),
       //PALETTES(PikachuCosplay),
@@ -23415,9 +23415,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_ROCK_STAR] = 
     {  
       //FRONT_PIC(PikachuRockStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuRockStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuRockStar),
       //SHINYPAL(PikachuRockStar),
       //PALETTES(PikachuRockStar),
@@ -23428,9 +23428,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_BELLE] = 
     {  
       //FRONT_PIC(PikachuBelle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuBelle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuBelle),
       //SHINYPAL(PikachuBelle),
       //PALETTES(PikachuBelle),
@@ -23441,9 +23441,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_POP_STAR] = 
     {  
       //FRONT_PIC(PikachuPopStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuPopStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuPopStar),
       //SHINYPAL(PikachuPopStar),
       //PALETTES(PikachuPopStar),
@@ -23454,9 +23454,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_PH_D] = 
     {  
       //FRONT_PIC(PikachuPhD),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuPhD),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuPhD),
       //SHINYPAL(PikachuPhD),
       //PALETTES(PikachuPhD),
@@ -23467,9 +23467,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_LIBRE] = 
     {  
       //FRONT_PIC(PikachuLibre),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuLibre),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuLibre),
       //SHINYPAL(PikachuLibre),
       //PALETTES(PikachuLibre),
@@ -23480,9 +23480,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_ORIGINAL_CAP] = 
     {  
       //FRONT_PIC(PikachuOriginalCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuOriginalCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuOriginalCap),
       //SHINYPAL(PikachuOriginalCap),
       //PALETTES(PikachuOriginalCap),
@@ -23493,9 +23493,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_HOENN_CAP] = 
     {  
       //FRONT_PIC(PikachuHoennCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuHoennCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuHoennCap),
       //SHINYPAL(PikachuHoennCap),
       //PALETTES(PikachuHoennCap),
@@ -23506,9 +23506,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_SINNOH_CAP] = 
     {  
       //FRONT_PIC(PikachuSinnohCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuSinnohCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuSinnohCap),
       //SHINYPAL(PikachuSinnohCap),
       //PALETTES(PikachuSinnohCap),
@@ -23519,9 +23519,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_UNOVA_CAP] = 
     {  
       //FRONT_PIC(PikachuUnovaCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuUnovaCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuUnovaCap),
       //SHINYPAL(PikachuUnovaCap),
       //PALETTES(PikachuUnovaCap),
@@ -23532,9 +23532,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_KALOS_CAP] = 
     {  
       //FRONT_PIC(PikachuKalosCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuKalosCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuKalosCap),
       //SHINYPAL(PikachuKalosCap),
       //PALETTES(PikachuKalosCap),
@@ -23545,9 +23545,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_ALOLA_CAP] = 
     {  
       //FRONT_PIC(PikachuAlolaCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuAlolaCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuAlolaCap),
       //SHINYPAL(PikachuAlolaCap),
       //PALETTES(PikachuAlolaCap),
@@ -23558,9 +23558,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_PARTNER_CAP] = 
     {  
       //FRONT_PIC(PikachuPartnerCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuPartnerCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuPartnerCap),
       //SHINYPAL(PikachuPartnerCap),
       //PALETTES(PikachuPartnerCap),
@@ -23571,9 +23571,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_WORLD_CAP] = 
     {  
       //FRONT_PIC(PikachuWorldCap),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 9),
       //BACK_PIC(PikachuWorldCap),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(PikachuWorldCap),
       //SHINYPAL(PikachuWorldCap),
       //PALETTES(PikachuWorldCap),
@@ -23584,9 +23584,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PICHU_SPIKY_EARED] = 
     {  
       //FRONT_PIC(PichuSpikyEared),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(PichuSpikyEared),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(PichuSpikyEared),
       //SHINYPAL(PichuSpikyEared),
       //PALETTES(PichuSpikyEared),
@@ -23597,9 +23597,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CASTFORM_SUNNY] = 
     {  
       //FRONT_PIC(CastformSunny),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 17),
       //BACK_PIC(CastformSunny),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x48, 0),
       //PAL(CastformSunny),
       //SHINYPAL(CastformSunny),
       //PALETTES(CastformSunny),
@@ -23610,9 +23610,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CASTFORM_RAINY] = 
     {  
       //FRONT_PIC(CastformRainy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 17),
       //BACK_PIC(CastformRainy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x48, 0),
       //PAL(CastformRainy),
       //SHINYPAL(CastformRainy),
       //PALETTES(CastformRainy),
@@ -23623,9 +23623,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CASTFORM_SNOWY] = 
     {  
       //FRONT_PIC(CastformSnowy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x34, 17),
       //BACK_PIC(CastformSnowy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x48, 0),
       //PAL(CastformSnowy),
       //SHINYPAL(CastformSnowy),
       //PALETTES(CastformSnowy),
@@ -23636,9 +23636,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEOXYS_ATTACK] = 
     {  
       //FRONT_PIC(DeoxysAttack),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(DeoxysAttack),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(DeoxysAttack),
       //SHINYPAL(DeoxysAttack),
       //PALETTES(DeoxysAttack),
@@ -23649,9 +23649,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEOXYS_DEFENSE] = 
     {  
       //FRONT_PIC(DeoxysDefense),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(DeoxysDefense),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(DeoxysDefense),
       //SHINYPAL(DeoxysDefense),
       //PALETTES(DeoxysDefense),
@@ -23662,9 +23662,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEOXYS_SPEED] = 
     {  
       //FRONT_PIC(DeoxysSpeed),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(DeoxysSpeed),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(DeoxysSpeed),
       //SHINYPAL(DeoxysSpeed),
       //PALETTES(DeoxysSpeed),
@@ -23675,9 +23675,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BURMY_SANDY_CLOAK] = 
     {  
       //FRONT_PIC(BurmySandyCloak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 13),
       //BACK_PIC(BurmySandyCloak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 6),
       //PAL(BurmySandyCloak),
       //SHINYPAL(BurmySandyCloak),
       //PALETTES(BurmySandyCloak),
@@ -23688,9 +23688,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BURMY_TRASH_CLOAK] = 
     {  
       //FRONT_PIC(BurmyTrashCloak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 13),
       //BACK_PIC(BurmyTrashCloak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 6),
       //PAL(BurmyTrashCloak),
       //SHINYPAL(BurmyTrashCloak),
       //PALETTES(BurmyTrashCloak),
@@ -23701,9 +23701,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WORMADAM_SANDY_CLOAK] = 
     {  
       //FRONT_PIC(WormadamSandyCloak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(WormadamSandyCloak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(WormadamSandyCloak),
       //SHINYPAL(WormadamSandyCloak),
       //PALETTES(WormadamSandyCloak),
@@ -23714,9 +23714,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WORMADAM_TRASH_CLOAK] = 
     {  
       //FRONT_PIC(WormadamTrashCloak),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 10),
       //BACK_PIC(WormadamTrashCloak),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 2),
       //PAL(WormadamTrashCloak),
       //SHINYPAL(WormadamTrashCloak),
       //PALETTES(WormadamTrashCloak),
@@ -23727,9 +23727,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CHERRIM_SUNSHINE] = 
     {  
       //FRONT_PIC(CherrimSunshine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 8),
       //BACK_PIC(CherrimSunshine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 9),
       //PAL(CherrimSunshine),
       //SHINYPAL(CherrimSunshine),
       //PALETTES(CherrimSunshine),
@@ -23740,9 +23740,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHELLOS_EAST_SEA] = 
     {  
       //FRONT_PIC(ShellosEastSea),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x66, 13),
       //BACK_PIC(ShellosEastSea),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 8),
       //PAL(ShellosEastSea),
       //SHINYPAL(ShellosEastSea),
       //PALETTES(ShellosEastSea),
@@ -23753,9 +23753,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GASTRODON_EAST_SEA] = 
     {  
       //FRONT_PIC(GastrodonEastSea),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x65, 8),
       //BACK_PIC(GastrodonEastSea),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 3),
       //PAL(GastrodonEastSea),
       //SHINYPAL(GastrodonEastSea),
       //PALETTES(GastrodonEastSea),
@@ -23766,9 +23766,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM_HEAT] = 
     {  
       //FRONT_PIC(RotomHeat),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 11),
       //BACK_PIC(RotomHeat),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(RotomHeat),
       //SHINYPAL(RotomHeat),
       //PALETTES(RotomHeat),
@@ -23779,9 +23779,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM_WASH] = 
     {  
       //FRONT_PIC(RotomWash),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 11),
       //BACK_PIC(RotomWash),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(RotomWash),
       //SHINYPAL(RotomWash),
       //PALETTES(RotomWash),
@@ -23792,9 +23792,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM_FROST] = 
     {  
       //FRONT_PIC(RotomFrost),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 11),
       //BACK_PIC(RotomFrost),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(RotomFrost),
       //SHINYPAL(RotomFrost),
       //PALETTES(RotomFrost),
@@ -23805,9 +23805,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM_FAN] = 
     {  
       //FRONT_PIC(RotomFan),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 11),
       //BACK_PIC(RotomFan),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(RotomFan),
       //SHINYPAL(RotomFan),
       //PALETTES(RotomFan),
@@ -23818,9 +23818,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM_MOW] = 
     {  
       //FRONT_PIC(RotomMow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x77, 11),
       //BACK_PIC(RotomMow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 5),
       //PAL(RotomMow),
       //SHINYPAL(RotomMow),
       //PALETTES(RotomMow),
@@ -23831,22 +23831,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIRATINA_ORIGIN] = 
     {  
       //FRONT_PIC(GiratinaOrigin),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 2),
       //BACK_PIC(GiratinaOrigin),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 5),
       //PAL(GiratinaOrigin),
       //SHINYPAL(GiratinaOrigin),
       //PALETTES(GiratinaOrigin),
       PIC_DATA_ICON_INDEX(GiratinaOrigin,0),
       //ICON(GiratinaOrigin, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //GiratinaOrigin,
 [SPECIES_SHAYMIN_SKY] = 
     {  
       //FRONT_PIC(ShayminSky),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 7),
       //BACK_PIC(ShayminSky),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x65, 5),
       //PAL(ShayminSky),
       //SHINYPAL(ShayminSky),
       //PALETTES(ShayminSky),
@@ -23857,9 +23857,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_FIGHTING] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusFighting),
       //SHINYPAL(ArceusFighting),
       PALETTES(ArceusFighting),
@@ -23870,9 +23870,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_FLYING] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusFlying),
       //SHINYPAL(ArceusFlying),
       PALETTES(ArceusFlying),
@@ -23883,9 +23883,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_POISON] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusPoison),
       //SHINYPAL(ArceusPoison),
       PALETTES(ArceusPoison),
@@ -23896,9 +23896,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_GROUND] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusGround),
       //SHINYPAL(ArceusGround),
       PALETTES(ArceusGround),
@@ -23909,9 +23909,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_ROCK] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusRock),
       //SHINYPAL(ArceusRock),
       PALETTES(ArceusRock),
@@ -23922,9 +23922,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_BUG] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusBug),
       //SHINYPAL(ArceusBug),
       PALETTES(ArceusBug),
@@ -23935,9 +23935,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_GHOST] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusGhost),
       //SHINYPAL(ArceusGhost),
       PALETTES(ArceusGhost),
@@ -23948,9 +23948,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_STEEL] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusSteel),
       //SHINYPAL(ArceusSteel),
       PALETTES(ArceusSteel),
@@ -23961,9 +23961,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_FIRE] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusFire),
       //SHINYPAL(ArceusFire),
       PALETTES(ArceusFire),
@@ -23974,9 +23974,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_WATER] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusWater),
       //SHINYPAL(ArceusWater),
       PALETTES(ArceusWater),
@@ -23987,9 +23987,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_GRASS] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusGrass),
       //SHINYPAL(ArceusGrass),
       PALETTES(ArceusGrass),
@@ -24000,9 +24000,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_ELECTRIC] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusElectric),
       //SHINYPAL(ArceusElectric),
       PALETTES(ArceusElectric),
@@ -24013,9 +24013,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_PSYCHIC] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusPsychic),
       //SHINYPAL(ArceusPsychic),
       PALETTES(ArceusPsychic),
@@ -24026,9 +24026,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_ICE] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusIce),
       //SHINYPAL(ArceusIce),
       PALETTES(ArceusIce),
@@ -24039,9 +24039,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_DRAGON] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusDragon),
       //SHINYPAL(ArceusDragon),
       PALETTES(ArceusDragon),
@@ -24052,9 +24052,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_DARK] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusDark),
       //SHINYPAL(ArceusDark),
       PALETTES(ArceusDark),
@@ -24065,9 +24065,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCEUS_FAIRY] = 
     {  
       FRONT_PIC(Arceus),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x67, 0),
       BACK_PIC(Arceus),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ArceusFairy),
       //SHINYPAL(ArceusFairy),
       PALETTES(ArceusFairy),
@@ -24078,9 +24078,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASCULIN_BLUE_STRIPED] = 
     {  
       //FRONT_PIC(BasculinBlueStriped),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(BasculinBlueStriped),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 16),
       //PAL(BasculinBlueStriped),
       //SHINYPAL(BasculinBlueStriped),
       //PALETTES(BasculinBlueStriped),
@@ -24091,9 +24091,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASCULIN_WHITE_STRIPED] = 
     {  
       //FRONT_PIC(BasculinWhiteStriped),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       //BACK_PIC(BasculinWhiteStriped),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 16),
       //PAL(BasculinWhiteStriped),
       //SHINYPAL(BasculinWhiteStriped),
       //PALETTES(BasculinWhiteStriped),
@@ -24104,9 +24104,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARMANITAN_ZEN_MODE] = 
     {  
       //FRONT_PIC(DarmanitanZenMode),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       //BACK_PIC(DarmanitanZenMode),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       //PAL(DarmanitanZenMode),
       //SHINYPAL(DarmanitanZenMode),
       //PALETTES(DarmanitanZenMode),
@@ -24117,9 +24117,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DARMANITAN_ZEN_MODE_GALARIAN] = 
     {  
       //FRONT_PIC(DarmanitanZenModeGalarian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(DarmanitanZenModeGalarian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(DarmanitanZenModeGalarian),
       //SHINYPAL(DarmanitanZenModeGalarian),
       //PALETTES(DarmanitanZenModeGalarian),
@@ -24130,9 +24130,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEERLING_SUMMER] = 
     {  
       FRONT_PIC(Deerling),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       BACK_PIC(Deerling),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(DeerlingSummer),
       //SHINYPAL(DeerlingSummer),
       PALETTES(DeerlingSummer),
@@ -24143,9 +24143,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEERLING_AUTUMN] = 
     {  
       FRONT_PIC(Deerling),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       BACK_PIC(Deerling),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(DeerlingAutumn),
       //SHINYPAL(DeerlingAutumn),
       PALETTES(DeerlingAutumn),
@@ -24156,9 +24156,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEERLING_WINTER] = 
     {  
       FRONT_PIC(Deerling),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 11),
       BACK_PIC(Deerling),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(DeerlingWinter),
       //SHINYPAL(DeerlingWinter),
       PALETTES(DeerlingWinter),
@@ -24169,9 +24169,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAWSBUCK_SUMMER] = 
     {  
       //FRONT_PIC(SawsbuckSummer),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(SawsbuckSummer),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 5),
       //PAL(SawsbuckSummer),
       //SHINYPAL(SawsbuckSummer),
       //PALETTES(SawsbuckSummer),
@@ -24182,9 +24182,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAWSBUCK_AUTUMN] = 
     {  
       //FRONT_PIC(SawsbuckAutumn),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(SawsbuckAutumn),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 5),
       //PAL(SawsbuckAutumn),
       //SHINYPAL(SawsbuckAutumn),
       //PALETTES(SawsbuckAutumn),
@@ -24195,9 +24195,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SAWSBUCK_WINTER] = 
     {  
       //FRONT_PIC(SawsbuckWinter),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(SawsbuckWinter),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 5),
       //PAL(SawsbuckWinter),
       //SHINYPAL(SawsbuckWinter),
       //PALETTES(SawsbuckWinter),
@@ -24208,9 +24208,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TORNADUS_THERIAN] = 
     {  
       //FRONT_PIC(TornadusTherian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 2),
       //BACK_PIC(TornadusTherian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 3),
       //PAL(TornadusTherian),
       //SHINYPAL(TornadusTherian),
       //PALETTES(TornadusTherian),
@@ -24221,22 +24221,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_THUNDURUS_THERIAN] = 
     {  
       //FRONT_PIC(ThundurusTherian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 0),
       //BACK_PIC(ThundurusTherian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 7),
       //PAL(ThundurusTherian),
       //SHINYPAL(ThundurusTherian),
       //PALETTES(ThundurusTherian),
       PIC_DATA_ICON_INDEX(ThundurusTherian,0),
       //ICON(ThundurusTherian, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 7,
     }, //ThundurusTherian,
 [SPECIES_LANDORUS_THERIAN] = 
     {  
       //FRONT_PIC(LandorusTherian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 2),
       //BACK_PIC(LandorusTherian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 7),
       //PAL(LandorusTherian),
       //SHINYPAL(LandorusTherian),
       //PALETTES(LandorusTherian),
@@ -24247,9 +24247,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ENAMORUS_THERIAN] = 
     {  
       //FRONT_PIC(EnamorusTherian),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(EnamorusTherian),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 7),
       //PAL(EnamorusTherian),
       //SHINYPAL(EnamorusTherian),
       //PALETTES(EnamorusTherian),
@@ -24260,9 +24260,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KYUREM_WHITE] = 
     {  
       //FRONT_PIC(KyuremWhite),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 0),
       //BACK_PIC(KyuremWhite),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 3),
       //PAL(KyuremWhite),
       //SHINYPAL(KyuremWhite),
       //PALETTES(KyuremWhite),
@@ -24273,9 +24273,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KYUREM_BLACK] = 
     {  
       //FRONT_PIC(KyuremBlack),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 0),
       //BACK_PIC(KyuremBlack),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 3),
       //PAL(KyuremBlack),
       //SHINYPAL(KyuremBlack),
       //PALETTES(KyuremBlack),
@@ -24286,9 +24286,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_KELDEO_RESOLUTE] = 
     {  
       //FRONT_PIC(KeldeoResolute),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(KeldeoResolute),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 4),
       //PAL(KeldeoResolute),
       //SHINYPAL(KeldeoResolute),
       //PALETTES(KeldeoResolute),
@@ -24299,9 +24299,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MELOETTA_PIROUETTE] = 
     {  
       //FRONT_PIC(MeloettaPirouette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 3),
       //BACK_PIC(MeloettaPirouette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 8),
       //PAL(MeloettaPirouette),
       //SHINYPAL(MeloettaPirouette),
       //PALETTES(MeloettaPirouette),
@@ -24312,9 +24312,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GENESECT_DOUSE_DRIVE] = 
     {  
       FRONT_PIC(Genesect),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Genesect),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(GenesectDouseDrive),
       //SHINYPAL(GenesectDouseDrive),
       PALETTES(GenesectDouseDrive),
@@ -24325,9 +24325,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GENESECT_SHOCK_DRIVE] = 
     {  
       FRONT_PIC(Genesect),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Genesect),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(GenesectShockDrive),
       //SHINYPAL(GenesectShockDrive),
       PALETTES(GenesectShockDrive),
@@ -24338,9 +24338,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GENESECT_BURN_DRIVE] = 
     {  
       FRONT_PIC(Genesect),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Genesect),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(GenesectBurnDrive),
       //SHINYPAL(GenesectBurnDrive),
       PALETTES(GenesectBurnDrive),
@@ -24351,9 +24351,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GENESECT_CHILL_DRIVE] = 
     {  
       FRONT_PIC(Genesect),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Genesect),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 8),
       //PAL(GenesectChillDrive),
       //SHINYPAL(GenesectChillDrive),
       PALETTES(GenesectChillDrive),
@@ -24364,9 +24364,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GRENINJA_ASH] = 
     {  
       //FRONT_PIC(GreninjaAsh),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 7),
       //BACK_PIC(GreninjaAsh),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 11),
       //PAL(GreninjaAsh),
       //SHINYPAL(GreninjaAsh),
       //PALETTES(GreninjaAsh),
@@ -24377,9 +24377,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_POLAR] = 
     {  
       //FRONT_PIC(VivillonPolar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonPolar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonPolar),
       //SHINYPAL(VivillonPolar),
       //PALETTES(VivillonPolar),
@@ -24390,9 +24390,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_TUNDRA] = 
     {  
       //FRONT_PIC(VivillonTundra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonTundra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonTundra),
       //SHINYPAL(VivillonTundra),
       //PALETTES(VivillonTundra),
@@ -24403,9 +24403,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_CONTINENTAL] = 
     {  
       //FRONT_PIC(VivillonContinental),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonContinental),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonContinental),
       //SHINYPAL(VivillonContinental),
       //PALETTES(VivillonContinental),
@@ -24416,9 +24416,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_GARDEN] = 
     {  
       //FRONT_PIC(VivillonGarden),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonGarden),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonGarden),
       //SHINYPAL(VivillonGarden),
       //PALETTES(VivillonGarden),
@@ -24429,9 +24429,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_ELEGANT] = 
     {  
       //FRONT_PIC(VivillonElegant),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonElegant),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonElegant),
       //SHINYPAL(VivillonElegant),
       //PALETTES(VivillonElegant),
@@ -24442,9 +24442,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_MEADOW] = 
     {  
       //FRONT_PIC(VivillonMeadow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonMeadow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonMeadow),
       //SHINYPAL(VivillonMeadow),
       //PALETTES(VivillonMeadow),
@@ -24455,9 +24455,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_MODERN] = 
     {  
       //FRONT_PIC(VivillonModern),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonModern),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonModern),
       //SHINYPAL(VivillonModern),
       //PALETTES(VivillonModern),
@@ -24468,9 +24468,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_MARINE] = 
     {  
       //FRONT_PIC(VivillonMarine),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonMarine),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonMarine),
       //SHINYPAL(VivillonMarine),
       //PALETTES(VivillonMarine),
@@ -24481,9 +24481,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_ARCHIPELAGO] = 
     {  
       //FRONT_PIC(VivillonArchipelago),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonArchipelago),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonArchipelago),
       //SHINYPAL(VivillonArchipelago),
       //PALETTES(VivillonArchipelago),
@@ -24494,9 +24494,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_HIGH_PLAINS] = 
     {  
       //FRONT_PIC(VivillonHighPlains),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonHighPlains),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonHighPlains),
       //SHINYPAL(VivillonHighPlains),
       //PALETTES(VivillonHighPlains),
@@ -24507,9 +24507,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_SANDSTORM] = 
     {  
       //FRONT_PIC(VivillonSandstorm),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonSandstorm),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonSandstorm),
       //SHINYPAL(VivillonSandstorm),
       //PALETTES(VivillonSandstorm),
@@ -24520,9 +24520,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_RIVER] = 
     {  
       //FRONT_PIC(VivillonRiver),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonRiver),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonRiver),
       //SHINYPAL(VivillonRiver),
       //PALETTES(VivillonRiver),
@@ -24533,9 +24533,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_MONSOON] = 
     {  
       //FRONT_PIC(VivillonMonsoon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonMonsoon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonMonsoon),
       //SHINYPAL(VivillonMonsoon),
       //PALETTES(VivillonMonsoon),
@@ -24546,9 +24546,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_SAVANNA] = 
     {  
       //FRONT_PIC(VivillonSavanna),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonSavanna),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonSavanna),
       //SHINYPAL(VivillonSavanna),
       //PALETTES(VivillonSavanna),
@@ -24559,9 +24559,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_SUN] = 
     {  
       //FRONT_PIC(VivillonSun),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonSun),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonSun),
       //SHINYPAL(VivillonSun),
       //PALETTES(VivillonSun),
@@ -24572,9 +24572,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_OCEAN] = 
     {  
       //FRONT_PIC(VivillonOcean),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonOcean),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonOcean),
       //SHINYPAL(VivillonOcean),
       //PALETTES(VivillonOcean),
@@ -24585,9 +24585,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_JUNGLE] = 
     {  
       //FRONT_PIC(VivillonJungle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonJungle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonJungle),
       //SHINYPAL(VivillonJungle),
       //PALETTES(VivillonJungle),
@@ -24598,9 +24598,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_FANCY] = 
     {  
       //FRONT_PIC(VivillonFancy),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonFancy),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonFancy),
       //SHINYPAL(VivillonFancy),
       //PALETTES(VivillonFancy),
@@ -24611,9 +24611,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_VIVILLON_POKE_BALL] = 
     {  
       //FRONT_PIC(VivillonPokeBall),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(VivillonPokeBall),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(VivillonPokeBall),
       //SHINYPAL(VivillonPokeBall),
       //PALETTES(VivillonPokeBall),
@@ -24624,9 +24624,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_UNFEZANT_FEMALE] = 
     {  
       //FRONT_PIC(UnfezantFemale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(UnfezantFemale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(UnfezantFemale),
       //SHINYPAL(UnfezantFemale),
       //PALETTES(UnfezantFemale),
@@ -24637,7 +24637,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PYROAR_FEMALE] = 
     {  
       //FRONT_PIC(PyroarFemale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(PyroarFemale),
       BACK_COORD(0x88,0),
       //PAL(PyroarFemale),
@@ -24650,9 +24650,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLABEBE_YELLOW_FLOWER] = 
     {  
       FRONT_PIC(Flabebe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       BACK_PIC(Flabebe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(FlabebeYellowFlower),
       //SHINYPAL(FlabebeYellowFlower),
       PALETTES(FlabebeYellowFlower),
@@ -24663,9 +24663,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLABEBE_ORANGE_FLOWER] = 
     {  
       FRONT_PIC(Flabebe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       BACK_PIC(Flabebe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(FlabebeOrangeFlower),
       //SHINYPAL(FlabebeOrangeFlower),
       PALETTES(FlabebeOrangeFlower),
@@ -24676,9 +24676,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLABEBE_BLUE_FLOWER] = 
     {  
       FRONT_PIC(Flabebe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       BACK_PIC(Flabebe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(FlabebeBlueFlower),
       //SHINYPAL(FlabebeBlueFlower),
       PALETTES(FlabebeBlueFlower),
@@ -24689,9 +24689,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLABEBE_WHITE_FLOWER] = 
     {  
       FRONT_PIC(Flabebe),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       BACK_PIC(Flabebe),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 12),
       //PAL(FlabebeWhiteFlower),
       //SHINYPAL(FlabebeWhiteFlower),
       PALETTES(FlabebeWhiteFlower),
@@ -24702,9 +24702,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE_YELLOW_FLOWER] = 
     {  
       FRONT_PIC(Floette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       BACK_PIC(Floette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(FloetteYellowFlower),
       //SHINYPAL(FloetteYellowFlower),
       PALETTES(FloetteYellowFlower),
@@ -24715,9 +24715,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE_ORANGE_FLOWER] = 
     {  
       FRONT_PIC(Floette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       BACK_PIC(Floette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(FloetteOrangeFlower),
       //SHINYPAL(FloetteOrangeFlower),
       PALETTES(FloetteOrangeFlower),
@@ -24728,9 +24728,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE_BLUE_FLOWER] = 
     {  
       FRONT_PIC(Floette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       BACK_PIC(Floette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(FloetteBlueFlower),
       //SHINYPAL(FloetteBlueFlower),
       PALETTES(FloetteBlueFlower),
@@ -24741,9 +24741,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE_WHITE_FLOWER] = 
     {  
       FRONT_PIC(Floette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       BACK_PIC(Floette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(FloetteWhiteFlower),
       //SHINYPAL(FloetteWhiteFlower),
       PALETTES(FloetteWhiteFlower),
@@ -24754,9 +24754,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE_ETERNAL_FLOWER] = 
     {  
       FRONT_PIC(Floette),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       BACK_PIC(Floette),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 2),
       //PAL(FloetteEternalFlower),
       //SHINYPAL(FloetteEternalFlower),
       PALETTES(FloetteEternalFlower),
@@ -24767,9 +24767,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLORGES_YELLOW_FLOWER] = 
     {  
       FRONT_PIC(Florges),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Florges),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(FlorgesYellowFlower),
       //SHINYPAL(FlorgesYellowFlower),
       PALETTES(FlorgesYellowFlower),
@@ -24780,9 +24780,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLORGES_ORANGE_FLOWER] = 
     {  
       FRONT_PIC(Florges),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Florges),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(FlorgesOrangeFlower),
       //SHINYPAL(FlorgesOrangeFlower),
       PALETTES(FlorgesOrangeFlower),
@@ -24793,9 +24793,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLORGES_BLUE_FLOWER] = 
     {  
       FRONT_PIC(Florges),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Florges),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(FlorgesBlueFlower),
       //SHINYPAL(FlorgesBlueFlower),
       PALETTES(FlorgesBlueFlower),
@@ -24806,9 +24806,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLORGES_WHITE_FLOWER] = 
     {  
       FRONT_PIC(Florges),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Florges),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 9),
       //PAL(FlorgesWhiteFlower),
       //SHINYPAL(FlorgesWhiteFlower),
       PALETTES(FlorgesWhiteFlower),
@@ -24819,9 +24819,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_HEART_TRIM] = 
     {  
       //FRONT_PIC(FurfrouHeartTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouHeartTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouHeartTrim),
       //SHINYPAL(FurfrouHeartTrim),
       //PALETTES(FurfrouHeartTrim),
@@ -24832,9 +24832,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_STAR_TRIM] = 
     {  
       //FRONT_PIC(FurfrouStarTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouStarTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouStarTrim),
       //SHINYPAL(FurfrouStarTrim),
       //PALETTES(FurfrouStarTrim),
@@ -24845,9 +24845,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_DIAMOND_TRIM] = 
     {  
       //FRONT_PIC(FurfrouDiamondTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouDiamondTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouDiamondTrim),
       //SHINYPAL(FurfrouDiamondTrim),
       //PALETTES(FurfrouDiamondTrim),
@@ -24858,9 +24858,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_DEBUTANTE_TRIM] = 
     {  
       //FRONT_PIC(FurfrouDebutanteTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouDebutanteTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouDebutanteTrim),
       //SHINYPAL(FurfrouDebutanteTrim),
       //PALETTES(FurfrouDebutanteTrim),
@@ -24871,9 +24871,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_MATRON_TRIM] = 
     {  
       //FRONT_PIC(FurfrouMatronTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouMatronTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouMatronTrim),
       //SHINYPAL(FurfrouMatronTrim),
       //PALETTES(FurfrouMatronTrim),
@@ -24884,9 +24884,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_DANDY_TRIM] = 
     {  
       //FRONT_PIC(FurfrouDandyTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouDandyTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouDandyTrim),
       //SHINYPAL(FurfrouDandyTrim),
       //PALETTES(FurfrouDandyTrim),
@@ -24897,9 +24897,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_LA_REINE_TRIM] = 
     {  
       //FRONT_PIC(FurfrouLaReineTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouLaReineTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouLaReineTrim),
       //SHINYPAL(FurfrouLaReineTrim),
       //PALETTES(FurfrouLaReineTrim),
@@ -24910,9 +24910,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_KABUKI_TRIM] = 
     {  
       //FRONT_PIC(FurfrouKabukiTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouKabukiTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouKabukiTrim),
       //SHINYPAL(FurfrouKabukiTrim),
       //PALETTES(FurfrouKabukiTrim),
@@ -24923,9 +24923,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_PHARAOH_TRIM] = 
     {  
       //FRONT_PIC(FurfrouPharaohTrim),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 3),
       //BACK_PIC(FurfrouPharaohTrim),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(FurfrouPharaohTrim),
       //SHINYPAL(FurfrouPharaohTrim),
       //PALETTES(FurfrouPharaohTrim),
@@ -24936,9 +24936,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MEOWSTIC_FEMALE] = 
     {  
       //FRONT_PIC(MeowsticFemale),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 6),
       //BACK_PIC(MeowsticFemale),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 9),
       //PAL(MeowsticFemale),
       //SHINYPAL(MeowsticFemale),
       //PALETTES(MeowsticFemale),
@@ -24949,9 +24949,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_AEGISLASH_BLADE] = 
     {  
       //FRONT_PIC(AegislashBlade),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 1),
       //BACK_PIC(AegislashBlade),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 9),
       //PAL(AegislashBlade),
       //SHINYPAL(AegislashBlade),
       //PALETTES(AegislashBlade),
@@ -24962,9 +24962,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PUMPKABOO_SMALL] = 
     {  
       FRONT_PIC(PumpkabooSmall),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooSmall),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 13),
       //PAL(PumpkabooSmall),
       //SHINYPAL(PumpkabooSmall),
       //PALETTES(PumpkabooSmall),
@@ -24975,9 +24975,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PUMPKABOO_LARGE] = 
     {  
       FRONT_PIC(PumpkabooLarge),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooLarge),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 13),
       //PAL(PumpkabooLarge),
       //SHINYPAL(PumpkabooLarge),
       //PALETTES(PumpkabooLarge),
@@ -24988,9 +24988,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PUMPKABOO_SUPER] = 
     {  
       FRONT_PIC(PumpkabooSuper),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooSuper),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x76, 13),
       //PAL(PumpkabooSuper),
       //SHINYPAL(PumpkabooSuper),
       //PALETTES(PumpkabooSuper),
@@ -25001,9 +25001,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOURGEIST_SMALL] = 
     {  
       FRONT_PIC(GourgeistSmall),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       BACK_PIC(GourgeistSmall),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 3),
       //PAL(GourgeistSmall),
       //SHINYPAL(GourgeistSmall),
       PALETTES(Gourgeist),
@@ -25014,9 +25014,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOURGEIST_LARGE] = 
     {  
       FRONT_PIC(GourgeistLarge),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       BACK_PIC(GourgeistLarge),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 3),
       //PAL(GourgeistLarge),
       //SHINYPAL(GourgeistLarge),
       PALETTES(Gourgeist),
@@ -25027,9 +25027,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GOURGEIST_SUPER] = 
     {  
       FRONT_PIC(GourgeistSuper),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       BACK_PIC(GourgeistSuper),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 3),
       //PAL(GourgeistSuper),
       //SHINYPAL(GourgeistSuper),
       PALETTES(Gourgeist),
@@ -25040,9 +25040,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_XERNEAS_ACTIVE] = 
     {  
       //FRONT_PIC(XerneasActive),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(XerneasActive),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(XerneasActive),
       //SHINYPAL(XerneasActive),
       //PALETTES(XerneasActive),
@@ -25053,9 +25053,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZYGARDE_50] = 
     {  
       //FRONT_PIC(Zygarde50PowerConstruct),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(Zygarde50PowerConstruct),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(Zygarde50PowerConstruct),
       //SHINYPAL(Zygarde50PowerConstruct),
       //PALETTES(Zygarde50PowerConstruct),
@@ -25066,9 +25066,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZYGARDE_COMPLETE] = 
     {  
       //FRONT_PIC(ZygardeComplete),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x55, 0),
       //BACK_PIC(ZygardeComplete),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(ZygardeComplete),
       //SHINYPAL(ZygardeComplete),
       //PALETTES(ZygardeComplete),
@@ -25079,9 +25079,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_HOOPA_UNBOUND] = 
     {  
       //FRONT_PIC(HoopaUnbound),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 1),
       //BACK_PIC(HoopaUnbound),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 4),
       //PAL(HoopaUnbound),
       //SHINYPAL(HoopaUnbound),
       //PALETTES(HoopaUnbound),
@@ -25092,9 +25092,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ORICORIO_POM_POM] = 
     {  
       //FRONT_PIC(OricorioPomPom),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(OricorioPomPom),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(OricorioPomPom),
       //SHINYPAL(OricorioPomPom),
       //PALETTES(OricorioPomPom),
@@ -25105,9 +25105,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ORICORIO_PAU] = 
     {  
       //FRONT_PIC(OricorioPau),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(OricorioPau),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(OricorioPau),
       //SHINYPAL(OricorioPau),
       //PALETTES(OricorioPau),
@@ -25118,9 +25118,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ORICORIO_SENSU] = 
     {  
       //FRONT_PIC(OricorioSensu),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(OricorioSensu),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 0),
       //PAL(OricorioSensu),
       //SHINYPAL(OricorioSensu),
       //PALETTES(OricorioSensu),
@@ -25131,9 +25131,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LYCANROC_MIDNIGHT] = 
     {  
       //FRONT_PIC(LycanrocMidnight),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(LycanrocMidnight),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(LycanrocMidnight),
       //SHINYPAL(LycanrocMidnight),
       //PALETTES(LycanrocMidnight),
@@ -25144,9 +25144,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_LYCANROC_DUSK] = 
     {  
       //FRONT_PIC(LycanrocDusk),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(LycanrocDusk),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 7),
       //PAL(LycanrocDusk),
       //SHINYPAL(LycanrocDusk),
       //PALETTES(LycanrocDusk),
@@ -25157,9 +25157,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WISHIWASHI_SCHOOL] = 
     {  
       //FRONT_PIC(WishiwashiSchool),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 3),
       //BACK_PIC(WishiwashiSchool),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 8),
       //PAL(WishiwashiSchool),
       //SHINYPAL(WishiwashiSchool),
       //PALETTES(WishiwashiSchool),
@@ -25170,9 +25170,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_FIGHTING] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyFighting),
       //SHINYPAL(SilvallyFighting),
       PALETTES(SilvallyFighting),
@@ -25183,9 +25183,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_FLYING] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyFlying),
       //SHINYPAL(SilvallyFlying),
       PALETTES(SilvallyFlying),
@@ -25196,9 +25196,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_POISON] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyPoison),
       //SHINYPAL(SilvallyPoison),
       PALETTES(SilvallyPoison),
@@ -25209,9 +25209,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_GROUND] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyGround),
       //SHINYPAL(SilvallyGround),
       PALETTES(SilvallyGround),
@@ -25222,9 +25222,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_ROCK] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyRock),
       //SHINYPAL(SilvallyRock),
       PALETTES(SilvallyRock),
@@ -25235,9 +25235,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_BUG] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyBug),
       //SHINYPAL(SilvallyBug),
       PALETTES(SilvallyBug),
@@ -25248,9 +25248,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_GHOST] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyGhost),
       //SHINYPAL(SilvallyGhost),
       PALETTES(SilvallyGhost),
@@ -25261,9 +25261,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_STEEL] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallySteel),
       //SHINYPAL(SilvallySteel),
       PALETTES(SilvallySteel),
@@ -25274,9 +25274,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_FIRE] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyFire),
       //SHINYPAL(SilvallyFire),
       PALETTES(SilvallyFire),
@@ -25287,9 +25287,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_WATER] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyWater),
       //SHINYPAL(SilvallyWater),
       PALETTES(SilvallyWater),
@@ -25300,9 +25300,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_GRASS] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyGrass),
       //SHINYPAL(SilvallyGrass),
       PALETTES(SilvallyGrass),
@@ -25313,9 +25313,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_ELECTRIC] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyElectric),
       //SHINYPAL(SilvallyElectric),
       PALETTES(SilvallyElectric),
@@ -25326,9 +25326,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_PSYCHIC] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyPsychic),
       //SHINYPAL(SilvallyPsychic),
       PALETTES(SilvallyPsychic),
@@ -25339,9 +25339,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_ICE] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyIce),
       //SHINYPAL(SilvallyIce),
       PALETTES(SilvallyIce),
@@ -25352,9 +25352,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_DRAGON] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyDragon),
       //SHINYPAL(SilvallyDragon),
       PALETTES(SilvallyDragon),
@@ -25365,9 +25365,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_DARK] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyDark),
       //SHINYPAL(SilvallyDark),
       PALETTES(SilvallyDark),
@@ -25378,9 +25378,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SILVALLY_FAIRY] = 
     {  
       FRONT_PIC(Silvally),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       BACK_PIC(Silvally),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x78, 0),
       //PAL(SilvallyFairy),
       //SHINYPAL(SilvallyFairy),
       PALETTES(SilvallyFairy),
@@ -25391,9 +25391,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_METEOR_ORANGE] = 
     {  
       //FRONT_PIC(MiniorMeteorOrange),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MiniorMeteorOrange),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(MiniorMeteorOrange),
       //SHINYPAL(MiniorMeteorOrange),
       //PALETTES(MiniorMeteorOrange),
@@ -25404,9 +25404,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_METEOR_YELLOW] = 
     {  
       //FRONT_PIC(MiniorMeteorYellow),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MiniorMeteorYellow),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(MiniorMeteorYellow),
       //SHINYPAL(MiniorMeteorYellow),
       //PALETTES(MiniorMeteorYellow),
@@ -25417,9 +25417,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_METEOR_GREEN] = 
     {  
       //FRONT_PIC(MiniorMeteorGreen),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MiniorMeteorGreen),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(MiniorMeteorGreen),
       //SHINYPAL(MiniorMeteorGreen),
       //PALETTES(MiniorMeteorGreen),
@@ -25430,9 +25430,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_METEOR_BLUE] = 
     {  
       //FRONT_PIC(MiniorMeteorBlue),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MiniorMeteorBlue),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(MiniorMeteorBlue),
       //SHINYPAL(MiniorMeteorBlue),
       //PALETTES(MiniorMeteorBlue),
@@ -25443,9 +25443,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_METEOR_INDIGO] = 
     {  
       //FRONT_PIC(MiniorMeteorIndigo),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MiniorMeteorIndigo),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(MiniorMeteorIndigo),
       //SHINYPAL(MiniorMeteorIndigo),
       //PALETTES(MiniorMeteorIndigo),
@@ -25456,9 +25456,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_METEOR_VIOLET] = 
     {  
       //FRONT_PIC(MiniorMeteorViolet),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MiniorMeteorViolet),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x75, 14),
       //PAL(MiniorMeteorViolet),
       //SHINYPAL(MiniorMeteorViolet),
       //PALETTES(MiniorMeteorViolet),
@@ -25469,9 +25469,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_RED] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreRed),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreRed),
@@ -25482,9 +25482,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_ORANGE] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreOrange),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreOrange),
@@ -25495,9 +25495,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_YELLOW] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreYellow),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreYellow),
@@ -25508,9 +25508,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_GREEN] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreGreen),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreGreen),
@@ -25521,9 +25521,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_BLUE] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreBlue),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreBlue),
@@ -25534,9 +25534,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_INDIGO] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreIndigo),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreIndigo),
@@ -25547,9 +25547,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MINIOR_CORE_VIOLET] = 
     {  
       FRONT_PIC(MiniorCore),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x87, 9),
       BACK_PIC(MiniorCore),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x66, 18),
       PAL(MiniorCoreViolet),
       SHINYPAL(MiniorCore),
       //PALETTES(MiniorCoreViolet),
@@ -25560,9 +25560,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MIMIKYU_BUSTED] = 
     {  
       //FRONT_PIC(MimikyuBusted),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 12),
       //BACK_PIC(MimikyuBusted),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x77, 15),
       //PAL(MimikyuBusted),
       //SHINYPAL(MimikyuBusted),
       //PALETTES(MimikyuBusted),
@@ -25573,9 +25573,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NECROZMA_DUSK_MANE] = 
     {  
       //FRONT_PIC(NecrozmaDuskMane),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(NecrozmaDuskMane),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(NecrozmaDuskMane),
       //SHINYPAL(NecrozmaDuskMane),
       //PALETTES(NecrozmaDuskMane),
@@ -25586,9 +25586,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NECROZMA_DAWN_WINGS] = 
     {  
       //FRONT_PIC(NecrozmaDawnWings),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(NecrozmaDawnWings),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(NecrozmaDawnWings),
       //SHINYPAL(NecrozmaDawnWings),
       //PALETTES(NecrozmaDawnWings),
@@ -25599,9 +25599,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_NECROZMA_ULTRA] = 
     {  
       //FRONT_PIC(NecrozmaUltra),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 2),
       //BACK_PIC(NecrozmaUltra),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 4),
       //PAL(NecrozmaUltra),
       //SHINYPAL(NecrozmaUltra),
       //PALETTES(NecrozmaUltra),
@@ -25612,9 +25612,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MAGEARNA_ORIGINAL_COLOR] = 
     {  
       //FRONT_PIC(MagearnaOriginalColor),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 0),
       //BACK_PIC(MagearnaOriginalColor),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(MagearnaOriginalColor),
       //SHINYPAL(MagearnaOriginalColor),
       //PALETTES(MagearnaOriginalColor),
@@ -25625,9 +25625,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRAMORANT_GULPING] = 
     {  
       //FRONT_PIC(CramorantGulping),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(CramorantGulping),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(CramorantGulping),
       //SHINYPAL(CramorantGulping),
       //PALETTES(CramorantGulping),
@@ -25638,9 +25638,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CRAMORANT_GORGING] = 
     {  
       //FRONT_PIC(CramorantGorging),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(CramorantGorging),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 1),
       //PAL(CramorantGorging),
       //SHINYPAL(CramorantGorging),
       //PALETTES(CramorantGorging),
@@ -25651,9 +25651,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TOXTRICITY_LOW_KEY] = 
     {  
       //FRONT_PIC(ToxtricityLowKey),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(ToxtricityLowKey),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x68, 0),
       //PAL(ToxtricityLowKey),
       //SHINYPAL(ToxtricityLowKey),
       //PALETTES(ToxtricityLowKey),
@@ -25665,16 +25665,16 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //[SPECIES_POLTEAGEIST_ANTIQUE]             = gMonIcon_PolteaGeist_Antique,
 [SPECIES_SINISTEA_ANTIQUE]  =
 {
-  FRONT_COORD(0x88,0),
-  BACK_COORD(0x88,0),
+  FRONT_COORD(0x54, 17),
+  BACK_COORD(0x64, 16),
   PIC_DATA_ICON_INDEX(Sinistea,0),
   .enemyMonElevation = 0,
 
 },
 [SPECIES_POLTEAGEIST_ANTIQUE]  =
 {
-  FRONT_COORD(0x88,0),
-  BACK_COORD(0x88,0),
+  FRONT_COORD(0x66, 11),
+  BACK_COORD(0x85, 13),
   PIC_DATA_ICON_INDEX(Polteageist,0),
   .enemyMonElevation = 0,
 
@@ -25683,9 +25683,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryRubyCream),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25697,9 +25697,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryMatchaCream),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25711,9 +25711,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryMintCream),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25725,9 +25725,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryLemonCream),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25739,9 +25739,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberrySaltedCream),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25753,9 +25753,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryRubySwirl),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25767,9 +25767,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryCaramelSwirl),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25781,9 +25781,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieStrawberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStrawberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStrawberryRainbowSwirl),
       SHINYPAL(AlcremieStrawberry),
       //PALETTES(AlcremieStrawberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25795,9 +25795,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryVanillaCream),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25809,9 +25809,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryRubyCream),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25823,9 +25823,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryMatchaCream),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25837,9 +25837,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryMintCream),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25851,9 +25851,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryLemonCream),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25865,9 +25865,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberrySaltedCream),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25879,9 +25879,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryRubySwirl),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25893,9 +25893,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryCaramelSwirl),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25907,9 +25907,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_BLUEBERRY_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieBlueberry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieBlueberry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieBlueberryRainbowSwirl),
       SHINYPAL(AlcremieBlueberry),
       //PALETTES(AlcremieBlueberry), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25921,9 +25921,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveVanillaCream),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25935,9 +25935,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveRubyCream),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25949,9 +25949,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveMatchaCream),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25963,9 +25963,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveMintCream),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25977,9 +25977,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveLemonCream),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -25991,9 +25991,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveSaltedCream),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26005,9 +26005,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveRubySwirl),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26019,9 +26019,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveCaramelSwirl),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26033,9 +26033,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieLove),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieLove),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieLoveRainbowSwirl),
       SHINYPAL(AlcremieLove),
       //PALETTES(AlcremieLove), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26047,9 +26047,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarVanillaCream),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26061,9 +26061,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarRubyCream),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26075,9 +26075,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarMatchaCream),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26089,9 +26089,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarMintCream),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26103,9 +26103,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarLemonCream),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26117,9 +26117,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarSaltedCream),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26131,9 +26131,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarRubySwirl),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26145,9 +26145,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarCaramelSwirl),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26159,9 +26159,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieStar),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieStar),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieStarRainbowSwirl),
       SHINYPAL(AlcremieStar),
       //PALETTES(AlcremieStar), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26173,9 +26173,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26187,9 +26187,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26201,9 +26201,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26215,9 +26215,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26229,9 +26229,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26243,9 +26243,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26257,9 +26257,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26271,9 +26271,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26285,9 +26285,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieClover),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieClover),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       //PAL(AlcremieClover),
       SHINYPAL(AlcremieClover),
       //PALETTES(AlcremieClover), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26299,9 +26299,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerVanillaCream),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26313,9 +26313,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerRubyCream),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26327,9 +26327,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerMatchaCream),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26341,9 +26341,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerMintCream),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26355,9 +26355,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerLemonCream),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26369,9 +26369,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerSaltedCream),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26383,9 +26383,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerRubySwirl),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26397,9 +26397,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerCaramelSwirl),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26411,9 +26411,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieFlower),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieFlower),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieFlowerRainbowSwirl),
       SHINYPAL(AlcremieFlower),
       //PALETTES(AlcremieFlower), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26425,9 +26425,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonVanillaCream),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26439,9 +26439,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_RUBY_CREAM] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonRubyCream),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26453,9 +26453,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonMatchaCream),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26467,9 +26467,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_MINT_CREAM] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonMintCream),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26481,9 +26481,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_LEMON_CREAM] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonLemonCream),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26495,9 +26495,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_SALTED_CREAM] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonSaltedCream),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26509,9 +26509,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonRubySwirl),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26523,9 +26523,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonCaramelSwirl),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26537,9 +26537,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL] = 
     {  
       FRONT_PIC(AlcremieRibbon),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x57, 7),
       BACK_PIC(AlcremieRibbon),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 9),
       PAL(AlcremieRibbonRainbowSwirl),
       SHINYPAL(AlcremieRibbon),
       //PALETTES(AlcremieRibbon), //gMonPalette_AlcremieStrawberryVanillaCream
@@ -26553,9 +26553,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EISCUE_NOICE_FACE] = 
     {  
       //FRONT_PIC(EiscueNoiceFace),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x58, 0),
       //BACK_PIC(EiscueNoiceFace),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x58, 0),
       //PAL(EiscueNoiceFace),
       //SHINYPAL(EiscueNoiceFace),
       //PALETTES(EiscueNoiceFace),
@@ -26566,9 +26566,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_INDEEDEE_FEMALE] = 
     {  
       //FRONT_PIC(Indeedee_Female),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x56, 9),
       //BACK_PIC(Indeedee_Female),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(IndeedeeFemale),
       //SHINYPAL(IndeedeeFemale),
       //PALETTES(Indeedee_Female),
@@ -26579,9 +26579,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MORPEKO_HANGRY] = 
     {  
       //FRONT_PIC(MorpekoHangry),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 14),
       //BACK_PIC(MorpekoHangry),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x67, 8),
       //PAL(MorpekoHangry),
       //SHINYPAL(MorpekoHangry),
       //PALETTES(MorpekoHangry),
@@ -26592,9 +26592,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZACIAN_CROWNED_SWORD] = 
     {  
       //FRONT_PIC(ZacianCrownedSword),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(ZacianCrownedSword),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 6),
       //PAL(ZacianCrownedSword),
       //SHINYPAL(ZacianCrownedSword),
       //PALETTES(ZacianCrownedSword),
@@ -26605,9 +26605,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZAMAZENTA_CROWNED_SHIELD] = 
     {  
       //FRONT_PIC(ZamazentaCrownedShield),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       //BACK_PIC(ZamazentaCrownedShield),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 3),
       //PAL(ZamazentaCrownedShield),
       //SHINYPAL(ZamazentaCrownedShield),
       //PALETTES(ZamazentaCrownedShield),
@@ -26618,22 +26618,22 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ETERNATUS_ETERNAMAX] = 
     {  
       //FRONT_PIC(EternatusEternamax),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x86, 4),
       //BACK_PIC(EternatusEternamax),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x85, 13),
       //PAL(EternatusEternamax),
       //SHINYPAL(EternatusEternamax),
       //PALETTES(EternatusEternamax),
       PIC_DATA_ICON_INDEX(EternatusEternamax,0),
       //ICON(EternatusEternamax, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
     }, //Eternatus_Eternamax,
 [SPECIES_URSHIFU_RAPID_STRIKE_STYLE] = 
     {  
       FRONT_PIC(UrshifuRapidStrikeStyle),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x78, 0),
       BACK_PIC(UrshifuRapidStrikeStyle),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 4),
       //PAL(UrshifuRapidStrikeStyle),
       //SHINYPAL(UrshifuRapidStrikeStyle),
       PALETTES(UrshifuRapidStrikeStyle),
@@ -26644,9 +26644,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ZARUDE_DADA] = 
     {  
       //FRONT_PIC(ZarudeDada),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 2),
       //BACK_PIC(ZarudeDada),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 5),
       //PAL(ZarudeDada),
       //SHINYPAL(ZarudeDada),
       //PALETTES(ZarudeDada),
@@ -26657,9 +26657,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CALYREX_ICE_RIDER] = 
     {  
       //FRONT_PIC(CalyrexIceRider),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(CalyrexIceRider),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88, 7),
       //PAL(CalyrexIceRider),
       //SHINYPAL(CalyrexIceRider),
       //PALETTES(CalyrexIceRider),
@@ -26670,9 +26670,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_CALYREX_SHADOW_RIDER] = 
     {  
       //FRONT_PIC(CalyrexShadowRider),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x88, 0),
       //BACK_PIC(CalyrexShadowRider),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x87, 7),
       //PAL(CalyrexShadowRider),
       //SHINYPAL(CalyrexShadowRider),
       //PALETTES(CalyrexShadowRider),
@@ -26682,9 +26682,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASCULEGION_FEMALE] = 
     {  
       //FRONT_PIC(Basculegion_Female),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x68, 2),
       //BACK_PIC(Basculegion_Female),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x72, 5),
       //PAL(BasculegionFemale),
       //SHINYPAL(BasculegionFemale),
       //PALETTES(Basculegion_Female),
@@ -26695,9 +26695,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FRILLISH_FEMALE] = 
     {  
       //FRONT_PIC(Basculegion_Female),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 5),
       //BACK_PIC(Basculegion_Female),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x57, 7),
       //PAL(FrillishFemale),
       //SHINYPAL(FrillishFemale),
       //PALETTES(Basculegion_Female),
@@ -26708,9 +26708,9 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_JELLICENT_FEMALE] = 
     {  
       //FRONT_PIC(Basculegion_Female),
-      FRONT_COORD(0x88,0),
+      FRONT_COORD(0x45, 4),
       //BACK_PIC(Basculegion_Female),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x86, 10),
       //PAL(JellicentFemale),
       //SHINYPAL(JellicentFemale),
       //PALETTES(Basculegion_Female),

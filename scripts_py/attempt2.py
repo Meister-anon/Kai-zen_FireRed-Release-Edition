@@ -73,7 +73,7 @@ species = None
 new_lines = []
 for line in lines:
     if m := reg.match(line):
-        species = m.group(1).replace('_', ' ').title().replace(' ', '')
+        species = m.group(1).replace('_', ' ').title().replace(' ', '')#replace underscore w space to separate run title function then remove space
     if species:
         #for x in exceptions:
         #    if species == x[0]:

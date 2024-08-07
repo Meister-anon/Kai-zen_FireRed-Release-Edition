@@ -5023,25 +5023,25 @@ const struct MonCoords gMonFrontPicCoords[] =
         .y_offset = 14,
     },
     // Hisuian Forms
-    [SPECIES_GROWLITHE_HISUIAN]            = { .size = 0x77, .y_offset =  6 },
-    [SPECIES_ARCANINE_HISUIAN]             = { .size = 0x85, .y_offset =  2 },
-    [SPECIES_VOLTORB_HISUIAN]              = { .size = 0x65, .y_offset =  0 },
-    [SPECIES_ELECTRODE_HISUIAN]            = { .size = 0x77, .y_offset =  0 },
-    [SPECIES_TYPHLOSION_HISUIAN]           = { .size = 0x77, .y_offset =  0 },
-    [SPECIES_QWILFISH_HISUIAN]             = { .size = 0x55, .y_offset =  8 },
-    [SPECIES_SNEASEL_HISUIAN]              = { .size = 0x65, .y_offset =  7 },
+    [SPECIES_GROWLITHE_HISUIAN]            = { .size = 0x77, .y_offset = 6 },
+    [SPECIES_ARCANINE_HISUIAN]             = { .size = 0x85, .y_offset = 2 },
+    [SPECIES_VOLTORB_HISUIAN]              = { .size = 0x65, .y_offset = 0 },
+    [SPECIES_ELECTRODE_HISUIAN]            = { .size = 0x77, .y_offset = 0 },
+    [SPECIES_TYPHLOSION_HISUIAN]           = { .size = 0x77, .y_offset = 0 },
+    [SPECIES_QWILFISH_HISUIAN]             = { .size = 0x55, .y_offset = 8 },
+    [SPECIES_SNEASEL_HISUIAN]              = { .size = 0x65, .y_offset = 7 },
 
-    [SPECIES_SAMUROTT_HISUIAN]             = { .size = 0x85, .y_offset =  0 },
-    [SPECIES_LILLIGANT_HISUIAN]            = { .size = 0x65, .y_offset =  1 },
-    [SPECIES_ZORUA_HISUIAN]                = { .size = 0x55, .y_offset =  2 },
-    [SPECIES_ZOROARK_HISUIAN]              = { .size = 0x77, .y_offset =  1 },
-    [SPECIES_BRAVIARY_HISUIAN]             = { .size = 0x85, .y_offset =  0 },
+    [SPECIES_SAMUROTT_HISUIAN]             = { .size = 0x85, .y_offset = 0 },
+    [SPECIES_LILLIGANT_HISUIAN]            = { .size = 0x65, .y_offset = 1 },
+    [SPECIES_ZORUA_HISUIAN]                = { .size = 0x55, .y_offset = 2 },
+    [SPECIES_ZOROARK_HISUIAN]              = { .size = 0x77, .y_offset = 1 },
+    [SPECIES_BRAVIARY_HISUIAN]             = { .size = 0x85, .y_offset = 0 },
 
-    [SPECIES_SLIGGOO_HISUIAN]              = { .size = 0x55, .y_offset =  6 },
-    [SPECIES_GOODRA_HISUIAN]               = { .size = 0x78, .y_offset =  0 },
-    [SPECIES_AVALUGG_HISUIAN]              = { .size = 0x85, .y_offset =  5 },
+    [SPECIES_SLIGGOO_HISUIAN]              = { .size = 0x55, .y_offset = 6 },
+    [SPECIES_GOODRA_HISUIAN]               = { .size = 0x78, .y_offset = 0 },
+    [SPECIES_AVALUGG_HISUIAN]              = { .size = 0x85, .y_offset = 5 },
 
-    [SPECIES_DECIDUEYE_HISUIAN]            = { .size = 0x77, .y_offset =  0 },
+    [SPECIES_DECIDUEYE_HISUIAN]            = { .size = 0x77, .y_offset = 0 },
 
     // Misc Forms
     // Cosplay Pikachu

@@ -366,6 +366,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x1D */ u8 bodyColor : 7; //what are bodyColor and noFLip fields are they necesary?
             u8 noFlip : 1;
             u8 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
+            u8 buffer:7; //since has space could potentially put byte here for cosmetic form or somehting, space is already being used anyway
  /* 0x1E */ u8 flags;   //use for gender diff & form change, when creating mon plan check for flag and divert to what should be based on form species, //also used for making beast ball work, etc.
             const struct LevelUpMove *levelUpLearnset; //replace leveluplearnset pointers file, below replace tmhmlearnset pointers file
             const u16 *tmhmLearnset; //these are just names, in struct will be .name
