@@ -1374,7 +1374,7 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
 //vsonic
 const struct CompressedSpriteSheet gMonFrontPicTableFemale[] =
 {
-    /*SPECIES_SPRITE(EEVEE, gMonFrontPic_EeveeF),
+    SPECIES_SPRITE(EEVEE, gMonFrontPic_EeveeF),
     SPECIES_SPRITE(STARLY, gMonFrontPic_StarlyF),
     SPECIES_SPRITE(STARAVIA, gMonFrontPic_StaraviaF),
     SPECIES_SPRITE(STARAPTOR, gMonFrontPic_StaraptorF),
@@ -1386,5 +1386,5 @@ const struct CompressedSpriteSheet gMonFrontPicTableFemale[] =
     SPECIES_SPRITE(HIPPOPOTAS, gMonFrontPic_HippopotasF),
     SPECIES_SPRITE(HIPPOWDON, gMonFrontPic_Hippowdon),
     SPECIES_SPRITE(FRILLISH_MALE, gMonFrontPic_FrillishF),
-    SPECIES_SPRITE(JELLICENT_MALE, gMonFrontPic_JellicentF),*/
+    SPECIES_SPRITE(JELLICENT_MALE, gMonFrontPic_JellicentF),
 };

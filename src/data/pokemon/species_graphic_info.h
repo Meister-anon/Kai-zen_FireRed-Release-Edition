@@ -14143,7 +14143,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       //PAL(SquawkabillyGreenPlumage),
       //SHINYPAL(SquawkabillyGreenPlumage),
-      ICON(SquawkabillyGreenPlumage, 0),
+      ICON(SquawkabillyGreenPlumage, 1),
       PALETTES(SquawkabillyGreenPlumage),
       //PIC_DATA_ICON_INDEX(SquawkabillyGreenPlumage, 1),
             /*//hp, atk, def, spd, spatk, spdef
@@ -14283,7 +14283,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       //PAL(SquawkabillyYellowPlumage),
       //SHINYPAL(SquawkabillyYellowPlumage),
-      ICON(SquawkabillyYellowPlumage, 0),
+      ICON(SquawkabillyYellowPlumage, 1),
       PALETTES(SquawkabillyYellowPlumage),
       //PIC_DATA_ICON_INDEX(SquawkabillyYellowPlumage, 1),
             /*//hp, atk, def, spd, spatk, spdef
@@ -14638,7 +14638,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //SHINYPAL(Charcadet),
       //ICON(Charcadet, 0),
       //PALETTES(Charcadet),
-      PIC_DATA_ICON_INDEX(Charcadet, 0),
+      PIC_DATA_ICON_INDEX(Charcadet, 5),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
               40,
@@ -19647,7 +19647,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       //FRONT_PIC(WoChien),
       FRONT_COORD(0x88, 0),
       //BACK_PIC(WoChien),
-      BACK_COORD(0x88, 10),
+      BACK_COORD(0x88, 6),
       //PAL(WoChien),
       //SHINYPAL(WoChien),
       //ICON(WoChien, 0),

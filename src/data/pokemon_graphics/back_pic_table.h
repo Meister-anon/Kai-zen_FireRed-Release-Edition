@@ -1371,7 +1371,7 @@ const struct CompressedSpriteSheet gMonBackPicTable[] =
 
 const struct CompressedSpriteSheet gMonBackPicTableFemale[] =
 {
-    /*SPECIES_SPRITE(EEVEE, gMonBackPic_EeveeF),
+    /PECIES_SPRITE(EEVEE, gMonBackPic_EeveeF),
     SPECIES_SPRITE(STARLY, gMonBackPic_StarlyF),
     SPECIES_SPRITE(STARAVIA, gMonBackPic_StaraviaF),
     SPECIES_SPRITE(STARAPTOR, gMonBackPic_Staraptor),
@@ -1383,6 +1383,6 @@ const struct CompressedSpriteSheet gMonBackPicTableFemale[] =
     SPECIES_SPRITE(HIPPOPOTAS, gMonBackPic_HippopotasF),
     SPECIES_SPRITE(HIPPOWDON, gMonBackPic_HippowdonF),
     SPECIES_SPRITE(FRILLISH_MALE, gMonBackPic_FrillishF),
-    SPECIES_SPRITE(JELLICENT_MALE, gMonBackPic_JellicentF),*/
+    SPECIES_SPRITE(JELLICENT_MALE, gMonBackPic_JellicentF),
     
 };

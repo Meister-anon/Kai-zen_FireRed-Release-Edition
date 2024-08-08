@@ -664,14 +664,14 @@ static void LoadAndCreateEnemyShadowSpriteCustom(struct PokemonDebugMenu *data, 
 static void SetConstIconPalValues(struct PokemonDebugMenu *data)
 {
     u16 species = data->currentmonId;
-    data->constIconPalValues.paletteIndex = gMonIconPaletteIndices[species];
+    data->constIconPalValues.paletteIndex = gSpeciesGraphics[species].iconPalIndex;
 }
 
 
 static void ResetOffsetIconPalValues(struct PokemonDebugMenu *data)
 {
     u16 species = data->currentmonId;
-    data->offsetIconPalValues.offset_paletteIndex = gMonIconPaletteIndices[species];
+    data->offsetIconPalValues.offset_paletteIndex = gSpeciesGraphics[species].iconPalIndex;
 }
 
 //Tile functions (footprints)

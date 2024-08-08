@@ -948,7 +948,7 @@ struct Sprite *CreateMonIconSprite(u16 species, u32 personality, s16 x, s16 y, u
     struct SpriteTemplate template = gUnknown_83CEBF0;
 
     species = GetIconSpecies(species, personality);
-    template.paletteTag = 0xDAC0 + gMonIconPaletteIndices[species];
+    template.paletteTag = 0xDAC0 + gSpeciesGraphics[species].iconPalIndex;
     tileNum = sub_80911D4(species);
     if (tileNum == 0xFFFF)
         return NULL;

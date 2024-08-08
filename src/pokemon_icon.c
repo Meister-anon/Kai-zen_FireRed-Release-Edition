@@ -1277,7 +1277,7 @@ const u16 gMonIconPalettes[][16] = {
 //but weird thing even with the ported palettes teh values are still different?
 //in EE flapple uses 0, in FR it uses 1, nope they're both 1?
 //maybe I added these before they were set in EE?
-const u8 gMonIconPaletteIndices[] = {
+/*const u8 gMonIconPaletteIndices[] = {
     [SPECIES_NONE] = 0,
     [SPECIES_BULBASAUR] = 1,
     [SPECIES_IVYSAUR] = 1,
@@ -2511,7 +2511,7 @@ const u8 gMonIconPaletteIndices[] = {
 const u8 gMonIconPaletteIndicesFemale[] =
 {
     [SPECIES_EEVEE] = 2,
-};
+};*/
 
 const struct SpritePalette gMonIconPaletteTable[] = {
     { gMonIconPalettes[0], POKE_ICON_BASE_PAL_TAG + 0 },
@@ -2621,7 +2621,7 @@ u8 CreateMonIcon(u16 species, SpriteCallback callback, s16 x, s16 y, u8 subprior
         .anims = sMonIconAnims,
         .affineAnims = sMonIconAffineAnims,
         .callback = callback,
-        .paletteTag = POKE_ICON_BASE_PAL_TAG + gMonIconPaletteIndices[species],
+        .paletteTag = POKE_ICON_BASE_PAL_TAG + gSpeciesGraphics[species].iconPalIndex,
     };
 
     if (species > NUM_SPECIES)
@@ -2644,7 +2644,7 @@ u8 CreateMonIcon_HandleDeoxys(u16 species, SpriteCallback callback, s16 x, s16 y
         .anims = sMonIconAnims,
         .affineAnims = sMonIconAffineAnims,
         .callback = callback,
-        .paletteTag = POKE_ICON_BASE_PAL_TAG + gMonIconPaletteIndices[species],
+        .paletteTag = POKE_ICON_BASE_PAL_TAG + gSpeciesGraphics[species].iconPalIndex,
     };
 
     iconTemplate.image = GetMonIconTiles(species, extra);
@@ -2788,14 +2788,14 @@ void SafeFreeMonIconPalette(u16 species)
     u8 palIndex;
     if (species > NUM_SPECIES)
         species = SPECIES_NONE;
-    palIndex = gMonIconPaletteIndices[species];
+    palIndex = gSpeciesGraphics[species].iconPalIndex;
     FreeSpritePaletteByTag(gMonIconPaletteTable[palIndex].tag);
 }
 
 void FreeMonIconPalette(u16 species)
 {
     u8 palIndex;
-    palIndex = gMonIconPaletteIndices[species];
+    palIndex = gSpeciesGraphics[species].iconPalIndex;
     FreeSpritePaletteByTag(gMonIconPaletteTable[palIndex].tag);
 }
 
@@ -2821,19 +2821,19 @@ const u16 *GetValidMonIconPalettePtr(u16 species)
 {
     if (species > NUM_SPECIES)
         species = SPECIES_NONE;
-    return gMonIconPaletteTable[gMonIconPaletteIndices[species]].data;
+    return gMonIconPaletteTable[gSpeciesGraphics[species].iconPalIndex].data;
 }
 
 u8 GetValidMonIconPalIndex(u16 species)
 {
     if (species > NUM_SPECIES)
         species = SPECIES_NONE;
-    return gMonIconPaletteIndices[species];
+    return gSpeciesGraphics[species].iconPalIndex;
 }
 
 u8 GetMonIconPaletteIndexFromSpecies(u16 species)
 {
-    return gMonIconPaletteIndices[species];
+    return gSpeciesGraphics[species].iconPalIndex;
 }
 
 u8 UpdateMonIconFrame(struct Sprite * sprite)

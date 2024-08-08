@@ -2,7 +2,7 @@
 // is during battle. Species that float or fly have nonzero values.
 #define MON_ELEVATION_TABLE
 
-const u8 gEnemyMonElevation[NUM_SPECIES] =
+/*const u8 gEnemyMonElevation[NUM_SPECIES] =
 {
     [SPECIES_BUTTERFREE] = 8,
     [SPECIES_BEEDRILL] = 9,
@@ -144,3 +144,4 @@ const u8 gEnemyMonElevation[NUM_SPECIES] =
 [SPECIES_THUNDURUS_THERIAN] = 7,
 [SPECIES_ETERNATUS_ETERNAMAX] = 4,
 };
+*/
