@@ -2805,6 +2805,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     ok we have a speed chek, then a priority check
     -think can't do  will just  leave to exclude pwr 1 moves
 
+    fixed icons pals garahpic file tec.
+    tired need go over later
 
     NOTE**(
     major IMPORTANT  idea
