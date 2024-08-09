@@ -31597,7 +31597,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sBramblinLevelUpLearnset,
         //.teachableLearnset = sBramblinTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_BRAMBLEGHAST}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_BRAMBLEGHAST}),
     },
 
     [SPECIES_BRAMBLEGHAST] =
@@ -32033,7 +32033,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sRellorLevelUpLearnset,
         //.teachableLearnset = sRellorTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_RABSCA}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(22, LOW_EFFORT), 0,  SPECIES_RABSCA}),
     },
 
     [SPECIES_RABSCA] =
