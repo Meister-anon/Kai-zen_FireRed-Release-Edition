@@ -2822,6 +2822,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and size is somewhat inconsequential,
 
     updated base stats evos for gen 9 mon to relative evo setup
+    
+    for issue w gen9 mon  of dex
+    think its just becuz mon not seen/not in dex not actually
+    something wrong hmm
+
+    todo revise species list for removal of cosmetic forms
+    first setup like unown, idea is move speices constant after num species
+    so define exists but doesn't affect num species and doesn't require going on base stats array
+    this will save both rom space and more importantly ewram
+
+    issues, finding a fair/practical way to get the forms,
+    simplest is just make it based on personality. btu don't know if that causes
+    problems with chance of receiving certain forms etc.
+
+    other concern is to still be able to display forms in form dex
+    -may not be an issue but still
+
+    rn did partial removal, alcremie forms aren't listed in species
+    issue is blank space in debug menu, is only place would be visible.
 
     NOTE**(
     major IMPORTANT  idea

@@ -6618,7 +6618,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_REGIELEKI] = 
     {  
       FRONT_COORD(0x86, 4),
-      BACK_COORD(0x85, 13),
+      BACK_COORD(0x85, 11),
       PIC_DATA_ICON_INDEX(Regieleki, 0),
       .enemyMonElevation = 0,
     }, //Regieleki,
@@ -6667,35 +6667,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_URSALUNA] = 
     {  
       FRONT_COORD(0x78, 0),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 14),
       PIC_DATA_ICON_INDEX(Ursaluna, 2),
       .enemyMonElevation = 0,
     }, //Ursaluna,
 [SPECIES_BASCULEGION_MALE] = 
     {  
       FRONT_COORD(0x68, 2),
-      BACK_COORD(0x72, 5),
+      BACK_COORD(0x72, 1),
       PIC_DATA_ICON_INDEX(BasculegionMale, 4),
       .enemyMonElevation = 0,
     }, //Basculegion,
 [SPECIES_SNEASLER] = 
     {  
       FRONT_COORD(0x68, 2),
-      BACK_COORD(0x76, 10),
+      BACK_COORD(0x76, 1),
       PIC_DATA_ICON_INDEX(Sneasler, 2),
       .enemyMonElevation = 0,
     }, //Sneasler,
 [SPECIES_OVERQWIL] = 
     {  
       FRONT_COORD(0x62, 5),
-      BACK_COORD(0x62, 10),
+      BACK_COORD(0x62, 12),
       PIC_DATA_ICON_INDEX(Overqwil, 2),
       .enemyMonElevation = 0,
     }, //Overqwil,
 [SPECIES_ENAMORUS] = 
     {  
       FRONT_COORD(0x68, 2),
-      BACK_COORD(0x68, 7),
+      BACK_COORD(0x68, 1),
       PIC_DATA_ICON_INDEX(Enamorus, 1),
       .enemyMonElevation = 0,
     }, //Enamorus,
@@ -7737,7 +7737,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PAWMI] =
     {
       FRONT_COORD(0x88, 10),
-      BACK_COORD(0x88, 0),
+      BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Pawmi, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -7801,7 +7801,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PAWMO] =
     {
       FRONT_COORD(0x88, 4),
-      BACK_COORD(0x88, 4),
+      BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Pawmo, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -12645,7 +12645,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_IRON_TREADS] =
     {
       FRONT_COORD(0x88, 1),
-      BACK_COORD(0x88, 4),
+      BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(IronTreads, 1),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -12773,7 +12773,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_IRON_HANDS] =
     {
       FRONT_COORD(0x88, 3),
-      BACK_COORD(0x88, 10),
+      BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(IronHands, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -12837,7 +12837,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_IRON_JUGULIS] =
     {
       FRONT_COORD(0x88, 2),
-      BACK_COORD(0x88, 0),
+      BACK_COORD(0x88, 11), //back sprite not great
       PIC_DATA_ICON_INDEX(IronJugulis, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13095,7 +13095,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ARCTIBAX] =
     {
       FRONT_COORD(0x88, 5),
-      BACK_COORD(0x88, 8),
+      BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(Arctibax, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13222,7 +13222,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIMMIGHOUL_CHEST] =
     {
       FRONT_COORD(0x88, 2),
-      BACK_COORD(0x88, 0),
+      BACK_COORD(0x88, 16),
       PIC_DATA_ICON_INDEX(GimmighoulChest, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13288,7 +13288,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GIMMIGHOUL_ROAMING] =
     {
       FRONT_COORD(0x88, 11),
-      BACK_COORD(0x88, 3),
+      BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(GimmighoulRoaming, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13353,7 +13353,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_GHOLDENGO] =
     {
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x88, 6),
+      BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Gholdengo, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13416,7 +13416,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WO_CHIEN] =
     {
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x88, 6),
+      BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(WoChien, 1),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13542,7 +13542,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_TING_LU] =
     {
       FRONT_COORD(0x88, 2),
-      BACK_COORD(0x88, 5),
+      BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(TingLu, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -13671,7 +13671,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROARING_MOON] =
     {
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x88, 7),
+      BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(RoaringMoon, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -14188,7 +14188,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_WALKING_WAKE] =
     {
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x88, 3),
+      BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(WalkingWake, 2),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -14313,7 +14313,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DIPPLIN] =
     {
       FRONT_COORD(0x88, 5),
-      BACK_COORD(0x88, 0),
+      BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Dipplin, 1),
         /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -14504,8 +14504,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SINISTCHA_UNREMARKABLE] =
     {
       FRONT_COORD(0x88, 10),
-      BACK_COORD(0x88, 13),
-      PIC_DATA_ICON_INDEX(Sinistcha, 1),
+      BACK_COORD(0x88, 13), //sprites came out bad? especially back
+      PIC_DATA_ICON_INDEX(Sinistcha, 1), //low res
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
               71,
@@ -14631,7 +14631,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OKIDOGI] =
     {
       FRONT_COORD(0x88, 1),
-      BACK_COORD(0x88, 16),
+      BACK_COORD(0x88, 13), //back looks better w/o tail, check model may remove
       PIC_DATA_ICON_INDEX(Okidogi, 1),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -14698,7 +14698,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_MUNKIDORI] =
     {
       FRONT_COORD(0x88, 5),
-      BACK_COORD(0x88, 0),
+      BACK_COORD(0x88, 3), //maybe 2?
       PIC_DATA_ICON_INDEX(Munkidori, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -14762,7 +14762,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FEZANDIPITI] =
     {
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x88, 16),
+      BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Fezandipiti, 0),
             /*//hp, atk, def, spd, spatk, spdef
         STATS(
@@ -14826,36 +14826,36 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_OGERPON_TEAL_MASK] = 
     {  
       FRONT_COORD(0x88,0),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponTealMask, 1),
       .enemyMonElevation = 0,
     },
 [SPECIES_OGERPON_WELLSPRING_MASK] = 
     {  
       FRONT_COORD(0x88,0),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponWellspringMask, 0),
       .enemyMonElevation = 0,
     },
 [SPECIES_OGERPON_HEARTHFLAME_MASK] = 
     {  
       FRONT_COORD(0x88,0),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponHearthflameMask, 0),
       .enemyMonElevation = 0,
     },
 [SPECIES_OGERPON_CORNERSTONE_MASK] = 
     {  
       FRONT_COORD(0x88,0),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponCornerstoneMask, 0),
       .enemyMonElevation = 0,
-    },
+    },//need grahpics for tera forms
 [SPECIES_URSALUNA_BLOODMOON] =
     {
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x88, 3),
-      PIC_DATA_ICON_INDEX(UrsalunaBloodmoon, 2),
+      BACK_COORD(0x88, 9),
+      PIC_DATA_ICON_INDEX(UrsalunaBloodmoon, 2), //icon is off, think source is problem
         /*//hp, atk, def, spd, spatk, spdef
         STATS(
               113,
@@ -15594,7 +15594,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BLASTOISE_MEGA] = 
     {  
       FRONT_COORD(0, 0),
-      BACK_COORD(0, 3),
+      BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(BlastoiseMega, 2),
       .enemyMonElevation = 0,
     }, //BlastoiseMega,
@@ -15615,7 +15615,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ALAKAZAM_MEGA] = 
     {  
       FRONT_COORD(0, 0),
-      BACK_COORD(0, 8),
+      BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(AlakazamMega, 2),
       .enemyMonElevation = 7,
     }, //AlakazamMega,
@@ -15825,14 +15825,14 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SALAMENCE_MEGA] = 
     {  
       FRONT_COORD(0, 5),
-      BACK_COORD(0, 4),
+      BACK_COORD(0, 3),
       PIC_DATA_ICON_INDEX(SalamenceMega, 0),
       .enemyMonElevation = 0,
     }, //SalamenceMega,
 [SPECIES_METAGROSS_MEGA] = 
     {  
       FRONT_COORD(0, 0),
-      BACK_COORD(0, 6),
+      BACK_COORD(0, 6), //back sprite bad check for updated versionin EE
       PIC_DATA_ICON_INDEX(MetagrossMega, 0),
       .enemyMonElevation = 4,
     }, //MetagrossMega,
@@ -15951,7 +15951,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SANDSLASH_ALOLAN] = 
     {  
       FRONT_COORD(0x76, 6),
-      BACK_COORD(0x86, 11),
+      BACK_COORD(0x86, 18),//11, 6, 18
       PIC_DATA_ICON_INDEX(SandslashAlolan, 0),
       .enemyMonElevation = 0,
     }, //SandslashAlolan,
@@ -16035,7 +16035,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_EXEGGUTOR_ALOLAN] = 
     {  
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x87, 8),
+      BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(ExeggutorAlolan, 1),
       .enemyMonElevation = 0,
     }, //ExeggutorAlolan,
@@ -16266,7 +16266,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SLIGGOO_HISUIAN] = 
     {  
       FRONT_COORD(0x55, 6),
-      BACK_COORD(0x55, 0),
+      BACK_COORD(0x55, 1),
       PIC_DATA_ICON_INDEX(SliggooHisuian, 2),
       .enemyMonElevation = 0,
     }, //SliggooHisuian,
@@ -16378,7 +16378,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_PARTNER_CAP] = 
     {  
       FRONT_COORD(0x67, 9),
-      BACK_COORD(0x87, 4),
+      BACK_COORD(0x87, 4), //palett off for this one
       PIC_DATA_ICON_INDEX(PikachuPartnerCap, 0),
       .enemyMonElevation = 0,
     }, //PikachuPartnerCap,
@@ -16420,21 +16420,21 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_DEOXYS_ATTACK] = 
     {  
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x87, 6),
+      BACK_COORD(0x87, 2),
       PIC_DATA_ICON_INDEX(DeoxysAttack,0),
       .enemyMonElevation = 0,
     }, //DeoxysAttack,
 [SPECIES_DEOXYS_DEFENSE] = 
     {  
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x87, 6),
+      BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(DeoxysDefense,0),
       .enemyMonElevation = 0,
     }, //DeoxysDefense,
 [SPECIES_DEOXYS_SPEED] = 
     {  
       FRONT_COORD(0x88, 0),
-      BACK_COORD(0x87, 6),
+      BACK_COORD(0x87, 1),
       PIC_DATA_ICON_INDEX(DeoxysSpeed,0),
       .enemyMonElevation = 0,
     }, //DeoxysSpeed,
@@ -16448,7 +16448,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BURMY_TRASH_CLOAK] = 
     {  
       FRONT_COORD(0x67, 13),
-      BACK_COORD(0x57, 6),
+      BACK_COORD(0x57, 1),
       PIC_DATA_ICON_INDEX(BurmyTrashCloak, 0),
       .enemyMonElevation = 0,
     }, //BurmyTrashCloak,
@@ -16490,35 +16490,35 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ROTOM_HEAT] = 
     {  
       FRONT_COORD(0x77, 11),
-      BACK_COORD(0x77, 5),
+      BACK_COORD(0x77, 12),
       PIC_DATA_ICON_INDEX(RotomHeat, 0),
       .enemyMonElevation = 0,
     }, //RotomHeat,
 [SPECIES_ROTOM_WASH] = 
     {  
       FRONT_COORD(0x77, 11),
-      BACK_COORD(0x77, 5),
+      BACK_COORD(0x77, 11),
       PIC_DATA_ICON_INDEX(RotomWash, 0),
       .enemyMonElevation = 0,
     }, //RotomWash,
 [SPECIES_ROTOM_FROST] = 
     {  
       FRONT_COORD(0x77, 11),
-      BACK_COORD(0x77, 5),
+      BACK_COORD(0x77, 8),
       PIC_DATA_ICON_INDEX(RotomFrost, 5),
       .enemyMonElevation = 0,
     }, //RotomFrost,
 [SPECIES_ROTOM_FAN] = 
     {  
       FRONT_COORD(0x77, 11),
-      BACK_COORD(0x77, 5),
+      BACK_COORD(0x77, 8),
       PIC_DATA_ICON_INDEX(RotomFan, 0),
       .enemyMonElevation = 0,
     }, //RotomFan,
 [SPECIES_ROTOM_MOW] = 
     {  
       FRONT_COORD(0x77, 11),
-      BACK_COORD(0x77, 5),
+      BACK_COORD(0x77, 11),
       PIC_DATA_ICON_INDEX(RotomMow, 0),
       .enemyMonElevation = 0,
     }, //RotomMow,
@@ -16532,7 +16532,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_SHAYMIN_SKY] = 
     {  
       FRONT_COORD(0x87, 7),
-      BACK_COORD(0x65, 5),
+      BACK_COORD(0x65, 2),
       PIC_DATA_ICON_INDEX(ShayminSky, 1),
       .enemyMonElevation = 0,
     }, //ShayminSky,
@@ -17031,7 +17031,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PYROAR_FEMALE] = 
     {  
       FRONT_COORD(0x45, 0),
-      BACK_COORD(0x88,0),
+      BACK_COORD(0x88,3),
       PIC_DATA_ICON_INDEX(PyroarFemale, 2),
       .enemyMonElevation = 0,
     }, //Pyroar_Female,
@@ -17118,8 +17118,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FLOETTE_ETERNAL_FLOWER] = 
     {  
       FRONT_PIC(Floette),
-      FRONT_COORD(0x45, 3),
-      BACK_PIC(Floette),
+      FRONT_COORD(0x45, 3),//sprite ro palette is off
+      BACK_PIC(Floette),//for both front andback
       BACK_COORD(0x88, 2),
       PALETTES(FloetteEternalFlower),
       ICON(FloetteEternalFlower, 0),
@@ -17168,63 +17168,63 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_FURFROU_HEART_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouHeartTrim, 0),
       .enemyMonElevation = 0,
     }, //FurfrouHeartTrim,
 [SPECIES_FURFROU_STAR_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouStarTrim, 0),
       .enemyMonElevation = 0,
     }, //FurfrouStarTrim,
 [SPECIES_FURFROU_DIAMOND_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouDiamondTrim, 0),
       .enemyMonElevation = 0,
     }, //FurfrouDiamondTrim,
 [SPECIES_FURFROU_DEBUTANTE_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouDebutanteTrim, 2),
       .enemyMonElevation = 0,
     }, //FurfrouDebutanteTrim,
 [SPECIES_FURFROU_MATRON_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouMatronTrim, 2),
       .enemyMonElevation = 0,
     }, //FurfrouMatronTrim,
 [SPECIES_FURFROU_DANDY_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouDandyTrim, 1),
       .enemyMonElevation = 0,
     }, //FurfrouDandyTrim,
 [SPECIES_FURFROU_LA_REINE_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouLaReineTrim, 0),
       .enemyMonElevation = 0,
     }, //FurfrouLaReineTrim,
 [SPECIES_FURFROU_KABUKI_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouKabukiTrim, 0),
       .enemyMonElevation = 0,
     }, //FurfrouKabukiTrim,
 [SPECIES_FURFROU_PHARAOH_TRIM] = 
     {  
       FRONT_COORD(0x45, 3),
-      BACK_COORD(0x78, 0),
+      BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouPharaohTrim, 0),
       .enemyMonElevation = 0,
     }, //FurfrouPharaohTrim,
@@ -17248,6 +17248,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooSmall),
       BACK_COORD(0x76, 13),
+      PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
     }, //Pumpkaboo,
@@ -17257,6 +17258,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooLarge),
       BACK_COORD(0x76, 13),
+      PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
     }, //Pumpkaboo,
@@ -17266,6 +17268,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x45, 13),
       BACK_PIC(PumpkabooSuper),
       BACK_COORD(0x76, 13),
+      PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
     }, //Pumpkaboo,
@@ -18507,7 +18510,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_ETERNATUS_ETERNAMAX] = 
     {  
       FRONT_COORD(0x86, 4),
-      BACK_COORD(0x85, 13),
+      BACK_COORD(0x85, 11),
       PIC_DATA_ICON_INDEX(EternatusEternamax, 0),
       .enemyMonElevation = 4,
     }, //Eternatus_Eternamax,
@@ -18545,7 +18548,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_BASCULEGION_FEMALE] = 
     {  
       FRONT_COORD(0x68, 2),
-      BACK_COORD(0x72, 5),
+      BACK_COORD(0x72, 1),
       PIC_DATA_ICON_INDEX(BasculegionFemale, 0),
       .enemyMonElevation = 0,
     }, //Basculegion_Female,

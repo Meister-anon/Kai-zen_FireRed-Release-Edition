@@ -1180,14 +1180,17 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
     s8 offset;
     u8 y;
 
+    //something wrong here instead of max 20, its using 20 + base value
+    //ex base 0, max will be 20
+    //ex base 16, max will ben 36
     switch (option)
     {
     case 0: //Back picCoords
-        offset = data->offsetsSpriteValues.offset_back_picCoords;
+        offset = data->offsetsSpriteValues.offset_back_picCoords; //default this is 0, that was why using 0 didn't work
         if (increment)
         {
             if (offset == MAX_Y_OFFSET)
-                offset = -data->constSpriteValues.backPicCoords;
+                offset = -data->constSpriteValues.backPicCoords; //replacing w 0 doesn't work not understanding something
             else
                 offset += 1;
         }
@@ -1199,7 +1202,7 @@ static void UpdateSubmenuTwoOptionValue(u8 taskId, bool8 increment)
                 offset -= 1;
         }
         data->offsetsSpriteValues.offset_back_picCoords = offset;
-        gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].frontPicYOffset + offset;
+        gSprites[data->backspriteId].pos1.y = DEBUG_MON_BACK_Y + gSpeciesGraphics[species].backPicYOffset + offset;
         break;
     case 1: //Front picCoords
         offset = data->offsetsSpriteValues.offset_front_picCoords;
