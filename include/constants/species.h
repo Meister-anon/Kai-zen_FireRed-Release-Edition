@@ -1694,6 +1694,8 @@
 #define SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL       COSMETIC_FORMS_START + 62
 
 #define COSMETIC_FORMS_END  SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL + 1
+//add vivilon other cosmetics here
+
 
 /*since gender form array only has 5 values
   can't use [SPECIES_NAME] = value,
