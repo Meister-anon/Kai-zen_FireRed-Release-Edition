@@ -5761,7 +5761,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sWooperLevelUpLearnset,
         .tmhmLearnset = sWooperTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, AVERAGE_EFFORT), 0, SPECIES_QUAGSIRE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, LOW_EFFORT), 0, SPECIES_QUAGSIRE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_QUAGSIRE] =
@@ -18825,7 +18825,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sPawniardLevelUpLearnset,
         .tmhmLearnset = sPawniardTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(37, AVERAGE_EFFORT), 0, SPECIES_BISHARP}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(27, AVERAGE_EFFORT), 0, SPECIES_BISHARP}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_BISHARP] =
@@ -18858,7 +18858,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sBisharpLevelUpLearnset,
         .tmhmLearnset = sBisharpTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 50, 0, SPECIES_KINGAMBIT}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(50, AVERAGE_EFFORT), 0, SPECIES_KINGAMBIT}), //Should hopefully blank these for now without issue
     },//GIVE Hi pressure ability //change mind normal pressure
 
     [SPECIES_BOUFFALANT] =
@@ -26429,8 +26429,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_DRAGON,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_RIPEN, ABILITY_GLUTTONY},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GREEN,
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_CORROSION}, //give more poison moves
+        .bodyColor = BODY_COLOR_GREEN, // supposedly has acid that can melt poison, take scarlet dex
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sFlappleLevelUpLearnset,
@@ -26463,7 +26463,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_DRAGON,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_RIPEN, ABILITY_GLUTTONY},
-        .abilityHidden = {ABILITY_THICK_FAT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_THICK_FAT, ABILITY_WELL_BAKED_BODY},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -28788,7 +28788,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sSprigatitoLevelUpLearnset,
         //.teachableLearnset = sSprigatitoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 16, 0,  SPECIES_FLORAGATO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0,  SPECIES_FLORAGATO}),
     },
 
     [SPECIES_FLORAGATO] =
@@ -28850,7 +28850,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sFloragatoLevelUpLearnset,
         //.teachableLearnset = sFloragatoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 36, 0,  SPECIES_MEOWSCARADA}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0,  SPECIES_MEOWSCARADA}),
     },
 
     [SPECIES_MEOWSCARADA] =
@@ -28975,7 +28975,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sFuecocoLevelUpLearnset,
         //.teachableLearnset = sFuecocoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 16, 0,  SPECIES_CROCALOR}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0,  SPECIES_CROCALOR}),
     },
 
     [SPECIES_CROCALOR] =
@@ -29037,7 +29037,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sCrocalorLevelUpLearnset,
         //.teachableLearnset = sCrocalorTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 36, 0,  SPECIES_SKELEDIRGE}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0,  SPECIES_SKELEDIRGE}),
     },
 
     [SPECIES_SKELEDIRGE] =
@@ -29162,7 +29162,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sQuaxlyLevelUpLearnset,
         //.teachableLearnset = sQuaxlyTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 16, 0,  SPECIES_QUAXWELL}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0,  SPECIES_QUAXWELL}),
     },
 
     [SPECIES_QUAXWELL] =
@@ -29224,7 +29224,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sQuaxwellLevelUpLearnset,
         //.teachableLearnset = sQuaxwellTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 36, 0,  SPECIES_QUAQUAVAL}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0,  SPECIES_QUAQUAVAL}),
     },
 
     [SPECIES_QUAQUAVAL] =
@@ -29349,8 +29349,8 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sLechonkLevelUpLearnset,
         //.teachableLearnset = sLechonkTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_MALE, 18, 0,  SPECIES_OINKOLOGNE_MALE},
-                                {EVO_LEVEL_FEMALE, 18, 0,  SPECIES_OINKOLOGNE_FEMALE}),
+        .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(18, AVERAGE_EFFORT), 0,  SPECIES_OINKOLOGNE_MALE},
+                                {EVO_LEVEL_FEMALE, RELATIVE_EVO(18, AVERAGE_EFFORT), 0,  SPECIES_OINKOLOGNE_FEMALE}),
     },
 
     [SPECIES_OINKOLOGNE_MALE] =
@@ -29539,7 +29539,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sTarountulaLevelUpLearnset,
         //.teachableLearnset = sTarountulaTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 15, 0,  SPECIES_SPIDOPS}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(15, AVERAGE_EFFORT), 0,  SPECIES_SPIDOPS}),
     },
 
     [SPECIES_SPIDOPS] =
@@ -29664,7 +29664,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sNymbleLevelUpLearnset,
         //.teachableLearnset = sNymbleTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 24, 0,  SPECIES_LOKIX}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0,  SPECIES_LOKIX}),
     },
 
     [SPECIES_LOKIX] =
@@ -29789,7 +29789,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sPawmiLevelUpLearnset,
         //.teachableLearnset = sPawmiTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 18, 0,  SPECIES_PAWMO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(18, LOW_EFFORT), 0,  SPECIES_PAWMO}),
     },
 
     [SPECIES_PAWMO] =
@@ -29851,7 +29851,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sPawmoLevelUpLearnset,
         //.teachableLearnset = sPawmoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_PAWMOT}),
+        .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0,  SPECIES_PAWMOT}),
     },
 
     [SPECIES_PAWMOT] =
@@ -29976,8 +29976,8 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sTandemausLevelUpLearnset,
         //.teachableLearnset = sTandemausTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_FAMILY_OF_FOUR, 25, 0,  SPECIES_MAUSHOLD_FAMILY_OF_FOUR},
-                                {EVO_LEVEL_FAMILY_OF_THREE, 25, 0,  SPECIES_MAUSHOLD_FAMILY_OF_THREE}),
+        .evolutions = EVOLUTION({EVO_LEVEL_FAMILY_OF_FOUR, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_MAUSHOLD_FAMILY_OF_FOUR},
+                                {EVO_LEVEL_FAMILY_OF_THREE, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_MAUSHOLD_FAMILY_OF_THREE}),
     },
 
     [SPECIES_MAUSHOLD_FAMILY_OF_THREE] =
@@ -30161,7 +30161,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sFidoughLevelUpLearnset,
         //.teachableLearnset = sFidoughTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 26, 0,  SPECIES_DACHSBUN}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_DACHSBUN}),
     },
 
     [SPECIES_DACHSBUN] =
@@ -30286,7 +30286,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sSmolivLevelUpLearnset,
         //.teachableLearnset = sSmolivTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 25, 0,  SPECIES_DOLLIV}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_DOLLIV}),
     },
 
     [SPECIES_DOLLIV] =
@@ -30348,7 +30348,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sDollivLevelUpLearnset,
         //.teachableLearnset = sDollivTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_ARBOLIVA}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_ARBOLIVA}),
     },
 
     [SPECIES_ARBOLIVA] =
@@ -30723,7 +30723,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sNacliLevelUpLearnset,
         //.teachableLearnset = sNacliTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 24, 0,  SPECIES_NACLSTACK}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0,  SPECIES_NACLSTACK}),
     },
 
     [SPECIES_NACLSTACK] =
@@ -30785,7 +30785,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sNaclstackLevelUpLearnset,
         //.teachableLearnset = sNaclstackTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 38, 0,  SPECIES_GARGANACL}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0,  SPECIES_GARGANACL}),
     },
 
     [SPECIES_GARGANACL] =
@@ -31222,7 +31222,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sWattrelLevelUpLearnset,
         //.teachableLearnset = sWattrelTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 25, 0,  SPECIES_KILOWATTREL}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_KILOWATTREL}),
     },
 
     [SPECIES_KILOWATTREL] =
@@ -31347,7 +31347,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sMaschiffLevelUpLearnset,
         //.teachableLearnset = sMaschiffTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 30, 0,  SPECIES_MABOSSTIFF}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0,  SPECIES_MABOSSTIFF}),
     },
 
     [SPECIES_MABOSSTIFF] =
@@ -31472,7 +31472,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sShroodleLevelUpLearnset,
         //.teachableLearnset = sShroodleTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 28, 0,  SPECIES_GRAFAIAI}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0,  SPECIES_GRAFAIAI}),
     },
 
     [SPECIES_GRAFAIAI] =
@@ -31720,7 +31720,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sToedscoolLevelUpLearnset,
         //.teachableLearnset = sToedscoolTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 30, 0,  SPECIES_TOEDSCRUEL}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0,  SPECIES_TOEDSCRUEL}),
     },
 
     [SPECIES_TOEDSCRUEL] =
@@ -32158,7 +32158,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sFlittleLevelUpLearnset,
         //.teachableLearnset = sFlittleTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_ESPATHRA}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_ESPATHRA}),
     },
 
     [SPECIES_ESPATHRA] =
@@ -32283,7 +32283,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sTinkatinkLevelUpLearnset,
         //.teachableLearnset = sTinkatinkTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 24, 0,  SPECIES_TINKATUFF}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0,  SPECIES_TINKATUFF}),
     },
 
     [SPECIES_TINKATUFF] =
@@ -32345,7 +32345,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sTinkatuffLevelUpLearnset,
         //.teachableLearnset = sTinkatuffTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 38, 0,  SPECIES_TINKATON}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0,  SPECIES_TINKATON}),
     },
 
     [SPECIES_TINKATON] =
@@ -32469,7 +32469,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sWiglettLevelUpLearnset,
         //.teachableLearnset = sWiglettTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 26, 0,  SPECIES_WUGTRIO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_WUGTRIO}),
     },
 
     [SPECIES_WUGTRIO] =
@@ -32655,7 +32655,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sFinizenLevelUpLearnset,
         //.teachableLearnset = sFinizenTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 38, 0,  SPECIES_PALAFIN_ZERO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0,  SPECIES_PALAFIN_ZERO}),
     },
 
     [SPECIES_PALAFIN_ZERO] =
@@ -32811,7 +32811,7 @@ const struct BaseStats gBaseStats[] =
         .abilities = { ABILITY_OVERCOAT, ABILITY_NONE  },
         .abilityHidden = {ABILITY_SLOW_START, ABILITY_SPEED_BOOST},
         .floating = TRUE,
-        .bodyColor = BODY_COLOR_GRAY,
+        .bodyColor = BODY_COLOR_GRAY,//ok remember since I buffed it, decided to not remove slow start
         .noFlip = FALSE,
         /*.speciesName = _("Varoom"), //why on god's earth did pokemon decide to give another mon slowstart??
         .cryId = CRY_VAROOM,
@@ -32845,7 +32845,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sVaroomLevelUpLearnset,
         //.teachableLearnset = sVaroomTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 40, 0,  SPECIES_REVAVROOM}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0,  SPECIES_REVAVROOM}),
     },
 
     [SPECIES_REVAVROOM] =
@@ -33096,7 +33096,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sGlimmetLevelUpLearnset,
         //.teachableLearnset = sGlimmetTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_GLIMMORA}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_GLIMMORA}),
     },
 
     [SPECIES_GLIMMORA] =
@@ -34970,7 +34970,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sFrigibaxLevelUpLearnset,
         //.teachableLearnset = sFrigibaxTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 35, 0,  SPECIES_ARCTIBAX}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_ARCTIBAX}),
     },
 
     [SPECIES_ARCTIBAX] =
@@ -35032,7 +35032,7 @@ const struct BaseStats gBaseStats[] =
         */
         //.levelUpLearnset = sArctibaxLevelUpLearnset,
         //.teachableLearnset = sArctibaxTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 54, 0,  SPECIES_BAXCALIBUR}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(54, MEDIUM_EFFORT), 0,  SPECIES_BAXCALIBUR}),
     },
 
     [SPECIES_BAXCALIBUR] =
@@ -36045,7 +36045,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sWooperPaldeanLevelUpLearnset,
         .teachableLearnset = sWooperPaldeanTeachableLearnset,
       //  .formSpeciesIdTable = sWooperFormSpeciesIdTable,*/
-        .evolutions = EVOLUTION({EVO_LEVEL, 20, SPECIES_CLODSIRE}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, LOW_EFFORT), 0, SPECIES_CLODSIRE}),
         .flags = F_PALDEAN_FORM,
     },
 

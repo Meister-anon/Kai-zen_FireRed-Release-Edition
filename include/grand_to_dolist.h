@@ -2808,6 +2808,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     fixed icons pals garahpic file tec.
     tired need go over later
 
+    still need fix missing grahpics
+    some icon pals even copied aren't correct 
+    but with my debug addition simple to find correct value
+    for few missing
+    fixed weren't missing issue was conflicting references,
+    between use of old file and new graphics file
+
+    also for some reason some of the offsets are off,
+    just things lower than they should be it seems,
+    ;had to adjust wo-chien by from 10 to 6
+
+    and size is somewhat inconsequential,
+
+    updated base stats evos for gen 9 mon to relative evo setup
+
     NOTE**(
     major IMPORTANT  idea
     item cloner, with addition of more mon  remove need
