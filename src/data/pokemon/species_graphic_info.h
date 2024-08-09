@@ -8675,7 +8675,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
 [SPECIES_PIKACHU_PARTNER_CAP] = 
     {  
       FRONT_COORD(0x67, 9),
-      BACK_COORD(0x87, 4), //palett off for this one
+      BACK_COORD(0x87, 4), //vsonic palett off for this one
       PIC_DATA_ICON_INDEX(PikachuPartnerCap, 0),
       .enemyMonElevation = 0,
     }, //PikachuPartnerCap,
