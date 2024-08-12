@@ -315,6 +315,7 @@ static const u8 sText_TargetsXWhippedUpSandstorm[] = _("{B_DEF_NAME_WITH_PREFIX}
 static const u8 sText_PkmnsXIntensifiedSun[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nintensified the sun's rays!");
 static const u8 sText_PkmnsXPreventsYLoss[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nprevents {B_BUFF1} loss!");
 static const u8 sText_PkmnsXInfatuatedY[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\ninfatuated {B_ATK_NAME_WITH_PREFIX}!");
+static const u8 sText_AttakersXInfatuatedY[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\ninfatuated {B_DEF_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnsXMadeYIneffective[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nmade {B_CURRENT_MOVE} ineffective!");
 static const u8 sText_PkmnsXCuredYProblem[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\ncured its {B_BUFF1} problem!");
 static const u8 sText_ItSuckedLiquidOoze[] = _("It sucked up the\nLIQUID OOZE!");
@@ -1546,6 +1547,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_DAMP_PREVENTS_AFTERMATH - BATTLESTRINGS_TABLE_START]       = sText_PkmnPreventsAbilityUsage,
     [STRINGID_CUPIDSARROWSTRUCK_BOTH - BATTLESTRINGS_TABLE_START]        = COMPOUND_STRING("{B_SCR_ACTIVE_ABILITY} struck both targets!"),
     [STRINGID_STATUSGROUNDED - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is too exhausted to fly!"),
+    [STRINGID_ATK_CUTECHARM - BATTLESTRINGS_TABLE_START]                 = sText_AttakersXInfatuatedY,
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,

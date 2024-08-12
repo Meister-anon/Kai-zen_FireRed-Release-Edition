@@ -7365,14 +7365,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                 }
                 break;
-            case ABILITY_CUTE_CHARM:
+            case ABILITY_CUTE_CHARM: //shouold I buff this to also work on attack? most of the mon w this can't really take a hit?
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-                    && gBattleMons[gBattlerAttacker].hp != 0
-                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && (IsMoveMakingContact(moveArg, gBattlerAttacker))
+                    && IsBattlerAlive(gBattlerAttacker)
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg//alternative is to buff odds or remove random chance
+                    && (IsMoveMakingContact(moveArg, gBattlerAttacker))//since its so particular
                     && TARGET_TURN_DAMAGED
-                    && gBattleMons[gBattlerTarget].hp != 0
-                    && (Random() % 3) == 0
+                    && IsBattlerAlive(gBattlerTarget)//decided make work on attack, two different odds
+                    //&& (Random() % 3) == 0      //make this guaranteed, make the attack use these odds
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_OBLIVIOUS
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_FEMME_FATALE
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != GetGenderFromSpeciesAndPersonality(speciesDef, pidDef)
@@ -7945,6 +7945,27 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gBattleScripting.moveEffect = MOVE_EFFECT_BURN;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
+                    ++effect;
+                }
+                break;
+            case ABILITY_CUTE_CHARM: //shouold I buff this to also work on attack? most of the mon w this can't really take a hit?
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                    && IsBattlerAlive(gBattlerAttacker)
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg//alternative is to buff odds or remove random chance
+                    && (IsMoveMakingContact(moveArg, gBattlerAttacker))//since its so particular
+                    && TARGET_TURN_DAMAGED
+                    && IsBattlerAlive(gBattlerTarget)//decided make work on attack, two different odds
+                    && (Random() % 3) == 0      //make this guaranteed, make the attack use these odds
+                    && GetBattlerAbility(gBattlerTarget) != ABILITY_OBLIVIOUS
+                    && GetBattlerAbility(gBattlerTarget) != ABILITY_FEMME_FATALE
+                    && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != GetGenderFromSpeciesAndPersonality(speciesDef, pidDef)
+                    && !(gBattleMons[gBattlerTarget].status2 & STATUS2_INFATUATION)
+                    && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != MON_GENDERLESS
+                    && GetGenderFromSpeciesAndPersonality(speciesDef, pidDef) != MON_GENDERLESS)
+                {
+                    gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATED_WITH(gBattlerAttacker);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_AttackerCuteCharmActivates;//need test
                     ++effect;
                 }
                 break;

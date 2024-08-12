@@ -289,6 +289,7 @@ extern const u8 BattleScript_RoughSkinActivates[];
 extern const u8 BattleScript_HurtAttacker[];
 extern const u8 BattleScript_AttackerRemoveType[];
 extern const u8 BattleScript_CuteCharmActivates[];
+extern const u8 BattleScript_AttackerCuteCharmActivates[];
 extern const u8 BattleScript_CupidsArrowActivates[];
 extern const u8 BattleScript_CupidsArrowActivatesBoth[];
 extern const u8 BattleScript_ApplySecondaryEffect[];
