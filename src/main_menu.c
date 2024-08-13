@@ -647,15 +647,12 @@ static void PrintDexCount(void) //vsonic save screen num mon, I think
 {
     u8 strbuf[30];
     u8 *ptr;
-    u16 dexcount;
+    u16 dexcount = IsNationalPokedexEnabled() ? GetNationalPokedexCount(FLAG_GET_CAUGHT) : GetKantoPokedexCount(FLAG_GET_CAUGHT);
+    u8 MaxDigits = dexcount <= 999 ? 3 : 4;
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
     {
-        if (IsNationalPokedexEnabled())
-            dexcount = GetNationalPokedexCount(FLAG_GET_CAUGHT); //changing to give nat dex at stat so will make above always true, already replaced natdex checks in scripts
-        else
-            dexcount = GetKantoPokedexCount(FLAG_GET_CAUGHT);
         AddTextPrinterParameterized3(MAIN_MENU_WINDOW_CONTINUE, 2, 2, 50, sTextColor2, -1, gText_Pokedex);
-        ptr = ConvertIntToDecimalStringN(strbuf, dexcount, STR_CONV_MODE_LEFT_ALIGN, 3);
+        ptr = ConvertIntToDecimalStringN(strbuf, dexcount, STR_CONV_MODE_LEFT_ALIGN, MaxDigits);
         StringAppend(ptr, gTextJPDummy_Hiki);
         AddTextPrinterParameterized3(MAIN_MENU_WINDOW_CONTINUE, 2, 62, 50, sTextColor2, -1, strbuf);
     }

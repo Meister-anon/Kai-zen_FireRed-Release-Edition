@@ -1537,7 +1537,7 @@ static void Task_InputHandler_Info(u8 taskId)
                
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
-            }*/ //for now turn off until can get to work
+            }*/ //for now turn off until can get to work /what did was turn off pc access fo feature to access mon info/stat spread and evo info from pc
         }
         break;
     case PSS_STATE3270_3:
@@ -2432,6 +2432,7 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
     u16 heldItem;
     u32 otId;
     u16 species,baseSpecies;
+    u8 MaxDigits;
 
     species = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES);
 
@@ -2441,11 +2442,12 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
         baseSpecies = species;
 
     dexNum = SpeciesToPokedexNum(baseSpecies); //should ensure dex spescies match summ spsecies num
+    MaxDigits = dexNum <= 999 ? 3 : 4;
 
     if (dexNum == 0xffff)
         StringCopy(sMonSummaryScreen->summary.dexNumStrBuf, gUnknown_8416202);
     else
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.dexNumStrBuf, dexNum, STR_CONV_MODE_LEADING_ZEROS, 3);
+        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.dexNumStrBuf, dexNum, STR_CONV_MODE_LEADING_ZEROS, MaxDigits);
 
     sMonSkillsPrinterXpos->unk00 = 0;
 

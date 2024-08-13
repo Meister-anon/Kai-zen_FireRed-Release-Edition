@@ -770,9 +770,9 @@ static const struct PokedexScreenWindowGfx sTopMenuSelectionIconGfxPtrs[] = {
 //main window for list effects numerical & search modes
 static const struct WindowTemplate sWindowTemplate_OrderedListMenu = {
     .bg = 1,
-    .tilemapLeft = 2,
+    .tilemapLeft = 0,
     .tilemapTop = 2,
-    .width = 27,
+    .width = 37,
     .height = 16,
     .paletteNum = 0,
     .baseBlock = 0x0008
@@ -786,8 +786,8 @@ static const struct ListMenuTemplate sListMenuTemplate_OrderedListMenu = {
     .maxShowed = 9, //ok THIS is actually for the dex list page
     .windowId = 0,
     .header_X = 0,
-    .item_X = 56,
-    .cursor_X = 4,
+    .item_X = 65,   //think may be x valuye of index/label? lower number moves index string left, higher moves right, keep in line w changes to species name window
+    .cursor_X = 6, //believe to be arrow?
     .upText_Y = 2,
     .cursorPal = 1,
     .fillValue = 0,
@@ -810,30 +810,32 @@ enum {
 //used for all the list views in the menus, numerical order & all the search filters. eaech is a separate window  
 //believe its the window the values sit in, not the main window as changnig x value doesn't seem to move values,
 //just move the space they sit on?
+//these are windows can't change without moving actual values?
+
 static const struct ListMenuWindowRect sListMenuRects_OrderedList[] = {
     [LIST_MENU_CURSOR_DEXNUM] = {
         .x = 0,
         .y = 0,
-        .width = 5,
+        .width = 6,
         .height = 16,
         .palNum = 0
     },
     [LIST_MENU_MONCAUGHT_ICON] = {
-        .x = 5,
+        .x = 6,
         .y = 0,
         .width = 2,
         .height = 16,
         .palNum = 1
     },
     [LIST_MENU_SPECIES_NAME] = {
-        .x = 7,
+        .x = 8,
         .y = 0,
         .width = 9,
         .height = 16,
         .palNum = 0
     },
     [LIST_MENU_TYPE_ICONS] = {
-        .x = 16,
+        .x = 18,
         .y = 0,
         .width = 10,
         .height = 16,
@@ -1239,6 +1241,10 @@ void DexScreen_LoadResources(void) //look into equiv emerald function, may be wh
     *sPokedexScreenData = sDexScreenDataInitialState;
     sPokedexScreenData->taskId = taskId; //without below value graphic gets broken - FOR SOME reason below buffer no longer works? the graphic breaks as I scroll, idk what changed it or what value is needed now
     //...huh...using actual species count fixed it, 907 is species fraejta
+    //not sure why am having issues, used base species count but was still able to display
+    //form mon since wasn't actually creating new index for those,
+    //base species count/species count sould be fine just covering all species indexes that get displayed
+    //but the page isn't loading...
     sPokedexScreenData->listItems = Alloc(BASE_SPECIES_COUNT * sizeof(struct ListMenuItem)); //AsparagusEduardo from rhh mentnioed this could be problamatic
     sPokedexScreenData->numSeenNational = DexScreen_GetDexCount(FLAG_GET_SEEN, 1);  //need look into how ee (actualy basic emerald logic) does the dex it loads in pieces
     sPokedexScreenData->numOwnedNational = DexScreen_GetDexCount(FLAG_GET_CAUGHT, 1);//rather than all at once, which is what I had in mind
@@ -1501,15 +1507,20 @@ static void DexScreen_InitGfxForTopMenu(void)
         sPokedexScreenData->modeSelectListMenuId = ListMenuInit(&listMenuTemplate, sPokedexScreenData->modeSelectCursorPos, sPokedexScreenData->modeSelectItemsAbove);
         FillWindowPixelBuffer(sPokedexScreenData->dexCountsWindowId, PIXEL_FILL(0)); //ok this sets cursor pos, which is passed in the other function,
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Seen, 0, 2, 0); //is where menu starts i.e what value it opens on
-        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Kanto, 8, 13, 0); //i.e the row, I think itemsabove, shows 
-        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numSeenKanto, 52, 13, 2);//how many items in lilst to put above teh selection
-        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_National, 8, 24, 0);//if zero you are at top of list?
-        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numSeenNational, 52, 24, 2);//seems no? cant tell what items above does here
+        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Kanto, 4, 13, 0); //i.e the row, I think itemsabove, shows 
+        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numSeenKanto, 46, 13, 2);//how many items in lilst to put above teh selection
+
+        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_National, 4, 24, 0);//if zero you are at top of list?
+
+        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numSeenNational, 46, 24, 2);//seems no? cant tell what items above does here
+        
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Owned, 0, 37, 0);//items above seems work same but at value of n-1
-        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Kanto, 8, 48, 0); //if select 2 it will sart you 1 value lower?
-        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numOwnedKanto, 52, 48, 2);//ok I understand the effect now but not the purpose
-        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_National, 8, 59, 0);
-        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numOwnedNational, 52, 59, 2);
+        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Kanto, 4, 48, 0); //if select 2 it will sart you 1 value lower?
+        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numOwnedKanto, 46, 48, 2);//ok I understand the effect now but not the purpose
+
+        DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_National, 4, 59, 0);
+
+        DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 0, sPokedexScreenData->numOwnedNational, 46, 59, 2);
     }
     else
     {
@@ -1927,14 +1938,16 @@ static void ItemPrintFunc_OrderedListMenu(u8 windowId, s32 itemId, u8 y)
     bool8 seen = (itemId_ >> 16) & 1;  // not used but required to match
     bool8 caught = (itemId_ >> 17) & 1;
     u8 type1;
-    DexScreen_PrintMonDexNo(sPokedexScreenData->numericalOrderWindowId, FONT_SMALL, species, 12, y);
+    u8 x = 14; //total graphic shift x -4. pokeball + 2, so sub 2
+    u8 Type_xValue = 148;
+    DexScreen_PrintMonDexNo(sPokedexScreenData->numericalOrderWindowId, FONT_SMALL, species, x, y); //x was 12
     if (caught)
     {
-        BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, MENU_INFO_ICON_CAUGHT, 0x28, y); //pokeball icon
+        BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, MENU_INFO_ICON_CAUGHT, x + 33, y); //pokeball icon //x was 40
         type1 = gBaseStats[species].type1;
-        BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, type1 + 1, 0x84, y); //4bpp 32 width between these 2 type icons
+        BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, type1 + 1, Type_xValue, y); //4bpp 32 width between these 2 type icons
         if (type1 != gBaseStats[species].type2)
-            BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, gBaseStats[species].type2 + 1, 0xA8, y);
+            BlitMoveInfoIcon(sPokedexScreenData->numericalOrderWindowId, gBaseStats[species].type2 + 1, Type_xValue + 36, y);
     }
 }
 
@@ -3782,32 +3795,64 @@ static void DexScreen_AddTextPrinterParameterized(u8 windowId, u8 fontId, const 
     //AddTextPrinterParameterized4(windowId, fontId, x, y, fontId == FONT_SMALL ? 0 : 1, 0, textColor, -1, str);
 }
 
+static void DexScreen_DexNumAddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 *str, u8 x, u8 y, u8 colorIdx)
+{
+    u8 textColor[3];
+    switch (colorIdx)
+    {
+    case 0:
+        textColor[0] = 0;
+        textColor[1] = 1;
+        textColor[2] = 3;
+        break;
+    case 1:
+        textColor[0] = 0;
+        textColor[1] = 5;
+        textColor[2] = 1;
+        break;
+    case 2:
+        textColor[0] = 0;
+        textColor[1] = 15;
+        textColor[2] = 14;
+        break;
+    case 3:
+        textColor[0] = 0;
+        textColor[1] = 11;
+        textColor[2] = 1;
+        break;
+    case 4:
+        textColor[0] = 0;
+        textColor[1] = 1;
+        textColor[2] = 2;
+        break;
+    }
+    AddTextPrinterParameterized4(windowId, fontId, x, y, 1, 0, textColor, -1, str);
+    //AddTextPrinterParameterized4(windowId, fontId, x, y, fontId == FONT_SMALL ? 0 : 1, 0, textColor, -1, str);
+}
+
+//used only in this functinon so can make alternate logic/potentially rename
 static void DexScreen_PrintNum3LeadingZeroes(u8 windowId, u8 fontId, u16 num, u8 x, u8 y, u8 colorIdx)
 {
-    u8 buff[4];
-    buff[0] = (num / 100) + CHAR_0;
-    buff[1] = ((num %= 100) / 10) + CHAR_0;
-    buff[2] = (num % 10) + CHAR_0;
-    buff[3] = EOS;
+
+    u8 buff[5];
+    u8 MaxDigits = num <= 999 ? 3 : 4;
+    
+    ConvertIntToDecimalStringN(buff, num, STR_CONV_MODE_LEADING_ZEROS, MaxDigits);
+
     DexScreen_AddTextPrinterParameterized(windowId, fontId, buff, x, y, colorIdx);
 }
 
 static void DexScreen_PrintNum3RightAlign(u8 windowId, u8 fontId, u16 num, u8 x, u8 y, u8 colorIdx)
 {
-    u8 buff[4];
-    int i;
-    buff[0] = (num / 100) + CHAR_0;
-    buff[1] = ((num %= 100) / 10) + CHAR_0;
-    buff[2] = (num % 10) + CHAR_0;
-    buff[3] = EOS;
-    for (i = 0; i < 3; i++)
-    {
-        if (buff[i] != CHAR_0)
-            break;
-        buff[i] = CHAR_SPACE;
-    }
-    DexScreen_AddTextPrinterParameterized(windowId, fontId, buff, x, y, colorIdx);
-}
+    u8 buff[5];
+    u8 MaxDigits = num <= 999 ? 3 : 4;
+    
+    ConvertIntToDecimalStringN(buff, num, STR_CONV_MODE_RIGHT_ALIGN, MaxDigits); //surprsingly works
+    if (MaxDigits == 3)
+        DexScreen_AddTextPrinterParameterized(windowId, fontId, buff, x, y, colorIdx);
+    else
+        DexScreen_DexNumAddTextPrinterParameterized(windowId, fontId, buff, x, y, colorIdx);
+}//works w this, keeps default spacing until hits 4 digits and actually needs it for readability
 
 static u32 DexScreen_GetDefaultPersonality(int species)
 {
@@ -3837,9 +3882,9 @@ static void DexScreen_PrintMonDexNo(u8 windowId, u8 fontId, u16 species, u8 x, u
         if (species > NATIONAL_SPECIES_COUNT)
             species = GetFormSpeciesId(species, 0); //returns base form species, and num, w/o changing dexspecis
     dexNum = SpeciesToNationalPokedexNum(species);
-    DexScreen_AddTextPrinterParameterized(windowId, fontId, gText_PokedexNo, x, y, 0);
-    DexScreen_PrintNum3LeadingZeroes(windowId, fontId, dexNum, x + 9, y, 0);
-}
+    DexScreen_AddTextPrinterParameterized(windowId, fontId, gText_PokedexNo, x, y, 0);//NO symbol
+    DexScreen_PrintNum3LeadingZeroes(windowId, fontId, dexNum, x + 9, y, 0);//actual space/ammount of numbers
+}//3 appears to refer to number of zeroes, not function number  //is num for dex page
 
 s8 DexScreen_GetSetPokedexFlag(u16 nationalDexNo, u8 caseId, bool8 indexIsSpecies)
 {
