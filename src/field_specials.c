@@ -1718,7 +1718,7 @@ const u16 sEeveelutionGrassStarter[] =
 {
     SPECIES_FLAREON,
     SPECIES_GLACEON,
-    SPECIES_CEFIREON
+    //SPECIES_CEFIREON
 };
 
 const u16 sEeveelutionWaterStarter[] =

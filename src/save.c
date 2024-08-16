@@ -81,7 +81,7 @@ struct //must match order of constants in save.h
     SAVEBLOCK_CHUNK(struct PokemonStorage, 15),
     SAVEBLOCK_CHUNK(struct PokemonStorage, 16), 
     SAVEBLOCK_CHUNK(struct PokemonStorage, 17),
-    SAVEBLOCK_CHUNK(struct PokemonStorage, 18),//can't go above 16, actually thnink 17 barely fits breaks u16?// SECTOR_ID_PKMN_STORAGE_END
+    SAVEBLOCK_CHUNK(struct PokemonStorage, 18),// SECTOR_ID_PKMN_STORAGE_END
 };
 
 // These will produce an error if a save struct is larger than the space

@@ -1046,7 +1046,7 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_NIDORAN_F] =
     {
-        .speciesName = _("Nidoran"),
+        .speciesName = _("Nidoran♀"),
  
            //hp, atk, def, spd, spatk, spdef
          STATS(55, 47, 52, 41, 40, 50),
@@ -1130,7 +1130,7 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_NIDORAN_M] =
     {
-        .speciesName = _("Nidoran"),
+        .speciesName = _("Nidoran♂"),
  
            //hp, atk, def, spd, spatk, spdef
          STATS(46, 57, 40, 50, 40, 50),

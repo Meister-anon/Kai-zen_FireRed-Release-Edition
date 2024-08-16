@@ -1702,6 +1702,9 @@
 #define COSMETIC_FORMS_END  SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL + 1
 //add vivilon other cosmetics here
 
+#define SPECIES_CEFIREON COSMETIC_FORMS_END + 1
+#define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
+//move back to end of base spescies when done w fixes
 
 /*since gender form array only has 5 values
   can't use [SPECIES_NAME] = value,
@@ -2807,6 +2810,13 @@
 //this appears to be part of problem, setting
 //setting back to enamorus for nat species count fixed it
 
+
+
+//ok using dex load value I used to before change i.e 907 
+//wnational_species_Count 905 i.e old values still works.
+//not sure why
+
+
 #define NATIONAL_DEX_VENUSAUR_MEGA                NATIONAL_SPECIES_COUNT + 1
 #define NATIONAL_DEX_CHARIZARD_MEGA_X             NATIONAL_SPECIES_COUNT + 2
 #define NATIONAL_DEX_CHARIZARD_MEGA_Y             NATIONAL_SPECIES_COUNT + 3
@@ -3003,6 +3013,7 @@
 //#define NATIONAL_SPECIES_COUNT NATIONAL_DEX_CALYREX
 
 #define NATIONAL_DEX_COUNT NATIONAL_DEX_TERAPAGOS_STELLAR
+
 //#define POKEMON_SLOTS_NUMBER (NATIONAL_DEX_COUNT + 1) //outdated value already replaced in my hack
 //important remember I plan to have forms accessible from main species dex page just be able to tab over to see other form
 //should be able to include them without having to include them in national dex count 
