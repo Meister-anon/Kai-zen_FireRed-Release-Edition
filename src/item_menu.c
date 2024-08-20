@@ -472,7 +472,7 @@ static bool8 LoadBagMenuGraphics(void)
         break;
     case 14:
         taskId = CreateBagInputHandlerTask(gBagMenuState.location);
-        gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+        gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
         gTasks[taskId].data[3] = 0;
         gTasks[taskId].data[8] = 0;
         gMain.state++;
@@ -1073,7 +1073,7 @@ static void Task_BagMenu_HandleInput(u8 taskId)
         }
         break;
     }
-    input = ListMenu_ProcessInput(data[0]);
+    input = ListMenu_ProcessInput(data[0], DEFAULT_MODE); //cap in bag already eworks so believe can safely use default?
     ListMenuGetScrollAndRow(data[0], &gBagMenuState.cursorPos[gBagMenuState.pocket], &gBagMenuState.itemsAbove[gBagMenuState.pocket]);
     switch (input)
     {
@@ -1207,7 +1207,7 @@ static void Task_AnimateSwitchPockets(u8 taskId)
         gBagMenuState.pocket += data[11];
         PrintBagPocketName();
         Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
         PutWindowTilemap(1);
         PutWindowTilemap(2);
         ScheduleBgCopyTilemapToVram(0);
@@ -1246,7 +1246,7 @@ static void Task_MoveItemInPocket_HandleInput(u8 taskId)
     u16 cursorPos;
     if (MenuHelpers_CallLinkSomething() == TRUE)
         return;
-    input = ListMenu_ProcessInput(data[0]);
+    input = ListMenu_ProcessInput(data[0], DEFAULT_MODE);
     ListMenuGetScrollAndRow(data[0], &gBagMenuState.cursorPos[gBagMenuState.pocket], &gBagMenuState.itemsAbove[gBagMenuState.pocket]);
     ItemMenuIcons_MoveInsertIndicatorBar(0, ListMenuGetYCoordForPrintingArrowCursor(data[0]));
     if (JOY_NEW(SELECT_BUTTON))
@@ -1289,7 +1289,7 @@ static void ExecuteMoveItemInPocket(u8 taskId, u32 itemIndex)
         if (data[1] < itemIndex)
             gBagMenuState.itemsAbove[gBagMenuState.pocket]--;
         Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
         ItemMenuIcons_ToggleInsertIndicatorBarVisibility(TRUE);
         CreatePocketSwitchArrowPair();
         gTasks[taskId].func = Task_BagMenu_HandleInput;
@@ -1303,7 +1303,7 @@ static void AbortMovingItemInPocket(u8 taskId, u32 itemIndex)
     if (data[1] < itemIndex)
         gBagMenuState.itemsAbove[gBagMenuState.pocket]--;
     Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
     ItemMenuIcons_ToggleInsertIndicatorBarVisibility(TRUE);
     CreatePocketSwitchArrowPair();
     gTasks[taskId].func = Task_BagMenu_HandleInput;
@@ -1576,7 +1576,7 @@ static void Task_WaitAB_RedrawAndReturnToBag(u8 taskId)
         Pocket_CalculateNItemsAndMaxShowed(gBagMenuState.pocket);
         PocketCalculateInitialCursorPosAndItemsAbove(gBagMenuState.pocket);
         Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
         PutWindowTilemap(1);
         ScheduleBgCopyTilemapToVram(0);
         bag_menu_print_cursor_(data[0], 1);
@@ -1596,7 +1596,7 @@ static void Task_ItemMenuAction_ToggleSelect(u8 taskId)
 
     DestroyListMenuTask(data[0], &gBagMenuState.cursorPos[gBagMenuState.pocket], &gBagMenuState.itemsAbove[gBagMenuState.pocket]);
     Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
     CopyWindowToVram(0, COPYWIN_MAP);
     Task_ItemMenuAction_Cancel(taskId);
 }
@@ -1657,7 +1657,7 @@ void Task_ReturnToBagFromContextMenu(u8 taskId)
     Pocket_CalculateNItemsAndMaxShowed(gBagMenuState.pocket);
     PocketCalculateInitialCursorPosAndItemsAbove(gBagMenuState.pocket);
     Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
     ScheduleBgCopyTilemapToVram(0);
     bag_menu_print_cursor_(data[0], 1);
     Task_RedrawArrowsAndReturnToBagMenuSelect(taskId);
@@ -1941,7 +1941,7 @@ static void Task_FinalizeSaleToShop(u8 taskId)
     PocketCalculateInitialCursorPosAndItemsAbove(gBagMenuState.pocket);
     sBagMenuDisplay->inhibitItemDescriptionPrint = TRUE;
     Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
     bag_menu_print_cursor_(data[0], 2);
     BagDrawTextBoxOnWindow(GetBagWindow(2));
     PrintMoneyAmountInMoneyBox(GetBagWindow(2), GetMoney(&gSaveBlock1Ptr->money), 0);
@@ -2240,7 +2240,7 @@ static void Task_Bag_TeachyTvRegister(u8 taskId)
             PutWindowTilemap(1);
             DestroyListMenuTask(data[0], &gBagMenuState.cursorPos[gBagMenuState.pocket], &gBagMenuState.itemsAbove[gBagMenuState.pocket]);
             Bag_BuildListMenuTemplate(gBagMenuState.pocket);
-            data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket]);
+            data[0] = ListMenuInit(&gMultiuseListMenuTemplate, gBagMenuState.cursorPos[gBagMenuState.pocket], gBagMenuState.itemsAbove[gBagMenuState.pocket], DEFAULT_MODE);
             Bag_FillMessageBoxWithPalette(0);
             bag_menu_print_cursor_(data[0], 1);
             CopyWindowToVram(0, COPYWIN_MAP);
@@ -2249,7 +2249,7 @@ static void Task_Bag_TeachyTvRegister(u8 taskId)
         case 612:
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_DOWN;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
             break;
         case 714:
             PlaySE(SE_SELECT);
@@ -2285,13 +2285,13 @@ static void Task_Bag_TeachyTvCatching(u8 taskId)
         case 408:
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_DOWN;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
             break;
         case 510:
         case 612:
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_UP;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
             break;
         case 714:
             PlaySE(SE_SELECT);
@@ -2333,7 +2333,7 @@ static void Task_Bag_TeachyTvStatus(u8 taskId)
         case 102:
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_DOWN;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
             break;
         case 204:
             PlaySE(SE_SELECT);
@@ -2374,7 +2374,7 @@ static void Task_Bag_TeachyTvTMs(u8 taskId)
         case 204:
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_DOWN;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
             break;
         case 306:
             PlaySE(SE_SELECT);

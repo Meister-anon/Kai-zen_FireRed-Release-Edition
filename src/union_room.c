@@ -776,7 +776,7 @@ static void Task_TryBecomeLinkLeader(u8 taskId)
         DrawStdWindowFrame(data->listWindowId, FALSE);
         gMultiuseListMenuTemplate = sListMenuTemplate_PossibleGroupMembers;
         gMultiuseListMenuTemplate.windowId = data->listWindowId;
-        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
 
         DrawStdWindowFrame(data->nPlayerModeWindowId, FALSE);
         PutWindowTilemap(data->nPlayerModeWindowId);
@@ -1318,7 +1318,7 @@ static void Task_TryJoinLinkGroup(u8 taskId)
         DrawStdWindowFrame(data->listWindowId, FALSE);
         gMultiuseListMenuTemplate = sListMenuTemplate_UnionRoomGroups;
         gMultiuseListMenuTemplate.windowId = data->listWindowId;
-        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
 
         DrawStdWindowFrame(data->playerNameAndIdWindowId, FALSE);
         PutWindowTilemap(data->playerNameAndIdWindowId);
@@ -1338,7 +1338,7 @@ static void Task_TryJoinLinkGroup(u8 taskId)
             RedrawListMenu(data->listTaskId);
             break;
         case 0:
-            id = ListMenu_ProcessInput(data->listTaskId);
+            id = ListMenu_ProcessInput(data->listTaskId, DEFAULT_MODE);
             if (JOY_NEW(A_BUTTON) && id != -1)
             {
                 // this unused variable along with the assignment is needed to match
@@ -2103,7 +2103,7 @@ static void Task_MEvent_Leader(u8 taskId)
         MG_DrawTextBorder(data->listWindowId);
         gMultiuseListMenuTemplate = sListMenuTemplate_PossibleGroupMembers;
         gMultiuseListMenuTemplate.windowId = data->listWindowId;
-        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
 
         CopyBgTilemapBufferToVram(0);
         data->playerCount = 1;
@@ -2311,7 +2311,7 @@ static void Task_CardOrNewsWithFriend(u8 taskId)
         MG_DrawTextBorder(data->listWindowId);
         gMultiuseListMenuTemplate = sListMenuTemplate_UnionRoomGroups;
         gMultiuseListMenuTemplate.windowId = data->listWindowId;
-        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
 
         MG_DrawTextBorder(data->playerNameAndIdWindowId);
         FillWindowPixelBuffer(data->playerNameAndIdWindowId, PIXEL_FILL(1));
@@ -2333,7 +2333,7 @@ static void Task_CardOrNewsWithFriend(u8 taskId)
             RedrawListMenu(data->listTaskId);
             break;
         case 0:
-            id = ListMenu_ProcessInput(data->listTaskId);
+            id = ListMenu_ProcessInput(data->listTaskId, DEFAULT_MODE);
             if (JOY_NEW(A_BUTTON) && id != -1)
             {
                 // this unused variable along with the assignment is needed to match
@@ -2477,7 +2477,7 @@ static void Task_CardOrNewsOverWireless(u8 taskId)
             MG_DrawTextBorder(data->listWindowId);
             gMultiuseListMenuTemplate = sListMenuTemplate_UnionRoomGroups;
             gMultiuseListMenuTemplate.windowId = data->listWindowId;
-            data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+            data->listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
 
             CopyBgTilemapBufferToVram(0);
         }
@@ -2497,7 +2497,7 @@ static void Task_CardOrNewsOverWireless(u8 taskId)
             break;
         case 0:
             if (data->field_13 != 0)
-                id = ListMenu_ProcessInput(data->listTaskId);
+                id = ListMenu_ProcessInput(data->listTaskId, DEFAULT_MODE);
             if (data->refreshTimer > 120)
             {
                 if (data->field_0->arr[0].groupScheduledAnim == UNION_ROOM_SPAWN_IN && !data->field_0->arr[0].gname_uname.gname.started)
@@ -3891,12 +3891,12 @@ static s32 ListMenuHandler_AllItemsAvailable(u8 *state_p, u8 *win_id_p, u8 *list
         DrawStdWindowFrame(*win_id_p, FALSE);
         gMultiuseListMenuTemplate = *menuTemplate;
         gMultiuseListMenuTemplate.windowId = *win_id_p;
-        *list_menu_id_p = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        *list_menu_id_p = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
         CopyWindowToVram(*win_id_p, TRUE);
         (*state_p)++;
         break;
     case 1:
-        input = ListMenu_ProcessInput(*list_menu_id_p);
+        input = ListMenu_ProcessInput(*list_menu_id_p, DEFAULT_MODE);
         if (JOY_NEW(A_BUTTON))
         {
             DestroyListMenuTask(*list_menu_id_p, NULL, NULL);
@@ -3932,12 +3932,12 @@ static s32 TradeBoardMenuHandler(u8 *state_p, u8 *win_id_p, u8 *list_menu_id_p, 
         DrawStdWindowFrame(*win_id_p, FALSE);
         gMultiuseListMenuTemplate = *menuTemplate;
         gMultiuseListMenuTemplate.windowId = *win_id_p;
-        *list_menu_id_p = ListMenuInit(&gMultiuseListMenuTemplate, 0, 1);
+        *list_menu_id_p = ListMenuInit(&gMultiuseListMenuTemplate, 0, 1, DEFAULT_MODE);
         CopyWindowToVram(*win_id_p, TRUE);
         (*state_p)++;
         break;
     case 1:
-        input = ListMenu_ProcessInput(*list_menu_id_p);
+        input = ListMenu_ProcessInput(*list_menu_id_p, DEFAULT_MODE);
         if (JOY_NEW(A_BUTTON | B_BUTTON))
         {
             if (input == UROOM_MAX_GROUP_COUNT || JOY_NEW(B_BUTTON))

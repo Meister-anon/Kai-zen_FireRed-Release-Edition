@@ -783,7 +783,7 @@ void CB2_BattleDebugMenu(void)
 
         gMultiuseListMenuTemplate = sMainListTemplate;
         gMultiuseListMenuTemplate.windowId = data->mainListWindowId;
-        data->mainListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        data->mainListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
 
         data->currentMainListItemId = 0;
         data->activeWindow = ACTIVE_WIN_MAIN;
@@ -847,7 +847,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
     // A main list item is active, handle input.
     if (data->activeWindow == ACTIVE_WIN_MAIN)
     {
-        listItemId = ListMenu_ProcessInput(data->mainListTaskId);
+        listItemId = ListMenu_ProcessInput(data->mainListTaskId, DEFAULT_MODE);
         if (listItemId != LIST_CANCEL && listItemId != LIST_NOTHING_CHOSEN && listItemId < LIST_ITEM_COUNT)
         {
             data->currentMainListItemId = listItemId;
@@ -861,7 +861,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
     // Secondary list is active, handle input.
     else if (data->activeWindow == ACTIVE_WIN_SECONDARY)
     {
-        listItemId = ListMenu_ProcessInput(data->secondaryListTaskId);
+        listItemId = ListMenu_ProcessInput(data->secondaryListTaskId, DEFAULT_MODE);
         if (listItemId == LIST_CANCEL) //bpress
         {
             DestroyListMenuTask(data->secondaryListTaskId, NULL, NULL);
@@ -1061,7 +1061,7 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
         listTemplate.maxShowed = 7;
     listTemplate.windowId = data->secondaryListWindowId;
 
-    data->secondaryListTaskId = ListMenuInit(&listTemplate, 0, 0);
+    data->secondaryListTaskId = ListMenuInit(&listTemplate, 0, 0, DEFAULT_MODE);
     CopyWindowToVram(data->secondaryListWindowId, COPYWIN_BOTH);
 }
 

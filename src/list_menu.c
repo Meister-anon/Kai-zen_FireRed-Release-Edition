@@ -65,18 +65,12 @@ static EWRAM_DATA struct MysteryGiftLinkMenuStruct sMysteryGiftLinkMenu = {0};
 struct ListMenuOverride gListMenuOverride;
 struct ListMenuTemplate gMultiuseListMenuTemplate;
 
-static u8 ListMenuInitInternal(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove);
-//static bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);
-static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count);
+static u8 ListMenuInitInternal(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove, u8 listMode);
+static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count, u8 listMode);
 static void ListMenuDrawCursor(struct ListMenu *list);
 static void ListMenuCallSelectionChangedCallback(struct ListMenu *list, u8 onInit);
 static u8 ListMenuAddCursorObject(struct ListMenu *list, u32 cursorKind);
 
-//new dex equivalents
-/*static void DexListMenuCallSelectionChangedCallback(struct ListMenu *list, u8 onInit);
-static u8 DexListMenuInitInternal(const struct DexListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove);
-static void DexListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count);
-static void DexListMenuDrawCursor(struct ListMenu *list);*/
 
 //struct values written as width, height, offset (offset is location on chart)
 //use chart as refernce, each row is 4 icons across, width is 32, divide that by 8 and its 4.
@@ -142,12 +136,12 @@ u32 DoMysteryGiftListMenu(const struct WindowTemplate *windowTemplate, const str
         }
         gMultiuseListMenuTemplate = *listMenuTemplate;
         gMultiuseListMenuTemplate.windowId = sMysteryGiftLinkMenu.windowId;
-        sMysteryGiftLinkMenu.listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        sMysteryGiftLinkMenu.listTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
         CopyWindowToVram(sMysteryGiftLinkMenu.windowId, COPYWIN_MAP);
         sMysteryGiftLinkMenu.state = 1;
         break;
     case 1:
-        sMysteryGiftLinkMenu.currItemId = ListMenu_ProcessInput(sMysteryGiftLinkMenu.listTaskId);
+        sMysteryGiftLinkMenu.currItemId = ListMenu_ProcessInput(sMysteryGiftLinkMenu.listTaskId, DEFAULT_MODE);
         if (JOY_NEW(A_BUTTON))
         {
             sMysteryGiftLinkMenu.state = 2;
@@ -188,37 +182,18 @@ u32 DoMysteryGiftListMenu(const struct WindowTemplate *windowTemplate, const str
     return LIST_NOTHING_CHOSEN;
 }
 
-/*u8 DexListMenuInit(const struct DexListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove)
+u8 ListMenuInit(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove, u8 listMode)
 {
-    u8 taskId = DexListMenuInitInternal(listMenuTemplate, cursorPos, itemsAbove);
-    PutWindowTilemap(listMenuTemplate->windowId);
-    CopyWindowToVram(listMenuTemplate->windowId, COPYWIN_GFX);
-    return taskId;
-}*/
-
-u8 ListMenuInit(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove)
-{
-    u8 taskId = ListMenuInitInternal(listMenuTemplate, cursorPos, itemsAbove);
+    u8 taskId = ListMenuInitInternal(listMenuTemplate, cursorPos, itemsAbove, listMode);
     PutWindowTilemap(listMenuTemplate->windowId);
     CopyWindowToVram(listMenuTemplate->windowId, COPYWIN_GFX);
     return taskId;
 }
 
-/*u8 DexListMenuInitInRect(const struct DexListMenuTemplate *listMenuTemplate, const struct ListMenuWindowRect *rect, u16 cursorPos, u16 itemsAbove)
+u8 ListMenuInitInRect(const struct ListMenuTemplate *listMenuTemplate, const struct ListMenuWindowRect *rect, u16 cursorPos, u16 itemsAbove, u8 listMode)
 {
     s32 i;
-    u8 taskId = DexListMenuInitInternal(listMenuTemplate, cursorPos, itemsAbove);
-    
-    for (i = 0; rect[i].palNum != 0xFF; i++)
-        PutWindowRectTilemapOverridePalette(listMenuTemplate->windowId, rect[i].x, rect[i].y, rect[i].width, rect[i].height, rect[i].palNum);
-    CopyWindowToVram(listMenuTemplate->windowId, COPYWIN_GFX);
-    return taskId;
-}*/
-
-u8 ListMenuInitInRect(const struct ListMenuTemplate *listMenuTemplate, const struct ListMenuWindowRect *rect, u16 cursorPos, u16 itemsAbove)
-{
-    s32 i;
-    u8 taskId = ListMenuInitInternal(listMenuTemplate, cursorPos, itemsAbove);
+    u8 taskId = ListMenuInitInternal(listMenuTemplate, cursorPos, itemsAbove, listMode);
     
     for (i = 0; rect[i].palNum != 0xFF; i++)
         PutWindowRectTilemapOverridePalette(listMenuTemplate->windowId, rect[i].x, rect[i].y, rect[i].width, rect[i].height, rect[i].palNum);
@@ -226,7 +201,7 @@ u8 ListMenuInitInRect(const struct ListMenuTemplate *listMenuTemplate, const str
     return taskId;
 }
 
-s32 ListMenu_ProcessInput(u8 listTaskId)
+s32 ListMenu_ProcessInput(u8 listTaskId, u8 listMode)
 {
     struct ListMenu *list = (struct ListMenu *)gTasks[listTaskId].data;
 
@@ -240,12 +215,12 @@ s32 ListMenu_ProcessInput(u8 listTaskId)
     }
     else if (gMain.newAndRepeatedKeys & DPAD_UP)
     {
-        ListMenuChangeSelection(list, TRUE, 1, FALSE);
+        ListMenuChangeSelection(list, TRUE, 1, FALSE, listMode);
         return LIST_NOTHING_CHOSEN;
     }
     else if (gMain.newAndRepeatedKeys & DPAD_DOWN)
     {
-        ListMenuChangeSelection(list, TRUE, 1, TRUE);
+        ListMenuChangeSelection(list, TRUE, 1, TRUE, listMode);
         return LIST_NOTHING_CHOSEN;
     }
     else // try to move by one window scroll
@@ -269,12 +244,12 @@ s32 ListMenu_ProcessInput(u8 listTaskId)
         }
         if (leftButton)
         {
-            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE);
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE, listMode);
             return LIST_NOTHING_CHOSEN;
         }
         else if (rightButton)
         {
-            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, TRUE);
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, TRUE, listMode);
             return LIST_NOTHING_CHOSEN;
         }
         else
@@ -304,7 +279,7 @@ void RedrawListMenu(u8 listTaskId)
     struct ListMenu *list = (struct ListMenu *)gTasks[listTaskId].data;
 
     FillWindowPixelBuffer(list->template.windowId, PIXEL_FILL(list->template.fillValue));
-    ListMenuPrintEntries(list, list->cursorPos, 0, list->template.maxShowed);
+    ListMenuPrintEntries(list, list->cursorPos, 0, list->template.maxShowed, DEFAULT_MODE); //appears only used in union room so believe can safely just sub 0
     ListMenuDrawCursor(list);
     CopyWindowToVram(list->template.windowId, COPYWIN_GFX);
 }
@@ -326,6 +301,7 @@ static void ChangeListMenuCoords(u8 listTaskId, u8 x, u8 y)
     SetWindowAttribute(list->template.windowId, WINDOW_TILEMAP_TOP, y);
 }
 
+//unused
 static s32 ListMenuTestInput(struct ListMenuTemplate *template, u32 cursorPos, u32 itemsAbove, u16 keys, u16 *newCursorPos, u16 *newItemsAbove)
 {
     struct ListMenu list;
@@ -336,9 +312,9 @@ static s32 ListMenuTestInput(struct ListMenuTemplate *template, u32 cursorPos, u
     list.unk_1C = 0;
     list.unk_1D = 0;
     if (keys == DPAD_UP)
-        ListMenuChangeSelection(&list, FALSE, 1, FALSE);
+        ListMenuChangeSelection(&list, FALSE, 1, FALSE, DEFAULT_MODE);
     if (keys == DPAD_DOWN)
-        ListMenuChangeSelection(&list, FALSE, 1, TRUE);
+        ListMenuChangeSelection(&list, FALSE, 1, TRUE, DEFAULT_MODE);
 
     if (newCursorPos != NULL)
         *newCursorPos = list.cursorPos;
@@ -373,35 +349,7 @@ u16 ListMenuGetYCoordForPrintingArrowCursor(u8 listTaskId)
     return list->itemsAbove * yMultiplier + list->template.upText_Y;
 }
 
-/*static u8 DexListMenuInitInternal(const struct DexListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove)
-{
-    u8 listTaskId = CreateTask(ListMenuDummyTask, 0); //dummy function no return no value, so assume value 0? idk
-    struct ListMenu *list = (struct ListMenu *)gTasks[listTaskId].data;
-
-    list->dexTemplate = *listMenuTemplate;
-    list->cursorPos = cursorPos;
-    list->itemsAbove = itemsAbove;
-    list->unk_1C = 0;
-    list->unk_1D = 0;
-    list->taskId = TAIL_SENTINEL;
-    list->unk_1F = 0;
-    gListMenuOverride.cursorPal = list->dexTemplate.cursorPal;
-    gListMenuOverride.fillValue = list->dexTemplate.fillValue;
-    gListMenuOverride.cursorShadowPal = list->dexTemplate.cursorShadowPal;
-    gListMenuOverride.lettersSpacing = list->dexTemplate.lettersSpacing;
-    gListMenuOverride.fontId = list->dexTemplate.fontId;
-    gListMenuOverride.enabled = FALSE;
-    if (list->dexTemplate.totalItems < list->dexTemplate.maxShowed)
-        list->dexTemplate.maxShowed = list->dexTemplate.totalItems;
-    FillWindowPixelBuffer(list->dexTemplate.windowId, PIXEL_FILL(list->dexTemplate.fillValue));
-    DexListMenuPrintEntries(list, list->cursorPos, 0, list->dexTemplate.maxShowed);
-    DexListMenuDrawCursor(list);
-    DexListMenuCallSelectionChangedCallback(list, TRUE);
-
-    return listTaskId;
-}*/
-
-static u8 ListMenuInitInternal(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove)
+static u8 ListMenuInitInternal(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove, u8 listMode)
 {
     u8 listTaskId = CreateTask(ListMenuDummyTask, 0); //dummy function no return no value, so assume value 0? idk
     struct ListMenu *list = (struct ListMenu *)gTasks[listTaskId].data;
@@ -422,7 +370,7 @@ static u8 ListMenuInitInternal(const struct ListMenuTemplate *listMenuTemplate, 
     if (list->template.totalItems < list->template.maxShowed)
         list->template.maxShowed = list->template.totalItems;
     FillWindowPixelBuffer(list->template.windowId, PIXEL_FILL(list->template.fillValue));
-    ListMenuPrintEntries(list, list->cursorPos, 0, list->template.maxShowed);
+    ListMenuPrintEntries(list, list->cursorPos, 0, list->template.maxShowed, listMode);
     ListMenuDrawCursor(list);
     ListMenuCallSelectionChangedCallback(list, TRUE);
 
@@ -449,27 +397,7 @@ static void ListMenuPrint(struct ListMenu *list, const u8 *str, u8 x, u8 y)
     }
 }
 
-/*static void DexListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count)
-{
-    s32 i;
-    u8 x, y;
-    u8 yMultiplier = GetFontAttribute(list->dexTemplate.fontId, FONTATTR_MAX_LETTER_HEIGHT) + list->dexTemplate.itemVerticalPadding;
-
-    for (i = 0; i < count; i++)
-    {
-        if (list->dexTemplate.items[startIndex].index != LIST_HEADER)
-            x = list->dexTemplate.item_X;
-        else
-            x = list->dexTemplate.header_X;
-        y = (yOffset + i) * yMultiplier + list->dexTemplate.upText_Y;
-        if (list->dexTemplate.itemPrintFunc != NULL)
-            list->dexTemplate.itemPrintFunc(list->dexTemplate.windowId, list->dexTemplate.items[startIndex].index, y);
-        ListMenuPrint(list, list->dexTemplate.items[startIndex].label, x, y);
-        startIndex++;
-    }
-}*/
-
-static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count)
+static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOffset, u16 count, u8 listMode)
 {
     s32 i;
     u8 x, y;
@@ -484,36 +412,25 @@ static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOff
         y = (yOffset + i) * yMultiplier + list->template.upText_Y;
         if (list->template.itemPrintFunc != NULL)
             list->template.itemPrintFunc(list->template.windowId, list->template.items[startIndex].index, y);
-        ListMenuPrint(list, list->template.items[startIndex].label, x, y);
+        if (listMode == DEFAULT_MODE)
+            ListMenuPrint(list, list->template.items[startIndex].label, x, y);
+        else if (listMode == ITEM_PC_MODE)
+        {
+            StringCopy(gStringVar1,list->template.items[startIndex].label);
+            if (ShouldCapitalizeItems())
+                CapializeString(gStringVar1); 
+            ListMenuPrint(list, gStringVar1, x, y);
+        }
+        else if (listMode == DEX_LIST_MODE)
+        {
+            StringCopy(gStringVar1,list->template.items[startIndex].label);
+            if (ShouldCapitalizeSpecies())
+                CapializeString(gStringVar1); 
+            ListMenuPrint(list, gStringVar1, x, y);
+        }
         startIndex++;
     }
 }
-
-/*static void DexListMenuDrawCursor(struct ListMenu *list)
-{
-    u8 yMultiplier = GetFontAttribute(list->dexTemplate.fontId, FONTATTR_MAX_LETTER_HEIGHT) + list->dexTemplate.itemVerticalPadding;
-    u8 x = list->dexTemplate.cursor_X;
-    u8 y = list->itemsAbove * yMultiplier + list->dexTemplate.upText_Y;
-    
-    switch (list->dexTemplate.cursorKind)
-    {
-    case 0:
-        ListMenuPrint(list, gText_SelectorArrow2, x, y);
-        break;
-    case 1:
-        break;
-    case 2:
-        if (list->taskId == TAIL_SENTINEL)
-            list->taskId = ListMenuAddCursorObject(list, 0);
-        ListMenuUpdateCursorObject(list->taskId, GetWindowAttribute(list->dexTemplate.windowId, WINDOW_TILEMAP_LEFT) * 8 - 1, GetWindowAttribute(list->dexTemplate.windowId, WINDOW_TILEMAP_TOP) * 8 + y - 1, 0);
-        break;
-    case 3:
-        if (list->taskId == TAIL_SENTINEL)
-            list->taskId = ListMenuAddCursorObject(list, 1);
-        ListMenuUpdateCursorObject(list->taskId, GetWindowAttribute(list->dexTemplate.windowId, WINDOW_TILEMAP_LEFT) * 8 + x, GetWindowAttribute(list->dexTemplate.windowId, WINDOW_TILEMAP_TOP) * 8 + y, 1);
-        break;
-    }
-}*/
 
 static void ListMenuDrawCursor(struct ListMenu *list)
 {
@@ -555,23 +472,6 @@ static u8 ListMenuAddCursorObject(struct ListMenu *list, u32 cursorKind)
     return ListMenuAddCursorObjectInternal(&cursor, cursorKind);
 }
 
-/*static void DexListMenuErasePrintedCursor(struct ListMenu *list, u16 itemsAbove)
-{
-    u8 cursorKind = list->dexTemplate.cursorKind;
-    if (cursorKind == 0)
-    {
-        u8 yMultiplier = GetFontAttribute(list->dexTemplate.fontId, FONTATTR_MAX_LETTER_HEIGHT) + list->dexTemplate.itemVerticalPadding;
-        u8 width  = GetMenuCursorDimensionByFont(list->dexTemplate.fontId, 0);
-        u8 height = GetMenuCursorDimensionByFont(list->dexTemplate.fontId, 1);
-        FillWindowPixelRect(list->dexTemplate.windowId,
-                            PIXEL_FILL(list->dexTemplate.fillValue),
-                            list->dexTemplate.cursor_X,
-                            itemsAbove * yMultiplier + list->dexTemplate.upText_Y,
-                            width,
-                            height);
-    }
-}*/
-
 static void ListMenuErasePrintedCursor(struct ListMenu *list, u16 itemsAbove)
 {
     u8 cursorKind = list->template.cursorKind;
@@ -588,86 +488,6 @@ static void ListMenuErasePrintedCursor(struct ListMenu *list, u16 itemsAbove)
                             height);
     }
 }
-
-/*static u8 DexListMenuUpdateSelectedRowIndexAndScrollOffset(struct ListMenu *list, bool8 movingDown)
-{
-    u16 itemsAbove = list->itemsAbove;
-    u16 cursorPos = list->cursorPos;
-    u16 newRow;
-    u32 newScroll;
-
-    if (!movingDown) //going up
-    {
-        if (list->dexTemplate.maxShowed == 1)
-            newRow = 0;
-        else
-            newRow = list->dexTemplate.maxShowed - ((list->dexTemplate.maxShowed / 2) + (list->dexTemplate.maxShowed % 2)) - 1;
-
-        if (cursorPos == 0)//if position well, top of page, not necessarily top of list
-        {
-            while (itemsAbove != 0)//while can go scroll up, i.e there are indexes above this, so need right new code here to make flip
-            {
-                itemsAbove--;
-                if (list->dexTemplate.items[cursorPos + itemsAbove].index != LIST_HEADER)
-                {
-                    list->itemsAbove = itemsAbove;
-                    return 1;
-                }
-            }
-            return 0;//remove return 0, if no entries above and make flip to end of list, change nothing else in "going up"
-        }
-        else
-        {
-            while (itemsAbove > newRow)
-            {
-                itemsAbove--;
-                if (list->dexTemplate.items[cursorPos + itemsAbove].index != LIST_HEADER)
-                {
-                    list->itemsAbove = itemsAbove;
-                    return 1;
-                }
-            }
-            newScroll = cursorPos - 1;
-        }
-    }
-    else //going down
-    {
-        if (list->dexTemplate.maxShowed == 1)
-            newRow = 0;
-        else
-            newRow = ((list->dexTemplate.maxShowed / 2) + (list->dexTemplate.maxShowed % 2));
-
-        if (cursorPos == list->dexTemplate.totalItems - list->dexTemplate.maxShowed) //think this is where I need to make change but don't understand it
-        {
-            while (itemsAbove < list->dexTemplate.maxShowed - 1)
-            {
-                itemsAbove++;
-                if (list->dexTemplate.items[cursorPos + itemsAbove].index != LIST_HEADER)
-                {
-                    list->itemsAbove = itemsAbove;
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        else
-        {
-            while (itemsAbove < newRow)
-            {
-                itemsAbove++;
-                if (list->dexTemplate.items[cursorPos + itemsAbove].index != LIST_HEADER)
-                {
-                    list->itemsAbove = itemsAbove;
-                    return 1;
-                }
-            }
-            newScroll = cursorPos + 1;
-        }
-    }
-    list->itemsAbove = newRow;
-    list->cursorPos = newScroll;
-    return 2;
-}*/
 
 static u8 ListMenuUpdateSelectedRowIndexAndScrollOffset(struct ListMenu *list, bool8 movingDown)
 {
@@ -749,52 +569,12 @@ static u8 ListMenuUpdateSelectedRowIndexAndScrollOffset(struct ListMenu *list, b
     return 2;
 }
 
-/*static void DexListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
-{
-    if (count >= list->dexTemplate.maxShowed)
-    {
-        FillWindowPixelBuffer(list->dexTemplate.windowId, PIXEL_FILL(list->dexTemplate.fillValue));
-        ListMenuPrintEntries(list, list->cursorPos, 0, list->dexTemplate.maxShowed);
-    }
-    else
-    {
-        u8 yMultiplier = GetFontAttribute(list->dexTemplate.fontId, FONTATTR_MAX_LETTER_HEIGHT) + list->dexTemplate.itemVerticalPadding;
-
-        if (!movingDown)
-        {
-            u16 y, width, height;
-
-            ScrollWindow(list->dexTemplate.windowId, 1, count * yMultiplier, PIXEL_FILL(list->dexTemplate.fillValue));
-            ListMenuPrintEntries(list, list->cursorPos, 0, count);
-
-            y = (list->dexTemplate.maxShowed * yMultiplier) + list->dexTemplate.upText_Y;
-            width = GetWindowAttribute(list->dexTemplate.windowId, WINDOW_WIDTH) * 8;
-            height = (GetWindowAttribute(list->dexTemplate.windowId, WINDOW_HEIGHT) * 8) - y;
-            FillWindowPixelRect(list->dexTemplate.windowId,
-                                PIXEL_FILL(list->dexTemplate.fillValue),
-                                0, y, width, height);
-        }
-        else
-        {
-            u16 width;
-
-            ScrollWindow(list->dexTemplate.windowId, 0, count * yMultiplier, PIXEL_FILL(list->dexTemplate.fillValue));
-            ListMenuPrintEntries(list, list->cursorPos + (list->dexTemplate.maxShowed - count), list->dexTemplate.maxShowed - count, count);
-
-            width = GetWindowAttribute(list->dexTemplate.windowId, WINDOW_WIDTH) * 8;
-            FillWindowPixelRect(list->dexTemplate.windowId,
-                                PIXEL_FILL(list->dexTemplate.fillValue),
-                                0, 0, width, list->dexTemplate.upText_Y);
-        }
-    }
-}*/
-
-static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
+static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown, u8 listMode)
 {
     if (count >= list->template.maxShowed)
     {
         FillWindowPixelBuffer(list->template.windowId, PIXEL_FILL(list->template.fillValue));
-        ListMenuPrintEntries(list, list->cursorPos, 0, list->template.maxShowed);
+        ListMenuPrintEntries(list, list->cursorPos, 0, list->template.maxShowed, listMode);
     }
     else
     {
@@ -805,7 +585,7 @@ static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
             u16 y, width, height;
 
             ScrollWindow(list->template.windowId, 1, count * yMultiplier, PIXEL_FILL(list->template.fillValue));
-            ListMenuPrintEntries(list, list->cursorPos, 0, count);
+            ListMenuPrintEntries(list, list->cursorPos, 0, count, listMode);
 
             y = (list->template.maxShowed * yMultiplier) + list->template.upText_Y;
             width = GetWindowAttribute(list->template.windowId, WINDOW_WIDTH) * 8;
@@ -819,7 +599,7 @@ static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
             u16 width;
 
             ScrollWindow(list->template.windowId, 0, count * yMultiplier, PIXEL_FILL(list->template.fillValue));
-            ListMenuPrintEntries(list, list->cursorPos + (list->template.maxShowed - count), list->template.maxShowed - count, count);
+            ListMenuPrintEntries(list, list->cursorPos + (list->template.maxShowed - count), list->template.maxShowed - count, count, listMode);
 
             width = GetWindowAttribute(list->template.windowId, WINDOW_WIDTH) * 8;
             FillWindowPixelRect(list->template.windowId,
@@ -829,55 +609,7 @@ static void ListMenuScroll(struct ListMenu *list, u8 count, bool8 movingDown)
     }
 }
 
-/*bool8 DexListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown)
-{
-    u16 oldSelectedRow;
-    u8 selectionChange, i, cursorCount;
-
-    oldSelectedRow = list->itemsAbove;
-    cursorCount = 0;
-    selectionChange = 0;
-    for (i = 0; i < count; i++)
-    {
-        do
-        {
-            u8 ret = DexListMenuUpdateSelectedRowIndexAndScrollOffset(list, movingDown);
-            
-            selectionChange |= ret;
-            if (ret != 2)
-                break;
-            cursorCount++; //potentially change this, based scroll up/down  //cursorCount =+ ordereddexcount (somehow)
-        }
-        while (list->dexTemplate.items[list->cursorPos + list->itemsAbove].index == LIST_HEADER); //also potential to look into
-    }
-
-    if (updateCursorAndCallCallback) //in dex always true, but selectionChange ased on ret
-    {
-        switch (selectionChange)
-        {
-        case 0:
-        default:
-            return TRUE;
-        case 1:
-            DexListMenuErasePrintedCursor(list, oldSelectedRow);
-            DexListMenuDrawCursor(list);
-            DexListMenuCallSelectionChangedCallback(list, FALSE);
-            CopyWindowToVram(list->dexTemplate.windowId, COPYWIN_GFX);
-            break;
-        case 2:
-        case 3:
-            DexListMenuErasePrintedCursor(list, oldSelectedRow);
-            DexListMenuScroll(list, cursorCount, movingDown);
-            DexListMenuDrawCursor(list);
-            DexListMenuCallSelectionChangedCallback(list, FALSE);
-            CopyWindowToVram(list->dexTemplate.windowId, COPYWIN_GFX);
-            break;
-        }
-    }
-    return FALSE;
-}*/
-
-bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown)
+bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown, u8 listMode)
 {
     u16 oldSelectedRow;
     u8 selectionChange, i, cursorCount;
@@ -915,7 +647,7 @@ bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCa
         case 2:
         case 3:
             ListMenuErasePrintedCursor(list, oldSelectedRow);
-            ListMenuScroll(list, cursorCount, movingDown);
+            ListMenuScroll(list, cursorCount, movingDown, listMode);
             ListMenuDrawCursor(list);
             ListMenuCallSelectionChangedCallback(list, FALSE);
             CopyWindowToVram(list->template.windowId, COPYWIN_GFX);
@@ -924,12 +656,6 @@ bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCa
     }
     return FALSE;
 }
-
-/*static void DexListMenuCallSelectionChangedCallback(struct ListMenu *list, u8 onInit)
-{
-    if (list->dexTemplate.moveCursorFunc != NULL)
-        list->dexTemplate.moveCursorFunc(list->dexTemplate.items[list->cursorPos + list->itemsAbove].index, onInit, list);
-}*/
 
 static void ListMenuCallSelectionChangedCallback(struct ListMenu *list, u8 onInit)
 {

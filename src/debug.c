@@ -874,7 +874,7 @@ static void Debug_ShowMenu(void (*HandleInput)(u8), struct ListMenuTemplate LMte
     menuTemplate.scrollMultiple = LIST_NO_MULTIPLE_SCROLL;
     menuTemplate.fontId = DEBUG_MENU_FONT;
     menuTemplate.cursorKind = 0;
-    menuTaskId = ListMenuInit(&menuTemplate, 0, 0);
+    menuTaskId = ListMenuInit(&menuTemplate, 0, 0, DEFAULT_MODE);
 
     // create input handler task
     inputTaskId = CreateTask(HandleInput, 3);
@@ -1111,7 +1111,7 @@ static void Debug_RedrawListMenu(u8 taskId)
 
     DestroyListMenuTask(gTasks[taskId].tMenuTaskId, &scrollOffset, &selectedRow);
     Debug_RefreshListMenu(taskId);
-    gTasks[taskId].tMenuTaskId = ListMenuInit(&gMultiuseListMenuTemplate, scrollOffset, selectedRow);
+    gTasks[taskId].tMenuTaskId = ListMenuInit(&gMultiuseListMenuTemplate, scrollOffset, selectedRow, DEFAULT_MODE);
 }
 
 
@@ -1120,7 +1120,7 @@ static void Debug_RedrawListMenu(u8 taskId)
 static void DebugTask_HandleMenuInput_Main(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1139,7 +1139,7 @@ static void DebugTask_HandleMenuInput_Main(u8 taskId)
 static void DebugTask_HandleMenuInput_Utilities(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1158,7 +1158,7 @@ static void DebugTask_HandleMenuInput_Utilities(u8 taskId)
 static void DebugTask_HandleMenuInput_PartyBoxes(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1177,7 +1177,7 @@ static void DebugTask_HandleMenuInput_PartyBoxes(u8 taskId)
 static void DebugTask_HandleMenuInput_Scripts(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1196,7 +1196,7 @@ static void DebugTask_HandleMenuInput_Scripts(u8 taskId)
 static void DebugTask_HandleMenuInput_FlagsVars(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1234,7 +1234,7 @@ static void DebugTask_HandleMenuInput_FlagsVars(u8 taskId)
 static void DebugTask_HandleMenuInput_Give(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1253,7 +1253,7 @@ static void DebugTask_HandleMenuInput_Give(u8 taskId)
 static void DebugTask_HandleMenuInput_Fill(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -1272,7 +1272,7 @@ static void DebugTask_HandleMenuInput_Fill(u8 taskId)
 static void DebugTask_HandleMenuInput_Sound(u8 taskId)
 {
     void (*func)(u8);
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId, DEFAULT_MODE);
 
     if (JOY_NEW(A_BUTTON))
     {

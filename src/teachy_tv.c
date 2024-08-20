@@ -559,7 +559,7 @@ static u8 TeachyTvSetupWindow(void)
     return ListMenuInit(
                &gMultiuseListMenuTemplate,
                sStaticResources.scrollOffset,
-               sStaticResources.selectedRow
+               sStaticResources.selectedRow, DEFAULT_MODE
     );
 }
 
@@ -716,7 +716,7 @@ static void TeachyTvOptionListController(u8 taskId)
     TeachyTvBg2AnimController();
     if (!gPaletteFade.active)
     {
-        input = ListMenu_ProcessInput(data[0]);
+        input = ListMenu_ProcessInput(data[0], DEFAULT_MODE);
         ListMenuGetScrollAndRow(data[0], &sStaticResources.scrollOffset, &sStaticResources.selectedRow);
         if ((JOY_NEW(SELECT_BUTTON) && sStaticResources.callback != CB2_BagMenuFromStartMenu))
         {

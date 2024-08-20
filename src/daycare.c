@@ -2392,7 +2392,7 @@ static void DaycarePrintMonInfo(u8 windowId, s32 daycareSlotId, u8 y)
 
 static void Task_HandleDaycareLevelMenuInput(u8 taskId)
 {
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuListTaskId);
+    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuListTaskId, DEFAULT_MODE);
 
     if (gMain.newKeys & A_BUTTON)
     {
@@ -2435,7 +2435,7 @@ void ShowDaycareLevelMenu(void)
 
     menuTemplate = sDaycareListMenuLevelTemplate;
     menuTemplate.windowId = windowId;
-    listMenuTaskId = ListMenuInit(&menuTemplate, 0, 0);
+    listMenuTaskId = ListMenuInit(&menuTemplate, 0, 0, DEFAULT_MODE);
 
     CopyWindowToVram(windowId, COPYWIN_BOTH);
 

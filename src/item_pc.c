@@ -347,7 +347,7 @@ static bool8 ItemPc_DoGfxSetup(void)
         break;
     case 15:
         taskId = CreateTask(Task_ItemPcMain, 0);
-        gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row);
+        gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row, ITEM_PC_MODE);
         gMain.state++;
         break;
     case 16:
@@ -493,15 +493,20 @@ static const u8* ReturnItemNameConst2(u16 itemId)
     free(itembuff);
 }//huh worked ok
 
-static void ItemPc_BuildListMenuTemplate(void)
-{
+static void ItemPc_BuildListMenuTemplate(void) //use after free, needs to use label later to print but freeing label
+{//instead attempting to store base and just change in print function no idea if tried that before or nah
     u16 i;
+    u8 *itembuff = NULL;
 
     for (i = 0; i < sStateDataPtr->nItems; i++)
     {
-        sListMenuItems[i].label = ReturnItemNameConst2(gSaveBlock1Ptr->pcItems[i].itemId);
+        itembuff = Alloc(sizeof(gSaveBlock1Ptr->pcItems)); //works but pretty sure am allocating lot more memory than I need each loop?
+       // GetItemName(itembuff, gSaveBlock1Ptr->pcItems[i].itemId);
+        sListMenuItems[i].label = gItems[SanitizeItemId(gSaveBlock1Ptr->pcItems[i].itemId)].name;//itembuff;//ReturnItemNameConst2(gSaveBlock1Ptr->pcItems[i].itemId);
         sListMenuItems[i].index = i;
     }
+    //FREE_AND_SET_NULL(itembuff); //test addapted from dex apparent fix test both later
+
     sListMenuItems[i].label = gFameCheckerText_Cancel;
     sListMenuItems[i].index = -2;
 
@@ -520,7 +525,7 @@ static void ItemPc_BuildListMenuTemplate(void)
     gMultiuseListMenuTemplate.fillValue = 0;
     gMultiuseListMenuTemplate.cursorShadowPal = 3;
     gMultiuseListMenuTemplate.moveCursorFunc = ItemPc_MoveCursorFunc;
-    gMultiuseListMenuTemplate.itemPrintFunc = ItemPc_ItemPrintFunc;
+    gMultiuseListMenuTemplate.itemPrintFunc = ItemPc_ItemPrintFunc; //misunderstood this is just the description, not item name
     gMultiuseListMenuTemplate.scrollMultiple = 0;
     gMultiuseListMenuTemplate.cursorKind = 0;
 }
@@ -578,7 +583,7 @@ static void ItemPc_ItemPrintFunc(u8 windowId, s32 itemId, u8 y)
         else
             ItemPc_PrintOrRemoveCursorAt(y, 0xFF);
     }
-    if (itemId != -2)
+    if (itemId != -2)//believe means not on cancel/close
     {
         u16 quantity = ItemPc_GetItemQuantityBySlotId(itemId);
         ConvertIntToDecimalStringN(gStringVar1, quantity, STR_CONV_MODE_RIGHT_ALIGN, 3);
@@ -763,7 +768,7 @@ static void Task_ItemPcMain(u8 taskId)
                 return;
             }
         }
-        input = ListMenu_ProcessInput(data[0]);
+        input = ListMenu_ProcessInput(data[0], ITEM_PC_MODE);
         ListMenuGetScrollAndRow(data[0], &sListMenuState.scroll, &sListMenuState.row);
         switch (input)
         {
@@ -815,7 +820,7 @@ static void Task_ItemPcMoveItemModeRun(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
 
-    ListMenu_ProcessInput(data[0]);
+    ListMenu_ProcessInput(data[0], ITEM_PC_MODE);//think so?
     ListMenuGetScrollAndRow(data[0], &sListMenuState.scroll, &sListMenuState.row);
     ItemMenuIcons_MoveInsertIndicatorBar(-32, ListMenuGetYCoordForPrintingArrowCursor(data[0]));
     if (JOY_NEW(A_BUTTON | SELECT_BUTTON))
@@ -844,11 +849,15 @@ static void ItemPc_InsertItemIntoNewSlot(u8 taskId, u32 pos)
         if (data[1] < pos)
             sListMenuState.row--;
         ItemPc_BuildListMenuTemplate();
-        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row);
+        data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row, ITEM_PC_MODE);
         ItemMenuIcons_ToggleInsertIndicatorBarVisibility(TRUE);
         gTasks[taskId].func = Task_ItemPcMain;
-    }
-}
+    }//believe just need replace these listinits here and below, as above is for top menu, not items list
+}//think adding extra filter for mode should be simplest way to do it,
+//pass value to all functions but only use in print entries,
+//wouldn't need to change so much
+//ListType/ListMode  0 Default Mode, 1, Dex Mode,  2, Item_pc Mode
+//would work just be annoying to manually adjust hmm.
 
 static void ItemPc_MoveItemModeCancel(u8 taskId, u32 pos)
 {
@@ -858,7 +867,7 @@ static void ItemPc_MoveItemModeCancel(u8 taskId, u32 pos)
     if (data[1] < pos)
         sListMenuState.row--;
     ItemPc_BuildListMenuTemplate();
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row, ITEM_PC_MODE);
     ItemMenuIcons_ToggleInsertIndicatorBarVisibility(TRUE);
     gTasks[taskId].func = Task_ItemPcMain;
 }
@@ -977,7 +986,7 @@ static void Task_ItemPcCleanUpWithdraw(u8 taskId)
     ItemPc_CountPcItems();
     ItemPc_SetCursorPosition();
     ItemPc_BuildListMenuTemplate();
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sListMenuState.scroll, sListMenuState.row, ITEM_PC_MODE);
     ScheduleBgCopyTilemapToVram(0);
     ItemPc_ReturnFromSubmenu(taskId);
 }
@@ -1137,6 +1146,7 @@ static void unused_ItemPc_AddTextPrinterParameterized(u8 windowId, const u8 * st
 
 static void ItemPc_AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 * str, u8 x, u8 y, u8 letterSpacing, u8 lineSpacing, u8 speed, u8 colorIdx)
 {
+    
     AddTextPrinterParameterized4(windowId, fontId, x, y, letterSpacing, lineSpacing, sTextColors[colorIdx], speed, str);
 }
 

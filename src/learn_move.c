@@ -785,7 +785,7 @@ static void MoveRelearnerInitListMenuBuffersEtc(void)
 
 static void MoveRelearnerMenuHandleInput(void)
 {
-    ListMenu_ProcessInput(sMoveRelearner->listMenuTaskId);
+    ListMenu_ProcessInput(sMoveRelearner->listMenuTaskId, DEFAULT_MODE);
     if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
@@ -820,7 +820,7 @@ static void MoveRelearnerMenuHandleInput(void)
 
 static void MoveLearnerInitListMenu(void)
 {
-    sMoveRelearner->listMenuTaskId = ListMenuInit(&gMultiuseListMenuTemplate, sMoveRelearner->listMenuScrollPos, sMoveRelearner->listMenuScrollRow);
+    sMoveRelearner->listMenuTaskId = ListMenuInit(&gMultiuseListMenuTemplate, sMoveRelearner->listMenuScrollPos, sMoveRelearner->listMenuScrollRow, DEFAULT_MODE);
     CopyWindowToVram(6, COPYWIN_MAP);
 }
 

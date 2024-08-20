@@ -469,7 +469,7 @@ static void Task_MailboxPcHandleInput(u8 taskId)
     s32 input;
     if (!gPaletteFade.active)
     {
-        input = ListMenu_ProcessInput(tListMenuTaskId);
+        input = ListMenu_ProcessInput(tListMenuTaskId, DEFAULT_MODE);
         ListMenuGetScrollAndRow(tListMenuTaskId, &gPlayerPcMenuManager.itemsAbove, &gPlayerPcMenuManager.cursorPos);
         switch (input)
         {

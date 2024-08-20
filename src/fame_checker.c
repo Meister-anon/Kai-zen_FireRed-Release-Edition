@@ -560,7 +560,7 @@ static void Task_TopMenuHandleInput(u8 taskId)
         }
         else if (JOY_NEW(A_BUTTON))
         {
-            cursorPos = ListMenu_ProcessInput(0);
+            cursorPos = ListMenu_ProcessInput(0, DEFAULT_MODE);
             if (cursorPos == sFameCheckerData->numUnlockedPersons - 1) // CANCEL
                 task->func = Task_StartToCloseFameChecker;
             else if (sFameCheckerData->inPickMode)
@@ -595,7 +595,7 @@ static void Task_TopMenuHandleInput(u8 taskId)
                 task->func = Task_StartToCloseFameChecker;
         }
         else
-            ListMenu_ProcessInput(0);
+            ListMenu_ProcessInput(0, DEFAULT_MODE);
     }
 }
 
@@ -1210,7 +1210,7 @@ static void FC_CreateListMenu(void)
 {
     InitListMenuTemplate();
     sFameCheckerData->numUnlockedPersons = FC_PopulateListMenu();
-    sFameCheckerData->listMenuTaskId = ListMenuInit(&gFameChecker_ListMenuTemplate, 0, 0);
+    sFameCheckerData->listMenuTaskId = ListMenuInit(&gFameChecker_ListMenuTemplate, 0, 0, DEFAULT_MODE);
     FC_PutWindowTilemapAndCopyWindowToVramMode3_2(FCWINDOWID_LIST);
 }
 

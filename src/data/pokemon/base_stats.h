@@ -270,7 +270,7 @@ const struct BaseStats gBaseStats[] =
 
     //needs evolution and both learnset data to not cause issue
     //with searcher functions
-    [SPECIES_NONE] = {.evolutions = EVOLUTION({}),},//need setup like this otehrwise broken starter select
+    [SPECIES_NONE] = {.speciesName = _("-"),.evolutions = EVOLUTION({}),},//need setup like this otehrwise broken starter select
 
     [SPECIES_BULBASAUR] =
     {

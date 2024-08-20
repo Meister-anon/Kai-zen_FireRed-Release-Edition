@@ -1384,7 +1384,7 @@ static void Task_CreateScriptListMenu(u8 taskId)
     sFieldSpecialsListMenuTemplate.maxShowed = task->data[0];
     sFieldSpecialsListMenuTemplate.windowId = task->data[13];
     Task_CreateMenuRemoveScrollIndicatorArrowPair(taskId);
-    task->data[14] = ListMenuInit(&sFieldSpecialsListMenuTemplate, task->data[7], task->data[8]);
+    task->data[14] = ListMenuInit(&sFieldSpecialsListMenuTemplate, task->data[7], task->data[8], DEFAULT_MODE);
     PutWindowTilemap(task->data[13]);
     CopyWindowToVram(task->data[13], COPYWIN_BOTH);
     gTasks[taskId].func = Task_ListMenuHandleInput;
@@ -1433,7 +1433,7 @@ static void Task_ListMenuHandleInput(u8 taskId)
 
     task = &gTasks[taskId];
     task++;task--;
-    input = ListMenu_ProcessInput(task->data[14]);
+    input = ListMenu_ProcessInput(task->data[14], DEFAULT_MODE);
     switch (input)
     {
     case -1:

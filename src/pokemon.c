@@ -7129,11 +7129,11 @@ void GetSpeciesName(u8 *name, u16 species)
         for (i = 0; i < POKEMON_NAME_LENGTH; i++)
         {
             if (species > NUM_SPECIES)
-                name[i] = gBaseStats[0].speciesName[i];
+                name[i] = gBaseStats[0].speciesName[i]; //species name 0 doesn't exist, so what would happen if try to display it?
             else
-                name[i] = gBaseStats[species].speciesName[i];
+                name[i] = gBaseStats[species].speciesName[i]; //changed took logic from moves, made speciesname 0 "-"
 
-            if (name[i] == EOS)
+            if (name[i] == EOS)//potentially need change use of sanitizespeciesId? though it works for other things,... leave as is
                 break;
         }
 

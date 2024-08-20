@@ -73,10 +73,10 @@ struct ListMenuWindowRect
 extern struct ListMenuTemplate gMultiuseListMenuTemplate;
 
 u32 DoMysteryGiftListMenu(const struct WindowTemplate *windowTemplate, const struct ListMenuTemplate *listMenuTemplate, u8 arg2, u16 tileNum, u16 palNum);
-u8 ListMenuInit(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove);
-u8 ListMenuInitInRect(const struct ListMenuTemplate *listMenuTemplate, const struct ListMenuWindowRect *rect, u16 cursorPos, u16 itemsAbove);
-s32 ListMenu_ProcessInput(u8 listTaskId);
-bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);
+u8 ListMenuInit(const struct ListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove, u8 listMode);
+u8 ListMenuInitInRect(const struct ListMenuTemplate *listMenuTemplate, const struct ListMenuWindowRect *rect, u16 cursorPos, u16 itemsAbove, u8 listMode);
+s32 ListMenu_ProcessInput(u8 listTaskId, u8 listMode);
+bool8 ListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown, u8 listMode);
 void DestroyListMenuTask(u8 listTaskId, u16 *cursorPos, u16 *itemsAbove);
 void RedrawListMenu(u8 listTaskId);
 void ListMenuGetScrollAndRow(u8 listTaskId, u16 *cursorPos, u16 *itemsAbove);
@@ -86,8 +86,4 @@ void ListMenuDefaultCursorMoveFunc(s32 itemIndex, bool8 onInit, struct ListMenu 
 void ListMenuSetTemplateField(u8 taskId, u8 field, s32 value);
 void ListMenuGetCurrentItemArrayId(u8 listTaskId, u16 *arrayId);
 
-//new pokedex equivalents - removed struct and commented functions incase struct was disrupting list menu values, byte order
-/*bool8 DexListMenuChangeSelection(struct ListMenu *list, bool8 updateCursorAndCallCallback, u8 count, bool8 movingDown);
-u8 DexListMenuInitInRect(const struct DexListMenuTemplate *listMenuTemplate, const struct ListMenuWindowRect *rect, u16 cursorPos, u16 itemsAbove);
-u8 DexListMenuInit(const struct DexListMenuTemplate *listMenuTemplate, u16 cursorPos, u16 itemsAbove);*/
 #endif //GUARD_LIST_MENU_H

@@ -640,7 +640,7 @@ static bool8 DoSetUpTMCaseUI(void)
             taskId = CreateTask(Task_TMCaseDude1, 0);
         else
             taskId = CreateTask(Task_TMCaseMain, 0);
-        gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sTMCaseStaticResources.scrollOffset, sTMCaseStaticResources.selectedRow);
+        gTasks[taskId].data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sTMCaseStaticResources.scrollOffset, sTMCaseStaticResources.selectedRow, DEFAULT_MODE);
         gMain.state++;
         break;
     case 15:
@@ -1009,7 +1009,7 @@ static void Task_TMCaseMain(u8 taskId)
     {
         if (MenuHelpers_CallLinkSomething() != TRUE)
         {
-            input = ListMenu_ProcessInput(data[0]);
+            input = ListMenu_ProcessInput(data[0], DEFAULT_MODE);
             ListMenuGetScrollAndRow(data[0], &sTMCaseStaticResources.scrollOffset, &sTMCaseStaticResources.selectedRow);
             if (JOY_NEW(SELECT_BUTTON) && sTMCaseStaticResources.unk_05 == 1)
             {
@@ -1190,7 +1190,7 @@ static void Subtask_CloseContextMenuAndReturnToMain(u8 taskId)
     s16 * data = gTasks[taskId].data;
 
     DestroyListMenuTask(data[0], &sTMCaseStaticResources.scrollOffset, &sTMCaseStaticResources.selectedRow);
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sTMCaseStaticResources.scrollOffset, sTMCaseStaticResources.selectedRow);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sTMCaseStaticResources.scrollOffset, sTMCaseStaticResources.selectedRow, DEFAULT_MODE);
     PrintListMenuCursorByID_WithColorIdx(data[0], 1);
     ClearDialogWindowAndFrameToTransparent(6, 0);
     ClearWindowTilemap(6);
@@ -1392,7 +1392,7 @@ static void Task_DoSaleOfTMs(u8 taskId)
     TMCaseSetup_GetTMCount();
     TMCaseSetup_InitListMenuPositions();
     InitTMCaseListMenuItems();
-    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sTMCaseStaticResources.scrollOffset, sTMCaseStaticResources.selectedRow);
+    data[0] = ListMenuInit(&gMultiuseListMenuTemplate, sTMCaseStaticResources.scrollOffset, sTMCaseStaticResources.selectedRow, DEFAULT_MODE);
     PrintListMenuCursorByID_WithColorIdx(data[0], 2);
     PrintMoneyAmountInMoneyBox(8, GetMoney(&gSaveBlock1Ptr->money), 0);
     gTasks[taskId].func = Task_AfterSale_ReturnToList;
@@ -1485,7 +1485,7 @@ static void Task_TMCaseDude_Playback(u8 taskId)
         {
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_DOWN;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
         }
         data[9]++;
         if (data[9] > 0x65)
@@ -1504,7 +1504,7 @@ static void Task_TMCaseDude_Playback(u8 taskId)
         {
             gMain.newKeys = 0;
             gMain.newAndRepeatedKeys = DPAD_UP;
-            ListMenu_ProcessInput(data[0]);
+            ListMenu_ProcessInput(data[0], DEFAULT_MODE);
         }
         data[9]++;
         if (data[9] > 0x65)

@@ -666,6 +666,10 @@ goto MORE_PCLOGIC   // note change effect from ctrl selecting mon leave withdraw
 /*Issue left to work out, removing all mon from party, puts corrupted mon in slot, based on original first slot mon species
 also puts grey question mark in 1st slot party menu when no mon there*/
 
+goto PLAYERPC_CONST_WORKAROUND //workaorund for const pointer for setting item names cap for player pc also use for dex - attempted seems work for dex
+//teste on dex realized its essentially exacty the same as the code I had already written in effect
+//which means the workaround  isn't a workaround and most likely has the exact same memory problems that exist in the dex?
+//fixed, redid had use after free issue instead of buffering,  just capped string at listmenu print
 
 goto TRAINER_REMATCH //stuff
 //notes lost attempt remade, plan for rematchable trainers  with overworld stuff game is already broken into badge based leveling

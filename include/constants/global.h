@@ -2,6 +2,12 @@
 #define GUARD_CONSTANTS_GLOBAL_H
 
 #define IDENTICAL 0 //constant for string compare function so it doesn't look like false
+//list menu mode constants,
+//made to identify source of data for list to do differnet behavior for cap logic
+#define DEFAULT_MODE    0
+#define DEX_LIST_MODE   1
+#define ITEM_PC_MODE    2
+
 #define WILD_ENCOUNTER_MAX_LEVEL_RANGE 15 //more stuff for enconter rework
 
 #define ITEM_NAME_LENGTH 18

@@ -256,7 +256,7 @@ static void Task_DexScreen_CategorySubmenu(u8 taskId);
 static u8 DexScreen_CreateCategoryMenuScrollArrows(void);
 static int DexScreen_InputHandler_GetShoulderInput(void);
 static void Task_DexScreen_ShowMonPage(u8 taskId);
-static bool32 DexScreen_TryScrollMonsVertical(u8 direction);
+static bool32 DexScreen_TryScrollMonVertical(u8 direction);
 static bool32 DexScreen_TryDisplayForms(u8 direction); //new addition for displauing forms w left/right press
 static void DexScreen_RemoveWindow(u8 *windowId_p); //pret made static, which makes sense these aren't used elsewhere
 static void DexScreen_AddTextPrinterParameterized(u8 windowId, u8 fontId, const u8 *str, u8 x, u8 y, u8 colorIdx);
@@ -1413,7 +1413,7 @@ static void Task_PokedexScreen(u8 taskId) //appears be top menu
         sPokedexScreenData->state = 6;//think this is end of just displaying the main dex page, after this it takes inpputs for navigation
         break;
     case 6:
-        sPokedexScreenData->modeSelectInput = ListMenu_ProcessInput(sPokedexScreenData->modeSelectListMenuId); //ok so this is VERY weird, what it does is take the input without actually doing anything with it
+        sPokedexScreenData->modeSelectInput = ListMenu_ProcessInput(sPokedexScreenData->modeSelectListMenuId, DEFAULT_MODE); //ok so this is VERY weird, what it does is take the input without actually doing anything with it
         ListMenuGetScrollAndRow(sPokedexScreenData->modeSelectListMenuId, &sPokedexScreenData->modeSelectCursorPosBak, NULL);//just returning the index in the case of pressing A
         if (JOY_NEW(A_BUTTON))
         {
@@ -1511,7 +1511,7 @@ static void DexScreen_InitGfxForTopMenu(void)
     {
         listMenuTemplate = sListMenuTemplate_NatDexModeSelect;
         listMenuTemplate.windowId = sPokedexScreenData->modeSelectWindowId; //assigns cursor pos and items above from this below in ListMenuInitInternal via ListMenuInit
-        sPokedexScreenData->modeSelectListMenuId = ListMenuInit(&listMenuTemplate, sPokedexScreenData->modeSelectCursorPos, sPokedexScreenData->modeSelectItemsAbove);
+        sPokedexScreenData->modeSelectListMenuId = ListMenuInit(&listMenuTemplate, sPokedexScreenData->modeSelectCursorPos, sPokedexScreenData->modeSelectItemsAbove, DEFAULT_MODE);
         FillWindowPixelBuffer(sPokedexScreenData->dexCountsWindowId, PIXEL_FILL(0)); //ok this sets cursor pos, which is passed in the other function,
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Seen, 0, 2, 0); //is where menu starts i.e what value it opens on
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_SMALL, gText_Kanto, 4, 13, 0); //i.e the row, I think itemsabove, shows 
@@ -1533,7 +1533,7 @@ static void DexScreen_InitGfxForTopMenu(void)
     {
         listMenuTemplate = sListMenuTemplate_KantoDexModeSelect;
         listMenuTemplate.windowId = sPokedexScreenData->modeSelectWindowId;
-        sPokedexScreenData->modeSelectListMenuId = ListMenuInit(&listMenuTemplate, sPokedexScreenData->modeSelectCursorPos, sPokedexScreenData->modeSelectItemsAbove);
+        sPokedexScreenData->modeSelectListMenuId = ListMenuInit(&listMenuTemplate, sPokedexScreenData->modeSelectCursorPos, sPokedexScreenData->modeSelectItemsAbove, DEFAULT_MODE);
         FillWindowPixelBuffer(sPokedexScreenData->dexCountsWindowId, PIXEL_FILL(0));
         DexScreen_AddTextPrinterParameterized(sPokedexScreenData->dexCountsWindowId, FONT_NORMAL_COPY_1, gText_Seen, 0, 9, 0);
         DexScreen_PrintNum3RightAlign(sPokedexScreenData->dexCountsWindowId, 1, sPokedexScreenData->numSeenKanto, 32, 21, 2);
@@ -1787,7 +1787,7 @@ static void Task_DexScreen_CharacteristicOrder(u8 taskId) //changes here also se
         sPokedexScreenData->state = 6;
         break;
     case 6:
-        sPokedexScreenData->characteristicMenuInput = ListMenu_ProcessInput(sPokedexScreenData->orderedListMenuTaskId);
+        sPokedexScreenData->characteristicMenuInput = ListMenu_ProcessInput(sPokedexScreenData->orderedListMenuTaskId, DEX_LIST_MODE);
         ListMenuGetScrollAndRow(sPokedexScreenData->modeSelectListMenuId, &sPokedexScreenData->modeSelectCursorPosBak, NULL);
         if (JOY_NEW(A_BUTTON))
         {
@@ -1885,16 +1885,16 @@ static void DexScreen_InitListMenuForOrderedList(const struct ListMenuTemplate *
     {
     default:
     case DEX_ORDER_NUMERICAL_KANTO:
-        sPokedexScreenData->orderedListMenuTaskId = ListMenuInitInRect(template, sListMenuRects_OrderedList, sPokedexScreenData->kantoOrderMenuCursorPos, sPokedexScreenData->kantoOrderMenuItemsAbove);
+        sPokedexScreenData->orderedListMenuTaskId = ListMenuInitInRect(template, sListMenuRects_OrderedList, sPokedexScreenData->kantoOrderMenuCursorPos, sPokedexScreenData->kantoOrderMenuItemsAbove, DEX_LIST_MODE);
         break;
     case DEX_ORDER_ATOZ:
     case DEX_ORDER_TYPE:
     case DEX_ORDER_LIGHTEST:
     case DEX_ORDER_SMALLEST:
-        sPokedexScreenData->orderedListMenuTaskId = ListMenuInitInRect(template, sListMenuRects_OrderedList, sPokedexScreenData->characteristicOrderMenuCursorPos, sPokedexScreenData->characteristicOrderMenuItemsAbove);
+        sPokedexScreenData->orderedListMenuTaskId = ListMenuInitInRect(template, sListMenuRects_OrderedList, sPokedexScreenData->characteristicOrderMenuCursorPos, sPokedexScreenData->characteristicOrderMenuItemsAbove, DEX_LIST_MODE);
         break;
     case DEX_ORDER_NUMERICAL_NATIONAL:
-        sPokedexScreenData->orderedListMenuTaskId = ListMenuInitInRect(template, sListMenuRects_OrderedList, sPokedexScreenData->nationalOrderMenuCursorPos, sPokedexScreenData->nationalOrderMenuItemsAbove);
+        sPokedexScreenData->orderedListMenuTaskId = ListMenuInitInRect(template, sListMenuRects_OrderedList, sPokedexScreenData->nationalOrderMenuCursorPos, sPokedexScreenData->nationalOrderMenuItemsAbove, DEX_LIST_MODE);
         break;
     }
 }
@@ -3119,13 +3119,13 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)//think task show dex entry fro
             BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
             sPokedexScreenData->state = 1;
         }
-        else if (JOY_NEW(DPAD_UP) && DexScreen_TryScrollMonsVertical(1)) //use of this function means if able to scroll in that direction
+        else if (JOY_NEW(DPAD_UP) && DexScreen_TryScrollMonVertical(1)) //use of this function means if able to scroll in that direction
         {
             RemoveDexPageWindows();
             BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
             sPokedexScreenData->state = 6;
         }
-        else if (JOY_NEW(DPAD_DOWN) && DexScreen_TryScrollMonsVertical(0)) //vsonic attempt use add scrolling between category dex entires
+        else if (JOY_NEW(DPAD_DOWN) && DexScreen_TryScrollMonVertical(0)) //vsonic attempt use add scrolling between category dex entires
         {
             RemoveDexPageWindows();
             BeginNormalPaletteFade(~0x8000, 0, 0, 16, RGB_WHITEALPHA);
@@ -3560,7 +3560,7 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
 }
 
 //vsonic
-static bool32 DexScreen_TryScrollMonsVertical(u8 direction) //vsonic important think    seems equivalent of GetNextPosition but writes arguments instead of taking them
+static bool32 DexScreen_TryScrollMonVertical(u8 direction) //vsonic important think    seems equivalent of GetNextPosition but writes arguments instead of taking them
 {
     int selectedIndex;
     u16 *itemsAbove_p, *cursorPos_p;
@@ -3707,7 +3707,7 @@ static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
         //if (selectedIndex >= list->template.maxShowed)//fix works betternow
         //changed load function can do without this now
         DexScreen_LoadIndex(list->template.maxShowed, SCROLL_UP, selectedIndex, 1);//building w scroll, not building based on index pos when press b, from info page
-        ListMenuChangeSelection(list, TRUE, 1, FALSE); //count here seems to be how much to move by   
+        ListMenuChangeSelection(list, TRUE, 1, FALSE, DEX_LIST_MODE); //count here seems to be how much to move by   
         return LIST_NOTHING_CHOSEN;
     }
     else if (gMain.newAndRepeatedKeys & DPAD_DOWN)
@@ -3715,7 +3715,7 @@ static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
 
         
         DexScreen_LoadIndex(list->template.maxShowed, SCROLL_DOWN, selectedIndex, 1);
-        ListMenuChangeSelection(list, TRUE, 1, TRUE); //think issue could be htis, its increasing place by 1, simple fix is putting it after the scroll increment
+        ListMenuChangeSelection(list, TRUE, 1, TRUE, DEX_LIST_MODE); //think issue could be htis, its increasing place by 1, simple fix is putting it after the scroll increment
         return LIST_NOTHING_CHOSEN;//tested works, need add to tryscrollmon vertical as well
     }
     else // try to move by one window scroll
@@ -3742,13 +3742,13 @@ static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
             
             //if (selectedIndex >= 13)
                 DexScreen_LoadIndex(13, SCROLL_UP, selectedIndex, list->template.maxShowed);
-            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE); //think count ishow much to move by, since this is 9 other is 1
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE, DEX_LIST_MODE); //think count ishow much to move by, since this is 9 other is 1
             return LIST_NOTHING_CHOSEN;
         }
         else if (rightButton)
         {
             DexScreen_LoadIndex(13, SCROLL_DOWN, selectedIndex, list->template.maxShowed); //14 / or 13 to cover where scroll, so always full window //works
-            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, TRUE);
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, TRUE, DEX_LIST_MODE);
             return LIST_NOTHING_CHOSEN;
         }
         else
@@ -6092,7 +6092,6 @@ void DexScreen_PrintStringWithAlignment(const u8 * str, s32 mode)
     DexScreen_AddTextPrinterParameterized(0, FONT_NORMAL, str, x, 2, 4);
 }
 
-
 //building w scroll, not building based on index pos when press b, from info page
 //idk what the fuck is wrong but its broken AGAIN somehow, duplicate values on scrolll, not displaying entire list,
 //kanto dex is showing 150 values not 151, but if I close and reopen when at end of index it displays correctly so somehting happens
@@ -6100,41 +6099,21 @@ void DexScreen_PrintStringWithAlignment(const u8 * str, s32 mode)
 //...got it working instantly after gonna pass out now
 //issue was just it not properly lining up with other function that created list. smh
 //needed + 1 because the natdex stuff subtracts 1, from value
-static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 scroll_increment)//most complete, last thing to do is get search dexes to load in, on last seen entry like numerial ones do
+static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 scroll_increment)
 {
     s32 i,j,d;
     bool8 caught;
     bool8 seen;
-    struct ListMenu *list = (struct ListMenu *)gTasks[sPokedexScreenData->orderedListMenuTaskId].data; //hopefully works , it does
+    struct ListMenu *list = (struct ListMenu *)gTasks[sPokedexScreenData->orderedListMenuTaskId].data;
     s16 ndex_num = selectedIndex;
-    //u16 Id_limit = IsNationalPokedexEnabled() ? NATIONAL_DEX_COUNT : KANTO_DEX_COUNT;  //for category dex, to limit displayed to kanto dex
-    //simple to do but idealy I'd just start with nat dex enabled, so think will leave for now  vsonic
-    //still need make a script change to explain dex changess
-
-    //want to setup scroll overlap thought would be as simple as when at 0 scroll up sets to ordered dex count
-    //and when at ordered dex count and scroll down, set to 0, but issue is index changing function comes AFTER this one,
-    //so think wouldn't be able to load because of set boundaries, so would need to put this function after the index changing one?
-    //idk that might not work either, point is I would need new boundaries to solve for that,
-    //or something to change index itself, like say if ndex_num == 0 and direction scroll up, can change to ordered dex count? adn then it'd just count
-    //and then change the functino that adjusts index directly so my ACTUAL cursor position,would be at ordered dex count?
-
-    //yeah think that should work well enough, hard part wouldbe  adjusting the listmenu index changing function,
-    //remember its direclty below loadindex in most cases and would NOT want it to change from showmonpage/dex entry
-    //for that would want to justbreak as normal, hopefully won't need separate function to preserve that
-    //that said its alraedy pretty different in use...vsonic IMPORTANT
-
-    //note would also not want it to flip from using left right, only up and down
-    //, looking like I will need a separate function than hmm.
-
+    
     switch (sPokedexScreenData->dexOrderId)
     {
     default:
     case DEX_ORDER_NUMERICAL_KANTO:
         if (direction == SCROLL_DOWN)
         {
-           // u8 text[20];
-            //        u8 *buffer = Alloc(sizeof(text));
-            u8 *buffer = NULL;//this setup seems to work
+
             for (i = 0; i <= count; i++) //can have this be taken by count argument, so its same code for increasing once
             {
                 
@@ -6145,14 +6124,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {
-                    //u8 text[20];
-                    //u8 *buffer = Alloc(sizeof(text));
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(ndex_num + i + 1));
-                    sPokedexScreenData->listItems[ndex_num + i].label = buffer;
-                    //free(buffer); //for some reason using free  is wrong, and breaks data storage?
-                }   //and using too large a bufffer value causes memory leak but not as it is?
+                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num + i + 1)].speciesName;
+                }
                 else
                 {
                     sPokedexScreenData->listItems[ndex_num + i].label = gText_5Dashes; //ok the + 1 WAS right, issue was the other part was wrong first, facepalm
@@ -6161,12 +6134,13 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
 
                 if (ndex_num + i == sPokedexScreenData->orderedDexCount) //to stop the function effect so I don't increment passed what I need to
                     break; //needed to prevent graphic glitch from going too high
+
             }
-            FREE_IF_NOT_NULL(buffer); //works if scrolling individally but not if use left right arrows...
+
         }
         else if (direction == SCROLL_UP)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0; i < count; i++) //can have this be taken by count argument, so its same code for increasing once
             {
@@ -6181,28 +6155,23 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {   
-                    //u8 text[20];
-                    //u8 *buffer = Alloc(sizeof(text));
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(ndex_num - i + 1));
-                    sPokedexScreenData->listItems[ndex_num - i].label = buffer;
-                    //free(buffer);
+                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num - i + 1)].speciesName;
                 }   
                 else
                 {
                     sPokedexScreenData->listItems[ndex_num - i].label = gText_5Dashes;
                 }
                 sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(ndex_num - i + 1);
+            
+
             }
-            FREE_IF_NOT_NULL(buffer);
         }
         break;
     case DEX_ORDER_ATOZ:
        
         if (direction == SCROLL_DOWN)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j <= NELEMS(gPokedexOrder_Alphabetical); j++)
             {
@@ -6211,10 +6180,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Alphabetical[j], FLAG_GET_CAUGHT, FALSE);
                 if (seen)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j]));
-                    sPokedexScreenData->listItems[ndex_num + i].label = buffer;
+                                        
+                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j]);
                     
                     
@@ -6231,11 +6198,11 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     i++;
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         else if (direction == SCROLL_UP)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j >= 0; j--)
             { 
@@ -6244,10 +6211,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Alphabetical[j], FLAG_GET_CAUGHT, FALSE); 
                 if (seen)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j]));
-                    sPokedexScreenData->listItems[ndex_num - i].label = buffer;
+                    
+                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[j]);
                     
                     
@@ -6265,15 +6230,15 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         break;
     case DEX_ORDER_TYPE: //can't build automatically would need to loop entire species list MANY times, so would take forever
-        //now that I'm saving time I MAY be able to build with a function
+        //now that I'm saving time I MAY be able to build with a function - attempt w python
         
         if (direction == SCROLL_DOWN)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j <= NELEMS(gPokedexOrder_Type); j++)
             {
@@ -6282,10 +6247,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Type[j], FLAG_GET_CAUGHT, FALSE);
                 if (caught)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[j]));
-                    sPokedexScreenData->listItems[ndex_num + i].label = buffer;
+                    
+                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[j]);
                     
                     
@@ -6302,11 +6265,11 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     i++;
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         else if (direction == SCROLL_UP)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j >= 0; j--)
             { 
@@ -6315,10 +6278,9 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Type[j], FLAG_GET_CAUGHT, FALSE); 
                 if (caught)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[j]));
-                    sPokedexScreenData->listItems[ndex_num - i].label = buffer;
+                    
+
+                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[j]);
                     
                     
@@ -6336,14 +6298,14 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         break; //order by type and weight, just wouldn't work with my changes/species expansion would require, going through and creating list by hand
     case DEX_ORDER_LIGHTEST: //this is built by weight, but for identical weight it goes in order of lowest to highest height
 
         if (direction == SCROLL_DOWN)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j <= NELEMS(gPokedexOrder_Weight); j++)
             {
@@ -6352,11 +6314,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Weight[j], FLAG_GET_CAUGHT, FALSE);
                 if (caught)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
                     
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[j]));
-                    sPokedexScreenData->listItems[ndex_num + i].label = buffer;
+                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[j]);
                     
                     
@@ -6373,11 +6332,11 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     i++;
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         else if (direction == SCROLL_UP)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j >= 0; j--)
             { 
@@ -6386,10 +6345,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Weight[j], FLAG_GET_CAUGHT, FALSE); 
                 if (caught)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[j]));
-                    sPokedexScreenData->listItems[ndex_num - i].label = buffer;
+
+                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[j]);
                     
                     
@@ -6407,14 +6364,14 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         break;
     case DEX_ORDER_SMALLEST:
 
         if (direction == SCROLL_DOWN)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j <= NELEMS(gPokedexOrder_Height); j++)
             {
@@ -6423,10 +6380,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Height[j], FLAG_GET_CAUGHT, FALSE);
                 if (caught)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[j]));
-                    sPokedexScreenData->listItems[ndex_num + i].label = buffer;
+                    
+                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num + i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[j]);
                     
                     
@@ -6443,11 +6398,11 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     i++;
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         else if (direction == SCROLL_UP)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0, j = sPokedexScreenData->CurrentIndexValue; i <= count && j >= 0; j--)
             { 
@@ -6456,10 +6411,9 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 caught = DexScreen_GetSetPokedexFlag(gPokedexOrder_Height[j], FLAG_GET_CAUGHT, FALSE); 
                 if (caught)
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[j]));
-                    sPokedexScreenData->listItems[ndex_num - i].label = buffer;
+                    
+
+                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[j])].speciesName;
                     sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[j]);
                     
                     
@@ -6477,13 +6431,13 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                     
                 }
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         break;
     case DEX_ORDER_NUMERICAL_NATIONAL:
         if (direction == SCROLL_DOWN)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0; i <= count; i++) //can have this be taken by count argument, so its same code for increasing once
             {
@@ -6495,10 +6449,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
 
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {   
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(ndex_num + i + 1));
-                    sPokedexScreenData->listItems[ndex_num + i].label = buffer;
+
+                    sPokedexScreenData->listItems[ndex_num + i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num + i + 1)].speciesName;
                     
                 }   
                 else
@@ -6513,11 +6465,11 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 //if (ndex_num + count >= selectedIndex + 100) //to stop the function effect so I don't increment passed what I need to
                 //    break; //for scrolling mon info page, issues are caused when scrolling larger interval than count, testing here
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         else if (direction == SCROLL_UP)
         {
-            u8 *buffer = NULL;
+            
 
             for (i = 0; i < count; i++) //can have this be taken by count argument, so its same code for increasing once
             {
@@ -6530,10 +6482,8 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
 
                 if (seen) //ok using this fixed it, thiknk issue is keeping same structure between, this function and DexScreen_CreateList_ReturnCount
                 {
-                    u8 text[20];
-                    buffer = Alloc(sizeof(text));
-                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(ndex_num - i + 1));
-                    sPokedexScreenData->listItems[ndex_num - i].label = buffer;
+
+                    sPokedexScreenData->listItems[ndex_num - i].label = gBaseStats[NationalPokedexNumToSpecies(ndex_num - i + 1)].speciesName;
                     
                 }   
                 else
@@ -6542,17 +6492,14 @@ static void DexScreen_LoadIndex(u32 count, u8 direction, int selectedIndex, s8 s
                 }
                 sPokedexScreenData->listItems[ndex_num - i].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(ndex_num - i + 1);
             }
-            FREE_IF_NOT_NULL(buffer);
+            
         }
         break;
     }
 }
 
-//this works loadindex doesn't? this builds full list, and rebuilds based on spot when presss B from info page/showmon page
-//sigh I can't give up on this, emerald has it working perfectly if I DON'T get it, its just inferior,
-//haven't truly been trying, I have emerald built, to solve the non numeric issue I need to look into how
-//emeralds search menu works, 
-static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //replacement to simplify new DexScreen_CountMonsInOrderedList logic
+
+static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
 {
     u32 entryPos;
     u16 ndex_num;
@@ -6562,39 +6509,32 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
     bool8 seen;
     u16 NumSeen = IsNationalPokedexEnabled() ? sPokedexScreenData->numSeenNational : sPokedexScreenData->numSeenKanto;
     u16 NumCaught = IsNationalPokedexEnabled() ? sPokedexScreenData->numOwnedNational : sPokedexScreenData->numOwnedKanto;
-    //u16 Id_limit = IsNationalPokedexEnabled() ? NATIONAL_DEX_COUNT : KANTO_DEX_COUNT;  //for category dex, to limit displayed to kanto dex
-    //leaving unset for now`, for plans to setup nat dex from start
-    //I'm stup;id thsi is literally not used, nat dex count doesn't matter
+
     //still need make a script change to explain dex changess
 
     entryPos = selectedIndex;
 
-    //for non numericals, use num seen and num caught, if 0, loop max shown and just make full blank page
-    //if greater than 0, less than or equal to max shown, display that number no blanks
-    switch (orderIdx)//for some reason when open another list, and come back, it breaks this list...fucking hell just fucking work, think I had fixed this
+
+    switch (orderIdx)
     {
     default:
     case DEX_ORDER_NUMERICAL_KANTO:
     {    
-        u8 *buffer = NULL;
+        
         for (i = 0; i <= KANTO_DEX_COUNT; i++)
         {
           
 
-            if (entryPos <= DEX_MAX_SHOWN && i == entryPos) //there's a split between here and the else if, causes some issue
+            if (entryPos <= DEX_MAX_SHOWN && i == entryPos) 
             {
-                for (j = 0; j <= DEX_MAX_SHOWN; j++,i++) //was matter of using else if, instea of continuous if, would cause it to skip a cycle, so changed all to if and fixed that bit
+                for (j = 0; j <= DEX_MAX_SHOWN; j++,i++)
                 {
-                    seen = DexScreen_GetSetPokedexFlag(j + 1, FLAG_GET_SEEN, FALSE);//still reads value 1 higher than it should be when scrolling
-                    caught = DexScreen_GetSetPokedexFlag(j + 1, FLAG_GET_CAUGHT, FALSE);//happens when scrolling through info pages too, so something wrong with loadindex function
+                    seen = DexScreen_GetSetPokedexFlag(j + 1, FLAG_GET_SEEN, FALSE);
+                    caught = DexScreen_GetSetPokedexFlag(j + 1, FLAG_GET_CAUGHT, FALSE);
 
                             if (seen)
                             {
-                                u8 text[20];
-                                buffer = Alloc(sizeof(text));
-                                GetSpeciesName(buffer, NationalPokedexNumToSpecies(j + 1));
-                                sPokedexScreenData->listItems[j].label = buffer;
-
+                                sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
                             }   
                             else
                             {
@@ -6608,18 +6548,6 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
             if (entryPos > DEX_MAX_SHOWN && i == entryPos && entryPos < sPokedexScreenData->orderedDexCount - 4) //loop 10, over i -5 label & index
             {
-                /*if (i - DEX_LOWER_FILL < 0) //remember had change variable to s rather than unsigned, to properly compare negative value
-                    j = 0; //better way to do this would be with a macro but...
-                else
-                    j = i - DEX_LOWER_FILL;
-
-                if (entryPos + DEX_UPPER_FILL > sPokedexScreenData->orderedDexCount) //ok think has to be macro, can't reassign define, check stat index check
-                    d = sPokedexScreenData->orderedDexCount;
-                else
-                    d = entryPos + DEX_UPPER_FILL;*/
-                //removing for now as could increase load times, and realized it was an issue of scrolling not initial load
-                //and increasing scrolling range can be done easier, and is less intensive as wouldn't require loading both directions at once,
-                //and it already has built in bounds
 
                 for (j = i - DEX_MAX_SHOWN; j <= entryPos + DEX_MAX_SHOWN; j++) //changed to better fill, because issue w az etc. changess
                 {
@@ -6628,10 +6556,11 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                             if (seen)
                             {
-                                u8 text[20];
-                                buffer = Alloc(sizeof(text));
-                                GetSpeciesName(buffer, NationalPokedexNumToSpecies(j + 1));
-                                sPokedexScreenData->listItems[j].label = buffer;
+                                //u8 text[20];
+                                //u8 *buffer = AllocZeroed(sizeof(text));
+                                //ReturnSpeciesNameConst(buffer, NationalPokedexNumToSpecies(j + 1));
+                                sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                //free(buffer);
 
                             }
                             else
@@ -6656,10 +6585,11 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                             if (seen)
                             {
-                                u8 text[20];
-                                buffer = Alloc(sizeof(text));
-                                GetSpeciesName(buffer, NationalPokedexNumToSpecies(j + 1));
-                                sPokedexScreenData->listItems[j].label = buffer;
+                                //u8 text[20];
+                                //u8 *buffer = AllocZeroed(sizeof(text));
+                                //ReturnSpeciesNameConst(buffer, NationalPokedexNumToSpecies(j + 1));
+                                sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
+                                //free(buffer);
 
                             }
                             else
@@ -6686,12 +6616,12 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
             ret = KANTO_DEX_COUNT;
                     
         }
-        FREE_IF_NOT_NULL(buffer);
+        
     }
         break;
     case DEX_ORDER_ATOZ: //look into making this load in sections?, think issue is would need to continuously retrigger this function?, not az but all national lists
     {
-        u8 *buffer = NULL;
+        
         for (i = 0; i <= NELEMS(gPokedexOrder_Alphabetical); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
@@ -6718,10 +6648,9 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                         
                         if (seen)
                         {
-                            u8 text[20];
-                            buffer = Alloc(sizeof(text));
-                            GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[i]));
-                            sPokedexScreenData->listItems[j].label = buffer;                            
+                            
+
+                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[i])].speciesName;                            
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -6757,10 +6686,8 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                     
                     if (seen) //would be an issue but above condition will arleady cut it off, if numseenis lessthan this condition
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6787,10 +6714,8 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (seen)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;   
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6807,10 +6732,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (seen)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;   
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6837,10 +6762,8 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (seen)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;   
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6857,10 +6780,8 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (seen)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;   
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d])].speciesName;   
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Alphabetical[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6875,12 +6796,12 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
         }
        //only kanto and national dex list should fill empty space with dashes, rest are supposed to ONLY show number you've seen or caught based on their condition
-        FREE_IF_NOT_NULL(buffer);
+        
     }
         break;
     case DEX_ORDER_TYPE: //can't build automatically would need to loop entire species list MANY times, so would take forever
     { //now that I'm saving time I MAY be able to build with a function
-        u8 *buffer = NULL;
+        
         for (i = 0; i <= NELEMS(gPokedexOrder_Type); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
@@ -6907,10 +6828,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                         
                         if (caught)
                         {
-                            u8 text[20];
-                            buffer = Alloc(sizeof(text));
-                            GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[i]));
-                            sPokedexScreenData->listItems[j].label = buffer;   
+                            
+                            
+                            
+                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[i])].speciesName;   
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -6946,10 +6867,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                     
                     if (caught) //would be an issue but above condition will arleady cut it off, if numseenis lessthan this condition
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[d]));
-                        sPokedexScreenData->listItems[j].label = buffer; 
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6976,10 +6897,8 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[d]));
-                        sPokedexScreenData->listItems[j].label = buffer; 
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -6996,10 +6915,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[d]));
-                        sPokedexScreenData->listItems[j].label = buffer; 
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7026,10 +6945,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[d]));
-                        sPokedexScreenData->listItems[j].label = buffer; 
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7046,10 +6965,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Type[d]));
-                        sPokedexScreenData->listItems[j].label = buffer; 
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Type[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Type[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7062,12 +6981,12 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                 
             }
         }
-        FREE_IF_NOT_NULL(buffer);
+        
     }
         break; //order by type and weight, just wouldn't work with my changes/species expansion would require, going through and creating list by hand
     case DEX_ORDER_LIGHTEST:
     {    
-        u8 *buffer = NULL;
+        
         for (i = 0; i <= NELEMS(gPokedexOrder_Weight); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
@@ -7094,10 +7013,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                         
                         if (caught)
                         {
-                            u8 text[20];
-                            buffer = Alloc(sizeof(text));
-                            GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[i]));
-                            sPokedexScreenData->listItems[j].label = buffer; 
+                            
+                            
+                            
+                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[i])].speciesName; 
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -7133,10 +7052,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                     
                     if (caught) //would be an issue but above condition will arleady cut it off, if numseenis lessthan this condition
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]));
-                        sPokedexScreenData->listItems[j].label = buffer; 
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName; 
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7163,10 +7082,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7183,10 +7102,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7213,10 +7132,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7233,10 +7152,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Weight[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Weight[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7249,12 +7168,12 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                 
             }
         }
-        FREE_IF_NOT_NULL(buffer);
+        
     }
         break;
     case DEX_ORDER_SMALLEST:
     {
-        u8 *buffer = NULL;
+        
         for (i = 0; i <= NELEMS(gPokedexOrder_Height); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
@@ -7281,10 +7200,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                         
                         if (caught)
                         {
-                            u8 text[20];
-                            buffer = Alloc(sizeof(text));
-                            GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[i]));
-                            sPokedexScreenData->listItems[j].label = buffer;
+                            
+                            
+                            
+                            sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[i])].speciesName;
                             sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[i]);
 
                             if (j == entryPos) //extra safety buffer, for when returning to list from dex entry, should assign curr index value 
@@ -7320,10 +7239,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                     
                     if (caught) //would be an issue but above condition will arleady cut it off, if numseenis lessthan this condition
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7350,10 +7269,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7370,10 +7289,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7400,10 +7319,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7420,10 +7339,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                     if (caught)
                     {
-                        u8 text[20];
-                        buffer = Alloc(sizeof(text));
-                        GetSpeciesName(buffer, NationalPokedexNumToSpecies(gPokedexOrder_Height[d]));
-                        sPokedexScreenData->listItems[j].label = buffer;
+                        
+                        
+                        
+                        sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(gPokedexOrder_Height[d])].speciesName;
                         sPokedexScreenData->listItems[j].index = (caught << 17) + (seen << 16) + NationalPokedexNumToSpecies(gPokedexOrder_Height[d]);
                         if (j == entryPos)
                             sPokedexScreenData->CurrentIndexValue = d;
@@ -7436,12 +7355,12 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                 
             }
         }
-        FREE_IF_NOT_NULL(buffer);
+        
     }
         break;
     case DEX_ORDER_NUMERICAL_NATIONAL:
     {
-        u8 *buffer = NULL;
+        
         for (i = 0; i <= NATIONAL_SPECIES_COUNT; i++) //ok this changes load times, and num entries on list,
         {
             
@@ -7453,10 +7372,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                         caught = DexScreen_GetSetPokedexFlag(j + 1, FLAG_GET_CAUGHT, FALSE);
                                 if (seen)
                                 {
-                                    u8 text[20];
-                                    buffer = Alloc(sizeof(text));
-                                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(j + 1));
-                                    sPokedexScreenData->listItems[j].label = buffer;
+                                    
+                                    
+                                    
+                                    sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
                                     
                                 }
                                 else
@@ -7478,10 +7397,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
 
                                 if (seen)
                                 {
-                                    u8 text[20];
-                                    buffer = Alloc(sizeof(text));
-                                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(j + 1));
-                                    sPokedexScreenData->listItems[j].label = buffer;
+                                    
+                                    
+                                    
+                                    sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
                        
                                 }
                                 else
@@ -7505,10 +7424,10 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                         caught = DexScreen_GetSetPokedexFlag(j + 1, FLAG_GET_CAUGHT, FALSE);
                                 if (seen)
                                 {
-                                    u8 text[20];
-                                    buffer = Alloc(sizeof(text));
-                                    GetSpeciesName(buffer, NationalPokedexNumToSpecies(j + 1));
-                                    sPokedexScreenData->listItems[j].label = buffer;
+                                    
+                                    
+                                    
+                                    sPokedexScreenData->listItems[j].label = gBaseStats[NationalPokedexNumToSpecies(j + 1)].speciesName;
                              
                                 }
                                 else
@@ -7535,7 +7454,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex) //re
                 
 
         }
-        FREE_IF_NOT_NULL(buffer);//hopefully works, changed nothing, still has memory issue
+        //hopefully works, changed nothing, still has memory issue
         //so at best its just completely unnecessary
         //idk whats going on now. changed both scroll functions to free memory
         //but didn't change, even undoing teh dex allignment changes didn't affect it

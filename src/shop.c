@@ -402,7 +402,7 @@ static void CB2_InitBuyMenu(void)
         BuyMenuDrawGraphics();
         BuyMenuAddScrollIndicatorArrows();
         taskId = CreateTask(Task_BuyMenu, 8);
-        gTasks[taskId].tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
+        gTasks[taskId].tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0, DEFAULT_MODE);
         BlendPalettes(0xFFFFFFFF, 0x10, RGB_BLACK);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, RGB_BLACK);
         SetVBlankCallback(VBlankCB_BuyMenu);
@@ -890,7 +890,7 @@ static void Task_BuyMenu(u8 taskId)
 
     if (!gPaletteFade.active)
     {
-        s32 itemId = ListMenu_ProcessInput(tListTaskId);
+        s32 itemId = ListMenu_ProcessInput(tListTaskId, DEFAULT_MODE);
         ListMenuGetScrollAndRow(tListTaskId, &gShopData.scrollOffset, &gShopData.selectedRow);
         switch (itemId)
         {
