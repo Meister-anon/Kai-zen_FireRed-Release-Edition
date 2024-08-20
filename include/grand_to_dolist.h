@@ -2809,6 +2809,23 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     ok we have a speed chek, then a priority check
     -think can't do  will just  leave to exclude pwr 1 moves
 
+    
+    eventually update setup for 2turns moves
+    also go over statuses again and remove what I can
+    prob the timers replace with struct values where I don't need
+    to direclty refer to the status
+    potentially needed for gen 9 additions
+    also watched datodoya playthrough pokemon fr  and dmg balance seemed fine
+    zangoose vs shuppet, potentially but with my drop to super dmg
+    its possible I may need it just to get even, even though being even 
+    isn't what I wanted?
+    bottom line keep an eye on it at higher levels than early game
+    possibly may only actually need the scale down part for weaker enemies
+
+    also need ensure its still fun/challenging/exciting don't want it to just be 
+    even even when fighting enemies far above you.
+    so take note of that as well
+
     fixed icons pals garahpic file tec.
     tired need go over later
 
@@ -2830,6 +2847,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for issue w gen9 mon  of dex
     think its just becuz mon not seen/not in dex not actually
     something wrong hmm
+
+    fixed cap and  order logic for dex, still not showing dex page for gen 9 mon,
+    fixing that is next step, - prob just check drawmonpage I guess 
+    
+    then can get back to working on the stupid battle callbacks smh
 
     todo revise species list for removal of cosmetic forms
     first setup like unown, idea is move speices constant after num species
