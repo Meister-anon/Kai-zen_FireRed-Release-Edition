@@ -402,6 +402,7 @@ static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOff
     s32 i;
     u8 x, y;
     u8 yMultiplier = GetFontAttribute(list->template.fontId, FONTATTR_MAX_LETTER_HEIGHT) + list->template.itemVerticalPadding;
+    u8 Textbuff[20];
 
     for (i = 0; i < count; i++)
     {
@@ -416,17 +417,17 @@ static void ListMenuPrintEntries(struct ListMenu *list, u16 startIndex, u16 yOff
             ListMenuPrint(list, list->template.items[startIndex].label, x, y);
         else if (listMode == ITEM_PC_MODE)
         {
-            StringCopy(gStringVar1,list->template.items[startIndex].label);
+            StringCopy(Textbuff,list->template.items[startIndex].label);
             if (ShouldCapitalizeItems())
-                CapializeString(gStringVar1); 
-            ListMenuPrint(list, gStringVar1, x, y);
+                CapializeString(Textbuff); 
+            ListMenuPrint(list, Textbuff, x, y);
         }
         else if (listMode == DEX_LIST_MODE)
         {
-            StringCopy(gStringVar1,list->template.items[startIndex].label);
+            StringCopy(Textbuff,list->template.items[startIndex].label);
             if (ShouldCapitalizeSpecies())
-                CapializeString(gStringVar1); 
-            ListMenuPrint(list, gStringVar1, x, y);
+                CapializeString(Textbuff); 
+            ListMenuPrint(list, Textbuff, x, y);
         }
         startIndex++;
     }
