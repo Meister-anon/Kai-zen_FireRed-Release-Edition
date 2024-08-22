@@ -2276,6 +2276,7 @@ const u16 gDexCategory_RarePkmnlist[] = {
     SPECIES_SPECTRIER,
     SPECIES_CALYREX,
     SPECIES_ENAMORUS,
+
 };
 
 

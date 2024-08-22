@@ -2868,6 +2868,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     rn did partial removal, alcremie forms aren't listed in species
     issue is blank space in debug menu, is only place would be visible.
 
+    //need add gen 9 dex_entries, annoying since EE split to multiple fields onbase stat
+    //but doable w python
+
     NOTE**(
     major IMPORTANT  idea
     item cloner, with addition of more mon  remove need

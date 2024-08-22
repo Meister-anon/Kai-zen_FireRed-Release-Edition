@@ -10896,7 +10896,10 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 296,
         .trainerOffset = 1,
     },
+
 }; //end of species form dex below
+//need add gen 9, annoying since EE split to multiple fields onbase stat
+//but doable w python
 
 //if species has mega flag they are same categoryName as base species so can use that to skip processing
 //.flags = F_MEGA_FORM,  or SPECIES_FLAG_PRIMAL_REVERSION  or F_PIKACHU_FORM  use && !=  && !=

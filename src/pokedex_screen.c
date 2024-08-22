@@ -3630,19 +3630,22 @@ static bool32 DexScreen_TryScrollMonVertical(u8 direction) //vsonic important th
         //ok this is good enough, nvm tested w full dex and its much slower
         //when having to navigate filled values and can't just write blank entries
 
-        DexScreen_LoadIndex(160, SCROLL_DOWN, selectedIndex, 1);//only slows if i need to go full length, load time is based on distance to next value
+        //I feel like there's a better way to do this than just loading every entry from where I am to the next non blank value?
+        //like if I could seen dex flags and go to the next seen one and then just load
+        //the tiles around me? enough to  see a full page should I exit from there
+        /*potentially make new function?
+        rather than increment by 1 and load based on a count
+        can loop from index, stop when encounter next seen value assign to Nextseen
+        and make increment Nextseen - index?
+        make that curr index and then think do like create list and build page around me at 13 values,
+        well however the bottom works*/
+        DexScreen_LoadIndex(102, SCROLL_DOWN, selectedIndex, 1);//only slows if i need to go full length, load time is based on distance to next value
 
-        //can't tell if its something i caused but in nat dex it breaks when it scrolls 
-        //beyond a gap, think Im somehow missing a limiter?
-        //before I believe it wouldn't move beyond the count amount.
-        //only happens if index is not loaded via scrol first
-        //selectedIndex++;
-        while (++selectedIndex < sPokedexScreenData->orderedDexCount) //Should be while (++selectedIndex < sPokedexScreenData->orderedDexCount) without the selectedIndex++ in the body or before the while at all, but this is needed to match.
+        while (++selectedIndex < sPokedexScreenData->orderedDexCount)
         {            
 
             if ((sPokedexScreenData->listItems[selectedIndex].index >> 16) & 1) //I think should put the dpad loads within these loops?
                 break; //<< 16 is seen, believe << 17 is caught, confirmed
-            //selectedIndex++;
         }
         if (selectedIndex >= sPokedexScreenData->orderedDexCount)
         {
@@ -3662,18 +3665,15 @@ static bool32 DexScreen_TryScrollMonVertical(u8 direction) //vsonic important th
         }
         else if (selectedIndex >= (sPokedexScreenData->orderedDexCount - 4)) //if can scroll i.e is not 4 away from end of list
         {
-            *cursorPos_p = (sPokedexScreenData->orderedDexCount - sListMenuTemplate_OrderedListMenu.maxShowed); //changed from flat 9s
+            *cursorPos_p = (sPokedexScreenData->orderedDexCount - sListMenuTemplate_OrderedListMenu.maxShowed);
             *itemsAbove_p = selectedIndex + sListMenuTemplate_OrderedListMenu.maxShowed - (sPokedexScreenData->orderedDexCount);
         }
         else
         {
             *cursorPos_p = selectedIndex - 4;
             *itemsAbove_p = 4;
-        } //ok so this isn't the right place for change I want, ok removing this just prevents changing dex entry shown as move up down, so not what I need.
-    } //uses orderedDexCount as max value, and that's set with funcntion, but with my change, dex count is dif from actual total size should be
-    //so think best to make other struct value to replace curent use of orderedDexCount in getcount function,
-    //so it'd show end of list,  or keep orderedDexCount as just amount loaded in list curr, but make new value to be what the max list should be
-    //rather than my preload value. DexListMax
+        } 
+    } 
     else
     {
         *cursorPos_p = 0;
@@ -3682,17 +3682,13 @@ static bool32 DexScreen_TryScrollMonVertical(u8 direction) //vsonic important th
     return TRUE;
 }
 
-//duplicate effect functions for port effect
-//vsonic Important, add on to this stuff to expand orderedDexCount
-//think need return
-static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
+static s32 DexScreen_ProcessInput(u8 listTaskId)//replaced listmenu process input
 {
     
     struct ListMenu *list = (struct ListMenu *)gTasks[listTaskId].data;
     struct ListMenuTemplate template;
 
     u32 selectedIndex = list->cursorPos + list->itemsAbove;
-    //u16 ndex_num = selectedIndex + DEX_MAX_SHOWN;
 
     if (JOY_NEW(A_BUTTON))
     {
@@ -3704,19 +3700,17 @@ static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
     }
     else if (gMain.newAndRepeatedKeys & DPAD_UP)
     {
-        //if (selectedIndex >= list->template.maxShowed)//fix works betternow
-        //changed load function can do without this now
-        DexScreen_LoadIndex(list->template.maxShowed, SCROLL_UP, selectedIndex, 1);//building w scroll, not building based on index pos when press b, from info page
-        ListMenuChangeSelection(list, TRUE, 1, FALSE, DEX_LIST_MODE); //count here seems to be how much to move by   
+
+        DexScreen_LoadIndex(list->template.maxShowed, SCROLL_UP, selectedIndex, 1);
+        ListMenuChangeSelection(list, TRUE, 1, FALSE, DEX_LIST_MODE); 
         return LIST_NOTHING_CHOSEN;
     }
     else if (gMain.newAndRepeatedKeys & DPAD_DOWN)
     {
 
-        
         DexScreen_LoadIndex(list->template.maxShowed, SCROLL_DOWN, selectedIndex, 1);
-        ListMenuChangeSelection(list, TRUE, 1, TRUE, DEX_LIST_MODE); //think issue could be htis, its increasing place by 1, simple fix is putting it after the scroll increment
-        return LIST_NOTHING_CHOSEN;//tested works, need add to tryscrollmon vertical as well
+        ListMenuChangeSelection(list, TRUE, 1, TRUE, DEX_LIST_MODE);
+        return LIST_NOTHING_CHOSEN;
     }
     else // try to move by one window scroll
     {
@@ -3737,12 +3731,11 @@ static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
             rightButton = gMain.newAndRepeatedKeys & R_BUTTON;
             break;
         }
-        if (leftButton) //think take page from this setup  else if (JOY_NEW(DPAD_UP) && DexScreen_TryScrollMonsVertical(1))
+        if (leftButton)
         {
             
-            //if (selectedIndex >= 13)
-                DexScreen_LoadIndex(13, SCROLL_UP, selectedIndex, list->template.maxShowed);
-            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE, DEX_LIST_MODE); //think count ishow much to move by, since this is 9 other is 1
+            DexScreen_LoadIndex(13, SCROLL_UP, selectedIndex, list->template.maxShowed);
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE, DEX_LIST_MODE); 
             return LIST_NOTHING_CHOSEN;
         }
         else if (rightButton)
@@ -3756,7 +3749,7 @@ static s32 DexScreen_ProcessInput(u8 listTaskId)//replace listmenu process input
             return LIST_NOTHING_CHOSEN;
         }
     }
-}//there is issue only with scrolling up, (just left as ofnow) in case of things that could exceed the list limit, but that doesn't happen when doing down.
+}
 
 static void DexScreen_RemoveWindow(u8 *windowId_p)
 {
@@ -4368,6 +4361,9 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     bool8 UniqueCategory = FALSE;
     //bool8 UseBaseForm = FALSE;
     u16 NatSpecies = SpeciesToNationalPokedexNum(species);
+
+    //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
+    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
     //can use ternary operator or just a conditional assignment
     //yeah prob better to do conditional assignment
     //to pass off whether it'll check if you've caught the 
@@ -4511,7 +4507,8 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     if (species > NATIONAL_SPECIES_COUNT)
         species = GetFormSpeciesId(species, 0);
 
-    species = SpeciesToNationalPokedexNum(species);
+    //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
+    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
 
 
     height = gPokedexEntries[species].height;
@@ -4593,7 +4590,8 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     if (species > NATIONAL_SPECIES_COUNT)
         species = GetFormSpeciesId(species, 0);
 
-    species = SpeciesToNationalPokedexNum(species);
+    //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
+    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
 
     weight = gPokedexEntries[species].weight;
     labelText = gText_WT;
@@ -4871,7 +4869,10 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE))
     {
 
-        species = SpeciesToNationalPokedexNum(species);
+        //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
+        species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+
+        
 
         if (species > NATIONAL_SPECIES_COUNT)
             printerTemplate.currentChar = gFormdexEntries[species].description;
@@ -5049,7 +5050,12 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     // Species stats -need change these print functions, dexno cat, height & weight
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[1], PIXEL_FILL(0));
     DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, sPokedexScreenData->dexSpecies, 0, 1);
+    //print name
+    if (sPokedexScreenData->dexSpecies <= 999)
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 1, 0);
+    else
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 32, 1, 0); //for 4 digit num, num fits perfect
+
     DexScreen_PrintMonCategory(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 16);
     DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 28);
     DexScreen_PrintMonWeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 40);
@@ -5442,7 +5448,9 @@ u8 DexScreen_DrawMonAreaPage(void)
     if (species > NATIONAL_SPECIES_COUNT)
         speciesId = SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)); //returns base form species
     else
-        speciesId = SpeciesToNationalPokedexNum(species);
+        //speciesId = SpeciesToNationalPokedexNum(species);
+        //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
+        speciesId = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
     //doesn't work with out below
     //speciesId = SpeciesToNationalPokedexNum(species); //kept this , as before was using nat number so hopefully won't break anything
     

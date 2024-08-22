@@ -367,7 +367,7 @@ void LoadSpecialPokePic_DontHandleDeoxys(void *dest, s32 species, u32 personalit
         if (i == 0)
             i = SPECIES_UNOWN;
         else
-            i += SPECIES_UNOWN_B - 1;
+            i += SPECIES_UNOWN_B - 1; //vsonic potentially do w all cosmetics
         if (!isFrontPic)
             LZ77UnCompWram(gSpeciesGraphics[i].backPic, dest);
         else
