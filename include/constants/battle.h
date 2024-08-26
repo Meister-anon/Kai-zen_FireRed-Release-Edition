@@ -360,9 +360,9 @@
 #define SIDE_STATUS_REFLECT					(1 << 0)
 #define SIDE_STATUS_LIGHTSCREEN				(1 << 1)
 #define SIDE_STATUS_STICKY_WEB				(1 << 2)
-#define SIDE_STATUS_SPIKES					(1 << 4)
+#define SIDE_STATUS_SPIKES					(1 << 4) //side status fitureattack never used?, guess can remove
 #define SIDE_STATUS_SAFEGUARD				(1 << 5)
-#define SIDE_STATUS_FUTUREATTACK			(1 << 6)	//block fog shuold prevnt same as block burn/etc. dmg
+#define SIDE_STATUS_FREE_SPACE  			(1 << 6)	//black fog shuold prevnt same as block burn/etc. dmg
 #define SIDE_STATUS_MIST					(1 << 8)	//blocked by black fog
 #define SIDE_STATUS_SPIKES_DAMAGED			(1 << 9)
 #define SIDE_STATUS_TAILWIND                (1 << 10)	//unsure could have tail wind use do defog affect, remove mist & black fog

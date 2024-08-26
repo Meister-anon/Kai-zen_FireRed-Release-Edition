@@ -514,8 +514,9 @@ AI_CBM_SunnyDay:: @ 81DA312
 	if_equal AI_WEATHER_SUN, Score_Minus8
 	end
 
+@replace w timer check I guess? as side status is never used
 AI_CBM_FutureSight:: @ 81DA31A
-	if_side_affecting AI_TARGET, SIDE_STATUS_FUTUREATTACK, Score_Minus10
+@	if_side_affecting AI_TARGET, SIDE_STATUS_FUTUREATTACK, Score_Minus10
 @	if_side_affecting AI_USER, SIDE_STATUS_FUTUREATTACK, Score_Minus12  @ Improvement in Emerald
 	end
 
