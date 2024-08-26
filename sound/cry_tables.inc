@@ -1306,6 +1306,273 @@ gCryTable::
 	cry Cry_CalyrexIceRider
 	cry Cry_CalyrexShadowRider
 
+	@.if P_FAMILY_ENAMORUS == TRUE
+	cry Cry_EnamorusIncarnate
+	cry Cry_EnamorusTherian
+@.endif @ P_FAMILY_ENAMORUS
+@.if P_FAMILY_SPRIGATITO == TRUE
+	cry Cry_Sprigatito
+	cry Cry_Floragato
+	cry Cry_Meowscarada
+@.endif @ P_FAMILY_SPRIGATITO
+@.if P_FAMILY_FUECOCO == TRUE
+	cry Cry_Fuecoco
+	cry Cry_Crocalor
+	cry Cry_Skeledirge
+@.endif @ P_FAMILY_FUECOCO
+@.if P_FAMILY_QUAXLY == TRUE
+	cry Cry_Quaxly
+	cry Cry_Quaxwell
+	cry Cry_Quaquaval
+@.endif @ P_FAMILY_QUAXLY
+@.if P_FAMILY_LECHONK == TRUE
+	cry Cry_Lechonk
+	cry Cry_OinkologneMale
+	cry Cry_OinkologneFemale
+@.endif @ P_FAMILY_LECHONK
+@.if P_FAMILY_TAROUNTULA == TRUE
+	cry Cry_Tarountula
+	cry Cry_Spidops
+@.endif @ P_FAMILY_TAROUNTULA
+@.if P_FAMILY_NYMBLE == TRUE
+	cry Cry_Nymble
+	cry Cry_Lokix
+@.endif @ P_FAMILY_NYMBLE
+@.if P_FAMILY_PAWMI == TRUE
+	cry Cry_Pawmi
+	cry Cry_Pawmo
+	cry Cry_Pawmot
+@.endif @ P_FAMILY_PAWMI
+@.if P_FAMILY_TANDEMAUS == TRUE
+	cry Cry_Tandemaus
+	cry Cry_MausholdFamilyOfThree
+	cry Cry_MausholdFamilyOfFour
+@.endif @ P_FAMILY_TANDEMAUS
+@.if P_FAMILY_FIDOUGH == TRUE
+	cry Cry_Fidough
+	cry Cry_Dachsbun
+@.endif @ P_FAMILY_FIDOUGH
+@.if P_FAMILY_SMOLIV == TRUE
+	cry Cry_Smoliv
+	cry Cry_Dolliv
+	cry Cry_Arboliva
+@.endif @ P_FAMILY_SMOLIV
+@.if P_FAMILY_SQUAWKABILLY == TRUE
+	cry Cry_Squawkabilly
+@.endif @ P_FAMILY_SQUAWKABILLY
+@.if P_FAMILY_NACLI == TRUE
+	cry Cry_Nacli
+	cry Cry_Naclstack
+	cry Cry_Garganacl
+@.endif @ P_FAMILY_NACLI
+@.if P_FAMILY_CHARCADET == TRUE
+	cry Cry_Charcadet
+	cry Cry_Armarouge
+	cry Cry_Ceruledge
+@.endif @ P_FAMILY_CHARCADET
+@.if P_FAMILY_TADBULB == TRUE
+	cry Cry_Tadbulb
+	cry Cry_Bellibolt
+@.endif @ P_FAMILY_TADBULB
+@.if P_FAMILY_WATTREL == TRUE
+	cry Cry_Wattrel
+	cry Cry_Kilowattrel
+@.endif @ P_FAMILY_WATTREL
+@.if P_FAMILY_MASCHIFF == TRUE
+	cry Cry_Maschiff
+	cry Cry_Mabosstiff
+@.endif @ P_FAMILY_MASCHIFF
+@.if P_FAMILY_SHROODLE == TRUE
+	cry Cry_Shroodle
+	cry Cry_Grafaiai
+@.endif @ P_FAMILY_SHROODLE
+@.if P_FAMILY_BRAMBLIN == TRUE
+	cry Cry_Bramblin
+	cry Cry_Brambleghast
+@.endif @ P_FAMILY_BRAMBLIN
+@.if P_FAMILY_TOEDSCOOL == TRUE
+	cry Cry_Toedscool
+	cry Cry_Toedscruel
+@.endif @ P_FAMILY_TOEDSCOOL
+@.if P_FAMILY_KLAWF == TRUE
+	cry Cry_Klawf
+@.endif @ P_FAMILY_KLAWF
+@.if P_FAMILY_CAPSAKID == TRUE
+	cry Cry_Capsakid
+	cry Cry_Scovillain
+@.endif @ P_FAMILY_CAPSAKID
+@.if P_FAMILY_RELLOR == TRUE
+	cry Cry_Rellor
+	cry Cry_Rabsca
+@.endif @ P_FAMILY_RELLOR
+@.if P_FAMILY_FLITTLE == TRUE
+	cry Cry_Flittle
+	cry Cry_Espathra
+@.endif @ P_FAMILY_FLITTLE
+@.if P_FAMILY_TINKATINK == TRUE
+	cry Cry_Tinkatink
+	cry Cry_Tinkatuff
+	cry Cry_Tinkaton
+@.endif @ P_FAMILY_TINKATINK
+@.if P_FAMILY_WIGLETT == TRUE
+	cry Cry_Wiglett
+	cry Cry_Wugtrio
+@.endif @ P_FAMILY_WIGLETT
+@.if P_FAMILY_BOMBIRDIER == TRUE
+	cry Cry_Bombirdier
+@.endif @ P_FAMILY_BOMBIRDIER
+@.if P_FAMILY_FINIZEN == TRUE
+	cry Cry_Finizen
+	cry Cry_PalafinZero
+	cry Cry_PalafinHero
+@.endif @ P_FAMILY_FINIZEN
+@.if P_FAMILY_VAROOM == TRUE
+	cry Cry_Varoom
+	cry Cry_Revavroom
+@.endif @ P_FAMILY_VAROOM
+@.if P_FAMILY_CYCLIZAR == TRUE
+	cry Cry_Cyclizar
+@.endif @ P_FAMILY_CYCLIZAR
+@.if P_FAMILY_ORTHWORM == TRUE
+	cry Cry_Orthworm
+@.endif @ P_FAMILY_ORTHWORM
+@.if P_FAMILY_GLIMMET == TRUE
+	cry Cry_Glimmet
+	cry Cry_Glimmora
+@.endif @ P_FAMILY_GLIMMET
+@.if P_FAMILY_GREAVARD == TRUE
+	cry Cry_Greavard
+	cry Cry_Houndstone
+@.endif @ P_FAMILY_GREAVARD
+@.if P_FAMILY_FLAMIGO == TRUE
+	cry Cry_Flamigo
+@.endif @ P_FAMILY_FLAMIGO
+@.if P_FAMILY_CETODDLE == TRUE
+	cry Cry_Cetoddle
+	cry Cry_Cetitan
+@.endif @ P_FAMILY_CETODDLE
+@.if P_FAMILY_VELUZA == TRUE
+	cry Cry_Veluza
+@.endif @ P_FAMILY_VELUZA
+@.if P_FAMILY_DONDOZO == TRUE
+	cry Cry_Dondozo
+@.endif @ P_FAMILY_DONDOZO
+@.if P_FAMILY_TATSUGIRI == TRUE
+	cry Cry_TatsugiriCurly
+	cry Cry_TatsugiriDroopy
+	cry Cry_TatsugiriStretchy
+@.endif @ P_FAMILY_TATSUGIRI
+@.if P_FAMILY_GREAT_TUSK == TRUE
+	cry Cry_GreatTusk
+@.endif @ P_FAMILY_GREAT_TUSK
+@.if P_FAMILY_SCREAM_TAIL == TRUE
+	cry Cry_ScreamTail
+@.endif @ P_FAMILY_SCREAM_TAIL
+@.if P_FAMILY_BRUTE_BONNET == TRUE
+	cry Cry_BruteBonnet
+@.endif @ P_FAMILY_BRUTE_BONNET
+@.if P_FAMILY_FLUTTER_MANE == TRUE
+	cry Cry_FlutterMane
+@.endif @ P_FAMILY_FLUTTER_MANE
+@.if P_FAMILY_SLITHER_WING == TRUE
+	cry Cry_SlitherWing
+@.endif @ P_FAMILY_SLITHER_WING
+@.if P_FAMILY_SANDY_SHOCKS == TRUE
+	cry Cry_SandyShocks
+@.endif @ P_FAMILY_SANDY_SHOCKS
+@.if P_FAMILY_IRON_TREADS == TRUE
+	cry Cry_IronTreads
+@.endif @ P_FAMILY_IRON_TREADS
+@.if P_FAMILY_IRON_BUNDLE == TRUE
+	cry Cry_IronBundle
+@.endif @ P_FAMILY_IRON_BUNDLE
+@.if P_FAMILY_IRON_HANDS == TRUE
+	cry Cry_IronHands
+@.endif @ P_FAMILY_IRON_HANDS
+@.if P_FAMILY_IRON_JUGULIS == TRUE
+	cry Cry_IronJugulis
+@.endif @ P_FAMILY_IRON_JUGULIS
+@.if P_FAMILY_IRON_MOTH == TRUE
+	cry Cry_IronMoth
+@.endif @ P_FAMILY_IRON_MOTH
+@.if P_FAMILY_IRON_THORNS == TRUE
+	cry Cry_IronThorns
+@.endif @ P_FAMILY_IRON_THORNS
+@.if P_FAMILY_FRIGIBAX == TRUE
+	cry Cry_Frigibax
+	cry Cry_Arctibax
+	cry Cry_Baxcalibur
+@.endif @ P_FAMILY_FRIGIBAX
+@.if P_FAMILY_GIMMIGHOUL == TRUE
+	cry Cry_Gimmighoul
+	cry Cry_Gholdengo
+@.endif @ P_FAMILY_GIMMIGHOUL
+@.if P_FAMILY_WO_CHIEN == TRUE
+	cry Cry_WoChien
+@.endif @ P_FAMILY_WO_CHIEN
+@.if P_FAMILY_CHIEN_PAO == TRUE
+	cry Cry_ChienPao
+@.endif @ P_FAMILY_CHIEN_PAO
+@.if P_FAMILY_TING_LU == TRUE
+	cry Cry_TingLu
+@.endif @ P_FAMILY_TING_LU
+@.if P_FAMILY_CHI_YU == TRUE
+	cry Cry_ChiYu
+@.endif @ P_FAMILY_CHI_YU
+@.if P_FAMILY_ROARING_MOON == TRUE
+	cry Cry_RoaringMoon
+@.endif @ P_FAMILY_ROARING_MOON
+@.if P_FAMILY_IRON_VALIANT == TRUE
+	cry Cry_IronValiant
+@.endif @ P_FAMILY_IRON_VALIANT
+@.if P_FAMILY_KORAIDON == TRUE
+	cry Cry_Koraidon
+@.endif @ P_FAMILY_KORAIDON
+@.if P_FAMILY_MIRAIDON == TRUE
+	cry Cry_Miraidon
+@.endif @ P_FAMILY_MIRAIDON
+@.if P_FAMILY_WALKING_WAKE == TRUE
+	cry Cry_WalkingWake
+@.endif @ P_FAMILY_WALKING_WAKE
+@.if P_FAMILY_IRON_LEAVES == TRUE
+	cry Cry_IronLeaves
+@.endif @ P_FAMILY_IRON_LEAVES
+@.if P_FAMILY_POLTCHAGEIST == TRUE
+	cry Cry_Poltchageist
+	cry Cry_Sinistcha
+@.endif @ P_FAMILY_POLTCHAGEIST
+@.if P_FAMILY_OKIDOGI == TRUE
+	cry Cry_Okidogi
+@.endif @ P_FAMILY_OKIDOGI
+@.if P_FAMILY_MUNKIDORI == TRUE
+	cry Cry_Munkidori
+@.endif @ P_FAMILY_MUNKIDORI
+@.if P_FAMILY_FEZANDIPITI == TRUE
+	cry Cry_Fezandipiti
+@.endif @ P_FAMILY_FEZANDIPITI
+@.if P_FAMILY_OGERPON == TRUE
+	cry Cry_Ogerpon
+@.endif @ P_FAMILY_OGERPON
+@.if P_FAMILY_GOUGING_FIRE == TRUE
+	cry Cry_GougingFire
+@.endif @ P_FAMILY_GOUGING_FIRE
+@.if P_FAMILY_RAGING_BOLT == TRUE
+	cry Cry_RagingBolt
+@.endif @ P_FAMILY_RAGING_BOLT
+@.if P_FAMILY_IRON_BOULDER == TRUE
+	cry Cry_IronBoulder
+@.endif @ P_FAMILY_IRON_BOULDER
+@.if P_FAMILY_IRON_CROWN == TRUE
+	cry Cry_IronCrown
+@.endif @ P_FAMILY_IRON_CROWN
+@.if P_FAMILY_TERAPAGOS == TRUE
+	cry Cry_Terapagos
+@.endif @ P_FAMILY_TERAPAGOS
+@.if P_FAMILY_PECHARUNT == TRUE
+	cry Cry_Pecharunt
+@.endif @ P_FAMILY_PECHARUNT
+@.endif @ P_CRIES_ENABLED
+
 	.align 2
 gCryTable2::
 	cry2 Cry_Bulbasaur
@@ -2616,3 +2883,270 @@ gCryTable2::
 	@ Calyrex
 	cry2 Cry_CalyrexIceRider
 	cry2 Cry_CalyrexShadowRider
+
+	@.if P_FAMILY_ENAMORUS == TRUE
+	cry2 Cry_EnamorusIncarnate
+	cry2 Cry_EnamorusTherian
+@.endif @ P_FAMILY_ENAMORUS
+@.if P_FAMILY_SPRIGATITO == TRUE
+	cry2 Cry_Sprigatito
+	cry2 Cry_Floragato
+	cry2 Cry_Meowscarada
+@.endif @ P_FAMILY_SPRIGATITO
+@.if P_FAMILY_FUECOCO == TRUE
+	cry2 Cry_Fuecoco
+	cry2 Cry_Crocalor
+	cry2 Cry_Skeledirge
+@.endif @ P_FAMILY_FUECOCO
+@.if P_FAMILY_QUAXLY == TRUE
+	cry2 Cry_Quaxly
+	cry2 Cry_Quaxwell
+	cry2 Cry_Quaquaval
+@.endif @ P_FAMILY_QUAXLY
+@.if P_FAMILY_LECHONK == TRUE
+	cry2 Cry_Lechonk
+	cry2 Cry_OinkologneMale
+	cry2 Cry_OinkologneFemale
+@.endif @ P_FAMILY_LECHONK
+@.if P_FAMILY_TAROUNTULA == TRUE
+	cry2 Cry_Tarountula
+	cry2 Cry_Spidops
+@.endif @ P_FAMILY_TAROUNTULA
+@.if P_FAMILY_NYMBLE == TRUE
+	cry2 Cry_Nymble
+	cry2 Cry_Lokix
+@.endif @ P_FAMILY_NYMBLE
+@.if P_FAMILY_PAWMI == TRUE
+	cry2 Cry_Pawmi
+	cry2 Cry_Pawmo
+	cry2 Cry_Pawmot
+@.endif @ P_FAMILY_PAWMI
+@.if P_FAMILY_TANDEMAUS == TRUE
+	cry2 Cry_Tandemaus
+	cry2 Cry_MausholdFamilyOfThree
+	cry2 Cry_MausholdFamilyOfFour
+@.endif @ P_FAMILY_TANDEMAUS
+@.if P_FAMILY_FIDOUGH == TRUE
+	cry2 Cry_Fidough
+	cry2 Cry_Dachsbun
+@.endif @ P_FAMILY_FIDOUGH
+@.if P_FAMILY_SMOLIV == TRUE
+	cry2 Cry_Smoliv
+	cry2 Cry_Dolliv
+	cry2 Cry_Arboliva
+@.endif @ P_FAMILY_SMOLIV
+@.if P_FAMILY_SQUAWKABILLY == TRUE
+	cry2 Cry_Squawkabilly
+@.endif @ P_FAMILY_SQUAWKABILLY
+@.if P_FAMILY_NACLI == TRUE
+	cry2 Cry_Nacli
+	cry2 Cry_Naclstack
+	cry2 Cry_Garganacl
+@.endif @ P_FAMILY_NACLI
+@.if P_FAMILY_CHARCADET == TRUE
+	cry2 Cry_Charcadet
+	cry2 Cry_Armarouge
+	cry2 Cry_Ceruledge
+@.endif @ P_FAMILY_CHARCADET
+@.if P_FAMILY_TADBULB == TRUE
+	cry2 Cry_Tadbulb
+	cry2 Cry_Bellibolt
+@.endif @ P_FAMILY_TADBULB
+@.if P_FAMILY_WATTREL == TRUE
+	cry2 Cry_Wattrel
+	cry2 Cry_Kilowattrel
+@.endif @ P_FAMILY_WATTREL
+@.if P_FAMILY_MASCHIFF == TRUE
+	cry2 Cry_Maschiff
+	cry2 Cry_Mabosstiff
+@.endif @ P_FAMILY_MASCHIFF
+@.if P_FAMILY_SHROODLE == TRUE
+	cry2 Cry_Shroodle
+	cry2 Cry_Grafaiai
+@.endif @ P_FAMILY_SHROODLE
+@.if P_FAMILY_BRAMBLIN == TRUE
+	cry2 Cry_Bramblin
+	cry2 Cry_Brambleghast
+@.endif @ P_FAMILY_BRAMBLIN
+@.if P_FAMILY_TOEDSCOOL == TRUE
+	cry2 Cry_Toedscool
+	cry2 Cry_Toedscruel
+@.endif @ P_FAMILY_TOEDSCOOL
+@.if P_FAMILY_KLAWF == TRUE
+	cry2 Cry_Klawf
+@.endif @ P_FAMILY_KLAWF
+@.if P_FAMILY_CAPSAKID == TRUE
+	cry2 Cry_Capsakid
+	cry2 Cry_Scovillain
+@.endif @ P_FAMILY_CAPSAKID
+@.if P_FAMILY_RELLOR == TRUE
+	cry2 Cry_Rellor
+	cry2 Cry_Rabsca
+@.endif @ P_FAMILY_RELLOR
+@.if P_FAMILY_FLITTLE == TRUE
+	cry2 Cry_Flittle
+	cry2 Cry_Espathra
+@.endif @ P_FAMILY_FLITTLE
+@.if P_FAMILY_TINKATINK == TRUE
+	cry2 Cry_Tinkatink
+	cry2 Cry_Tinkatuff
+	cry2 Cry_Tinkaton
+@.endif @ P_FAMILY_TINKATINK
+@.if P_FAMILY_WIGLETT == TRUE
+	cry2 Cry_Wiglett
+	cry2 Cry_Wugtrio
+@.endif @ P_FAMILY_WIGLETT
+@.if P_FAMILY_BOMBIRDIER == TRUE
+	cry2 Cry_Bombirdier
+@.endif @ P_FAMILY_BOMBIRDIER
+@.if P_FAMILY_FINIZEN == TRUE
+	cry2 Cry_Finizen
+	cry2 Cry_PalafinZero
+	cry2 Cry_PalafinHero
+@.endif @ P_FAMILY_FINIZEN
+@.if P_FAMILY_VAROOM == TRUE
+	cry2 Cry_Varoom
+	cry2 Cry_Revavroom
+@.endif @ P_FAMILY_VAROOM
+@.if P_FAMILY_CYCLIZAR == TRUE
+	cry2 Cry_Cyclizar
+@.endif @ P_FAMILY_CYCLIZAR
+@.if P_FAMILY_ORTHWORM == TRUE
+	cry2 Cry_Orthworm
+@.endif @ P_FAMILY_ORTHWORM
+@.if P_FAMILY_GLIMMET == TRUE
+	cry2 Cry_Glimmet
+	cry2 Cry_Glimmora
+@.endif @ P_FAMILY_GLIMMET
+@.if P_FAMILY_GREAVARD == TRUE
+	cry2 Cry_Greavard
+	cry2 Cry_Houndstone
+@.endif @ P_FAMILY_GREAVARD
+@.if P_FAMILY_FLAMIGO == TRUE
+	cry2 Cry_Flamigo
+@.endif @ P_FAMILY_FLAMIGO
+@.if P_FAMILY_CETODDLE == TRUE
+	cry2 Cry_Cetoddle
+	cry2 Cry_Cetitan
+@.endif @ P_FAMILY_CETODDLE
+@.if P_FAMILY_VELUZA == TRUE
+	cry2 Cry_Veluza
+@.endif @ P_FAMILY_VELUZA
+@.if P_FAMILY_DONDOZO == TRUE
+	cry2 Cry_Dondozo
+@.endif @ P_FAMILY_DONDOZO
+@.if P_FAMILY_TATSUGIRI == TRUE
+	cry2 Cry_TatsugiriCurly
+	cry2 Cry_TatsugiriDroopy
+	cry2 Cry_TatsugiriStretchy
+@.endif @ P_FAMILY_TATSUGIRI
+@.if P_FAMILY_GREAT_TUSK == TRUE
+	cry2 Cry_GreatTusk
+@.endif @ P_FAMILY_GREAT_TUSK
+@.if P_FAMILY_SCREAM_TAIL == TRUE
+	cry2 Cry_ScreamTail
+@.endif @ P_FAMILY_SCREAM_TAIL
+@.if P_FAMILY_BRUTE_BONNET == TRUE
+	cry2 Cry_BruteBonnet
+@.endif @ P_FAMILY_BRUTE_BONNET
+@.if P_FAMILY_FLUTTER_MANE == TRUE
+	cry2 Cry_FlutterMane
+@.endif @ P_FAMILY_FLUTTER_MANE
+@.if P_FAMILY_SLITHER_WING == TRUE
+	cry2 Cry_SlitherWing
+@.endif @ P_FAMILY_SLITHER_WING
+@.if P_FAMILY_SANDY_SHOCKS == TRUE
+	cry2 Cry_SandyShocks
+@.endif @ P_FAMILY_SANDY_SHOCKS
+@.if P_FAMILY_IRON_TREADS == TRUE
+	cry2 Cry_IronTreads
+@.endif @ P_FAMILY_IRON_TREADS
+@.if P_FAMILY_IRON_BUNDLE == TRUE
+	cry2 Cry_IronBundle
+@.endif @ P_FAMILY_IRON_BUNDLE
+@.if P_FAMILY_IRON_HANDS == TRUE
+	cry2 Cry_IronHands
+@.endif @ P_FAMILY_IRON_HANDS
+@.if P_FAMILY_IRON_JUGULIS == TRUE
+	cry2 Cry_IronJugulis
+@.endif @ P_FAMILY_IRON_JUGULIS
+@.if P_FAMILY_IRON_MOTH == TRUE
+	cry2 Cry_IronMoth
+@.endif @ P_FAMILY_IRON_MOTH
+@.if P_FAMILY_IRON_THORNS == TRUE
+	cry2 Cry_IronThorns
+@.endif @ P_FAMILY_IRON_THORNS
+@.if P_FAMILY_FRIGIBAX == TRUE
+	cry2 Cry_Frigibax
+	cry2 Cry_Arctibax
+	cry2 Cry_Baxcalibur
+@.endif @ P_FAMILY_FRIGIBAX
+@.if P_FAMILY_GIMMIGHOUL == TRUE
+	cry2 Cry_Gimmighoul
+	cry2 Cry_Gholdengo
+@.endif @ P_FAMILY_GIMMIGHOUL
+@.if P_FAMILY_WO_CHIEN == TRUE
+	cry2 Cry_WoChien
+@.endif @ P_FAMILY_WO_CHIEN
+@.if P_FAMILY_CHIEN_PAO == TRUE
+	cry2 Cry_ChienPao
+@.endif @ P_FAMILY_CHIEN_PAO
+@.if P_FAMILY_TING_LU == TRUE
+	cry2 Cry_TingLu
+@.endif @ P_FAMILY_TING_LU
+@.if P_FAMILY_CHI_YU == TRUE
+	cry2 Cry_ChiYu
+@.endif @ P_FAMILY_CHI_YU
+@.if P_FAMILY_ROARING_MOON == TRUE
+	cry2 Cry_RoaringMoon
+@.endif @ P_FAMILY_ROARING_MOON
+@.if P_FAMILY_IRON_VALIANT == TRUE
+	cry2 Cry_IronValiant
+@.endif @ P_FAMILY_IRON_VALIANT
+@.if P_FAMILY_KORAIDON == TRUE
+	cry2 Cry_Koraidon
+@.endif @ P_FAMILY_KORAIDON
+@.if P_FAMILY_MIRAIDON == TRUE
+	cry2 Cry_Miraidon
+@.endif @ P_FAMILY_MIRAIDON
+@.if P_FAMILY_WALKING_WAKE == TRUE
+	cry2 Cry_WalkingWake
+@.endif @ P_FAMILY_WALKING_WAKE
+@.if P_FAMILY_IRON_LEAVES == TRUE
+	cry2 Cry_IronLeaves
+@.endif @ P_FAMILY_IRON_LEAVES
+@.if P_FAMILY_POLTCHAGEIST == TRUE
+	cry2 Cry_Poltchageist
+	cry2 Cry_Sinistcha
+@.endif @ P_FAMILY_POLTCHAGEIST
+@.if P_FAMILY_OKIDOGI == TRUE
+	cry2 Cry_Okidogi
+@.endif @ P_FAMILY_OKIDOGI
+@.if P_FAMILY_MUNKIDORI == TRUE
+	cry2 Cry_Munkidori
+@.endif @ P_FAMILY_MUNKIDORI
+@.if P_FAMILY_FEZANDIPITI == TRUE
+	cry2 Cry_Fezandipiti
+@.endif @ P_FAMILY_FEZANDIPITI
+@.if P_FAMILY_OGERPON == TRUE
+	cry2 Cry_Ogerpon
+@.endif @ P_FAMILY_OGERPON
+@.if P_FAMILY_GOUGING_FIRE == TRUE
+	cry2 Cry_GougingFire
+@.endif @ P_FAMILY_GOUGING_FIRE
+@.if P_FAMILY_RAGING_BOLT == TRUE
+	cry2 Cry_RagingBolt
+@.endif @ P_FAMILY_RAGING_BOLT
+@.if P_FAMILY_IRON_BOULDER == TRUE
+	cry2 Cry_IronBoulder
+@.endif @ P_FAMILY_IRON_BOULDER
+@.if P_FAMILY_IRON_CROWN == TRUE
+	cry2 Cry_IronCrown
+@.endif @ P_FAMILY_IRON_CROWN
+@.if P_FAMILY_TERAPAGOS == TRUE
+	cry2 Cry_Terapagos
+@.endif @ P_FAMILY_TERAPAGOS
+@.if P_FAMILY_PECHARUNT == TRUE
+	cry2 Cry_Pecharunt
+@.endif @ P_FAMILY_PECHARUNT
+@.endif @ P_CRIES_ENABLED
