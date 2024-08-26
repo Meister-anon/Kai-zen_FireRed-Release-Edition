@@ -433,7 +433,7 @@ struct SideTimer    //effects below persist regardless of mon
     u8 stickyWebAmount:2; //2 effective layers - ability or move to set stickyweb //bleive was my own change,
     u8 stickyWebBattlerSide; // Used for Court Change
     
-    u32 auroraVeilTimer:3; //still need add to debugger
+    u32 auroraVeilTimer:4; //still need add to debugger
     u32 tailwindTimer:3;
     u32 luckyChantTimer:3;
     u32 healBlockTimer:3; //added for side status effect
@@ -442,7 +442,7 @@ struct SideTimer    //effects below persist regardless of mon
     u32 waterSportTimer:3;  //forgot to remove these earlier, since I'm using gen 3 effects for them
     u32 retaliateTimer:3;  //vsonic need to implement
     u32 MagicTimer:3;
-    u32 padding1:5;
+    u32 padding1:4;
 
     u8 auroraVeilBattlerId;    
     u8 tailwindBattlerId;    

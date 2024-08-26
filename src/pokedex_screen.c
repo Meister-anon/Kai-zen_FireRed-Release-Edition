@@ -1186,7 +1186,7 @@ const struct CursorStruct sCursorStruct_CategoryPage = {
 
 #include "data/pokemon/pokedex_categories.h"
 
-void VBlankCB(void)
+static void VBlankCB(void)//modern identifies same name, function/ had change to static to fix
 {
     LoadOam();
     ProcessSpriteCopyRequests();

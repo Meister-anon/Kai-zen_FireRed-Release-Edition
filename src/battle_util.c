@@ -8043,7 +8043,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }*/ //original item is set, on battle start it just holds the item yuo starter battle with
                 }
-            }
+            
             break;
             case ABILITY_INTHRALL:    
                 if (IsBattlerAlive(gBattlerTarget)
@@ -8158,6 +8158,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }                    
                 } //never made a messagge for this...
                 break;
+            }
         case ABILITYEFFECT_MOVE_END_OTHER: // Abilities that activate on *another* battler's moveend: Dancer, Soul-Heart, Receiver, Symbiosis
             switch (GetBattlerAbility(battler))
             {

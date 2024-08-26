@@ -541,8 +541,11 @@ static void AssembleGroup(u32 group, struct GFtgtGname * gname)
 static void SpawnGroupLeaderAndMembers(u32 group, struct GFtgtGname * gname)
 {
     u32 i;
-    switch (gname->activity)
+    switch (gname->activity)//ok modern doesnt' loke default case being at end for some reason
     {
+        default:
+        AGB_ASSERT_EX(0, ABSPATH("rfu_union_tool.c"), 979)
+        break;
     case 0x40:
     case 0x54:
         SpawnGroupLeader(group, gname->playerGender, gname->unk_00.playerTrainerId[0]);
@@ -561,8 +564,7 @@ static void SpawnGroupLeaderAndMembers(u32 group, struct GFtgtGname * gname)
         DespawnGroupLeader(group);
         AssembleGroup(group, gname);
         break;
-    default:
-        AGB_ASSERT_EX(0, ABSPATH("rfu_union_tool.c"), 979)
+    
     }
 }
 

@@ -8710,7 +8710,7 @@ goto PARTYMENU_GRAPHICS
 * 
 */ 
 
-goto LOWHP_MUSIC_FUNCTION
+goto LOWHP_MUSIC_FUNCTION //don't know how lost connect for thsi but its fixed now
 
 goto BATTLE_HEALTHBOX_DATA  //seem to be true source of grahpics
 goto HEALTHBOX_LOGIC	//health box for battle, enemy values at bottom of function, need add exp bar/values to that section.

@@ -822,6 +822,7 @@ void ClearBehindSubstituteBit(u8 battlerId)
     gBattleSpritesDataPtr->battlerData[battlerId].behindSubstitute = 0;
 }
 
+#define LOWHP_MUSIC_FUNCTION
 void HandleLowHpMusicChange(struct Pokemon *mon, u8 battlerId)
 {
     u16 hp = GetMonData(mon, MON_DATA_HP);

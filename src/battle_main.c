@@ -1365,7 +1365,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
 
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
-        return;
+        return 0xFF;
 
     gBattleStruct->dynamicMoveType = 0xFF; //change for new setup
     gBattleStruct->ateBoost[battlerAtk] = 0;
