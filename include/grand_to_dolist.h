@@ -2980,8 +2980,49 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     or use it for the low instead
     */
+   goto CRY_LOGIC      //tested cry data before as preface before adding gen9 cry data and found cry data is borked *facepalm
+   //not loading correct entires for forms, also cat names for forms are also messed up no idea when that started
+   //think change cry function, take cry table out of inc, put into C file, so can more directly refer to cry value via species
+   //looking into could potentially be issue only linked to dex, somehow from improper use of dexspecies?
+   //nope its all fucked, identified thanks to debug menu
 
-   #define WILDMON_LEVELSET
+   /*
+      ok its all messed up and beset fix I can gather is moving data to C for better ease of editing/organizing
+      its in order of list and I think issue is just that species are not in the same order as cry file somehow
+      well not really somehow I've moved things around quite a lot
+
+      so I took the enum cry constant from EE, replaced hoen cries with it
+      and think will update graphic info file to also take the audio data
+      makes most sense, its all the data for species addition
+
+      while stats will stay in stats, so I only need include stat data there i.e
+      mon that are NOT cosmetic species
+
+      only thing I"m unsure about is the whole reverse cry thing,
+      its done w macro?
+      would need function then to ensure still does the reversal.
+
+      but if works can take some space back w the removal,
+      of the extra cry table
+
+      but anyway will need major python application
+      to get data set, needs match cry names in directsounddata.inc
+
+      so will need title decap names now in cry file
+
+      replace CRY_ w Cry_ for the name itself run the title on just that section
+      same logic as did for grahpics info first
+
+      replace underscore w space, run title
+      remove spoce to recombine and it should be fine
+
+      after that I just need pull the new cry constants
+      into the graphic info file and make my version of the 
+      "GetCryIdBySpecies" function of expansion
+      //is already in pokemon.c just commented out for later
+   */
+
+   goto WILDMON_LEVELSET
    /*
 
     make sure trainer pic slide in 

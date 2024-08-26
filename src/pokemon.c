@@ -31,7 +31,7 @@
 #include "field_weather.h"
 #include "constants/items.h"
 #include "constants/item_effects.h"
-#include "constants/hoenn_cries.h"
+//#include "constants/hoenn_cries.h"
 #include "constants/form_change_types.h"
 #include "constants/pokemon.h"
 #include "constants/abilities.h"
@@ -2458,7 +2458,7 @@ static const s8 sNatureStatTable[][5] =
 #include "data/pokemon/tmhm_learnsets.h"
 //#include "data/pokemon/tmhm_learnset_pointers.h" //removed as part of consolidation to base stats
 #include "data/pokemon/trainer_class_lookups.h"
-#include "data/pokemon/cry_ids.h"
+//#include "data/pokemon/cry_ids.h"
 #include "data/pokemon/experience_tables.h"
 //#include "data/pokemon/base_stats.h"
 #include "data/pokemon/level_up_learnsets.h"
@@ -7931,6 +7931,16 @@ static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask,
     }
 }
 
+/*
+u16 GetCryIdBySpecies(u16 species)
+{
+    species = SanitizeSpeciesId(species);
+    if (P_CRIES_ENABLED == FALSE || gSpeciesInfo[species].cryId >= CRY_COUNT)
+        return CRY_NONE;
+    return gSpeciesInfo[species].cryId;
+}*/
+
+
 bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex)
 {
     u32 data;
@@ -9201,7 +9211,7 @@ u16 SpeciesToCryId(u16 species) //not used anymore changed to emerald logic
         || (species >= SPECIES_UNOWN_B && species <= SPECIES_UNOWN_QMARK))
         return SPECIES_UNOWN;
 
-    return sHoennSpeciesIdToCryId[species - ((SPECIES_CELEBI + 1) - 1)];
+    return 0;//sHoennSpeciesIdToCryId[species - ((SPECIES_CELEBI + 1) - 1)];
 }
 
 #define DRAW_SPINDA_SPOTS                                                       \

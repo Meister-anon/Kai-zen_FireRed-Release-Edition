@@ -1626,6 +1626,7 @@ void DummyFunc(void)
 {
 }
 
+#define CRY_LOGIC
 struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone)
 {
     u32 maxClock = 0;

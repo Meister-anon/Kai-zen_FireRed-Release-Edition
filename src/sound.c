@@ -465,6 +465,7 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     SetPokemonCryPriority(priority);
 
     //other logic is hard to line up, so will attempt to use the emerald expansion version and bypass all that
+    //species -1 because species data starts at 1, cry tables start at 0
     species--;
     gMPlay_PokemonCry = SetPokemonCryTone(reverse ? &gCryTable2[species] : &gCryTable[species]);
 

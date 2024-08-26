@@ -6,6 +6,10 @@ GAME_LANGUAGE ?= ENGLISH
 MODERN        ?= 1
 COMPARE       ?= 0
 
+ifeq (compare,$(MAKECMDGOALS))
+  COMPARE := 1
+endif
+
 # For gbafix
 MAKER_CODE  := 01
 

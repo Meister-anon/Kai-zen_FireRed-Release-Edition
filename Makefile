@@ -2,17 +2,18 @@ TOOLCHAIN := $(DEVKITARM)
 COMPARE ?= 0
 MODERN  ?= 1
 
-ifeq ($(CC),)
-HOSTCC := gcc
-else
-HOSTCC := $(CC)
-endif
+#compared to pret firered not used anymore
+#ifeq ($(CC),)
+#HOSTCC := gcc
+#else
+#HOSTCC := $(CC)
+#endif
 
-ifeq ($(CXX),)
-HOSTCXX := g++
-else
-HOSTCXX := $(CXX)
-endif
+#ifeq ($(CXX),)
+#HOSTCXX := g++
+#else
+#HOSTCXX := $(CXX)
+#endif
 
 #original lines
 #ifneq (,$(wildcard $(TOOLCHAIN)/base_tools))
@@ -58,8 +59,27 @@ else
 EXE :=
 endif
 
+# use arm-none-eabi-cpp for macOS
+# as macOS's default compiler is clang
+# and clang's preprocessor will warn on \u
+# when preprocessing asm files, expecting a unicode literal
+# we can't unconditionally use arm-none-eabi-cpp
+# as installations which install binutils-arm-none-eabi
+# don't come with it
+ifneq ($(MODERN),1)
+  ifeq ($(shell uname -s),Darwin)
+    CPP := $(PREFIX)cpp
+  else
+    CPP := $(CC) -E
+  endif
+else
+  CPP := $(PREFIX)cpp
+endif
+
+
 include config.mk
 
+#unsure if still needed
 GCC_VER = $(shell $(CC) -dumpversion)
 
 ifeq ($(MODERN),0) #understood wrong this line means if not modern, so can put -ggdb on else line and it builds as it is modern &  doesn't use agbcc
@@ -67,10 +87,11 @@ CC1             := tools/agbcc/bin/agbcc$(EXE)
 override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 LIBPATH := -L ../../tools/agbcc/lib
 else
-CC1             := $(shell $(CC) --print-prog-name=cc1) -quiet
+CC1              = $(shell $(MODERNCC) --print-prog-name=cc1) -quiet
 override CFLAGS += -mthumb -mthumb-interwork -O2 -mtune=arm7tdmi -march=armv4t -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast -ggdb
 #hm ok this version worked?
-LIBPATH := -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libc.a))"
+#LIBPATH := -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libc.a))"
+LIBPATH := -L $(shell dirname $(shell $(MODERNCC) --print-file-name=libgcc.a)) -L $(shell dirname $(shell $(MODERNCC) --print-file-name=libc.a))
 
 #LIBPATH := -L $(TOOLCHAIN)/lib/gcc/arm-none-eabi/$(GCC_VER)/thumb -L $(TOOLCHAIN)/arm-none-eabi/lib/thumb
 #\LIBPATH := -L ../../tools/agbcc/lib  #trying differnet modern path see if makes any diffrence
@@ -111,9 +132,14 @@ ASFLAGS := -mcpu=arm7tdmi --defsym $(GAME_VERSION)=1 --defsym REVISION=$(GAME_RE
 LDFLAGS = -Map ../../$(MAP)
 
 LIB := $(LIBPATH) -lc -lgcc
-#ifneq ($(MODERN),0)
-#LIB += -lsysbase
-#endif
+ifneq ($(MODERN),0)
+ifneq ($(DEVKITARM),)
+ifeq ($(TOOLCHAIN),$(DEVKITARM))
+LIB += -lsysbase -lc
+endif
+endif
+LIB += -lnosys
+endif
 
 SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
 GFX := tools/gbagfx/gbagfx
@@ -125,6 +151,9 @@ RAMSCRGEN := tools/ramscrgen/ramscrgen
 FIX := tools/gbafix/gbafix
 MAPJSON := tools/mapjson/mapjson
 JSONPROC := tools/jsonproc/jsonproc
+
+#don'tknow what do
+PERL := perl
 
 ifeq (agbcc,$(MAKECMDGOALS))
   MODERN := 0
