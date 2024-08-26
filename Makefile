@@ -1,5 +1,6 @@
 TOOLCHAIN := $(DEVKITARM)
 COMPARE ?= 0
+MODERN  ?= 1
 
 ifeq ($(CC),)
 HOSTCC := gcc
@@ -13,17 +14,43 @@ else
 HOSTCXX := $(CXX)
 endif
 
-ifneq (,$(wildcard $(TOOLCHAIN)/base_tools))
-include $(TOOLCHAIN)/base_tools
-else
+#original lines
+#ifneq (,$(wildcard $(TOOLCHAIN)/base_tools))
+#include $(TOOLCHAIN)/base_tools
+#else
+#export PATH := $(TOOLCHAIN)/bin:$(PATH)
+#PREFIX := arm-none-eabi-
+#OBJCOPY := $(PREFIX)objcopy
+#export CC := $(PREFIX)gcc
+#export AS := $(PREFIX)as
+#endif
+#export CPP := $(PREFIX)cpp
+#export LD := $(PREFIX)ld
+
+# don't use dkP's base_tools anymore
+# because the redefinition of $(CC) conflicts
+# with when we want to use $(CC) to preprocess files
+# thus, manually create the variables for the bin
+# files, or use arm-none-eabi binaries on the system
+# if dkP is not installed on this system
+
+ifneq (,$(TOOLCHAIN))
+ifneq ($(wildcard $(TOOLCHAIN)/bin),)
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
+endif
+endif
+
 PREFIX := arm-none-eabi-
 OBJCOPY := $(PREFIX)objcopy
-export CC := $(PREFIX)gcc
-export AS := $(PREFIX)as
-endif
-export CPP := $(PREFIX)cpp
-export LD := $(PREFIX)ld
+OBJDUMP := $(PREFIX)objdump
+AS := $(PREFIX)as
+
+LD := $(PREFIX)ld
+
+# note: the makefile must be set up so MODERNCC is never called
+# if MODERN=0
+MODERNCC := $(PREFIX)gcc
+PATH_MODERNCC := PATH="$(PATH)" $(MODERNCC)
 
 ifeq ($(OS),Windows_NT)
 EXE := .exe
@@ -42,8 +69,12 @@ LIBPATH := -L ../../tools/agbcc/lib
 else
 CC1             := $(shell $(CC) --print-prog-name=cc1) -quiet
 override CFLAGS += -mthumb -mthumb-interwork -O2 -mtune=arm7tdmi -march=armv4t -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast -ggdb
-LIBPATH := -L $(TOOLCHAIN)/lib/gcc/arm-none-eabi/$(GCC_VER)/thumb -L $(TOOLCHAIN)/arm-none-eabi/lib/thumb
-#LIBPATH := -L ../../tools/agbcc/lib  #trying differnet modern path see if makes any diffrence
+#hm ok this version worked?
+LIBPATH := -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libc.a))"
+
+#LIBPATH := -L $(TOOLCHAIN)/lib/gcc/arm-none-eabi/$(GCC_VER)/thumb -L $(TOOLCHAIN)/arm-none-eabi/lib/thumb
+#\LIBPATH := -L ../../tools/agbcc/lib  #trying differnet modern path see if makes any diffrence
+
 endif
 
 CPPFLAGS := -iquote include -D$(GAME_VERSION) -DREVISION=$(GAME_REVISION) -D$(GAME_LANGUAGE) -DMODERN=$(MODERN)
@@ -95,6 +126,10 @@ FIX := tools/gbafix/gbafix
 MAPJSON := tools/mapjson/mapjson
 JSONPROC := tools/jsonproc/jsonproc
 
+ifeq (agbcc,$(MAKECMDGOALS))
+  MODERN := 0
+endif
+
 # Clear the default suffixes
 .SUFFIXES:
 # Don't delete intermediate files
@@ -140,6 +175,9 @@ MID_OBJS := $(patsubst $(MID_SUBDIR)/%.mid,$(MID_BUILDDIR)/%.o,$(MID_SRCS))
 
 OBJS := $(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS) $(DATA_ASM_OBJS) $(SONG_OBJS) $(MID_OBJS)
 OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
+
+# Inclusive list. If you don't want a tool to be built, don't add it here.
+#TOOLDIRS := tools/aif2pcm tools/bin2c tools/gbafix tools/gbagfx tools/jsonproc tools/mapjson tools/mid2agb tools/preproc tools/ramscrgen tools/rsfont tools/scaninc tools/trainerproc
 
 TOOLDIRS := $(filter-out tools/agbcc tools/binutils tools/analyze_source,$(wildcard tools/*))
 TOOLBASE = $(TOOLDIRS:tools/%=%)

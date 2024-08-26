@@ -3,7 +3,7 @@
 GAME_VERSION  ?= FIRERED
 GAME_REVISION ?= 0
 GAME_LANGUAGE ?= ENGLISH
-MODERN        ?= 0
+MODERN        ?= 1
 COMPARE       ?= 0
 
 # For gbafix
@@ -33,6 +33,10 @@ BUILD_NAME  := $(BUILD_NAME)_rev1
 else
 $(error unknown revision $(GAME_REVISION))
 endif
+endif
+
+ifeq (agbcc,$(MAKECMDGOALS))
+  MODERN := 0
 endif
 
 # Language
