@@ -10900,11 +10900,40 @@ const struct PokedexEntry gPokedexEntries[] =
 }; //end of species form dex below
 //need add gen 9, annoying since EE split to multiple fields onbase stat
 //but doable w python
+//for adding can take height weight, catname, from EE
+//other fields just uses same default values for all
+/*
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+*/
+
+//order is
+/*
+        .categoryName = _("Parrot"),
+        .height = 6,
+        .weight = 24,
+        .description = COMPOUND_STRING(
+            "These Squawkabilly are hotheaded,\n"
+            "and their fighting style is vicious.\n"
+            "They'll leap within reach of their\n"
+            "foes to engage in close combat."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+*/
+
+//so best case I can store and take all fields from cat name down to trainerOffset as end value
+//rn don't know how to take multi line
 
 //if species has mega flag they are same categoryName as base species so can use that to skip processing
 //.flags = F_MEGA_FORM,  or SPECIES_FLAG_PRIMAL_REVERSION  or F_PIKACHU_FORM  use && !=  && !=
 //for those forms catname will be "garbage data" just a meaningless unused value
 //going to call max description limit 140, as thats what enamorus uses and that fits
+//okk shouldn't actually be hard, pull lines from basestats  just upt description in by hand after
+//and have it fill the scale/offset fields
 const struct FormdexEntries gFormdexEntries[] =
 {
     [NATIONAL_DEX_VENUSAUR_MEGA] =

@@ -29101,6 +29101,20 @@ const struct BaseStats gBaseStats[] =
         //.teachableLearnset = sSkeledirgeTeachableLearnset,
     },
 //#endif //P_FAMILY_FUECOCO
+//from watching zenmodeyt video on starters and move choice
+//combined w my changes to ghost type making this far more bulky
+//think will replace  signature moves for gen 9 mon,
+//will still  exist but think will reserve for move tutor at end game,
+//same place you'd get the elemental hyper beams,
+//so you'd evolve into skeledirge and get a different unique move,
+//and then be able to get torch song later
+//that way can attempt add some variety to how mon plays
+//do same for  others,
+//so change setup, to make it pick mon that want to teach unique move to first,
+//then load menu to select which move to get,
+//most mon will just have elemental beams,
+//but gen9 starters will have their gen9 moves as well
+//vsonic
 
 //#if p_fAMILY_QUAXLY
     [SPECIES_QUAXLY] =
