@@ -3,7 +3,7 @@
 GAME_VERSION  ?= FIRERED
 GAME_REVISION ?= 0
 GAME_LANGUAGE ?= ENGLISH
-MODERN        ?= 1
+#MODERN        ?= 1 #still identifying if this matters...
 COMPARE       ?= 0
 
 ifeq (compare,$(MAKECMDGOALS))
