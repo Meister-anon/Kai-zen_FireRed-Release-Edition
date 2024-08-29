@@ -1,52 +1,30 @@
 TOOLCHAIN := $(DEVKITARM)
 COMPARE ?= 0
-MODERN  ?= 1
+MODERN ?= 1
 
-#compared to pret firered not used anymore
-#ifeq ($(CC),)
-#HOSTCC := gcc
-#else
-#HOSTCC := $(CC)
-#endif
+ifeq ($(CC),)
+HOSTCC := gcc
+else
+HOSTCC := $(CC)
+endif
 
-#ifeq ($(CXX),)
-#HOSTCXX := g++
-#else
-#HOSTCXX := $(CXX)
-#endif
+ifeq ($(CXX),)
+HOSTCXX := g++
+else
+HOSTCXX := $(CXX)
+endif
 
-#original lines
-#ifneq (,$(wildcard $(TOOLCHAIN)/base_tools))
-#include $(TOOLCHAIN)/base_tools
-#else
-#export PATH := $(TOOLCHAIN)/bin:$(PATH)
-#PREFIX := arm-none-eabi-
-#OBJCOPY := $(PREFIX)objcopy
-#export CC := $(PREFIX)gcc
-#export AS := $(PREFIX)as
-#endif
-#export CPP := $(PREFIX)cpp
-#export LD := $(PREFIX)ld
-
-# don't use dkP's base_tools anymore
-# because the redefinition of $(CC) conflicts
-# with when we want to use $(CC) to preprocess files
-# thus, manually create the variables for the bin
-# files, or use arm-none-eabi binaries on the system
-# if dkP is not installed on this system
-
-ifneq (,$(TOOLCHAIN))
-ifneq ($(wildcard $(TOOLCHAIN)/bin),)
+ifneq (,$(wildcard $(TOOLCHAIN)/base_tools))
+include $(TOOLCHAIN)/base_tools
+else
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
-endif
-endif
-
 PREFIX := arm-none-eabi-
 OBJCOPY := $(PREFIX)objcopy
-OBJDUMP := $(PREFIX)objdump
-AS := $(PREFIX)as
-
-LD := $(PREFIX)ld
+export CC := $(PREFIX)gcc
+export AS := $(PREFIX)as
+endif
+export CPP := $(PREFIX)cpp
+export LD := $(PREFIX)ld
 
 # note: the makefile must be set up so MODERNCC is never called
 # if MODERN=0
@@ -59,27 +37,8 @@ else
 EXE :=
 endif
 
-# use arm-none-eabi-cpp for macOS
-# as macOS's default compiler is clang
-# and clang's preprocessor will warn on \u
-# when preprocessing asm files, expecting a unicode literal
-# we can't unconditionally use arm-none-eabi-cpp
-# as installations which install binutils-arm-none-eabi
-# don't come with it
-ifneq ($(MODERN),1)
-  ifeq ($(shell uname -s),Darwin)
-    CPP := $(PREFIX)cpp
-  else
-    CPP := $(CC) -E
-  endif
-else
-  CPP := $(PREFIX)cpp
-endif
-
-
 include config.mk
 
-#unsure if still needed
 GCC_VER = $(shell $(CC) -dumpversion)
 
 ifeq ($(MODERN),0) #understood wrong this line means if not modern, so can put -ggdb on else line and it builds as it is modern &  doesn't use agbcc
@@ -87,15 +46,12 @@ CC1             := tools/agbcc/bin/agbcc$(EXE)
 override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 LIBPATH := -L ../../tools/agbcc/lib
 else
-CC1              = $(shell $(MODERNCC) --print-prog-name=cc1) -quiet
+CC1             := $(shell $(CC) --print-prog-name=cc1) -quiet
 override CFLAGS += -mthumb -mthumb-interwork -O2 -mtune=arm7tdmi -march=armv4t -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast -ggdb
-#hm ok this version worked?
-#LIBPATH := -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libc.a))"
-LIBPATH := -L $(shell dirname $(shell $(MODERNCC) --print-file-name=libgcc.a)) -L $(shell dirname $(shell $(MODERNCC) --print-file-name=libc.a))
+LIBPATH := -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libc.a))"
 
 #LIBPATH := -L $(TOOLCHAIN)/lib/gcc/arm-none-eabi/$(GCC_VER)/thumb -L $(TOOLCHAIN)/arm-none-eabi/lib/thumb
-#\LIBPATH := -L ../../tools/agbcc/lib  #trying differnet modern path see if makes any diffrence
-
+#LIBPATH := -L ../../tools/agbcc/lib  #trying differnet modern path see if makes any diffrence
 endif
 
 CPPFLAGS := -iquote include -D$(GAME_VERSION) -DREVISION=$(GAME_REVISION) -D$(GAME_LANGUAGE) -DMODERN=$(MODERN)
@@ -132,14 +88,9 @@ ASFLAGS := -mcpu=arm7tdmi --defsym $(GAME_VERSION)=1 --defsym REVISION=$(GAME_RE
 LDFLAGS = -Map ../../$(MAP)
 
 LIB := $(LIBPATH) -lc -lgcc
-ifneq ($(MODERN),0)
-ifneq ($(DEVKITARM),)
-ifeq ($(TOOLCHAIN),$(DEVKITARM))
-LIB += -lsysbase -lc
-endif
-endif
-LIB += -lnosys
-endif
+#ifneq ($(MODERN),0)
+#LIB += -lsysbase
+#endif
 
 SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
 GFX := tools/gbagfx/gbagfx
@@ -151,13 +102,6 @@ RAMSCRGEN := tools/ramscrgen/ramscrgen
 FIX := tools/gbafix/gbafix
 MAPJSON := tools/mapjson/mapjson
 JSONPROC := tools/jsonproc/jsonproc
-
-#don'tknow what do
-PERL := perl
-
-ifeq (agbcc,$(MAKECMDGOALS))
-  MODERN := 0
-endif
 
 # Clear the default suffixes
 .SUFFIXES:
@@ -204,9 +148,6 @@ MID_OBJS := $(patsubst $(MID_SUBDIR)/%.mid,$(MID_BUILDDIR)/%.o,$(MID_SRCS))
 
 OBJS := $(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS) $(DATA_ASM_OBJS) $(SONG_OBJS) $(MID_OBJS)
 OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
-
-# Inclusive list. If you don't want a tool to be built, don't add it here.
-#TOOLDIRS := tools/aif2pcm tools/bin2c tools/gbafix tools/gbagfx tools/jsonproc tools/mapjson tools/mid2agb tools/preproc tools/ramscrgen tools/rsfont tools/scaninc tools/trainerproc
 
 TOOLDIRS := $(filter-out tools/agbcc tools/binutils tools/analyze_source,$(wildcard tools/*))
 TOOLBASE = $(TOOLDIRS:tools/%=%)
@@ -258,6 +199,11 @@ tidy:
 #	$(RM) $(ALL_BUILDS:%=poke%{.gba,.elf,.map})
 	$(RM) -r build
 	@$(MAKE) -C berry_fix tidy
+
+tidymodern:
+	$(RM) $(ALL_BUILDS:%=poke%_modern{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%_modern{.gba,.elf,.map})
+	$(RM) -r build
+
 
 include graphics_file_rules.mk
 include tileset_rules.mk
@@ -414,4 +360,4 @@ leafgreen_modern:      ; @$(MAKE) GAME_VERSION=LEAFGREEN MODERN=1
 leafgreen_rev1_modern: ; @$(MAKE) GAME_VERSION=LEAFGREEN GAME_REVISION=1 MODERN=1
 
 modern: ; @$(MAKE) MODERN=1
-old: ;@$(MAKE) MODERN=0
+old: ; @$(MAKE) MODERN=0
