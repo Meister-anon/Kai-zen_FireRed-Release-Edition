@@ -4363,7 +4363,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     u16 NatSpecies = SpeciesToNationalPokedexNum(species);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
     //can use ternary operator or just a conditional assignment
     //yeah prob better to do conditional assignment
     //to pass off whether it'll check if you've caught the 
@@ -4508,7 +4508,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
         species = GetFormSpeciesId(species, 0);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
 
 
     height = gPokedexEntries[species].height;
@@ -4591,7 +4591,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
         species = GetFormSpeciesId(species, 0);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
 
     weight = gPokedexEntries[species].weight;
     labelText = gText_WT;
@@ -4870,7 +4870,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     {
 
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-        species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+        species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
 
         
 
@@ -5450,7 +5450,7 @@ u8 DexScreen_DrawMonAreaPage(void)
     else
         //speciesId = SpeciesToNationalPokedexNum(species);
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-        speciesId = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+        speciesId = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
     //doesn't work with out below
     //speciesId = SpeciesToNationalPokedexNum(species); //kept this , as before was using nat number so hopefully won't break anything
     

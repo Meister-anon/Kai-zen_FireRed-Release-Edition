@@ -9765,7 +9765,7 @@ BattleScript_EffectPhotonGeyser:
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectAuraWheel: @ Aura Wheel can only be used by Morpeko
-	jumpifspecies BS_ATTACKER, SPECIES_MORPEKO, BattleScript_EffectSpeedUpHit
+	jumpifspecies BS_ATTACKER, SPECIES_MORPEKO_FULL_BELLY, BattleScript_EffectSpeedUpHit
 	jumpifspecies BS_ATTACKER, SPECIES_MORPEKO_HANGRY, BattleScript_EffectSpeedUpHit
 	printstring STRINGID_BUTPOKEMONCANTUSETHEMOVE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS

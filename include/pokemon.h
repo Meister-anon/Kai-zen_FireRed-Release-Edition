@@ -632,6 +632,7 @@ struct SpeciesGraphicInfo
 
  /* 0x78 */ u8 iconPalIndex:3;
             u8 enemyMonElevation;
+            struct ToneData *cryData; //couldn't figure set SetPokemonCryTone back to normal make macro fill all from here
 }; //all of these values have macros excluding iconPalIndex which should allow me to copy directly from existing arrays
 //think take all extra values/functions in file excluding table and put in single graphics file
 //at make a macro to display place of each files start, and at top of consilidated file put goto MACRONAME  for each section
@@ -845,6 +846,7 @@ const struct Evolution *GetSpeciesEvolutions(u16 species);
 u16 SanitizeSpeciesId(u16 species);
 //new functions for file reorg based on EE
 u8 GetFormType(u16 species); //set mostly for dex changes
+struct ToneData *GetCryIdBySpecies(u16 species); //added for cry table rehash
 
 //u8 IsMonShiny(struct Pokemon *mon); //for species graphic file setup
 bool8 IsMonShiny(struct Pokemon *mon);

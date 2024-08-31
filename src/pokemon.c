@@ -20,6 +20,7 @@
 #include "battle_message.h"
 #include "battle_util.h"
 #include "link.h"
+#include "cry_defines.h" //trying to figure out why this is causing issue
 #include "m4a.h"
 #include "pokedex.h"
 #include "sound.h"
@@ -31,7 +32,6 @@
 #include "field_weather.h"
 #include "constants/items.h"
 #include "constants/item_effects.h"
-//#include "constants/hoenn_cries.h"
 #include "constants/form_change_types.h"
 #include "constants/pokemon.h"
 #include "constants/abilities.h"
@@ -43,7 +43,8 @@
 #include "constants/hold_effects.h"
 #include "constants/battle_effects.h"
 #include "constants/weather.h"
-#include "rtc.h"    // weird but failure to build pokemon.s was literally all becuase of these two, inclusions that I guess I didn't add to repository correctly
+#include "rtc.h" 
+  // weird but failure to build pokemon.s was literally all becuase of these two, inclusions that I guess I didn't add to repository correctly
 //#include "species_names.h"
 // oh wait include weather doesn't exist, in pokeemerald its include/constants weather.h    ... facepalm
 //wrong again the problem was literally all from the species names include??!!
@@ -1003,7 +1004,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(PHIONE),
     SPECIES_TO_NATIONAL(MANAPHY),
     SPECIES_TO_NATIONAL(DARKRAI),
-    SPECIES_TO_NATIONAL(SHAYMIN),
+    [SPECIES_SHAYMIN_LAND - 1] = NATIONAL_DEX_SHAYMIN,
     SPECIES_TO_NATIONAL(ARCEUS),
     SPECIES_TO_NATIONAL(VICTINI),
     SPECIES_TO_NATIONAL(SNIVY),
@@ -1152,11 +1153,11 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(COBALION),
     SPECIES_TO_NATIONAL(TERRAKION),
     SPECIES_TO_NATIONAL(VIRIZION),
-    SPECIES_TO_NATIONAL(TORNADUS),
-    SPECIES_TO_NATIONAL(THUNDURUS),
+    SPECIES_TO_NATIONAL(TORNADUS_INCARNATE),
+    SPECIES_TO_NATIONAL(THUNDURUS_INCARNATE),
     SPECIES_TO_NATIONAL(RESHIRAM),
     SPECIES_TO_NATIONAL(ZEKROM),
-    SPECIES_TO_NATIONAL(LANDORUS),
+    SPECIES_TO_NATIONAL(LANDORUS_INCARNATE),
     SPECIES_TO_NATIONAL(KYUREM),
     SPECIES_TO_NATIONAL(KELDEO),
     SPECIES_TO_NATIONAL(MELOETTA),
@@ -1257,7 +1258,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(RIBOMBEE),
     SPECIES_TO_NATIONAL(ROCKRUFF),
     SPECIES_TO_NATIONAL(LYCANROC_MIDDAY),
-    SPECIES_TO_NATIONAL(WISHIWASHI),
+    [SPECIES_WISHIWASHI_SOLO - 1] = NATIONAL_DEX_WISHIWASHI,
     SPECIES_TO_NATIONAL(MAREANIE),
     SPECIES_TO_NATIONAL(TOXAPEX),
     SPECIES_TO_NATIONAL(MUDBRAY),
@@ -1360,7 +1361,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(ARROKUDA),
     SPECIES_TO_NATIONAL(BARRASKEWDA),
     SPECIES_TO_NATIONAL(TOXEL),
-    SPECIES_TO_NATIONAL(TOXTRICITY),
+    [SPECIES_TOXTRICITY_AMPED - 1] = NATIONAL_DEX_TOXTRICITY,
     SPECIES_TO_NATIONAL(SIZZLIPEDE),
     SPECIES_TO_NATIONAL(CENTISKORCH),
     SPECIES_TO_NATIONAL(CLOBBOPUS),
@@ -1386,9 +1387,9 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     SPECIES_TO_NATIONAL(SNOM),
     SPECIES_TO_NATIONAL(FROSMOTH),
     SPECIES_TO_NATIONAL(STONJOURNER),
-    SPECIES_TO_NATIONAL(EISCUE),
+    SPECIES_TO_NATIONAL(EISCUE_ICE_FACE),
     [SPECIES_INDEEDEE_MALE - 1] = NATIONAL_DEX_INDEEDEE,
-    SPECIES_TO_NATIONAL(MORPEKO),
+    SPECIES_TO_NATIONAL(MORPEKO_FULL_BELLY),
     SPECIES_TO_NATIONAL(CUFANT),
     SPECIES_TO_NATIONAL(COPPERAJAH),
     SPECIES_TO_NATIONAL(DRACOZOLT),
@@ -1417,7 +1418,7 @@ static const u16 sSpeciesToNationalPokedexNum[] =
     [SPECIES_BASCULEGION_MALE - 1] = NATIONAL_DEX_BASCULEGION,  // 902
     SPECIES_TO_NATIONAL(SNEASLER),// 903
     SPECIES_TO_NATIONAL(OVERQWIL),// 904
-    SPECIES_TO_NATIONAL(ENAMORUS),// 905
+    SPECIES_TO_NATIONAL(ENAMORUS_INCARNATE),// 905
 
     //SPECIES_TO_NATIONAL(CEFIREON),// 905
     //SPECIES_TO_NATIONAL(FRAEYJTA),// 905
@@ -1996,7 +1997,7 @@ SPECIES_TO_NATIONAL(PECHARUNT),  //
     [SPECIES_ALCREMIE_CARAMEL_SWIRL - 1] = NATIONAL_DEX_ALCREMIE,
     [SPECIES_ALCREMIE_RAINBOW_SWIRL - 1] = NATIONAL_DEX_ALCREMIE,*/
     // Eiscue
-    [SPECIES_EISCUE_NOICE_FACE - 1] = NATIONAL_DEX_EISCUE,
+    [SPECIES_EISCUE_NOICE_FACE - 1] = NATIONAL_DEX_EISCUE_ICE_FACE,
     // Indeedee
     [SPECIES_INDEEDEE_FEMALE - 1] = NATIONAL_DEX_INDEEDEE,
     // Morepeko
@@ -7931,14 +7932,13 @@ static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask,
     }
 }
 
-/*
-u16 GetCryIdBySpecies(u16 species)
+
+struct ToneData *GetCryIdBySpecies(u16 species)
 {
-    species = SanitizeSpeciesId(species);
-    if (P_CRIES_ENABLED == FALSE || gSpeciesInfo[species].cryId >= CRY_COUNT)
-        return CRY_NONE;
-    return gSpeciesInfo[species].cryId;
-}*/
+    if (gSpeciesGraphics[species].cryData == NULL) //HOPEFULLY works, believeset 
+        return gSpeciesGraphics[SPECIES_NONE].cryData; //can possibly just use CRY_NONE, but in case...hope should be just silent
+    return gSpeciesGraphics[species].cryData;
+}
 
 
 bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex)

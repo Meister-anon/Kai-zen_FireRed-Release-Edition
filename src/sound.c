@@ -37,8 +37,8 @@ extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
 extern struct MusicPlayerInfo gMPlayInfo_SE3;
-extern struct ToneData gCryTable[];
-extern struct ToneData gCryTable2[];
+//extern struct ToneData gCryTable[];
+//extern struct ToneData gCryTable2[];
 
 static const struct Fanfare sFanfares[] = {
     [FANFARE_00]        = { MUS_LEVEL_UP,         80 },
@@ -380,6 +380,7 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     u32 pitch;
     u32 chorus;
 
+
     length = 140;
     reverse = FALSE;
     release = 0;
@@ -466,10 +467,44 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
 
     //other logic is hard to line up, so will attempt to use the emerald expansion version and bypass all that
     //species -1 because species data starts at 1, cry tables start at 0
-    species--;
-    gMPlay_PokemonCry = SetPokemonCryTone(reverse ? &gCryTable2[species] : &gCryTable[species]);
+    //species--;
+    //cryID = GetCryIdBySpecies(species); //almost works, just need figurehow to d
+    gMPlay_PokemonCry = SetPokemonCryTone(reverse, species, GetCryIdBySpecies(species)); //hopefully does what need
 
+    //from spherical ice post
+    //and comparison realize cry/cry2 macros
+    /*dosn't realate to a  function
+    its literally just a set of byte values
+    for the struct ToneData
+    in m4a_internal
     
+    tldr think I can move these to C, if I can figure how to 
+    make pointers think was right that I can treat like monicons
+    
+    would just need change setpokemoncrytone function, to read pointer
+    and somehow transfer the mode for the cry
+    
+    wheether uncompresed or compressed
+    then just fill in the relevant values in the new function
+    for the tone data
+
+    so comp/uncomp is pretty rare so can prob just pass species 
+    and trigger w that.
+
+    for growl this function already handles reverse so can just pass that
+    
+    also learned was wrong bout reverse, cry2 isn't for fainting
+    its literally just growl smh
+    
+    SetPokemonCryTone function uses pointer for entire struct
+    rather than individual fields which no idea how to deal with
+    maybe can just treat like pokemon struct pointers
+    put pointer fill fields then pass pointer?
+    in that case can possible replace tone memeber for this function
+    w const poineter and just pass that into the tone struct sample field?  */
+    
+
+    //gMPlay_PokemonCry = SetPokemonCryTone(reverse ? &gCryTable2[species] : &gCryTable[species]);
 }
 
 bool8 IsCryFinished(void)

@@ -2502,7 +2502,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x76,
         .y_offset = 3,
     },
-    [SPECIES_SHAYMIN] =
+    [SPECIES_SHAYMIN_LAND] =
     {
         .size = 0x87,
         .y_offset = 16,
@@ -3252,12 +3252,12 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x45,
         .y_offset = 2,
     },
-    [SPECIES_TORNADUS] =
+    [SPECIES_TORNADUS_INCARNATE] =
     {
         .size = 0x45,
         .y_offset = 1,
     },
-    [SPECIES_THUNDURUS] =
+    [SPECIES_THUNDURUS_INCARNATE] =
     {
         .size = 0x45,
         .y_offset = 1,
@@ -3272,7 +3272,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x45,
         .y_offset = 0,
     },
-    [SPECIES_LANDORUS] =
+    [SPECIES_LANDORUS_INCARNATE] =
     {
         .size = 0x45,
         .y_offset = 1,
@@ -3783,7 +3783,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x45,
         .y_offset = 6,
     },
-    [SPECIES_WISHIWASHI] =
+    [SPECIES_WISHIWASHI_SOLO] =
     {
         .size = 0x45,
         .y_offset = 15,
@@ -4298,7 +4298,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x56,
         .y_offset = 11,
     },
-    [SPECIES_TOXTRICITY] =
+    [SPECIES_TOXTRICITY_AMPED] =
     {
         .size = 0x68,
         .y_offset = 1,
@@ -4428,7 +4428,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x68,
         .y_offset = 2,
     },
-    [SPECIES_EISCUE] =
+    [SPECIES_EISCUE_ICE_FACE] =
     {
         .size = 0x58,
         .y_offset = 0,
@@ -4438,7 +4438,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x57,
         .y_offset = 9,
     },
-    [SPECIES_MORPEKO] =
+    [SPECIES_MORPEKO_FULL_BELLY] =
     {
         .size = 0x45,
         .y_offset = 14,
@@ -4578,7 +4578,7 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = 0x62, 
         .y_offset = 5,
     },
-    [SPECIES_ENAMORUS] =
+    [SPECIES_ENAMORUS_INCARNATE] =
     {
         .size = 0x68,
         .y_offset = 2,

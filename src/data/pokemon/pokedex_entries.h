@@ -7713,7 +7713,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_TORNADUS] =
+    [NATIONAL_DEX_TORNADUS_INCARNATE] =
     {
         .categoryName = _("Cyclone"),
         .height = 15,
@@ -7725,7 +7725,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_THUNDURUS] =
+    [NATIONAL_DEX_THUNDURUS_INCARNATE] =
     {
         .categoryName = _("Bolt Strike"),
         .height = 15,
@@ -7761,7 +7761,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_LANDORUS] =
+    [NATIONAL_DEX_LANDORUS_INCARNATE] =
     {
         .categoryName = _("Abundance"),
         .height = 15,
@@ -10525,7 +10525,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_EISCUE] =
+    [NATIONAL_DEX_EISCUE_ICE_FACE] =
     {
         .categoryName = _("Penguin"),
         .height = 14,
@@ -10549,7 +10549,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_MORPEKO] =
+    [NATIONAL_DEX_MORPEKO_FULL_BELLY] =
     {
         .categoryName = _("Two-Sided"),
         .height = 3,
@@ -10885,7 +10885,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 8,
     },
 
-    [NATIONAL_DEX_ENAMORUS] =
+    [NATIONAL_DEX_ENAMORUS_INCARNATE] =
     {
         .categoryName = _("Love-Hate"),
         .height = 16,

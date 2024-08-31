@@ -4948,7 +4948,7 @@ static bool32 ShouldChangeFormHpBased(u32 battler)
         {ABILITY_SHIELDS_DOWN, SPECIES_MINIOR_METEOR_ORANGE, SPECIES_MINIOR_CORE_ORANGE, 2},
         {ABILITY_SHIELDS_DOWN, SPECIES_MINIOR_METEOR_VIOLET, SPECIES_MINIOR_CORE_VIOLET, 2},
         {ABILITY_SHIELDS_DOWN, SPECIES_MINIOR_METEOR_YELLOW, SPECIES_MINIOR_CORE_YELLOW, 2},
-        {ABILITY_SCHOOLING, SPECIES_WISHIWASHI_SCHOOL, SPECIES_WISHIWASHI, 4},
+        {ABILITY_SCHOOLING, SPECIES_WISHIWASHI_SCHOOL, SPECIES_WISHIWASHI_SOLO, 4},
         {ABILITY_ZEN_MODE, SPECIES_DARMANITAN_ZEN_MODE_GALARIAN, SPECIES_DARMANITAN_GALARIAN, 4},   //realized with this function, I can set different logic for same ability
     };
     u32 i;
@@ -6894,14 +6894,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 case ABILITY_HUNGER_SWITCH:
                     if (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED))
                     {
-                        if (gBattleMons[battler].species == SPECIES_MORPEKO)
+                        if (gBattleMons[battler].species == SPECIES_MORPEKO_FULL_BELLY)
                         {
                             gBattleMons[battler].species = SPECIES_MORPEKO_HANGRY;
                             BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3NoPopup);
                         }
                         else if (gBattleMons[battler].species == SPECIES_MORPEKO_HANGRY)
                         {
-                            gBattleMons[battler].species = SPECIES_MORPEKO;
+                            gBattleMons[battler].species = SPECIES_MORPEKO_FULL_BELLY;
                             BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3NoPopup);
                         }
                         ++effect;
@@ -6948,7 +6948,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattlescriptCurrInstr = BattleScript_DarkTypePreventsPrankster;
                 effect = 1;
             }
-            else if (gLastUsedAbility == ABILITY_ICE_FACE && IS_MOVE_PHYSICAL(moveArg) && gBattleMons[gBattlerTarget].species == SPECIES_EISCUE)
+            else if (gLastUsedAbility == ABILITY_ICE_FACE && IS_MOVE_PHYSICAL(moveArg) && gBattleMons[gBattlerTarget].species == SPECIES_EISCUE_ICE_FACE)
             {
                 gBattleMons[gBattlerTarget].species = SPECIES_EISCUE_NOICE_FACE;
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
@@ -11772,7 +11772,7 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
     static const u16 species[][3] =
     {
         // Changed Form ID                      Default Form ID               Should change on switch
-        {SPECIES_EISCUE_NOICE_FACE,             SPECIES_EISCUE,               TRUE},
+        {SPECIES_EISCUE_NOICE_FACE,             SPECIES_EISCUE_ICE_FACE,               TRUE},
         {SPECIES_MIMIKYU_BUSTED,                SPECIES_MIMIKYU,              FALSE},
         {SPECIES_GRENINJA_ASH,                  SPECIES_GRENINJA,             FALSE},
         {SPECIES_MELOETTA_PIROUETTE,            SPECIES_MELOETTA,             FALSE},
@@ -11785,10 +11785,10 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
         {SPECIES_MINIOR_METEOR_ORANGE,          SPECIES_MINIOR_CORE_ORANGE,   TRUE},
         {SPECIES_MINIOR_METEOR_VIOLET,          SPECIES_MINIOR_CORE_VIOLET,   TRUE},
         {SPECIES_MINIOR_METEOR_YELLOW,          SPECIES_MINIOR_CORE_YELLOW,   TRUE},
-        {SPECIES_WISHIWASHI_SCHOOL,             SPECIES_WISHIWASHI,           TRUE},
+        {SPECIES_WISHIWASHI_SCHOOL,             SPECIES_WISHIWASHI_SOLO,           TRUE},
         {SPECIES_CRAMORANT_GORGING,             SPECIES_CRAMORANT,            TRUE},
         {SPECIES_CRAMORANT_GULPING,             SPECIES_CRAMORANT,            TRUE},
-        {SPECIES_MORPEKO_HANGRY,                SPECIES_MORPEKO,              TRUE},
+        {SPECIES_MORPEKO_HANGRY,                SPECIES_MORPEKO_FULL_BELLY,              TRUE},
         {SPECIES_DARMANITAN_ZEN_MODE_GALARIAN,  SPECIES_DARMANITAN_GALARIAN,  TRUE},
         };
 
@@ -11823,7 +11823,7 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
     static const u16 species[][3] =
     {
         // Changed Form ID                      Default Form ID               Should change on switch
-        {SPECIES_EISCUE_NOICE_FACE,             SPECIES_EISCUE,               TRUE},
+        {SPECIES_EISCUE_NOICE_FACE,             SPECIES_EISCUE_ICE_FACE,               TRUE},
         {SPECIES_MIMIKYU_BUSTED,                SPECIES_MIMIKYU,              FALSE},
         {SPECIES_GRENINJA_ASH,                  SPECIES_GRENINJA_BATTLE_BOND, FALSE},
         {SPECIES_MELOETTA_PIROUETTE,            SPECIES_MELOETTA,             FALSE},
@@ -11836,10 +11836,10 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
         {SPECIES_MINIOR_METEOR_ORANGE,          SPECIES_MINIOR_CORE_ORANGE,   TRUE},
         {SPECIES_MINIOR_METEOR_VIOLET,          SPECIES_MINIOR_CORE_VIOLET,   TRUE},
         {SPECIES_MINIOR_METEOR_YELLOW,          SPECIES_MINIOR_CORE_YELLOW,   TRUE},
-        {SPECIES_WISHIWASHI_SCHOOL,             SPECIES_WISHIWASHI,           TRUE},
+        {SPECIES_WISHIWASHI_SCHOOL,             SPECIES_WISHIWASHI_SOLO,           TRUE},
         {SPECIES_CRAMORANT_GORGING,             SPECIES_CRAMORANT,            TRUE},
         {SPECIES_CRAMORANT_GULPING,             SPECIES_CRAMORANT,            TRUE},
-        {SPECIES_MORPEKO_HANGRY,                SPECIES_MORPEKO,              TRUE},
+        {SPECIES_MORPEKO_HANGRY,                SPECIES_MORPEKO_FULL_BELLY,              TRUE},
         {SPECIES_DARMANITAN_ZEN_MODE_GALARIAN,  SPECIES_DARMANITAN_GALARIAN,  TRUE},
     };
 

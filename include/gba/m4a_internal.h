@@ -414,7 +414,8 @@ void ClearModM(struct MusicPlayerTrack *track);
 void m4aMPlayModDepthSet(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u8 modDepth);
 void m4aMPlayLFOSpeedSet(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u8 lfoSpeed);
 
-struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone);
+//struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone, bool32 reverse);
+struct MusicPlayerInfo *SetPokemonCryTone(bool32 reverse, u16 species, struct ToneData *tone);
 void SetPokemonCryVolume(u8 val);
 void SetPokemonCryPanpot(s8 val);
 void SetPokemonCryPitch(s16 val);

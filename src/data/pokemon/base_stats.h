@@ -14222,7 +14222,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//haven't set despair effect yet      
 
-    [SPECIES_SHAYMIN] =
+    [SPECIES_SHAYMIN_LAND] =
     {
         .speciesName = _("Shaymin"),
  
@@ -19375,7 +19375,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_TORNADUS] =
+    [SPECIES_TORNADUS_INCARNATE] =
     {
         .speciesName = _("Tornadus"),
  
@@ -19409,7 +19409,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_THUNDURUS] =
+    [SPECIES_THUNDURUS_INCARNATE] =
     {
         .speciesName = _("Thundurus"),
  
@@ -19513,7 +19513,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_LANDORUS] =
+    [SPECIES_LANDORUS_INCARNATE] =
     {
         .speciesName = _("Landorus"),
  
@@ -23033,7 +23033,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give crush claw
 
-    [SPECIES_WISHIWASHI] =
+    [SPECIES_WISHIWASHI_SOLO] =
     {
         .speciesName = _("Wishiwashi"),
  
@@ -26680,11 +26680,11 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sToxelLevelUpLearnset,
         .tmhmLearnset = sToxelTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_TOXTRICITY},
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_TOXTRICITY_AMPED},
                                        {EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_TOXTRICITY_LOW_KEY}), //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_TOXTRICITY] =
+    [SPECIES_TOXTRICITY_AMPED] =
     {
         .speciesName = _("Toxtricity"),
  
@@ -27583,7 +27583,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_EISCUE] =
+    [SPECIES_EISCUE_ICE_FACE] =
     {
         .speciesName = _("Eiscue"),
  
@@ -27655,7 +27655,7 @@ const struct BaseStats gBaseStats[] =
         
     },
 
-    [SPECIES_MORPEKO] =
+    [SPECIES_MORPEKO_FULL_BELLY] =
     {
         .speciesName = _("Morpeko"),
  
@@ -28618,7 +28618,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_ENAMORUS] =
+    [SPECIES_ENAMORUS_INCARNATE] =
     {
         .speciesName = _("Enamorus"),
  

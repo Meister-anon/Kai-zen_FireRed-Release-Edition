@@ -643,7 +643,7 @@ static const u16 sGiratinaFormSpeciesIdTable[] = {
 };
 
 static const u16 sShayminFormSpeciesIdTable[] = {
-    SPECIES_SHAYMIN,
+    SPECIES_SHAYMIN_LAND,
     SPECIES_SHAYMIN_SKY,
     FORM_SPECIES_END,
 };
@@ -774,19 +774,19 @@ static const u16 sBraviaryFormSpeciesIdTable[] = {
 };
 
 static const u16 sTornadusFormSpeciesIdTable[] = {
-    SPECIES_TORNADUS,
+    SPECIES_TORNADUS_INCARNATE,
     SPECIES_TORNADUS_THERIAN,
     FORM_SPECIES_END,
 };
 
 static const u16 sThundurusFormSpeciesIdTable[] = {
-    SPECIES_THUNDURUS,
+    SPECIES_THUNDURUS_INCARNATE,
     SPECIES_THUNDURUS_THERIAN,
     FORM_SPECIES_END,
 };
 
 static const u16 sLandorusFormSpeciesIdTable[] = {
-    SPECIES_LANDORUS,
+    SPECIES_LANDORUS_INCARNATE,
     SPECIES_LANDORUS_THERIAN,
     FORM_SPECIES_END,
 };
@@ -990,7 +990,7 @@ static const u16 sLycanrocFormSpeciesIdTable[] = {
 };
 
 static const u16 sWishiwashiFormSpeciesIdTable[] = {
-    SPECIES_WISHIWASHI,
+    SPECIES_WISHIWASHI_SOLO,
     SPECIES_WISHIWASHI_SCHOOL,
     FORM_SPECIES_END,
 };
@@ -1063,7 +1063,7 @@ static const u16 sCramorantFormSpeciesIdTable[] = {
 };
 
 static const u16 sToxtricityFormSpeciesIdTable[] = {
-    SPECIES_TOXTRICITY,
+    SPECIES_TOXTRICITY_AMPED,
     SPECIES_TOXTRICITY_LOW_KEY,
     FORM_SPECIES_END,
 };
@@ -1092,7 +1092,7 @@ static const u16 sAlcremieFormSpeciesIdTable[] = {
 };//hopefully works, removed forms from pointers list as greater than numspecies
 
 static const u16 sEiscueFormSpeciesIdTable[] = {
-    SPECIES_EISCUE,
+    SPECIES_EISCUE_ICE_FACE,
     SPECIES_EISCUE_NOICE_FACE,
     FORM_SPECIES_END,
 };
@@ -1104,7 +1104,7 @@ static const u16 sIndeedeeFormSpeciesIdTable[] = {
 };
 
 static const u16 sMorpekoFormSpeciesIdTable[] = {
-    SPECIES_MORPEKO,
+    SPECIES_MORPEKO_FULL_BELLY,
     SPECIES_MORPEKO_HANGRY,
     FORM_SPECIES_END,
 };
@@ -1147,7 +1147,7 @@ static const u16 sCalyrexFormSpeciesIdTable[] = {
 };
 
 static const u16 sEnamorusFormSpeciesIdTable[] = {
-    SPECIES_ENAMORUS,
+    SPECIES_ENAMORUS_INCARNATE,
     SPECIES_ENAMORUS_THERIAN,
     FORM_SPECIES_END,
 };

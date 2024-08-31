@@ -1,4 +1,7 @@
+#include "global.h"
 #include "gba/m4a_internal.h"
+#include "constants/species.h"
+
 
 extern const u8 gCgb3Vol[];
 
@@ -7,7 +10,7 @@ extern const u8 gCgb3Vol[];
 BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0x800] = {0};
 
 struct SoundInfo gSoundInfo;
-struct PokemonCrySong gPokemonCrySongs[MAX_POKEMON_CRIES];
+struct PokemonCrySong gPokemonCrySongs[MAX_POKEMON_CRIES]; //assume cry and cry2
 struct MusicPlayerInfo gPokemonCryMusicPlayers[MAX_POKEMON_CRIES];
 void *gMPlayJumpTable[36];
 struct CgbChannel gCgbChans[4];
@@ -1626,13 +1629,47 @@ void DummyFunc(void)
 {
 }
 
-#define CRY_LOGIC
-struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone)
+#define CRY_LOGIC //const u8 *
+///struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone)
+struct MusicPlayerInfo *SetPokemonCryTone(bool32 reverse, u16 species, struct ToneData *tone)
 {
     u32 maxClock = 0;
     s32 maxClockIndex = 0;
     s32 i;
     struct MusicPlayerInfo *mplayInfo;
+    bool8 uncomp = FALSE;
+    
+    //set uncomp true based on species
+    if (species == SPECIES_KLEFKI)
+        uncomp = TRUE;
+
+    if (uncomp == FALSE)
+        tone->type = reverse ? 0x30 : 0x20;
+    else
+        tone->type = reverse ? 0x10 : 0x0;//keep this remove rest
+
+    /*tone->key = 60;
+    tone->length = 0;
+    tone->pan_sweep = 0;
+    tone->attack = 0xff;
+    tone->decay = 0;
+    tone->sustain = 0xff;
+    tone->release = 0;//(struct WaveData*)&gSpeciesGraphics[species].cryId;//
+    tone->wav = GetCryIdBySpecies(species); //hopefully works?
+    */
+    /*
+    struct ToneData
+{
+    u8 type;
+    u8 key;
+    u8 length; // sound length (compatible sound)
+    u8 pan_sweep; // pan or sweep (compatible sound ch. 1)
+    struct WaveData *wav;
+    u8 attack;
+    u8 decay;
+    u8 sustain;
+    u8 release;
+};*/
 
     for (i = 0; i < MAX_POKEMON_CRIES; i++)
     {
