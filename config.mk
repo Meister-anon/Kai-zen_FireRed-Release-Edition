@@ -3,7 +3,7 @@
 GAME_VERSION  ?= FIRERED
 GAME_REVISION ?= 0
 GAME_LANGUAGE ?= ENGLISH
-#MODERN        ?= 1 #still identifying if this matters...
+MODERN        ?= 1
 COMPARE       ?= 0
 
 ifeq (compare,$(MAKECMDGOALS))
@@ -39,7 +39,8 @@ $(error unknown revision $(GAME_REVISION))
 endif
 endif
 
-ifeq (agbcc,$(MAKECMDGOALS))
+#ifeq (agbcc,$(MAKECMDGOALS))
+ifeq (old,$(MAKECMDGOALS))
   MODERN := 0
 endif
 

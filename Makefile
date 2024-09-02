@@ -1,6 +1,5 @@
 TOOLCHAIN := $(DEVKITARM)
 COMPARE ?= 0
-MODERN ?= 1
 
 ifeq ($(CC),)
 HOSTCC := gcc
@@ -20,6 +19,7 @@ else
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
 PREFIX := arm-none-eabi-
 OBJCOPY := $(PREFIX)objcopy
+OBJDUMP := $(PREFIX)objdump
 export CC := $(PREFIX)gcc
 export AS := $(PREFIX)as
 endif
@@ -29,13 +29,30 @@ export LD := $(PREFIX)ld
 # note: the makefile must be set up so MODERNCC is never called
 # if MODERN=0
 MODERNCC := $(PREFIX)gcc
-PATH_MODERNCC := PATH="$(PATH)" $(MODERNCC)
 
 ifeq ($(OS),Windows_NT)
 EXE := .exe
 else
 EXE :=
 endif
+
+# use arm-none-eabi-cpp for macOS
+# as macOS's default compiler is clang
+# and clang's preprocessor will warn on \u
+# when preprocessing asm files, expecting a unicode literal
+# we can't unconditionally use arm-none-eabi-cpp
+# as installations which install binutils-arm-none-eabi
+# don't come with it
+#ifneq ($(MODERN),1)
+#  ifeq ($(shell uname -s),Darwin)
+#    CPP := $(PREFIX)cpp
+#  else
+#    CPP := $(CC) -E
+#  endif
+#else
+#  CPP := $(PREFIX)cpp
+#endif
+
 
 include config.mk
 
@@ -46,12 +63,9 @@ CC1             := tools/agbcc/bin/agbcc$(EXE)
 override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 LIBPATH := -L ../../tools/agbcc/lib
 else
-CC1             := $(shell $(CC) --print-prog-name=cc1) -quiet
-override CFLAGS += -mthumb -mthumb-interwork -O2 -mtune=arm7tdmi -march=armv4t -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast -ggdb
-LIBPATH := -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_MODERNCC) -mthumb -print-file-name=libc.a))"
-
-#LIBPATH := -L $(TOOLCHAIN)/lib/gcc/arm-none-eabi/$(GCC_VER)/thumb -L $(TOOLCHAIN)/arm-none-eabi/lib/thumb
-#LIBPATH := -L ../../tools/agbcc/lib  #trying differnet modern path see if makes any diffrence
+CC1             := $(shell $(MODERNCC) --print-prog-name=cc1) -quiet
+override CFLAGS += -mthumb -mthumb-interwork -O2 -mcpu=arm7tdmi -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast
+LIBPATH := -L $(shell dirname $(shell $(MODERNCC) --print-file-name=libgcc.a)) -L $(shell dirname $(shell $(MODERNCC) --print-file-name=libc.a))
 endif
 
 CPPFLAGS := -iquote include -D$(GAME_VERSION) -DREVISION=$(GAME_REVISION) -D$(GAME_LANGUAGE) -DMODERN=$(MODERN)
@@ -66,6 +80,7 @@ OBJ_DIR := build/$(BUILD_NAME)
 
 ELF = $(ROM:.gba=.elf)
 MAP = $(ROM:.gba=.map)
+SYM = $(ROM:.gba=.sym)
 
 C_SUBDIR = src
 DATA_C_SUBDIR = src/data
@@ -73,7 +88,6 @@ ASM_SUBDIR = asm
 DATA_ASM_SUBDIR = data
 SONG_SUBDIR = sound/songs
 MID_SUBDIR = sound/songs/midi
-#added as was in emerald expansion don't what purpose is
 SAMPLE_SUBDIR = sound/direct_sound_samples
 CRY_SUBDIR = sound/direct_sound_samples/cries
 
@@ -88,8 +102,14 @@ ASFLAGS := -mcpu=arm7tdmi --defsym $(GAME_VERSION)=1 --defsym REVISION=$(GAME_RE
 LDFLAGS = -Map ../../$(MAP)
 
 LIB := $(LIBPATH) -lc -lgcc
+
 #ifneq ($(MODERN),0)
-#LIB += -lsysbase
+#ifneq ($(DEVKITARM),)
+#ifeq ($(TOOLCHAIN),$(DEVKITARM))
+#LIB += -lsysbase -lc
+#endif
+#endif
+#LIB += -lnosys
 #endif
 
 SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
@@ -102,6 +122,8 @@ RAMSCRGEN := tools/ramscrgen/ramscrgen
 FIX := tools/gbafix/gbafix
 MAPJSON := tools/mapjson/mapjson
 JSONPROC := tools/jsonproc/jsonproc
+
+PERL := perl
 
 # Clear the default suffixes
 .SUFFIXES:
@@ -119,7 +141,7 @@ infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst 
 
 # Build tools when building the rom
 # Disable dependency scanning for clean/tidy/tools
-ifeq (,$(filter-out all compare,$(MAKECMDGOALS)))
+ifeq (,$(filter-out all compare syms modern,$(MAKECMDGOALS)))
 $(call infoshell, $(MAKE) tools)
 else
 NODEP := 1
@@ -154,14 +176,17 @@ TOOLBASE = $(TOOLDIRS:tools/%=%)
 TOOLS = $(foreach tool,$(TOOLBASE),tools/$(tool)/$(tool)$(EXE))
 
 ALL_BUILDS := firered firered_rev1 leafgreen leafgreen_rev1
+#leaving off assign _modern so can do separate cleans
 
-.PHONY: all rom tools clean-tools mostlyclean clean compare tidy berry_fix $(TOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) $(ALL_BUILDS:%=%_modern) modern
+.PHONY: all rom tools clean-tools mostlyclean clean compare tidy syms berry_fix $(TOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) $(ALL_BUILDS:%=%_modern) modern
 
 MAKEFLAGS += --no-print-directory
 
 AUTO_GEN_TARGETS :=
 
 all: tools rom
+
+syms: $(SYM) #added from em exp no idea what does, here is doing nothing
 
 rom: $(ROM)
 ifeq ($(COMPARE),1)
@@ -178,7 +203,6 @@ compare:
 	@$(MAKE) COMPARE=1
 
 mostlyclean: tidy
-	$(RM) sound/direct_sound_samples/*.bin
 	rm -f $(SAMPLE_SUBDIR)/*.bin
 	rm -f $(CRY_SUBDIR)/*.bin
 	$(RM) $(SONG_OBJS) $(MID_SUBDIR)/*.s
@@ -196,13 +220,21 @@ clean: mostlyclean clean-tools
 
 tidy:
 	$(RM) $(ALL_BUILDS:%=poke%{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%{.gba,.elf,.map}) $(ALL_BUILDS:%=poke%_modern{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%_modern{.gba,.elf,.map})
-#	$(RM) $(ALL_BUILDS:%=poke%{.gba,.elf,.map})
 	$(RM) -r build
 	@$(MAKE) -C berry_fix tidy
 
 tidymodern:
 	$(RM) $(ALL_BUILDS:%=poke%_modern{.gba,.elf,.map})  $(ALL_BUILDS:%=Kai-zen_%_modern{.gba,.elf,.map})
 	$(RM) -r build
+	@$(MAKE) -C berry_fix tidy
+
+tidysym:
+	$(RM) $(ALL_BUILDS:%=poke%.sym)  $(ALL_BUILDS:%=Kai-zen_%.sym) $(ALL_BUILDS:%=poke%_modern.sym)  $(ALL_BUILDS:%=Kai-zen_%_modern.sym)
+
+
+tidymodernsym:
+	$(RM) $(ALL_BUILDS:%=poke%_modern.sym)  $(ALL_BUILDS:%=Kai-zen_%_modern.sym)
+
 
 
 include graphics_file_rules.mk
@@ -224,7 +256,6 @@ include songs.mk
 %.gbapal: %.png ; $(GFX) $< $@
 %.lz: % ; $(GFX) $< $@
 %.rl: % ; $(GFX) $< $@
-#sound/direct_sound_samples/cry_%.bin: sound/direct_sound_samples/cry_%.aif ; $(AIF) $< $@ --compress
 $(CRY_SUBDIR)/uncomp_%.bin: $(CRY_SUBDIR)/uncomp_%.aif ; $(AIF) $< $@
 $(CRY_SUBDIR)/%.bin: $(CRY_SUBDIR)/%.aif ; $(AIF) $< $@ --compress
 sound/%.bin: sound/%.aif ; $(AIF) $< $@
@@ -333,15 +364,18 @@ LD_SCRIPT := ld_script_modern.txt
 LD_SCRIPT_DEPS :=
 endif
 
-$(OBJ_DIR)/ld_script.ld: $(LD_SCRIPT) $(LD_SCRIPT_DEPS)
-	cd $(OBJ_DIR) && sed -f ../../ld_script.sed ../../$< | sed "s#tools/#../../tools/#g" > ld_script.ld
+LD_BUILD = $(LD_SCRIPT:.txt=.ld)
 
-$(ELF): $(OBJ_DIR)/ld_script.ld $(OBJS)
-	cd $(OBJ_DIR) && $(LD) $(LDFLAGS) -T ld_script.ld --print-memory-usage -o ../../$@ $(OBJS_REL) $(LIB) | cat
+$(OBJ_DIR)/$(LD_BUILD): $(LD_SCRIPT) $(LD_SCRIPT_DEPS)
+	cd $(OBJ_DIR) && sed -f ../../ld_script.sed ../../$< | sed "s#tools/#../../tools/#g" > $(LD_BUILD)
+
+$(ELF): $(OBJ_DIR)/$(LD_BUILD) $(OBJS)
+	cd $(OBJ_DIR) && $(LD) $(LDFLAGS) -T $(LD_BUILD) --print-memory-usage -o ../../$@ $(OBJS_REL) $(LIB) | cat
 	$(FIX) $@ -t"$(TITLE)" -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION) --silent
 
-$(ROM): $(ELF)
+$(ROM): $(ELF) $(SYM)
 	$(OBJCOPY) -O binary --gap-fill 0xFF --pad-to 0x9000000 $< $@
+
 
 # "friendly" target names for convenience sake
 firered:                ; @$(MAKE) GAME_VERSION=FIRERED
@@ -361,3 +395,11 @@ leafgreen_rev1_modern: ; @$(MAKE) GAME_VERSION=LEAFGREEN GAME_REVISION=1 MODERN=
 
 modern: ; @$(MAKE) MODERN=1
 old: ; @$(MAKE) MODERN=0
+
+###################
+### Symbol file ###
+###################
+
+$(SYM): $(ELF)
+	$(OBJDUMP) -t $< | sort -u | grep -E "^0[2389]" | $(PERL) -p -e 's/^(\w{8}) (\w).{6} \S+\t(\w{8}) (\S+)$$/\1 \2 \3 \4/g' > $@
+
