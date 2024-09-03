@@ -2417,7 +2417,7 @@ u8 DoBattlerEndTurnEffects(void)
 {
     //u32 ability;    //ok added back realize its literally just for the magic gaurd check
     u32 ability, i, effect = 0;
-    u16 * moveId = 0;  //for passing wrap effect move name/value to anim args etc. in place of wrappedmove
+    u16 moveId = 0;  //for passing wrap effect move name/value to anim args etc. in place of wrappedmove
 
     gHitMarker |= (HITMARKER_GRUDGE | HITMARKER_SKIP_DMG_TRACK);
     while (gBattleStruct->turnEffectsBattlerId < gBattlersCount && gBattleStruct->turnEffectsTracker <= ENDTURN_BATTLER_COUNT)
@@ -2723,9 +2723,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[4] = EOS;*/
                         //can't just replace these with move as animArgs are u8, instead set somehow w pointer?
                         //builds but need test 
-                        *moveId =  MOVE_BIND;
-                        gBattleScripting.animArg1 = *moveId;
-                        gBattleScripting.animArg2 = *moveId >> 8;
+                        moveId =  MOVE_BIND;
+                        gBattleScripting.animArg1 = moveId;
+                        gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_BIND);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)
@@ -2764,9 +2764,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[2] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 0);
                         gBattleTextBuff1[3] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);
                         gBattleTextBuff1[4] = EOS;*/
-                        *moveId =  MOVE_WRAP;
-                        gBattleScripting.animArg1 = *moveId;
-                        gBattleScripting.animArg2 = *moveId >> 8;
+                        moveId =  MOVE_WRAP;
+                        gBattleScripting.animArg1 = moveId;
+                        gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_WRAP);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)
@@ -2803,9 +2803,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[2] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 0);
                         gBattleTextBuff1[3] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);
                         gBattleTextBuff1[4] = EOS;*/
-                        *moveId =  MOVE_CLAMP;
-                        gBattleScripting.animArg1 = *moveId;
-                        gBattleScripting.animArg2 = *moveId >> 8;
+                        moveId =  MOVE_CLAMP;
+                        gBattleScripting.animArg1 = moveId;
+                        gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_CLAMP);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)
@@ -2843,9 +2843,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[3] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);
                         gBattleTextBuff1[4] = EOS;*/
 
-                        *moveId =  MOVE_SWARM;
-                        gBattleScripting.animArg1 = *moveId;
-                        gBattleScripting.animArg2 = *moveId >> 8;
+                        moveId =  MOVE_SWARM;
+                        gBattleScripting.animArg1 = moveId;
+                        gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SWARM);
                         //BattleScriptExecute(BattleScript_StatusInfested);
                         
@@ -2891,9 +2891,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[2] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 0);
                         gBattleTextBuff1[3] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);
                         gBattleTextBuff1[4] = EOS;*/
-                        *moveId =  MOVE_SNAP_TRAP;
-                        gBattleScripting.animArg1 = *moveId;
-                        gBattleScripting.animArg2 = *moveId >> 8;
+                        moveId =  MOVE_SNAP_TRAP;
+                        gBattleScripting.animArg1 = moveId;
+                        gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SNAP_TRAP);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)
@@ -2929,9 +2929,9 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleTextBuff1[2] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 0);
                         gBattleTextBuff1[3] = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);
                         gBattleTextBuff1[4] = EOS;*/
-                        *moveId =  MOVE_THUNDER_CAGE;
-                        gBattleScripting.animArg1 = *moveId;
-                        gBattleScripting.animArg2 = *moveId >> 8;
+                        moveId =  MOVE_THUNDER_CAGE;
+                        gBattleScripting.animArg1 = moveId;
+                        gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_THUNDER_CAGE);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)

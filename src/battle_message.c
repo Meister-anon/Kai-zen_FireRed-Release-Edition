@@ -1962,7 +1962,7 @@ const u16 gDoubleBattleRecallStrings[] = {
 
 //SEARCH //trap effects  for functionality
 //for all traps I change lower stats by 2 stages
-const u16 gTrappingMoves[NUM_TRAPPING_MOVES + 1] = {
+const u16 gTrappingMoves[] = {
     MOVE_BIND,      //same for wrap, lower speed of wrapped target 2 stages  / changing to encore effect, because found bug that did that for some reason
     MOVE_WRAP,
     MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
