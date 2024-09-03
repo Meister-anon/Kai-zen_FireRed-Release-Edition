@@ -3346,14 +3346,14 @@ static inline void ApplyRandomDmgMultiplier(void) //vsonic test works
     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MULTI_TASK) //think shoudl do it, as this is ALWAYS called after critcalc
             PlayCry_Normal(species, 25); //its inline so I "think" that will work and play in the adjustnormaldamage script
     //added effect check to keep from triggering to frequently, as to become annoying
-    if (gBattleMoveDamage != 0)
+    if (gBattleMoveDamage != 0)//extra thing need look into, moves like disarming voice already play cry, need make sure can't double play
     {
         gBattleMoveDamage *= randPercent;
         gBattleMoveDamage /= 100;
         if (gBattleMoveDamage == 0)
             gBattleMoveDamage = 1;
     }
-}
+}// vsonic IMPORTANT look into SoundTask_WaitForCry && SoundTask_PlayDoubleCry etc. in battle anims
 
 static void Unused_ApplyRandomDmgMultiplier(void)//garbage data for test
 {
