@@ -123,72 +123,43 @@ union PokemonSubstruct
     u16 raw[NUM_SUBSTRUCT_BYTES / 2]; // /2 because it's u16, not u8
 };*/
 
+//for modern have to specifically consider struct order for proper padding/space saving
+//starts w u32 so is 4byte aligned, struct is organized in groups of 4byte sections
+//note will most likely have to rearrange again when change mame buffers vsonic IMPORTANT
 struct BoxPokemon
 {
-    u32 personality; //think bit fields must all be same type so shift types after
+    u32 personality;
     u32 otId;
     u8 nickname[POKEMON_NAME_LENGTH];
     u8 language:3; // 7 languages
     u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out
+    
+    u8 otName[OT_NAME_LENGTH];
     u8 isBadEgg:1;
     u8 hasSpecies:1;
     u8 isEgg:1;
     u8 boxHp:1; //realized only need value 0 & 1
-    u8 metGame:4;
-    u8 otName[OT_NAME_LENGTH];
-    //u8 unused:5; //huh I never removed this, what is it?
+    u8 metGame:4;    
     
-    //u8 markings; //remove this
-    //u16 checksum;  //also removed checksum so guess can save there, and just set places where values is to 0
-    //u16 unknown; //used to store encrypt separator, I've already removed encrypt stuff so guess might as well remove this too?
-    u8 metLocation;
-    //u8 lostLocation; //technically can fit in, but uses up last of ewram and still not done adding things...
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
-    u32 hpEV:9;
     u32 winningRibbon:1; //these two for emerald battle tower
     u32 victoryRibbon:1;
+    u32 cuteRibbon:3;
+    u32 smartRibbon:3;
+    u32 toughRibbon:3;
 
     u8 ppBonuses;
+    u8 otGender:1;
+    u8 metLevel:7;
+    u8 metLocation;
+    u8 flagcheck;
+
     u8 friendship;
     u8 formflag;
     u8 hatched:1;  //new thing to replace met level 0 in daycare - need test to make sure doesn't mess w evoLevel
     u8 evoLevel:7;
-    u8 otGender:1;
-    u8 metLevel:7; //don't know hwy need u32 or u16 for these
-    
-    //u16 moves[4]; //2 * 4 =8  //bitfield 10
-    //u8 pp[4];  // 1 * 4 = 4   //bitfield 6 //max base pp about 40 and pp ups give 1.6x boost so 64 max i.e 2^6  can pair these together cut space in half
-    
-    u16 move1:10;
-    u16 pp1:6;
-    u16 move2:10;
-    u16 pp2:6;
-    u16 move3:10;
-    u16 pp3:6;
-    u16 move4:10;
-    u16 pp4:6;
-
-     //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
-    u32 attackEV:9; //wich is bit 9
-    u32 defenseEV:9;
-    u32 speedEV:9;
-    u32 pokeball:5;
-
-    
-    u32 spAttackEV:9;
-    u32 spDefenseEV:9;
-    u32 lostLocation:8;
-    u32 coolRibbon:3;
-    u32 beautyRibbon:3;
-
     u8 cool;
-    u8 beauty;
-    u8 cute;
-    u8 smart;
-    u8 tough;
-    u8 flagcheck;   //think replace with flag check, planned use for exp share ev item activation condition
-    //-value default to 0,  then check what flgs are set in battle and change end outcome based on that
 
     u32 hpIV:5;
     u32 attackIV:5;
@@ -198,30 +169,36 @@ struct BoxPokemon
     u32 spDefenseIV:5;
     u32 abilityNum:2;
 
-     //having this be 3 seems to correspond to 4 options, which matches the above's 3 ability options of 2 slots and 1 hidden.
- /* 0x08 */ u32 cuteRibbon:3;
- /* 0x09 */ u32 smartRibbon:3;
- /* 0x09 */ u32 toughRibbon:3;
- /* 0x09 */ u32 championRibbon:1; //hall of fame league champion ribbon
- /* 0x0A */ 
-    u32 effortRibbon:1; //maxing evs  double check
-    u32 experience:21;
-    
-    //u32 nationalRibbon:1; //for purifing shadow pokemon and then transfer to gen 3 handheld could remove could keep for shadow pokemon use
-    //u32 eventLegal:1; // controls Mew & Deoxys obedience; if set, Pokémon is a fateful encounter in FRLG & Gen 4+ summary screens; set for in-game event island legendaries, some distributed events, and Pokémon from XD: Gale of Darkness.
-      //EE moves this to 6? only need 5//prob also remove event legal tag eventually
-    //holds 26
-    /*union
-    {
-        u32 raw[(NUM_SUBSTRUCT_BYTES * 4) / 4]; // *4 because there are 4 substructs, /4 because it's u32, not u8
-        union PokemonSubstruct substructs[4];
-    } secure;*/
+    u16 move1:10;
+    u16 pp1:6;
+    u16 move2:10;
+    u16 pp2:6;
+    u16 move3:10;
+    u16 pp3:6;
+    u16 move4:10;
+    u16 pp4:6;
 
-    /*union
-    {
-        u32 raw[12];
-        union PokemonSubstruct substructs[4];
-    } secure;*/
+    u32 hpEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
+    u32 attackEV:9; //wich is bit 9
+    u32 defenseEV:9;    
+    u32 pokeball:5;
+
+    u32 speedEV:9;
+    u32 spAttackEV:9;
+    u32 spDefenseEV:9;
+    u32 championRibbon:1; //hall of fame league champion ribbon
+    u32 effortRibbon:1;
+    u32 coolRibbon:3;    
+
+    u8 beauty;
+    u8 cute;
+    u8 smart;
+    u8 tough;
+    
+    u32 experience:21;
+    u32 lostLocation:8;
+    u32 beautyRibbon:3;
+
 };
 //wil use bit fields to cut down on substruct stuff on rec
 //from josh/shinydragonhunter
@@ -276,19 +253,22 @@ struct BattleTowerPokemon //apparently used for both battle tower leftover from 
              u32 speedIV:5;
              u32 spAttackIV:5; //since its restricting to bits, it doesn't much matter the type
              u32 spDefenseIV:5;
-             u32 gap:1;
-             u16 abilityNum:2;  //didn't properly understand bit fields, each bit stores 2 values so rather than 3 I only need 2 for 4 abilities ? i.e 0-3
+             u32 gap:2;
+             u8 abilityNum:2;  //didn't properly understand bit fields, each bit stores 2 values so rather than 3 I only need 2 for 4 abilities ? i.e 0-3
              u32 personality:8;  //personality values only go up to 0x96 so think can use bitfield here
              u8 nickname[POKEMON_NAME_LENGTH + 1];
              u8 friendship; //used for frustration and return, exists in either 0 or 255
 }; //don't need to change anything foud more space by removing ereader stuff
  //leave as is for now, replace above noe, with this one, when move battletower to C, adn remove trainer hill stuff
 //need check padding to make sure actually saving space
+//written this way saves ewram for some reason 
 
 #define BATTLE_STATS_NO 8
 
 struct BattlePokemon
 {
+    /*0x58*/ u32 otId; //may not need status4 in struct status3 & 4 seem to work through gstatuses3 & gstatus4 the same as status 2 already?
+
     /*0x00*/ u16 species;
     /*0x02*/ u16 attack;
     /*0x04*/ u16 defense;
@@ -296,13 +276,13 @@ struct BattlePokemon
     /*0x08*/ u16 spAttack;
     /*0x0A*/ u16 spDefense;
     /*0x0C*/ u16 moves[4];
+    
     /*0x14*/ u32 hpIV:5;
     /*0x14*/ u32 attackIV:5;
     /*0x15*/ u32 defenseIV:5;
     /*0x15*/ u32 speedIV:5;
     /*0x16*/ u32 spAttackIV:5;
     /*0x17*/ u32 spDefenseIV:5;
-    /*0x17*/ u32 isEgg:1;
     /*0x17*/ u32 abilityNum:2;
     /*0x18*/ s8 statStages[BATTLE_STATS_NO];
     /*0x20*/ u16 ability;
@@ -318,13 +298,14 @@ struct BattlePokemon
     /*0x30*/ u8 nickname[POKEMON_NAME_LENGTH + 1];
     /*0x3B*/ u8 ppBonuses;
     /*0x3C*/ u8 otName[OT_NAME_LENGTH + 1];
+             u8 isEgg:1; //changed to u8 to align w above array
+             
     /*0x44*/ u32 experience;
     /*0x48*/ u32 personality;
     /*0x4C*/ u32 status1;   //stays on switch
     /*0x50*/ u32 status2;   //temp status lost on switch
     /*0x54*/ u32 status4;   //new addition  for new statuses mostly for new wrap effects, plan to make equivalent of status2
-    /*0x58*/ u32 otId; //may not need status4 in struct status3 & 4 seem to work through gstatuses3 & gstatus4 the same as status 2 already?
-};                  //idk guessing statu1 2 and now 4 are different from status3 as its applied direclty to a mon/?  status3 seems more like a set of temp states?
+};                   //idk guessing statu1 2 and now 4 are different from status3 as its applied direclty to a mon/?  status3 seems more like a set of temp states?
 
 //believe all fields default to 0, if not set?
 //nope is just nothingn so need to set to false in base
