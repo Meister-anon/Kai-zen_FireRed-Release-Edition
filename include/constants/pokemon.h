@@ -206,6 +206,9 @@
 #define HIDDEN_ABILITY_1		3
 #define HIDDEN_ABILITY_2		4
 
+//IV Mask
+#define MAX_IV_MASK 31
+
 // Shiny odds
 #define SHINY_ODDS 8 // Actual probability is SHINY_ODDS/65536
 

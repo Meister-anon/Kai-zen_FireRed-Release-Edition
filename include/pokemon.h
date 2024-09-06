@@ -135,7 +135,7 @@ struct BoxPokemon
     u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out
     
     u8 otName[OT_NAME_LENGTH];
-    u8 isBadEgg:1;
+    u8 isBadEgg:1; //potentially replace w removal of checksum?
     u8 hasSpecies:1;
     u8 isEgg:1;
     u8 boxHp:1; //realized only need value 0 & 1
