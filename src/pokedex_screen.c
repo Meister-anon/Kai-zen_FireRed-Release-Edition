@@ -4800,8 +4800,9 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
-    else
-        FormSpecies = species; //already uses dex->species
+
+        
+    
 
     //bool8 UseBaseForm = FALSE;
     //can use ternary operator or just a conditional assignment
@@ -4878,11 +4879,24 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
 
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
         //species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+        //welp ok checked emerald and none of these needed nat dex entries
+        //I coiuld literally just use species smh
+        //EE has entries for forms etc. but doesn't have nat dex stuff for them
+        
+        //GetFormSpeciesId(species, 0);
+        FormSpecies = GetFormSpeciesId(species, 0);
+        //NatSpecies = SpeciesToNationalPokedexNum(species);
 
         NatSpecies = SpeciesToNationalPokedexNum(species);
 
+        //if pre gen 9  check formdex list if not in that use base form entry in dexlist
         if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START) //put and not on gen9 exclusion list
-            printerTemplate.currentChar = gFormdexEntries[NatSpecies].description;
+        {
+            if (gFormdexEntries[NatSpecies].description != NULL)
+                printerTemplate.currentChar = gFormdexEntries[NatSpecies].description;
+            else
+                printerTemplate.currentChar = gPokedexEntries[SpeciesToNationalPokedexNum(FormSpecies)].description;
+        }
         else
             printerTemplate.currentChar = gPokedexEntries[NatSpecies].description;
 
@@ -4896,7 +4910,12 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
         printerTemplate.shadowColor = 2;
 
         if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
-            length = GetStringWidth(FONT_NORMAL, gFormdexEntries[NatSpecies].description, 0);
+        {
+            if (gFormdexEntries[NatSpecies].description != NULL)
+                length = GetStringWidth(FONT_NORMAL, gFormdexEntries[NatSpecies].description, 0);
+            else
+                length = GetStringWidth(FONT_NORMAL,  gPokedexEntries[SpeciesToNationalPokedexNum(FormSpecies)].description, 0);
+        }
         else
             length = GetStringWidth(FONT_NORMAL, gPokedexEntries[NatSpecies].description, 0);
 
