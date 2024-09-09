@@ -2557,6 +2557,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     )
 
+    still have issue w dex evo page,
+    doesn't make sense as eevee page worsk so don't 
+    think can be because num mon,
+    instead think its because of not properly defined
+    evo methods
+
+    also somehow messed up old forms stuff,
+    indeed zacian etc. not pulling from base form for dex..
+
     got graphics working still to do is pull in pal icon indexes
     and gen 9 indexes would need to pull from base stats
     and add species name and cry data of course
