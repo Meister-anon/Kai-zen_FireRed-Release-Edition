@@ -22,8 +22,8 @@
 * .summary screen ui -                  done
 * .battle ui -                          done
 * .name expansion -					partial
-* pokedex ui.
-* removal of lg pokedex entries.
+* pokedex ui.                       done - still to do dex callbacks
+* removal of lg pokedex entries.    done
 *.apparently didn't add new ability desc in pokemon summary screen update
 * before computer crashed so implementation incomplete... *redone
 *.added item values back -          done
@@ -63,7 +63,7 @@
 * .move effects     -done -mostly
 * .ability effects  -done -mostly
 * .battle script    -done
-* .move animations - done
+* .move animations - done - nvm seem bugged so plan remove cfru stuff for EE values, but keep the good old graphic values
 * . attempt setup sMonSpriteAnchorCoords x y & placement of mon sprite on pokedex screen w constants
 * based on height and mon elevation will put exact arrays here shortly 
 * -do this after pokedex port
@@ -90,4 +90,10 @@ cause straight up game break
 * so keep base names, slowly add things in, then when everything is in I can do
 * renames or just simiply copy the original files in, from main repo, instead of conversion repo
 * as by then it'd be the same
+*
+*   added gen9 data, expansion hasn't done gen9 animation yet, so those aren't in
+*   need to rework move effects for moves AGAIN cuz Expansion updated
+*
+* also need to redo form change logic  since EE changed that too,
+* least it looks smoother so should be easier to work with
 */

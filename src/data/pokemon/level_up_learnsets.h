@@ -6094,11 +6094,14 @@ static const struct LevelUpMove sEmpoleonLevelUpLearnset[] = {
     LEVEL_UP_MOVE(28, MOVE_FURY_ATTACK),
     LEVEL_UP_MOVE(33, MOVE_BRINE),
     LEVEL_UP_MOVE(39, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE(42, MOVE_STEEL_BEAM),
     LEVEL_UP_MOVE(46, MOVE_MIST),
     LEVEL_UP_MOVE(52, MOVE_DRILL_PECK),
     LEVEL_UP_MOVE(59, MOVE_HYDRO_PUMP),
     LEVEL_UP_END
 };
+//give automize iron_defnse as well, prob toss on 
+//at evolution just to give acces in relearnh
 
 static const struct LevelUpMove sStarlyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),

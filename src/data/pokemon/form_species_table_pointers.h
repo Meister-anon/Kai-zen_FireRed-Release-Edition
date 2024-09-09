@@ -49,6 +49,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_TYPHLOSION] = sTyphlosionFormSpeciesIdTable,
     [SPECIES_PICHU] = sPichuFormSpeciesIdTable,
     [SPECIES_AMPHAROS] = sAmpharosFormSpeciesIdTable,
+    [SPECIES_WOOPER] = sWooperFormSpeciesIdTable,
     [SPECIES_SLOWKING] = sSlowkingFormSpeciesIdTable,
     [SPECIES_QWILFISH] = sQwilfishFormSpeciesIdTable,
     [SPECIES_SNEASEL] = sSneaselFormSpeciesIdTable,
@@ -170,6 +171,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_CALYREX] = sCalyrexFormSpeciesIdTable,
     [SPECIES_ENAMORUS_INCARNATE] = sEnamorusFormSpeciesIdTable,
     [SPECIES_BASCULEGION_MALE] = sBasculegionFormSpeciesIdTable,
+    [SPECIES_URSALUNA] = sUrsalunaFormSpeciesIdTable,
 
     // Megas
     [SPECIES_VENUSAUR_MEGA] = sVenusaurFormSpeciesIdTable,
@@ -583,7 +585,56 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_FRILLISH_FEMALE] = sFrillishFormSpeciesIdTable,
     [SPECIES_JELLICENT_FEMALE] = sJellicentFormSpeciesIdTable,
     
+    // Oinkologne
+    [SPECIES_OINKOLOGNE_MALE] = sOinkologneFormSpeciesIdTable,
+    [SPECIES_OINKOLOGNE_FEMALE] = sOinkologneFormSpeciesIdTable,
+
+    //Maushold
+    [SPECIES_MAUSHOLD_FAMILY_OF_THREE] = sMausholdFormSpeciesIdTable,
+    [SPECIES_MAUSHOLD_FAMILY_OF_FOUR] = sMausholdFormSpeciesIdTable,
+
+    //Squawkabilly
+    [SPECIES_SQUAWKABILLY_GREEN_PLUMAGE] = sSquawkabillyFormSpeciesIdTable,
+    [SPECIES_SQUAWKABILLY_BLUE_PLUMAGE] = sSquawkabillyFormSpeciesIdTable,
+    [SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE] = sSquawkabillyFormSpeciesIdTable,
+    [SPECIES_SQUAWKABILLY_WHITE_PLUMAGE] = sSquawkabillyFormSpeciesIdTable,
+
+    //Palafin
+    [SPECIES_PALAFIN_ZERO] = sPalafinFormSpeciesIdTable,
+    [SPECIES_PALAFIN_HERO] = sPalafinFormSpeciesIdTable,
+
+    //Tatsugiri
+    [SPECIES_TATSUGIRI_CURLY] = sTatsugiriFormSpeciesIdTable,
+    [SPECIES_TATSUGIRI_DROOPY] = sTatsugiriFormSpeciesIdTable,
+    [SPECIES_TATSUGIRI_STRETCHY] = sTatsugiriFormSpeciesIdTable,
+
+    //Gimmighoul
+    [SPECIES_GIMMIGHOUL_CHEST] = sGimmighoulFormSpeciesIdTable,
+    [SPECIES_GIMMIGHOUL_ROAMING] = sGimmighoulFormSpeciesIdTable,
+
+    //Ogerpon
+    [SPECIES_OGERPON_TEAL_MASK] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_WELLSPRING_MASK] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_HEARTHFLAME_MASK] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_CORNERSTONE_MASK] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_TEAL_MASK_TERA] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_WELLSPRING_MASK_TERA] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = sOgerponFormSpeciesIdTable,
+    [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = sOgerponFormSpeciesIdTable,
+
+    //Terapagos
+    [SPECIES_TERAPAGOS_NORMAL] = sTerapagosFormSpeciesIdTable,
+    [SPECIES_TERAPAGOS_TERASTAL] = sTerapagosFormSpeciesIdTable,
+    [SPECIES_TERAPAGOS_STELLAR] = sTerapagosFormSpeciesIdTable,
+
+    //Tauros
     [SPECIES_TAUROS_PALDEAN_COMBAT_BREED] = sTaurosFormSpeciesIdTable,
     [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] = sTaurosFormSpeciesIdTable,
     [SPECIES_TAUROS_PALDEAN_AQUA_BREED] = sTaurosFormSpeciesIdTable,
+    
+    [SPECIES_WOOPER_PALDEAN] = sWooperFormSpeciesIdTable,
+
+    [SPECIES_URSALUNA_BLOODMOON] = sUrsalunaFormSpeciesIdTable,
+    
+
 };  

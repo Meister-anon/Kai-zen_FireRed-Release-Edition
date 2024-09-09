@@ -11609,6 +11609,7 @@ bool32 IsBattlerPrimalReverted(u8 battlerId)
     return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_PRIMAL_REVERSION);
 }
 
+//VSONIC IMPORTANT think need to set these up still??
 // Returns SPECIES_NONE if no form change is possible
 u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method)
 {

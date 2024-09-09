@@ -11202,7 +11202,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-    },
+    },//give to empoleon since it lacks steel moves
+    //test may lower to med recoil
 
     [MOVE_EXPANDING_FORCE] =
     {
