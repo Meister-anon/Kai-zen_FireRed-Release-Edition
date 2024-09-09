@@ -8520,7 +8520,7 @@ static void Task_SwitchScreensFromEvolutionScreen(void) //was u8 taskId
         //ok maybe this will work, if times is num evos, and pre evos is strictly for pre evolution?
         //should work same if there are no pre evos but increase if there are?
         //OH MY GOD THAT ACTUALLY WORKED YESS!!!!
-        for (i = 0; i <= (gTasks[taskId].data[3] + sPokedexScreenData->numPreEvolutions); i++) //entire issue is using int to loop to clear value        
+        for (i = 0; i <= (gTasks[taskId].data[3] + sPokedexScreenData->numPreEvolutions + 4); i++) //entire issue is using int to loop to clear value        
         {
             DestroyMonIcon(&gSprites[gTasks[taskId].data[5+i]]); //Destroy pokemon icon sprite
         }

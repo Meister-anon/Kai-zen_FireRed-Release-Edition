@@ -2562,9 +2562,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     think can be because num mon,
     instead think its because of not properly defined
     evo methods
+    -wasn't that
+    annoying but seems still have issue
+    potentially seems to do w a 2nd stage evo?
+
+    only noticed or dipplin and mime jr so far.
+    idk why I still have issues
+
+    //made adjustment don't know what I'm doing
+    //but it works for now
 
     also somehow messed up old forms stuff,
     indeed zacian etc. not pulling from base form for dex..
+
+    fixed issue,
+    
 
     got graphics working still to do is pull in pal icon indexes
     and gen 9 indexes would need to pull from base stats
