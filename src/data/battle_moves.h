@@ -4871,7 +4871,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_MINIMIZE | FLAG_SOUND,
         .split = SPLIT_PHYSICAL,
-    },//added to sound list after realized was based on voice
+    },
+    //previously astonish
+    //added to sound list after realized was based on voice
     //hmm matter of fact I thinkm I'm gonna rename this move, its a ghost move
     //and the name just doesn't really fit, same as how sonic boom didn't fit for what was 
 
@@ -9529,7 +9531,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-    },
+    },//previously infestation
 
     [MOVE_POWER_UP_PUNCH] =
     {

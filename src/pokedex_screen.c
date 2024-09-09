@@ -944,7 +944,7 @@ const struct WindowTemplate sWindowTemplate_DexEntry_SpeciesStats = {
     .width = 13,
     .height = 8,
     .paletteNum = 0,
-    .baseBlock = 0x0208
+    .baseBlock = 0x0408
 };
 
 const struct WindowTemplate sWindowTemplate_DexEntry_FlavorText = {
@@ -954,7 +954,7 @@ const struct WindowTemplate sWindowTemplate_DexEntry_FlavorText = {
     .width = 30,
     .height = 9,
     .paletteNum = 0,
-    .baseBlock = 0x0250
+    .baseBlock = 0x045A
 };
 
 const struct WindowTemplate sWindowTemplate_AreaMap_MonIcon = {
@@ -3435,8 +3435,6 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
 
    
 
-    FormFilter = DexScreen_FormFilter(species);
-
     if (direction) // Seek left
     {
         if (FormId == 0)
@@ -3488,11 +3486,9 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
             }*/
 
 
-            //if (seen)
-            {
                 sPokedexScreenData->dexSpecies = GetFormSpeciesId(species, i);
                 return TRUE;
-            }
+
                 
         }
         return FALSE;
@@ -3509,7 +3505,7 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
             seen = DexScreen_GetSetPokedexFlag(FormFilter, FLAG_GET_SEEN, TRUE);
             caught = DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, i), FLAG_GET_CAUGHT, TRUE); //seems to work makes mega visible if caught it
 
-            switch (GetFormType(GetFormSpeciesId(species, i)))
+            /*switch (GetFormType(GetFormSpeciesId(species, i)))
             {
                 case MISC_FORM:
                 //if (seen)
@@ -3545,13 +3541,11 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
                     break;
                 }
                 
-            }
-           
-            /*if (seen)
-            {
-                sPokedexScreenData->dexSpecies = GetFormSpeciesId(species, i);
-                return TRUE;
             }*/
+           
+      
+            sPokedexScreenData->dexSpecies = GetFormSpeciesId(species, i);
+            return TRUE;
                 
         }
         return FALSE;
@@ -4363,7 +4357,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     u16 NatSpecies = SpeciesToNationalPokedexNum(species);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    //species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
     //can use ternary operator or just a conditional assignment
     //yeah prob better to do conditional assignment
     //to pass off whether it'll check if you've caught the 
@@ -4391,7 +4385,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     //check for forms that actually have different cat from base forms
     for (i = 0; i < NELEMS(gdexCatFormSpecies); i++) //only the cat names I need change
     {
-        if (NatSpecies > NATIONAL_SPECIES_COUNT)
+        if (NatSpecies > NATIONAL_SPECIES_COUNT) 
         {
             if (NatSpecies == gdexCatFormSpecies[i])
             {
@@ -4409,7 +4403,15 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     }
     else
     {
-        speciesArgument = GetFormSpeciesId(species, 0);
+        ////put and not on gen9 exclusion list right here, w if
+        //if on list set species argument to species, if not on list do below
+        //way it worked would just pass species if didnt have form
+        //since gen9 is a form but has data in gPokedexEntries need explicitly pass species
+        if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
+            speciesArgument = GetFormSpeciesId(species, 0);
+        else
+            speciesArgument = species;
+
         speciesArgument = SpeciesToNationalPokedexNum(speciesArgument);
         categoryName = (u8 *)gPokedexEntries[speciesArgument].categoryName;
     }
@@ -4419,7 +4421,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     
     /*for (i = 0; i < NELEMS(gdexEntryFormSpecies); i++) //only the cat names I need change
     {
-        if (species > NATIONAL_SPECIES_COUNT)
+        if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
         {
             if (species == gdexEntryFormSpecies[i])
             {
@@ -4504,12 +4506,12 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     
 
     
-    if (species > NATIONAL_SPECIES_COUNT)
+    if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)//put and not on gen9 exclusion list
         species = GetFormSpeciesId(species, 0);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
-
+    //species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    species = SpeciesToNationalPokedexNum(species);
 
     height = gPokedexEntries[species].height;
 
@@ -4577,8 +4579,11 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     u32 j;
     u16 FormSpecies;
 
-
-    if (species > NATIONAL_SPECIES_COUNT
+    //says national_species_count but actually uses species list to define
+    //not national species list
+    //make list of exclusions, like I did for pic height
+    //just need to exclude the gen 9 form mon
+    if (species > NATIONAL_SPECIES_COUNT 
     && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
     || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION))
     {
@@ -4587,11 +4592,13 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     else
         FormSpecies = species; //already uses dex->species
 
-    if (species > NATIONAL_SPECIES_COUNT)
+    if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START) //put and not on gen9 exclusion list
         species = GetFormSpeciesId(species, 0);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    //species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+
+    species = SpeciesToNationalPokedexNum(species);
 
     weight = gPokedexEntries[species].weight;
     labelText = gText_WT;
@@ -4783,7 +4790,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     u16 length;
     s32 xCenter;
     u32 i;
-    u16 speciesArgument;
+    u16 NatSpecies;
     u16 FormSpecies;
 
 
@@ -4870,14 +4877,14 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     {
 
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-        species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+        //species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
 
-        
+        NatSpecies = SpeciesToNationalPokedexNum(species);
 
-        if (species > NATIONAL_SPECIES_COUNT)
-            printerTemplate.currentChar = gFormdexEntries[species].description;
+        if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START) //put and not on gen9 exclusion list
+            printerTemplate.currentChar = gFormdexEntries[NatSpecies].description;
         else
-            printerTemplate.currentChar = gPokedexEntries[species].description;
+            printerTemplate.currentChar = gPokedexEntries[NatSpecies].description;
 
         printerTemplate.windowId = windowId;
         printerTemplate.fontId = FONT_NORMAL;
@@ -4888,10 +4895,10 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
         printerTemplate.bgColor = 0;
         printerTemplate.shadowColor = 2;
 
-        if (species > NATIONAL_SPECIES_COUNT)
-            length = GetStringWidth(FONT_NORMAL, gFormdexEntries[species].description, 0);
+        if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
+            length = GetStringWidth(FONT_NORMAL, gFormdexEntries[NatSpecies].description, 0);
         else
-            length = GetStringWidth(FONT_NORMAL, gPokedexEntries[species].description, 0);
+            length = GetStringWidth(FONT_NORMAL, gPokedexEntries[NatSpecies].description, 0);
 
         xCenter = x + (240 - length) / 2;
 
@@ -5160,7 +5167,11 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
     //keep dex num and name, remove others and put evo line sprites here
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[1], PIXEL_FILL(0));
     DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, sPokedexScreenData->dexSpecies, 0, 1);
+
+    if (sPokedexScreenData->dexSpecies <= 999)
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 1, 0);
+    else
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 32, 1, 0); //for 4 digit num, num fits perfect
     
 
     PutWindowTilemap(sPokedexScreenData->windowIds[1]);
@@ -5445,12 +5456,12 @@ u8 DexScreen_DrawMonAreaPage(void)
     
 
     //seems can just fully replace speciesId use, as its only used in size comparison
-    if (species > NATIONAL_SPECIES_COUNT)
+    if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
         speciesId = SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)); //returns base form species
-    else
+    //else
         //speciesId = SpeciesToNationalPokedexNum(species);
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-        speciesId = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
+    //    speciesId = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
     //doesn't work with out below
     //speciesId = SpeciesToNationalPokedexNum(species); //kept this , as before was using nat number so hopefully won't break anything
     

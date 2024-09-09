@@ -250,6 +250,14 @@ static const u16 sPinsirFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
+static const u16 sTaurosFormSpeciesIdTable[] = {
+    SPECIES_TAUROS,
+    SPECIES_TAUROS_PALDEAN_COMBAT_BREED,
+    SPECIES_TAUROS_PALDEAN_BLAZE_BREED,
+    SPECIES_TAUROS_PALDEAN_AQUA_BREED,
+    FORM_SPECIES_END,
+};
+
 static const u16 sGyaradosFormSpeciesIdTable[] = {
     SPECIES_GYARADOS,
     SPECIES_GYARADOS_MEGA,

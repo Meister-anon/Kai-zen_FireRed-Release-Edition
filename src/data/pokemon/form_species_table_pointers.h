@@ -39,6 +39,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_KANGASKHAN] = sKangaskhanFormSpeciesIdTable,
     [SPECIES_MR_MIME] = sMrMimeFormSpeciesIdTable,
     [SPECIES_PINSIR] = sPinsirFormSpeciesIdTable,
+    [SPECIES_TAUROS] = sTaurosFormSpeciesIdTable,
     [SPECIES_GYARADOS] = sGyaradosFormSpeciesIdTable,
     [SPECIES_AERODACTYL] = sAerodactylFormSpeciesIdTable,
     [SPECIES_ARTICUNO] = sArticunoFormSpeciesIdTable,
@@ -581,5 +582,8 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
 
     [SPECIES_FRILLISH_FEMALE] = sFrillishFormSpeciesIdTable,
     [SPECIES_JELLICENT_FEMALE] = sJellicentFormSpeciesIdTable,
-
-};
+    
+    [SPECIES_TAUROS_PALDEAN_COMBAT_BREED] = sTaurosFormSpeciesIdTable,
+    [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] = sTaurosFormSpeciesIdTable,
+    [SPECIES_TAUROS_PALDEAN_AQUA_BREED] = sTaurosFormSpeciesIdTable,
+};  

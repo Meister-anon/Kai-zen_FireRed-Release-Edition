@@ -1029,35 +1029,32 @@
 #define SPECIES_IRON_VALIANT                            1006
 #define SPECIES_KORAIDON                                1007
 #define SPECIES_MIRAIDON                                1008
-// Paldean Forms
-#define SPECIES_TAUROS_PALDEAN_COMBAT_BREED             1009
-#define SPECIES_WOOPER_PALDEAN                          1010
-// Scarlet and Violet -380.-379.-381
-#define SPECIES_WALKING_WAKE                            1011
-#define SPECIES_IRON_LEAVES                             1012
-// Teal Mask
-#define SPECIES_DIPPLIN                                 1013
-#define SPECIES_POLTCHAGEIST                            SPECIES_POLTCHAGEIST_COUNTERFEIT
-#define SPECIES_POLTCHAGEIST_COUNTERFEIT                1014
-#define SPECIES_SINISTCHA                               SPECIES_SINISTCHA_UNREMARKABLE
-#define SPECIES_SINISTCHA_UNREMARKABLE                  1015
-#define SPECIES_OKIDOGI                                 1016
-#define SPECIES_MUNKIDORI                               1017
-#define SPECIES_FEZANDIPITI                             1018
-#define SPECIES_OGERPON                                 SPECIES_OGERPON_TEAL_MASK
-#define SPECIES_OGERPON_TEAL_MASK                       1019
-#define SPECIES_URSALUNA_BLOODMOON                      1020
-// Indigo Disk
-#define SPECIES_ARCHALUDON                              1021
-#define SPECIES_HYDRAPPLE                               1022
-#define SPECIES_GOUGING_FIRE                            1023
-#define SPECIES_RAGING_BOLT                             1024
-#define SPECIES_IRON_BOULDER                            1025
-#define SPECIES_IRON_CROWN                              1026
-#define SPECIES_TERAPAGOS                               SPECIES_TERAPAGOS_NORMAL
-#define SPECIES_TERAPAGOS_NORMAL                        1027
 
-#define SPECIES_PECHARUNT                               1028
+// Scarlet and Violet -380.-379.-381
+#define SPECIES_WALKING_WAKE                            1009
+#define SPECIES_IRON_LEAVES                             1010
+// Teal Mask
+#define SPECIES_DIPPLIN                                 1011
+#define SPECIES_POLTCHAGEIST_COUNTERFEIT                1012
+#define SPECIES_POLTCHAGEIST                            SPECIES_POLTCHAGEIST_COUNTERFEIT
+#define SPECIES_SINISTCHA_UNREMARKABLE                  1013
+#define SPECIES_SINISTCHA                               SPECIES_SINISTCHA_UNREMARKABLE
+#define SPECIES_OKIDOGI                                 1014
+#define SPECIES_MUNKIDORI                               1015
+#define SPECIES_FEZANDIPITI                             1016
+#define SPECIES_OGERPON                                 SPECIES_OGERPON_TEAL_MASK
+#define SPECIES_OGERPON_TEAL_MASK                       1017
+// Indigo Disk
+#define SPECIES_ARCHALUDON                              1018
+#define SPECIES_HYDRAPPLE                               1019
+#define SPECIES_GOUGING_FIRE                            1020
+#define SPECIES_RAGING_BOLT                             1021
+#define SPECIES_IRON_BOULDER                            1022
+#define SPECIES_IRON_CROWN                              1023
+#define SPECIES_TERAPAGOS_NORMAL                        1024
+#define SPECIES_TERAPAGOS                               SPECIES_TERAPAGOS_NORMAL
+
+#define SPECIES_PECHARUNT                               1025
 
 //#define SPECIES_CEFIREON 1029
 //#define SPECIES_FRAEYJTA 1030    //fray-eat-ah fray-tah  fray-itta original mon fairy ghost mysthic from another world (fairy world) protector healer and watches over the dead, so found graveyard comforts living and dead
@@ -1535,6 +1532,8 @@
 #define SPECIES_FRILLISH_FEMALE             FORMS_START + 326
 #define SPECIES_JELLICENT_FEMALE            FORMS_START + 327
 
+#define GEN_9_FORMS_START                   SPECIES_OINKOLOGNE_FEMALE
+
 #define SPECIES_OINKOLOGNE_FEMALE                       FORMS_START + 328
 #define SPECIES_MAUSHOLD_FAMILY_OF_FOUR                 FORMS_START + 329
 #define SPECIES_SQUAWKABILLY_BLUE_PLUMAGE               FORMS_START + 330
@@ -1545,26 +1544,30 @@
 #define SPECIES_TATSUGIRI_STRETCHY                      FORMS_START + 335
 #define SPECIES_DUDUNSPARCE_THREE_SEGMENT               FORMS_START + 336
 #define SPECIES_GIMMIGHOUL_ROAMING                      FORMS_START + 337
-#define SPECIES_TAUROS_PALDEAN_BLAZE_BREED              FORMS_START + 338
-#define SPECIES_TAUROS_PALDEAN_AQUA_BREED               FORMS_START + 339
+// Paldean Forms
+#define SPECIES_TAUROS_PALDEAN_COMBAT_BREED             FORMS_START + 338
+#define SPECIES_TAUROS_PALDEAN_BLAZE_BREED              FORMS_START + 339
+#define SPECIES_TAUROS_PALDEAN_AQUA_BREED               FORMS_START + 340
+#define SPECIES_WOOPER_PALDEAN                          FORMS_START + 341
 
-#define SPECIES_POLTCHAGEIST_ARTISAN                    FORMS_START + 340
-#define SPECIES_SINISTCHA_MASTERPIECE                   FORMS_START + 341
-#define SPECIES_OGERPON_WELLSPRING_MASK                 FORMS_START + 342
-#define SPECIES_OGERPON_HEARTHFLAME_MASK                FORMS_START + 343
-#define SPECIES_OGERPON_CORNERSTONE_MASK                FORMS_START + 344
-#define SPECIES_OGERPON_TEAL_MASK_TERA                  FORMS_START + 345
-#define SPECIES_OGERPON_WELLSPRING_MASK_TERA            FORMS_START + 346
-#define SPECIES_OGERPON_HEARTHFLAME_MASK_TERA           FORMS_START + 347
-#define SPECIES_OGERPON_CORNERSTONE_MASK_TERA           FORMS_START + 348
-#define SPECIES_TERAPAGOS_TERASTAL                      FORMS_START + 349
-#define SPECIES_TERAPAGOS_STELLAR                       FORMS_START + 350
+#define SPECIES_POLTCHAGEIST_ARTISAN                    FORMS_START + 342
+#define SPECIES_SINISTCHA_MASTERPIECE                   FORMS_START + 343
+#define SPECIES_OGERPON_WELLSPRING_MASK                 FORMS_START + 344
+#define SPECIES_OGERPON_HEARTHFLAME_MASK                FORMS_START + 345
+#define SPECIES_OGERPON_CORNERSTONE_MASK                FORMS_START + 346
+#define SPECIES_OGERPON_TEAL_MASK_TERA                  FORMS_START + 347
+#define SPECIES_OGERPON_WELLSPRING_MASK_TERA            FORMS_START + 348
+#define SPECIES_OGERPON_HEARTHFLAME_MASK_TERA           FORMS_START + 349
+#define SPECIES_OGERPON_CORNERSTONE_MASK_TERA           FORMS_START + 350
+#define SPECIES_TERAPAGOS_TERASTAL                      FORMS_START + 351
+#define SPECIES_TERAPAGOS_STELLAR                       FORMS_START + 352
+#define SPECIES_URSALUNA_BLOODMOON                      FORMS_START + 353
 
 //think put gen 7 forms here
 
 //New Mega Forms
-#define SPECIES_TORTERRA_MEGA				        FORMS_START + 351
-#define SPECIES_MAROWAK_MEGA                FORMS_START + 352
+#define SPECIES_TORTERRA_MEGA				        FORMS_START + 354
+#define SPECIES_MAROWAK_MEGA                FORMS_START + 355
 
 
 
@@ -1598,7 +1601,7 @@
 #define SPECIES_MEOWSTIC        GENDER_FORMS_START + 3
 #define SPECIES_INDEEDEE        GENDER_FORMS_START + 4
 #define SPECIES_BASCULEGION     GENDER_FORMS_START + 5
-#define SPECIES_OINKOLOGNE      GENDER_FORMS_START + 6
+#define SPECIES_OINKOLOGNE      GENDER_FORMS_START + 6 
 #define SPECIES_FRILLISH        GENDER_FORMS_START + 7
 #define SPECIES_JELLICENT       GENDER_FORMS_START + 8
 #define GENDER_FORMS_END        SPECIES_JELLICENT
@@ -2679,6 +2682,7 @@
 #define NATIONAL_DEX_QUAQUAVAL                               914
 #define NATIONAL_DEX_LECHONK                                 915
 #define NATIONAL_DEX_OINKOLOGNE_MALE                         916
+#define NATIONAL_DEX_OINKOLOGNE       NATIONAL_DEX_OINKOLOGNE_MALE
 #define NATIONAL_DEX_TAROUNTULA                              917
 #define NATIONAL_DEX_SPIDOPS                                 918
 #define NATIONAL_DEX_NYMBLE                                  919
@@ -2688,6 +2692,7 @@
 #define NATIONAL_DEX_PAWMOT                                  923
 #define NATIONAL_DEX_TANDEMAUS                               924
 #define NATIONAL_DEX_MAUSHOLD_FAMILY_OF_THREE                925
+#define NATIONAL_DEX_MAUSHOLD         NATIONAL_DEX_MAUSHOLD_FAMILY_OF_THREE
 #define NATIONAL_DEX_FIDOUGH                                 926
 #define NATIONAL_DEX_DACHSBUN                                927
 #define NATIONAL_DEX_SMOLIV                                  928
@@ -2742,10 +2747,12 @@
 #define NATIONAL_DEX_VELUZA                                  976
 #define NATIONAL_DEX_DONDOZO                                 977
 #define NATIONAL_DEX_TATSUGIRI_CURLY                         978
+#define NATIONAL_DEX_TATSUGIRI                NATIONAL_DEX_TATSUGIRI_CURLY
 #define NATIONAL_DEX_ANNIHILAPE                              979
 #define NATIONAL_DEX_CLODSIRE                                980
 #define NATIONAL_DEX_FARIGIRAF                               981
 #define NATIONAL_DEX_DUDUNSPARCE_TWO_SEGMENT                 982
+#define NATIONAL_DEX_DUDUNSPARCE            NATIONAL_DEX_DUDUNSPARCE_TWO_SEGMENT
 #define NATIONAL_DEX_KINGAMBIT                               983
 #define NATIONAL_DEX_GREAT_TUSK                              984
 #define NATIONAL_DEX_SCREAM_TAIL                             985
@@ -2762,8 +2769,8 @@
 #define NATIONAL_DEX_FRIGIBAX                                996
 #define NATIONAL_DEX_ARCTIBAX                                997
 #define NATIONAL_DEX_BAXCALIBUR                              998
-#define NATIONAL_DEX_GIMMIGHOUL                              NATIONAL_DEX_GIMMIGHOUL_CHEST
 #define NATIONAL_DEX_GIMMIGHOUL_CHEST                        999
+#define NATIONAL_DEX_GIMMIGHOUL                              NATIONAL_DEX_GIMMIGHOUL_CHEST
 #define NATIONAL_DEX_GHOLDENGO                               1000
 #define NATIONAL_DEX_WO_CHIEN                                1001
 #define NATIONAL_DEX_CHIEN_PAO                               1002
@@ -2773,35 +2780,32 @@
 #define NATIONAL_DEX_IRON_VALIANT                            1006
 #define NATIONAL_DEX_KORAIDON                                1007
 #define NATIONAL_DEX_MIRAIDON                                1008
-// Paldean Forms
-#define NATIONAL_DEX_TAUROS_PALDEAN_COMBAT_BREED             1009
-#define NATIONAL_DEX_WOOPER_PALDEAN                          1010
-// Scarlet and Violet -380.-379.-381
-#define NATIONAL_DEX_WALKING_WAKE                            1011
-#define NATIONAL_DEX_IRON_LEAVES                             1012
-// Teal Mask
-#define NATIONAL_DEX_DIPPLIN                                 1013
-#define NATIONAL_DEX_POLTCHAGEIST                            NATIONAL_DEX_POLTCHAGEIST_COUNTERFEIT
-#define NATIONAL_DEX_POLTCHAGEIST_COUNTERFEIT                1014
-#define NATIONAL_DEX_SINISTCHA                               NATIONAL_DEX_SINISTCHA_UNREMARKABLE
-#define NATIONAL_DEX_SINISTCHA_UNREMARKABLE                  1015
-#define NATIONAL_DEX_OKIDOGI                                 1016
-#define NATIONAL_DEX_MUNKIDORI                               1017
-#define NATIONAL_DEX_FEZANDIPITI                             1018
-#define NATIONAL_DEX_OGERPON                                 NATIONAL_DEX_OGERPON_TEAL_MASK
-#define NATIONAL_DEX_OGERPON_TEAL_MASK                       1019
-#define NATIONAL_DEX_URSALUNA_BLOODMOON                      1020
-// Indigo Disk
-#define NATIONAL_DEX_ARCHALUDON                              1021
-#define NATIONAL_DEX_HYDRAPPLE                               1022
-#define NATIONAL_DEX_GOUGING_FIRE                            1023
-#define NATIONAL_DEX_RAGING_BOLT                             1024
-#define NATIONAL_DEX_IRON_BOULDER                            1025
-#define NATIONAL_DEX_IRON_CROWN                              1026
-#define NATIONAL_DEX_TERAPAGOS                               NATIONAL_DEX_TERAPAGOS_NORMAL
-#define NATIONAL_DEX_TERAPAGOS_NORMAL                        1027
 
-#define NATIONAL_DEX_PECHARUNT                               1028
+// Scarlet and Violet -380.-379.-381
+#define NATIONAL_DEX_WALKING_WAKE                            1009
+#define NATIONAL_DEX_IRON_LEAVES                             1010
+// Teal Mask
+#define NATIONAL_DEX_DIPPLIN                                 1011
+#define NATIONAL_DEX_POLTCHAGEIST_COUNTERFEIT                1012
+#define NATIONAL_DEX_POLTCHAGEIST                            NATIONAL_DEX_POLTCHAGEIST_COUNTERFEIT
+#define NATIONAL_DEX_SINISTCHA_UNREMARKABLE                  1013
+#define NATIONAL_DEX_SINISTCHA                               NATIONAL_DEX_SINISTCHA_UNREMARKABLE
+#define NATIONAL_DEX_OKIDOGI                                 1014
+#define NATIONAL_DEX_MUNKIDORI                               1015
+#define NATIONAL_DEX_FEZANDIPITI                             1016
+#define NATIONAL_DEX_OGERPON_TEAL_MASK                       1017
+#define NATIONAL_DEX_OGERPON                                 NATIONAL_DEX_OGERPON_TEAL_MASK
+// Indigo Disk
+#define NATIONAL_DEX_ARCHALUDON                              1018
+#define NATIONAL_DEX_HYDRAPPLE                               1019
+#define NATIONAL_DEX_GOUGING_FIRE                            1020
+#define NATIONAL_DEX_RAGING_BOLT                             1021
+#define NATIONAL_DEX_IRON_BOULDER                            1022
+#define NATIONAL_DEX_IRON_CROWN                              1023
+#define NATIONAL_DEX_TERAPAGOS_NORMAL                        1024
+#define NATIONAL_DEX_TERAPAGOS                               NATIONAL_DEX_TERAPAGOS_NORMAL
+
+#define NATIONAL_DEX_PECHARUNT                               1025
 
 //#define NATIONAL_DEX_CEFIREON 1029
 //#define NATIONAL_DEX_FRAEYJTA 1030
@@ -2994,25 +2998,30 @@
 #define NATIONAL_DEX_OINKOLOGNE_FEMALE          NATIONAL_SPECIES_COUNT + 136
 #define NATIONAL_DEX_PALAFIN_HERO               NATIONAL_SPECIES_COUNT + 137
 #define NATIONAL_DEX_GIMMIGHOUL_ROAMING         NATIONAL_SPECIES_COUNT + 138
+
 //same stats but diff enough to warant an entry
-#define NATIONAL_DEX_TAUROS_PALDEAN_BLAZE_BREED NATIONAL_SPECIES_COUNT + 139
-#define NATIONAL_DEX_TAUROS_PALDEAN_AQUA_BREED  NATIONAL_SPECIES_COUNT + 140
+// Paldean Forms
+#define NATIONAL_DEX_TAUROS_PALDEAN_COMBAT_BREED  NATIONAL_SPECIES_COUNT + 139
+#define NATIONAL_DEX_TAUROS_PALDEAN_BLAZE_BREED   NATIONAL_SPECIES_COUNT + 140
+#define NATIONAL_DEX_TAUROS_PALDEAN_AQUA_BREED    NATIONAL_SPECIES_COUNT + 141
+#define NATIONAL_DEX_WOOPER_PALDEAN               NATIONAL_SPECIES_COUNT + 142
 
 //same deal as tauros
-#define NATIONAL_DEX_OGERPON_WELLSPRING_MASK         NATIONAL_SPECIES_COUNT + 141
-#define NATIONAL_DEX_OGERPON_HEARTHFLAME_MASK        NATIONAL_SPECIES_COUNT + 142
-#define NATIONAL_DEX_OGERPON_CORNERSTONE_MASK        NATIONAL_SPECIES_COUNT + 143
-#define NATIONAL_DEX_OGERPON_TEAL_MASK_TERA          NATIONAL_SPECIES_COUNT + 144
-#define NATIONAL_DEX_OGERPON_WELLSPRING_MASK_TERA    NATIONAL_SPECIES_COUNT + 145
-#define NATIONAL_DEX_OGERPON_HEARTHFLAME_MASK_TERA   NATIONAL_SPECIES_COUNT + 146
-#define NATIONAL_DEX_OGERPON_CORNERSTONE_MASK_TERA   NATIONAL_SPECIES_COUNT + 147
+#define NATIONAL_DEX_OGERPON_WELLSPRING_MASK         NATIONAL_SPECIES_COUNT + 143
+#define NATIONAL_DEX_OGERPON_HEARTHFLAME_MASK        NATIONAL_SPECIES_COUNT + 144
+#define NATIONAL_DEX_OGERPON_CORNERSTONE_MASK        NATIONAL_SPECIES_COUNT + 145
+#define NATIONAL_DEX_OGERPON_TEAL_MASK_TERA          NATIONAL_SPECIES_COUNT + 146
+#define NATIONAL_DEX_OGERPON_WELLSPRING_MASK_TERA    NATIONAL_SPECIES_COUNT + 147
+#define NATIONAL_DEX_OGERPON_HEARTHFLAME_MASK_TERA   NATIONAL_SPECIES_COUNT + 148
+#define NATIONAL_DEX_OGERPON_CORNERSTONE_MASK_TERA   NATIONAL_SPECIES_COUNT + 149
 
 //think can fit terra entry in base dex so just do stellar
-#define NATIONAL_DEX_TERAPAGOS_STELLAR              NATIONAL_SPECIES_COUNT + 148
+#define NATIONAL_DEX_TERAPAGOS_STELLAR              NATIONAL_SPECIES_COUNT + 150
+#define NATIONAL_DEX_URSALUNA_BLOODMOON             NATIONAL_SPECIES_COUNT + 151
 
 //#define NATIONAL_SPECIES_COUNT NATIONAL_DEX_CALYREX
 
-#define NATIONAL_DEX_COUNT NATIONAL_DEX_TERAPAGOS_STELLAR
+#define NATIONAL_DEX_COUNT NATIONAL_DEX_URSALUNA_BLOODMOON
 
 //#define POKEMON_SLOTS_NUMBER (NATIONAL_DEX_COUNT + 1) //outdated value already replaced in my hack
 //important remember I plan to have forms accessible from main species dex page just be able to tab over to see other form
