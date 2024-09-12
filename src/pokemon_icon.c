@@ -2624,8 +2624,8 @@ u8 CreateMonIcon(u16 species, SpriteCallback callback, s16 x, s16 y, u8 subprior
         .paletteTag = POKE_ICON_BASE_PAL_TAG + gSpeciesGraphics[species].iconPalIndex,
     };
 
-    if (species > NUM_SPECIES)
-        iconTemplate.paletteTag = POKE_ICON_BASE_PAL_TAG;
+    //if (species > NUM_SPECIES)
+    //    iconTemplate.paletteTag = POKE_ICON_BASE_PAL_TAG;
 
     spriteId = CreateMonIconSprite(&iconTemplate, x, y, subpriority);
 
@@ -2670,9 +2670,9 @@ u16 GetIconSpecies(u16 species, u32 personality)
     }
     else
     {
-        if (species > NUM_SPECIES)
-            result = SPECIES_NONE;
-        else
+        //if (species > NUM_SPECIES)
+        //    result = SPECIES_NONE;
+        //else
             result = species;
     }
 

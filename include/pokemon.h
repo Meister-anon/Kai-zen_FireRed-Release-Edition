@@ -651,7 +651,7 @@ extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
 extern const struct SpriteTemplate gSpriteTemplates_Battlers[];
 extern const u8 gPPUpGetMask[];
-extern const u16 *const gFormSpeciesIdTables[NUM_SPECIES];
+extern const u16 *const gFormSpeciesIdTables[]; //needs include cosmetic so cant use numspecies
 extern const struct FormChange *const gFormChangeTablePointers[NUM_SPECIES];
 
 
@@ -690,6 +690,7 @@ bool32 TryFormChange(u32 monId, u32 side, u16 method);
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
 u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg);
 bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
+bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 
 #define BATTLE_ALIVE_EXCEPT_ACTIVE  0
 #define BATTLE_ALIVE_ATK_SIDE       1

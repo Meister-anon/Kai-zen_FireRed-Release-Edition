@@ -2557,6 +2557,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     )
 
+    gltiched form stuff idk seems potentially directly related to ogerpon?
+    hopefully best case ssssssssssssss...
+    ok got lucky issue is literally just ogerpon not sure why though
+    only happens when viewing ogerpon forms
+    raised alloc value and ogerpon loaded, no idea how well it'll work but it loads
+
+    also made adjustments to dex code so no cosmetic species
+    outside num_species work
+
+    may exclude species that evolve out of necessity,
+    otherwise don't think can link up w proper forms.
+
+    i.e blue floette evolving to blue florgess
+
     still have issue w dex evo page,
     doesn't make sense as eevee page worsk so don't 
     think can be because num mon,
@@ -2571,6 +2585,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     //made adjustment don't know what I'm doing
     //but it works for now
+
+    also missed issue w nat dex for some reason
+    doesn't build full list around values
+    it only builds the initial value everything
+    else is 0's...
+
+    so something wrong w create list
 
     also somehow messed up old forms stuff,
     indeed zacian etc. not pulling from base form for dex..

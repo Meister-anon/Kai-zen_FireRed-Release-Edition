@@ -1596,6 +1596,7 @@ SPECIES_TO_NATIONAL(OGERPON_TEAL_MASK_TERA),  //1039
 SPECIES_TO_NATIONAL(OGERPON_WELLSPRING_MASK_TERA),   //1040
 SPECIES_TO_NATIONAL(OGERPON_HEARTHFLAME_MASK_TERA),  // 1041
 SPECIES_TO_NATIONAL(OGERPON_CORNERSTONE_MASK_TERA),  // 1042
+
 SPECIES_TO_NATIONAL(URSALUNA_BLOODMOON),  //1043
 // Indigo Disk
 SPECIES_TO_NATIONAL(ARCHALUDON),  //1044
@@ -1606,8 +1607,8 @@ SPECIES_TO_NATIONAL(IRON_BOULDER),  //1048
 SPECIES_TO_NATIONAL(IRON_CROWN),  //1049
 //SPECIES_TO_NATIONAL(TERAPAGOS),  // SPECIES_TERAPAGOS_NORMAL
 SPECIES_TO_NATIONAL(TERAPAGOS_NORMAL),  //1050
-//SPECIES_TO_NATIONAL(TERAPAGOS_TERASTAL),  //1051
-[SPECIES_TERAPAGOS_TERASTAL - 1] = NATIONAL_DEX_TERAPAGOS,
+SPECIES_TO_NATIONAL(TERAPAGOS_TERASTAL),  //1051
+//[SPECIES_TERAPAGOS_TERASTAL - 1] = NATIONAL_DEX_TERAPAGOS,
 SPECIES_TO_NATIONAL(TERAPAGOS_STELLAR),  // 1052
 SPECIES_TO_NATIONAL(PECHARUNT),  //
     
@@ -9824,6 +9825,13 @@ u16 GetSpeciesPreEvolution(u16 species, u32 LoopTarget) //so I feel like I'm not
     return SPECIES_NONE;
 }
 
+bool8 DoesSpeciesHaveCosmeticForms(u16 species)
+{
+    if (gBaseStats[GetFormSpeciesId(species, 0)].flags == F_HAS_COSMETIC_FORMS)
+        return TRUE;
+    return FALSE;
+}
+
 
   /*realized item conditions for use aren't working correclty
   I need to check teh entire evo path not just the next evo.
@@ -10556,7 +10564,7 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny,
 
 const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, u32 personality)
 {
-    species = SanitizeSpeciesId(species);
+    //species = SanitizeSpeciesId(species);
 
     if (isShiny)
     {

@@ -1241,7 +1241,7 @@ static const u16 sOgerponFormSpeciesIdTable[] = {
     SPECIES_OGERPON_HEARTHFLAME_MASK_TERA,
     SPECIES_OGERPON_CORNERSTONE_MASK_TERA,
     FORM_SPECIES_END,
-};
+};//no graphics for tera forms yet
  //P_FAMILY_OGERPON
 
 //#if P_FAMILY_TERAPAGOS
@@ -1250,6 +1250,6 @@ static const u16 sTerapagosFormSpeciesIdTable[] = {
     SPECIES_TERAPAGOS_TERASTAL,
     SPECIES_TERAPAGOS_STELLAR,
     FORM_SPECIES_END,
-};
+};//stella form doesn't have graphics yet
 
 

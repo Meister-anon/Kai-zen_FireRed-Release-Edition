@@ -1042,8 +1042,9 @@
 #define SPECIES_OKIDOGI                                 1014
 #define SPECIES_MUNKIDORI                               1015
 #define SPECIES_FEZANDIPITI                             1016
-#define SPECIES_OGERPON                                 SPECIES_OGERPON_TEAL_MASK
 #define SPECIES_OGERPON_TEAL_MASK                       1017
+#define SPECIES_OGERPON                                 SPECIES_OGERPON_TEAL_MASK
+
 // Indigo Disk
 #define SPECIES_ARCHALUDON                              1018
 #define SPECIES_HYDRAPPLE                               1019
@@ -3015,9 +3016,10 @@
 #define NATIONAL_DEX_OGERPON_HEARTHFLAME_MASK_TERA   NATIONAL_SPECIES_COUNT + 148
 #define NATIONAL_DEX_OGERPON_CORNERSTONE_MASK_TERA   NATIONAL_SPECIES_COUNT + 149
 
-//think can fit terra entry in base dex so just do stellar
-#define NATIONAL_DEX_TERAPAGOS_STELLAR              NATIONAL_SPECIES_COUNT + 150
-#define NATIONAL_DEX_URSALUNA_BLOODMOON             NATIONAL_SPECIES_COUNT + 151
+//think can fit terra entry in base dex so just do stellar -nope
+#define NATIONAL_DEX_TERAPAGOS_TERASTAL             NATIONAL_SPECIES_COUNT + 150
+#define NATIONAL_DEX_TERAPAGOS_STELLAR              NATIONAL_SPECIES_COUNT + 151
+#define NATIONAL_DEX_URSALUNA_BLOODMOON             NATIONAL_SPECIES_COUNT + 152
 
 //#define NATIONAL_SPECIES_COUNT NATIONAL_DEX_CALYREX
 

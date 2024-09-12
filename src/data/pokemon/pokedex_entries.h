@@ -13045,7 +13045,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 7,
     },//normal
 
-    [NATIONAL_DEX_TERAPAGOS] =
+    [NATIONAL_DEX_TERAPAGOS_TERASTAL] =
     {
         .categoryName = _("Tera"),
         .height = 3,
@@ -13061,7 +13061,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 7,
     },//terastal
 
-    [NATIONAL_DEX_TERAPAGOS] =
+    [NATIONAL_DEX_TERAPAGOS_STELLAR] =
     {
         .categoryName = _("Tera"),
         .height = 17,

@@ -1252,7 +1252,8 @@ void DexScreen_LoadResources(void) //look into equiv emerald function, may be wh
     //no idea if that's because of incomplete data for gen 9 mon or becuase 
     //of my layout rework for dexpagess
     //I assume its gen9 as kanto dex has same layout but no issues
-    sPokedexScreenData->listItems = Alloc((BASE_SPECIES_COUNT + 1) * sizeof(struct ListMenuItem)); //AsparagusEduardo from rhh mentnioed this could be problamatic
+    //idk had to increasse for some reason ogerpon entry wasn't working?
+    sPokedexScreenData->listItems = Alloc((BASE_SPECIES_COUNT + 8) * sizeof(struct ListMenuItem)); //AsparagusEduardo from rhh mentnioed this could be problamatic
     sPokedexScreenData->numSeenNational = DexScreen_GetDexCount(FLAG_GET_SEEN, 1);  //need look into how ee (actualy basic emerald logic) does the dex it loads in pieces
     sPokedexScreenData->numOwnedNational = DexScreen_GetDexCount(FLAG_GET_CAUGHT, 1);//rather than all at once, which is what I had in mind
     sPokedexScreenData->numSeenKanto = DexScreen_GetDexCount(FLAG_GET_SEEN, 0);
@@ -3445,7 +3446,7 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
             FormFilter = DexScreen_FormFilter(GetFormSpeciesId(species, i)); //assign based on which form displaying
             
             //seen = DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, i), FLAG_GET_SEEN, TRUE);
-            seen = DexScreen_GetSetPokedexFlag(FormFilter, FLAG_GET_SEEN, TRUE);
+            //seen = DexScreen_GetSetPokedexFlag(FormFilter, FLAG_GET_SEEN, TRUE);
 
             /*switch (GetFormType(GetFormSpeciesId(species, i)))
             {
@@ -3502,8 +3503,8 @@ static bool32 DexScreen_TryDisplayForms(u8 direction)
         {
             FormFilter = DexScreen_FormFilter(GetFormSpeciesId(species, i)); //assign based on which form displaying
             //seen = DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, i), FLAG_GET_SEEN, TRUE);
-            seen = DexScreen_GetSetPokedexFlag(FormFilter, FLAG_GET_SEEN, TRUE);
-            caught = DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, i), FLAG_GET_CAUGHT, TRUE); //seems to work makes mega visible if caught it
+            //seen = DexScreen_GetSetPokedexFlag(FormFilter, FLAG_GET_SEEN, TRUE);
+            //caught = DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, i), FLAG_GET_CAUGHT, TRUE); //seems to work makes mega visible if caught it
 
             /*switch (GetFormType(GetFormSpeciesId(species, i)))
             {
@@ -4355,6 +4356,8 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     bool8 UniqueCategory = FALSE;
     //bool8 UseBaseForm = FALSE;
     u16 NatSpecies = SpeciesToNationalPokedexNum(species);
+    u16 caught = DoesSpeciesHaveCosmeticForms(species) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
+
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
     //species = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
@@ -4411,6 +4414,9 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
             speciesArgument = GetFormSpeciesId(species, 0);
         else
             speciesArgument = species;
+        
+        if (gPokedexEntries[NatSpecies].categoryName[0] == 0)
+            speciesArgument = GetFormSpeciesId(species, 0);
 
         speciesArgument = SpeciesToNationalPokedexNum(speciesArgument);
         categoryName = (u8 *)gPokedexEntries[speciesArgument].categoryName;
@@ -4455,8 +4461,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
     //current issue is override for dex category isn't working anymore, 
     //vsonic 
     //change to work if form species, or species, plan specifically to let catching megas still display correftly
-    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE))
-    
+    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || caught)    
     {
         //#if REVISION == 0
         //       while ((categoryName[index] != CHAR_SPACE) && (index <= 13)) //potentially this is issue, need raise this
@@ -4492,6 +4497,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     u8 buffer[32];
     u8 i;
     u16 FormSpecies;
+    u16 caught = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE);
 
 
     if (species > NATIONAL_SPECIES_COUNT
@@ -4507,6 +4513,9 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
 
     
     if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)//put and not on gen9 exclusion list
+        species = GetFormSpeciesId(species, 0);
+
+    if (gPokedexEntries[SpeciesToNationalPokedexNum(species)].height == 0)
         species = GetFormSpeciesId(species, 0);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
@@ -4528,7 +4537,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
     buffer[i++] = 0;
     buffer[i++] = CHAR_SPACE;
 
-    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE)) //this needs to use source value nto species
+    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || caught) //this needs to use source value nto species
     {
         inches = 10000 * height / 254; // actually tenths of inches here
         if (inches % 10 >= 5)
@@ -4578,6 +4587,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     u8 i;
     u32 j;
     u16 FormSpecies;
+    u16 caught = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE);
 
     //says national_species_count but actually uses species list to define
     //not national species list
@@ -4593,6 +4603,9 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
         FormSpecies = species; //already uses dex->species
 
     if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START) //put and not on gen9 exclusion list
+        species = GetFormSpeciesId(species, 0);
+
+    if (gPokedexEntries[SpeciesToNationalPokedexNum(species)].weight == 0)
         species = GetFormSpeciesId(species, 0);
 
     //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
@@ -4619,7 +4632,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     //nvm ash gren is already accounted for it leads to nat dex gren, so itll be fine, so I just need to worry bout megas
     //if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE))//prints weight only if current species cuaght, issue is with megas can fix use constant
     //nvm fixed w use of or
-    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_CAUGHT, TRUE))
+    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || caught)
     {
         lbs = (weight * 100000) / 4536; // Convert to hundredths of lb
 
@@ -4726,13 +4739,14 @@ void DexScreen_PrintMonStatPage(u8 windowId, u16 species, u8 x, u8 y)
     u8 i;
 
 
+
     if (species > NATIONAL_SPECIES_COUNT)
         species = GetFormSpeciesId(species, 0);
 
     species = SpeciesToNationalPokedexNum(species);
 
     //assign stat field
-    statTotal = GetBaseStatTotal(sPokedexScreenData->dexSpecies);
+    statTotal = GetBaseStatTotal(species);
 
     //assign label
     labelTextTotal = gText_StatTotal;
@@ -4792,6 +4806,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
     u32 i;
     u16 NatSpecies;
     u16 FormSpecies;
+    u16 caught = DoesSpeciesHaveCosmeticForms(species) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(species, 0), FLAG_GET_CAUGHT, TRUE) :  DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE);
 
 
     if (species > NATIONAL_SPECIES_COUNT
@@ -4874,7 +4889,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
 
 
     
-    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE))
+    if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || caught)
     {
 
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
@@ -4898,7 +4913,13 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
                 printerTemplate.currentChar = gPokedexEntries[SpeciesToNationalPokedexNum(FormSpecies)].description;
         }
         else
-            printerTemplate.currentChar = gPokedexEntries[NatSpecies].description;
+        {
+            if (gPokedexEntries[NatSpecies].description != NULL)
+                printerTemplate.currentChar = gPokedexEntries[NatSpecies].description;
+            else
+                printerTemplate.currentChar = gPokedexEntries[SpeciesToNationalPokedexNum(FormSpecies)].description;
+        }
+            
 
         printerTemplate.windowId = windowId;
         printerTemplate.fontId = FONT_NORMAL;
@@ -4917,7 +4938,12 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
                 length = GetStringWidth(FONT_NORMAL,  gPokedexEntries[SpeciesToNationalPokedexNum(FormSpecies)].description, 0);
         }
         else
-            length = GetStringWidth(FONT_NORMAL, gPokedexEntries[NatSpecies].description, 0);
+        {
+            if (gPokedexEntries[NatSpecies].description != NULL)
+                length = GetStringWidth(FONT_NORMAL, gPokedexEntries[NatSpecies].description, 0);
+            else
+                length = GetStringWidth(FONT_NORMAL,  gPokedexEntries[SpeciesToNationalPokedexNum(FormSpecies)].description, 0);
+        }
 
         xCenter = x + (240 - length) / 2;
 
@@ -5003,7 +5029,8 @@ void DexScreen_DrawMonFootprint(u8 windowId, u16 species, u8 x, u8 y)
 static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to usse this to breakdown dex navigation this will only exist from a place that lists the mon
 {
     u32 i;
-    u16 seen = DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_SEEN, TRUE);
+    u16 seen = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? DexScreen_GetSetPokedexFlag(GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0), FLAG_GET_SEEN, TRUE) :  DexScreen_GetSetPokedexFlag(sPokedexScreenData->dexSpecies, FLAG_GET_SEEN, TRUE);
+    u16 SpeciesVal = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0) : sPokedexScreenData->dexSpecies;
     DexScreen_DexPageZoomEffectFrame(3, 6);
     FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 30, 20);
     FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 30, 20);
@@ -5071,28 +5098,28 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     PutWindowTilemap(sPokedexScreenData->windowIds[0]);
     CopyWindowToVram(sPokedexScreenData->windowIds[0], COPYWIN_GFX);
 
-    GetSpeciesName(gStringVar1, sPokedexScreenData->dexSpecies);
+    GetSpeciesName(gStringVar1, SpeciesVal);
 
     // Species stats -need change these print functions, dexno cat, height & weight
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[1], PIXEL_FILL(0));
-    DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, sPokedexScreenData->dexSpecies, 0, 1);
+    DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, SpeciesVal, 0, 1);
     //print name
-    if (sPokedexScreenData->dexSpecies <= 999)
+    if (SpeciesVal <= 999)
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 1, 0);
     else
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 32, 1, 0); //for 4 digit num, num fits perfect
 
-    DexScreen_PrintMonCategory(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 16);
-    DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 28);
-    DexScreen_PrintMonWeight(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 0, 40);
-    DexScreen_PrintMonStatPage(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 75, 28);
+    DexScreen_PrintMonCategory(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 16);
+    DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 28);
+    DexScreen_PrintMonWeight(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 40);
+    DexScreen_PrintMonStatPage(sPokedexScreenData->windowIds[1], SpeciesVal, 75, 28);
     //DexScreen_DrawMonFootprint(sPokedexScreenData->windowIds[1], sPokedexScreenData->dexSpecies, 88, 32);
     PutWindowTilemap(sPokedexScreenData->windowIds[1]);
     CopyWindowToVram(sPokedexScreenData->windowIds[1], COPYWIN_GFX);
 
     // Dex entry
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[2], PIXEL_FILL(0));
-    DexScreen_PrintMonFlavorText(sPokedexScreenData->windowIds[2], sPokedexScreenData->dexSpecies, 0, 0);
+    DexScreen_PrintMonFlavorText(sPokedexScreenData->windowIds[2], SpeciesVal, 0, 0);
     PutWindowTilemap(sPokedexScreenData->windowIds[2]);
     CopyWindowToVram(sPokedexScreenData->windowIds[2], COPYWIN_GFX);
 
@@ -5117,11 +5144,12 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
 
 static void UpdateStatBars(u16 species)
 {
+    u16 SpeciesVal = DoesSpeciesHaveCosmeticForms(species) ? GetFormSpeciesId(species, 0) : species;
     //LoadSpritePalettes(sStatBarSpritePal);
     //taken from emerald doesn't appear to use window ids at all instead?
     //if right cna get rid of window 0 below
     //sPokedexScreenData->statBarsSpriteId = 0xFF;  //stat bars
-    CreateStatBars(species); //stat bars
+    CreateStatBars(SpeciesVal); //stat bars
     //sPokedexScreenData->statBarsBgSpriteId = 0xFF;  //stat bars background
     CreateStatBarsBg(); //stat bars background
 }
@@ -5133,6 +5161,7 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
     u32 alreadyPrintedIcons[MAX_ICONS] = {0};
     //u32 preservedPalettes; //not doing anything rn?
     u32 iconOffset;
+    u16 SpeciesVal = DoesSpeciesHaveCosmeticForms(sPokedexScreenData->dexSpecies) ? GetFormSpeciesId(sPokedexScreenData->dexSpecies, 0) : sPokedexScreenData->dexSpecies;
 
     DexScreen_DexPageZoomEffectFrame(3, 6);
     FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 30, 20);
@@ -5180,14 +5209,14 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
     PutWindowTilemap(sPokedexScreenData->windowIds[0]);
     CopyWindowToVram(sPokedexScreenData->windowIds[0], COPYWIN_GFX);
 
-    GetSpeciesName(gStringVar1, sPokedexScreenData->dexSpecies);
+    GetSpeciesName(gStringVar1, SpeciesVal);
 
     
     //keep dex num and name, remove others and put evo line sprites here
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[1], PIXEL_FILL(0));
     DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, sPokedexScreenData->dexSpecies, 0, 1);
 
-    if (sPokedexScreenData->dexSpecies <= 999)
+    if (SpeciesVal <= 999)
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 1, 0);
     else
     DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 32, 1, 0); //for 4 digit num, num fits perfect
@@ -5205,7 +5234,8 @@ static u8 DexScreen_DrawMonEvoPage(bool8 justRegistered) //should be able to uss
     ResetEvoScreenDataStruct();
             //Icon
             //FreeMonIconPalettes(); //Free space for new pallete
-            SafeFreeMonIconPalette(sPokedexScreenData->dexSpecies);
+            //SafeFreeMonIconPalette(sPokedexScreenData->dexSpecies);
+            FreeMonIconPalette(sPokedexScreenData->dexSpecies); //replace for use of outside numspecies
             LoadMonIconPalette(sPokedexScreenData->dexSpecies); //Loads pallete for current mon, same for this, I need to load the palette
             PrintPreEvolutions(taskId, sPokedexScreenData->dexSpecies); //this is the problem, 
             #ifdef POKEMON_EXPANSION
@@ -8062,6 +8092,8 @@ static u8 PrintPreEvolutions(u8 taskId, u16 species)
     preEvolutionOne = AllocZeroed(sizeof(*preEvolutionOne) * MAX_PRE_EVOS);
     preEvolutionTwo = AllocZeroed(sizeof(*preEvolutionTwo) * MAX_PRE_EVOS);
 
+    if (DoesSpeciesHaveCosmeticForms(species))
+        species = GetFormSpeciesId(species, 0);
     //Calculate previous evolution
     for (i = 0; i < NUM_SPECIES; i++) //would work but still has issue of 2nd pre evo calced after pre evo is checked, when I need it first
     {

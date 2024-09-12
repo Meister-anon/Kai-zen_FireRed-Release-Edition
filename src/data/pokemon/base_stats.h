@@ -36742,7 +36742,7 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = iconpalette,                                                    \
         //FOOTPRINT(Ogerpon)                                                          \
         
-        /*.levelUpLearnset = sOgerponLevelUpLearnset, */                                    \
+        */.levelUpLearnset = sOgerponLevelUpLearnset,                                    \
         /*.teachableLearnset = sOgerponTeachableLearnset, */                                \
         /*.formSpeciesIdTable = sOgerponFormSpeciesIdTable,   */                            \
         /*.formChangeTable = sOgerponFormChangeTable,      */                               \
@@ -36753,12 +36753,12 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_OGERPON_WELLSPRING_MASK]       = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_WATER_ABSORB,              BODY_COLOR_BLUE,  0),
     [SPECIES_OGERPON_HEARTHFLAME_MASK]      = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_MOLD_BREAKER,              BODY_COLOR_RED,   0),
     [SPECIES_OGERPON_CORNERSTONE_MASK]      = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_STURDY,                    BODY_COLOR_GRAY,  0),
-#if P_TERA_FORMS
+
     [SPECIES_OGERPON_TEAL_MASK_TERA]        = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_EMBODY_ASPECT_TEAL_MASK,        BODY_COLOR_GREEN, 1),
     [SPECIES_OGERPON_WELLSPRING_MASK_TERA]  = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_EMBODY_ASPECT_WELLSPRING_MASK,  BODY_COLOR_BLUE,  0),
     [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK, BODY_COLOR_RED,   0),
     [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK, BODY_COLOR_GRAY,  0),
-#endif //P_TERA_FORMS
+//P_TERA_FORMS
 
 [SPECIES_URSALUNA_BLOODMOON] =
     {
@@ -45418,7 +45418,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFlabebeLevelUpLearnset,
         .tmhmLearnset = sFlabebeTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(19, AVERAGE_EFFORT), 0, SPECIES_FLOETTE_ORANGE_FLOWER}), //Should hopefully blank these for now without issue
-    },
+    },//exclude from cosmetic becuase also evolves into mon w cosmetic?
+    //well just cuz it evolves actually since can't have evo data if not on base stats
 
     [SPECIES_FLABEBE_BLUE_FLOWER] =
     {

@@ -1,4 +1,4 @@
-const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
+const u16 *const gFormSpeciesIdTables[] =
 {
     [SPECIES_VENUSAUR] = sVenusaurFormSpeciesIdTable,
     [SPECIES_CHARIZARD] = sCharizardFormSpeciesIdTable,
@@ -551,12 +551,12 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     // Polteageist
     [SPECIES_POLTEAGEIST_ANTIQUE] = sPolteageistFormSpeciesIdTable,
     // Alcremie
-    /*[SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
+    [SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
     [SPECIES_ALCREMIE_LOVE_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
     [SPECIES_ALCREMIE_STAR_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
     [SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
     [SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,*/
+    [SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM] = sAlcremieFormSpeciesIdTable,
 
     // Eiscue
     [SPECIES_EISCUE_NOICE_FACE] = sEiscueFormSpeciesIdTable,
@@ -617,11 +617,12 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_OGERPON_WELLSPRING_MASK] = sOgerponFormSpeciesIdTable,
     [SPECIES_OGERPON_HEARTHFLAME_MASK] = sOgerponFormSpeciesIdTable,
     [SPECIES_OGERPON_CORNERSTONE_MASK] = sOgerponFormSpeciesIdTable,
+   
     [SPECIES_OGERPON_TEAL_MASK_TERA] = sOgerponFormSpeciesIdTable,
     [SPECIES_OGERPON_WELLSPRING_MASK_TERA] = sOgerponFormSpeciesIdTable,
     [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = sOgerponFormSpeciesIdTable,
     [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = sOgerponFormSpeciesIdTable,
-
+    
     //Terapagos
     [SPECIES_TERAPAGOS_NORMAL] = sTerapagosFormSpeciesIdTable,
     [SPECIES_TERAPAGOS_TERASTAL] = sTerapagosFormSpeciesIdTable,
