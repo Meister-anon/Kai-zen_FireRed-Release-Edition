@@ -2592,12 +2592,29 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     else is 0's...
 
     so something wrong w create list
+    -fixed
 
     also somehow messed up old forms stuff,
     indeed zacian etc. not pulling from base form for dex..
 
     fixed issue,
+
+    triple check bandit kind and energency exit likes
+    was in oak battle but bandit king still seems to show text
+    for wrong side.
+
+    and using emergency exit for last mon in battle 
+    seemed to fail and end battle, even if move misses?
+    in oak battle triggered stat buff attack,
+    missed move but battle ended as if I won
+    ,if oak battle still has logic for playeer not missing
+    that could be the issue?
+
+    -tested it does end wild battle 
+    see if that's normal effect
     
+    yup it ends  trainer battles too FUCK,
+    need to fix
 
     got graphics working still to do is pull in pal icon indexes
     and gen 9 indexes would need to pull from base stats
