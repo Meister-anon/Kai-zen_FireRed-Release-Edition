@@ -1582,6 +1582,13 @@ static void ItemPrintFunc_DexModeSelect(u8 windowId, s32 itemId, u8 y) //pret ev
 //vsonic IMPORTANT this is the function I need, it sets everyting for display of firered dex list
 static void Task_DexScreen_NumericalOrder(u8 taskId)
 {
+    if (sPokedexScreenData->dexOrderId == DEX_ORDER_NUMERICAL_KANTO)
+    sPokedexScreenData->orderedDexCount = KANTO_DEX_COUNT;
+
+    if (sPokedexScreenData->dexOrderId == DEX_ORDER_NUMERICAL_NATIONAL)
+    sPokedexScreenData->orderedDexCount = NATIONAL_SPECIES_COUNT;//see fi this works
+    //dumb fix but works
+
     switch (sPokedexScreenData->state)
     {
     case 0:
