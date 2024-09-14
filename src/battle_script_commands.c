@@ -8363,7 +8363,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     
                     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
                     && CountUsablePartyMons(gBattlerAttacker) > 0
-                    && (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0))
+                    && (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0)) //believe this causes to skip to next case
                     {
                     /*#if B_ABILITY_POP_UP == TRUE
                         gBattlescriptCurrInstr = BattleScript_EmergencyExit;
@@ -8374,7 +8374,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                         return;
                     //#endif
                     }
-                    else if (CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0)
+                    else if ((CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) || CountUsablePartyMons(gBattlerTarget) > 0)
+                    && (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER)))
                     {
                     /*#if B_ABILITY_POP_UP == TRUE
                         gBattlescriptCurrInstr = BattleScript_EmergencyExitWild;
