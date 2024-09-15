@@ -2599,6 +2599,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     fixed issue,
 
+    seems gen 9 forms, aren't properly showing bst?
+    palafin zero to palafin hero doesn't change
+    everything else changed correctly at least
+
     triple check bandit kind and energency exit likes
     was in oak battle but bandit king still seems to show text
     for wrong side.

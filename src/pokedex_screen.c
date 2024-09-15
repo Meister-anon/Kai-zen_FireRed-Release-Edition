@@ -5051,7 +5051,9 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     if (sPokedexScreenData->dexSpecies == SPECIES_AZELF 
     || sPokedexScreenData->dexSpecies == SPECIES_MESPRIT 
     || sPokedexScreenData->dexSpecies == SPECIES_UXIE
-    || sPokedexScreenData->dexSpecies == SPECIES_ORBEETLE) //SEE IF LOOKS BETTER
+    || sPokedexScreenData->dexSpecies == SPECIES_ORBEETLE
+    || sPokedexScreenData->dexSpecies == SPECIES_TINKATON
+    || sPokedexScreenData->dexSpecies == SPECIES_KINGAMBIT) //SEE IF LOOKS BETTER
         sPokedexScreenData->windowIds[0] = AddWindow(&sWindowTemplate_DexEntry_MonPic3_Highest); //works
 
     else if (sPokedexScreenData->dexSpecies != gDexAdjusting[i]) //if mon not in list, uses higher window

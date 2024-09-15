@@ -308,7 +308,7 @@
 #define ANIM_TAG_MEGA_PARTICLES             (ANIM_SPRITES_START + 297)
 #define ANIM_TAG_TRUMP_CARD                 (ANIM_SPRITES_START + 298)
 #define ANIM_TAG_TRUMP_CARD_PARTICLES       (ANIM_SPRITES_START + 299)
-#define ANIM_TAG_ACCUPRESSURE               (ANIM_SPRITES_START + 300)
+#define ANIM_TAG_ACUPRESSURE               (ANIM_SPRITES_START + 300)
 #define ANIM_TAG_WRING_OUT                  (ANIM_SPRITES_START + 301)
 #define ANIM_TAG_COLORED_ORBS               (ANIM_SPRITES_START + 302)
 #define ANIM_TAG_WORRY_SEED                 (ANIM_SPRITES_START + 303)
@@ -499,6 +499,8 @@
 #define BG_AURA_SPHERE                          77
 #define BG_STEEL_BEAM_OPPONENT					78
 #define BG_STEEL_BEAM_PLAYER					79
+#define BG_CHLOROBLAST 80
+#define BG_RAINBOW 81
 
 #define B_ANIM_CONSTANTS
 // table ids for general animations	(gBattleAnims_General) //buffer for values from battle_anim_scripts.s       //ntot battle.inc that's not used
