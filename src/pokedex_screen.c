@@ -5102,7 +5102,13 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
     PutWindowTilemap(sPokedexScreenData->windowIds[0]);
     CopyWindowToVram(sPokedexScreenData->windowIds[0], COPYWIN_GFX);
 
-    GetSpeciesName(gStringVar1, SpeciesVal);
+    //GetSpeciesName(gStringVar1, SpeciesVal);
+    //used this over getspeciesname function,
+    //to get around cur str limit as not using for health box
+    StringCopy(gStringVar1,gBaseStats[SpeciesVal].speciesName);
+    if (ShouldCapitalizeSpecies())
+        CapializeString(gStringVar1);
+
 
     // Species stats -need change these print functions, dexno cat, height & weight
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[1], PIXEL_FILL(0));

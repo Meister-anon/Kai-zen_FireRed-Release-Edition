@@ -2599,6 +2599,86 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     fixed issue,
 
+    use python redo type dex list
+    define type num by type list
+    assign each type list to the text name of the type
+    val0 is normal type which is "TYPE_NORMAL"
+    loop base stats,  down to species_pecheraunt
+    eading mon_types() to get type1 and type2
+    for species
+    will need constant loop until reach end of type list for both types
+    order of addition to lis is, type order 
+    if type is same use lowest dex num
+    so think will also need species.h file 
+    use SPECIES_NAME store number from species.h 
+    to know what compare values
+    hmm its possible I may need multiple dictionaries
+    species dict. and type dict.
+    and have to compare the base stats list against them both
+
+    anyway loop base stats species,
+    Set type1 & type2 to normal
+    increment type2 before type1,
+
+    loop species up to species pecharaunt until End = true
+    start from bottom of base stats,
+    if species matches type1 & type2 add to list
+    put type increment at end of species list
+    i.e 
+    if species = species pecharaunt 
+    {
+    if type2 does not equal fairy increment type2,
+
+    if type1 and type2 equal fairy
+    End = TRUE
+
+    if type 2 equals fairy and type1 does not equal fairy
+    {
+    increment type1
+    reset type2 to 0/type_normal
+    }
+    }
+
+    looked at emerald may be able to use
+    that to build list from scratch
+    seems to build from scratch fast enough
+    if can do that would save space,
+    by allowing removal of type list.
+
+    and be able to build accurate lists regardless
+    of type changes
+
+    //nvm  can't do that, didn't realize
+    but EE isn't building a full list
+    if i set type to none,
+    it just builds the normal nat dex listing
+    which is why the load time isnt' longer
+    its not loopign a type list at all.
+
+    so I do need python and not the emerald logic
+    for one EE doesn't work in specific order it just loops species list
+    and adds any mon who matches  either of the type combinations
+    I would need concurrent list loops to fill every type
+
+    and while I could build it, it'd be very annoying to manage
+    especially with having to use same index for scrolling
+    so best just do with python
+    
+    ok if I'm loooping base stats
+    think I won't need species num
+    since it is already in order
+
+    not sure if loop base stats file
+    could instead loop the file once
+    to build a dictionary
+    using key species and storing type
+    then I can just loop that dictionary
+    as it should only have bulbasaur
+    to pecharuant and have all species in proper order
+
+
+
+
     seems gen 9 forms, aren't properly showing bst?
     palafin zero to palafin hero doesn't change
     everything else changed correctly at least
