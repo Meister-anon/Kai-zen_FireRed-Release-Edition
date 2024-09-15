@@ -4747,11 +4747,6 @@ void DexScreen_PrintMonStatPage(u8 windowId, u16 species, u8 x, u8 y)
 
 
 
-    if (species > NATIONAL_SPECIES_COUNT)
-        species = GetFormSpeciesId(species, 0);
-
-    species = SpeciesToNationalPokedexNum(species);
-
     //assign stat field
     statTotal = GetBaseStatTotal(species);
 
