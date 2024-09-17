@@ -1469,7 +1469,7 @@
 	.endm
 
 	@plan build mart item list, internally based on gym badge shouldn't need ptr 
-	@or item list in script, works!
+	@for item list in script, works!
 	.macro pokemart2
 	.byte 0xd7
 	.endm

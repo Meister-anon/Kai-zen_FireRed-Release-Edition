@@ -114,7 +114,7 @@ it just leaves the spot for the values blank
 if it would otherwise be 0/NONE except in the case of ability.
 * 
 * 
-[SPECIES_BULBASAUR] =
+[ SPECIES_BULBASAUR] =
     {
         .speciesName = _("Bulbasaur"),
 
@@ -266,7 +266,6 @@ if it would otherwise be 0/NONE except in the case of ability.
 
 const struct BaseStats gBaseStats[] =
 {
-    //[SPECIES_NONE] = {},
 
     //needs evolution and both learnset data to not cause issue
     //with searcher functions
@@ -35831,7 +35830,7 @@ const struct BaseStats gBaseStats[] =
               30,
               70
         ),
-        MON_TYPES(TYPE_DARK,TYPE_FIGHTING), //need decide if make raging bull type dark or fighting
+        MON_TYPES(TYPE_DARK, TYPE_FIGHTING), //need decide if make raging bull type dark or fighting
         .catchRate = 45,
         .expYield = 211,
       //  .evYield_Attack = 2,
@@ -36704,7 +36703,7 @@ const struct BaseStats gBaseStats[] =
               60,                                                            \
               96                                                            \
             ),                                                            \
-        MON_TYPES(TYPE_GRASS, type),                                           \
+        MON_TYPES( TYPE_GRASS, type),                                           \
         .catchRate = 5,                                                                 \
         .expYield = 275,                                                                \
        /* .evYield_Attack = 3,   */                                                         \
@@ -40722,7 +40721,7 @@ const struct BaseStats gBaseStats[] =
             65,
             70
             ),
-            MON_TYPES(TYPE_ELECTRIC,TYPE_GRASS),
+            MON_TYPES(TYPE_ELECTRIC, TYPE_GRASS),
             .catchRate = 190,
             .expYield = 66,
             //.evYield_Speed = 1,

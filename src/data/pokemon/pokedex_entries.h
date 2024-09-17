@@ -12515,7 +12515,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_GIMMIGHOUL] =
+    [NATIONAL_DEX_GIMMIGHOUL_ROAMING] =
     {
         .categoryName = _("Coin Hunter"),
         .height = 1,
