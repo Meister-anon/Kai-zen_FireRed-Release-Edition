@@ -2677,7 +2677,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to pecharuant and have all species in proper order
     -fixed
 
-    
+    compared w pokefirered and noticed sound still off for some things
+    start screen horns are incorrect
+    so need go over sound data AGAIN
 
 
 
