@@ -88,8 +88,8 @@ static void PlayerCmdEnd(void);
 
 static void PlayerBufferRunCommand(void);
 static void HandleInputChooseTarget(void);
-static void MoveSelectionDisplayPpNumber(void);
 static void MoveSelectionDisplayPpString(void);
+static void MoveSelectionDisplayPpNumber(void);
 static void MoveSelectionDisplayMoveType(void);
 static void MoveSelectionDisplayMoveNames(void);
 static void HandleMoveSwitching(void);
@@ -741,7 +741,7 @@ void HandleInputChooseMove(void)    //test new targetting setup
             PlaySE(SE_SELECT);
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
             //MoveSelectionDisplayPpNumber();
-            MoveSelectionDisplayPpString();
+            MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayMoveType();
             if (IsDoubleBattle())
             {
@@ -763,7 +763,7 @@ void HandleInputChooseMove(void)    //test new targetting setup
             PlaySE(SE_SELECT);
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
             //MoveSelectionDisplayPpNumber();
-            MoveSelectionDisplayPpString();
+            MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayMoveType();
             if (IsDoubleBattle())
             {
@@ -784,7 +784,7 @@ void HandleInputChooseMove(void)    //test new targetting setup
             PlaySE(SE_SELECT);
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
             //MoveSelectionDisplayPpNumber();
-            MoveSelectionDisplayPpString();
+            MoveSelectionDisplayPpNumber();
             MoveSelectionDisplayMoveType();
             if (IsDoubleBattle())
             {
@@ -806,8 +806,8 @@ void HandleInputChooseMove(void)    //test new targetting setup
             PlaySE(SE_SELECT);
             MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
             //MoveSelectionDisplayPpNumber();
-            MoveSelectionDisplayPpString();
-            MoveSelectionDisplayMoveType();
+            MoveSelectionDisplayPpNumber(); //think did this for priority
+            MoveSelectionDisplayMoveType();//but as dumb all need do was swap initial window id order...
             if (IsDoubleBattle())
             {
                 u8 moveType;
@@ -831,46 +831,8 @@ void HandleInputChooseMove(void)    //test new targetting setup
             BattlePutTextOnWindow(gText_BattleSwitchWhich, 0xB);
             gBattlerControllerFuncs[gActiveBattler] = HandleMoveSwitching; //functions as task input function
         }
-    }
-    else if (JOY_NEW(START_BUTTON))// attempt check move info
-    {
-
-        //BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 0);
-        //PlayerBufferExecCompleted();
-        //think what I need is make new thing that takes cursor 
-        //calls summ screen move selection from battle
-        //but uses control function for separate inputs
-
-        //have b button either return to move selection in battle
-        //or main action choice screen prob the latter what I'm thinking rn
-
-        //a press is use move, want to open selection on move cursor was on
-        
-        
-        //ShowSelectMovePokemonSummaryScreen(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu, 0);
-        
-        //don't know what this does //think don't need return 2 value
-        //seems the 2nd value here is just triggering move selection
-        //with 0 uses fist move, w 1 used rest, so second move
-        //tested adn confirmed
-        BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 3);
-        
-        //oko turning this off keeps anything from happening?
-        PlayerBufferExecCompleted(); //don't konw if need htis here, sine after battle action choice?
-
-        
-        
-        
-        //ShowMoveInfoForSelectedMove(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu);
-        
-        //adding this seems to make callback not glitchy
-        //gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
-        /*if (!gPaletteFade.active)
-        {
-            FreeAllWindowBuffers();
-            ShowSelectMovePokemonSummaryScreen(gPlayerParty, gBattlerPartyIndexes[gActiveBattler], gPlayerPartyCount - 1, ReshowBattleScreenAfterMenu, 0);
-        }*/
-    }
+    }//scrapping battle info here doing from action state instead, so battle, bag, run screen
+    
 } 
 
 // not used
@@ -1009,8 +971,8 @@ static void HandleMoveSwitching(void)
             gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseMove;
         gMoveSelectionCursor[gActiveBattler] = gMultiUsePlayerCursor;
         MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
-        MoveSelectionDisplayPpString();
         MoveSelectionDisplayPpNumber();
+        MoveSelectionDisplayPpString();
         MoveSelectionDisplayMoveType();
     }
     if (JOY_NEW(B_BUTTON))
@@ -1022,8 +984,8 @@ static void HandleMoveSwitching(void)
             gBattlerControllerFuncs[gActiveBattler] = OakOldManHandleInputChooseMove;
         else
             gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseMove;
-        MoveSelectionDisplayPpString();
         MoveSelectionDisplayPpNumber();
+        MoveSelectionDisplayPpString();
         MoveSelectionDisplayMoveType();
         if (IsDoubleBattle())
         {
@@ -1748,25 +1710,14 @@ static void MoveSelectionDisplayPpNumber(void)//displays actual pp current & max
 //think I can also call it a text buffer,BattlePutTextOnWindow uses text as first argument but the buffer can be used in place
 */
 
-static void MoveSelectionDisplayPpNumber(void)//function content swap to fix reversed values
+static void MoveSelectionDisplayPpString(void)
 {
-    /*u8 *txtPtr;
-    struct ChooseMoveStruct *moveInfo;
-
-    if (gBattleBufferA[gActiveBattler][2] == TRUE) // check if we didn't want to display pp number
-        return;
-    SetPpNumbersPaletteInMoveSelection();
-    moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
-    txtPtr = ConvertIntToDecimalStringN(gDisplayedStringBattle, moveInfo->currentPp[gMoveSelectionCursor[gActiveBattler]], STR_CONV_MODE_RIGHT_ALIGN, 2);
-    *txtPtr = CHAR_SLASH;
-    ConvertIntToDecimalStringN(++txtPtr, moveInfo->maxPp[gMoveSelectionCursor[gActiveBattler]], STR_CONV_MODE_RIGHT_ALIGN, 2);*/
     StringCopy(gDisplayedStringBattle, gText_BattleMoveInterfacePP);
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP); //B_WIN_PP
 }//tested last two values in convertint do absolutely nothing in this function changing it doesn't even craete a new build
 
-static void MoveSelectionDisplayPpString(void)
+static void MoveSelectionDisplayPpNumber(void)
 {
-    /*StringCopy(gDisplayedStringBattle, gText_MoveInterfacePP);*/
     u8 *txtPtr;
     struct ChooseMoveStruct *moveInfo;
 
@@ -2865,8 +2816,8 @@ void InitMoveSelectionsVarsAndStrings(void)//think relevant
     MoveSelectionDisplayMoveNames();
     gMultiUsePlayerCursor = 0xFF;
     MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
-    MoveSelectionDisplayPpString();
     MoveSelectionDisplayPpNumber();
+    MoveSelectionDisplayPpString();
     MoveSelectionDisplayMoveType();
     if (IsDoubleBattle())
     {

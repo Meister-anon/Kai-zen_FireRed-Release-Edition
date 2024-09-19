@@ -7712,7 +7712,7 @@ static void Task_LoadEvolutionScreen(u8 taskId)
 static void Task_HandleEvolutionScreenInput(u8 taskId)
 {
     //Switch to forms screen, Pokemon Expansion only (rhh)
-    #ifdef POKEMON_EXPANSION
+    /*#ifdef POKEMON_EXPANSION
     if (JOY_NEW(START_BUTTON))
     {
         sPokedexScreenData->selectedScreen = FORMS_SCREEN;
@@ -7721,7 +7721,7 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
         gTasks[taskId].func = Task_SwitchScreensFromEvolutionScreen;
         PlaySE(SE_PIN);
     }
-    #endif
+    #endif*/
 
     //tested in EE changes work fixes navigation
    // if (sPokedexScreenData->sEvoScreenData.numAllEvolutions != 0)// && sPokedexScreenData->sEvoScreenData.numSeen != 0)

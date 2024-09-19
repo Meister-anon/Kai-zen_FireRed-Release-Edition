@@ -1305,7 +1305,7 @@ void ShowSelectMovePokemonSummaryScreen(struct Pokemon *party, u8 cursorPos, u8 
     sMonSummaryScreen->moveIds[4] = newMove;
 } //cursor position is which mon to show
 
-//new addition for battle callback show move info
+//new additions for battle callback show move info
 void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback)
 {
     FreeAllWindowBuffers();
