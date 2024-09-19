@@ -2675,6 +2675,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     then I can just loop that dictionary
     as it should only have bulbasaur
     to pecharuant and have all species in proper order
+    -fixed
+
+    
 
 
 

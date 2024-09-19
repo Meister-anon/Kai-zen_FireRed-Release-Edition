@@ -5151,8 +5151,7 @@ static void Task_InputHandler_BattleMoveInfo(u8 taskId)
 
     switch (sMonSummaryScreen->selectMoveInputHandlerState)
     {
-    case 0://replaced with upgraded pallete fade constant hope works
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, 0);
+    case 0:
         sMonSummaryScreen->selectMoveInputHandlerState++;
         break;
     case 1:
@@ -5274,11 +5273,12 @@ static void Task_InputHandler_BattleMoveInfo(u8 taskId)
         sMonSummaryScreen->selectMoveInputHandlerState = 2;
         break;
     case 6:
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, 0);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);//necessary
         sMonSummaryScreen->selectMoveInputHandlerState++;
         break;
+    case 7: //necessary
     default:
-        //if (!gPaletteFade.active)
+        if (!gPaletteFade.active)//necessary and both work properly
         {
             Task_DestroyResourcesOnExit(taskId); //set stuff to null activate callback
         }

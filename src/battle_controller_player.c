@@ -321,16 +321,7 @@ static void HandleInputChooseAction(void)
     {
         SwapHpBarsWithHpText(); //eventually get this to work for both sides
 
-    }//could set to Joy_rept to avoid accident press?
-    /*else if (JOY_NEW(L_BUTTON)) // should display message on atk turn, and skip turn.
-    {//need add to handleinput choosetarget & choosemove
-       // if (!(gBattleTypeFlags & BATTLE_TYPE_OLD_MAN_TUTORIAL))
-       // { // should make sure it works for all but old man tutorial
-        PlaySE(SE_SELECT);
-        BtlController_EmitTwoReturnValues(1, B_ACTION_SKIP_TURN, 0);
-        //PlayerBufferExecCompleted();
-    }//not gonna skip turn will instead use this to show true move power and type
-    */ //was custom not default
+    }
     #if DEBUG_BATTLE_MENU == TRUE
     else if (JOY_NEW(SELECT_BUTTON))
     {
@@ -338,15 +329,15 @@ static void HandleInputChooseAction(void)
         PlayerBufferExecCompleted();
     }
     #endif//joy new L button (shift) bring up register to dex vsonic
+    //changed used needed L move info, so use R button (comma) for dex instead
+    //or swap this or R eitehr or
     else if (JOY_NEW(L_BUTTON))
     {
+        PlaySE(SE_SELECT);
         BtlController_EmitTwoReturnValues(1, B_ACTION_MOVE_INFO, 0);
         PlayerBufferExecCompleted();
-    }//this works if used in choose action, but not in choose action, doesn't call,
-    //need figure that out, also it blacks out on return prob the fade I added actually
-}//yup removing that fixed it, still does the weird purple glitch though
-//and I don't want to be forced to do it on main screen rather than from the battle thing,
-//ruins immerrsion
+    }
+}
 
 UNUSED static void UnusedEndBounceEffect(void)
 {
@@ -3391,9 +3382,7 @@ void CB2_BattleMoveInfo(void)
 
 static void PlayerHandleBattleMoveInfo(void)
 {
-    BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
     SetMainCallback2(CB2_BattleMoveInfo);
-    gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
-    
+    gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;    
 }
 
