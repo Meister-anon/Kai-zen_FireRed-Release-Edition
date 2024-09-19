@@ -54,7 +54,7 @@ static void StartSweetScentFieldEffect(void)
     gUnknown_203AAB0 = (u8 *)Alloc(0x400);
     CpuFastSet(gPlttBufferUnfaded, gUnknown_203AAB0, 0x100);
     CpuFastSet(gPlttBufferFaded, gPlttBufferUnfaded, 0x100);
-    BeginNormalPaletteFade(~(1 << (gSprites[GetPlayerAvatarObjectId()].oam.paletteNum + 16)), 4, 0, 8, RGB(31, 0, 0));
+    BeginNormalPaletteFade(~(1 << (gSprites[GetPlayerAvatarObjectId()].oam.paletteNum + 16)), 4, 0, 8, RGB_RED);
     taskId = CreateTask(TrySweetScentEncounter, 0);
     gTasks[taskId].data[0] = 0;
     FieldEffectActiveListRemove(FLDEFF_SWEET_SCENT);

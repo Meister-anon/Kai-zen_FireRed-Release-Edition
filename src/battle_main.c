@@ -5526,7 +5526,6 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     break;
                 case B_ACTION_MOVE_INFO:
                     gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
-                    //gChosenActionByBattler[gActiveBattler] = B_ACTION_USE_MOVE
                     break;
                 }
             }

@@ -12806,7 +12806,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_POLTCHAGEIST] =
+    /*[NATIONAL_DEX_POLTCHAGEIST] =
     {
         .categoryName = _("Matcha"),
         .height = 1,
@@ -12820,7 +12820,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 17,
         .trainerScale = 256,
         .trainerOffset = 0,
-    },
+    },*/
 
     [NATIONAL_DEX_SINISTCHA] =
     {
@@ -12838,7 +12838,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_SINISTCHA] =
+    /*[NATIONAL_DEX_SINISTCHA] =
     {
         .categoryName = _("Matcha"),
         .height = 2,
@@ -12852,7 +12852,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .pokemonOffset = 17,
         .trainerScale = 256,
         .trainerOffset = 0,
-    },
+    },*/
 
     [NATIONAL_DEX_OKIDOGI] =
     {

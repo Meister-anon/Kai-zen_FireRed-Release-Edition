@@ -14,5 +14,13 @@
 -Couldn't direclty translate to FireRed so took inspiration from
 my version is coded pretty much entirely differently
 
-Plan add Ghoul Slash bag sort  -  ghoul bag-sort
+Plan add Ghoul Slash bag sort  -  ghoul bag-sort -annoying to port may skip
+
+idea have credits listeed but think
+also edit Celadon gamefreak office to have the credits as well
+can have a model for each person (default for most not unique models)
+see if I can use an egg for Egg/Dizzyegg lol
+give each person a blurb maybe plug their projects or upcomming projects
+can give jaizu follower pikachu (just put a pikachu beside him) to reference
+recharged yellow
 */
