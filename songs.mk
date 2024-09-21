@@ -1,5 +1,6 @@
 STD_REVERB = 50
 
+#G is the voicegroup  V is the volume, P is pan I think or something
 $(MID_BUILDDIR)/%.o: $(MID_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) -I sound -o $@ $<
 
