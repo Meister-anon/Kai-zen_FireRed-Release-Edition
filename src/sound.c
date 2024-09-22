@@ -381,7 +381,11 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     u32 chorus;
 
 
-    length = 140;
+    //length = 140;
+    //found note from josh mentioning length is important for crydata
+    //and found difference used for length value in EE
+    //thuoght this mattered but not seeing any meaningful change here
+    length = species > SPECIES_DEOXYS ? 210 : 140;
     reverse = FALSE;
     release = 0;
     pitch = 15360;

@@ -61,7 +61,7 @@ typedef struct {
 	unsigned long loop_offset;
 	double sample_rate;
 	unsigned long real_num_samples;
-} AifData;	//nother thing updated from emerald expansion
+} AifData;
 
 struct Bytes {
 	unsigned long length;
@@ -217,7 +217,7 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 			if (aif_data->sample_size != 8 && aif_data->sample_size != 16)
 			{
 				FATAL_ERROR("sampleSize (%d) in the COMM Chunk must be 8 or 16!\n", aif_data->sample_size);
-			} //updated emerald expansion standard
+			}
 
 			double sample_rate = ieee754_read_extended((uint8_t*)(aif->data + pos));
 			pos += 10;
@@ -303,7 +303,7 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 			{
 				uint8_t *sample_data = (uint8_t *)malloc(num_samples * sizeof(uint8_t));
 				memcpy(sample_data, &aif->data[pos], num_samples);
-
+	
 				aif_data->samples8 = sample_data;
 				aif_data->real_num_samples = num_samples;
 			}
@@ -316,13 +316,13 @@ void read_aif(struct Bytes *aif, AifData *aif_data)
 				{
 					sample_data_swapped[i] = __builtin_bswap16(sample_data[i]);
 				}
-
+	
 				aif_data->samples16 = sample_data_swapped;
 				aif_data->real_num_samples = num_samples;
 				free(sample_data);
 			}
 			pos += chunk_size - 8;
-		}//more emerald expansion ports
+		}
 		else
 		{
 			// Skip over unsupported chunks.
@@ -371,6 +371,12 @@ const int gDeltaEncodingTable[] = {
 	0, 1, 4, 9, 16, 25, 36, 49,
 	-64, -49, -36, -25, -16, -9, -4, -1,
 };
+
+#define POSITIVE_DELTAS_START 0
+#define POSITIVE_DELTAS_END 8
+
+#define NEGATIVE_DELTAS_START 8
+#define NEGATIVE_DELTAS_END 16
 
 struct Bytes *delta_decompress(struct Bytes *delta, unsigned int expected_length)
 {
@@ -439,15 +445,32 @@ struct Bytes *delta_decompress(struct Bytes *delta, unsigned int expected_length
 	return pcm;
 }
 
+#define U8_TO_S8(value) ((value) < 128 ? (value) : (value) - 256)
+#define ABS(value) ((value) >= 0 ? (value) : -(value))
+
 int get_delta_index(uint8_t sample, uint8_t prev_sample)
 {
 	int best_error = INT_MAX;
 	int best_index = -1;
+	int delta_table_start_index;
+	int delta_table_end_index;
+	int sample_signed = U8_TO_S8(sample);
+	int prev_sample_signed = U8_TO_S8(prev_sample);
 
-	for (int i = 0; i < 16; i++)
+    // if we're going up (or equal), only choose positive deltas
+	if (prev_sample_signed <= sample_signed) {
+		delta_table_start_index = POSITIVE_DELTAS_START;
+		delta_table_end_index = POSITIVE_DELTAS_END;
+	} else {
+		delta_table_start_index = NEGATIVE_DELTAS_START;
+		delta_table_end_index = NEGATIVE_DELTAS_END;
+	}
+
+	for (int i = delta_table_start_index; i < delta_table_end_index; i++)
 	{
 		uint8_t new_sample = prev_sample + gDeltaEncodingTable[i];
-		int error = sample > new_sample ? sample - new_sample : new_sample - sample;
+		int new_sample_signed = U8_TO_S8(new_sample);
+		int error = ABS(new_sample_signed - sample_signed);
 
 		if (error < best_error)
 		{
@@ -550,7 +573,7 @@ void aif2pcm(const char *aif_filename, const char *pcm_filename, bool compress)
 	struct Bytes *aif = read_bytearray(aif_filename);
 	AifData aif_data = {0};
 	read_aif(aif, &aif_data);
-
+	
 	// Convert 16-bit to 8-bit if necessary
 	if (aif_data.sample_size == 16)
 	{
@@ -562,7 +585,7 @@ void aif2pcm(const char *aif_filename, const char *pcm_filename, bool compress)
 		}
 		free(aif_data.samples16);
 		aif_data.samples8 = converted_samples;
-	}	//taken from emerald expansion think this was main line I needed for size 16 files to work
+	}
 
 	int header_size = 0x10;
 	struct Bytes *pcm;
