@@ -5352,7 +5352,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                         }
                         else
                         BtlController_EmitChoosePokemon(0, PARTY_ACTION_CANT_SWITCH, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                    }
+                    }//uturn hit escape effects already work don't need add special logic here
                     else if ((IsAbilityOnOpposingSide(gActiveBattler, ABILITY_SHADOW_TAG) && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))
                         || ((IsAbilityOnOpposingSide(gActiveBattler, ABILITY_ARENA_TRAP))
                             // && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
@@ -7065,6 +7065,10 @@ static void HandleAction_NothingIsFainted(void)
 
 static void HandleAction_ActionFinished(void) //may be important for intimidate synchronize adn trace changes
 {
+    u32 i, j, moveType;
+    bool32 afterYouActive = gSpecialStatuses[gBattlerByTurnOrder[gCurrentTurnActionNumber + 1]].afterYou;
+    *(gBattleStruct->monToSwitchIntoId + gBattlerByTurnOrder[gCurrentTurnActionNumber]) = gSelectedMonPartyId = PARTY_SIZE;
+    
     ++gCurrentTurnActionNumber;
     gCurrentActionFuncId = gActionsByTurnOrder[gCurrentTurnActionNumber];
     SpecialStatusesClear(); //yeah the function call here is what resets intimidated mon status, each turn
@@ -7072,6 +7076,20 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
                     | HITMARKER_NO_PPDEDUCT | HITMARKER_PASSIVE_DAMAGE
                     | HITMARKER_OBEYS | HITMARKER_WAKE_UP_CLEAR | HITMARKER_SYNCHRONIZE_EFFECT
                     | HITMARKER_CHARGING | HITMARKER_NEVER_SET | HITMARKER_IGNORE_DISGUISE);
+    
+    // check if Stellar type boost should be used up
+    moveType = GetMoveType(gCurrentMove);
+
+    /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA
+        && GetBattlerTeraType(gBattlerAttacker) == TYPE_STELLAR
+        && gBattleMoves[gCurrentMove].split != SPLIT_STATUS
+        && IsTypeStellarBoosted(gBattlerAttacker, moveType))
+    {
+        ExpendTypeStellarBoost(gBattlerAttacker, moveType);
+    }*///put in later revisist
+    
+    
+    
     gCurrentMove = MOVE_NONE; // but it doesn't loop because the function doesn't get called except at battle start and switch i.e switch in abilities
     gBattleMoveDamage = 0;
     gMoveResultFlags = 0; //so what I need is to change activation condition or add a new activation condtions
@@ -7086,6 +7104,37 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     gBattleCommunication[ACTIONS_CONFIRMED_COUNT] = 0;
     gBattleScripting.multihitMoveEffect = 0;
     gBattleResources->battleScriptsStack->size = 0;
+
+    if (!afterYouActive/* && !gBattleStruct->pledgeMove*/)
+    {
+        // i starts at `gCurrentTurnActionNumber` because we don't want to recalculate turn order for mon that have already
+        // taken action. It's been previously increased, which we want in order to not recalculate the turn of the mon that just finished its action
+        for (i = gCurrentTurnActionNumber; i < gBattlersCount - 1; i++)
+        {
+            for (j = i + 1; j < gBattlersCount; j++)
+            {
+                u32 battler1 = gBattlerByTurnOrder[i];
+                u32 battler2 = gBattlerByTurnOrder[j];
+
+                if (gProtectStructs[battler1].quash || gProtectStructs[battler2].quash
+                    || gProtectStructs[battler1].shellTrap || gProtectStructs[battler2].shellTrap)
+                    continue;
+
+                // We recalculate order only for action of the same priority. If any action other than switch/move has been taken, they should
+                // have been executed before. The only recalculation needed is for moves/switch. Mega evolution is handled in src/battle_main.c/TryChangeOrder
+                if((gActionsByTurnOrder[i] == B_ACTION_USE_MOVE && gActionsByTurnOrder[j] == B_ACTION_USE_MOVE))
+                {
+                    if (GetWhoStrikesFirst(battler1, battler2, FALSE) == -1)
+                        SwapTurnOrder(i, j);
+                }
+                else if ((gActionsByTurnOrder[i] == B_ACTION_SWITCH && gActionsByTurnOrder[j] == B_ACTION_SWITCH))
+                {
+                    if (GetWhoStrikesFirst(battler1, battler2, TRUE) == -1) // If the actions chosen are switching, we recalc order but ignoring the moves
+                        SwapTurnOrder(i, j);
+                }
+            }
+        }
+    }
 }
 
 s8 GetChosenMovePriority(u8 battlerId) //made u8 (in test build)

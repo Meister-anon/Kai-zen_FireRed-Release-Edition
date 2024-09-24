@@ -374,6 +374,7 @@
 	.byte 0x3f
 	.endm
 
+	@no longer used
 	.macro jumpifaffectedbyprotect ptr:req
 	.byte 0x40
 	.4byte \ptr
@@ -1470,6 +1471,17 @@
 	.4byte \ptr
 	.endm
 
+	.macro checkparentalbondcounter counter:req, ptr:req
+	callnative BS_CheckParentalBondCounter
+	.byte \counter
+	.4byte \ptr
+	.endm
+
+	.macro tryquash failInstr:req
+	callnative BS_TryQuash
+	.4byte \failInstr
+	.endm
+
 	.macro CheckPassSecondaryItem battler:req
 	callnative BS_checksecondaryItemslot
 	.byte \battler
@@ -1526,8 +1538,8 @@
 	various \battler, VARIOUS_RESET_PLAYER_FAINTED
 	.endm
 
-	.macro various8 battler:req
-	various \battler, 8
+	.macro GetBattleresForRecall battler:req
+	various \battler, VARIOUS_GET_BATTLERS_FOR_RECALL
 	.endm
 
 	.macro returnopponentmon1toball battler:req
@@ -1539,11 +1551,11 @@
 	.endm
 
 	.macro checkpokeflute battler:req
-	various \battler, 11
+	various \battler, VARIOUS_CHECK_POKEFLUTE
 	.endm
 
 	.macro waitfanfare battler:req	@like with getspeciesname name of macro doesnt matter just value & order
-	various \battler, 12
+	various \battler, VARIOUS_WAIT_FANFARE
 	.endm
 
 	.macro setoutcomeonteleport battler:req
@@ -1625,12 +1637,6 @@
 
 	.macro setlastusedability battler:req
 	various \battler, VARIOUS_SET_LAST_USED_ABILITY
-	.endm
-	
-
-	.macro tryquash ptr:req
-	various BS_ATTACKER, VARIOUS_TRY_QUASH
-	.4byte \ptr
 	.endm
 
 	.macro tryafteryou ptr:req
@@ -1796,12 +1802,6 @@
 	.4byte \ptr
 	.endm
 
-	.macro checkparentalbondcounter counter:req, jumpInstr:req
-	various BS_ATTACKER, VARIOUS_CHECK_PARENTAL_BOND_COUNTER
-	.byte \counter
-	.4byte \jumpInstr
-	.endm
-
 	.macro jumpifroarfails ptr:req
 	various BS_ATTACKER, VARIOUS_JUMP_IF_ROAR_FAILS
 	.4byte \ptr
@@ -1844,6 +1844,7 @@
 	.4byte \ptr
 	.endm
 
+	@argument for type lost is built into move rather than sript
 	.macro losetype battler:req
 	various \battler, VARIOUS_LOSE_TYPE
 	.endm
@@ -1857,6 +1858,7 @@
 	.4byte \ptr
 	.endm
 
+	@both not used
 	.macro trypoisontype attacker:req, target:req, ptr:req
 	various \attacker, VARIOUS_POISON_TYPE_IMMUNITY
 	.byte \target
@@ -1945,6 +1947,7 @@
 	.4byte \ptr
 	.endm
 
+	@not used?
 	.macro jumpifpranksterblocked battler:req, ptr:req
 	various \battler, VARIOUS_JUMP_IF_PRANKSTER_BLOCKED
 	.4byte \ptr
@@ -2097,6 +2100,11 @@
 
 	.macro battleritemtolastuseditem battler:req
 	various \battler, VARIOUS_BATTLER_ITEM_TO_LAST_USED_ITEM
+	.endm
+
+	.macro jumpifshelltrapped battler:req, jumpInstr:req
+	various \battler, VARIOUS_JUMP_IF_SHELL_TRAPPED
+	.4byte \jumpInstr
 	.endm
 
 	.macro jumpifemergencyexited battler:req, jumpInstr:req

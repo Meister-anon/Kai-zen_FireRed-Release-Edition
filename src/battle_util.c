@@ -12271,7 +12271,7 @@ bool32 TryBattleFormChange(u8 battlerId, u16 method)
 }
 
 
-
+//vsonic what for again and is stil relevant?
 bool32 DoBattlersShareType(u32 battler1, u32 battler2)
 {
     s32 i;
@@ -12487,6 +12487,12 @@ bool32 IsBattlerTerrainAffected(u8 battlerId, u32 terrainFlag)
         return TRUE;
 
     return IsBattlerGrounded(battlerId);
+    //vsonic stil undecided if should use this,
+    //or do like duke and make custom effect to allow floating/flying mon
+    //to access terrain
+    //since I gave celebi terrain but then essentiallys aid it can't benefit
+    //so I had to make an explicit work around,
+    //which in itself coudl be good for celebi
 }
 
 bool32 TestMoveFlags(u16 move, u32 flag)
@@ -12753,15 +12759,19 @@ bool32 CanBeBurned(u8 battlerId)
     return TRUE;
 }
 
-bool32 CanBeParalyzed(u8 battlerId) //update these functions with my custom status logic so can use for cleaner setup   vsonic
+bool32 CanBeParalyzed(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
+    u8 movetype;
+    GET_MOVE_TYPE(gCurrentMove,movetype)
+
     if ((gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD)
         || ability == ABILITY_LIMBER
         || ability == ABILITY_COMATOSE
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battlerId)
-        || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN))
+        || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN)
+        || (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
         return FALSE;
     return TRUE;
 }
@@ -12769,6 +12779,7 @@ bool32 CanBeParalyzed(u8 battlerId) //update these functions with my custom stat
 bool32 CanBeFrozen(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
+    
     if (IS_BATTLER_OF_TYPE(battlerId, TYPE_ICE)
         || IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD

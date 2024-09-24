@@ -86,6 +86,7 @@ static const u8 sText_PreventsEscape[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} prev
 static const u8 sText_CantEscape2[] = _("Can't escape!\p");
 static const u8 sText_AttackerCantEscape[] = _("{B_ATK_NAME_WITH_PREFIX} can't escape!");
 static const u8 sText_HitXTimes[] = _("Hit {B_BUFF1} time(s)!");
+static const u8 sText_PkmnGotFrostbite[] = _("{B_EFF_NAME_WITH_PREFIX} got frostbite!");
 static const u8 sText_PkmnFellAsleep[] = _("{B_EFF_NAME_WITH_PREFIX}\nfell asleep!");
 static const u8 sText_PkmnMadeSleep[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nmade {B_EFF_NAME_WITH_PREFIX} sleep!");
 static const u8 sText_PkmnAlreadyAsleep[] = _("{B_DEF_NAME_WITH_PREFIX} is\nalready asleep!");
@@ -889,6 +890,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_PLAYERWHITEOUT2 - BATTLESTRINGS_TABLE_START]               = sText_PlayerPanicked,
     [STRINGID_PREVENTSESCAPE - BATTLESTRINGS_TABLE_START]                = sText_PreventsEscape,
     [STRINGID_HITXTIMES - BATTLESTRINGS_TABLE_START]                     = sText_HitXTimes,
+    [STRINGID_PKMNFROSTBITTEN - BATTLESTRINGS_TABLE_START]               = sText_PkmnGotFrostbite,
     [STRINGID_PKMNFELLASLEEP - BATTLESTRINGS_TABLE_START]                = sText_PkmnFellAsleep,
     [STRINGID_PKMNMADESLEEP - BATTLESTRINGS_TABLE_START]                 = sText_PkmnMadeSleep,
     [STRINGID_PKMNALREADYASLEEP - BATTLESTRINGS_TABLE_START]             = sText_PkmnAlreadyAsleep,
@@ -1981,7 +1983,12 @@ const u16 gTrappingMoves[] = {
 //ported for updated battlescript
 const u16 gStatusConditionsStringIds[] =
 {
-    STRINGID_PKMNWASPOISONED, STRINGID_PKMNBADLYPOISONED, STRINGID_PKMNWASBURNED, STRINGID_PKMNWASPARALYZED, STRINGID_PKMNFELLASLEEP
+    STRINGID_PKMNWASPOISONED,
+    STRINGID_PKMNBADLYPOISONED, 
+    STRINGID_PKMNWASBURNED, 
+    STRINGID_PKMNWASPARALYZED, 
+    STRINGID_PKMNFELLASLEEP,
+    STRINGID_PKMNFROSTBITTEN //add for sake of transferring freeeze rn just via psychoshift
 };//why is there no freeze here?
 
 const u16 gRoomsStringIds[] =

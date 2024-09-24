@@ -4304,7 +4304,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAerodactylLevelUpLearnset,
         .tmhmLearnset = sAerodactylTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//more sensible typing but effectiely just as good defensively
 
     [SPECIES_SNORLAX] =
     {

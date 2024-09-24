@@ -4726,21 +4726,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 else
                     break;
             }
-           /* if (!CanBeParalyzed(gEffectBattler)  //replaced did setup for custom paralysis in cleaner function
-                && (gHitMarker & HITMARKER_IGNORE_SAFEGUARD)
-                && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
-            {
-                BattleScriptPush(gBattlescriptCurrInstr + 1);
-                gBattlescriptCurrInstr = BattleScript_PRLZPrevention;
-
-                gBattleCommunication[MULTISTRING_CHOOSER] = 2; // may need to setup a string for this, it uses gPRLZPreventionStringIds string exists, so works
-                return;
-            }//vsonic IMPORTANT*/
-
-            //ok so seems none of these work, doesn't get here, its all working from typecalc            
-
-            if (!(CanBeParalyzed(gEffectBattler)) //thought caused logic error but its fine, there are no gaps
-            || (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
+           
+           if (!(CanBeParalyzed(gEffectBattler)))
                 break;
 
             
@@ -11920,20 +11907,20 @@ static void atk76_various(void) //will need to add all these emerald various com
             {
                 if (*(u8*)(&gBattleMons[gActiveBattler].type1 + i) == lost_type)    //believe +i is checking each battler
                     *(u8*)(&gBattleMons[gActiveBattler].type1 + i) = TYPE_MYSTERY;  //nvm its checking the different types type 1 typ2 & type 3 since its not using 4 hmm
-                PREPARE_TYPE_BUFFER(gBattleTextBuff3, lost_type);
+                
             }
             else if (gBattleMons[gActiveBattler].type1 == gBattleMons[gActiveBattler].type2)//actually since this would be for entire battle not just switchin, type 3 is irrelevant
             {
                //type3 defaults to mystery logic was wrong here, point was to avoid mon becoming typeless
-               //type3 defaults to mystery logic was wrong here, point was to avoid mon becoming typeless
-               // {
+                //pros cons to each can't remember why I wanted to use type normal over mysery
+                //but guess this is better far as balance?
                     if (*(u8*)(&gBattleMons[gActiveBattler].type1 + i) == lost_type)
                         *(u8*)(&gBattleMons[gActiveBattler].type1 + i) = TYPE_NORMAL;
                 //}//it should default to normal long as mon is monotype even if a 3rd type has been set that is not equal to type being lost or mystery.
                             //as type 3 is lost on switch I believe.
-                PREPARE_TYPE_BUFFER(gBattleTextBuff3, lost_type);   //hopefullly works, would buffer type lost, to loss string
             }
         }
+        PREPARE_TYPE_BUFFER(gBattleTextBuff3, lost_type);
         gBattlescriptCurrInstr += 4;    //post change unsure bout this part
         return;
     case VARIOUS_PSYCHO_SHIFT: //transfers status condition

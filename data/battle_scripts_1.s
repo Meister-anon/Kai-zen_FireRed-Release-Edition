@@ -6637,7 +6637,7 @@ BattleScript_RivalBattleLostSkipMonRecall::
 	end2
 
 BattleScript_BattleTowerLost::
-	various8 BS_ATTACKER
+	GetBattleresForRecall BS_ATTACKER
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 0, BattleScript_BattleTowerLostLostSkipMonRecall
 	printfromtable gDoubleBattleRecallStrings
 	waitmessage B_WAIT_TIME_LONG

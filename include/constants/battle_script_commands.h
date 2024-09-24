@@ -107,7 +107,7 @@
 #define VARIOUS_RESET_INTIMIDATE_TRACE_BITS     5
 #define VARIOUS_UPDATE_CHOICE_MOVE_ON_LVL_UP    6
 #define VARIOUS_RESET_PLAYER_FAINTED			7
-#define VARIOUS_CASE_8                          8
+#define VARIOUS_GET_BATTLERS_FOR_RECALL                          8
 #define VARIOUS_RETURN_OPPONENT_MON1            9
 #define VARIOUS_RETURN_OPPONENT_MON2            10
 #define VARIOUS_CHECK_POKEFLUTE                 11
@@ -130,7 +130,7 @@
 #define VARIOUS_TRY_ENTRAINMENT                 40
 #define VARIOUS_SET_LAST_USED_ABILITY           41
 #define VARIOUS_TRY_HEAL_PULSE                  42  //unused
-#define VARIOUS_TRY_QUASH                       43
+#define VARIOUS_JUMP_IF_SHELL_TRAPPED           43  //replaced after you
 #define VARIOUS_INVERT_STAT_STAGES              44
 #define VARIOUS_SET_TERRAIN                     45
 #define VARIOUS_TRY_ME_FIRST                    46
@@ -244,7 +244,7 @@
 #define VARIOUS_TRY_END_STENCH						153	
 //#define VARIOUS_RESET_FOREWARN_ANTICIPATION_BITS	154		pretty sure don't need doing different way.
 #define VARIOUS_JUMP_IF_EMERGENCY_EXITED			154		//default implement, plan to just use for wimp out
-#define VARIOUS_CHECK_PARENTAL_BOND_COUNTER			155 //not in updated emerlad expansion?
+#define VARIOUS_BLANK			155 //not in updated emerlad expansion?
 
 #define VARIOUS_SET_BEAK_BLAST                       156
 #define VARIOUS_SWAP_SIDE_STATUSES                   157

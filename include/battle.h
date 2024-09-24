@@ -338,8 +338,9 @@ struct ProtectStruct    //also gets cleared at end turn
              u32 usedCustapBerry : 1;    // also quick claw
              u32 touchedProtectLike : 1;
              u32 obstructed : 1;
-             u32 disableEjectPack : 1;  
-             u32 padding:8;  
+             u32 disableEjectPack : 1; 
+             u32 shellTrap:1; //hopefully doens't add space
+             u32 padding:7;  
              u16 fieldE;
 };
 
@@ -393,7 +394,8 @@ struct SpecialStatus    //gets cleared at end turn
     u8 parentalBondState : 2; // 0/1/2 is used, max is 0-3
     u8 multiHitOn : 1; //think is a state chech, seems most used with parental bond
     u8 Cacophonyboosted:1; //need make function for and add to battle_main
-    u8 padding:3;
+    u8 afterYou:1;
+    u8 padding:2;
     
     u8 firstFuturesightHits;
     u8 secondFuturesightHits;

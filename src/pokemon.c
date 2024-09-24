@@ -7585,6 +7585,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 if (val & 1)
                 {
                     u16 evCount;
+                    s16 evChange;
                     s32 r5;
      
                     switch (i)
@@ -7593,6 +7594,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                     case 1: // EV_ATK
                         evCount = GetMonEVCount(mon);
                         data = GetMonData(mon, sGetMonDataEVConstants[i], NULL); //data is amount of evs for each stat
+                        evChange = itemEffect[idx];
                         if (evCount >= MAX_TOTAL_EVS)
                             return TRUE;
                         if ((GetBaseStatTotal(species) + (GetMonEVCount(mon) / 4)) >= Global_Stat_Total_Limit)
@@ -7602,19 +7604,45 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 
                         if (data < EV_ITEM_BOOSTER_LIMIT)
                         {
-                            if (data + itemEffect[idx] > EV_ITEM_BOOSTER_LIMIT)
-                                evDelta = EV_ITEM_BOOSTER_LIMIT - (data + itemEffect[idx]) + itemEffect[idx];
-                            else
-                                evDelta = itemEffect[idx]; //ev delta is how many evs planning to add
-                            if (evCount + evDelta > MAX_TOTAL_EVS)
-                                evDelta += MAX_TOTAL_EVS - (evCount + evDelta);//add global total, and //glolal per stat
-                            if (((evCount / 4) + GetBaseStatTotal(species)) + max(evDelta / 4, 1) > Global_Stat_Total_Limit)
-                                evDelta += ((Global_Stat_Total_Limit - (((evCount / 4) + GetBaseStatTotal(species)) + max(evDelta / 4, 1))) * 4);
-                            if (((data / 4) + GetIndividualBaseStatValue(species, i)) + max(evDelta / 4, 1) > GLOBAL_PER_STAT_LIMIT)
-                                evDelta += ((GLOBAL_PER_STAT_LIMIT - (((data / 4) + GetIndividualBaseStatValue(species, i)) + max(evDelta / 4, 1))) * 4);
-                            //ok think I realized why this differs from battle_main function and uses the argument its assigning,
-                            //that's because this uses +=  not just assigning the value, so I need to include it to exclude it
-                            data += evDelta;
+                            if (evChange > 0) // Increasing EV (HP or Atk)
+                            {
+                                if (data + itemEffect[idx] > EV_ITEM_BOOSTER_LIMIT)
+                                    evDelta = EV_ITEM_BOOSTER_LIMIT - (data + itemEffect[idx]) + itemEffect[idx];
+                                else
+                                    evDelta = itemEffect[idx]; //ev delta is how many evs planning to add
+                                if (evCount + evDelta > MAX_TOTAL_EVS)
+                                    evDelta += MAX_TOTAL_EVS - (evCount + evDelta);//add global total, and //glolal per stat
+                                if (((evCount / 4) + GetBaseStatTotal(species)) + max(evDelta / 4, 1) > Global_Stat_Total_Limit)
+                                    evDelta += ((Global_Stat_Total_Limit - (((evCount / 4) + GetBaseStatTotal(species)) + max(evDelta / 4, 1))) * 4);
+                                if (((data / 4) + GetIndividualBaseStatValue(species, i)) + max(evDelta / 4, 1) > GLOBAL_PER_STAT_LIMIT)
+                                    evDelta += ((GLOBAL_PER_STAT_LIMIT - (((data / 4) + GetIndividualBaseStatValue(species, i)) + max(evDelta / 4, 1))) * 4);
+                                //ok think I realized why this differs from battle_main function and uses the argument its assigning,
+                                //that's because this uses +=  not just assigning the value, so I need to include it to exclude it
+                                data += evDelta;
+                            }
+                            /*else if (evChange < 0) // Decreasing EV (HP or Atk)
+                            {
+                                if (evCount == 0)
+                                {
+                                    // No EVs to lose, but make sure friendship updates anyway
+                                    friendshipOnly = TRUE;
+                                    itemEffectParam++;
+                                    break;
+                                }
+                                evDelta += evChange;
+                                if (evCount > 100)
+                                    evCount = 100;
+                                if (evCount < 0)
+                                    evCount = 0;
+                            }
+                            else // Reset EV (HP or Atk)
+                            {
+                                if (evCount == 0)
+                                    break;
+
+                                evCount = 0;
+                            }*/
+
                             SetMonData(mon, sGetMonDataEVConstants[i], &data);
                             CalculateMonStats(mon);
                             idx++;
