@@ -2704,6 +2704,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     
     yup it ends  trainer battles too FUCK,
     need to fix
+    --fixed
+
+    IMPORTANT
+    new idea for after put ai back in C,
+    make ai struct for num switches
+    so ai can't just constantly switch and make thing annoying
+    idea, nuim switches should be n + 1 / 3,
+    where n is teamsize, so min 1 switch, max around 2?
+    or do n +1 / 2 to max at 3 potential
+
+    make it potential so just cuz they have free switches doesn't mean
+    they have to use them
 
     got graphics working still to do is pull in pal icon indexes
     and gen 9 indexes would need to pull from base stats
