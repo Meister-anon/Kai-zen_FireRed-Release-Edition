@@ -608,11 +608,11 @@
 	.4byte \status2
 	.endm
 
-	.macro chosenstatusanimation battler:req, param1:req, param2:req
+	.macro chosenstatusanimation battler:req, param1:req, status:req
 	.byte 0x66
 	.byte \battler
 	.byte \param1
-	.4byte \param2
+	.4byte \status
 	.endm
 
 	.macro yesnobox

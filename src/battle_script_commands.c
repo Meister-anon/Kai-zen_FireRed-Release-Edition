@@ -95,7 +95,6 @@ static bool8 sub_8026648(void);
 static void PutMonIconOnLvlUpBox(void);
 static void PutLevelAndGenderOnLvlUpBox(void);
 static bool32 HasAttackerFaintedTarget(void);
-static void HandleTerrainMove(u32 moveEffect);
 //static void RecalcBattlerStats(u32 battler, struct Pokemon *mon);  old setup can use emerald version non static now
 static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon);
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId);
@@ -10434,20 +10433,21 @@ static void atk65_status2animation(void) //use this for intimidate confuse effec
 
 static void atk66_chosenstatusanimation(void) //filters for status 2, but then can play any animation, status2 or not
 {
-    u32 wantedStatus;
+    CMD_ARGS(u8 battler, u8 param, u32 status);
+    u32 statusToAnim;
 
     if (!gBattleControllerExecFlags)
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-        wantedStatus = T1_READ_32(gBattlescriptCurrInstr + 3);
-        if (!(gStatuses3[gActiveBattler] & STATUS3_SEMI_INVULNERABLE)
-         && gDisableStructs[gActiveBattler].substituteHP == 0
+        u32 battler = GetBattlerForBattleScript(cmd->battler);
+        statusToAnim = cmd->status;
+        if (!(gStatuses3[battler] & STATUS3_SEMI_INVULNERABLE)
+         && gDisableStructs[battler].substituteHP == 0
          && !(gHitMarker & HITMARKER_NO_ANIMATIONS))
         {
-            BtlController_EmitStatusAnimation(0, gBattlescriptCurrInstr[2], wantedStatus);
-            MarkBattlerForControllerExec(gActiveBattler);
+            BtlController_EmitStatusAnimation(BUFFER_A, cmd->param, statusToAnim);
+            MarkBattlerForControllerExec(battler);
         }
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -10587,23 +10587,23 @@ static void atk6A_removeitem(void) //vsonic
         return;
     }
 
-    gActiveBattler = GetBattlerForBattleScript(cmd->battler);
-    itemId = gBattleMons[gActiveBattler].item;
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    itemId = gBattleMons[battler].item;
 
     // Popped Air Balloon cannot be restored by any means.
     // Corroded items cannot be restored either.
-    if (GetBattlerHoldEffect(gActiveBattler, TRUE) != HOLD_EFFECT_AIR_BALLOON)
+    if (GetBattlerHoldEffect(battler, TRUE) != HOLD_EFFECT_AIR_BALLOON)
         //&& gBattleMoves[gCurrentMove].effect != EFFECT_CORROSIVE_GAS)
-        gBattleStruct->usedHeldItems[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = itemId; // Remember if switched out
+        gBattleStruct->usedHeldItems[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = itemId; // Remember if switched out
 
-    gBattleMons[gActiveBattler].item = ITEM_NONE;
-    CheckSetUnburden(gActiveBattler);
+    gBattleMons[battler].item = ITEM_NONE;
+    CheckSetUnburden(battler);
 
-    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
-    MarkBattlerForControllerExec(gActiveBattler);
+    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battler].item), &gBattleMons[battler].item);
+    MarkBattlerForControllerExec(battler);
 
-    //ClearBattlerItemEffectHistory(gActiveBattler); emerald ai update
-    if (!TryCheekPouch(gActiveBattler, itemId) && !TrySymbiosis(gActiveBattler, itemId))
+    //ClearBattlerItemEffectHistory(battler); emerald ai update
+    if (!TryCheekPouch(battler, itemId) && !TrySymbiosis(battler, itemId))
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -10628,19 +10628,19 @@ void BS_checksecondaryItemslot(void)
         return;
     }*/
 
-    gActiveBattler = GetBattlerForBattleScript(cmd->battler);
-    itemId = gBattleMons[gActiveBattler].item;
-    secondaryItem = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)];
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    itemId = gBattleMons[battler].item;
+    secondaryItem = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)];
 
     if (itemId == ITEM_NONE && secondaryItem != ITEM_NONE)
     {
-        gBattleMons[gActiveBattler].item = secondaryItem;
-        gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = ITEM_NONE;
+        gBattleMons[battler].item = secondaryItem;
+        gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = ITEM_NONE;
     
-        gBattleResources->flags->flags[gActiveBattler] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+        gBattleResources->flags->flags[battler] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
 
-        BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
-        MarkBattlerForControllerExec(gActiveBattler);
+        BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battler].item), &gBattleMons[battler].item);
+        MarkBattlerForControllerExec(battler);
     }
     
     
@@ -10929,18 +10929,20 @@ static void atk6E_setatktoplayer0(void)
 
 static void atk6F_makevisible(void)
 {
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+    CMD_ARGS(u8 battler);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
     BtlController_EmitSpriteInvisibility(0, FALSE);
-    MarkBattlerForControllerExec(gActiveBattler);
+    MarkBattlerForControllerExec(battler);
 
-    gBattlescriptCurrInstr += 2;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk70_recordlastability(void)
 {
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    RecordAbilityBattle(gActiveBattler, gLastUsedAbility);
-    gBattlescriptCurrInstr += 2; // UB: Should be + 2, one byte for command and one byte for battlerId argument.
+    CMD_ARGS(u8 battler);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    RecordAbilityBattle(battler, gLastUsedAbility);
+    gBattlescriptCurrInstr = cmd->nextInstr; // UB: Should be + 2, one byte for command and one byte for battlerId argument.
 }
 
 void BufferMoveToLearnIntoBattleTextBuff2(void)
@@ -10956,21 +10958,23 @@ static void atk71_buffermovetolearn(void)
 
 static void atk72_jumpifplayerran(void)
 {
+    CMD_ARGS(const u8 *jumpInstr);
     if (TryRunFromBattle(gBattlerFainted))
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     else
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk73_hpthresholds(void)
 {
+    CMD_ARGS(u8 battler);
     u8 opposingBattler;
     s32 result;
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-        opposingBattler = gActiveBattler ^ BIT_SIDE;
+        u32 battler = GetBattlerForBattleScript(cmd->battler);
+        opposingBattler = BATTLE_OPPOSITE(battler);
 
         result = gBattleMons[opposingBattler].hp * 100 / gBattleMons[opposingBattler].maxHP;
         if (result == 0)
@@ -10984,19 +10988,20 @@ static void atk73_hpthresholds(void)
         else
             gBattleStruct->hpScale = 3;
     }
-    gBattlescriptCurrInstr += 2;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk74_hpthresholds2(void)
 {
+    CMD_ARGS(u8 battler);
     u8 opposingBattler;
     s32 result;
     u8 hpSwitchout;
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-        opposingBattler = gActiveBattler ^ BIT_SIDE;
+        u32 battler = GetBattlerForBattleScript(cmd->battler);
+        opposingBattler = BATTLE_OPPOSITE(battler);
         hpSwitchout = *(gBattleStruct->hpOnSwitchout + GetBattlerSide(opposingBattler));
         result = (hpSwitchout - gBattleMons[opposingBattler].hp) * 100 / hpSwitchout;
 
@@ -11009,7 +11014,7 @@ static void atk74_hpthresholds2(void)
         else
             gBattleStruct->hpScale = 3;
     }
-    gBattlescriptCurrInstr += 2;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk75_useitemonopponent(void)
@@ -11070,7 +11075,7 @@ u32 IsFlowerVeilProtected(u32 battler) //prvent stat drop & status change for us
     if (IS_BATTLER_OF_TYPE(battler, TYPE_GRASS) || GetBattlerAbility(battler) == ABILITY_FLOWER_VEIL)
         return IsAbilityOnSide(battler, ABILITY_FLOWER_VEIL); //will return true or false, based on if ability present
     else
-        return 0;
+        return FALSE;
 }
 
 u32 IsLeafGuardProtected(u32 battler)
@@ -11078,7 +11083,7 @@ u32 IsLeafGuardProtected(u32 battler)
     if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
         return GetBattlerAbility(battler) == ABILITY_LEAF_GUARD;
     else
-        return 0;
+        return FALSE;
 }
 
 //uses battlemons over getbattlerability
@@ -11124,47 +11129,6 @@ static bool32 HasAttackerFaintedTarget(void)
         return TRUE;
     else
         return FALSE;
-}
-
-static void HandleTerrainMove(u32 moveEffect)
-{
-    u32 statusFlag = 0;
-    u8 *timer = NULL;
-
-    switch (moveEffect)
-    {
-    case EFFECT_MISTY_TERRAIN:
-        statusFlag = STATUS_FIELD_MISTY_TERRAIN, timer = &gFieldTimers.terrainTimer;
-        gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-        break;
-    case EFFECT_GRASSY_TERRAIN:
-        statusFlag = STATUS_FIELD_GRASSY_TERRAIN, timer = &gFieldTimers.terrainTimer;
-        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
-        break;
-    case EFFECT_ELECTRIC_TERRAIN:
-        statusFlag = STATUS_FIELD_ELECTRIC_TERRAIN, timer = &gFieldTimers.terrainTimer;
-        gBattleCommunication[MULTISTRING_CHOOSER] = 2;
-        break;
-    case EFFECT_PSYCHIC_TERRAIN:
-        statusFlag = STATUS_FIELD_PSYCHIC_TERRAIN, timer = &gFieldTimers.terrainTimer;
-        gBattleCommunication[MULTISTRING_CHOOSER] = 3;
-        break;
-    }
-
-    if (gFieldStatuses & statusFlag || statusFlag == 0)
-    {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
-    }
-    else
-    {
-        gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
-        gFieldStatuses |= statusFlag;
-        if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_TERRAIN_EXTENDER)
-            *timer = 8;
-        else
-            *timer = 5;
-        gBattlescriptCurrInstr += 7;
-    }
 }
 
 /*
@@ -11282,10 +11246,14 @@ static void atk76_various(void) //will need to add all these emerald various com
 
     switch (cmd->id) //put every case within brackets, and add VARIOUS_ARGS  to everythihng, battler arg alread covered by cmd
     {
+
     case VARIOUS_CANCEL_MULTI_TURN_MOVES:
+    {
         CancelMultiTurnMoves(gActiveBattler);
         break;
+    }
     case VARIOUS_SET_MAGIC_COAT_TARGET:
+    {
         gBattlerAttacker = gBattlerTarget;
         side = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE;
         if (gSideTimers[side].followmeTimer != 0 && gBattleMons[gSideTimers[side].followmeTarget].hp != 0)
@@ -11293,24 +11261,34 @@ static void atk76_various(void) //will need to add all these emerald various com
         else
             gBattlerTarget = gActiveBattler;
         break; //not using, nvm didn't understand this is the bounce for the status, i.e setting who it would reflect to, just
+    }
     case VARIOUS_IS_RUNNING_IMPOSSIBLE:
+    {
         gBattleCommunication[0] = IsRunningFromBattleImpossible();
         break;
+    }
     case VARIOUS_GET_MOVE_TARGET:
+    {
         gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
         break;
+    }
     case VARIOUS_GET_BATTLER_FAINTED:
+    {
         if (gHitMarker & HITMARKER_FAINTED(gActiveBattler))
             gBattleCommunication[0] = TRUE;
         else
             gBattleCommunication[0] = FALSE;
         break;
-    case VARIOUS_RESET_INTIMIDATE_TRACE_BITS:   //RESETS the switchin effect, that is the trigger for the abillity activation
+    }
+    case VARIOUS_RESET_INTIMIDATE_TRACE_BITS:
+    {   //RESETS the switchin effect, that is the trigger for the abillity activation
         gSpecialStatuses[gActiveBattler].intimidatedMon = 0;//pairs with battle_util.c
         gSpecialStatuses[gActiveBattler].traced = 0; //BattleScript_IntimidateActivates
         gSpecialStatuses[gActiveBattler].tigerMomAttacked = 0; //new special status, but uses BattleScript_IntimidateActivates
         break; // & trygetintimidatetarget command in this file
+    }
     case VARIOUS_UPDATE_CHOICE_MOVE_ON_LVL_UP:
+    {
         if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId || gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId)
         {
             u16 *choicedMove;
@@ -11329,14 +11307,18 @@ static void atk76_various(void) //will need to add all these emerald various com
                 *choicedMove = MOVE_NONE;
         }
         break;
+    }
     case VARIOUS_RESET_PLAYER_FAINTED:
+    {
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_DOUBLE))
          && gBattleTypeFlags & BATTLE_TYPE_TRAINER
          && gBattleMons[0].hp != 0
          && gBattleMons[1].hp != 0)
             gHitMarker &= ~(HITMARKER_PLAYER_FAINTED);
         break;
-    case VARIOUS_CASE_8:
+    }
+    case VARIOUS_GET_BATTLERS_FOR_RECALL:
+    {
         i = 0; // redundant
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         gActiveBattler = 1;
@@ -11347,7 +11329,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             ++i;
         }
         break;
+    }
     case VARIOUS_RETURN_OPPONENT_MON1:
+    {
         gActiveBattler = 1;
         if (gBattleMons[gActiveBattler].hp != 0)
         {
@@ -11355,7 +11339,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             MarkBattlerForControllerExec(gActiveBattler);
         }
         break;
+    }
     case VARIOUS_RETURN_OPPONENT_MON2:
+    {
         if (gBattlersCount > 3)
         {
             gActiveBattler = 3;
@@ -11366,6 +11352,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             }
         }
         break;
+    }
     case VARIOUS_PLAY_MOVE_ANIMATION:
     {
         VARIOUS_ARGS(u16 move);
@@ -11375,6 +11362,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         return;
     }
     case VARIOUS_CHECK_POKEFLUTE:
+    {
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         monToCheck = 0;
         for (i = 0; i < gBattlersCount; ++i)
@@ -11427,7 +11415,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattleCommunication[5] = 1;
         }
         break;
+    }
     case VARIOUS_SET_TELEPORT_OUTCOME:
+    {
         // Don't end the battle if one of the wild mons teleported from the wild double battle
         // and its partner is still alive.
         if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT && IsBattlerAlive(BATTLE_PARTNER(gActiveBattler)))
@@ -11448,29 +11438,41 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattleOutcome = B_OUTCOME_MON_TELEPORTED;
         }
         break;//this isnt in base firered so switch in stuff is handled elsewhere typically  -battle startfunctino in main *facepalm
+    }
     case VARIOUS_SWITCHIN_ABILITIES:
+    {
         gBattlescriptCurrInstr += 3;
         AbilityBattleEffects(ABILITYEFFECT_NEUTRALIZINGGAS, gActiveBattler, 0, 0, 0);
         AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gActiveBattler, 0, 0, 0);
         AbilityBattleEffects(ABILITYEFFECT_INTIMIDATE2, gActiveBattler, 0, 0, 0);//hope can use for tiger mom
         AbilityBattleEffects(ABILITYEFFECT_TRACE, gActiveBattler, 0, 0, 0);
         return; //not sure what this does  its only used in mega evo and trace in gen 8 emerald expansion
+    }
     case VARIOUS_SAVE_TARGET:
+    {
         gBattleStruct->savedBattlerTarget = gBattlerTarget;
         break;
+    }
     case VARIOUS_RESTORE_TARGET:
+    {
         gBattlerTarget = gBattleStruct->savedBattlerTarget;
         break;
+    }
     case VARIOUS_INSTANT_HP_DROP:
+    {
         BtlController_EmitHealthBarUpdate(0, INSTANT_HP_BAR_DROP);
         MarkBattlerForControllerExec(gActiveBattler);
         break;
+    }
     case VARIOUS_CLEAR_STATUS:
+    {
         gBattleMons[gActiveBattler].status1 = 0;
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
         break;
+    }
     case VARIOUS_RESTORE_PP:
+    {
         for (i = 0; i < 4; i++)
         {
             gBattleMons[gActiveBattler].pp[i] = CalculatePPWithBonus(gBattleMons[gActiveBattler].moves[i], gBattleMons[gActiveBattler].ppBonuses, i);
@@ -11480,10 +11482,14 @@ static void atk76_various(void) //will need to add all these emerald various com
         BtlController_EmitSetMonData(0, REQUEST_PP_DATA_BATTLE, 0, 5, data);
         MarkBattlerForControllerExec(gActiveBattler);
         break;
-    case VARIOUS_CAN_TELEPORT:  //new logic for teleport
+    }
+    case VARIOUS_CAN_TELEPORT:
+    {  //new logic for teleport
         gBattleCommunication[0] = CanTeleport(gActiveBattler);
         break;
-    case VARIOUS_TRY_ACTIVATE_MOXIE:    // and chilling neigh + as one ice rider
+    }
+    case VARIOUS_TRY_ACTIVATE_MOXIE:
+    {    // and chilling neigh + as one ice rider
         if ((GetBattlerAbility(gActiveBattler) == ABILITY_MOXIE
             || GetBattlerAbility(gActiveBattler) == ABILITY_CHILLING_NEIGH
             || GetBattlerAbility(gActiveBattler) == ABILITY_AS_ONE_ICE_RIDER)
@@ -11505,7 +11511,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
-    case VARIOUS_TRY_ACTIVATE_GRIM_NEIGH:   // and as one shadow rider
+    }
+    case VARIOUS_TRY_ACTIVATE_GRIM_NEIGH:
+    {   // and as one shadow rider
         if ((GetBattlerAbility(gActiveBattler) == ABILITY_GRIM_NEIGH
             || GetBattlerAbility(gActiveBattler) == ABILITY_AS_ONE_SHADOW_RIDER)
             && HasAttackerFaintedTarget()
@@ -11526,7 +11534,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
-    case VARIOUS_TRY_ACTIVATE_RECEIVER: // Partner gets fainted's ally ability
+    }
+    case VARIOUS_TRY_ACTIVATE_RECEIVER:
+    { // Partner gets fainted's ally ability
         gBattlerAbility = BATTLE_PARTNER(gActiveBattler); //need to test, didn't want ot take of ewram making gbattlerAbility so replaced with a variable
         i = GetBattlerAbility(gBattlerAbility);
         if (IsBattlerAlive(gBattlerAbility)
@@ -11534,16 +11544,26 @@ static void atk76_various(void) //will need to add all these emerald various com
         {
             switch (gBattleMons[gActiveBattler].ability) //since only one pokemon has received, I decided I'll let the type guards be in the list
             { // Can't copy these abilities.        //also allowed it to work with trace, 
-            case ABILITY_POWER_OF_ALCHEMY:  case ABILITY_RECEIVER:
-            case ABILITY_FORECAST:          case ABILITY_MULTITYPE:
-            case ABILITY_FLOWER_GIFT:       case ABILITY_ILLUSION:
-            case ABILITY_RKS_SYSTEM:        case ABILITY_ZEN_MODE:
-            case ABILITY_STANCE_CHANGE:     case ABILITY_IMPOSTER:
-            case ABILITY_POWER_CONSTRUCT:   case ABILITY_BATTLE_BOND:
-            case ABILITY_SCHOOLING:         case ABILITY_COMATOSE:
-            case ABILITY_SHIELDS_DOWN:      case ABILITY_DISGUISE:  
+            
+            case ABILITY_POWER_OF_ALCHEMY:
+            case ABILITY_RECEIVER:
+            case ABILITY_FORECAST:
+            case ABILITY_MULTITYPE:
+            case ABILITY_FLOWER_GIFT:
+            case ABILITY_ILLUSION:
+            case ABILITY_RKS_SYSTEM:
+            case ABILITY_ZEN_MODE:
+            case ABILITY_STANCE_CHANGE:
+            case ABILITY_IMPOSTER:
+            case ABILITY_POWER_CONSTRUCT:
+            case ABILITY_BATTLE_BOND:
+            case ABILITY_SCHOOLING:
+            case ABILITY_COMATOSE:
+            case ABILITY_SHIELDS_DOWN:
+            case ABILITY_DISGUISE:
                 break;
             default:
+
                 gBattleStruct->tracedAbility[gBattlerAbility] = gBattleMons[gActiveBattler].ability; // re-using the variable for trace
                 gBattleScripting.battler = gActiveBattler;
                 BattleScriptPush(gBattlescriptCurrInstr + 3);
@@ -11552,7 +11572,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             }
         }
         break;
+    }
     case VARIOUS_TRY_ACTIVATE_BEAST_BOOST:
+    {
         i = GetHighestStatId(gActiveBattler);
         if (GetBattlerAbility(gActiveBattler) == ABILITY_BEAST_BOOST
             && HasAttackerFaintedTarget()
@@ -11567,7 +11589,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
+    }
     case VARIOUS_TRY_ACTIVATE_SOULHEART:
+    {
         while (gBattleStruct->soulheartBattlerId < gBattlersCount)
         {
             gBattleScripting.battler = gBattleStruct->soulheartBattlerId++;
@@ -11586,7 +11610,9 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         gBattleStruct->soulheartBattlerId = 0;
         break;
+    }
     case VARIOUS_TRY_ACTIVATE_FELL_STINGER:
+    {
         if (gBattleMoves[gCurrentMove].effect == EFFECT_FELL_STINGER
             && HasAttackerFaintedTarget()
             && !NoAliveMonsForEitherParty()
@@ -11603,7 +11629,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
+    }
     case VARIOUS_SET_LUCKY_CHANT:
+    {
         if (!(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_LUCKY_CHANT))
         {
             gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] |= SIDE_STATUS_LUCKY_CHANT;
@@ -11616,6 +11644,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         }
         return;
+    }
     case VARIOUS_SUCKER_PUNCH_CHECK:
     {
         u16 move = gBattleMons[gBattlerTarget].moves[gBattleStruct->chosenMovePositions[gBattlerTarget]];
@@ -11627,9 +11656,10 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
-    }
         return;
+    }
     case VARIOUS_SET_SIMPLE_BEAM:
+    {
         if (IsEntrainmentTargetOrSimpleBeamBannedAbility(gBattleMons[gActiveBattler].ability))
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -11646,7 +11676,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_TRY_ENTRAINMENT:
+    {
         if (IsEntrainmentBannedAbilityAttacker(GetBattlerAbility(gBattlerAttacker))
             || IsEntrainmentTargetOrSimpleBeamBannedAbility(GetBattlerAbility(gBattlerTarget)))
         {
@@ -11664,32 +11696,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
-    case VARIOUS_TRY_QUASH:
-        if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
-        {
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
-        }
-        else
-        {
-            for (i = 0; i < gBattlersCount; i++)
-                data[i] = gBattlerByTurnOrder[i];
-            for (i = 0; i < gBattlersCount; i++)
-            {
-                if (data[i] == gBattlerTarget)
-                {
-                    for (j = i + 1; j < gBattlersCount; j++)
-                        data[i++] = data[j];
-                }
-                else
-                {
-                    gBattlerByTurnOrder[i] = data[i];
-                }
-            }
-            gBattlerByTurnOrder[gBattlersCount - 1] = gBattlerTarget;
-            gBattlescriptCurrInstr += 7;
-        }
-        return;
+    }
     case VARIOUS_INVERT_STAT_STAGES:
+    {
         for (i = 0; i < NUM_BATTLE_STATS; i++)
         {
             if (gBattleMons[gActiveBattler].statStages[i] < 6) // Negative becomes positive.
@@ -11698,9 +11707,53 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gBattleMons[gActiveBattler].statStages[i] = 6 - (gBattleMons[gActiveBattler].statStages[i] - 6);
         }
         break;
+    }
     case VARIOUS_SET_TERRAIN:
-        HandleTerrainMove(gBattleMoves[gCurrentMove].effect);
+    {
+        VARIOUS_ARGS(const u8 *failInstr); //see if new setup of function works
+        //removed use as not used in EE
+        //HandleTerrainMove(gBattleMoves[gCurrentMove].effect); 
+        u32 statusFlag = 0;
+        u8 timer = 0;
+
+        switch (gBattleMoves[gCurrentMove].effect)
+        {
+
+            case EFFECT_MISTY_TERRAIN:
+                statusFlag = STATUS_FIELD_MISTY_TERRAIN;
+                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+                break;
+            case EFFECT_GRASSY_TERRAIN:
+                statusFlag = STATUS_FIELD_GRASSY_TERRAIN;
+                gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                break;
+            case EFFECT_ELECTRIC_TERRAIN:
+                statusFlag = STATUS_FIELD_ELECTRIC_TERRAIN;
+                gBattleCommunication[MULTISTRING_CHOOSER] = 2;
+                break;
+            case EFFECT_PSYCHIC_TERRAIN:
+                statusFlag = STATUS_FIELD_PSYCHIC_TERRAIN;
+                gBattleCommunication[MULTISTRING_CHOOSER] = 3;
+                break;
+        }
+
+        if (gFieldStatuses & statusFlag || statusFlag == 0)
+        {
+            gBattlescriptCurrInstr = cmd->failInstr;
+        }
+        else
+        {
+            gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
+            gFieldStatuses |= statusFlag;
+            if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_TERRAIN_EXTENDER)
+                timer = 8;
+            else
+                timer = 5;
+            gFieldTimers.terrainTimer = timer;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
         return;
+    }
     case VARIOUS_TRY_ME_FIRST:
     {
         u16 effect = gBattleMoves[gBattleMons[gBattlerTarget].moves[gBattleStruct->chosenMovePositions[gBattlerTarget]]].effect;
@@ -11737,9 +11790,10 @@ static void atk76_various(void) //will need to add all these emerald various com
                 break;
             }
         }
-    }
         return;
+    }
     case VARIOUS_TRY_ELECTRIFY:
+    {
         if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -11750,7 +11804,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_TRY_REFLECT_TYPE:
+    {
         if (gBattleMons[gBattlerTarget].species == SPECIES_ARCEUS || gBattleMons[gBattlerTarget].species == SPECIES_SILVALLY)
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -11778,7 +11834,8 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
-    case VARIOUS_HANDLE_FORM_CHANGE:  //equiv of VARIOUS_HANDLE_FORM_CHANGE in EE, handles all form change
+    }
+    case VARIOUS_HANDLE_FORM_CHANGE:{  //equiv of VARIOUS_HANDLE_FORM_CHANGE in EE, handles all form change
     {
         VARIOUS_ARGS(u8 case_);
         if (GetBattlerSide(battler) == B_SIDE_OPPONENT)
@@ -11822,11 +11879,13 @@ static void atk76_various(void) //will need to add all these emerald various com
         return;
     }
     case VARIOUS_TRY_LAST_RESORT:
+    {
         if (CanUseLastResort(gActiveBattler))
             gBattlescriptCurrInstr += 7;
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         return;
+    }
     case VARIOUS_ARGUMENT_STATUS_EFFECT:    // argumentstatuseffect currently replacing uses of this
     {    
         VARIOUS_ARGS();
@@ -11860,6 +11919,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         break;//this is broken right now, but on the other hand, I also don't need this
     }
     case VARIOUS_TRY_HIT_SWITCH_TARGET:
+    {
         if (IsBattlerAlive(gBattlerAttacker)
             && IsBattlerAlive(gBattlerTarget)
             && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
@@ -11872,7 +11932,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         }
         return;
+    }
     case VARIOUS_TRY_AUTOTOMIZE:
+    {
         if (GetBattlerWeight(gActiveBattler) > 1)
         {
             gDisableStructs[gActiveBattler].autotomizeCount++;
@@ -11883,7 +11945,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         }
         return;
+    }
     case VARIOUS_TRY_COPYCAT:
+    {
         
         if (lastMove == 0xFFFF || (sForbiddenMoves[lastMove] & FORBIDDEN_COPYCAT))
         {
@@ -11897,7 +11961,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_TRY_INSTRUCT:
+    {
         for (i = 0; sMoveEffectsForbiddenToInstruct[i] != FORBIDDEN_INSTRUCT_END; i++)
         {
             if (sMoveEffectsForbiddenToInstruct[i] == gBattleMoves[gLastMoves[gBattlerTarget]].effect)
@@ -11933,10 +11999,14 @@ static void atk76_various(void) //will need to add all these emerald various com
             }
         }
         return;
-    /*case VARIOUS_ABILITY_POPUP:  //still need add even if not use
+    /*}
+    case VARIOUS_ABILITY_POPUP:
+    {  //still need add even if not use
         CreateAbilityPopUp(gActiveBattler, gBattleMons[gActiveBattler].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
         break;*/
+    }
     case VARIOUS_DEFOG:
+    {
         if (T1_READ_8(gBattlescriptCurrInstr + 3)) // Clear
         {
             if (ClearDefogHazards(gEffectBattler, TRUE))
@@ -11952,19 +12022,25 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 4);
         }
         return;
+    }
     case VARIOUS_JUMP_IF_TARGET_ALLY:
+    {
         if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
             gBattlescriptCurrInstr += 7;
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         return;
+    }
     case VARIOUS_TRY_SYNCHRONOISE:
+    {
         if (!DoBattlersShareType(gBattlerAttacker, gBattlerTarget))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_LOSE_TYPE:
+    {
          //changed to use move argument, rather than having to read script ptr, that way leaves room for removing enemy type with moves of a different type than type being lost
         for (i = 0; i < 3; i++) //TEST, since there's only 3 types shouldn't this only need to increment up to 2 not 3?
         {   //nah it should be 3, way for loops work, it'll not execute when the value is 3., it checks the value before executing the block.
@@ -11988,7 +12064,9 @@ static void atk76_various(void) //will need to add all these emerald various com
         PREPARE_TYPE_BUFFER(gBattleTextBuff3, lost_type);
         gBattlescriptCurrInstr += 4;    //post change unsure bout this part
         return;
-    case VARIOUS_PSYCHO_SHIFT: //transfers status condition
+    }
+    case VARIOUS_PSYCHO_SHIFT:
+    { //transfers status condition
         i = TRUE;
         if (gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS)
         {
@@ -12078,16 +12156,22 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
-    case VARIOUS_CURE_STATUS: 
+    }
+    case VARIOUS_CURE_STATUS:
+    { 
         gBattleMons[gActiveBattler].status1 = 0;
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
         break;
+    }
     case VARIOUS_POWER_TRICK:
+    {
         gStatuses3[gActiveBattler] ^= STATUS3_POWER_TRICK;
         SWAP(gBattleMons[gActiveBattler].attack, gBattleMons[gActiveBattler].defense, i);
         break;
+    }
     case VARIOUS_AFTER_YOU:
+    {
         if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget)
             || GetBattlerTurnOrderNum(gBattlerAttacker) == GetBattlerTurnOrderNum(gBattlerTarget) + 1)
         {
@@ -12117,7 +12201,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_BESTOW:
+    {
         if (gBattleMons[gBattlerAttacker].item == ITEM_NONE
             || gBattleMons[gBattlerTarget].item != ITEM_NONE
             || !CanBattlerGetOrLoseItem(gBattlerAttacker, gBattleMons[gBattlerAttacker].item)
@@ -12144,13 +12230,17 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;//think need if here to exclude two_type_moves as its not meant to read the argument as a move effect
-    case VARIOUS_ARGUMENT_TO_MOVE_EFFECT:   //argumenttomoveeffect works with seconaryeffectchance can prob also do like move effect set certain or effect user
+    }
+    case VARIOUS_ARGUMENT_TO_MOVE_EFFECT:
+    {   //argumenttomoveeffect works with seconaryeffectchance can prob also do like move effect set certain or effect user
         //if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
         if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE                
         && gBattleMoves[gCurrentMove].effect != EFFECT_LOSETYPE_HIT)
             gBattleScripting.moveEffect = gBattleMoves[gCurrentMove].argument; //potentially need make argument field for bs. as well vsonic
         break;  //I think what this does is, pass the argument to move effect? and then it gets read by seteffectwithchance function?
+    }
     case VARIOUS_SPECTRAL_THIEF:
+    {
         // Raise stats
         for (i = STAT_ATK; i < NUM_BATTLE_STATS; i++)
         {
@@ -12167,10 +12257,14 @@ static void atk76_various(void) //will need to add all these emerald various com
             }
         }
         break;
+    }
     case VARIOUS_SET_POWDER:
+    {
         gBattleMons[gActiveBattler].status2 |= STATUS2_POWDER;
         break;
+    }
     case VARIOUS_ACUPRESSURE:
+    {
         bits = 0;
         for (i = STAT_ATK; i < NUM_BATTLE_STATS; i++)
         {
@@ -12193,13 +12287,17 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         }
         return;
+    }
     case VARIOUS_JUMP_IF_NOT_GROUNDED:
+    {
         if (!(IsBattlerGrounded(gActiveBattler)))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_JUMP_IF_ROAR_FAILS:
+    {
         if (WILD_DOUBLE_BATTLE
             && GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER
             && GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT
@@ -12212,31 +12310,41 @@ static void atk76_various(void) //will need to add all these emerald various com
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_JUMP_IF_ABSENT:
+    {
         if (!IsBattlerAlive(gActiveBattler))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_JUMP_IF_SHIELDS_DOWN_PROTECTED:
+    {
         if (IsShieldsDownProtected(gActiveBattler))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_JUMP_IF_NO_HOLD_EFFECT:
+    {
         if (GetBattlerHoldEffect(gActiveBattler, TRUE) != gBattlescriptCurrInstr[3])
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 4);
         else
             gBattlescriptCurrInstr += 8;
         return;
+    }
     case VARIOUS_JUMP_IF_NO_ALLY:
+    {
         if (!IsBattlerAlive(BATTLE_PARTNER(gActiveBattler)))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_TRY_FAIRY_LOCK:
+    {
         if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -12248,26 +12356,34 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_GET_STAT_VALUE:
+    {
         i = gBattlescriptCurrInstr[3];
         gBattleMoveDamage = *(u16*)(&gBattleMons[gActiveBattler].attack) + (i - 1);
         gBattleMoveDamage *= gStatStageRatios[gBattleMons[gActiveBattler].statStages[i]][0];
         gBattleMoveDamage /= gStatStageRatios[gBattleMons[gActiveBattler].statStages[i]][1];
         gBattlescriptCurrInstr += 4;
         return;
+    }
     case VARIOUS_JUMP_IF_FULL_HP:
+    {
         if (BATTLER_MAX_HP(gActiveBattler))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         break;
+    }
     case VARIOUS_JUMP_IF_NOT_FULL_HP:
+    {
         if (!(BATTLER_MAX_HP(gActiveBattler)))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_TRY_FRISK:
+    {
         while (gBattleStruct->friskedBattler < gBattlersCount)
         {
             gBattlerTarget = gBattleStruct->friskedBattler++;
@@ -12294,6 +12410,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         gBattleStruct->friskedBattler = 0;
         gBattleStruct->friskedAbility = FALSE;
         break;
+    }
     case VARIOUS_TRY_ILLUSION_OFF:
     {
         VARIOUS_ARGS();
@@ -12314,19 +12431,24 @@ static void atk76_various(void) //will need to add all these emerald various com
         return;
     }
     case VARIOUS_UPDATE_NICK:
+    {
         if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
             mon = &gPlayerParty[gBattlerPartyIndexes[gActiveBattler]];
         else
             mon = &gEnemyParty[gBattlerPartyIndexes[gActiveBattler]];
         UpdateHealthboxAttribute(gHealthboxSpriteIds[gActiveBattler], mon, HEALTHBOX_NICK);
         break;
+    }
     case VARIOUS_JUMP_IF_NOT_BERRY:
+    {
         if (ItemId_GetPocket(gBattleMons[gActiveBattler].item) == POCKET_BERRY_POUCH)
             gBattlescriptCurrInstr += 7;
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         return;
+    }
     case VARIOUS_CHECK_IF_GRASSY_TERRAIN_HEALS:
+    {
         if ((gStatuses3[gActiveBattler] & (STATUS3_SEMI_INVULNERABLE))
             || BATTLER_MAX_HP(gActiveBattler)
             || !gBattleMons[gActiveBattler].hp) //hopefully works
@@ -12343,13 +12465,17 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_GRAVITY_ON_AIRBORNE_MONS:
+    {
         if (gStatuses3[gActiveBattler] & STATUS3_ON_AIR)
             CancelMultiTurnMoves(gActiveBattler);
 
         gStatuses3[gActiveBattler] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
         break;
-    /*case VARIOUS_HANDLE_TRAINER_SLIDE_MSG:
+    /*}
+    case VARIOUS_HANDLE_TRAINER_SLIDE_MSG:
+    {
         if (gBattlescriptCurrInstr[3] == 0)
         {
             gBattleScripting.savedDmg = gBattlerSpriteIds[gActiveBattler];
@@ -12371,7 +12497,9 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         gBattlescriptCurrInstr += 4;
         return;
+    }
     case VARIOUS_TRY_TRAINER_SLIDE_MSG_FIRST_OFF:
+    {
         if (ShouldDoTrainerSlide(gActiveBattler, gTrainerBattleOpponent_A, TRAINER_SLIDE_FIRST_DOWN))
         {
             BattleScriptPush(gBattlescriptCurrInstr + 3);
@@ -12379,7 +12507,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
+    }
     case VARIOUS_TRY_TRAINER_SLIDE_MSG_LAST_ON:
+    {
         if (ShouldDoTrainerSlide(gActiveBattler, gTrainerBattleOpponent_A, TRAINER_SLIDE_LAST_SWITCHIN))
         {
             BattleScriptPush(gBattlescriptCurrInstr + 3);
@@ -12387,7 +12517,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;*/
+    }
     case VARIOUS_SET_AURORA_VEIL:
+    {
         if (gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_AURORA_VEIL
             || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
         {
@@ -12409,7 +12541,9 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gBattleCommunication[MULTISTRING_CHOOSER] = 5;
         }
         break;
+    }
     case VARIOUS_TRY_END_NEUTRALIZING_GAS:
+    {
         if (gSpecialStatuses[gActiveBattler].neutralizingGasRemoved)
         {
             gSpecialStatuses[gActiveBattler].neutralizingGasRemoved = FALSE;
@@ -12426,7 +12560,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
+    }
     case VARIOUS_TRY_END_STENCH:
+    {
         if (gSpecialStatuses[gActiveBattler].stenchRemoved)
         {
             gSpecialStatuses[gActiveBattler].stenchRemoved = FALSE;
@@ -12435,7 +12571,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
+    }
     case VARIOUS_TRY_THIRD_TYPE:
+    {
         if (IS_BATTLER_OF_TYPE(gActiveBattler, gBattleMoves[gCurrentMove].argument))
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -12447,10 +12585,14 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
-    /*case VARIOUS_DESTROY_ABILITY_POPUP:
+    /*}
+    case VARIOUS_DESTROY_ABILITY_POPUP:
+    {
         DestroyAbilityPopUp(gActiveBattler);
         break;*/
+    }
     case VARIOUS_TOTEM_BOOST:
+    {
         gActiveBattler = gBattlerAttacker;
         if (gTotemBoosts[gActiveBattler].stats == 0)
         {
@@ -12485,11 +12627,15 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;    // exit if loop failed (failsafe)
         }
         return;
-        case VARIOUS_MOVEEND_ITEM_EFFECTS:
+    }
+    case VARIOUS_MOVEEND_ITEM_EFFECTS:
+    {
         if (ItemBattleEffects(ITEMEFFECT_NORMAL, gActiveBattler, FALSE))
             return;
         break;
+    }
     case VARIOUS_ROOM_SERVICE:
+    {
         if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_ROOM_SERVICE && TryRoomService(gActiveBattler))
         {
             BattleScriptPushCursor();
@@ -12500,7 +12646,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         }
         return; //vsonic IMPORTANT consider planter or way to get more of these as they are single use
+    }
     case VARIOUS_TERRAIN_SEED: //apparently are held items that activate on terrain and boost stats
+    {
         if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_SEEDS)
         {
             u8 effect = 0; //swapped stat buff of grass & psychic
@@ -12526,14 +12674,18 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         return;
+    }
     case VARIOUS_MAKE_INVISIBLE:
+    {
         if (gBattleControllerExecFlags)
             break;
         
         BtlController_EmitSpriteInvisibility(BUFFER_A, TRUE);
         MarkBattlerForControllerExec(gActiveBattler);
         break;
+    }
     case VARIOUS_JUMP_IF_TERRAIN_AFFECTED:
+    {
         {
             u32 flags = T1_READ_32(gBattlescriptCurrInstr + 3);
             if (IsBattlerTerrainAffected(gActiveBattler, flags))
@@ -12542,7 +12694,9 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gBattlescriptCurrInstr += 11;
         }
         return;
+    }
     case VARIOUS_EERIE_SPELL_PP_REDUCE:
+    {
         if (gLastMoves[gActiveBattler] != 0 && gLastMoves[gActiveBattler] != 0xFFFF)
         {
             s32 i;
@@ -12586,7 +12740,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);   // cant reduce pp
         }
         return;
+    }
     case VARIOUS_JUMP_IF_TEAM_HEALTHY:
+    {
         if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && IsBattlerAlive(BATTLE_PARTNER(gActiveBattler)))
         {
             u8 partner = BATTLE_PARTNER(gActiveBattler);
@@ -12604,7 +12760,9 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_TRY_HEAL_QUARTER_HP:
+    {
         gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 4;
         if (gBattleMoveDamage == 0)
             gBattleMoveDamage = 1;
@@ -12615,7 +12773,9 @@ static void atk76_various(void) //will need to add all these emerald various com
         else
             gBattlescriptCurrInstr += 7;   // can heal
         return;
+    }
     case VARIOUS_REMOVE_TERRAIN:
+    {
         gFieldTimers.terrainTimer = 0;
         switch (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
         {
@@ -12638,17 +12798,22 @@ static void atk76_various(void) //will need to add all these emerald various com
         gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;    // remove the terrain
         TryToRevertMimicry(); // restore the types of Pok�mon with Mimicry
         break;
+    }
     case VARIOUS_JUMP_IF_UNDER_200:
+    {
         // If the Pokemon is less than 200 kg, or weighing less than 441 lbs, then Sky Drop will work. Otherwise, it will fail.
         if (GetBattlerWeight(gBattlerTarget) < 441)
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_SET_SKY_DROP:
+    {
         gStatuses3[gBattlerTarget] |= (STATUS3_SKY_DROPPED | STATUS3_ON_AIR);
         /* skyDropTargets holds the information of who is in a particular instance of Sky Drop. 
-           This is needed in the case that multiple Pokemon use Sky Drop in the same turn or if
+           This is needed in the }
+    case that multiple Pokemon use Sky Drop in the same turn or if
            the target of a Sky Drop faints while in the air.*/
         gBattleStruct->skyDropTargets[gBattlerAttacker] = gBattlerTarget;
         gBattleStruct->skyDropTargets[gBattlerTarget] = gBattlerAttacker;
@@ -12664,7 +12829,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gSideTimers[GetBattlerSide(gBattlerTarget)].followmeTimer = 0;
 
         break;
+    }
     case VARIOUS_CLEAR_SKY_DROP:
+    {
         // Check to see if the initial target of this Sky Drop fainted before the 2nd turn of Sky Drop.
         // If so, make the move fail. If not, clear all of the statuses and continue the move.
         if (gBattleStruct->skyDropTargets[gBattlerAttacker] == 0xFF)
@@ -12681,7 +12848,9 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (gBattleMons[gBattlerTarget].status2 & STATUS2_LOCK_CONFUSE)
             gBattleScripting.moveEffect = (MOVE_EFFECT_CONFUSION | MOVE_EFFECT_CERTAIN);
         return;
-    case VARIOUS_SKY_DROP_YAWN: // If the mon that's sleeping due to Yawn was holding a Pokemon in Sky Drop, release the target and clear Sky Drop data.
+    }
+    case VARIOUS_SKY_DROP_YAWN:
+    { // If the mon that's sleeping due to Yawn was holding a Pokemon in Sky Drop, release the target and clear Sky Drop data.
         if (gBattleStruct->skyDropTargets[gEffectBattler] != 0xFF && !(gStatuses3[gEffectBattler] & STATUS3_SKY_DROPPED))
         {
             // Set the target of Sky Drop as gEffectBattler
@@ -12702,12 +12871,15 @@ static void atk76_various(void) //will need to add all these emerald various com
             }
         }
         break;
-    case VARIOUS_JUMP_IF_PRANKSTER_BLOCKED: //for some reason not currently used?
+    }
+    case VARIOUS_JUMP_IF_PRANKSTER_BLOCKED:
+    { //for some reason not currently used?
         if (DoesPranksterBlockMove(gCurrentMove, gBattlerAttacker, gActiveBattler, TRUE))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_TRY_TO_CLEAR_PRIMAL_WEATHER:
     {
         bool8 shouldNotClear = FALSE;
@@ -12742,6 +12914,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         break;  //add in 2nd round of string updates
     }
     case VARIOUS_GET_ROTOTILLER_TARGETS:
+    {
         // Gets the battlers to be affected by rototiller. If there are none, print 'But it failed!'
         {
             u32 count = 0;
@@ -12761,7 +12934,9 @@ static void atk76_various(void) //will need to add all these emerald various com
                 gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_JUMP_IF_NOT_ROTOTILLER_AFFECTED:
+    {
         if (gSpecialStatuses[gActiveBattler].rototillerAffected)
         {
             gSpecialStatuses[gActiveBattler].rototillerAffected = FALSE;
@@ -12772,7 +12947,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);   // Unaffected by rototiller - print STRINGID_NOEFFECTONTARGET
         }
         return;
+    }
     case VARIOUS_TRY_ACTIVATE_BATTLE_BOND:
+    {
         if (gBattleMons[gBattlerAttacker].species == SPECIES_GRENINJA
             && GetBattlerAbility(gBattlerAttacker) == ABILITY_BATTLE_BOND
             && HasAttackerFaintedTarget()
@@ -12786,6 +12963,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             return;
         }
         break;
+    }
     case VARIOUS_CONSUME_BERRY:
     {
         VARIOUS_ARGS(bool8 restoreItem);
@@ -12837,24 +13015,28 @@ static void atk76_various(void) //will need to add all these emerald various com
         return;
     }
     case VARIOUS_JUMP_IF_WEATHER_AFFECTED:
-        {
-            u32 weatherFlags = T1_READ_32(gBattlescriptCurrInstr + 3);
-            if (IsBattlerWeatherAffected(gActiveBattler, weatherFlags))
-                gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 7);
-            else
-                gBattlescriptCurrInstr += 11;
-        }
+    {
+        u32 weatherFlags = T1_READ_32(gBattlescriptCurrInstr + 3);
+        if (IsBattlerWeatherAffected(gActiveBattler, weatherFlags))
+            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 7);
+        else
+            gBattlescriptCurrInstr += 11;
         return;
+    }
     case VARIOUS_APPLY_PLASMA_FISTS:
+    {
         for (i = 0; i < gBattlersCount; i++)
             gStatuses4[i] |= STATUS4_PLASMA_FISTS;
         break;
+    }
     case VARIOUS_JUMP_IF_SPECIES:
+    {
         if (gBattleMons[gActiveBattler].species == T1_READ_16(gBattlescriptCurrInstr + 3))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
         else
             gBattlescriptCurrInstr += 9;
         return;
+    }
     case VARIOUS_PHOTON_GEYSER_CHECK:
     {
         u32 attackerAtkStat = gBattleMons[gBattlerAttacker].attack;
@@ -12874,8 +13056,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gSwapDamageCategory = TRUE;
         break;
     }
-    case VARIOUS_SHELL_SIDE_ARM_CHECK: // 0% chance GameFreak actually checks this way according to DaWobblefet, but this is the only functional explanation at the moment
-    {
+    }
+    case VARIOUS_SHELL_SIDE_ARM_CHECK:
+    { // 0% chance GameFreak actually checks this way according to DaWobblefet, but this is the only functional explanation at the moment
         u32 attackerAtkStat = gBattleMons[gBattlerAttacker].attack;
         u32 targetDefStat = gBattleMons[gBattlerTarget].defense;
         u32 attackerSpAtkStat = gBattleMons[gBattlerAttacker].spAttack;
@@ -12911,6 +13094,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         break;
     }
     case VARIOUS_JUMP_IF_LEAF_GUARD_PROTECTED:
+    {
         if (IsLeafGuardProtected(gActiveBattler))
         {
             gBattlerAbility = gActiveBattler;
@@ -12921,15 +13105,19 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_SET_ATTACKER_STICKY_WEB_USER:
-        // For Mirror Armor: "If the Pok�mon with this Ability is affected by Sticky Web, the effect is reflected back to the Pok�mon which set it up.
+    {
+        // For Mirror Armor:"If the Pok�mon with this Ability is affected by Sticky Web, the effect is reflected back to the Pok�mon which set it up.
         //  If Pok�mon which set up Sticky Web is not on the field, no Pok�mon have their Speed lowered."
         gBattlerAttacker = gBattlerTarget;  // Initialize 'fail' condition
         SET_STATCHANGER(STAT_SPEED, 2, TRUE);
         if (gBattleStruct->stickyWebUser != 0xFF)
             gBattlerAttacker = gBattleStruct->stickyWebUser;
         break;
+    }
     case VARIOUS_CUT_1_3_HP_RAISE_STATS:
+    {
         {
             bool8 atLeastOneStatBoosted = FALSE;
             u16 hpFraction = max(1, gBattleMons[gBattlerAttacker].maxHP / 3);
@@ -12953,7 +13141,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             }
         }
         return;
+    }
     case VARIOUS_SET_OCTOLOCK:
+    {
         if (gDisableStructs[gActiveBattler].octolock)
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -12966,7 +13156,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_CHECK_POLTERGEIST:
+    {
         if (gBattleMons[gActiveBattler].item == ITEM_NONE
            || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
            || GetBattlerAbility(gActiveBattler) == ABILITY_KLUTZ)
@@ -12980,7 +13172,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_TRY_NO_RETREAT:
+    {
         if (gDisableStructs[gActiveBattler].noRetreat)
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -12992,7 +13186,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_TRY_TAR_SHOT:
+    {
         if (gDisableStructs[gActiveBattler].tarShot)
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -13003,7 +13199,9 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         }
         return;
+    }
     case VARIOUS_CAN_TAR_SHOT_WORK:
+    {
         // Tar Shot will fail if it's already been used on the target and its speed can't be lowered further
         if (!gDisableStructs[gActiveBattler].tarShot 
             && CompareStat(gActiveBattler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN))
@@ -13011,7 +13209,9 @@ static void atk76_various(void) //will need to add all these emerald various com
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         return;
+    }
     case VARIOUS_TRY_TO_APPLY_MIMICRY:
+    {
     {
         bool8 isMimicryDone = FALSE;
 
@@ -13026,13 +13226,17 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr += 7;
         return;
     }
+    }
     case VARIOUS_JUMP_IF_CANT_FLING:
+    {
         if (!CanFling(gActiveBattler))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         else
             gBattlescriptCurrInstr += 7;
         return;
+    }
     case VARIOUS_CURE_CERTAIN_STATUSES:
+    {
         // Check infatuation
         if (gBattleMons[gActiveBattler].status2 & STATUS2_INFATUATION)
         {
@@ -13069,38 +13273,53 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         gBattlescriptCurrInstr += 3;
         return;
+    }
     case VARIOUS_TRY_RESET_NEGATIVE_STAT_STAGES:
+    {
         gActiveBattler = gBattlerTarget;
         for (i = 0; i < NUM_BATTLE_STATS; i++)
             if (gBattleMons[gActiveBattler].statStages[i] < DEFAULT_STAT_STAGE)
                 gBattleMons[gActiveBattler].statStages[i] = DEFAULT_STAT_STAGE;
         gBattlescriptCurrInstr += 3;
         return;
+    }
     case VARIOUS_JUMP_IF_LAST_USED_ITEM_BERRY:
+    {
         if (ItemId_GetPocket(gLastUsedItem) == POCKET_BERRY_POUCH)
             gBattlescriptCurrInstr += 7;
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         return;
+    }
     case VARIOUS_JUMP_IF_LAST_USED_ITEM_HOLD_EFFECT:
+    {
         if (ItemId_GetHoldEffect(gLastUsedItem) == gBattlescriptCurrInstr[3])
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 4);
         else
             gBattlescriptCurrInstr += 8;
         return;
+    }
     case VARIOUS_WAIT_FANFARE:
+    {
         if (!IsFanfareTaskInactive())
             return;
         break;
+    }
     case VARIOUS_SAVE_BATTLER_ITEM:
+    {
         gBattleResources->battleHistory->heldItems[gActiveBattler] = gBattleMons[gActiveBattler].item;
         break;
+    }
     case VARIOUS_RESTORE_BATTLER_ITEM:
+    {
         gBattleMons[gActiveBattler].item = gBattleResources->battleHistory->heldItems[gActiveBattler];
         break;
+    }
     case VARIOUS_BATTLER_ITEM_TO_LAST_USED_ITEM:
+    {
         gBattleMons[gActiveBattler].item = gLastUsedItem;
         break;
+    }
     case VARIOUS_JUMP_IF_EMERGENCY_EXITED:
     {
         VARIOUS_ARGS(const u8 *jumpInstr);
@@ -13119,23 +13338,55 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = cmd->nextInstr;
         return;
     }
-    case VARIOUS_CHECK_PARENTAL_BOND_COUNTER:  //vsonic   redo and use emerald setup now that I've porter args
-    {
-        //VARIOUS_ARGS(u8 counter, const u8 * jumpInstr);
-        // Some effects should only happen on the first or second strike of Parental Bond,
-        // so a way to check this in battle scripts is useful
-        u8 counter = gBattlescriptCurrInstr[1]; //might work idk
-        if (gSpecialStatuses[gBattlerAttacker].parentalBondState == counter && gBattleMons[gBattlerTarget].hp != 0)
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
-        else
-            gBattlescriptCurrInstr += 7; //idk if right hate these various args stuff
-        return;
-    }
+    
+    
     } // End of switch (gBattlescriptCurrInstr[2])
 
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
     
+void BS_TryQuash(void)
+{
+    NATIVE_ARGS(const u8 *failInstr);
+    u32 i;
+
+    // It's true if foe is faster, has a bigger priority, or switches
+    if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+        return;
+    }
+
+    // If the above condition is not true, it means we are faster than the foe, so we can set the quash bit
+    gProtectStructs[gBattlerTarget].quash = TRUE;
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        gBattlerByTurnOrder[i] = i;
+    }
+    for (i = 0; i < gBattlersCount - 1; i++)
+    {
+        s32 j;
+        for (j = i + 1; j < gBattlersCount; j++)
+        {
+            if (!gProtectStructs[i].quash
+             && !gProtectStructs[j].quash
+             && GetWhoStrikesFirst(gBattlerByTurnOrder[i], gBattlerByTurnOrder[j], FALSE) == -1)
+                SwapTurnOrder(i, j);
+        }
+    }
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_CheckParentalBondCounter(void)
+{
+    NATIVE_ARGS(u8 counter, const u8 *jumpInstr);
+    // Some effects should only happen on the first or second strike of Parental Bond,
+    // so a way to check this in battle scripts is useful
+    if (gSpecialStatuses[gBattlerAttacker].parentalBondState == cmd->counter && IsBattlerAlive(gBattlerTarget))
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
 
 static void atk77_setprotectlike(void)
 {
