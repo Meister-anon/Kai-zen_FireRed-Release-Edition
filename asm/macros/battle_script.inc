@@ -235,77 +235,79 @@
 	.4byte \ptr
 	.endm
 
-	.macro jumpifbyte ifflag:req, param1:req, param2:req, param3:req
+	.macro jumpifbyte ifflag:req, param1:req, param2:req, jumpInstr:req
 	.byte 0x29
 	.byte \ifflag
 	.4byte \param1
 	.byte \param2
-	.4byte \param3
+	.4byte \jumpInstr
 	.endm
 
-	.macro jumpifhalfword ifflag:req, param1:req, param2:req, param3:req
+	.macro jumpifhalfword ifflag:req, param1:req, param2:req, jumpInstr:req
 	.byte 0x2a
 	.byte \ifflag
 	.4byte \param1
 	.2byte \param2
-	.4byte \param3
+	.4byte \jumpInstr
 	.endm
 
-	.macro jumpifword ifflag:req, param1:req, param2:req, param3:req
+	.macro jumpifword ifflag:req, param1:req, param2:req, jumpInstr:req
 	.byte 0x2b
 	.byte \ifflag
 	.4byte \param1
 	.4byte \param2
-	.4byte \param3
+	.4byte \jumpInstr
 	.endm
 
-	.macro jumpifarrayequal param0:req, param1:req, param2:req, param3:req
+	@not used
+	.macro jumpifarrayequal array1:req, array2:req, param2:req, jumpInstr:req
 	.byte 0x2c
-	.4byte \param0
-	.4byte \param1
+	.4byte \array1
+	.4byte \array2
 	.byte \param2
-	.4byte \param3
+	.4byte \jumpInstr
 	.endm
 
-	.macro jumpifarraynotequal param0:req, param1:req, param2:req, param3:req
+	@also not used
+	.macro jumpifarraynotequal array1:req, array2:req, param2:req, jumpInstr:req
 	.byte 0x2d
-	.4byte \param0
-	.4byte \param1
+	.4byte \array1
+	.4byte \array2
 	.byte \param2
-	.4byte \param3
+	.4byte \jumpInstr
 	.endm
 
-	.macro setbyte ptr:req, param1:req
+	.macro setbyte ptr:req, value:req
 	.byte 0x2e
 	.4byte \ptr
-	.byte \param1
+	.byte \value
 	.endm
 
-	.macro addbyte ptr:req, param1:req
+	.macro addbyte ptr:req, value:req
 	.byte 0x2f
 	.4byte \ptr
-	.byte \param1
+	.byte \value
 	.endm
 
-	.macro subbyte ptr:req, param1:req
+	.macro subbyte ptr:req, value:req
 	.byte 0x30
 	.4byte \ptr
-	.byte \param1
+	.byte \value
 	.endm
 
-	.macro copyarray param0:req, param1:req, param2:req
+	.macro copyarray dest:req, source:req, value:req
 	.byte 0x31
-	.4byte \param0
-	.4byte \param1
-	.byte \param2
+	.4byte \dest
+	.4byte \source
+	.byte \value
 	.endm
 
-	.macro copyarraywithindex param0:req, param1:req, param2:req, param3:req
+	.macro copyarraywithindex dest:req, source:req, index:req, value:req
 	.byte 0x32
-	.4byte \param0
-	.4byte \param1
-	.4byte \param2
-	.byte \param3
+	.4byte \dest
+	.4byte \source
+	.4byte \index
+	.byte \value
 	.endm
 
 	.macro orbyte ptr:req, param1:req
@@ -344,9 +346,9 @@
 	.4byte \param1
 	.endm
 
-	.macro pause param0:req
+	.macro pause value:req
 	.byte 0x39
-	.2byte \param0
+	.2byte \value
 	.endm
 
 	.macro waitstate
@@ -417,11 +419,11 @@
 	.byte 0x47
 	.endm
 
-	.macro playstatchangeanimation battler:req, param1:req, param2:req
+	.macro playstatchangeanimation battler:req, statId:req, mode:req
 	.byte 0x48
 	.byte \battler
-	.byte \param1
-	.byte \param2
+	.byte \statId
+	.byte \mode
 	.endm
 
 	.macro moveend endMode:req, endState:req

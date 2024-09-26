@@ -4282,6 +4282,11 @@ goto ABILITY_ABSORB_CONDITION_FUNCTION //need update this function
 
   and strong jaw is relatively rare so not a major powercreep/balance breaker
 
+  major updgrade w potential issue emerald removed use of
+  gActiveBattler, because way it was used caused potential issue,
+  believe I dont have any but will still remove
+  same way I'm upgrading bs commands to cmd args for more exact results
+
   somehow sound is messed up, pokecenter heal, level up and few other sound effects are just off
 
   playfanfare MUS_HEAL - checking
@@ -4295,7 +4300,7 @@ goto ABILITY_ABSORB_CONDITION_FUNCTION //need update this function
 
   -for anymore broken sounds I know what to look for
   ok voicegroups 6-9 are off, the new voice groups are unused
-
+  
   - so find a fix ok found fix,
   issue  was songs.mk I changed the voice group files
   but didn't adjust the songs.mk which assigned voice groups to songs

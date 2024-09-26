@@ -6826,87 +6826,87 @@ static void atk28_goto(void)
 
 static void atk29_jumpifbyte(void)
 {
-    u8 caseID = gBattlescriptCurrInstr[1];
-    const u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 2);
-    u8 value = gBattlescriptCurrInstr[6];
-    const u8 *jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 7);
+    CMD_ARGS(u8 if_flag, const u8 *byte, u8 value, const u8 *jumpInstr);
 
-    gBattlescriptCurrInstr += 11;
+    const u8 *memByte = cmd->byte;
+    u8 value = cmd->value;
 
-    switch (caseID)
+    gBattlescriptCurrInstr = cmd->nextInstr;
+
+    switch (cmd->if_flag)
     {
     case CMP_EQUAL:
         if (*memByte == value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_NOT_EQUAL:
         if (*memByte != value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_GREATER_THAN:
         if (*memByte > value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_LESS_THAN:
         if (*memByte < value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_COMMON_BITS:
         if (*memByte & value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_NO_COMMON_BITS:
         if (!(*memByte & value))
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     }
 }
 
 static void atk2A_jumpifhalfword(void)
 {
-    u8 caseID = gBattlescriptCurrInstr[1];
-    const u16 *memHword = T2_READ_PTR(gBattlescriptCurrInstr + 2);
-    u16 value = T2_READ_16(gBattlescriptCurrInstr + 6);
-    const u8 *jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 8);
+     CMD_ARGS(u8 if_flag, const u16 *param, u16 value, const u8 *jumpInstr);
+    const u16 *memHword = cmd->param;
+    u16 value = cmd->value;
 
-    gBattlescriptCurrInstr += 12;
-    switch (caseID)
+    gBattlescriptCurrInstr = cmd->nextInstr;
+    switch (cmd->if_flag)
     {
     case CMP_EQUAL:
         if (*memHword == value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_NOT_EQUAL:
         if (*memHword != value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_GREATER_THAN:
         if (*memHword > value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_LESS_THAN:
         if (*memHword < value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_COMMON_BITS:
         if (*memHword & value)
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     case CMP_NO_COMMON_BITS:
         if (!(*memHword & value))
-            gBattlescriptCurrInstr = jumpPtr;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     }
 }
 
 static void atk2B_jumpifword(void)
 {
-    u8 caseID = gBattlescriptCurrInstr[1];
-    const u32 *memWord = T2_READ_PTR(gBattlescriptCurrInstr + 2);
-    u32 value = T1_READ_32(gBattlescriptCurrInstr + 6);
-    const u8 *jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 10);
+    CMD_ARGS(u8 if_flag, const u32 *param, u32 value, const u8 *jumpInstr);
+    u8 caseID = cmd->if_flag;
+    const u32 *memWord = cmd->param;
+    u32 value = cmd->value;
+    const u8 *jumpPtr = cmd->jumpInstr;
 
-    gBattlescriptCurrInstr += 14;
+    gBattlescriptCurrInstr = cmd->nextInstr;
     switch (caseID)
     {
     case CMP_EQUAL:
@@ -6936,19 +6936,21 @@ static void atk2B_jumpifword(void)
     }
 }
 
+//not used
 static void atk2C_jumpifarrayequal(void)
 {
-    const u8 *mem1 = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    const u8 *mem2 = T2_READ_PTR(gBattlescriptCurrInstr + 5);
-    u32 size = gBattlescriptCurrInstr[9];
-    const u8 *jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 10);
+    CMD_ARGS(const u8 *array1, const u8 *array2, u8 sizeVal, const u8 *jumpInstr);
+    const u8 *mem1 = cmd->array1;
+    const u8 *mem2 = cmd->array2;
+    u32 size = cmd->sizeVal;
+    const u8 *jumpPtr = cmd->jumpInstr;
     u8 i;
 
     for (i = 0; i < size; ++i)
     {
         if (*mem1 != *mem2)
         {
-            gBattlescriptCurrInstr += 14;
+            gBattlescriptCurrInstr = cmd->nextInstr;
             break;
         }
         ++mem1, ++mem2;
@@ -6957,129 +6959,141 @@ static void atk2C_jumpifarrayequal(void)
         gBattlescriptCurrInstr = jumpPtr;
 }
 
+//not used
 static void atk2D_jumpifarraynotequal(void)
 {
     u8 equalBytes = 0;
-    const u8 *mem1 = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    const u8 *mem2 = T2_READ_PTR(gBattlescriptCurrInstr + 5);
-    u32 size = gBattlescriptCurrInstr[9];
-    const u8 *jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 10);
+    CMD_ARGS(const u8 *array1, const u8 *array2, u8 sizeVal, const u8 *jumpInstr);
+    const u8 *mem1 = cmd->array1;
+    const u8 *mem2 = cmd->array2;
+    u32 size = cmd->sizeVal;
+    const u8 *jumpPtr = cmd->jumpInstr;
     u8 i;
 
     for (i = 0; i < size; ++i)
     {
-        if (*mem1 == *mem2)
+        if (*mem1 == *mem2)//believe checks array values at each element/member
             ++equalBytes;
         ++mem1, ++mem2;
     }
     if (equalBytes != size)
         gBattlescriptCurrInstr = jumpPtr;
     else
-        gBattlescriptCurrInstr += 14;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk2E_setbyte(void)
 {
-    u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 1);
+    CMD_ARGS(const u8 *byte, u8 value);
+    u8 *memByte = cmd->byte;
 
-    *memByte = gBattlescriptCurrInstr[5];
-    gBattlescriptCurrInstr += 6;
+    *memByte = cmd->value;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk2F_addbyte(void)
 {
-    u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-
-    *memByte += gBattlescriptCurrInstr[5];
-    gBattlescriptCurrInstr += 6;
+    CMD_ARGS(const u8 *byte, u8 value);
+    u8 *memByte = cmd->byte;
+    *memByte += cmd->value;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk30_subbyte(void)
 {
-    u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 1);
+    CMD_ARGS(const u8 *byte, u8 value);
+    u8 *memByte = cmd->byte;
 
-    *memByte -= gBattlescriptCurrInstr[5];
-    gBattlescriptCurrInstr += 6;
+    *memByte -= cmd->value;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk31_copyarray(void)
 {
-    u8 *dest = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    const u8 *src = T2_READ_PTR(gBattlescriptCurrInstr + 5);
-    s32 size = gBattlescriptCurrInstr[9];
+    CMD_ARGS(u8 *dest, const u8 *source, u8 value);
+    u8 *dest = cmd->dest;
+    const u8 *src = cmd->source;
+    s32 size = cmd->value;
     s32 i;
 
     for (i = 0; i < size; ++i)
     {
         dest[i] = src[i];
     }
-    gBattlescriptCurrInstr += 10;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk32_copyarraywithindex(void)
 {
-    u8 *dest = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    const u8 *src = T2_READ_PTR(gBattlescriptCurrInstr + 5);
-    const u8 *index = T2_READ_PTR(gBattlescriptCurrInstr + 9);
-    s32 size = gBattlescriptCurrInstr[13];
+    CMD_ARGS(u8 *dest, const u8 *source, const u8 *index, u8 value);
+    u8 *dest = cmd->dest;
+    const u8 *src = cmd->source;
+    const u8 *index = cmd->index;
+    s32 size = cmd->value;
     s32 i;
 
     for (i = 0; i < size; ++i)
     {
         dest[i] = src[i + *index];
     }
-    gBattlescriptCurrInstr += 14;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk33_orbyte(void)
 {
-    u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    *memByte |= gBattlescriptCurrInstr[5];
-    gBattlescriptCurrInstr += 6;
+    CMD_ARGS(const u8 *ptr, u8 value);
+    u8 *memByte = cmd->ptr;
+    *memByte |= cmd->value;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk34_orhalfword(void)
 {
-    u16 *memHword = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    u16 val = T2_READ_16(gBattlescriptCurrInstr + 5);
+    CMD_ARGS(const u16 *ptr, u16 value);
+    u16 *memHword = cmd->ptr;
+    u16 val = cmd->value;
 
     *memHword |= val;
-    gBattlescriptCurrInstr += 7;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk35_orword(void)
 {
-    u32 *memWord = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    u32 val = T2_READ_32(gBattlescriptCurrInstr + 5);
+    CMD_ARGS(const u32 *ptr, u32 value);
+    u32 *memWord = cmd->ptr;
+    u32 val = cmd->value;
 
     *memWord |= val;
-    gBattlescriptCurrInstr += 9;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk36_bicbyte(void)
 {
-    u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-
-    *memByte &= ~(gBattlescriptCurrInstr[5]);
-    gBattlescriptCurrInstr += 6;
+    CMD_ARGS(const u8 *ptr, u8 value);
+    u8 *memByte = cmd->ptr;
+    u8 val = cmd->value;
+    *memByte &= ~val;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk37_bichalfword(void)
 {
-    u16 *memHword = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    u16 val = T2_READ_16(gBattlescriptCurrInstr + 5);
+    CMD_ARGS(const u16 *ptr, u16 value);
+    u16 *memHword = cmd->ptr;
+    u16 val = cmd->value;
 
     *memHword &= ~val;
-    gBattlescriptCurrInstr += 7;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk38_bicword(void)
 {
-    u32 *memWord = T2_READ_PTR(gBattlescriptCurrInstr + 1);
-    u32 val = T2_READ_32(gBattlescriptCurrInstr + 5);
+    CMD_ARGS(const u32 *ptr, u32 value);
+    u32 *memWord = cmd->ptr;
+    u32 val = cmd->value;
 
     *memWord &= ~val;
-    gBattlescriptCurrInstr += 9;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 //if I changed this to check array which returned actually pause value
@@ -7099,10 +7113,11 @@ static void atk38_bicword(void)
 //ok tested and it works
 static void atk39_pause(void) 
 {
+    CMD_ARGS(u16 pause);
     if (!gBattleControllerExecFlags)
     {
         u8 BattleSpeed = GetBattleSpeedOption();
-        u16 value = T2_READ_16(gBattlescriptCurrInstr + 1);
+        u16 value = cmd->pause;
 
         //with increasd speed work backwards from limit,
         //i.e when using +1 the limit is wait time briefest,
@@ -7119,7 +7134,7 @@ static void atk39_pause(void)
         if (++gPauseCounterBattle >= gPauseValue[value]) //how is this working with values that don't fit into array i.e aren't set w buffers?
         {
             gPauseCounterBattle = 0;
-            gBattlescriptCurrInstr += 3;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         }
     }
 }
@@ -7235,13 +7250,14 @@ static void atk3A_waitstate(void)
 
 static void atk3B_healthbar_update(void)
 {
-    if (gBattlescriptCurrInstr[1] == BS_TARGET)
+    CMD_ARGS(u8 battler);
+    if (cmd->battler == BS_TARGET)
         gActiveBattler = gBattlerTarget;
     else
         gActiveBattler = gBattlerAttacker;
     BtlController_EmitHealthBarUpdate(0, gBattleMoveDamage);
     MarkBattlerForControllerExec(gActiveBattler);
-    gBattlescriptCurrInstr += 2;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk3C_return(void)
@@ -7272,8 +7288,9 @@ static void atk3F_end3(void) // pops the main function stack
 
 static void atk41_call(void)
 {
-    BattleScriptPush(gBattlescriptCurrInstr + 5);
-    gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+    CMD_ARGS(const u8 *ptr);
+    BattleScriptPush(cmd->nextInstr);
+    gBattlescriptCurrInstr = cmd->ptr;
 }
 
 static void atk42_missinghealthtoDmg(void) //replaced was no longer needed, was jumpiftype2 to use put before damagecalc
@@ -7290,10 +7307,11 @@ static void atk42_missinghealthtoDmg(void) //replaced was no longer needed, was 
 
 static void atk43_jumpifabilitypresent(void)
 {
-    if (AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, T1_READ_16(gBattlescriptCurrInstr + 1), 0, 0))
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
+    CMD_ARGS(u16 ability, const u8 *jumpInstr);
+    if (AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, cmd->ability, 0, 0))
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     else
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atk44_endselectionscript(void)
@@ -7303,64 +7321,66 @@ static void atk44_endselectionscript(void)
 
 static void atk45_playanimation(void)
 {
+    CMD_ARGS(u8 battler, u8 anim, const u16 *ptr);
     const u16 *argumentPtr;
 
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 3);
-    if (gBattlescriptCurrInstr[2] == B_ANIM_STATS_CHANGE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SNATCH_MOVE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SUBSTITUTE_FADE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SILPH_SCOPED)
+    gActiveBattler = GetBattlerForBattleScript(cmd->battler);
+    argumentPtr = cmd->ptr;
+    if (cmd->anim == B_ANIM_STATS_CHANGE
+     || cmd->anim == B_ANIM_SNATCH_MOVE
+     || cmd->anim == B_ANIM_SUBSTITUTE_FADE
+     || cmd->anim == B_ANIM_SILPH_SCOPED)
     {
-        BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
+        BtlController_EmitBattleAnimation(0, cmd->anim, *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (gHitMarker & HITMARKER_NO_ANIMATIONS)
     {
-        BattleScriptPush(gBattlescriptCurrInstr + 7);
+        BattleScriptPush(cmd->nextInstr);
         gBattlescriptCurrInstr = BattleScript_Pausex20;
     }
-    else if (gBattlescriptCurrInstr[2] == B_ANIM_RAIN_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_SUN_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_SANDSTORM_CONTINUES
-          || gBattlescriptCurrInstr[2] == B_ANIM_HAIL_CONTINUES)
+    else if (cmd->anim == B_ANIM_RAIN_CONTINUES
+          || cmd->anim == B_ANIM_SUN_CONTINUES
+          || cmd->anim == B_ANIM_SANDSTORM_CONTINUES
+          || cmd->anim == B_ANIM_HAIL_CONTINUES)
     {
-        BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
+        BtlController_EmitBattleAnimation(0, cmd->anim, *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (gStatuses3[gActiveBattler] & STATUS3_SEMI_INVULNERABLE)
     {
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        BtlController_EmitBattleAnimation(0, gBattlescriptCurrInstr[2], *argumentPtr);
+        BtlController_EmitBattleAnimation(0, cmd->anim, *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 7;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atk46_playanimation2(void) // animation Id is stored in the first pointer
 {
+    CMD_ARGS(u8 battler, const u8 *anim, const u16 *argPtr);
     const u16 *argumentPtr;
     const u8 *animationIdPtr;
 
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    animationIdPtr = T2_READ_PTR(gBattlescriptCurrInstr + 2);
-    argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 6);
+    u8 battlerId = GetBattlerForBattleScript(cmd->battler);
+    animationIdPtr = cmd->anim;
+    argumentPtr = cmd->argPtr;
     if (*animationIdPtr == B_ANIM_STATS_CHANGE
      || *animationIdPtr == B_ANIM_SNATCH_MOVE
      || *animationIdPtr == B_ANIM_SUBSTITUTE_FADE)
     {
         BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 10;
+        MarkBattlerForControllerExec(battlerId);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (gHitMarker & HITMARKER_NO_ANIMATIONS)
     {
-        gBattlescriptCurrInstr += 10;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (*animationIdPtr == B_ANIM_RAIN_CONTINUES
           || *animationIdPtr == B_ANIM_SUN_CONTINUES
@@ -7368,18 +7388,18 @@ static void atk46_playanimation2(void) // animation Id is stored in the first po
           || *animationIdPtr == B_ANIM_HAIL_CONTINUES)
     {
         BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 10;
+        MarkBattlerForControllerExec(battlerId);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
-    else if (gStatuses3[gActiveBattler] & STATUS3_SEMI_INVULNERABLE)
+    else if (gStatuses3[battlerId] & STATUS3_SEMI_INVULNERABLE)
     {
-        gBattlescriptCurrInstr += 10;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
         BtlController_EmitBattleAnimation(0, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 10;
+        MarkBattlerForControllerExec(battlerId);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -7416,17 +7436,18 @@ static void atk47_setgraphicalstatchangevalues(void)    //may need change this t
 #define STAT_ANIM_W_ABILITIES
 static void atk48_playstatchangeanimation(void)
 {
+    CMD_ARGS(battler, u8 stat, u8 mode);
     u32 ability;
     u32 currStat = 0;
     u16 statAnimId = 0;
     s32 changeableStatsCount = 0;
     u8 statsToCheck = 0;
-    u8 flags;
+    u8 flags, battlerId;
 
-    ability = GetBattlerAbility(gActiveBattler);
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    statsToCheck = gBattlescriptCurrInstr[2];
-    flags = gBattlescriptCurrInstr[3];
+    ability = GetBattlerAbility(cmd->battler);
+    battlerId = GetBattlerForBattleScript(cmd->battler);
+    statsToCheck = cmd->stat;
+    flags = cmd->mode;
 
     // Handle Contrary and Simple
     if (ability == ABILITY_CONTRARY)
@@ -7448,14 +7469,14 @@ static void atk48_playstatchangeanimation(void)
             {
                 if (flags & STAT_CHANGE_DONT_CHECK_LOWER)
                 {
-                    if (gBattleMons[gActiveBattler].statStages[currStat] > 0)
+                    if (gBattleMons[battlerId].statStages[currStat] > 0)
                     {
                         statAnimId = startingStatAnimId + currStat;
                         ++changeableStatsCount;
                     }
                 }
-                else if ((!gSideTimers[GET_BATTLER_SIDE(gActiveBattler)].mistTimer
-                        || (!IsBlackFogNotOnField() && gSideTimers[GET_BATTLER_SIDE(gActiveBattler)].mistTimer))
+                else if ((!gSideTimers[GET_BATTLER_SIDE(battlerId)].mistTimer
+                        || (!IsBlackFogNotOnField() && gSideTimers[GET_BATTLER_SIDE(battlerId)].mistTimer))
                         && ability != ABILITY_CLEAR_BODY
                         && ability != ABILITY_LEAF_GUARD
                         && ability != ABILITY_FULL_METAL_BODY
@@ -7470,9 +7491,9 @@ static void atk48_playstatchangeanimation(void)
                         && !(ability == ABILITY_HYPER_CUTTER && currStat == STAT_ATK)
                         && !(ability == ABILITY_BIG_PECKS && currStat == STAT_ATK)
                         && !(ability == ABILITY_BIG_PECKS && currStat == STAT_DEF)
-                        && !IsFlowerVeilProtected(gActiveBattler))
+                        && !IsFlowerVeilProtected(battlerId))
                 {
-                    if (gBattleMons[gActiveBattler].statStages[currStat] > 0)
+                    if (gBattleMons[battlerId].statStages[currStat] > 0)
                     {
                         statAnimId = startingStatAnimId + currStat;
                         ++changeableStatsCount;
@@ -7501,7 +7522,7 @@ static void atk48_playstatchangeanimation(void)
 
         while (statsToCheck != 0)
         {
-            if (statsToCheck & 1 && gBattleMons[gActiveBattler].statStages[currStat] < 0xC)
+            if (statsToCheck & 1 && gBattleMons[battlerId].statStages[currStat] < 0xC)
             {
                 statAnimId = startingStatAnimId + currStat;
                 ++changeableStatsCount;
@@ -7519,19 +7540,19 @@ static void atk48_playstatchangeanimation(void)
     }
     if (flags & STAT_CHANGE_ONLY_MULTIPLE && changeableStatsCount < 2)
     {
-        gBattlescriptCurrInstr += 4;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (changeableStatsCount != 0 && !gBattleScripting.statAnimPlayed)
     {
         BtlController_EmitBattleAnimation(0, B_ANIM_STATS_CHANGE, statAnimId);
-        MarkBattlerForControllerExec(gActiveBattler);
+        MarkBattlerForControllerExec(battlerId);
         if (flags & STAT_CHANGE_ONLY_MULTIPLE && changeableStatsCount > 1)
             gBattleScripting.statAnimPlayed = TRUE;
-        gBattlescriptCurrInstr += 4;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr += 4;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -8789,30 +8810,31 @@ static void atk4A_typecalc2(void)   //aight this is only for counter, mirror coa
 
 static void atk4B_returnatktoball(void)
 {
-    gActiveBattler = gBattlerAttacker;
-    if (!(gHitMarker & HITMARKER_FAINTED(gActiveBattler)))
+    if (!(gHitMarker & HITMARKER_FAINTED(gBattlerAttacker)))
     {
         BtlController_EmitReturnMonToBall(0, 0);
-        MarkBattlerForControllerExec(gActiveBattler);
+        MarkBattlerForControllerExec(gBattlerAttacker);
     }
     ++gBattlescriptCurrInstr;
 }
 
 static void atk4C_getswitchedmondata(void)
 {
+    CMD_ARGS(u8 battler);
     if (!gBattleControllerExecFlags)
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-        gBattlerPartyIndexes[gActiveBattler] = *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
-        BtlController_EmitGetMonData(0, REQUEST_ALL_BATTLE, gBitTable[gBattlerPartyIndexes[gActiveBattler]]);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 2;
+        u8 battlerId = GetBattlerForBattleScript(cmd->battler);
+        gBattlerPartyIndexes[battlerId] = *(gBattleStruct->monToSwitchIntoId + battlerId);
+        BtlController_EmitGetMonData(0, REQUEST_ALL_BATTLE, gBitTable[gBattlerPartyIndexes[battlerId]]);
+        MarkBattlerForControllerExec(battlerId);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 #define BASESTATS_TO_BATTLEMONS_CONVERSION
 static void atk4D_switchindataupdate(void)  //important, think can use THIS to make switchin abilities repeat, would work for both fainted and turn switched.
 { // ok switch in repeat isn't here can do it elsewhere
+    CMD_ARGS(u8 battler);
     struct BattlePokemon oldData;
     s32 i;
     u8 *monData;
@@ -8822,16 +8844,16 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
 
     if (!gBattleControllerExecFlags)
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-        oldData = gBattleMons[gActiveBattler];
-        monData = (u8 *)(&gBattleMons[gActiveBattler]);
+        u8 battlerId = GetBattlerForBattleScript(cmd->battler);
+        oldData = gBattleMons[battlerId];
+        monData = (u8 *)(&gBattleMons[battlerId]);
 
         for (i = 0; i < sizeof(struct BattlePokemon); ++i)
         {
-            monData[i] = gBattleBufferB[gActiveBattler][4 + i]; //not 100% what this does but seems tobe populating new mon data
+            monData[i] = gBattleBufferB[battlerId][4 + i]; //not 100% what this does but seems tobe populating new mon data
         } //if I put species checks above this it doesn't correctly load data
 
-        species = gBattleMons[gActiveBattler].species;
+        species = gBattleMons[battlerId].species;
         //for some reason broke shit and now loading wrong mon type when switching?
         //turns everything into species 0, normal type
         //I was putting it above definition of activebattler so poplated w nothing
@@ -8846,38 +8868,39 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
         || species == SPECIES_PIKACHU_POP_STAR
         || species == SPECIES_PIKACHU_PH_D
         || species == SPECIES_PIKACHU_LIBRE
-        || species == SPECIES_BASCULIN_WHITE_STRIPED)
+        || species == SPECIES_BASCULIN_WHITE_STRIPED)//exceptions to cosmetic i.e mon has both cosmetic & practical forms
             applied_species = species;
 
-        gBattleMons[gActiveBattler].type1 = gBaseStats[applied_species].type1;
-        gBattleMons[gActiveBattler].type2 = gBaseStats[applied_species].type2;
-        gBattleMons[gActiveBattler].type3 = TYPE_MYSTERY;
-        gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(applied_species, gBattleMons[gActiveBattler].abilityNum);
+        gBattleMons[battlerId].type1 = gBaseStats[applied_species].type1;
+        gBattleMons[battlerId].type2 = gBaseStats[applied_species].type2;
+        gBattleMons[battlerId].type3 = TYPE_MYSTERY;
+        gBattleMons[battlerId].ability = GetAbilityBySpecies(applied_species, gBattleMons[battlerId].abilityNum);
         // check knocked off item
-        i = GetBattlerSide(gActiveBattler);
-        if (gWishFutureKnock.knockedOffMons[i] & gBitTable[gBattlerPartyIndexes[gActiveBattler]])
-            gBattleMons[gActiveBattler].item = 0;
+        i = GetBattlerSide(battlerId);
+        if (gWishFutureKnock.knockedOffMons[i] & gBitTable[gBattlerPartyIndexes[battlerId]])
+            gBattleMons[battlerId].item = 0;
         if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS)
         {
             for (i = 0; i < NUM_BATTLE_STATS; ++i)
             {
-                gBattleMons[gActiveBattler].statStages[i] = oldData.statStages[i];
+                gBattleMons[battlerId].statStages[i] = oldData.statStages[i];
             }
-            gBattleMons[gActiveBattler].status2 = oldData.status2;
+            gBattleMons[battlerId].status2 = oldData.status2;
         }
         SwitchInClearSetData();
-        gBattleScripting.battler = gActiveBattler;
-        PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gActiveBattler, gBattlerPartyIndexes[gActiveBattler]);
-        gBattlescriptCurrInstr += 2;
+        gBattleScripting.battler = battlerId;
+        PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battlerId, gBattlerPartyIndexes[battlerId]);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 } //type issue I'm having seems to be fixed, by switchign which I believe is this functinon, I think somehow I'm being set to species 0 for wilds which is type normal?
 
 static void atk4E_switchinanim(void)
 {
+    CMD_ARGS(u8 battler, u8 substitutemode);
     if (!gBattleControllerExecFlags)
     {
-        gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-        if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT
+        u8 battlerId = GetBattlerForBattleScript(cmd->battler);
+        if (GetBattlerSide(battlerId) == B_SIDE_OPPONENT
          && !(gBattleTypeFlags & 
               (BATTLE_TYPE_LINK
             | BATTLE_TYPE_LEGENDARY
@@ -8885,11 +8908,11 @@ static void atk4E_switchinanim(void)
             | BATTLE_TYPE_POKEDUDE
             | BATTLE_TYPE_EREADER_TRAINER
             | BATTLE_TYPE_GHOST)))
-            HandleSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gActiveBattler].species), FLAG_SET_SEEN, gBattleMons[gActiveBattler].personality);
-        gAbsentBattlerFlags &= ~(gBitTable[gActiveBattler]);
-        BtlController_EmitSwitchInAnim(0, gBattlerPartyIndexes[gActiveBattler], gBattlescriptCurrInstr[2]);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 3;
+            HandleSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[battlerId].species), FLAG_SET_SEEN, gBattleMons[battlerId].personality);
+        gAbsentBattlerFlags &= ~(gBitTable[battlerId]);
+        BtlController_EmitSwitchInAnim(0, gBattlerPartyIndexes[battlerId], cmd->substitutemode);
+        MarkBattlerForControllerExec(battlerId);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
