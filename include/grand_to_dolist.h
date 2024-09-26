@@ -4287,6 +4287,8 @@ goto ABILITY_ABSORB_CONDITION_FUNCTION //need update this function
   believe I dont have any but will still remove
   same way I'm upgrading bs commands to cmd args for more exact results
 
+  also of note removal of gBitTable change was made because gBitTable was slow
+
   somehow sound is messed up, pokecenter heal, level up and few other sound effects are just off
 
   playfanfare MUS_HEAL - checking
