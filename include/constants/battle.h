@@ -352,8 +352,8 @@
 #define HITMARKER_OBEYS                 (1 << 25)
 #define HITMARKER_NEVER_SET             (1 << 26) // Cleared as part of a large group. Never set or checked
 #define HITMARKER_CHARGING              (1 << 27)
-#define HITMARKER_FAINTED(battler)      (gBitTable[battler] << 28)
-#define HITMARKER_FAINTED2(battler)     ((1 << 28) << battler)	//removed hitmarker semi invul underground etc. can't go up to fainted2 value
+#define HITMARKER_FAINTED(battler)      (1u << (battler + 28))
+#define HITMARKER_FAINTED2(battler)     HITMARKER_FAINTED(battler)	//removed hitmarker semi invul underground etc. can't go up to fainted2 value
 #define HITMARKER_STRING_PRINTED        (1 << 29) //extra from emerald in case need
 
 // Per-side statuses that affect an entire party

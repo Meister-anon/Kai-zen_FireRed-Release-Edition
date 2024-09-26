@@ -357,7 +357,7 @@ struct SpecialStatus    //gets cleared at end turn
     u8 tigeredMon : 1;          // 0x8  extra set incase using intimidatedmon prevents using both at once
     u8 traced : 1;                  // 0x10
     u8 ppNotAffectedByPressure : 1;
-    u8 flag40 : 1;
+    u8 faintedHasReplacement : 1;
 
     u8 field1[3]; //think this is counted different rather than a portion of 1 byte its 3 full bytes
 
@@ -569,7 +569,7 @@ struct BattleResults
 {
     u8 playerFaintCounter;    // 0x0
     u8 opponentFaintCounter;  // 0x1
-    u8 playerSwitchesCounter; // 0x2
+    u8 playerSwitchesCounter; // 0x2    //vsonic IMPORTANT make opponent vers of this & use for ai cap at num switch
     u8 numHealingItemsUsed;   // 0x3
     u8 numRevivesUsed;        // 0x4
     u8 playerMonWasDamaged : 1; // 0x5
@@ -590,8 +590,12 @@ struct BattleResults
     u8 caughtMonNick[POKEMON_NAME_LENGTH];     // 0x2A
     u8 filler34[2];
     //u8 catchAttempts[11];     // 0x36
-    u8 catchAttempts[POKEMON_NAME_LENGTH + 1];     // 0x36
+    u8 catchAttempts[BALL_COUNT];     // 0x36
 };//some of these seem just for statistics so may remove
+//compard to emerald 11 wasn't name was number diff balls,
+//apparently count increments for each type of ball used
+//still irrelevant until fetch applied, then uses to tell if has thrown a ball
+//odd seems most of these are un used?
 
 
 extern struct BattleResults gBattleResults;

@@ -30,6 +30,7 @@
 //       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs
 #define FIRST_BALL ITEM_MASTER_BALL
 #define LAST_BALL  ITEM_PREMIER_BALL
+#define BALL_COUNT LAST_BALL - FIRST_BALL
 
 #define ITEM_POTION 13
 #define ITEM_ANTIDOTE 14
