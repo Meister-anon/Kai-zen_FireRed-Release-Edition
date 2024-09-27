@@ -1730,6 +1730,11 @@
 	.4byte \ptr
 	.endm
 
+	@argument for type lost is built into move rather than sript
+	.macro losetype battler:req
+	various \battler, VARIOUS_LOSE_TYPE
+	.endm
+
 	.macro trypsychoshift ptr:req
 	various BS_ATTACKER, VARIOUS_PSYCHO_SHIFT
 	.4byte \ptr
@@ -1846,11 +1851,6 @@
 	.4byte \ptr
 	.endm
 
-	@argument for type lost is built into move rather than sript
-	.macro losetype battler:req
-	various \battler, VARIOUS_LOSE_TYPE
-	.endm
-
 	.macro tryfriskmsg battler:req
 	various \battler, VARIOUS_TRY_FRISK
 	.endm
@@ -1883,8 +1883,8 @@
 	.4byte \ptr
 	.endm
 
-	.macro jumpifnoholdeffect battler:req, holdEffet:req, ptr:req
-	various \battler, VARIOUS_JUMP_IF_NO_HOLD_EFFECT
+	.macro jumpifnotholdeffect battler:req, holdEffet:req, ptr:req
+	various \battler, VARIOUS_JUMP_IF_NOT_HOLD_EFFECT
 	.byte \holdEffet
 	.4byte \ptr
 	.endm

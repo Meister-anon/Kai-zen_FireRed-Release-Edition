@@ -184,7 +184,7 @@
 #define VARIOUS_TRY_FAIRY_LOCK                  94
 #define VARIOUS_JUMP_IF_NO_ALLY                 95
 #define VARIOUS_POISON_TYPE_IMMUNITY            96
-#define VARIOUS_JUMP_IF_NO_HOLD_EFFECT          97
+#define VARIOUS_JUMP_IF_NOT_HOLD_EFFECT          97
 #define VARIOUS_INFATUATE_WITH_BATTLER          98
 #define VARIOUS_SET_LAST_USED_ITEM              99
 #define VARIOUS_PARALYZE_TYPE_IMMUNITY          100
