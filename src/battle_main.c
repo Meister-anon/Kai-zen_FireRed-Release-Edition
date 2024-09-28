@@ -7078,7 +7078,8 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
                     | HITMARKER_CHARGING | HITMARKER_NEVER_SET | HITMARKER_IGNORE_DISGUISE);
     
     // check if Stellar type boost should be used up
-    moveType = GetMoveType(gCurrentMove);
+    //moveType = GetMoveType(gCurrentMove);
+    GET_MOVE_TYPE(gCurrentMove, moveType);//EE addition attempt workaround
 
     /*if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA
         && GetBattlerTeraType(gBattlerAttacker) == TYPE_STELLAR
@@ -7086,7 +7087,7 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
         && IsTypeStellarBoosted(gBattlerAttacker, moveType))
     {
         ExpendTypeStellarBoost(gBattlerAttacker, moveType);
-    }*///put in later revisist
+    }*///put in later revisist vsonic Important
     
     
     
