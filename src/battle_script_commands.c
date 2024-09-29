@@ -14387,7 +14387,7 @@ static void atk8D_setmultihitcounter(void)  //setmultihit   looks like I should 
         else // value 0 or 1
             gMultiHitCounter += 2; //else add 2 to multi counter, returning a multihit of 2 or 3.
     }
-   // gMultiTask = gMultiHitCounter;
+   // gMultiTask = gMultiHitCounter;*/
     ++gBattlescriptCurrInstr;
 }
 
@@ -18110,7 +18110,7 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 
 static void atkF1_trysetcaughtmondexflags(void)
 {
-    CMD_ARGS(const u8 failInstr);
+    CMD_ARGS(const u8 *failInstr);
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY, NULL);
 
@@ -18264,7 +18264,7 @@ void BattleDestroyYesNoCursorAt(void)
 
 static void atkF3_trygivecaughtmonnick(void)
 {
-    CMD_ARGS(const u8 jumpInstr);
+    CMD_ARGS(const u8 *jumpInstr);
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
