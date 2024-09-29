@@ -704,9 +704,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro tryhealthirdhealth param0:req, battler:req
+	.macro tryhealthirdhealth ptr:req, battler:req
 	.byte 0x7b
-	.4byte \param0
+	.4byte \ptr
 	.byte \battler
 	.endm
 
