@@ -1034,10 +1034,10 @@
 	.4byte \param0
 	.endm
 
-	.macro trydobeatup param0:req, param1:req
+	.macro trydobeatup ptr:req, failInstr:req
 	.byte 0xc4
-	.4byte \param0
-	.4byte \param1
+	.4byte \ptr
+	.4byte \failInstr
 	.endm
 
 	.macro setsemiinvulnerablebit
@@ -1418,6 +1418,12 @@
 
 	.macro setuserstatus3 flags:req, ptr:req
 	callnative BS_setuserstatus3
+	.4byte \flags
+	.4byte \ptr
+	.endm
+
+	.macro setuserstatus4 flags:req, ptr:req
+	callnative BS_setuserstatus4
 	.4byte \flags
 	.4byte \ptr
 	.endm

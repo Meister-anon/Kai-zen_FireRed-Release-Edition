@@ -341,7 +341,7 @@ static void atkE8_settypebasedhalvers(void);
 static void atkE9_setweatherballtype(void); //not used
 static void atkEA_tryrecycleitem(void);
 static void atkEB_settypetoterrain(void);
-static void atkEC_pursuitrelated(void);
+static void atkEC_pursuitrelated(void);  //not used
 static void atkED_snatchsetbattlers(void);
 static void atkEE_removelightscreenreflect(void);
 static void atkEF_handleballthrow(void);
@@ -1877,7 +1877,6 @@ static void atk01_accuracycheck(void)
             || DoesBattlerAbilityAbsorbMoveType(BATTLE_PARTNER(gBattlerTarget), moveType)) //drawn in moves are supposed to never miss so this should hopefully do that
     {
         // No acc checks for second hit of Parental Bond or skill linked moves, removed other multihit as I want those to work differently, now all go through acc check on each hit
-        //gBattlescriptCurrInstr += 7;
         JumpIfMoveFailed(7, gCurrentMove); //ok so was RAELLY stupid, adding ability absorb to skip here,
         //messed up the call to the abilityeffect in the firstplace somehow so had I wasn't calling the ability bracket at all
     }
@@ -6329,17 +6328,6 @@ static void atk21_jumpifstatus3condition(void) //breaks into jumpif, and jump if
     }
 }
 
-/*static void atk22_jumpiftype(void)
-{
-    u8 battlerId = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    u8 type = gBattlescriptCurrInstr[2];
-    const u8 *jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 3);
-
-    if (IS_BATTLER_OF_TYPE(battlerId, type))
-        gBattlescriptCurrInstr = jumpPtr;
-    else
-        gBattlescriptCurrInstr += 7;
-}*/
 
 static void atk22_jumpbasedontype(void)  //may need to adjust currinstr values
 {
@@ -10031,7 +10019,6 @@ static void atk5A_yesnoboxlearnmove(void)
                 gBattlescriptCurrInstr = cmd->nextInstr;// don't jump don't forget move progress to next script
             }
             else //move to next script if select yes
-                //gBattlescriptCurrInstr += 5;  won't to use pointer and learn move just need to continue in this case
             {
                 HandleBattleWindow(0x17, 0x8, 0x1D, 0xD, WINDOW_CLEAR);
                 //gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1); bruh this extra jump was literaly the problem!!
@@ -14401,7 +14388,6 @@ static void atk8D_setmultihitcounter(void)  //setmultihit   looks like I should 
             gMultiHitCounter += 2; //else add 2 to multi counter, returning a multihit of 2 or 3.
     }
    // gMultiTask = gMultiHitCounter;
-    gBattlescriptCurrInstr += 2;*/
     ++gBattlescriptCurrInstr;
 }
 
@@ -16361,7 +16347,7 @@ static void atkBD_copyfoestats(void) // psych up
 
     for (i = 0; i < NUM_BATTLE_STATS; ++i)
         gBattleMons[gBattlerAttacker].statStages[i] = gBattleMons[gBattlerTarget].statStages[i];
-    gBattlescriptCurrInstr += 5; // Has an unused jump ptr(possibly for a failed attempt) parameter.
+    gBattlescriptCurrInstr = cmd->nextInstr; // Has an unused jump ptr(possibly for a failed attempt) parameter.
 }
 
 static void atkBE_rapidspinfree(void) //need fix this clear isn't right
@@ -16443,12 +16429,14 @@ static void atkBE_rapidspinfree(void) //need fix this clear isn't right
 
 static void atkBF_setdefensecurlbit(void)
 {
+    CMD_ARGS();
     gBattleMons[gBattlerAttacker].status2 |= STATUS2_DEFENSE_CURL;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, will keep the boost at its current levels
 {
+    CMD_ARGS(const u8 *failInstr);
     gBattlerTarget = gBattlerAttacker;
     if (gBattleMons[gBattlerAttacker].hp != gBattleMons[gBattlerAttacker].maxHP)
     {
@@ -16461,12 +16449,12 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
                 //gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 3;
                 gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
         }
+        else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField()) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
+            gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30; //it has low bst overall so just keep full boost here, cut solar beam boost
         else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
             gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
             gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
-        else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField()) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
-            gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30; //it has low bst overall so just keep full boost here, cut solar beam boost
         else // not sunny weather
             gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;
 
@@ -16474,11 +16462,11 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
             gBattleMoveDamage = 1;
         gBattleMoveDamage *= -1;
 
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
@@ -16563,11 +16551,12 @@ static void atkC2_selectfirstvalidtarget(void)
 //this is used for future sight and doom desire I want this specifically for future sight only
 static void atkC3_trysetfutureattack(void) 
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gCurrentMove == MOVE_FUTURE_SIGHT)
     {
         if ((gWishFutureKnock.futureSightCounter[gBattlerTarget]) && (gWishFutureKnock.futureSightCounter2[gBattlerTarget])) //prevents spamming each turn
         {   //when set upgrade, change to if both counters do not equal 0
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1); //its not showing the failed message and I don't know why
+            gBattlescriptCurrInstr = cmd->failInstr; //its not showing the failed message and I don't know why
             //ok think its because it plays after moves are done ni move result, and would be on turn, where it would play on move end
             //so the move landing overwrites the move failed script I think, annoying but not a major issue
             //also since this doesn't do super or seem to get stab, its not super op,
@@ -16596,14 +16585,13 @@ static void atkC3_trysetfutureattack(void)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 1;
             else*/
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-            //gBattlescriptCurrInstr += 5;
         }
     }
     else
     {
         if (gWishFutureKnock.futureSightCounter[gBattlerTarget] != 0 && gWishFutureKnock.futureSightCounter2[gBattlerTarget] != 0) //prevents spamming each turn
         {   //to avoid issues with move name, don't allow doom desire if either couner is in use
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->failInstr;
         }
         else
         {
@@ -16624,10 +16612,9 @@ static void atkC3_trysetfutureattack(void)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 1; //potentially add on, if more moves used, 
             //else
               //  gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-            //gBattlescriptCurrInstr += 5;
         }
     }
-    gBattlescriptCurrInstr += 5;
+    gBattlescriptCurrInstr = cmd->nextInstr;
     //vsonic IMPORTANT
 }//may add a way to do a second future sight before timer is up for a bit of strategy
 //should be simple as adding a 2nd futureSightCounter, with same effects
@@ -16652,6 +16639,7 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
 //redo as normal multihit effect that loops based on number of mon in party this function would serve as alternate dmgcalc
 //can put number of hits
 {
+    CMD_ARGS(const u8 *jumpInstr, const u8 *failInstr);
     struct Pokemon *party;
     //u16 gDynamicBasePower = 0; //setting to 0, made it not insta kill,
     //still don't know if it now works propperly against defenses, believe it should.
@@ -16673,7 +16661,7 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
         party = gEnemyParty;
     if (gBattleMons[gBattlerTarget].hp == 0) //why isn't this ending the move?
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     }
     else
     {
@@ -16696,7 +16684,7 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
         if (gBattleCommunication[0] < PARTY_SIZE) 
         { //don't want to use base attack that would ignore all gains
             PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattlerAttacker, gBattleCommunication[0])
-            gBattlescriptCurrInstr += 9;
+            gBattlescriptCurrInstr = cmd->nextInstr;
             //gBattleMoveDamage = gBaseStats[GetMonData(&party[gBattleCommunication[0]], MON_DATA_SPECIES)].baseAttack;
             gBattleMoveDamage = ((GetMonData(&party[gBattleCommunication[0]], MON_DATA_ATK2)) / 4 + 1); //was too high at early levels scaled down for consistency
             
@@ -16760,9 +16748,9 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
             //while I would like to use isbattlertype, this is looping the entire party, and that macro can only check battlers
         }
         else if (beforeLoop != 0) //edited 3/26/23 think it should all work out now. ?
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         else
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
+            gBattlescriptCurrInstr = cmd->failInstr;
     }
 } //if I did this correctly it should still be typeless, but calculate on battle attack
 //instead of species base attack, give stab multiplier if attaking party member is type dark
@@ -16770,6 +16758,7 @@ static void atkC4_trydobeatup(void) //beatup is still typeless in gen3 so no sta
 
 static void atkC5_setsemiinvulnerablebit(void)  //thsi command is why move effect doesn't use secondaryeffectchance its handled in battlescript
 {
+    CMD_ARGS();
     switch (gCurrentMove)   //this sets the status but the logic  is handled in accuracyhelper function
     {
     case MOVE_FLY:
@@ -16792,29 +16781,32 @@ static void atkC5_setsemiinvulnerablebit(void)  //thsi command is why move effec
         gStatuses3[gBattlerAttacker] |= STATUS3_PHANTOM_FORCE;
         break;
     }
-    ++gBattlescriptCurrInstr;
+   gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkC6_clearsemiinvulnerablebit(void)
 {
+    CMD_ARGS();
     gStatuses3[gBattlerAttacker] &= ~STATUS3_SEMI_INVULNERABLE;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkC7_setminimize(void)
 {
+    CMD_ARGS();
     if (gHitMarker & HITMARKER_OBEYS)
         gStatuses3[gBattlerAttacker] |= STATUS3_MINIMIZED;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkC9_jumpifattackandspecialattackcannotfall(void) // memento
 {
+    CMD_ARGS(const u8 *jumpInstr);
     if (gBattleMons[gBattlerTarget].statStages[STAT_ATK] == 0
      && gBattleMons[gBattlerTarget].statStages[STAT_SPATK] == 0
      && gBattleCommunication[6] != 1)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     }
     else
     {
@@ -16825,76 +16817,83 @@ static void atkC9_jumpifattackandspecialattackcannotfall(void) // memento
             gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
         BtlController_EmitHealthBarUpdate(0, INSTANT_HP_BAR_DROP);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atkCA_setforcedtarget(void) // follow me
 {
+    CMD_ARGS();
     gSideTimers[GetBattlerSide(gBattlerAttacker)].followmeTimer = 1;
     gSideTimers[GetBattlerSide(gBattlerAttacker)].followmeTarget = gBattlerAttacker;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkCB_setcharge(void)
 {
+    CMD_ARGS();
     gStatuses3[gBattlerAttacker] |= STATUS3_CHARGED_UP;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkCC_callterrainattack(void) // nature power
 {
+    CMD_ARGS();
     gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
     gCurrentMove = GetNaturePowerMove();//sNaturePowerMoves[gBattleTerrain];
     gBattlerTarget = GetMoveTarget(gCurrentMove, 0);
     SetAtkCancellerForCalledMove();
     BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkCD_cureifburnedparalysedorpoisoned(void) // refresh
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gBattleMons[gBattlerAttacker].status1 & (STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON))
     {
         gBattleMons[gBattlerAttacker].status1 = 0;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
         gActiveBattler = gBattlerAttacker;
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkCE_settorment(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gBattleMons[gBattlerTarget].status2 & STATUS2_TORMENT
         || GetBattlerAbility(gBattlerTarget) == ABILITY_UNAWARE
         || GetBattlerAbility(gBattlerTarget) == ABILITY_OWN_TEMPO
         || GetBattlerAbility(gBattlerTarget) == ABILITY_OBLIVIOUS
         || GetBattlerAbility(gBattlerTarget) == ABILITY_FEMME_FATALE)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gBattleMons[gBattlerTarget].status2 |= STATUS2_TORMENT;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atkCF_jumpifnodamage(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gProtectStructs[gBattlerAttacker].physicalDmg || gProtectStructs[gBattlerAttacker].specialDmg)
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     else
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
 }
 
 static void atkD0_settaunt(void)    //adjusted setup to be more in line with torment
 {
+    CMD_ARGS(const u8 *failInstr);
     
     if ((gDisableStructs[gBattlerTarget].tauntTimer != 0)
         || GetBattlerAbility(gBattlerTarget) == ABILITY_UNAWARE 
@@ -16902,18 +16901,19 @@ static void atkD0_settaunt(void)    //adjusted setup to be more in line with tor
         || GetBattlerAbility(gBattlerTarget) == ABILITY_OBLIVIOUS
         || GetBattlerAbility(gBattlerTarget) == ABILITY_FEMME_FATALE)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gDisableStructs[gBattlerTarget].tauntTimer = 2;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     
 }
 
 static void atkD1_trysethelpinghand(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     gBattlerTarget = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_FLANK);
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
      && !(gAbsentBattlerFlags & gBitTable[gBattlerTarget])
@@ -16921,16 +16921,17 @@ static void atkD1_trysethelpinghand(void)
      && !gProtectStructs[gBattlerTarget].helpingHand)
     {
         gProtectStructs[gBattlerTarget].helpingHand = 1;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkD2_tryswapitems(void) // trick
 {
+    CMD_ARGS(const u8 *failInstr);
     // opponent can't swap items with player in regular battles
     //change this later, would need setup logic so item gets recovered at battle end, just like knockoff
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER
@@ -16938,7 +16939,7 @@ static void atkD2_tryswapitems(void) // trick
          && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))
          && gTrainerBattleOpponent_A != TRAINER_SECRET_BASE))
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -16951,7 +16952,7 @@ static void atkD2_tryswapitems(void) // trick
          && (gWishFutureKnock.knockedOffMons[sideAttacker] & gBitTable[gBattlerPartyIndexes[gBattlerAttacker]]
             || gWishFutureKnock.knockedOffMons[sideTarget] & gBitTable[gBattlerPartyIndexes[gBattlerTarget]]))
         {
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->failInstr;
         }
         // can't swap if two pokemon don't have an item
         // or if either of them is an enigma berry or a mail
@@ -16962,7 +16963,7 @@ static void atkD2_tryswapitems(void) // trick
               || IS_ITEM_MAIL(gBattleMons[gBattlerTarget].item)
               || GetBattlerAbility(gBattlerTarget) == ABILITY_KLUTZ)  //ADDED klutz mon would just drop it, could make logic for that, if klutz mon has held item it'd default to knocked off on swith in
         {                                                                   //"mon dropped it's "glastusditem"/helditem!" so that'd only be an ability reveal if you were dumb enough to leave an item on a klutz mon  vsonic
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->failInstr;
         }
         // check if ability prevents swapping
         else if (GetBattlerAbility(gBattlerTarget) == ABILITY_STICKY_HOLD)
@@ -16994,7 +16995,7 @@ static void atkD2_tryswapitems(void) // trick
 
             *(u8 *)((u8 *)(&gBattleStruct->choicedMove[gBattlerAttacker]) + 0) = 0;
             *(u8 *)((u8 *)(&gBattleStruct->choicedMove[gBattlerAttacker]) + 1) = 0;*/
-            gBattlescriptCurrInstr += 5;
+            gBattlescriptCurrInstr = cmd->nextInstr;
             PREPARE_ITEM_BUFFER(gBattleTextBuff1, *newItemAtk)
             PREPARE_ITEM_BUFFER(gBattleTextBuff2, oldItemAtk)
             GetItemName(gBattleTextBuff1, *newItemAtk);
@@ -17011,32 +17012,34 @@ static void atkD2_tryswapitems(void) // trick
 
 static void atkD3_trycopyability(void) // role play
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gBattleMons[gBattlerTarget].ability != ABILITY_NONE) //changed to remove excluding abilities like wonderguard
     {
         gBattleMons[gBattlerAttacker].ability = gBattleMons[gBattlerTarget].ability;
         gLastUsedAbility = gBattleMons[gBattlerTarget].ability;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkD4_trywish(void)
 {
-    switch (gBattlescriptCurrInstr[1]) //figure out how this works
+    CMD_ARGS(u8 state, const u8 *failInstr);
+    switch (cmd->state) //figure out how this works
     {
     case 0: // use wish
         if (gWishFutureKnock.wishCounter[gBattlerAttacker] == 0)
         {
             gWishFutureKnock.wishCounter[gBattlerAttacker] = 2;
             gWishFutureKnock.wishMonId[gBattlerAttacker] = gBattlerPartyIndexes[gBattlerAttacker];
-            gBattlescriptCurrInstr += 6;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         }
         else
         {
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
+            gBattlescriptCurrInstr = cmd->failInstr;
         }
         break;
     case 1: // heal effect
@@ -17046,41 +17049,44 @@ static void atkD4_trywish(void)
             gBattleMoveDamage = 1;
         gBattleMoveDamage *= -1;
         if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
+            gBattlescriptCurrInstr = cmd->failInstr;
         else
-            gBattlescriptCurrInstr += 6;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         break;
     }
 }
 
 static void atkD5_trysetroots(void) // ingrain
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gStatuses3[gBattlerAttacker] & STATUS3_ROOTED)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses3[gBattlerAttacker] |= STATUS3_ROOTED;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 void BS_trysetaquaring(void)    //aqua ring
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gStatuses3[gBattlerAttacker] & STATUS3_AQUA_RING)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses3[gBattlerAttacker] |= STATUS3_AQUA_RING;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atkD6_doubledamagedealtifdamaged(void) //move revenge, test used call if works
 {
+    CMD_ARGS();
     if ((gProtectStructs[gBattlerAttacker].physicalDmg != 0
         && gProtectStructs[gBattlerAttacker].physicalBattlerId == gBattlerTarget)
      || (gProtectStructs[gBattlerAttacker].specialDmg != 0
@@ -17089,7 +17095,7 @@ static void atkD6_doubledamagedealtifdamaged(void) //move revenge, test used cal
         gBattleMoveDamage *= 2;
         //gBattleScripting.dmgMultiplier = 2;
     }
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkD7_setyawn(void)
@@ -17138,17 +17144,19 @@ void BS_JumpandClearRage(void)
 
 
 static void atkD8_setdamagetohealthdifference(void) //make case here for final gambit
-{//remember wanted to change how final gambit works more damage lower your hp or it equals health lost?
+{
+    CMD_ARGS(const u8 *failInstr);
+    //remember wanted to change how final gambit works more damage lower your hp or it equals health lost?
     //could do percent of hp lost, and then also add an extra fixed hp damage on top so it can actually kill
     //like say %hp lost + 40hp.
     if (gBattleMons[gBattlerTarget].hp <= gBattleMons[gBattlerAttacker].hp)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else //should prob make new command instead actually
     {
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - gBattleMons[gBattlerAttacker].hp;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 } //to get percent do gbatmovedamage = (target.hp * attacker.hp/attacker.maxhp) -40    //for final gambit
 //then I need to change this conditional to make it
@@ -17164,6 +17172,7 @@ static void atkD8_setdamagetohealthdifference(void) //make case here for final g
 
 static void atkD9_scaledamagebyhealthratio(void)    //eruption
 {
+    CMD_ARGS();
     if (gDynamicBasePower == 0)
     {
         u8 power = gBattleMoves[gCurrentMove].power;
@@ -17172,16 +17181,17 @@ static void atkD9_scaledamagebyhealthratio(void)    //eruption
         if (gDynamicBasePower == 0)
             gDynamicBasePower = 1;
     }
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkDA_tryswapabilities(void) // skill swap . //remember need to remove wonderguard from all abiility swap functions,. because game freak
 {
+    CMD_ARGS(const u8 *failInstr);
     if ((gBattleMons[gBattlerAttacker].ability == 0
         && gBattleMons[gBattlerTarget].ability == 0)
      || gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //not sure if nor effect clause would still prevent working on wonderguard.
      {
-         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+         gBattlescriptCurrInstr = cmd->failInstr;
      }//doesn't use getbattlerability as can swap even if ability isn't in effect
     else
     {
@@ -17190,15 +17200,16 @@ static void atkDA_tryswapabilities(void) // skill swap . //remember need to remo
         gBattleMons[gBattlerAttacker].ability = gBattleMons[gBattlerTarget].ability;
         gBattleMons[gBattlerTarget].ability = abilityAtk;  //potentially use this as an example of how to swap hp for wonderguard swap
 
-            gBattlescriptCurrInstr += 5;
+            gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }//make skill swap status and apply to both mon  vsonic
 
 static void atkDB_tryimprison(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     if ((gStatuses3[gBattlerAttacker] & STATUS3_IMPRISONED_OTHERS))
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -17228,31 +17239,33 @@ static void atkDB_tryimprison(void)
                 if (attackerMoveId != MAX_MON_MOVES)
                 {
                     gStatuses3[gBattlerAttacker] |= STATUS3_IMPRISONED_OTHERS;
-                    gBattlescriptCurrInstr += 5;
+                    gBattlescriptCurrInstr = cmd->nextInstr;
                     break;
                 }
             }
         }
         if (battlerId == gBattlersCount) // In Generation 3 games, Imprison fails if the user doesn't share any moves with any of the foes
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkDC_trysetgrudge(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     if (gStatuses3[gBattlerAttacker] & STATUS3_GRUDGE)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses3[gBattlerAttacker] |= STATUS3_GRUDGE;
-        gBattlescriptCurrInstr += 5; // this means to skip forward 5 steps in the battle script, command listing. useful for selecting specific effects.
+        gBattlescriptCurrInstr = cmd->nextInstr; // this means to skip forward 5 steps in the battle script, command listing. useful for selecting specific effects.
     } //   Also useful to use call or goto instead of jump if use call, should be able to return as I want. with "return;"
 }
 
 static void atkDD_weightdamagecalculation(void)
 {
+    CMD_ARGS();
     s32 i;
 
     for (i = 0; sWeightToDamageTable[i] != 0xFFFF; i += 2) //go to next row, if not 0xffff
@@ -17264,11 +17277,12 @@ static void atkDD_weightdamagecalculation(void)
         gDynamicBasePower = sWeightToDamageTable[i + 1];
     //else
       //  gDynamicBasePower = 120;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkDE_assistattackselect(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     s32 chooseableMovesNo = 0;
     struct Pokemon *party;
     s32 monId, moveId;
@@ -17303,17 +17317,17 @@ static void atkDE_assistattackselect(void)
         gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
         gCalledMove = movesArray[((Random() & 0xFF) * chooseableMovesNo) >> 8];
         gBattlerTarget = GetMoveTarget(gCalledMove, 0);
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkDF_setmagiccoat(void)
 {
-
+    CMD_ARGS();
     gSpecialStatuses[gBattlerAttacker].ppNotAffectedByPressure = TRUE;
     
     if (gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_MAGIC_COAT)
@@ -17334,21 +17348,22 @@ static void atkDF_setmagiccoat(void)
 
         gProtectStructs[gBattlerAttacker].bounceMove = TRUE; //setup done, bounce effect removed along with status in battle_util.c
     }
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 
 static void atkE0_trysetsnatch(void) // snatch
 {
+    CMD_ARGS(const u8 *failInstr);
     gSpecialStatuses[gBattlerAttacker].ppNotAffectedByPressure = 1;
     if (gCurrentTurnActionNumber == gBattlersCount - 1) // moves last turn
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gProtectStructs[gBattlerAttacker].stealMove = 1;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -17357,6 +17372,7 @@ static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it o
 //ABILITYEFFECT_INTIMIDATE2 is the one  for switchin  so changing the targetting for just that should make it work how I want
 //maybe do it like trace and have the targetting built into the activation function
 {
+    CMD_ARGS(const u8 *failInstr);
     u8 side; //if use of gbattletarget messes up switchin use, I can take notes from synchronize ability scrpit
     //and add different activation to the function based on if its attacker or target  IMPORTANT
 
@@ -17369,9 +17385,9 @@ static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it o
             break; //If they are on the opposite side and not absent, it breaks to end the loop, saying that its found an valid target
     
     if (gBattlerTarget >= gBattlersCount) //from Griffin R if it break before reaching the end of the loop then gBattlerTarget >= gBattlersCount will be false. 
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     else //It has found a valid target for intimidate, and it won't take jump to the specified pointer, it will instead move to the next command
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }//this prob important for my implementaiton of intimidate, since
 //I need to have selective targetting, since I don't want it to reactivate
 //for mon that have already been intimidated.  unless i switch in again
@@ -17484,7 +17500,6 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
         }
         
         gBattlescriptCurrInstr = cmd->nextInstr;
-        //gBattlescriptCurrInstr += 2;
 
     }
     
@@ -17493,16 +17508,18 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
  
 static void atkE3_jumpifhasnohp(void)
 {
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+    CMD_ARGS(u8 battler, const u8 *jumpInstr);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
 
-    if (gBattleMons[gActiveBattler].hp == 0)
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
+    if (gBattleMons[battler].hp == 0)
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     else
-        gBattlescriptCurrInstr += 6;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkE4_getsecretpowereffect(void)
 {
+    CMD_ARGS();
     switch (gBattleTerrain)
     {
     case BATTLE_TERRAIN_GRASS:
@@ -17533,12 +17550,12 @@ static void atkE4_getsecretpowereffect(void)
         gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
         break;
     }
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 
-
-#define PICKUP_LOGIC
+//unused
+#define PICKUP_LOGIC //should move define to new logic
 static void atkE5_pickup(void) //effect will go in battle_util.c end turn ability clause, this will be kept here to prevent need to reordder bs macros
 //why is this a bs command when the ability has no in battle effect?
 {//ok all this was almost a waste pick up doesn't work how I thought it did. -_- it doesn't have an effect on battle
@@ -17601,19 +17618,21 @@ static void atkE5_pickup(void) //effect will go in battle_util.c end turn abilit
 
 static void atkE6_docastformchangeanimation(void)
 {
-    gActiveBattler = gBattleScripting.battler;
-    if (gBattleMons[gActiveBattler].status2 & STATUS2_SUBSTITUTE)
+    CMD_ARGS();
+    u32 battler = gBattleScripting.battler;
+    if (gBattleMons[battler].status2 & STATUS2_SUBSTITUTE)
         *(&gBattleStruct->formToChangeInto) |= 0x80;
     BtlController_EmitBattleAnimation(0, B_ANIM_CASTFORM_CHANGE, gBattleStruct->formToChangeInto);
-    MarkBattlerForControllerExec(gActiveBattler);
-    ++gBattlescriptCurrInstr;
+    MarkBattlerForControllerExec(battler);
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkE7_trycastformdatachange(void)
 {
+    CMD_ARGS();
     u8 form;
 
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
     form = CastformDataTypeChange(gBattleScripting.battler);
     if (form)
     {
@@ -17678,22 +17697,22 @@ static void atkE9_setweatherballtype(void)//think move to settypebeforeusemove f
 
 static void atkEA_tryrecycleitem(void) //vsonic need to update check
 {
+    CMD_ARGS(const u8 *failInstr);
     u16 *usedHeldItem;
 
-    gActiveBattler = gBattlerAttacker;
-    usedHeldItem = &gBattleStruct->usedHeldItems[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)];
-    if (*usedHeldItem != ITEM_NONE && gBattleMons[gActiveBattler].item == ITEM_NONE)
+    usedHeldItem = &gBattleStruct->usedHeldItems[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)];
+    if (*usedHeldItem != ITEM_NONE && gBattleMons[gBattlerAttacker].item == ITEM_NONE)
     {
         gLastUsedItem = *usedHeldItem;
         *usedHeldItem = ITEM_NONE;
-        gBattleMons[gActiveBattler].item = gLastUsedItem;
-        BtlController_EmitSetMonData(0, REQUEST_HELDITEM_BATTLE, 0, 2, &gBattleMons[gActiveBattler].item);
-        MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 5;
+        gBattleMons[gBattlerAttacker].item = gLastUsedItem;
+        BtlController_EmitSetMonData(0, REQUEST_HELDITEM_BATTLE, 0, 2, &gBattleMons[gBattlerAttacker].item);
+        MarkBattlerForControllerExec(gBattlerAttacker);
+        gBattlescriptCurrInstr  = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
@@ -17745,55 +17764,61 @@ bool32 CanCamouflage(u8 battlerId)
 
 static void atkEB_settypetoterrain(void)
 {
+    CMD_ARGS(const u8 *failInstr);
     if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, sTerrainToType[gBattleTerrain]))
     {
         SET_BATTLER_TYPE(gBattlerAttacker, sTerrainToType[gBattleTerrain]);
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, sTerrainToType[gBattleTerrain]);
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
+//pursuit doubles in EE
+//never used?
 static void atkEC_pursuitrelated(void)
 {
-    gActiveBattler = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_FLANK);
-
+    CMD_ARGS(const u8 *failInstr);
+    u32 battler = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerAttacker)));
+   
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-     && !(gAbsentBattlerFlags & gBitTable[gActiveBattler])
-     && gChosenActionByBattler[gActiveBattler] == 0
-     && gChosenMoveByBattler[gActiveBattler] == MOVE_PURSUIT)
+     && !(gAbsentBattlerFlags & gBitTable[battler])
+     && gChosenActionByBattler[battler] == 0
+     && gChosenMoveByBattler[battler] == MOVE_PURSUIT)
     {
-        gActionsByTurnOrder[gActiveBattler] = 11;
+        gActionsByTurnOrder[battler] = 11;
         gCurrentMove = MOVE_PURSUIT;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
         gBattleScripting.animTurn = 1;
         gBattleScripting.field_25_pursuitDoublesAttacker = gBattlerAttacker;
-        gBattlerAttacker = gActiveBattler;
+        gBattlerAttacker = battler;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkED_snatchsetbattlers(void)
 {
+    CMD_ARGS();
     gEffectBattler = gBattlerAttacker;
     if (gBattlerAttacker == gBattlerTarget)
         gBattlerAttacker = gBattlerTarget = gBattleScripting.battler;
     else
         gBattlerTarget = gBattleScripting.battler;
     gBattleScripting.battler = gEffectBattler;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkEE_removelightscreenreflect(void) // brick break     //no longer need this can remove
 {
-    u8 opposingSide = GetBattlerSide(gBattlerAttacker) ^ BIT_SIDE;  //not using right now, 
-
+    CMD_ARGS();
+    u8 opposingSide = GetBattlerSide(BATTLE_OPPOSITE(gBattlerAttacker));  //not using right now, 
+    
     if (gSideTimers[opposingSide].reflectTimer || gSideTimers[opposingSide].lightscreenTimer)
     {
         gSideStatuses[opposingSide] &= ~(SIDE_STATUS_REFLECT);
@@ -17808,7 +17833,7 @@ static void atkEE_removelightscreenreflect(void) // brick break     //no longer 
         gBattleScripting.animTurn = 0;
         gBattleScripting.animTargetsHit = 0;
     }
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 //not using yet, but seems to be something for selecting catch target in wild double
@@ -17831,7 +17856,7 @@ static void atkEF_handleballthrow(void) //important changed
     if (!gBattleControllerExecFlags)
     {
         gActiveBattler = gBattlerAttacker;
-        gBattlerTarget = gBattlerAttacker ^ BIT_SIDE;
+        gBattlerTarget = BATTLE_OPPOSITE(gBattlerAttacker);
         if (gBattleTypeFlags & BATTLE_TYPE_GHOST)
         {
             BtlController_EmitBallThrowAnim(0, BALL_GHOST_DODGE);
@@ -18046,21 +18071,22 @@ static void atkEF_handleballthrow(void) //important changed
 //oh I can do the take held item stuff here nice
 static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
 {
-    u16 heldItem = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_HELD_ITEM);
+    CMD_ARGS();
+    u16 heldItem = GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_HELD_ITEM);
     u16 clearItem = ITEM_NONE;
-    if (GiveMonToPlayer(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]) != MON_GIVEN_TO_PARTY) //if mon going to pc, is this codeblok
+    if (GiveMonToPlayer(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]]) != MON_GIVEN_TO_PARTY) //if mon going to pc, is this codeblok
     {
         
         if (!ShouldShowBoxWasFullMessage())
         {
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
             StringCopy(gStringVar1, GetBoxNamePtr(VarGet(VAR_PC_BOX_TO_SEND_MON)));
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gStringVar2);
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gStringVar2);
         }
         else
         {
             StringCopy(gStringVar1, GetBoxNamePtr(VarGet(VAR_PC_BOX_TO_SEND_MON))); // box the mon was sent to
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gStringVar2);
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gStringVar2);
             StringCopy(gStringVar3, GetBoxNamePtr(GetPCBoxToSendMon())); //box the mon was going to be sent to
             gBattleCommunication[MULTISTRING_CHOOSER] = 2;
         }
@@ -18077,24 +18103,25 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
            // gBattlescriptCurrInstr = BattleScript_TakeItemfromCaughtMon; change think use buff3 and end with return 
         }
     }
-    //gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //thinkm this is why can't catch both mon? it uses side? is that why?
-    GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
-    ++gBattlescriptCurrInstr;
+    //gBattleResults.caughtMonSpecies = gBattleMons[BATTLE_OPPOSITE(gBattlerAttacker)].species; //thinkm this is why can't catch both mon? it uses side? is that why?
+    GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleResults.caughtMonNick);
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkF1_trysetcaughtmondexflags(void)
 {
+    CMD_ARGS(const u8 failInstr);
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[0], MON_DATA_PERSONALITY, NULL);
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT)) //if mon caught skip, 
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else    //otherwise trigger set caught
     {
         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
-        gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //moved here to attempt use for speed up
+        gBattleResults.caughtMonSpecies = gBattleMons[BATTLE_OPPOSITE(gBattlerAttacker)].species; //moved here to attempt use for speed up
 
         //may not need this since it is already in displaydexinfo via registermontopokedex?
         /*if (species > NATIONAL_SPECIES_COUNT
@@ -18104,12 +18131,13 @@ static void atkF1_trysetcaughtmondexflags(void)
         {
             HandleSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_SET_SEEN, personality); //if catch form should set base form is seen so can navigate to dex page
         }*/
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atkF2_displaydexinfo(void)
 {
+    CMD_ARGS();
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
 
     switch (gBattleCommunication[0])
@@ -18162,7 +18190,7 @@ static void atkF2_displaydexinfo(void)
         break;
     case 5:
         if (!gPaletteFade.active)
-            ++gBattlescriptCurrInstr;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         break;
     }
 }
@@ -18236,6 +18264,7 @@ void BattleDestroyYesNoCursorAt(void)
 
 static void atkF3_trygivecaughtmonnick(void)
 {
+    CMD_ARGS(const u8 jumpInstr);
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
@@ -18282,12 +18311,12 @@ static void atkF3_trygivecaughtmonnick(void)
     case 2:
         if (!gPaletteFade.active)
         {
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             FreeAllWindowBuffers();
             DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_SPECIES),
-                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_PERSONALITY, NULL),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES),
+                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]]),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_PERSONALITY, NULL),
                            BattleMainCB2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
@@ -18295,29 +18324,31 @@ static void atkF3_trygivecaughtmonnick(void)
     case 3:
         if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
         {
-            SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            SetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         }
         break;
     case 4:
         if (CalculatePlayerPartyCount() == PARTY_SIZE)
-            gBattlescriptCurrInstr += 5;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         else
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         break;
     }
 }
 
 static void atkF4_subattackerhpbydmg(void)
 {
+    CMD_ARGS();
     gBattleMons[gBattlerAttacker].hp -= gBattleMoveDamage;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkF5_removeattackerstatus1(void) //this doesn't appear to be used anywhere?
 {
+    CMD_ARGS();
     gBattleMons[gBattlerAttacker].status1 = 0;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkF6_finishaction(void)
@@ -18400,11 +18431,12 @@ static void atkF8_setroost(void) { //actually I don't like this type change idea
 
 static void atkF9_mondamaged(void) //edited based on recommendation from mcgriffin & egg (aka dizzyegg)
 {
+    CMD_ARGS();
     //screw it. can't make it work when enemy is damaged probably something to do with how playermonwasdamaged works
     if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleMoveDamage > 0)
         gBattleResults.playerMonWasDamaged = TRUE; //besides that still makes good sense, you only grow when your body exerts itself/exeriences pain
        
-    ++gBattlescriptCurrInstr; //without this script doesn't continue stays stuck on this
+    gBattlescriptCurrInstr = cmd->nextInstr; //without this script doesn't continue stays stuck on this
     //also leanred that order matters for stacked ifs or else ifs, since it will
     //take the first true statement for either if or else if.
     //..i think, need to read logic
@@ -18414,9 +18446,11 @@ static void atkF9_mondamaged(void) //edited based on recommendation from mcgriff
 }
 
 static void atkFA_sethealblock(void) {
+    
+    CMD_ARGS(const u8 *failInstr);
     if (gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)] & SIDE_STATUS_HEAL_BLOCK)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -18427,7 +18461,7 @@ static void atkFA_sethealblock(void) {
 
         //gStatuses3[gBattlerTarget] |= STATUS3_HEAL_BLOCK;
         //gDisableStructs[gBattlerTarget].healBlockTimer = 5;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }//should work but need test, effect I want is a side status that blocks healing moves & items, but 
 }//with clense effects are able to clear the status from individual mon, without removing the entire side status
 //unless used defog
@@ -18450,31 +18484,36 @@ static void atkFA_sethealblock(void) {
     }*/
 
 static void atkFB_setgravity(void) {
+    CMD_ARGS(const u8 *failInstr);
     if (gFieldStatuses & STATUS_FIELD_GRAVITY)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gFieldStatuses |= STATUS_FIELD_GRAVITY;
         gFieldTimers.gravityTimer = 5;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
 static void atkFC_setmiracle_eye(void) {
+    
+    CMD_ARGS(const u8 *failInstr);
     if (!(gStatuses3[gBattlerTarget] & STATUS3_MIRACLE_EYED))
     {
         gStatuses3[gBattlerTarget] |= STATUS3_MIRACLE_EYED;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
 static void atkFD_settailwind(void) {
+    
+    CMD_ARGS(const u8 *failInstr);
     u8 side = GetBattlerSide(gBattlerAttacker);
 
     if (!(gSideStatuses[side] & SIDE_STATUS_TAILWIND))
@@ -18482,11 +18521,11 @@ static void atkFD_settailwind(void) {
         gSideStatuses[side] |= SIDE_STATUS_TAILWIND;
         gSideTimers[side].tailwindBattlerId = gBattlerAttacker;
         gSideTimers[side].tailwindTimer = 3;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 
@@ -18497,15 +18536,17 @@ static void atkFD_settailwind(void) {
         STATUS3_EMBARGO*/
 
 static void atkFE_setembargo(void) {
+    
+    CMD_ARGS(const u8 *failInstr);
     if (gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)] & SIDE_STATUS_EMBARGO)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)] |= SIDE_STATUS_EMBARGO;
         gSideTimers[GET_BATTLER_SIDE(gBattlerTarget)].embargoTimer = 5;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -18934,11 +18975,12 @@ void BS_metalburstdamagecalculator(void) {
 }
 
 void BS_setattackerstatus3(void) {
-    u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
+    NATIVE_ARGS(u32 status, const u8 *failInstr);
+    u32 flags = cmd->status;
 
     if (gStatuses3[gBattlerAttacker] & flags)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -18947,7 +18989,7 @@ void BS_setattackerstatus3(void) {
             gDisableStructs[gBattlerAttacker].magnetRiseTimer = 5;
         if (flags & STATUS3_LASER_FOCUS)
             gDisableStructs[gBattlerAttacker].laserFocusTimer = 2;
-        gBattlescriptCurrInstr += 9;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -18960,11 +19002,12 @@ void BS_setiondeluge(void) //removed under_score in name seemed to prevent use
 
 void BS_setuserstatus3(void)
 {
-    u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
+    NATIVE_ARGS(u32 status, const u8 *failInstr);
+    u32 flags = cmd->status;
 
     if (gStatuses3[gBattlerAttacker] & flags)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -18973,7 +19016,7 @@ void BS_setuserstatus3(void)
             gDisableStructs[gBattlerAttacker].magnetRiseTimer = 5;
         if (flags & STATUS3_LASER_FOCUS)
             gDisableStructs[gBattlerAttacker].laserFocusTimer = 2;
-        gBattlescriptCurrInstr += 9;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 
 }
@@ -18993,19 +19036,22 @@ void BS_SetTrenchRun(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
+
+//not using for now,   set grounded w timer in grounded function
 void BS_setuserstatus4(void)  //right now just usiong to set status groudned, for trenchrun
 {
-    u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
+    NATIVE_ARGS(u32 status, const u8 *failInstr);
+    u32 flags = cmd->status;
 
     if (gStatuses4[gBattlerAttacker] & flags)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses4[gBattlerAttacker] |= flags;
 
-        gBattlescriptCurrInstr += 9;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 
 }
