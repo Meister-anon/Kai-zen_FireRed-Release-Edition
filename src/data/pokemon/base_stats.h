@@ -1583,7 +1583,14 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sParasectLevelUpLearnset,
         .tmhmLearnset = sParasectTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//want to do something to give it mental affect immunity, since its a mind controlled corpse at this point
+    //hmm could get rid of damp and make it a hidden?
+    //-would be no attract,  no confusion, no intimidate, potentially no flinch as well
+    //concerned thats buffing TOO much, 
+    //idea slipknot, undead memories
+    //nah not doing already have sixth sense, and with plan
+    //to select unique abilities won't need perfect cover for everything on base
+
     /*Most mushrooms prefer shade or dark places,
     which is why you'll often find them on forest floors. 
     However, some mushrooms can grow in part to full sun, 
@@ -4651,7 +4658,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(39, 52, 43, 72, 60, 50),
-        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL),//kinda weird to evolve into normal should prob just make normal
         .catchRate = 45,
         .expYield = 62,
         //.evYield_Speed = 1,
@@ -4669,7 +4676,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCyndaquilLevelUpLearnset,
         .tmhmLearnset = sCyndaquilTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(14, AVERAGE_EFFORT), 0, SPECIES_QUILAVA}), //Should hopefully blank these for now without issue
-    },
+    },//should be good, fire makes resist fairy so good defense,
+    // and w normal buff  is actually a good way to stand out from charizard
 
     [SPECIES_QUILAVA] =
     {

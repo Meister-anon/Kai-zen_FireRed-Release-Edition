@@ -4887,7 +4887,7 @@ BattleScript_EffectBatonPass::
 	switchindataupdate BS_ATTACKER
 	hpthresholds BS_ATTACKER
 	printstring STRINGID_SWITCHINMON
-	switchinanim BS_ATTACKER, 1
+	switchinanim BS_ATTACKER, TRUE
 	waitstate
 	switchineffects BS_ATTACKER
 	goto BattleScript_MoveEnd
@@ -6511,7 +6511,7 @@ BattleScript_FaintedMonChooseAnother::
 	hpthresholds BS_FAINTED
 	printstring STRINGID_SWITCHINMON
 	hidepartystatussummary BS_FAINTED
-	switchinanim BS_FAINTED, 0
+	switchinanim BS_FAINTED, FALSE
 	waitstate
 	resetplayerfainted BS_ATTACKER 
 	switchineffects BS_FAINTED
@@ -6542,7 +6542,7 @@ BattleScript_FaintedMonSwitchinEffects::
 	hpthresholds BS_ATTACKER
 	printstring STRINGID_SWITCHINMON
 	hidepartystatussummary BS_ATTACKER
-	switchinanim BS_ATTACKER, 0
+	switchinanim BS_ATTACKER, FALSE
 	waitstate
 	@switchineffects BS_ATTACKER
 	@switchinabilities BS_ATTACKER	@added test first thiogouht
@@ -6553,7 +6553,7 @@ BattleScript_FaintedMonSwitchinEffects::
 	hpthresholds BS_FAINTED
 	printstring STRINGID_SWITCHINMON
 	hidepartystatussummary BS_FAINTED
-	switchinanim BS_FAINTED, 0
+	switchinanim BS_FAINTED, FALSE
 	waitstate
 	resetplayerfainted BS_ATTACKER
 	switchineffects BS_ATTACKER	@added test	should work but test potentially use switchineffects instead, to do all effects
@@ -6576,7 +6576,7 @@ BattleScript_LinkBattleFaintedMonLoop::
 	hpthresholds BS_FAINTED
 	printstring STRINGID_SWITCHINMON
 	hidepartystatussummary BS_FAINTED
-	switchinanim BS_FAINTED, 0
+	switchinanim BS_FAINTED, FALSE
 	waitstate
 	switchineffects 5
 	jumpifbytenotequal gBattlerFainted, gBattlersCount, BattleScript_LinkBattleFaintedMonLoop
@@ -6658,7 +6658,7 @@ BattleScript_BattleTowerLostLostSkipDouble::
 BattleScript_LinkBattleWonOrLost::
 	printstring STRINGID_BATTLEEND
 	waitmessage B_WAIT_TIME_LONG
-	atk57
+	endlinkbattle
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
@@ -6751,7 +6751,7 @@ BattleScript_SkipPursuit::
 	hpthresholds BS_ATTACKER
 	printstring STRINGID_SWITCHINMON
 	hidepartystatussummary BS_ATTACKER
-	switchinanim BS_ATTACKER, 0
+	switchinanim BS_ATTACKER, FALSE
 	waitstate
 	jumpifcantreverttoprimal BattleScript_DoSwitchOut2
 	call BattleScript_PrimalReversionRet
@@ -7000,7 +7000,7 @@ BattleScript_SuccessForceOut::
 BattleScript_TrainerBattleForceOut::
 	getswitchedmondata BS_TARGET
 	switchindataupdate BS_TARGET
-	switchinanim BS_TARGET, 0
+	switchinanim BS_TARGET, FALSE
 	waitstate
 	printstring STRINGID_PKMNWASDRAGGEDOUT
 	switchineffects BS_TARGET
@@ -10888,7 +10888,7 @@ BattleScript_EjectButtonActivates::
 	printstring STRINGID_EMPTYSTRING3
 	waitmessage B_WAIT_TIME_CLEAR_BUFF_2
 	printstring 0x3
-	switchinanim BS_SCRIPTING 0x1
+	switchinanim BS_SCRIPTING TRUE
 	waitstate
 	switchineffects BS_SCRIPTING
 BattleScript_EjectButtonEnd:

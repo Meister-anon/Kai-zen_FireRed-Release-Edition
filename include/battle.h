@@ -571,7 +571,8 @@ struct BattleResults
     u8 opponentFaintCounter;  // 0x1
     u8 playerSwitchesCounter; // 0x2    //vsonic IMPORTANT make opponent vers of this & use for ai cap at num switch
     u8 numHealingItemsUsed;   // 0x3
-    u8 numRevivesUsed;        // 0x4
+    u8 numRevivesUsed:6;        // 0x4  //max 63 now, 64 value
+    u8 opponentSwitchesCounter:2;   //shoudl work   max 3 should be enough,
     u8 playerMonWasDamaged : 1; // 0x5
     u8 usedMasterBall : 1;      // 0x5
     u8 caughtMonBall : 4;       // 0x5

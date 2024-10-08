@@ -192,7 +192,7 @@ static void atk53_trainerslidein(void);
 static void atk54_playse(void);
 static void atk55_fanfare(void);
 static void atk56_playfaintcry(void);
-static void atk57(void);
+static void atk57_endlinkbattle(void);
 static void atk58_returntoball(void);
 static void atk59_handlelearnnewmove(void);
 static void atk5A_yesnoboxlearnmove(void);
@@ -452,7 +452,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atk54_playse,
     atk55_fanfare,
     atk56_playfaintcry,
-    atk57,
+    atk57_endlinkbattle,
     atk58_returntoball,
     atk59_handlelearnnewmove,
     atk5A_yesnoboxlearnmove,
@@ -9847,7 +9847,7 @@ static void atk56_playfaintcry(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-static void atk57(void)
+static void atk57_endlinkbattle(void)
 {
     CMD_ARGS();
     u32 battler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
@@ -14399,6 +14399,7 @@ static void atk8E_initmultihitstring(void)
 }
 
 //vsonic see if can use for hit escape etc. if needed?
+//not used in curr EE, updated place of use intend to later remove
 static bool8 TryDoForceSwitchOut(void)
 {
     if (gBattleMons[gBattlerAttacker].level >= gBattleMons[gBattlerTarget].level)
@@ -14424,6 +14425,7 @@ static bool8 TryDoForceSwitchOut(void)
 
 static void atk8F_forcerandomswitch(void)
 {
+    /*CMD_ARGS(const u8 *failInstr);
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
         u8 i;
@@ -14464,7 +14466,7 @@ static void atk8F_forcerandomswitch(void)
         if ((valid < 2 && (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI)) != BATTLE_TYPE_DOUBLE)
          || (valid < 3 && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && !(gBattleTypeFlags & BATTLE_TYPE_MULTI)))
         {
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->failInstr;
         }
         else if (TryDoForceSwitchOut())
         {
@@ -14514,8 +14516,195 @@ static void atk8F_forcerandomswitch(void)
     else
     {
         TryDoForceSwitchOut();
+    }*/
+
+     //new verison emerald setup that doesn't use TrySoForcewitch function
+        CMD_ARGS(const u8 *failInstr);
+
+    s32 i;
+    s32 battler1PartyId = 0;
+    s32 battler2PartyId = 0;
+
+    s32 firstMonId;
+    s32 lastMonId = 0; // + 1
+    struct Pokemon *party = NULL;
+    u8 validMons[PARTY_SIZE];
+    s32 validMonsCount = 0;
+
+    bool32 redCardForcedSwitch = FALSE;
+
+    // Red card checks against wild pokemon. If we have reached here, the player has a mon to switch into
+    // Red card swaps attacker with target to get the animation correct, so here we check attacker which is really the target. Thanks GF...
+    if (gBattleScripting.switchCase == B_SWITCH_RED_CARD
+      && !(gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+      && GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)   // Check opponent's red card activating
+    {
+        if (!WILD_DOUBLE_BATTLE)
+        {
+            // Wild mon with red card will end single battle
+            gBattlescriptCurrInstr = BattleScript_SuccessForceOut;
+            return;
+        }
+        else
+        {
+            // Wild double battle, wild mon red card activation on player
+            if (IS_WHOLE_SIDE_ALIVE(gBattlerTarget))
+            {
+                // Both player's battlers are alive
+                redCardForcedSwitch = FALSE;
+            }
+            else
+            {
+                // Player has only one mon alive -> force red card switch before manually switching to other mon
+                redCardForcedSwitch = TRUE;
+            }
+        }
     }
-}
+
+    // Swapping pokemon happens in:
+    // trainer battles
+    // wild double battles when an opposing pokemon uses it against one of the two alive player mons
+    // wild double battle when a player pokemon uses it against its partner
+    if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        || (WILD_DOUBLE_BATTLE
+            && GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT
+            && GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER
+            && IS_WHOLE_SIDE_ALIVE(gBattlerTarget))
+        || (WILD_DOUBLE_BATTLE
+            && GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER
+            && GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
+        || redCardForcedSwitch
+       )
+    {
+        party = GetBattlerParty(gBattlerTarget);
+
+        if (BATTLE_TWO_VS_ONE_OPPONENT && GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
+        {
+            firstMonId = 0;
+            lastMonId = 6;
+            battler2PartyId = gBattlerPartyIndexes[gBattlerTarget];
+            battler1PartyId = gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerTarget)];
+        }
+        else if ((gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER && gBattleTypeFlags & BATTLE_TYPE_LINK)
+            //|| (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER && gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK)
+            || (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER))
+        {
+            if ((gBattlerTarget & BIT_FLANK) != B_FLANK_LEFT)
+            {
+                firstMonId = PARTY_SIZE / 2;
+                lastMonId = PARTY_SIZE;
+            }
+            else
+            {
+                firstMonId = 0;
+                lastMonId = PARTY_SIZE / 2;
+            }
+            battler2PartyId = gBattlerPartyIndexes[gBattlerTarget];
+            battler1PartyId = gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerTarget)];
+        }
+        else if ((gBattleTypeFlags & BATTLE_TYPE_MULTI && gBattleTypeFlags & BATTLE_TYPE_LINK))
+                 //|| (gBattleTypeFlags & BATTLE_TYPE_MULTI && gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK))
+        {
+            if (GetLinkTrainerFlankId(GetBattlerMultiplayerId(gBattlerTarget)) == B_FLANK_RIGHT)
+            {
+                firstMonId = PARTY_SIZE / 2;
+                lastMonId = PARTY_SIZE;
+            }
+            else
+            {
+                firstMonId = 0;
+                lastMonId = PARTY_SIZE / 2;
+            }
+            battler2PartyId = gBattlerPartyIndexes[gBattlerTarget];
+            battler1PartyId = gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerTarget)];
+        }
+        else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        {
+            if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
+            {
+                firstMonId = 0;
+                lastMonId = PARTY_SIZE;
+            }
+            else
+            {
+                if ((gBattlerTarget & BIT_FLANK) != B_FLANK_LEFT)
+                {
+                    firstMonId = PARTY_SIZE / 2;
+                    lastMonId = PARTY_SIZE;
+                }
+                else
+                {
+                    firstMonId = 0;
+                    lastMonId = PARTY_SIZE / 2;
+                }
+            }
+            battler2PartyId = gBattlerPartyIndexes[gBattlerTarget];
+            battler1PartyId = gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerTarget)];
+        }
+        else if (IsDoubleBattle())
+        {
+            firstMonId = 0;
+            lastMonId = PARTY_SIZE;
+            battler2PartyId = gBattlerPartyIndexes[gBattlerTarget];
+            battler1PartyId = gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerTarget)];
+        }
+        else
+        {
+            firstMonId = 0;
+            lastMonId = PARTY_SIZE;
+            battler2PartyId = gBattlerPartyIndexes[gBattlerTarget]; // there is only one Pokémon out in single battles
+            battler1PartyId = gBattlerPartyIndexes[gBattlerTarget];
+        }
+
+        for (i = firstMonId; i < lastMonId; i++)
+        {
+            if (GetMonData(&party[i], MON_DATA_SPECIES) != SPECIES_NONE
+             && !GetMonData(&party[i], MON_DATA_IS_EGG)
+             && GetMonData(&party[i], MON_DATA_HP) != 0
+             && i != battler1PartyId
+             && i != battler2PartyId)
+             {
+                 validMons[validMonsCount++] = i;
+             }
+        }
+
+        if (validMonsCount == 0)
+        {
+            gBattlescriptCurrInstr = cmd->failInstr;
+        }
+        else
+        {
+            *(gBattleStruct->battlerPartyIndexes + gBattlerTarget) = gBattlerPartyIndexes[gBattlerTarget];
+            gBattlescriptCurrInstr = BattleScript_SuccessForceOut;
+            //gBattleStruct->forcedSwitch |= 1u << gBattlerTarget;
+            *(gBattleStruct->monToSwitchIntoId + gBattlerTarget) = validMons[RandomUniform(RNG_FORCE_RANDOM_SWITCH, 0, validMonsCount - 1)];
+
+            if (!IsMultiBattle())
+                UpdatePartyOwnerOnSwitch_NonMulti(gBattlerTarget);
+
+            if ((gBattleTypeFlags & BATTLE_TYPE_LINK && gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
+                || (gBattleTypeFlags & BATTLE_TYPE_LINK && gBattleTypeFlags & BATTLE_TYPE_MULTI))
+                //|| (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK && gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
+                //|| (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK && gBattleTypeFlags & BATTLE_TYPE_MULTI))
+            {
+                SwitchPartyOrderLinkMulti(gBattlerTarget, i, 0);
+                SwitchPartyOrderLinkMulti(BATTLE_PARTNER(gBattlerTarget), i, 1);
+            }
+
+            //if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+            //    SwitchPartyOrderInGameMulti(gBattlerTarget, i);
+        }
+    }
+    else
+    {
+        // In normal wild doubles, Roar will always fail if the user's level is less than the target's.
+        if (gBattleMons[gBattlerAttacker].level >= gBattleMons[gBattlerTarget].level)
+            gBattlescriptCurrInstr = BattleScript_SuccessForceOut;
+        else
+            gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    
+}//ok I THINK?? this is ok, need test
 
 // randomly changes user's type to one of its moves' type
 //incomplete still working on

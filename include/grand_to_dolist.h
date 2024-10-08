@@ -6174,6 +6174,64 @@ that way you don't need to keep flying aruond to different places looking for th
 
  -was able to test and run away excemption to pursuit works
 
+ 10/24 
+ idea dates for easier finding/discovery
+ post update bs commands for switch things seem broken,
+ but could be removing use of gactive battler
+ but from their attempted to add use of battler to battlecontrolers
+ which was much bigger change then expectged may revert for clean up
+
+ noted issues, switch breaks battles, doesn't work correctly,
+ also statusicon update w change from base setup,
+ it no longer loads properly when status is applied
+ status is set and effect works but for some reaons
+ need to close and open main battle window for hp box to update.
+ could be use of gactivebattler as well, or removal of loop?z
+
+ had idea from Girldm,
+ toothfairy pokemon, sneasler hit run type
+ not strong, but evolves into bone fairy,
+ clad in bone armor average speed high defense,
+ think just keep base fairy?
+ hmm like idea of teeth/bones resisting fire but down like idea of making rock,
+ well I could just do it with an ability?
+
+ tooth fairy either dress made fo bones, or tools/satchel/bag
+  made from a tooth?
+
+  bone fairy clads itself in bone armor,
+  think what could do is make abilty bone armor,
+  resists fire damage,
+
+  could make tooth armor for tooth fairy,
+  if both have fire resist ability bone fairy 
+  version would be sturdy to also prevent force switch out
+
+  I like idea of that but not sure if want to be restrticted to
+  having to have tooth dress for tooth fairy?
+
+  want bone fairy etheral beauty and scary monster
+
+  //name for first form based on
+  tooth
+  Dentin:
+  a calcareous material similar to but harder and denser than bone
+  that composes the principal mass of a tooth
+  FaeDentin
+  Fay.dent.in
+  10/8/24
+
+  think for evo can make rock fairy,
+  but floating or has wings so can fly
+
+  yeah that works, still rare typing,
+  only other is carbink diancie line,
+  plus idea was make it a counterpart to mauwille in a way anyway
+
+  apparently idea, think add status exclusion for grounding
+
+  
+
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 
  but my boosts seemed to go away? when teh next mon came out?  guessing something to do with dmg function
  semed to only be doing 1 dmg, so I guess its one of the dmg = 1 things I added?

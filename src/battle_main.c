@@ -4197,12 +4197,13 @@ static void BattleStartClearSetData(void)
     gBattleStruct->stickyWebUser = 0xFF;
     gBattleStruct->appearedInBattle = 0;  //not making burmy change form,, will keep whatever form you caught it with
 
-    for (i = 0; i < 11; ++i)
+    for (i = 0; i < BALL_COUNT; ++i)
         gBattleResults.catchAttempts[i] = 0; //believe these first few are just statistics
     gBattleResults.battleTurnCounter = 0;
     gBattleResults.playerFaintCounter = 0;
     gBattleResults.opponentFaintCounter = 0;
     gBattleResults.playerSwitchesCounter = 0;
+    gBattleResults.opponentSwitchesCounter = 0;
     gBattleResults.numHealingItemsUsed = 0;
     gBattleResults.numRevivesUsed = 0;
     gBattleResults.playerMonWasDamaged = FALSE;
@@ -6734,7 +6735,11 @@ static void HandleAction_Switch(void) //actual switch code
 
     //transform logic
     if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT) //use this instead taken from mega logic
+    {    
         party = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];  //mon being transformed
+        if (gBattleResults.opponentSwitchesCounter < 3)
+        ++gBattleResults.opponentSwitchesCounter;
+    }
     else
         party = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
 
