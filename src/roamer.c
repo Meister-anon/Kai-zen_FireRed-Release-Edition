@@ -80,7 +80,7 @@ void CreateInitialRoamerMon(void)
     struct Pokemon * tmpMon = &gEnemyParty[0];
     u16 roamerMon;
 
-    CreateMon(tmpMon, (roamerMon = GetRoamerSpecies()), 50, 0x20, 0, 0, 0, 0);
+    CreateMon(tmpMon, (roamerMon = GetRoamerSpecies()), 50, USE_RANDOM_IVS, 0, 0, 0, 0);
     saveRoamer.species = roamerMon;
     saveRoamer.level = 50;
     saveRoamer.status = 0;

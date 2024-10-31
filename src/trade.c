@@ -749,7 +749,7 @@ static void CB2_ReturnFromLinkTrade2(void)
 
         for (i = 0; i < PARTY_SIZE; i++)
         {
-            CreateMon(&gEnemyParty[i], SPECIES_NONE, 0, 0x20, FALSE, 0, OT_ID_PLAYER_ID, 0);
+            CreateMon(&gEnemyParty[i], SPECIES_NONE, 0, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
         }
 
         PrintTradeErrorOrStatusMessage(TRADESTATMSG_COMMSTANDBY);

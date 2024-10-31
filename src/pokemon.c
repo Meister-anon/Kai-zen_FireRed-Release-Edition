@@ -2905,7 +2905,10 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_BOX_HP, &setOne); //set non-zero only use if 0
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
-    if (fixedIV < 32)
+    if (IsMonShiny(boxMon))
+        fixedIV = MAX_PER_STAT_IVS; //change from Lucky, should make every shiny perfect IVs
+
+    if (fixedIV < 32) //32 use random ivs, so here is fixed, else is random
     {
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &fixedIV);
