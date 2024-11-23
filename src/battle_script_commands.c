@@ -1370,6 +1370,7 @@ bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType)
 
 static void atk00_attackcanceler(void) //vsonic
 {
+    CMD_ARGS();
     s32 i, moveType;
     u8 j;
     GET_MOVE_TYPE(gCurrentMove,moveType)
@@ -1637,16 +1638,16 @@ static void atk00_attackcanceler(void) //vsonic
         }
 
         gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
-        ++gBattlescriptCurrInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (gProtectStructs[gBattlerTarget].beakBlastCharge && IsMoveMakingContact(gCurrentMove, gBattlerAttacker))
     {
         gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
-        ++gBattlescriptCurrInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        ++gBattlescriptCurrInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 

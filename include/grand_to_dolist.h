@@ -6230,6 +6230,8 @@ that way you don't need to keep flying aruond to different places looking for th
 
   apparently idea, think add status exclusion for grounding
 
+  10/31/2024 idea from lucky, make shiny more beneficial/reason shiny hunt
+  every shiny mon will have perfect Ivs
   
 
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 

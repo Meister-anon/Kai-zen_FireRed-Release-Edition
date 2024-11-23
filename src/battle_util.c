@@ -2487,7 +2487,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_ABILITIES:  // end turn abilities
-                if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, gActiveBattler, 0, 0, 0))
+                if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, gActiveBattler, BUFFER_A, 0, 0))
                     ++effect;
                 ++gBattleStruct->turnEffectsTracker;
                 break;
