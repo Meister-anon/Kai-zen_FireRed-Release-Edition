@@ -407,7 +407,7 @@ static void LinkPartnerHandleGetMonData(void)
             monToCheck >>= 1;
         }
     }
-    BtlController_EmitDataTransfer(1, size, monData);
+    BtlController_EmitDataTransfer(gActiveBattler, BUFFER_B, size, monData);
     LinkPartnerBufferExecCompleted();
 }
 

@@ -60,7 +60,7 @@ static void PokedudeHandlePrintString(void);
 static void PokedudeHandlePrintSelectionString(void);
 static void PokedudeHandleChooseAction(void);
 static void PokedudeHandleUnknownYesNoBox(void);
-static void PokedudeHandleChooseMove(void);
+static void PokedudeHandleChooseMove(u32 battler);
 static void PokedudeHandleChooseItem(void);
 static void PokedudeHandleChoosePokemon(void);
 static void PokedudeHandleCmd23(void);
@@ -106,7 +106,7 @@ static void PokedudeBufferRunCommand(void);
 static bool8 HandlePokedudeVoiceoverEtc(void);
 static void PokedudeSimulateInputChooseMove(void);
 static void WaitForMonSelection(void);
-static void CompleteWhenChoseItem(void);
+static void CompleteWhenChoseItem(u32 battler);
 static void Intro_WaitForShinyAnimAndHealthbox(void);
 static void Task_LaunchLvlUpAnim(u8 taskId);
 static void DestroyExpTaskAndCompleteOnInactiveTextPrinter(u8 taskId);
@@ -201,7 +201,7 @@ void SetControllerToPokedude(void)
     gBattleStruct->pdMessageNo = 0;
 }
 
-static void PokedudeBufferRunCommand(void)
+static void PokedudeBufferRunCommand(void) //vsonic
 {
     if (gBattleControllerExecFlags & gBitTable[gActiveBattler])
     {
@@ -344,14 +344,14 @@ static void WaitForMonSelection(void)
     if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
     {
         if (gPartyMenuUseExitCallback == TRUE)
-            BtlController_EmitChosenMonReturnValue(1, gSelectedMonPartyId, gBattlePartyCurrentOrder);
+            BtlController_EmitChosenMonReturnValue(gActiveBattler, BUFFER_B, gSelectedMonPartyId, gBattlePartyCurrentOrder);
         else
-            BtlController_EmitChosenMonReturnValue(1, 6, NULL);
+            BtlController_EmitChosenMonReturnValue(gActiveBattler, BUFFER_B, 6, NULL);
         PokedudeBufferExecCompleted();
     }
 }
 
-static void OpenBagAndChooseItem(void)
+static void OpenBagAndChooseItem(u32 battler)
 {
     u8 callbackId;
 
@@ -374,11 +374,11 @@ static void OpenBagAndChooseItem(void)
     }
 }
 
-static void CompleteWhenChoseItem(void)
+static void CompleteWhenChoseItem(u32 battler)
 {
     if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
     {
-        BtlController_EmitOneReturnValue(1, gSpecialVar_ItemId);
+        BtlController_EmitOneReturnValue(gActiveBattler, BUFFER_B, gSpecialVar_ItemId);
         PokedudeBufferExecCompleted();
     }
 }
@@ -463,7 +463,7 @@ static void Task_GiveExpToMon(u8 taskId)
             gainedExp -= nextLvlExp - currExp;
             savedActiveBattler = gActiveBattler;
             gActiveBattler = battlerId;
-            BtlController_EmitTwoReturnValues(1, RET_VALUE_LEVELED_UP, gainedExp);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, RET_VALUE_LEVELED_UP, gainedExp);
             gActiveBattler = savedActiveBattler;
             if (IsDoubleBattle() == TRUE
                 && ((u16)monId == gBattlerPartyIndexes[battlerId] || (u16)monId == gBattlerPartyIndexes[battlerId ^ BIT_FLANK]))
@@ -540,7 +540,7 @@ static void Task_GiveExpWithExpBar(u8 taskId)
                 gainedExp -= expOnNextLvl - currExp;
                 savedActiveBattler = gActiveBattler;
                 gActiveBattler = battlerId;
-                BtlController_EmitTwoReturnValues(1, RET_VALUE_LEVELED_UP, gainedExp);
+                BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, RET_VALUE_LEVELED_UP, gainedExp);
                 gActiveBattler = savedActiveBattler;
                 gTasks[taskId].func = Task_LaunchLvlUpAnim;
             }
@@ -730,7 +730,7 @@ static void PokedudeHandleGetMonData(void)
             monToCheck >>= 1;
         }
     }
-    BtlController_EmitDataTransfer(1, size, monData);
+    BtlController_EmitDataTransfer(gActiveBattler, BUFFER_B, size, monData);
     PokedudeBufferExecCompleted();
 }
 
@@ -1595,11 +1595,11 @@ static void PokedudeHandleChooseMoveAfterDma3(void)
     }
 }
 
-static void PokedudeHandleChooseMove(void)
+static void PokedudeHandleChooseMove(u32 battler)
 {
     if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
     {
-        InitMoveSelectionsVarsAndStrings();
+        InitMoveSelectionsVarsAndStrings(battler);
         gBattlerControllerFuncs[gActiveBattler] = PokedudeHandleChooseMoveAfterDma3;
     }
     else
@@ -2454,16 +2454,16 @@ static void PokedudeSimulateInputChooseAction(void)
         switch (script_p[gPokedudeBattlerStates[gActiveBattler]->action_idx].cursorPos[gActiveBattler])
         {
         case 0:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_USE_MOVE, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_USE_MOVE, 0);
             break;
         case 1:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_USE_ITEM, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_USE_ITEM, 0);
             break;
         case 2:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SWITCH, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_SWITCH, 0);
             break;
         case 3:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_RUN, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_RUN, 0);
             break;
         }
         PokedudeBufferExecCompleted();
@@ -2494,7 +2494,7 @@ static void PokedudeSimulateInputChooseMove(void)
         if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
             PlaySE(SE_SELECT);
         gPokedudeBattlerStates[gActiveBattler]->timer = 0;
-        BtlController_EmitTwoReturnValues(1,
+        BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B,
                                           B_ACTION_EXEC_SCRIPT,
                                           script_p[gPokedudeBattlerStates[gActiveBattler]->move_idx].cursorPos[gActiveBattler] | ((gActiveBattler ^ BIT_SIDE) << 8));
         PokedudeBufferExecCompleted();
@@ -2516,7 +2516,7 @@ static void PokedudeSimulateInputChooseMove(void)
     }
 }
 
-static bool8 HandlePokedudeVoiceoverEtc(void)
+static bool8 HandlePokedudeVoiceoverEtc(void) //vsonic
 {
     const struct PokedudeTextScriptHeader *header_p = sPokedudeTextScripts[gBattleStruct->pdScriptNum];
     const u16 * bstringid_p = (const u16 *)&gBattleBufferA[gActiveBattler][2];

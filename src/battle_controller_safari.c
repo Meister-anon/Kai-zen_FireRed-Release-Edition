@@ -143,8 +143,9 @@ static void SafariDummy(void)
 {
 }
 
-void SetControllerToSafari(void)
+void SetControllerToSafari(u32 battler)
 {
+    battler = gActiveBattler;
     gBattlerControllerFuncs[gActiveBattler] = SafariBufferRunCommand;
 }
 
@@ -168,16 +169,16 @@ static void HandleInputChooseAction(void)
         switch (gActionSelectionCursor[gActiveBattler])
         {
         case 0:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SAFARI_BALL, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_SAFARI_BALL, 0);
             break;
         case 1:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SAFARI_BAIT, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_SAFARI_BAIT, 0);
             break;
         case 2:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SAFARI_GO_NEAR, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_SAFARI_GO_NEAR, 0);
             break;
         case 3:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SAFARI_RUN, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_SAFARI_RUN, 0);
             break;
         }
         SafariBufferExecCompleted();
@@ -268,7 +269,7 @@ static void CompleteWhenChosePokeblock(void)
 {
     if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
     {
-        BtlController_EmitOneReturnValue(1, gSpecialVar_ItemId);
+        BtlController_EmitOneReturnValue(gActiveBattler, BUFFER_B, gSpecialVar_ItemId);
         SafariBufferExecCompleted();
     }
 }

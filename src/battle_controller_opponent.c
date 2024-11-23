@@ -158,8 +158,9 @@ static void OpponentDummy(void)
 {
 }
 
-void SetControllerToOpponent(void)
+void SetControllerToOpponent(u32 battler)
 {
+    battler = gActiveBattler;
     gBattlerControllerFuncs[gActiveBattler] = OpponentBufferRunCommand;
 }
 
@@ -447,7 +448,7 @@ static void OpponentHandleGetMonData(void) //vsonic IMPORTANT prob need update t
             monToCheck >>= 1;
         }
     }
-    BtlController_EmitDataTransfer(1, size, monData);
+    BtlController_EmitDataTransfer(gActiveBattler, BUFFER_B, size, monData);
     OpponentBufferExecCompleted();
 }
 
@@ -767,7 +768,7 @@ static void OpponentHandleGetRawMonData(void)
 
     for (i = 0; i < gBattleBufferA[gActiveBattler][2]; ++i)
         dst[i] = src[i];
-    BtlController_EmitDataTransfer(1, gBattleBufferA[gActiveBattler][2], dst);
+    BtlController_EmitDataTransfer(gActiveBattler, BUFFER_B, gBattleBufferA[gActiveBattler][2], dst);
     OpponentBufferExecCompleted();
 }
 
@@ -1377,10 +1378,10 @@ static void OpponentHandleChooseMove(void)
         switch (chosenMoveId)
         {
         case AI_CHOICE_WATCH:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_SAFARI_WATCH_CAREFULLY, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_SAFARI_WATCH_CAREFULLY, 0);
             break;
         case AI_CHOICE_FLEE:
-            BtlController_EmitTwoReturnValues(1, B_ACTION_RUN, 0);
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, B_ACTION_RUN, 0);
             break;
         default:
             if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
@@ -1391,7 +1392,7 @@ static void OpponentHandleChooseMove(void)
                 if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
                     gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
             }
-            BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (gBattlerTarget << 8));
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, 10, (chosenMoveId) | (gBattlerTarget << 8));
             break;
         }
         OpponentBufferExecCompleted();
@@ -1407,11 +1408,11 @@ static void OpponentHandleChooseMove(void)
         }
         while (move == MOVE_NONE);
         if (gBattleMoves[move].target & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
-            BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (gActiveBattler << 8));
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, 10, (chosenMoveId) | (gActiveBattler << 8));
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-            BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (GetBattlerAtPosition(Random() & 2) << 8));
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, 10, (chosenMoveId) | (GetBattlerAtPosition(Random() & 2) << 8));
         else
-            BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
+            BtlController_EmitTwoReturnValues(gActiveBattler, BUFFER_B, 10, (chosenMoveId) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
 
         OpponentBufferExecCompleted();
     }
@@ -1419,7 +1420,7 @@ static void OpponentHandleChooseMove(void)
 
 static void OpponentHandleChooseItem(void)
 {
-    BtlController_EmitOneReturnValue(1, *(gBattleStruct->chosenItem + (gActiveBattler / 2) * 2));
+    BtlController_EmitOneReturnValue(gActiveBattler, BUFFER_B, *(gBattleStruct->chosenItem + (gActiveBattler / 2) * 2));
     OpponentBufferExecCompleted();
 }
 
@@ -1457,7 +1458,7 @@ static void OpponentHandleChoosePokemon(void)
         *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
     }
     *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = chosenMonId;
-    BtlController_EmitChosenMonReturnValue(1, chosenMonId, NULL);
+    BtlController_EmitChosenMonReturnValue(gActiveBattler, BUFFER_B, chosenMonId, NULL);
     OpponentBufferExecCompleted();
 }
 
