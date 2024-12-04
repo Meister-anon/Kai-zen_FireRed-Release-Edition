@@ -4832,6 +4832,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_DAMP:
     case ABILITY_WATER_BUBBLE:
+    case ABILITY_HEATPROOF: //heatproff was previously 1/4th cut broke back down to 2
+    case ABILITY_BONE_ARMOR:
+    case ABILITY_ENAMEL:
         if (type == TYPE_FIRE)
         {
             OffensiveModifer(50);
@@ -4840,10 +4843,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //if (updateFlags)
               //  RecordAbilityBattle(battlerIdDef, ability);
         }
-        break;
-    case ABILITY_HEATPROOF:
-        if (type == TYPE_FIRE)
-            OffensiveModifer(50); //reset from 4 back to 2, with super multiplier change, keeping others as they are
         break;
     case ABILITY_AURA_BREAK:
         if (type == TYPE_DARK || type == TYPE_FAIRY)

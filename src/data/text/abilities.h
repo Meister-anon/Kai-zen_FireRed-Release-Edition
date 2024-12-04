@@ -288,8 +288,8 @@ static const u8 sAviatorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("An unco
 static const u8 sUsurperDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups Atk and Sp. Atk. if stats lowered\nor if suffering from status.");
 static const u8 sInverseWorldDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Inverts incoming damage,\nand “Not very effective” hits.");
 static const u8 sSonarDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Emits infrasonic sound with each attack.\nBoosts sound based move damage by 1.5x");
-static const u8 sEcosystemDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Resists Ice damage.\nSets third type to water.");
-static const u8 sAbsolutezeroDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Resists Ice damage.\nFreezes all Water-type moves.");
+static const u8 sEcosystemDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes Grass resist Ice damage.\nSets third type to water.");
+static const u8 sAbsolutezeroDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Makes Dragon resist Ice damage.\nFreezes all Water-type moves.");
 static const u8 sFeatherJacketDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Protected from the cold by\na jacket of downy feathers.");
 static const u8 sPoisonedLegacyDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ups POISON moves in a pinch, guarantees\nbad poison on any type if move poisons.");
 static const u8 sJewelMetabolismDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Consumes Rock-type moves.\nAlso raises Defense one stage.");
@@ -694,6 +694,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_EVERGREEN] = COMPOUND_ABILITY_STRING("Summons Grassy Terrain on switch-in.\nMay also Harvest a Berry."),
     [ABILITY_SHAMAN_CURE] = COMPOUND_ABILITY_STRING("Protects party from poison.\nCures own status upon switching out."),
     [ABILITY_UNCHAINED_MELODY] = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
+    [ABILITY_ENAMEL] = COMPOUND_ABILITY_STRING("Increased heat protection."),
+    [ABILITY_BONE_ARMOR] = COMPOUND_ABILITY_STRING("Increased heat protection.\nPrevents recoil and force switch."),
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1088,4 +1090,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_EVERGREEN] =_("Evergreen"),
     [ABILITY_SHAMAN_CURE] =_("Shaman Cure"),
     [ABILITY_UNCHAINED_MELODY] =_("Unchained Melody"),
+    [ABILITY_ENAMEL] =_("Enamel"),
+    [ABILITY_BONE_ARMOR] =_("Bone Armor"),
 };//can have comma

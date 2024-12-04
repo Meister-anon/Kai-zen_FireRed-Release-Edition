@@ -6186,17 +6186,19 @@ that way you don't need to keep flying aruond to different places looking for th
  it no longer loads properly when status is applied
  status is set and effect works but for some reaons
  need to close and open main battle window for hp box to update.
- could be use of gactivebattler as well, or removal of loop?z
+ could be use of gactivebattler as well, or removal of loop?z -seems to be gativebattler
+ -ended up reverting change but saving in separatee branch, would need repalce all activebat
+ -and correctly update every battle controller function w battler argument
 
  had idea from Girldm,
  toothfairy pokemon, sneasler hit run type
  not strong, but evolves into bone fairy,
  clad in bone armor average speed high defense,
  think just keep base fairy?
- hmm like idea of teeth/bones resisting fire but down like idea of making rock,
+ hmm like idea of teeth/bones resisting fire but dont like idea of making rock,
  well I could just do it with an ability?
 
- tooth fairy either dress made fo bones, or tools/satchel/bag
+ tooth fairy either dress made of bones, or tools/satchel/bag
   made from a tooth?
 
   bone fairy clads itself in bone armor,
@@ -6205,10 +6207,20 @@ that way you don't need to keep flying aruond to different places looking for th
 
   could make tooth armor for tooth fairy,
   if both have fire resist ability bone fairy 
-  version would be sturdy to also prevent force switch out
+  version would be sturdy to also prevent force switch out -I guess I meant sturdyas in strong 
+  -not actually the ability sturdy? think will also give recoil protection? as force switch is very situational
+
+  -ok so base is fairy only but has fire resist ability, since teeth
+  -dental protection? lol dental gaurd
+  *changed dental guard to Enamel to better signify innate effect rather than an action
+
+  -but evo becomes rock which resists fire already, but w ability it'll be quad resist
+  -ok base ability can have resist fire, don't think it will stack if I make it resist on top
+  -of a resisted type, so instead think will have to go reduce power root for the evo ability?
+  -mmm test it, it may work?
 
   I like idea of that but not sure if want to be restrticted to
-  having to have tooth dress for tooth fairy?
+  having to have tooth dress for tooth fairy? - no tooth dress for base version/tooth fairy
 
   want bone fairy etheral beauty and scary monster
 
@@ -6228,10 +6240,15 @@ that way you don't need to keep flying aruond to different places looking for th
   only other is carbink diancie line,
   plus idea was make it a counterpart to mauwille in a way anyway
 
-  apparently idea, think add status exclusion for grounding
+  apparently idea, think add status exclusion for grounding - completely forgot what this is
 
   12/4/2024 idea for 2nd form take name from WOrm aka parahumans of slaughterhouse nine char
   think name is bonesaw? find real name do something with that if possible
+  -bonesaw is the name but character doesn't really fit, I want faedentin evo
+  to be something of a graceful wreckless monster?
+  but bonesaw is a bio surgeon the character/personality doesnt really fit it
+  think make psueddo legendary (mythic) to avoid issue having to consider placement.
+  since its an evo treat it like volcarona,
 
   10/31/2024 idea from lucky, make shiny more beneficial/reason shiny hunt
   every shiny mon will have perfect Ivs

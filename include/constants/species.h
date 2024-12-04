@@ -1708,6 +1708,7 @@
 
 #define SPECIES_CEFIREON COSMETIC_FORMS_END + 1
 #define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
+#define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 3
 //move back to end of base spescies when done w fixes
 
 /*since gender form array only has 5 values
@@ -3459,9 +3460,10 @@ just because I saw the form*/
 
 
 
-//just realized flag perfect ivs is completely worthless here,
+//--just realized flag perfect ivs is completely worthless here,
 //I can't change these, these are all constants setting ivs
 //would bein the givemon function not here
 //removed gender form flag for my own setup to select form for encountertable to allow setting either etc.
-#define FLAG_PLACEHOLDER    (1 << 8) //use for giving special mon bug psuedo gym etc. (think use for fighting gym too, special mon trained for fighting sabrina)
+//use for giving special mon bug psuedo gym etc. (think use for fighting gym too, special mon trained for fighting sabrina)
+#define FLAG_PLACEHOLDER    (1 << 8) 
 #endif  // GUARD_CONSTANTS_SPECIES_H

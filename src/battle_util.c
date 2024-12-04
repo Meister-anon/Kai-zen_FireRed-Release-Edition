@@ -11897,6 +11897,8 @@ static u16 GetInverseTypeMultiplier(u16 multiplier) //could use total damgae cal
 }
 
 #define TYPE_MODIFIER_ADJUSTMENTS
+//read for type 1, only reads type 2 if not match type 1,
+//only reads type 3 if doesn't match 1 or 2 and not mystery
 static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities)
 {
     u16 mod = GetTypeModifier(moveType, defType);
@@ -11952,7 +11954,20 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
     else if ((moveType == TYPE_ICE) && GetBattlerAbility(battlerDef) == ABILITY_ABSOLUTE_ZERO && defType == TYPE_DRAGON && mod == UQ_4_12(1.55))
     {
         mod = UQ_4_12(0.5); //Because only on kyurem deftype would be dragon
-    }
+    } //not great don't like idea of only working on dragon? since point is to change to quad resist
+    //what I could do is type is not ice? set mod to resist?
+    //don' think that works, it'll reapply the ability more than once that way.
+    //because its going through the dmg formula its checking each type 1-3
+    //so I have to be very careful how I do this to prevent exponential results
+    //ok make exclusive for kyurem so it just removes dragon weakness
+    //i.e change description so its kyurem specific clearly is just to make dragon type resist ice,
+    //power of sub-zero dragon king
+    //makes dragon resist ice
+    //needs that level of specificity to avoid compounding issues w typeing and type 3
+
+    //still unsure how would handle that for tooth fairy, think would just have to be a power cut
+    //but can't remember how power cut by 2 compares to type resist multiplier cut by 2
+
     //other misc effects
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);

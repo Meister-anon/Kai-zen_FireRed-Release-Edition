@@ -37525,10 +37525,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
-        110,
-        101,
+        115,
+        106,
         100,
-        130,
+        120,
         85
         ),
         MON_TYPES(TYPE_FIRE, TYPE_DRAGON),
@@ -37563,11 +37563,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         78,
-        94,
+        92,
         78,
         100,
-        139,
-        115
+        143,
+        113
         ),
         MON_TYPES(TYPE_FIRE, TYPE_FLYING),
         .catchRate = 45,
@@ -37602,8 +37602,8 @@ const struct BaseStats gBaseStats[] =
         68,
         125,
         115
-        ),
-        MON_TYPES(TYPE_WATER, TYPE_STEEL),
+        ), //getting shell smash but don't think much can do without making bad 
+        MON_TYPES(TYPE_WATER, TYPE_STEEL), //so just treat it as a don't use thing if competitive
         .catchRate = 45,
         .expYield = 284,
         //.evYield_SpDefense = 3,
@@ -38987,7 +38987,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         108,
-        150,
+        145,
         115,
         92,
         105,
@@ -39027,7 +39027,7 @@ const struct BaseStats gBaseStats[] =
         135,
         88,
         112,
-        140,
+        130,
         70
         ),
         MON_TYPES(TYPE_FIGHTING, TYPE_STEEL),
@@ -48972,14 +48972,14 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         175,
-        92,
+        88,
         126,
         21,
-        92,
+        83,
         106
-        ),
-        MON_TYPES(TYPE_GRASS, TYPE_ROCK),
-        .catchRate = 45,
+        ), //considering getting shell smash offense stats potentially broken? -keep an eye on
+        MON_TYPES(TYPE_GRASS, TYPE_ROCK), //why did I make this rock? i buffed ground to do pretty much everyting rock does already?
+        .catchRate = 45, //can't remember why made rock but will keep for sake of having some weaknesses
         .expYield = 281,
         .genderRatio = PERCENT_FEMALE(12.5),
         .eggCycles = 20,
@@ -48996,7 +48996,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTorterraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_MEGA_FORM,
-    },
+    },//Biome Pokemon
+    //think dont give water moves, just plan hidden power water?
 
     [SPECIES_MAROWAK_MEGA] =
     {
