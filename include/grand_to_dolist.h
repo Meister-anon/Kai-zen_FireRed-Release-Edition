@@ -6230,8 +6230,21 @@ that way you don't need to keep flying aruond to different places looking for th
 
   apparently idea, think add status exclusion for grounding
 
+  12/4/2024 idea for 2nd form take name from WOrm aka parahumans of slaughterhouse nine char
+  think name is bonesaw? find real name do something with that if possible
+
   10/31/2024 idea from lucky, make shiny more beneficial/reason shiny hunt
   every shiny mon will have perfect Ivs
+
+  12/3/2024 attempt get back into flow, made changes for conversion moves, 
+  change to conversion 1 & 2, believe should work as intended still to test
+  Conversion now does moedern effect, convesion 2 is original effect,
+  that changes based on target main type, rather than move last hit by
+
+  both version only change type 1 aka main type now,
+  need test if change is visible in summary screen
+
+  note while at it, actually test present effect to ensure it actually works -_-
   
 
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 

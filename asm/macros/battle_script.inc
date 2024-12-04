@@ -800,9 +800,9 @@
 	.4byte \param0
 	.endm
 
-	.macro tryconversiontypechange param0:req
+	.macro tryconversiontypechange failInstr:req
 	.byte 0x90
-	.4byte \param0
+	.4byte \failInstr
 	.endm
 
 	.macro givepaydaymoney
@@ -898,6 +898,7 @@
 	.4byte \param0
 	.endm
 
+	@conversion 2 redid effect, change type based on target mon type
 	.macro settypetorandomresistance param0:req
 	.byte 0xa6
 	.4byte \param0

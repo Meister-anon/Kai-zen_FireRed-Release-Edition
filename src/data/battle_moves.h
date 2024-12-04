@@ -2757,11 +2757,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .accuracy = 0,
     .pp = 30,
     .secondaryEffectChance = 0,
-    .target = MOVE_TARGET_USER,
-    .priority = 0, //can change priority when finish new effect so not based on last move hit by
+    .target = MOVE_TARGET_SELECTED,
+    .priority = 1, //can change priority when finish new effect so not based on last move hit by
     .flags = 0,
     .split = SPLIT_STATUS,
-},
+},//vsonic need test
 
 [MOVE_AEROBLAST] =
 {

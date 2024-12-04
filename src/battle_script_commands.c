@@ -14558,13 +14558,19 @@ static void atk8F_forcerandomswitch(void)
 
 // randomly changes user's type to one of its moves' type
 //incomplete still working on
+//changed mind, decided make into gen 6 version of conversion,
+//use other idea for conversion 2, instead
+//changing to first slot makes better
+//both improved consistency and increased versatility
 static void atk90_tryconversiontypechange(void) //ok haven't actually changed this yet its still default
 {
-    u8 validMoves = 0;
-    u8 moveChecked;
-    u8 moveType;
+    CMD_ARGS(const u8 *failInstr);
 
-    while (validMoves < MAX_MON_MOVES)
+    u8 validMoves = 0;
+    u8 moveChecked = 0;
+    u8 moveType = 0;
+
+    /*while (validMoves < MAX_MON_MOVES)
     {
         if (gBattleMons[gBattlerAttacker].moves[validMoves] == MOVE_NONE)
             break;
@@ -14610,6 +14616,27 @@ static void atk90_tryconversiontypechange(void) //ok haven't actually changed th
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
         gBattlescriptCurrInstr += 5;
     }
+    */
+    // Changes user's type to its first move's type - ends loop soon as finds a move aka first move
+    for (moveChecked = 0; moveChecked < MAX_MON_MOVES; moveChecked++)
+    {
+        if (gBattleMons[gBattlerAttacker].moves[moveChecked] != MOVE_NONE)
+        {
+            moveType = gBattleMoves[gBattleMons[gBattlerAttacker].moves[moveChecked]].type;
+            break;
+        }
+    }
+    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, moveType))
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else
+    {
+        //SET_BATTLER_TYPE(gBattlerAttacker, moveType);
+        gBattleMons[gBattlerAttacker].type1 = moveType;//tweak just change main type, mostly for porygon so swap normal, for alt types
+        PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }//double check if type change will be picked up by summ sreen if not, need change move descr, 
 }
 
 static void atk91_givepaydaymoney(void)
@@ -15440,7 +15467,9 @@ static void atkA5_painsplitdmgcalc(void)
 //higher chance of encounting a full evolved form than a baby form, which is more valuable
 static void atkA6_settypetorandomresistance(void) // conversion 2   
 {
-    if (gLastLandedMoves[gBattlerAttacker] == MOVE_NONE
+    CMD_ARGS(const u8 *failInstr);
+
+   /* if (gLastLandedMoves[gBattlerAttacker] == MOVE_NONE
      || gLastLandedMoves[gBattlerAttacker] == 0xFFFF)
     {
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
@@ -15451,47 +15480,43 @@ static void atkA6_settypetorandomresistance(void) // conversion 2
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     }
     else
-    {
-        s32 i, j, rands;
+    {*/
+        u32 i, resistTypes = 0;
+        u32 hitByType = gLastHitByType[gBattlerAttacker];
+        u32 targetType = gBattleMons[gBattlerTarget].type1;
 
-        for (rands = 0; rands < 1000; ++rands) //now that adjusted typing can use EE setup for this,  vsonic
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++) // Find all types that resist.
         {
-            while (((i = (Random() & 0x7F)) > sizeof(gTypeEffectiveness) / 3));
-            i *= 3;
-            if (TYPE_EFFECT_ATK_TYPE(i) == gLastHitByType[gBattlerAttacker]
-             && TYPE_EFFECT_MULTIPLIER(i) <= TYPE_MUL_NOT_EFFECTIVE
-             && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_EFFECT_DEF_TYPE(i)))
+            switch (GetTypeModifier(targetType, i))
             {
-                SET_BATTLER_TYPE(gBattlerAttacker, TYPE_EFFECT_DEF_TYPE(i));
-                PREPARE_TYPE_BUFFER(gBattleTextBuff1, TYPE_EFFECT_DEF_TYPE(i));
-
-                gBattlescriptCurrInstr += 5;
-                return;
+            case UQ_4_12(0):
+            case UQ_4_12(0.5):
+                resistTypes |= 1u << i;
+                break;
             }
         }
-        for (j = 0, rands = 0; rands < sizeof(gTypeEffectiveness); j += 3, rands += 3)
+
+        while (resistTypes != 0)
         {
-            switch (TYPE_EFFECT_ATK_TYPE(j))
+            i = Random() % NUMBER_OF_MON_TYPES;
+            if (resistTypes & (1u << i))
             {
-            case TYPE_ENDTABLE:
-            //case TYPE_FORESIGHT:  //need make sure remove all reliance on type_foresight for type related checks
-                break;
-            default:
-                if (TYPE_EFFECT_ATK_TYPE(j) == gLastHitByType[gBattlerAttacker]
-                 && TYPE_EFFECT_MULTIPLIER(j) <= 5
-                 && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_EFFECT_DEF_TYPE(i)))
+                if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
                 {
-                    SET_BATTLER_TYPE(gBattlerAttacker, TYPE_EFFECT_DEF_TYPE(rands));
-                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, TYPE_EFFECT_DEF_TYPE(rands))
-
-                    gBattlescriptCurrInstr += 5;
-                    return;
+                    resistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
                 }
-                break;
+                else
+                {
+                    SET_BATTLER_TYPE(gBattlerAttacker, i);
+                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                    gBattlescriptCurrInstr = cmd->nextInstr;
+                    return; //shouold end and avoid fail instr
+                }
             }
         }
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
-    }
+
+        gBattlescriptCurrInstr = cmd->failInstr;
+    //}
 }
 
 static void atkA7_setalwayshitflag(void)
