@@ -28659,81 +28659,7 @@ const struct BaseStats gBaseStats[] =
         //.flags = SPECIES_FLAG_LEGENDARY, don't need
     },
 
-    [SPECIES_CEFIREON] =
-    {
-        .speciesName = _("Cefireon"),
- 
-        //hp, atk, def, spd, spatk, spdef
-        STATS(
-        65,
-        65,
-        60,
-        130,
-        110,
-        95
-        ),
-        MON_TYPES(TYPE_FLYING, TYPE_GHOST),
-        .catchRate = 45,
-        .expYield = 184,
-        //.evYield_SpDefense = 2,
-        .genderRatio = PERCENT_FEMALE(12.5),
-        .eggCycles = 35,
-            .friendship = 15,
-        .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroup1 = EGG_GROUP_FIELD,
-        .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_LIGHTNING_ROD},
-        //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_ILLUMINATE, ABILITY_WHITE_SMOKE},//swap compound for illuminate
-        // #endif
-        .bodyColor = BODY_COLOR_YELLOW,
-        .noFlip = FALSE,
-        .floating = TRUE,
-        .levelUpLearnset = sCefireonLevelUpLearnset,
-        .tmhmLearnset = sCefireonTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-        
-    },
-
-    [SPECIES_FRAEYJTA] =
-    {
-        .speciesName = _("Fraeyjta"),
- 
-        //hp, atk, def, spd, spatk, spdef
-        STATS(
-        170,  //hp betweeen snorlax and chansey
-        15,
-        25,
-        60,
-        50,
-        210
-        ),
-        MON_TYPES(TYPE_FAIRY, TYPE_GHOST),
-        .catchRate = 13,
-        .expYield = 384,
-        //.evYield_SpDefense = 2,
-        .genderRatio = MON_FEMALE,
-        .eggCycles = 35,
-            .friendship = 15,
-        .growthRate = GROWTH_SLOW,
-        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
-        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_OMNIPOTENT_AIDE, ABILITY_NONE}, //make ability that passes on any healing received to battle partner, potentially also makes healing effect priority?
-        //#ifdef BATTLE_ENGINE
-        .abilityHidden = {ABILITY_DISPIRIT_GUARD, ABILITY_NONE}, //not able to heal this mon, ok just make it so recovery moves don't work on it, otherwise would be horribly annoying
-        // #endif
-        .bodyColor = BODY_COLOR_GRAY,
-        .noFlip = FALSE,
-        .floating = FALSE, //think will leave as a now right now, its more earthbound since its a guardian of the graveyard
-        .levelUpLearnset = sCefireonLevelUpLearnset,    //need make something later
-        .tmhmLearnset = sFraeyjtaTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //give move powersplit,   //name is a mix of word for fairy,  freya norse goddess of protection/that watches over the dead, body based on priscilla from dark souls
-    //ok ability plan is heal moves don't work on self, if partner alive (and passes normal recurring ability conditions) increase priority by 3, same as triage
-    //heal them instead
-
-    //Gen 9
-    
+    //Gen 9   
     
     //#if p_fAMILY_SPRIGATITO
     [SPECIES_SPRIGATITO] =
@@ -49031,6 +48957,143 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_MEGA_FORM,
     },
+
+    [SPECIES_CEFIREON] =
+    {
+        .speciesName = _("Cefireon"),
+ 
+        //hp, atk, def, spd, spatk, spdef
+        STATS(
+        65,
+        65,
+        60,
+        130,
+        110,
+        95
+        ),
+        MON_TYPES(TYPE_FLYING, TYPE_GHOST),
+        .catchRate = 45,
+        .expYield = 184,
+        //.evYield_SpDefense = 2,
+        .genderRatio = PERCENT_FEMALE(12.5),
+        .eggCycles = 35,
+            .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroup1 = EGG_GROUP_FIELD,
+        .eggGroup2 = EGG_GROUP_FIELD,
+        .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_LIGHTNING_ROD},
+        //#ifdef BATTLE_ENGINE
+            .abilityHidden = {ABILITY_ILLUMINATE, ABILITY_WHITE_SMOKE},//swap compound for illuminate
+        // #endif
+        .bodyColor = BODY_COLOR_YELLOW,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .levelUpLearnset = sCefireonLevelUpLearnset,
+        .tmhmLearnset = sCefireonTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+        
+    },
+
+    [SPECIES_FAEDENTIN] =
+    {
+        .speciesName = _("Faedentin"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        88,
+        67,
+        64,
+        108, //fast as tooth fairy almost never seen
+        81,
+        86
+        ),
+        MON_TYPES(TYPE_FAIRY),
+        .catchRate = 45,
+        .expYield = 281,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_FAIRY,
+        .eggGroup2 = EGG_GROUP_MONSTER,
+        .abilities = {ABILITY_ENAMEL, ABILITY_ENAMEL},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .levelUpLearnset = sMarowakLevelUpLearnset,
+        .tmhmLearnset = sMarowakTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    },//good but relatively avearge not very strong physically
+
+    [SPECIES_BEINFAE] =
+    {
+        .speciesName = _("Beinfaé"), //supposedly mix of old nordic bone, and sweedish/norwegian fae/fairy,
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(
+        101,
+        120,
+        107,
+        91,
+        89,
+        96
+        ),
+        MON_TYPES(TYPE_FAIRY, TYPE_ROCK),//unsure if stats too high,
+        .catchRate = 45,
+        .expYield = 281,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroup1 = EGG_GROUP_FAIRY,
+        .eggGroup2 = EGG_GROUP_MONSTER,
+        .abilities = {ABILITY_BONE_ARMOR, ABILITY_BONE_ARMOR},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BROWN,
+        .noFlip = FALSE,
+        .floating = TRUE,
+        .levelUpLearnset = sMarowakLevelUpLearnset,
+        .tmhmLearnset = sMarowakTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    },
+
+    [SPECIES_FRAEYJTA] =
+    {
+        .speciesName = _("Fraeyjta"),
+ 
+        //hp, atk, def, spd, spatk, spdef
+        STATS(
+        170,  //hp betweeen snorlax and chansey
+        15,
+        25,
+        60,
+        50,
+        210
+        ),
+        MON_TYPES(TYPE_FAIRY, TYPE_GHOST),
+        .catchRate = 13,
+        .expYield = 384,
+        //.evYield_SpDefense = 2,
+        .genderRatio = MON_FEMALE,
+        .eggCycles = 35,
+            .friendship = 15,
+        .growthRate = GROWTH_SLOW,
+        .eggGroup1 = EGG_GROUP_UNDISCOVERED,
+        .eggGroup2 = EGG_GROUP_UNDISCOVERED,
+        .abilities = {ABILITY_OMNIPOTENT_AIDE, ABILITY_NONE}, //make ability that passes on any healing received to battle partner, potentially also makes healing effect priority?
+        //#ifdef BATTLE_ENGINE
+        .abilityHidden = {ABILITY_DISPIRIT_GUARD, ABILITY_NONE}, //not able to heal this mon, ok just make it so recovery moves don't work on it, otherwise would be horribly annoying
+        // #endif
+        .bodyColor = BODY_COLOR_GRAY,
+        .noFlip = FALSE,
+        .floating = FALSE, //think will leave as a now right now, its more earthbound since its a guardian of the graveyard
+        .levelUpLearnset = sCefireonLevelUpLearnset,    //need make something later
+        .tmhmLearnset = sFraeyjtaTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    }, //give move powersplit,   //name is a mix of word for fairy,  freya norse goddess of protection/that watches over the dead, body based on priscilla from dark souls
+    //ok ability plan is heal moves don't work on self, if partner alive (and passes normal recurring ability conditions) increase priority by 3, same as triage
+    //heal them instead
 
 }; //can remove gender ratio mon from base stats now, moved logic to function
 //OK removed 6 entrie and that seemed to save me about 300bytes

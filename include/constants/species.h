@@ -1709,6 +1709,7 @@
 #define SPECIES_CEFIREON COSMETIC_FORMS_END + 1
 #define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
 #define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 3
+#define SPECIES_BEINFAE COSMETIC_FORMS_END + 4 //Faedentin evo, mostly literal translation mix w old english name of fairy
 //move back to end of base spescies when done w fixes
 
 /*since gender form array only has 5 values

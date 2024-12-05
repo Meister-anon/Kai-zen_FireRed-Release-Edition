@@ -399,12 +399,12 @@
 #define ABILITY_WEIGHTED_GI 368     //dbz themed in a pinch fighting abiility, boost speed throwing off weights in a pinch boost 1.5x or 2x, give to bulky fighting types and mienshoo line (based on dex entry)
 #define ABILITY_VOLT_DASH 369       //thunderous therian ability volt absorb + speed boost
 #define ABILITY_IMMUTABLE_WIND 370   //Tornadus therian ability, neutralizing gas + wonder skin
-//message a strange cold wind blows
+
 #define ABILITY_EVERGREEN 371   //celebi ability
 #define ABILITY_SHAMAN_CURE 372 //shaman base ability
 #define ABILITY_UNCHAINED_MELODY 373  //NORMAL MOVES into sound moves
 #define ABILITY_ENAMEL 374
-#define ABILITY_BONE_ARMOR 375  //abilities for faedentin and bone fairy evo, //cute fire damage, bone armor also has force switch prevention, think also recoil?
+#define ABILITY_BONE_ARMOR 375  //abilities for faedentin and bone fairy evo, //cuts fire damage, bone armor also has force switch prevention, think also recoil?
 
 
 #define ABILITIES_COUNT ABILITY_UNCHAINED_MELODY + 1 //   ability count is last ability number + 1 since we have to count ability 0
