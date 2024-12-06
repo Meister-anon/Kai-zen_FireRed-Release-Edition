@@ -407,6 +407,6 @@
 #define ABILITY_BONE_ARMOR 375  //abilities for faedentin and bone fairy evo, //cuts fire damage, bone armor also has force switch prevention, think also recoil?
 
 
-#define ABILITIES_COUNT ABILITY_UNCHAINED_MELODY + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_BONE_ARMOR + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H
