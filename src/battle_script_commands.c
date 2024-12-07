@@ -15922,7 +15922,7 @@ static void atkB4_jumpifconfusedandstatmaxed(void)
 
 static void atkB7_presentdamagecalculation(void) //setup logic to jump ptr if heal
 {
-    CMD_ARGS(const u8 *failInstr);
+    CMD_ARGS(const u8 *jumpInstr, const u8 *failInstr);
     //const u8 *jumpPtr = T1_READ_PTR(gBattlescriptCurrInstr + 1);  could add but don't need
 
     /* Don't reroll present effect/power for the second hit of Parental Bond.
@@ -15955,12 +15955,15 @@ static void atkB7_presentdamagecalculation(void) //setup logic to jump ptr if he
                 gBattleMoveDamage = 1;
             gBattleMoveDamage *= -1;
 
-            //if (gBattleMons[gBattlerTarget].maxHP == gBattleMons[gBattlerTarget].hp)
-            //    gBattlescriptCurrInstr = BattleScript_ReturnAlreadyAtFullHp; //think remove, just put string in script w hp check?
-            //else
+            if (gBattleMons[gBattlerTarget].maxHP == gBattleMons[gBattlerTarget].hp)
+            {
+                gBattlescriptCurrInstr = cmd->failInstr; //think remove, just put string in script w hp check?
+                return;
+            }
+            else
             {
                 gMoveResultFlags &= ~(MOVE_RESULT_DOESNT_AFFECT_FOE); //removes doesnt affect so can heal anyone
-                gBattlescriptCurrInstr = cmd->failInstr;
+                gBattlescriptCurrInstr = cmd->jumpInstr;
                 return;
             }
                 

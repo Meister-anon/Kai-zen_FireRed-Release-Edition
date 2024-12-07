@@ -977,9 +977,11 @@
 	.endm
 
 	@changed gave pointer arg, so it can jump script if will heal instead of doing dmg
-	.macro presentdamagecalculation ptr:req
+	@changed jump is for healing, Fail is for target full hp
+	.macro presentdamagecalculation jumpInstr:req failInstr:req
 	.byte 0xb7
-	.4byte \ptr
+	.4byte \jumpInstr
+	.4byte \failInstr
 	.endm
 
 	.macro setsafeguard

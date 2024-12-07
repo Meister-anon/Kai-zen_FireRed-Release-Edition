@@ -3425,7 +3425,7 @@ BattleScript_DoMultiHit::
 	getmoveeffect
 	@furycuttercalc
 	variablepowercalc
-	presentdamagecalculation BattleScript_NewPresentHealMulti @if heal, I would need to skip passed crit calc etc then jump to play attack animation and do heal animation and text, then return in place to loop again
+	presentdamagecalculation BattleScript_NewPresentHealMulti, BattleScript_PresentFullHP @if heal, I would need to skip passed crit calc etc then jump to play attack animation and do heal animation and text, then return in place to loop again
 	critcalc			@plan set curr instr to BattleScript_MultiHitEndMessage  then do jump to and return from present heal logic (may need pushcursor call back?)
 	damagecalc			@potentially do other way around, do push cursor call back to heal, from present dmg calc, and then set curr instruct to BattleScript_MultiHitEndMessage
 	typecalc
@@ -3456,6 +3456,7 @@ BattleScript_MultiHitEndMessages:
 
 @jump here if presentdamagecalc would return do heal
 BattleScript_NewPresentHealMulti::
+	@jumpiffullhp BS_TARGET BattleScript_PresentFullHP
 	attackanimation
 	waitanimation
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
@@ -3464,6 +3465,16 @@ BattleScript_NewPresentHealMulti::
 	datahpupdate BS_TARGET
 	printstring STRINGID_PKMNREGAINEDHEALTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MultiHitEndMessages
+
+BattleScript_PresentFullHP::
+	pause B_WAIT_TIME_MED
+	call BattleScript_FlushMessageBox	@relevant only if healed on last hit
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_PKMNHPFULL
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	call BattleScript_FlushMessageBox
+	pause B_WAIT_TIME_MED
 	goto BattleScript_MultiHitEndMessages
 
 BattleScript_MultiHitNoMoreHits:: @@MAKE multihit miss script specifically for fury cutter to print miss & number hits
