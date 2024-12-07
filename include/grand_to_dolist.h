@@ -6261,8 +6261,35 @@ that way you don't need to keep flying aruond to different places looking for th
   both version only change type 1 aka main type now,
   need test if change is visible in summary screen
 
+  ok conversion 2 changes both types, to single,
+  while conversion 1 just changes main type,
+  think I may make conversion 2 into new move Called Conversion Z (like porygon z)
+
+  then make conversion 1 and 2 alternates of the same effect, that affect
+  primary type and secondary type respectively
+
   note while at it, actually test present effect to ensure it actually works -_-
+  ok tested it MOSTLY works, only issue is the heal effect as I have it set doesn't work...
+  no crashes, it just doesn't playheal animation, or do heal effect, but the heal text does display,
+  and the move doesn't crash...ok nvm it DOES crash if it rolls the heal at the beginning/when
+  enemy is max health *facepalm
+  -further test its VERY broken -_- when the heal effect rolls, it changes my type
+  for some reason
   
+  -also of note damage seems to be far overperforming at times?
+  or not?
+
+  Look into effect and how animation is decided,
+  may need make global value ewram to store present state
+  i.e ShouldPresentHeal  True False
+  and i guess add that value to least of values clean by the multi hit function,
+  so it gets reset to false each new hit
+
+  -actually no, adjusted bs command for present and seems to be fine now,
+  still need test for full hp first hit heal message
+
+  the crit dmg is weird idk what's goin on w that?
+  seems to be hitting far higher than it should
 
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 
  but my boosts seemed to go away? when teh next mon came out?  guessing something to do with dmg function
