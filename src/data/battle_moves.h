@@ -2751,7 +2751,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
 [MOVE_CONVERSION_2] =
 {
-    .effect = EFFECT_CONVERSION_2,
+    .effect = EFFECT_CONVERSION,
     .power = 0,
     .type = TYPE_NORMAL,
     .accuracy = 0,
@@ -2759,9 +2759,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
     .priority = 1, //can change priority when finish new effect so not based on last move hit by
-    .flags = 0,
+    .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
-},//vsonic need test
+},//now same as conversion 1, so reuse effect, just does type 2 instead
 
 [MOVE_AEROBLAST] =
 {
@@ -13596,4 +13596,19 @@ use wonder gaurd logic to determine its super effective
         .argument = TYPE_DARK,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
     //think get move at 35 or so?
+
+    
+    [MOVE_CONVERSION_Z] =
+{
+    .effect = EFFECT_CONVERSION_Z,
+    .power = 0,
+    .type = TYPE_NORMAL,
+    .accuracy = 0,
+    .pp = 30,
+    .secondaryEffectChance = 0,
+    .target = MOVE_TARGET_SELECTED,
+    .priority = 1, //can change priority when finish new effect so not based on last move hit by
+    .flags = FLAG_SNATCH_AFFECTED,
+    .split = SPLIT_STATUS,
+}
 };

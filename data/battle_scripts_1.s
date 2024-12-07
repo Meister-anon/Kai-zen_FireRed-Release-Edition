@@ -115,7 +115,8 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectEncore
 	.4byte BattleScript_EffectPainSplit
 	.4byte BattleScript_EffectSnore
-	.4byte BattleScript_EffectConversion2
+	@.4byte BattleScript_EffectConversion2 was 2 moved to Z, consolidate new 2, into conv 1
+	.4byte BattleScript_EffectConversionZ			  @EFFECT_CONVERSION_Z
 	.4byte BattleScript_EffectLockOn
 	.4byte BattleScript_EffectSketch
 	.4byte BattleScript_EffectHit
@@ -439,6 +440,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit					  @ EFFECT_SNOWBALL
 	.4byte BattleScript_EffectCelebrate				  @ EFFECT_CELEBRATE	
 	.4byte BattleScript_EffectHit					  @ EFFECT_JUDGMENT
+	.4byte BattleScript_EffectHit				      @ EFFECT_SHELL_TRAP @think still todo? check later
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -3503,6 +3505,7 @@ BattleScript_MultiHitMiss::
 	waitmessage B_WAIT_TIME_MED
 	goto BattleScript_MultiHitEnd
 
+@realized can put con1 and 2 new effect in one effect
 BattleScript_EffectConversion::
 	attackcanceler
 	attackstring
@@ -4222,7 +4225,8 @@ BattleScript_DoSnore::
 	setmoveeffect MOVE_EFFECT_FLINCH
 	goto BattleScript_HitFromCritCalc
 
-BattleScript_EffectConversion2::
+@rework of conversion 2
+BattleScript_EffectConversionZ::
 	attackcanceler
 	attackstring
 	ppreduce

@@ -929,6 +929,7 @@ gBattleAnims_Moves::
 	.4byte Move_TRENCH_RUN
 	.4byte Move_SPIN_DASH
 	.4byte Move_ARCTIC_RAKE
+	.4byte Move_CONVERSION_Z
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -2906,6 +2907,7 @@ Move_SMOKESCREEN:: @ 81C9EB0
 	waitforvisualfinish
 	end
 
+Move_CONVERSION_2:
 Move_CONVERSION:: @ 81C9FA9
 	loadspritegfx ANIM_TAG_CONVERSION
 	monbg ANIM_ATK_PARTNER
@@ -2958,7 +2960,7 @@ Move_CONVERSION:: @ 81C9FA9
 	blendoff
 	end
 
-Move_CONVERSION_2:: @ 81CA0BE
+Move_CONVERSION_Z:: @ 81CA0BE
 	loadspritegfx ANIM_TAG_CONVERSION
 	monbg ANIM_DEF_PARTNER
 	monbgprio_2A 1

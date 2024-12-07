@@ -6290,6 +6290,10 @@ that way you don't need to keep flying aruond to different places looking for th
 
   the crit dmg is weird idk what's goin on w that?
   seems to be hitting far higher than it should
+  -or not?
+
+  **but think I may increase access of conversion 1 and 2, or conversion in general,
+  for normal types and other mon that are meant to be versatile like Kecleon
 
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 
  but my boosts seemed to go away? when teh next mon came out?  guessing something to do with dmg function

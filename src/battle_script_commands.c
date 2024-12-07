@@ -14633,10 +14633,13 @@ static void atk90_tryconversiontypechange(void) //ok haven't actually changed th
     else
     {
         //SET_BATTLER_TYPE(gBattlerAttacker, moveType);
+        if (gCurrentMove == MOVE_CONVERSION)
         gBattleMons[gBattlerAttacker].type1 = moveType;//tweak just change main type, mostly for porygon so swap normal, for alt types
+        else if (gCurrentMove == MOVE_CONVERSION_2)
+        gBattleMons[gBattlerAttacker].type2 = moveType;
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
         gBattlescriptCurrInstr = cmd->nextInstr;
-    }//double check if type change will be picked up by summ sreen if not, need change move descr, 
+    }
 }
 
 static void atk91_givepaydaymoney(void)
