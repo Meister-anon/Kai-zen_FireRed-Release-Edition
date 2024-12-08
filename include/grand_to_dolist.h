@@ -6295,6 +6295,20 @@ that way you don't need to keep flying aruond to different places looking for th
   **but think I may increase access of conversion 1 and 2, or conversion in general,
   for normal types and other mon that are meant to be versatile like Kecleon
 
+  New idea conversion Z, search for type that resists BOTH target's type first,
+  ex. Houndoom Dark/Fire, Overlaps on Ghost
+
+  So if it finds a match do that fist if not then do either or between the types
+  would make more consistent in specific cases and be knowledge based gains.
+
+  idea loop type list break if  type 1 and type 2 are resisted, otherwise continue
+  end when reach last type i.e if typeSearch = Sound
+
+  If I don't have anything for a double resist i.e double resist found is false,
+  then continue w normal search, but store a type for type 1 and type 2,
+  then just do a random % 2 to pick which gets applied
+  where 0 is type 1,  1 is type 2
+  -done
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 
  but my boosts seemed to go away? when teh next mon came out?  guessing something to do with dmg function
  semed to only be doing 1 dmg, so I guess its one of the dmg = 1 things I added?

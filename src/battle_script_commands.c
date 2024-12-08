@@ -15484,36 +15484,138 @@ static void atkA6_settypetorandomresistance(void) // conversion 2
     }
     else
     {*/
-        u32 i, resistTypes = 0;
+        //change use storedType to loop so not auto using,
+        //
+        u32 i, DualresistTypes = 0, storedTypes = 0, storedTypes2 = 0;
         u32 hitByType = gLastHitByType[gBattlerAttacker];
         u32 targetType = gBattleMons[gBattlerTarget].type1;
+        u32 targetType2 = gBattleMons[gBattlerTarget].type2;
+        u32 typeFocus = Random() % 2; //decide which type to use for search
 
+        //since sound is neutral, can reduce loop amount to just type sound
+        //think can use this for Ditto new ability, to find type of mon to use 
+        //then just find a mon that works
         for (i = 0; i < NUMBER_OF_MON_TYPES; i++) // Find all types that resist.
         {
+            if (GetTypeModifier(targetType, i) <= UQ_4_12(0.5)
+            && GetTypeModifier(targetType2, i) <= UQ_4_12(0.5))
+                DualresistTypes |= 1u << i;
+
             switch (GetTypeModifier(targetType, i))
             {
             case UQ_4_12(0):
             case UQ_4_12(0.5):
-                resistTypes |= 1u << i;
+                storedTypes |= 1u << i; //if value match criteria add to field
+                break;
+            }
+
+            switch (GetTypeModifier(targetType2, i))
+            {
+            case UQ_4_12(0):
+            case UQ_4_12(0.5):
+                storedTypes2 |= 1u << i; //if value match criteria add to field
                 break;
             }
         }
 
-        while (resistTypes != 0)
+        if (DualresistTypes) //if has type that resists both
         {
-            i = Random() % NUMBER_OF_MON_TYPES;
-            if (resistTypes & (1u << i))
+            while (DualresistTypes != 0)
             {
-                if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
+                i = Random() % NUMBER_OF_MON_TYPES;
+                if (DualresistTypes & (1u << i))
                 {
-                    resistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
+                    {
+                        DualresistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                    }
+                    else
+                    {
+                        SET_BATTLER_TYPE(gBattlerAttacker, i);
+                        PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                        gBattlescriptCurrInstr = cmd->nextInstr;
+                        return; //shouold end and avoid fail instr
+                    }
+                }//think it loops random i, excluding battlers current type, until finds a type that matches
+                //the field
+            }
+        }
+        else //if no dual resist
+        {
+
+            if (storedTypes && storedTypes2) //if both type1 & type2 has a resist or immunity
+            {
+
+                if (typeFocus == 0) //if rolls to use target type 1 for resist
+                {
+                    while (storedTypes != 0)
+                    {
+                        i = Random() % NUMBER_OF_MON_TYPES;
+                        if (storedTypes & (1u << i))
+                        {
+                            if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
+                            {
+                                storedTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                            }
+                            else
+                            {
+                                SET_BATTLER_TYPE(gBattlerAttacker, i);
+                                PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                                gBattlescriptCurrInstr = cmd->nextInstr;
+                                return; //shouold end and avoid fail instr
+                            }
+                        }//think it loops random i, excluding battlers current type, until finds a type that matches
+                        //the field
+                    }
                 }
-                else
+                else if (typeFocus == 1) //if rolls to use target type 2 for resist
                 {
-                    SET_BATTLER_TYPE(gBattlerAttacker, i);
-                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
-                    gBattlescriptCurrInstr = cmd->nextInstr;
-                    return; //shouold end and avoid fail instr
+                    while (storedTypes2 != 0)
+                    {
+                        i = Random() % NUMBER_OF_MON_TYPES;
+                        if (storedTypes2 & (1u << i))
+                        {
+                            if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
+                            {
+                                storedTypes2 &= ~(1u << i); // Type resists, but the user is already of this type.
+                            }
+                            else
+                            {
+                                SET_BATTLER_TYPE(gBattlerAttacker, i);
+                                PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                                gBattlescriptCurrInstr = cmd->nextInstr;
+                                return; //shouold end and avoid fail instr
+                            }
+                        }//think it loops random i, excluding battlers current type, until finds a type that matches
+                        //the field
+                    }
+                }
+            }
+            else if (storedTypes || storedTypes2) //if either has a resist
+            {
+                //if stored 1 doens't have a resist, than pass the values from type 2
+                //automatically defaults to type 1 if type2 is blank so no ne for logic there
+                if (storedTypes == 0)
+                    storedTypes = storedTypes2;
+
+                while (storedTypes != 0)
+                {
+                    i = Random() % NUMBER_OF_MON_TYPES;
+                    if (storedTypes & (1u << i))
+                    {
+                        if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
+                        {
+                            storedTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                        }
+                        else
+                        {
+                            SET_BATTLER_TYPE(gBattlerAttacker, i);
+                            PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                            gBattlescriptCurrInstr = cmd->nextInstr;
+                            return; //shouold end and avoid fail instr
+                        }
+                    }//think it loops random i, excluding battlers current type, until finds a type that matches
+                    //the field
                 }
             }
         }
