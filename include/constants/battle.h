@@ -26,6 +26,11 @@
  */
 
 #define MAX_BATTLERS_COUNT  4
+//reportedely takes ewram?
+//test if can hold 6 for triple battles w my ewram removal
+//supposedly doesn't build for EE
+//tested value 6, I have plenty of room left, nice
+//for me the increase requires about 1-1.3% ewram
 
  //battler positions for gbattlerpostions
 #define B_POSITION_PLAYER_LEFT        0

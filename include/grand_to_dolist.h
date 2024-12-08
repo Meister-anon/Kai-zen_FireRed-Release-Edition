@@ -6268,6 +6268,15 @@ that way you don't need to keep flying aruond to different places looking for th
   then make conversion 1 and 2 alternates of the same effect, that affect
   primary type and secondary type respectively
 
+  looking into move ui, can't change window position or things in window,
+  but think I can just adjust the movement of the outline individually, 
+  to make it look better.
+
+  -The last move window and the cancel window are fine just need to move the 
+  others.
+  -think its window 3 and 4? if you count first as window 0
+
+
   note while at it, actually test present effect to ensure it actually works -_-
   ok tested it MOSTLY works, only issue is the heal effect as I have it set doesn't work...
   no crashes, it just doesn't playheal animation, or do heal effect, but the heal text does display,
@@ -6309,6 +6318,15 @@ that way you don't need to keep flying aruond to different places looking for th
   then just do a random % 2 to pick which gets applied
   where 0 is type 1,  1 is type 2
   -done
+
+  In working on New Conversion effect, found potential way forward,
+  for new ditto ability, that transforms to mon of a resisted type
+
+
+  -Note move info callback still needs work, doesn't work if switch places,
+  just reads original mon, i.e if first slot switches places, it still reads the original in its new place,
+  or it just doesn't update the value after they get moved?
+
  potential issue? notsue the cause I stacked up my atk def boosts and defeated an enemy, 
  but my boosts seemed to go away? when teh next mon came out?  guessing something to do with dmg function
  semed to only be doing 1 dmg, so I guess its one of the dmg = 1 things I added?
