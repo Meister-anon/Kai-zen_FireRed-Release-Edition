@@ -499,6 +499,7 @@ extern const u8 gMoveDescription_Headbutt[];
 extern const u8 gMoveDescription_HiJumpKick[];
 extern const u8 gMoveDescription_Snowball[];
 extern const u8 gMoveDescription_DoubleEdge[];
+extern const u8 gMISTY_EXPLOSION_Description[];
 extern const u8 gCELEBRATE_Description[];
 //will keep the hm descriptinos as those are specific to overworld effect 
 

@@ -7745,7 +7745,25 @@ const struct Item gItems[] =
     [ITEM_TM158] =
     {
       .name = _("TM158"),
-      .itemId = ITEM_TM158_SNOWBALL,
+      .itemId = ITEM_TM158_MISTY_EXPLOSION,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gMISTY_EXPLOSION_Description,
+//      "description":  "A maximum-power attack of great\\nferocity, but one that also sharply\\nreduces the user's SP. ATK stat.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  0,
+      //"moveId" "Overheat"
+    }, //+100
+    [ITEM_TM159] =
+    {
+      .name = _("TM159"),
+      .itemId = ITEM_TM159_SNOWBALL,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7760,10 +7778,10 @@ const struct Item gItems[] =
       .secondaryId =  0,
       //"moveId" "Overheat"
     }, //+100
-    [ITEM_TM159] =
+    [ITEM_TM160] =
     {
-      .name = _("TM159"),
-      .itemId = ITEM_TM159_CELEBRATE,
+      .name = _("TM160"),
+      .itemId = ITEM_TM160_CELEBRATE,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,

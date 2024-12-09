@@ -11289,6 +11289,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
     }, //buffed was given explosion effect defense stat drop (will drop sp def)
+    //think reason for lower power as only non normal explosion so can get type multiplier,
+    //seems my change is appropriate buff without breaking its balance
 
     [MOVE_GRASSY_GLIDE] =
     {
