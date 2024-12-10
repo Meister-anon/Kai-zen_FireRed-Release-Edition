@@ -3592,6 +3592,8 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
 
     species = targetSpecies; //put here to reset species since can't put logic above defines
     */
+   //assigns transform species for use in graphic functions
+    gBattleSpritesDataPtr->battlerData[gBattlerAttacker].transformSpecies = species;
 
     if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
         party = &gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]];

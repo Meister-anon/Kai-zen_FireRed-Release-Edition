@@ -5035,7 +5035,7 @@ Exceptions:
 
   it now works as planned
 
-  as part of update for form chnage, need add F_MEGA_FORM to mon in bsae stats, flag was set but never assigned
+  as part of update for form chnage, need add SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION to mon in bsae stats, flag was set but never assigned
   -done
 
   -adjusted battle message for multihit results, removed excessive repeat mostly in csae of multihit that kills in one hit
@@ -6319,9 +6319,79 @@ that way you don't need to keep flying aruond to different places looking for th
   where 0 is type 1,  1 is type 2
   -done
 
+  -solarblade needs to be a TM, ex groudon learns solarbeam by level
+  but realized usually its taught by tm, since it doesn't get it till 65
+  changed to solarblade but there is no solarblade tm -Facepalm
+  --think want conversion to be a learnt move -was already a tm just didn't see it
+
+
   In working on New Conversion effect, found potential way forward,
   for new ditto ability, that transforms to mon of a resisted type
 
+  -setup new ability not yet tested, also adjusted species flags back down
+  no longer using (1 << 8) realized cant
+  also added data for 1 extra tm, was able to build
+  but discoverd an increase in EWRAM, unsure exactly where came from
+  so making note of differene appears to be 8 bytes
+  use went from 251022, to 251030
+  ,hmm and rom size took a somewhat significant jump down.??
+
+  tested something I did broke the transoformation grahpic for the abilities
+  but imposter still works far as data,
+  inversion works "sometimes" completely unsure what makes it so,
+  think something w my loop logic,
+  think its moving on from the transform data command,
+  before its finishing getting the data for some reason?
+  as the values for species name is blank when it fails,
+  even when it works the original ability name doesn't show for some reason,
+  intead it only shows as Adaptability,???
+  and move transfer isn't working for that,
+  base move is still transform
+  
+  -was able to fix ability transfer graphic is stil broken,
+  think has to do w HandleSpeciesGfxDataChange function in battle_gfx_sfx_util.c
+  
+
+  this value being passed to, appears to be used to determine the species of transformation graphic
+  gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies = targetSpecies;
+
+  *tested seems to be right, commentd out in graphic function and passed my species value
+  in transform logic,
+  and while the animation STILL doesnt play, going to party menu and reloading battle graphics
+  does load the correct image. hmm
+
+  ok fixed everything, (almost) the issue was battle controler crap,
+  playmoveanimation was a various command and I removed gactivebattler from that
+  which meant all the btle controller stuff couldn't complete *facepalm
+  after adding gactivebattler back to function animations played and mon transformed correctly
+
+  -Last thing to test is if I still need my species work around,
+  in the transform function, if so I'll just upadte the btl gfx function
+  and remove all use of species there, and just use transformSpecies in everything
+  that makes sense to.
+
+  -sigh still issue, works for imposter but inversion which is meant to turn into diff mon,
+  for some reason turns into target still... it worked before so idk what's happening here
+  -...oh I undid my fix of course smh
+
+  -reapplied "fix" and things seem to be on point, only issue is
+  palette not updating and I just don't think I applied anything there,
+  so should just be a matter of using right value there
+  yeah already see what I need to do so no issue there
+
+  unsure about use of battler id in gbattlerforms in gfx function
+  -gBattleMonForms[battlerAtk] = gBattleMonForms[battlerDef];
+
+  *Think need to test build to compare modern and agbcc to ensure didn't break something
+  I didn't touch any structs or attempt optimizing so I don't think there should be but
+  will test anyway.
+
+  ran make old, rom size is comparable it also went down,
+  but the ewram  is unchanged, on old to the previous numbers for modern,
+  so there appears to be some issue here+
+
+  -Note potential issue w use of IsMonShiny function,
+  double check it works in rom without issue
 
   -Note move info callback still needs work, doesn't work if switch places,
   just reads original mon, i.e if first slot switches places, it still reads the original in its new place,
@@ -6641,10 +6711,10 @@ that way you don't need to keep flying aruond to different places looking for th
   exp gain isn't working now for some reason, only gives exp to first slot mon?
  fixed issue was, wasn't using constant value for counter replaced 17 divisor with var that wraps at 17 before increments counter
 
-  //change illusinon effect for wilds, make select random mon from encounter table ability illusion
+  //change illusion ability effect for wilds, make select random mon from encounter table ability illusion
   //setup pressuer adjsutment so doesn't retrigger in same turn in doubles
   //moved base odds to hi pressure, remember only want on mewtwo for most part, plan to  replace with uniques for most legendaries
- 
+ /vsonic note
 
  defiant competitive also don't work for some reason, goes into infini loop when lowering stats smh
 

@@ -714,16 +714,19 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         }
         gSprites[gBattlerSpriteIds[battlerAtk]].pos1.y = GetBattlerSpriteDefault_Y(battlerAtk);
     }
-    else
+    else //only this is transform, only change here
     {
         const void *src;
         void *dst;
 
         position = GetBattlerPosition(battlerAtk);
-        if (GetBattlerSide(battlerDef) == B_SIDE_OPPONENT)
+        /*if (GetBattlerSide(battlerDef) == B_SIDE_OPPONENT)
             targetSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerDef]], MON_DATA_SPECIES);
         else
             targetSpecies = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerDef]], MON_DATA_SPECIES);
+        */
+       //value now set in the transform logic from battlecontroller/pokemon
+        targetSpecies = gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies;
         if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER)
         {
             personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
@@ -754,15 +757,18 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         LZDecompressWram(lzPaletteData, buffer);
         LoadPalette(buffer, paletteOffset, 32);
         Free(buffer);
+
+        //since inversion doesn't use target 
+        //worried of potential issue w using BattlerDef/battlerId in gbattlemonforms
         if (targetSpecies == SPECIES_CASTFORM)
         {
             LZDecompressWram(lzPaletteData, gBattleStruct->castformPalette[0]);
             LoadPalette(gBattleStruct->castformPalette[0] + gBattleMonForms[battlerDef] * 16, paletteOffset, 32);
         }
-        BlendPalette(paletteOffset, 16, 6, RGB_WHITE);
+        BlendPalette(paletteOffset, 16, 6, RGB_WHITE); //pink color transorm blend
         CpuCopy32(gPlttBufferFaded + paletteOffset, gPlttBufferUnfaded + paletteOffset, 32);
-        gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies = targetSpecies;
-        gBattleMonForms[battlerAtk] = gBattleMonForms[battlerDef];
+        //gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies = targetSpecies;
+        gBattleMonForms[battlerAtk] = gBattleMonForms[battlerDef]; //don't know what this is, but is transferring target form to attacker?
         gSprites[gBattlerSpriteIds[battlerAtk]].pos1.y = GetBattlerSpriteDefault_Y(battlerAtk);
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battlerAtk]], gBattleMonForms[battlerAtk]);
     }
@@ -1010,6 +1016,7 @@ void BattleInterfaceSetWindowPals(void)
     }
 }
 
+//vsonic Important, believe may be important to issue of substitute fading before it shuold?
 void ClearTemporarySpeciesSpriteData(u8 battlerId, bool8 dontClearSubstitute)
 {
     gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies = SPECIES_NONE;

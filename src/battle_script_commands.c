@@ -11215,7 +11215,8 @@ static void atk76_various(void) //will need to add all these emerald various com
         return;
 
     battler = GetBattlerForBattleScript(cmd->battler); //mostly for form change use of various
-
+    gActiveBattler = battler; //since using outdated btlcontroler may need this?
+    //-_- yup that was the entire problem, imposter etc. properly transforms now
     switch (cmd->id) //put every case within brackets, and add VARIOUS_ARGS  to everythihng, battler arg alread covered by cmd
     {
 
