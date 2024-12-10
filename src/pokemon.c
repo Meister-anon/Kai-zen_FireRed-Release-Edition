@@ -3558,9 +3558,11 @@ void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
 }
 
 //specificl for transform, and ditto abilities
-void TransformedMonStats(struct Pokemon *mon)
+//think change to take species argument would make simpiler for inversion,
+//plus remove redundant code
+void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies)
 {
-    u16 targetSpecies; //mon is mon being transformed, i.e attacker using transform effect
+    //u16 targetSpecies; //mon is mon being transformed, i.e attacker using transform effect
     struct Pokemon *party;
     
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
@@ -3577,25 +3579,39 @@ void TransformedMonStats(struct Pokemon *mon)
     s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
     s32 spDefenseIV = GetMonData(mon, MON_DATA_SPDEF_IV, NULL);
     s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
-    u16 species = targetSpecies; //used for stat calc but not actually setting species to target as so can still use quick powder for ditto
+    //realized was dumb was assigning garbage
+    u16 species = TransformedSpecies; //used for stat calc but not actually setting species to target as so can still use quick powder for ditto
     s32 level = GetLevelFromMonExp(mon);//using like this doesn't change species, but below takes target species for calculating stats
     s32 newMaxHP;
-    u16 ability = GetMonAbility(mon);
+    //u16 ability = GetMonAbility(mon);
 
-    if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
+    /*if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
         targetSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
     else
         targetSpecies = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
 
     species = targetSpecies; //put here to reset species since can't put logic above defines
-    
+    */
 
     if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
         party = &gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]];
     else
         party = &gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]];
 
-    ability = GetMonAbility(party); //attempted fix for hp not changing with wondergaurd correctly/worked
+    //as I'm only changing battle ability and then reloading it, I think this should work?
+    if (GetMonAbility(mon) == ABILITY_INVERSION) //can just do mon ability
+    {
+        if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
+            party = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];
+        else
+            party = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
+    }//specifically for inversion
+    //so I use MY ivs, not the enemy Ivs, as I'm not transforming into them
+        
+
+    
+
+    //ability = GetMonAbility(party); //attempted fix for hp not changing with wondergaurd correctly/worked
 
     hpIV = GetMonData(party, MON_DATA_HP_IV, NULL);
     attackIV = GetMonData(party, MON_DATA_ATK_IV, NULL);
@@ -3607,12 +3623,12 @@ void TransformedMonStats(struct Pokemon *mon)
 
     SetMonData(mon, MON_DATA_LEVEL, &level);
 
-    if (ability == ABILITY_WONDER_GUARD) {
+    if (TransformAbility == ABILITY_WONDER_GUARD) {
         currentHP = 1;
         newMaxHP = 1;
     }
 
-    else if (ability == ABILITY_DISPIRIT_GUARD)
+    else if (TransformAbility == ABILITY_DISPIRIT_GUARD)
     {
         s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (((hpIV * 200) - 36) / 100);
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level;
@@ -3636,7 +3652,7 @@ void TransformedMonStats(struct Pokemon *mon)
         CALC_STAT(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
         CALC_STAT(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
 
-        if (ability == ABILITY_WONDER_GUARD)
+        if (TransformAbility == ABILITY_WONDER_GUARD)
         {
             if (currentHP != 0 || oldMaxHP == 0)
                 currentHP = 1;
@@ -3863,6 +3879,72 @@ void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon) //Credit: Asparagu
     {
         SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);
         SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gBattleMoves[moves[i]].pp);
+    }
+}
+
+//working but created for use in inversion ditto ability, to properly change moves
+void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species) //Credit: AsparagusEduardo
+{
+    //u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES, NULL);
+    s32 level = GetLevelFromMonExp(mon);
+    s32 i;
+    u16 moves[MAX_MON_MOVES] = {0};
+    u8 addedMoves = 0;
+    const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
+    u16 generatedSpecies;
+
+    if (gBaseStats[GetFormSpeciesId(Species, 0)].flags == F_HAS_COSMETIC_FORMS)
+        generatedSpecies = GetFormSpeciesId(Species, 0);
+    else
+        generatedSpecies = Species;
+
+    if (Species == SPECIES_PIKACHU_ROCK_STAR
+    || Species == SPECIES_PIKACHU_BELLE
+    || Species == SPECIES_PIKACHU_POP_STAR
+    || Species == SPECIES_PIKACHU_PH_D
+    || Species == SPECIES_PIKACHU_LIBRE
+    || Species == SPECIES_BASCULIN_WHITE_STRIPED)
+        generatedSpecies = Species;
+
+    learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
+    
+    
+    for (i = 0; learnset[i].move != LEVEL_UP_END; i++)
+    {
+        s32 j;
+        bool32 alreadyKnown = FALSE;
+        if (learnset[i].level > level)
+            break;
+        if (learnset[i].level == 0)
+            continue;
+        for (j = 0; j < addedMoves + 1; j++)
+            if (moves[j] == learnset[i].move)
+            {
+                alreadyKnown = TRUE;
+                break;
+            }
+    
+        if (!alreadyKnown)
+        {
+            if (addedMoves < MAX_MON_MOVES)
+            {
+                moves[addedMoves] = learnset[i].move;
+                addedMoves++;
+            }
+            else
+            {
+                for (j = 0; j < MAX_MON_MOVES - 1; j++)
+                    moves[j] = moves[j + 1];
+                moves[MAX_MON_MOVES - 1] = learnset[i].move;
+            }
+        }
+    }
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        gBattleMons[gBattlerAttacker].moves[i] = moves[i];
+        gBattleMons[gBattlerAttacker].pp[i] = gBattleMoves[moves[i]].pp;
+        //SetBoxMonData(boxMon, MON_DATA_MOVE1 + i, &moves[i]);
+        //SetBoxMonData(boxMon, MON_DATA_PP1 + i, &gBattleMoves[moves[i]].pp);
     }
 }
 

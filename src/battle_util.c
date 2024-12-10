@@ -503,6 +503,7 @@ static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
     [ABILITY_ICE_FACE] = 1,
     [ABILITY_ILLUSION] = 1,
     [ABILITY_IMPOSTER] = 1,
+    [ABILITY_INVERSION] = 1,
     [ABILITY_MULTITYPE] = 1,
     [ABILITY_NEUTRALIZING_GAS] = 1,
     [ABILITY_IMMUTABLE_WIND] = 1,
@@ -589,6 +590,7 @@ static const u16 sRolePlayBannedAbilities[] =
     ABILITY_ILLUSION,
     ABILITY_ZEN_MODE,
     ABILITY_IMPOSTER,
+    ABILITY_INVERSION,
     ABILITY_STANCE_CHANGE,
     ABILITY_POWER_OF_ALCHEMY,
     ABILITY_RECEIVER,
@@ -664,6 +666,7 @@ static const u16 sEntrainmentBannedAttackerAbilities[] =
     ABILITY_ZEN_MODE,
     ABILITY_ILLUSION,
     ABILITY_IMPOSTER,
+    ABILITY_INVERSION,
     ABILITY_POWER_OF_ALCHEMY,
     ABILITY_RECEIVER,
     ABILITY_DISGUISE,
@@ -5853,6 +5856,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
+            case ABILITY_INVERSION:
+                if (IsBattlerAlive((battler))
+                    && !(gBattleMons[(battler)].status2 & (STATUS2_TRANSFORMED | STATUS2_SUBSTITUTE))
+                    && !(gBattleStruct->illusion[(battler)].on)
+                    && !(gStatuses3[BATTLE_OPPOSITE(battler)] & STATUS3_SEMI_INVULNERABLE))
+                {
+                    gBattlerAttacker = battler;
+                    gBattlerTarget = BATTLE_OPPOSITE(battler);
+                    BattleScriptPushCursorAndCallback(BattleScript_InversionActivates); //uses transform bs command
+                    ++effect;
+                }//think this should work for inversion?
+                break;
             case ABILITY_MOLD_BREAKER:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
@@ -7635,6 +7650,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     case ABILITY_ICE_FACE:
                     case ABILITY_ILLUSION:
                     case ABILITY_IMPOSTER:
+                    case ABILITY_INVERSION:
                     case ABILITY_RECEIVER:
                     case ABILITY_RKS_SYSTEM:
                     case ABILITY_SCHOOLING:
@@ -11598,7 +11614,7 @@ bool32 IsBattlerMegaEvolved(u8 battlerId)
     // While Transform does copy stats and visuals, it shouldn't be counted as true Mega Evolution.
     if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         return FALSE;
-    return (gBaseStats[gBattleMons[battlerId].species].flags & F_MEGA_FORM); //vsonic
+    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION); //vsonic
 }
 
 bool32 IsBattlerPrimalReverted(u8 battlerId)
@@ -11606,7 +11622,7 @@ bool32 IsBattlerPrimalReverted(u8 battlerId)
     // While Transform does copy stats and visuals, it shouldn't be counted as true Primal Revesion.
     if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         return FALSE;
-    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_PRIMAL_REVERSION);
+    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION);
 }
 
 //VSONIC IMPORTANT think need to set these up still??

@@ -13127,7 +13127,7 @@ const struct PokedexEntry gPokedexEntries[] =
 //rn don't know how to take multi line
 
 //if species has mega flag they are same categoryName as base species so can use that to skip processing
-//.flags = F_MEGA_FORM,  or SPECIES_FLAG_PRIMAL_REVERSION  or F_PIKACHU_FORM  use && !=  && !=
+//.flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,  or SPECIES_FLAG_PRIMAL_REVERSION  or F_PIKACHU_FORM  use && !=  && !=
 //for those forms catname will be "garbage data" just a meaningless unused value
 //going to call max description limit 140, as thats what enamorus uses and that fits
 //okk shouldn't actually be hard, pull lines from basestats  just upt description in by hand after

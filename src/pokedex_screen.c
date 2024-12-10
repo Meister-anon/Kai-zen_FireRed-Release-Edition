@@ -3406,27 +3406,6 @@ static void Task_DexScreen_ShowMonPage(u8 taskId)//think task show dex entry fro
     
 }
 
-enum FormValues {
-    MISC_FORM,
-    MEGA_FORM,
-    PRIMAL_FORM
-};
-
-u8 GetFormType(u16 species)
-{
-
-    if (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION)
-        return PRIMAL_FORM;
-
-    else if (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM)
-        return MEGA_FORM;
-
-    else if (species > NATIONAL_SPECIES_COUNT) //normal form not mega or primal
-        return MISC_FORM;
-
-
-}
-
 //left right
 static bool32 DexScreen_TryDisplayForms(u8 direction)
 {
@@ -4382,8 +4361,7 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
 
     //if mega use base form for catch otherwise use dex species
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION))
+    && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -4508,8 +4486,7 @@ void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)
 
 
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION))
+    && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -4601,8 +4578,7 @@ void DexScreen_PrintMonWeight(u8 windowId, u16 species, u8 x, u8 y)
     //make list of exclusions, like I did for pic height
     //just need to exclude the gen 9 form mon
     if (species > NATIONAL_SPECIES_COUNT 
-    && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION))
+    && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -4812,8 +4788,7 @@ void DexScreen_PrintMonFlavorText(u8 windowId, u16 species, u8 x, u8 y)
 
 
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION))
+    && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -5505,8 +5480,7 @@ u8 DexScreen_DrawMonAreaPage(void)
 
 
     if (species > NATIONAL_SPECIES_COUNT
-    && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION))
+    && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
     {
         FormSpecies = GetFormSpeciesId(species, 0);
     }
@@ -6010,8 +5984,7 @@ u8 DexScreen_RegisterMonToPokedex(u16 species) //now has nat dex, need workaroun
 
     if (species > NATIONAL_SPECIES_COUNT
     && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-    && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-    || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+    && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
     || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
     || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
     || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM

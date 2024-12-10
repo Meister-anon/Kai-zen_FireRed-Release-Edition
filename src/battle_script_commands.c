@@ -97,7 +97,7 @@ static void PutLevelAndGenderOnLvlUpBox(void);
 static bool32 HasAttackerFaintedTarget(void);
 static void HandleTerrainMove(u32 moveEffect);
 //static void RecalcBattlerStats(u32 battler, struct Pokemon *mon);  old setup can use emerald version non static now
-static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon);
+static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 TargetAbility, u16 TransformSpecies);
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId);
 //since its not static
 static bool8 IsBattlerProtected(u8 battlerId, u16 move);//gabe me compiler double definition error so made static
@@ -11118,15 +11118,17 @@ static void RecalcBattlerStats(u32 battler, struct Pokemon *mon)
     gBattleMons[battler].type2 = gBaseStats[gBattleMons[battler].species].type2;
 } */  //old version emerald version does same thing, just separated out to be more flexible
 
-static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon)
+//think chang take ability and species arguement, 
+//species just to pass to transformmonstats function (and type stuff at bottom)
+static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 TargetAbility, u16 TransformSpecies)
 {
-    u16 target; //mon is mon being transformed, i.e attacker using transformative effect
+    /*u16 target; //mon is mon being transformed, i.e attacker using transformative effect
     if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
         target = GetMonAbility(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
     else
         target = GetMonAbility(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]]);
-
-    TransformedMonStats(mon);  ///set stat based on species, dbl check it sets mondata, below assigns it for battle
+    */
+    TransformedMonStats(mon, TargetAbility, TransformSpecies);  ///set stat based on species, dbl check it sets mondata, below assigns it for battle
     //gBattleMons[battler].level = GetMonData(mon, MON_DATA_LEVEL); //since don't want to change level may remove this 
     //thinking set values to what I want in above function do I even need these?  possibly ressting stat, remove or put inside other function
     gBattleMons[battler].hp = GetMonData(mon, MON_DATA_HP); 
@@ -11136,9 +11138,10 @@ static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon)
     gBattleMons[battler].speed = GetMonData(mon, MON_DATA_SPEED);
     gBattleMons[battler].spAttack = GetMonData(mon, MON_DATA_SPATK);
     gBattleMons[battler].spDefense = GetMonData(mon, MON_DATA_SPDEF);
-    gBattleMons[battler].ability = target;  //think work? yup works
-    gBattleMons[battler].type1 = gBaseStats[gBattleMons[gBattlerTarget].species].type1;
-    gBattleMons[battler].type2 = gBaseStats[gBattleMons[gBattlerTarget].species].type2;
+    gBattleMons[battler].ability = TargetAbility;  //think work? yup works
+    gBattleMons[battler].type1 = gBaseStats[TransformSpecies].type1; //think safe to replace battlemons here, as already fails if mon is transformed, and no other time species would change
+    gBattleMons[battler].type2 = gBaseStats[TransformSpecies].type2;
+    //gBattleMons[battler].type2 = gBaseStats[gBattleMons[gBattlerTarget].species].type2;
     //set type 3 in function after this  function is used
 }
 
@@ -11552,6 +11555,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             case ABILITY_ZEN_MODE:
             case ABILITY_STANCE_CHANGE:
             case ABILITY_IMPOSTER:
+            case ABILITY_INVERSION:
             case ABILITY_POWER_CONSTRUCT:
             case ABILITY_BATTLE_BOND:
             case ABILITY_SCHOOLING:
@@ -15061,8 +15065,9 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
         s32 i;
         u8 *battleMonAttacker, *battleMonTarget;
         struct Pokemon *mon;
-        u8 found_species;
+        u32 found_species = 0xffff;
         u16 original_ability = GetBattlerAbility(gBattlerAttacker); //store transformer ability for differeing logic
+        u16 targetAbility, TransformSpecies;
 
         gBattleMons[gBattlerAttacker].status2 |= STATUS2_TRANSFORMED;
         gDisableStructs[gBattlerAttacker].disabledMove = MOVE_NONE;
@@ -15080,14 +15085,188 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
         }
 
         //put new ditto hidden ability species search  here, set to target species
-        if (original_ability == ABILITY_INVERSION)
+        else if (original_ability == ABILITY_INVERSION)
         {
+            u16 baseStatLimit;
+            u32 i, badgecount, DualresistTypes = 0, storedTypes = 0, storedTypes2 = 0;
+            u32 targetType = gBattleMons[gBattlerTarget].type1;
+            u32 targetType2 = gBattleMons[gBattlerTarget].type2;
+            u32 ValidTypes; //check for how many type storages have values, will be used to random which to use
+            u32 FoundType = 0;
+
+            badgecount = GetNumBadges();
+
+
+            if (badgecount <= 1)
+                baseStatLimit = 340;
+            else if (badgecount <= 3)
+                baseStatLimit = 457;
+            else
+                baseStatLimit = 0xffff; //effective infinity, i.e no limit
+            
+            
+
+            for (i = 0; i < NUMBER_OF_MON_TYPES; i++) // Find all types that resist.
+            {
+                if (GetTypeModifier(targetType, i) <= UQ_4_12(0.5)
+                && GetTypeModifier(targetType2, i) <= UQ_4_12(0.5))
+                    DualresistTypes |= 1u << i;
+
+                switch (GetTypeModifier(targetType, i))
+                {
+                case UQ_4_12(0):
+                case UQ_4_12(0.5):
+                    storedTypes |= 1u << i; //if value match criteria add to field
+                    break;
+                }
+
+                switch (GetTypeModifier(targetType2, i))
+                {
+                case UQ_4_12(0):
+                case UQ_4_12(0.5):
+                    storedTypes2 |= 1u << i; //if value match criteria add to field
+                    break;
+                }
+            }
+
+            if (DualresistTypes) //if has type that resists both
+            {
+                while (DualresistTypes != 0)
+                {
+                    i = Random() % NUMBER_OF_MON_TYPES; //pick random type
+                    if (DualresistTypes & (1u << i)) //if that type is within member
+                    {
+                        //if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))//replace w macro for species check
+                        {
+                            //DualresistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                            DualresistTypes = i;
+                            break; //end loop
+                        }
+                        /*else
+                        {
+                            SET_BATTLER_TYPE(gBattlerAttacker, i);
+                            PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                            gBattlescriptCurrInstr = cmd->nextInstr;
+                            return; //shouold end and avoid fail instr
+                        }*/
+                    }//think it loops random i, excluding battlers current type, until finds a type that matches
+                    //the field
+                }
+            }
+
+             if (storedTypes) //if has type that resists both
+            {
+                while (storedTypes != 0)
+                {
+                    i = Random() % NUMBER_OF_MON_TYPES; //pick random type
+                    if (storedTypes & (1u << i)) //if that type is within member
+                    {
+                        //if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))//replace w macro for species check
+                        {
+                            //DualresistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                            storedTypes = i;
+                            break; //end loop
+                        }
+                        /*else
+                        {
+                            SET_BATTLER_TYPE(gBattlerAttacker, i);
+                            PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                            gBattlescriptCurrInstr = cmd->nextInstr;
+                            return; //shouold end and avoid fail instr
+                        }*/
+                    }//think it loops random i, excluding battlers current type, until finds a type that matches
+                    //the field
+                }
+            }
+
+             if (storedTypes2) //if has type that resists both
+            {
+                while (storedTypes2 != 0)
+                {
+                    i = Random() % NUMBER_OF_MON_TYPES; //pick random type
+                    if (storedTypes2 & (1u << i)) //if that type is within member
+                    {
+                        //if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))//replace w macro for species check
+                        {
+                            //DualresistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
+                            storedTypes2 = i;
+                            break; //end loop
+                        }
+                        /*else
+                        {
+                            SET_BATTLER_TYPE(gBattlerAttacker, i);
+                            PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                            gBattlescriptCurrInstr = cmd->nextInstr;
+                            return; //shouold end and avoid fail instr
+                        }*/
+                    }//think it loops random i, excluding battlers current type, until finds a type that matches
+                    //the field
+                }
+            }
+
+            if (DualresistTypes || storedTypes || storedTypes2)
+            {
+                while (FoundType == 0)
+                {
+                    ValidTypes = Random() % 3; //value between 0 and 2
+
+                    switch (ValidTypes)
+                    {
+                        case 0:
+                            FoundType = DualresistTypes;
+                            break;
+                        case 1:
+                            FoundType = storedTypes;
+                            break;
+                        case 2:
+                            FoundType = storedTypes2;
+                            break;
+
+                    }
+                }
+            }
+
+            if (FoundType)
+            {
+                while (found_species == 0xffff)
+                {
+                    i = Random() % BASE_SPECIES_COUNT;
+                    if (IS_SPECIES_OF_TYPE(i, FoundType)
+                    && gBaseStats[i].flags != FLAG_LEGENDARY_POKEMON
+                    && gBaseStats[i].flags != F_ULTRA_BEAST)
+                    {
+                        //do 2nd check for if species passes bst limiter
+                        if (GetBaseStatTotal(i) <= baseStatLimit)
+                            found_species = i;
+                            //break;//setting found species to i, should already break loop, but adding break just in case
+                            //THIS THIS WAS THE PROBLEM!!! agaopgoaegrl
+                            //was breaking out early FUCK
+                    }
+                }
+            }
             //found_species = mon search
+            //annoying but think will need to add a bst filter based on badge
+            //to balance think can get rid of the filter around 4th badge tho,
+            //so not that bad
+            //no badge to 1 badge limit to 340 bst,
+            //>= 1 badge limit 340
+            //>= 3 badges limit 450
+            //think that's all I need?
+            //to increase pool make random chance to use 
+            //dual resist or type 1/type2 resist
+            //simple code random % 3 w switch case,
+            //set type search to stored value based on that,
+            //i.e case 0 typesearch  = dual resist
             PREPARE_SPECIES_BUFFER(gBattleTextBuff1, found_species);
         }
         
         //do species search assign found species to value
         //PREPARE_SPECIES_BUFFER(gBattleTextBuff1, found_species)//for counter-form search species to use and assign to this value so it will be target species
+        //idk why but imposter shows correct name, inversion just shows as adaptability,
+        //but imposter doesn't work w the ability name cap, while the messed up version of inversion,
+        //does show as capped, even if the wrong ability
+        //fixed was problem w abilitybuffer, fixed now, but still unsure,
+        //why it worked for one and not the other
            if (original_ability == ABILITY_IMPOSTER || original_ability == ABILITY_INVERSION)
             PREPARE_ABILITY_BUFFER(gBattleTextBuff2, original_ability); //for imposter & inversion
 
@@ -15097,32 +15276,73 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                 battleMonTarget = (u8*)(&gBattleMons[gBattlerTarget]); //v changed should make only copy move data
                 for (i = offsetof(struct BattlePokemon, moves[0]); i < offsetof(struct BattlePokemon, moves[4]); ++i) //ok THIS is what tells it to explicitly take values excluding hp. it loops and copies values from struct down to hp.
                     battleMonAttacker[i] = battleMonTarget[i]; //to get this to work would need change value from struct higher htan pp, and replace i = 0 with accurate byte value of starting value
+            
+                if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
+                {
+                    //base version takes battle ability not mon ability,
+                    //which exactly tracks ability changes, 
+                    //but its more useful as a reveal to just show its default ability
+                    //hmm but there's more you can do in doubles w a ditto using the transform move,
+                    //if it copies the current ability, in the case you swap off a bad ability
+                    //ok will use battle, 9/10 its same result, but has opporutinty for more flexibility
+                    //targetAbility = GetMonAbility(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
+                    TransformSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
+
+                }
+                else
+                {
+                    //targetAbility = GetMonAbility(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]]);
+                    TransformSpecies = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
+                }
+                targetAbility = GetBattlerAbility(gBattlerTarget);
+
             }//NEEDED to separate as counter_form wouldn't be using battler data to find species/moves it would only be able to asign moves by levelup use trainerparty move selector function for that
                 //works sets moves correctly
+            else if (original_ability == ABILITY_INVERSION) //not using transform, ability is inversion
+            {
+                targetAbility = GetAbilityBySpecies(found_species, Random() % 4);
+                TransformSpecies = found_species;
+            }
 
         if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT) //use this instead taken from mega logic
             mon = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];  //mon being transformed
         else
             mon = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
 
+       
+        
+        
 
         // Change stats //stats based on target species but not actually changing my species, visual is handled already in another file, makes stat reversion easier w another calcstat
-        TransformRecalcBattlerStats(gBattlerAttacker, mon); //rather than using this to change species to populate sum screen with transferrd abilitynum,
+        TransformRecalcBattlerStats(gBattlerAttacker, mon, targetAbility, TransformSpecies); //rather than using this to change species to populate sum screen with transferrd abilitynum,
         //just go to summary screen and change line to read the targets abilitynum if current move transform or ability imposter/inversion
         //need find way for one time change that resets on faint/switch/battle end, and that won't just keep changing every turn long as status2 is transformed/trace etc.
 
         UpdateHealthboxAttribute(gHealthboxSpriteIds[gBattlerAttacker], mon, HEALTHBOX_ALL); //should update hp values in healthox
 
-        //do type 3 and ability slot set based on target
-        gBattleMons[gBattlerAttacker].type3 = gBattleMons[gBattlerTarget].type3;
-        //gBattleMons[gActiveBattler].abilty =  GetBattlerAbility(gBattlerTarget);
+        
         
         //put new hidden ability counter form move logic here
         if (original_ability == ABILITY_INVERSION) 
-            GiveMonInitialMoveset(mon);  //already changed species of mon so this alone may be enough?
+        {
+            //test may need adjust  in case causes permanent move change, 
+            //since appears to work on struct, not battle data?
+            //new setup tested seems to work,
+            //also reveals issue of inversion failing
+            //seems to be due to effect confusion/overlap?
+            //seems to be doing species none somehow?
+            GiveBattleMonInitialMoveset_Fast(mon, TransformSpecies);  //already changed species of mon so this alone may be enough?
+            gBattleStruct->overwrittenAbilities[gBattlerAttacker] = targetAbility; //GetAbilityBySpecies(found_species, Random() % 4); //think this should work?
+        }//think this is populating the struct to keep track of abilities but not actually setting it?
+        else
+        {
+            //do type 3 and ability slot set based on target
+            gBattleMons[gBattlerAttacker].type3 = gBattleMons[gBattlerTarget].type3;
+            //gBattleMons[gActiveBattler].abilty =  GetBattlerAbility(gBattlerTarget);
+            gBattleStruct->overwrittenAbilities[gBattlerAttacker] = targetAbility; //GetBattlerAbility(gBattlerTarget);
 
+        }
 
-        gBattleStruct->overwrittenAbilities[gBattlerAttacker] = GetBattlerAbility(gBattlerTarget);
         for (i = 0; i < MAX_MON_MOVES; ++i) //logic for pp
         {
             gBattleMons[gBattlerAttacker].pp[i] = gBattleMoves[gBattleMons[gBattlerAttacker].moves[i]].pp;// 5; //pretty sure this is just to avoid issues as min pp is 5  vsonic
@@ -15528,7 +15748,7 @@ static void atkA6_settypetorandomresistance(void) // conversion 2
                     if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
                     {
                         DualresistTypes &= ~(1u << i); // Type resists, but the user is already of this type.
-                    }
+                    }   //believe what this does is, remove stored type from value and continue loop
                     else
                     {
                         SET_BATTLER_TYPE(gBattlerAttacker, i);
@@ -18230,7 +18450,7 @@ static void atkF1_trysetcaughtmondexflags(void)
         //may not need this since it is already in displaydexinfo via registermontopokedex?
         /*if (species > NATIONAL_SPECIES_COUNT
         && !(GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-        && gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
+        && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
         || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION) //actually shouldn't need gender form here
         {
             HandleSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_SET_SEEN, personality); //if catch form should set base form is seen so can navigate to dex page

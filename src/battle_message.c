@@ -700,6 +700,7 @@ static const u8 sText_AttackerAquiredAbility[] = _("{B_ATK_NAME_WITH_PREFIX} acq
 static const u8 sText_TargetStatWontGoHigher[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}\nwon't go higher!");
 static const u8 sText_PkmnMoveBouncedViaAbility[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_CURRENT_MOVE} was\nbounced back by {B_DEF_NAME_WITH_PREFIX}'s\l{B_DEF_ABILITY}!");
 static const u8 sText_ImposterTransform[] = _("{B_ATK_NAME_WITH_PREFIX} transformed into\na {B_DEF_NAME_WITH_PREFIX} using {B_BUFF2}!");//replacing  last ability w buffer
+static const u8 sText_InversionTransform[] = _("{B_ATK_NAME_WITH_PREFIX} transformed into\na {B_BUFF1} using {B_BUFF2}!");
 static const u8 sText_NotDoneYet[] = _("This move effect is not done yet!\p"); //also potentially replace b def name since I want target species for impostre but something dif w inversion
                                                                         //actually look into handle nik case and if can just assign the found species to buff to get prefix or b_eff_namewith prefix
 
@@ -1550,6 +1551,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_CUPIDSARROWSTRUCK_BOTH - BATTLESTRINGS_TABLE_START]        = COMPOUND_STRING("{B_SCR_ACTIVE_ABILITY} struck both targets!"),
     [STRINGID_STATUSGROUNDED - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is too exhausted to fly!"),
     [STRINGID_ATK_CUTECHARM - BATTLESTRINGS_TABLE_START]                 = sText_AttakersXInfatuatedY,
+    [STRINGID_INVERSIONTRANSFORM - BATTLESTRINGS_TABLE_START]            = sText_InversionTransform,
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,
@@ -3397,7 +3399,8 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
             srcId += 2;
             break;
         case B_BUFF_ABILITY: // ability names
-            StringAppend(dst, gAbilityNames[src[srcId + 1]]);
+            //StringAppend(dst, gAbilityNames[src[srcId + 1]]); //idk how I missed replacing this?
+            GetAbilityName(dst, T1_READ_16(&src[srcId + 1]));
             srcId += 3;
             break;
         case B_BUFF_ITEM: // item name

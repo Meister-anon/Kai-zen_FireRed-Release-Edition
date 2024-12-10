@@ -3450,12 +3450,17 @@ just because I saw the form*/
 #define F_GALARIAN_FORM (1 << 2)
 #define F_HISUIAN_FORM  (1 << 3) //changed don't have room for both, just keep eevee from opal
 #define F_PALDEAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
-#define F_MEGA_FORM     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
-#define SPECIES_FLAG_PRIMAL_REVERSION (1 << 6)  //replaced
+#define SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
+#define FLAG_LEGENDARY_POKEMON (1 << 6)  //replaced //consolidate w megga?
 #define F_HAS_COSMETIC_FORMS (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical mon
 //would need add exclusions for cosplay pikachu and its forms, 
 //if do this will need make gender ratio but will just keep that as is, still 
 //saves a good deal of space
+
+//forgot flag is bitwise stuff and starts at 0, 
+//I literally can't have a value above 7 and stay u8
+
+// SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
 
 
 
@@ -3466,5 +3471,7 @@ just because I saw the form*/
 //would bein the givemon function not here
 //removed gender form flag for my own setup to select form for encountertable to allow setting either etc.
 //use for giving special mon bug psuedo gym etc. (think use for fighting gym too, special mon trained for fighting sabrina)
-#define FLAG_PLACEHOLDER    (1 << 8) 
+//decided will revert back to Legendary flag, will be useful for excluding mon from ditto transformation
+//and also useful in case I'm able to setup a randomizer
+//#define FLAG_LEGENDARY_POKEMON    (1 << 8) //updated pre-form species w LEgend flag, skipped paradox mon
 #endif  // GUARD_CONSTANTS_SPECIES_H

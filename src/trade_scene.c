@@ -1050,8 +1050,7 @@ static void ReceivedMonSetPokedexFlags(u8 partyIdx)
 
         if (species > NATIONAL_SPECIES_COUNT
         && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-        && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+        && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM

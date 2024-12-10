@@ -138,8 +138,7 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
 
         if (species > NATIONAL_SPECIES_COUNT
         && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-        && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+        && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM
@@ -195,8 +194,7 @@ u8 ScriptGiveMon2(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 
 
         if (species > NATIONAL_SPECIES_COUNT
         && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-        && (gBaseStats[SanitizeSpeciesId(species)].flags == F_MEGA_FORM
-        || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+        && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
         || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM

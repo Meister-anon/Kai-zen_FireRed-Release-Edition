@@ -9660,11 +9660,23 @@ BattleScript_FriskActivates::
 	tryfriskmsg BS_ATTACKER
 	end3
 
+@ok so I somehow broke this??
+@everything is working but the actual tansformation itself,
+@all data works but it doesn't change image or do animation
 BattleScript_ImposterActivates::
 	transformdataexecution	
 	playmoveanimation BS_ATTACKER, MOVE_TRANSFORM
 	waitanimation
 	printstring STRINGID_IMPOSTERTRANSFORM
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end3
+
+@doesn't work for now
+BattleScript_InversionActivates::
+	transformdataexecution	
+	playmoveanimation BS_ATTACKER, MOVE_TRANSFORM
+	waitanimation
+	printstring STRINGID_INVERSIONTRANSFORM
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 

@@ -669,7 +669,7 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
 void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src);
 void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
 void CalculateMonStats(struct Pokemon *mon);
-void TransformedMonStats(struct Pokemon *mon);
+void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies);
 void GiveMonInitialMoveset(struct Pokemon *mon);
 void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);   //moved these defins here so could use in battle_main
 void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest);
@@ -843,5 +843,6 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);
 u8 GetNatureFromPersonality(u32 personality);
 u8 SendMonToPC(struct Pokemon* mon);
 void GiveBoxMonInitialMoveset_Fast(struct BoxPokemon *boxMon);
+void GiveBattleMonInitialMoveset_Fast(struct Pokemon *mon, u16 Species); //made attempt get inversion move set change worknig 
 
 #endif // GUARD_POKEMON_H

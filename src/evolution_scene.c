@@ -808,8 +808,7 @@ static void Task_EvolutionScene(u8 taskId)
             
             if (gTasks[taskId].tPostEvoSpecies > NATIONAL_SPECIES_COUNT
             && !(GetSetPokedexFlag((GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_GET_SEEN))
-            && (gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_MEGA_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+            && (gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_ALOLAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_GALARIAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_HISUIAN_FORM
@@ -1225,8 +1224,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
 
             if (gTasks[taskId].tPostEvoSpecies > NATIONAL_SPECIES_COUNT
             && !(GetSetPokedexFlag((GetFormSpeciesId(gTasks[taskId].tPostEvoSpecies, 0)), FLAG_GET_SEEN))
-            && (gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_MEGA_FORM
-            || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_PRIMAL_REVERSION
+            && (gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_ALOLAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_GALARIAN_FORM
             || gBaseStats[SanitizeSpeciesId(gTasks[taskId].tPostEvoSpecies)].flags == F_HISUIAN_FORM
