@@ -12796,7 +12796,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Spiritomb"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(50, 92, 108, 35, 92, 108),
+         STATS(57, 92, 108, 35, 92, 128),
         MON_TYPES(TYPE_GHOST, TYPE_DARK),
         .catchRate = 100,
         .expYield = 170,
@@ -12818,7 +12818,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSpiritombLevelUpLearnset,
         .tmhmLearnset = sSpiritombTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//bulk bad but ev incrase allows fix that probem
 
     [SPECIES_GIBLE] =
     {
@@ -18122,10 +18122,10 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        55,
+        60,
         85,
         70,
-        50,
+        68,
         75,
         70
         ),
@@ -18158,7 +18158,7 @@ const struct BaseStats gBaseStats[] =
         77,
         115,
         80,
-        56,
+        76,
         105,
         80
         ),
@@ -27108,7 +27108,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
         45,
         45,
-        30,
+        40,
         50,
         55,
         40
@@ -27142,7 +27142,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
         65,
         60,
-        45,
+        55,
         70,
         75,
         55
@@ -27176,7 +27176,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
         95,
         120,
-        65,
+        75,
         60,
         95,
         75
@@ -33210,8 +33210,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_PICKUP, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_FLUFFY, ABILITY_NONE},
+        .abilities = { ABILITY_PICKUP, ABILITY_STAKEOUT },
+        .abilityHidden = {ABILITY_FLUFFY, ABILITY_GUARD_DOG},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -33272,8 +33272,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_SAND_RUSH, ABILITY_NONE},
-        .abilityHidden = {ABILITY_FLUFFY, ABILITY_NONE},
+        .abilities = { ABILITY_SAND_RUSH, ABILITY_STAKEOUT},
+        .abilityHidden = {ABILITY_FLUFFY, ABILITY_GUARD_DOG},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -48643,7 +48643,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         92,
-        170,
+        150,
         115,
         148,
         80,

@@ -509,7 +509,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     //TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //change essentially makes ghost inverse of normal type effect wise, where most things are neutral and it has 1 weakness
     //TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions, actually think will reverse this make dark resist poison, will go more to make counter to fairy who is weak to poison
     TYPE_DARK, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,//removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
-    TYPE_DARK, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE, //plus dosen't really make sense when you really cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
+    TYPE_DARK, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
     TYPE_STEEL, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,//NEW type relation for dark types, showed positively for offense capability and makes sense sneaky backstabbers bad guys take each other out often.
     TYPE_STEEL, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
@@ -7295,7 +7295,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     else if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_LAGGING_TAIL)
         priority = -12;
 
-    else if (GetBattlerAbility(battlerId) == ABILITY_STALL)
+    else if (GetBattlerAbility(battlerId) == ABILITY_STALL && gBattleMovePower)
         priority = -12;
 
     return priority;

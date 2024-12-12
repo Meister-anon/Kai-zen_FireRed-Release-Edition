@@ -1628,6 +1628,7 @@ BattleScript_EffectHitSwitchTarget:
 	tryfaintmon BS_TARGET, FALSE, NULL
 	jumpifability BS_TARGET, ABILITY_SUCTION_CUPS, BattleScript_AbilityPreventsPhasingOut
 	jumpifability BS_TARGET, ABILITY_BONE_ARMOR, BattleScript_AbilityPreventsPhasingOut
+	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_AbilityPreventsPhasingOut
 	jumpifstatus3 BS_TARGET, STATUS3_ROOTED, BattleScript_PrintMonIsRooted
 	tryhitswitchtarget BattleScript_EffectHitSwitchTargetMoveEnd @check hitswitch make sure all moves are not based on level to work
 BattleScript_EffectHitSwitchTargetMoveEnd:
@@ -3377,6 +3378,7 @@ BattleScript_EffectRoar::
 	ppreduce
 	jumpifability BS_TARGET, ABILITY_SUCTION_CUPS, BattleScript_AbilityPreventsPhasingOut
 	jumpifability BS_TARGET, ABILITY_BONE_ARMOR, BattleScript_AbilityPreventsPhasingOut
+	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_AbilityPreventsPhasingOut
 	jumpifstatus3 BS_TARGET, STATUS3_ROOTED, BattleScript_PrintMonIsRooted
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC_CHECK_LOCK_ON
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
@@ -8960,7 +8962,9 @@ BattleScript_TargetAbilityStatRaiseRet::
 BattleScript_TargetAbilityStatRaiseRet_End:
 	return
 
+@equivalent of BattleScript_TryIntimidateHoldEffects in EE
 BattleScript_TryAdrenalineOrb:
+	@itemstatchangeeffects BS_TARGET
 	jumpifnotholdeffect BS_TARGET, HOLD_EFFECT_ADRENALINE_ORB, BattleScript_TryAdrenalineOrbRet
 	jumpifstat BS_TARGET, CMP_EQUAL, STAT_SPEED, 12, BattleScript_TryAdrenalineOrbRet
 	setstatchanger STAT_SPEED, 1, FALSE
@@ -9016,6 +9020,7 @@ BattleScript_IntimidateFailChecks:
 	jumpifability BS_TARGET, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
 	jumpifability BS_SCRIPTING, ABILITY_INTIMIDATE, BattleScipt_Intimidate_AttackDropExclusions
 	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScipt_TigerMom_DefenseDropExclusions	@jump for tigermom to skip atk specific stat drop exclusions
+	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_IntimidateInReverse
 BattleScript_IntimidateStatDrop::	
 	copybyte sBATTLER, gBattlerAttacker
 	statbuffchange STAT_CHANGE_BS_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_IntimidateFail
@@ -9028,7 +9033,7 @@ BattleScript_IntimidateStatDrop::
 BattleScript_IntimidateEffect_WaitString:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	copybyte sBATTLER, gBattlerTarget
-	@call BattleScript_TryAdrenalineOrb
+	@call BattleScript_TryAdrenalineOrb	@belive still need to set this up?
 BattleScript_IntimidateFail::
 	@addbyte gBattlerTarget, 1 @ this value keeps the command from looping on single target
 	@goto BattleScript_IntimidateActivationAnimLoop
@@ -9084,13 +9089,16 @@ BattleScript_IntimidateContrary_WontIncrease:
 	printstring STRINGID_TARGETSTATWONTGOHIGHER
 	goto BattleScript_IntimidateEffect_WaitString
 
+@bro what was this for?? lol ok this was actually for Guard dog
+@belive need to add modifybattlerstatstage command
 BattleScript_IntimidateInReverse:
 	copybyte sBATTLER, gBattlerTarget
 	@call BattleScript_AbilityPopUpTarget
 	pause B_WAIT_TIME_SHORT
-	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON
-	call BattleScript_TryAdrenalineOrb
+	@modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON
+	@call BattleScript_TryAdrenalineOrb
 	goto BattleScript_IntimidateLoopIncrement
+
 
 BattleScript_DrizzleActivates::
 	pause B_WAIT_TIME_SHORT
@@ -10415,6 +10423,7 @@ BattleScript_RedCardActivates::
 	jumpifstatus3 BS_EFFECT_BATTLER, STATUS3_ROOTED, BattleScript_RedCardIngrain
 	jumpifability BS_EFFECT_BATTLER, ABILITY_SUCTION_CUPS, BattleScript_RedCardSuctionCups
 	jumpifability BS_EFFECT_BATTLER, ABILITY_BONE_ARMOR, BattleScript_RedCardSuctionCups
+	jumpifability BS_EFFECT_BATTLER, ABILITY_GUARD_DOG, BattleScript_RedCardSuctionCups
 	setbyte sSWITCH_CASE, B_SWITCH_RED_CARD
 	forcerandomswitch BattleScript_RedCardEnd
 	@ changes the current battle script. the rest happens in BattleScript_RoarSuccessSwitch_Ret, if switch is successful

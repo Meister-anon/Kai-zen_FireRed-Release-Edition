@@ -12903,6 +12903,7 @@ static const struct LevelUpMove sTorracatLevelUpLearnset[] = {
     LEVEL_UP_MOVE(14, MOVE_FIRE_FANG),
     LEVEL_UP_MOVE(16, MOVE_DOUBLE_KICK),
     LEVEL_UP_MOVE(19, MOVE_ROAR),
+    LEVEL_UP_MOVE(21, MOVE_VACUUM_WAVE), //PRIORITY move to replace fake out
     LEVEL_UP_MOVE(24, MOVE_BITE),
     LEVEL_UP_MOVE(28, MOVE_SWAGGER),
     LEVEL_UP_MOVE(33, MOVE_FURY_SWIPES),
@@ -12929,6 +12930,7 @@ static const struct LevelUpMove sIncineroarLevelUpLearnset[] = {
     LEVEL_UP_MOVE(14, MOVE_FIRE_FANG),
     LEVEL_UP_MOVE(16, MOVE_DOUBLE_KICK),
     LEVEL_UP_MOVE(19, MOVE_ROAR),
+    LEVEL_UP_MOVE(21, MOVE_VACUUM_WAVE), //PRIORITY move to replace fake out
     LEVEL_UP_MOVE(24, MOVE_BITE),
     LEVEL_UP_MOVE(28, MOVE_SWAGGER),
     LEVEL_UP_MOVE(33, MOVE_FURY_SWIPES),

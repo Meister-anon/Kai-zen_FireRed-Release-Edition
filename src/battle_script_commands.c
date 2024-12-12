@@ -11940,10 +11940,11 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (IsBattlerAlive(gBattlerAttacker)
             && IsBattlerAlive(gBattlerTarget)
             && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-            && TARGET_TURN_DAMAGED)
+            && TARGET_TURN_DAMAGED
+            && GetBattlerAbility(gBattlerTarget) != ABILITY_GUARD_DOG)
         {
-            gBattlescriptCurrInstr = BattleScript_ForceRandomSwitch;
-        }
+            gBattlescriptCurrInstr = BattleScript_ForceRandomSwitch; //ok guess because it goes to other battlescript?
+        } //think missing some logic as setup abilities that cant switch without this? i.e suction cups etc.
         else
         {
             gBattlescriptCurrInstr = cmd->failInstr;
