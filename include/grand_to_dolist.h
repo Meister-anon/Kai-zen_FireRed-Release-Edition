@@ -801,6 +801,9 @@ goto TRAINER_REMATCH //stuff
 * now holding everstone on lead mon will have wild mon spawn with the same gender as it where possible. idea ever is remaining the same/being the same
 *
 * destiny knot, when held by lead mon in party wild mon will have the opposite gender where possible. idea finding your destined one.
+*Vsonic Important - also of note still to do add gen 9 egg move stuff 
+i.e post gen breeding moves don't give incineroar fake out access, 
+
  //co dependent status - cure cancel out brn cant be with freeze  sleep cant be w spirit lock  psn cant be w toxic
  //moved freeze decrement to atk cancelr like sleep  still get 3 turns i.e free switch and an attack, but more beneficial if opponent is faster but it balances out
  //if their faster you take an extra hit on turn they get frozen,  if they are slower they get the hit on the turn they unfreeze
@@ -6382,6 +6385,69 @@ that way you don't need to keep flying aruond to different places looking for th
   unsure about use of battler id in gbattlerforms in gfx function
   -gBattleMonForms[battlerAtk] = gBattleMonForms[battlerDef];
 
+  -hmm double check intened transform logic, think I was supposed to
+  to the opposing mons nature right? so I can reveal the nature
+  or did I undo that?
+
+  it makes some sense to keep my own nature I guess?
+
+  -also unsure if mon transformed into via switch in ability,
+  that have their own switch in ability will be able to activate it.
+  rn I assume yes?
+
+  --tested mon turned into anticipation nincada and ability worked correctly
+
+  bit of issue w how type calc works it could actually roll a mon,
+  that is weak to the other type, when a better type match i.e dual resist does exist.
+  is only an issue for dual type mon, but if the intent is to get a resist,
+  it should never make you worse off, so setting you up for a weakness just makes it bad.
+
+  add logic to ensure rolled is not weak to either of the targets types
+  type result not < 1, so at best must be neutral
+  to target type 1 & type 2
+
+  noticed appears to be some issue w level up w the transform abilities?
+  only seen w inversion so far,'
+  when another mon gains exp and levels up when the transformed mon is on the field
+  seems to cause some confussion in displaying the stats, I saw minus signs
+  on lvl up instead of plus for some reason.
+
+  hmm retrospect believe it was using original /base species stats of ditto
+  mon I had on the field  and not of the mon that was leveling up,
+
+  started w turtwig, switcched out to ditto who had higher stats,
+  who then transformed losing said stats,  defeated enemy while transformed,
+  gaining exp turtwig gained exp first and lvled up, showing negative stat gain,
+  then ditto gained exp and leveled up, showing plus gain, even tho,
+  its actual stats would be higher,  attempting to test again  soon
+  -tested same result, think with my transformation changes,
+  I need to review the setup I had for battle_script_commands
+  in the get exp level up stuff,
+  since in the past I did write custom  logic for 
+  ditto transformed level up
+
+  -confirmed situation of bug is level up of a mon not in first slot
+  when a transformed mon is on the field/in battle
+
+  So issue is what I thought, something w my transform logic,
+  not properly tracking change in slot, its comparing base stats of current mon,
+  not that of the mon that is actually leveling up
+
+  -believe same issue is wrong w my move info setup,
+  when I switch mon, the move info is still tracked to the mon
+  originally in the first slot, not the one in the position now
+  hmm actually no those are opposite problems,
+
+  *note make end turn reversion for certain switch in abilities,
+  to make a class of ability that is literally just for the turn they switch in,
+  similar to stakeout.
+  will use this to rework zamazenta and zacians abilities
+  make them only apply on the turn they switch in,
+  should apply battle start and mid battle switch ins
+  is a bigger buff for zamazenta
+  and to me is more align with who they are,
+  they are the heroes that turn the tied as soon as they are on the field
+
   *Think need to test build to compare modern and agbcc to ensure didn't break something
   I didn't touch any structs or attempt optimizing so I don't think there should be but
   will test anyway.
@@ -8807,7 +8873,7 @@ goto BATTLE_SETUP_TERRAIN   //sets battle terrain from metatile/environment
 * 
 * so instad each fisherman gives you a progressively better water pokemon instead of a better fishing rod
 * 
-* 
+*   //VSONIC IMPORTANT
 * 
 * species based  ai?? like archtyps for the type of battllere based on species data  i.e tricksters, more patient mon, harsh attackers, healers etc.
 * had an old idea based around nature based learnsets, so wild mon would perform differently when you encounter them
@@ -9297,6 +9363,10 @@ goto EVOLUTION_LOGIC
 * Don't forget plans to revamp breeding mechanics, using as a menes to get alternate forms
 * people don't often use it anyway so may potentially get rid of egg groups, if skitty wailord works it can't make too much logic.
 * will make breeding easier and remove some of the need to use ditto exclusively - note keep nidoqueen in cna't breed group for lore/makes sense
+*
+* could do based on personality instead? ok keep base effects for same species, maybe also same type like each other
+* but for mon that would otherwise fall in diff egg group/ could make it work off personality to randomly
+* decide their compatibility? - or just let everyone work for ease of use
 * 
 * other idea, be able to access pc from breeder desk selection, to remove need to go to pc and put
 * mon in your party JUST to put them in the daycare. major time saver and convience feature
