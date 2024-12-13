@@ -2322,7 +2322,7 @@ u8 DoFieldEndTurnEffects(void)
             }
             ++gBattleStruct->turnCountersTracker;
             break;
-        case ENDTURN_RETALIATE: //still to do
+        case ENDTURN_RETALIATE: //done
             if (gSideTimers[B_SIDE_PLAYER].retaliateTimer > 0)
                 gSideTimers[B_SIDE_PLAYER].retaliateTimer--;
             if (gSideTimers[B_SIDE_OPPONENT].retaliateTimer > 0)

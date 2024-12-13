@@ -4215,6 +4215,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u8 attackerHoldEffectParam;
     u32 abilityDef = GetBattlerAbility(battlerIdDef);
     u16 itemDef = gBattleMons[battlerIdDef].item;
+    u32 atkSide = GetBattlerSide(battlerIdAtk);
 
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
@@ -4334,6 +4335,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         */
     }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
 
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_RETALITATE
+    && gSideTimers[atkSide].retaliateTimer == 1)
+    {
+        gBattleMovePower *= 2;
+    }
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect

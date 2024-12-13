@@ -6448,6 +6448,50 @@ that way you don't need to keep flying aruond to different places looking for th
   and to me is more align with who they are,
   they are the heroes that turn the tied as soon as they are on the field
 
+  *=several things to consider other switch in negation abilities neutralizing gas
+  so need to check if it activated in the first place, if not don't lower it in end turn.
+  we have switch in ability done so think use something like I did for anticipation,
+  where I check if the ability has activated, think I'll either lower it, yeah have 
+  to lower it by 1 at end turn, nothing else works well,/without issue
+
+  So check if it has activated, will do from within switch in activation,
+  then in end turn logic, just lower it, if it activated
+  and charater has x abililty, offers chance to switch off ability
+  to keep the attack increase if you want to strategize that
+
+  -believe with how I'll have to do it, the effect itself is going tobe 
+  coded separate from the text of it,
+  I think...well the full effect will be in separate places
+
+  huh nvm was simpler than expected, just needed a protect struct
+  but since making new category, think need make new case value
+  to properly organize the new effects
+  one turn switch in abilities
+  -think got it working now just need test?
+  made new category that should activate before end turn abilities
+
+  ok ability is not quite right, its only working
+  to decrease when I switch in mid turn, if I do battle start it doesn't work?
+  --found issue believe, so it seems i just didn't understand how turn stuff works,
+  faint and switch stuff is handled BEFORE the turn changes,
+  meaning if I use protect structs the ability would be cleared
+  before it could be used unless it was used mid turn...
+
+  hmm ok think I can use gBattleResults.battleTurnCounter
+
+
+  I know understand simplified a turn ends right before you're allowed to select moves
+  so I think what I need to do is somehow exclude the turn battle starts
+  from the clear
+  and turn yuo switch in after  amon is fainted
+  but somehow still make it activate for switch in mid turn/battle...
+
+  so changnig back to disable structs and need to figure out where
+  I can put the cleanse for it to work how people would expect
+  but don't think can be in turn value clean up
+
+  had to do good deal of turn order research but was able to get them working
+
   *Think need to test build to compare modern and agbcc to ensure didn't break something
   I didn't touch any structs or attempt optimizing so I don't think there should be but
   will test anyway.
@@ -6478,6 +6522,7 @@ that way you don't need to keep flying aruond to different places looking for th
 
  goto FIX_WARP_RESPAWN_LOGIC //for heal warp location, on whiteout, and think relevant to teleport
 
+ goto END_TURN_RESET
 
  goto TMHM_LIST //party_menu.h place for listing of tmhms add on as needed as well as update technical_machine and hm count
  /*#define NUM_TECHNICAL_MACHINES 50 //change to 120 later  in item constants file

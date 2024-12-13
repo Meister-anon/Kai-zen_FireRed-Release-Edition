@@ -4876,6 +4876,10 @@ static void Unused_AutoProgressToSwitchInAnims(void)
     }
 }
 
+//didn't understand but think this is effect checks
+//before first turn for BATTLER, not all battle,
+//so switch in stuff etc. other chekcs for before new mon hits field
+//well not before it hits field, but before turn start i.e move selection
 static void TryDoEventsBeforeFirstTurn(void)
 {
     s32 i, j;
@@ -5042,11 +5046,11 @@ static void HandleEndTurn_ContinueBattle(void)
     }
 }
 
-void BattleTurnPassed(void)
+void BattleTurnPassed(void) //after all moves used
 {
     s32 i;
 
-    TurnValuesCleanUp(TRUE);
+    TurnValuesCleanUp(TRUE); //protect and endure specifically cleared here
     if (gBattleOutcome == 0) //starting value //battle not done
     {
         if (DoFieldEndTurnEffects()) //probably posssible wrap trap logic?  actually no, that is in battlereffecfs... missed turn counter reset in endturn wish seeing if that was issue
@@ -5059,7 +5063,9 @@ void BattleTurnPassed(void)
     gBattleStruct->faintedActionsState = 0;
     if (HandleWishPerishSongOnTurnEnd())
         return;
-    TurnValuesCleanUp(FALSE);
+    //entire protect struct values are cleaned in this function,  (false version only)
+    //also where isFirstTurn decrement happens
+    TurnValuesCleanUp(FALSE); 
     gHitMarker &= ~(HITMARKER_NO_ATTACKSTRING);
     gHitMarker &= ~(HITMARKER_UNABLE_TO_USE_MOVE);
     gHitMarker &= ~(HITMARKER_PLAYER_FAINTED);
@@ -5938,6 +5944,7 @@ static void SetActionsAndBattlersTurnOrder(void)
     gBattleStruct->quickClawBattlerId = 0;
 }
 
+#define END_TURN_RESET //resets values for end turn
 static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disble structs and folloemetimer at turn end
 {
     s32 i;
@@ -5954,8 +5961,8 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
         {
             dataPtr = (u8 *)(&gProtectStructs[gActiveBattler]);
             for (i = 0; i < sizeof(struct ProtectStruct); ++i)
-                dataPtr[i] = 0;
-            if (gDisableStructs[gActiveBattler].isFirstTurn)
+                dataPtr[i] = 0; //clears protect struct
+            if (gDisableStructs[gActiveBattler].isFirstTurn) //starts at 2, think this decrements so its no longer switch in?
                 --gDisableStructs[gActiveBattler].isFirstTurn;
             if (gDisableStructs[gActiveBattler].rechargeTimer)
             {

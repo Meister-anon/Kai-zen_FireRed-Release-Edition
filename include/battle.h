@@ -270,7 +270,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u16 anticipatedMove;    //for storing move from anticipation ability   
     u8 hasSwitchinActivated; //use for switch in end turn check
     //u8 RoostTimerStartValue;  //remove for now until I get 
-    /*0x1A*/ u8 unk1A[2];
+    /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer
 //need look up padding and bitwise to understand how these work so i'm doing it correctly
 //if I don't have proper padding it won't be faster/save space, and could actually slow it down instead
@@ -278,7 +278,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
 
 extern struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT];
 
-struct ProtectStruct    //also gets cleared at end turn
+// gets cleared at end turn, via TurnValuesCleanUp function
+struct ProtectStruct    
 {
     /* field_0 */
              u32 protected:1;
@@ -340,6 +341,7 @@ struct ProtectStruct    //also gets cleared at end turn
              u32 touchedProtectLike : 1;
              u32 obstructed : 1;
              u32 disableEjectPack : 1; 
+
              u32 shellTrap:1; //hopefully doens't add space
              u32 padding:7;  
              u16 fieldE;
@@ -347,7 +349,8 @@ struct ProtectStruct    //also gets cleared at end turn
 
 extern struct ProtectStruct gProtectStructs[MAX_BATTLERS_COUNT];
 
-struct SpecialStatus    //gets cleared at end turn
+//gets cleared at end turn - actual think gets cleard at action end? yeah its action end
+struct SpecialStatus    
 {
     u8 statLowered : 1;             // 0x1
     //u8 lightningRodRedirected : 1;  // 0x2    //removed to save ew ram  just do in the code
@@ -443,7 +446,7 @@ struct SideTimer    //effects below persist regardless of mon
     u32 embargoTimer:3;
     u32 mudSportTimer:3;     //put these back, gen 3 effect didn' work how I thought. effect only lasts long as user stays in, and only for user who set it.
     u32 waterSportTimer:3;  //forgot to remove these earlier, since I'm using gen 3 effects for them
-    u32 retaliateTimer:3;  //vsonic need to implement
+    u32 retaliateTimer:3;  
     u32 MagicTimer:3;
     u32 padding1:4;
 
