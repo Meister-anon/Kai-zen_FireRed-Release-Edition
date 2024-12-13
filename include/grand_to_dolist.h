@@ -6492,6 +6492,12 @@ that way you don't need to keep flying aruond to different places looking for th
 
   had to do good deal of turn order research but was able to get them working
 
+  -NOTE**( make Bleakwind Strom exclusive move to Tornadus Therian form,
+  if it is in the other form the move should get replaced w something else
+  idk blizzard)
+
+  also give tapu bulu better moves, notes on that in its base stats page
+
   *Think need to test build to compare modern and agbcc to ensure didn't break something
   I didn't touch any structs or attempt optimizing so I don't think there should be but
   will test anyway.

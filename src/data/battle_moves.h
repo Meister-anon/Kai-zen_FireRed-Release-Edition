@@ -11989,7 +11989,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         ////.zMovePower = 175,
         ////.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//signature move of therian tornadus, make form different mon so can only learn this
+    //move in therian form, guess will need make a replacement like rotom,
+    //so move changes to something else when in incarnate form, and reverts to this when changed to therian
+    //issue is incanrate tornadus ability makes having this too, too oppressive
+        //vsonic important
 
     [MOVE_WILDBOLT_STORM] =
     {

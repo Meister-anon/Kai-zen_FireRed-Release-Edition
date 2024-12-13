@@ -4588,7 +4588,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_PHOTOSYNTHESIZE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_LEAF_GUARD},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         // #endif
@@ -4598,7 +4598,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sChikoritaLevelUpLearnset,
         .tmhmLearnset = sChikoritaTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_BAYLEEF}), //Should hopefully blank these for now without issue
-    },
+    },//I removed leaf guard to buff but now that I buffed it,
+    //it would actually be very solid on it
+    //think will drop photosynthesize here,
+    //grassy surge just does its job better, and leaf guard can give more utility
 
     [SPECIES_BAYLEEF] =
     {
@@ -4617,7 +4620,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_PHOTOSYNTHESIZE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_LEAF_GUARD},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         // #endif
@@ -4646,7 +4649,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_OVERGROW, ABILITY_PHOTOSYNTHESIZE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_LEAF_GUARD},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_CHLOROPHYLL, ABILITY_GRASSY_SURGE},
         // #endif
@@ -7899,7 +7902,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Lotad"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(56, 30, 30, 30, 40, 50),
+         STATS(56, 30, 30, 30, 40, 58),
         MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 255,
         .expYield = 44,
@@ -7926,7 +7929,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Lombre"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(77, 50, 50, 60, 60, 70),
+         STATS(77, 50, 50, 60, 60, 77),
         MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 120,
         .expYield = 119,
@@ -7953,7 +7956,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Ludicolo"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(92, 70, 70, 70, 90, 100),
+         STATS(92, 70, 70, 70, 90, 110),
         MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 216,
@@ -24586,7 +24589,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTapuBuluTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    }, //worst one, needs better moves doesn't get any fairy moves,
+    //give MOVE_MAGICAL_TORQUE,  MOVE_PLAY_ROUGH, maybe MOVE_FAIRY_LOCK
+    //and MOVE_SPIKE_SHIELD potentially also MOVE_SPIRIT_BREAK
+    //vsonic Important
 
     [SPECIES_TAPU_FINI] =
     {
