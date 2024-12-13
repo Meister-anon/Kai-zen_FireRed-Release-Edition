@@ -819,6 +819,7 @@ enum   //battler end turn
 {
     ENDTURN_INGRAIN,
     ENDTURN_AQUA_RING,
+    ENDTURN_ONE_TURN_SWITCH_IN_ABILITY_RESOLUTION,
     ENDTURN_ABILITIES,
     ENDTURN_ITEMS1,
     ENDTURN_LEECH_SEED,
@@ -2487,6 +2488,11 @@ u8 DoBattlerEndTurnEffects(void)
                     BattleScriptExecute(BattleScript_AquaRingHeal);
                     ++effect;
                 }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_ONE_TURN_SWITCH_IN_ABILITY_RESOLUTION:  // end turn resolution of one turn effect switchin abilities
+                if (AbilityBattleEffects(ABILITYEFFECT_ONETURN_SWITCHIN_RESOLUTION, gActiveBattler, BUFFER_A, 0, 0))
+                    ++effect;
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_ABILITIES:  // end turn abilities
@@ -6340,6 +6346,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 {
                     gBattlerAttacker = battler;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    gDisableStructs[battler].hasSwitchinActivated = TRUE;
                     SET_STATCHANGER(STAT_ATK, 1, FALSE);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                     ++effect;
@@ -6350,10 +6357,11 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 {
                     gBattlerAttacker = battler; //fixed statset this was what was mising
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    gDisableStructs[battler].hasSwitchinActivated = TRUE;
                     SET_STATCHANGER(STAT_DEF, 1, FALSE);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                     ++effect;
-                }
+                } //vsonic importnat rework these two into turn switch only effects, -done
                 break;
             case ABILITY_MIMICRY:
                 if (gBattleMons[battler].hp != 0 && gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
@@ -6929,6 +6937,99 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
             }
             break;
+        case ABILITYEFFECT_ONETURN_SWITCHIN_RESOLUTION:// should happen before rest of end turn ability logic
+        {
+            if (gBattleMons[battler].hp != 0)
+            {
+                gBattlerAttacker = battler;
+                switch (gLastUsedAbility)
+                {
+                case ABILITY_INTREPID_SWORD:
+                    if (gDisableStructs[battler].hasSwitchinActivated
+                    && gBattleMons[battler].statStages[STAT_ATK] > MIN_STAT_STAGE)
+                    {
+                        if (!gBattleResults.battleTurnCounter
+                        && gDisableStructs[battler].isFirstTurn != 2) 
+                        {
+                            gBattlerAttacker = battler;
+                            SET_STATCHANGER(STAT_ATK, 1, TRUE);
+                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
+                            gDisableStructs[battler].hasSwitchinActivated = FALSE; 
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatNormalized);
+                            ++effect;
+                        }//battle start case
+                        
+                        else if (gDisableStructs[battler].isFirstTurn == 2
+                        && gSideTimers[GetBattlerSide(battler)].retaliateTimer == 0) //means no mon just fainted, 
+                        {
+                            gBattlerAttacker = battler;
+                            SET_STATCHANGER(STAT_ATK, 1, TRUE);
+                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
+                            gDisableStructs[battler].hasSwitchinActivated = FALSE; 
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatNormalized);
+                            ++effect;
+                        }//mid turn switch in case  
+
+                        else if (gDisableStructs[battler].isFirstTurn == 1
+                        && gSideTimers[GetBattlerSide(battler)].retaliateTimer == 0)
+                        {
+                            gBattlerAttacker = battler;
+                            SET_STATCHANGER(STAT_ATK, 1, TRUE);
+                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
+                            gDisableStructs[battler].hasSwitchinActivated = FALSE; 
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatNormalized);
+                            ++effect;
+                        } //faint battler replacement case,...this actually works smh
+                        //retaliate counter is already at 1 when mon is switched in
+                        //doesn't look like it'll work, but mid switch would be excluded
+                        //if a mon just died because retaliate counter wouldn't be 0
+                        
+                    }
+                    break;
+                case ABILITY_DAUNTLESS_SHIELD:
+                    if (gDisableStructs[battler].hasSwitchinActivated
+                    && gBattleMons[battler].statStages[STAT_DEF] > MIN_STAT_STAGE)
+                    {
+                        if (!gBattleResults.battleTurnCounter
+                        && gDisableStructs[battler].isFirstTurn != 2) 
+                        {
+                            gBattlerAttacker = battler;
+                            SET_STATCHANGER(STAT_DEF, 1, TRUE);
+                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_DEF);
+                            gDisableStructs[battler].hasSwitchinActivated = FALSE; 
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatNormalized);
+                            ++effect;
+                        }//battle start case
+                        
+                        else if (gDisableStructs[battler].isFirstTurn == 2
+                        && gSideTimers[GetBattlerSide(battler)].retaliateTimer == 0) //means no mon just fainted, 
+                        {
+                            gBattlerAttacker = battler;
+                            SET_STATCHANGER(STAT_DEF, 1, TRUE);
+                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_DEF);
+                            gDisableStructs[battler].hasSwitchinActivated = FALSE; 
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatNormalized);
+                            ++effect;
+                        }//mid turn switch in case  
+
+                        else if (gDisableStructs[battler].isFirstTurn == 1
+                        && gSideTimers[GetBattlerSide(battler)].retaliateTimer == 0)
+                        {
+                            gBattlerAttacker = battler;
+                            SET_STATCHANGER(STAT_DEF, 1, TRUE);
+                            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_DEF);
+                            gDisableStructs[battler].hasSwitchinActivated = FALSE; 
+                            BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatNormalized);
+                            ++effect;
+                        } //faint battler replacement case,...this actually works smh
+                        
+                        
+                    }
+                    break;//use of turn counter keeps it from removing on battle start switchin
+                }
+            }// end of one turn switch in abilities
+        }
+        break;
         case ABILITYEFFECT_MOVES_BLOCK: // 2
         {   
             u16 moveTarget = GetBattlerMoveTargetType(battler, moveArg);
@@ -6972,7 +7073,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattlescriptCurrInstr = BattleScript_IceFaceNullsDamage;
                 effect = 1;
             }
-            break;
+            break;//end of move block
         }
         case ABILITYEFFECT_ABSORBING: // 3  //make absorb moves, change target  to mon with absorbing ability
             if (moveArg)    //if said mon isn't statused  if just use status1 can check for all status1 but status1 & staus1_any is stil used in most cases..

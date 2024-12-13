@@ -407,6 +407,7 @@ extern const u8 BattleScript_WanderingSpiritActivates[];
 extern const u8 BattleScript_GooeyActivates[];
 extern const u8 BattleScript_TargetsStatWasMaxedOut[];
 extern const u8 BattleScript_BattlerAbilityStatRaiseOnSwitchIn[];
+extern const u8 BattleScript_BattlerAbilityStatNormalized[];
 extern const u8 BattleScript_TargetAbilityStatRaiseOnMoveEnd[];
 extern const u8 BattleScript_SkyattackMoveEndStatDrop[];
 extern const u8 BattleScript_WeakArmorActivates[];

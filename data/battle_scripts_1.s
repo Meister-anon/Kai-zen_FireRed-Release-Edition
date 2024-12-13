@@ -9550,6 +9550,18 @@ BattleScript_BattlerAbilityStatRaiseOnSwitchIn::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 
+@for new zacian zamazenta ability effect need test
+BattleScript_BattlerAbilityStatNormalized::
+	copybyte gBattlerAbility, gBattlerAttacker
+	@call BattleScript_AbilityPopUp
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN, NULL
+	setgraphicalstatchangevalues
+	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	waitanimation
+	printstring STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end3
+
 BattleScript_TargetAbilityStatRaiseOnMoveEnd::
 	@call BattleScript_AbilityPopUp
 	statbuffchange STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN, NULL

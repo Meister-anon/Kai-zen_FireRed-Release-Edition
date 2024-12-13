@@ -1552,6 +1552,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_STATUSGROUNDED - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} is too exhausted to fly!"),
     [STRINGID_ATK_CUTECHARM - BATTLESTRINGS_TABLE_START]                 = sText_AttakersXInfatuatedY,
     [STRINGID_INVERSIONTRANSFORM - BATTLESTRINGS_TABLE_START]            = sText_InversionTransform,
+    [STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS - BATTLESTRINGS_TABLE_START] = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1} increase from\n{B_ATK_ABILITY} came to an end!"),
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,

@@ -36,6 +36,7 @@
 #define ABILITYEFFECT_MOVE_END_OTHER			 0x16
 #define ABILITYEFFECT_SWITCH_IN_ABILITIES		 0x17   //realized ability battle effects function doesn't really separate blocks well, so added more for better organization
 #define ABILITYEFFECT_SWITCH_IN_TERRAIN_ABILITY	 0x18   //nvm can't do more as new block would require new switch...and would break switch in effects i beleive //could just put in same plac as switcin think in bs commands
+#define ABILITYEFFECT_ONETURN_SWITCHIN_RESOLUTION  0x19
 //#define ABILITYEFFECT_CUPIDSARROW				 0x15  //1st attempted implementation realized goes in switchin don't need new effect
 #define ABILITYEFFECT_MUD_SPORT                  0xFC	//actually potentially does as trace and intimidate have them? look over implementation again
 #define ABILITYEFFECT_WATER_SPORT                0xFD //changed to side status no longer needed

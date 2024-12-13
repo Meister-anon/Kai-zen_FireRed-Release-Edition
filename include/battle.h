@@ -268,6 +268,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u16 forewarnedMove; //for storing move from forewarn ability
     u8 forewarnedBattler;
     u16 anticipatedMove;    //for storing move from anticipation ability   
+    u8 hasSwitchinActivated; //use for switch in end turn check
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2];
 }; //think I may not actually need roost start value, long as I have timer
