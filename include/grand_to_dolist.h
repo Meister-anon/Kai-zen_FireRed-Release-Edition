@@ -6497,6 +6497,20 @@ that way you don't need to keep flying aruond to different places looking for th
   idk blizzard)
 
   also give tapu bulu better moves, notes on that in its base stats page
+  
+  tested later battles, dmg is very inconsistent and strange at upper levels,
+  also for some reason sandstorm end turn doesn't seem to work?
+  timer is working but effect doesn't play at end turn to do damgae??
+  no animation either
+
+  also surging strikes insn't working correctly, not doing full 3 hits
+
+  //EFFECT_HIT_SWITCH_TARGET  not switching target...
+
+  ran multihit (surging strikes) into cute charm effect triggered on first hit
+  rather than last hit, need fix
+
+  fixed issue w sandstorm was actually for ALL the weather effects...
 
   *Think need to test build to compare modern and agbcc to ensure didn't break something
   I didn't touch any structs or attempt optimizing so I don't think there should be but

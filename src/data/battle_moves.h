@@ -11294,8 +11294,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_GRASSY_GLIDE] =
     {
-        .effect = EFFECT_GRASSY_GLIDE,   //TODO
-        .power = 70,
+        .effect = EFFECT_GRASSY_GLIDE,   //TODO //effect is getting +1 priority on grass terrain
+        .power = 65,    //already done
         .type = TYPE_GRASS,
         .accuracy = 100,
         .pp = 20,
@@ -11492,30 +11492,32 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_WICKED_BLOW] =
     {
         .effect = EFFECT_HIT,
-        .power = 65,//80,
+        .power = 75,
         .type = TYPE_DARK,
         .accuracy = 95,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_ALWAYS_CRIT,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
     },
 
     [MOVE_SURGING_STRIKES] =
     {
         .effect = EFFECT_TRIPLE_KICK,   
-        .power = 20,//25,
+        .power = 25,
         .type = TYPE_WATER,
         .accuracy = 95,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_ALWAYS_CRIT,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
     }, //rebalanced these 2 for og crit
+    //on advice from Chief, changing from full crit to defense pen, will ignore either 25% or 35% of defense
+    //in exchange can't crit
 
     [MOVE_THUNDER_CAGE] =
     {

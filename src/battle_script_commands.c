@@ -1872,10 +1872,12 @@ static void atk01_accuracycheck(void)
     }
     else if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_2ND_HIT
             || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SKILL_LINK && gMultiHitCounter > 0 && gMultiHitCounter != gMultiTask)
-            || move == MOVE_SURGING_STRIKES //for rebalancing trose moves, to keep in line with wicked blow
+            || (gCurrentMove == MOVE_SURGING_STRIKES && gMultiHitCounter != gMultiTask)//for rebalancing trose moves, to keep in line with wicked blow
+            //|| holdEffectAtk == HOLD_EFFECT_LOADED_DICE
             || DoesBattlerAbilityAbsorbMoveType(gBattlerTarget, moveType)
             || DoesBattlerAbilityAbsorbMoveType(BATTLE_PARTNER(gBattlerTarget), moveType)) //drawn in moves are supposed to never miss so this should hopefully do that
     {
+        //think have surging strikes right now, can't use move arguemnt as that isn't gcurr move, and need exclude first hit
         // No acc checks for second hit of Parental Bond or skill linked moves, removed other multihit as I want those to work differently, now all go through acc check on each hit
         //gBattlescriptCurrInstr += 7;
         JumpIfMoveFailed(7, gCurrentMove); //ok so was RAELLY stupid, adding ability absorb to skip here,
@@ -2139,6 +2141,7 @@ static void atk01_accuracycheck(void)
 
 
             //if (gBattleMoves[move].power)   //i ALREADY have a typecalc I don't need this to update move result flags I think?
+            //am I using this at all?
             CalcTypeEffectivenessMultiplier(move, type, gBattlerAttacker, gBattlerTarget, FALSE);    //this is only instance where uses TRUE, without that it doesn't change effectiveness
             //emerald used true because it made this the type calc, but I'm not replacing typecalc command 
             //i'm putting this there, so in the typecalc function I'll set true there, everywhere else will be false.
@@ -2307,7 +2310,9 @@ static void atk04_critcalc(void)    //working/works
     
     else
         gCritMultiplier = 1;
-    if (!IsBlackFogNotOnField()) //black fog on field no one can crit
+    if (!IsBlackFogNotOnField()
+    || gCurrentMove == MOVE_SURGING_STRIKES
+    || gCurrentMove == MOVE_WICKED_BLOW) //black fog on field no one can crit, and urshifu signature rebalance
         gCritMultiplier = 1;
     
     ++gBattlescriptCurrInstr;
@@ -2464,7 +2469,8 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
 //Differnt from emerald function as it sets multiplier and move result flags togther, which is why it needs the swich
 //separating it out makes it easier to shift multiplier  with conditionals, but can still just do it at the top here.
 //The only effect types I need to handle with this function, rather than just the type calc functions, are those that effect multiple types
-//rather than just requiring a single line edit, like scrappy, freeze dry etc.  
+//rather than just requiring a single line edit, like scrappy, freeze dry etc. 
+//I don't see this used literally anywhere?? 
 void ModulateDmgByType(u8 multiplier)   //Put all ability effects above ring target.
 {
     u8 moveType = 0;
@@ -13969,6 +13975,10 @@ static void atk88_sethpdrain(void)
     else if (gBattleMoves[gCurrentMove].effect == EFFECT_ABSORB && argumentchance != 0) //issue seems to bne this part?
         gBattleMoveDamage = ((gHpDealt * argumentchance) / 100);
 
+    
+    if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_MISTY_TERRAIN))
+        gBattleMoveDamage = (150 * gBattleMoveDamage) / 100; //may cut down //vsonic
+
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = 1; //think this is needed to not freeze?  yup //try removing, some hp issue 
     
@@ -15244,7 +15254,7 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                             //THIS THIS WAS THE PROBLEM!!! agaopgoaegrl
                             //was breaking out early FUCK
                     }
-                }
+                }//need to set this to not use species that would be super effective weak to any of targe type
             }
             //found_species = mon search
             //annoying but think will need to add a bst filter based on badge

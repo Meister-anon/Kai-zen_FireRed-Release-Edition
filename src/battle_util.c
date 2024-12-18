@@ -2011,6 +2011,10 @@ u8 DoFieldEndTurnEffects(void)
                         gBattleWeather &= ~WEATHER_SANDSTORM_TEMPORARY;
                         gBattlescriptCurrInstr = BattleScript_SandStormHailEnds;
                     }
+                    else
+                    {
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
+                    }//think this was problem 
                     
                 }
                 else
@@ -2038,6 +2042,10 @@ u8 DoFieldEndTurnEffects(void)
                     {
                         gBattleWeather &= ~WEATHER_SUN_TEMPORARY;
                         gBattlescriptCurrInstr = BattleScript_SunlightFaded; //redid these to fix sun persisting effect, but think this string isn't playing?
+                    }
+                    else
+                    {
+                        gBattlescriptCurrInstr = BattleScript_SunlightContinues;
                     }
                     
 
@@ -2069,6 +2077,10 @@ u8 DoFieldEndTurnEffects(void)
                     {
                         gBattleWeather &= ~WEATHER_HAIL;
                         gBattlescriptCurrInstr = BattleScript_SandStormHailEnds;
+                    }
+                    else
+                    {
+                        gBattlescriptCurrInstr = BattleScript_DamagingWeatherContinues;
                     }
                     
                 }

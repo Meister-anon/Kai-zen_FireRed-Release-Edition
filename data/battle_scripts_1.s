@@ -10517,13 +10517,17 @@ BattleScript_BindMoveRanoutofPP::
 BattleScript_MoveUsedLoafingAround::
 	printfromtable gInobedientStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	jumpifnotfullhp	BS_ATTACKER, BattleScript_Healing
+	jumpifnotfullhp	BS_ATTACKER, BattleScript_TruantHealing
+BattleSCript_EndTruant::
+	moveendto MOVE_END_NEXT_TARGET
+	end
+
 BattleScript_TruantHealing::
+	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL, NULL
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE	@putting this here would otherwise do nothing, but since trunt has health change it would heal
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
-	moveendto MOVE_END_NEXT_TARGET
-	end
+	goto BattleSCript_EndTruant
 
 BattleScript_HealAnimation::
 	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL, NULL
@@ -10532,10 +10536,6 @@ BattleScript_HealAnimation::
 BattleScript_TargetHealAnimation::
 	playanimation BS_TARGET, B_ANIM_BASIC_HEAL, NULL
 	return
-
-BattleScript_Healing::
-	playanimation BS_ATTACKER, B_ANIM_BASIC_HEAL, NULL
-	goto BattleScript_TruantHealing
 
 BattleScript_SleepHealing::
 	printstring STRINGID_WELLRESTED

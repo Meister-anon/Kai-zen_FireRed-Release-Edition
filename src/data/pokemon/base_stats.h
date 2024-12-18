@@ -12753,7 +12753,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_NATURAL_CURE, ABILITY_SERENE_GRACE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_NONE},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_TRUANT},
         // #endif
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
