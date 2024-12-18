@@ -5846,7 +5846,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerGilbert[
         .iv = 12,
         .lvl = 42,
         .species = SPECIES_PERSIAN,
-        .moves = {MOVE_PAY_DAY, MOVE_FAINT_ATTACK, MOVE_SCREECH, MOVE_BITE},
+        .moves = {MOVE_PAY_DAY, MOVE_FEINT_ATTACK, MOVE_SCREECH, MOVE_BITE},
     },
     {
         .iv = 12,
@@ -6077,7 +6077,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerAlexa[] 
         .iv = 12,
         .lvl = 42,
         .species = SPECIES_PERSIAN,
-        .moves = {MOVE_PAY_DAY, MOVE_FAINT_ATTACK, MOVE_BITE, MOVE_SCREECH},
+        .moves = {MOVE_PAY_DAY, MOVE_FEINT_ATTACK, MOVE_BITE, MOVE_SCREECH},
     },
     {
         .iv = 12,
@@ -6131,7 +6131,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerNaomi[] 
         .iv = 12,
         .lvl = 42,
         .species = SPECIES_PERSIAN,
-        .moves = {MOVE_FURY_SWIPES, MOVE_SCREECH, MOVE_FAINT_ATTACK, MOVE_PAY_DAY},
+        .moves = {MOVE_FURY_SWIPES, MOVE_SCREECH, MOVE_FEINT_ATTACK, MOVE_PAY_DAY},
     },
     {
         .iv = 12,
@@ -6230,7 +6230,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerJulie[] 
         .iv = 12,
         .lvl = 42,
         .species = SPECIES_PERSIAN,
-        .moves = {MOVE_FURY_SWIPES, MOVE_BITE, MOVE_SCREECH, MOVE_FAINT_ATTACK},
+        .moves = {MOVE_FURY_SWIPES, MOVE_BITE, MOVE_SCREECH, MOVE_FEINT_ATTACK},
     },
     {
         .iv = 12,
@@ -9332,7 +9332,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerLeroy[] 
         .iv = 12,
         .lvl = 50,
         .species = SPECIES_URSARING,
-        .moves = {MOVE_SLASH, MOVE_FAINT_ATTACK, MOVE_SNORE, MOVE_REST},
+        .moves = {MOVE_SLASH, MOVE_FEINT_ATTACK, MOVE_SNORE, MOVE_REST},
     },
 };
 
@@ -9341,7 +9341,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerMichelle
         .iv = 12,
         .lvl = 47,
         .species = SPECIES_PERSIAN,
-        .moves = {MOVE_SLASH, MOVE_SCREECH, MOVE_FAINT_ATTACK, MOVE_BITE},
+        .moves = {MOVE_SLASH, MOVE_SCREECH, MOVE_FEINT_ATTACK, MOVE_BITE},
     },
     {
         .iv = 12,
@@ -11313,7 +11313,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerLeroy2[]
         .iv = 27,
         .lvl = 55,
         .species = SPECIES_URSARING,
-        .moves = {MOVE_SLASH, MOVE_FAINT_ATTACK, MOVE_SNORE, MOVE_REST},
+        .moves = {MOVE_SLASH, MOVE_FEINT_ATTACK, MOVE_SNORE, MOVE_REST},
     },
 };
 
@@ -11322,7 +11322,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_CooltrainerMichelle
         .iv = 27,
         .lvl = 53,
         .species = SPECIES_PERSIAN,
-        .moves = {MOVE_SLASH, MOVE_SCREECH, MOVE_FAINT_ATTACK, MOVE_BITE},
+        .moves = {MOVE_SLASH, MOVE_SCREECH, MOVE_FEINT_ATTACK, MOVE_BITE},
     },
     {
         .iv = 27,

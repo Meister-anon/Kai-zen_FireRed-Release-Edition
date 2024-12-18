@@ -2891,7 +2891,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .split = SPLIT_STATUS,
 },
 
-[MOVE_FAINT_ATTACK] =
+[MOVE_FEINT_ATTACK] =
 {
     #if B_UPDATED_MOVE_DATA >= GEN_4
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,

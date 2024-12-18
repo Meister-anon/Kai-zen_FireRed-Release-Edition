@@ -53,7 +53,7 @@ static const u16 sEasyChatGroup_Move2[] = {
     MOVE_EMBER,
     MOVE_ERUPTION,
     MOVE_EXPLOSION,
-    MOVE_FAINT_ATTACK,
+    MOVE_FEINT_ATTACK,
     MOVE_FAKE_OUT,
     MOVE_FALSE_SWIPE,
     MOVE_FEATHER_DANCE,

@@ -823,7 +823,7 @@ SECTIONS {
         sound/songs/se_m_bonemerang.o(.rodata);
         sound/songs/se_m_lick.o(.rodata);
         sound/songs/se_m_psybeam.o(.rodata);
-        sound/songs/se_m_faint_attack.o(.rodata);
+        sound/songs/se_m_feint_attack.o(.rodata);
         sound/songs/midi/se_m_swords_dance.o(.rodata);
         sound/songs/midi/se_m_leer.o(.rodata);
         sound/songs/se_m_swagger.o(.rodata);

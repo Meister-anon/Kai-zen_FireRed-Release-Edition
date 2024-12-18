@@ -185,7 +185,7 @@
 #define SE_M_BONEMERANG           180 // SE_W155
 #define SE_M_LICK                 181 // SE_W122
 #define SE_M_PSYBEAM              182 // SE_W060
-#define SE_M_FAINT_ATTACK         183 // SE_W185
+#define SE_M_FEINT_ATTACK         183 // SE_W185
 #define SE_M_SWORDS_DANCE         184 // SE_W014
 #define SE_M_LEER                 185 // SE_W043
 #define SE_M_SWAGGER              186 // SE_W207

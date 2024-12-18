@@ -1,25 +1,25 @@
 	.include "MPlayDef.s"
 
-	.equ	se_m_faint_attack_grp, voicegroup128
-	.equ	se_m_faint_attack_pri, 4
-	.equ	se_m_faint_attack_rev, reverb_set+50
-	.equ	se_m_faint_attack_mvl, 127
-	.equ	se_m_faint_attack_key, 0
-	.equ	se_m_faint_attack_tbs, 1
-	.equ	se_m_faint_attack_exg, 0
-	.equ	se_m_faint_attack_cmp, 1
+	.equ	se_m_feint_attack_grp, voicegroup128
+	.equ	se_m_feint_attack_pri, 4
+	.equ	se_m_feint_attack_rev, reverb_set+50
+	.equ	se_m_feint_attack_mvl, 127
+	.equ	se_m_feint_attack_key, 0
+	.equ	se_m_feint_attack_tbs, 1
+	.equ	se_m_feint_attack_exg, 0
+	.equ	se_m_feint_attack_cmp, 1
 
 	.section .rodata
-	.global	se_m_faint_attack
+	.global	se_m_feint_attack
 	.align	2
 
 @********************** Track  1 **********************@
 
-se_m_faint_attack_1:
-	.byte	KEYSH , se_m_faint_attack_key+0
-	.byte	TEMPO , 150*se_m_faint_attack_tbs/2
+se_m_feint_attack_1:
+	.byte	KEYSH , se_m_feint_attack_key+0
+	.byte	TEMPO , 150*se_m_feint_attack_tbs/2
 	.byte		VOICE , 45
-	.byte		VOL   , 100*se_m_faint_attack_mvl/mxv
+	.byte		VOL   , 100*se_m_feint_attack_mvl/mxv
 	.byte		BENDR , 2
 	.byte		PAN   , c_v+0
 	.byte		BEND  , c_v-5
@@ -76,14 +76,14 @@ se_m_faint_attack_1:
 @******************************************************@
 	.align	2
 
-se_m_faint_attack:
+se_m_feint_attack:
 	.byte	1	@ NumTrks
 	.byte	0	@ NumBlks
-	.byte	se_m_faint_attack_pri	@ Priority
-	.byte	se_m_faint_attack_rev	@ Reverb.
+	.byte	se_m_feint_attack_pri	@ Priority
+	.byte	se_m_feint_attack_rev	@ Reverb.
 
-	.word	se_m_faint_attack_grp
+	.word	se_m_feint_attack_grp
 
-	.word	se_m_faint_attack_1
+	.word	se_m_feint_attack_1
 
 	.end

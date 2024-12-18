@@ -485,7 +485,7 @@ static const u16 sEasyChatWordsByLetter_F[] = {
     EC_WORD_FABULOUS,
     EC_MOVE(FACADE),
     EC_WORD_FAINT,
-    EC_MOVE2(FAINT_ATTACK),
+    EC_MOVE2(FEINT_ATTACK),
     EC_WORD_FAINTED,
     EC_MOVE2(FAKE_OUT),
     EC_MOVE(FAKE_TEARS),

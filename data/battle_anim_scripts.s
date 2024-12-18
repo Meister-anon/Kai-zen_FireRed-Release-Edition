@@ -237,7 +237,7 @@ gBattleAnims_Moves::
 	.4byte Move_PROTECT
 	.4byte Move_MACH_PUNCH
 	.4byte Move_SCARY_FACE
-	.4byte Move_FAINT_ATTACK
+	.4byte Move_FEINT_ATTACK
 	.4byte Move_SWEET_KISS
 	.4byte Move_BELLY_DRUM
 	.4byte Move_SLUDGE_BOMB
@@ -4602,7 +4602,7 @@ Move_CAMOUFLAGE:: @ 81CC072
 	createvisualtask AnimTask_SetCamouflageBlend, 5, 2, 3, 0, 14
 	delay 16
 	createvisualtask AnimTask_AttackerFadeToInvisible, 2, 4
-	playsewithpan SE_M_FAINT_ATTACK, 192
+	playsewithpan SE_M_FEINT_ATTACK, 192
 	waitforvisualfinish
 	delay 8
 	createvisualtask AnimTask_SetCamouflageBlend, 5, 2, 0, 0, 0
@@ -5898,13 +5898,13 @@ SmogCloud:: @ 81CDE85
 	delay 7
 	return
 
-Move_FAINT_ATTACK:: @ 81CDE9B
+Move_FEINT_ATTACK:: @ 81CDE9B
 	loadspritegfx ANIM_TAG_IMPACT
 	monbg ANIM_ATTACKER
 	fadetobg 1
 	waitbgfadein
 	delay 0
-	playsewithpan SE_M_FAINT_ATTACK, 192
+	playsewithpan SE_M_FEINT_ATTACK, 192
 	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0, 18, 6, 1, 3
 	createvisualtask AnimTask_AttackerFadeToInvisible, 2, 1
 	waitforvisualfinish
@@ -12788,7 +12788,7 @@ Move_SHADOW_SNEAK:
 	monbg ANIM_ATTACKER
 	launchtask AnimTask_BlendSelected 0xa 0x5 ANIM_PAL_BG 0x1 0x0 0x7 0x0000
 	waitforvisualfinish
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	launchtask AnimTask_TranslateMonEllipticalRespectSide 0x2 0x5 0x0 0x12 0x6 0x1 0x3
 	launchtask AnimTask_AttackerFadeToInvisible 0x2 0x1 0x1
 	waitforvisualfinish
@@ -14441,7 +14441,7 @@ ShadowForceWaitEnd:
 	end
 ShadowForcePrep:
 	monbg ANIM_ATTACKER
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER,
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER,
 	createsprite gSimplePaletteBlendSpriteTemplate ANIM_ATTACKER, 2, 1, 3, 0, 16, RGB_BLACK
 	createvisualtask AnimTask_SetGreyscaleOrOriginalPal, 5, ANIM_TARGET, 0
 	createvisualtask AnimTask_SetGreyscaleOrOriginalPal, 5, ANIM_ATTACKER, 0
@@ -18876,7 +18876,7 @@ Move_HYPERSPACE_HOLE::
 	loadspritegfx ANIM_TAG_POISON_BUBBLE @Poison Colour
 	launchtask AnimTask_BlendSelected 0xa 0x5 ANIM_PAL_BG 0x1 0x0 0x10 0x7FFF
 	waitforvisualfinish
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	invisible ANIM_ATTACKER
 	delay 0x1
 	visible ANIM_ATTACKER
@@ -24122,7 +24122,7 @@ Move_POLTERGEIST::
 	playsewithpan SE_M_DETECT, SOUND_PAN_ATTACKER
 	waitforvisualfinish
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 2, 0, 16, 0, RGB_BLACK
-	playsewithpan SE_M_FAINT_ATTACK, SOUND_PAN_ATTACKER
+	playsewithpan SE_M_FEINT_ATTACK, SOUND_PAN_ATTACKER
 	delay 0x1
 	launchtask AnimTask_DestinyBondWhiteShadow 0x5 0x2 0x0 0x24
 	delay 0x30
