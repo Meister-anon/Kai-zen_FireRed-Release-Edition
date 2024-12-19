@@ -5045,6 +5045,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     //I undestand this now first turn is turn status is applied so to get 2-5 full turns 3-6 value is needed
                     //but...I want that luck feelig of the enemy breaking out next turn so I'd like to set it to 2-6 but that is...convoluted
                     //potentially even more so as its using random & and not random %  since the and function uses bitwise exclusion I believe?
+                    //***vsonic important for balance think need exclude bind from this as it locks move
                     if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_GRIP_CLAW
                         || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SUCTION_CUPS))   //BUFF for suction cups
                     {
@@ -5073,6 +5074,15 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;       //since added multiple statuses and timers make bool  true/valse set below for if trapped
                     else                                //same as how sturdied focus sashed etc. set battler trapped  when set timers, then clear when clear status
                     {                                   //replace its a trap status with that as well if used
+
+
+                        if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_GRIP_CLAW
+                        || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SUCTION_CUPS))   //BUFF for suction cups
+                        {
+                            TrapDuration = 6;  //should be a 5 turn duration
+                        }
+
+                    
                         gDisableStructs[gEffectBattler].bindTurns = TrapDuration;
                         gBattleMons[gEffectBattler].status4 |= STATUS4_BIND; //moved effect to attk canceler
 
@@ -5283,8 +5293,18 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SP_DEF_MINUS_1:
             case MOVE_EFFECT_ACC_MINUS_1:
             case MOVE_EFFECT_EVS_MINUS_1:
-                flags = affectsUser;
+                //flags = affectsUser;
                
+               if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
+                    flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
+                else
+                    flags = 0;
+                
+                if (mirrorArmorReflected)
+                    flags |= (STAT_CHANGE_BS_PTR * !affectsUser);
+                else
+                    flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
+
                if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_1) && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND)
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
@@ -5299,7 +5319,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     return; //oh adding the return fixed it o.0
                 } 
 
-                if (mirrorArmorReflected && !affectsUser)
+                /*if (mirrorArmorReflected && !affectsUser)
                     flags |= STAT_CHANGE_BS_PTR;
                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_1 + 1,
@@ -5308,6 +5328,15 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 {
                     if (!mirrorArmorReflected)
                     ++gBattlescriptCurrInstr;
+                }*/
+
+               //issue appears to be here, changing flags to 0 or something else makes defense drop work correctly
+                if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
+                                    gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_1 + 1,
+                                    flags, gBattlescriptCurrInstr + 1) == STAT_CHANGE_DIDNT_WORK)
+                {
+                    if (!mirrorArmorReflected)
+                        gBattlescriptCurrInstr++;
                 }
                 else
                 {
@@ -5346,7 +5375,17 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SP_DEF_MINUS_2:
             case MOVE_EFFECT_ACC_MINUS_2:
             case MOVE_EFFECT_EVS_MINUS_2:
-                flags = affectsUser;
+                //flags = affectsUser;
+
+                if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
+                    flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
+                else
+                    flags = 0;
+                
+                if (mirrorArmorReflected)
+                    flags |= (STAT_CHANGE_BS_PTR * !affectsUser);
+                else
+                    flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
                 if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND)
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
@@ -5361,17 +5400,26 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_GroundNullifiesEarth;
                     return; //oh adding the return fixed it o.0
                 }
-               
-                if (mirrorArmorReflected && !affectsUser)
-                    flags |= STAT_CHANGE_BS_PTR;
+
                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
+                                    gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_2 + 1,
+                                    flags, gBattlescriptCurrInstr + 1) == STAT_CHANGE_DIDNT_WORK)
+                {
+                    if (!mirrorArmorReflected)
+                        gBattlescriptCurrInstr++;
+                }
+               
+                //if (mirrorArmorReflected && !affectsUser)
+                //    flags |= STAT_CHANGE_BS_PTR;
+
+                /*if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_2 + 1,
                                     flags | STAT_CHANGE_UPDATE_MOVE_EFFECT,
                                     gBattlescriptCurrInstr + 1))
                 {
                     if (!mirrorArmorReflected)
                     ++gBattlescriptCurrInstr;
-                }
+                }*/
                 else
                 {
                     gBattleScripting.animArg1 = gBattleScripting.moveEffect & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
@@ -14136,11 +14184,11 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             gBattlescriptCurrInstr = BattleScript_ButItFailed;
             return STAT_CHANGE_DIDNT_WORK;
         }
-        else if ((gBattleMons[gActiveBattler].ability == ABILITY_CLEAR_BODY
-                  || gBattleMons[gActiveBattler].ability == ABILITY_LEAF_GUARD
-                  || gBattleMons[gActiveBattler].ability == ABILITY_WHITE_SMOKE
-                  || gBattleMons[gActiveBattler].ability == ABILITY_FULL_METAL_BODY
-                  || gBattleMons[gActiveBattler].ability == ABILITY_LIQUID_METAL)
+        else if ((activeBattlerAbility == ABILITY_CLEAR_BODY
+                  || activeBattlerAbility == ABILITY_LEAF_GUARD
+                  || activeBattlerAbility == ABILITY_WHITE_SMOKE
+                  || activeBattlerAbility == ABILITY_FULL_METAL_BODY
+                  || activeBattlerAbility == ABILITY_LIQUID_METAL)
             && (!affectsUser || mirrorArmored) && !certain && gCurrentMove != MOVE_CURSE)
         {
             if (flags == STAT_CHANGE_BS_PTR)
@@ -14155,7 +14203,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
                     gBattleScripting.battler = gActiveBattler;
                     //gBattlerAbility = gActiveBattler;
                     gBattlescriptCurrInstr = BattleScript_AbilityNoStatLoss;
-                    gLastUsedAbility = gBattleMons[gActiveBattler].ability;
+                    gLastUsedAbility = activeBattlerAbility;
                     RecordAbilityBattle(gActiveBattler, gLastUsedAbility);
                     gSpecialStatuses[gActiveBattler].statLowered = 1;
                 }
@@ -14179,10 +14227,10 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             return STAT_CHANGE_DIDNT_WORK;
         }
         
-        else if ((gBattleMons[gActiveBattler].ability == ABILITY_TANGLED_FEET
-            || gBattleMons[gActiveBattler].ability == ABILITY_QUICK_FEET
-            || gBattleMons[gActiveBattler].ability == ABILITY_RUN_AWAY
-            || gBattleMons[gActiveBattler].ability == ABILITY_AVIATOR)
+        else if ((activeBattlerAbility == ABILITY_TANGLED_FEET
+            || activeBattlerAbility == ABILITY_QUICK_FEET
+            || activeBattlerAbility == ABILITY_RUN_AWAY
+            || activeBattlerAbility == ABILITY_AVIATOR)
             && !certain && statId == STAT_SPEED)
         {
             if (flags == STAT_CHANGE_BS_PTR)
@@ -14191,7 +14239,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
                 gBattleScripting.battler = gActiveBattler;
                 //gBattlerAbility = gActiveBattler;
                 gBattlescriptCurrInstr = BattleScript_AbilityNoSpecificStatLoss;
-                gLastUsedAbility = gBattleMons[gActiveBattler].ability;
+                gLastUsedAbility = activeBattlerAbility;
                 RecordAbilityBattle(gActiveBattler, gLastUsedAbility);
             }
             return STAT_CHANGE_DIDNT_WORK;
@@ -14223,12 +14271,12 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
                 SET_STATCHANGER(statId, GET_STAT_BUFF_VALUE(statValue) | STAT_BUFF_NEGATIVE, TRUE);
                 BattleScriptPush(BS_ptr);
                 gBattleScripting.battler = gActiveBattler;
-                gBattlerAbility = gActiveBattler;
+                gBattlerAbility = gActiveBattler; //says battler ability ut seems to take battler argument not ability?
                 if (gCurrentMove == MOVE_NONE)
                     gBattlescriptCurrInstr = BattleScript_MirrorArmorReflect; //skip animation for abilities that stat drop
                 else
                     gBattlescriptCurrInstr = BattleScript_MirrorArmorAttackAnimation;
-                RecordAbilityBattle(gActiveBattler, gBattleMons[gActiveBattler].ability);
+                RecordAbilityBattle(gActiveBattler, activeBattlerAbility);
             }
             return STAT_CHANGE_DIDNT_WORK;
         }
@@ -14247,7 +14295,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
                 else
                     gBattlescriptCurrInstr = BattleScript_EmpathAttackAnimation;
 
-                RecordAbilityBattle(gActiveBattler, gBattleMons[gActiveBattler].ability);//removed affects user, set mirror armor flag instead to avoid loop
+                RecordAbilityBattle(gActiveBattler, activeBattlerAbility);//removed affects user, set mirror armor flag instead to avoid loop
             }//WORKS!!  ...effect works but causes graphic glitch when try to attack after, but only with move, doesn't do for ability stat drops...
             //potentially means issue is to do with my  attack animation fix so check that //tested nope that wasn't it...
                 return STAT_CHANGE_DIDNT_WORK;  //not sure how thsi and mirror armor avoid looping as they call functions that execute stateebuffchange/this function again.

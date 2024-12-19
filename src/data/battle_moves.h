@@ -3627,7 +3627,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-    },
+    },//for some reason defense lower affected self??
+    //issue is all stat down hit, working on fixnig
 
     [MOVE_METAL_CLAW] =
     {
@@ -3641,7 +3642,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
-    },
+    },//ok but THIS worked correctly?? not sure if it played correct animation, was green expected tobe red
+    //they use same flags so may be effect stat setting affect issue not issue w flag
 
     [MOVE_VITAL_THROW] =
     {

@@ -5094,7 +5094,7 @@ BattleScript_EffectSpecialAttackUpHit::
 	setmoveeffect MOVE_EFFECT_SP_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
 	goto BattleScript_EffectHit
 
-BattleScript_EffectAttackerDefenseDownHit:
+BattleScript_EffectAttackerDefenseDownHit::
 	setmoveeffect MOVE_EFFECT_DEF_MINUS_1 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
@@ -9560,6 +9560,7 @@ BattleScript_BattlerAbilityStatNormalized::
 	waitanimation
 	printstring STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	@pause B_WAIT_TIME_SHORT  @may not need this seems text is fine?
 	end3
 
 BattleScript_TargetAbilityStatRaiseOnMoveEnd::
