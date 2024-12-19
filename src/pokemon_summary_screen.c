@@ -1358,6 +1358,7 @@ void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember
     sMonSummaryScreen->unk3228 = 0;
     sMonSummaryScreen->unk322C = 1;
 
+    //believe switchign issue could be caused by this, diff between lastid, and currentMon?
     BufferSelectedMonData(&sMonSummaryScreen->currentMon); //should set currentmon to value of lastviewedindex
     sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
     sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);

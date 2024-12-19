@@ -12137,7 +12137,7 @@ u16 GetTypeModifier(u8 atkType, u8 defType) //used inside MulByTypeEffectiveness
 
 u16 CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities)
 {
-    u16 modifier = UQ_4_12(1.0); //fix for power 0 moves not status to be typeless
+    u16 modifier = UQ_4_12(1.0); //fix for power 0 moves that are non status to be typeless
 
     if (move != MOVE_STRUGGLE && !(gBattleMoves[move].power == 0 && gBattleMoves[move].split != SPLIT_STATUS) && moveType != TYPE_SOUND && moveType != TYPE_MYSTERY) //skips type calculation as both are meant to do typeless dmg i.e neutral to all
     {
