@@ -4323,7 +4323,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
 
     if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK
-        && gCurrentMove != MOVE_SURGING_STRIKES)    //could put in separate dmg bscommand, but if works for multitask this should also work
+        && gCurrentMove != MOVE_SURGING_STRIKES    //could put in separate dmg bscommand, but if works for multitask this should also work
+        && gCurrentMove != MOVE_TRIPLE_DIVE)
     {//only boosts damage if triple kick or triple axel
 
         if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
@@ -4335,8 +4336,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         */
     }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
 
+    //testing 35% defense pen, kind of same as doing dmg against -1 def stat
+    //appears to be about same as stab...fuck ofcourse it is stab is 1.35 *facepalm
+    //hmm previously it always crit in state where crit was 1.5x boost, I THINK
+    //this should be fine
     if (gCurrentMove == MOVE_SURGING_STRIKES || gCurrentMove == MOVE_WICKED_BLOW)
-        defense = (65 * defense) / 100; //testing 35% defense pen
+        defense = (65 * defense) / 100; 
 
     if (gBattleMoves[gCurrentMove].effect == EFFECT_RETALITATE
     && gSideTimers[atkSide].retaliateTimer == 1)
@@ -5026,11 +5031,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_FILTER:
     case ABILITY_SOLID_ROCK:
-    case ABILITY_PRISM_ARMOR:   //necrozma exclusive
+    case ABILITY_PRISM_ARMOR:   //necrozma exclusive  //ok it is working but  not at all as strong as I thought for onix/dual weak
         if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55))
         {
-            OffensiveModifer(75);
-        }  // MulModifier(&finalModifier, UQ_4_12(0.75)); //ok actuallyu works now
+            OffensiveModifer(70); //thought it works but doesn't seem to be? can't tell diff on onix
+        }  // MulModifier(&finalModifier, UQ_4_12(0.75)); //ok actuallyu works now - slightly buffed for dual resists/onix
         break;    //hmm ok so this function is dmg calc, but result flag is set in type calc...
     case ABILITY_FUR_COAT:
         if (usesDefStat)//IS_MOVE_PHYSICAL(move))

@@ -1408,10 +1408,10 @@ const u8 gJUNGLE_HEALING_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Heals HP and status\nof itself and\nallies in battle.");
 
 const u8 gWICKED_BLOW_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The Final technique\nof the Dark style.\nAlways strikes\na critical hit.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The Final technique\nof the Dark style.\nIgnores a small\nportion of defense.");
 
 const u8 gSURGING_STRIKES_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The Final technique\nof the Water style.\nFluidly strikes\n3 critical hits.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The Final technique\nof the Water style.\nFluidly strikes\nthree times.\nIgnores a small\nportion of defense.");
 
 const u8 gTHUNDER_CAGE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe\nin a cage of\nelectricity.\nFor 2 to 4 turns.");

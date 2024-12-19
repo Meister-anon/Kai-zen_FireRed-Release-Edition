@@ -2360,6 +2360,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGeodudeTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_GRAVELER}), //Should hopefully blank these for now without issue
     },//give geodude line endure
+    //would like to also give these kanto forms solid rock
+    //but no room, and sand veil is actually prett good now
+    //since I gave sandstorm an accuracy drop as well that stacks
 
     [SPECIES_GRAVELER] =
     {
@@ -3731,6 +3734,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMrMimeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //doesn't make sense tobe fairy, just makes weaker, doesn't even get any fairy moves usually
+    //now that normal type technician double slap actually hurts o.0
 
     [SPECIES_SCYTHER] =
     {
@@ -12557,7 +12561,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_FILTER, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
-        .floating = TRUE,
+        .floating = FALSE, //walks around hopping
         .levelUpLearnset = sChinglingLevelUpLearnset,
         .tmhmLearnset = sChinglingTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP_NIGHT, FILL, 0, SPECIES_CHIMECHO}), //Should hopefully blank these for now without issue
@@ -32844,7 +32848,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_SLOW_START, ABILITY_SPEED_BOOST},
         .floating = TRUE,
         .bodyColor = BODY_COLOR_GRAY,//ok remember since I buffed it, decided to not remove slow start
-        .noFlip = FALSE,
+        .noFlip = FALSE, //w my eviolite buffs and its steel type slow start on this is actually pretty strong
         /*.speciesName = _("Varoom"), //why on god's earth did pokemon decide to give another mon slowstart??
         .cryId = CRY_VAROOM,
         .natDexNum = NATIONAL_DEX_VAROOM,
@@ -43093,7 +43097,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_SNOW_CLOAK, ABILITY_OVERCHARGE},
-        .abilityHidden = {ABILITY_MOTOR_DRIVE, ABILITY_FILTER},
+        .abilityHidden = {ABILITY_MOTOR_DRIVE, ABILITY_FILTER}, //filter cuz bulk and also fridge has filters
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
