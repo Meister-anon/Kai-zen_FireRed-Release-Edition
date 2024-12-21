@@ -4216,6 +4216,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u32 abilityDef = GetBattlerAbility(battlerIdDef);
     u16 itemDef = gBattleMons[battlerIdDef].item;
     u32 atkSide = GetBattlerSide(battlerIdAtk);
+    u32 typeEffectiveness;
 
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
@@ -4227,6 +4228,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     else
         GET_MOVE_TYPE(move, moveType); //should all I need, type already set before this point
 
+    typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerIdAtk, battlerIdDef, FALSE);
     attack = attacker->attack;
     defense = defender->defense;
     spAttack = attacker->spAttack;
@@ -4251,7 +4253,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // if equal I think I'll just toss up a 50/50 Random() % 2  setting each, like I did for forecast.
      //so this should boost attack,if atk is lower & split is physical
     
-    if (gCurrentMove == MOVE_HIDDEN_POWER) // also see about putting split condition for hidden power onto the function for getbattlesplit
+    if (move == MOVE_HIDDEN_POWER) // also see about putting split condition for hidden power onto the function for getbattlesplit
     {
         s32 powerBits;
 
@@ -4314,7 +4316,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //O.o now it works ...ow   
     }
 
-    if (gCurrentMove == MOVE_TRI_ATTACK)
+    if (move == MOVE_TRI_ATTACK)
     {
         if (gBattleMons[battlerIdAtk].attack > gBattleMons[battlerIdAtk].spAttack)
            usesDefStat = TRUE;
@@ -4322,9 +4324,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             usesDefStat = FALSE;
     }
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK
-        && gCurrentMove != MOVE_SURGING_STRIKES    //could put in separate dmg bscommand, but if works for multitask this should also work
-        && gCurrentMove != MOVE_TRIPLE_DIVE)
+    if (gBattleMoves[move].effect == EFFECT_TRIPLE_KICK
+        && move != MOVE_SURGING_STRIKES    //could put in separate dmg bscommand, but if works for multitask this should also work
+        && move != MOVE_TRIPLE_DIVE)
     {//only boosts damage if triple kick or triple axel
 
         if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
@@ -4340,10 +4342,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //appears to be about same as stab...fuck ofcourse it is stab is 1.35 *facepalm
     //hmm previously it always crit in state where crit was 1.5x boost, I THINK
     //this should be fine
-    if (gCurrentMove == MOVE_SURGING_STRIKES || gCurrentMove == MOVE_WICKED_BLOW)
+    if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_RETALITATE
+    if (gBattleMoves[move].effect == EFFECT_RETALITATE
     && gSideTimers[atkSide].retaliateTimer == 1)
     {
         gBattleMovePower *= 2;
@@ -4492,7 +4494,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
     if (attackerHoldEffect == HOLD_EFFECT_EXPERT_BELT)
     {
-        if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55))
+        if (typeEffectiveness >= UQ_4_12(1.55))
             gBattleMovePower = (gBattleMovePower * 120 / 100);
             //MulModifier(&finalModifier, UQ_4_12(1.2));
     }
@@ -4502,7 +4504,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (defenderHoldEffect == HOLD_EFFECT_RESIST_BERRY)
     {
         if (moveType == GetBattlerHoldEffectParam(battlerIdDef)
-            && (moveType == TYPE_NORMAL || (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55))))
+            && (moveType == TYPE_NORMAL || (typeEffectiveness >= UQ_4_12(1.55))))
             //&& !UnnerveOn(battlerIdDef, itemDef))
         {
             if (abilityDef == ABILITY_RIPEN) //is thsi shuold this be side based?
@@ -4588,44 +4590,44 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
 
     //MOVE / VARIOUS EFFECTS - realized never added terrain boost, should put here
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_EXPLOSION) //keeps special explosion variants consistent, check if should  include mindblown
+    if (gBattleMoves[move].effect == EFFECT_EXPLOSION) //keeps special explosion variants consistent, check if should  include mindblown
         DefenseModifer(50);
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_ASSURANCE
+    if (gBattleMoves[move].effect == EFFECT_ASSURANCE
         && (gProtectStructs[battlerIdDef].physicalDmg != 0 || gProtectStructs[battlerIdDef].specialDmg != 0 || gProtectStructs[battlerIdDef].confusionSelfDmg))
         gBattleMovePower *= 2;
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_KNOCK_OFF && gBattleMons[battlerIdDef].item != 0)
+    if (gBattleMoves[move].effect == EFFECT_KNOCK_OFF && gBattleMons[battlerIdDef].item != 0)
         gBattleMovePower = (150 * gBattleMovePower) / 100;
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_WAKE_UP_SLAP)
+    if (gBattleMoves[move].effect == EFFECT_WAKE_UP_SLAP)
     {
         if (gBattleMons[battlerIdDef].status1 & STATUS1_SLEEP || GetBattlerAbility(battlerIdDef) == ABILITY_COMATOSE)
             gBattleMovePower *= 2;
     }
 
-    if ((gBattleMoves[gCurrentMove].effect == EFFECT_VENOSHOCK
-    || gCurrentMove == MOVE_BARB_BARRAGE)
+    if ((gBattleMoves[move].effect == EFFECT_VENOSHOCK
+    || move == MOVE_BARB_BARRAGE)
     && defender->status1 & STATUS1_PSN_ANY && IsBlackFogNotOnField())
         gBattleMovePower = (230 * gBattleMovePower) / 100;
 
-    else if ((gBattleMoves[gCurrentMove].effect == EFFECT_HEX
-    || gBattleMoves[gCurrentMove].effect == EFFECT_VENOSHOCK
-    || gCurrentMove == MOVE_BARB_BARRAGE
-    || gCurrentMove == MOVE_INFERNAL_PARADE)
+    else if ((gBattleMoves[move].effect == EFFECT_HEX
+    || gBattleMoves[move].effect == EFFECT_VENOSHOCK
+    || move == MOVE_BARB_BARRAGE
+    || move == MOVE_INFERNAL_PARADE)
     && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
         gBattleMovePower *= 2;
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_SMELLINGSALT)
+    if (gBattleMoves[move].effect == EFFECT_SMELLINGSALT)
     {
         if (gBattleMons[battlerIdDef].status1 & STATUS1_PARALYSIS && IsBlackFogNotOnField())
             gBattleMovePower *= 2;
     }
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_BRINE
+    if (gBattleMoves[move].effect == EFFECT_BRINE
     && defender->hp <= defender->maxHP / 2)
         gBattleMovePower *= 2;
 
     
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_STOMPING_TANTRUM)
+    if (gBattleMoves[move].effect == EFFECT_STOMPING_TANTRUM)
     {
         if (gBattleStruct->lastMoveFailed & gBitTable[battlerIdAtk])
             gBattleMovePower *= 2;
@@ -4640,7 +4642,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_MISTY_TERRAIN)) //also setup effect_absorb boost 25% or 50%
     {   
-        if (gCurrentMove == MOVE_MISTY_EXPLOSION)    
+        if (move == MOVE_MISTY_EXPLOSION)    
             gBattleMovePower = (150 * gBattleMovePower) / 100;
         else if (!usesDefStat)
             gBattleMovePower = (115 * gBattleMovePower) / 100;//15% move power increase for special moves
@@ -4696,10 +4698,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_TIGER_CUB:
     case ABILITY_TINTED_LENS: //since changed multipliers may change this, if can use typecalc thing to make this use multiplier < 1, I can make it work for slight resist moves as well
     {
-        u8 moveType;
-        GET_MOVE_TYPE(gCurrentMove, moveType);
+        //u8 moveType;
+        //GET_MOVE_TYPE(gCurrentMove, moveType);
         //if (gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE) //think should work,  it might not work, if move result is foud after damage stepp, it should work 
-        if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) < UQ_4_12(1.0))
+        if (typeEffectiveness < UQ_4_12(1.0))
             OffensiveModifer(200); //is right syntax, and type calc always goes before dmg calc
         break; //ok hopefully this works
     }
@@ -4840,7 +4842,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 120 / 100);
         break;
     case ABILITY_NEUROFORCE:
-        if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55))
+        if (typeEffectiveness >= UQ_4_12(1.55))
             OffensiveModifer(125);
             //MulModifier(&finalModifier, UQ_4_12(1.25));
         break;
@@ -5031,11 +5033,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_FILTER:
     case ABILITY_SOLID_ROCK:
-    case ABILITY_PRISM_ARMOR:   //necrozma exclusive  //ok it is working but  not at all as strong as I thought for onix/dual weak
-        if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55))
+    case ABILITY_PRISM_ARMOR:   //necrozma exclusive
+        if (typeEffectiveness >= UQ_4_12(1.55))
         {
-            OffensiveModifer(70); //thought it works but doesn't seem to be? can't tell diff on onix
-        }  // MulModifier(&finalModifier, UQ_4_12(0.75)); //ok actuallyu works now - slightly buffed for dual resists/onix
+            OffensiveModifer(70);
+        }  // MulModifier(&finalModifier, UQ_4_12(0.75)); //ok actuallyu works now
         break;    //hmm ok so this function is dmg calc, but result flag is set in type calc...
     case ABILITY_FUR_COAT:
         if (usesDefStat)//IS_MOVE_PHYSICAL(move))
@@ -5054,7 +5056,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (!usesDefStat)//IS_MOVE_SPECIAL(move))
             OffensiveModifer(50);   //should be able to safely use as condition already states def stat is false
         break;
-    case ABILITY_SLOW_START: //double check if makes sense to use player side, can't remember why it does? its not side, this is the actual timer count *facepalm
+    case ABILITY_SLOW_START:
         if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerIdDef]][GetBattlerSide(battlerIdDef)] != 0)    //was gonna add crit excluion clause but it seems abilities don't have that, only the moves
             OffensiveModifer(67); //so that's an extra bonus of having damage reduction via ability     may do 4 turn timer with 75% damage reduction instead of 50% @ 2 turns
         break;//yeah like that idea a lot more , that's most likley way to powerful... doing 3 turn timer at 50%, regi has high hp and def changed to 1/3rd cut
@@ -5139,13 +5141,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     { //here and in atk49 move end
         //shouldn't affect ohko moves will prob affect fixed damage moves but that's prob fine since its supposed to be a protect like, on level w endure etc.
         //need move these, as move result is set in typecalc which runs after this function is called not before
-        if (CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55)) //get wonder guard logic to work here
+        if (typeEffectiveness >= UQ_4_12(1.55)) //get wonder guard logic to work here
         {
             //((gBattleMoveDamage *= 15) / 100); //should be 15% damage i.e 85% damage cut
             OffensiveModifer(15);
              //just realized this effectively makes super effective do same damage as normal which since its through a shield guess this is fine
         }
-        else if (!(CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, battlerIdAtk, battlerIdDef, FALSE) >= UQ_4_12(1.55)))  //hopefully works for normal effect and doesn't break fixed damage & oh ko moves
+        else// if (!(typeEffectiveness >= UQ_4_12(1.55)))  //hopefully works for normal effect and doesn't break fixed damage & oh ko moves
         {
             //((gBattleMoveDamage *= 30) / 100); //should be 30% damage i.e 70% damage cut
             OffensiveModifer(30);
@@ -5194,14 +5196,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if ((GetBattlerAbility(battlerIdAtk) == ABILITY_FLUORESCENCE   
         || GetBattlerAbility(battlerIdAtk) == ABILITY_CLOUD_NINE)     
         && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) && IsBlackFogNotOnField()
-        && gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM)
+        && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
         {
             OffensiveModifer(100);
         } //simpler balancing for fluorescence do dmg cut/ nvm removed dmg cut, low bst and forgot lowered super bonus etc., so will mean just avoids dmg cut from other weather
 
         //moved these here, because they don't have to do with physical or special damage alone anymore.  since I removed the type link
         // any weather except sun weakens solar beam
-        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) && gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM)
+        else if ((gBattleWeather & (WEATHER_RAIN_ANY | WEATHER_SANDSTORM_ANY | WEATHER_HAIL)) && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
             OffensiveModifer(50);
 
         
@@ -5322,7 +5324,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
        //so lower level enemies are still somewhat dangerous
        //wouldnt even need to make exclusion for link battles, as
        //enemies are always same level
-        if (defender->level - attacker->level >= 7 && GetBattlerSide(battlerIdAtk) != B_SIDE_PLAYER
+        if ((defender->level - attacker->level >= 7 && GetBattlerSide(battlerIdAtk) != B_SIDE_PLAYER)
         || (attacker->level < 6 && defender->level >= 3 && defender->level < 6 && !GetNumBadges()))
             damage *= (max(2 * attacker->level / 5, 1) + 3); //speed up early leveling a bit
         else
@@ -5375,11 +5377,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         damage = damage / damageHelper;
 
-       if (attacker->level - defender->level >= 4 && attacker->level <= 12 //dmg feels GOOD,w new formula may inreas this to 10
+       if ((attacker->level - defender->level >= 4 && attacker->level <= 12) //dmg feels GOOD,w new formula may inreas this to 10
         || attacker->level - defender->level >= 10)
             damage /= 60;
         else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
-            damage /= 42;
+            damage /= 42; //keep; an eye on this since it would work for both sides
         else
             damage /= 51;  
         
@@ -5421,7 +5423,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     //could put multi task here
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    && CanMultiTask(move) == TRUE)
     {
 
         damage = max(damage / gMultiTask, 1);
@@ -5526,7 +5528,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //alt idea just use level on damage itself
         //rather than all this extra code simpler to just shift directly
         //isn't much need for using multiple curves with how good the new one is
-        if (defender->level - attacker->level >= 7 && GetBattlerSide(battlerIdAtk) != B_SIDE_PLAYER
+        if ((defender->level - attacker->level >= 7 && GetBattlerSide(battlerIdAtk) != B_SIDE_PLAYER)
         || (attacker->level < 6 && defender->level >= 3 && defender->level < 6 && !GetNumBadges()))
             damage *= (max(2 * attacker->level / 5, 1) + 3); //speed up early leveling a bit
         else
@@ -5562,11 +5564,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //player assist to have more room for strategy
         //smth might be wrong w damage anger point maxed mankey did no dmg 
         //to super morpeko can't tell if its issue of transform or something idk
-        if (attacker->level - defender->level >= 4 && attacker->level <= 12 //dmg feels GOOD,w new formula may inreas this to 10
+        if ((attacker->level - defender->level >= 4 && attacker->level <= 12) //dmg feels GOOD,w new formula may inreas this to 10
         || attacker->level - defender->level >= 10)
             damage /= 60;
         else if (defender->level - attacker->level >= 5) //boost underlevel enmemise added back
-            damage /= 42;
+            damage /= 42; //keep; an eye on this since it would work for both sides
         else
             damage /= 51;
 
@@ -5576,7 +5578,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         
         /*//if attacker abonve threshold do less dmg
         if ((attacker->level - defender->level >= 4) || defender->level <= 4)
-            damage /= 50;  //adjusted form should scale higher for low level slight lower later
+            damage /= 50;  //this was default value adjusted form should scale higher for low level slight lower later
         else//defense side of sp. damage formula
             damage /= 41; //was almos talways using this portion
             //about 20% diff in dmg*/
@@ -5614,7 +5616,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //    damage /= 1; //special verision double battle damage change
     
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
-    && CanMultiTask(gCurrentMove) == TRUE)
+    && CanMultiTask(move) == TRUE)
     {
 
         damage = max(damage / gMultiTask, 1);
