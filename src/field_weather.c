@@ -905,6 +905,15 @@ void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex)
         }
         break;
     }
+    // If faded out, i.e due to fadescreenswapbuffers,
+    // Copy unfaded palette to pal decomp buffer
+    // so it will be restored on fade-in
+    if (gPaletteFade.y == 16)
+        CpuFastCopy(
+            gPlttBufferUnfaded + OBJ_PLTT_ID(spritePaletteIndex),
+            gPaletteDecompressionBuffer + 2*OBJ_PLTT_ID(spritePaletteIndex),
+            PLTT_SIZE_4BPP
+        );// potential fix for daynight stuff todo later credit from Jaizu posted in rhh vsonic important
 }
 
 void ApplyWeatherGammaShiftToPal(u8 paletteIndex)
