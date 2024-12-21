@@ -6436,7 +6436,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_FLINCH_HIT,
         .power = 100,
         .type = TYPE_DRAGON,
-        .accuracy = 75,
+        .accuracy = 80,
         .pp = 10,
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
@@ -7202,14 +7202,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HEAVY_RECOIL,
         .power = 150,
         .type = TYPE_ROCK,
-        .accuracy = 80,
+        .accuracy = 85,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_ROCK_HEAD_BOOST,
         .split = SPLIT_PHYSICAL,
-    },
+    },//consider raising accuracy vsonic double edge has triple pp and is 100% accurate
 
     [MOVE_DOUBLE_HIT] =
     {

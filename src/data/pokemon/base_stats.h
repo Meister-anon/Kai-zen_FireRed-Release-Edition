@@ -14497,10 +14497,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         90,
         93,
-        55,
-        55,
+        65,
+        50,
         70,
-        55
+        65
         ),
         MON_TYPES(TYPE_GROUND, TYPE_FIGHTING),
         .catchRate = 45,
@@ -14512,7 +14512,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_BLAZE, ABILITY_RATTLED}, //hard to decide think I like rattled better as a consistent effect?
+        .abilities = {ABILITY_BLAZE, ABILITY_KLUTZ}, //hard to decide think I like rattled better as a consistent effect?
         .abilityHidden = {ABILITY_THICK_FAT, ABILITY_SAND_RUSH}, //hes kind of a slow glass canon? so guess these are fine?
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -14533,10 +14533,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         121,
         123,
-        65,
-        65,
+        75,
+        40,
         100,
-        65
+        85
         ),
         MON_TYPES(TYPE_GROUND, TYPE_FIGHTING),
         .catchRate = 45,
@@ -14548,11 +14548,11 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_BLAZE, ABILITY_RATTLED},
+        .abilities = {ABILITY_BLAZE, ABILITY_KLUTZ}, //magma armor, or klutz magma armor would be nice but think it wants recoil block more
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_THICK_FAT, ABILITY_SAND_RUSH},// want to get triple stab so blaze may get rid of adaptability?
         // #endif
-        .bodyColor = BODY_COLOR_RED,
+        .bodyColor = BODY_COLOR_RED, //w speed drop don't think sand rush really worth it, keep anyway
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sEmboarLevelUpLearnset,
@@ -14560,6 +14560,14 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //need to add ground moves to learn list for this and mid evo
     //also sandstorm for stat buff
+    //think gonna keep reworking abilities
+    //keep blaze, considering magma armor and recoil prevention/klutz?
+    //groud already resists fire so thick fat, while makes sense not really necessary
+    //but I guess helps with ice.
+    //flash fire gives it an immunity (but it already resists) and boosts fire but I would need to activate
+    //if I gave it blaze and belly drum, plus lower speed could do trick room strats
+    //with triple stab, would work since i buffed blaze to activate at 50%
+    //stat redistro-sp def highest idea steam armor, -lower speed to work in trick room
 
     [SPECIES_OSHAWOTT] =
     {
@@ -17717,7 +17725,7 @@ const struct BaseStats gBaseStats[] =
         114,
         85,
         70,
-        50,
+        40,
         85,
         95
         ),
