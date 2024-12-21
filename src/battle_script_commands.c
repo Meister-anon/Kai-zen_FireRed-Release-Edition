@@ -13431,7 +13431,7 @@ void BS_TryQuash(void)
         {
             if (!gProtectStructs[i].quash
              && !gProtectStructs[j].quash
-             && GetWhoStrikesFirst(gBattlerByTurnOrder[i], gBattlerByTurnOrder[j], FALSE) == -1)
+             && GetWhoStrikesFirst(gBattlerByTurnOrder[i], gBattlerByTurnOrder[j], FALSE))
                 SwapTurnOrder(i, j);
         }
     }
