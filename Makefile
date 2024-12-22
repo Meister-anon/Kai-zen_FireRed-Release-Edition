@@ -59,9 +59,9 @@ include config.mk
 GCC_VER = $(shell $(CC) -dumpversion)
 
 ifeq ($(MODERN),0) #understood wrong this line means if not modern, so can put -ggdb on else line and it builds as it is modern &  doesn't use agbcc
-CC1             := tools/agbcc/bin/agbcc$(EXE)
-override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
-LIBPATH := -L ../../tools/agbcc/lib
+CC1             := tools/agbcc/bin/agbcc$(EXE) #adding -Werror to CFLAG line below is what caused warnings to be treated like errors, may be useful later
+override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -O2 -fhex-asm
+LIBPATH := -L ../../tools/agbcc/lib #-g and -ggdb are for dbugging add to override cflags as seen in DINFO below
 else
 CC1             := $(shell $(MODERNCC) --print-prog-name=cc1) -quiet
 override CFLAGS += -mthumb -mthumb-interwork -O2 -mcpu=arm7tdmi -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast
