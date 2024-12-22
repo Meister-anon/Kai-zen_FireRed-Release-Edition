@@ -12,7 +12,9 @@
 #else
 #define IWRAM_DATA __attribute__((section("iwram_data")))
 #define EWRAM_DATA __attribute__((section(".sbss")))
+#define UNUSED __attribute__((unused))
 #endif
+
 
 #if MODERN
 #define NOINLINE __attribute__((noinline))

@@ -2784,7 +2784,6 @@ void MoveBattlerSpriteToBG(u8 battlerId, bool8 toBG_2)
 {
     struct BattleAnimBgData animBg;
     u8 battlerSpriteId;
-    struct Sprite *sprite;
 
     if (!toBG_2)
     {
@@ -3059,7 +3058,6 @@ static void ScriptCmd_clearmonbg_23(void)
 
 static void sub_8073558(u8 taskId)
 {
-    bool8 to_BG2;
     u8 position;
     u8 battlerId;
     
@@ -3223,7 +3221,7 @@ static void ScriptCmd_fadetobgfromset(void)
     sBattleAnimScriptPtr++;
     bg1 = sBattleAnimScriptPtr[0];
     bg2 = sBattleAnimScriptPtr[1];
-    bg3 = sBattleAnimScriptPtr[2];
+    bg3 = sBattleAnimScriptPtr[2];// compared to EE is leftover from emerlad for contests, would like to keep
     sBattleAnimScriptPtr += 3;
     taskId = CreateTask(Task_FadeToBg, 5);
 

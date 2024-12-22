@@ -4758,7 +4758,7 @@ void AnimProtect(struct Sprite *sprite)
 static void AnimProtectStep(struct Sprite *sprite)
 {
     int a;
-    int i;
+    int i,id;
     
     sprite->data[5] += 96;
     sprite->pos2.x = -(sprite->data[5] >> 8);
@@ -4767,10 +4767,11 @@ static void AnimProtectStep(struct Sprite *sprite)
         sprite->data[1] = 0;
         a = gPlttBufferFaded[sprite->data[2] + 1];
         i = 0;
-        do
+        while (i < 6)
         {
-            gPlttBufferFaded[sprite->data[2] + ++i] = gPlttBufferFaded[sprite->data[2] + i + 1];
-        } while (i < 6);
+            id = sprite->data[2] + ++i;
+            gPlttBufferFaded[id] = gPlttBufferFaded[id + 1];
+        }
 
         gPlttBufferFaded[sprite->data[2] + 7] = a;
     }
@@ -5524,7 +5525,7 @@ void AnimFalseSwipeSlice(struct Sprite *sprite)
 
 void AnimFalseSwipePositionedSlice(struct Sprite *sprite)
 {
-    sprite->pos1.x = sprite->pos1.x = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2) + 0xFFD0 + gBattleAnimArgs[0];
+    sprite->pos1.x = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2) + 0xFFD0 + gBattleAnimArgs[0];
     sprite->pos1.y = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET);
     StartSpriteAnim(sprite, 1);
     sprite->data[0] = 0;

@@ -49,6 +49,10 @@ static u8 HealConfuseBerry(u8 battlerId, u16 itemId, u8 flavorId, bool32 end2);
 static u8 StatRaiseBerry(u8 battlerId, u16 itemId, u8 statId, bool32 end2);
 static u8 RandomStatRaiseBerry(u8 battlerId, u16 itemId, bool32 end2);
 
+static bool32 TryChangeBattleTerrain(u32 battler, u32 statusFlag, u8 *timer);
+static bool32 ShouldChangeFormHpBased(u32 battler);
+static u8 ForewarnChooseMove(u32 battler);
+
 static const u16 sSoundMovesTable[] =
 {
     MOVE_GROWL, MOVE_ROAR, MOVE_SING, MOVE_SUPERSONIC, MOVE_SCREECH, MOVE_SNORE,
