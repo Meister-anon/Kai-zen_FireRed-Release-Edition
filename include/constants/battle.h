@@ -80,7 +80,7 @@
 #define BATTLE_TYPE_INGAME_PARTNER   0x400000
 #define BATTLE_TYPE_TWO_OPPONENTS    0x800000	//carry over from emerald, not fully set here yet but is reason for gTrainerBattleOpponent_B  when 2 trainers approach player
 #define BATTLE_TYPE_RECORDED         0x1000000  //also not used, or wont be
-#define BATTLE_TYPE_x2000000         0x2000000
+#define BATTLE_TYPE_RECORDED_LINK    0x2000000  //added for now, to deal w record battle link additions w test system, can prob remove later vsonic
 #define BATTLE_TYPE_x4000000         0x4000000
 #define BATTLE_TYPE_SECRET_BASE      0x8000000
 #define BATTLE_TYPE_GROUDON          0x10000000

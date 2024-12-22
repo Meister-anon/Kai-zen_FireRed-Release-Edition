@@ -5,6 +5,7 @@ GAME_REVISION ?= 0
 GAME_LANGUAGE ?= ENGLISH
 MODERN        ?= 1
 COMPARE       ?= 0
+TEST         ?= 0
 
 ifeq (compare,$(MAKECMDGOALS))
   COMPARE := 1
@@ -26,6 +27,10 @@ BUILD_NAME  := leafgreen
 else
 $(error unknown version $(GAME_VERSION))
 endif
+endif
+
+ifeq (check,$(MAKECMDGOALS))
+  TEST := 1
 endif
 
 # Revision

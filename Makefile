@@ -1,8 +1,13 @@
 TOOLCHAIN := $(DEVKITARM)
 COMPARE ?= 0
+TEST    ?= 0
 
 ifeq (compare,$(MAKECMDGOALS)) #unsure if cmdgoals is fully setup yet compared to EE
   COMPARE := 1
+endif
+
+ifeq (check,$(MAKECMDGOALS))
+  TEST := 1
 endif
 
 
@@ -81,6 +86,11 @@ ELF = $(ROM:.gba=.elf)
 MAP = $(ROM:.gba=.map)
 SYM = $(ROM:.gba=.sym)
 
+TEST_OBJ_DIR_NAME := build/modern-test
+
+TESTELF = $(ROM:.gba=-test.elf)
+HEADLESSELF = $(ROM:.gba=-test-headless.elf)
+
 C_SUBDIR = src
 DATA_C_SUBDIR = src/data
 ASM_SUBDIR = asm
@@ -89,18 +99,29 @@ SONG_SUBDIR = sound/songs
 MID_SUBDIR = sound/songs/midi
 SAMPLE_SUBDIR = sound/direct_sound_samples
 CRY_SUBDIR = sound/direct_sound_samples/cries
+TEST_SUBDIR = test
 
 C_BUILDDIR = $(OBJ_DIR)/$(C_SUBDIR)
 ASM_BUILDDIR = $(OBJ_DIR)/$(ASM_SUBDIR)
 DATA_ASM_BUILDDIR = $(OBJ_DIR)/$(DATA_ASM_SUBDIR)
 SONG_BUILDDIR = $(OBJ_DIR)/$(SONG_SUBDIR)
 MID_BUILDDIR = $(OBJ_DIR)/$(MID_SUBDIR)
+TEST_BUILDDIR = $(OBJ_DIR)/$(TEST_SUBDIR)
 
 ASFLAGS := -mcpu=arm7tdmi --defsym $(GAME_VERSION)=1 --defsym REVISION=$(GAME_REVISION) --defsym $(GAME_LANGUAGE)=1 --defsym MODERN=$(MODERN)
 
 LDFLAGS = -Map ../../$(MAP)
 
 LIB := $(LIBPATH) -lc -lgcc
+
+
+ifeq ($(TESTELF),$(MAKECMDGOALS))
+  TEST := 1
+endif
+
+ifeq ($(TEST),1)
+OBJ_DIR := $(TEST_OBJ_DIR_NAME)
+endif
 
 #ifneq ($(MODERN),0)
 #ifneq ($(DEVKITARM),)
@@ -121,6 +142,9 @@ RAMSCRGEN := tools/ramscrgen/ramscrgen
 FIX := tools/gbafix/gbafix
 MAPJSON := tools/mapjson/mapjson
 JSONPROC := tools/jsonproc/jsonproc
+PATCHELF := tools/patchelf/patchelf$(EXE)
+ROMTEST ?= $(shell { command -v mgba-rom-test || command -v tools/mgba/mgba-rom-test$(EXE); } 2>/dev/null)
+ROMTESTHYDRA := tools/mgba-rom-test-hydra/mgba-rom-test-hydra$(EXE)
 
 PERL := perl
 
@@ -148,6 +172,12 @@ endif
 
 C_SRCS := $(wildcard $(C_SUBDIR)/*.c)
 C_OBJS := $(patsubst $(C_SUBDIR)/%.c,$(C_BUILDDIR)/%.o,$(C_SRCS))
+
+TEST_SRCS_IN := $(wildcard $(TEST_SUBDIR)/*.c $(TEST_SUBDIR)/*/*.c $(TEST_SUBDIR)/*/*/*.c)
+TEST_SRCS := $(foreach src,$(TEST_SRCS_IN),$(if $(findstring .inc.c,$(src)),,$(src)))
+TEST_OBJS := $(patsubst $(TEST_SUBDIR)/%.c,$(TEST_BUILDDIR)/%.o,$(TEST_SRCS))
+TEST_OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(TEST_OBJS))
+
 
 C_ASM_SRCS += $(wildcard $(C_SUBDIR)/*.s $(C_SUBDIR)/*/*.s $(C_SUBDIR)/*/*/*.s)
 C_ASM_OBJS := $(patsubst $(C_SUBDIR)/%.s,$(C_BUILDDIR)/%.o,$(C_ASM_SRCS))
@@ -355,6 +385,14 @@ $(OBJ_DIR)/sym_common.ld: sym_common.txt $(C_OBJS) $(wildcard common_syms/*.txt)
 $(OBJ_DIR)/sym_ewram.ld: sym_ewram.txt
 	$(RAMSCRGEN) .sbss $< ENGLISH > $@
 
+# NOTE: Based on C_DEP above, but without NODEP and KEEP_TEMPS handling.
+define TEST_DEP
+$1: $2 $$(shell $(SCANINC) -I include -I tools/agbcc/include -I gflib $2)
+	@echo "$$(CC1) <flags> -o $$@ $$<"
+	@$$(CPP) $$(CPPFLAGS) $$< | $$(PREPROC) -i $$< charmap.txt | $$(CC1) $$(CFLAGS) -o - - | cat - <(echo -e ".text\n\t.align\t2, 0") | $$(AS) $$(ASFLAGS) -o $$@ -
+endef
+$(foreach src, $(TEST_SRCS), $(eval $(call TEST_DEP,$(patsubst $(TEST_SUBDIR)/%.c,$(TEST_BUILDDIR)/%.o,$(src)),$(src),$(patsubst $(TEST_SUBDIR)/%.c,%,$(src)))))
+
 ifeq ($(MODERN),0)
 LD_SCRIPT := ld_script.txt
 LD_SCRIPT_DEPS := $(OBJ_DIR)/sym_bss.ld $(OBJ_DIR)/sym_common.ld $(OBJ_DIR)/sym_ewram.ld
@@ -374,6 +412,28 @@ $(ELF): $(OBJ_DIR)/$(LD_BUILD) $(OBJS)
 
 $(ROM): $(ELF) $(SYM)
 	$(OBJCOPY) -O binary --gap-fill 0xFF --pad-to 0x9000000 $< $@
+
+LD_SCRIPT_TEST := ld_script_test.ld
+
+$(OBJ_DIR)/ld_script_test.ld: $(LD_SCRIPT_TEST) $(LD_SCRIPT_DEPS)
+	cd $(OBJ_DIR) && sed "s#tools/#../../tools/#g" ../../$(LD_SCRIPT_TEST) > ld_script_test.ld
+
+$(TESTELF): $(OBJ_DIR)/ld_script_test.ld $(OBJS) $(TEST_OBJS) libagbsyscall tools check-tools
+	@echo "cd $(OBJ_DIR) && $(LD) -T ld_script_test.ld -o ../../$@ <objects> <test-objects> <lib>"
+	@cd $(OBJ_DIR) && $(LD) $(TESTLDFLAGS) -T ld_script_test.ld -o ../../$@ $(OBJS_REL) $(TEST_OBJS_REL) $(LIB)
+	$(FIX) $@ -t"$(TITLE)" -c$(GAME_CODE) -m$(MAKER_CODE) -r$(REVISION) -d0 --silent
+	$(PATCHELF) $(TESTELF) gTestRunnerArgv "$(TESTS)\0"
+
+ifeq ($(GITHUB_REPOSITORY_OWNER),rh-hideout)
+TEST_SKIP_IS_FAIL := \x01
+else
+TEST_SKIP_IS_FAIL := \x00
+endif
+
+check: $(TESTELF)
+	@cp $< $(HEADLESSELF)
+	$(PATCHELF) $(HEADLESSELF) gTestRunnerHeadless '\x01' gTestRunnerSkipIsFail "$(TEST_SKIP_IS_FAIL)"
+	$(ROMTESTHYDRA) $(ROMTEST) $(OBJCOPY) $(HEADLESSELF)
 
 
 # "friendly" target names for convenience sake
