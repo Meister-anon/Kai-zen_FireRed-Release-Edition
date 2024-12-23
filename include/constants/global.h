@@ -31,6 +31,9 @@
 #define MOVE_DESCRIPTION_LENGTH 114  //approx 19 per line, over 6 lines
 #define TRAINER_NAME_LENGTH 12
 
+#define EASY_CHAT_BATTLE_WORDS_COUNT 6 //added w recorded battle for test system unsure if need
+
+
 #define VERSION_SAPPHIRE    1
 #define VERSION_RUBY        2
 #define VERSION_EMERALD     3

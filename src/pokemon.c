@@ -3778,7 +3778,6 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
     u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES, NULL);
     s32 level = GetLevelFromBoxMonExp(boxMon);
     s32 i;
-    s32 personality; // added these two for later edits, idea for learnset order based on personality or nature
     u8 nature;
     const struct LevelUpMove *learnset;// = GetSpeciesLevelUpLearnset(species);
     u16 generatedSpecies;
@@ -3798,7 +3797,18 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //important can use thi
 
     learnset = GetSpeciesLevelUpLearnset(generatedSpecies);
 
-    nature = GetNatureFromPersonality(personality); //put this somewhere
+    //idea of nature/personality based learnsets may not work,
+    //if mon learn some moves and not others in total set that would just make some bad,
+    //alternately if instead I change the order of moves learned based on nature,
+    //could be fun but would be heck to balance
+    //unless its just an enemy mon thing, that way could just loop through,
+    //the learnset assigning/deleting/skipping certain moves but their actual learnset is left unchanged.
+    //that would instead be a special bonus for finding/grinding different mon
+    //could get certain moves early
+    //fun idea but again hard to balance, and then if I decide learnset more by personality 
+    //instead of level, how would I keep the learnsets from just becomming Samey based on that instead
+    //feels more like a lateral move rather than, an improvement
+    //nature = GetNatureFromPersonality(personality); //scrapped idea
 
     for (i = 0; learnset[i].move != LEVEL_UP_END; i++) //if move to be learned is actually a move
     {

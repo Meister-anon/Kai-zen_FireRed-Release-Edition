@@ -32,6 +32,7 @@
 #include "scanline_effect.h"
 #include "task.h"
 #include "trig.h"
+#include "test_runner.h"
 #include "vs_seeker.h"
 #include "util.h"
 #include "new_menu_helpers.h"
@@ -2174,6 +2175,21 @@ void FreeRestoreBattleData(void)
     FreeMonSpritesGfx();
     FreeBattleSpritesData();
     FreeBattleResources();
+}
+
+void CB2_QuitRecordedBattle(void)
+{
+    UpdatePaletteFade();
+    if (!gPaletteFade.active)
+    {
+        m4aMPlayStop(&gMPlayInfo_SE1);
+        m4aMPlayStop(&gMPlayInfo_SE2);
+        if (gTestRunnerEnabled)
+            TestRunner_Battle_AfterLastTurn();
+        FreeRestoreBattleData();
+        FreeAllWindowBuffers();
+        SetMainCallback2(gMain.savedCallback);
+    }
 }
 
 static void CB2_QuitPokedudeBattle(void)

@@ -7,4 +7,8 @@
 #define DEBUG_OVERWORLD_TRIGGER_EVENT   pressedStartButton  // The event that opens the menu when holding the key(s) defined in DEBUG_OVERWORLD_HELD_KEYS.
 #define DEBUG_OVERWORLD_IN_MENU         TRUE                // Replaces the overworld debug menu button combination with a start menu entry (above Pokédex).
 
+//test config no other place to put this
+#define B_USE_FROSTBITE                 FALSE      // In PLA, Frostbite replaces Freeze. Enabling this flag does the same here. Moves can still be cherry-picked to either Freeze or Frostbite. Freeze-Dry, Secret Power & Tri Attack depend on this config.
+
+
 #endif // GUARD_CONFIG_DEBUG_H

@@ -200,14 +200,16 @@ MID_OBJS := $(patsubst $(MID_SUBDIR)/%.mid,$(MID_BUILDDIR)/%.o,$(MID_SRCS))
 OBJS := $(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS) $(DATA_ASM_OBJS) $(SONG_OBJS) $(MID_OBJS)
 OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
 
-TOOLDIRS := $(filter-out tools/agbcc tools/binutils tools/analyze_source,$(wildcard tools/*))
+# Inclusive list. If you don't want a tool to be built, don't add it here.
+TOOLDIRS := tools/aif2pcm tools/bin2c tools/gbafix tools/gbagfx tools/jsonproc tools/mapjson tools/mid2agb tools/preproc tools/ramscrgen tools/rsfont tools/scaninc
+CHECKTOOLDIRS = tools/patchelf tools/mgba-rom-test-hydra
 TOOLBASE = $(TOOLDIRS:tools/%=%)
 TOOLS = $(foreach tool,$(TOOLBASE),tools/$(tool)/$(tool)$(EXE))
 
 ALL_BUILDS := firered firered_rev1 leafgreen leafgreen_rev1
 #leaving off assign _modern so can do separate cleans
 
-.PHONY: all rom tools clean-tools mostlyclean clean compare tidy syms berry_fix $(TOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) $(ALL_BUILDS:%=%_modern) modern
+.PHONY: all rom tools clean-tools mostlyclean clean compare tidy syms berry_fix $(TOOLDIRS) $(CHECKTOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) $(ALL_BUILDS:%=%_modern) modern
 
 MAKEFLAGS += --no-print-directory
 
@@ -215,7 +217,7 @@ AUTO_GEN_TARGETS :=
 
 all: tools rom
 
-syms: $(SYM) #added from em exp no idea what does, here is doing nothing
+syms: $(SYM) #believe makes map file
 
 rom: $(ROM)
 ifeq ($(COMPARE),1)
@@ -224,7 +226,12 @@ endif
 
 tools: $(TOOLDIRS)
 
+check-tools: $(CHECKTOOLDIRS)
+
 $(TOOLDIRS):
+	@$(MAKE) -C $@
+
+$(CHECKTOOLDIRS):
 	@$(MAKE) -C $@
 
 # For contributors to make sure a change didn't affect the contents of the ROM.
@@ -244,6 +251,9 @@ mostlyclean: tidy
 
 clean-tools:
 	@$(foreach tooldir,$(TOOLDIRS),$(MAKE) clean -C $(tooldir);)
+
+clean-check-tools:
+	@$(foreach tooldir,$(CHECKTOOLDIRS),$(MAKE) clean -C $(tooldir);)
 
 clean: mostlyclean clean-tools
 

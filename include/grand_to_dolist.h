@@ -1403,6 +1403,10 @@ If the Pokémon affected by Encore runs out of PP for the affected move, the eff
 
   treat similar to ai gives everyhting a score to decide
 
+  edit-note 12/23/24 do that rather than personality based learnsets,
+  with that it'll just ensure mon have a usable/challenging moveset at any level
+  vsonic, scrapping idea of personality based learnsets
+
  -note for couple waiting at bills house at cerulean cove turn then into a double battle.
 
  -adjustd confusion think bug exclusion should work, believe issue was wrong operator logic
