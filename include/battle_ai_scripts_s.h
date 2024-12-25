@@ -1,16 +1,15 @@
-#include "constants/battle.h"
-#include "constants/battle_move_effects.h"
+/*#include "constants/battle.h"
 #include "constants/battle_ai.h"
 #include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/moves.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/hold_effects.h"
 #include "constants/pokemon.h"
-	.include "asm/macros/battle_ai_script.inc"
+	.include "asm/macros/battle_ai_script.inc"*/
 
-	.section script_data, "aw", %progbits
-
+	//.section script_data, "aw", %progbits
+/*former .s file kept to compare with emerald ai file
 @ The FRLG scripts are improved subtly by Emerald in a few places
 @ To make adding these improvements easier they are commented and tagged with "Improvement in Emerald"
 @ Emerald also adds a few entirely new AI commands (mostly to expand Double Battle AI), which are not included
@@ -56,16 +55,19 @@ AI_CheckBadMove:: @ 81D9C74
 	get_how_powerful_move_is
 	if_equal MOVE_POWER_DISCOURAGED, AI_CheckBadMove_CheckSoundproof
 
-AI_CBM_CheckIfNegatesType::
+AI_CBM_CheckIfNegatesType::	@ temp fix until can check for grounded
 	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
 	get_ability AI_TARGET
 	if_equal ABILITY_VOLT_ABSORB, CheckIfVoltAbsorbCancelsElectric
 	if_equal ABILITY_WATER_ABSORB, CheckIfWaterAbsorbCancelsWater
 	if_equal ABILITY_FLASH_FIRE, CheckIfFlashFireCancelsFire
 	if_equal ABILITY_WONDER_GUARD, CheckIfWonderGuardCancelsMove
-	get_curr_move_type
-	if_equal_ TYPE_FLYING, CheckIfLevitateCancelsGroundMove
-	@if_equal ABILITY_LEVITATE, CheckIfLevitateCancelsGroundMove
+	if_equal ABILITY_DISPIRIT_GUARD, CheckIfDispiritGuardCancelsMove
+	if_equal ABILITY_LEVITATE, CheckIfLevitateCancelsGroundMove
+	get_target_type1
+	if_equal TYPE_FLYING, CheckIfLevitateCancelsGroundMove
+	get_target_type2
+	if_equal TYPE_FLYING, CheckIfLevitateCancelsGroundMove
 	goto AI_CheckBadMove_CheckSoundproof
 
 CheckIfVoltAbsorbCancelsElectric:: @ 81D9CA6
@@ -84,7 +86,11 @@ CheckIfFlashFireCancelsFire:: @ 81D9CC0
 	goto AI_CheckBadMove_CheckSoundproof
 
 CheckIfWonderGuardCancelsMove:: @ 81D9CCD
-	if_type_effectiveness AI_EFFECTIVENESS_x1_55, AI_CheckBadMove_CheckSoundproof
+	if_type_effectiveness AI_EFFECTIVENESS_x2, AI_CheckBadMove_CheckSoundproof
+	goto Score_Minus10
+
+CheckIfDispiritGuardCancelsMove::
+	if_type_effectiveness AI_EFFECTIVENESS_x0_5, AI_CheckBadMove_CheckSoundproof
 	goto Score_Minus10
 
 CheckIfLevitateCancelsGroundMove:: @ 81D9CD8
@@ -94,15 +100,13 @@ CheckIfLevitateCancelsGroundMove:: @ 81D9CD8
 AI_CheckBadMove_CheckSoundproof:: @ 81D9CE0
 	get_ability AI_TARGET
 	if_not_equal ABILITY_SOUNDPROOF, AI_CheckBadMove_CheckEffect
-	get_curr_move_type
-	if_equal_ TYPE_SOUND, Score_Minus10
-	@if_move MOVE_GROWL, Score_Minus10
-	@if_move MOVE_ROAR, Score_Minus10
-	@if_move MOVE_SING, Score_Minus10
-	@if_move MOVE_SUPERSONIC, Score_Minus10
-	@if_move MOVE_SCREECH, Score_Minus10
-	@if_move MOVE_SNORE, Score_Minus10
-	@if_move MOVE_UPROAR, Score_Minus10
+	if_move MOVE_GROWL, Score_Minus10
+	if_move MOVE_ROAR, Score_Minus10
+	if_move MOVE_SING, Score_Minus10
+	if_move MOVE_SUPERSONIC, Score_Minus10
+	if_move MOVE_SCREECH, Score_Minus10
+	if_move MOVE_SNORE, Score_Minus10
+	if_move MOVE_UPROAR, Score_Minus10
 	if_move MOVE_METAL_SOUND, Score_Minus10
 	if_move MOVE_GRASS_WHISTLE, Score_Minus10
 
@@ -314,10 +318,12 @@ AI_CBM_EvasionDown:: @ 81DA0BD
 	if_stat_level_equal AI_TARGET, STAT_EVASION, 0, Score_Minus10
 
 CheckIfAbilityBlocksStatChange:: @ 81DA0C5
-	get_ability AI_TARGET		@still need update with logic for 4 abilities
+	get_ability AI_TARGET
 	if_equal ABILITY_CLEAR_BODY, Score_Minus10
+	if_equal ABILITY_LEAF_GUARD, Score_Minus10
 	if_equal ABILITY_WHITE_SMOKE, Score_Minus10
-	if_equal ABILITY_LEAF_GUARD, Score_Minus10	@doesn't prevent picking said move...nvm does work just not for wilds
+	if_equal ABILITY_FULL_METAL_BODY, Score_Minus10
+	if_equal ABILITY_LIQUID_METAL, Score_Minus10
 	end
 
 AI_CBM_Haze:: @ 81DA0D4
@@ -354,9 +360,6 @@ AI_CBM_Poison:: @ 81DA15B
 	get_target_type2
 	if_equal TYPE_STEEL, Score_Minus10
 	if_equal TYPE_POISON, Score_Minus10
-	get_target_type3
-	if_equal TYPE_STEEL, Score_Minus10
-	if_equal TYPE_POISON, Score_Minus10
 	get_ability AI_TARGET
 	if_equal ABILITY_IMMUNITY, Score_Minus10
 	if_status AI_TARGET, STATUS1_ANY, Score_Minus10
@@ -374,16 +377,15 @@ AI_CBM_OneHitKO:: @ 81DA195
 	if_level_cond 1, Score_Minus10
 	end
 
-	@need change ai soon
 AI_CBM_Magnitude:: @ 81DA1AA
-	@get_ability AI_TARGET
-	@if_equal ABILITY_LEVITATE, Score_Minus10
+	get_ability AI_TARGET
+	if_equal ABILITY_LEVITATE, Score_Minus10
 
 AI_CBM_HighRiskForDamage:: @ 81DA1B2
 	if_type_effectiveness AI_EFFECTIVENESS_x0, Score_Minus10
 	get_ability AI_TARGET
 	if_not_equal ABILITY_WONDER_GUARD, AI_CBM_HighRiskForDamage_End
-	if_type_effectiveness AI_EFFECTIVENESS_x1_55, AI_CBM_HighRiskForDamage_End
+	if_type_effectiveness AI_EFFECTIVENESS_x2, AI_CBM_HighRiskForDamage_End
 	goto Score_Minus10
 
 AI_CBM_HighRiskForDamage_End:: @ 81DA1CB
@@ -426,8 +428,6 @@ AI_CBM_LeechSeed:: @ 81DA22B
 	get_target_type1
 	if_equal TYPE_GRASS, Score_Minus10
 	get_target_type2
-	if_equal TYPE_GRASS, Score_Minus10
-	get_target_type3
 	if_equal TYPE_GRASS, Score_Minus10
 	end
 
@@ -514,9 +514,8 @@ AI_CBM_SunnyDay:: @ 81DA312
 	if_equal AI_WEATHER_SUN, Score_Minus8
 	end
 
-@replace w timer check I guess? as side status is never used
 AI_CBM_FutureSight:: @ 81DA31A
-@	if_side_affecting AI_TARGET, SIDE_STATUS_FUTUREATTACK, Score_Minus10
+	if_side_affecting AI_TARGET, SIDE_STATUS_FUTUREATTACK, Score_Minus10
 @	if_side_affecting AI_USER, SIDE_STATUS_FUTUREATTACK, Score_Minus12  @ Improvement in Emerald
 	end
 
@@ -578,7 +577,11 @@ AI_CBM_Imprison:: @ 81DA3A3
 	end
 
 AI_CBM_Refresh:: @ 81DA3AE
-	if_not_status AI_USER, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON, Score_Minus10
+	if_not_status AI_USER, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_SPIRIT_LOCK | STATUS1_TOXIC_POISON, Score_Minus10
+	end
+
+AI_CBM_MudSport:: @ 81DA3B9
+	if_status3 AI_USER, STATUS3_MUDSPORT, Score_Minus10
 	end
 
 AI_CBM_Tickle:: @ 81DA3C4
@@ -596,12 +599,8 @@ AI_CBM_BulkUp:: @ 81DA3E6
 	if_stat_level_equal AI_USER, STAT_DEF, 12, Score_Minus8
 	end
 
-AI_CBM_MudSport:: @ 81DA3B9
-	if_side_affecting AI_USER, SIDE_STATUS_MUDSPORT, Score_Minus10
-	end
-
 AI_CBM_WaterSport:: @ 81DA3F7
-	if_side_affecting AI_USER, SIDE_STATUS_WATERSPORT, Score_Minus10
+	if_status3 AI_USER, STATUS3_WATERSPORT, Score_Minus10
 	end
 
 AI_CBM_CalmMind:: @ 81DA402
@@ -958,8 +957,8 @@ AI_CV_DefenseUp4:: @ 81DA8B4
 	get_move_power_from_result
 	if_equal 0, AI_CV_DefenseUp5
 	get_last_used_move AI_TARGET
-	get_move_split_from_result
-	if_equal 1, AI_CV_DefenseUp_ScoreDown2
+	get_move_type_from_result
+	if_not_in_bytes AI_CV_DefenseUp_PhysicalTypes, AI_CV_DefenseUp_ScoreDown2
 	if_random_less_than 60, AI_CV_DefenseUp_End
 
 AI_CV_DefenseUp5:: @ 81DA8D6
@@ -1038,8 +1037,8 @@ AI_CV_SpDefUp4:: @ 81DA96B
 	get_move_power_from_result
 	if_equal 0, AI_CV_SpDefUp5
 	get_last_used_move AI_TARGET
-	get_move_split_from_result
-	if_equal 0, AI_CV_SpDefUp_ScoreDown2
+	get_move_type_from_result
+	if_in_bytes AI_CV_SpDefUp_PhysicalTypes, AI_CV_SpDefUp_ScoreDown2
 	if_random_less_than 60, AI_CV_SpDefUp_End
 
 AI_CV_SpDefUp5:: @ 81DA98D
@@ -1156,7 +1155,7 @@ AI_CV_AttackDown3:: @ 81DAAA7
 
 AI_CV_AttackDown4:: @ 81DAAB0
 	get_target_type1
-	if_in_bytes AI_CV_AttackDown_PhysicalTypeList, AI_CV_AttackDown_End @going to need to replace this with a check for move split physical
+	if_in_bytes AI_CV_AttackDown_PhysicalTypeList, AI_CV_AttackDown_End
 	get_target_type2
 	if_in_bytes AI_CV_AttackDown_PhysicalTypeList, AI_CV_AttackDown_End
 	if_random_less_than 50, AI_CV_AttackDown_End
@@ -1225,7 +1224,7 @@ AI_CV_SpAtkDown3:: @ 81DAB46
 
 AI_CV_SpAtkDown4:: @ 81DAB4F
 	get_target_type1
-	if_in_bytes AI_CV_SpAtkDown_SpecialTypeList, AI_CV_SpAtkDown_End @gonna need to replace this with macro for special split
+	if_in_bytes AI_CV_SpAtkDown_SpecialTypeList, AI_CV_SpAtkDown_End
 	get_target_type2
 	if_in_bytes AI_CV_SpAtkDown_SpecialTypeList, AI_CV_SpAtkDown_End
 	if_random_less_than 50, AI_CV_SpAtkDown_End
@@ -1548,8 +1547,8 @@ AI_CV_Trap_End:: @ 81DAEEA
 AI_CV_HighCrit:: @ 81DAEEB
 	if_type_effectiveness AI_EFFECTIVENESS_x0_25, AI_CV_HighCrit_End
 	if_type_effectiveness AI_EFFECTIVENESS_x0_5, AI_CV_HighCrit_End
-	if_type_effectiveness AI_EFFECTIVENESS_x1_55, AI_CV_HighCrit2
-	if_type_effectiveness AI_EFFECTIVENESS_x2_40, AI_CV_HighCrit2
+	if_type_effectiveness AI_EFFECTIVENESS_x2, AI_CV_HighCrit2
+	if_type_effectiveness AI_EFFECTIVENESS_x4, AI_CV_HighCrit2
 	if_random_less_than 128, AI_CV_HighCrit_End
 
 AI_CV_HighCrit2:: @ 81DAF09
@@ -1759,8 +1758,8 @@ AI_CV_Counter3:: @ 81DB0D6
 
 AI_CV_Counter4:: @ 81DB0EC
 	get_last_used_move AI_TARGET
-	get_move_split_from_result
-	if_equal 1, AI_CV_Counter_ScoreDown1
+	get_move_type_from_result
+	if_not_in_bytes AI_CV_Counter_PhysicalTypeList, AI_CV_Counter_ScoreDown1
 	if_random_less_than 100, AI_CV_Counter_End
 	score +1
 	goto AI_CV_Counter_End
@@ -1842,7 +1841,7 @@ AI_CV_Encore_EncouragedMovesToEncore:: @ 81DB164
 	.byte EFFECT_SPLASH
 	.byte EFFECT_ATTACK_UP_2
 	.byte EFFECT_ENCORE
-	.byte EFFECT_CONVERSION_Z
+	.byte EFFECT_CONVERSION_2
 	.byte EFFECT_LOCK_ON
 	.byte EFFECT_HEAL_BELL
 	.byte EFFECT_MEAN_LOOK
@@ -2002,8 +2001,6 @@ AI_CV_Curse:: @ 81DB293
 	if_equal TYPE_GHOST, AI_CV_Curse4
 	get_user_type2
 	if_equal TYPE_GHOST, AI_CV_Curse4
-	get_user_type3
-	if_equal TYPE_GHOST, AI_CV_Curse4
 	if_stat_level_more_than AI_USER, STAT_DEF, 9, AI_CV_Curse_End
 	if_random_less_than 128, AI_CV_Curse2
 	score +1
@@ -2078,8 +2075,6 @@ AI_CV_Foresight:: @ 81DB3A3
 	get_user_type1
 	if_equal TYPE_GHOST, AI_CV_Foresight2
 	get_user_type2
-	if_equal TYPE_GHOST, AI_CV_Foresight2
-	get_user_type3
 	if_equal TYPE_GHOST, AI_CV_Foresight2
 	if_stat_level_more_than AI_USER, STAT_EVASION, 8, AI_CV_Foresight3
 	score -2
@@ -2163,10 +2158,6 @@ AI_CV_Pursuit:: @ 81DB48B
 	get_target_type2
 	if_equal TYPE_GHOST, AI_CV_Pursuit2
 	get_target_type2
-	if_equal TYPE_PSYCHIC, AI_CV_Pursuit2
-	get_target_type3
-	if_equal TYPE_GHOST, AI_CV_Pursuit2
-	get_target_type3
 	if_equal TYPE_PSYCHIC, AI_CV_Pursuit2
 	goto AI_CV_Pursuit_End
 
@@ -2285,8 +2276,8 @@ AI_CV_MirrorCoat3:: @ 81DB5E1
 
 AI_CV_MirrorCoat4:: @ 81DB5F7
 	get_last_used_move AI_TARGET
-	get_move_split_from_result
-	if_equal 0, AI_CV_MirrorCoat_ScoreDown1
+	get_move_type_from_result
+	if_not_in_bytes AI_CV_MirrorCoat_SpecialTypeList, AI_CV_MirrorCoat_ScoreDown1
 	if_random_less_than 100, AI_CV_MirrorCoat_End
 	score +1
 	goto AI_CV_MirrorCoat_End
@@ -2326,15 +2317,21 @@ AI_CV_MirrorCoat_SpecialTypeList:: @ 81DB63C
 	.byte TYPE_ICE
 	.byte TYPE_DRAGON
 	.byte TYPE_DARK
+	.byte TYPE_FAIRY
 	.byte -1
 
-AI_CV_ChargeUpMove:: @ 81DB645
+AI_CV_ChargeUpMove:: @ 81DB645   @ add checks for wonder guard no weather & dispirit guard and
 	if_type_effectiveness AI_EFFECTIVENESS_x0_25, AI_CV_ChargeUpMove_ScoreDown2
 	if_type_effectiveness AI_EFFECTIVENESS_x0_5, AI_CV_ChargeUpMove_ScoreDown2
 	if_has_move_with_effect AI_TARGET, EFFECT_PROTECT, AI_CV_ChargeUpMove_ScoreDown2
+	get_ability AI_USER
+	if_equal ABILITY_DISPIRIT_GUARD, AI_CV_ChargeUpMove_ScoreUp
 	if_hp_more_than AI_USER, 38, AI_CV_ChargeUpMove_End
 	score -1
 	goto AI_CV_ChargeUpMove_End
+
+AI_CV_ChargeUpMove_ScoreUp::
+	score +2
 
 AI_CV_ChargeUpMove_ScoreDown2:: @ 81DB666
 	score -2
@@ -2357,14 +2354,12 @@ AI_CV_SemiInvulnerable2:: @ 81DB677
 	get_weather
 	if_equal AI_WEATHER_HAIL, AI_CV_SemiInvulnerable_CheckIceType
 	if_equal AI_WEATHER_SANDSTORM, AI_CV_SemiInvulnerable_CheckSandstormTypes
-	goto AI_CV_SemiInvulnerable5
+	goto AI_CV_SemiInvulnerable5 
 
 AI_CV_SemiInvulnerable_CheckSandstormTypes:: @ 81DB6A7
 	get_user_type1
 	if_in_bytes AI_CV_SandstormResistantTypes, AI_CV_SemiInvulnerable_TryEncourage
 	get_user_type2
-	if_in_bytes AI_CV_SandstormResistantTypes, AI_CV_SemiInvulnerable_TryEncourage
-	get_user_type3
 	if_in_bytes AI_CV_SandstormResistantTypes, AI_CV_SemiInvulnerable_TryEncourage
 	goto AI_CV_SemiInvulnerable5
 
@@ -2372,8 +2367,6 @@ AI_CV_SemiInvulnerable_CheckIceType:: @ 81DB6C2
 	get_user_type1
 	if_equal TYPE_ICE, AI_CV_SemiInvulnerable_TryEncourage
 	get_user_type2
-	if_equal TYPE_ICE, AI_CV_SemiInvulnerable_TryEncourage
-	get_user_type3
 	if_equal TYPE_ICE, AI_CV_SemiInvulnerable_TryEncourage
 
 AI_CV_SemiInvulnerable5:: @ 81DB6D2
@@ -2429,7 +2422,7 @@ AI_CV_Hail_End:: @ 81DB72F
 
 @ BUG: Facade score is increased if the target is statused, but should be if the user is. Replace AI_TARGET with AI_USER
 AI_CV_Facade:: @ 81DB730
-	if_not_status AI_TARGET, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON, AI_CV_Facade_End
+	if_not_status AI_USER, STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_SPIRIT_LOCK | STATUS1_TOXIC_POISON, AI_CV_Facade_End
 	score +1
 
 AI_CV_Facade_End:: @ 81DB73C
@@ -2729,8 +2722,6 @@ AI_CV_MudSport:: @ 81DB9D8
 	if_equal TYPE_ELECTRIC, AI_CV_MudSport2
 	get_target_type2
 	if_equal TYPE_ELECTRIC, AI_CV_MudSport2
-	get_target_type3
-	if_equal TYPE_ELECTRIC, AI_CV_MudSport2
 	goto AI_CV_MudSport_ScoreDown1
 
 AI_CV_MudSport2:: @ 81DB9F4
@@ -2765,8 +2756,6 @@ AI_CV_WaterSport:: @ 81DBA26
 	if_equal TYPE_FIRE, AI_CV_WaterSport2
 	get_target_type2
 	if_equal TYPE_FIRE, AI_CV_WaterSport2
-	get_target_type3
-	if_equal TYPE_FIRE, AI_CV_WaterSport2
 	goto AI_CV_WaterSport_ScoreDown1
 
 AI_CV_WaterSport2:: @ 81DBA42
@@ -2797,14 +2786,14 @@ AI_TryToFaint:: @ 81DBA6F
 	if_can_faint AI_TryToFaint_TryToEncourageQuickAttack
 	get_how_powerful_move_is
 	if_equal MOVE_NOT_MOST_POWERFUL, Score_Minus1
-	if_type_effectiveness AI_EFFECTIVENESS_x2_40, AI_TryToFaint_DoubleSuperEffective  @ Improvement in Emerald
+@	if_type_effectiveness AI_EFFECTIVENESS_x4, AI_TryToFaint_DoubleSuperEffective  @ Improvement in Emerald
 	end
 
 @ Improvement in Emerald
-AI_TryToFaint_DoubleSuperEffective:
-	if_random_less_than 80, AI_TryToFaint_End
-	score +2
-	end
+@AI_TryToFaint_DoubleSuperEffective:
+@	if_random_less_than 80, AI_TryToFaint_End
+@	score +2
+@	end
 
 AI_TryToFaint_TryToEncourageQuickAttack:: @ 81DBA7C
 	if_effect EFFECT_EXPLOSION, AI_TryToFaint_End
@@ -3075,7 +3064,7 @@ AI_HPAware_DiscouragedEffectsWhenMediumHP:: @ 81DBBD1
 	.byte EFFECT_SPECIAL_DEFENSE_DOWN_2
 	.byte EFFECT_ACCURACY_DOWN_2
 	.byte EFFECT_EVASION_DOWN_2
-	.byte EFFECT_CONVERSION_Z
+	.byte EFFECT_CONVERSION_2
 	.byte EFFECT_SAFEGUARD
 	.byte EFFECT_BELLY_DRUM
 	.byte EFFECT_TICKLE
@@ -3120,7 +3109,7 @@ AI_HPAware_DiscouragedEffectsWhenLowHP:: @ 81DBBFC
 	.byte EFFECT_ACCURACY_DOWN_2
 	.byte EFFECT_EVASION_DOWN_2
 	.byte EFFECT_RAGE
-	.byte EFFECT_CONVERSION_Z
+	.byte EFFECT_CONVERSION_2
 	.byte EFFECT_LOCK_ON
 	.byte EFFECT_SAFEGUARD
 	.byte EFFECT_BELLY_DRUM
@@ -3224,7 +3213,7 @@ AI_HPAware_DiscouragedEffectsWhenTargetLowHP:: @ 81DBC55
 	.byte EFFECT_POISON
 	.byte EFFECT_PARALYZE
 	.byte EFFECT_PAIN_SPLIT
-	.byte EFFECT_CONVERSION_Z
+	.byte EFFECT_CONVERSION_2
 	.byte EFFECT_LOCK_ON
 	.byte EFFECT_SPITE
 	.byte EFFECT_PERISH_SONG
@@ -3257,8 +3246,8 @@ AI_Roaming:: @ 81DBCA8
 	if_status2 AI_USER, STATUS2_ESCAPE_PREVENTION, AI_Roaming_End
 	get_ability AI_TARGET
 	if_equal ABILITY_SHADOW_TAG, AI_Roaming_End
-	@get_ability AI_USER
-	@if_equal ABILITY_LEVITATE, AI_Roaming_Flee
+	get_ability AI_USER
+	if_equal ABILITY_LEVITATE, AI_Roaming_Flee
 	get_ability AI_TARGET
 	if_equal ABILITY_ARENA_TRAP, AI_Roaming_End
 
@@ -3286,3 +3275,4 @@ AI_FirstBattle_Flee:: @ 81DBCEC
 
 AI_Ret:: @ 81DBCED
 	end
+*/

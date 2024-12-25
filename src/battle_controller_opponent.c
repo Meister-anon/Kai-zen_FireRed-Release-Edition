@@ -13,10 +13,12 @@
 #include "battle_interface.h"
 #include "battle_tower.h"
 #include "battle_gfx_sfx_util.h"
-#include "battle_ai_script_commands.h"
+#include "battle_ai_main.h"
+#include "battle_ai_util.h"
 #include "battle_ai_switch_items.h"
 #include "trainer_tower.h"
 #include "battle_string_ids.h"
+#include "constants/battle_ai.h"
 #include "constants/battle_anim.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
@@ -1368,11 +1370,15 @@ static void OpponentHandleChooseMove(void)
     u8 chosenMoveId;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER))
+    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER)
+    || IsWildMonSmart())
     {
 
-        BattleAI_SetupAIData();
-        chosenMoveId = BattleAI_ChooseMoveOrAction();
+        //BattleAI_SetupAIData_Default();
+        //chosenMoveId = BattleAI_ChooseMoveOrAction();
+
+        chosenMoveId = gBattleStruct->aiMoveOrAction[gActiveBattler];
+        gBattlerTarget = gBattleStruct->aiChosenTarget[gActiveBattler];
 
         switch (chosenMoveId)
         {
@@ -1382,6 +1388,11 @@ static void OpponentHandleChooseMove(void)
         case AI_CHOICE_FLEE:
             BtlController_EmitTwoReturnValues(1, B_ACTION_RUN, 0);
             break;
+        case AI_CHOICE_SWITCH:
+                BtlController_EmitTwoReturnValues(BUFFER_B, 10, 0xFFFF);
+                break;
+            case 6:
+                BtlController_EmitTwoReturnValues(BUFFER_B, 15, gBattlerTarget);
         default:
             if (gBattleMoves[moveInfo->moves[chosenMoveId]].target & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
                 gBattlerTarget = gActiveBattler;
@@ -1391,14 +1402,20 @@ static void OpponentHandleChooseMove(void)
                 if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
                     gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
             }
-            BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (gBattlerTarget << 8));
+
+            // If opponent can mega evolve, do it.
+            if (CanMegaEvolve(gActiveBattler))
+                BtlController_EmitTwoReturnValues(BUFFER_B, 10, (chosenMoveId) | (RET_MEGA_EVOLUTION) | (gBattlerTarget << 8));
+            else
+                BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (gBattlerTarget << 8));
             break;
         }
         OpponentBufferExecCompleted();
     }
-    else
+    else    // Wild pokemon - use random move
     {
         u16 move;
+        u8 target;
 
         do
         {
@@ -1406,10 +1423,48 @@ static void OpponentHandleChooseMove(void)
             move = moveInfo->moves[chosenMoveId];
         }
         while (move == MOVE_NONE);
-        if (gBattleMoves[move].target & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
+        if (GetBattlerMoveTargetType(gActiveBattler, move) & (MOVE_TARGET_USER_OR_SELECTED | MOVE_TARGET_USER))
             BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (gActiveBattler << 8));
         else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-            BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (GetBattlerAtPosition(Random() & 2) << 8));
+            {
+                do {
+                    target = GetBattlerAtPosition(Random() & 2);
+                } while (!CanTargetBattler(gActiveBattler, target, move));
+                
+                #if B_WILD_NATURAL_ENEMIES == TRUE
+                // Don't bother to loop through table if the move can't attack ally
+                if (!(gBattleMoves[move].target & MOVE_TARGET_BOTH))
+                {
+                    u16 i, speciesAttacker, speciesTarget, isPartnerEnemy = FALSE;
+                    static const u16 naturalEnemies[][2] =
+                    {
+                        // Attacker         Target
+                        {SPECIES_ZANGOOSE,  SPECIES_SEVIPER},
+                        {SPECIES_SEVIPER,   SPECIES_ZANGOOSE},
+                        {SPECIES_HEATMOR,   SPECIES_DURANT},
+                        {SPECIES_DURANT,    SPECIES_HEATMOR},
+                        {SPECIES_SABLEYE,   SPECIES_CARBINK},
+                        {SPECIES_MAREANIE,  SPECIES_CORSOLA},
+                    };
+                    speciesAttacker = gBattleMons[gActiveBattler].species;
+                    speciesTarget = gBattleMons[GetBattlerAtPosition(BATTLE_PARTNER(gActiveBattler))].species;
+                    for (i = 0; i < ARRAY_COUNT(naturalEnemies); i++)
+                    {
+                        if (speciesAttacker == naturalEnemies[i][0] && speciesTarget == naturalEnemies[i][1])
+                        {
+                            isPartnerEnemy = TRUE;
+                            break;
+                        }
+                    }
+                    if (isPartnerEnemy && CanTargetBattler(gActiveBattler, target, move))
+                        BtlController_EmitTwoReturnValues(BUFFER_B, 10, (chosenMoveId) | (GetBattlerAtPosition(BATTLE_PARTNER(gActiveBattler)) << 8));
+                    else
+                        BtlController_EmitTwoReturnValues(BUFFER_B, 10, (chosenMoveId) | (target << 8));
+                }
+                else
+                #endif
+                    BtlController_EmitTwoReturnValues(BUFFER_B, 10, (chosenMoveId) | (target << 8));
+            }
         else
             BtlController_EmitTwoReturnValues(1, 10, (chosenMoveId) | (GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) << 8));
 
@@ -1433,7 +1488,7 @@ static void OpponentHandleChoosePokemon(void)
 
         if (chosenMonId == PARTY_SIZE)
         {
-            s32 battler1, battler2;
+            s32 battler1, battler2, firstId, lastId;
 
             if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
             {
@@ -1444,6 +1499,10 @@ static void OpponentHandleChoosePokemon(void)
                 battler1 = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
                 battler2 = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
             }
+
+            GetAIPartyIndexes(gActiveBattler, &firstId, &lastId);
+
+            
             for (chosenMonId = 0; chosenMonId < PARTY_SIZE; ++chosenMonId)
                 if (GetMonData(&gEnemyParty[chosenMonId], MON_DATA_HP) != 0
                  && chosenMonId != gBattlerPartyIndexes[battler1]

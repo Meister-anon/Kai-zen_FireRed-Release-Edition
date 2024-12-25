@@ -311,9 +311,9 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectGrowth                  @ EFFECT_GROWTH
 	.4byte BattleScript_EffectCloseCombat             @ EFFECT_CLOSE_COMBAT
 	.4byte BattleScript_EffectLastResort              @ EFFECT_LAST_RESORT
-	.4byte BattleScript_EffectRecoil33WithStatus      @ EFFECT_MED_RECOIL_W_STATUS
+	.4byte BattleScript_EffectRecoil33WithStatus      @ EFFECT_33_RECOIL_W_STATUS
 	.4byte BattleScript_EffectFlinchStatus			  @ EFFECT_FLINCH_STATUS	@not using
-	.4byte BattleScript_EffectRecoil50                @ EFFECT_HEAVY_RECOIL
+	.4byte BattleScript_EffectRecoil50                @ EFFECT_50_RECOIL
 	.4byte BattleScript_EffectShellSmash              @ EFFECT_SHELL_SMASH
 	.4byte BattleScript_EffectShiftGear               @ EFFECT_SHIFT_GEAR
 	.4byte BattleScript_EffectDefenseUp3              @ EFFECT_DEFENSE_UP_3

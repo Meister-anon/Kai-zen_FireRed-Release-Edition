@@ -17,7 +17,8 @@
 #include "constants/battle_anim.h"
 #include "battle_controllers.h"
 #include "battle_string_ids.h"
-#include "battle_ai_script_commands.h"
+#include "battle_ai_main.h"
+#include "battle_ai_util.h"
 #include "constants/battle.h"
 #include "constants/battle_move_effects.h"
 #include "constants/moves.h"
@@ -418,79 +419,79 @@ void sub_8017298(u8 arg0)
 //if wonder guard is in one of these lists (and I want it to be) make sure to add dispirit guard too
 //also need to remember to add all custom abilities to these lists as I see fit  !important
 
-static const u8 sAbilitiesAffectedByMoldBreaker[] =
+const u16 gAbilitiesAffectedByMoldBreaker[] =
 {
-    [ABILITY_BATTLE_ARMOR] = 1,
-    [ABILITY_CLEAR_BODY] = 1,
-    [ABILITY_LIQUID_METAL] = 1,
-    [ABILITY_DAMP] = 1,
-    [ABILITY_DRY_SKIN] = 1,
-    [ABILITY_FILTER] = 1,
-    [ABILITY_FLASH_FIRE] = 1,
-    [ABILITY_FLOWER_GIFT] = 1,
-    [ABILITY_HEATPROOF] = 1,
-    [ABILITY_HYPER_CUTTER] = 1,
-    [ABILITY_IMMUNITY] = 1,
-    [ABILITY_INNER_FOCUS] = 1,
-    [ABILITY_INSOMNIA] = 1,
-    [ABILITY_KEEN_EYE] = 1,
-    [ABILITY_LEAF_GUARD] = 1,
-    //[ABILITY_LEVITATE] = 1,
-    [ABILITY_LIGHTNING_ROD] = 1,
-    [ABILITY_LIMBER] = 1,
-    [ABILITY_MAGMA_ARMOR] = 1,
-    [ABILITY_MARVEL_SCALE] = 1,
-    [ABILITY_MOTOR_DRIVE] = 1,
-    [ABILITY_OBLIVIOUS] = 1,
-    [ABILITY_OWN_TEMPO] = 1,
-    [ABILITY_SAND_VEIL] = 1,
-    [ABILITY_SHELL_ARMOR] = 1,
-    [ABILITY_SHIELD_DUST] = 1,
-    [ABILITY_SIMPLE] = 1,
-    [ABILITY_SNOW_CLOAK] = 1,
-    [ABILITY_SOLID_ROCK] = 1,
-    [ABILITY_SOUNDPROOF] = 1,
-    [ABILITY_STICKY_HOLD] = 1,
-    [ABILITY_STORM_DRAIN] = 1,
-    [ABILITY_STURDY] = 1,
-    [ABILITY_SUCTION_CUPS] = 1,
-    [ABILITY_TANGLED_FEET] = 1,
-    [ABILITY_THICK_FAT] = 1,
-    [ABILITY_UNAWARE] = 1,
-    [ABILITY_VITAL_SPIRIT] = 1,
-    [ABILITY_VOLT_ABSORB] = 1,
-    [ABILITY_VOLT_DASH] = 1,
-    [ABILITY_WATER_ABSORB] = 1,
-    [ABILITY_WATER_VEIL] = 1,
-    [ABILITY_WHITE_SMOKE] = 1,
-    [ABILITY_WONDER_GUARD] = 1,
-    [ABILITY_DISPIRIT_GUARD] = 1,
-    [ABILITY_BIG_PECKS] = 1,
-    [ABILITY_CONTRARY] = 1,
-    [ABILITY_FRIEND_GUARD] = 1,
-    [ABILITY_HEAVY_METAL] = 1,
-    [ABILITY_LIGHT_METAL] = 1,
-    [ABILITY_MAGIC_BOUNCE] = 1,
-    [ABILITY_MULTISCALE] = 1,
-    [ABILITY_SAP_SIPPER] = 1,
-    [ABILITY_TELEPATHY] = 1,
-    [ABILITY_WONDER_SKIN] = 1,
-    [ABILITY_AROMA_VEIL] = 1,
-    [ABILITY_BULLETPROOF] = 1,
-    [ABILITY_FLOWER_VEIL] = 1,
-    [ABILITY_FUR_COAT] = 1,
-    [ABILITY_OVERCOAT] = 1,
-    [ABILITY_SWEET_VEIL] = 1,
-    [ABILITY_DAZZLING] = 1,
-    [ABILITY_DISGUISE] = 1,
-    [ABILITY_FLUFFY] = 1,
-    [ABILITY_QUEENLY_MAJESTY] = 1,
-    [ABILITY_WATER_BUBBLE] = 1,
-    [ABILITY_MIRROR_ARMOR] = 1,
-    [ABILITY_PUNK_ROCK] = 1,
-    [ABILITY_ICE_SCALES] = 1,
-    [ABILITY_ICE_FACE] = 1,
-    [ABILITY_PASTEL_VEIL] = 1,
+    ABILITY_BATTLE_ARMOR,
+    ABILITY_CLEAR_BODY,
+    ABILITY_LIQUID_METAL,
+    ABILITY_DAMP,
+    ABILITY_DRY_SKIN,
+    ABILITY_FILTER,
+    ABILITY_FLASH_FIRE,
+    ABILITY_FLOWER_GIFT,
+    ABILITY_HEATPROOF,
+    ABILITY_HYPER_CUTTER,
+    ABILITY_IMMUNITY,
+    ABILITY_INNER_FOCUS,
+    ABILITY_INSOMNIA,
+    ABILITY_KEEN_EYE,
+    ABILITY_LEAF_GUARD,
+    //ABILITY_LEVITATE,
+    ABILITY_LIGHTNING_ROD,
+    ABILITY_LIMBER,
+    ABILITY_MAGMA_ARMOR,
+    ABILITY_MARVEL_SCALE,
+    ABILITY_MOTOR_DRIVE,
+    ABILITY_OBLIVIOUS,
+    ABILITY_OWN_TEMPO,
+    ABILITY_SAND_VEIL,
+    ABILITY_SHELL_ARMOR,
+    ABILITY_SHIELD_DUST,
+    ABILITY_SIMPLE,
+    ABILITY_SNOW_CLOAK,
+    ABILITY_SOLID_ROCK,
+    ABILITY_SOUNDPROOF,
+    ABILITY_STICKY_HOLD,
+    ABILITY_STORM_DRAIN,
+    ABILITY_STURDY,
+    ABILITY_SUCTION_CUPS,
+    ABILITY_TANGLED_FEET,
+    ABILITY_THICK_FAT,
+    ABILITY_UNAWARE,
+    ABILITY_VITAL_SPIRIT,
+    ABILITY_VOLT_ABSORB,
+    ABILITY_VOLT_DASH,
+    ABILITY_WATER_ABSORB,
+    ABILITY_WATER_VEIL,
+    ABILITY_WHITE_SMOKE,
+    ABILITY_WONDER_GUARD,
+    ABILITY_DISPIRIT_GUARD,
+    ABILITY_BIG_PECKS,
+    ABILITY_CONTRARY,
+    ABILITY_FRIEND_GUARD,
+    ABILITY_HEAVY_METAL,
+    ABILITY_LIGHT_METAL,
+    ABILITY_MAGIC_BOUNCE,
+    ABILITY_MULTISCALE,
+    ABILITY_SAP_SIPPER,
+    ABILITY_TELEPATHY,
+    ABILITY_WONDER_SKIN,
+    ABILITY_AROMA_VEIL,
+    ABILITY_BULLETPROOF,
+    ABILITY_FLOWER_VEIL,
+    ABILITY_FUR_COAT,
+    ABILITY_OVERCOAT,
+    ABILITY_SWEET_VEIL,
+    ABILITY_DAZZLING,
+    ABILITY_DISGUISE,
+    ABILITY_FLUFFY,
+    ABILITY_QUEENLY_MAJESTY,
+    ABILITY_WATER_BUBBLE,
+    ABILITY_MIRROR_ARMOR,
+    ABILITY_PUNK_ROCK,
+    ABILITY_ICE_SCALES,
+    ABILITY_ICE_FACE,
+    ABILITY_PASTEL_VEIL,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -4568,6 +4569,9 @@ u8 AtkCanceller_UnableToUseMove(void)
                         ) //this will still work, it'll just stop the dmg from getting affected/cut
                         gMultiTask = 5;                
                 } //put this part at bottom of multihit
+
+                if (gCurrentMove == MOVE_WATER_SHURIKEN && gBattleMons[gBattlerAttacker].species == SPECIES_GRENINJA_ASH)
+                    gMultiTask = 3; //didn't catch this, in battle bond it always hits 3 times, //need to add water shuriken dmg increase as well
 
                 gMultiHitCounter = gMultiTask;
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
@@ -11387,6 +11391,24 @@ u8 GetAbilityTimer(u16 ability)
     }
 }
 
+bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability)
+{
+    if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
+        return FALSE;
+
+    return ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
+        || (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
+}
+
+bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability)
+{
+    if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
+        return FALSE;
+
+    return (ability == ABILITY_MOLD_BREAKER || ability == ABILITY_TERAVOLT || ability == ABILITY_TURBOBLAZE
+        || (ability == ABILITY_MYCELIUM_MIGHT && IS_MOVE_STATUS(gCurrentMove)));
+}
+
 u32 GetBattlerAbility(u8 battlerId)  //Deokishishu in pret mentioned there is a practice of making things that could
  // be type u8 either s32 or u32, because it has an positive effect on speed, ussually done for things 
  //constantly refernced or looped.
@@ -11394,16 +11416,14 @@ u32 GetBattlerAbility(u8 battlerId)  //Deokishishu in pret mentioned there is a 
     if (gStatuses3[battlerId] & STATUS3_GASTRO_ACID) //only added this, because focusing abilities should work
         return ABILITY_NONE;
     //if (IsNeutralizingGasOnField() && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
-    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
+    /*else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
         return ABILITY_NONE;//I don't need to subtract 1 from Id because my function isn't doing anything with the id returned by the function
     else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
+        return ABILITY_NONE;*/
+    else if (IsNeutralizingGasTypeAbilityActive(battlerId, gBattleMons[battlerId].ability))
         return ABILITY_NONE;
-    else if ((((gBattleMons[gBattlerAttacker].ability == ABILITY_MOLD_BREAKER
-        || gBattleMons[gBattlerAttacker].ability == ABILITY_TERAVOLT
-        || gBattleMons[gBattlerAttacker].ability == ABILITY_TURBOBLAZE)
-        && !(gStatuses3[gBattlerAttacker] & STATUS3_GASTRO_ACID))
-        || gBattleMoves[gCurrentMove].flags & FLAG_TARGET_ABILITY_IGNORED)
-        && sAbilitiesAffectedByMoldBreaker[gBattleMons[battlerId].ability]
+    else if (((IsMoldBreakerTypeAbilityActive(gBattlerAttacker, gBattleMons[gBattlerAttacker].ability) && IsMoldBreakerAffectedAbility(gBattleMons[battlerId].ability))
+        || gBattleMoves[gCurrentMove].flags & FLAG_TARGET_ABILITY_IGNORED)        
         && gBattlerByTurnOrder[gCurrentTurnActionNumber] == gBattlerAttacker
         && gActionsByTurnOrder[gBattlerByTurnOrder[gBattlerAttacker]] == B_ACTION_USE_MOVE
         && gCurrentTurnActionNumber < gBattlersCount)
@@ -11522,6 +11542,18 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
         return id;*/
 
     return id;
+}
+
+u32 GetMoveSlot(u16 *moves, u32 move)
+{
+    u32 i;
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moves[i] == move)
+            break;
+    }
+    return i;
 }
 
 u32 GetBattlerWeight(u8 battlerId) //use ethis for calculating  seismic toss damage change
@@ -12303,6 +12335,15 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
     return DoMoveDamageCalc(move, battlerAtk, battlerDef, moveType, 0, FALSE, FALSE, FALSE, *typeEffectivenessModifier);
 }
 
+//think this replaces above - still not all together sure how used
+// for AI so that typeEffectivenessModifier, weather, abilities and holdEffects are calculated only once
+/*s32 CalculateMoveDamageVars(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, uq4_12_t typeEffectivenessModifier,
+                                          u32 weather, bool32 isCrit, u32 holdEffectAtk, u32 holdEffectDef, u32 abilityAtk, u32 abilityDef)
+{
+    return DoMoveDamageCalcVars(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, FALSE, FALSE,
+                                typeEffectivenessModifier, weather, holdEffectAtk, holdEffectDef, abilityAtk, abilityDef);
+}*/
+
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier)
 {
@@ -12488,6 +12529,18 @@ bool32 UnnerveOn(u32 battlerId, u32 itemId)
 }
 
 // ability checks
+//absolutely no idea why but putting in battle_util.h w defined bounds is what caused compiler error
+bool32 IsMoldBreakerAffectedAbility(u16 ability)
+{
+    u32 i;
+    for (i = 0; i < NELEMS(gAbilitiesAffectedByMoldBreaker); i++)
+    {
+        if (ability == gAbilitiesAffectedByMoldBreaker[i])
+            return TRUE;
+    }
+    return FALSE;
+}
+
 bool32 IsRolePlayBannedAbilityAtk(u16 ability)
 {
     u32 i;

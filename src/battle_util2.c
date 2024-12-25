@@ -25,8 +25,10 @@ void AllocateBattleResources(void)
     gBattleResources->battleCallbackStack = AllocZeroed(sizeof(*gBattleResources->battleCallbackStack));
     gBattleResources->beforeLvlUp = AllocZeroed(sizeof(*gBattleResources->beforeLvlUp));
     gBattleResources->ai = AllocZeroed(sizeof(*gBattleResources->ai));
+    gBattleResources->aiData = AllocZeroed(sizeof(*gBattleResources->aiData));
+    gBattleResources->aiParty = AllocZeroed(sizeof(*gBattleResources->aiParty));
     gBattleResources->battleHistory = AllocZeroed(sizeof(*gBattleResources->battleHistory));
-    gBattleResources->AI_ScriptsStack = AllocZeroed(sizeof(*gBattleResources->AI_ScriptsStack));
+    //gBattleResources->AI_ScriptsStack = AllocZeroed(sizeof(*gBattleResources->AI_ScriptsStack));
     gBattleAnimMons_BgTilesBuffer = AllocZeroed(0x2000);
     gBattleAnimMons_BgTilemapBuffer = AllocZeroed(0x1000);
     SetBgTilemapBuffer(1, gBattleAnimMons_BgTilemapBuffer);
@@ -55,8 +57,10 @@ void FreeBattleResources(void)
         FREE_AND_SET_NULL(gBattleResources->battleCallbackStack);
         FREE_AND_SET_NULL(gBattleResources->beforeLvlUp);
         FREE_AND_SET_NULL(gBattleResources->ai);
+        FREE_AND_SET_NULL(gBattleResources->aiData);
+        FREE_AND_SET_NULL(gBattleResources->aiParty);
         FREE_AND_SET_NULL(gBattleResources->battleHistory);
-        FREE_AND_SET_NULL(gBattleResources->AI_ScriptsStack);
+        //FREE_AND_SET_NULL(gBattleResources->AI_ScriptsStack);
         FREE_AND_SET_NULL(gBattleResources);
         FREE_AND_SET_NULL(gBattleAnimMons_BgTilesBuffer);
         FREE_AND_SET_NULL(gBattleAnimMons_BgTilemapBuffer);

@@ -3791,6 +3791,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sJynxTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //need rebalance stats since ice is so much better defensively, oh nvm it was fine
+     //chief_FB got me thinking about a JYNX evo,
+    //inspired by tyra banks, smoochum brat, into jynx gal girl,
+    //now jynx evo could be model esque/ a women into her ful femmininty
+    //I think name mix of milf and waifu  myllfu
+    //more brown in the purple skin town, like using less makeup,
+    //brown hair instead of blonde died,
+    //still a  gall esque so gold glitter lip stick,
 
     [SPECIES_ELECTABUZZ] =
     {

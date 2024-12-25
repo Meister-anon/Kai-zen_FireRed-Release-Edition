@@ -157,6 +157,7 @@ bool32 IsRolePlayBannedAbility(u16 ability);
 bool32 IsSkillSwapBannedAbility(u16 ability);
 bool32 IsWorrySeedBannedAbility(u16 ability);
 bool32 IsGastroAcidBannedAbility(u16 ability);
+bool32 IsMoldBreakerAffectedAbility(u16 ability); //new addition to clean up get battler ability
 bool32 IsEntrainmentBannedAbilityAttacker(u16 ability);
 bool32 IsEntrainmentTargetOrSimpleBeamBannedAbility(u16 ability);
 bool32 IsBattlerTerrainAffected(u8 battlerId, u32 terrainFlag);
@@ -191,6 +192,7 @@ u16 CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 bat
 u32 GetBattlerMoveTargetType(u8 battlerId, u16 move); //need port these two fully
 bool32 CanTargetBattler(u8 battlerAtk, u8 battlerDef, u16 move);
 u16 GetTypeModifier(u8 atkType, u8 defType);
+u32 GetMoveSlot(u16 *moves, u32 move); //added w battle ai port
 //u16 CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 abilityDef);  ported in case, but pretty sure I have no use for this, as these are just for reading battlre data and running dmg calc predictions
 s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, u16 *typeEffectivenessModifier);
 //learned defined need be on one line, this should be logic for thawing i.e remove frozen status
@@ -225,6 +227,8 @@ bool8 ShouldCacophonyBoostEffectChance(u16 move);
 bool8 ShouldCacophonyElevateMoveEffect(u16 move);
 void CacophonyElevateMoveEffect(void);
 u8 GetMoveType(u8 moveType, u8 btlAttacker);
+bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability);
+bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability); //attempt simplify getbattlerability logic
 
 //added from EE for form change update (not planning to use for transform/ditto)
 bool32 TryBattleFormChange(u8 battlerId, u16 method); //actualy doesn't work on transformed mon, just returns false
@@ -245,5 +249,6 @@ s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fi
 
 // percent in UQ_4_12 format
 extern const u16 gPercentToModifier[101];
+extern const u16 gAbilitiesAffectedByMoldBreaker[];
 
 #endif // GUARD_BATTLE_UTIL_H

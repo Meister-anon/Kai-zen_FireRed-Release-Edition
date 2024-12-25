@@ -23,7 +23,8 @@
 #include "battle.h"
 #include "battle_message.h"
 #include "battle_anim.h"
-#include "battle_ai_script_commands.h"
+#include "battle_ai_main.h"
+#include "battle_ai_util.h"
 #include "battle_scripts.h"
 #include "battle_string_ids.h"
 #include "reshow_battle_screen.h"
@@ -2169,6 +2170,103 @@ static void atk01_accuracycheck(void)
         JumpIfMoveFailed(7, move);
     }
 }
+
+/*  //planned replacement for above, need include my custom changes like multihit acc rework
+static void AccuracyCheck(bool32 recalcDragonDarts, const u8 *nextInstr, const u8 *failInstr, u16 move)
+{
+    u32 moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, move);
+    u32 abilityAtk = GetBattlerAbility(gBattlerAttacker);
+    u32 abilityDef = GetBattlerAbility(gBattlerTarget);
+    u32 holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
+
+    if (move == ACC_CURR_MOVE)
+        move = gCurrentMove;
+
+    if (move == NO_ACC_CALC_CHECK_LOCK_ON)
+    {
+        if (gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
+            gBattlescriptCurrInstr = nextInstr;
+        else if (gStatuses3[gBattlerTarget] & (STATUS3_SEMI_INVULNERABLE))
+            gBattlescriptCurrInstr = failInstr;
+        else if (!JumpIfMoveAffectedByProtect(gCurrentMove))
+            gBattlescriptCurrInstr = nextInstr;
+        if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
+        {
+            if (gProtectStructs[gBattlerTarget].maxGuarded)
+                gBattlescriptCurrInstr = nextInstr;
+            else
+                AbilityBattleEffects(ABILITYEFFECT_ABSORBING, gBattlerTarget, 0, 0, gCurrentMove);
+        }
+    }
+    else if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_2ND_HIT
+        || (gSpecialStatuses[gBattlerAttacker].multiHitOn
+        && (abilityAtk == ABILITY_SKILL_LINK || holdEffectAtk == HOLD_EFFECT_LOADED_DICE
+        || !(gMovesInfo[move].effect == EFFECT_TRIPLE_KICK || gMovesInfo[move].effect == EFFECT_POPULATION_BOMB))))
+    {
+        // No acc checks for second hit of Parental Bond or multi hit moves, except Triple Kick/Triple Axel/Population Bomb
+        gBattlescriptCurrInstr = nextInstr;
+    }
+    else
+    {
+        u32 accuracy;
+        u32 type = GetMoveType(move);
+
+        if (JumpIfMoveAffectedByProtect(move))
+            return;
+        if (AccuracyCalcHelper(move))
+            return;
+
+        accuracy = GetTotalAccuracy(
+            gBattlerAttacker,
+            gBattlerTarget,
+            move,
+            abilityAtk,
+            abilityDef,
+            holdEffectAtk,
+            GetBattlerHoldEffect(gBattlerTarget, TRUE)
+        );
+
+        if (!RandomPercentage(RNG_ACCURACY, accuracy))
+        {
+            gMoveResultFlags |= MOVE_RESULT_MISSED;
+            if (holdEffectAtk == HOLD_EFFECT_BLUNDER_POLICY)
+                gBattleStruct->blunderPolicy = TRUE;    // Only activates from missing through acc/evasion checks
+
+            if (gMovesInfo[gCurrentMove].effect == EFFECT_DRAGON_DARTS
+                && !recalcDragonDarts // So we don't jump back and forth between targets
+                && CanTargetPartner(gBattlerAttacker, gBattlerTarget)
+                && !TargetFullyImmuneToCurrMove(gBattlerAttacker, BATTLE_PARTNER(gBattlerTarget)))
+            {
+                // Smart target to partner if miss
+                gBattlerTarget = BATTLE_PARTNER(gBattlerTarget);
+                gMoveResultFlags &= ~MOVE_RESULT_MISSED;
+                AccuracyCheck(TRUE, nextInstr, failInstr, move);
+                return;
+            }
+
+            if (IsDoubleBattle() &&
+                (moveTarget == MOVE_TARGET_BOTH || moveTarget == MOVE_TARGET_FOES_AND_ALLY))
+                gBattleCommunication[MISS_TYPE] = B_MSG_AVOIDED_ATK;
+            else
+                gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
+
+            if (gMovesInfo[move].power)
+                CalcTypeEffectivenessMultiplier(move, type, gBattlerAttacker, gBattlerTarget, abilityDef, TRUE);
+        }
+        JumpIfMoveFailed(7, move);
+    }
+}
+
+static void Cmd_accuracycheck(void)
+{
+    CMD_ARGS(const u8 *failInstr, u16 move);
+
+    // The main body of this function has been moved to AccuracyCheck() to accomodate
+    // Dragon Darts' multiple accuracy checks on a single attack;
+    // each dart can try to re-target once after missing.
+    AccuracyCheck(FALSE, cmd->nextInstr, cmd->failInstr, cmd->move);
+}
+*/
 
 static void atk02_attackstring(void)
 {
@@ -13758,7 +13856,7 @@ static void atk80_manipulatedamage(void)
 
         switch (gBattleMoves[gCurrentMove].effect)
         {
-            case EFFECT_HEAVY_RECOIL:   //head smash etc.
+            case EFFECT_50_RECOIL:   //head smash etc.
                 gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].maxHP / 10) + (gBattleMoveDamage / 10));
                 gBattleMoveDamage *= 8;
                 gBattleMoveDamage /= 3;
@@ -13768,7 +13866,7 @@ static void atk80_manipulatedamage(void)
                 gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].maxHP / 10) + (gBattleMoveDamage / 10));
                 //gBattleMoveDamage /= 4; //w raichu min dmg should be 3
             break;
-            case EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
+            case EFFECT_33_RECOIL_W_STATUS: //volt tackle etc.
             case EFFECT_DOUBLE_EDGE:
                 gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].maxHP / 10) + (gBattleMoveDamage / 10));
                 gBattleMoveDamage += (gBattleMoveDamage / 2);
@@ -13797,7 +13895,7 @@ static void atk80_manipulatedamage(void)
 
         //gbattlemovedamage += (gbattlemovedamage / 3) //for 1/3rd and 1/2 add extra 3rd or 1/2 of formula?
 
-        //if (gBattleMoves[gCurrentMove].effect == EFFECT_HEAVY_RECOIL) //believe was initially hi jump kick miss?
+        //if (gBattleMoves[gCurrentMove].effect == EFFECT_50_RECOIL) //believe was initially hi jump kick miss?
         //    gBattleMoveDamage /= 2;
 
        /* if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)

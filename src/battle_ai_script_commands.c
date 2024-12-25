@@ -1,15 +1,19 @@
-#include "global.h"
+//#include "battle_ai_scripts_s.h"
+/*#include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "util.h"
 #include "item.h"
 #include "random.h"
-#include "battle_ai_script_commands.h"
-#include "battle_script_commands.h"
+#include "battle_ai_main.h"
+#include "battle_ai_util.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
-#include "constants/battle_effects.h"
+#include "constants/battle_move_effects.h"
 #include "constants/moves.h"
+
+//keeping this file just for comparison of ai logic to default fire red
+
 
 #define AI_ACTION_DONE          0x0001
 #define AI_ACTION_FLEE          0x0002
@@ -36,12 +40,12 @@ enum
 sAIScriptPtr is a pointer to the next battle AI cmd command to read.
 when a command finishes processing, sAIScriptPtr is incremented by
 the number of bytes that the current command had reserved for arguments
-in order to read the next command correctly. refer to battle_ai_scripts.s for the
+in order to read the next command correctly. refer to battle_AI_FLAGs.s for the
 AI scripts.
 */
-
+/*
 static EWRAM_DATA const u8 *sAIScriptPtr = NULL;
-extern u8 *gBattleAI_ScriptsTable[];
+extern u8 *gBattleAI_FLAGsTable[];
 
 static void Cmd_if_random_less_than(void);
 static void Cmd_if_random_greater_than(void);
@@ -121,7 +125,7 @@ static void Cmd_is_first_turn_for(void);
 static void Cmd_get_stockpile_count(void);
 static void Cmd_is_double_battle(void);
 static void Cmd_get_used_held_item(void);
-static void Cmd_get_move_split_from_result(void);
+static void Cmd_get_move_type_from_result(void);
 static void Cmd_get_move_power_from_result(void);
 static void Cmd_get_move_effect_from_result(void);
 static void Cmd_get_protect_count(void);
@@ -225,7 +229,7 @@ static const BattleAICmdFunc sBattleAICmdTable[] =
     Cmd_get_stockpile_count,              // 0x4B
     Cmd_is_double_battle,                 // 0x4C
     Cmd_get_used_held_item,               // 0x4D
-    Cmd_get_move_split_from_result,       // 0x4E
+    Cmd_get_move_type_from_result,        // 0x4E
     Cmd_get_move_power_from_result,       // 0x4F
     Cmd_get_move_effect_from_result,      // 0x50
     Cmd_get_protect_count,                // 0x51
@@ -270,7 +274,7 @@ void BattleAI_HandleItemUseBeforeAISetup(void)
 
     // Items are allowed to use in ONLY trainer battles.
     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-        && (gTrainerBattleOpponent_A != SECRET_BASE_OPPONENT)
+        //&& (gTrainerBattleOpponent_A != SECRET_BASE_OPPONENT)
         && !(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_LINK))
         )
     {
@@ -292,7 +296,6 @@ void BattleAI_SetupAIData(void)
     s32 i;
     u8 *data = (u8 *)AI_THINKING_STRUCT;
     u8 moveLimitations;
-    u32 flags = AI_THINKING_STRUCT->aiFlags;
 
     // Clear AI data.
     for (i = 0; i < sizeof(struct AI_ThinkingStruct); i++)
@@ -312,7 +315,7 @@ void BattleAI_SetupAIData(void)
         AI_THINKING_STRUCT->simulatedRNG[i] = 100 - (Random() % 16);
     }
 
-    gBattleResources->AI_ScriptsStack->size = 0;
+    gBattleResources->AI_FLAGsStack->size = 0;
     gBattlerAttacker = gActiveBattler;
 
     // Decide a random target battlerId in doubles.
@@ -329,44 +332,34 @@ void BattleAI_SetupAIData(void)
         gBattlerTarget = gBattlerAttacker ^ BIT_SIDE;
     }
 
-#if DEBUG_BATTLE_MENU == TRUE
-    // preserve the ai flags that user has set up
-    // if debugging
-    if (gBattleStruct->debugAISet)
-    {
-        AI_THINKING_STRUCT->aiFlags = flags;
-        return;
-    }
-#endif
-
     // Choose proper trainer ai scripts.
     // Fire Red, why all the returns?!?
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
     {
-        AI_THINKING_STRUCT->aiFlags = AI_SCRIPT_SAFARI;
+        AI_THINKING_STRUCT->aiFlags = AI_FLAG_SAFARI;
         return;
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)
     {
-        AI_THINKING_STRUCT->aiFlags = AI_SCRIPT_ROAMING;
+        AI_THINKING_STRUCT->aiFlags = AI_FLAG_ROAMING;
         return;
     }
-    else if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER)) && (gTrainerBattleOpponent_A != SECRET_BASE_OPPONENT))
+    else if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER)))
     {
         if (gBattleTypeFlags & BATTLE_TYPE_WILD_SCRIPTED)
         {
-            AI_THINKING_STRUCT->aiFlags = AI_SCRIPT_CHECK_BAD_MOVE;
+            AI_THINKING_STRUCT->aiFlags = AI_FLAG_CHECK_BAD_MOVE;
             return;
         }
         else if (gBattleTypeFlags & BATTLE_TYPE_LEGENDARY_FRLG)
         {
-            AI_THINKING_STRUCT->aiFlags = (AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY);
+            AI_THINKING_STRUCT->aiFlags = (AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY);
             return;
         }
     }
     else
     {
-        AI_THINKING_STRUCT->aiFlags = (AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY);
+        AI_THINKING_STRUCT->aiFlags = (AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY);
         return;
     }
     AI_THINKING_STRUCT->aiFlags = gTrainers[gTrainerBattleOpponent_A].aiFlags;
@@ -378,17 +371,16 @@ u8 BattleAI_ChooseMoveOrAction(void)
     u8 consideredMoveArray[MAX_MON_MOVES];
     u8 numOfBestMoves;
     s32 i;
-    u32 flags = AI_THINKING_STRUCT->aiFlags;
 
     RecordLastUsedMoveByTarget();
-    while (flags != 0)
+    while (AI_THINKING_STRUCT->aiFlags != 0)
     {
-        if (flags & 1)
+        if (AI_THINKING_STRUCT->aiFlags & 1)
         {
             AI_THINKING_STRUCT->aiState = AIState_SettingUp;
             BattleAI_DoAIProcessing();
         }
-        flags >>= 1;
+        AI_THINKING_STRUCT->aiFlags >>= 1;
         AI_THINKING_STRUCT->aiLogicId++;
         AI_THINKING_STRUCT->movesetIndex = 0;
     }
@@ -430,7 +422,7 @@ static void BattleAI_DoAIProcessing(void)
         case AIState_DoNotProcess: // Needed to match.
             break;
         case AIState_SettingUp:
-            sAIScriptPtr = gBattleAI_ScriptsTable[AI_THINKING_STRUCT->aiLogicId];
+            sAIScriptPtr = gBattleAI_FLAGsTable[AI_THINKING_STRUCT->aiLogicId];
 
             if (gBattleMons[gBattlerAttacker].pp[AI_THINKING_STRUCT->movesetIndex] == 0)
             {
@@ -491,10 +483,34 @@ static void ClearBattlerMoveHistory(u8 battlerId)
         BATTLE_HISTORY->usedMoves[battlerId / 2][i] = MOVE_NONE;
 }
 
+void RecordKnownMove(u8 battlerId, u32 move)    //file equals battle_ai_util.c in emerald
+{
+    s32 i;
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (BATTLE_HISTORY->usedMoves[battlerId][i] == move)
+            break;
+        if (BATTLE_HISTORY->usedMoves[battlerId][i] == MOVE_NONE)
+        {
+            BATTLE_HISTORY->usedMoves[battlerId][i] = move;
+            break;
+        }
+    }
+}
+
 void RecordAbilityBattle(u8 battlerId, u16 abilityId)
 {
     if (GetBattlerSide(battlerId) == 0)
         BATTLE_HISTORY->abilities[GET_BATTLER_SIDE(battlerId)] = abilityId;
+}
+
+void RecordLastUsedMoveBy(u32 battlerId, u32 move)
+{
+    u8* index = &BATTLE_HISTORY->moveHistoryIndex[battlerId];
+
+    if (++(*index) >= AI_MOVE_HISTORY_COUNT)
+        *index = 0;
+    BATTLE_HISTORY->moveHistory[battlerId][*index] = move;
 }
 
 void RecordItemEffectBattle(u8 battlerId, u8 itemEffect)
@@ -947,7 +963,6 @@ static void Cmd_get_turn_count(void)
     sAIScriptPtr += 1;
 }
 
-//vsonic add typep 3 - done and added to script
 static void Cmd_get_type(void)
 {
     switch (sAIScriptPtr[1])
@@ -963,12 +978,6 @@ static void Cmd_get_type(void)
         break;
     case AI_TYPE2_TARGET:
         AI_THINKING_STRUCT->funcResult = gBattleMons[gBattlerTarget].type2;
-        break;
-    case AI_TYPE3_USER:
-        AI_THINKING_STRUCT->funcResult = gBattleMons[gBattlerAttacker].type3;
-        break;
-    case AI_TYPE3_TARGET:
-        AI_THINKING_STRUCT->funcResult = gBattleMons[gBattlerTarget].type3;
         break;
     case AI_TYPE_MOVE:
         AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->moveConsidered].type;
@@ -999,7 +1008,7 @@ static void Cmd_get_how_powerful_move_is(void)
     {
         gDynamicBasePower = 0;
         gBattleStruct->dynamicMoveType = 0;
-        //gBattleScripting.dmgMultiplier = 1;
+        gBattleScripting.dmgMultiplier = 1;
         gMoveResultFlags = 0;
         gCritMultiplier = 1;
 
@@ -1016,7 +1025,7 @@ static void Cmd_get_how_powerful_move_is(void)
                 && gBattleMoves[gBattleMons[gBattlerAttacker].moves[checkedMove]].power > 1)
             {
                 gCurrentMove = gBattleMons[gBattlerAttacker].moves[checkedMove];
-                AI_CalcDmg(gBattlerAttacker, gBattlerTarget);
+                AI_CalcDmgFormula(gBattlerAttacker, gBattlerTarget);
                 TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
                 moveDmgs[checkedMove] = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[checkedMove] / 100;
                 if (moveDmgs[checkedMove] == 0)
@@ -1097,6 +1106,42 @@ static void Cmd_nullsub_2B(void)
 {
 }
 
+s32 CountUsablePartyMons(u8 battlerId)
+{
+    s32 battlerOnField1, battlerOnField2, i, ret;
+    struct Pokemon* party;
+
+    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
+        party = gPlayerParty;
+    else
+        party = gEnemyParty;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battlerId];
+        battlerOnField2 = gBattlerPartyIndexes[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battlerId)))];
+    }
+    else // In singles there's only one battlerId by side.
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battlerId];
+        battlerOnField2 = gBattlerPartyIndexes[battlerId];
+    }
+
+    ret = 0;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (i != battlerOnField1 && i != battlerOnField2
+            && GetMonData(&party[i], MON_DATA_HP) != 0
+            && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_NONE
+            && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_EGG)
+        {
+            ret++;
+        }
+    }
+
+    return ret;
+}
+
 static void Cmd_count_alive_pokemon(void)
 {
     u8 battlerId;
@@ -1133,8 +1178,8 @@ static void Cmd_count_alive_pokemon(void)
     {
         if (i != battlerOnField1 && i != battlerOnField2
          && GetMonData(&party[i], MON_DATA_HP) != 0
-         && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
-         && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
+         && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_NONE
+         && GetMonData(&party[i], MON_DATA_SPECIES2) != SPECIES_EGG)
         {
             AI_THINKING_STRUCT->funcResult++;
         }
@@ -1223,7 +1268,7 @@ static void Cmd_get_highest_type_effectiveness(void)
     gDynamicBasePower = 0;
     dynamicMoveType = &gBattleStruct->dynamicMoveType;
     *dynamicMoveType = 0;
-    //gBattleScripting.dmgMultiplier = 1;
+    gBattleScripting.dmgMultiplier = 1;
     gMoveResultFlags = 0;
     gCritMultiplier = 1;
     AI_THINKING_STRUCT->funcResult = 0;
@@ -1237,13 +1282,13 @@ static void Cmd_get_highest_type_effectiveness(void)
         {
             TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
 
-            if (gBattleMoveDamage == ((62 * 135)/ 100)) // Super effective STAB.
-                gBattleMoveDamage = AI_EFFECTIVENESS_x1_55;
-            if (gBattleMoveDamage == ((((62 * 155) / 100) * 135) / 100))   //quad super STAB
-                gBattleMoveDamage = AI_EFFECTIVENESS_x2_40;
-            if (gBattleMoveDamage == 27) // Not very effective STAB.
+            if (gBattleMoveDamage == 120) // Super effective STAB.
+                gBattleMoveDamage = AI_EFFECTIVENESS_x2;
+            if (gBattleMoveDamage == 240)
+                gBattleMoveDamage = AI_EFFECTIVENESS_x4;
+            if (gBattleMoveDamage == 30) // Not very effective STAB.
                 gBattleMoveDamage = AI_EFFECTIVENESS_x0_5;
-            if (gBattleMoveDamage == ((10 * 135) / 100)) //quad resisted STAB
+            if (gBattleMoveDamage == 15)
                 gBattleMoveDamage = AI_EFFECTIVENESS_x0_25;
 
             if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
@@ -1257,14 +1302,13 @@ static void Cmd_get_highest_type_effectiveness(void)
     sAIScriptPtr += 1;
 }
 
-//ai damage calc type multiplier vsonic
 static void Cmd_if_type_effectiveness(void)
 {
     u8 damageVar;
 
     gDynamicBasePower = 0;
     gBattleStruct->dynamicMoveType = 0;
-    //gBattleScripting.dmgMultiplier = 1;
+    gBattleScripting.dmgMultiplier = 1;
     gMoveResultFlags = 0;
     gCritMultiplier = 1;
 
@@ -1273,14 +1317,14 @@ static void Cmd_if_type_effectiveness(void)
 
     TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
 
-        if (gBattleMoveDamage == ((62 * 135)/ 100)) // Super effective STAB.
-            gBattleMoveDamage = AI_EFFECTIVENESS_x1_55;
-        if (gBattleMoveDamage == ((((62 * 155) / 100) * 135) / 100))   //quad super STAB
-            gBattleMoveDamage = AI_EFFECTIVENESS_x2_40;
-        if (gBattleMoveDamage == 27) // Not very effective STAB.
-            gBattleMoveDamage = AI_EFFECTIVENESS_x0_5;
-        if (gBattleMoveDamage == ((10 * 135) / 100)) //quad resisted STAB
-            gBattleMoveDamage = AI_EFFECTIVENESS_x0_25;
+    if (gBattleMoveDamage == 120) // Super effective STAB.
+        gBattleMoveDamage = AI_EFFECTIVENESS_x2;
+    if (gBattleMoveDamage == 240)
+        gBattleMoveDamage = AI_EFFECTIVENESS_x4;
+    if (gBattleMoveDamage == 30) // Not very effective STAB.
+        gBattleMoveDamage = AI_EFFECTIVENESS_x0_5;
+    if (gBattleMoveDamage == 15)
+        gBattleMoveDamage = AI_EFFECTIVENESS_x0_25;
 
     if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
         gBattleMoveDamage = AI_EFFECTIVENESS_x0;
@@ -1336,7 +1380,7 @@ static void Cmd_if_status_in_party(void)
     party = (GetBattlerSide(battlerId) == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
     */
 
-    statusToCompareTo = T1_READ_32(sAIScriptPtr + 2);
+  /*  statusToCompareTo = T1_READ_32(sAIScriptPtr + 2);
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
@@ -1498,11 +1542,11 @@ static void Cmd_if_can_faint(void)
 
     gDynamicBasePower = 0;
     gBattleStruct->dynamicMoveType = 0;
-    //gBattleScripting.dmgMultiplier = 1;
+    gBattleScripting.dmgMultiplier = 1;
     gMoveResultFlags = 0;
     gCritMultiplier = 1;
     gCurrentMove = AI_THINKING_STRUCT->moveConsidered;
-    AI_CalcDmg(gBattlerAttacker, gBattlerTarget);
+    AI_CalcDmgFormula(gBattlerAttacker, gBattlerTarget);
     TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
 
     gBattleMoveDamage = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[AI_THINKING_STRUCT->movesetIndex] / 100;
@@ -1527,11 +1571,11 @@ static void Cmd_if_cant_faint(void)
 
     gDynamicBasePower = 0;
     gBattleStruct->dynamicMoveType = 0;
-    //gBattleScripting.dmgMultiplier = 1;
+    gBattleScripting.dmgMultiplier = 1;
     gMoveResultFlags = 0;
     gCritMultiplier = 1;
     gCurrentMove = AI_THINKING_STRUCT->moveConsidered;
-    AI_CalcDmg(gBattlerAttacker, gBattlerTarget);
+    AI_CalcDmgFormula(gBattlerAttacker, gBattlerTarget);
     TypeCalc(gCurrentMove, gBattlerAttacker, gBattlerTarget);
 
     gBattleMoveDamage = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[AI_THINKING_STRUCT->movesetIndex] / 100;
@@ -1694,14 +1738,12 @@ static void Cmd_if_any_move_disabled_or_encored(void)
     {
         if (gDisableStructs[battlerId].encoredMove != MOVE_NONE)
             sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
-        else if (gDisableStructs[battlerId].inthralledMove != MOVE_NONE)
-            sAIScriptPtr = T1_READ_PTR(sAIScriptPtr + 3);
         else
             sAIScriptPtr += 7;
     }
 }
 
-static void Cmd_if_curr_move_disabled_or_encored(void) //need add bind to these
+static void Cmd_if_curr_move_disabled_or_encored(void)
 {
     switch (sAIScriptPtr[1])
     {
@@ -1828,42 +1870,27 @@ static void Cmd_is_double_battle(void)
     sAIScriptPtr += 1;
 }
 
-static void Cmd_get_used_held_item(void) //could change to use side and party?
+static void Cmd_get_used_held_item(void)
 {
-    u8 battlerId,battlerSide;
-
+    u8 battlerId;
 
     if (sAIScriptPtr[1] == AI_USER)
-    {
         battlerId = gBattlerAttacker;
-        battlerSide = GetBattlerSide(gBattlerAttacker);
-    }
     else
-    {
         battlerId = gBattlerTarget;
-        battlerSide = GetBattlerSide(gBattlerTarget);
-    }
 
-    //AI_THINKING_STRUCT->funcResult = ((u8 *)gBattleStruct->usedHeldItems)[battlerId * 2];
-
-    ///for (i = 0; i < PARTY_SIZE; i++)
-     //   AI_THINKING_STRUCT->funcResult = ((u8 *)gBattleStruct->usedHeldItems)[gBattlerPartyIndexes[i]][GetBattlerSide(battlerId)]; //hopefully works
-
-    //unsure if needs loop if not use this
-    AI_THINKING_STRUCT->funcResult = gBattleStruct->usedHeldItems[gBattlerPartyIndexes[battlerId]][battlerSide]; //hopefully works
+    AI_THINKING_STRUCT->funcResult = ((u8 *)gBattleStruct->usedHeldItems)[battlerId * 2];
     sAIScriptPtr += 2;
 }
 
-static void Cmd_get_move_split_from_result(void) //only used for checking physical or special move, so replace with split check instead
+static void Cmd_get_move_type_from_result(void)
 {
-    AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->funcResult].split;
+    AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->funcResult].type;
 
     sAIScriptPtr += 1;
 }
 
-//think way works I need to call another command before that stores a value?
-//this is always used only after get_last_used_move
-static void Cmd_get_move_power_from_result(void) 
+static void Cmd_get_move_power_from_result(void)
 {
     AI_THINKING_STRUCT->funcResult = gBattleMoves[AI_THINKING_STRUCT->funcResult].power;
 
@@ -1981,23 +2008,23 @@ static void Cmd_if_target_not_taunted(void)
 
 static void AIStackPushVar(const u8 *var)
 {
-    gBattleResources->AI_ScriptsStack->ptr[gBattleResources->AI_ScriptsStack->size++] = var;
+    gBattleResources->AI_FLAGsStack->ptr[gBattleResources->AI_FLAGsStack->size++] = var;
 }
 
 // unused
 static void AIStackPushVar_cursor(void)
 {
-    gBattleResources->AI_ScriptsStack->ptr[gBattleResources->AI_ScriptsStack->size++] = sAIScriptPtr;
+    gBattleResources->AI_FLAGsStack->ptr[gBattleResources->AI_FLAGsStack->size++] = sAIScriptPtr;
 }
 
 static bool8 AIStackPop(void)
 {
-    if (gBattleResources->AI_ScriptsStack->size != 0)
+    if (gBattleResources->AI_FLAGsStack->size != 0)
     {
-        --gBattleResources->AI_ScriptsStack->size;
-        sAIScriptPtr = gBattleResources->AI_ScriptsStack->ptr[gBattleResources->AI_ScriptsStack->size];
+        --gBattleResources->AI_FLAGsStack->size;
+        sAIScriptPtr = gBattleResources->AI_FLAGsStack->ptr[gBattleResources->AI_FLAGsStack->size];
         return TRUE;
     }
     else
         return FALSE;
-}
+}*/

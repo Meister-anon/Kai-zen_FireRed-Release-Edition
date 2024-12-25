@@ -4348,12 +4348,21 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         */
     }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
 
+    //put water shuriken ash gren move power boost here
+    //goes from 15bp to 20bp
+    //need check if this is fine, idk if this would mess up other bonuses that effet move power?
+    //ok think it should be fin eas this is the function that does the additions to move power
+    //vsonic all check that way I do form change is still in-line w this i.e actually does a species change
+    if (move == MOVE_WATER_SHURIKEN && gBattleMons[battlerIdAtk].species == SPECIES_GRENINJA_ASH)
+        gBattleMovePower = 20; 
+
     //testing 35% defense pen, kind of same as doing dmg against -1 def stat
     //appears to be about same as stab...fuck ofcourse it is stab is 1.35 *facepalm
     //hmm previously it always crit in state where crit was 1.5x boost, I THINK
     //this should be fine
     if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
+        
 
     if (gBattleMoves[move].effect == EFFECT_RETALITATE
     && gSideTimers[atkSide].retaliateTimer == 1)

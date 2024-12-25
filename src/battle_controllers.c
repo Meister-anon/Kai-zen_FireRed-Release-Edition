@@ -1,7 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_main.h"
-#include "battle_ai_script_commands.h"
+#include "battle_ai_main.h"
 #include "battle_anim.h"
 #include "battle_util.h"
 #include "battle_controllers.h"
@@ -59,7 +59,9 @@ void SetUpBattleVars(void)
     gBattleControllerExecFlags = 0;
     ClearBattleAnimationVars();
     ClearBattleMonForms();
-    BattleAI_HandleItemUseBeforeAISetup();
+    //BattleAI_SetupItems();//NEED TO SEtu;p to use these two, instead of bottom one
+    //BattleAI_SetupFlags();//currently ai process/infrastrucutre not ready to use these order of things is wrong
+    BattleAI_HandleItemUseBeforeAISetup();//remove this when get process correct
     gUnknown_2022B54 = 0;
     gUnknown_2023DDC = 0;
 }

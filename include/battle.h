@@ -205,7 +205,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x06*/ u16 encoredMove;
     /*0x08*/ u8 protectUses;
     /*0x09*/ u8 stockpileCounter:2; //group
-    s8 stockpileDef;
+    s8 stockpileDef;    //vsonic still to setup
     s8 stockpileSpDef;
     s8 stockpileBeforeDef;
     s8 stockpileBeforeSpDef;
@@ -499,18 +499,68 @@ struct WishFutureKnock
 
 extern struct WishFutureKnock gWishFutureKnock;
 
+struct AI_SavedBattleMon
+{
+    u16 ability;
+    u16 moves[MAX_MON_MOVES];
+    u16 heldItem;
+    u16 species;
+};
+
 struct AI_ThinkingStruct
 {
     u8 aiState;
     u8 movesetIndex;
     u16 moveConsidered;
-    s8 score[4];
+    s8 score[MAX_MON_MOVES];
     u32 funcResult;
     u32 aiFlags;
     u8 aiAction;
     u8 aiLogicId;
-    u8 filler12[6];
+    struct AI_SavedBattleMon saved[MAX_BATTLERS_COUNT];
     u8 simulatedRNG[4];
+    bool8 switchMon; // Because all available moves have no/little effect. -NOT DEFAULT
+}; //believe exclude switchMon to preserve default FR behavior, look over give further consideration
+
+struct SimulatedDamage
+{
+    s32 expected;
+    s32 minimum;
+};
+
+struct AiLogicData
+{
+    u16 abilities[MAX_BATTLERS_COUNT];
+    u16 items[MAX_BATTLERS_COUNT];
+    u16 holdEffects[MAX_BATTLERS_COUNT];
+    u8 holdEffectParams[MAX_BATTLERS_COUNT];
+    u16 predictedMoves[MAX_BATTLERS_COUNT];
+    u8 hpPercents[MAX_BATTLERS_COUNT];
+    u16 partnerMove;
+    s32 simulatedDmg[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
+    u8 effectiveness[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // attacker, target, moveIndex
+    u8 moveLimitations[MAX_BATTLERS_COUNT];
+};
+
+struct AiPartyMon
+{
+    u16 species;
+    u16 item;
+    u16 heldEffect;
+    u16 ability;
+    u16 gender;
+    u16 level;
+    u16 moves[MAX_MON_MOVES];
+    u32 status;
+    bool8 isFainted;
+    bool8 wasSentInBattle;
+    u8 switchInCount; // Counts how many times this Pokemon has been sent out or switched into in a battle.
+};//may not need switch-in count since was planning to limit amount of total switches anyway.. hmm
+
+struct AIPartyData // Opposing battlers - party mons.
+{
+    struct AiPartyMon mons[2][PARTY_SIZE]; // 2 parties(player, opponent). Used to save information on opposing party.
+    u8 count[2];
 };
 
 extern u8 gActiveBattler;
@@ -520,21 +570,36 @@ extern u8 gAbsentBattlerFlags;
 
 extern struct BattlePokemon gBattleMons[MAX_BATTLERS_COUNT];
 
-struct UsedMoves
+/*struct UsedMoves
 {
     u16 moves[MAX_BATTLERS_COUNT];
     u16 unknown[MAX_BATTLERS_COUNT];
-};
+};*/
+
+#define AI_MOVE_HISTORY_COUNT 3 //not sure what for at this point
 
 struct BattleHistory
 {
-    /*0x00*/ u16 usedMoves[2][8]; // 0xFFFF means move not used (confuse self hit, etc)
-    /*0x20*/ u16 abilities[MAX_BATTLERS_COUNT / 2];
-    /*0x24*/ u8 itemEffects[MAX_BATTLERS_COUNT / 2];
-    /*0x26*/ u16 trainerItems[MAX_BATTLERS_COUNT];
-    /*0x2E*/ u8 itemsNo;
-             u16 heldItems[MAX_BATTLERS_COUNT]; //not default added
-};
+    u16 abilities[MAX_BATTLERS_COUNT];
+    u8 itemEffects[MAX_BATTLERS_COUNT];
+    u16 usedMoves[MAX_BATTLERS_COUNT][MAX_MON_MOVES];
+    u16 moveHistory[MAX_BATTLERS_COUNT][AI_MOVE_HISTORY_COUNT]; // 3 last used moves for each battler
+    u8 moveHistoryIndex[MAX_BATTLERS_COUNT];
+    u16 trainerItems[MAX_BATTLERS_COUNT];
+    u8 itemsNo;
+    u16 heldItems[MAX_BATTLERS_COUNT];
+};//dont remember why in last implementation used old struct rather than new version
+//prob to build faster without further changes needed
+
+/*struct BattleHistory
+{
+     u16 usedMoves[2][8]; // 0xFFFF means move not used (confuse self hit, etc)
+     u16 abilities[MAX_BATTLERS_COUNT / 2];
+     u8 itemEffects[MAX_BATTLERS_COUNT / 2];
+     u16 trainerItems[MAX_BATTLERS_COUNT];
+     u8 itemsNo;
+     u16 heldItems[MAX_BATTLERS_COUNT]; //not default added
+};*/
 
 struct BattleScriptsStack
 {
@@ -561,11 +626,18 @@ struct BattleResources
     struct BattleCallbacksStack *battleCallbackStack;
     struct StatsArray *beforeLvlUp;
     struct AI_ThinkingStruct *ai;
+    struct AiLogicData *aiData;
+    struct AIPartyData *aiParty;
     struct BattleHistory *battleHistory;
     struct BattleScriptsStack *AI_ScriptsStack;
     u8 bufferA[MAX_BATTLERS_COUNT][0x200]; //ported seems for megas
     u8 bufferB[MAX_BATTLERS_COUNT][0x200];
 };
+
+#define AI_THINKING_STRUCT ((struct AI_ThinkingStruct *)(gBattleResources->ai))
+#define AI_DATA ((struct AiLogicData *)(gBattleResources->aiData))
+#define AI_PARTY ((struct AIPartyData *)(gBattleResources->aiParty))
+#define BATTLE_HISTORY ((struct BattleHistory *)(gBattleResources->battleHistory))
 
 extern struct BattleResources *gBattleResources;
 
@@ -710,9 +782,9 @@ struct BattleStruct //fill in unused fields when porting
     u8 playerPartyIdx;
     //u8 field_8C; // unused
     //u8 field_8D; // unused
-    //s8 aiFinalScore[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // AI, target, moves to make debugging easier
-    //u8 aiMoveOrAction[MAX_BATTLERS_COUNT];
-    //u8 aiChosenTarget[MAX_BATTLERS_COUNT]; //ported these 3 hope ot a problem
+    s8 aiFinalScore[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT][MAX_MON_MOVES]; // AI, target, moves to make debugging easier
+    u8 aiMoveOrAction[MAX_BATTLERS_COUNT];
+    u8 aiChosenTarget[MAX_BATTLERS_COUNT]; //ported these 3 hope ot a problem
     u8 soulheartBattlerId;  //Magearna ability
     u8 friskedBattler; // Frisk needs to identify 2 battlers in double battles.
     bool8 friskedAbility; // If identifies two mons, show the ability pop-up only once.
@@ -740,12 +812,12 @@ struct BattleStruct //fill in unused fields when porting
     u8 atkCancellerTracker;//almost feels like I should turn these party wide things into their own struct at this point
     u16 SecondaryItemSlot[PARTY_SIZE][NUM_BATTLE_SIDES];//for pickpocket and magician store taken item if already holding item
     //u16 usedHeldItems[MAX_BATTLERS_COUNT]; //original value below is emerald expansion changed version,  
-    u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
+    u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; //check may need adjust harvest recycle w setup for 2nd held slot // For each party member and side. For harvest, recycle  //think I"m setup to use this? adjusted all values now
     u16 usedSingleUseAbility[PARTY_SIZE][NUM_BATTLE_SIDES]; ///for abilities that activate once per battle - my addition
     u8 SingleUseAbilityTimers[PARTY_SIZE][NUM_BATTLE_SIDES]; //rn just for slow start / wonder guard
     u8 ToxicTurnCounter[PARTY_SIZE][NUM_BATTLE_SIDES]; //change make toxic dmg tracked not reset on switch
     u8 SleepTimer[PARTY_SIZE][NUM_BATTLE_SIDES];
-    u8 chosenItem[4]; // why is this an u8?
+    u16 chosenItem[4]; // why is this an u8?
     u8 AI_itemType[2];
     u8 AI_itemFlags[2];
     u16 choicedMove[MAX_BATTLERS_COUNT];

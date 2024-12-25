@@ -40,6 +40,8 @@ bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType);
 s32 AICalcCritChance(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbility);
 u16 GetNaturePowerMove(void);
 s8 GetInverseCritChance(u8 battlerAtk, u8 battlerDef, u32 move);
+s32 AI_CalcDmgFormula(u8 attacker, u8 defender);
+u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect);
 
 bool8 CanMultiTask(u16 move);
 bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler);

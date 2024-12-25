@@ -5413,7 +5413,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_VOLT_TACKLE] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_4
-            .effect = EFFECT_MED_RECOIL_W_STATUS,
+            .effect = EFFECT_33_RECOIL_W_STATUS,
             //.argument = STATUS1_PARALYSIS,
         #else
             .effect = EFFECT_DOUBLE_EDGE,
@@ -6221,7 +6221,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLARE_BLITZ] =
     {
-        .effect = EFFECT_MED_RECOIL_W_STATUS,
+        .effect = EFFECT_33_RECOIL_W_STATUS,
         .power = 120,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -7199,7 +7199,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HEAD_SMASH] =
     {
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_50_RECOIL,
         .power = 150,
         .type = TYPE_ROCK,
         .accuracy = 85,
@@ -9609,7 +9609,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_LIGHT_OF_RUIN] =
     {
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_50_RECOIL,
         .power = 140,
         .type = TYPE_FAIRY,
         .accuracy = 90,
@@ -11194,7 +11194,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STEEL_BEAM] =
     {
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_50_RECOIL,
         .power = 140,
         .type = TYPE_STEEL,
         .accuracy = 95,
@@ -11787,7 +11787,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 120,
         #endif
-        .effect = EFFECT_HEAVY_RECOIL,
+        .effect = EFFECT_50_RECOIL,
         .type = TYPE_GRASS,
         .accuracy = 95,
         .pp = 5,

@@ -2,7 +2,8 @@
 #include "gflib.h"
 #include "battle.h"
 #include "battle_anim.h"
-#include "battle_ai_script_commands.h"
+#include "battle_ai_main.h"
+#include "battle_ai_util.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "battle_main.h"
@@ -37,6 +38,7 @@
 #include "util.h"
 #include "new_menu_helpers.h"
 #include "constants/abilities.h"
+#include "constants/battle_ai.h"
 #include "constants/battle_effects.h"
 #include "constants/battle_setup.h"
 #include "constants/hold_effects.h"
@@ -5004,6 +5006,9 @@ static void TryDoEventsBeforeFirstTurn(void)
         gBattleStruct->turnCountersTracker = 0;
         gMoveResultFlags = 0;
         gRandomTurnNumber = Random();
+
+        //seems EE later replaced this w SetAiLogicDataForTurn
+        GetAiLogicData(); // get assumed abilities, hold effects, etc of all battlers
     }
 }
 
@@ -5111,6 +5116,7 @@ void BattleTurnPassed(void) //after all moves used
         *(gBattleStruct->monToSwitchIntoId + i) = PARTY_SIZE;
 
     *(&gBattleStruct->absentBattlerFlags) = gAbsentBattlerFlags;
+    GetAiLogicData(); // get assumed abilities, hold effects, etc of all battlers
     gBattleMainFunc = HandleTurnActionSelectionState;
     gRandomTurnNumber = Random();
 }
@@ -5234,6 +5240,7 @@ void UpdatePartyOwnerOnSwitch_NonMulti(u8 battler)
 
 enum
 {
+    STATE_TURN_START_RECORD,
     STATE_BEFORE_ACTION_CHOSEN,
     STATE_WAIT_ACTION_CHOSEN,
     STATE_WAIT_ACTION_CASE_CHOSEN,
@@ -5256,6 +5263,16 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
 
         switch (gBattleCommunication[gActiveBattler])
         {
+        case STATE_TURN_START_RECORD: // Recorded battle related action on start of every turn.
+            //RecordedBattle_CopyBattlerMoves(gActiveBattler); //added back when add recordedbattle files, will need for test system believe
+            gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+
+            // Do AI score computations here so we can use them in AI_TrySwitchOrUseItem
+            if ((gBattleTypeFlags & BATTLE_TYPE_HAS_AI || IsWildMonSmart()) && IsBattlerAIControlled(gActiveBattler)) {
+                gBattleStruct->aiMoveOrAction[gActiveBattler] = ComputeBattleAiScores(gActiveBattler);
+            }
+            //break;
+            // fallthrough
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
             *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI

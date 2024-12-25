@@ -77,6 +77,11 @@
 }
 
 // useful math macros
+typedef s16 q4_12_t;
+typedef u32 uq4_12_t;
+
+#define Q_4_12_SHIFT (12)
+#define UQ_4_12_SHIFT (12)
 
 // Converts a number to Q8.8 fixed-point format
 #define Q_8_8(n) ((s16)((n) * 256))
@@ -101,8 +106,57 @@
 #define Q_24_8_TO_INT(n) ((int)((n) >> 8))
 
 // Rounding value for Q4.12 fixed-point format
-#define Q_4_12_ROUND ((1) << (12 - 1))
-#define UQ_4_12_ROUND ((1) << (12 - 1))
+#define Q_4_12_ROUND ((1) << (Q_4_12_SHIFT - 1))
+#define UQ_4_12_ROUND ((1) << (UQ_4_12_SHIFT - 1))
+
+// Basic arithmetic for fixed point number formats
+// Consumers should use encapsulated functions where possible
+
+// FP API does not provide sanity checks against overflows
+
+static inline uq4_12_t uq4_12_add(uq4_12_t a, uq4_12_t b)
+{
+    return a + b;
+}
+
+static inline uq4_12_t uq4_12_subtract(uq4_12_t a, uq4_12_t b)
+{
+    return a - b;
+}
+
+//or maybe I need this, yeah most likely this
+static inline uq4_12_t uq4_12_multiply(uq4_12_t a, uq4_12_t b)
+{
+    u32 product = (u32) a * b;
+    return (product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT;
+}
+
+static inline uq4_12_t uq4_12_multiply_half_down(uq4_12_t a, uq4_12_t b)
+{
+    u32 product = (u32) a * b;
+    return (product + UQ_4_12_ROUND - 1) >> UQ_4_12_SHIFT;
+}
+
+static inline uq4_12_t uq4_12_divide(uq4_12_t dividend, uq4_12_t divisor)
+{
+    if (divisor == UQ_4_12(0.0)) return UQ_4_12(0);
+    return (dividend << UQ_4_12_SHIFT) / divisor;
+}
+
+// Multiplies value by the UQ_4_12 number modifier.
+// Returns an integer, rounded to nearest (rounding down on n.5)
+//may be able to use this for type multiplier, but what I want is round to two digits i.e 2.43 
+static inline u32 uq4_12_multiply_by_int_half_down(uq4_12_t modifier, u32 value)
+{
+    return UQ_4_12_TO_INT((modifier * value) + UQ_4_12_ROUND - 1);
+}
+
+// Multiplies value by the UQ_4_12 number modifier.
+// Returns an integer, rounded to nearest (rounding up on n.5)
+static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
+{
+    return UQ_4_12_TO_INT((modifier * value) + UQ_4_12_ROUND);
+}
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) >= (b) ? (a) : (b))
