@@ -7084,7 +7084,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattlescriptCurrInstr = BattleScript_DarkTypePreventsPrankster;
                 effect = 1;
             }
-            else if (gLastUsedAbility == ABILITY_ICE_FACE && IS_MOVE_PHYSICAL(moveArg) && gBattleMons[gBattlerTarget].species == SPECIES_EISCUE_ICE_FACE)
+            else if (gLastUsedAbility == ABILITY_ICE_FACE && IsPhysicalMove(gBattlerAttacker,moveArg) && gBattleMons[gBattlerTarget].species == SPECIES_EISCUE_ICE_FACE)
             {
                 gBattleMons[gBattlerTarget].species = SPECIES_EISCUE_NOICE_FACE;
                 if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)
@@ -7656,7 +7656,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && TARGET_TURN_DAMAGED
                     && IsBattlerAlive(battler)
-                    && IS_MOVE_PHYSICAL(gCurrentMove)
+                    && IsPhysicalMove(gBattlerAttacker,gCurrentMove)
                     && (CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN) // Don't activate if speed cannot be raised
                         || CompareStat(battler, STAT_DEF, MIN_STAT_STAGE, CMP_GREATER_THAN))) // Don't activate if defense cannot be lowered
                 {
@@ -10583,7 +10583,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 if (IsBattlerAlive(battlerId)
                     && TARGET_TURN_DAMAGED
                     && !DoesSubstituteBlockMove(gBattlerAttacker, battlerId, gCurrentMove)
-                    && (IS_MOVE_PHYSICAL(gCurrentMove) || (IS_MOVE_SPECIAL(gCurrentMove) && GetBattlerAbility(gBattlerAttacker) == ABILITY_MUSCLE_MAGIC))
+                    && IsPhysicalMove(gBattlerAttacker,gCurrentMove)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                 {
                     gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
@@ -10604,7 +10604,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 if (IsBattlerAlive(battlerId)
                     && TARGET_TURN_DAMAGED
                     && !DoesSubstituteBlockMove(gBattlerAttacker, battlerId, gCurrentMove)
-                    && IS_MOVE_SPECIAL(gCurrentMove)
+                    //&& IS_MOVE_SPECIAL(gCurrentMove)
+                    && (!IsPhysicalMove(gBattlerAttacker,gCurrentMove) && GetBattleMoveSplit(gCurrentMove) != SPLIT_STATUS)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                 {
                     gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;

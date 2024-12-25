@@ -2031,7 +2031,7 @@ static void atk01_accuracycheck(void)
             calc = (calc * 80) / 100; // 1.2 sand veil loss
         if (GetBattlerAbility(gBattlerTarget) == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
             calc = (calc * 80) / 100; //
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_HUSTLE && IS_MOVE_PHYSICAL(move)) //can put status based evasion/accuracy effects here
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_HUSTLE && IsPhysicalMove(gBattlerAttacker,move)) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
         //since it uses accuract not evasion, I'll add an accuracy boost for different statuses.
         // I'll use calc,  to adjust the move accuracy, but to avoid break, will include check that if moveAcc > 100  would instead moveAcc = 100.
@@ -2423,13 +2423,20 @@ bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler)
 
      if (ability == ABILITY_BATTLE_ARMOR
         || ability == ABILITY_SHELL_ARMOR
-        || (ability == ABILITY_MAGMA_ARMOR && gBattleMoves[gCurrentMove].split == SPLIT_PHYSICAL)
+        || (ability == ABILITY_MAGMA_ARMOR && IsPhysicalMove(gBattlerAttacker, gCurrentMove)) //removed physical move macro for function consolidating effects
         || ability == ABILITY_INNER_FOCUS
         || (ability == ABILITY_TANGLED_FEET && gBattleMons[Targetbattler].status2 & STATUS2_CONFUSION))
         block = TRUE;
 
     return block;
 }//replace steadfast with inner focus, makes more thematic sense
+//considering whether should add exclusion for canbeconfused to tangledfeet,
+//since bug mon can be confused but are immune to confuse effects because of other sense,
+//so would never hit themselves? well still makes sense, it forces them to rely on
+//other sense making them stronger, without the draw back so yeah that's fine
+//note find bug mon can give tangled feet to lol, think the new gen 8 one,
+//that's a centipede that gives orders to troup if it is a bug hmm
+//don't "need" to add bug as tangled feet has already been added to exclusion so mon never hit themselves
 
 static void TryUpdateRoundTurnOrder(void)
 {
@@ -3893,7 +3900,7 @@ static void atk0C_datahpupdate(void)
                     }
                     if (!gSpecialStatuses[gActiveBattler].dmg && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE))
                         gSpecialStatuses[gActiveBattler].dmg = gHpDealt;
-                    if ((IS_MOVE_PHYSICAL(move) || (IS_MOVE_SPECIAL(move) && GetBattlerAbility(gActiveBattler) == ABILITY_MUSCLE_MAGIC))
+                    if (IsPhysicalMove(gBattlerAttacker,gCurrentMove) //vsonic check, hopefully right
                         && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE) && gCurrentMove != MOVE_PAIN_SPLIT)
                     {
                         gProtectStructs[gActiveBattler].physicalDmg = gHpDealt;
@@ -3909,7 +3916,7 @@ static void atk0C_datahpupdate(void)
                             gSpecialStatuses[gActiveBattler].physicalBattlerId = gBattlerTarget;
                         }
                     }
-                    else if (!IS_MOVE_PHYSICAL(move) && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE)) //changed from special to not phsyical to account for status moves
+                    else if (!IsPhysicalMove(gBattlerAttacker,gCurrentMove) && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE)) //changed from special to not phsyical to account for status moves
                     {   //keep that's how it is in emerald
                         gProtectStructs[gActiveBattler].specialDmg = gHpDealt;
                         gSpecialStatuses[gActiveBattler].specialDmg = gHpDealt;

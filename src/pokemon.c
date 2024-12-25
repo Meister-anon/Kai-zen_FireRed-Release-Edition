@@ -4180,6 +4180,22 @@ bool8 CanEvioliteActivate(u8 target)
         return FALSE;
 }
 
+//put in calc function as terniary condition to set usesdefstat at start
+//thought about adding and not split status to muscle magic, but it doesn't matter
+bool8 IsPhysicalMove(u32 attackerId, u16 move)
+{
+    if (gBattleMoves[move].effect == EFFECT_PSYSHOCK 
+    || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC 
+    || IS_MOVE_PHYSICAL(move)
+    || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack < gBattleMons[attackerId].spAttack)
+    || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack == gBattleMons[attackerId].spAttack
+    &&  gBattleMons[gBattlerTarget].defense < gBattleMons[gBattlerTarget].spDefense)
+    || (move == MOVE_TRI_ATTACK && gBattleMons[attackerId].attack > gBattleMons[attackerId].spAttack))
+        return TRUE;
+
+    return FALSE;
+}
+
 #define APPLY_STAT_MOD(var, mon, stat, statIndex)                                   \
 {                                                                                   \
     (var) = (stat) * (gStatStageRatios)[(mon)->statStages[(statIndex)]][0];         \
@@ -4238,6 +4254,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     else
         GET_MOVE_TYPE(move, moveType); //should all I need, type already set before this point
 
+    usesDefStat = IsPhysicalMove(battlerIdAtk, move);
     typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerIdAtk, battlerIdDef, FALSE);
     attack = attacker->attack;
     defense = defender->defense;
@@ -4245,17 +4262,17 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     spDefense = defender->spDefense;
     speed = attacker->speed;
 
-    if (gBattleMoves[move].effect == EFFECT_PSYSHOCK || gBattleMons[battlerIdAtk].ability == ABILITY_MUSCLE_MAGIC || IS_MOVE_PHYSICAL(move)) // uses defense stat instead of sp.def
+    if (usesDefStat)
     {
         defStat = defense; //not used in a calc mostly for visual clarity
         defStage = gBattleMons[battlerIdDef].statStages[STAT_DEF];  //defined these now hopefully it works fine and doens't mess up normla damage calc
-        usesDefStat = TRUE; //only value actually used in calcs
+        //usesDefStat = TRUE; //only value actually used in calcs
     }
     else// if (IS_MOVE_SPECIAL(move)) // is special   //extra redundency for incase I make an effect/move that works the opposite i.e phys does special
     {
         defStat = spDefense;
         defStage = gBattleMons[battlerIdDef].statStages[STAT_SPDEF];
-        usesDefStat = FALSE; //ported from emerald, will use this later  this wasn't actually the problem can most likely safely bring back in.
+        //usesDefStat = FALSE; //ported from emerald, will use this later  this wasn't actually the problem can most likely safely bring back in.
     } //sets what defense stat move effects based on if special or physical and sets usesDefStat accordingly
 
     h = atk_diff();
@@ -4271,7 +4288,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //then if that stat is also my lowest atk stat it gets a shonen style damage boost
         //that was dumb, that would almost guarantee boosted damage.
         //think battlemons here is fine and wuoldn't be affected by stat stage changes?
-        if (gBattleMons[battlerIdAtk].attack < gBattleMons[battlerIdAtk].spAttack)
+        
+        /*if (gBattleMons[battlerIdAtk].attack < gBattleMons[battlerIdAtk].spAttack)
            usesDefStat = TRUE; //may reverse this, and set split to highest attack stat
         else if (gBattleMons[battlerIdAtk].spAttack < gBattleMons[battlerIdAtk].attack)
             usesDefStat = FALSE;
@@ -4287,6 +4305,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         if (gBattleMons[battlerIdAtk].ability == ABILITY_MUSCLE_MAGIC) //muscle magic override
             usesDefStat = TRUE;
+        */
     
         //based on feedback from anthroyd, I may just simplify this
         //and set the boost to apply against stronger opponents in general
@@ -4326,13 +4345,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //O.o now it works ...ow   
     }
 
-    if (move == MOVE_TRI_ATTACK)
+    /*if (move == MOVE_TRI_ATTACK)
     {
         if (gBattleMons[battlerIdAtk].attack > gBattleMons[battlerIdAtk].spAttack)
            usesDefStat = TRUE;
         if (gBattleMons[battlerIdAtk].spAttack > gBattleMons[battlerIdAtk].attack)
             usesDefStat = FALSE;
-    }
+    }*/
 
     if (gBattleMoves[move].effect == EFFECT_TRIPLE_KICK
         && move != MOVE_SURGING_STRIKES    //could put in separate dmg bscommand, but if works for multitask this should also work

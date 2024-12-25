@@ -821,6 +821,7 @@ u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for 
 bool8 CanEvioliteActivate(u8 target);
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
+bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating effects for if move is physical or not
 
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
 const u16 *GetSpeciesTeachableLearnset(u16 species);

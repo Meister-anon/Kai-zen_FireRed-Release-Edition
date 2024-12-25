@@ -6847,7 +6847,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Donphan"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(90, 120, 120, 65, 60, 65),
+         STATS(90, 120, 120, 85, 40, 65),
         MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
         .catchRate = 60,
         .expYield = 175,
@@ -6868,6 +6868,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDonphanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//I guess keep low speed for use in trick room?
+    //nah its not that slow anyway, will just make faster
+    //keep an eye on this, dependong on how setup could completely invalidate sandshrew line
+    //maybe give something other than sandrush
+    //hmm actually nvm it doesn't have dry skin
 
     [SPECIES_PORYGON2] =
     {
