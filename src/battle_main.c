@@ -4449,6 +4449,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gProtectStructs[gActiveBattler].OmniAideElevated = FALSE;
     gProtectStructs[gActiveBattler].NuisanceElevated = FALSE;
     gProtectStructs[gActiveBattler].LightMetalElevated = FALSE;
+    gProtectStructs[gActiveBattler].LongReachElevated = FALSE;
     gProtectStructs[gActiveBattler].usedHealBlockedMove = FALSE;
     gProtectStructs[gActiveBattler].usesBouncedMove = FALSE;
     gProtectStructs[gActiveBattler].usedGravityPreventedMove = FALSE;
@@ -7192,6 +7193,7 @@ s8 GetChosenMovePriority(u8 battlerId) //made u8 (in test build)
     gProtectStructs[battlerId].OmniAideElevated = FALSE;
     gProtectStructs[battlerId].NuisanceElevated = FALSE;
     gProtectStructs[battlerId].LightMetalElevated = FALSE;
+    gProtectStructs[battlerId].LongReachElevated = FALSE;
 
     if (gProtectStructs[battlerId].noValidMoves) //think put called move effec here, ad set move to called move rather than used move?
         move = MOVE_STRUGGLE;
@@ -7305,7 +7307,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     //function in pokemon.c
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
         && (gBattleMoves[move].power != 1) //added dynamic for moves like hidden power
-        && gBattleMoves[gCurrentMove].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
+        && gBattleMoves[move].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
     {
         gProtectStructs[battlerId].NuisanceElevated = TRUE;
         priority += 3;
@@ -7317,6 +7319,18 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         gProtectStructs[battlerId].LightMetalElevated = TRUE;
         priority++;
     }
+    else if (GetBattlerAbility(battlerId) == ABILITY_LONG_REACH
+        && !IsMoveMakingContact(move, battlerId)
+        && IsPhysicalMove(battlerId, move))
+    {
+        gProtectStructs[battlerId].LongReachElevated = TRUE;
+        priority++;
+    }
+    //unsure about affect, conflicted on if it should be contact moves get priority
+    //since its attacking from long range, but if its that, than it doesnt make sense to go on contact moves
+    //if instead I boost the priority of non-contact physical moves, its signature move gets stronger
+    //still has some good use while not being potentially broken?
+    //but getting priority on contact moves is also realy nice, and would just make them good
 
     else if (gDisableStructs[battlerId].EmergencyExitTimer == 0
     && gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_EMERGENCY_EXIT
@@ -7348,7 +7362,8 @@ bool8 IsPriorityElevatedviaAbility(u8 battlerId)
     || gProtectStructs[battlerId].triageElevated
     || gProtectStructs[battlerId].OmniAideElevated
     || gProtectStructs[battlerId].NuisanceElevated
-    || gProtectStructs[battlerId].LightMetalElevated)
+    || gProtectStructs[battlerId].LightMetalElevated
+    || gProtectStructs[battlerId].LongReachElevated)
         return TRUE;
 
     return FALSE;

@@ -2363,6 +2363,36 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     need fix sturdy, KO resist effects aren't working - sigh
     -fixed
 
+    //go over bug type mon again that I buffed speed on,
+    with trick room considerations may actually be making some mon worse,
+    so go over things and consider if it can be used in trick room,
+    enough bulk or enough offense, otherwise keep speed boost
+
+    /go over hisuian/dlc mon make sure have proper hidden abilities,
+    hisuian samorott and prob others were still default to base form
+
+    //add sound moves to list,
+    //round, echoed voice, hyper voice
+    //also smack down and think focus blast
+    //think give echoed voice to zubat line, as learned move or tm?
+    //hmm both yeah both
+
+    //hmm think I also need some anti heal so make heal block a tm 
+    and spread it around - oh I already made it a tm good job me
+
+    //also idea change stall to work w trick room since its such a big thing
+    //make it so all stall mon go first in trick room 
+    //takes worst ability makes it best,
+    //can turn any mon into perfect trick room mon
+
+    //new idea move switches out opponenet, then also switches out user
+    //Think will call it Foil, as in foil the foes plan,
+    //will be major disruption move low damage think bp 50,
+    //and believe will make it a dark move, not sure on split 
+    //but either way niche move that doesn't seem amazing for sceptile,
+    //until you consider the mega
+    /12/25/24
+
     fixed wimpout and emergency exit rework,
     now working correctly in all scenarios
 

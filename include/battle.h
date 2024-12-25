@@ -343,7 +343,8 @@ struct ProtectStruct
              u32 disableEjectPack : 1; 
 
              u32 shellTrap:1; //hopefully doens't add space
-             u32 padding:7;  
+             u32 LongReachElevated:1;//double check but don't think having protect struct is necessary for priority boost but just makes it easier to track?
+             u32 padding:6;  
              u16 fieldE;
 };
 

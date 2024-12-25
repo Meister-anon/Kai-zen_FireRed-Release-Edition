@@ -1540,3 +1540,6 @@ static const u16 sTMHMMoves[] =
 };
 //add sound moves to list,
 //round, echoed voice, hyper voice
+//also smack down and think focus blast
+//think give echoed voice to zubat line, as learned move or tm?
+//hmm both yeah both

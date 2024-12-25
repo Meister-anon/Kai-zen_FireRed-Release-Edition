@@ -506,7 +506,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_TORRENT, ABILITY_HEAVY_METAL},
-        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_NONE},
+        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_MEGA_LAUNCHER},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -3798,6 +3798,7 @@ const struct BaseStats gBaseStats[] =
     //more brown in the purple skin town, like using less makeup,
     //brown hair instead of blonde died,
     //still a  gall esque so gold glitter lip stick,
+    //base idea black/thicker SPECIES_PHEROMOSA
 
     [SPECIES_ELECTABUZZ] =
     {
@@ -7499,6 +7500,14 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSceptileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//since is dragon may give flamethrower  //also acrobatics if doesn't already incinerate & fire blast & outrage
+    //to synergize w megas new ability, and as an alt to shed tail since I don't like it,
+    //new idea move switches out opponenet, then also switches out user
+    //Think will call it Foil, as in foil the foes plan,
+    //will be major disruption move low damage think bp 50,
+    //and believe will make it a dark move, not sure on split 
+    //but either way niche move that doesn't seem amazing for sceptile,
+    //until you consider the mega
+    //vsonic
 
     [SPECIES_TORCHIC] =
     {
@@ -14565,7 +14574,7 @@ const struct BaseStats gBaseStats[] =
         // #endif
         .bodyColor = BODY_COLOR_RED, //w speed drop don't think sand rush really worth it, keep anyway
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = FALSE,//nah imma drop sand rush for magma armor
         .levelUpLearnset = sEmboarLevelUpLearnset,
         .tmhmLearnset = sEmboarTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
@@ -14579,6 +14588,10 @@ const struct BaseStats gBaseStats[] =
     //if I gave it blaze and belly drum, plus lower speed could do trick room strats
     //with triple stab, would work since i buffed blaze to activate at 50%
     //stat redistro-sp def highest idea steam armor, -lower speed to work in trick room
+    //ok still unsure between magma armor and sand rush
+    //magma armor is REALLY nice, but sand rush w my sandstorm buff essentially turns you into a raid boss,
+    //get the ground stat boosts, a speed boost, AND a slight evasion boost
+    //and setting it up beforehand you can assault vest for even more sp def
 
     [SPECIES_OSHAWOTT] =
     {
@@ -14593,7 +14606,7 @@ const struct BaseStats gBaseStats[] =
         63,
         45
         ),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 62,
         //.evYield_SpAttack = 1,
@@ -14603,8 +14616,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_TORRENT, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_NONE},
+        .abilities = {ABILITY_TORRENT, ABILITY_SHELL_ARMOR},
+        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14626,7 +14639,7 @@ const struct BaseStats gBaseStats[] =
         83,
         60
         ),
-        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 145,
         //.evYield_SpAttack = 2,
@@ -14636,8 +14649,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_TORRENT, ABILITY_BATTLE_ARMOR},
-        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_NONE},
+        .abilities = {ABILITY_TORRENT, ABILITY_SHELL_ARMOR},
+        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_SHARPNESS},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14660,7 +14673,7 @@ const struct BaseStats gBaseStats[] =
         108,
         70
         ),
-        MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
+        MON_TYPES(TYPE_WATER, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 238,
         //.evYield_SpAttack = 3,
@@ -14670,8 +14683,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_TORRENT, ABILITY_BATTLE_ARMOR},
-        .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_NONE},
+        .abilities = {ABILITY_TORRENT, ABILITY_SHELL_ARMOR},
+        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_SHARPNESS},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14679,6 +14692,17 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSamurottTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give fighting moves
+    //hmm while fighting makes sense its not really a good type?
+    //adds 3 weaknesses, while only adding 2 advantages and situational benefit on moves,
+    //its prob best to just make this part normal, more versatility
+    //and think also give sharpness as ability
+    //...Why did I give this shell armor and battle armor when they're the same thing??
+    //OK this is much better versatile w mold breaker and normal type
+
+    //also idea change stall to work w trick room since its such a big thing
+    //make it so all stall mon go first in trick room 
+    //takes worst ability makes it best,
+    //can turn any mon into perfect trick room mon
 
     [SPECIES_PATRAT] =
     {
@@ -17664,7 +17688,7 @@ const struct BaseStats gBaseStats[] =
         80,
         135,
         105,
-        60,
+        20,
         60,
         105
         ),
@@ -17688,7 +17712,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sEscavalierLevelUpLearnset,
         .tmhmLearnset = sEscavalierTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//sigh ANOTHER case where I just can't buff speed because of dang trick room,
+    //you think more speed makes it better but NO
 
     [SPECIES_FOONGUS] =
     {
@@ -18645,8 +18670,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_HYDRATION, ABILITY_STICKY_HOLD},
-            .abilityHidden = {ABILITY_UNBURDEN, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_RED,
+            .abilityHidden = {ABILITY_UNBURDEN, ABILITY_SHED_SKIN}, //secret tech, give toxic orb/flame orb, free healing
+        .bodyColor = BODY_COLOR_RED, //toxic orb if I want to run physical moves, flame orb for less dmg taken, but full special set
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sAccelgorLevelUpLearnset,
@@ -20335,7 +20360,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        90,
+        84,
         54,
         66,
         99,
@@ -20356,7 +20381,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -20365,7 +20390,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sVivillonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_HAS_COSMETIC_FORMS,
-    },
+    },//to differentiate from butterfree and because its defenses are shite,
+    //swapping friend guard for protean, it has many different forms so it changes with its environemnt
+    //so makes sense
+    //...ok so apparently friend guard IS good on this thing for some reason -_-
 
     [SPECIES_LITLEO] =
     {
@@ -22328,8 +22356,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_OVERGROW, ABILITY_OVERGROW},
-        .abilityHidden = {ABILITY_LONG_REACH, ABILITY_NONE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_SNIPER},
+        .abilityHidden = {ABILITY_LONG_REACH, ABILITY_INNER_FOCUS},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22337,7 +22365,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDartrixTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(34, AVERAGE_EFFORT), 0, SPECIES_DECIDUEYE},
             {EVO_LEVEL_FORM, RELATIVE_EVO(36, AVERAGE_EFFORT), F_HISUIAN_FORM, SPECIES_DECIDUEYE_HISUIAN}), //Should hopefully blank these for now without issue
-    },
+    },//think prefer ultra moon dex entry
 
     [SPECIES_DECIDUEYE] =
     {
@@ -22348,7 +22376,7 @@ const struct BaseStats gBaseStats[] =
         88,
         107,
         75,
-        70,
+        80,
         100,
         100
         ),
@@ -22362,8 +22390,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_OVERGROW, ABILITY_OVERGROW},
-        .abilityHidden = {ABILITY_LONG_REACH, ABILITY_NONE},
+        .abilities = {ABILITY_OVERGROW, ABILITY_SNIPER}, //buffing long reach to have passive effect so its not non-existent
+        .abilityHidden = {ABILITY_LONG_REACH, ABILITY_INNER_FOCUS}, //mostly buffed becuase wolfeyvgc worst starter pick smh
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22371,6 +22399,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDecidueyeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //put long reach in slot 2, give alter hidden ability potentially 2,
+    //ideas insomnia, sniper, inner focus -note (focus buffs, no crit flinch or intimidate)
 
     [SPECIES_LITTEN] =
     {
@@ -23342,7 +23372,7 @@ const struct BaseStats gBaseStats[] =
         69,
         86,
         92,
-        72,
+        42,
         80,
         132
         ),
@@ -23366,7 +23396,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sAraquanidLevelUpLearnset,
         .tmhmLearnset = sAraquanidTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//dropped speed back, to default for trick room use
+    //for some reason most bugs were slow, despite bugs typically being quick
+    //hard to catch, but also horrible in trick room because of weak defenses
+    //this one is actually fine
 
     [SPECIES_FOMANTIS] =
     {
@@ -23905,7 +23938,7 @@ const struct BaseStats gBaseStats[] =
         115,
         125,
         140,
-        55,
+        40,
         60,
         90
         ),
@@ -35368,7 +35401,7 @@ const struct BaseStats gBaseStats[] =
         .abilities = { ABILITY_TABLETS_OF_RUIN, ABILITY_NONE },
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN, //based on wolfyvgc vid redid ability drops speed instead of attack
-        /*.speciesName = _("Wo-Chien"),
+        /*.speciesName = _("Wo-Chien"), //on worst legendaries, needs better support moves as well? I guess
         .cryId = CRY_WO_CHIEN,
         .natDexNum = NATIONAL_DEX_WO_CHIEN,
         .categoryName = _("Ruinous"),
@@ -38307,7 +38340,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        90,
+        100,
         100,
         75,
         135,
@@ -38327,7 +38360,7 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_REGENERATOR, ABILITY_REGENERATOR}, //...why did this get lightning rod.
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN, //it regenerates its tail its getting that instead
-       .noFlip = FALSE,
+       .noFlip = FALSE, // "...if it is switched out, it will remain Mega Evolved."  yeah regenerator works much better
         .floating = FALSE,
         .levelUpLearnset = sSceptileLevelUpLearnset,
         .tmhmLearnset = sSceptileTMHMLearnset,
@@ -40932,12 +40965,12 @@ const struct BaseStats gBaseStats[] =
             .abilityHidden = {ABILITY_POISON_TOUCH, ABILITY_KEEN_EYE}, 
             .bodyColor = BODY_COLOR_BLACK,
             .noFlip = TRUE,
-        .floating = FALSE,
-        .levelUpLearnset = sSneaselHisuianLevelUpLearnset,
-        .tmhmLearnset = sSneaselHisuianTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM_FEMALE, ITEM_RAZOR_CLAW, 0, SPECIES_SNEASLER},
-                {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_SNEASLER}), //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
+            .floating = FALSE,
+            .levelUpLearnset = sSneaselHisuianLevelUpLearnset,
+            .tmhmLearnset = sSneaselHisuianTMHMLearnset,
+            .evolutions = EVOLUTION({EVO_ITEM_FEMALE, ITEM_RAZOR_CLAW, 0, SPECIES_SNEASLER},
+                    {EVO_LEVEL_FEMALE, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_SNEASLER}), //Should hopefully blank these for now without issue
+            .flags = F_HISUIAN_FORM,
         },
 
 //////#if P_GEN_5_POKEMON == TRUE
@@ -40948,11 +40981,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
             90,
-            108,
+            118,
             80,
-            85,
+            93,
             100,
-            65
+            75
             ),
             MON_TYPES(TYPE_WATER, TYPE_DARK),
             .catchRate = 45,
@@ -40964,16 +40997,17 @@ const struct BaseStats gBaseStats[] =
             .growthRate = GROWTH_MEDIUM_SLOW,
             .eggGroup1 = EGG_GROUP_FIELD,
             .eggGroup2 = EGG_GROUP_FIELD,
-            .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-            .abilityHidden = {ABILITY_SHELL_ARMOR, ABILITY_NONE},
+            .abilities = {ABILITY_TORRENT, ABILITY_SHARPNESS},
+            .abilityHidden = {ABILITY_DARK_DEAL, ABILITY_NONE}, //dark deal think should be fitting
             .bodyColor = BODY_COLOR_BLUE,
             .noFlip = FALSE,
-        .floating = FALSE,
-        .levelUpLearnset = sSamurottHisuianLevelUpLearnset,
-        .tmhmLearnset = sSamurottHisuianTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-        .flags = F_HISUIAN_FORM,
-        },
+            .floating = FALSE,
+            .levelUpLearnset = sSamurottHisuianLevelUpLearnset,
+            .tmhmLearnset = sSamurottHisuianTMHMLearnset,
+            .evolutions = NULL, //Should hopefully blank these for now without issue
+            .flags = F_HISUIAN_FORM,
+        },//go over hisuian/dlc mon make sure have proper hidden abilities,
+        //this and prob others were still default to base form
 
     [SPECIES_LILLIGANT_HISUIAN] =
     {
@@ -41227,7 +41261,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
             98,
             112,
-            80,
+            90,
             60,
             95,
             95
@@ -41242,8 +41276,8 @@ const struct BaseStats gBaseStats[] =
             .growthRate = GROWTH_MEDIUM_SLOW,
             .eggGroup1 = EGG_GROUP_FLYING,
             .eggGroup2 = EGG_GROUP_FLYING,
-            .abilities = {ABILITY_OVERGROW, ABILITY_SCRAPPY},
-            .abilityHidden = {ABILITY_FEATHER_JACKET, ABILITY_NONE},
+            .abilities = {ABILITY_OVERGROW, ABILITY_SNIPER},
+            .abilityHidden = {ABILITY_FEATHER_JACKET, ABILITY_SCRAPPY},
             .bodyColor = BODY_COLOR_BROWN,
             .noFlip = FALSE,
         .floating = FALSE,
@@ -44664,7 +44698,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -44701,7 +44735,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -44738,7 +44772,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -44775,7 +44809,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -44812,7 +44846,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
@@ -44849,7 +44883,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
@@ -44886,7 +44920,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -44923,7 +44957,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -44960,7 +44994,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -44997,7 +45031,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -45034,7 +45068,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -45071,7 +45105,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -45108,7 +45142,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -45145,7 +45179,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -45182,7 +45216,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -45219,7 +45253,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -45256,7 +45290,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -45293,7 +45327,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
@@ -45330,7 +45364,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_SHIELD_DUST, ABILITY_COMPOUND_EYES},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_WONDER_SKIN},
+            .abilityHidden = {ABILITY_FRIEND_GUARD, ABILITY_PROTEAN},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,

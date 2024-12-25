@@ -418,6 +418,16 @@ extern const struct BattleMove gBattleMoves[];
 //thaw user and two strikes can be removed, FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING  can also be removed 
 //also flags are u32, so I beleive I can go up to 32 with this
 //have 4 spaces left - removed kings rock flag use, so has 5 spaces now
+//starts at 0 can go to 31, not 32
+
+//if need/want to can repurpose FLAG_RECKLESS_BOOST, as EE uses a macro instead
+//using the effect to determine if is a recoil move and should get the boost
+//works because so few effects in category, just the 33 recoil etc and recoil if miss, and now overheat as well
+//somehat unsure if changing overheat to recoil was good, makes sense for romhack as point is just to be as dangerous as possible
+// but for competitive where dying for damage isn't valued I think it just makes it worse?
+//especially since there are some mon that can work around the drop i.e mixed attackers,
+//but there's a difference from using a strong move and all your attacks being worthless unless you switch, (taking damage on something else) and on switch in
+//vs taking the hit but being able to stay in for more attacks guess effect is about the same so no point dropping the stat
 
 #define SPINDA_SPOT_HEIGHT 16
 

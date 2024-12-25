@@ -115,6 +115,7 @@ static const struct LevelUpMove sSquirtleLevelUpLearnset[] = {
     LEVEL_UP_MOVE(7, MOVE_BUBBLE),
     LEVEL_UP_MOVE(10, MOVE_WITHDRAW),
     LEVEL_UP_MOVE(13, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(14, MOVE_HEAL_PULSE),
     LEVEL_UP_MOVE(18, MOVE_BITE),
     LEVEL_UP_MOVE(23, MOVE_RAPID_SPIN),
     LEVEL_UP_MOVE(28, MOVE_PROTECT),
@@ -126,6 +127,7 @@ static const struct LevelUpMove sSquirtleLevelUpLearnset[] = {
 
 static const struct LevelUpMove sWartortleLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
+    LEVEL_UP_MOVE(1, MOVE_HEAL_PULSE),
     LEVEL_UP_MOVE(1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE(1, MOVE_BUBBLE),
     LEVEL_UP_MOVE(4, MOVE_TAIL_WHIP),
@@ -147,6 +149,7 @@ static const struct LevelUpMove sBlastoiseLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE(1, MOVE_BUBBLE),
     LEVEL_UP_MOVE(1, MOVE_WITHDRAW),
+    LEVEL_UP_MOVE(1, MOVE_HEAL_PULSE),
     LEVEL_UP_MOVE(1, MOVE_IRON_DEFENSE),
     LEVEL_UP_MOVE(4, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE(7, MOVE_BUBBLE),
@@ -165,7 +168,8 @@ static const struct LevelUpMove sBlastoiseLevelUpLearnset[] = {
     LEVEL_UP_MOVE(58, MOVE_HYDRO_PUMP),
     LEVEL_UP_END
 };  //figure out how to balance this right for added steel moves
-//also give heal pulse, for use w mega ability
+//also may give heal pulse, for use w mega ability
+//yeah if slowking line can get it this can work too
 
 static const struct LevelUpMove sCaterpieLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
@@ -7206,6 +7210,7 @@ static const struct LevelUpMove sCarnivineLevelUpLearnset[] = {
     LEVEL_UP_MOVE(21, MOVE_INGRAIN),
     LEVEL_UP_MOVE(27, MOVE_FEINT_ATTACK),
     LEVEL_UP_MOVE(31, MOVE_LEAF_TORNADO),
+    LEVEL_UP_MOVE(34, MOVE_LEECH_LIFE),
     LEVEL_UP_MOVE(37, MOVE_STOCKPILE),
     LEVEL_UP_MOVE(37, MOVE_SPIT_UP),
     LEVEL_UP_MOVE(37, MOVE_SWALLOW),
