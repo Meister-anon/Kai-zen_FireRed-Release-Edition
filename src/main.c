@@ -68,7 +68,8 @@ IntrFunc gIntrTable[INTR_COUNT];
 bool8 gLinkVSyncDisabled;
 u32 IntrMain_Buffer[0x80]; //was 200 applied EE fix for iwram saving
 u8 gPcmDmaCounter;
-void *gAgbMainLoop_sp;
+void *gAgbMainLoop_sp; //ok w main.txt change, this works, but line below doesn't
+//COMMON_DATA void *gAgbMainLoop_sp = NULL; //can't get this to build //checked cawt setup I needed to addd to common main.txt *facepalm
 
 // These variables are not defined in RS or Emerald, and are never read.
 // They were likely used to debug the audio engine and VCount interrupt.
@@ -85,11 +86,14 @@ static IntrFunc * const sTimerIntrFunc = gIntrTable + 0x7;
 //and save failed screen, if its a firered thing may be able to bring this down some to save space
 //not a fire red thing
 //EWRAM_DATA u8 gDecompressionBuffer[0x4000] = {0}; 
-EWRAM_DATA u16 gTrainerId = 0;
+static EWRAM_DATA u16 sTrainerId = 0;
 
 static void UpdateLinkAndCallCallbacks(void);
 static void InitMainCallbacks(void);
 static void CallCallbacks(void);
+#ifdef BUGFIX
+static void SeedRngWithRtc(void);
+#endif
 static void ReadKeys(void);
 void InitIntrHandlers(void);
 static void WaitForVBlank(void);
@@ -236,9 +240,9 @@ void AgbMain()
     AGBPrintfInit();
 #endif
 #endif
-    gAgbMainLoop_sp = __builtin_frame_address(0);
+    gAgbMainLoop_sp = __builtin_frame_address(0); //can't get this line to build for whatever reason
     AgbMainLoop();
-}
+}//oh search revelas I'm missin glot of stuff for builtin_frame address so maybe that's it?
 
 void AgbMainLoop(void)
 {
@@ -328,12 +332,12 @@ void SeedRngAndSetTrainerId(void)
     u16 val = REG_TM1CNT_L;
     SeedRng(val);
     REG_TM1CNT_H = 0;
-    gTrainerId = val;
+    sTrainerId = val;
 }
 
 u16 GetGeneratedTrainerIdLower(void)
 {
-    return gTrainerId;
+    return sTrainerId;
 }
 
 void EnableVCountIntrAtLine150(void)

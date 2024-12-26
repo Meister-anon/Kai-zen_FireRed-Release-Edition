@@ -412,7 +412,7 @@ LD_SCRIPT_DEPS :=
 endif
 
 LD_BUILD = $(LD_SCRIPT:.txt=.ld)
-
+#rule for building LD_scripts
 $(OBJ_DIR)/$(LD_BUILD): $(LD_SCRIPT) $(LD_SCRIPT_DEPS)
 	cd $(OBJ_DIR) && sed -f ../../ld_script.sed ../../$< | sed "s#tools/#../../tools/#g" > $(LD_BUILD)
 

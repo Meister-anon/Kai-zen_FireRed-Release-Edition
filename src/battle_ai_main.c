@@ -153,10 +153,13 @@ static u32 GetWildAiFlags(void)
     return flags;
 }
 
+//seems not used rn
 void BattleAI_SetupFlags(void)
 {
+    //think can ignore recorded seems its not a video but an online feature the record mixing thing
+    //idk may need for test system
     /*if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
-        AI_THINKING_STRUCT->aiFlags = GetAiScriptsInRecordedBattle();   //think can ignore recorded seems its not a video but an online feature the record mixing thing
+        AI_THINKING_STRUCT->aiFlags = GetAiScriptsInRecordedBattle();   
     else */if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
         AI_THINKING_STRUCT->aiFlags = AI_FLAG_SAFARI;
     else if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)
@@ -180,7 +183,7 @@ void BattleAI_SetupFlags(void)
         AI_THINKING_STRUCT->aiFlags |= AI_FLAG_DOUBLE_BATTLE; // Act smart in doubles and don't attack your partner.
 }
 
-// sBattler_AI set in ComputeBattleAiScores
+// sBattler_AI set in ComputeBattleAiScores - used
 void BattleAI_SetupAIData(u8 defaultScoreMoves)
 {
     s32 i, move, dmg;
@@ -235,6 +238,7 @@ u8 BattleAI_ChooseMoveOrAction(void)
 }
 
 // damages &/other info computed in GetAIDataAndCalcDmg
+//rn in battle_main, handleturnactionselectionstate
 u8 ComputeBattleAiScores(u8 battler)
 {
     sBattler_AI = battler;
@@ -1395,7 +1399,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
               || !(gBattleWeather & WEATHER_HAIL))
                 score -= 10;
             break;
-        case EFFECT_OHKO:
+        case EFFECT_OHKO: //upgrade w new effect
         #if B_SHEER_COLD_IMMUNITY >= GEN_7
             if (move == MOVE_SHEER_COLD && IS_BATTLER_OF_TYPE(battlerDef, TYPE_ICE))
                 return 0;
@@ -5307,7 +5311,7 @@ static s16 AI_Safari(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     return score;
 }
 
-// First battle logic
+// First battle logic - Emerald Specific not Fire red
 static s16 AI_FirstBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 {
     if (AI_DATA->hpPercents[battlerDef] <= 20)
@@ -5368,7 +5372,6 @@ void BattleAI_SetupAIData_Default(void)
         AI_THINKING_STRUCT->simulatedRNG[i] = 100 - (Random() % 16);
     }
 
-    gBattleResources->AI_ScriptsStack->size = 0;
     gBattlerAttacker = gActiveBattler;
 
     // Decide a random target battlerId in doubles.

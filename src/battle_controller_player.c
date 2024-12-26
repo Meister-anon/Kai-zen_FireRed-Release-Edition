@@ -3378,7 +3378,11 @@ void CB2_BattleMoveInfo(void)
     gPartyMenu.menuType = PARTY_MENU_TYPE_IN_BATTLE;
     //...ok it works?? it shows correct active battler on switch
     //but for some crazy reason reactivating the callback swaps the mon back and forth???
-    UpdatePartyToBattleOrder();//potentially useful?//
+    
+    //changing this for some reason also changed the result of the summary screen dex callback??
+    //caused that to also swap mon data/position
+    //in that case think just a matter of placement swapping from battle that I need to account for?
+    //UpdatePartyToBattleOrder();//potentially useful?//
     //ok changing value of party member value now does something, after addition of UpdatePartyOrderTObattler, potentially may need update to field function instead?
     //ok so using gactivebatler w below properly tracks the mon switched the first time,
     //but using gbattlerattacker which I expect would be better, is actually worse? 

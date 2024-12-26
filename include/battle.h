@@ -630,7 +630,7 @@ struct BattleResources
     struct AiLogicData *aiData;
     struct AIPartyData *aiParty;
     struct BattleHistory *battleHistory;
-    struct BattleScriptsStack *AI_ScriptsStack;
+    //struct BattleScriptsStack *AI_ScriptsStack; //deprecated no longer used
     u8 bufferA[MAX_BATTLERS_COUNT][0x200]; //ported seems for megas
     u8 bufferB[MAX_BATTLERS_COUNT][0x200];
 };

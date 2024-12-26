@@ -203,12 +203,23 @@ static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
 #define TEST_BUTTON(field, button) ({(field) & (button);})
 #define JOY_NEW(button)  TEST_BUTTON(gMain.newKeys,  button)
 #define JOY_HELD(button) TEST_BUTTON(gMain.heldKeys, button)
+#define JOY_HELD_RAW(button) TEST_BUTTON(gMain.heldKeysRaw, button)
 #define JOY_REPT(button) TEST_BUTTON(gMain.newAndRepeatedKeys, button)
 
 extern u8 gStringVar1[];
 extern u8 gStringVar2[];
 extern u8 gStringVar3[];
 extern u8 gStringVar4[];
+
+#define S16TOPOSFLOAT(val)   \
+({                           \
+    s16 v = (val);           \
+    float f = (float)v;      \
+    if(v < 0) f += 65536.0f; \
+    f;                       \
+})
+
+#define DIV_ROUND_UP(val, roundBy)(((val) / (roundBy)) + (((val) % (roundBy)) ? 1 : 0))
 
 #define ROUND_BITS_TO_BYTES(numBits)(((numBits) / 8) + (((numBits) % 8) ? 1 : 0))
 
