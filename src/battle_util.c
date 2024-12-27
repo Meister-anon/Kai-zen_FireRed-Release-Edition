@@ -10834,6 +10834,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
 
 
     // Set dynamic move type.
+    //go over this function see if need use below here, or can just use returnmovetype
     SetTypeBeforeUsingMove(move, gBattlerAttacker);
     GET_MOVE_TYPE(move, moveType); //need add argument type, for two type move
 
@@ -13258,7 +13259,8 @@ bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions
 }
 
 //can't use before use move battle controller is done
-//need execute as part of bs
+//because called move & gcurrent move aren't set until its used
+//need execute as part of bs (??)
 u8 GetMoveType(u8 moveType, u8 btlAttacker)
 {
     u8 move; //move should be current move unless move that calls move than instead is calledmove

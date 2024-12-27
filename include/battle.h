@@ -1016,6 +1016,13 @@ enum
     BACK_PIC_OLDMAN
 };
 
+enum turn_Priority
+{
+    USER_FIRST = 0,
+    BATTLER_FIRST = 1,
+    SPEED_TIE = 2
+};
+
 struct BattleSpriteInfo
 {
     /*0x0*/ u16 invisible : 1; // 0x1

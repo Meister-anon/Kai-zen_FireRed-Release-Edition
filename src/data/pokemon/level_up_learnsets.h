@@ -8254,6 +8254,7 @@ static const struct LevelUpMove sPatratLevelUpLearnset[] = {
     LEVEL_UP_MOVE(13, MOVE_SAND_ATTACK),
     LEVEL_UP_MOVE(16, MOVE_SUPER_FANG),
     LEVEL_UP_MOVE(18, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(20, MOVE_PLUCK),
     LEVEL_UP_MOVE(21, MOVE_CRUNCH),
     LEVEL_UP_MOVE(23, MOVE_FALSE_SWIPE),
     LEVEL_UP_MOVE(26, MOVE_FOCUS_ENERGY),
@@ -8269,6 +8270,7 @@ static const struct LevelUpMove sPatratLevelUpLearnset[] = {
 static const struct LevelUpMove sWatchogLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_FAKE_OUT),
     LEVEL_UP_MOVE( 0, MOVE_GLARE),
+    LEVEL_UP_MOVE( 1, MOVE_PLUCK),
     LEVEL_UP_MOVE( 1, MOVE_CONFUSE_RAY),
     LEVEL_UP_MOVE( 1, MOVE_FALSE_SWIPE),
     LEVEL_UP_MOVE( 1, MOVE_ROTOTILLER),
@@ -8283,6 +8285,7 @@ static const struct LevelUpMove sWatchogLevelUpLearnset[] = {
     LEVEL_UP_MOVE(13, MOVE_SAND_ATTACK),
     LEVEL_UP_MOVE(16, MOVE_CRUNCH),
     LEVEL_UP_MOVE(18, MOVE_HYPNOSIS),
+    LEVEL_UP_MOVE(20, MOVE_PLUCK),
     LEVEL_UP_MOVE(22, MOVE_SUPER_FANG),
     LEVEL_UP_MOVE(25, MOVE_SUBSTITUTE),
     LEVEL_UP_MOVE(29, MOVE_FOCUS_ENERGY),
@@ -8293,7 +8296,7 @@ static const struct LevelUpMove sWatchogLevelUpLearnset[] = {
     LEVEL_UP_MOVE(46, MOVE_BATON_PASS),
     LEVEL_UP_MOVE(50, MOVE_SLAM),
     LEVEL_UP_END
-};
+};//gain pluck to synergize cheek pouch
 
 static const struct LevelUpMove sLillipupLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_LEER),

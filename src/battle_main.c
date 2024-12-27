@@ -1361,16 +1361,23 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     }
 }
 
-u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for testin but this doesn't appear used anywhere
+//-works perfectly, need make sure keep in track with above function - unsure if properly tracks hidden power?
+//could change this make use function argument to instead of actually setting dynamic type,
+//would be able to use to test what type will be, could be used everywhere
+//without needing to worry about actually setting the type
+u8 ReturnMoveType(u16 move, u8 battlerAtk) 
 {
     s32 typeBits;
     u32 moveType, ateType, attackerAbility;
     u16 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
 
+    //populate default type, go through assignment and return what would be changed type
+    moveType = gBattleMoves[move].type;
+
     if (move == MOVE_STRUGGLE || move == MOVE_BIDE)
         return 0xFF;
 
-    gBattleStruct->dynamicMoveType = 0xFF; //change for new setup
+
     gBattleStruct->ateBoost[battlerAtk] = 0;
     gSpecialStatuses[battlerAtk].gemBoost = FALSE;
 
@@ -1378,75 +1385,75 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
     if (gBattleMoves[move].effect == EFFECT_CHANGE_TYPE_ON_ITEM) //not fling
     {
         if (holdEffect == gBattleMoves[move].argument)
-            gBattleStruct->dynamicMoveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);// | F_DYNAMIC_TYPE_2;
+            moveType = ItemId_GetSecondaryId(gBattleMons[battlerAtk].item);// | F_DYNAMIC_TYPE_2;
     }
     else if (gBattleMoves[move].effect == EFFECT_REVELATION_DANCE)
     {
         if (gBattleMons[battlerAtk].type1 != TYPE_MYSTERY)
-            gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type1;// | F_DYNAMIC_TYPE_2;
+            moveType = gBattleMons[battlerAtk].type1;// | F_DYNAMIC_TYPE_2;
         else if (gBattleMons[battlerAtk].type2 != TYPE_MYSTERY)
-            gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type2;// | F_DYNAMIC_TYPE_2;
+            moveType = gBattleMons[battlerAtk].type2;// | F_DYNAMIC_TYPE_2;
         else if (gBattleMons[battlerAtk].type3 != TYPE_MYSTERY)
-            gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type3;// | F_DYNAMIC_TYPE_2;
+            moveType = gBattleMons[battlerAtk].type3;// | F_DYNAMIC_TYPE_2;
     }
     else if (gBattleMoves[move].effect == EFFECT_NATURAL_GIFT)
     {
         if (ItemId_GetPocket(gBattleMons[battlerAtk].item) == POCKET_BERRY_POUCH)
-            gBattleStruct->dynamicMoveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
+            moveType = gNaturalGiftTable[ITEM_TO_BERRY(gBattleMons[battlerAtk].item)].type;
     }
     else if (gBattleMoves[move].effect == EFFECT_TERRAIN_PULSE)
     {
         if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_TERRAIN_ANY))
         {
             if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
             else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_GRASS;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_GRASS;// | F_DYNAMIC_TYPE_2;
             else if (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_FAIRY;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_FAIRY;// | F_DYNAMIC_TYPE_2;
             else if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN)
-                gBattleStruct->dynamicMoveType = TYPE_PSYCHIC;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_PSYCHIC;// | F_DYNAMIC_TYPE_2;
             else //failsafe
-                gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
+                moveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
         }
     }
     else if ((move == MOVE_WEATHER_BALL) && (WEATHER_HAS_EFFECT))
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
-            gBattleStruct->dynamicMoveType = TYPE_WATER;
+            moveType = TYPE_WATER;
         else if (gBattleWeather & WEATHER_SANDSTORM_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_ROCK;
+            moveType = TYPE_ROCK;
         else if (gBattleWeather & WEATHER_SUN_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_FIRE;
+            moveType = TYPE_FIRE;
         else if (gBattleWeather & WEATHER_HAIL_ANY)
-            gBattleStruct->dynamicMoveType = TYPE_ICE;
+            moveType = TYPE_ICE;
         else if (gBattleWeather & WEATHER_STRONG_WINDS)
-            gBattleStruct->dynamicMoveType = TYPE_FLYING;
+            moveType = TYPE_FLYING;
         else
-            gBattleStruct->dynamicMoveType = TYPE_NORMAL;
+            moveType = TYPE_NORMAL;
     }
 
     attackerAbility = GetBattlerAbility(battlerAtk);
-    GET_MOVE_TYPE(move, moveType);
+    //GET_MOVE_TYPE(move, moveType);
 
 
     if (move == MOVE_RAGE) //sets rage type with preference for non normal
         {
             if (gBattleMons[battlerAtk].type1 == TYPE_NORMAL 
             && gBattleMons[battlerAtk].type2 != TYPE_NORMAL)
-                gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type2;
+                moveType = gBattleMons[battlerAtk].type2;
             else //sets rage to type 1
-                gBattleStruct->dynamicMoveType = gBattleMons[battlerAtk].type1; //need make sure use battlerAtk not gbattlerattacker that causes errors for some reason
+                moveType = gBattleMons[battlerAtk].type1; //need make sure use battlerAtk not gbattlerattacker that causes errors for some reason
         }
 
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
         || gStatuses4[battlerAtk] & STATUS4_ELECTRIFIED)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;   //need test if these work without this extra value
+        moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;   //need test if these work without this extra value
     }
     else if (IsAbilityOnField(ABILITY_ABSOLUTE_ZERO) && moveType == TYPE_WATER)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ICE;
+        moveType = TYPE_ICE;
     }
     else if (gBattleMoves[move].type == TYPE_NORMAL
              && move != MOVE_HIDDEN_POWER
@@ -1459,8 +1466,8 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
                  || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))
                  || (attackerAbility == ABILITY_UNCHAINED_MELODY && (ateType = TYPE_SOUND))))
     {
-        gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
-        gBattleStruct->ateBoost[battlerAtk] = 1;
+        moveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+
     }
     else if (gBattleMoves[move].type == TYPE_SOUND
              && move != MOVE_HIDDEN_POWER
@@ -1469,8 +1476,8 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
-        gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
-        gBattleStruct->ateBoost[battlerAtk] = 1;
+        moveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
+
     }
     else if ((move != MOVE_HIDDEN_POWER
              && move != MOVE_WEATHER_BALL //note was before changed type calc, 
@@ -1478,30 +1485,30 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
              && attackerAbility == ABILITY_NORMALIZE)   //thought to remove normal exclusion, but would just result in them getting much weaker
     {                                                   //without stab, so not worth
-        gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
-        gBattleStruct->ateBoost[battlerAtk] = 1;    //actually I can do this with typecalc function and they can keep stab.
+        moveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;    //WILL MAke moves do neutral damage to everything, need exclude from joat.
+                                                        //actually I can do this with typecalc function and they can keep stab.
     }
     else if (gBattleMoves[move].flags & FLAG_SOUND
              && attackerAbility == ABILITY_LIQUID_VOICE)
     {
-        gBattleStruct->dynamicMoveType = TYPE_WATER;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_WATER;// | F_DYNAMIC_TYPE_2;
     }
     else if (gBattleMoves[move].type == TYPE_WATER
         && attackerAbility == ABILITY_LIQUID_SOUL)
     {
-        gBattleStruct->dynamicMoveType = TYPE_GHOST;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_GHOST;// | F_DYNAMIC_TYPE_2;
     }
     else if (attackerAbility == ABILITY_WETIKO)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
     }
     else if (gStatuses4[battlerAtk] & STATUS4_PLASMA_FISTS && moveType == TYPE_NORMAL)
     {
-        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
     }
     else if (move == MOVE_AURA_WHEEL && gBattleMons[battlerAtk].species == SPECIES_MORPEKO_HANGRY)
     {
-        gBattleStruct->dynamicMoveType = TYPE_DARK;// | F_DYNAMIC_TYPE_2;
+        moveType = TYPE_DARK;// | F_DYNAMIC_TYPE_2;
     }
 
     else if (move == MOVE_HIDDEN_POWER)
@@ -1517,13 +1524,13 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk) //can't reemnber if was just for test
         //// Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
          // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
         //changed to -4 for sound type addition, need test unsure if fully necessary
-        gBattleStruct->dynamicMoveType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
-        if (gBattleStruct->dynamicMoveType == TYPE_MYSTERY || gBattleStruct->dynamicMoveType == TYPE_SOUND) //add or for type sound
-            gBattleStruct->dynamicMoveType = TYPE_FAIRY; 
-        gBattleStruct->dynamicMoveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
+        moveType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
+        if (moveType == TYPE_MYSTERY || moveType == TYPE_SOUND) //add or for type sound
+            moveType = TYPE_FAIRY; 
+        moveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
     }
 
-    return gBattleStruct->dynamicMoveType;
+    return moveType;
 }
 
 static void LinkBattleComputeBattleTypeFlags(u8 numPlayers, u8 multiPlayerId)
@@ -5788,7 +5795,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
     u8 holdEffectParam1 = 0,holdEffectParam2 = 0;
 
     s8 priority1 = 0, priority2 = 0;
-    u16 ability1 = GetBattlerAbility(battler1), ability2 = GetBattlerAbility(battler2);
+    u16 ability1 = GetBattlerAbility(battler1);
+    u16 ability2 = GetBattlerAbility(battler2);
 
     
     // Battler 1
@@ -5840,13 +5848,13 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
                 // LAGGING TAIL - always last
                 // STALL - always last
         if (gProtectStructs[battler1].quickDraw && !gProtectStructs[battler2].quickDraw)
-            strikesFirst = 0;
+            strikesFirst = USER_FIRST;
         else if (!gProtectStructs[battler1].quickDraw && gProtectStructs[battler2].quickDraw)
-            strikesFirst = 1;
+            strikesFirst = BATTLER_FIRST;
         else if (gProtectStructs[battler1].usedCustapBerry && !gProtectStructs[battler2].usedCustapBerry)
-            strikesFirst = 0;
+            strikesFirst = USER_FIRST;
         else if (gProtectStructs[battler2].usedCustapBerry && !gProtectStructs[battler1].usedCustapBerry)
-            strikesFirst = 1;
+            strikesFirst = BATTLER_FIRST;
         /*else if (holdEffectBattler1 == HOLD_EFFECT_LAGGING_TAIL && holdEffectBattler2 != HOLD_EFFECT_LAGGING_TAIL)
             strikesFirst = 1;
         else if (holdEffectBattler2 == HOLD_EFFECT_LAGGING_TAIL && holdEffectBattler1 != HOLD_EFFECT_LAGGING_TAIL)
@@ -5858,32 +5866,108 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         else //trick room logic below to explicitly exclude above  affects from calculation
         {
             if (speedBattler1 == speedBattler2 && Random() & 1)
-                strikesFirst = 2; // same speeds, same priorities  is there a point in it being 2?  dont think so, effect is same other than separating it from the normal effect logic
+            {
+                //same speed - 
+                if (IsStallActive(battler1) && !IsStallActive(battler2))
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = USER_FIRST;
+                    else
+                        strikesFirst = BATTLER_FIRST;
+                }
+                else if (IsStallActive(battler2) && !IsStallActive(battler1))
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = BATTLER_FIRST;
+                    else
+                        strikesFirst = USER_FIRST;
+                }
+                else
+                    strikesFirst = SPEED_TIE; // same speeds, same priorities  is there a point in it being 2?  dont think so, effect is same other than separating it from the normal effect logic
+            }
+                
 
             else if (speedBattler1 < speedBattler2)
             {
                 // battler2 has more speed
-                if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
-                    strikesFirst = 0;
-                else
-                    strikesFirst = 1;
+                if (IsStallActive(battler1) && !IsStallActive(battler2))
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = USER_FIRST;
+                    else
+                        strikesFirst = BATTLER_FIRST;
+                }
+                else if (IsStallActive(battler2) && !IsStallActive(battler1))
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = BATTLER_FIRST;
+                    else
+                        strikesFirst = USER_FIRST;
+                }
+                else //applies for both have ability and neither have ability
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = USER_FIRST;
+                    else
+                        strikesFirst = BATTLER_FIRST;
+                }               
+                
             }
             else
             {
                 // battler1 has more speed
-                if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
-                    strikesFirst = 1;
-                else
-                    strikesFirst = 0;
+                if (IsStallActive(battler1) && !IsStallActive(battler2))
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = USER_FIRST;
+                    else
+                        strikesFirst = BATTLER_FIRST;
+                }
+                else if (IsStallActive(battler2) && !IsStallActive(battler1))
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = BATTLER_FIRST;
+                    else
+                        strikesFirst = USER_FIRST;
+                }
+                else //applies for both have ability and neither have ability
+                {
+                    if (gFieldStatuses & STATUS_FIELD_TRICK_ROOM)
+                        strikesFirst = BATTLER_FIRST;
+                    else
+                        strikesFirst = USER_FIRST;
+                }
+                
             }
-        }
+        }//almost working how I want, but previously worked by setting to -12 priority for dmg moves
+        //meaning could avoid the effects of low priority moves that only work by going last
+        //previously was -12 priority at base, check existing negative priority moves to see what is best
     }
     else if (priority1 < priority2)
-        strikesFirst = 1; // battler2's move has greater priority
+    {    
+        //effect to get to move last regardless of priority, so can ignore
+        //moves that activate only when moving last such as counter, would work for that,
+        //but add draw back that priority moves are worthles,
+        //and outside of trick room, would be completely coutered by force switch moves
+        //i.e things like dragon tail which would otherwise move last, but switch out the target
+        if (IsStallActive(battler2)
+        && (!(gFieldStatuses & STATUS_FIELD_TRICK_ROOM)))
+            strikesFirst = USER_FIRST;
+        else
+            strikesFirst = BATTLER_FIRST; // battler2's move has greater priority
+    }
     else
-        strikesFirst = 0; // battler1's move has greater priority   //why is battler1 (me) strikingfirst default to false for when the condition is true? 
-                            //that's just confusing
+    {    
+        if (IsStallActive(battler1)
+        && (!(gFieldStatuses & STATUS_FIELD_TRICK_ROOM)))
+            strikesFirst = BATTLER_FIRST;
+        else
+            strikesFirst = USER_FIRST; // battler1's move has greater priority   //why is battler1 (me) strikingfirst default to false for when the condition is true? 
+                            //that's just confusing 
+                            //reason is its not a conditional, its a state check, 0,1,2 not true false
+    }
     
+
     return strikesFirst;
 }
 
@@ -7208,10 +7292,11 @@ s8 GetChosenMovePriority(u8 battlerId) //made u8 (in test build)
 s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing I needed to make nuisance work (facepalm)
 { //adjusted battlerId made u8,
     s8 priority;
-    u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gBattleMovePower;
-
+    u16 power = gDynamicBasePower != 0 ? gDynamicBasePower : gBattleMoves[move].power;
+    u8 moveType = ReturnMoveType(move, battlerId);
 
     priority = gBattleMoves[move].priority;
+ 
     //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
     if ((gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
     || (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
@@ -7228,8 +7313,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
 
 
     if (GetBattlerAbility(battlerId) == ABILITY_GALE_WINGS
-        && GetMoveType(TYPE_FLYING, battlerId) == TYPE_FLYING
-        //&& gBattleMoves[move].type == TYPE_FLYING
+        && moveType == TYPE_FLYING
         && (gBattleMons[battlerId].hp > (gBattleMons[battlerId].maxHP / 2)))
     {
         gProtectStructs[battlerId].galewingsElevated = TRUE;
@@ -7305,16 +7389,17 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     //its NOT the same things as gbattlemoves[move].power
     //gbattlemovepower stores either base power or gdynamicbasepower and is augmented in calbasedamage 
     //function in pokemon.c
+    //huh didn't reallize I never fixed this-fixed now
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
-        && (gBattleMoves[move].power != 1) //added dynamic for moves like hidden power
+        && (power > 1 && power <= 65) //added dynamic for moves like hidden power
         && gBattleMoves[move].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change
     {
         gProtectStructs[battlerId].NuisanceElevated = TRUE;
         priority += 3;
     }
+    //can use other effect that I use for displaying hidden power
     else if (GetBattlerAbility(battlerId) == ABILITY_LIGHT_METAL
-        && GetMoveType(TYPE_STEEL,battlerId) == TYPE_STEEL)
-        //&& gBattleMoves[move].type == TYPE_STEEL)
+        && moveType == TYPE_STEEL)
     {
         gProtectStructs[battlerId].LightMetalElevated = TRUE;
         priority++;
@@ -7346,10 +7431,11 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         priority = 3; //if works, second attack will go before most priority moves /that did it works now
     }    
 
+    //consider returnto previous effect, think this is better
+    //but then again has exactly the issue from before,  if its not limited
+    //to priorioty bracket can just infinitely switch out and shut down 
+    //a target w force switch effects, but then again does require heavy setup
     else if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_LAGGING_TAIL)
-        priority = -12;
-
-    else if (GetBattlerAbility(battlerId) == ABILITY_STALL && gBattleMovePower)
         priority = -12;
 
     return priority;

@@ -19222,6 +19222,22 @@ void BS_setstealthrock(void) { //check where rest of spikes handled
     }
 }
 
+//used in function that already confirms ability,
+//use in conjunction w ability check to confirm,
+//mon should
+bool32 IsStallActive(u8 battler)
+{
+    u16 move = gBattleMons[battler].moves[*(gBattleStruct->chosenMovePositions + battler)];
+
+    //changed from not power 0, to not status better condition
+    if (GetBattlerAbility(battler) == ABILITY_STALL
+    && !IS_MOVE_STATUS(move)) 
+        return TRUE;
+        
+    return FALSE;
+
+}
+
 //added back sound exclusion for more nuance
 bool32 DoesSubstituteBlockMove(u8 battlerAtk, u8 battlerDef, u32 move) //sound bypass is dumb, guess now it works how I want
 {

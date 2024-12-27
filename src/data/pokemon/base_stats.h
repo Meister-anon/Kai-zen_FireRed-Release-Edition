@@ -14772,7 +14772,14 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sWatchogLevelUpLearnset,
         .tmhmLearnset = sWatchogTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//revisit this again, but point is make it good with a bunch of good abilities,
+    //moves rather than stats alone
+    //lmao its already good just by with my illuminate buffs ICANT
+    //illuminate is essentially compound eyes now, and it gets hypnosis which I buffed to 80% acc
+    //its now has access to an effectively 100% acuracy sleep move, 
+    //on top of being fast enough to not require setting up trick first
+    //you'd just train it fully for speed, so its a sleep setter
+    //and its even better since unlike spore it doesn't have any categorical immunities
 
     [SPECIES_LILLIPUP] =
     {
@@ -22780,6 +22787,26 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGumshoosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//give first impressions as evo move & facade
+    //w new stall change to always go first in trick room,
+    //gets niche as trick room mon, but trick room always goes last,
+    //because of how ...tricky it is to do turn order changes mid turn
+    //so for this to have use unless/until I a switch in trick room setter
+    //which would have same problem so would have to make it only activate
+    //...ok can do would just have to make activate like dauntless shield,
+    //where instead of ending at turn it can only activate when there's no turn actions
+    //so would switch in, set that its there, then check turn order to see if should actually activate
+    //battle script
+    //i.e can activate at battle start, on fainted switch in,
+    //or as first action before next turn, if mon was switched in mid turn
+
+    //anyone point is without trick room ability since mon is so frail,
+    //only way to get it in is have a bulk mon set trick room,
+    //then slow hit-escape to bring this in.
+    //has respectable attack but only niche I can see for it 
+    //is to essentially do priority super fangs, for easy kills
+
+    //effect done, did original effect goes first in priority bracket in trick room
+    //vsonic
 
     [SPECIES_GRUBBIN] =
     {

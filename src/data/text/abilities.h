@@ -98,7 +98,7 @@ static const u8 sNormalizeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("PKMN 
 static const u8 sSniperDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts critical hits.");
 static const u8 sMagicGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Only damaged by attacks\nand ignores indirect damage.");
 static const u8 sNoGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Ensures that all moves used by\nand against the user hit.");
-static const u8 sStallDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Damaging moves go last. It bides its time\nto greatly boost its power.");//think change make only affect dmging moves?
+static const u8 sStallDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Damaging moves go last sans Trick Room.\nIt bides its time to greatly boost power.");//think change make only affect dmging moves? need extra descriptives as people want expect it or be expected to test
 static const u8 sTechnicianDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Boosts weaker moves.");
 static const u8 sLeafGuardDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents stat drop by hiding in leaves.\nAlso blocks status problems in sunshine.");
 static const u8 sKlutzDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Can't use hold items, but takes less\nphysical dmg. Prevents recoil damage.");
@@ -312,6 +312,8 @@ static const u8 sPhantomTouchDescription[ABILITY_DESCRIPTION_LENGTH + 1] =_("Gai
 //based on suction cups I kinda have more space?  so more like 41 per line?
 //template - top line: literal effect\n bottom line: flavor text    -flipped usually put flavor text on top, effect on bottom
 //if you can't cleanly do a mix of both. over the full space
+//*note if ability text extends over the line i.e more than 40 chars on a line,
+//even if max is below total limit causes a overflow glitch, that corrupts summary screen data
 
 const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 {

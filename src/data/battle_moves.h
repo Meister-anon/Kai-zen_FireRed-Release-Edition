@@ -2296,10 +2296,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 15,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = -1,
+    .priority = 0, 
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_POWDER_MOVE,
     .split = SPLIT_STATUS,
-},//keep an eye on
+},//keep an eye on -vsonic
+//talked w chief making negative priority does nothing for the problem,
+//just make it hard/impossible for faster mon to use the move,
+//when the issue is just amoongus, who's so bulky it just doesn't have to worry,
+//so best thing I can do is just and I do mean just, to lower its accuracy
+//at most lower to 90
 
 [MOVE_FLASH] =
 {
@@ -7315,7 +7320,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0, //leave as is
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//instead of dropping accuracy just keep from being sketched by smeargle -_-
 
     [MOVE_SEED_FLARE] =
     {
