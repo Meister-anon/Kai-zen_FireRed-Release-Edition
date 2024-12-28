@@ -358,7 +358,7 @@
 #define ABILITY_LIQUID_METAL 332	//Registeel exclusive 
 #define ABILITY_MUSCLE_MAGIC 333
 #define ABILITY_TIGER_CUB 334	//tinted lens copy
-#define ABILITY_TIGER_MOM 335	//alt version intimidate, drops defense instead of atk
+#define ABILITY_TIGER_MOM 335	//alt version intimidate, drops defense instead of atk, defense drop may be too strong, instead consider speed drop, idea still works, tiger mom pressures you so you cant make a decision i.e lowering your speed
 #define ABILITY_DARK_DEAL 336   //
 #define ABILITY_CORRUPTION 337   //anti heal switch in ability,  users corrupted influence spreads decay, preventing foe from healing, giving to guzzlord etc. make side based effect
 #define ABILITY_BANDIT_KING 338   //embargo on switch in

@@ -2376,14 +2376,49 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //also smack down and think focus blast
     //think give echoed voice to zubat line, as learned move or tm?
     //hmm both yeah both
+    -also add rock slide
 
     //hmm think I also need some anti heal so make heal block a tm 
     and spread it around - oh I already made it a tm good job me
+
+    in general go over gen9 tms to see what need add to my custom list
+    /12/27/2024
+
+    Notes for 2 v 1 battles,  2 enemies 1 player mon
+    //unique for me is to rework turn setup to better balance,
+    idea even though only 3 battler still have 4 turn actions,
+
+    order of battlers different based on speed,
+    Slowest battler is player:
+    enemy mon both move, then player moves twice at end,
+
+    if player is second fastest:
+    player just moves between battlers and gets an extra turn at end
+
+    Fastest battler is player:
+    Player moves first, Fastest enemy moves, then player moves again before last enemy
+
+
+    -also remember eventually setup turn order rework for to new gen setup,
+    believe EE already has, most important thing is live speed recalcs
+    for turn order, will be massive for status moves & abilities that affect speed
+    adds an entire new aspect to battle
+
+    -still working on setting up test system,
+    need fix battle callback for move info
+    fix transform level up stat display when switch mon
+    then fix ai
+    //12/27/24
+
+
+
 
     //also idea change stall to work w trick room since its such a big thing
     //make it so all stall mon go first in trick room 
     //takes worst ability makes it best,
     //can turn any mon into perfect trick room mon
+    -done reworked to do effect from turn moveFirst function rather than 
+    a flat priority set
 
     //new idea move switches out opponenet, then also switches out user
     //Think will call it Foil, as in foil the foes plan,

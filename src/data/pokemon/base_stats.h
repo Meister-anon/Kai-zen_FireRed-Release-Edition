@@ -3268,14 +3268,15 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_MONSTER,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_LIMBER, ABILITY_LETHAL_LEGS}, //replaced reckless 
-            .abilityHidden = {ABILITY_UNBURDEN, ABILITY_MUSCLE_MAGIC},
+            .abilityHidden = {ABILITY_UNBURDEN, ABILITY_LONG_REACH},
         .bodyColor = BODY_COLOR_BROWN, //give ability lethal legs strenghts kicking moves?
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sHitmonleeLevelUpLearnset,
         .tmhmLearnset = sHitmonleeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//think will drop muscle magic from this so its more special, and give buffed long reach instead
+    //would allow priority rock slide to deal w flying types, as well as earthquake
 
     [SPECIES_HITMONCHAN] =
     {
@@ -7508,6 +7509,13 @@ const struct BaseStats gBaseStats[] =
     //but either way niche move that doesn't seem amazing for sceptile,
     //until you consider the mega
     //vsonic
+    //aight so effects that switch target are -6 priority by default for balance,
+    //but there's no restriction on effects that switch out the user
+    //if I make an effect that switches both I believe I can safely make neutral priority,
+    //easier to manage in doubles, but most issue of target switch is being able to cycle it freely,
+    //having to switch out the user prevents that so its safe
+    //now incineroar's parting shot also would work here, but still want
+    //the double switch effect give both, for more versatility
 
     [SPECIES_TORCHIC] =
     {
@@ -10301,7 +10309,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_COLOR_CHANGE, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_PROTEAN, ABILITY_NONE},
+            .abilityHidden = {ABILITY_PROTEAN, ABILITY_REFRIGERATE},
         // #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -10309,7 +10317,11 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sKecleonLevelUpLearnset,
         .tmhmLearnset = sKecleonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//think will give extra troll abilities based on idea it can be in any environment and be anything
+    //replacing pixelate as only good against dark dragon and normal, while refrigerate alreaady covers dragon,
+    //and it learns good fighting moves to cover normal, I think I only need refrigerate
+    //so best set is prob drain punch thunderbolt w one normal move for refrigerate and some support move, unless I run assault vest
+    //support move I guess would be nasty plot
 
     [SPECIES_SHUPPET] =
     {

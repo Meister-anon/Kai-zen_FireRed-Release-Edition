@@ -1543,3 +1543,5 @@ static const u16 sTMHMMoves[] =
 //also smack down and think focus blast
 //think give echoed voice to zubat line, as learned move or tm?
 //hmm both yeah both
+//need to go over scarlett violet tms and add a few 
+//adding rock slide for hitmonlee 
