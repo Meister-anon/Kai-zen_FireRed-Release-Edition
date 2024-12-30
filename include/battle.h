@@ -212,7 +212,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x0A*/ u8 substituteHP;
     /*0x0B*/ u8 disableTimer : 4;
     /*0x0C*/ u8 encoredMovePos;
-    /*0x0D*/ u8 unkD;
     /*0x0E*/ u8 encoreTimer : 4;
     /*0x0F*/ u8 perishSongTimer : 4;
     /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
@@ -267,7 +266,9 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u16 inthralledMove;
     u16 forewarnedMove; //for storing move from forewarn ability
     u8 forewarnedBattler;
-    u16 anticipatedMove;    //for storing move from anticipation ability   
+    u16 anticipatedMove;    //for storing move from anticipation ability
+    u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
+    u8 pad:7;
     u8 hasSwitchinActivated; //use for switch in end turn check
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used

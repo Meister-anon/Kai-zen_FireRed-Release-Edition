@@ -13871,6 +13871,7 @@ static void atk80_manipulatedamage(void)
         if (gBattleMoveDamage > gHpDealt)
             gBattleMoveDamage = gHpDealt;//ok reason this was wrong, was because it was after dmg calc
             //so target hp was already 0 if I fainted them, therefore assigning dmg to 0 making recoil just 1
+            //should be fine now, think I had set it to target hp...
 
         switch (gBattleMoves[gCurrentMove].effect)
         {

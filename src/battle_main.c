@@ -5661,13 +5661,30 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
     else if (ability == ABILITY_SLOW_START && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] != 0)
-        speed /= 2; //so I ironically complete missed adding this...
+        speed /= 2;
 
     else if (ability == ABILITY_DEFEATIST && gDisableStructs[battlerId].defeatistActivated)
         speed *= 2;
 
-    else if (ability == ABILITY_WEIGHTED_GI && gBattleMons[battlerId].hp <= (gBattleMons[battlerId].maxHP / 2))
-        speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
+    //think want to change how this works, point is to raise speed like getting serious,
+    //but dont want to lower speed again if they heal
+    //on the other hand if i do it this way it still opens me up to stat stage speedboosts
+    //ok what I can do is set it to use,  usedsingleuseability, so the speed boost would stay
+    //for the whole fight //makes more sense practically but isthat too strong??
+    //probably is, for regular game its pretty much free, rather than having
+    //to potentially think around pivot itd just be play get hit, switch out, heal,
+    //blast through everything potentially without getting touched
+    //ok middle ground will set disable struct, so it resets on faint or switch
+    else if (ability == ABILITY_WEIGHTED_GI)
+    { 
+        if (gBattleMons[battlerId].hp <= (gBattleMons[battlerId].maxHP / 2) && !gDisableStructs[battlerId].ActivatedWeightedGi)
+            gDisableStructs[battlerId].ActivatedWeightedGi = TRUE;
+         //   gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] = TRUE; 
+
+        //if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battlerId]][GetBattlerSide(battlerId)] == TRUE)
+        if (gDisableStructs[battlerId].ActivatedWeightedGi)
+            speed *= 2; //speed = (speed * 150) / 100; unsure which stick with
+    }
 
     if (IsAbilityOnField(ABILITY_TABLETS_OF_RUIN) && GetBattlerAbility(battlerId) != ABILITY_TABLETS_OF_RUIN)
         speed = (speed * 75) / 100;  //wo chien ability buff

@@ -38113,7 +38113,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_STEADFAST, ABILITY_STEADFAST},
+            .abilities = {ABILITY_WEIGHTED_GI, ABILITY_WEIGHTED_GI},
        // #ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
@@ -38125,6 +38125,10 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },
+    //give more moves, mostly needs fighting moves/
+    //hmm also need change ability,
+    //with my type changes it almost has no weaknesses meaning even the buffed version
+    //of the ability would almost never trigger
 
     //mostl boost sp atk, lower defense
     //this came out well, try to make this standard, +30 overall w respec
@@ -39120,11 +39124,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         108,
-        145,
-        115,
-        92,
-        105,
-        95
+        155,
+        135,
+        82, //potentially keep speed at 92, 
+        55,
+        115
         ),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 45,
@@ -39137,11 +39141,11 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_DRAGON,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_SAND_FORCE, ABILITY_SAND_FORCE},
+            .abilities = {ABILITY_SAND_RUSH, ABILITY_SAND_RUSH},
        // #ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
-        .bodyColor = BODY_COLOR_BLUE,
+        .bodyColor = BODY_COLOR_BLUE,//changed to sand rush from sand force
        .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sGarchompLevelUpLearnset,
@@ -39149,6 +39153,13 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     }, //ugly don't want to use
+    //ok w rework am somehwat more interested in it,
+    //idea inspired by wolfeyvgc vid on worst mega
+    //idea is its slower but bulky and stronger,
+    //with sandrush instead of sandfore, if sandstorm is up,
+    //it turns into a one man raid boss
+    //I'm honestly not even sure this thing is killable with weather up,
+    //outside of doubles...
 
     [SPECIES_LUCARIO_MEGA] =
     {

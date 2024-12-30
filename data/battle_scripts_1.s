@@ -5873,6 +5873,7 @@ BattleScript_EffectIngrain::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
+@decide think will use recoil
 BattleScript_EffectSuperpower::	@needtest
 	setmoveeffect MOVE_EFFECT_ATK_DEF_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit	@REMOVED REcoil

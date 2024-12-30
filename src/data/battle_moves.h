@@ -4360,8 +4360,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SUPERPOWER] =
     {
-        .effect = EFFECT_SUPERPOWER,
-        .power = 120,
+        .effect = EFFECT_RECOIL,//EFFECT_SUPERPOWER,
+        .power = 130,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .pp = 5,
@@ -11362,7 +11362,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argumentEffectChance = 10,
-    },
+    },//think argument defaults to 0, point is to add .argument = MOVE_EFFECT_INFESTATION,
+    //when I get it working w teh proper animation, and have all bug moves a 10% chance to infest
 
     [MOVE_BURNING_JEALOUSY] =
     {
@@ -12126,7 +12127,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_AXE_KICK] =
     {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_RECOIL_IF_MISS + 30% chance to confuse
+        .effect = EFFECT_RECOIL_IF_MISS,    //Todo // EFFECT_RECOIL_IF_MISS + 30% chance to confuse
         .power = 120,
         .type = TYPE_FIGHTING,
         .accuracy = 90,
@@ -12136,6 +12137,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = MOVE_EFFECT_CONFUSION,
+        .argumentEffectChance = 30,
         //.zMovePower = 190,
         //.zMoveEffect = Z_EFFECT_NONE
     },
