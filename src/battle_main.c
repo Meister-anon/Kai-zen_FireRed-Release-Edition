@@ -322,53 +322,55 @@ static const union AffineAnimCmd *const gUnknown_824F044[] =
 static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0 };
 
 #define X UQ_4_12
+#define ______ X(1.0) // Regular effectiveness.
 //rows are attacking type
 //columns are defending type 
 //still confused about static vs const but pretty sure static can be called outside of file, just not directly
 //no idea how never realized but type is organized from physical to special
 const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 {
-//               normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water      grass    electric   psychic   ice      dragon     dark     fairy      sound
-    /*normal*/ {X(1.0),     X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.0),   X(0.5),   X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // normal
+//                       normal    fight     flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water      grass    electric   psychic   ice      dragon     dark     fairy      sound
+    //Attack Type
+    [TYPE_NORMAL] =    {______,    ______,   ______,   ______,   ______,   X(0.5),   ______,   X(0.0),   X(0.5),   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______}, // normal
 
-       /*fight*/ {X(1.55),  X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.55),   X(0.5),   X(0.0),   X(1.55),  X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),  X(1.55),   X(0.5),   X(1.0)}, // fight
+    [TYPE_FIGHTING] =   {X(1.55),  ______,   X(0.5),   X(0.5),   ______,   X(1.55),   X(0.5),   X(0.0),   X(1.55),  ______,    ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,  X(1.55),   X(0.5),   ______}, // fight
 
-      /*flying*/ {X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),  X(1.0),   X(1.0),   X(1.55),   X(0.5),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // flying
+    [TYPE_FLYING] =     {______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______}, // flying
 
-      /*poison*/ {X(1.0),   X(1.55),   X(1.0),   X(0.0),   X(0.5),   X(0.0),   X(1.0),   X(0.5),   X(0.0),   X(1.0),    X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.0),  X(0.5),   X(1.55),   X(1.0)}, // poison
+    [TYPE_POISON] =     {______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,  X(0.5),   X(1.55),   ______}, // poison
 
-      /*ground*/ {X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.55),  X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // ground
+    [TYPE_GROUND] =     {______,   ______,   ______,   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   X(0.5),   ______,   ______,   ______,   ______}, // ground
 
-        /*rock*/ {X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(0.5),   X(1.0),  X(1.55),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // rock
+    [TYPE_ROCK] =       {______,   X(0.5),   X(1.55),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  X(1.55),   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______}, // rock
 
-         /*bug*/ {X(1.0),   X(0.5),   X(0.5),   X(0.5),   X(1.0),   X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),    X(1.0),   X(1.55),   X(1.0),  X(1.55),   X(0.5),  X(1.0),   X(1.55),  X(1.0),  X(1.0)}, // bug
+    [TYPE_BUG] =        {______,   X(0.5),   X(0.5),   X(0.5),   ______,   ______,    ______,   ______,   ______,   ______,   X(0.5),    ______,   X(1.55),   ______,  X(1.55),   X(0.5),  ______,   X(1.55),  ______,  ______}, // bug
 
-       /*ghost*/ {X(0.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),    X(1.0),   X(1.55),   X(1.0),   X(1.0),  X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(0.5),    X(1.0)}, // ghost
+    [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
 
-       /*steel*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.5),    X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.55),   X(1.0)}, // steel
+    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),   ______,   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
 
-     /*mystery*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),     X(1.0),  X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),    X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0)}, // mystery
+    [TYPE_MYSTERY] =    {______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
 
-        /*fire*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),    X(0.5),  X(1.55),   X(1.0),  X(0.5),   X(0.5),   X(1.55),   X(1.0),   X(1.0),   X(1.55),  X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // fire
+    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   X(1.55),    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
 
-       /*water*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0),   X(1.0),   X(1.0),   X(1.0),  X(1.55),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // water
+    [TYPE_WATER] =      {______,   ______,   ______,   ______,   X(1.55),   X(1.55),   ______,   ______,   ______,   ______,  X(1.55),   X(0.5),   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // water
 
-       /*grass*/ {X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.55),   X(1.55),   X(0.5),   X(1.0),   X(0.5),   X(1.0),  X(0.5),   X(1.55),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // grass
+    [TYPE_GRASS] =      {______,   ______,   X(0.5),   X(0.5),   X(1.55),   X(1.55),   X(0.5),   ______,   X(0.5),   ______,  X(0.5),   X(1.55),   X(0.5),   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______}, // grass
 
-    /*electric*/ {X(1.0),   X(1.0),   X(1.55),  X(1.0),    X(0.0),   X(0.5),   X(0.5),   X(1.0),   X(1.55),   X(1.0),  X(1.0),   X(1.55),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0)}, // electric
+    [TYPE_ELECTRIC] =   {______,   ______,   X(1.55),  ______,    X(0.0),   X(0.5),   X(0.5),   ______,   X(1.55),   ______,  ______,   X(1.55),   ______,   X(0.5),   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // electric
 
-     /*psychic*/ {X(1.0),   X(1.55),   X(1.0),   X(1.55),  X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.0),   X(0.5),   X(1.0)}, // psychic
+    [TYPE_PSYCHIC] =    {______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,   ______}, // psychic
 
-         /*ice*/ {X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.55),   X(1.0),   X(1.55),   X(0.5),  X(0.5),  X(1.0),   X(0.5),  X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),   X(1.0),   X(1.0)}, // ice
+    [TYPE_ICE] =        {______,   ______,   X(1.55),   ______,   X(1.55),   ______,   X(1.55),   X(0.5),  X(0.5),  ______,   X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______}, // ice
 
-      /*dragon*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(1.55),   X(1.0),    X(0.5),   X(1.0)}, // dragon
+    [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-        /*dark*/ {X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(0.5),   X(0.5),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0)}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
 
-       /*fairy*/ {X(1.55),  X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(0.5),   X(1.0),   X(0.0),   X(1.0),   X(1.0),   X(1.0),   X(1.55),   X(1.55),   X(1.0),   X(1.0)}, // fairy
+    [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
-       /*sound*/ {X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),   X(1.0),    X(1.0),   X(1.0),    X(1.0)}, // sound
-};//              normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
+       /*sound*/        {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,    ______,   ______,    ______}, // sound
+};//                     normal    fight      flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water    grass    electric   psychic    ice      dragon     dark     fairy      sound
 
 #undef X
 
@@ -480,7 +482,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_PSYCHIC, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,     //psychic power can stop a target cold, can keep them from flying, or confuse them which would make it impossible to fly, so makes sense,
     TYPE_PSYCHIC, TYPE_DARK, TYPE_MUL_NO_EFFECT,        //mostly done to counter fairy resistance
     TYPE_PSYCHIC, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //effect prob too strong, flying is weak defensively and psychic is strong offenseively
-    TYPE_PSYCHIC, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE,
+    //TYPE_PSYCHIC, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //decided change fairy resist to psychic, to a psychic resist to fairy, as psychic mostly fell off, and was replaced by fairy, - change logic to psychic doesn't believe in fairy/mystics
     TYPE_BUG, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,    //plus fairy nerfed, will replace with resistancee instad of super effectiveness
     TYPE_BUG, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_BUG, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE,
@@ -503,8 +505,8 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_GHOST, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,           
     TYPE_DRAGON, TYPE_DRAGON, TYPE_MUL_SUPER_EFFECTIVE, 
     TYPE_DRAGON, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,  //Mostly done to keep num types, but also works for giving an extra reason to use ice type mon against dragons over just using an ice move
-    TYPE_DRAGON, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
-    TYPE_DRAGON, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE,    //i can't explain fairy immunity to dragon, other than a pure balance decision, there's no lore that I can find to any relation between them.
+    TYPE_DRAGON, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,    //-ok so I over nerfed fairy to buff other things, am unwillign to remove them so instead will put dragon immunity back, I'm already abiding a resist that doesn't make sense but for balance so whatever
+    TYPE_DRAGON, TYPE_FAIRY, TYPE_MUL_NO_EFFECT,    //i can't explain fairy immunity to dragon, other than a pure balance decision, there's no lore that I can find to any relation between them.
     TYPE_DARK, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,   //I thought it was a king arthur thing, but he never actually fought a dragon, though he did have protection of fae magic
     TYPE_DARK, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE,    //type change from wolveyvgc to buff bugs, its weak to bugs, so resists it, and dark is evil & bugs are associated with heroes through kamen rider so makes sense
     TYPE_DARK, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,  //-keeping psychic weakness to dark post ghost change as dark is living and able to do physical attacks while psychic is usually phsycially weak
@@ -526,6 +528,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_FAIRY, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FAIRY, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FAIRY, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,
+    TYPE_FAIRY, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FAIRY, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FAIRY, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE, //bug buff because bug beats grass and is similar to nature
     TYPE_FAIRY, TYPE_GRASS, TYPE_MUL_NO_EFFECT,     //grass buff, and based on idea fairy are nature spirits i.e can't hurt nature as they can't exist without it

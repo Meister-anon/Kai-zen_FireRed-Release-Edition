@@ -5248,6 +5248,7 @@ BattleScript_EffectFlinchMinimizeHit::
 BattleScript_EffectSolarbeam::
 	@jumpifabilitypresent ABILITY_CLOUD_NINE, BattleScript_SolarbeamDecideTurn
 	jumpifabilitypresent ABILITY_AIR_LOCK, BattleScript_SolarbeamDecideTurn
+	jumpifabilitypresent ABILITY_STORM_BREAK, BattleScript_SolarbeamDecideTurn
 	attackthisturn BattleScript_SolarbeamOnFirstTurn @replacement for sun check, also setup for fluorescence
 BattleScript_SolarbeamDecideTurn::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn

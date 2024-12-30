@@ -12,7 +12,7 @@ static const u8 sStaticDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("May Para
 static const u8 sVoltAbsorbDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Turns electricity into HP.");
 static const u8 sWaterAbsorbDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes water into HP.");
 static const u8 sObliviousDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents attraction.\nBlocks Intimidate, Taunt, and Torment.");
-static const u8 sCloudNineDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Unflappable positivity makes it\nimmune to negative weather effects.");
+static const u8 sCloudNineDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Blocks all negative weather effects for\nthe user and most effects for the team."); //to get more benefit/synergy think will make it side based
 static const u8 sCompoundEyesDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises accuracy.");
 static const u8 sInsomniaDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents sleep.");
 static const u8 sColorChangeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes secondary type\nto match last move hit by.");
@@ -330,7 +330,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_VOLT_ABSORB] = sVoltAbsorbDescription,
     [ABILITY_WATER_ABSORB] = sWaterAbsorbDescription,
     [ABILITY_OBLIVIOUS] = sObliviousDescription,
-    [ABILITY_CLOUD_NINE] = sCloudNineDescription,
+    [ABILITY_CLOUD_NINE] = sCloudNineDescription, //protects battler form all negative weather effects, protects team from most
     [ABILITY_COMPOUND_EYES] = sCompoundEyesDescription,
     [ABILITY_INSOMNIA] = sInsomniaDescription,
     [ABILITY_COLOR_CHANGE] = sColorChangeDescription,
@@ -698,6 +698,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_UNCHAINED_MELODY] = COMPOUND_ABILITY_STRING("Boosts damage of Normal moves\nand converts them to Sound type."),
     [ABILITY_ENAMEL] = COMPOUND_ABILITY_STRING("Increased heat protection."),
     [ABILITY_BONE_ARMOR] = COMPOUND_ABILITY_STRING("Increased heat protection.\nPrevents recoil and force switch."),
+    [ABILITY_STORM_BREAK] = COMPOUND_ABILITY_STRING("User creates a gust of wind dissipating\nweather effects on entry.")
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1094,4 +1095,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_UNCHAINED_MELODY] =_("Unchained Melody"),
     [ABILITY_ENAMEL] =_("Enamel"),
     [ABILITY_BONE_ARMOR] =_("Bone Armor"),
+    [ABILITY_STORM_BREAK] =_("Storm Break"),
 };//can have comma

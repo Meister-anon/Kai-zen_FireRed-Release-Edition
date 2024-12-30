@@ -60,7 +60,15 @@ static const u16 sSoundMovesTable[] =
     MOVE_UPROAR, MOVE_METAL_SOUND, MOVE_GRASS_WHISTLE, MOVE_HYPER_VOICE, 0xFFFF
 };
 
-const u16 gPercentToModifier[101] =
+// percent in UQ_4_12 format //waiting on response but belive
+//this is just doing same as fake decimal i.e value * 50 / 100
+//so while it looks like a decimal its actually the value x 100,  I didn't understand that before
+//talked to salem he mentioned to look up Q.notation, this is unsigned q notation,
+//he said its 4bits integer w 12 bits fractional storage?
+
+//for the most part this isnt' relevant, its not part of the uq logic at all
+//this is just used for metronome right now, i.e to relate to a percentage
+const uq4_12_t gPercentToModifier[101] =
 {
     UQ_4_12(0.00), // 0
     UQ_4_12(0.01), // 1
@@ -5702,6 +5710,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             //case ABILITY_CLOUD_NINE:
+            case ABILITY_STORM_BREAK:
             case ABILITY_AIR_LOCK:
             {
                 for (target1 = 0; target1 < gBattlersCount; ++target1)
@@ -12036,6 +12045,22 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
 //format for use is MulModifier(&modifier, UQ_4_12(1.55));   & is used to denote pointer here
 //all functions that use modifier start with u16 modifier = UQ_4_12(1.0); so it defaults to 1, and is modulated from there
 //going in type calc so beleive value to use inplace of modifier will be gbattlemovedamage?
+//I'm stupid prettysure this isnt what I want?
+//look into how rounds I explicitly want super to be 1.55 unrunded
+//I calc'd 1.6 was too much, on every other value it would round down any decimal value
+//so if I want to do this, accurately I would need to store the type multiplier as a float without decimals,
+//right until I need it, i.e in the damage calc function
+//I'd need to multiply straight into the damage formula output, 
+//and then divide by value initiallly multiplied by to get proper value
+//all other dmg multiplers can be multiplied in separately after and
+//then return total dmg
+//with my multipler to guarantee all possible multipliers without cutoff would 
+//need multiply by 1 Mil to cover all decimal places, but then that makes it impossible to store,
+//and multiply into dmg formula, so instead will just do 100 for the most part 2 decimal places is enough
+//will use s32 value to store, only reason I need do this is because I dont use default multiplers that are int divisible
+//believe way it works now//think there may be weirdness going on w multiplier,
+//but then again how cou...I use typecalc in typecalc in bs command c
+//directly against damage
 void MulModifier(u16 *modifier, u16 val) //portd tried to set globably hope works   //can use decimal values
 {
     *modifier = UQ_4_12_TO_INT((*modifier * val) + UQ_4_12_ROUND);
@@ -12100,7 +12125,13 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
     /*else if ((moveType == TYPE_ICE) && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(1.55))
         mod = UQ_4_12(1.0); *///to slightly weaken ice, and because it matches same logic as electric, more dangerous because flying?
         //perhaps not, seems cold kills birds outright regardless of flying, which is why they migrate
-
+    
+    // B_WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pok�mon
+    else if (gBattleWeather & WEATHER_STRONG_WINDS && WEATHER_HAS_EFFECT)
+    {
+        if (defType == TYPE_FLYING && mod == UQ_4_12(1.55))
+            mod = UQ_4_12(1.0);//moved here to avoid collision w other modifier effects, think should work
+    }
     //ability logic
     else if (GetBattlerAbility(battlerAtk) == ABILITY_NORMALIZE)
     {
@@ -12139,27 +12170,32 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);
     //had to write out whole thing as realized, function logic would break type chart/other things
+    //think this may be obsolete, from when doin typed status moves, it would work for hard mode tho I guess
     if (moveType == TYPE_POISON 
     && (((GetBattlerAbility(battlerAtk) == ABILITY_CORROSION) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
     || ((GetBattlerAbility(battlerAtk) == ABILITY_POISONED_LEGACY) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))))
-         mod = UQ_4_12(1.0);
+        mod = UQ_4_12(1.0);
     if (gBattleMoves[move].effect == EFFECT_FREEZE_DRY && defType == TYPE_WATER)
         mod = UQ_4_12(1.55);
     //if (moveType == TYPE_GROUND && defType == TYPE_FLYING && IsBattlerGrounded(battlerDef) && mod == UQ_4_12(0.0))
     //    mod = UQ_4_12(1.0);//think I can completely remove this, as I already changed tyep thing and this is after accuracy check?
-    if (moveType == TYPE_FIRE && gDisableStructs[battlerDef].tarShot)
-        mod = UQ_4_12(1.55);
+    
 
-    // B_WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pok�mon
-    if (gBattleWeather & WEATHER_STRONG_WINDS && WEATHER_HAS_EFFECT)
-    {
-        if (defType == TYPE_FLYING && mod == UQ_4_12(1.55))
-            mod = UQ_4_12(1.0);
-    }
+    
+
+    //need vsonic check effect may not be true to accuracy
+    //EE shows it as a damage multiplier equal to addition of super,
+    //makes it weak(er) to fire not making it a type weak to fire
+    //think just toss in dmgcalc and make a 1.5x incrase?
+    //effect is to double effectiveness, since its effectively multi by super, I did this instead
+    //put here to not accidentally trigger strong winds reduction
+    if (moveType == TYPE_FIRE && gDisableStructs[battlerDef].tarShot)
+        mod = uq4_12_multiply(mod, UQ_4_12(1.55));
 
     if (mod < UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_BRICK_BREAK) //let brick break hit all mon
         mod = UQ_4_12(0.5);
 
+    //modifier is uq(1.0) mod is values that shift and are multiplied into to alter modifier
     MulModifier(modifier, mod);
 }
 
@@ -12192,6 +12228,14 @@ u16 CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 bat
 
 //used to repalce CheckWonderGuardAndLevitate, to remove reliance on gamefreak's stupid janky type loop foresight logic
 //no longer need type foresight, or to ensure type relations go above it
+//vsonic 12/28/24 
+//just realized type calc isn't correct on the multiplier at all because I'm stupid
+/*and don't actually no anything about C or how it runs calculations...
+with 5 minutes looking up C math I see its not storing decimal value for a decimal value multiplier
+it gets rounded down immediately rather than at the end
+because of how that's working its rouding up 1.55 to the nearest 10th */
+//edit tested using judgement and no it isnt doing that, least not on a single weakness,
+//its properly returning uq 1.55 everything  is what's fucked...
 #define NEW_TYPE_CALC_FORMULA
 static u16 CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities, u16 modifier)
 {

@@ -5216,10 +5216,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             {
             case TYPE_FIRE:
             if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50); //tested workss perfectly
                 break;
             case TYPE_WATER:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
                 OffensiveModifer(150);
                 break;
             }
@@ -5232,7 +5233,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
 
         if ((GetBattlerAbility(battlerIdAtk) == ABILITY_FLUORESCENCE   
-        || GetBattlerAbility(battlerIdAtk) == ABILITY_CLOUD_NINE)     
+        || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
         && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) && IsBlackFogNotOnField()
         && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
         {
@@ -5252,19 +5253,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             switch (moveType)
             {
             case TYPE_FIRE:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
                 OffensiveModifer(150);
                 break;
             case TYPE_WATER:
             if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(50);
                 break;
             case TYPE_ICE:
             if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(33);
                  //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
-                break;
+                break;//reverted sunflora to grass normal but still good
             }
         }
 
@@ -5275,7 +5277,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             {
             case TYPE_FIRE:
             if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
                 OffensiveModifer(33);
                 //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
                 break;  //changed to 66% cut,  so for mon weak to fire they take slightly less than neutral dmg

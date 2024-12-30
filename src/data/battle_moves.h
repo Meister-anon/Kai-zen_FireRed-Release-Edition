@@ -2719,11 +2719,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .accuracy = 100,
     .pp = 15,
     .secondaryEffectChance = 30,
-    .target = MOVE_TARGET_SELECTED,
+    .target = MOVE_TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_SPECIAL,
 }, //should make a good tm?
 //does flinch so no cacophony boost,hmm well I could screw it
+//check what mon get snore, since changed to both may need drop strength?
+//ok so only fast mon that learns snore is Dedenne,
+//so I guess its fine?
 
 [MOVE_CURSE] =
 {

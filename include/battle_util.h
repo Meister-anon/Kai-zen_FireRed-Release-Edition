@@ -64,9 +64,9 @@
 #define ITEMEFFECT_LIFEORB_SHELLBELL            0x7		
 #define ITEMEFFECT_USE_LAST_ITEM                0x8
 
-
-#define WEATHER_HAS_EFFECT ((/*!AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, ABILITY_CLOUD_NINE, 0, 0) &&*/ !AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, ABILITY_AIR_LOCK, 0, 0)))
-#define WEATHER_HAS_EFFECT2 ((/*!AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_CLOUD_NINE, 0, 0) &&*/ !AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_AIR_LOCK, 0, 0)))
+//replaced cloud nine
+#define WEATHER_HAS_EFFECT ((!AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, ABILITY_STORM_BREAK, 0, 0) && !AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, ABILITY_AIR_LOCK, 0, 0)))
+#define WEATHER_HAS_EFFECT2 ((!AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_STORM_BREAK, 0, 0) && !AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_AIR_LOCK, 0, 0)))
 
 #define BS_GET_TARGET                   0
 #define BS_GET_ATTACKER                 1
@@ -248,7 +248,7 @@ s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fi
 #define HEALING_EFFECT ((EFFECT_RESTORE_HP || EFFECT_REST || EFFECT_MORNING_SUN || EFFECT_MOONLIGHT || EFFECT_SYNTHESIS || EFFECT_HEAL_PULSE || EFFECT_HEALING_WISH || EFFECT_ROOST || EFFECT_SWALLOW || EFFECT_WISH || EFFECT_SOFTBOILED || EFFECT_ABSORB))
 
 // percent in UQ_4_12 format
-extern const u16 gPercentToModifier[101];
+extern const uq4_12_t gPercentToModifier[101];
 extern const u16 gAbilitiesAffectedByMoldBreaker[];
 
 #endif // GUARD_BATTLE_UTIL_H

@@ -517,7 +517,7 @@ struct AI_ThinkingStruct
     u32 funcResult;
     u32 aiFlags;
     u8 aiAction;
-    u8 aiLogicId;
+    u8 aiLogicId; //think uses flags to identify what logic function to call (logic functions equivalent to scripts in old setup)
     struct AI_SavedBattleMon saved[MAX_BATTLERS_COUNT];
     u8 simulatedRNG[4];
     bool8 switchMon; // Because all available moves have no/little effect. -NOT DEFAULT

@@ -2023,7 +2023,7 @@ static void atk01_accuracycheck(void)
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_CLOUD_NINE
+        && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
 
@@ -2512,6 +2512,11 @@ static void atk05_damagecalc(void)
                                             gBattleStruct->dynamicMoveType,
                                             gBattlerAttacker,
                                             gBattlerTarget);
+    //consider apply type setting right here,
+    //before crit, so I have a smaller number to deal w
+    //so even less chance of overflow
+
+    //apply crit
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier; // this makes it so gcritmultiplier value is how much crit is, so sniper shuold work
     if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, gBattlerAttacker) == TYPE_ELECTRIC)//pretty sure no longer using dmgMultiplier?
         gBattleMoveDamage *= 2;
@@ -2612,7 +2617,7 @@ void ModulateDmgByType(u8 multiplier)   //Put all ability effects above ring tar
     
     if (gBattleWeather & WEATHER_STRONG_WINDS) //ok think best put this in mod damage multiplier to change multiplier to neutral
     {
-        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_CLOUD_NINE)
+        if (!DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE))
         {
             if (IS_BATTLER_OF_TYPE(gBattlerTarget,TYPE_FLYING))
             {
@@ -2690,7 +2695,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     u8 moveType, argument; //as gbattlemovedamage is set by damagecalc, any use of it beforehand would be multiplying by 0
     u8 type1 = gBattleMons[gBattlerTarget].type1, type2 = gBattleMons[gBattlerTarget].type2, type3 = gBattleMons[gBattlerTarget].type3;
     u16 effect = gBattleMoves[gCurrentMove].effect; //just realized should prob swap these for battlemons types since all types can shift, find where base stats becomes battlemons
-    u16 multiplier;
+    u32 multiplier;
 
     ///had add counter and the like, as otherwise triggers supesr effective
     if (gCurrentMove == MOVE_STRUGGLE || gCurrentMove == MOVE_BIDE || gCurrentMove == MOVE_COUNTER || gCurrentMove == MOVE_MIRROR_COAT || gCurrentMove == MOVE_METAL_BURST) //should let hit ghost types could just remove typecalc bs from script instead...
@@ -2708,6 +2713,10 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
 
             for (i = 0; i < NUMBER_OF_MON_TYPES; i++)//realized problem I'm attempting to set typep before I've selecteed a target...rage works as its based on the attacker type which is alwayss known/constant
             {
+                //ok checked this, it can recognize uq 1.55 but when I multiply its something else?
+                //tested w uq 8_8 and it does match up at == 1.55 at least
+                //in type effectiveness option it also proves it recognizes == 0.775 ???
+                //ok setup debug option to just show type effectiveness so I can see what's happening
                 if (CalcTypeEffectivenessMultiplier(gCurrentMove, i, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
                 {
                     gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
@@ -2856,6 +2865,8 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
         //tested type replacemente seems to work, need more indepth test doduo etc.
         //seems to work differently than base, super/resisted dmg doen't cancel out becuase dif multipliers, 
         //-addressed issue
+        //think applymod should do everything I need does the last divide 
+        //after applying to dmg and then rounds idk...
 
         /*while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE) //identified issue with typecalc, its only reading type 1 for some reason,
         {
@@ -14981,7 +14992,7 @@ static void atk96_weatherdamage(void)
         return;
     }
     if (IsBattlerAlive(gBattlerAttacker) && ability != ABILITY_MAGIC_GUARD
-        && ability != ABILITY_CLOUD_NINE
+        && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE)
         && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
         && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER)  //remove rendancy put here
         && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)

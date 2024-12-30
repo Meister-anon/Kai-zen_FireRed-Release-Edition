@@ -704,7 +704,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPidgeyLevelUpLearnset,
         .tmhmLearnset = sPidgeyTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(18, LOW_EFFORT), 0, SPECIES_PIDGEOTTO}), //Should hopefully blank these for now without issue
-    },
+    },//should give sleep talk?
 
     [SPECIES_PIDGEOTTO] =
     {
@@ -817,7 +817,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Spearow"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(40, 60, 30, 70, 31, 31),
+         STATS(40, 65, 30, 70, 31, 31),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = 52,
@@ -846,7 +846,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Fearow"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 100, 65, 100, 61, 61),
+         STATS(65, 127, 65, 100, 61, 61),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 90,
         .expYield = 155,
@@ -860,7 +860,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_BIG_PECKS},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SNIPER, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SNIPER, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -868,7 +868,12 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sFearowLevelUpLearnset,
         .tmhmLearnset = sFearowTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//hmm if can turn 1 roost to get rid of flying type may be able to
+    //be ok as weather break mon can remove flying weaknesses while still being
+    //relative threat to fighting types //look into pretty sure I tweaked roost?
+    //not sure if it removes flying type or just makes grounded which removes fighting resist,
+    //and electric weakness only issue with that is keeping rock and ice weaknesses, but it makes sense
+
 
     [SPECIES_EKANS] =
     {
@@ -4374,9 +4379,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_SNOW_WARNING, ABILITY_SNOW_WARNING},
+        .abilities = {ABILITY_SNOW_WARNING, ABILITY_EARLY_BIRD},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_EARLY_BIRD, ABILITY_REFRIGERATE},
+            .abilityHidden = {ABILITY_STORM_BREAK, ABILITY_REFRIGERATE},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -4404,7 +4409,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_VOLT_ABSORB},
-        .abilityHidden = {ABILITY_MOTOR_DRIVE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MOTOR_DRIVE, ABILITY_STORM_BREAK},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -4431,7 +4436,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_RISING_PHOENIX, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STORM_BREAK, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -4518,7 +4523,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_INNER_FOCUS, ABILITY_AVIATOR},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MULTISCALE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_MULTISCALE, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -4944,7 +4949,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_INSOMNIA, ABILITY_TINTED_LENS},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_NONE},
+            .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -5277,7 +5282,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_HUSTLE, ABILITY_SERENE_GRACE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SUPER_LUCK, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SUPER_LUCK, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -6694,7 +6699,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_SWIFT_SWIM, ABILITY_WATER_ABSORB},
-        .abilityHidden = {ABILITY_WATER_VEIL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_WATER_VEIL, ABILITY_STORM_BREAK},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -6722,7 +6727,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_STURDY},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_NONE},
+            .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -6730,7 +6735,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSkarmoryLevelUpLearnset,
         .tmhmLearnset = sSkarmoryTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //give better steel moves smart strike etc.
+    }, //give better steel moves smart strike etc. vsonic
 
     [SPECIES_HOUNDOUR] =
     {
@@ -7348,7 +7353,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_THICK_FAT, ABILITY_NONE}, //thick fat to cover ice weakness
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MULTISCALE, ABILITY_NONE}, //pressure was just he default legendary ability,may just remove pressure for this
+            .abilityHidden = {ABILITY_MULTISCALE, ABILITY_STORM_BREAK}, //pressure was just he default legendary ability,may just remove pressure for this
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -7379,7 +7384,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_REGENERATOR, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_RISING_PHOENIX, ABILITY_NONE},
+            .abilityHidden = {ABILITY_RISING_PHOENIX, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -7388,7 +7393,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sHoOhTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    },//didn't exactly want storm break on these 2 but made too much sense,
+    //beleive bought are none to clear weather or affect weather in some way
 
     [SPECIES_CELEBI] =
     {
@@ -8151,7 +8157,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_GUTS, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SCRAPPY, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SCRAPPY, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -9789,7 +9795,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_NATURAL_CURE, ABILITY_NONE},
+        .abilities = {ABILITY_NATURAL_CURE, ABILITY_STORM_BREAK},
         .abilityHidden = {ABILITY_CLOUD_NINE, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -10461,7 +10467,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_GRASS,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_CHLOROPHYLL, ABILITY_SOLAR_POWER},
-            .abilityHidden = {ABILITY_HARVEST, ABILITY_NONE},
+            .abilityHidden = {ABILITY_HARVEST, ABILITY_CLOUD_NINE},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -12373,14 +12379,14 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_AFTERMATH, ABILITY_UNBURDEN},
-            .abilityHidden = {ABILITY_FLARE_BOOST, ABILITY_NONE}, //still fixing aftermath, replace others with none
+            .abilityHidden = {ABILITY_FLARE_BOOST, ABILITY_CLOUD_NINE}, //still fixing aftermath, replace others with none
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sDrifloonLevelUpLearnset,
         .tmhmLearnset = sDrifloonTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_DRIFBLIM}), //Should hopefully blank these for now without issue
-    },
+    },//vsonic had hard time deciding between giving cloud nine or storm break
 
     [SPECIES_DRIFBLIM] =
     {
@@ -12400,14 +12406,14 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_AFTERMATH, ABILITY_UNBURDEN},
-            .abilityHidden = {ABILITY_FLARE_BOOST, ABILITY_NONE},
+            .abilityHidden = {ABILITY_FLARE_BOOST, ABILITY_CLOUD_NINE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sDrifblimLevelUpLearnset,
         .tmhmLearnset = sDrifblimTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//treat like weather baloon
 
     [SPECIES_BUNEARY] =
     {
@@ -12805,7 +12811,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Chatot"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(76, 65, 56, 91, 92, 55),
+         STATS(76, 65, 56, 91, 102, 55),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 30,
         .expYield = 144,
@@ -13583,7 +13589,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_HUSTLE, ABILITY_SERENE_GRACE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SUPER_LUCK, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SUPER_LUCK, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -16748,7 +16754,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_WONDER_SKIN, ABILITY_MAGIC_GUARD},
-            .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_NONE},
+            .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_STORM_BREAK},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -17409,7 +17415,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_KEEN_EYE, ABILITY_BIG_PECKS},
-            .abilityHidden = {ABILITY_HYDRATION, ABILITY_NONE},
+            .abilityHidden = {ABILITY_HYDRATION, ABILITY_CLOUD_NINE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -17443,7 +17449,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_HYDRATION, ABILITY_BIG_PECKS},
-            .abilityHidden = {ABILITY_GALE_WINGS, ABILITY_NONE},
+            .abilityHidden = {ABILITY_GALE_WINGS, ABILITY_CLOUD_NINE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -19066,7 +19072,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_SHEER_FORCE},
-        .abilityHidden = {ABILITY_DEFIANT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DEFIANT, ABILITY_STORM_BREAK},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -30551,7 +30557,7 @@ const struct BaseStats gBaseStats[] =
               96,
               51,
               92,
-              45,
+              95,
               51
        ),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -30564,7 +30570,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE  },
-        .abilityHidden = {ABILITY_GUTS, ABILITY_NONE},
+        .abilityHidden = {ABILITY_GUTS, ABILITY_CLOUD_NINE},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -30613,7 +30619,7 @@ const struct BaseStats gBaseStats[] =
               96,
               51,
               92,
-              45,
+              95,
               51
        ),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -30626,7 +30632,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE },
-        .abilityHidden = {ABILITY_GUTS, ABILITY_NONE},
+        .abilityHidden = {ABILITY_GUTS, ABILITY_CLOUD_NINE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -30663,7 +30669,11 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
         //.teachableLearnset = sSquawkabillyTeachableLearnset,
         //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
-    },
+    },//think give the peaceful squawks cloud nine,
+    //while the more aggressive ones get punkrock?
+    //also add more sound moves to learnset
+    //ok problem was all soud moves are special, and they had no special attack,
+    //fixed now
 
     [SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE] =
     {
@@ -30675,7 +30685,7 @@ const struct BaseStats gBaseStats[] =
               96,
               51,
               92,
-              45,
+              95,
               51
        ),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -30688,7 +30698,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE },
-        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_PUNK_ROCK},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -30737,7 +30747,7 @@ const struct BaseStats gBaseStats[] =
               96,
               51,
               92,
-              45,
+              95,
               51
        ),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
@@ -30750,7 +30760,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_INTIMIDATE, ABILITY_HUSTLE },
-        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_PUNK_ROCK},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -32684,7 +32694,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_FLYING),
         .abilities = { ABILITY_BIG_PECKS, ABILITY_KEEN_EYE  },
-        .abilityHidden = {ABILITY_ROCKY_PAYLOAD, ABILITY_NONE},
+        .abilityHidden = {ABILITY_ROCKY_PAYLOAD, ABILITY_STORM_BREAK},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,

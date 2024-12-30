@@ -405,8 +405,8 @@
 #define ABILITY_UNCHAINED_MELODY 373  //NORMAL MOVES into sound moves
 #define ABILITY_ENAMEL 374
 #define ABILITY_BONE_ARMOR 375  //abilities for faedentin and bone fairy evo, //cuts fire damage, bone armor also has force switch prevention, think also recoil?
+#define ABILITY_STORM_BREAK 376 //old cloud nine effect, by for flying types, pretty much delta stream but just to break weather have to find birds I have space to give this to
 
-
-#define ABILITIES_COUNT ABILITY_BONE_ARMOR + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_STORM_BREAK + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H
