@@ -5301,8 +5301,11 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                 }
                 else
                 {
-                    if (gBattleMons[gActiveBattler].status2 & STATUS2_MULTIPLETURNS
-                     || gBattleMons[gActiveBattler].status2 & STATUS2_RECHARGE)
+                    //believe this change should do what I want,
+                    //of not skipping player choice if need recharge
+                    //should allow player choose action, good it works perfectly
+                    if (gBattleMons[gActiveBattler].status2 & STATUS2_MULTIPLETURNS)
+                    // || gBattleMons[gActiveBattler].status2 & STATUS2_RECHARGE)
                     {
                         gChosenActionByBattler[gActiveBattler] = B_ACTION_USE_MOVE; //skip to use move
                         gBattleCommunication[gActiveBattler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;

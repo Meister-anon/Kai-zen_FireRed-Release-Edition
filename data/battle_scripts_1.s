@@ -428,7 +428,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectDryadsCurse
 	.4byte BattleScript_EffectProtect	@shield bash
 	.4byte BattleScript_EffectAttractHit	@use move_effect_attract	dont thnk work/setup yet think reserve for sallazle
-	.4byte BattleScript_EffectHit		@Expanding Force fill effect  is gen 9, just putting here to fill space, is not setup
+	.4byte BattleScript_EffectHit		@Expanding Force fill effect  is gen 9, just putting here to fill space, is not setup, works effect is just hit, other stuff in C code
 	.4byte BattleScript_EffectTripleArrows @ EFFECT_TRIPLE_ARROWS
 	.4byte BattleScript_EffectSpecialAttackUpHit	@EFFECT_SPECIAL_ATTACK_UP_HIT
 	.4byte BattleScript_EffectVictoryDance            @ EFFECT_VICTORY_DANCE

@@ -4671,6 +4671,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower *= 2;
     }
 
+    if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_PSYCHIC_TERRAIN)
+    && gBattleMoves[move].effect == EFFECT_EXPANDING_FORCE)
+        gBattleMovePower = (150 * gBattleMovePower) / 100;
+
+
     //terrain
     if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_GRASSY_TERRAIN) && moveType == TYPE_GRASS)
         gBattleMovePower = (140 * gBattleMovePower) / 100;
@@ -4698,8 +4703,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (((gBattleWeather & WEATHER_ANY) || (gBattleWeather & WEATHER_STRONG_WINDS))
     && move == MOVE_WEATHER_BALL) //think use gust tornado/twister for strong winds flying type weather ball
             gBattleMovePower *= 2;
-
-    //this isn't working... //ok pretty sure reason wasn't working was because didn't set status in mudsport command correctly
+    
+        //this isn't working... //ok pretty sure reason wasn't working was because didn't set status in mudsport command correctly
     //works now //suddenly not working again -_- oh it is working just effect is so low not very noticeable?
     //sideStatus wasn't working had to use gstatus and realied I hadn't updated the function argument while I made gsidestatus u32
     //the function was still u16, updated and that fixed it
@@ -4970,10 +4975,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             }
             break;
         case ABILITY_DARK_DEAL:
-            if (gBattleMovePower > 80)
-                gBattleMovePower /= 2;
-            break;
-        }
+            if (gBattleMoves[move].power > 80) //what this means is I get it on all the slash moves, may potentially drop back to 75 bp cutoff
+                gBattleMovePower /= 2;//think need put this at end so it factors in everything
+            break; //hmm actually maybe I should change this from move power, to check base move power, yeah think like that better, have to use weaker moves to get the benefit
+        }//vsonic
     }
 
     // target's abilities

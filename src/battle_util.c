@@ -12181,7 +12181,14 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
     //    mod = UQ_4_12(1.0);//think I can completely remove this, as I already changed tyep thing and this is after accuracy check?
     
 
-    
+    if (moveType == TYPE_POISON && GetBattlerAbility(battlerAtk) == ABILITY_POISONED_LEGACY
+    && IS_BATTLER_OF_TYPE(battlerDef,TYPE_POISON)
+    /*&& gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 2)*/)
+    {
+        if (mod == UQ_4_12(0.0))
+            mod = UQ_4_12(1.0);
+    } //may remove set for needing to be low hp for this to activate,
+    //idea being an elite among poison users
 
     //need vsonic check effect may not be true to accuracy
     //EE shows it as a damage multiplier equal to addition of super,
@@ -12197,6 +12204,7 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
 
     //modifier is uq(1.0) mod is values that shift and are multiplied into to alter modifier
     MulModifier(modifier, mod);
+    //*modifier = uq4_12_multiply(modifier, mod);
 }
 
 u16 GetTypeModifier(u8 atkType, u8 defType) //used inside MulByTypeEffectiveness

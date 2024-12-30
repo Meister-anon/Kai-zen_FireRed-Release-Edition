@@ -2445,6 +2445,77 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //think give all cloud nine mon access to all weather moves (via tm)
     /12/29/24
 
+    //for mega mon that change type realize will have to add that type
+    move to their base learnset, believe at the time wasn't dnoe for the most part?
+    -note give amphorous stronger dragon move if possible since apparently it can't learn draco meteor
+
+    Also new idea for handling move setting,
+    instead of having to find npc to teach/delete moves,
+    make it find the npcs pay to be taught their skills,
+    (oh you came here for me to teach your pokemon a move?
+    well I don't do that anymore, sorry...but if you want
+    I can teach you how, for a small fee of course. oh hoh hoh)
+
+    Do same for move deleter, but since he's a forgetful old man,
+    don't do a flag check for having already talked to him and new text,
+    just make him do the same thing every time, meaning if player is forgetful enough
+    he'll just keep taking their money lmao
+
+    But after learning from them a new option will become available in the pc,
+    select it and you can chose from forgetting or remembering a move, for the selected mon
+    Will need to reorg where these npcs are, its a good feature
+    want it to be accessible move deleter should be first as you won't have many moves 
+    to remember early on.
+
+    Ok think put move deleter npc in overpass building (same place find oak aide)
+    to the side of the route to viridian forest, (over where diglett cave exits)
+    So if you explore you can access it right after beating brock and learning cut,
+    (rather than in fuchisia city) will serve purpose of expanding options
+    (will allow deleting last move) like say making magikarp struggle.
+
+    Move reminder is typically not available until 2 island but guess
+    could make him replace the move deleter in fuchisia city?
+    Is a bit later than I want, but you could also get to it earlier 
+    with a B.O or access to a stench mon, you can probably,
+    reach fuchisia by cerulean city soon as you get surf with a bit of luck
+    -move reminder should check all learnerable moves from current form upto lvl
+    and all prior evos, then create a list from that ignoring any overlapping moves
+
+    think would need alloc and multiple loops,
+    make 4 arrays in function alloc memory to them based on number of evos,
+    i.e learnsetevo1 learnsetevo2 learnsetevo3 learnsetevo4 (just for caution)
+    compositeLearnsetArray -total list
+
+    if mon has 2 prior evos would use learnsetevo1 and 2 array, 
+    then just pull from   current form species
+    adding to teh compositeLearnsetArray as you go,
+
+    when you check each new species/evo learnset compare the moves w the composite array
+    if move is already there don't add/append think function needed is appendtolist?
+
+    Think make B.O accessible in pewter (put in the flower patch)
+    after obtaining cascade badge, so to get it you'll have to backtrack
+    for it.
+    12/30/2024
+    
+
+    Abilities are getting too complex for ability length,
+    think I may need to add I think Sbirds scrolling ability box text
+
+    If I could just scroll once, to at max have 4 lines, that'd be great.
+    12/30/24
+
+    //Note tweaked Recharge effect to allow player choice/action
+    on recharge turn, pretty much just allows mon to have an item used on it
+    or be switched out should it be chosen
+    Gives recharge moves more room - for sake of balance could set recharge even if miss now?
+    //nah not doing that, far too punishing
+    //12/30/24
+
+    //VSONIC IMPORTANT keep in mind I apparently setup
+    status effects sleep and paralysis to ground floating mon,
+    keep an eye on and consider if I want to keep that
+
     fixed wimpout and emergency exit rework,
     now working correctly in all scenarios
 

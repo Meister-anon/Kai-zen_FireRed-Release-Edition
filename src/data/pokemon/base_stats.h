@@ -5878,7 +5878,9 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sUmbreonLevelUpLearnset,
         .tmhmLearnset = sUmbreonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//w dark deal this is legit the perfect teamate 
+    //for mega/beedrill if I encounter fighting or fairy,
+    //poison beedrill would just destroy them
 
     [SPECIES_MURKROW] =
     {
@@ -6114,12 +6116,12 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 70, 70, 45, 65, 87),
-        MON_TYPES(TYPE_NORMAL),   //keeping poison would hurt without floating
+        MON_TYPES(TYPE_NORMAL, TYPE_POISON),   //keeping poison would hurt without floating
         .catchRate = 190,
         .expYield = 145,
         //.evYield_HP = 1,
-        .genderRatio = PERCENT_FEMALE(50),
-        .eggCycles = 20,
+        .genderRatio = PERCENT_FEMALE(50), //hmm actually wouldnt be bad w new poison changes
+        .eggCycles = 20,    //would cover all of normals weaknesses leaving just the 2 from poison,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
@@ -28463,7 +28465,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRegielekiTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    },//nothing better ever be faster than this thing smh
 
     [SPECIES_REGIDRAGO] =
     {
@@ -37768,12 +37770,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         65,
         150,
-        40,
+        70, //needed extra defense cuz priority exists...
         145,
         15,
         115
         ),
-        MON_TYPES(TYPE_BUG, TYPE_POISON),
+        MON_TYPES(TYPE_BUG, TYPE_POISON), //that said typing is MUCH better now defensively
         .catchRate = 45,
         .expYield = 223,
         //.evYield_Attack = 2,
@@ -37786,7 +37788,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_ADAPTABILITY, ABILITY_ADAPTABILITY},
+            .abilities = {ABILITY_POISONED_LEGACY, ABILITY_POISONED_LEGACY}, //replaced adaptability
        // #ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
@@ -37797,7 +37799,14 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBeedrillTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
-    },
+    },//crazy to say but at this point ABILITY_POISONED_LEGACY,
+    //may be a better ability here than  adaptability
+    //hmm poisoned legacy would allow it to do flat super effective
+    //dmg to amoongus.. and tht's before considering the in a pinch bonus
+    //yeah think poisoned legacy is just better, and steel isn't as big a deal now that bug
+    //can hit it for neutral
+    //think best strat for this is pairing w a bulky dark deal mon,
+    //rn I'm thinking umbreon get umbreon heal pulse, to attempt keep me alive
 
     [SPECIES_PIDGEOT_MEGA] =
     {
@@ -37805,7 +37814,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        83,
+        105,
         113,
         80,
         136,
@@ -37843,11 +37852,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
-        50,
+        10,
         65,
         150,
-        175,
-        105
+        155,
+        165
         ),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 50,
@@ -37860,7 +37869,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_TRACE, ABILITY_TRACE},
+        .abilities = {ABILITY_PSYCHIC_SURGE, ABILITY_PSYCHIC_SURGE},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
        .noFlip = FALSE,
@@ -37869,7 +37878,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAlakazamTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
-    },
+    },//redistribute stats bsed on wolfey worst mega video
+    //dropped sp atk some given psychic surge
 
     [SPECIES_SLOWBRO_MEGA] =
     {
@@ -38495,10 +38505,10 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        68,
+        78,
+        45,
         85,
-        65,
-        100,
+        110,
         165,
         135
         ),
@@ -38534,10 +38544,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         75,
         115,
-        145,
+        155,
         20,
         85,
-        115
+        125
         ),
         MON_TYPES(TYPE_DARK, TYPE_GHOST),
         .catchRate = 45,
@@ -38553,7 +38563,7 @@ const struct BaseStats gBaseStats[] =
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_MAGIC_BOUNCE, ABILITY_MAGIC_BOUNCE},
        // #ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_STALL, ABILITY_NONE},
+            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
         .bodyColor = BODY_COLOR_PURPLE,
        .noFlip = FALSE,
@@ -38609,10 +38619,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         70,
         130,
-        230,
+        210,
         50,
-        60,
-        80
+        20,
+        140
         ),
         MON_TYPES(TYPE_STEEL, TYPE_STEEL),
         .catchRate = 45,
@@ -38646,12 +38656,12 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        85,
+        60,
         80,
-        135,
+        150,
         100,
         80,
-        135
+        150
         ),
         MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 90,
@@ -38681,7 +38691,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
-        95,
+        115,
         80,
         135,
         135,
@@ -38759,7 +38769,7 @@ const struct BaseStats gBaseStats[] =
         100,
         20,
         145,
-        105
+        155
         ),
         MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 150,
@@ -38795,7 +38805,7 @@ const struct BaseStats gBaseStats[] =
         75,
         110,
         110,
-        80,
+        90,
         110,
         105
         ),

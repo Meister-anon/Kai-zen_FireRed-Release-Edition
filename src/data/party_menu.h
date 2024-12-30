@@ -1545,3 +1545,5 @@ static const u16 sTMHMMoves[] =
 //hmm both yeah both
 //need to go over scarlett violet tms and add a few 
 //adding rock slide for hitmonlee 
+//add gunk shot to list, poison types have WOEFULLY bad stab options *facepalm
+//also venom drench

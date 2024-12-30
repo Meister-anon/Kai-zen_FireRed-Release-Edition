@@ -371,7 +371,7 @@
 #define ABILITY_FEATHER_JACKET 345	//hisuian decidueye inspired by dex entry and smisonian arcticle cold climate birds have "They had fluffier jackets" to insulate them from cold
 #define ABILITY_POISONED_LEGACY 346 // poison pinch ability, for poipoile as its technically a starter,  inspired by marriagetoxin manga, boost poison in a pinch and if poison target will be bad poison consider set to turn 45 so it does full dmg 44st turn
 #define ABILITY_JEWEL_METABOLISM 347 //can't think of a name right now, this is just a sableye rock absorb based on dex entry, hmm maybe do more boost damage to rock types? ok, instead of raising hp, boosts def as eaten rocks form more crystals ok i like that
-#define ABILITY_INVERSION 348 //  - for ditto  - still to do 
+#define ABILITY_INVERSION 348 //  - for ditto  - still to do - mostly works now 
 #define ABILITY_WETIKO 349 // for my version crabominable mix of refrigerate & regenerator
 #define ABILITY_EMPATH 350 // upgraded synchronize, copies stat change too, not for umbreon psychic only
 #define ABILITY_EMPATHIC_CURSE 351 //ability for Mespirit - synchronize with dmg reflect

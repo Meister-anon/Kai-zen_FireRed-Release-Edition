@@ -3575,7 +3575,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_PURSUIT] =
     {
         .effect = EFFECT_PURSUIT,
-        .power = 50,
+        .power = 60,
         .type = TYPE_DARK,
         .accuracy = 100,
         .pp = 20,
@@ -3584,7 +3584,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+    }, //boosted to 60 compare to assurance, make sense as assurance previously was also base 50
 
     [MOVE_RAPID_SPIN] =
     {
@@ -5382,7 +5382,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_POISON_TAIL] =
     {
         .effect = EFFECT_POISON_HIT,
-        .power = 50,
+        .power = 65,
         .type = TYPE_POISON,
         .accuracy = 100,
         .pp = 25,
@@ -11222,7 +11222,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_EXPANDING_FORCE] =
     {
-        .effect = EFFECT_SPLASH,   //TODO
+        .effect = EFFECT_EXPANDING_FORCE,   //TODO  /done think need animation
         .power = 80,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
@@ -13491,6 +13491,7 @@ use wonder gaurd logic to determine its super effective
         .argument = TYPE_FLYING,
     },//Check flying type average stats, see if need to make this physical
     //idea is user pushes themselves to the limit, and gives everything they have to perform an acrobatic feat  /vsonic
+    //let pidgeot get but think this should be a tutor move?
 
     [MOVE_PLASMA_RAILGUN] =
     {
