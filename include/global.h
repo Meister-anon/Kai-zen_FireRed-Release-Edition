@@ -76,38 +76,130 @@
     b = temp;               \
 }
 
-// useful math macros
+// useful math macros --chaange type redef before capped most at u16 much better now u32
 typedef s16 q4_12_t;
 typedef u32 uq4_12_t;
+//my addition
+typedef u16 uq8_8_t;
 
 #define Q_4_12_SHIFT (12)
 #define UQ_4_12_SHIFT (12)
 
+#define Q_8_8_SHIFT (8)
+#define UQ_8_8_SHIFT (8)
+
+/*From Wikipedia 
+Q numbers are a ratio of two integers: the numerator is kept in storage, the denominator 
+
+d is equal to 2n.
+
+Consider the following example:
+
+The Q8 denominator equals 2^8 = 256
+1.5 equals 384/256
+
+Q is signed so splits in 2 to hold the range positive and negative
+UQ is unsigned Q number only holds positive so more space
+
+The shift is used in place of multiplication and division
+as its faster on most machines I think requiers a power of 2 denominator
+*/
+
+//note from Sbird on EE use of Qnumber and all the rounding
+/*
+We are mostly trying to replicate what the original games did.
+All of the rounding at weird places is so that
+we dont have off by n errors down the line. 
+Yes you are losing precision that way at some places,
+and thats intentional
+*/
+//so if I'm able to preserve the multiplier
+//I would then multiply by damage and
+//then divide by divisor I can keep the most accurate representation
+//again necessary becasue of my change to type multipliers
+
+//now there's an issue w overflow if I use uq_4_12 it multiplies by 4096
+//doing that and multiplying by dmg  could overflow even u32
+//so I think what I would want is instead to use uq_8_8
+//which would be multiply by 2^8 instead of 2^12
+//which is a difference of 256 compared against 4096
+//which would never overflow a u32 storage type
+
+/*I still need to store multipler within thing,
+am unsure if storing actual decimal or if represents 1.
+ex. uq 0.01  1 percent is it actually doing 0.01 * 4096 / 4096?
+I think it is actually tracking hte decimal as the intelisense 
+shows its value as 40,  is confusing as I thought division hadn't happened yet
+*/
+
+/*
+    also of note from commentor on fixed point article
+
+    "One surprise for me when I started using fixed point was
+    that I had to be careful of underflow, not overflow."
+
+    "...With fixed point, my biggest problem has been underflow.
+    Multiplying 0.01 x 0.01 gives a smaller number, 0.0001.
+    I've performed many mathematical operations that ended
+    up with a result of all zeros, due to underflow.  
+    I've found that I have to scale up my values to avoid underflow."
+*/
+//this is an issue because it can only be represented by doubles
+//i.e 0.00
+//ok I was just wrong doubles aren't limited to just 2 decimal digits
+//floats can store 6-7 and doubles can store up to 15 decimal digits
+//so if the fixed point stuff is storing in doubles correctly
+//as I assume/think, it should have no trouble storing my entire
+//multiplier not just the first 2 digits as I thought
+
+//think I'll use UQ_8_8
+//for my type effectiveness work,
+//store on a u32
+//potential issue is when I have to multiply,
+//I don't pwant to lose the decimals
+//could use float
+//but if I make inline, and put in pokemon.c dmg function
+//may not need to worry about that, as could get multiplier
+//and use it immediately could make function dmg as an argument,
+//and multiply the dmg into the multiplier,
+//then use return UQ_8_8_TO_INT(dmg) to get dmg and return that
+
+//think that could work, would just need ai stuff
+//for get the multiplier look into
+
+
 // Converts a number to Q8.8 fixed-point format
 #define Q_8_8(n) ((s16)((n) * 256))
+//my addition
+#define UQ_8_8(n) ((uq8_8_t)((n) * 256))
 
 // Converts a number to Q4.12 fixed-point format
-#define Q_4_12(n)  ((s16)((n) * 4096))
-#define UQ_4_12(n)  ((u16)((n) * 4096))
+#define Q_4_12(n)  ((q4_12_t)((n) * 4096))
+#define UQ_4_12(n)  ((uq4_12_t)((n) * 4096))
 
 // Converts a number to Q24.8 fixed-point format
 #define Q_24_8(n)  ((s32)((n) << 8))
 
 // Converts a Q8.8 fixed-point format number to a regular integer
-#define Q_8_8_TO_INT(n) ((int)((n) / 256))
+#define Q_8_8_TO_INT(n) ((s32)((n) / 256))
+//my addition
+#define UQ_8_8_TO_INT(n) ((u32)((n) / 256))
+
 
 // Converts a Q4.12 fixed-point format number to a regular integer
-#define Q_4_12_TO_INT(n)  ((int)((n) / 4096))
-#define UQ_4_12_TO_INT(n)  ((int)((n) / 4096))
-//ported uq & everything below as well as percent value modifier
-//could this let me use decimal values instead of having to use fraction work around?
+#define Q_4_12_TO_INT(n)  ((s32)((n) / 4096))
+#define UQ_4_12_TO_INT(n)  ((u32)((n) / 4096))
 
 // Converts a Q24.8 fixed-point format number to a regular integer
-#define Q_24_8_TO_INT(n) ((int)((n) >> 8))
+#define Q_24_8_TO_INT(n) ((s32)((n) >> 8))
 
 // Rounding value for Q4.12 fixed-point format
 #define Q_4_12_ROUND ((1) << (Q_4_12_SHIFT - 1))
 #define UQ_4_12_ROUND ((1) << (UQ_4_12_SHIFT - 1))
+
+//my addition
+#define Q_8_8_ROUND ((1) << (Q_8_8_SHIFT - 1))
+#define UQ_8_8_ROUND ((1) << (UQ_8_8_SHIFT - 1))
 
 // Basic arithmetic for fixed point number formats
 // Consumers should use encapsulated functions where possible
@@ -129,6 +221,13 @@ static inline uq4_12_t uq4_12_multiply(uq4_12_t a, uq4_12_t b)
 {
     u32 product = (u32) a * b;
     return (product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT;
+}
+
+//my addition
+static inline uq8_8_t uq8_8_multiply(uq8_8_t a, uq8_8_t b)
+{
+    u32 product = (u32) a * b;
+    return (product + UQ_8_8_ROUND) >> UQ_8_8_SHIFT;
 }
 
 static inline uq4_12_t uq4_12_multiply_half_down(uq4_12_t a, uq4_12_t b)

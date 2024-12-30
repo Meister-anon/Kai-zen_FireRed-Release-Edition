@@ -432,7 +432,8 @@ static u8 ChooseMoveOrAction_Singles(void)
         flags >>= 1;
         AI_THINKING_STRUCT->aiLogicId++;
         AI_THINKING_STRUCT->movesetIndex = 0;
-    }
+    }//believe what this does is check each flag stored to the field?
+    //no that's not right flags are already set elsewhere
 
     for (i = 0; i < MAX_MON_MOVES; i++) {
         gBattleStruct->aiFinalScore[sBattler_AI][gBattlerTarget][i] = AI_THINKING_STRUCT->score[i];
@@ -1355,7 +1356,8 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         case EFFECT_SUPERPOWER:
         //case EFFECT_ENDEAVOR:
         case EFFECT_LOW_KICK:
-            // AI_CBM_HighRiskForDamage
+            // AI_CBM_HighRiskForDamage //unsure why wonder guard is here and not its own check outside of a switch vsonic
+            //also will need to adjust for wonderguard new effect of being temp
             if (AI_DATA->abilities[battlerDef] == ABILITY_WONDER_GUARD && effectiveness < AI_EFFECTIVENESS_x1_55)
                 score -= 10;
             break;
@@ -2025,7 +2027,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         IncreaseFoeProtectionViability(&viability, 0xFF, battlerAtk, battlerDef);
                     else if (shouldProtect == PROTECT_FROM_ALLIES)
                         IncreaseAllyProtectionViability(&viability, 0xFF);
-                }*/
+                }*/ //why did I blank this again? vsonic
             }
             break;
         case EFFECT_MIRACLE_EYE:
@@ -3140,6 +3142,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     u16 predictedMove = AI_DATA->predictedMoves[battlerDef];
     bool32 isDoubleBattle = IsValidDoubleBattle(battlerAtk);
     u32 i;
+    //will need to add Dark Deal logic to this Vsonic
     // We only check for moves that have a 20% chance or more for their secondary effect to happen because moves with a smaller chance are rather worthless. We don't want the AI to use those.
     bool32 sereneGraceBoost = (AI_DATA->abilities[battlerAtk] == ABILITY_SERENE_GRACE && (gBattleMoves[move].secondaryEffectChance >= 20 && gBattleMoves[move].secondaryEffectChance < 100));
 
@@ -3175,7 +3178,13 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     if (gBattleMoves[move].power != 0 && GetMoveDamageResult(move) == MOVE_POWER_WEAK)
         score--;
 
-    // check status move preference
+    // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
+    //I THINK I removed that? yeah I did, is never a thing but I experimented w it
+    //makes in universe logic but is a bit too muc for players to keep in mind and to balance w learnsets 
+    //and have status moves still be accessible and effective
+    //hmm but actually if you want an extra challenge that could be a hard mode feature
+    //would make completely different mon more or less viable as a result,
+    //and force more thought on learnsets but if you chose the challenge there's no problem with adding complexity!
     if (AI_THINKING_STRUCT->aiFlags & AI_FLAG_PREFER_STATUS_MOVES && IS_MOVE_STATUS(move) && effectiveness != AI_EFFECTIVENESS_x0)
         score++;
 

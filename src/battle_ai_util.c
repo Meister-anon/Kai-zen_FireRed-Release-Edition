@@ -917,9 +917,18 @@ s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness,
     SetTypeBeforeUsingMove(move, battlerAtk);
     GET_MOVE_TYPE(move, moveType);
 
+    //stores multiplier
     typeMod = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE); 
 
-    if (gBattleMoves[move].power)
+    //will need change this as I made power 0 represent typeless dmg ,so replace w not status
+    //prob better move status top and just use is status macro with an else, much cleaner to understand
+    if (IS_MOVE_STATUS(move)) //status moves
+    {
+        //effectivenessMultiplier = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE);  not sure what this is for
+        effectivenessMultiplier = typeMod;
+        dmg = 0;
+    }
+    else//if (gBattleMoves[move].power)
     {
         critChance = GetInverseCritChance(battlerAtk, battlerDef, move);
         normalDmg = AI_CalcDmgFormula(battlerAtk, battlerDef);
@@ -983,17 +992,13 @@ s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness,
         if (dmg == 0)
             dmg = 1;
     }
-    else //status moves
-    {
-        //effectivenessMultiplier = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE);  not sure what this is for
-        effectivenessMultiplier = typeMod;
-        dmg = 0;
-    }
+    
 
     RestoreBattlerData(battlerAtk);
     RestoreBattlerData(battlerDef);
 
     // convert multiper to AI_EFFECTIVENESS_xX
+    //for assignment to AI_DATA->effectiveness
     *typeEffectiveness = AI_GetEffectiveness(typeMod);
 
 
@@ -1181,9 +1186,13 @@ u32 AI_GetMoveEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
     return AI_GetEffectiveness(AI_GetTypeEffectiveness(move, battlerAtk, battlerDef));
 }
 
+//if all checks go through here, keep using value instead of actual multipler
+//as no way to represent that directly within frame of UQ (that I know of)
+//this might not be right, now that I'm aware it does rounding
 static u32 AI_GetEffectiveness(u16 multiplier)
 {
-    switch (multiplier)
+    u32 value = (40 * UQ_4_12_TO_INT(multiplier));
+    switch (value)
     {
     case UQ_4_12(0.0):
         return AI_EFFECTIVENESS_x0;
@@ -3610,6 +3619,7 @@ bool32 ShouldUseWishAromatherapy(u8 battlerAtk, u8 battlerDef, u16 move)
 }
 
 // party logic
+//ok now makes sense, this function isn't used...
 s32 AI_CalcPartyMonDamage(u16 move, u8 battlerAtk, u8 battlerDef, struct Pokemon *mon)
 {
     s32 dmg;
@@ -3621,6 +3631,8 @@ s32 AI_CalcPartyMonDamage(u16 move, u8 battlerAtk, u8 battlerDef, struct Pokemon
         battleMons[i] = gBattleMons[i];
 
     PokemonToBattleMon(mon, &gBattleMons[battlerAtk]); 
+    //don't understand this, why use normal value for effectiveness if it doesn't get used?
+    //only makes sense if they used a struct value to store it but they don't???
     dmg = AI_CalcDamage(move, battlerAtk, battlerDef, &effectiveness, FALSE);
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
@@ -4012,6 +4024,7 @@ bool32 AI_MoveMakesContact(u32 ability, u32 holdEffect, u16 move)
     return FALSE;
 }
 
+//nvm don't really like z-moves don't think will setup but can keep for others I guess
 //TODO - this could use some more sophisticated logic
 bool32 ShouldUseZMove(u8 battlerAtk, u8 battlerDef, u16 chosenMove)
 {

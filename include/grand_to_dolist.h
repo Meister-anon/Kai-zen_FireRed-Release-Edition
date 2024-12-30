@@ -2410,7 +2410,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     then fix ai
     //12/27/24
 
-
+    Unique hard mode baby!!!
+    // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
+    //I THINK I removed that? yeah I did, is never a thing but I experimented w it
+    //makes in universe logic but is a bit too muc for players to keep in mind and to balance w learnsets 
+    //and have status moves still be accessible and effective
+    //hmm but actually if you want an extra challenge that could be a hard mode feature
+    //would make completely different mon more or less viable as a result,
+    //and force more thought on learnsets but if you chose the challenge there's no problem with adding complexity!
+    
+    in hard mode status moves take type effectivenss into account!
+    -addition for mon at or above lvl 30, 
+    //ensure they always have their strongest lvl 1 move if wild
+    //and ivs no lower than 20 for all trainers
+    //12/27/24
 
 
     //also idea change stall to work w trick room since its such a big thing
@@ -2427,6 +2440,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //but either way niche move that doesn't seem amazing for sceptile,
     //until you consider the mega
     /12/25/24
+
+    re-reworked cloud nine and added default cloud nine as a flying ability
+    //think give all cloud nine mon access to all weather moves (via tm)
+    /12/29/24
 
     fixed wimpout and emergency exit rework,
     now working correctly in all scenarios
