@@ -2944,12 +2944,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .pp = 10,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
-    .priority = -1, //unsure bout this can't tell if its an advantage or disadvantage for the move to go first
+    .priority = 0, //unsure bout this can't tell if its an advantage or disadvantage for the move to go first
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 },//ok decide its better this goes last better chance of surviving the turn
 //rather than using it first and having chance get killed now you use it last
 //and have a chance of wasting the turn if the opponent drops you to half
+//alternately keep; at 0 or plus one and allow a healer to go after,
+//or the move that lets target attack twice
+//could use rest w sleep talk, or go directly into an attack
 
 [MOVE_SLUDGE_BOMB] =
 {
@@ -12211,7 +12214,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
         //.zMovePower = 0,
@@ -12301,7 +12304,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMovePower = 0,
         //.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
-    },
+    },//move revives a selected fainted mon to 50% hp
+    //doesn't cost user their life, also is meant to be excluded from PP up effects
+    //beleive too good to be able to have priority
 
     [MOVE_SALT_CURE] =
     {
@@ -12360,7 +12365,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED, // Supposedly unconfirmed?
+        .target = MOVE_TARGET_SELECTED, // Supposedly unconfirmed? //can't target ally
         .priority = 0,
         .flags = 0,
         .split = SPLIT_STATUS,
@@ -12368,6 +12373,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_NONE,
         // Supposedly uncallable by Metronome (unimplemented)
     },
+    //changes ability of user and ally to that of target
+    //potentially need new target logic for this? select target but never ally
 
     [MOVE_FILLET_AWAY] =
     {
@@ -12385,6 +12392,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_RECOVER_HP,
         // Supposedly uncallable by Metronome (unimplemented)
     },
+    //takes half hp (belly drum) but raises atk sp atk and speed 2 stages
+    //could give priority but seems better withuot it?
+    //yeah leaving at priority 0
 
     [MOVE_KOWTOW_CLEAVE] =
     {
@@ -12553,6 +12563,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         // Uncallable by Metronome (to be implemented)
         // Supposedly unsnatchable?
     },
+    //switch out user setup substitute for incoming mon,
+    //also better without priority, not big deal,
+    //but allows for slow switch
 
     [MOVE_CHILLY_RECEPTION] =
     {
@@ -12570,6 +12583,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_SPD_UP_1,
         // Supposedly uncallable by Metronome? (to be implemented)
     },
+    //tells bad joke then switches out, sets hail/snow 5 turns as if used move hail
+    //so is same idea switch out but also get move effect
+    //same deal keep at prio 0
+    //this move can combo w new cloud nine effect,
+    //also curious about mega sceptile w regenerator running shed tail
+    //into shedinja hmm
 
     [MOVE_TIDY_UP] =
     {
@@ -12580,7 +12599,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
-        .priority = 0,
+        .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
         //.zMovePower = 0,
@@ -12588,6 +12607,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         // Supposedly uncallable by Metronome? (to be implemented)
         // Supposedly unsnatchable?
     },
+    //clears spikes and substitute on field
+    //then raises atk & speed one stage
+    //signature of maushold
 
     [MOVE_SNOWSCAPE] =
     {
@@ -12598,13 +12620,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_ALL_BATTLERS,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
         //.zMovePower = 0,
         //.zMoveEffect = Z_EFFECT_SPD_UP_1,
         // Currently an exact copy of Hail until we figure out what to do with it
     },
+    //ok new idea, change to name icescape well might keep, as a pun for snow escape
+    //but idea is weather setting but also trap
+    //sets 5 turn hail for the duration the enemy can't switch
+    //unsure if should include user or user side in hazard set for balance
 
     [MOVE_GRASSHOPPER] =
     {

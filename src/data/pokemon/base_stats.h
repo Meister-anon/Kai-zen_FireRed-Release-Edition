@@ -33634,8 +33634,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_2),
-        .abilities = { ABILITY_MOLD_BREAKER, ABILITY_SHED_SKIN },
-        .abilityHidden = {ABILITY_SHARPNESS, ABILITY_NONE},
+        .abilities = { ABILITY_MOLD_BREAKER, ABILITY_SHED_SKIN }, //not sure i meant to combo w signature move but wow toxic orb
+        .abilityHidden = {ABILITY_SHARPNESS, ABILITY_NONE}, //fillet away would go CRAZY
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
