@@ -2008,6 +2008,18 @@ static void atk01_accuracycheck(void)
         calc = gAccuracyStageRatios[buff].dividend * moveAcc;
         calc /= gAccuracyStageRatios[buff].divisor;
 
+        //with introduction of floating & flyign nerfs decide flying types
+        //need something extra to help them stand out
+        //came up with flying ace, idea flying gives you high ground and flying types
+        //are more manouvarble than any other floating mon,
+        //so flying types in air, should get an advantage against grounded mon
+        //everyone hates evasion mechanics so I'm not gonna go crazy here,
+        //just enough to make things miss that otherwise wouldn't
+        if (IsBattlerGrounded(gBattlerAttacker)
+        && !IsBattlerGrounded(gBattlerTarget)
+        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING))
+            calc = (calc * 95) / 100;
+
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
             || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   
             calc = (calc * 130) / 100; // 1.3 compound eyes boost

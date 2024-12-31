@@ -8895,7 +8895,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Mawile"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 87, 90, 55, 65, 75),
+         STATS(70, 85, 90, 50, 65, 80),
         MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 133,
@@ -10426,7 +10426,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Dusclops"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(41, 70, 130, 25, 70, 130),
+         STATS(40, 70, 130, 25, 70, 130),
         MON_TYPES(TYPE_GHOST, TYPE_GHOST),
         .catchRate = 90,
         .expYield = 159,
@@ -10445,7 +10445,7 @@ const struct BaseStats gBaseStats[] =
         // #endif
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
-        .floating = FALSE, //unsure
+        .floating = FALSE, //unsure - no to make dusknoir different
         .levelUpLearnset = sDusclopsLevelUpLearnset,
         .tmhmLearnset = sDusclopsTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_REAPER_CLOTH, 0, SPECIES_DUSKNOIR}), //Should hopefully blank these for now without issue
@@ -13830,14 +13830,14 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Dusknoir"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(55, 100, 135, 45, 65, 135),
-        MON_TYPES(TYPE_GHOST, TYPE_DARK), //this keeps ghost dark),
-        .catchRate = 45,
-        .expYield = 236,
-        //.evYield_Defense = 1,
+         STATS(60, 100, 135, 45, 65, 135),
+        MON_TYPES(TYPE_GHOST), //this keeps ghost dark),
+        .catchRate = 45, //reverted back to ghost w curr changes gains psyhic immunity
+        .expYield = 236, //but in exchange for weakness to bug and fairy
+        //.evYield_Defense = 1, //plus doesn't really have any dark moves
         //.evYield_SpDefense = 2,
         //.itemRare = ITEM_SPELL_TAG,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50),//hmm based on lore maybe I can give it dark void?
         .eggCycles = 25,
         .friendship = 10,
         .growthRate = GROWTH_FAST,
@@ -13853,7 +13853,11 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sDusknoirLevelUpLearnset,
         .tmhmLearnset = sDusknoirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//I just have no idea what to do with this thing,
+    //best can do is make it float and dusclops not, so it has an extra immunity
+    //ok done it has built in levitate and gets dark void
+    //that will be how to differentiate it from eviolite dusclops
+    //it now has a niche
 
     [SPECIES_FROSLASS] =
     {
@@ -38585,7 +38589,7 @@ const struct BaseStats gBaseStats[] =
         70,
         125,
         125,
-        60,
+        50,
         55,
         95
         ),

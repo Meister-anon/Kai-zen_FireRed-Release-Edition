@@ -4177,7 +4177,7 @@ bool8 CanEvioliteActivate(u8 target)
     && GetGlobalStatTotal(mon) <= 565)) //with boosted stats thing may raiase limit to 465? using new tangela as example, is still below chansey 
         return TRUE;
     else
-        return FALSE;
+        return FALSE;//chansey is 475
 }
 
 //put in calc function as terniary condition to set usesdefstat at start
