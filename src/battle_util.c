@@ -724,10 +724,16 @@ bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add ut
 
     if (gBattleWeather & weatherFlags)
     {
-        // given weather is active -> check if its sun, rain against utility umbrella ( since only 1 weather can be active at once)
-        if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
-            return FALSE; // utility umbrella blocks sun, rain effects
+        if (gBattleWeather & WEATHER_SUN_ANY &&
+           (GetBattlerAbility(battlerId) == ABILITY_ORICHALCUM_PULSE
+        || GetBattlerAbility(battlerId) == ABILITY_PROTOSYNTHESIS))
+            return TRUE; //because orichalcum pulse & protosynth is meant to work through umbrella
 
+        // given weather is active -> check if its sun, rain against utility umbrella ( since only 1 weather can be active at once)
+        else if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
+            return FALSE; // utility umbrella blocks sun, rain effects
+        else if (gBattleWeather & (WEATHER_HAIL_ANY | WEATHER_SANDSTORM_ANY) && GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
+            return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
         return TRUE;
     }
     return FALSE;
@@ -2048,7 +2054,7 @@ u8 DoFieldEndTurnEffects(void)
                     && !(gBattleWeather & WEATHER_SUN_PRIMAL) //ability based permanent
                     )
                 {
-                    if (IsAbilityOnField(ABILITY_DROUGHT) || IsAbilityOnField(ABILITY_SUN_DISK))// || --gWishFutureKnock.weatherDuration != 0)
+                    if (IsAbilityOnField(ABILITY_DROUGHT) || IsAbilityOnField(ABILITY_SUN_DISK) || IsAbilityOnField(ABILITY_ORICHALCUM_PULSE))// || --gWishFutureKnock.weatherDuration != 0)
                         gBattlescriptCurrInstr = BattleScript_SunlightContinues;
 
                     else if (gWishFutureKnock.weatherDuration == 0 || --gWishFutureKnock.weatherDuration == 0) //weathr decrement
@@ -4919,7 +4925,8 @@ bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility) 
         && (battlerAbility == ABILITY_SUN_DISK 
         || battlerAbility ==  ABILITY_SQUALL 
         || battlerAbility ==  ABILITY_SNOW_WARNING 
-        || battlerAbility ==  ABILITY_SAND_STREAM))
+        || battlerAbility ==  ABILITY_SAND_STREAM
+        || battlerAbility == ABILITY_ORICHALCUM_PULSE))
         {
             gBattleWeather = (sWeatherFlagsInfo[weatherEnumId][0]); //should set temp weather w timer 0
             //gWishFutureKnock.weatherDuration = 2; //changed mind will set to 2, / double changed mind, like it better with requiring item extender
@@ -5393,6 +5400,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_SUN_DISK:
+            case ABILITY_ORICHALCUM_PULSE:
                 if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
                 {
                     BattleScriptPushCursor();
@@ -5727,6 +5735,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             }
             break; //end of weather related abilities / start of terrain abilities
             case ABILITY_ELECTRIC_SURGE: //put here to occur after weather abilities
+            case ABILITY_HADRON_ENGINE:
                 if (TryChangeBattleTerrain(battler, STATUS_FIELD_ELECTRIC_TERRAIN, &gFieldTimers.terrainTimer))
                 {
                     BattleScriptPushCursorAndCallback(BattleScript_ElectricSurgeActivates);

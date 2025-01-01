@@ -2738,16 +2738,23 @@ s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 ma
         if (dmg == 0)
             dmg = 1;
         break;
-    case UQ_4_12(2.0):
-        dmg = maxHp / 4;
+    /*case UQ_4_12(2.0):
+        dmg = maxHp / 6;
         if (dmg == 0)
             dmg = 1;
         break;
     case UQ_4_12(4.0):
-        dmg = maxHp / 2;
+        dmg = maxHp / 4;
         if (dmg == 0)
             dmg = 1;
-        break;
+        break;*/
+    }
+
+    if (modifier > UQ_4_12(1.0))
+    {
+        dmg = maxHp / 5;
+        if (dmg == 0)
+            dmg = 1;
     }
 
     return dmg;

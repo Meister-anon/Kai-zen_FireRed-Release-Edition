@@ -5699,11 +5699,12 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
 
     if (IsAbilityPreventingEscape(battlerId)) //realize this need be an if, to always trigger
         speed = (speed * 67) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop
-    //gen 9
-    /*else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & WEATHER_SUN_ANY && highestStat == STAT_SPEED)
+    
+    //gen 9 //-protosynthesis requires gen9 item Booster Energy to be complete accurate
+    else if (ability == ABILITY_PROTOSYNTHESIS && IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY) && highestStat == STAT_SPEED)
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_SPEED)
-        speed = (speed * 150) / 100;*/
+    else if (ability == ABILITY_QUARK_DRIVE && IsBattlerTerrainAffected(battlerId, STATUS_FIELD_ELECTRIC_TERRAIN) && highestStat == STAT_SPEED)
+        speed = (speed * 150) / 100;
 
         // stat stages
     speed *= gStatStageRatios[gBattleMons[battlerId].statStages[STAT_SPEED]][0];
@@ -7347,7 +7348,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         gProtectStructs[battlerId].pranksterElevated = TRUE; //setup equivalent for gale wings and triage so cna be checked by queenly majesty
         priority++; //and one for omnipotent aide as well
     }
-    else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && IsBattlerGrounded(battlerId))
+    else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battlerId, STATUS_FIELD_GRASSY_TERRAIN))
     {
         priority++;
     }

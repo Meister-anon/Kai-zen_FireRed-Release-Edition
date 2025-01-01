@@ -5878,8 +5878,13 @@ BattleScript_EffectSuperpower::	@needtest
 	setmoveeffect MOVE_EFFECT_ATK_DEF_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit	@REMOVED REcoil
 
-BattleScript_EffectCloseCombat::	@removed sp def drop, was going to make recoil but decided against it
-	setmoveeffect MOVE_EFFECT_DEF_MINUS_1 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+@removed sp def drop, was going to make recoil but decided against it
+@think adding back, sp def drop doesn't make sense,
+@but is part of balancing as other moves do 2 stat drops,
+@this drops 2 stats by 1 stage
+@plus is already most desired fighting move
+BattleScript_EffectCloseCombat::	
+	setmoveeffect MOVE_EFFECT_DEF_MINUS_1 | MOVE_EFFECT_SP_DEF_MINUS_1 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
 BattleScript_EffectMagicCoat::
@@ -6243,7 +6248,7 @@ BattleScript_EffectWeatherBall::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectOverheat::
-	setmoveeffect MOVE_EFFECT_RECOIL_33 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	setmoveeffect MOVE_EFFECT_SP_ATK_TWO_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
 BattleScript_EffectTickle::
@@ -8466,6 +8471,9 @@ BattleScript_MoveEffectRecoilWithStatus::
 	@argumentstatuseffect
 	@copyword gBattleMoveDamage, sSAVED_DMG  dont need this actualy becauase my version doesnt use sSAVED_DMG
 BattleScript_MoveEffectRecoil::
+	@idea put overheat etc. here would be non-physical recoil so excluded
+	@idea is they are stamina drains
+	@considered, decided against it, felt bad for balance, 
 	jumpifmove MOVE_STRUGGLE, BattleScript_DoRecoil
 	jumpifability BS_ATTACKER, ABILITY_ROCK_HEAD, BattleScript_RecoilEnd
 	jumpifability BS_ATTACKER, ABILITY_KLUTZ, BattleScript_RecoilEnd
@@ -9049,6 +9057,10 @@ BattleScript_IntimidateEnd:
 	end3
 
 @far as I can tell change to intimidate from emereald seems to still work the same
+@realized adding dark type exclusion just makes incineroar even stronger...
+@but with dark exclusion and dark beating dark, that kind of works?
+@don't want to set intimidate as an intimidate block as that would just make more use intimidate
+
 
 @BattleScript_IntimidateEnd::
 @	return

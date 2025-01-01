@@ -1936,22 +1936,6 @@ static void atk01_accuracycheck(void)
         if (ShouldCacophonyBoostAccuracy(move))
             moveAcc = 100;
 
-        //trap effects
-        if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
-        && IsBlackFogNotOnField())
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
-        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
-        {
-            moveAcc = (moveAcc * 90) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
-            //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
-        }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
-        //as special exclusions to strengthen affect/mechanic
-
         
         
 
@@ -2028,6 +2012,9 @@ static void atk01_accuracycheck(void)
         ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
             calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
 
+        //when I get around to it, safety goggles item should also go on these I thnk
+        //hold effect already set but think will just setup like umbrella
+        //done wrapped it into weather affected
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
@@ -2038,6 +2025,23 @@ static void atk01_accuracycheck(void)
         && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
+
+        //trap effect, //changed so doesn't stack w sandstorm
+        else if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
+        && IsBlackFogNotOnField())
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+        {
+            calc = (calc * 90) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
+            //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
+        }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
+        //as special exclusions to strengthen affect/mechanic
+
 
         if (GetBattlerAbility(gBattlerTarget) == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
             calc = (calc * 80) / 100; // 1.2 sand veil loss
@@ -2057,6 +2061,9 @@ static void atk01_accuracycheck(void)
          //   calc = (calc * 120) / 100; //that way they're still doing the same move, but they also have chance to hit attack themselves with it .
             calc = (calc * 120) / 100; // with that there should be as much benefit as danger in being confused, singled moves could hit everyone, etc. random & interesting..
         
+        //think want to change this to actual state stage drop, either +3 or +2 evasion boost
+        //just so it doesn't stack with other evasion boosts to do something crazy
+        //vsonic IMPORTANT
         if ((GetBattlerAbility(gBattlerTarget) == ABILITY_TANGLED_FEET) && gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION) 
             calc = (calc * 50) / 100;//raises evasion double but evasion calcs different so thats +3 intead of +2
         //12 stage base is 6 goes up to 12 & down to 0
@@ -8111,7 +8118,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 }//for some reason seems doesn't always work?,idk what's going on with this thing...
                 
 
-                //I "think" this will work?
+                //I "think" this will work? //vsonic IMPORTANT...completey forgot I did this
+                //if paralysis is in grounded function may not need set smacked down here
                 else if (gBattleScripting.moveEffect == MOVE_EFFECT_PARALYSIS
                 && !(gStatuses3[gBattlerTarget] & STATUS3_SMACKED_DOWN)
                 && !gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP
@@ -9854,7 +9862,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         && IsBlackFogNotOnField())
     {
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STEALTH_ROCK_DAMAGED;
-        //gBattleMoveDamage = GetStealthHazardDamage(gBattleMoves[MOVE_STEALTH_ROCK].type, gActiveBattler);
+        gBattleMoveDamage = GetStealthHazardDamage(gBattleMoves[MOVE_STEALTH_ROCK].type, gActiveBattler);
         //also defined in ai upgrade, do something later vsonic
         if (gBattleMoveDamage != 0)
             SetDmgHazardsBattlescript(gActiveBattler, 1);
