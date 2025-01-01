@@ -2619,7 +2619,7 @@ const struct BaseStats gBaseStats[] =
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
-        .floating = TRUE,
+        .floating = TRUE, //because learns fly, otherwise thought couldn't fly w leek
         .levelUpLearnset = sFarfetchdLevelUpLearnset,
         .tmhmLearnset = sFarfetchdTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
@@ -4309,8 +4309,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Aerodactyl"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(80, 105, 65, 130, 60, 75),
-        MON_TYPES(TYPE_NORMAL, TYPE_DRAGON),
+         STATS(80, 115, 65, 130, 60, 75),
+        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 180,
         //.evYield_Speed = 2,
@@ -4331,6 +4331,21 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAerodactylTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//more sensible typing but effectiely just as good defensively
+    //want to be normal to get benefits of joat, but also want to be flying
+    //can't be normal flying as its draconic, and would just be a flat downgrade typewise
+    //plus 
+    //w new flying buff I want a rock flying type to take advantage of 
+    //both the buffs but no other exists since changed minior
+    //groud flying gets it, as well forgot that, so its on gligar...who has sand veil....
+    //fuck landorus...
+    //sigh ok I give up, I'll just keep it rock/flying
+    //its pretty much the only one that exists
+    //even if it doesn't make sense out of its mega form
+
+    //give double edge has rock head but no recoil moves
+    //good thing I made rock head give headbutt boosts
+    //makes iron head actually useful
+
 
     [SPECIES_SNORLAX] =
     {
@@ -6116,15 +6131,15 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(100, 70, 70, 45, 65, 87),
-        MON_TYPES(TYPE_NORMAL, TYPE_POISON),   //keeping poison would hurt without floating
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),   //keeping poison would hurt without floating
         .catchRate = 190,
         .expYield = 145,
         //.evYield_HP = 1,
         .genderRatio = PERCENT_FEMALE(50), //hmm actually wouldnt be bad w new poison changes
         .eggCycles = 20,    //would cover all of normals weaknesses leaving just the 2 from poison,
-         .friendship = 15,
-        .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroup1 = EGG_GROUP_FIELD,
+        .friendship = 15,
+        .growthRate = GROWTH_MEDIUM_FAST,//decide keep normal make evo poison
+        .eggGroup1 = EGG_GROUP_FIELD,//this gets eviolite, evo gets more bulk and fewer weaknesses
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_SERENE_GRACE, ABILITY_RUN_AWAY},
         //#ifdef BATTLE_ENGINE
@@ -6169,8 +6184,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_HYPER_CUTTER, ABILITY_SAND_VEIL},
-        .abilityHidden = {ABILITY_IMMUNITY, ABILITY_TOXIC_BOOST},
+        .abilities = {ABILITY_HYPER_CUTTER, ABILITY_SAND_VEIL}, //this is kinda nuttty...well wonderguard shedinja exists so guess its fine
+        .abilityHidden = {ABILITY_IMMUNITY, ABILITY_TOXIC_BOOST},//doesn't die in 1 hit, requies setup and has otherwise average damage
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -8247,7 +8262,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_EMPATH, ABILITY_TRACE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FOREWARN, ABILITY_TELEPATHY},//on purpose can replace with forewarn
+            .abilityHidden = {ABILITY_FOREWARN, ABILITY_RATTLED},//on purpose can replace with forewarn
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -8276,7 +8291,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_EMPATH, ABILITY_TRACE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FOREWARN, ABILITY_TELEPATHY},
+            .abilityHidden = {ABILITY_FOREWARN, ABILITY_RATTLED},
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -8308,7 +8323,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_EMPATH, ABILITY_TRACE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_FOREWARN, ABILITY_TELEPATHY},
+            .abilityHidden = {ABILITY_FOREWARN, ABILITY_RATTLED},
         // #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
@@ -8316,7 +8331,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sGardevoirLevelUpLearnset,
         .tmhmLearnset = sGardevoirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//want to give rattled,
+    //dont think telepathy serves much purpose, even if it had bulk,
+    //or speed to get moves off, not many good moves
+    //hit all battlers
 
     [SPECIES_SURSKIT] =
     {
@@ -8912,7 +8930,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_HYPER_CUTTER, ABILITY_INTIMIDATE},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_STRONG_JAW},
+            .abilityHidden = {ABILITY_PIXILATE, ABILITY_STRONG_JAW},
         // #endif
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
@@ -8921,6 +8939,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMawileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//adjust learnset to give all bite moves
+    //everyone preferces intimidate on this anyway so think will drop
+    //sheer force, for pixilate to get some more accesible fairy moves
+    //can turn body slam into fairy stab, and keep paralysis chance
+    //crap forgot, sheer force boosts and ignores life orb
+    //oh doesn't apply to every move only sheer force moves
+    //then think still prefer pixilate
 
     [SPECIES_ARON] =
     {
@@ -18022,7 +18046,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_MINERAL,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_IRON_BARBS, ABILITY_TOUGH_SPINES},
-            .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_AFTERMATH, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -18059,7 +18083,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_MINERAL,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_IRON_BARBS, ABILITY_TOUGH_SPINES},
-            .abilityHidden = {ABILITY_ANTICIPATION, ABILITY_NONE},
+            .abilityHidden = {ABILITY_ANTICIPATION, ABILITY_AFTERMATH},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -19121,7 +19145,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sVullabyLevelUpLearnset,
         .tmhmLearnset = sVullabyTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(39, AVERAGE_EFFORT), 0, SPECIES_MANDIBUZZ}), //Should hopefully blank these for now without issue
-    },
+    },//unique, w grounding change, no longer resists fighting, but i does lose its electric weakness
 
     [SPECIES_MANDIBUZZ] =
     {
@@ -19655,7 +19679,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         89,
-        125,
+        115,    //dropped by 10 to account for ground buffs
         90,
         101,
         115,
@@ -24199,12 +24223,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -24230,6 +24254,12 @@ const struct BaseStats gBaseStats[] =
         //.flags = F_HAS_COSMETIC_FORMS, for simplicity leave off for now changes species w function in util
     },//this is minior meteor red, need meteor core as its own species
     //this will need specific logic to work w ddex changes
+
+    //can't make flying type w my logic for what flying is,
+    //luckily looking into dex entry, they are pretty much souls encased in rock,
+    //without their meteor shell they fade away, and die,
+    //so there's logic for saying they're a ghost or close to death.
+    //covers work weaknesses well, plus it doesn't really learn flying moves
 
     [SPECIES_KOMALA] =
     {
@@ -40832,7 +40862,7 @@ const struct BaseStats gBaseStats[] =
             .eggGroup1 = EGG_GROUP_FIELD,
             .eggGroup2 = EGG_GROUP_FIELD,
             .abilities = {ABILITY_INTIMIDATE, ABILITY_FLASH_FIRE},
-            .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_NONE},
+            .abilityHidden = {ABILITY_ROCK_HEAD, ABILITY_NONE},
             .bodyColor = BODY_COLOR_BROWN,
             .noFlip = FALSE,
         .floating = FALSE,
@@ -40866,7 +40896,7 @@ const struct BaseStats gBaseStats[] =
             .eggGroup1 = EGG_GROUP_FIELD,
             .eggGroup2 = EGG_GROUP_FIELD,
             .abilities = {ABILITY_INTIMIDATE, ABILITY_FLASH_FIRE},
-            .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_NONE},
+            .abilityHidden = {ABILITY_ROCK_HEAD, ABILITY_NONE},
             .bodyColor = BODY_COLOR_BROWN,
             .noFlip = FALSE,
         .floating = FALSE,
@@ -44355,8 +44385,8 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         89,
-        145,
-        90,
+        125,    //dropped atk by 20 to account for groud buffs (mostly cuz intimidate plus priority sandstorm)
+        90,     //looked at how Landorus is used and my ground changes actually aren't that crazy they dont auto synergize with how its normally used so its just anther options
         91,
         105,
         80
@@ -47551,12 +47581,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47589,12 +47619,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47627,12 +47657,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47665,12 +47695,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47703,12 +47733,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47741,12 +47771,12 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         60,
-        100,
+        120,
         60,
         60,
-        100
+        120
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47778,13 +47808,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47816,13 +47846,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47854,13 +47884,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47892,13 +47922,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47930,13 +47960,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -47968,13 +47998,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
@@ -48006,13 +48036,13 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        100,
-        60,
         120,
-        100,
+        60,
+        140,
+        120,
         60
         ),
-        MON_TYPES(TYPE_ROCK, TYPE_FLYING),
+        MON_TYPES(TYPE_ROCK, TYPE_GHOST),
         .catchRate = 30,
         .expYield = 154,
         //.evYield_Defense = 1,
