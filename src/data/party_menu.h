@@ -1547,3 +1547,4 @@ static const u16 sTMHMMoves[] =
 //adding rock slide for hitmonlee 
 //add gunk shot to list, poison types have WOEFULLY bad stab options *facepalm
 //also venom drench
+//draco meteor and dragon ascent will be tutor moves

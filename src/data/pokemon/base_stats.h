@@ -10503,8 +10503,10 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sChimechoLevelUpLearnset,
         .tmhmLearnset = sChimechoTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+        .evolutions = EVOLUTION({EVO_FRIENDSHIP_NIGHT, FILL, 0, SPECIES_CHINGLING}), //Should hopefully blank these for now without issue
+    },//no one cares about chingling so instead of a baby form,
+    //I turn it into an evo, I can make chimecho finally good,
+    //with an eviolite at least?
 
     [SPECIES_ABSOL] =
     {
@@ -12585,7 +12587,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Chingling"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(45, 30, 50, 45, 65, 60),
+         STATS(100, 90, 100, 25, 95, 80),
         MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
         .catchRate = 120,
         .expYield = 57,
@@ -12597,14 +12599,14 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_TELEPATHY, ABILITY_MAGIC_BOUNCE},
-        .abilityHidden = {ABILITY_FILTER, ABILITY_UNCHAINED_MELODY},
+        .abilities = {ABILITY_CACOPHONY, ABILITY_MAGIC_BOUNCE},
+        .abilityHidden = {ABILITY_SOUNDPROOF, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE, //walks around hopping
         .levelUpLearnset = sChinglingLevelUpLearnset,
         .tmhmLearnset = sChinglingTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP_NIGHT, FILL, 0, SPECIES_CHIMECHO}), //Should hopefully blank these for now without issue
+        .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
     [SPECIES_STUNKY] =

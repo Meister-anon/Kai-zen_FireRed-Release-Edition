@@ -5219,9 +5219,9 @@ const struct PokedexEntry gPokedexEntries[] =
 
     [NATIONAL_DEX_CHINGLING] =
     {
-        .categoryName = _("Bell"),
-        .height = 2,
-        .weight = 6,
+        .categoryName = _("Big Bell"),
+        .height = 10,
+        .weight = 438,
         .description = gChinglingPokedexText,
         .pokemonScale = 356,
         .pokemonOffset = 17,

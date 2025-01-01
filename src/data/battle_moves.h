@@ -7214,7 +7214,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_50_RECOIL,
         .power = 150,
         .type = TYPE_ROCK,
-        .accuracy = 85,
+        .accuracy = 90,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -7222,6 +7222,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_ROCK_HEAD_BOOST,
         .split = SPLIT_PHYSICAL,
     },//consider raising accuracy vsonic double edge has triple pp and is 100% accurate
+    //did boost acc from 85 to 90
 
     [MOVE_DOUBLE_HIT] =
     {
@@ -9666,7 +9667,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .effect = EFFECT_CLOSE_COMBAT,
         .power = 120,
-        .type = TYPE_FLYING,
+        .type = TYPE_DRAGON,
         .accuracy = 100,
         .pp = 5,
         .secondaryEffectChance = 0,
@@ -9674,7 +9675,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+    },//change from flying to dragon type, give out to more mon,
+    // as physical draco meteor
 
     [MOVE_HYPERSPACE_FURY] =
     {

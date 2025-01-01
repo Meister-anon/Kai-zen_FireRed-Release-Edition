@@ -2512,6 +2512,24 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //nah not doing that, far too punishing
     //12/30/24
 
+    //Changed Dragon Ascent to dragon move, make physical
+    equivalent of Draco Meteor, setup as tutor move,
+    do at cape brink where you learn starter hyper beam equivalents
+    add another npc in the house who will teach the apex dragon moves
+    for 2500 or 5000 cash.
+    //12/31/24
+
+    //setup gen 9 new abilis for legendaries quark drive oricalcum pulse
+    along w the paradox abilities, effet mostly set by not quite right,
+    as still haven't done item expansion to get the new items
+
+    //buffed safety goggles, setup like utility umbrella
+    //where blocks effects
+
+    Also changed chingling into chimecho evolutino to
+    make chimecho better, can run eviolite
+    //12/31/24
+
     //VSONIC IMPORTANT keep in mind I apparently setup
     status effects sleep and paralysis to ground floating mon,
     keep an eye on and consider if I want to keep that
