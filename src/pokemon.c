@@ -11026,11 +11026,8 @@ void SetWildMonHeldItem(void)
 
 bool8 IsMonShiny(struct Pokemon *mon)
 {
-    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
-    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    
     return GetMonData(mon, MON_DATA_SHINY_CHECK, NULL);
-    
+   
 }
 
 //no longer used
