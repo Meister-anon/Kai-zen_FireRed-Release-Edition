@@ -3851,7 +3851,7 @@ static u32 DexScreen_GetDefaultPersonality(int species)
 //all need is use dexSPecies for argument
 static void DexScreen_LoadMonPicInWindow(u8 windowId, u16 species, u16 paletteOffset, bool8 LoadMonPalette)
 {
-    LoadMonPicInWindow(species, SHINY_ODDS, DexScreen_GetDefaultPersonality(species), TRUE, paletteOffset >> 4, windowId, LoadMonPalette);
+    LoadMonPicInWindow(species, FALSE, DexScreen_GetDefaultPersonality(species), TRUE, paletteOffset >> 4, windowId, LoadMonPalette);
 }
 
 //use getbase form for this, make if species greater than, nat species count, assign species to base form id
@@ -5618,7 +5618,7 @@ u8 DexScreen_DrawMonAreaPage(void)
     monScale = gPokedexEntries[speciesId].pokemonScale;
     if (monIsCaught) 
     {
-        sPokedexScreenData->windowIds[14] = CreateMonPicSprite_HandleDeoxys(species, SHINY_ODDS, DexScreen_GetDefaultPersonality(species), TRUE, 40, 104, 0, 0xFFFF); //was 65535
+        sPokedexScreenData->windowIds[14] = CreateMonPicSprite_HandleDeoxys(species, FALSE, DexScreen_GetDefaultPersonality(species), TRUE, 40, 104, 0, 0xFFFF); //was 65535
         gSprites[sPokedexScreenData->windowIds[14]].oam.paletteNum = 2;
         gSprites[sPokedexScreenData->windowIds[14]].oam.affineMode = ST_OAM_AFFINE_NORMAL;
         gSprites[sPokedexScreenData->windowIds[14]].oam.matrixNum = 2;

@@ -135,8 +135,8 @@ struct BoxPokemon
     u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out
     
     u8 otName[OT_NAME_LENGTH];
-    u8 isBadEgg:1; //potentially replace w removal of checksum?
-    u8 hasSpecies:1;
+    u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
+    u8 hasSpecies:1;    //MON_DATA_SANITY_IS_BAD_EGG and all mentions of bad egg can be removed
     u8 isEgg:1;
     u8 boxHp:1; //realized only need value 0 & 1
     u8 metGame:4;    
@@ -794,6 +794,7 @@ void PlayBattleBGM(void);
 void PlayMapChosenOrBattleBGM(u16 songId);
 const u32 *GetMonSpritePal(struct Pokemon *mon);
 const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny, u32 personality);
+const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon for shiny retrieves set species, use for evolution scene mostly
 //const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
 
 //const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);

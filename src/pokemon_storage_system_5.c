@@ -1033,7 +1033,6 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         //strange seems formchange withdrawn only used for hoopa?
         if (gPSSData->cursorMonSpecies != SPECIES_NONE)
         {
-            sanityIsBagEgg = GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG);
             if (sanityIsBagEgg)
                 gPSSData->cursorMonIsEgg = TRUE;
             else
@@ -1067,7 +1066,6 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         {
             u32 otId = GetBoxMonData(boxMon, MON_DATA_OT_ID);
             bool32 isShiny;
-            sanityIsBagEgg = GetBoxMonData(boxMon, MON_DATA_SANITY_IS_BAD_EGG);
             if (sanityIsBagEgg)
                 gPSSData->cursorMonIsEgg = TRUE;
             else
@@ -1080,7 +1078,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
             //gPSSData->cursorMonMarkings = GetBoxMonData(boxMon, MON_DATA_MARKINGS);
             gPSSData->cursorMonPersonality = GetBoxMonData(boxMon, MON_DATA_PERSONALITY);
 
-            isShiny = IsShinyOtIdPersonality(otId,gPSSData->cursorMonPersonality);
+            isShiny = IsMonShiny(boxMon);
             gPSSData->cursorMonPalette = GetMonSpritePalFromSpeciesAndPersonality(gPSSData->cursorMonSpecies, isShiny, gPSSData->cursorMonPersonality);
             gender = GetGenderFromSpeciesAndPersonality(gPSSData->cursorMonSpecies, gPSSData->cursorMonPersonality);
             gPSSData->cursorMonItem = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);

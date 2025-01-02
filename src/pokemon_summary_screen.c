@@ -201,7 +201,6 @@ struct PokemonSummaryScreenData
     } summary; //move descriptinos are off, clearly a result of chang to the ability buffs here? don't know why didn't see taht in my pret red version unless I did and forgot?
 
     u8 ALIGNED(4) isEgg; /* 0x3200 */
-    u8 ALIGNED(4) isBadEgg; /* 0x3204 */
 
     u8 ALIGNED(4) mode; /* 0x3208 */
     u8 ALIGNED(4) unk320C; /* 0x320C */
@@ -1213,10 +1212,10 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
 
     BufferSelectedMonData(&sMonSummaryScreen->currentMon); //should set currentmon to value of lastviewedindex
     sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
-    sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
+    /*sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
 
     if (sMonSummaryScreen->isBadEgg == TRUE)
-        sMonSummaryScreen->isEgg = TRUE;
+        sMonSummaryScreen->isEgg = TRUE;*/
 
     sMonSummaryScreen->lastPageFlipDirection[0] = 0xff;
     SetMainCallback2(CB2_SetUpPSS);
@@ -1288,10 +1287,10 @@ void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 las
 
     BufferSelectedMonData(&sMonSummaryScreen->currentMon); //should set currentmon to value of lastviewedindex
     sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
-    sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
+    /*sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
 
     if (sMonSummaryScreen->isBadEgg == TRUE)
-        sMonSummaryScreen->isEgg = TRUE;
+        sMonSummaryScreen->isEgg = TRUE;*/
 
     sMonSummaryScreen->lastPageFlipDirection[0] = 0xff;
     SetMainCallback2(CB2_SetUpPSS);
@@ -1361,10 +1360,10 @@ void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember
     //believe switchign issue could be caused by this, diff between lastid, and currentMon?
     BufferSelectedMonData(&sMonSummaryScreen->currentMon); //should set currentmon to value of lastviewedindex
     sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
-    sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
+    /*sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
 
     if (sMonSummaryScreen->isBadEgg == TRUE)
-        sMonSummaryScreen->isEgg = TRUE;
+        sMonSummaryScreen->isEgg = TRUE;*/
 
     sMonSummaryScreen->lastPageFlipDirection[0] = 0xff;
     SetMainCallback2(CB2_SetUpPSS);
@@ -3012,8 +3011,8 @@ static void PrintInfoPage(void)
 };
         */
 
-        if (sMonSummaryScreen->isBadEgg)
-            hatchMsgIndex = 0;
+        //if (sMonSummaryScreen->isBadEgg)
+        //    hatchMsgIndex = 0;
 
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[3], FONT_NORMAL, 7, 45, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sEggHatchTimeTexts[hatchMsgIndex]);
     }
@@ -3661,8 +3660,8 @@ static void PokeSum_PrintTrainerMemo_Egg(void)
         }
     }
 
-    if (sMonSummaryScreen->isBadEgg)
-        chosenStrIndex = 0;
+    //if (sMonSummaryScreen->isBadEgg)
+    //    chosenStrIndex = 0;
 
     AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], FONT_NORMAL, 0, 3, 0, 0, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sEggOriginTexts[chosenStrIndex]);
 }
@@ -5383,27 +5382,27 @@ static void PokeSum_CreateMonPicSprite(void)
     u16 spriteId;
     u16 species;
     u32 personality;
-    u32 trainerId;
+    u8 IsShiny;
 
     sMonPicBounceState = AllocZeroed(sizeof(struct MonPicBounceState));
 
     species = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES_OR_EGG);
     personality = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY);
-    trainerId = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_OT_ID);
+    IsShiny = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SHINY_CHECK);
 
     if (sMonSummaryScreen->savedCallback == CB2_ReturnToTradeMenuFromSummary)
     {
         if (sMonSummaryScreen->isEnemyParty == TRUE)
-            spriteId = CreateMonPicSprite(species, trainerId, personality, TRUE, 60, 65, 12, 0xffff, TRUE);
+            spriteId = CreateMonPicSprite(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff, TRUE);
         else
-            spriteId = CreateMonPicSprite_HandleDeoxys(species, trainerId, personality, TRUE, 60, 65, 12, 0xffff);
+            spriteId = CreateMonPicSprite_HandleDeoxys(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff);
     }
     else
     {
         if (ShouldIgnoreDeoxysForm(DEOXYS_CHECK_TRADE_MAIN, sLastViewedMonIndex))
-            spriteId = CreateMonPicSprite(species, trainerId, personality, TRUE, 60, 65, 12, 0xffff, TRUE);
+            spriteId = CreateMonPicSprite(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff, TRUE);
         else
-            spriteId = CreateMonPicSprite_HandleDeoxys(species, trainerId, personality, TRUE, 60, 65, 12, 0xffff);
+            spriteId = CreateMonPicSprite_HandleDeoxys(species, IsShiny, personality, TRUE, 60, 65, 12, 0xffff);
     }//do something with this later to make sure I can change forms in game
 
     FreeSpriteOamMatrix(&gSprites[spriteId]);
@@ -6487,10 +6486,10 @@ static void Task_PokeSum_SwitchDisplayedPokemon(u8 id)
         BufferSelectedMonData(&sMonSummaryScreen->currentMon);
 
         sMonSummaryScreen->isEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_EGG);
-        sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
+        /*sMonSummaryScreen->isBadEgg = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SANITY_IS_BAD_EGG);
 
         if (sMonSummaryScreen->isBadEgg == TRUE)
-            sMonSummaryScreen->isEgg = TRUE;
+            sMonSummaryScreen->isEgg = TRUE;*/
 
         sMonSummaryScreen->switchMonTaskState++;
         break;

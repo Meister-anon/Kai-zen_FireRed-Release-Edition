@@ -2842,6 +2842,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 formflag = FALSE;
     u8 evoLevel = 0;  //default 0, not set until evolves
 
+    u32 shiny = (Random() % SHINY_ODDS) == 100 ? TRUE : FALSE;
+
     //if (abilityodds < 0) { abilityodds = 0; }//prevent negative values, why did I add this?? I explicitly need it to be  negative to be able to set hidden ability 1
 
     //checkd and base game hidden abilities are only found by chance at low to increasing odds using pokenav/dexnav in gen 6
@@ -2856,16 +2858,18 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         personality = Random32();
 
     SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
-
+    
+    
     //Determine original trainer ID
     if (otIdType == OT_ID_RANDOM_NO_SHINY) //Pokemon cannot be shiny
     {
-        u32 shinyValue;
+        /*u32 shinyValue;
         do
         {
             value = Random32();
             shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
-        } while (shinyValue < 8);
+        } while (shinyValue < 8);*/
+        shiny = FALSE;
     }
     else if (otIdType == OT_ID_PRESET) //Pokemon has a preset OT ID
     {
@@ -2878,8 +2882,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
               | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
               | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
     }
-
+    
     SetBoxMonData(boxMon, MON_DATA_OT_ID, &value);
+    SetBoxMonData(boxMon, MON_DATA_SHINY_CHECK, &shiny);
 
     checksum = CalculateBoxMonChecksum(boxMon);
     SetBoxMonData(boxMon, MON_DATA_CHECKSUM, &checksum);
@@ -2908,7 +2913,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     if (IsMonShiny(boxMon))
         fixedIV = MAX_PER_STAT_IVS; //change from Lucky, should make every shiny perfect IVs
 
-    if (fixedIV < 32) //32 use random ivs, so here is fixed, else is random
+    if (fixedIV < USE_RANDOM_IVS) //if is 32 use random ivs, so here is fixed, else is random
     {
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &fixedIV);
@@ -6364,12 +6369,12 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
 
         DecryptBoxMon(boxMon);
 
-        if (CalculateBoxMonChecksum(boxMon) != 0)//boxMon->checksum)
+        /*if (CalculateBoxMonChecksum(boxMon) != 0)//boxMon->checksum)
         {
             boxMon->isBadEgg = 1;
             boxMon->isEgg = 1;
             //boxMon->isEgg = 1;
-        }
+        }*/
     }
 
     switch (field)
@@ -6382,7 +6387,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_NICKNAME:
     {
-        if (boxMon->isBadEgg)
+        /*if (boxMon->isBadEgg)
         {
             for (retVal = 0;
                 retVal < POKEMON_NAME_LENGTH && gText_BadEgg[retVal] != EOS;
@@ -6390,7 +6395,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
 
             data[retVal] = EOS;
         }
-        else if (boxMon->isEgg)
+        else*/ if (boxMon->isEgg)
         {
             StringCopy(data, gText_EggNickname);
             retVal = StringLength(data);
@@ -6422,8 +6427,8 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_LANGUAGE:
         retVal = boxMon->language;
         break;
-    case MON_DATA_SANITY_IS_BAD_EGG:
-        retVal = boxMon->isBadEgg;
+    case MON_DATA_SHINY_CHECK:
+        retVal = boxMon->isMonShiny;
         break;
     case MON_DATA_SANITY_HAS_SPECIES:
         retVal = boxMon->hasSpecies;
@@ -6455,7 +6460,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         retVal = 0;
         break;
     case MON_DATA_SPECIES:
-        retVal = boxMon->isBadEgg ? SPECIES_EGG : boxMon->species;
+        retVal = boxMon->species;
         break;
     case MON_DATA_HELD_ITEM:
         retVal = boxMon->heldItem;
@@ -6627,7 +6632,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;//plan remove later
     case MON_DATA_SPECIES_OR_EGG:
         retVal = boxMon->species;
-        if (boxMon->species && (boxMon->isEgg || boxMon->isBadEgg))
+        if (boxMon->species && boxMon->isEgg)
             retVal = SPECIES_EGG;
         break;
     case MON_DATA_IVS:
@@ -6766,6 +6771,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
 {
     const u8 *data = dataArg;
 
+
     /*struct PokemonboxMon *boxMon = NULL;
     struct PokemonboxMon *boxMon = NULL;
     struct PokemonboxMon *boxMon = NULL;
@@ -6780,14 +6786,15 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
 
         DecryptBoxMon(boxMon);
 
-        if (CalculateBoxMonChecksum(boxMon) != 0)//boxMon->checksum)
+        /*if (CalculateBoxMonChecksum(boxMon) != 0)//boxMon->checksum)
         {
             boxMon->isBadEgg = 1;
             boxMon->isEgg = 1;
             EncryptBoxMon(boxMon);
             return;
-        }
+        }*/
     }
+
 
     //type for bitfield need match field in struct but set values don't need change
     //those need be what amount of space is actually used
@@ -6809,8 +6816,8 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_LANGUAGE:
         SET8(boxMon->language);
         break;
-    case MON_DATA_SANITY_IS_BAD_EGG:
-        SET8(boxMon->isBadEgg);
+    case MON_DATA_SHINY_CHECK:
+        SET8(boxMon->isMonShiny);
         break;
     case MON_DATA_SANITY_HAS_SPECIES:
         SET8(boxMon->hasSpecies);
@@ -10816,9 +10823,19 @@ const u32 *GetMonSpritePal(struct Pokemon *mon)
 {
     
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
-    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0); //some other species have form diffs based on personality
+    bool32 isShiny = IsMonShiny(mon); //IsShinyOtIdPersonality(otId,personality);
+    return GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality);
+}
+
+//needed for specific things where species wasn't current species, like evo screen etc.
+const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species)
+{
+    
+    //u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
+    //u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0); //some other species have form diffs based on personality
+    bool32 isShiny = IsMonShiny(mon); //IsShinyOtIdPersonality(otId,personality);
     return GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality);
 }
 
@@ -10867,7 +10884,7 @@ const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, u32 personali
     return GetMonSpritePalStructFromOtIdPersonality(species, otId, personality);
 }*/
 
-//repurpose can use this
+//repurpose can use this -presently not used
 const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality)
 {
     bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
@@ -11011,16 +11028,19 @@ bool8 IsMonShiny(struct Pokemon *mon)
 {
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    return IsShinyOtIdPersonality(otId, personality);
+    
+    return GetMonData(mon, MON_DATA_SHINY_CHECK, NULL);
+    
 }
 
+//no longer used
 bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 {
-    bool8 retVal = FALSE;
+    /*bool8 retVal = FALSE;
     u32 shinyValue = HIHALF(otId) ^ LOHALF(otId) ^ HIHALF(personality) ^ LOHALF(personality);
-    if (shinyValue < 8)
-        retVal = TRUE;
-    return retVal;
+    if (shinyValue < SHINY_ODDS)
+        retVal = TRUE;*/
+    return 0;
 }
 
 u8 *GetTrainerPartnerName(void)

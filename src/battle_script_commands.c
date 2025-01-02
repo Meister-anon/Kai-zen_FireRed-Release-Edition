@@ -18694,7 +18694,7 @@ static void atkF2_displaydexinfo(void)
         if (!IsDma3ManagerBusyWithBgCopy())
         {
             CreateMonPicSprite_HandleDeoxys(species,
-                                            gBattleMons[B_POSITION_OPPONENT_LEFT].otId,
+                                            FALSE,
                                             gBattleMons[B_POSITION_OPPONENT_LEFT].personality,
                                             TRUE,
                                             120,

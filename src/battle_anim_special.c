@@ -2060,21 +2060,18 @@ void AnimTask_TargetToEffectBattler(u8 taskId)
 
 void TryShinyAnimation(u8 battler, struct Pokemon *mon)
 {
-    bool32 isShiny;
+    bool32 isShiny = IsMonShiny(mon);
     u32 otId, personality;
     u32 shinyValue;
     u8 taskId1, taskId2;
 
-    isShiny = FALSE;
+
     gBattleSpritesDataPtr->healthBoxesData[battler].triedShinyMonAnim = TRUE;
     otId = GetMonData(mon, MON_DATA_OT_ID);
     personality = GetMonData(mon, MON_DATA_PERSONALITY);
 
     if (IsBattlerSpriteVisible(battler))
     {
-        shinyValue = HIHALF(otId) ^ LOHALF(otId) ^ HIHALF(personality) ^ LOHALF(personality);
-        if (shinyValue < SHINY_ODDS)
-            isShiny = TRUE;
 
         if (isShiny)
         {

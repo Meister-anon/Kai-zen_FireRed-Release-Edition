@@ -6,7 +6,7 @@
 #define MON_DATA_OT_ID              1
 #define MON_DATA_NICKNAME           2
 #define MON_DATA_LANGUAGE           3
-#define MON_DATA_SANITY_IS_BAD_EGG  4
+#define MON_DATA_SHINY_CHECK        4
 #define MON_DATA_SANITY_HAS_SPECIES 5
 #define MON_DATA_SANITY_IS_EGG      6
 #define MON_DATA_OT_NAME            7
@@ -209,8 +209,8 @@
 //IV Mask
 #define MAX_IV_MASK 31
 
-// Shiny odds
-#define SHINY_ODDS 8 // Actual probability is SHINY_ODDS/65536
+// Shiny odds - reworked now odds are 1/SHINY_ODDS, approx, not quite 2x boost over original
+#define SHINY_ODDS 5000 // Actual probability is SHINY_ODDS/65536
 
 // Learning moves
 #define MON_ALREADY_KNOWS_MOVE 0xFFFE
@@ -221,7 +221,7 @@
 #define PLAYER_HAS_ONE_USABLE_MON               0x2
 
 
-#define OT_ID_RANDOM_NO_SHINY 2
+#define OT_ID_RANDOM_NO_SHINY 2 //this is what makes all trainers have no shiny mon, lot of shinies are ugly so may keep as is?
 #define OT_ID_PRESET 1
 #define OT_ID_PLAYER_ID 0
 

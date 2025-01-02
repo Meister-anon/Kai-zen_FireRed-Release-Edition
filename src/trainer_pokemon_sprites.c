@@ -90,11 +90,12 @@ static bool16 DecompressPic_HandleDeoxys(u16 species, u32 personality, bool8 isF
     return DecompressPic(species, personality, isFrontPic, dest, isTrainer, FALSE);
 }
 
-void LoadPicPaletteByTagOrSlot(u16 species, u32 otId, u32 personality, u8 paletteSlot, u16 paletteTag, bool8 isTrainer)
+//important need this for showing right pal
+//in sum screen etc. believe
+void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personality, u8 paletteSlot, u16 paletteTag, bool8 isTrainer)
 {
     if (!isTrainer)
     {
-        bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
         if (paletteTag == TAG_NONE)
         {
             sCreatingSpriteTemplate.paletteTag = TAG_NONE;
@@ -121,9 +122,8 @@ void LoadPicPaletteByTagOrSlot(u16 species, u32 otId, u32 personality, u8 palett
     }
 }
 
-void LoadPicPaletteBySlot(u16 species, u32 otId, u32 personality, u8 paletteSlot, bool8 isTrainer)
+void LoadPicPaletteBySlot(u16 species, bool8 isShiny, u32 personality, u8 paletteSlot, bool8 isTrainer)
 {
-    bool32 isShiny = IsShinyOtIdPersonality(otId,personality);
     if (!isTrainer)
         LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), paletteSlot * 0x10, 0x20);
     else
@@ -138,7 +138,7 @@ void AssignSpriteAnimsTable(bool8 isTrainer)
         sCreatingSpriteTemplate.anims = gTrainerFrontAnimsPtrTable[0];
 }
 
-u16 CreatePicSprite(u16 species, u32 otId, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 isTrainer, bool8 ignoreDeoxys)
+u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 isTrainer, bool8 ignoreDeoxys)
 {
     u8 i;
     u8 *framePics;
@@ -184,7 +184,7 @@ u16 CreatePicSprite(u16 species, u32 otId, u32 personality, bool8 isFrontPic, s1
     sCreatingSpriteTemplate.images = images;
     sCreatingSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
     sCreatingSpriteTemplate.callback = DummyPicSpriteCallback;
-    LoadPicPaletteByTagOrSlot(species, otId, personality, paletteSlot, paletteTag, isTrainer);
+    LoadPicPaletteByTagOrSlot(species, isShiny, personality, paletteSlot, paletteTag, isTrainer);
     spriteId = CreateSprite(&sCreatingSpriteTemplate, x, y, 0);
     if (paletteTag == 0xFFFF)
     {
@@ -198,9 +198,9 @@ u16 CreatePicSprite(u16 species, u32 otId, u32 personality, bool8 isFrontPic, s1
     return spriteId;
 }
 
-u16 CreatePicSprite_HandleDeoxys(u16 species, u32 otId, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 isTrainer)
+u16 CreatePicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 isTrainer)
 {
-    return CreatePicSprite(species, otId, personality, isFrontPic, x, y, paletteSlot, paletteTag, isTrainer, FALSE);
+    return CreatePicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, isTrainer, FALSE);
 }
 
 u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
@@ -233,17 +233,20 @@ u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
     return 0;
 }
 
-u16 sub_810C050(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u8 paletteSlot, u8 windowId, bool8 isTrainer)
+//think never called
+u16 LoadPicSpriteInWindow(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, u8 paletteSlot, u8 windowId, bool8 isTrainer)
 {
     if (DecompressPic_HandleDeoxys(species, personality, isFrontPic, (u8 *)GetWindowAttribute(windowId, WINDOW_TILE_DATA), FALSE))
     {
         return 0xFFFF;
     }
-    LoadPicPaletteBySlot(species, otId, personality, paletteSlot, isTrainer);
+    LoadPicPaletteBySlot(species, isShiny, personality, paletteSlot, isTrainer);
     return 0;
 }
 
-u16 sub_810C0C0(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u16 destX, u16 destY, u8 paletteSlot, u8 windowId, bool8 isTrainer, bool8 LoadMonPalette)
+//used for both trainer pics and pokemon pics
+//shiny is false in every use so dont need to worry about that
+u16 CreateTrainerCardSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, u16 destX, u16 destY, u8 paletteSlot, u8 windowId, bool8 isTrainer, bool8 LoadMonPalette)
 {
     u8 *framePics;
 
@@ -253,14 +256,18 @@ u16 sub_810C0C0(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u16 de
     {
         BlitBitmapRectToWindow(windowId, framePics, 0, 0, 0x40, 0x40, destX, destY, 0x40, 0x40);
         if (LoadMonPalette)
-            LoadPicPaletteBySlot(species, otId, personality, paletteSlot, isTrainer);
+            LoadPicPaletteBySlot(species, isShiny, personality, paletteSlot, isTrainer);
         else
         //load black palatte
         {
-            LoadPicPaletteBySlot(SPECIES_NONE, otId, SHINY_ODDS, paletteSlot, isTrainer);
+            LoadPicPaletteBySlot(SPECIES_NONE, isShiny, 8, paletteSlot, isTrainer);
         } //sems setting personality to above 8 makes use shiny pal
         //done this way I can use the shiny palette for question mark, which would never come up
         //leavig the normal one untouched
+        //don't rememberwhy I did this, or if its even still relevant?
+        //I may have undone whatever change this was
+        //ok I think it actually means to lock it from being shiny?
+        //may not need at all but kept personality value as 8, for caution
             
         Free(framePics);
         return 0;
@@ -268,14 +275,14 @@ u16 sub_810C0C0(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u16 de
     return 0xFFFF;
 }
 
-u16 CreateMonPicSprite(u16 species, u32 otId, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 ignoreDeoxys)
+u16 CreateMonPicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 ignoreDeoxys)
 {
-    return CreatePicSprite(species, otId, personality, isFrontPic, x, y, paletteSlot, paletteTag, FALSE, ignoreDeoxys);
+    return CreatePicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, FALSE, ignoreDeoxys);
 }
 
-u16 CreateMonPicSprite_HandleDeoxys(u16 species, u32 otId, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag)
+u16 CreateMonPicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag)
 {
-    return CreateMonPicSprite(species, otId, personality, isFrontPic, x, y, paletteSlot, paletteTag, FALSE);
+    return CreateMonPicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, FALSE);
 }
 
 u16 FreeAndDestroyMonPicSprite(u16 spriteId)
@@ -283,15 +290,16 @@ u16 FreeAndDestroyMonPicSprite(u16 spriteId)
     return FreeAndDestroyPicSpriteInternal(spriteId);
 }
 
-u16 LoadMonPicInWindow(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u8 paletteSlot, u8 windowId, bool8 LoadMonPalette)
+//never loads shiny pic, just default palette
+u16 LoadMonPicInWindow(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, u8 paletteSlot, u8 windowId, bool8 LoadMonPalette)
 {
-    return sub_810C0C0(species, otId, personality, isFrontPic, 0, 0, paletteSlot, windowId, FALSE, LoadMonPalette);
+    return CreateTrainerCardSprite(species, isShiny, personality, isFrontPic, 0, 0, paletteSlot, windowId, FALSE, LoadMonPalette);
 }
 
 //unused
-u16 sub_810C25C(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u16 destX, u16 destY, u8 paletteSlot, u8 windowId, bool8 LoadMonPalette)
+u16 CreateTrainerCardMonIconSprite(u16 species, u32 otId, u32 personality, bool8 isFrontPic, u16 destX, u16 destY, u8 paletteSlot, u8 windowId, bool8 LoadMonPalette)
 {
-    return sub_810C0C0(species, otId, personality, isFrontPic, destX, destY, paletteSlot, windowId, FALSE, TRUE);
+    return CreateTrainerCardSprite(species, otId, personality, isFrontPic, destX, destY, paletteSlot, windowId, FALSE, TRUE);
 }
 
 u16 CreateTrainerPicSprite(u16 species, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag)
@@ -304,14 +312,16 @@ u16 FreeAndDestroyTrainerPicSprite(u16 spriteId)
     return FreeAndDestroyPicSpriteInternal(spriteId);
 }
 
-u16 sub_810C2FC(u16 species, bool8 isFrontPic, u8 paletteSlot, u8 windowId)
+///unused
+u16 LoadTrainerPicInWindow(u16 species, bool8 isFrontPic, u8 paletteSlot, u8 windowId)
 {
-    return sub_810C050(species, 0, 0, isFrontPic, paletteSlot, windowId, TRUE);
+    return LoadPicSpriteInWindow(species, 0, 0, isFrontPic, paletteSlot, windowId, TRUE);
 }
 
+//also never loads shiny pic
 u16 CreateTrainerCardTrainerPicSprite(u16 species, bool8 isFrontPic, u16 destX, u16 destY, u8 paletteSlot, u8 windowId)
 {
-    return sub_810C0C0(species, 0, 0, isFrontPic, destX, destY, paletteSlot, windowId, TRUE, TRUE);
+    return CreateTrainerCardSprite(species, FALSE, 0, isFrontPic, destX, destY, paletteSlot, windowId, TRUE, TRUE);
 }
 
 u16 PlayerGenderToFrontTrainerPicId_Debug(u8 gender, bool8 getClass)

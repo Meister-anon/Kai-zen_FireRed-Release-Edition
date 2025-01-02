@@ -33,6 +33,7 @@ struct HallofFameMon //changes this allows expanded species to show correctly in
     u16 species :11; // since Species_egg with expand mon is 1260, and bit 9 is 2^9-1 aka 511, had to increase to bit 11.
     u16 lvl :7;
     u8 nick[POKEMON_NAME_LENGTH]; //because its bitwise which is 0 or 1, i.e the base of the number system, raised to the power of the numbers place - 1.
+    u8 shininess;
 }; // that's what I should do when I see a number next to a colon
 
 struct HallofFameTeam
@@ -381,7 +382,7 @@ static void Task_Hof_InitMonData(u8 taskId)
 {
     u16 i;
     u16 j;
-    u8 nick[11];
+    u8 nick[POKEMON_NAME_BUFFER_SIZE];
 
     gTasks[taskId].data[2] = 0;
     for (i = 0; i < PARTY_SIZE; i++)
@@ -392,6 +393,7 @@ static void Task_Hof_InitMonData(u8 taskId)
             sHofMonPtr[0].mon[i].tid = GetMonData(&gPlayerParty[i], MON_DATA_OT_ID);
             sHofMonPtr[0].mon[i].personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
             sHofMonPtr[0].mon[i].lvl = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+            sHofMonPtr[0].mon[i].shininess = GetMonData(&gPlayerParty[i], MON_DATA_SHINY_CHECK);
             GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nick);
 
             if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)].speciesName, nick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
@@ -407,6 +409,7 @@ static void Task_Hof_InitMonData(u8 taskId)
             sHofMonPtr[0].mon[i].tid = 0;
             sHofMonPtr[0].mon[i].personality = 0;
             sHofMonPtr[0].mon[i].lvl = 0;
+            sHofMonPtr[0].mon[i].shininess = FALSE;
             sHofMonPtr[0].mon[i].nick[0] = EOS;
         }
     }
@@ -510,7 +513,7 @@ static void Task_Hof_DisplayMon(u8 taskId)
         dstY = sHallOfFame_MonHalfTeamPositions[currMonId][3];
     }
 
-    spriteId = CreateMonPicSprite_HandleDeoxys(currMon->species, currMon->tid, currMon->personality, 1, srcX, srcY, currMonId, 0xFFFF);
+    spriteId = CreateMonPicSprite_HandleDeoxys(currMon->species, currMon->shininess, currMon->personality, 1, srcX, srcY, currMonId, 0xFFFF);
     gSprites[spriteId].data[1] = dstX;
     gSprites[spriteId].data[2] = dstY;
     gSprites[spriteId].data[0] = 0;
@@ -828,7 +831,7 @@ static void Task_HofPC_DrawSpritesPrintText(u8 taskId)
                 posY = sHallOfFame_MonHalfTeamPositions[i][3];
             }
 
-            spriteId = CreateMonPicSprite_HandleDeoxys(currMon->species, currMon->tid, currMon->personality, TRUE, posX,
+            spriteId = CreateMonPicSprite_HandleDeoxys(currMon->species, currMon->shininess, currMon->personality, TRUE, posX,
                 posY, i, 0xFFFF);
             gSprites[spriteId].oam.priority = 1;
             gTasks[taskId].data[5 + i] = spriteId;

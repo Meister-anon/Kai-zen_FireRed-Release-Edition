@@ -1965,12 +1965,15 @@ u8 GetBattlerSpriteBGPriorityRank(u8 battlerId)
 //may need to remove deoxys checks, also check function for species personality filter
 //in case can use for exp share to identify pokemon
 // Create pokemon sprite to be used for a move animation effect (e.g. Role Play / Snatch)
-u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16 x, s16 y, u8 subpriority, u32 personality, u32 trainerId, u32 battlerId, u32 a10)
+
+//EE version
+//u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId);
+u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16 x, s16 y, u8 subpriority, u32 personality, bool8 isShiny, u32 battlerId, u32 a10)
 {
     u8 spriteId;
     u16 sheet = LoadSpriteSheet(&gUnknown_83AE084[a3]);
     u16 palette = AllocSpritePalette(gUnknown_83AE054[a3].paletteTag);
-    bool32 isShiny = IsShinyOtIdPersonality(trainerId,personality);
+    bool32 isShiny = isShiny;
 
     if (gMonSpritesGfxPtr != NULL && gMonSpritesGfxPtr->multiUseBuffer == NULL)
         gMonSpritesGfxPtr->multiUseBuffer = AllocZeroed(0x2000);
