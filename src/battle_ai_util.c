@@ -1170,6 +1170,31 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
     SetBattlerData(battlerDef);
 
     gBattleStruct->dynamicMoveType = 0;
+
+    if (gBattleMons[battlerAtk].species == SPECIES_ARCEUS && 
+    move == MOVE_JUDGMENT)
+    {
+        u32 i;
+        bool8 foundType = 0;
+
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++)//realized problem I'm attempting to set typep before I've selecteed a target...rage works as its based on the attacker type which is alwayss known/constant
+        {
+            
+            if (CalcTypeEffectivenessMultiplier(move, i, battlerAtk, battlerDef, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
+            {
+                gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
+                //SetJudgmentTypeString(i);
+                foundType = TRUE;
+                break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
+            }//and since this is a loop it encounters the ground loop, before it gets to rock so I need to do a switch case
+            //but i need a way to get the type I need
+        }
+
+
+        if (!(foundType)) //IDK What's happening right now, - put result brackets around ground check now fixed
+            gBattleStruct->dynamicMoveType = TYPE_MYSTERY;
+    }
+
     SetTypeBeforeUsingMove(move, battlerAtk);
     GET_MOVE_TYPE(move, moveType);
     typeEffectiveness = CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, FALSE);
@@ -1178,7 +1203,7 @@ u16 AI_GetTypeEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
     RestoreBattlerData(battlerDef);
 
     return typeEffectiveness;
-}
+}//think need add Arceus Judgement logic here
 
 u32 AI_GetMoveEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 {
@@ -1191,8 +1216,8 @@ u32 AI_GetMoveEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef)
 //this might not be right, now that I'm aware it does rounding
 static u32 AI_GetEffectiveness(u16 multiplier)
 {
-    u32 value = (40 * UQ_4_12_TO_INT(multiplier));
-    switch (value)
+
+    switch (multiplier)
     {
     case UQ_4_12(0.0):
         return AI_EFFECTIVENESS_x0;
@@ -1203,18 +1228,25 @@ static u32 AI_GetEffectiveness(u16 multiplier)
     case UQ_4_12(0.5):
         return AI_EFFECTIVENESS_x0_5;
     case UQ_4_12(1.0):
-    default:
         return AI_EFFECTIVENESS_x1;
     case UQ_4_12(1.55):
         return AI_EFFECTIVENESS_x1_55;
-    case UQ_4_12(4.0):
+    /*case UQ_4_12(4.0):
         return AI_EFFECTIVENESS_x2_40;
     case UQ_4_12(8.0):
-        return AI_EFFECTIVENESS_x3_72;
+        return AI_EFFECTIVENESS_x3_72;*/
     }//need figure how to round the values for new multiplier I think,
     //not sure how its treated right now/calcualted, uq only goes to 2 zeroes,
     //but multipler 1.55^2 = 2.4025
     //multiplier 1.55^3 = 3.723875
+    if (multiplier > UQ_4_12(1.55)  
+    && multiplier < UQ_4_12(3.0))
+        return AI_EFFECTIVENESS_x2_40;
+
+    //possible to go above this w two typed move
+    //but not necessary go into further detail
+    if (multiplier > UQ_4_12(3.0)) 
+        return AI_EFFECTIVENESS_x3_72;
 }
 
 /* Checks to see if AI will move ahead of another battler

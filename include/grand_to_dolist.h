@@ -2530,6 +2530,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     make chimecho better, can run eviolite
     //12/31/24
 
+    //checekd multiplier result and type effectiveness is near perfect,
+    its exactly where it should be so no need to change anything regarding that 
+    luckily
+
     //VSONIC IMPORTANT keep in mind I apparently setup
     status effects sleep and paralysis to ground floating mon,
     keep an eye on and consider if I want to keep that

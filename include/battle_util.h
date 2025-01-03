@@ -188,7 +188,7 @@ bool32 UnnerveOn(u32 battlerId, u32 itemId);
 void TryRestoreStolenItems(void);
 void TrySaveExchangedItem(u8 battlerId, u16 stolenItem);
 bool32 TryActivateBattlePoisonHeal(void);   //replaced normal poisonheal checks, allows use for poison types
-u16 CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities);
+uq4_12_t CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities);
 u32 GetBattlerMoveTargetType(u8 battlerId, u16 move); //need port these two fully
 bool32 CanTargetBattler(u8 battlerAtk, u8 battlerDef, u16 move);
 u16 GetTypeModifier(u8 atkType, u8 defType);

@@ -2723,33 +2723,32 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
         return;
     }
 
-    if (gBattleMons[gBattlerAttacker].species == SPECIES_ARCEUS)
+    if (gBattleMons[gBattlerAttacker].species == SPECIES_ARCEUS && gCurrentMove == MOVE_JUDGMENT)
     {
-        if (gCurrentMove == MOVE_JUDGMENT) //set here tobe arceus only effect
+        //set here tobe arceus only effect
+        u32 i;
+        bool8 foundType = 0;
+
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++)//realized problem I'm attempting to set typep before I've selecteed a target...rage works as its based on the attacker type which is alwayss known/constant
         {
-            u32 i;
-            bool8 foundType = 0;
-
-            for (i = 0; i < NUMBER_OF_MON_TYPES; i++)//realized problem I'm attempting to set typep before I've selecteed a target...rage works as its based on the attacker type which is alwayss known/constant
+            //ok checked this, it can recognize uq 1.55 but when I multiply its something else?
+            //tested w uq 8_8 and it does match up at == 1.55 at least
+            //in type effectiveness option it also proves it recognizes == 0.775 ???
+            //ok setup debug option to just show type effectiveness so I can see what's happening
+            if (CalcTypeEffectivenessMultiplier(gCurrentMove, i, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
             {
-                //ok checked this, it can recognize uq 1.55 but when I multiply its something else?
-                //tested w uq 8_8 and it does match up at == 1.55 at least
-                //in type effectiveness option it also proves it recognizes == 0.775 ???
-                //ok setup debug option to just show type effectiveness so I can see what's happening
-                if (CalcTypeEffectivenessMultiplier(gCurrentMove, i, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
-                {
-                    gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
-                    //SetJudgmentTypeString(i);
-                    foundType = TRUE;
-                    break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
-                }//and since this is a loop it encounters the ground loop, before it gets to rock so I need to do a switch case
-                //but i need a way to get the type I need
-            }
-
-
-            if (!(foundType)) //IDK What's happening right now, - put result brackets around ground check now fixed
-                gBattleStruct->dynamicMoveType = TYPE_MYSTERY;  //
+                gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
+                //SetJudgmentTypeString(i);
+                foundType = TRUE;
+                break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
+            }//and since this is a loop it encounters the ground loop, before it gets to rock so I need to do a switch case
+            //but i need a way to get the type I need
         }
+
+
+        if (!(foundType)) //IDK What's happening right now, - put result brackets around ground check now fixed
+            gBattleStruct->dynamicMoveType = TYPE_MYSTERY;  //
+        
     }
     argument = gBattleMoves[gCurrentMove].argument;
     GET_MOVE_TYPE(gCurrentMove, moveType); //could put above, but setting here to ensure all passing/working correctly
@@ -2879,7 +2878,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     }
     else if (gBattleMons[gBattlerTarget].hp != 0)
     {
-        // take type effectiveness
+        // take type effectiveness - multiply, return actual damage done
         gBattleMoveDamage = ApplyModifier(multiplier, gBattleMoveDamage);  
         //tested type replacemente seems to work, need more indepth test doduo etc.
         //seems to work differently than base, super/resisted dmg doen't cancel out becuase dif multipliers, 

@@ -197,7 +197,8 @@ shows its value as 40,  is confusing as I thought division hadn't happened yet
 #define Q_4_12_ROUND ((1) << (Q_4_12_SHIFT - 1))
 #define UQ_4_12_ROUND ((1) << (UQ_4_12_SHIFT - 1))
 
-//my addition
+//my addition - added for type multiplier refactor
+//but no longer need
 #define Q_8_8_ROUND ((1) << (Q_8_8_SHIFT - 1))
 #define UQ_8_8_ROUND ((1) << (UQ_8_8_SHIFT - 1))
 
@@ -216,11 +217,18 @@ static inline uq4_12_t uq4_12_subtract(uq4_12_t a, uq4_12_t b)
     return a - b;
 }
 
-//or maybe I need this, yeah most likely this
+//or maybe I need this, yeah most likely this, may remove rounding,
+//to keep accuracy until final step?
+//believe shift is to remove the  extra multiplication of 4096
+//and think what this is doing is rounding then doin the shift
+//but then again I think thats a typical part of fixed point stuff? idk
+//believe is functionally equivalent to the current effect, which works perfectly for my needs
+//so no need to change it
 static inline uq4_12_t uq4_12_multiply(uq4_12_t a, uq4_12_t b)
 {
     u32 product = (u32) a * b;
     return (product + UQ_4_12_ROUND) >> UQ_4_12_SHIFT;
+    //return (product) >> UQ_4_12_SHIFT;
 }
 
 //my addition

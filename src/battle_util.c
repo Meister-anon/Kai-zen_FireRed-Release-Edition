@@ -39,8 +39,8 @@ static bool32 IsGravityPreventingMove(u32 move);
 static bool32 IsBelchPreventingMove(u32 battler, u32 move);
 static bool32 GetMentalHerbEffect(u8 battlerId);
 static u16 GetInverseTypeMultiplier(u16 multiplier);
-static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities);
-static u16 CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities, u16 modifier);
+static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities);
+static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities, uq4_12_t modifier);
 static void UpdateMoveResultFlags(u16 modifier); //only used for accuracycheck command
 static void infatuationchecks(u8 target);//cusotm effect used for cupidarrow
 static u8 ItemEffectMoveEnd(u32 battlerId, u16 holdEffect);
@@ -12073,7 +12073,8 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
 void MulModifier(u16 *modifier, u16 val) //portd tried to set globably hope works   //can use decimal values
 {
     *modifier = UQ_4_12_TO_INT((*modifier * val) + UQ_4_12_ROUND);
-}
+    //*modifier = UQ_4_12_TO_INT(*modifier * val);
+}//base multiplier is better than my version withuot round
 
 u32 ApplyModifier(u16 modifier, u32 val)
 {
@@ -12100,9 +12101,9 @@ static u16 GetInverseTypeMultiplier(u16 multiplier) //could use total damgae cal
 #define TYPE_MODIFIER_ADJUSTMENTS
 //read for type 1, only reads type 2 if not match type 1,
 //only reads type 3 if doesn't match 1 or 2 and not mystery
-static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities)
+static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities)
 {
-    u16 mod = GetTypeModifier(moveType, defType);
+    uq4_12_t mod = GetTypeModifier(moveType, defType);
 
     
 
@@ -12226,9 +12227,9 @@ u16 GetTypeModifier(u8 atkType, u8 defType) //used inside MulByTypeEffectiveness
 
 }
 
-u16 CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities)
+uq4_12_t CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities)
 {
-    u16 modifier = UQ_4_12(1.0); //fix for power 0 moves that are non status to be typeless
+    uq4_12_t modifier = UQ_4_12(1.0); //fix for power 0 moves that are non status to be typeless
 
     if (move != MOVE_STRUGGLE && !(gBattleMoves[move].power == 0 && gBattleMoves[move].split != SPLIT_STATUS) && moveType != TYPE_SOUND && moveType != TYPE_MYSTERY) //skips type calculation as both are meant to do typeless dmg i.e neutral to all
     {
@@ -12254,7 +12255,7 @@ because of how that's working its rouding up 1.55 to the nearest 10th */
 //edit tested using judgement and no it isnt doing that, least not on a single weakness,
 //its properly returning uq 1.55 everything  is what's fucked...
 #define NEW_TYPE_CALC_FORMULA
-static u16 CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities, u16 modifier)
+static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities, uq4_12_t modifier)
 {
     u16 defAbility = GetBattlerAbility(battlerDef);
  //issue w this need adjust when read super effective into not very effective vice versa

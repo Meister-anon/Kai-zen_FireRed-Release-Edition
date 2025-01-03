@@ -4096,7 +4096,7 @@ u8 GetTypeEffectivenessState_Singles(u16 move, u8 moveType) //for singles
 }
 
 //decide targetId with loop
-u8 GetTypeEffectivenessState_Doubles(u16 move, u8 moveType, u8 targetId) //for singles
+u8 GetTypeEffectivenessState_Doubles(u16 move, u8 moveType, u8 targetId) //for doubles
 {
 
 
