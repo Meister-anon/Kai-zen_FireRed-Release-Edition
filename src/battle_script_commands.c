@@ -2002,12 +2002,19 @@ static void atk01_accuracycheck(void)
         //everyone hates evasion mechanics so I'm not gonna go crazy here,
         //just enough to make things miss that otherwise wouldn't
         //adding exceptions since not in sandstorm sight is a factor
+        //thnk can drop this further looked at calc, and a single stage acc drop
+        //is 75% stacking sandstorm sandveil and this at 10% are 10% below that,
+        //and don't even equate to a 2 stage drop which is 60
+        //need to be careful, as it does acc drop without actually dropping stat stage
+        //don't want to overdo, but 5% drop at 95% is pretty much completely unnoticeable
+        //but it makes all accuracy drops more effective, cna treat like other games,
+        //marginal gains being the main focus not strength of individual effects
         if (IsBattlerGrounded(gBattlerAttacker)
         && !IsBattlerGrounded(gBattlerTarget)
         && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_KEEN_EYE
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE)
-            calc = (calc * 95) / 100;
+            calc = (calc * 93) / 100;
 
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
             || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   
