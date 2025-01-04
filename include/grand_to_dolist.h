@@ -2534,6 +2534,35 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     its exactly where it should be so no need to change anything regarding that 
     luckily
 
+    double check anticipation logic, see if its supposed to end after one turn,
+    or only when I get hit by the move I anticipated
+    if I switch into doubles its kind of pointless to lock it to the move
+    would make more sense to "sense" a move get info about it,
+    but just avoid whatever comes, because you're anticipating an attack.
+
+    Then anticipation and forewarn can effectively work the same but read different info
+    or different quality/level of info.
+
+    If it works that way then I feel perfectly fine, letting it just be a one turn thing
+    -edit, checked it is one turn/attack, but the invul is linked to the specific move,
+    will change that, it reveals info and gives invul, that will be  the effect
+    //to balance will make exclude status moves something like killing intent
+    =//ok effect done it forewarn returns exact move,
+    anticipate returns category of move, or strongest move not name just info about move
+    //now works, off whatever attacks comes at it first, does not activate for status moves
+
+    mold breaker shold stop anticipation forewarn
+    need set exclusion
+    //also seems sticky hold and magma armor arent correctly removing items
+    unsure if todo w change to item storagae values for 2nd item slot
+    /1/4/2025
+
+    Notice not only move info but also dex callback and transformation stat gain on lvl up
+    seem to break on switch look into all 3 effects find what they have in common
+    Presently those are my last known bugs, I guess someone presiante that 
+    they are linked together
+    /1.3.2025
+
     //VSONIC IMPORTANT keep in mind I apparently setup
     status effects sleep and paralysis to ground floating mon,
     keep an eye on and consider if I want to keep that

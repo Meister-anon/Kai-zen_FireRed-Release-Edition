@@ -5192,7 +5192,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_DREAD_WING:
         attack = (67 * attack) / 100; //equivalent one stat stage drop
-    }
+    }//essentially intimidate with also an damage boost
 
     // target's ally's abilities
     if (IsBattlerAlive(BATTLE_PARTNER(battlerIdDef)))

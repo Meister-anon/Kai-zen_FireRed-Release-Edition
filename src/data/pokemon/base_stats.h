@@ -547,7 +547,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 20, 65, 30, 25, 25),
-        MON_TYPES(TYPE_BUG, TYPE_BUG), //potentially make normal bug? would be stronger but then who would be normal but, keep aneye on this prob use type
+        MON_TYPES(TYPE_BUG), //potentially make normal bug? would be stronger but then who would be normal but, keep aneye on this prob use type
         .catchRate = 120,
         .expYield = 72,
         //.evYield_Defense = 2,
@@ -3870,7 +3870,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 125, 100, 85, 55, 70),
-        MON_TYPES(TYPE_BUG, TYPE_BUG),
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 175,
         //.evYield_Attack = 2,
@@ -3891,6 +3891,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPinsirTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //bug normal is now a very good type, plus bug being excluded from confusion self hit
+    //with type change and multiplier adjust it still gets benefit of resistances
+    //and bug covers all the weaknesses of normal, while still gaining it the damage buff
+    //perfectly positioning the resurgance of bug as the type best positioned to take advantage
+    //of normal type addition
+    //only thing needed to give up is a stronger resistance
 
     [SPECIES_TAUROS] =
     {
@@ -6075,7 +6081,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(50, 65, 90, 15, 35, 35),
-        MON_TYPES(TYPE_BUG, TYPE_NORMAL),   //bcuz
+        MON_TYPES(TYPE_BUG),   //bcuz
         .catchRate = 190,
         .expYield = 58,
         //.evYield_Defense = 1,
@@ -6096,6 +6102,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPinecoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(31, AVERAGE_EFFORT), 0, SPECIES_FORRETRESS}), //Should hopefully blank these for now without issue
     },
+    //Return to full normal, since defensive better to have full resistance
 
     [SPECIES_FORRETRESS] =
     {
@@ -13656,6 +13663,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sYanmegaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//give dragon rage, dragon breath outrage  dragon pulse draco meteor  //potentially rage
+    //vsonic
 
     [SPECIES_LEAFEON] =
     {
@@ -18715,7 +18723,7 @@ const struct BaseStats gBaseStats[] =
         120,
         60
         ),
-        MON_TYPES(TYPE_BUG, TYPE_BUG),
+        MON_TYPES(TYPE_BUG, TYPE_NORMAL), //Has varied learnset
         .catchRate = 75,
         .expYield = 173,
         //.evYield_Speed = 2,
@@ -29674,7 +29682,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_INSOMNIA, ABILITY_NONE},
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_ANALYTIC},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -29720,25 +29728,25 @@ const struct BaseStats gBaseStats[] =
             //hp, atk, def, spd, spatk, spdef
         STATS(
               60,
-              79,
+              89,
               92,
               35,
               52,
               86
        ),
-        MON_TYPES(TYPE_BUG),
-        .catchRate = 120,
-        .expYield = 141,
-       // .evYield_Defense = 2,
+        MON_TYPES(TYPE_BUG, TYPE_DARK), //black ops stealth, shoudl give better niche
+        .catchRate = 120, //normal also works well, has variety of types in learnset
+        .expYield = 141, //dark blocks intimidate, but its not strong enough to be a fighter without normal type psuedo stab
+       // .evYield_Defense = 2,  //yeah will make normal, it can be a damage/support that way
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_INSOMNIA, ABILITY_NONE },
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = FALSE,
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_ANALYTIC},
+        .bodyColor = BODY_COLOR_GREEN, //with atk buff & status move change can keep speed low 
+        .noFlip = FALSE, //keep benefit of analytic also becuase has good support move pool
         .floating = FALSE,
         /*.speciesName = _("Spidops"),
         .cryId = CRY_SPIDOPS,
@@ -32592,8 +32600,8 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              10,
-              55,
+              30,
+              95,
               25,
               95,
               35,
@@ -32608,9 +32616,9 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_3),
-        .abilities = { ABILITY_GOOEY, ABILITY_RATTLED  },
-        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_WHITE,
+        .abilities = { ABILITY_SAND_VEIL, ABILITY_OWN_TEMPO},
+        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_ANTICIPATION},
+        .bodyColor = BODY_COLOR_WHITE, 
         .noFlip = FALSE,
         .floating = FALSE,
         /*.speciesName = _("Wiglett"),
@@ -32644,8 +32652,23 @@ const struct BaseStats gBaseStats[] =
         */
         .levelUpLearnset = sWiglettLevelUpLearnset,
         //.teachableLearnset = sWiglettTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_WUGTRIO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, LOW_EFFORT), 0,  SPECIES_WUGTRIO}),
     },
+    //considering replace gooey w unaware,
+    //ability makes no sense with its stats
+    //or change to sticky hold, same idea but more permanent
+    //would require using focus sash to get 2 procs 
+    //then again speed traps are useful
+    //think will just get rid of sand veil,
+    //you dont' want this on a rock team,
+    //or sand team its useless
+    //Unless you're running it with steel types to beat fire,
+    //but you could just use a rock or groud move intead
+    //hmm but with my sandstorm change,sand veil would actually be good,
+    //and fit the illusive idea of the mon..
+    //ok then entire idea will be a frail but hard hitting mon
+    //that hides in storms it'll go down in one hit, but can 
+    //get profit and evade if you setup a storm
 
     [SPECIES_WUGTRIO] =
     {
@@ -32653,8 +32676,8 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              35,
-              100,
+              45,
+              145,
               50,
               120,
               50,
@@ -32669,8 +32692,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_3),
-        .abilities = { ABILITY_GOOEY, ABILITY_RATTLED },
-        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_NONE},
+        .abilities = { ABILITY_SAND_VEIL, ABILITY_OWN_TEMPO},
+        .abilityHidden = {ABILITY_GOOEY, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32706,6 +32729,9 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sWugtrioLevelUpLearnset,
         //.teachableLearnset = sWugtrioTeachableLearnset,
     },
+    //Im gonna have to do somethign here, no idea what, but damn its bad,
+    //and rattled as ability makes no sense
+    //its bad weak and timid so best I can think of is tossing anticipation on it
 //#endif //P_FAMILY_WIGLETT
 
 //#if p_fAMILY_BOMBIRDIER

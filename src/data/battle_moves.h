@@ -3462,10 +3462,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,//usually better to go last so keep as is
+        .priority = 1,//usually better to go last so keep as is
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//changed mostly spidops in mind, its not broken since its an average 
+    //rather than flat cutting enemy hp in half
 
     [MOVE_SACRED_FIRE] =
     {

@@ -1547,7 +1547,8 @@ static void atk00_attackcanceler(void) //vsonic
     && gDisableStructs[gBattlerTarget].forewarnedMove != MOVE_UNAVAILABLE // ^ works //edit had wrong battler listed, forgot to properly adjust
     && gDisableStructs[gBattlerTarget].forewarnedMove != MOVE_NONE) //works perfectly
     {
-        if (gCurrentMove == gDisableStructs[gBattlerTarget].forewarnedMove)
+        //if (gCurrentMove == gDisableStructs[gBattlerTarget].forewarnedMove)
+        if (!IS_MOVE_STATUS(gCurrentMove))
         {
             
             gMoveResultFlags |= MOVE_RESULT_MISSED;     //that way can make sure it lasts entire battle, not cleard on switch or faingt
@@ -1562,7 +1563,8 @@ static void atk00_attackcanceler(void) //vsonic
     && gDisableStructs[gBattlerTarget].anticipatedMove != MOVE_UNAVAILABLE
     && gDisableStructs[gBattlerTarget].anticipatedMove != MOVE_NONE)
     {
-        if (gCurrentMove == gDisableStructs[gBattlerTarget].anticipatedMove)
+        //if (gCurrentMove == gDisableStructs[gBattlerTarget].anticipatedMove)
+        if (!IS_MOVE_STATUS(gCurrentMove))
         {
 
             gMoveResultFlags |= MOVE_RESULT_MISSED;
@@ -1999,9 +2001,12 @@ static void atk01_accuracycheck(void)
         //so flying types in air, should get an advantage against grounded mon
         //everyone hates evasion mechanics so I'm not gonna go crazy here,
         //just enough to make things miss that otherwise wouldn't
+        //adding exceptions since not in sandstorm sight is a factor
         if (IsBattlerGrounded(gBattlerAttacker)
         && !IsBattlerGrounded(gBattlerTarget)
-        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING))
+        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_KEEN_EYE
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE)
             calc = (calc * 95) / 100;
 
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
