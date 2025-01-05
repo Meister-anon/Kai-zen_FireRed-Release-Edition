@@ -1670,7 +1670,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Diglett"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(10, 55, 25, 95, 35, 45),
+         STATS(10, 70, 25, 90, 25, 45),
         MON_TYPES(TYPE_GROUND, TYPE_GROUND),
         .catchRate = 255,
         .expYield = 53,
@@ -1684,7 +1684,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_SAND_VEIL, ABILITY_ARENA_TRAP},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_OBLIVIOUS},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -1713,7 +1713,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_SAND_VEIL, ABILITY_ARENA_TRAP},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_OBLIVIOUS},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -14069,7 +14069,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_HI_PRESSURE, ABILITY_NONE},
+        .abilities = {ABILITY_PRESSURE, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
@@ -14080,45 +14080,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDialgaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },//time control two turn attacks skip the charge turn, but reduce power by 20% - change give that to recharge moves
-    //2 turn moves go off in 1 turn with no downside
-    //my change single turn moves hit twice, once normaly 2nd with reversed animation and a 50% damage cut ...maybe 70% cut that's still 130% dmg
-    // can do like multi task, set multihit to 2, divide battlemovedamage by 2/multihit counter,  if multihitcounter == 1 (last hit) battlemovedamage x 120/100
-    //simple to do, and would amount to 110% dmg, so a bit more balanced.
-    //.8 x .5 ? 120% total,   gbattlemovedmg = 80%  and then if counter == 1  dmg = /2 hmm
-    //80% onfirst hit then second hit does 50% of that so I have 80% + 40% so 120% dmg total
-
-    //but for stackign with all other boosts think it may be best to just do 110%
-    //or no boost? dont't need dmg boost with how high its stats are
-    //can just turn single hit into multi hit for slight damage drop
-    //say a 10% power cut single hit to become 2 hits, 2 chances for crit and effect setting
-    //plus 2 turn moves becoming 1 turn, and the ability to skip recharge turns
-
-    //think may treat it like crits an ability that is there but activates on chance
-    //as if its a passive skill when it goes off
-    //Dialga Exerted its Time Control!
-
-    //people don't lik random effects though...
-    //oh well keep connsistent then
-
-    //idea is move goes off, then animation reverses hit effect goes off again and its counted as one move
-    //like you attack reverse time and make them get hit again
-    //ok intead of making entire new animation what I can do is create a point within the normal animation I can jump back
-    //that'll appear like I'm reversing the attack?  check for ability time conrol at end of script, if not present just go to end
-    //if present call time control animation to do some special animation and return
-    //then jump back to set point in move animation and make sure it can't loop again, with some other variable decremented in time control anim
-   //play move animation as normal from there, don't loop and go to end.
-   //think will have it count as one attack, but just add a 30% damage buff idk which I'll do
-   //simplest would just be to make it attack again like with multi-task...yeah I'll just do that.
-   //but it'll be stronger since its not splitting the move damage so make all single turn moves
-   //hit twice full damage on first hit, but 30% damage on 2nd hit, most of the logic for this is already in multi-task command 
-   //so just use that.
-   //...ikd I could still do the animation thing, wouldn't be too too hard
-   //think time effect should use extreme speed/quick attack warp horizontal effects but make it grey or something
-   //maybe do speed warp, grey out the field and characters, return colors to normal and then do 2nd hit?
-
-   //god that really is going to be annnoying..  oh and add solar beam & future sight to its learnset skull bash too if it isn't already
-
+    },
+    //actually nvm dialga is way too good for anything besides pressure
+    //it literally has 0 weaknesses except fighting, its not even weak to ground anymore
+   
     [SPECIES_PALKIA] =
     {
         .speciesName = _("Palkia"),
@@ -14135,7 +14100,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_HI_PRESSURE, ABILITY_NONE},
+        .abilities = {ABILITY_SPACE_CONTROL, ABILITY_NONE},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif
@@ -14153,7 +14118,13 @@ const struct BaseStats gBaseStats[] =
     //in singles moves can't miss  -put  in acc check, cj=heck ability set accuracy to 0
 
     //since lives in void of space think make new palkia ability make it immune to ice, dmg
-    
+    //vsonic oh I was already working on addressing the new ice resist
+    //ok so make sure do this, since idea was both palkia and dialga are resistant to ice
+    //but I changed water effectiveness
+
+    //ok new effect simpler, just do part no guard,
+    //all non status moves become 100% accurate they dont skip accuracy checks tho,
+    //also gives immunity to ice type
 
     [SPECIES_HEATRAN] =
     {
@@ -32600,11 +32571,11 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              30,
-              95,
+              90,
+              75,
               25,
-              95,
-              35,
+              15,
+              15,
               25
        ),
         MON_TYPES(TYPE_WATER),
@@ -32617,7 +32588,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_3),
         .abilities = { ABILITY_SAND_VEIL, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_ANTICIPATION},
+        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_HYDRATION},
         .bodyColor = BODY_COLOR_WHITE, 
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32652,7 +32623,7 @@ const struct BaseStats gBaseStats[] =
         */
         .levelUpLearnset = sWiglettLevelUpLearnset,
         //.teachableLearnset = sWiglettTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, LOW_EFFORT), 0,  SPECIES_WUGTRIO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_WUGTRIO}),
     },
     //considering replace gooey w unaware,
     //ability makes no sense with its stats
@@ -32669,6 +32640,11 @@ const struct BaseStats gBaseStats[] =
     //ok then entire idea will be a frail but hard hitting mon
     //that hides in storms it'll go down in one hit, but can 
     //get profit and evade if you setup a storm
+    //on advice from Chief, kept total stat so match varients
+    //just adjusted distribution,
+    //with that decidd drop anticipation for his rec of hydration
+    //with that it has options for running in sand or rain
+    //still deciding on goooey vs sticky hold, think may go sticky hold
 
     [SPECIES_WUGTRIO] =
     {
@@ -32676,11 +32652,11 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              45,
-              145,
+              125, 
+              115, 
               50,
-              120,
-              50,
+              20, 
+              50, 
               70
        ),
         MON_TYPES(TYPE_WATER),
@@ -32693,7 +32669,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_WATER_3),
         .abilities = { ABILITY_SAND_VEIL, ABILITY_OWN_TEMPO},
-        .abilityHidden = {ABILITY_GOOEY, ABILITY_ANTICIPATION},
+        .abilityHidden = {ABILITY_STICKY_HOLD, ABILITY_HYDRATION},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -39797,10 +39773,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         10,
-        55,
-        30,
+        45,
+        60,
         90,
-        35,
+        15, 
         45
         ),
         MON_TYPES(TYPE_GROUND, TYPE_STEEL),
@@ -39816,7 +39792,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_SAND_VEIL, ABILITY_TANGLING_HAIR},
-            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_OWN_TEMPO},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -39833,10 +39809,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         35,
+        90,    
         100,
-        60,
         110,
-        50,
+        20, 
         70
         ),
         MON_TYPES(TYPE_GROUND, TYPE_STEEL),
@@ -39852,7 +39828,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_SAND_VEIL, ABILITY_TANGLING_HAIR},
-            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+            .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_OWN_TEMPO},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,

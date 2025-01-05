@@ -12177,7 +12177,11 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
 
     //still unsure how would handle that for tooth fairy, think would just have to be a power cut
     //but can't remember how power cut by 2 compares to type resist multiplier cut by 2
-
+    else if ((moveType == TYPE_ICE) && GetBattlerAbility(battlerDef) == ABILITY_SPACE_CONTROL)
+    {
+        mod = UQ_4_12(0.0); //Palkia
+    }
+    
     //other misc effects
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);

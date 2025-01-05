@@ -1988,6 +1988,11 @@ static void atk01_accuracycheck(void)
         && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
             moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
 
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SPACE_CONTROL
+        && !IS_MOVE_STATUS(move))
+            moveAcc = 100;
+        
+
         if (moveAcc > 100)
             moveAcc = 100; // to prevent possible broken values.
 
