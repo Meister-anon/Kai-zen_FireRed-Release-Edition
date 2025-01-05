@@ -160,11 +160,13 @@
 #define HOLD_EFFECT_POWER_ANKLET		179
 #define HOLD_EFFECT_POWER_LENS			180
 #define HOLD_EFFECT_POWER_BAND			181
+//vsonic
+#define HOLD_EFFECT_POWERITEM 182   // since stat reaise is based on secondary id, pretty sure can just use this and remoe all other power item hold effects
 
-#define HOLD_EFFECT_CURE_ATTRACT		182
+#define HOLD_EFFECT_CURE_ATTRACT		183
 
 //custom hold effects
-#define HOLD_EFFECT_SOUND_POWER     183   //call deci bell (I think)
+#define HOLD_EFFECT_SOUND_POWER     184   //call deci bell (I think)
 /*#define HOLD_EFFECT_ALOLAN_SAND     184
 #define HOLD_EFFECT_GALAR_SAND      185
 #define HOLD_EFFECT_HISUIAN_SAND    186

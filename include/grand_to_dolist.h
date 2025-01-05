@@ -2566,6 +2566,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //VSONIC IMPORTANT keep in mind I apparently setup
     status effects sleep and paralysis to ground floating mon,
     keep an eye on and consider if I want to keep that
+    -sigh seems to be some issue with speed logic,
+    faster mon are going last...
+    ...ok so its not turnorder or speed logic,
+     for some reason just holding an item with
+     HOLD_EFFECT_RESTORE_HP  auto makes me go last...
+    -edit fixed
+    sigh...it was a bad condition/operator logic,
+    it was just luck that it defaulted to a hold effect value that I could actually find
 
     fixed wimpout and emergency exit rework,
     now working correctly in all scenarios

@@ -3985,7 +3985,7 @@ const struct Item gItems[] =
       .name = _("Power Weight"),
       .itemId = ITEM_POWER_WEIGHT,
       .price =  3000,
-      .holdEffect = HOLD_EFFECT_POWER_WEIGHT,
+      .holdEffect = HOLD_EFFECT_POWERITEM,
       .holdEffectParam =  8,
      .description = gItemDescription_ITEM_POWER_WEIGHT,
 //      "description":  "A hold item that\\npromotes HP gain,\\nbut reduces speed.,
@@ -4002,7 +4002,7 @@ const struct Item gItems[] =
       .name = _("Power Bracer"),
       .itemId = ITEM_POWER_BRACER,
       .price =  3000,
-      .holdEffect = HOLD_EFFECT_POWER_BRACER,
+      .holdEffect = HOLD_EFFECT_POWERITEM,
       .holdEffectParam =  8,
      .description = gItemDescription_ITEM_POWER_BRACER,
 //      "description":  "A hold item that\\npromotes Atk gain,\\nbut reduces speed.,
@@ -4019,7 +4019,7 @@ const struct Item gItems[] =
       .name = _("Power Belt"),
       .itemId = ITEM_POWER_BELT,
       .price =  3000,
-      .holdEffect = HOLD_EFFECT_POWER_BELT,
+      .holdEffect = HOLD_EFFECT_POWERITEM,
       .holdEffectParam =  8,
      .description = gItemDescription_ITEM_POWER_BELT,
 //      "description":  "A hold item that\\npromotes Def gain,\\nbut reduces speed.,
@@ -4036,7 +4036,7 @@ const struct Item gItems[] =
       .name = _("Power Lens"),
       .itemId = ITEM_POWER_LENS,
       .price =  3000,
-      .holdEffect = HOLD_EFFECT_POWER_LENS,
+      .holdEffect = HOLD_EFFECT_POWERITEM,
       .holdEffectParam =  8,
      .description = gItemDescription_ITEM_POWER_LENS,
 //      "description":  "A hold item that\\npromotes Sp. Atk gain,\\nbut reduces speed.,
@@ -4053,7 +4053,7 @@ const struct Item gItems[] =
       .name = _("Power Band"),
       .itemId = ITEM_POWER_BAND,
       .price =  3000,
-      .holdEffect = HOLD_EFFECT_POWER_BAND,
+      .holdEffect = HOLD_EFFECT_POWERITEM,
       .holdEffectParam =  8,
      .description = gItemDescription_ITEM_POWER_BAND,
 //      "description":  "A hold item that\\npromotes Sp. Def gain,\\nbut reduces speed.,
@@ -4070,7 +4070,7 @@ const struct Item gItems[] =
       .name = _("Power Anklet"),
       .itemId = ITEM_POWER_ANKLET,
       .price =  3000,
-      .holdEffect = HOLD_EFFECT_POWER_ANKLET,
+      .holdEffect = HOLD_EFFECT_POWERITEM,
       .holdEffectParam =  8,
      .description = gItemDescription_ITEM_POWER_ANKLET,
 //      "description":  "A hold item that\\npromotes Spd gain,\\nbut reduces speed.,
@@ -8474,7 +8474,7 @@ const struct Item gItems[] =
       .name = _("Ultima Brace"),
       .itemId = ITEM_ULTIMA_BRACE,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_NONE, //HOLD_EFFECT_POWERITEM 
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_ULTIMA_BRACE,
 //      "description":  gItemDescription_ITEM_NONE
@@ -8484,7 +8484,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
-      .secondaryId =  0
+      .secondaryId =  0 //give unique power item id, or just use based on item id to do all evs
     },
     [ITEM_EV_SHACKLES] =
     {
