@@ -2744,7 +2744,7 @@ static bool32 AnyUsefulStatIsRaised(u8 battler)
 s32 GetStealthHazardDamageByTypesAndHP(u8 hazardType, u8 type1, u8 type2, u32 maxHp)
 {
     s32 dmg = 0;
-    u16 modifier = UQ_4_12(1.0);
+    uq4_12_t modifier = UQ_4_12(1.0);
 
     MulModifier(&modifier, GetTypeModifier(hazardType, type1));
     if (type2 != type1)

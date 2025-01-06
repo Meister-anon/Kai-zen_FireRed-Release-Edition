@@ -1919,10 +1919,10 @@ u8 CheckSuperEffective(u16 Atk_Species, u16 Target_Species) //is super effective
     u8 Atktype2 = gBaseStats[Atk_Species].type2;
     u8 targetType1 = gBaseStats[Target_Species].type1;
     u8 targetType2 = gBaseStats[Target_Species].type2;
-    u16 AtkMultiplierType1 = UQ_4_12(1.0);
-    u16 AtkMultiplierType2 = UQ_4_12(1.0);
-    u16 DefenseMultiplierType1 = UQ_4_12(1.0);
-    u16 DefenseMultiplierType2 = UQ_4_12(1.0);
+    uq4_12_t AtkMultiplierType1 = UQ_4_12(1.0);
+    uq4_12_t AtkMultiplierType2 = UQ_4_12(1.0);
+    uq4_12_t DefenseMultiplierType1 = UQ_4_12(1.0);
+    uq4_12_t DefenseMultiplierType2 = UQ_4_12(1.0);
 
 
             //check for if rival starter super against player starter
@@ -1982,10 +1982,10 @@ u8 ShouldResetRivalStarter(void)
     u8 type1;
     u8 type2;
     u8 passedChecks = 0;
-    u16 AtkMultiplierType1 = UQ_4_12(1.0);
-    u16 AtkMultiplierType2 = UQ_4_12(1.0);
-    u16 DefenseMultiplierType1 = UQ_4_12(1.0);
-    u16 DefenseMultiplierType2 = UQ_4_12(1.0);
+    uq4_12_t AtkMultiplierType1 = UQ_4_12(1.0);
+    uq4_12_t AtkMultiplierType2 = UQ_4_12(1.0);
+    uq4_12_t DefenseMultiplierType1 = UQ_4_12(1.0);
+    uq4_12_t DefenseMultiplierType2 = UQ_4_12(1.0);
 
     //u16 GetTypeModifier(moveType, defType); checked and all I actually need is this  replace movetype with attacking types type
 

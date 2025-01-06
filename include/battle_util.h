@@ -182,8 +182,8 @@ u8 TryHandleSeed(u8 battler, u32 terrainFlag, u8 statId, u16 itemId, bool32 exec
 void TryToRevertMimicry(void);
 void TryToApplyMimicry(u8 battlerId, bool8 various);
 void RestoreBattlerOriginalTypes(u8 battlerId);
-void MulModifier(u16 *modifier, u16 val);
-u32 ApplyModifier(u16 modifier, u32 val);
+void MulModifier(uq4_12_t *modifier, u16 val);
+u32 ApplyModifier(uq4_12_t modifier, u32 val);
 bool32 UnnerveOn(u32 battlerId, u32 itemId);
 void TryRestoreStolenItems(void);
 void TrySaveExchangedItem(u8 battlerId, u16 stolenItem);

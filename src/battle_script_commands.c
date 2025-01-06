@@ -2731,7 +2731,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     u8 moveType, argument; //as gbattlemovedamage is set by damagecalc, any use of it beforehand would be multiplying by 0
     u8 type1 = gBattleMons[gBattlerTarget].type1, type2 = gBattleMons[gBattlerTarget].type2, type3 = gBattleMons[gBattlerTarget].type3;
     u16 effect = gBattleMoves[gCurrentMove].effect; //just realized should prob swap these for battlemons types since all types can shift, find where base stats becomes battlemons
-    u32 multiplier;
+    uq4_12_t multiplier;
 
     ///had add counter and the like, as otherwise triggers supesr effective
     if (gCurrentMove == MOVE_STRUGGLE || gCurrentMove == MOVE_BIDE || gCurrentMove == MOVE_COUNTER || gCurrentMove == MOVE_MIRROR_COAT || gCurrentMove == MOVE_METAL_BURST) //should let hit ghost types could just remove typecalc bs from script instead...
@@ -4355,6 +4355,7 @@ void TrySaveExchangedItem(u8 battlerId, u16 stolenItem)
 //make script for swapping item, chck fi one exists already
 void StealTargetItem(u8 battlerStealer, u8 battlerItem)
 {
+    
     gLastUsedItem = gBattleMons[battlerItem].item;
 
     if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerItem]][GetBattlerSide(battlerItem)] == ITEM_NONE)
@@ -4368,8 +4369,11 @@ void StealTargetItem(u8 battlerStealer, u8 battlerItem)
     RecordItemEffectBattle(battlerItem, 0);    //just for ai
 
     if (gBattleMons[battlerItem].item == ITEM_NONE)
+    {
         CheckSetUnburden(battlerItem);  //target is losing item so give unburden boost, if possible
-
+        if (gBattleMons[battlerItem].ability != ABILITY_GORILLA_TACTICS)
+            gBattleStruct->choicedMove[battlerItem] = MOVE_NONE;
+    }
     gActiveBattler = battlerItem;
     BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerTarget].item), &gBattleMons[battlerItem].item);  // remove/set target item
     MarkBattlerForControllerExec(battlerItem);
@@ -4446,45 +4450,95 @@ void StealTargetItem(u8 battlerStealer, u8 battlerItem)
         }//ok think that outta do it
     }
     
-    gBattleStruct->choicedMove[battlerItem] = MOVE_NONE;
     
 }
 
-static bool32 TryKnockOffBattleScript(u32 battlerDef)
+//loseitembattler
+//considering changing to use in place of current 
+//magma armor sticky hold lose item logic
+
+/*This Ability prevents the held item of the Pokémon with this Ability
+from being taken by Covet, Thief, Pickpocket, or Magician;
+eaten by Bug Bite or Pluck; destroyed by Incinerate or Corrosive Gas;
+or removed by Knock Off. It also prevents the Pokémon from being affected
+by other Pokémon's Trick or Switcheroo (even if it has no held item), but not its own.
+
+Sticky Hold does not prevent a Sticky Barb being transferred by its own effect.*/
+//move effet added so will use this for all effects, bug bite incinerate etc.
+//if used for those put move effect in other wise put 0 for move effect
+//looks to work now using to replace knock off bug bite incinerate i.e knock off likes
+//hmm well bug bite should be stealing so not use this?
+//yeah bug bite doesnt work w this, idk why bug bite doesn't work with this??
+//it DOES with stealitem but I would have to do more with that
+bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect)
 {
-    if (gBattleMons[battlerDef].item != ITEM_NONE
-        && CanBattlerGetOrLoseItem(battlerDef, gBattleMons[battlerDef].item)
+    if (gBattleMons[loseitembattler].item != ITEM_NONE
+        && CanBattlerGetOrLoseItem(loseitembattler, gBattleMons[loseitembattler].item)
         && !NoAliveMonsForEitherParty())
     {
-        if (GetBattlerAbility(battlerDef) == ABILITY_STICKY_HOLD && IsBattlerAlive(battlerDef))
+        if (GetBattlerAbility(loseitembattler) == ABILITY_STICKY_HOLD && IsBattlerAlive(loseitembattler))
         {
-            gBattlerAbility = battlerDef;
+            gBattlerAbility = loseitembattler;
             BattleScriptPushCursor();
             gBattlescriptCurrInstr = BattleScript_StickyHoldActivates;
-        }
+            RecordAbilityBattle(loseitembattler, ABILITY_STICKY_HOLD);
+        }   //block knock off/item theft
         else
         {
-            u32 side = GetBattlerSide(battlerDef);
+            u32 side = GetBattlerSide(loseitembattler);
 
-            gLastUsedItem = gBattleMons[battlerDef].item;
+            gLastUsedItem = gBattleMons[loseitembattler].item;
 
-            if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerDef]][GetBattlerSide(battlerDef)] == ITEM_NONE)
-                gBattleMons[battlerDef].item = ITEM_NONE;
+            if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
+                gBattleMons[loseitembattler].item = ITEM_NONE;
             else
             {    
-                gBattleMons[battlerDef].item = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerDef]][GetBattlerSide(battlerDef)];
-                gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battlerDef]][GetBattlerSide(battlerDef)] = ITEM_NONE;
+                gBattleMons[loseitembattler].item = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)];
+                gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] = ITEM_NONE;
             }
-            gBattleStruct->choicedMove[battlerDef] = MOVE_NONE;
-            gWishFutureKnock.knockedOffMons[side] |= gBitTable[gBattlerPartyIndexes[battlerDef]];
+            if (gBattleMons[loseitembattler].ability != ABILITY_GORILLA_TACTICS)
+                gBattleStruct->choicedMove[loseitembattler] = MOVE_NONE;
             
-            if (gBattleMons[battlerDef].item == ITEM_NONE)
-                CheckSetUnburden(battlerDef);
+            // In Gen 5+, Knock Off removes the target's item rather than rendering it unusable.
+            //if (B_KNOCK_OFF_REMOVAL >= GEN_5)
+            //if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
+            {
+                gActiveBattler = loseitembattler;
+                BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[loseitembattler].item), &gBattleMons[loseitembattler].item);
+                MarkBattlerForControllerExec(loseitembattler);
+            }
+            /*else
+            {
+
+                //gWishFutureKnock.knockedOffMons[side] |= 1u << gBattlerPartyIndexes[loseitembattler];
+            }//if want return item after battle
+            */
+
+            //gWishFutureKnock.knockedOffMons[side] |= gBitTable[gBattlerPartyIndexes[loseitembattler]];
+            
+            if (gBattleMons[loseitembattler].item == ITEM_NONE)
+                CheckSetUnburden(loseitembattler);
 
             BattleScriptPushCursor();
-            gBattlescriptCurrInstr = BattleScript_KnockedOff;
-            //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[battlerDef]) + 0) = 0;
-            //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[battlerDef]) + 1) = 0;   //for now put this to keep standard firered setup
+
+            if (moveEffect == MOVE_EFFECT_INCINERATE)
+                gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;
+            else if (moveEffect == MOVE_EFFECT_BUG_BITE)
+                gBattlescriptCurrInstr = BattleScript_MoveEffectBugBite;
+            else if (GetBattlerAbility(EffectUser) == ABILITY_STICKY_HOLD)
+            {   
+                gBattlescriptCurrInstr = BattleScript_StickyHoldKnockoff;
+                RecordAbilityBattle(EffectUser, ABILITY_STICKY_HOLD);
+            }
+            else if (GetBattlerAbility(EffectUser) == ABILITY_MAGMA_ARMOR)
+            { 
+                gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;
+                RecordAbilityBattle(EffectUser, ABILITY_MAGMA_ARMOR);
+            }
+            else
+                gBattlescriptCurrInstr = BattleScript_KnockedOff;
+            //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[loseitembattler]) + 0) = 0;
+            //*(u8 *)((u8 *)(&gBattleStruct->choicedMove[loseitembattler]) + 1) = 0;   //for now put this to keep standard firered setup
         }
         return TRUE;
     }
@@ -5858,7 +5912,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     || (GetBattlerHoldEffect(gEffectBattler, FALSE) == HOLD_EFFECT_GEMS)
                     )
                 {
-                    gLastUsedItem = gBattleMons[gEffectBattler].item;
+                    /*gLastUsedItem = gBattleMons[gEffectBattler].item;
                     gBattleMons[gEffectBattler].item = 0;
                     CheckSetUnburden(gEffectBattler);
 
@@ -5866,7 +5920,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gEffectBattler].item), &gBattleMons[gEffectBattler].item);
                     MarkBattlerForControllerExec(gActiveBattler);
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
-                    gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;
+                    gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;*/
+                    //gActiveBattler = gEffectBattler; -now done in function
+                    TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 }
                 break;
             case MOVE_EFFECT_BUG_BITE:
@@ -8041,7 +8097,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             switch (gBattleStruct->moveEffect2)
             {
             case MOVE_EFFECT_KNOCK_OFF:
-                effect = TryKnockOffBattleScript(gBattlerTarget);
+                effect = TryKnockOffBattleScript(gBattlerTarget, gBattlerAttacker, gBattleStruct->moveEffect2);
                 break;
             /*case MOVE_EFFECT_SMACK_DOWN: //remove this instead do in MOVE_END_GROUND_TARGET
                 if (!(IsBattlerGrounded(gBattlerTarget)) && IsBattlerAlive(gBattlerTarget))

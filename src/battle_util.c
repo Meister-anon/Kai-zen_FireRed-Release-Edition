@@ -7491,7 +7491,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     //&& IsBattlerAlive(battler) remove this part, so affect activates even if I faint
                     && IsMoveMakingContact(moveArg, gBattlerAttacker))
                 {
-                    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_STICKY_HOLD)
+                    TryKnockOffBattleScript(gBattlerAttacker, gBattlerTarget, MOVE_EFFECT_NOTHING_0);
+                    ++effect;
+                    /*if (GetBattlerAbility(gBattlerAttacker) == ABILITY_STICKY_HOLD)
                     {
                         if (gBattleMons[gBattlerAttacker].item != ITEM_NONE)
                         {
@@ -7518,7 +7520,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         //*(u8*)((u8*)(&gBattleStruct->choicedMove[gBattlerTarget]) + 0) = 0; //necessary line
                        // *(u8*)((u8*)(&gBattleStruct->choicedMove[gBattlerTarget]) + 1) = 0;
                         ++effect;
-                    }
+                    }*/
                 }
                 break;
             case ABILITY_CUTE_CHARM: //shouold I buff this to also work on attack? most of the mon w this can't really take a hit?
@@ -8134,7 +8136,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && IsBattlerAlive(battler)
                     && IsMoveMakingContact(moveArg, gBattlerAttacker))
                 {
-                    if (GetBattlerAbility(gBattlerTarget) == ABILITY_STICKY_HOLD)
+                    TryKnockOffBattleScript(gBattlerTarget, gBattlerAttacker, MOVE_EFFECT_NOTHING_0);
+                    ++effect;
+                    /*if (GetBattlerAbility(gBattlerTarget) == ABILITY_STICKY_HOLD)
                     {
                         if (gBattleMons[gBattlerTarget].item != ITEM_NONE)
                         {
@@ -8158,7 +8162,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         //*(u8*)((u8*)(&gBattleStruct->choicedMove[gBattlerTarget]) + 0) = 0; //necessary line
                        // *(u8*)((u8*)(&gBattleStruct->choicedMove[gBattlerTarget]) + 1) = 0;
                         ++effect;
-                    }
+                    }*/
                 }
                 break;
             case ABILITY_GULP_MISSILE:
@@ -9811,8 +9815,12 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
     u8 atkHoldEffectParam;
     u16 atkItem;
 
-    gLastUsedItem = gBattleMons[battlerId].item;
-    battlerHoldEffect = GetBattlerHoldEffect(battlerId, TRUE);
+    if (caseID != ITEMEFFECT_USE_LAST_ITEM)
+    {
+        gLastUsedItem = gBattleMons[battlerId].item;
+        battlerHoldEffect = GetBattlerHoldEffect(battlerId, TRUE);
+    }
+    
 
     atkItem = gBattleMons[gBattlerAttacker].item;
     atkHoldEffect = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
@@ -12072,13 +12080,13 @@ void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut)
 //believe way it works now//think there may be weirdness going on w multiplier,
 //but then again how cou...I use typecalc in typecalc in bs command c
 //directly against damage
-void MulModifier(u16 *modifier, u16 val) //portd tried to set globably hope works   //can use decimal values
+void MulModifier(uq4_12_t *modifier, u16 val) //portd tried to set globably hope works   //can use decimal values
 {
     *modifier = UQ_4_12_TO_INT((*modifier * val) + UQ_4_12_ROUND);
     //*modifier = UQ_4_12_TO_INT(*modifier * val);
 }//base multiplier is better than my version withuot round
 
-u32 ApplyModifier(u16 modifier, u32 val)
+u32 ApplyModifier(uq4_12_t modifier, u32 val)
 {
     return UQ_4_12_TO_INT((modifier * val) + UQ_4_12_ROUND);
 }

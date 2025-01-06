@@ -45,6 +45,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
 bool32 IsStallActive(u8 battler); //new checks for ability stall
 bool8 CanMultiTask(u16 move);
 bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler);
+bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect);
 
 //EE function for recalc stats this used in place of transform logic for recalcs outside of transform and ditto
 void RecalcBattlerStats(u32 battler, struct Pokemon *mon);
