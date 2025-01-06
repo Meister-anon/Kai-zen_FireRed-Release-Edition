@@ -1691,7 +1691,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sDiglettLevelUpLearnset,
         .tmhmLearnset = sDiglettTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, LOW_EFFORT), 0, SPECIES_DUGTRIO}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, MEDIUM_EFFORT), 0, SPECIES_DUGTRIO}), //Should hopefully blank these for now without issue
     },//making normal ground for more dmg, think this was before I changed joat, most moves are groud so w revert back
 
     [SPECIES_DUGTRIO] =
@@ -39774,9 +39774,9 @@ const struct BaseStats gBaseStats[] =
          STATS(
         10,
         45,
-        60,
+        70,
         90,
-        15, 
+        05, 
         45
         ),
         MON_TYPES(TYPE_GROUND, TYPE_STEEL),

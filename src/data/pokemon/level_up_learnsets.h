@@ -174,6 +174,7 @@ static const struct LevelUpMove sBlastoiseLevelUpLearnset[] = {
 static const struct LevelUpMove sCaterpieLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_STRING_SHOT),
+    LEVEL_UP_MOVE(9, MOVE_BUG_BITE),
     LEVEL_UP_END
 };
 
@@ -190,6 +191,7 @@ static const struct LevelUpMove sMetapodLevelUpLearnset[] = {
 
 static const struct LevelUpMove sButterfreeLevelUpLearnset[] = {
     LEVEL_UP_MOVE(0, MOVE_CONFUSION),
+    LEVEL_UP_MOVE(1, MOVE_BUG_BITE),
     LEVEL_UP_MOVE(10, MOVE_SILVER_WIND),
     LEVEL_UP_MOVE(13, MOVE_POISON_POWDER),
     LEVEL_UP_MOVE(14, MOVE_STUN_SPORE),
@@ -206,6 +208,7 @@ static const struct LevelUpMove sButterfreeLevelUpLearnset[] = {
 static const struct LevelUpMove sWeedleLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_POISON_STING),
     LEVEL_UP_MOVE(1, MOVE_STRING_SHOT),
+    LEVEL_UP_MOVE(9, MOVE_BUG_BITE),
         LEVEL_UP_END
 };
 
@@ -18919,12 +18922,12 @@ static const struct LevelUpMove sWiglettLevelUpLearnset[] = {
     LEVEL_UP_MOVE(20, MOVE_SLAM),
     LEVEL_UP_MOVE(20, MOVE_WATER_PULSE),
     LEVEL_UP_MOVE(24, MOVE_HEADBUTT),
-    LEVEL_UP_MOVE(28, MOVE_DIG),
+    LEVEL_UP_MOVE(28, MOVE_DIVE),
     LEVEL_UP_MOVE(32, MOVE_SUCKER_PUNCH),
     LEVEL_UP_MOVE(36, MOVE_THROAT_CHOP),
     LEVEL_UP_MOVE(40, MOVE_LIQUIDATION),
     LEVEL_UP_END
-};
+};//SWAPPED dig to dive put dig in tm instead
 
 static const struct LevelUpMove sWugtrioLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
@@ -18936,12 +18939,14 @@ static const struct LevelUpMove sWugtrioLevelUpLearnset[] = {
     LEVEL_UP_MOVE(20, MOVE_WATER_PULSE),
     LEVEL_UP_MOVE(24, MOVE_HEADBUTT),
     LEVEL_UP_MOVE(30, MOVE_TRIPLE_DIVE),
-    LEVEL_UP_MOVE(36, MOVE_DIG),
+    LEVEL_UP_MOVE(36, MOVE_DIVE),
     LEVEL_UP_MOVE(42, MOVE_SUCKER_PUNCH),
     LEVEL_UP_MOVE(48, MOVE_THROAT_CHOP),
     LEVEL_UP_MOVE(54, MOVE_LIQUIDATION),
     LEVEL_UP_END
 };
+//ya know there's no reason for this to have dig at all,
+//the type matchups are overall better for water than grounds
 //#endif //P_FAMILY_WIGLETT
 
 //#if P_FAMILY_BOMBIRDIER

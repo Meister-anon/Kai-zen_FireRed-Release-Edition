@@ -26,7 +26,7 @@
 #define MOVE_NAME_LENGTH 16 //longest move name is 16 
 
 #define TYPE_NAME_LENGTH 6 //forgot change back as I undid type name expansion
-#define ABILITY_NAME_LENGTH 16 //is 16 in emerald may look into raising - DONE
+#define ABILITY_NAME_LENGTH 16 //is 16 in emerald expansion may look into raising - DONE
 #define ABILITY_DESCRIPTION_LENGTH 82   //two lines 41 chars per line
 #define MOVE_DESCRIPTION_LENGTH 114  //approx 19 per line, over 6 lines
 #define TRAINER_NAME_LENGTH 12
