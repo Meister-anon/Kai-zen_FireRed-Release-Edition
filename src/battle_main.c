@@ -5143,7 +5143,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     if (gBattleMons[gActiveBattler].item == ITEM_ENIGMA_BERRY)
         holdEffect = gEnigmaBerries[gActiveBattler].holdEffect;
     else
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[gActiveBattler].item);
+        holdEffect = GetBattlerHoldEffect(gActiveBattler, TRUE);
     gPotentialItemEffectBattler = gActiveBattler;
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
@@ -6989,7 +6989,7 @@ bool8 TryRunFromBattle(u8 battler)
     if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY)
         holdEffect = gEnigmaBerries[battler].holdEffect;
     else
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[battler].item);
+        holdEffect = GetBattlerHoldEffect(battler, TRUE);
     gPotentialItemEffectBattler = battler;
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN)
     {

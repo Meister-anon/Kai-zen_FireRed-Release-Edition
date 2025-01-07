@@ -1844,6 +1844,7 @@ static void atk01_accuracycheck(void)
 {
     u16 move = T2_READ_16(gBattlescriptCurrInstr + 5);  //should be reading acc of current moves,
     u8 moveType;
+    u16 holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
 
     GET_MOVE_TYPE(gCurrentMove, moveType); 
 
@@ -2127,16 +2128,16 @@ static void atk01_accuracycheck(void)
         }
         else
         {
-            holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerTarget].item);
+            holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
             param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
         }
         gPotentialItemEffectBattler = gBattlerTarget;
 
         if (holdEffect == HOLD_EFFECT_EVASION_UP)
             calc = (calc * (100 - param)) / 100;
-        if (ItemId_GetHoldEffect(gBattleMons[gBattlerAttacker].item) == HOLD_EFFECT_WIDE_LENS)
+        if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_WIDE_LENS)
             calc = (calc * (100 + ItemId_GetHoldEffectParam(gBattleMons[gBattlerAttacker].item))) / 100;
-        else if (ItemId_GetHoldEffect(gBattleMons[gBattlerAttacker].item) == HOLD_EFFECT_ZOOM_LENS && GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
+        else if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_ZOOM_LENS && GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
             calc = (calc * (100 + ItemId_GetHoldEffectParam(gBattleMons[gBattlerAttacker].item))) / 100;
         
         if (gProtectStructs[gBattlerAttacker].usedMicleBerry)
@@ -2386,7 +2387,7 @@ static void atk04_critcalc(void)    //working/works
     if (item == ITEM_ENIGMA_BERRY)
         holdEffect = gEnigmaBerries[gBattlerAttacker].holdEffect;
     else
-        holdEffect = ItemId_GetHoldEffect(item); //find out if all these all these +'s affect the total effect chance?
+        holdEffect = GetBattlerHoldEffect(gBattlerAttacker, TRUE); //find out if all these all these +'s affect the total effect chance?
     gPotentialItemEffectBattler = gBattlerAttacker; //realized these don't increase total crit chance but are all the things that raise crit odds,
     //+'s raise crit ratio by 1 stage, 2x raises two stages etc.
     critChance = 2 * ((gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY) != 0)
@@ -3529,7 +3530,7 @@ static void atk07_adjustnormaldamage(void)
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerTarget].item);
+        holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
         param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
     }
     gPotentialItemEffectBattler = gBattlerTarget;
@@ -3666,7 +3667,7 @@ static void atk08_adjustnormaldamage2(void)
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerTarget].item);
+        holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
         param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
     }
     gPotentialItemEffectBattler = gBattlerTarget;
@@ -7801,7 +7802,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
     if (gBattleMons[gBattlerAttacker].item == ITEM_ENIGMA_BERRY)
         holdEffectAtk = gEnigmaBerries[gBattlerAttacker].holdEffect;
     else
-        holdEffectAtk = ItemId_GetHoldEffect(gBattleMons[gBattlerAttacker].item);
+        holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
     choicedMoveAtk = &gBattleStruct->choicedMove[gBattlerAttacker];
     GET_MOVE_TYPE(gCurrentMove, moveType);
     do //comb function, and check for any custom effecst
@@ -10703,7 +10704,7 @@ static void atk69_adjustsetdamage(void)
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerTarget].item);
+        holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
         param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
     }
     gPotentialItemEffectBattler = gBattlerTarget;
@@ -13259,28 +13260,6 @@ static void atk76_various(void) //will need to add all these emerald various com
         gBattlescriptCurrInstr = cmd->nextInstr;
         return;
 
-    /*
-        if (ItemId_GetHoldEffect(gBattleMons[battler].item) == HOLD_EFFECT_NONE)
-        {
-            gBattlescriptCurrInstr += 4;
-            return;
-        }
-        
-        gBattleScripting.battler = gEffectBattler = gBattlerTarget = battler;    // Cover all berry effect battlerId cases. e.g. ChangeStatBuffs uses target ID
-        // Do move end berry effects for just a single battler, instead of looping through all battlers
-        if (ItemBattleEffects(ITEMEFFECT_BATTLER_MOVE_END, battler, FALSE))
-            return;
-        
-        if (gBattlescriptCurrInstr[3])
-        {
-            gBattleMons[battler].item = gBattleStruct->changedItems[battler];
-            gBattleStruct->changedItems[battler] = ITEM_NONE;
-            gBattleResources->flags->flags[battler] &= ~RESOURCE_FLAG_UNBURDEN;
-        }
-        
-        gBattlescriptCurrInstr += 4;
-        return;
-    */
     }
     case VARIOUS_JUMP_IF_CANT_REVERT_TO_PRIMAL:
     {
@@ -14982,7 +14961,7 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
     }
     else
     {
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerTarget].item);
+        holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
         param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
     }
     gPotentialItemEffectBattler = gBattlerTarget;
