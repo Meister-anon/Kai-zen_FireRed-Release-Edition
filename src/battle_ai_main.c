@@ -354,7 +354,7 @@ static void SetBattlerAiData(u8 battlerId)
     AI_DATA->abilities[battlerId] = AI_GetAbility(battlerId);
     AI_DATA->items[battlerId] = gBattleMons[battlerId].item;
     AI_DATA->holdEffects[battlerId] = AI_GetHoldEffect(battlerId);
-    AI_DATA->holdEffectParams[battlerId] = GetBattlerHoldEffectParam(battlerId);
+    AI_DATA->holdEffectParams[battlerId] = GetBattlerHoldEffectParam(battlerId, gBattleMons[battlerId].item);
     AI_DATA->predictedMoves[battlerId] = gLastMoves[battlerId];
     AI_DATA->hpPercents[battlerId] = GetHealthPercentage(battlerId);
     AI_DATA->moveLimitations[battlerId] = CheckMoveLimitations(battlerId, 0, MOVE_LIMITATIONS_ALL);

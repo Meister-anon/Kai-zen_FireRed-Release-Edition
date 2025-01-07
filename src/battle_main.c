@@ -1359,7 +1359,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     if (holdEffect == HOLD_EFFECT_GEMS
         && moveType == ItemId_GetSecondaryId(gBattleMons[battlerAtk].item))
     {
-        gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk);
+        gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk, gBattleMons[battlerAtk].item);
         gSpecialStatuses[battlerAtk].gemBoost = TRUE;
     }
 }

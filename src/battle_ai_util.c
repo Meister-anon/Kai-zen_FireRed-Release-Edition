@@ -643,8 +643,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         s8 buff, evasionStage;
         u32 calc, moveAcc;
         u8 accStage = gBattleMons[battlerAtk].statStages[STAT_ACC];
-        u8 atkParam = GetBattlerHoldEffectParam(battlerAtk);
-        u8 defParam = GetBattlerHoldEffectParam(battlerDef);
+        u8 atkParam = GetBattlerHoldEffectParam(battlerAtk, gBattleMons[battlerAtk].item);
+        u8 defParam = GetBattlerHoldEffectParam(battlerDef, gBattleMons[battlerDef].item);
 
         
         gPotentialItemEffectBattler = battlerDef;

@@ -69,6 +69,7 @@
 #define B_DEF_TEAM2 0x3B // your/the opposing
 #define B_ACTIVE_NAME 0x3C
 #define B_ACTIVE_NAME2 0x3D // no Illusion check
+#define B_ATK_ITEM 0x3E  //added for single use belch set attacker item
 
 // for B_TXT_BUFF1, B_TXT_BUFF2 and B_TXT_BUFF3
 

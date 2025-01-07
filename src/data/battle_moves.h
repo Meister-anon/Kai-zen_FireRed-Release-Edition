@@ -8797,6 +8797,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //big buff for the move, but its only learned by throh and greninja
     //and greninja is already faster than most, 
     //so this just lets throh actually use the move I guess
+    //or was it set that way to only work in trick room?
 
     [MOVE_BELCH] =
     {

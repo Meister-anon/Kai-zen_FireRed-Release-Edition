@@ -142,7 +142,7 @@ u32 IsAbilityPreventingEscape(u32 battlerId);
 u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability);
 u32 IsAbilityOnField(u32 ability); 
 u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating);
-u32 GetBattlerHoldEffectParam(u8 battlerId);
+u32 GetBattlerHoldEffectParam(u8 battlerId, u32 itemId);
 bool8 IsMoveMakingContact(u16 move, u8 battlerAtk); //made bool8 since its just a true false return
 bool8 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId); //same as above
 struct Pokemon *GetIllusionMonPtr(u32 battlerId);

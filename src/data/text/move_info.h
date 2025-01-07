@@ -861,7 +861,7 @@ const u8 gMAT_BLOCK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Evades damaging moves\nfor one turn.");
 
 const u8 gBELCH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The POKéMON\nlets out a\nloud belch.\nMust eat a Berry\nor hold Berry.\nto use it.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The POKéMON lets\nout a loud belch.\nMust eat or hold\na Berry to use it.");
 
 const u8 gROTOTILLER_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Ups the Attack and Sp. Atk\nof Grass-type POKéMON.");

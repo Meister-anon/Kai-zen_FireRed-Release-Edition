@@ -4531,7 +4531,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         attack *= 2;
     if (attackerHoldEffect == HOLD_EFFECT_METRONOME)
     {
-        percentBoost = min((gBattleStruct->sameMoveTurns[battlerIdAtk] * GetBattlerHoldEffectParam(battlerIdAtk)), 100);
+        percentBoost = min((gBattleStruct->sameMoveTurns[battlerIdAtk] * GetBattlerHoldEffectParam(battlerIdAtk, gBattleMons[battlerIdAtk].item)), 100);
         {
             gBattleMovePower *= (100 + gPercentToModifier[percentBoost]); //effect buffed late gen make sure right
             gBattleMovePower /= 100;
@@ -4551,8 +4551,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     if (defenderHoldEffect == HOLD_EFFECT_RESIST_BERRY)
     {
-        if (moveType == GetBattlerHoldEffectParam(battlerIdDef)
-            && (moveType == TYPE_NORMAL || (typeEffectiveness >= UQ_4_12(1.55))))
+        if (moveType == GetBattlerHoldEffectParam(battlerIdDef, itemDef)
+            && (moveType == TYPE_NORMAL || moveType == TYPE_SOUND
+            || (typeEffectiveness >= UQ_4_12(1.55)))) //excluding type myystery
             //&& !UnnerveOn(battlerIdDef, itemDef))
         {
             if (abilityDef == ABILITY_RIPEN) //is thsi shuold this be side based?

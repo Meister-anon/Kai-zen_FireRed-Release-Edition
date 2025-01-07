@@ -1493,10 +1493,14 @@
 	.4byte \failInstr
 	.endm
 
-	.macro CheckPassSecondaryItem battler:req
-	callnative BS_checksecondaryItemslot
-	.byte \battler
+	.macro trysymbiosis
+	callnative BS_TrySymbiosis
 	.endm
+
+	@.macro CheckPassSecondaryItem battler:req
+	@callnative BS_checksecondaryItemslot
+	@.byte \battler
+	@.endm
 
 	.macro getmoveeffect
 	callnative BS_getmoveeffect
@@ -1925,9 +1929,9 @@
 	various \battler, VARIOUS_TRY_ACTIVATE_GRIM_NEIGH
 	.endm
 
-	.macro consumeberry battler:req, restoreItem:req
+	.macro consumeberry battler:req, fromBattler:req
 	various \battler, VARIOUS_CONSUME_BERRY
-	.byte \restoreItem
+	.byte \fromBattler
 	.endm
 
 	.macro activateitemeffects battler:req

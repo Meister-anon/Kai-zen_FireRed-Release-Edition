@@ -736,7 +736,7 @@ static const u8 sText_PokemonCannotUseMove[] = _("{B_ATK_NAME_WITH_PREFIX} canno
 static const u8 sText_CoveredInPowder[] = _("{B_DEF_NAME_WITH_PREFIX} is covered in powder!");
 static const u8 sText_PowderExplodes[] = _("When the flame touched the powder\non the Pokémon, it exploded!");
 static const u8 sText_BelchCantUse[] = _("Belch cannot be used!\p");
-static const u8 sText_BelchEatBerry[] = _("{B_ATK_NAME_WITH_PREFIX} ate its {B_BUFF1}!");
+static const u8 sText_BelchEatBerry[] = _("{B_ATK_NAME_WITH_PREFIX} ate its {B_ATK_ITEM}!");
 static const u8 sText_SpectralThiefSteal[] = _("{B_ATK_NAME_WITH_PREFIX} stole the target's\nboosted stats!");
 static const u8 sText_GravityGrounding[] = _("{B_DEF_NAME_WITH_PREFIX} can't stay airborne\nbecause of gravity!");
 static const u8 sText_FlyingEnemyCrashedDown[] = _("{B_DEF_NAME_WITH_PREFIX} crashed\nto the ground!");
@@ -3027,6 +3027,49 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst) //logic for buffers t
                 else
                 {
                     CopyItemName(gLastUsedItem, text);
+                    toCpy = text;
+                }
+                break;
+            case B_ATK_ITEM: //Battler item, use b scripting.battler  last used item
+                if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+                {
+                    if (gBattleMons[gBattlerAttacker].item == ITEM_ENIGMA_BERRY)
+                    {
+                        if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+                        {
+                            if ((gBattleStruct->multiplayerId != 0 && (gPotentialItemEffectBattler & BIT_SIDE))
+                                || (gBattleStruct->multiplayerId == 0 && !(gPotentialItemEffectBattler & BIT_SIDE)))
+                            {
+                                StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
+                                StringAppend(text, sText_BerrySuffix);
+                                toCpy = text;
+                            }
+                            else
+                            {
+                                toCpy = sText_EnigmaBerry;
+                            }
+                        }
+                        else
+                        {
+                            if (gLinkPlayers[gBattleStruct->multiplayerId].id == gPotentialItemEffectBattler)
+                            {
+                                StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
+                                StringAppend(text, sText_BerrySuffix);
+                                toCpy = text;
+                            }
+                            else
+                                toCpy = sText_EnigmaBerry;
+                        }
+                    }
+                    else
+                    {
+                        CopyItemName(gBattleMons[gBattlerAttacker].item, text);
+                        toCpy = text;
+                    }
+                }
+                else
+                {
+                    CopyItemName(gBattleMons[gBattlerAttacker].item, text);
                     toCpy = text;
                 }
                 break;

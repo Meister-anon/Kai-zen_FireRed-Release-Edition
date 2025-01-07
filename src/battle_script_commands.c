@@ -4502,11 +4502,11 @@ bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffe
             // In Gen 5+, Knock Off removes the target's item rather than rendering it unusable.
             //if (B_KNOCK_OFF_REMOVAL >= GEN_5)
             //if (gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[loseitembattler]][GetBattlerSide(loseitembattler)] == ITEM_NONE)
-            {
+            
                 gActiveBattler = loseitembattler;
                 BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[loseitembattler].item), &gBattleMons[loseitembattler].item);
                 MarkBattlerForControllerExec(loseitembattler);
-            }
+            
             /*else
             {
 
@@ -5912,16 +5912,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     || (GetBattlerHoldEffect(gEffectBattler, FALSE) == HOLD_EFFECT_GEMS)
                     )
                 {
-                    /*gLastUsedItem = gBattleMons[gEffectBattler].item;
-                    gBattleMons[gEffectBattler].item = 0;
-                    CheckSetUnburden(gEffectBattler);
-
-                    gActiveBattler = gEffectBattler;
-                    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gEffectBattler].item), &gBattleMons[gEffectBattler].item);
-                    MarkBattlerForControllerExec(gActiveBattler);
-                    BattleScriptPush(gBattlescriptCurrInstr + 1);
-                    gBattlescriptCurrInstr = BattleScript_MoveEffectIncinerate;*/
-                    //gActiveBattler = gEffectBattler; -now done in function
+                    
                     TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 }
                 break;
@@ -5929,16 +5920,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 if (ItemId_GetPocket(gBattleMons[gEffectBattler].item) == POCKET_BERRY_POUCH
                     && battlerAbility != ABILITY_STICKY_HOLD)
                 {
-                    // target loses their berry
-                    gLastUsedItem = gBattleMons[gEffectBattler].item;
-                    gBattleMons[gEffectBattler].item = 0;
-                    CheckSetUnburden(gEffectBattler);
-                    gActiveBattler = gEffectBattler;
-
-                    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gEffectBattler].item), &gBattleMons[gEffectBattler].item);
-                    MarkBattlerForControllerExec(gActiveBattler);
-                    BattleScriptPush(gBattlescriptCurrInstr + 1);
-                    gBattlescriptCurrInstr = BattleScript_MoveEffectBugBite;
+                    
+                    TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 } //vsonic potentially, can emulate to make my vers belch work, where consumes users berry if held
                 break;//nvm forgot move effects go at end of move
             case MOVE_EFFECT_RELIC_SONG:
@@ -6016,7 +5999,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     //hey old me, that ish is all wrong, without secondary chance, effects won't apply, and that's dealt with in battle_moves file
     //
     u32 percentChance,argumentChance;
-    u8 atkHoldEffectParam = GetBattlerHoldEffectParam(gBattlerAttacker); //for kings rock
+    u8 atkHoldEffectParam = GetBattlerHoldEffectParam(gBattlerAttacker, gBattleMons[gBattlerAttacker].item); //for kings rock
     if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
     {
 
@@ -10770,44 +10753,11 @@ static void atk69_adjustsetdamage(void)
 }
 
 
+//realize should just put BS_checksecondaryItemslot
+//in this function
 static void atk6A_removeitem(void) //vsonic
 {
     CMD_ARGS(u8 battler);
-
-    u16 itemId = 0;
-
-    if (gBattleScripting.overrideBerryRequirements)
-    {
-        // bug bite / pluck - don't remove current item
-        gBattlescriptCurrInstr = cmd->nextInstr;
-        return;
-    }
-
-    gActiveBattler = GetBattlerForBattleScript(cmd->battler);
-    itemId = gBattleMons[gActiveBattler].item;
-
-    // Popped Air Balloon cannot be restored by any means.
-    // Corroded items cannot be restored either.
-    if (GetBattlerHoldEffect(gActiveBattler, TRUE) != HOLD_EFFECT_AIR_BALLOON)
-        //&& gBattleMoves[gCurrentMove].effect != EFFECT_CORROSIVE_GAS)
-        gBattleStruct->usedHeldItems[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = itemId; // Remember if switched out
-
-    gBattleMons[gActiveBattler].item = ITEM_NONE;
-    CheckSetUnburden(gActiveBattler);
-
-    BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
-    MarkBattlerForControllerExec(gActiveBattler);
-
-    //ClearBattlerItemEffectHistory(gActiveBattler); emerald ai update
-    if (!TryCheekPouch(gActiveBattler, itemId) && !TrySymbiosis(gActiveBattler, itemId))
-        gBattlescriptCurrInstr = cmd->nextInstr;
-}
-
-void BS_checksecondaryItemslot(void)
-{
-    
-
-    NATIVE_ARGS(u8 battler);
 
     u16 itemId = 0;
     u16 secondaryItem = 0;
@@ -10817,12 +10767,79 @@ void BS_checksecondaryItemslot(void)
     //as you're using the enemies berry item not your own?
     /*Bug Bite/Pluck can consume berries despite not meeting the HP threshold?
     Or other activation limitations.*/
-    /*if (gBattleScripting.overrideBerryRequirements) //don't understand this look further into
+    if (gBattleScripting.overrideBerryRequirements)
     {
         // bug bite / pluck - don't remove current item
         gBattlescriptCurrInstr = cmd->nextInstr;
         return;
-    }*/
+    }
+
+    gActiveBattler = GetBattlerForBattleScript(cmd->battler);
+    itemId = gBattleMons[gActiveBattler].item;
+    secondaryItem = gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)];
+
+    // Popped Air Balloon cannot be restored by any means.
+    // Corroded items cannot be restored either.
+    if (GetBattlerHoldEffect(gActiveBattler, TRUE) != HOLD_EFFECT_AIR_BALLOON)
+        //&& gBattleMoves[gCurrentMove].effect != EFFECT_CORROSIVE_GAS)
+        gBattleStruct->usedHeldItems[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = itemId; // Remember if switched out
+
+    gBattleMons[gActiveBattler].item = ITEM_NONE;
+    if (gBattleMons[gActiveBattler].item == ITEM_NONE && secondaryItem != ITEM_NONE)
+    {
+        gBattleMons[gActiveBattler].item = secondaryItem;
+        gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = ITEM_NONE;
+    
+        //gBattleResources->flags->flags[gActiveBattler] &= ~RESOURCE_FLAG_UNBURDEN; //this means lose unburden boost as you're gaining an item
+
+        BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
+        MarkBattlerForControllerExec(gActiveBattler);
+    }
+    else
+    {
+        BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].item), &gBattleMons[gActiveBattler].item);
+        MarkBattlerForControllerExec(gActiveBattler);
+    }
+        
+
+    CheckSetUnburden(gActiveBattler);
+
+    //ClearBattlerItemEffectHistory(gActiveBattler); emerald ai update
+    if (!TryCheekPouch(gActiveBattler, itemId) && !TrySymbiosis(gActiveBattler, itemId))
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_TrySymbiosis(void)
+{
+    NATIVE_ARGS();
+    //called by Bestow, Fling, and Bug Bite, which don't work with Cmd_removeitem.
+    u32 partner = BATTLE_PARTNER(gBattlerAttacker);
+    if (SYMBIOSIS_CHECK(gBattlerAttacker, partner))
+    {
+        BestowItem(partner, gBattlerAttacker);
+        gLastUsedAbility = gBattleMons[partner].ability;
+        gBattleScripting.battler = gBattlerAbility = partner;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = BattleScript_SymbiosisActivates;
+        return;
+    }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+//why didn't I just fold this into remove item?
+//its tied in after every case of remove item so makes no sense 
+//to not just put in it...
+/*void BS_checksecondaryItemslot(void)
+{
+    
+
+    NATIVE_ARGS(u8 battler);
+
+    u16 itemId = 0;
+    u16 secondaryItem = 0;
+
+    
 
     gActiveBattler = GetBattlerForBattleScript(cmd->battler);
     itemId = gBattleMons[gActiveBattler].item;
@@ -10842,7 +10859,7 @@ void BS_checksecondaryItemslot(void)
     
 
     gBattlescriptCurrInstr = cmd->nextInstr;
-}
+}*/
 
 static void atk6B_atknameinbuff1(void)
 {
@@ -12899,7 +12916,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         {
             u8 effect = 0; //swapped stat buff of grass & psychic
             u16 item = gBattleMons[battler].item;
-            switch (GetBattlerHoldEffectParam(battler))
+            switch (GetBattlerHoldEffectParam(battler, item))
             {
             case HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN:
                 effect = TryHandleSeed(battler, STATUS_FIELD_ELECTRIC_TERRAIN, STAT_DEF, item, FALSE);
@@ -13225,16 +13242,17 @@ static void atk76_various(void) //will need to add all these emerald various com
     }
     case VARIOUS_CONSUME_BERRY:
     {
-        VARIOUS_ARGS(bool8 restoreItem);
+        VARIOUS_ARGS(bool8 fromBattler);
         if (gBattleScripting.overrideBerryRequirements == 2)
         {
             gBattlescriptCurrInstr = cmd->nextInstr;
             return;
         }
 
-        if (cmd->restoreItem)
+        if (cmd->fromBattler) //if uses attacker or target berry
             gLastUsedItem = gBattleMons[battler].item;
 
+        gBattleStruct->ateBerry[battler & BIT_SIDE] |= 1u << gBattlerPartyIndexes[battler];
         gBattleScripting.battler = gEffectBattler = gBattlerTarget = battler;    // Cover all berry effect battlerId cases. e.g. ChangeStatBuffs uses target ID
         if (ItemBattleEffects(ITEMEFFECT_USE_LAST_ITEM, battler, FALSE))
             return;
@@ -19874,15 +19892,6 @@ void BS_call_if(void) //comparing to jumpifholdeffect
             case EFFECT_REVENGE:
                 atkD6_doubledamagedealtifdamaged();
                 break;
-            case EFFECT_BELCH:
-            if (ItemId_GetPocket(gBattleMons[gBattlerAttacker].item) == POCKET_BERRY_POUCH)
-            {
-                PREPARE_ITEM_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerAttacker].item);
-                GetItemName(gBattleTextBuff1, gBattleMons[gBattlerAttacker].item);
-                gBattleStruct->ateBerry[gBattlerAttacker & BIT_SIDE] |= gBitTable[gBattlerPartyIndexes[gBattlerAttacker]]; //work around attempt direct add to ate
-                gBattlescriptCurrInstr = cmd->nextInstr;
-            }
-            break;
             case EFFECT_JUDGMENT:
                 if (gCurrentMove == MOVE_JUDGMENT && gBattleStruct->dynamicMoveType != TYPE_MYSTERY)
                     PrepareStringBattle(STRINGID_JUDGMENT, gBattlerAttacker); //SEE IF thsi works
