@@ -2566,6 +2566,40 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //VSONIC IMPORTANT keep in mind I apparently setup
     status effects sleep and paralysis to ground floating mon,
     keep an eye on and consider if I want to keep that
+
+    major idea, base game setup is based around a specific set of mon,
+    and guaranteed encountes if I instead switch enconter tables for pools.
+    I could introduce much more variety and make a journey potentially feel more unique
+    and add replay value, hey there's so many other mon you may not find on your first route
+    This is obviously to the detriment of people looking for specific mon
+    But is an interseting idea.
+
+    I've added mechanics to make it more rewarding to grind/
+    searching repeatedly for better versions of the same mon.
+    better iv distributions planned nature filter
+    and more abilities
+
+    That runs somewhat counter to the idea of a larger pool of mon,
+    but if balanced correctly could instead incentivize breeding,
+    if you get one of the mon you can easily breed it with a ditto (which I give for free)
+    to attempt getting other abilities, and also ability capsules will 
+    eventually be made available
+    
+    would allow me to set species based on ecosystem,
+    rather than exact species could say ok this area 
+    has grassland/field birds  grassland pokemon
+    //forest creatures are fewer but present,
+    //and then some beach/waterfront creatures 
+    //if it suits the area, and then just 
+    //repeat the group for what should be more present
+    //note that at present most places only have 2-4 mon available
+
+    //wouldn't work with nature filter tho,
+    //you want to know where a mon is turn on the filter
+    //and then get that mon, if it was too low odds to reoccur
+    it'd be a worthless system
+    Vsonic Important
+
     -sigh seems to be some issue with speed logic,
     faster mon are going last...
     ...ok so its not turnorder or speed logic,
