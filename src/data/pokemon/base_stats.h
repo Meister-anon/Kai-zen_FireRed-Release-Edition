@@ -3282,6 +3282,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//think will drop muscle magic from this so its more special, and give buffed long reach instead
     //would allow priority rock slide to deal w flying types, as well as earthquake
+    //ok found out reckless also boosts moves that do crass damage so was actually good on hitmonlee
 
     [SPECIES_HITMONCHAN] =
     {
@@ -4430,7 +4431,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_VOLT_ABSORB},
-        .abilityHidden = {ABILITY_MOTOR_DRIVE, ABILITY_STORM_BREAK},
+        .abilityHidden = {ABILITY_STATIC, ABILITY_STORM_BREAK},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -4439,6 +4440,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },//based on JPRPokeTrainer98 youtube vid replace pressure for most legendaries, keep for mewtwo 
+    //static would actually be really good w new change
+    //Dropped motor drive for static
 
     [SPECIES_MOLTRES] =
     {
@@ -6751,7 +6754,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_STURDY},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_STORM_BREAK},
+            .abilityHidden = {ABILITY_LIGHTNING_ROD, ABILITY_STORM_BREAK},
         // #endif
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -6760,6 +6763,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSkarmoryTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give better steel moves smart strike etc. vsonic
+    //and w changes to type think I want to toss lightning rod on this
+    //ok think I'm dropping keen eye, its ok, but for the most part it being
+    //steel already keeps it safe from evasion drops for the most part, well sandstorm
+    //hmm nah I'll leave off lightning rod, doesn't REALLY make sense 
+    //I think its still find/goood without it? but its so much more interesting...
+    //ok I'll drop weak armor, it learns agility thats' fine enough
 
     [SPECIES_HOUNDOUR] =
     {
