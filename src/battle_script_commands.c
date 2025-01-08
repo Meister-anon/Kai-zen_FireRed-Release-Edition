@@ -2149,6 +2149,8 @@ static void atk01_accuracycheck(void)
                 calc = (calc * 120) / 100;  // 20% acc boost
         }
 
+        //since i boosted acc of most moves should I decrease this effect?
+        //consider changing to 1.4 incrase
         if (gFieldStatuses & STATUS_FIELD_GRAVITY)
             calc = (calc * 5) / 3; // 1.66 Gravity acc boost
         
@@ -15082,9 +15084,11 @@ static void atk96_weatherdamage(void)
         return;
     }
     if (IsBattlerAlive(gBattlerAttacker) && ability != ABILITY_MAGIC_GUARD
+        && !(ability == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)])
         && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE)
         && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
-        && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER)  //remove rendancy put here
+        && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER)  
+        && !(gStatuses3[gBattlerAttacker] & STATUS3_PHANTOM_FORCE) //specific so flying still affected
         && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
     {
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))

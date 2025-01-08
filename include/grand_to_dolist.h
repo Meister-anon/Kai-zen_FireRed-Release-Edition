@@ -2609,6 +2609,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     sigh...it was a bad condition/operator logic,
     it was just luck that it defaulted to a hold effect value that I could actually find
 
+    gave wonderguard weather immunity for duration
+    iron ball now also increases weight by 50%
+    and float stone now boosts rock type speed by 50%
+    also finished adding last semi invul status to weather exclusion
+    in air is still hit by sandstorm
+    turned it into a counterpart of iron ball
+
     fixed wimpout and emergency exit rework,
     now working correctly in all scenarios
 

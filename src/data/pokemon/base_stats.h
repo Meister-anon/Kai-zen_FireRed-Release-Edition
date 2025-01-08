@@ -8610,7 +8610,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Shedinja"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(27, 90, 45, 40, 30, 30), //potential debuff atk 90 ->75  sp atk/def 30 -> 35
+         STATS(27, 90, 45, 40, 30, 30), 
         MON_TYPES(TYPE_BUG, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 83,
@@ -8630,6 +8630,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//thought need debuff atk but doesn't get much any good physical moves at all
     //give buff/debuff moves to suit wraith identity 
+    //don't need debuff post wonderguard rework
 
     [SPECIES_WHISMUR] =
     {
@@ -9854,7 +9855,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Zangoose"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(73, 115, 60, 100, 60, 60),
+         STATS(73, 125, 60, 105, 55, 60),
         MON_TYPES(TYPE_NORMAL, TYPE_DARK), //WOULD now be 4x  to fighting and fairy, but its fast enough to overcome that idea from Lockstin & Gnoggin
         .catchRate = 90,
         .expYield = 160,
@@ -9883,7 +9884,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Seviper"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(73, 80, 70, 70, 95, 85),
+         STATS(73, 85, 70, 70, 95, 85),
         MON_TYPES(TYPE_POISON, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 160,
@@ -11759,7 +11760,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sKricketotLevelUpLearnset,
         .tmhmLearnset = sKricketotTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(10, AVERAGE_EFFORT), 0, SPECIES_KRICKETUNE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(12, AVERAGE_EFFORT), 0, SPECIES_KRICKETUNE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_KRICKETUNE] =
@@ -14582,7 +14583,7 @@ const struct BaseStats gBaseStats[] =
     //but blaze would effectively give it 3 type stab  at low hp. which would be really unique, I could buff the hp threshold for 
     //blaze stuff as well. make it less than 50%, plus it works since below 50 is when hp bar turns yellow
     //note could make fire type u turn for doubles to self proc flash fire...hmm
-    //still want to give flash fire
+    //still kinda want to give flash fire
     [SPECIES_EMBOAR] =
     {
         .speciesName = _("Emboar"),
@@ -14630,6 +14631,10 @@ const struct BaseStats gBaseStats[] =
     //magma armor is REALLY nice, but sand rush w my sandstorm buff essentially turns you into a raid boss,
     //get the ground stat boosts, a speed boost, AND a slight evasion boost
     //and setting it up beforehand you can assault vest for even more sp def
+
+    //still considering giving tepig line flash fire, 
+    //thick fat too good to give up,
+    //should I replace blaze?
 
     [SPECIES_OSHAWOTT] =
     {
@@ -25162,6 +25167,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ULTRA_BEAST,
     },//apparently guzzlord is bad?
+    //guess the quad fairy weakness?
+    //anyway corruption is still in concept phase
 
     [SPECIES_NECROZMA] =
     {

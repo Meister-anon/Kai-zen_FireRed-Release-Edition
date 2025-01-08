@@ -10957,6 +10957,9 @@ u32 GetBattlerWeight(u8 battlerId) //use ethis for calculating  seismic toss dam
     if (holdEffect == HOLD_EFFECT_FLOAT_STONE)
         weight /= 2;
 
+    if (holdEffect == HOLD_EFFECT_IRON_BALL)//lower cuz stacks
+        weight = (weight * 150) / 100;
+
     for (i = 0; i < gDisableStructs[battlerId].autotomizeCount; i++)
     {
         if (weight > 1000)

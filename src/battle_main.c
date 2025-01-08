@@ -5729,8 +5729,10 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
             ))
         speed /= 2;
 
-    else if (holdEffect == HOLD_EFFECT_IRON_BALL)
+    else if (holdEffect == HOLD_EFFECT_IRON_BALL) //MADE float stone counterpart to iron ball
         speed /= 2;
+    else if (IS_BATTLER_OF_TYPE(battlerId, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+        speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battlerId].species == SPECIES_DITTO /*&& !(gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)*/)
