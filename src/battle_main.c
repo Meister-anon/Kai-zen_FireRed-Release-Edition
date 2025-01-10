@@ -6578,9 +6578,27 @@ static void HandleEndTurn_FinishBattle(void)
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
                 && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
             {
+                /*
+                s32 currentHP, oldMaxHP, newMaxHP;
+                u32 battler1, battler2, partyMon1, partyMon2;
+                battler1 = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+                battler2 = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+                partyMon1 = gPlayerParty[gBattlerPartyIndexes[battler1]];
+                partyMon2 = gPlayerParty[gBattlerPartyIndexes[battler2]];
+
+                
+                
+                if (currentHP != 0) {
+                currentHP += oldMaxHP - newMaxHP;
+
+                if (currentHP <= 0)
+                    currentHP = 1;
+                */
                 CalculateMonStats(&gPlayerParty[i]);
             }
-        }
+        }//think this is why transformed hp is getting messed up?
+        //no can't be this doesn't make sense, but I do need transform specifc
+        //curr hp logic here most likely
 
         
         // Clear battle mon species to avoid a bug on the next battle that causes

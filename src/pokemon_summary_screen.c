@@ -2539,6 +2539,8 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
 #define MACRO_8136350_0(x) (63 - StringLength((x)) * 6)
 #define MACRO_8136350_1(x) (27 - StringLength((x)) * 6)
 
+//BufferMonSkills
+//do different one for in battle
 static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
 {
     u8 tempStr[20];
@@ -2550,18 +2552,20 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     u32 exp;
     u32 expToNextLevel;
 
-    hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP);
-    ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
-    StringAppend(sMonSummaryScreen->summary.curHpStrBuf, gText_Slash);
+    
 
-    hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MAX_HP);
-    ConvertIntToDecimalStringN(tempStr, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
-    StringAppend(sMonSummaryScreen->summary.curHpStrBuf, tempStr);
-
-    sMonSkillsPrinterXpos->curHpStr = MACRO_8136350_0(sMonSummaryScreen->summary.curHpStrBuf);
+    
 
     if (sMonSummaryScreen->savedCallback == CB2_ReturnToTradeMenuFromSummary && sMonSummaryScreen->isEnemyParty == TRUE)
     {
+        hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP);
+        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+        StringAppend(sMonSummaryScreen->summary.curHpStrBuf, gText_Slash);
+
+        hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MAX_HP);
+        ConvertIntToDecimalStringN(tempStr, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+        StringAppend(sMonSummaryScreen->summary.curHpStrBuf, tempStr);
+        
         statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK2);
         ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
         sMonSkillsPrinterXpos->atkStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
@@ -2584,27 +2588,135 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     }
     else
     {
-        statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK);
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
-        sMonSkillsPrinterXpos->atkStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
+        if (gMain.inBattle)
+        {
+            if (IsmonOnField(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT), B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
+            && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+            {
+                hp = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                StringAppend(sMonSummaryScreen->summary.curHpStrBuf, gText_Slash);
 
-        statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF);
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
-        sMonSkillsPrinterXpos->defStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
+                hp = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP;
+                ConvertIntToDecimalStringN(tempStr, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                StringAppend(sMonSummaryScreen->summary.curHpStrBuf, tempStr);
+        
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].attack;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->atkStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
 
-        statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK);
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
-        sMonSkillsPrinterXpos->spAStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].defense;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->defStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
 
-        statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF);
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
-        sMonSkillsPrinterXpos->spDStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].spAttack;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->spAStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
 
-        statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED);
-        ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
-        sMonSkillsPrinterXpos->speStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].spDefense;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->spDStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].speed;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->speStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+            }
+            else if (IsmonOnField(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT), B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
+            && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+            {
+                hp = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                StringAppend(sMonSummaryScreen->summary.curHpStrBuf, gText_Slash);
+
+                hp = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP;
+                ConvertIntToDecimalStringN(tempStr, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                StringAppend(sMonSummaryScreen->summary.curHpStrBuf, tempStr);
+        
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].attack;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->atkStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
+
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].defense;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->defStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
+
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].spAttack;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->spAStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
+
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].spDefense;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->spDStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+
+                statValue = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].speed;
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->speStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+            }
+            else
+            {   
+                hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP);
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                StringAppend(sMonSummaryScreen->summary.curHpStrBuf, gText_Slash);
+
+                hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MAX_HP);
+                ConvertIntToDecimalStringN(tempStr, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+                StringAppend(sMonSummaryScreen->summary.curHpStrBuf, tempStr);
+        
+                statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK);
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->atkStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
+
+                statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF);
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->defStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
+
+                statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK);
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->spAStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
+
+                statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF);
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->spDStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+
+                statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED);
+                ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+                sMonSkillsPrinterXpos->speStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+            }
+        }
+        else
+        {
+            hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP);
+            ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+            StringAppend(sMonSummaryScreen->summary.curHpStrBuf, gText_Slash);
+
+            hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MAX_HP);
+            ConvertIntToDecimalStringN(tempStr, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+            StringAppend(sMonSummaryScreen->summary.curHpStrBuf, tempStr);
+        
+            statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK);
+            ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+            sMonSkillsPrinterXpos->atkStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_ATK]);
+
+            statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF);
+            ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+            sMonSkillsPrinterXpos->defStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_DEF]);
+
+            statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK);
+            ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+            sMonSkillsPrinterXpos->spAStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPA]);
+
+            statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF);
+            ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+            sMonSkillsPrinterXpos->spDStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPD]);
+
+            statValue = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED);
+            ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
+            sMonSkillsPrinterXpos->speStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
+        }
     }
 
+    //holds entire curr hp & max hp value
+    sMonSkillsPrinterXpos->curHpStr = MACRO_8136350_0(sMonSummaryScreen->summary.curHpStrBuf);
     exp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_EXP); //this is needed for level function so keep calc but dont write
     //ConvertIntToDecimalStringN(sMonSummaryScreen->summary.expPointsStrBuf, exp, STR_CONV_MODE_LEFT_ALIGN, 7);
     //sMonSkillsPrinterXpos->expStr = GetNumberRightAlign63(sMonSummaryScreen->summary.expPointsStrBuf);

@@ -2406,9 +2406,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     -still working on setting up test system,
     need fix battle callback for move info
-    fix transform level up stat display when switch mon
+    fix transform level up stat display when switch mon 
     then fix ai
     //12/27/24
+
+    -was able to fix transform level up switched to battlemons over mon data
+    still has one issue left, transform mon hp not quite accurate
+    //when max hp & curr hp shit when transform 
+    not notieable until take damage and open party menu
+    1/9/2025
+
     //note  attempt fuse healthbarupdate & datahpupdate
     into a single command, rather than a set of paired commands
     all the pushes and jumps is what makes it annoying but pretty sure is 

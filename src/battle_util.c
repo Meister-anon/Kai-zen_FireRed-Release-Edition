@@ -2755,6 +2755,9 @@ u8 DoBattlerEndTurnEffects(void)
                         && IsBlackFogNotOnField())  // damaged by wrap
                     {
                         MAGIC_GUARD_CHECK;
+                        //changed mind, if trapped opponent and they gain this ability
+                        //would prefer they stay trapped
+                        //WONDER_GUARD_CHECK; //realized makes no sense not to include these here, it has 1 hp if the move lands it'd just be dead anyway
 
                         /*gBattleScripting.animArg1 = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 0);
                         gBattleScripting.animArg2 = *(gBattleStruct->wrappedMove + gActiveBattler * 2 + 1);

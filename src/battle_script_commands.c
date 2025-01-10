@@ -3861,6 +3861,9 @@ static void atk0B_healthbarupdate(void)
     }
 }
 
+//also I wonder why these aren't unified commands
+//they always go together I think? - yeah they do
+//dropped for now but attempt consolidate effets later
 static void atk0C_datahpupdate(void)
 {
     //u32 moveType; //removed this as its a hold over from when moves didn't use split and instead relied on type order
@@ -3980,7 +3983,11 @@ static void atk0C_datahpupdate(void)
                 gHitMarker &= ~(HITMARKER_PASSIVE_DAMAGE);
                 BtlController_EmitSetMonData(BUFFER_A, REQUEST_HP_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].hp), &gBattleMons[gActiveBattler].hp);
                 MarkBattlerForControllerExec(gActiveBattler);
-            }
+            }//foud it vsonic request hp battle here is what's causing issue w transform hp update
+            //actually this may not be it, think instead of mon data its just assigning a value based on data given
+            //but hten I wonder why it happens at all rather than just  assigning the value
+            //without this, hp still changes when takin damage, but no longer 
+            //updates at battle end
         }
         else //need look into this think may be for status moves? / and with how I changed some status moves to read type this may be an issue
         {
@@ -6601,43 +6608,63 @@ static void atk22_jumpbasedontype(void)  //may need to adjust currinstr values
     }
 }
 
-static s32  HP_StatRecalc(s32 iv, s32 ev)
+//realized this is woefully in accurate also had old hp scaling in it so was just pattently wrong...
+static inline s32  HP_StatRecalc(s32 iv, s32 ev)
 {
-    s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]); 
-    u8 baseStat = gBaseStats[gBattleMons[gBattleStruct->expGetterMonId].species].baseHP;     
-    s32 n = 2 * baseStat + ((iv * 160) / 100) + (((iv * 200) - 36) / 100);             
-    s32 newMaxHP = (((n + ev / 4) * level) / 100) + level + 10;                        
+    s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]);
+    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES, NULL);
+    u16 ability = GetMonAbility(&gPlayerParty[gBattleStruct->expGetterMonId]);
+    u8 baseStat = gBaseStats[species].baseHP;     
+    s32 n;            
+    s32 newMaxHP;  
+
+    if (ability == ABILITY_DISPIRIT_GUARD)
+        n = 2 * baseStat + ((iv * 160) / 100) + (iv * 2 - ((iv * 120) / 100));
+    else
+        n = 2 * baseStat + ((iv * 160) / 100) + (iv * 2 - ((iv * 180) / 100)); 
+
+    if (ability == ABILITY_WONDER_GUARD)          
+        newMaxHP = 1;
+    else if (ability == ABILITY_DISPIRIT_GUARD)
+        newMaxHP = (((n + ev / 4) * level) / 100) + level;
+    else
+        newMaxHP = (((n + ev / 4) * level) / 100) + level + 10;   
+
     return newMaxHP; 
 }
 
-static s32 StatReclacForLevelup(s32 iv, s32 ev, u8 statIndex)
+//also had old stat formula...
+static inline s32 StatReclacForLevelup(s32 iv, s32 ev, u8 statIndex)
 {        
     u8 baseStat;
     s32 n;      
     u8 nature;
+    u16 species =  GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPECIES, NULL);
+    //this may be part ofthe problem if expgettermonid is not what I thought,
+    //and doens't actually hold battlers place in party, cheked it does hold party position
     s32 level = GetLevelFromMonExp(&gPlayerParty[gBattleStruct->expGetterMonId]); 
 
-    switch(statIndex)
+    switch(statIndex) //beleive using expgettermonId within gbattlemons was wrong, monid isn't battler id trying diff 
     {
         case STAT_ATK:
-            baseStat = gBaseStats[gBattleMons[gBattleStruct->expGetterMonId].species].baseAttack;
+            baseStat = gBaseStats[species].baseAttack;
             break;
         case STAT_DEF:
-            baseStat = gBaseStats[gBattleMons[gBattleStruct->expGetterMonId].species].baseDefense;
+            baseStat = gBaseStats[species].baseDefense;
             break;
         case STAT_SPEED:
-            baseStat = gBaseStats[gBattleMons[gBattleStruct->expGetterMonId].species].baseSpeed;
+            baseStat = gBaseStats[species].baseSpeed;
             break;
         case STAT_SPATK:
-            baseStat = gBaseStats[gBattleMons[gBattleStruct->expGetterMonId].species].baseSpAttack;
+            baseStat = gBaseStats[species].baseSpAttack;
             break;
         case STAT_SPDEF:
-            baseStat = gBaseStats[gBattleMons[gBattleStruct->expGetterMonId].species].baseSpDefense;
+            baseStat = gBaseStats[species].baseSpDefense;
             break;
         
     }
 
-    n = (((2 * baseStat + ((iv * 240) /100) + ev / 4) * level) / 100) + 5;          
+    n = (((2 * baseStat + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;          
     nature = GetNature(&gPlayerParty[gBattleStruct->expGetterMonId]);                
     n = ModifyStatByNature(nature, n, statIndex);                                       
     return n;                                                                           
@@ -6654,6 +6681,7 @@ static void atk23_getexp(void)
     s32 sentIn;
     s32 viaExpShare = 0;
     u16 *exp = &gBattleStruct->expValue;
+    u8 *expMonId = &gBattleStruct->expGetterMonId;
 
     //values for stat recalc for transformed mons level up
     s32 hpIV = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP_IV, NULL);
@@ -6836,7 +6864,7 @@ static void atk23_getexp(void)
             gBattleBufferB[gBattleStruct->expGetterBattlerId][0] = 0;
             if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))// && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) != MAX_LEVEL)
             { // that and case 2 change were all for ev again/stat change @ level 100, think peak condition/phsycal prime like track stars. they can still get small marginal gains form training
-
+                //or is this all just ev gain and not leve up? or is itboth??
                 if (gBattleMons[gBattleStruct->expGetterMonId].status2 & STATUS2_TRANSFORMED)
                 {
                     gBattleResources->beforeLvlUp->stats[STAT_HP] = HP_StatRecalc(hpIV, hpEV);
@@ -6869,6 +6897,7 @@ static void atk23_getexp(void)
             if (gBattleBufferB[gActiveBattler][0] == CONTROLLER_TWORETURNVALUES && gBattleBufferB[gActiveBattler][1] == RET_VALUE_LEVELED_UP)
             {
                 u16 temp, battlerId = 0xFF;
+                //in single believe gBattleStruct->expGetterBattlerId; will always be 0 or 2", and 0 is player battler
                 if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && gBattlerPartyIndexes[gActiveBattler] == gBattleStruct->expGetterMonId)
                     HandleLowHpMusicChange(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], gActiveBattler);
                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gActiveBattler, gBattleStruct->expGetterMonId);
@@ -10954,7 +10983,9 @@ static void atk6C_drawlvlupbox(void)
         break;
     }
 }
-
+//this may be it, double check how transform handles stats
+//believe major part of issue was transform logic used
+//setmondata so my stats weren't my actual stats
 static void DrawLevelUpWindow1(void)
 {
     u16 currStats[NUM_STATS];
@@ -11409,13 +11440,14 @@ static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 Ta
     TransformedMonStats(mon, TargetAbility, TransformSpecies);  ///set stat based on species, dbl check it sets mondata, below assigns it for battle
     //gBattleMons[battler].level = GetMonData(mon, MON_DATA_LEVEL); //since don't want to change level may remove this 
     //thinking set values to what I want in above function do I even need these?  possibly ressting stat, remove or put inside other function
-    gBattleMons[battler].hp = GetMonData(mon, MON_DATA_HP); 
+    /*gBattleMons[battler].hp = GetMonData(mon, MON_DATA_HP); 
     gBattleMons[battler].maxHP = GetMonData(mon, MON_DATA_MAX_HP);
     gBattleMons[battler].attack = GetMonData(mon, MON_DATA_ATK);
     gBattleMons[battler].defense = GetMonData(mon, MON_DATA_DEF);
     gBattleMons[battler].speed = GetMonData(mon, MON_DATA_SPEED);
     gBattleMons[battler].spAttack = GetMonData(mon, MON_DATA_SPATK);
     gBattleMons[battler].spDefense = GetMonData(mon, MON_DATA_SPDEF);
+    */
     gBattleMons[battler].ability = TargetAbility;  //think work? yup works
     gBattleMons[battler].type1 = gBaseStats[TransformSpecies].type1; //think safe to replace battlemons here, as already fails if mon is transformed, and no other time species would change
     gBattleMons[battler].type2 = gBaseStats[TransformSpecies].type2;
@@ -15588,6 +15620,9 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
         //just go to summary screen and change line to read the targets abilitynum if current move transform or ability imposter/inversion
         //need find way for one time change that resets on faint/switch/battle end, and that won't just keep changing every turn long as status2 is transformed/trace etc.
 
+        //face palm, literally what I neeed, just need update 
+        //like summary screen, but since is in battle stuff,
+        //think can specifically filter for status transformed?
         UpdateHealthboxAttribute(gHealthboxSpriteIds[gBattlerAttacker], mon, HEALTHBOX_ALL); //should update hp values in healthox
 
         

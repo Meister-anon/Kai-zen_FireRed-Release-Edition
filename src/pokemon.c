@@ -3562,6 +3562,32 @@ void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
     }
 }
 
+#define TRANSFORM_STAT_RECALC(base, iv, ev, statIndex, field)                               \
+{                                                                               \
+    u8 baseStat = gBaseStats[species].base;                                     \
+    s32 n = (((2 * baseStat + ((iv * 170) /100) + ev / 4) * level) / 100) + 5;  \
+    u8 nature = GetNature(mon);                                                 \
+    n = ModifyStatByNature(nature, n, statIndex);                               \
+    /*SetMonData(mon, field, &n);*/                                                 \
+    switch (statIndex)                                                              \
+    {                                                                             \
+        case STAT_ATK:                                                              \
+        gBattleMons[gBattlerAttacker].attack = n;                                   \
+        break;                                                                        \
+        case STAT_DEF:                                                              \
+        gBattleMons[gBattlerAttacker].defense = n;                                      \
+        break;                                                                      \
+        case STAT_SPEED:                                                                    \
+        gBattleMons[gBattlerAttacker].speed = n;                                        \
+        break;                                                                      \
+        case STAT_SPATK:                                                            \
+        gBattleMons[gBattlerAttacker].spAttack = n;                                     \
+        break;                                                                              \
+        case STAT_SPDEF:                                                            \
+        gBattleMons[gBattlerAttacker].spDefense = n;                                    \
+        break;                                                                          \
+    }                                                                                   \
+}
 //specificl for transform, and ditto abilities
 //think change to take species argument would make simpiler for inversion,
 //plus remove redundant code
@@ -3628,7 +3654,8 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
     spDefenseIV = GetMonData(party, MON_DATA_SPDEF_IV, NULL);
     //change for transform to take target ivs, for iv checking wild mon
 
-    SetMonData(mon, MON_DATA_LEVEL, &level);
+    //this can most likely be skipped
+    //SetMonData(mon, MON_DATA_LEVEL, &level);
 
     if (TransformAbility == ABILITY_WONDER_GUARD) {
         currentHP = 1;
@@ -3651,13 +3678,23 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
     if (gBattleScripting.field_23 == 0)
         gBattleScripting.field_23 = 1;
 
-    SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
+    //ok what this is doing is setting  mondata to other values
+    //think for transform I want to instead just set battlemons data
+    //which should be able to do as user is gbattlerattacker
+    //effect is the same other than keeping mon stats as they are
+    //for reading level up stat change
+    //its easier cuz its triggering from within battle,
+    //so I don't need to worry about using mon to set things
+    //up for before battle start
 
-        CALC_STAT(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
-        CALC_STAT(baseDefense, defenseIV, defenseEV, STAT_DEF, MON_DATA_DEF)
-        CALC_STAT(baseSpeed, speedIV, speedEV, STAT_SPEED, MON_DATA_SPEED)
-        CALC_STAT(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
-        CALC_STAT(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
+    //SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
+    gBattleMons[gBattlerAttacker].maxHP = newMaxHP;
+
+        TRANSFORM_STAT_RECALC(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
+        TRANSFORM_STAT_RECALC(baseDefense, defenseIV, defenseEV, STAT_DEF, MON_DATA_DEF)
+        TRANSFORM_STAT_RECALC(baseSpeed, speedIV, speedEV, STAT_SPEED, MON_DATA_SPEED)
+        TRANSFORM_STAT_RECALC(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
+        TRANSFORM_STAT_RECALC(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
 
         if (TransformAbility == ABILITY_WONDER_GUARD)
         {
@@ -3668,7 +3705,12 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
         }
         else
         {
-            if (currentHP == 0 && oldMaxHP == 0)
+            //thought about it think this is problem,
+            //don't believe any use for oldMaxHP in transform logic
+            //what need check is if currentHP != oldMaxhp
+            //only then should I do something to curr hp
+            //replaced old logic
+            if (currentHP == oldMaxHP)
                 currentHP = newMaxHP;
             else if (currentHP != 0) {
                 // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
@@ -3680,9 +3722,12 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
             }
             else
                 return;
-        }
+        }//unsure if curr hp at end battle is returning as it should either
+        //ok confirmed that it isn't, but only after I take damage
+        //if I don't take dmg hp returns to the value it should be
 
-    SetMonData(mon, MON_DATA_HP, &currentHP);
+    //SetMonData(mon, MON_DATA_HP, &currentHP);
+    gBattleMons[gBattlerAttacker].hp = currentHP;
 }
 
 u8 GetLevelFromMonExp(struct Pokemon *mon)

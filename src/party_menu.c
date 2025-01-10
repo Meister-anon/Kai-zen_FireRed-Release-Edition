@@ -774,7 +774,8 @@ static void DisplayPartyPokemonData(u8 slot)
         DisplayPartyPokemonNickname(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
     }
     else
-    {
+    {   
+        //if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         sPartyMenuBoxes[slot].infoRects->blitFunc(sPartyMenuBoxes[slot].windowId, 0, 0, 0, 0, FALSE);
         DisplayPartyPokemonNickname(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
         DisplayPartyPokemonLevelCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
@@ -2451,7 +2452,29 @@ static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox 
         if (c != 0)
             menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[12] >> 3, (menuBox->infoRects->dimensions[13] >> 3) + 1, menuBox->infoRects->dimensions[14] >> 3, menuBox->infoRects->dimensions[15] >> 3, FALSE);
         if (c != 2)
-            DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);
+        {
+            //not sure process logic but another case of having to use direct Ifs
+            //instead of else ifs, does't work otherwise
+            //think curr hp not quite right, look at transform stat hp
+            //when take damage and go to party menu result is typically off by 1?
+            //when I've transformed
+            if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
+            {    
+                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
+                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+                    DisplayPartyPokemonHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp, menuBox);            
+
+                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
+                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
+                    DisplayPartyPokemonHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp, menuBox);  
+
+                if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY) != GetMonData(mon, MON_DATA_PERSONALITY))
+                    DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);  
+            }
+            else
+                DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);
+        }
+            
     }
 }
 
@@ -2471,8 +2494,24 @@ static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuB
         if (c != 0)
             menuBox->infoRects->blitFunc(menuBox->windowId, (menuBox->infoRects->dimensions[16] >> 3) + 1, (menuBox->infoRects->dimensions[17] >> 3) + 1, menuBox->infoRects->dimensions[18] >> 3, menuBox->infoRects->dimensions[19] >> 3, FALSE);
         if (c != 2)
-            DisplayPartyPokemonMaxHP(GetMonData(mon, MON_DATA_MAX_HP), menuBox);
-    }
+        {
+            if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
+            {    //&gPlayerParty[tPartyId]
+                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
+                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+                    DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
+
+                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
+                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
+                    DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);  
+                
+                if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY) != GetMonData(mon, MON_DATA_PERSONALITY))
+                    DisplayPartyPokemonMaxHP(GetMonData(mon, MON_DATA_MAX_HP), menuBox);      
+            }
+            else
+                DisplayPartyPokemonMaxHP(GetMonData(mon, MON_DATA_MAX_HP), menuBox);
+        }
+    }    
 }
 
 static void DisplayPartyPokemonMaxHP(u16 maxhp, struct PartyMenuBox *menuBox)
@@ -2486,7 +2525,23 @@ static void DisplayPartyPokemonMaxHP(u16 maxhp, struct PartyMenuBox *menuBox)
 static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
-        DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), GetMonData(mon, MON_DATA_MAX_HP), menuBox);
+    {
+        if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
+        {    //&gPlayerParty[tPartyId]
+            if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
+                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+                DisplayPartyPokemonHPBar(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
+
+            if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
+                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
+                DisplayPartyPokemonHPBar(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);            
+
+            if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY) != GetMonData(mon, MON_DATA_PERSONALITY))
+                DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), GetMonData(mon, MON_DATA_MAX_HP), menuBox);              
+        }
+        else
+            DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), GetMonData(mon, MON_DATA_MAX_HP), menuBox);
+    }
 }
 
 static void DisplayPartyPokemonHPBar(u16 hp, u16 maxhp, struct PartyMenuBox *menuBox)
@@ -6568,7 +6623,7 @@ static bool8 TrySwitchInPokemon(void)
     gPartyMenuUseExitCallback = TRUE;
     newSlot = GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[gBattlerInMenuId]);
     SwitchPartyMonSlots(newSlot, slot);
-    SwapPartyPokemon(&gPlayerParty[newSlot], &gPlayerParty[slot]);
+    SwapPartyPokemon(&gPlayerParty[newSlot], &gPlayerParty[slot]); //vsonic may be relevant for battle callback issue
     return TRUE;
 }
 

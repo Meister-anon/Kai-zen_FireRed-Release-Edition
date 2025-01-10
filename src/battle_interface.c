@@ -1001,8 +1001,11 @@ void SwapHpBarsWithHpText(void)
 
     for (i = 0; i < gBattlersCount; i++)
     {
+        //ok think was able to mostly fix, part of the issue seemed to be
+        //missing enemey side logic in updatehealthboxattribute function,
+        //it never had hp logic for the enemy side
         if (gSprites[gHealthboxSpriteIds[i]].callback == SpriteCallbackDummy //without that works but not fully right,
-            && GetBattlerSide(i) != B_SIDE_OPPONENT                       //piece of hp bar still showing for opponent
+            //&& GetBattlerSide(i) != B_SIDE_OPPONENT                       //piece of hp bar still showing for opponent
             && (IsDoubleBattle() || GetBattlerSide(i) != B_SIDE_PLAYER))    //and doesn't clear well when change menu
         {
             bool8 noBars;   //simple thing make it load back to hp bars when change menu/page
@@ -1824,6 +1827,8 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
 {
     s32 maxHp, currHp;
     u8 battlerId = gSprites[healthboxSpriteId].hMain_Battler;
+    u32 btlrcurrhp = gBattleMons[battlerId].hp;
+    u32 btlrMaxhp = gBattleMons[battlerId].maxHP; 
 
     if (elementId == HEALTHBOX_ALL && !IsDoubleBattle())
         GetBattlerSide(battlerId); // Pointless function call.
@@ -1831,21 +1836,45 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
     if (GetBattlerSide(gSprites[healthboxSpriteId].hMain_Battler) == B_SIDE_PLAYER)
     {
         u8 isDoubles;
-
+        
         if (elementId == HEALTHBOX_LEVEL || elementId == HEALTHBOX_ALL)
             UpdateLvlInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_LEVEL));
-        if (elementId == HEALTHBOX_CURRENT_HP || elementId == HEALTHBOX_ALL)
-            UpdateHpTextInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_HP), HP_CURRENT);
-        if (elementId == HEALTHBOX_MAX_HP || elementId == HEALTHBOX_ALL)
-            UpdateHpTextInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_MAX_HP), HP_MAX);
-        if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
+        
+        if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         {
-            LoadBattleBarGfx(0);
-            maxHp = GetMonData(mon, MON_DATA_MAX_HP);
-            currHp = GetMonData(mon, MON_DATA_HP);
-            SetBattleBarStruct(battlerId, healthboxSpriteId, maxHp, currHp, 0);
-            MoveBattleBar(battlerId, healthboxSpriteId, HEALTH_BAR, 0);
+            if (elementId == HEALTHBOX_CURRENT_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, btlrcurrhp, HP_CURRENT);
+            if (elementId == HEALTHBOX_MAX_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, btlrMaxhp, HP_MAX);
+
+            if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
+            {
+                LoadBattleBarGfx(0);
+                maxHp = btlrMaxhp;
+                currHp = btlrcurrhp;
+                SetBattleBarStruct(battlerId, healthboxSpriteId, maxHp, currHp, 0);
+                MoveBattleBar(battlerId, healthboxSpriteId, HEALTH_BAR, 0);
+            }
         }
+        else
+        {
+            if (elementId == HEALTHBOX_CURRENT_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_HP), HP_CURRENT);
+            if (elementId == HEALTHBOX_MAX_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_MAX_HP), HP_MAX);
+
+            if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
+            {
+                LoadBattleBarGfx(0);
+                maxHp = GetMonData(mon, MON_DATA_MAX_HP);
+                currHp = GetMonData(mon, MON_DATA_HP);
+                SetBattleBarStruct(battlerId, healthboxSpriteId, maxHp, currHp, 0);
+                MoveBattleBar(battlerId, healthboxSpriteId, HEALTH_BAR, 0);
+            }
+        }
+        
+        
+        
         isDoubles = IsDoubleBattle();
         if (!isDoubles && (elementId == HEALTHBOX_EXP_BAR || elementId == HEALTHBOX_ALL))
         {
@@ -1877,14 +1906,44 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
     {
         if (elementId == HEALTHBOX_LEVEL || elementId == HEALTHBOX_ALL)
             UpdateLvlInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_LEVEL));
-        if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
+
+        //made changes and added values for hptext as seemed enemy side never had it,
+        //could be reason why my attempted change for displaying hp num on enemy side never worked
+        //vsonic
+        if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         {
-            LoadBattleBarGfx(0);
-            maxHp = GetMonData(mon, MON_DATA_MAX_HP);
-            currHp = GetMonData(mon, MON_DATA_HP);
-            SetBattleBarStruct(battlerId, healthboxSpriteId, maxHp, currHp, 0);
-            MoveBattleBar(battlerId, healthboxSpriteId, HEALTH_BAR, 0);
+            if (elementId == HEALTHBOX_CURRENT_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, btlrcurrhp, HP_CURRENT);
+            if (elementId == HEALTHBOX_MAX_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, btlrMaxhp, HP_MAX);
+
+            if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
+            {
+                LoadBattleBarGfx(0);
+                maxHp = btlrMaxhp;
+                currHp = btlrcurrhp;
+                SetBattleBarStruct(battlerId, healthboxSpriteId, maxHp, currHp, 0);
+                MoveBattleBar(battlerId, healthboxSpriteId, HEALTH_BAR, 0);
+            }
         }
+        else
+        {
+            if (elementId == HEALTHBOX_CURRENT_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_HP), HP_CURRENT);
+            if (elementId == HEALTHBOX_MAX_HP || elementId == HEALTHBOX_ALL)
+                UpdateHpTextInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_MAX_HP), HP_MAX);
+
+            if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
+            {
+                LoadBattleBarGfx(0);
+                maxHp = GetMonData(mon, MON_DATA_MAX_HP);
+                currHp = GetMonData(mon, MON_DATA_HP);
+                SetBattleBarStruct(battlerId, healthboxSpriteId, maxHp, currHp, 0);
+                MoveBattleBar(battlerId, healthboxSpriteId, HEALTH_BAR, 0);
+            }
+        }
+
+
         if (elementId == HEALTHBOX_NICK || elementId == HEALTHBOX_ALL)
             UpdateNickInHealthbox(healthboxSpriteId, mon);
         if (elementId == HEALTHBOX_STATUS_ICON || elementId == HEALTHBOX_ALL)
