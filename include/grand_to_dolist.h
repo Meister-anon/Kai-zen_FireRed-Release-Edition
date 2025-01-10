@@ -2409,6 +2409,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     fix transform level up stat display when switch mon
     then fix ai
     //12/27/24
+    //note  attempt fuse healthbarupdate & datahpupdate
+    into a single command, rather than a set of paired commands
+    all the pushes and jumps is what makes it annoying but pretty sure is 
+    doable
+
+    also updated disguise w custom hp drop, for focus sash interaction,
+    plus fixes for conversion like effects
+    1/10/2025
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?

@@ -3868,12 +3868,6 @@ static void atk0C_datahpupdate(void)
 
     if (!gBattleControllerExecFlags)
     {
-        /*if (gBattleStruct->dynamicMoveType == 0)
-            moveType = gBattleMoves[gCurrentMove].type;
-        else if (!(gBattleStruct->dynamicMoveType & 0x40))
-            moveType = gBattleStruct->dynamicMoveType & 0x3F;
-        else
-            moveType = gBattleMoves[gCurrentMove].type;*/
 
         if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
         {
@@ -3908,7 +3902,9 @@ static void atk0C_datahpupdate(void)
                 gBattleMons[gActiveBattler].species = SPECIES_MIMIKYU_BUSTED;//  need this line to show correct form
                 //would prefer to pull from form_change_table rather than change species
                 gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = TRUE; //should keep disguise from working again
-                BattleScriptPushCursor(); //above line works, but doesn't transform into correct form //,keeps species change, above line does have effect
+                gBattleMoveDamage = 1;
+                BattleScriptPush(gBattlescriptCurrInstr += 2); //use this instead of pushcursor, keeps from repeating curr script
+                //BattleScriptPushCursor(); //ability line works, but doesn't transform into correct form //,keeps species change, above line does have effect
                 gBattlescriptCurrInstr = BattleScript_TargetFormChange; //prevents ability reset on faint
                 return;
             }
@@ -14834,7 +14830,7 @@ static void atk8F_forcerandomswitch(void)
 //use other idea for conversion 2, instead
 //changing to first slot makes better
 //both improved consistency and increased versatility
-static void atk90_tryconversiontypechange(void) //ok haven't actually changed this yet its still default
+static void atk90_tryconversiontypechange(void)
 {
     CMD_ARGS(const u8 *failInstr);
 
@@ -15386,6 +15382,8 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                 {
                 case UQ_4_12(0):
                 case UQ_4_12(0.5):
+                    //ensure doesn't add a type that is weak to opponent other type
+                    if (GetTypeModifier(targetType2, i) <= UQ_4_12(1.0))
                     storedTypes |= 1u << i; //if value match criteria add to field
                     break;
                 }
@@ -15394,6 +15392,8 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                 {
                 case UQ_4_12(0):
                 case UQ_4_12(0.5):
+                    //ensure doesn't add a type that is weak to opponent other type
+                    if (GetTypeModifier(targetType, i) <= UQ_4_12(1.0))
                     storedTypes2 |= 1u << i; //if value match criteria add to field
                     break;
                 }
@@ -15424,7 +15424,7 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                 }
             }
 
-             if (storedTypes) //if has type that resists both
+             if (storedTypes) //if has type that resists type 1
             {
                 while (storedTypes != 0)
                 {
@@ -15449,7 +15449,7 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                 }
             }
 
-             if (storedTypes2) //if has type that resists both
+             if (storedTypes2) //if has type that resists type 2
             {
                 while (storedTypes2 != 0)
                 {
@@ -15958,7 +15958,7 @@ static void atkA5_painsplitdmgcalc(void)
 //think what i'll do is roll random number, then random % 2 to either increment or decrement, (if /else if base on value)
 //and go until find a mon that matches the rolled resisting type, or just do decrement if I go through species list that way,
 //higher chance of encounting a full evolved form than a baby form, which is more valuable
-static void atkA6_settypetorandomresistance(void) // conversion 2   
+static void atkA6_settypetorandomresistance(void) // conversion z  
 {
     CMD_ARGS(const u8 *failInstr);
 
@@ -15995,6 +15995,8 @@ static void atkA6_settypetorandomresistance(void) // conversion 2
             {
             case UQ_4_12(0):
             case UQ_4_12(0.5):
+                //ensure doesn't add a type that is weak to opponent other type
+                if (GetTypeModifier(targetType2, i) <= UQ_4_12(1.0))
                 storedTypes |= 1u << i; //if value match criteria add to field
                 break;
             }
@@ -16003,6 +16005,8 @@ static void atkA6_settypetorandomresistance(void) // conversion 2
             {
             case UQ_4_12(0):
             case UQ_4_12(0.5):
+                //ensure doesn't add a type that is weak to opponent other type
+                if (GetTypeModifier(targetType, i) <= UQ_4_12(1.0))
                 storedTypes2 |= 1u << i; //if value match criteria add to field
                 break;
             }

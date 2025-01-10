@@ -8367,6 +8367,11 @@ BattleScript_CottonDownReturn:
 	restoretarget
 	return
 
+BattleScript_ApplyDisguiseFormChangeHPLoss::
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	return
+
 BattleScript_TargetFormChangeNoPopup:
 	printstring STRINGID_EMPTYSTRING3
 	waitmessage B_WAIT_TIME_CLEAR_BUFF_2
@@ -8375,6 +8380,7 @@ BattleScript_TargetFormChangeNoPopup:
 	playanimation BS_TARGET, B_ANIM_FORM_CHANGE, NULL
 	waitanimation
 	handleformchange BS_TARGET, 2
+	jumpifability BS_TARGET, ABILITY_DISGUISE, BattleScript_ApplyDisguiseFormChangeHPLoss
 	return
 
 BattleScript_TargetFormChange::
