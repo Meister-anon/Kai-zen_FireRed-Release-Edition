@@ -93,6 +93,21 @@ enum
     CANNOT_LEARN_MOVE_IS_EGG
 };
 
+enum
+{
+    LEARN_VIA_TMHM,
+    LEARN_VIA_LEVEL_UP,
+    LEARN_VIA_TUTOR,
+};
+
+enum
+{
+    DRAW_TEXT_ONLY,
+    DRAW_MENU_BOX_AND_TEXT,
+    DRAW_MENU_BOX_ONLY,
+};
+
+
 struct PartyMenuBoxInfoRects
 {
     void (*blitFunc)(u8 windowId, u8 x, u8 y, u8 width, u8 height, bool8 isEgg);
@@ -178,13 +193,13 @@ static void DisplayPartyPokemonData(u8 slot);
 static void DisplayPartyPokemonDataForWirelessMinigame(u8 slot);
 static void LoadPartyBoxPalette(struct PartyMenuBox *menuBox, u8 palFlags);
 static void DrawEmptySlot(u8 windowId);
-static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c);
-static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c);
-static void DisplayPartyPokemonGenderNidoranCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c);
-static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c);
-static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c);
+static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
+static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
+static void DisplayPartyPokemonGenderNidoranCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
+static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
+static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
 static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox);
-static void DisplayPartyPokemonDescriptionText(u8 stringId, struct PartyMenuBox *menuBox, u8 c);
+static void DisplayPartyPokemonDescriptionText(u8 stringId, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
 static bool8 GetBattleEntryEligibility(struct Pokemon *mon);
 static bool8 IsMonAllowedInMinigame(u8 slot);
 static void DisplayPartyPokemonDataToTeachMove(u8 slot, u16 item, u8 tutor);
@@ -2367,14 +2382,14 @@ static void DisplayPartyPokemonBarDetail(u8 windowId, const u8 *str, u8 color, c
     AddTextPrinterParameterized3(windowId, 0, align[0], align[1], sFontColorTable[color], 0, str);
 }
 
-static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
+static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
 {
     u8 nickname[POKEMON_NAME_LENGTH + 1];
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     if (species != SPECIES_NONE)
     {
-        if (c == 1)
+        if (drawMenuBoxOrText == DRAW_MENU_BOX_AND_TEXT)
             menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[0] >> 3, menuBox->infoRects->dimensions[1] >> 3, menuBox->infoRects->dimensions[2] >> 3, menuBox->infoRects->dimensions[3] >> 3, FALSE);
         GetMonNickname(mon, nickname);
         if (StringCompare(gBaseStats[species].speciesName, nickname) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
@@ -2383,7 +2398,7 @@ static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox
     }
 }
 
-static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
+static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
@@ -2391,9 +2406,9 @@ static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuB
 
         //if (ailment == AILMENT_NONE || ailment == AILMENT_PKRS)
         //{
-            if (c != 0)
+            if (drawMenuBoxOrText != DRAW_TEXT_ONLY)
                 menuBox->infoRects->blitFunc(menuBox->windowId, (menuBox->infoRects->dimensions[4] >> 3) + 1, (menuBox->infoRects->dimensions[5] >> 3) + 1, (menuBox->infoRects->dimensions[6] >> 3) + 1, menuBox->infoRects->dimensions[7] >> 3, FALSE);
-            if (c != 2)
+            if (drawMenuBoxOrText != DRAW_MENU_BOX_ONLY)
                 DisplayPartyPokemonLevel(GetMonData(mon, MON_DATA_LEVEL), menuBox);
         //}
     }//ok I removed this so can display lvl data even when statused, because I moved status icon
@@ -2409,12 +2424,12 @@ static void DisplayPartyPokemonLevel(u8 level, struct PartyMenuBox *menuBox)
     DisplayPartyPokemonBarDetail(menuBox->windowId, gStringVar1, 0, &menuBox->infoRects->dimensions[4]);
 }
 
-static void DisplayPartyPokemonGenderNidoranCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
+static void DisplayPartyPokemonGenderNidoranCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
 {
     u8 nickname[POKEMON_NAME_LENGTH + 1];
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
-    if (c == 1)
+    if (drawMenuBoxOrText == DRAW_MENU_BOX_AND_TEXT)
         menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[8] >> 3, (menuBox->infoRects->dimensions[9] >> 3) + 1, menuBox->infoRects->dimensions[10] >> 3, menuBox->infoRects->dimensions[11] >> 3, FALSE);
     GetMonNickname(mon, nickname);
     if (StringCompare(gBaseStats[species].speciesName, nickname) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
@@ -2445,31 +2460,33 @@ static void DisplayPartyPokemonGender(u8 gender, u16 species, u8 *nickname, stru
     }
 }
 
-static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
+//appears fixed all issues now, is perfectly in sync w transform changes
+static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
-        if (c != 0)
+        if (drawMenuBoxOrText != DRAW_TEXT_ONLY)
             menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[12] >> 3, (menuBox->infoRects->dimensions[13] >> 3) + 1, menuBox->infoRects->dimensions[14] >> 3, menuBox->infoRects->dimensions[15] >> 3, FALSE);
-        if (c != 2)
+        if (drawMenuBoxOrText != DRAW_MENU_BOX_ONLY)
         {
-            //not sure process logic but another case of having to use direct Ifs
-            //instead of else ifs, does't work otherwise
-            //think curr hp not quite right, look at transform stat hp
-            //when take damage and go to party menu result is typically off by 1?
-            //when I've transformed
+
             if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
             {    
-                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
-                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                    DisplayPartyPokemonHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp, menuBox);            
+                if (sPartyMenuInternal->data[0] == 0) //should be slot1
+                {
 
-                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
-                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                    DisplayPartyPokemonHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp, menuBox);  
+                    DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);            
+                }
+                else
+                {
+                    if (sPartyMenuInternal->data[0] == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                    {
+                        DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);
+                    }
+                    else
+                        DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);
 
-                if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY) != GetMonData(mon, MON_DATA_PERSONALITY))
-                    DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);  
+                }
             }
             else
                 DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);
@@ -2487,31 +2504,36 @@ static void DisplayPartyPokemonHP(u16 hp, struct PartyMenuBox *menuBox)
     DisplayPartyPokemonBarDetail(menuBox->windowId, gStringVar1, 0, &menuBox->infoRects->dimensions[12]);
 }
 
-static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
+static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
-        if (c != 0)
+        if (drawMenuBoxOrText != DRAW_TEXT_ONLY)
             menuBox->infoRects->blitFunc(menuBox->windowId, (menuBox->infoRects->dimensions[16] >> 3) + 1, (menuBox->infoRects->dimensions[17] >> 3) + 1, menuBox->infoRects->dimensions[18] >> 3, menuBox->infoRects->dimensions[19] >> 3, FALSE);
-        if (c != 2)
+        if (drawMenuBoxOrText != DRAW_MENU_BOX_ONLY)
         {
             if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
-            {    //&gPlayerParty[tPartyId]
-                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
-                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+            {   
+                if (sPartyMenuInternal->data[0] == 0) //should be slot1
+                {
                     DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
+                }
+                else
+                {
 
-                if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
-                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                    DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);  
-                
-                if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY) != GetMonData(mon, MON_DATA_PERSONALITY))
-                    DisplayPartyPokemonMaxHP(GetMonData(mon, MON_DATA_MAX_HP), menuBox);      
+                    if (sPartyMenuInternal->data[0] == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                    {
+                        DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);  
+                    }
+                    else
+                        DisplayPartyPokemonMaxHP(GetMonData(mon, MON_DATA_MAX_HP), menuBox); 
+
+                }   
             }
             else
                 DisplayPartyPokemonMaxHP(GetMonData(mon, MON_DATA_MAX_HP), menuBox);
         }
-    }    
+    }
 }
 
 static void DisplayPartyPokemonMaxHP(u16 maxhp, struct PartyMenuBox *menuBox)
@@ -2527,17 +2549,22 @@ static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuB
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
         if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
-        {    //&gPlayerParty[tPartyId]
-            if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
-                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-                DisplayPartyPokemonHPBar(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
+        {    
 
-            if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(mon, MON_DATA_PERSONALITY)
-                && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)))
-                DisplayPartyPokemonHPBar(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);            
-
-            if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY) != GetMonData(mon, MON_DATA_PERSONALITY))
-                DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), GetMonData(mon, MON_DATA_MAX_HP), menuBox);              
+            if (sPartyMenuInternal->data[0] == 0) //should be slot1
+            {
+                DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
+            }
+            else
+            {   
+                if (sPartyMenuInternal->data[0] == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                {
+                    DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);            
+                }
+                else
+                    DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), GetMonData(mon, MON_DATA_MAX_HP), menuBox);
+            
+            }         
         }
         else
             DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), GetMonData(mon, MON_DATA_MAX_HP), menuBox);
@@ -2577,11 +2604,11 @@ static void DisplayPartyPokemonHPBar(u16 hp, u16 maxhp, struct PartyMenuBox *men
     CopyWindowToVram(menuBox->windowId, COPYWIN_GFX);
 }
 
-static void DisplayPartyPokemonDescriptionText(u8 stringId, struct PartyMenuBox *menuBox, u8 c)
+static void DisplayPartyPokemonDescriptionText(u8 stringId, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
 {
-    if (c != 0)
+    if (drawMenuBoxOrText != DRAW_TEXT_ONLY)
         menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->descTextLeft >> 3, menuBox->infoRects->descTextTop >> 3, menuBox->infoRects->descTextWidth >> 3, menuBox->infoRects->descTextHeight >> 3, TRUE);
-    if (c != 2)
+    if (drawMenuBoxOrText != DRAW_MENU_BOX_ONLY)
         AddTextPrinterParameterized3(menuBox->windowId, 1, menuBox->infoRects->descTextLeft, menuBox->infoRects->descTextTop, sFontColorTable[0], 0, sDescriptionStringTable[stringId]);
 }
 

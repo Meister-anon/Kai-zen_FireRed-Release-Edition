@@ -3441,9 +3441,9 @@ void CalculateMonStats(struct Pokemon *mon)
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
    }
 
-    gBattleScripting.field_23 = newMaxHP - oldMaxHP;
-    if (gBattleScripting.field_23 == 0) //field_23 is for level up hp change
-        gBattleScripting.field_23 = 1;
+    gBattleScripting.levelUpHP = newMaxHP - oldMaxHP;
+    if (gBattleScripting.levelUpHP == 0) //field_23 is for level up hp change
+        gBattleScripting.levelUpHP = 1;
 
     SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
 
@@ -3499,6 +3499,109 @@ void CalculateMonStats(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_HP, &currentHP);
 }
 
+void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
+{
+
+    u8 boxHP = GetMonData(mon, MON_DATA_BOX_HP, NULL);
+    u8 clearNuzlockeDeath = 1;
+
+        
+
+    s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
+    s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
+    s32 hpIV = GetMonData(mon, MON_DATA_HP_IV, NULL);
+    s32 hpEV = GetMonData(mon, MON_DATA_HP_EV, NULL);
+    s32 attackIV = GetMonData(mon, MON_DATA_ATK_IV, NULL);
+    s32 attackEV = GetMonData(mon, MON_DATA_ATK_EV, NULL);
+    s32 defenseIV = GetMonData(mon, MON_DATA_DEF_IV, NULL);
+    s32 defenseEV = GetMonData(mon, MON_DATA_DEF_EV, NULL);
+    s32 speedIV = GetMonData(mon, MON_DATA_SPEED_IV, NULL);
+    s32 speedEV = GetMonData(mon, MON_DATA_SPEED_EV, NULL);
+    s32 spAttackIV = GetMonData(mon, MON_DATA_SPATK_IV, NULL);
+    s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
+    s32 spDefenseIV = GetMonData(mon, MON_DATA_SPDEF_IV, NULL);
+    s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    s32 level = GetLevelFromMonExp(mon);
+    s32 newMaxHP;
+    u16 ability = GetMonAbility(mon);
+
+    SetMonData(mon, MON_DATA_LEVEL, &level);
+
+    if (ability == ABILITY_WONDER_GUARD) {
+        //currentHP = 1; //worked correctly without but just an extra protection
+        newMaxHP = 1; //literally just ^this line above is what broke wondergaurd shedinja ... -__-
+    }
+    
+    else if (ability == ABILITY_DISPIRIT_GUARD)
+    {
+        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 120) / 100));
+        newMaxHP = (((n + hpEV / 4) * level) / 100) + level;
+    }
+
+   else
+   {
+        s32 n = 2 * gBaseStats[species].baseHP + ((hpIV * 160) / 100) + (hpIV * 2 - ((hpIV * 180) / 100));
+        newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
+   }
+
+    gBattleScripting.levelUpHP = newMaxHP - oldMaxHP;
+    if (gBattleScripting.levelUpHP == 0) //field_23 is for level up hp change
+        gBattleScripting.levelUpHP = 1;
+
+    SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
+
+    CALC_STAT(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
+    CALC_STAT(baseDefense, defenseIV, defenseEV, STAT_DEF, MON_DATA_DEF)
+    CALC_STAT(baseSpeed, speedIV, speedEV, STAT_SPEED, MON_DATA_SPEED)
+    CALC_STAT(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
+    CALC_STAT(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
+
+
+    //feel like this is all I need?
+    if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
+    && GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+    {   
+        //if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0) 
+            currentHP = 0;
+
+    }//seems this fixes nuzlocke mode pc issue and no wild mon issue either
+    else
+    {
+        if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+            SetMonData(mon, MON_DATA_BOX_HP, &clearNuzlockeDeath);
+
+        if (ability == ABILITY_WONDER_GUARD)
+        {
+            if (currentHP != 0 || oldMaxHP == 0) //I guess this line is enough to make current hp 1?
+                currentHP = 1;
+            else
+                return;
+        }
+        else
+        {
+            if (oldMaxHP == 0) //pc removal
+                currentHP = newMaxHP;
+            else if (currentHP != 0) //didn't need max hp > oldmax hp part from cfru, that made things less specific and broke transform
+            {
+                // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
+                if (newMaxHP > oldMaxHP)
+                currentHP += newMaxHP - oldMaxHP;
+                #ifdef BUGFIX
+                if (currentHP <= 0)
+                    currentHP = 1;
+                #endif
+                if (currentHP > newMaxHP)
+                currentHP = newMaxHP;
+            }
+            else if (currentHP == 0 && newMaxHP == 0) //remove from pc fainted but not nuzlocke mode
+                currentHP = newMaxHP;
+            else
+                return;
+        }
+    }
+    //SetMonData(mon, MON_DATA_HP, &currentHP);
+}
 
 void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
 {
@@ -3591,15 +3694,20 @@ void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method)
 //specificl for transform, and ditto abilities
 //think change to take species argument would make simpiler for inversion,
 //plus remove redundant code
+//think I may split hp changes, into separate function,
+//so is easier to revert those changes where I need
+//of note, no issues revertin max hp at battle end or on switch out
+//just need to add logic for curr hp there?
+//hp logic  for faint switch is all in battle_main
+//each use of CalculateMonStats there handles it
+//if I separate hp from this no present need to keep Ability as an argument
+//but will leave as is, incase at some future point ability becomes relevant
+//also simplicity
 void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies)
 {
     //u16 targetSpecies; //mon is mon being transformed, i.e attacker using transform effect
     struct Pokemon *party;
     
-    s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
-    s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
-    s32 hpIV = GetMonData(mon, MON_DATA_HP_IV, NULL);
-    s32 hpEV = GetMonData(mon, MON_DATA_HP_EV, NULL);
     s32 attackIV = GetMonData(mon, MON_DATA_ATK_IV, NULL);
     s32 attackEV = GetMonData(mon, MON_DATA_ATK_EV, NULL);
     s32 defenseIV = GetMonData(mon, MON_DATA_DEF_IV, NULL);
@@ -3613,7 +3721,7 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
     //realized was dumb was assigning garbage
     u16 species = TransformedSpecies; //used for stat calc but not actually setting species to target as so can still use quick powder for ditto
     s32 level = GetLevelFromMonExp(mon);//using like this doesn't change species, but below takes target species for calculating stats
-    s32 newMaxHP;
+    
     //u16 ability = GetMonAbility(mon);
 
     /*if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
@@ -3646,12 +3754,84 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
 
     //ability = GetMonAbility(party); //attempted fix for hp not changing with wondergaurd correctly/worked
 
-    hpIV = GetMonData(party, MON_DATA_HP_IV, NULL);
     attackIV = GetMonData(party, MON_DATA_ATK_IV, NULL);
     defenseIV = GetMonData(party, MON_DATA_DEF_IV, NULL);
     speedIV = GetMonData(party, MON_DATA_SPEED_IV, NULL);
     spAttackIV = GetMonData(party, MON_DATA_SPATK_IV, NULL);
     spDefenseIV = GetMonData(party, MON_DATA_SPDEF_IV, NULL);
+    //change for transform to take target ivs, for iv checking wild mon
+
+    //this can most likely be skipped
+    //SetMonData(mon, MON_DATA_LEVEL, &level);
+
+
+    //ok what CALC_STAT MACRO is doing is setting  mondata to other values
+    //think for transform I want to instead just set battlemons data
+    //which should be able to do as user is gbattlerattacker
+    //effect is the same other than keeping mon stats as they are
+    //for reading level up stat change
+    //its easier cuz its triggering from within battle,
+    //so I don't need to worry about using mon to set things
+    //up for before battle start
+
+
+        TRANSFORM_STAT_RECALC(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
+        TRANSFORM_STAT_RECALC(baseDefense, defenseIV, defenseEV, STAT_DEF, MON_DATA_DEF)
+        TRANSFORM_STAT_RECALC(baseSpeed, speedIV, speedEV, STAT_SPEED, MON_DATA_SPEED)
+        TRANSFORM_STAT_RECALC(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
+        TRANSFORM_STAT_RECALC(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
+
+
+}
+
+void TransformedMonHP(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies)
+{
+    //u16 targetSpecies; //mon is mon being transformed, i.e attacker using transform effect
+    struct Pokemon *party;
+    
+    s32 newMaxHP;
+    s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
+    s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
+    s32 hpIV = GetMonData(mon, MON_DATA_HP_IV, NULL);
+    s32 hpEV = GetMonData(mon, MON_DATA_HP_EV, NULL);
+    //realized was dumb was assigning garbage
+    u16 species = TransformedSpecies; //used for stat calc but not actually setting species to target as so can still use quick powder for ditto
+    s32 level = GetLevelFromMonExp(mon);//using like this doesn't change species, but below takes target species for calculating stats
+    
+    //u16 ability = GetMonAbility(mon);
+
+    /*if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
+        targetSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
+    else
+        targetSpecies = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_SPECIES, NULL);
+
+    species = targetSpecies; //put here to reset species since can't put logic above defines
+    */
+   //assigns transform species for use in graphic functions
+    gBattleSpritesDataPtr->battlerData[gBattlerAttacker].transformSpecies = species;
+
+    //for base transform logic
+    if (GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT)
+        party = &gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]];
+    else
+        party = &gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]];
+
+    //as I'm only changing battle ability and then reloading it, I think this should work?
+    if (GetMonAbility(mon) == ABILITY_INVERSION) //can just do mon ability
+    {
+        if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
+            party = &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]];
+        else
+            party = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
+    }//specifically for inversion
+    //so I use MY ivs, not the enemy Ivs, as I'm not transforming into them
+        
+
+    
+
+    //ability = GetMonAbility(party); //attempted fix for hp not changing with wondergaurd correctly/worked
+
+    hpIV = GetMonData(party, MON_DATA_HP_IV, NULL);
     //change for transform to take target ivs, for iv checking wild mon
 
     //this can most likely be skipped
@@ -3674,60 +3854,82 @@ void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 Transfor
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
     }
 
-    gBattleScripting.field_23 = newMaxHP - oldMaxHP;
-    if (gBattleScripting.field_23 == 0)
-        gBattleScripting.field_23 = 1;
 
-    //ok what this is doing is setting  mondata to other values
-    //think for transform I want to instead just set battlemons data
-    //which should be able to do as user is gbattlerattacker
-    //effect is the same other than keeping mon stats as they are
-    //for reading level up stat change
-    //its easier cuz its triggering from within battle,
-    //so I don't need to worry about using mon to set things
-    //up for before battle start
-
-    //SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
     gBattleMons[gBattlerAttacker].maxHP = newMaxHP;
 
-        TRANSFORM_STAT_RECALC(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
-        TRANSFORM_STAT_RECALC(baseDefense, defenseIV, defenseEV, STAT_DEF, MON_DATA_DEF)
-        TRANSFORM_STAT_RECALC(baseSpeed, speedIV, speedEV, STAT_SPEED, MON_DATA_SPEED)
-        TRANSFORM_STAT_RECALC(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
-        TRANSFORM_STAT_RECALC(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
+    if (TransformAbility == ABILITY_WONDER_GUARD)
+    {
+        if (currentHP != 0 || oldMaxHP == 0)
+            currentHP = 1;
+        else
+            return;
+    }
+    else
+    {
+        //thought about it think this is problem,
+        //don't believe any use for oldMaxHP in transform logic
+        //what need check is if currentHP != oldMaxhp
+        //only then should I do something to curr hp
+        //replaced old logic
+        if (currentHP == oldMaxHP)
+            currentHP = newMaxHP;
+        else if (currentHP != 0) {
+            // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
+            currentHP += newMaxHP - oldMaxHP;
 
-        if (TransformAbility == ABILITY_WONDER_GUARD)
-        {
-            if (currentHP != 0 || oldMaxHP == 0)
+            if (currentHP <= 0)
                 currentHP = 1;
-            else
-                return;
+
         }
         else
+            return;
+    }//unsure if curr hp at end battle is returning as it should either
+    //ok confirmed that it isn't, but only after I take damage
+    //if I don't take dmg hp returns to the value it should be
+
+    //this makes it work, just need adjust back for when end transform
+    SetMonData(mon, MON_DATA_HP, &currentHP); 
+    gBattleMons[gBattlerAttacker].hp = currentHP;
+}
+
+//use actual id for switch, use i for 
+//endturn finish battle
+//realized need this at level up as well
+//everything is working
+//but at level up its displaying the wrong value,
+/*after battle for curr hp
+somehow its using transformed hp not the reversion hp
+for the hp update, but also the in battle healthbox isn't updating
+other than that all stat gain on level up box is correct
+*/
+void RevertTransformedHP(u8 battlerId)
+{
+    s32 currentHP, currMaxHP;
+    struct Pokemon *party;
+
+    if (GetBattlerSide(battlerId) == B_SIDE_OPPONENT)
+        party = gEnemyParty;
+    else
+        party = gPlayerParty;
+
+    currentHP = GetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_HP, NULL);
+    currMaxHP = gBattleMons[battlerId].maxHP;
+
+    if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
+    {
+        if (currMaxHP != GetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_MAX_HP, NULL))
         {
-            //thought about it think this is problem,
-            //don't believe any use for oldMaxHP in transform logic
-            //what need check is if currentHP != oldMaxhp
-            //only then should I do something to curr hp
-            //replaced old logic
-            if (currentHP == oldMaxHP)
-                currentHP = newMaxHP;
-            else if (currentHP != 0) {
-                // BUG: currentHP is unintentionally able to become <= 0 after the instruction below.
-                currentHP += newMaxHP - oldMaxHP;
-#ifdef BUGFIX
+            if (currentHP != 0) 
+            {
+                currentHP += GetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_MAX_HP, NULL) - currMaxHP;
+
                 if (currentHP <= 0)
                     currentHP = 1;
-#endif
             }
-            else
-                return;
-        }//unsure if curr hp at end battle is returning as it should either
-        //ok confirmed that it isn't, but only after I take damage
-        //if I don't take dmg hp returns to the value it should be
+        }
+    }
 
-    //SetMonData(mon, MON_DATA_HP, &currentHP);
-    gBattleMons[gBattlerAttacker].hp = currentHP;
+    SetMonData(&party[gBattlerPartyIndexes[battlerId]], MON_DATA_HP, &currentHP); 
 }
 
 u8 GetLevelFromMonExp(struct Pokemon *mon)
@@ -7996,7 +8198,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 data = 1;
                             break;
                         case 0xFD:
-                            data = gBattleScripting.field_23;
+                            data = gBattleScripting.levelUpHP;
                             break;
                         }
                         if (GetMonData(mon, MON_DATA_MAX_HP, NULL) != GetMonData(mon, MON_DATA_HP, NULL))

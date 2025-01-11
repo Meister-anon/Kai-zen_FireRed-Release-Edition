@@ -51,7 +51,7 @@
 #define sSTICKY_WEB_STAT_DROP (gBattleScripting + 0x2C) //u8 stickyWebStatDrop; 1 byte 0x2c  // overrideBerryRequirements
 #define sSAVED_DMG gBattleScripting + 0x2D				//s32 savedDmg; 4 byte 0x2d 0x2e 0x2f 0x30
 //#define sMON_CAUGHT     (gBattleScripting + 0x33) // monCaught NOT NEEDED, only used in emerald for succesful captures to incremennt game stat capture
-#define sFIELD_23 gBattleScripting + 0x31				//u8 field_23;	1 byte 0x31		//nothing in struct below this think all used values must go above here
+#define sLVLUP_HP gBattleScripting + 0x31				//u8 field_23;	1 byte 0x31		//nothing in struct below this think all used values must go above here
 #define sWINDOWS_TYPE gBattleScripting + 0x32
 #define sMULTIPLAYER_ID gBattleScripting + 0x33
 #define sSPECIAL_TRAINER_BATTLE_TYPE gBattleScripting + 0x34    //wait aren't these limited to 32?

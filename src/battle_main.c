@@ -4555,8 +4555,9 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     else
         party = &gPlayerParty[gBattlerPartyIndexes[gActiveBattler]];
 
+    //removed transformatino line as status2 would alraedy be removed  fron fainted
     //if (gBattleMons[gActiveBattler].status2 & STATUS2_TRANSFORMED)
-        CalculateMonStats(party); //to reset stats to normal  //remove transformatino line as status2 would alraedy be removed  fron fainted
+        CalculateMonStats(party); //to reset stats to normal  
     //lost location don't display if 0,
 
     //boxhp only set if is 0                
@@ -6572,33 +6573,18 @@ static void HandleEndTurn_FinishBattle(void)
             
         }//prob need add a script for this like I did for caught mon held items
 
+        for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+            RevertTransformedHP(i);
 
         for (i = 0; i < PARTY_SIZE; i++) //erecalc stat after battle
         {
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
                 && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
             {
-                /*
-                s32 currentHP, oldMaxHP, newMaxHP;
-                u32 battler1, battler2, partyMon1, partyMon2;
-                battler1 = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-                battler2 = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-                partyMon1 = gPlayerParty[gBattlerPartyIndexes[battler1]];
-                partyMon2 = gPlayerParty[gBattlerPartyIndexes[battler2]];
-
                 
-                
-                if (currentHP != 0) {
-                currentHP += oldMaxHP - newMaxHP;
-
-                if (currentHP <= 0)
-                    currentHP = 1;
-                */
                 CalculateMonStats(&gPlayerParty[i]);
             }
-        }//think this is why transformed hp is getting messed up?
-        //no can't be this doesn't make sense, but I do need transform specifc
-        //curr hp logic here most likely
+        }
 
         
         // Clear battle mon species to avoid a bug on the next battle that causes
@@ -6915,7 +6901,12 @@ static void HandleAction_Switch(void) //actual switch code
         party = &gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]];
 
     if (gBattleMons[gBattlerAttacker].status2 & STATUS2_TRANSFORMED) //*warning dont mess w this stuff, transform uses custom logic
+    {
+
+        RevertTransformedHP(gBattlerAttacker);
+   
         CalculateMonStats(party); //for resetting stats to normal
+    }
     else
         TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH);
 }

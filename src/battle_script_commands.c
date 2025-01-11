@@ -6908,7 +6908,10 @@ static void atk23_getexp(void)
                 gBattleMoveDamage = (gBattleBufferB[gActiveBattler][2] | (gBattleBufferB[gActiveBattler][3] << 8));
                 AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_GROW_LEVEL);
                 // update battle mon structure after level up
-                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && gBattleMons[0].hp)
+                //according to bulbapedia transformed stats are only recalced on levelup up to gen3
+                //so I should probably add a value here to exclude transformed mon
+                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && gBattleMons[0].hp
+                && !gBattleMons[0].status2 & STATUS2_TRANSFORMED)
                 {
                     gBattleMons[0].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
                     gBattleMons[0].hp = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP);
@@ -6922,7 +6925,8 @@ static void atk23_getexp(void)
                     gBattleMons[0].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
                 }
                 // What is else if?     fixed speed dup, & sp def exclusion
-                if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && gBattleMons[2].hp && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+                if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && gBattleMons[2].hp 
+                && !gBattleMons[2].status2 & STATUS2_TRANSFORMED && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
                 {
                     gBattleMons[2].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
                     gBattleMons[2].hp = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP);
@@ -11437,6 +11441,7 @@ static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 Ta
     else
         target = GetMonAbility(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]]);
     */
+    TransformedMonHP(mon, TargetAbility, TransformSpecies);
     TransformedMonStats(mon, TargetAbility, TransformSpecies);  ///set stat based on species, dbl check it sets mondata, below assigns it for battle
     //gBattleMons[battler].level = GetMonData(mon, MON_DATA_LEVEL); //since don't want to change level may remove this 
     //thinking set values to what I want in above function do I even need these?  possibly ressting stat, remove or put inside other function

@@ -1004,7 +1004,7 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 stickyWebStatDrop; // To prevent Defiant activating on a Court Change'd Sticky Web
     s32 savedDmg;   //port feature leaving out for now - added as needed for bs somehow
     //bool8 monCaught;  //believe most of these aren't needed, can be handled with battlescript , they are just different ways of doing things, btu I prefer saving ram.
-    u8 field_23;    //used for hp change on level up & shedinja hp stuff in pokemon.c
+    u8 levelUpHP;    //used for hp change on level up & shedinja hp stuff in pokemon.c
 };
 
 enum

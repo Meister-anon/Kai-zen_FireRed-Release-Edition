@@ -1299,6 +1299,15 @@ void CompleteOnInactiveTextPrinter(void)
 #define tExpTask_frames     data[10]
 // TODO: document other used fields
 
+//also vsonic think may be relevant for transform stat change
+//see if calcmonstats affects battle stats it should
+//just need find where it gets moved over
+//ok excluded transformed mon from updating battle stats on level up
+//but still causes health issue when I would take damage
+//for that thing what will do is add exceptions here for transformation
+//to exclude currentHP from calc, and instead let that be handled
+//by the transform hp reversion functions, believe it should work
+//This is level up for double battles, or out of battle mon
 static void Task_GiveExpToMon(u8 taskId)//important note for later will need to adjust catch mechanic when it comes to doubles wild battles
 {
     u32 monId = (u8)(gTasks[taskId].tExpTask_monId);
@@ -1318,7 +1327,10 @@ static void Task_GiveExpToMon(u8 taskId)//important note for later will need to 
             u8 savedActiveBattler;
 
             SetMonData(mon, MON_DATA_EXP, &nextLvlExp);
-            CalculateMonStats(mon);
+            if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
+                TransformedMonLvlUpStatCalc(mon);
+            else
+                CalculateMonStats(mon);
             gainedExp -= nextLvlExp - currExp;
             savedActiveBattler = gActiveBattler;
             gActiveBattler = battlerId;
@@ -1363,6 +1375,7 @@ static void Task_PrepareToGiveExpWithExpBar(u8 taskId)
     gTasks[taskId].func = Task_GiveExpWithExpBar;
 }
 
+//level up single battle
 static void Task_GiveExpWithExpBar(u8 taskId)
 {
     if (gTasks[taskId].tExpTask_frames < 13)
@@ -1395,7 +1408,10 @@ static void Task_GiveExpWithExpBar(u8 taskId)
                 u8 savedActiveBattler;
 
                 SetMonData(&gPlayerParty[monId], MON_DATA_EXP, &expOnNextLvl);
-                CalculateMonStats(&gPlayerParty[monId]);
+                if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
+                    TransformedMonLvlUpStatCalc(&gPlayerParty[monId]);
+                else
+                    CalculateMonStats(&gPlayerParty[monId]);
                 gainedExp -= expOnNextLvl - currExp;
                 savedActiveBattler = gActiveBattler;
                 gActiveBattler = battlerId;
@@ -2858,22 +2874,27 @@ static void PlayerHandleCmd23(void)
     PlayerBufferExecCompleted();
 }
 
+//adjusted noticed this is cause of hp bug
+//when take damage at times maxhp increases
 static void PlayerHandleHealthBarUpdate(void)
 {
     s16 hpVal;
+    u32 maxHP = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_MAX_HP);
+    u32 curHP = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_HP);
 
     LoadBattleBarGfx(0);
     hpVal = gBattleBufferA[gActiveBattler][2] | (gBattleBufferA[gActiveBattler][3] << 8);
+    
+    if (gBattleMons[gActiveBattler].status2 & STATUS2_TRANSFORMED)
+        maxHP = gBattleMons[gActiveBattler].maxHP;
+
     if (hpVal != INSTANT_HP_BAR_DROP)
     {
-        u32 maxHP = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_MAX_HP);
-        u32 curHP = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_HP);
 
         SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, curHP, hpVal);
     }
     else
     {
-        u32 maxHP = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_MAX_HP);
         if (CanSurviveInstantKOWithSturdy(gActiveBattler))
         {
             SetBattleBarStruct(gActiveBattler, gHealthboxSpriteIds[gActiveBattler], maxHP, 1, 0);

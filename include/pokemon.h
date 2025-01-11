@@ -679,7 +679,10 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
 void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src);
 void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
 void CalculateMonStats(struct Pokemon *mon);
+void TransformedMonLvlUpStatCalc(struct Pokemon *mon); //only for when a mon levels up while transformed, excludes setmon currhp
+void TransformedMonHP(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies);
 void TransformedMonStats(struct Pokemon *mon, u16 TransformAbility, u16 TransformedSpecies);
+void RevertTransformedHP(u8 battlerId);
 void GiveMonInitialMoveset(struct Pokemon *mon);
 void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon);   //moved these defins here so could use in battle_main
 void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest);
