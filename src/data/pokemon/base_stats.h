@@ -3933,7 +3933,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Magikarp"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(20, 160, 125, 45, 155, 95),
+         STATS(20, 60, 75, 75, 15, 95),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 150,
@@ -3956,6 +3956,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMagikarpTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, AVERAGE_EFFORT), 0, SPECIES_GYARADOS}), //Should hopefully blank these for now without issue
     },// [done]kek make troll dex entry[ and increase max lvl for old rod spawn
+    //nah forgot it actually learns moves to attack so need revert
 
     [SPECIES_GYARADOS] =
     {
@@ -10259,7 +10260,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Feebas"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(37, 35, 40, 80, 30, 125),
+         STATS(30, 35, 40, 80, 30, 125),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 255,
         .expYield = 40,
@@ -10281,8 +10282,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFeebasTMHMLearnset,
         .evolutions = EVOLUTION({EVO_BEAUTY, 170, 0, SPECIES_MILOTIC},
                                        {EVO_ITEM, ITEM_PRISM_SCALE, 0, SPECIES_MILOTIC},
-                                       {EVO_FRIENDSHIP, FILL, 0, SPECIES_MILOTIC}), //Should hopefully blank these for now without issue //wanna give move mud bomb
+                                       {EVO_LEVEL_FRIENDSHIP, RELATIVE_EVO(34, MEDIUM_EFFORT), 0, SPECIES_MILOTIC}), //Should hopefully blank these for now without issue //wanna give move mud bomb
     },//change give high sp def think thick skin from everyone calling it ugly
+    //talked w hedara feebas supposedly alt counterpart of magikarp
+    //rare difficulty to evolve comapared to its easy to evolve and common
+    //so made it harder to evolve just slightly made new evo method level and friendship
+    //so with that in mind can just make it so every magikarp encounter w old rod
+    //has a chance to be feebas 1/30 should be fine
 
     [SPECIES_MILOTIC] =
     {
@@ -11878,6 +11884,18 @@ const struct BaseStats gBaseStats[] =
     //but more offense because of my changes allowing it to somewhat get out from the issue of not having good stab options
     //re-evaluate now weak to fairy & fighting
     //and not that fast
+    //well dark would also have weakness to bug, but be immune to intimidate hmm
+    //not tanky or fast prob best to just keep as normal
+    //need double check does shadow tag get the enemy slow from trapping enemy?
+    //checked and yes it does!
+    //ok so Dark type being immune to intimidate w shadow tag speed drops
+    //that would actually be hella strong hm, but excludes it from trick room
+    //ok with my changes being Normal makes it better overall, 
+    //but being dark makes it better competitively even if it's worse typing
+    //purely off the strengh of ignoring intimidate smh
+    //alright, rather than trying to make it perfect I think I'll just keep it normal,
+    //and leave dark as a terra option for strategizing
+
     [SPECIES_BUDEW] =
     {
         .speciesName = _("Budew"),
@@ -14093,6 +14111,7 @@ const struct BaseStats gBaseStats[] =
     },
     //actually nvm dialga is way too good for anything besides pressure
     //it literally has 0 weaknesses except fighting, its not even weak to ground anymore
+    //oh dang forgot I buffed pressure lol
    
     [SPECIES_PALKIA] =
     {

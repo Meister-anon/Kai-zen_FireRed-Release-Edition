@@ -568,6 +568,7 @@ enum
 #define EVO_HIGH_RICHES                     0x003b //method for gimmighoul evo 70k+ money
 #define EVO_LEVEL_VIVILLON                  0x003c
 #define EVO_MOVE_FORM                       0X003d
+#define EVO_LEVEL_FRIENDSHIP                0x003e //level and high friendship
 //all existing regional forms only use level, and item, (marowak uses level night) to evolve most have identical level except decidueye
 //moved these to end so can read form data first
 

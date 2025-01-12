@@ -3148,6 +3148,12 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     }
     while (nature != GetNatureFromPersonality(personality));    //keep generating random values until a mon with the requested nature is made
 
+    //potential worry is this would also change the guy that gives magikarp
+    //by mt moon but honestly that would be even better lol
+    //sadly doesn't work on mt moon guy, but can still pick up early game feebas
+    if (species == SPECIES_MAGIKARP && Random() % 30 == 5)
+        species = SPECIES_FEEBAS; //replacement for feebas tile, get it chance of finding magikarp
+
 
     //Filters for species/gender
     Speciesreturn = CheckSpeciesGroups(species);
@@ -8208,9 +8214,14 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 data = GetMonData(mon, MON_DATA_HP, NULL) + data;
                                 if (data > GetMonData(mon, MON_DATA_MAX_HP, NULL))
                                     data = GetMonData(mon, MON_DATA_MAX_HP, NULL);
+                                
                                 SetMonData(mon, MON_DATA_HP, &data);
                                 if (gMain.inBattle && battleMonId != 4)
                                 {
+                                    //fix for transform overheal
+                                    if (data > gBattleMons[battleMonId].maxHP)
+                                    data = gBattleMons[battleMonId].maxHP;
+
                                     gBattleMons[battleMonId].hp = data;
                                     if (!(val & (ITEM4_REVIVE >> 2)) && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
                                     {
@@ -9000,6 +9011,7 @@ static u8 GetEvoMethodPriority(u16 EvoMethod)
             return 0x5;
         break;
         case EVO_FRIENDSHIP:
+        case EVO_LEVEL_FRIENDSHIP:
             return 0x6;
         break;
         case EVO_FRIENDSHIP_DAY:
@@ -9220,15 +9232,20 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                 }
                 break;
             case EVO_LEVEL:
-                //if (evolutions[i].param <= level)
                 if (IsMonPastEvolutionLevel(mon, i))
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
                         targetSpecies = evolutions[i].targetSpecies;
                     }
                 break;
+            case EVO_LEVEL_FRIENDSHIP:
+                if (IsMonPastEvolutionLevel(mon, i) && friendship >= FRIENDSHIP_EVO_LIMITER)
+                    {
+                        EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
+                        targetSpecies = evolutions[i].targetSpecies;
+                    }
+                break;
             case EVO_LEVEL_MALE:
-                //if (evolutions[i].param <= level)
                 if (IsMonPastEvolutionLevel(mon, i) && GetMonGender(mon) == MON_MALE)
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
@@ -9236,7 +9253,6 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                     }
                 break;
             case EVO_LEVEL_FEMALE:
-                //if (evolutions[i].param <= level)
                 if (IsMonPastEvolutionLevel(mon, i) && GetMonGender(mon) == MON_FEMALE)
                     {
                         EVO_PRIORITY_CHECK(basePriority, GetEvoMethodPriority(evolutions[i].method));
