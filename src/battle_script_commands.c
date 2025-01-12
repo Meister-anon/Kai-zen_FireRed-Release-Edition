@@ -7988,6 +7988,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
              && gBattleMoveDamage != 0 // test to see if this works right. should be all damaging fire moves above 60 power can defrost.
              && gBattlerAttacker != gBattlerTarget
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE) //logic from canceler fix thaw bug
              && (CanThaw(gCurrentMove))) //test vsonic
             {
                 gBattleMons[gBattlerTarget].status1 &= ~(STATUS1_FREEZE);
