@@ -4266,17 +4266,17 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         for (i = 0; i < gBattlersCount; ++i)
         {
             if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
-                gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION; //if mon blocking escape switches, removes escape prevention status
+                gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION; //if mon blocking escape switches, removes escape prevention status from target
             if ((gStatuses3[i] & STATUS3_ALWAYS_HITS) && gDisableStructs[i].battlerWithSureHit == gActiveBattler)
             {
                 gStatuses3[i] &= ~STATUS3_ALWAYS_HITS;
                 gDisableStructs[i].battlerWithSureHit = 0;
             }
-        }
+        }//exclude STATUS2_SWITCH_LOCKED from here so user can switch out and still lock enemy
     }
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS) //added yawn to baton pass effects with change to activation should work
     {
-        gBattleMons[gActiveBattler].status2 &= (STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_CURSED);
+        gBattleMons[gActiveBattler].status2 &= (STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_CURSED);
         gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED_BATTLER | STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_YAWN | STATUS3_PERISH_SONG | STATUS3_ROOTED
                                        | STATUS3_GASTRO_ACID | STATUS3_TELEKINESIS | STATUS3_MAGNET_RISE | STATUS3_AQUA_RING | STATUS3_POWER_TRICK);
         for (i = 0; i < gBattlersCount; ++i)
@@ -4339,6 +4339,7 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         gDisableStructs[gActiveBattler].substituteHP = disableStructCopy.substituteHP;
         gDisableStructs[gActiveBattler].battlerWithSureHit = disableStructCopy.battlerWithSureHit;
         gDisableStructs[gActiveBattler].perishSongTimer = disableStructCopy.perishSongTimer;
+        gDisableStructs[gActiveBattler].SwitchBinding = disableStructCopy.SwitchBinding;
         gDisableStructs[gActiveBattler].battlerPreventingEscape = disableStructCopy.battlerPreventingEscape;
     }
     gMoveResultFlags = 0;
@@ -4400,6 +4401,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gStatuses4[gActiveBattler] = 0;
     for (i = 0; i < gBattlersCount; ++i) //trap etc removal on faint
     {
+        //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
         if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
         if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
@@ -5206,7 +5208,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     }*/
     //vsonic IMPORTANT do search, for status2_wrapped & wrappedby  implement new trap checks where it makes sense
     //similar to as below
-    if (((gBattleMons[gActiveBattler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_WRAPPED))//vsonic need add new trap status here
+    if (((gBattleMons[gActiveBattler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))//vsonic need add new trap status here
      || (gBattleMons[gActiveBattler].status4 & (ITS_A_TRAP_STATUS4)
      || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
      || (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)))//I need to redo this setup,
@@ -5217,6 +5219,12 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         return BATTLE_RUN_FORBIDDEN;
     }
+
+    //thought  separate STATUS2_SWITCH_LOCKED  as effect shouldn't have to do w grounding
+    //since its spirit based could also make it only affect that could lock ghosts hmm
+    //looked up move description and no, it works exactly as shadow tag does
+    //it works by stiching to shadow on the ground
+
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
@@ -5389,7 +5397,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     break;
                 case B_ACTION_SWITCH:   //vsonic this is part that allows switch, looks like I already setup
                     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
-                    if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION) 
+                    if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED | STATUS2_ESCAPE_PREVENTION) 
                         || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
                         || (gBattleMons[gActiveBattler].status4 & (ITS_A_TRAP_STATUS4))) //hope this works...
                     {
@@ -7095,7 +7103,7 @@ static void HandleAction_Run(void)
         }
         else
         {
-            if (gBattleMons[gBattlerAttacker].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION)
+            if (gBattleMons[gBattlerAttacker].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED)
             || gBattleMons[gBattlerAttacker].status4 & (ITS_A_TRAP_STATUS4))
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = 4;

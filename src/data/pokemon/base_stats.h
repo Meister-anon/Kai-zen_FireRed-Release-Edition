@@ -10630,7 +10630,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_MINERAL,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_INNER_FOCUS, ABILITY_ICE_BODY},
+            .abilities = {ABILITY_ICE_BODY, ABILITY_REFRIGERATE},
             .abilityHidden = {ABILITY_MOODY, ABILITY_INNER_FOCUS},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -10646,7 +10646,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Glalie"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(80, 95, 100, 60, 60, 75),
+         STATS(80, 95, 110, 50, 60, 85),
         MON_TYPES(TYPE_ICE, TYPE_ROCK),
         .catchRate = 75,
         .expYield = 168,
@@ -10658,7 +10658,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_MINERAL,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_SOLID_ROCK, ABILITY_ICE_BODY},
+            .abilities = {ABILITY_SOLID_ROCK, ABILITY_REFRIGERATE},
             .abilityHidden = {ABILITY_MOODY, ABILITY_INNER_FOCUS},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
@@ -10667,6 +10667,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGlalieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //readjust stats as realize had lower stat total than before
+    //move around moves since made physical attacker,
+    //make avalanche a learnset move
 
     [SPECIES_SPHEAL] =
     {
@@ -13938,8 +13941,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_MINERAL,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_SNOW_CLOAK, ABILITY_NONE},
-            .abilityHidden = {ABILITY_CURSED_BODY, ABILITY_ICE_SCALES},
+            .abilities = {ABILITY_SNOW_CLOAK, ABILITY_ICE_SCALES},
+            .abilityHidden = {ABILITY_CURSED_BODY, ABILITY_COLD_EMBRACE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -13947,6 +13950,19 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFroslassTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //thought to give moody but forgot its not bulky it would just die?
+    //it has ominous wind, so snow cloak ominous wind is better I guess
+    //thought about replacing cursed body w perish body, but that's as soon
+    //as hit with a contact move, I want it to be a chance like cursed body's odds
+    //otherwise makes sense as is a yuki ono and they are known for dragging men/people to their deaths
+    //make ability Haunting Voice, when hit with a contact move has a 30% chance
+    //to actiavte perish song on both
+    //hmm name it Cold Embrace instead, yeah like that better
+    //wait why don't I make it freeze chance instead?
+    //yeah that' even better competitively would still force switch
+    //wouldn't affect me, and I'd still get chip damage when they switch back,
+    //instead of the effect beign fully wiped!
+    //dex entry can freeze with its breath, so put that in ability entry
 
     [SPECIES_ROTOM] =
     {

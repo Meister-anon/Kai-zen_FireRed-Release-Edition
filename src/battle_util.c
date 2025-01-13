@@ -881,6 +881,7 @@ enum   //battler end turn
     ENDTURN_WONDER_GUARD, //kept here to exclude from other end turn damage for full timer duration
     ENDTURN_PLASMA_FISTS,
     ENDTURN_BIDE,
+    ENDTURN_ESCAPE_PREVENT, //named for simplicity, is switch lock effect
     ENDTURN_BATTLER_COUNT
 };
 
@@ -3331,6 +3332,21 @@ u8 DoBattlerEndTurnEffects(void)
                 }
                 ++gBattleStruct->turnEffectsTracker;    //IT WORKS
                 break;
+            case ENDTURN_ESCAPE_PREVENT:
+            if (gDisableStructs[gActiveBattler].SwitchBinding && gBattleMons[gActiveBattler].status2 & STATUS2_SWITCH_LOCKED)
+            {
+                if (gDisableStructs[gActiveBattler].SwitchBinding == 0)
+                {
+                    gBattleMons[gActiveBattler].status2 &= ~STATUS2_SWITCH_LOCKED;
+                    BattleScriptExecute(BattleScript_SwitchLockEnds);
+                }
+                else
+                {
+                    --gDisableStructs[gActiveBattler].SwitchBinding;
+                }//change emulate perish song to ensure 3 full turns of effect
+            }
+            ++gBattleStruct->turnEffectsTracker;    
+            break;
             case ENDTURN_PLASMA_FISTS:
                 for (i = 0; i < gBattlersCount; i++)
                     gStatuses4[i] &= ~STATUS4_PLASMA_FISTS;
@@ -7444,10 +7460,25 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker))
-                    && CanBePoisoned(gBattlerTarget, gBattlerAttacker) //need remember battlerTarget is spot for one to be poisoned
+                    && CanBePoisoned(gBattlerTarget, gBattlerAttacker) //need remember 2nd value is spot for one to be poisoned
                     && (Random() % 3) == 0)
                 {
                     gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_POISON;
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
+                    ++effect; //suddenly just started working?? issue was my contact function, I redid it a lil while back now it works
+                }
+                break;
+            case ABILITY_COLD_EMBRACE:
+                if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                    && gBattleMons[gBattlerAttacker].hp != 0
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && TARGET_TURN_DAMAGED
+                    && (IsMoveMakingContact(moveArg, gBattlerAttacker))
+                    && CanBeFrozen(gBattlerAttacker)
+                    && (Random() % 3) == 0)
+                {
+                    gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_FREEZE;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
                     ++effect; //suddenly just started working?? issue was my contact function, I redid it a lil while back now it works
@@ -8443,13 +8474,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gBattleMons[battler].status1 = 0; 
                         //need test this, think need be more specific to not remove beneficial status
                         gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE | STATUS2_CONFUSION | STATUS2_WRAPPED | STATUS2_INFATUATION
-                        | STATUS2_ESCAPE_PREVENTION | STATUS2_TORMENT);  //confirmed removes confusion/statuses here
+                        | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_TORMENT);  //confirmed removes confusion/statuses here
 
-                        /*gBattleMons[battler].status2 &= ~(STATUS2_CONFUSION);
-                        gBattleMons[battler].status2 &= ~(STATUS2_WRAPPED);
-                        gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
-                        gBattleMons[battler].status2 &= ~(STATUS2_ESCAPE_PREVENTION);
-                        gBattleMons[battler].status2 &= ~(STATUS2_TORMENT);*/
+
 
                         gStatuses3[battler] &= ~(STATUS3_LEECHSEED | STATUS3_PERISH_SONG | STATUS3_SMACKED_DOWN | STATUS3_TELEKINESIS
                         | STATUS3_MIRACLE_EYED);
@@ -11912,7 +11939,7 @@ bool32 CanBattlerEscape(u32 battlerId) // no ability check
 {
     if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SHED_SHELL)
         return TRUE;
-    else if ((!IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST)) && gBattleMons[battlerId].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_WRAPPED))
+    else if ((!IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST)) && gBattleMons[battlerId].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
         return FALSE;
     else if (gStatuses3[battlerId] & STATUS3_ROOTED)
         return FALSE;
@@ -11921,6 +11948,9 @@ bool32 CanBattlerEscape(u32 battlerId) // no ability check
     else
         return TRUE;
 }//dont need defeatist here, that dealt with in battle_main
+//From Generation VI onwards, Ghost-type Pokémon are immune to effects
+//that prevent recall or escape (such as Mean Look and Shadow Tag),
+//and they are also guaranteed to flee from any wild battle regardless of Speed.
 
 //Make sure the input bank is any bank on the specific mon's side
 bool32 CanFling(u8 battlerId)
@@ -12662,7 +12692,8 @@ u32 IsmonOnField(u32 battlerId, u8 method)
     }//this function is so fucked
 
     return FAILED;
-}
+}//vsonic pretty sure I need to add a plus 1 to return value
+//as it'll just return false for position player left
 
 
 bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions, rather than do 2 different effects with one.

@@ -203,9 +203,9 @@
 #define STATUS2_FLINCHED              (1 << 3)
 #define STATUS2_UPROAR                (1 << 4 | 1 << 5 | 1 << 6)
 #define STATUS2_UPROAR_TURN(num)      ((num) << 4)
-#define STATUS2_EMERGENCY_EXIT         (1 << 7)	//use for emergency exit
+#define STATUS2_EMERGENCY_EXIT        (1 << 7)	//use for emergency exit
 #define STATUS2_BIDE                  (1 << 8) //w timer don't need take up 8 and 9 //will prob eventually remove all timer flags replace w struct values
-#define STATUS2_FREE_SPOT               //will prob be necessary for gen 9 additions
+#define STATUS2_SWITCH_LOCKED         (1 << 9)// new status for spirit shackle, escape prevention on a timer, not locked to battler
 //#define STATUS2_BIDE_TURN(num)        (((num) << 8) & STATUS2_BIDE)
 #define STATUS2_LOCK_CONFUSE          (1 << 10 | 1 << 11) // e.g. Thrash
 #define STATUS2_LOCK_CONFUSE_TURN(num)((num) << 10)
@@ -213,6 +213,7 @@
 #define STATUS2_WRAPPED               (1 << 13)	//make individual wrapped for each, but all use same wrap turn counter / cant usesame counter and multi trap so this will just be wrap
 //#define STATUS2_WRAPPED_TURN(num)     ((num) << 13)	//left shift value is starting point of status wrapped
 #define STATUS2_POWDER                (1 << 14)
+#define STATUS2_FREE_SPACE            (1 << 15)
 #define STATUS2_INFATUATION           (1 << 16 | 1 << 17 | 1 << 18 | 1 << 19)  // 4 bits, one for every battler
 #define STATUS2_INFATUATED_WITH(battler) (gBitTable[battler] << 16)
 #define STATUS2_FOCUS_ENERGY          (1 << 20)
@@ -229,7 +230,15 @@
 #define STATUS2_TORMENT               (1 << 31)	//ok updated from current firered thought would let me have more status
 //but realized its u32  cant go higher than 31, either make new status type or replace existing
 //haev 2 extra spaces now
+/*
+    Can make space for gen 9 additions by removing all timer based values
+    like I did w sleep, previously covered values 0, 1 , 2
+    and sleep turn was ((num) << 0)
+    //used bit logic to set, but I can just set it directly
 
+    don't want to mess w infatuate
+    but can make space in confuse, lock confuse, and upraor
+*/
 //status 2 that takes users attention so would not be able to absorb ability setup like status1 any I think
 //having status flinch makes sense here, even though its only noticed on attack cancel, the effect is already set
 //still to test double battle but most of these seem to work when set via debug
@@ -254,7 +263,7 @@
 #define STATUS3_ROOTED                  (1 << 10) //if I understand correctly, change gives extra statur 3 space 12 would be unused
 #define STATUS3_YAWN                    (1 << 11) // Number of turns to sleep
 //#define STATUS3_YAWN_TURN(num)          (((num) << 11) & STATUS3_YAWN)//  changing set status yawn, then at end turn check for it, if there remove and put to sleep
-#define STATUS3_FREESPACE               (1 << 12) //use for commander gen9, then roll into semi invul
+#define STATUS3_ME_FIRST               (1 << 12) //use for commander gen9, then roll into semi invul
 #define STATUS3_IMPRISONED_OTHERS       (1 << 13)
 #define STATUS3_GRUDGE                  (1 << 14)
 #define STATUS3_CANT_SCORE_A_CRIT       (1 << 15)
@@ -269,11 +278,11 @@
 #define STATUS3_AQUARING_TURN(num) ((num) << STATUS3_AQUARING_SHIFT) //way used these aren't really statuses, they don't get set they are more just macros for turn tracking
 
 //has room for 1 more status3 at 12 now
+//can replace always hits timer, to make room for commander
 
 #define STATUS3_GASTRO_ACID             (1 << 16)	//is there any reaso this needs to be status3 rather than a status 2?
 //#define STATUS3_EMBARGO                 (1 << 17)	//move to side status to make room
 #define STATUS3_SMACKED_DOWN            (1 << 17)
-#define STATUS3_ME_FIRST                (1 << 22)//check make sure this doesn't cause issues with ingrain
 #define STATUS3_TELEKINESIS             (1 << 23)
 #define STATUS3_PHANTOM_FORCE           (1 << 24)
 #define STATUS3_MIRACLE_EYED            (1 << 25)

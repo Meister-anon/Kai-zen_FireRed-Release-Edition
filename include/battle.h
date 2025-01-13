@@ -269,7 +269,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 forewarnedBattler;
     u16 anticipatedMove;    //for storing move from anticipation ability
     u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
-    u8 pad:7;
+    u8 SwitchBinding:4; //timer rn just for spirit shackle escape prevent effect timer set tmier to 4 so 3 full turns of bind
+    u8 pad:3; //if correct above should be 3 turns
     u8 hasSwitchinActivated; //use for switch in end turn check
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used

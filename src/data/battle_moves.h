@@ -9736,7 +9736,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPIRIT_SHACKLE] =
     {
-        .effect = EFFECT_HIT_PREVENT_ESCAPE,
+        .effect = EFFECT_SWITCH_BIND, //changed from escape prevention now applier of effect doesn't have to stay in
         .power = 80,
         .type = TYPE_GHOST,
         .accuracy = 100,
@@ -9744,9 +9744,24 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
     },//think may buff to be high crit,  since signature move and weakned ghost offensively
+    //need test this, w long reach this becomes quite strong
+    //hmm actually rather than high crit I think I would like to give this
+    //pursuits effect, but would need to rewrite pursuit logic to make work
+    //its to convoluted to easly make changes to right now,
+    //plus since this does hit escape idea is it would do more damage (1.5?)
+    //intead of double, and then also cancel the script, so they can't switch out
+    
+    //hmm since is a bit differen than other escape blocks in that its using an external factor
+    //I could make it unique, with this could set it up so its a supernatural effect binding the target
+    // so they'd stay stuck even if the user switched out.
+    //to balance that I'd make it temporary, idea it lasts for 3 turns
+    //and doesn't get reaplied if hit before the thing, 
+    //tldr I'm mkaing a new status least I believe I need to make a new status
+
+    //still todo is setup pursuit effect/rework pursui
 
     [MOVE_DARKEST_LARIAT] =
     {

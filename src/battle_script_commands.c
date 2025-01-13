@@ -1457,7 +1457,7 @@ static void atk00_attackcanceler(void) //vsonic
 
     } 
 
-    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY)
+    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY
     && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
         gSpecialStatuses[gBattlerAttacker].Cacophonyboosted = TRUE;
 
@@ -1505,7 +1505,7 @@ static void atk00_attackcanceler(void) //vsonic
     if (gProtectStructs[gBattlerTarget].bounceMove  //target has magic coat effect/ already setup and should work as sidestatus, could replace with timer check but don't need to
         && gBattleMoves[gCurrentMove].flags & FLAG_MAGIC_COAT_AFFECTED
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_INFILTRATOR   //since this is a screen-like, needed add infiltrator bypass
-        && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY) && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
+        && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[gCurrentMove].flags & FLAG_SOUND)
         && !gProtectStructs[gBattlerAttacker].usesBouncedMove) //move attacker is using is not one already bounced
     {
         PressurePPLose(gBattlerAttacker, gBattlerTarget, MOVE_MAGIC_COAT);
@@ -1707,7 +1707,7 @@ static bool8 IsBattlerProtected(u8 battlerId, u16 move)//IMPORTANT change to fal
 { //setprotectlike does the protection, then hre I can undo it when this gets checked in attack canceleror
     //make sure add check for if move is protect affected to all protectstructs listed below
 
-    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY) && gBattleMoves[move].flags & FLAG_SOUND)
+    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
         return FALSE;
     else if (IsMoveMakingContact(move, gBattlerAttacker) && GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST)
         return FALSE;
@@ -9314,7 +9314,7 @@ static void atk4F_jumpifcantswitch(void)
 
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1] & ~(ATK4F_DONT_CHECK_STATUSES));
     if (!(gBattlescriptCurrInstr[1] & ATK4F_DONT_CHECK_STATUSES)
-     && ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION))
+     && ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
         || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)))
     {
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
@@ -13479,7 +13479,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         else
         {
-            if (!(gBattleMons[battler].status2 & STATUS2_ESCAPE_PREVENTION))
+            if (!(gBattleMons[battler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED)))
                 gDisableStructs[battler].noRetreat = TRUE;
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
@@ -14404,7 +14404,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             && IsBlackFogNotOnField()
             && !certain && gCurrentMove != MOVE_CURSE
             && !(gActiveBattler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR)
-            && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker) == ABILITY_CACOPHONY) && gBattleMoves[gCurrentMove].flags & FLAG_SOUND))
+            && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[gCurrentMove].flags & FLAG_SOUND))
         {
             if (flags == STAT_CHANGE_BS_PTR)
             {
@@ -16532,7 +16532,8 @@ static void atkB2_trysetperishsong(void)
     for (i = 0; i < gBattlersCount; ++i)
     {
         if (gStatuses3[i] & STATUS3_PERISH_SONG
-         || gBattleMons[i].ability == ABILITY_SOUNDPROOF)
+         || (gBattleMons[i].ability == ABILITY_SOUNDPROOF && i != gBattlerAttacker)
+        )
         {
             ++notAffectedCount;
         }
@@ -16553,6 +16554,23 @@ static void atkB2_trysetperishsong(void)
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     else
         gBattlescriptCurrInstr += 5;
+}
+
+void BS_trySetSwitchLocked(void)
+{
+    NATIVE_ARGS();
+
+    if (gBattleMons[gBattlerTarget].status2 & STATUS2_SWITCH_LOCKED)
+    {
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+    else
+    {
+        gBattleMons[gBattlerTarget].status2 |= STATUS2_SWITCH_LOCKED;
+        gDisableStructs[gBattlerTarget].SwitchBinding = 3;
+    }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkB4_jumpifconfusedandstatmaxed(void)
@@ -18598,7 +18616,7 @@ static void atkEF_handleballthrow(void) //important changed
                 odds += (odds / 8);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_CURSED)
                 odds += (odds / 10);
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_ESCAPE_PREVENTION)
+            if (gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
                 odds += (odds / 10);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_RECHARGE)
                 odds += (odds / 4);

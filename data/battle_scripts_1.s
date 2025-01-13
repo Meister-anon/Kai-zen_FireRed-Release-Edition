@@ -441,6 +441,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectCelebrate				  @ EFFECT_CELEBRATE	
 	.4byte BattleScript_EffectHit					  @ EFFECT_JUDGMENT
 	.4byte BattleScript_EffectHit				      @ EFFECT_SHELL_TRAP @think still todo? check later
+	.4byte BattleScript_EffectHitSwitchBind			  @EFFECT_SWITCH_BIND @spirit shackle buff, temp escape prevention doesn't require user stay in
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -1211,6 +1212,13 @@ BattleScript_WonderGuardEnds::
 	pause B_WAIT_TIME_CLEAR_BUFF
 	@ copybyte gBattlerAbility, gBattlerAttacker
 	printstring STRINGID_WONDER_GUARD_ENDS
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
+BattleScript_SwitchLockEnds::
+	pause B_WAIT_TIME_CLEAR_BUFF
+	@ copybyte gBattlerAbility, gBattlerAttacker
+	printstring STRINGID_SWITCH_LOCK_ENDS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
@@ -4461,6 +4469,11 @@ BattleScript_EffectThief::
 
 BattleScript_EffectHitPreventEscape:
 	setmoveeffect MOVE_EFFECT_PREVENT_ESCAPE
+	goto BattleScript_EffectHit
+
+@will have to do with move effect otherwise would activate even if miss
+BattleScript_EffectHitSwitchBind:
+	trySetSwitchLocked
 	goto BattleScript_EffectHit
 
 BattleScript_EffectMeanLook::
@@ -9704,9 +9717,6 @@ BattleScript_FriskActivates::
 	tryfriskmsg BS_ATTACKER
 	end3
 
-@ok so I somehow broke this??
-@everything is working but the actual tansformation itself,
-@all data works but it doesn't change image or do animation
 BattleScript_ImposterActivates::
 	transformdataexecution	
 	playmoveanimation BS_ATTACKER, MOVE_TRANSFORM
@@ -9715,7 +9725,6 @@ BattleScript_ImposterActivates::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 
-@doesn't work for now
 BattleScript_InversionActivates::
 	transformdataexecution	
 	playmoveanimation BS_ATTACKER, MOVE_TRANSFORM

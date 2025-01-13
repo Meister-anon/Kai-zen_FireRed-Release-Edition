@@ -38,7 +38,7 @@ static const u8 sIlluminateDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Enco
 static const u8 sTraceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Copies special ability.");
 static const u8 sHugePowerDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Raises ATTACK double.");
 static const u8 sPoisonPointDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Contact with the Pokémon\nmay poison the attacker.");
-static const u8 sInnerFocusDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Focuses intensely to resist Flinching,\nCritical Hits, and Intimidation.");
+static const u8 sInnerFocusDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Focuses intensely to prevent Flinching,\nCritical Hits, and Intimidation.");
 static const u8 sMagmaArmorDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents freezing, burns items on contact\nboosts Sp.Def and blocks physical crits."); //has added effects to include here ...I may have gone overboard
 static const u8 sWaterVeilDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Prevents burns.");
 static const u8 sMagnetPullDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Traps STEEL-type POKéMON with magnetism\nAlso drops their speed.");
@@ -700,6 +700,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_BONE_ARMOR] = COMPOUND_ABILITY_STRING("Increased heat protection.\nPrevents recoil and force switch."),
     [ABILITY_STORM_BREAK] = COMPOUND_ABILITY_STRING("User creates a gust of wind dissipating\nweather effects on entry."),
     [ABILITY_SPACE_CONTROL] = COMPOUND_ABILITY_STRING("Attacks via portal, attacks are 100% Acc\nAdapted to space is immune to Ice Dmg."),
+    [ABILITY_COLD_EMBRACE] = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact.")
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1098,4 +1099,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_BONE_ARMOR] =_("Bone Armor"),
     [ABILITY_STORM_BREAK] =_("Storm Break"),
     [ABILITY_SPACE_CONTROL] =_("Space Control"),
+    [ABILITY_COLD_EMBRACE] =_("Cold Embrace"),
 };//can have comma

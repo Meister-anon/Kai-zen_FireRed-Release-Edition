@@ -1476,6 +1476,13 @@
 	callnative BS_VariablePowerCalc
 	.endm
 
+	@specific to decidueye buff make spirit shackle new kind of escape prevention
+	@no fail instruction as its part of move effect, jump would end move
+	.macro trySetSwitchLocked
+	callnative BS_trySetSwitchLocked
+	.endm
+
+
 	@specifically for yawn rework, so can clear rage status if yawned
 	.macro jumpclearRage ptr:req
 	callnative BS_JumpandClearRage

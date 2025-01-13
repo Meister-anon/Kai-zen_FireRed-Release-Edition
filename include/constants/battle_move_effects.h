@@ -85,9 +85,10 @@
 #define MOVE_EFFECT_LOSE_TYPE			0x4D    //burn up etc.
 #define MOVE_EFFECT_ROUND				0x4E
 #define MOVE_EFFECT_STEALTH_ROCK        0x4F   //for stone axe
+#define MOVE_EFFECT_SWITCH_LOCKED       0x50 //need do stuff
 
 
-#define NUM_MOVE_EFFECTS                MOVE_EFFECT_STEALTH_ROCK + 1	//ok think i got this right, battlescript are assigned based on battle_move_effects.h file
+#define NUM_MOVE_EFFECTS                MOVE_EFFECT_SWITCH_LOCKED + 1	//ok think i got this right, battlescript are assigned based on battle_move_effects.h file
 //#define MOVE_EFFECT_AFFECTS_USER        0x4000//that has to line up with battle_scripts_1.s but don't need move effect unlesss new status made or other new effect
 //#define MOVE_EFFECT_CERTAIN             0x8000	//OK THIS SEEMS FINE its just a define doesn't need to be a specific value
 
