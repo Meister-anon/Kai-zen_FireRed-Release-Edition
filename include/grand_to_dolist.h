@@ -2440,6 +2440,47 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //and ivs no lower than 20 for all trainers
     //12/27/24
 
+    Discover bug w 2 stat change in turn,
+    need clear on effect otherwise next stat change effect
+    will use that stat value
+    ex. moody
+    raised evasion dropped speed,
+    then opponent used string shot which should lower speed,
+    but it lowered my attack.
+
+    Also Ability messages strench isn't setup right,
+    if both player and foe have stench and one leaves,
+    the effect is still in effect but instead of not triggering
+    because stench is still on the field, it activates clear message
+    and then reapplies it because enemy has stench
+
+    also test inversion found hp glitch when switched out
+     so some random case of switching is breaking hp
+     hp exceeds max hp, bar
+    ok foud issue somehow I can potion heal above max hp when transformed?
+    //neeed double check this
+
+    ok found a fix, its not perfect/doens't cover every condition,
+    but realistiacally its fine since you wouldn't heal in the cases it doesn't cover
+    as it looks like your health is full,
+    and the change I added should still prevent over heal
+    //1/11/2025
+
+    Note since ditto now keeps its evs when you transform,
+    its fine to have ditto take nature of the enemy,
+    so it can get the utility of funtioning as a nature revealer.
+
+    double poison still broken at times no idea why,
+     added feebas logic as counterpart to magikarp
+     has chance to spawn feebas every time encounter magikarp
+    1/12/2025
+
+    tweaked sprite gfx logic for transformation, removed use of gTransformedPersonalities
+    //added my own disablestruct value to track ability that sourced transformation
+    to ensure proper shininess of transformed sprite
+    tested works no noticed issues in tests.
+    /1/12/2025 tested w inversion, normal transform, and w unown created before change,
+    and tested after change to ensure no differences betweeen.
 
     //also idea change stall to work w trick room since its such a big thing
     //make it so all stall mon go first in trick room 

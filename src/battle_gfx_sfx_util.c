@@ -342,7 +342,8 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
     else
     {
         species = gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies;
-        currentPersonality = gTransformedPersonalities[battlerId];
+        currentPersonality = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_PERSONALITY);
+        isShiny = IsMonShiny(&gPlayerParty[gBattlerPartyIndexes[gBattlerTarget]]);
     }
     otId = GetMonData(mon, MON_DATA_OT_ID);
     position = GetBattlerPosition(battlerId);
@@ -350,11 +351,19 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
                                               gMonSpritesGfxPtr->sprites[position],
                                               species, currentPersonality);
     paletteOffset = 0x100 + battlerId * 16;
-    isShiny = IsMonShiny(mon);
+    
+    //ok made this new value and replaced ability check as 
+    //transform changes ability  works
+    if (gDisableStructs[battlerId].transformedViaAbility == ABILITY_INVERSION)
+    {
+        isShiny = IsMonShiny(mon);
+        currentPersonality = monsPersonality;
+    }
+    
     if (gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies == SPECIES_NONE)
         lzPaletteData = GetMonSpritePal(mon);
     else
-        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, monsPersonality);
+        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, currentPersonality);
     buffer = AllocZeroed(0x400);
     LZDecompressWram(lzPaletteData, buffer);
     LoadPalette(buffer, paletteOffset, 0x20);
@@ -393,9 +402,9 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
     else
     {
         species = gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies;
-        currentPersonality = gTransformedPersonalities[battlerId];
+        currentPersonality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], MON_DATA_PERSONALITY);
+        isShiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]]);
     }
-    otId = GetMonData(mon, MON_DATA_OT_ID);
     position = GetBattlerPosition(battlerId);
     if (ShouldIgnoreDeoxysForm(1, battlerId) == TRUE || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != SPECIES_NONE)
         HandleLoadSpecialPokePic_DontHandleDeoxys(FALSE,
@@ -406,11 +415,16 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
                                 gMonSpritesGfxPtr->sprites[position],
                                 species, currentPersonality);
     paletteOffset = 0x100 + battlerId * 16;
-    isShiny = IsMonShiny(mon);
+    
+    if (gDisableStructs[battlerId].transformedViaAbility == ABILITY_INVERSION)
+    {
+        isShiny = IsMonShiny(mon);
+        currentPersonality = monsPersonality;
+    }
     if (gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies == SPECIES_NONE)
         lzPaletteData = GetMonSpritePal(mon);
     else
-        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, monsPersonality);
+        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, currentPersonality);
     buffer = AllocZeroed(0x400);
     LZDecompressWram(lzPaletteData, buffer);
     LoadPalette(buffer, paletteOffset, 0x20);
@@ -681,7 +695,6 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         position = GetBattlerPosition(battlerAtk);
         targetSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SPECIES);
         personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
-        otId = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
         HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
                                                   gMonSpritesGfxPtr->sprites[position],
                                                   targetSpecies,
@@ -730,29 +743,35 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         targetSpecies = gBattleSpritesDataPtr->battlerData[battlerAtk].transformSpecies;
         if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER)
         {
-            personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
-            otId = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
+            personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerDef]], MON_DATA_PERSONALITY);
+            isShiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[battlerDef]]);
             PartyMon = gPlayerParty[gBattlerPartyIndexes[battlerAtk]];
             HandleLoadSpecialPokePic_DontHandleDeoxys(FALSE,
                                                       gMonSpritesGfxPtr->sprites[position],
                                                       targetSpecies,
-                                                      gTransformedPersonalities[battlerAtk]);
+                                                      personalityValue);
         }
         else
         {
-            personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
-            otId = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
+            personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerDef]], MON_DATA_PERSONALITY);
+            isShiny = IsMonShiny(&gPlayerParty[gBattlerPartyIndexes[battlerDef]]);
             PartyMon = gEnemyParty[gBattlerPartyIndexes[battlerAtk]];
             HandleLoadSpecialPokePic_DontHandleDeoxys(TRUE,
                                                       gMonSpritesGfxPtr->sprites[position],
                                                       targetSpecies,
-                                                      gTransformedPersonalities[battlerAtk]);
+                                                      personalityValue);
         }
         src = gMonSpritesGfxPtr->sprites[position];
         dst = (void *)(VRAM + 0x10000 + gSprites[gBattlerSpriteIds[battlerAtk]].oam.tileNum * 32);
         DmaCopy32(3, src, dst, 0x800);
         paletteOffset = 0x100 + battlerAtk * 16;
-        isShiny = IsMonShiny(&PartyMon);
+
+        //as not transforming into target, should use own shiny value
+        if (gDisableStructs[battlerAtk].transformedViaAbility == ABILITY_INVERSION)
+        {
+            isShiny = IsMonShiny(&PartyMon);
+            personalityValue = GetMonData(&PartyMon, MON_DATA_PERSONALITY);
+        }
         lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(targetSpecies, isShiny, personalityValue);
         buffer = AllocZeroed(0x400);
         LZDecompressWram(lzPaletteData, buffer);

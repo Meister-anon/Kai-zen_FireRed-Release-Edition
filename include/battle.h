@@ -200,11 +200,12 @@ struct ResourceFlags
 
 struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
 {
-    /*0x00*/ u32 transformedMonPersonality;
+    /*0x00*/ //u32 transformedMonPersonality; //src of gTransformedPersonalities
     /*0x04*/ u16 disabledMove;
     /*0x06*/ u16 encoredMove;
     /*0x08*/ u8 protectUses;
     /*0x09*/ u8 stockpileCounter:2; //group
+    u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
     s8 stockpileDef;    //vsonic still to setup
     s8 stockpileSpDef;
     s8 stockpileBeforeDef;
@@ -1125,11 +1126,12 @@ struct PokedudeBattlerState
     u8 saved_bg0y;
 };
 
-struct TotemBoost
+/*struct TotemBoost
 {
     u8 stats;   // bitfield for each battle stat that is set if the stat changes
     s8 statChanges[NUM_BATTLE_STATS - 1];    // highest bit being set decreases the stat
-}; /* size = 8 */
+}; */
+/* size = 8 */
 
 //put here to make non-static so can refer to in other files
 //this is window used for battle move selection ui
@@ -1171,7 +1173,8 @@ extern u8 gBattlersCount;
 extern u16 gBattlerPartyIndexes[MAX_BATTLERS_COUNT];
 extern s32 gBattleMoveDamage;
 extern u16 gIntroSlideFlags;
-extern u32 gTransformedPersonalities[MAX_BATTLERS_COUNT];
+//extern u32 gTransformedPersonalities[MAX_BATTLERS_COUNT];
+//extern struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT];
 extern u8 gBattlerPositions[MAX_BATTLERS_COUNT];
 extern u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
 extern u8 gBattleOutcome;  //no idea why I had removed this
@@ -1227,7 +1230,6 @@ extern u8 gLastHitBy[MAX_BATTLERS_COUNT];
 extern u8 gMultiUsePlayerCursor;
 extern u8 gNumberOfMovesToChoose;
 extern u16 gLastHitByType[MAX_BATTLERS_COUNT];
-extern struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT];
 extern s32 gHpDealt;
 extern u16 gPauseCounterBattle;
 extern u16 gPaydayMoney;

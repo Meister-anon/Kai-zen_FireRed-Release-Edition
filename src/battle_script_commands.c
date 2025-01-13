@@ -12889,7 +12889,7 @@ static void atk76_various(void) //will need to add all these emerald various com
     }
     case VARIOUS_TOTEM_BOOST:
     {
-        VARIOUS_ARGS(const u8 *jumpInstr);
+        /*VARIOUS_ARGS(const u8 *jumpInstr);
         battler = gBattlerAttacker;
         if (gTotemBoosts[battler].stats == 0)
         {
@@ -12924,6 +12924,8 @@ static void atk76_various(void) //will need to add all these emerald various com
             gBattlescriptCurrInstr = cmd->nextInstr;    // exit if loop failed (failsafe)
         }
         return;
+        */
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     case VARIOUS_MOVEEND_ITEM_EFFECTS:
     {
@@ -15378,7 +15380,6 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
         gDisableStructs[gBattlerAttacker].disableTimer = 0;
         gDisableStructs[gBattlerAttacker].inthralledMove = MOVE_NONE;
         gDisableStructs[gBattlerAttacker].inthrallTimer = 0;
-        gDisableStructs[gBattlerAttacker].transformedMonPersonality = gBattleMons[gBattlerAttacker].personality; //changed I want to keep my own personality
         gDisableStructs[gBattlerAttacker].mimickedMoves = 0;
 
 
@@ -15576,7 +15577,10 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
         //fixed was problem w abilitybuffer, fixed now, but still unsure,
         //why it worked for one and not the other
            if (original_ability == ABILITY_IMPOSTER || original_ability == ABILITY_INVERSION)
-            PREPARE_ABILITY_BUFFER(gBattleTextBuff2, original_ability); //for imposter & inversion
+            {
+                gDisableStructs[gBattlerAttacker].transformedViaAbility = original_ability;
+                PREPARE_ABILITY_BUFFER(gBattleTextBuff2, original_ability); //for imposter & inversion
+            }
 
             if (gCurrentMove == MOVE_TRANSFORM || original_ability == ABILITY_IMPOSTER)
             {

@@ -221,14 +221,14 @@ EWRAM_DATA u8 gMoveSelectionCursor[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gBattlerStatusSummaryTaskId[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gBattlerInMenuId = 0;
 EWRAM_DATA bool8 gDoingBattleAnim = FALSE;
-EWRAM_DATA u32 gTransformedPersonalities[MAX_BATTLERS_COUNT] = {0};
+//EWRAM_DATA u32 gTransformedPersonalities[MAX_BATTLERS_COUNT] = {0}; //vsonic can remove this, not really needed
 EWRAM_DATA struct BattleSpriteData *gBattleSpritesDataPtr = NULL;
 EWRAM_DATA struct MonSpritesGfx *gMonSpritesGfxPtr = NULL;
 EWRAM_DATA u16 gMoveToLearn = 0;
 EWRAM_DATA u8 gBattleMonForms[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u32 gFieldStatuses = 0;
 EWRAM_DATA struct FieldTimer gFieldTimers = { 0 };
-EWRAM_DATA struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT] = { 0 };  //not gonna use for my stuff so can comment out
+//EWRAM_DATA struct TotemBoost gTotemBoosts[MAX_BATTLERS_COUNT] = { 0 };  //not gonna use for my stuff so can comment out
 EWRAM_DATA bool8 gHasFetchedBall = FALSE;
 EWRAM_DATA u8 gLastUsedBall = 0;    //need to implement add in these 2 somewhere
 EWRAM_DATA u16 gLastThrownBall = 0;
@@ -4939,7 +4939,7 @@ static void TryDoEventsBeforeFirstTurn(void)
             return;
         }
         // Totem boosts
-        for (i = 0; i < gBattlersCount; i++)
+        /*for (i = 0; i < gBattlersCount; i++)
         {
             if (gTotemBoosts[i].stats != 0)
             {
@@ -4949,7 +4949,7 @@ static void TryDoEventsBeforeFirstTurn(void)
             }
         }
         memset(gTotemBoosts, 0, sizeof(gTotemBoosts));  // erase all totem boosts just to be safe
-
+        */
         // Primal Reversion
         for (i = 0; i < gBattlersCount; i++)
         {
