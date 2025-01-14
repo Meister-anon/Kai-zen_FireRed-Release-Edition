@@ -823,6 +823,7 @@ static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
     [MOVE_EFFECT_WRAP] = STATUS2_WRAPPED,
     [MOVE_EFFECT_RECHARGE] = STATUS2_RECHARGE,
     [MOVE_EFFECT_PREVENT_ESCAPE] = STATUS2_ESCAPE_PREVENTION,
+    [MOVE_EFFECT_SWITCH_LOCKED] = STATUS2_SWITCH_LOCKED,
     [MOVE_EFFECT_NIGHTMARE] = STATUS2_NIGHTMARE,
     [MOVE_EFFECT_THRASH] = STATUS2_LOCK_CONFUSE,
     [MOVE_EFFECT_ATTRACT] = STATUS2_INFATUATION,    //didn't work couldn't use infatuatedwith
@@ -865,6 +866,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_RAGE] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_STEAL_ITEM] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_PREVENT_ESCAPE] = BattleScript_MoveEffectSleep,
+    [MOVE_EFFECT_SWITCH_LOCKED] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_NIGHTMARE] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_ALL_STATS_UP] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_RAPIDSPIN] = BattleScript_MoveEffectSleep,
@@ -5719,6 +5721,18 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_PREVENT_ESCAPE:
                 gBattleMons[gBattlerTarget].status2 |= STATUS2_ESCAPE_PREVENTION;
                 gDisableStructs[gBattlerTarget].battlerPreventingEscape = gBattlerAttacker;
+                ++gBattlescriptCurrInstr;
+                break;
+            case MOVE_EFFECT_SWITCH_LOCKED:
+                if (gBattleMons[gBattlerTarget].status2 & STATUS2_SWITCH_LOCKED)
+                {
+                    ++gBattlescriptCurrInstr;
+                }
+                else
+                {
+                    gBattleMons[gBattlerTarget].status2 |= STATUS2_SWITCH_LOCKED;
+                    gDisableStructs[gBattlerTarget].SwitchBinding = 3;
+                }
                 ++gBattlescriptCurrInstr;
                 break;
             case MOVE_EFFECT_NIGHTMARE:
@@ -16554,23 +16568,6 @@ static void atkB2_trysetperishsong(void)
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     else
         gBattlescriptCurrInstr += 5;
-}
-
-void BS_trySetSwitchLocked(void)
-{
-    NATIVE_ARGS();
-
-    if (gBattleMons[gBattlerTarget].status2 & STATUS2_SWITCH_LOCKED)
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-    else
-    {
-        gBattleMons[gBattlerTarget].status2 |= STATUS2_SWITCH_LOCKED;
-        gDisableStructs[gBattlerTarget].SwitchBinding = 3;
-    }
-
-    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkB4_jumpifconfusedandstatmaxed(void)

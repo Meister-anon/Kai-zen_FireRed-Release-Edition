@@ -4473,7 +4473,7 @@ BattleScript_EffectHitPreventEscape:
 
 @will have to do with move effect otherwise would activate even if miss
 BattleScript_EffectHitSwitchBind:
-	trySetSwitchLocked
+	setmoveeffect MOVE_EFFECT_SWITCH_LOCKED
 	goto BattleScript_EffectHit
 
 BattleScript_EffectMeanLook::
