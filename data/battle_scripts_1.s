@@ -151,7 +151,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit
 	.4byte BattleScript_EffectMagnitude
 	.4byte BattleScript_EffectBatonPass
-	.4byte BattleScript_EffectHit
+	.4byte BattleScript_EffectHit			@EFFECT_PURSUIT
 	.4byte BattleScript_EffectRapidSpin
 	.4byte BattleScript_EffectSonicscreech
 	.4byte BattleScript_EffectTwoTurnsAttack
@@ -2578,53 +2578,70 @@ BattleScript_EffectThroatChop:
 	setmoveeffect MOVE_EFFECT_THROAT_CHOP | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
-BattleScript_EffectHitEscape:
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	jumpifmovehadnoeffect BattleScript_MoveEnd
-	setmoveeffectwithchance
+@BattleScript_EffectHitEscape:
+@	attackcanceler
+@	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+@	attackstring
+@	ppreduce
+@	critcalc
+@	damagecalc
+@	typecalc
+@	adjustnormaldamage
+@	pause B_WAIT_TIME_CLEAR_BUFF
+@	attackanimation
+@	waitanimation
+@	effectivenesssound
+@	hitanimation BS_TARGET
+@	waitstate
+@	healthbarupdate BS_TARGET
+@	datahpupdate BS_TARGET
+@	critmessage
+@	waitmessage B_WAIT_TIME_LONG
+@	resultmessage
+@	waitmessage B_WAIT_TIME_LONG
+@	jumpifmovehadnoeffect BattleScript_MoveEnd
+@	setmoveeffectwithchance
+@	tryfaintmon BS_TARGET, FALSE, NULL
+@	moveendto MOVE_END_ATTACKER_VISIBLE
+@	moveendfrom MOVE_END_TARGET_VISIBLE
+@	jumpifbattleend BattleScript_HitEscapeEnd	@this command wasn't added to various, prob cause of freeze need test -fixed
+@	jumpifbyte CMP_NOT_EQUAL gBattleOutcome 0, BattleScript_HitEscapeEnd
+@	@jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_HitEscapeEnd
+@	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_HitEscapeEnd
+@	@jumpifemergencyexited BS_TARGET, BattleScript_HitEscapeEnd
+@	@
+@	openpartyscreen BS_ATTACKER, BattleScript_HitEscapeEnd
+@	switchoutabilities BS_ATTACKER
+@	waitstate
+@	switchhandleorder BS_ATTACKER, 0x2
+@	returntoball BS_ATTACKER
+@	getswitchedmondata BS_ATTACKER
+@	switchindataupdate BS_ATTACKER
+@	hpthresholds BS_ATTACKER
+@	printstring STRINGID_SWITCHINMON
+@	switchinanim BS_ATTACKER, TRUE
+@	waitstate
+@	switchineffects BS_ATTACKER
+@BattleScript_HitEscapeEnd:
+@	end
+
+@tested in emerald, user also not visible,
+@so that may be how they did it
+BattleScript_EffectHitEscape::
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	moveendto MOVE_END_ATTACKER_VISIBLE
 	moveendfrom MOVE_END_TARGET_VISIBLE
-	jumpifbattleend BattleScript_HitEscapeEnd	@this command wasn't added to various, prob cause of freeze need test -fixed
-	jumpifbyte CMP_NOT_EQUAL gBattleOutcome 0, BattleScript_HitEscapeEnd
-	@jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_HitEscapeEnd
-	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_HitEscapeEnd
+	jumpifbattleend BattleScript_HitEscapeEnd
+	jumpifbyte CMP_NOT_EQUAL, gBattleOutcome, 0, BattleScript_HitEscapeEnd
 	@jumpifemergencyexited BS_TARGET, BattleScript_HitEscapeEnd
-	openpartyscreen BS_ATTACKER, BattleScript_HitEscapeEnd
-	switchoutabilities BS_ATTACKER
-	waitstate
-	switchhandleorder BS_ATTACKER, 0x2
-	returntoball BS_ATTACKER
-	getswitchedmondata BS_ATTACKER
-	switchindataupdate BS_ATTACKER
-	hpthresholds BS_ATTACKER
-	printstring STRINGID_SWITCHINMON
-	switchinanim BS_ATTACKER, TRUE
-	waitstate
-	switchineffects BS_ATTACKER
+	goto BattleScript_MoveSwitch
 BattleScript_HitEscapeEnd:
 	end
 
-BattleScript_MoveEndEscape::		@for emergency exit
+@for new emergency exit
+@doesn't appaer ever used
+BattleScript_MoveEndEscape::		
 	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_HitEscapeEnd
 	openpartyscreen BS_ATTACKER, BattleScript_HitEscapeEnd
 	switchoutabilities BS_ATTACKER
@@ -2639,6 +2656,45 @@ BattleScript_MoveEndEscape::		@for emergency exit
 	waitstate
 	switchineffects BS_ATTACKER
 	goto BattleScript_HitEscapeEnd
+
+@thought had it but for some reason
+@doesn't become visible again
+BattleScript_MoveSwitch:
+	@jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_MoveSwitchEnd
+	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_MoveSwitchEnd
+	@put pursuit hit here
+BattleScript_MoveSwitchOpenPartyScreen:
+	openpartyscreen BS_ATTACKER, BattleScript_MoveSwitchEnd
+	printstring STRINGID_PKMNWENTBACK
+	@waitmessage B_WAIT_TIME_SHORT
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	jumpifnopursuitswitchdmg BattleScript_MoveSwitchDoSwitch
+	swapattackerwithtarget
+	trysetdestinybondtohappen	@check this, does it make sense, as bond only lasts till next action? ior is it specifically atk cancler?
+	call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
+	swapattackerwithtarget
+BattleScript_MoveSwitchDoSwitch:
+	switchoutabilities BS_ATTACKER
+	waitstate
+	switchhandleorder BS_ATTACKER, 2
+	returntoball BS_ATTACKER
+	getswitchedmondata BS_ATTACKER
+	switchindataupdate BS_ATTACKER
+	hpthresholds BS_ATTACKER
+	printstring STRINGID_SWITCHINMON
+	@hidepartystatussummary BS_ATTACKER
+	switchinanim BS_ATTACKER, FALSE
+	waitstate
+	jumpifcantreverttoprimal BattleScript_DoMoveSwitchOut2
+	call BattleScript_PrimalReversionRet
+	waitstate
+BattleScript_DoMoveSwitchOut2:
+	switchineffects BS_ATTACKER
+	@pretty sure need add these since may take dmg from pursuit effect
+	moveendcase MOVE_END_STATUS_IMMUNITY_ABILITIES
+	moveendcase MOVE_END_MIRROR_MOVE
+BattleScript_MoveSwitchEnd:
+	end
 
 BattleScript_EffectPlaceholder:
 	attackcanceler
@@ -2697,10 +2753,44 @@ BattleScript_HitFromHpUpdate::
 BattleScript_TrySetArgumentEffect::
 	setargumentwithchance	@seems to be fine   @this dosent work need make into separate ommand arguentefectwcance  @ok think should work now?
 @BattleScript_TryFaintMon::
-	tryfaintmon BS_TARGET, 0, NULL	
+	tryfaintmon BS_TARGET, FALSE, NULL	
 BattleScript_MoveEnd::
 	moveendall
 	end
+
+BattleScript_EffectHit_Ret::
+	attackcanceler
+BattleScript_EffectHit_RetFromAccCheck::
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	variablepowercalc	
+	ppreduce
+	attackstring
+BattleScript_EffectHit_RetFromCritCalc::
+	critcalc
+	damagecalc
+	typecalc
+	@call_if EFFECT_ROLLOUT	don't use here jumps to other scrip
+	call_if EFFECT_REVENGE	@ double dmg for revenge effects
+	call_if EFFECT_TWO_TYPED_MOVE	@for muddy water i.e two typed moves that need do extra effect etc. go throw seteffect w chance, works for simple things only setting move effect
+	adjustnormaldamage
+BattleScript_Hit_RetFromAtkAnimation::
+	attackanimation
+	waitanimation
+	effectivenesssound
+	hitanimation BS_TARGET
+	waitstate
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	critmessage
+	waitmessage B_WAIT_TIME_LONG
+	resultmessage
+	waitmessage B_WAIT_TIME_LONG
+	@setadditionaleffects
+	jumpifmovehadnoeffect BattleScript_MoveEnd
+	setmoveeffectwithchance
+	setargumentwithchance
+BattleScript_End_HitRet:
+	return
 
 BattleScript_GroundFlyingEnemywithoutGravity::
 	printstring STRINGID_CRASHEDTOTHEGROUND
@@ -4318,7 +4408,7 @@ BattleScript_SleepTalkUsingMove::
 	waitanimation
 	setbyte sB_ANIM_TURN, 0
 	setbyte sB_ANIM_TARGETS_HIT, 0
-	jumptocalledmove 1
+	jumptocalledmove TRUE
 BattleScript_EffectDestinyBond::
 	attackcanceler
 	attackstring
@@ -6768,25 +6858,23 @@ BattleScript_ActionSwitch::
 	hpthresholds2 BS_ATTACKER
 	printstring STRINGID_RETURNMON
 	@can put runaway avoiding pursuit here just jump to BattleScript_SkipPursuit vsonic
-	jumpifability BS_ATTACKER, ABILITY_RUN_AWAY, BattleScript_SkipPursuit
-	jumpifability BS_ATTACKER, ABILITY_AVIATOR, BattleScript_SkipPursuit
-	manipulatedamage DOUBLE_DMG @for pursuit hopefully works?  @seems to work
-	@setbyte sDMG_MULTIPLIER, 2
-	jumpifbattletype BATTLE_TYPE_DOUBLE, BattleScript_PursuitSwitchCheckTwice
-	setmultihit 1
-	goto BattleScript_PursuitSwitchLoop
+	jumpifability BS_ATTACKER, ABILITY_RUN_AWAY, BattleScript_DoSwitchOut
+	jumpifability BS_ATTACKER, ABILITY_AVIATOR, BattleScript_DoSwitchOut
+	goto BattleScript_PursuitSwitch
 
-BattleScript_PursuitSwitchCheckTwice::
-	setmultihit 2
-BattleScript_PursuitSwitchLoop::
+@this is chosing which battler to check for pursuit
+@in double battle, is not compliant w modern setup
+@which I assume checks by turn order
+@if right should be able to remove jumpif double battle
+@and the multihit effects, as they are exclusively for target setting (pursuit user)
+@would also be able to remove loop as their would be none - done
+BattleScript_PursuitSwitch::
 	jumpifnopursuitswitchdmg BattleScript_DoSwitchOut
 	swapattackerwithtarget
-	trysetdestinybondtohappen
-	call BattleScript_PursuitDmgOnSwitchOut
+	trysetdestinybondtohappen	@check this, does it make sense, as bond only lasts till next action? ior is it specifically atk cancler?
+	call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
 	swapattackerwithtarget
 BattleScript_DoSwitchOut::
-	decrementmultihit BattleScript_PursuitSwitchLoop
-BattleScript_SkipPursuit::
 	switchoutabilities BS_ATTACKER  @abilities that activate when switching out
 	waitstate
 	returnatktoball
@@ -6816,6 +6904,7 @@ BattleScript_PursuitDmgOnSwitchOut::
 	damagecalc
 	typecalc
 	adjustnormaldamage
+	manipulatedamage DOUBLE_DMG
 	pause B_WAIT_TIME_CLEAR_BUFF
 	attackanimation
 	waitanimation
@@ -8599,6 +8688,7 @@ BattleScript_MoodyEnd:
 	end3
 	
 @handled in moveend
+@potentially replace use w BattleScript_MoveSwitch if get it working right
 BattleScript_EmergencyExit::
 	pause B_WAIT_TIME_CLEAR_BUFF	
 	pause B_WAIT_TIME_LONG

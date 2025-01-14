@@ -16915,36 +16915,89 @@ void BS_VariablePowerCalc(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//think eventually make loop array to check
+//for now just do quick or conditional
+//vsonic used to replace logic of move_pursuit in functions for effect
+//so can now take diff moves
+//believe callable moves should be excluded from this
+//as the effect 
+//nvm callable moves that don't rely on someone else using a move first
+//should work as its a move effect regardless of how weirdly its coded
+//intent of idea, when you use the move it can hit peopple switching out
+//double nevermind way calledmove works it doesn't decide what move its calling
+//until the move gets used, think of like this
+//battler A selects Pursuit, they already know what they want to do and are prepared
+//battler B doesn't know, and instead decides to reach in a bag to decide their move, then act after
+//that way it doesn't make sense
+//So the only thing to worry about is hit escape ability escape, and maybe teleport,
+//but teleport could work like baton pass, in which case its excluded
+u8 CanMoveHitSwitchingTarget(u16 move)
+{
+    if (move == MOVE_PURSUIT
+    || move == MOVE_SPIRIT_SHACKLE)
+        return TRUE;
+
+    return FALSE;
+}
+
+//looks weird but pretty sure done this way,
+//because swaps attacker and target via command after this
+//no its because attacker is the one switching out
+//it switches target w attacker after so they can attack w the move
 static void atkBA_jumpifnopursuitswitchdmg(void)
 {
-    if (gMultiHitCounter == 1)
-    {
-        if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
-            gBattlerTarget = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
-        else
-            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-    }
-    else
-    {
-        if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
-            gBattlerTarget = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
-        else
-            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-    }
+
+    /*Pursuit will now hit any adjacent opponent that attempts to switch out
+    (but not more than one per turn), regardless of who it originally targeted. 
+    
+    With this in mind belive what I need to setup is a battle loop
+    based on turn order...
+    Luckily this function seems to have that gBattlerByTurnOrder[]
+    If I loop that and use battlerbyturnorder for the battler 
+    of gchosemovebybattler I THINK it would be correct/accurate
+    would just need a check for it not being on the same side as attacker
+    */
+   s32 i;
+   bool8 canPursuit = FALSE;
+   for (i = 0; i < gBattlersCount; ++i)
+   {
+        if (GetBattlerSide(gBattlerByTurnOrder[i]) != GetBattlerSide(gBattlerAttacker))
+        {
+            if (CanMoveHitSwitchingTarget(gChosenMoveByBattler[gBattlerByTurnOrder[i]]))
+            {
+                canPursuit = TRUE;
+                gBattlerTarget = gBattlerByTurnOrder[i];
+                gActionsByTurnOrder[i] = B_ACTION_TRY_FINISH;
+                break;
+            }
+        }
+   }
+   //if this works remove other use of canmovehitswitchtarget
+   //works!!
+   //but weird type bug also is still there
+   //type bug and potentially dmg bug is only there
+   //when I use manual switch, if I trigger pursuit from hit escape type is fine
+
+    //tested got pursuited when I was slower...
+    //puruit hit me, then I used u_turn
+    //after I selected my switch target boosted pursuit hit me again...
+    //hopefully.wait this would only stop it if I'm the last battler to move
+    //idk what anymore, woah surprinsngly this actually worked
+   if (gCurrentTurnActionNumber > gBattlerTarget)
+    canPursuit = FALSE;
+
+    
+
     if (gChosenActionByBattler[gBattlerTarget] == B_ACTION_USE_MOVE
      && gBattlerAttacker == *(gBattleStruct->moveTarget + gBattlerTarget)
      && !(gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP)// | STATUS1_FREEZE))
      && (gDisableStructs[gBattlerTarget].FrozenTurns == 0)    //new freeze check    /means not frozen
      && gBattleMons[gBattlerAttacker].hp
      && !gDisableStructs[gBattlerTarget].truantCounter
-     && gChosenMoveByBattler[gBattlerTarget] == MOVE_PURSUIT)
+     && canPursuit)
     {
-        s32 i;
 
-        for (i = 0; i < gBattlersCount; ++i)
-            if (gBattlerByTurnOrder[i] == gBattlerTarget)
-                gActionsByTurnOrder[i] = 11;
-        gCurrentMove = MOVE_PURSUIT;
+        gCurrentMove = gChosenMoveByBattler[gBattlerTarget];
         gCurrMovePos = gChosenMovePos = *(gBattleStruct->chosenMovePositions + gBattlerTarget);
         gBattlescriptCurrInstr += 5;
         gBattleScripting.animTurn = 1;
@@ -16953,7 +17006,7 @@ static void atkBA_jumpifnopursuitswitchdmg(void)
     else
     {
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
-    }
+    }//something weird here when it does the switch out dmg, type calc is wrong?
 }
 
 static void atkBB_setsunny(void)
@@ -18442,17 +18495,18 @@ static void atkEB_settypetoterrain(void)
     }
 }
 
-static void atkEC_pursuitrelated(void)
+//unused
+static UNUSED void atkEC_pursuitrelated(void)
 {
     gActiveBattler = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_FLANK);
 
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
      && !(gAbsentBattlerFlags & gBitTable[gActiveBattler])
      && gChosenActionByBattler[gActiveBattler] == 0
-     && gChosenMoveByBattler[gActiveBattler] == MOVE_PURSUIT)
+     && CanMoveHitSwitchingTarget(gChosenMoveByBattler[gActiveBattler]))
     {
         gActionsByTurnOrder[gActiveBattler] = 11;
-        gCurrentMove = MOVE_PURSUIT;
+        gCurrentMove = gChosenMoveByBattler[gActiveBattler];
         gBattlescriptCurrInstr += 5;
         gBattleScripting.animTurn = 1;
         gBattleScripting.field_25_pursuitDoublesAttacker = gBattlerAttacker;

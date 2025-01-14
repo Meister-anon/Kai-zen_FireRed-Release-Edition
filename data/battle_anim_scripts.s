@@ -11101,6 +11101,7 @@ Move_U_TURN:
 	jumpargeq 7, 0, UTurnVisible
 	createsprite gFlyBallAttackSpriteTemplate, ANIM_ATTACKER, 2, 20, TRUE
 UTurnContinue:
+	invisible ANIM_ATTACKER	@works much better here, no artifacts
 	delay 20
 	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, 1, 0
 	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 6, 0, 8, 1
@@ -11109,10 +11110,12 @@ UTurnContinue:
 	clearmonbg ANIM_DEF_PARTNER
 	createvisualtask AnimTask_CanBattlerSwitch, 1, ANIM_ATTACKER
 	jumpargeq 7, 0, UTurnLast
-	invisible ANIM_ATTACKER
+	
 UTurnLast:
 	blendoff
 	waitforvisualfinish
+	delay 0x3A				@change delay to make less abrupt 
+	visible ANIM_ATTACKER	@add for pursuit effect to not hit air
 	end
 UTurnVisible:
 	createsprite gFlyBallAttackSpriteTemplate, ANIM_ATTACKER, 2, 20, FALSE

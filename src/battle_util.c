@@ -3333,7 +3333,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;    //IT WORKS
                 break;
             case ENDTURN_ESCAPE_PREVENT:
-            if (gDisableStructs[gActiveBattler].SwitchBinding && gBattleMons[gActiveBattler].status2 & STATUS2_SWITCH_LOCKED)
+            if (gBattleMons[gActiveBattler].status2 & STATUS2_SWITCH_LOCKED)
             {
                 if (gDisableStructs[gActiveBattler].SwitchBinding == 0)
                 {
