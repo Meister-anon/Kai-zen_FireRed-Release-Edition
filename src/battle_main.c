@@ -6108,21 +6108,33 @@ static void SetActionsAndBattlersTurnOrder(void)
 #define END_TURN_RESET //resets values for end turn
 static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disble structs and folloemetimer at turn end
 {
-    s32 i;
-    u8 *dataPtr;
+    s32 i; //not used presently, needed for activebat replacement 
+    //u8 *dataPtr;
 
     for (gActiveBattler = 0; gActiveBattler < gBattlersCount; ++gActiveBattler)
     {
         if (var0)
         {
+            //gProtectStructs[gActiveBattler].protected = FALSE;
+            //gProtectStructs[gActiveBattler].endured = FALSE;
+            
             gProtectStructs[gActiveBattler].protected = FALSE;
-            gProtectStructs[gActiveBattler].endured = FALSE;
+            gProtectStructs[gActiveBattler].spikyShielded = FALSE;
+            gProtectStructs[gActiveBattler].kingsShielded = FALSE;
+            gProtectStructs[gActiveBattler].banefulBunkered = FALSE;
+            gProtectStructs[gActiveBattler].quash = FALSE;
+            gProtectStructs[gActiveBattler].usedCustapBerry = FALSE;
+            gProtectStructs[gActiveBattler].quickDraw = FALSE;
+            //memset(&gQueuedStatBoosts[gActiveBattler], 0, sizeof(struct QueuedStatBoost));
         }
         else
         {
-            dataPtr = (u8 *)(&gProtectStructs[gActiveBattler]);
-            for (i = 0; i < sizeof(struct ProtectStruct); ++i)
-                dataPtr[i] = 0; //clears protect struct
+            //dataPtr = (u8 *)(&gProtectStructs[gActiveBattler]);
+            //for (i = 0; i < sizeof(struct ProtectStruct); ++i)
+            //    dataPtr[i] = 0; //clears protect struct
+            
+            memset(&gProtectStructs[gActiveBattler], 0, sizeof(struct ProtectStruct));
+
             if (gDisableStructs[gActiveBattler].isFirstTurn) //starts at 2, think this decrements so its no longer switch in?
                 --gDisableStructs[gActiveBattler].isFirstTurn;
             if (gDisableStructs[gActiveBattler].rechargeTimer)
@@ -6137,25 +6149,31 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
             gBattleMons[gActiveBattler].status2 &= ~(STATUS2_SUBSTITUTE);
 
     }
+    gSideStatuses[B_SIDE_PLAYER] &= ~(SIDE_STATUS_QUICK_GUARD | SIDE_STATUS_WIDE_GUARD | SIDE_STATUS_CRAFTY_SHIELD | SIDE_STATUS_MAT_BLOCK);
+    gSideStatuses[B_SIDE_OPPONENT] &= ~(SIDE_STATUS_QUICK_GUARD | SIDE_STATUS_WIDE_GUARD | SIDE_STATUS_CRAFTY_SHIELD | SIDE_STATUS_MAT_BLOCK);
     gSideTimers[0].followmeTimer = 0;
     gSideTimers[1].followmeTimer = 0;
 
     gBattleStruct->pursuitTarget = 0;
     gBattleStruct->pursuitSwitchByMove = FALSE;
     gBattleStruct->pursuitStoredSwitch = 0;
+
+    //gBattleStruct->pledgeMove = FALSE; // combined pledge move may not have been used due to a canceller
 }
 
 static void SpecialStatusesClear(void) //intimidatedmon is a special status so this function is what's resetting it outside of the faint condition
 {
-    for (gActiveBattler = 0; gActiveBattler < gBattlersCount; ++gActiveBattler)
+    memset(&gSpecialStatuses, 0, sizeof(gSpecialStatuses));
+    /*for (gActiveBattler = 0; gActiveBattler < gBattlersCount; ++gActiveBattler)
     {
         s32 i;
         u8 *dataPtr = (u8 *)(&gSpecialStatuses[gActiveBattler]);
 
         for (i = 0; i < sizeof(struct SpecialStatus); ++i)
             dataPtr[i] = 0;
+        
 
-    }
+    }*/
 }
 
 static void CheckFocusPunch_ClearVarsBeforeTurnStarts(void)

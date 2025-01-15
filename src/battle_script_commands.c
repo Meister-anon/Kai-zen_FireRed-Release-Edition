@@ -6262,8 +6262,9 @@ static void atk18_clearstatusfromeffect(void)
         gBattleMons[gActiveBattler].status4 &= (~sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]);
     }
     gBattleScripting.moveEffect = 0;
-    gBattlescriptCurrInstr += 2;
     gBattleScripting.multihitMoveEffect = 0;
+    gBattlescriptCurrInstr += 2;
+    
 }
 
 #define NEW_STURDY_EFFECT_PT3
@@ -7667,9 +7668,10 @@ static void atk46_playanimation2(void) // animation Id is stored in the first po
 
 static void atk47_setgraphicalstatchangevalues(void)    //may need change this too since stat buffs go up to +-3 in later gen
 {
-    u8 value = 0;   //vsonic IMPORTANT          don't know if need default from emerald or not
+    // don't know if need default from emerald or not
+    u8 value = GET_STAT_BUFF_VALUE_WITH_SIGN(gBattleScripting.statChanger);
 
-    switch (GET_STAT_BUFF_VALUE_WITH_SIGN(gBattleScripting.statChanger))
+    switch (value)
     {
     case SET_STAT_BUFF_VALUE(1): // +1
         value = STAT_ANIM_PLUS1;
@@ -7688,6 +7690,12 @@ static void atk47_setgraphicalstatchangevalues(void)    //may need change this t
         break;
     case SET_STAT_BUFF_VALUE(3) | STAT_BUFF_NEGATIVE: // -3
         value = STAT_ANIM_MINUS2;
+        break;
+    default: // <-12,-4> and <4, 12>
+        if (value & STAT_BUFF_NEGATIVE)
+            value = STAT_ANIM_MINUS2 + 1;
+        else
+            value = STAT_ANIM_PLUS2 + 1;
         break;
     }
     gBattleScripting.animArg1 = GET_STAT_BUFF_ID(gBattleScripting.statChanger) + value - 1;
@@ -8008,6 +8016,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
              && gBattleMons[gBattlerTarget].hp != 0
              && gBattleMoveDamage != 0 // test to see if this works right. should be all damaging fire moves above 60 power can defrost.
              && gBattlerAttacker != gBattlerTarget
+             && TARGET_TURN_DAMAGED
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE) //logic from canceler fix thaw bug
              && (CanThaw(gCurrentMove))) //test vsonic
@@ -8195,15 +8204,15 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_GROUND_TARGET: //for some reason retriggering so think, grounded isn't being set right?
-            if (!(IsBattlerGrounded(gBattlerTarget)) 
-            && IsBattlerAlive(gBattlerTarget) 
+            if (!IsBattlerGrounded(gBattlerTarget) 
+            && IsBattlerAlive(gBattlerTarget) //not working at all for some reason
             //&& gMultiHitCounter == 0  //removing this line seemed to fix issue of not dispalying, didn't need as should only trigger if 0/move complete
-            && !gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-            //&& TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
+            && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+            && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
             {           //result no effect didn't work so replace w target must take dmg
-                
-                if ((gBattleMoves[gCurrentMove].flags & (FLAG_DMG_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
-                || (gBattleMoves[gCurrentMove].flags & (FLAG_DMG_2X_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR))   //using fly
+                //double checked and EE uses them together for some reason
+                if (((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
+                || (gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)   //using fly
                 {
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
                     gSprites[gBattlerSpriteIds[gBattlerTarget]].invisible = FALSE;
@@ -8216,8 +8225,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
 
                 }//NEW bs for   //didnt need move damage multiplier that's already accounted for by damage calc
 
-                else if ((gBattleMoves[gCurrentMove].flags & (FLAG_DMG_IN_AIR))
-                || (gBattleMoves[gCurrentMove].flags & (FLAG_DMG_2X_IN_AIR))) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
+                else if ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR)
+                || (gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
                 {
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
@@ -14448,8 +14457,9 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
     bool32 notProtectAffected = FALSE;
     u32 index;
     u16 activeBattlerAbility;
-    bool32 mirrorArmored = (flags & STAT_CHANGE_MIRROR_ARMOR);
     bool32 affectsUser = (flags & MOVE_EFFECT_AFFECTS_USER);
+    bool32 mirrorArmored = (flags & STAT_CHANGE_MIRROR_ARMOR);
+    
 
     if (affectsUser)
         gActiveBattler = gBattlerAttacker;
@@ -14475,6 +14485,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
     {
         statValue ^= STAT_BUFF_NEGATIVE;
         gBattleScripting.statChanger ^= STAT_BUFF_NEGATIVE;
+        RecordAbilityBattle(gActiveBattler, activeBattlerAbility);
         if (flags & STAT_CHANGE_UPDATE_MOVE_EFFECT)
         {
             flags &= ~STAT_CHANGE_UPDATE_MOVE_EFFECT;
@@ -14487,6 +14498,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
     }
 
     PREPARE_STAT_BUFFER(gBattleTextBuff1, statId)
+
     if (statValue <= -1) // Stat decrease.
     {
         //these are set of exclusions that prevenet stat drop
@@ -14681,10 +14693,15 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             gBattleTextBuff2[index++] = STRINGID_STATFELL;
             gBattleTextBuff2[index++] = STRINGID_STATFELL >> 8;
             gBattleTextBuff2[index] = B_BUFF_EOS;
+
             if (gBattleMons[gActiveBattler].statStages[statId] == MIN_STAT_STAGE)
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STAT_WONT_DECREASE;
             else
+            {
+                //vsonic for eject pack
+                //gProtectStructs[gActiveBattler].statFell = TRUE;   // Eject pack, lash out
                 gBattleCommunication[MULTISTRING_CHOOSER] = (gBattlerTarget == gActiveBattler); // B_MSG_ATTACKER_STAT_FELL or B_MSG_DEFENDER_STAT_FELL
+            }
            //expression not assignment so return either 0 or 1
 
         }
@@ -14716,10 +14733,45 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         gBattleTextBuff2[index++] = STRINGID_STATROSE;
         gBattleTextBuff2[index++] = STRINGID_STATROSE >> 8;
         gBattleTextBuff2[index] = B_BUFF_EOS;
+
         if (gBattleMons[gActiveBattler].statStages[statId] == MAX_STAT_STAGE)
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STAT_WONT_INCREASE;
         else
+        {
+            u32 statIncrease;
+            if ((statValue + gBattleMons[gActiveBattler].statStages[statId]) > MAX_STAT_STAGE)
+                statIncrease = MAX_STAT_STAGE - gBattleMons[gActiveBattler].statStages[statId];
+            else
+                statIncrease = statValue;
+            
             gBattleCommunication[MULTISTRING_CHOOSER] = (gBattlerTarget == gActiveBattler);
+            //gProtectStructs[gActiveBattler].statRaised = TRUE;
+
+            // Check Mirror Herb / Opportunist
+            /*for (index = 0; index < gBattlersCount; index++)
+            {
+                if (GetBattlerSide(index) == GetBattlerSide(gActiveBattler))
+                    continue; // Only triggers on opposing side
+
+                if (GetBattlerAbility(index) == ABILITY_OPPORTUNIST
+                 && gProtectStructs[gActiveBattler].activateOpportunist == 0) // don't activate opportunist on other mon's opportunist raises
+                {
+                    gProtectStructs[index].activateOpportunist = 2;      // set stats to copy
+                }
+                if (GetBattlerHoldEffect(index, TRUE) == HOLD_EFFECT_MIRROR_HERB)
+                {
+                    gProtectStructs[index].eatMirrorHerb = 1;
+                }
+
+                if (gProtectStructs[index].activateOpportunist == 2 || gProtectStructs[index].eatMirrorHerb == 1)
+                {
+                    gQueuedStatBoosts[index].stats |= (1 << (statId - 1));    // -1 to start at atk
+                    gQueuedStatBoosts[index].statChanges[statId - 1] += statIncrease;
+                }
+            }
+            */ //vsonic
+        }
+
     }
     gBattleMons[gActiveBattler].statStages[statId] += statValue;
     if (gBattleMons[gActiveBattler].statStages[statId] < MIN_STAT_STAGE)
@@ -14731,6 +14783,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         gMoveResultFlags |= MOVE_RESULT_MISSED;*/ //according to GriffinR this is why animation change didn't work
     if (gBattleCommunication[MULTISTRING_CHOOSER] == B_MSG_STAT_WONT_INCREASE && !(flags & STAT_CHANGE_BS_PTR)) //I have no memory of why I changed this...
         return STAT_CHANGE_DIDNT_WORK;
+        
     return STAT_CHANGE_WORKED;  //this looks to be the issue, I forgot to put this back...
 
 }//because I changed the battle script I believe this should play the animation
@@ -14747,6 +14800,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
 static void atk89_statbuffchange(void) //alternate logic for if stat change fails,
 {
     CMD_ARGS(u16 flags, const u8 *jumpptr);
+
     u16 flags = cmd->flags;
     const u8 *ptrBefore = gBattlescriptCurrInstr;
     const u8 *jumpPtr = cmd->jumpptr;

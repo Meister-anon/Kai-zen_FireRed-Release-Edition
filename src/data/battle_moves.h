@@ -13645,7 +13645,7 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         ////.zMoveEffect = Z_EFFECT_NONE,
-    },
+    },//uses rollout animation
 
     [MOVE_ARCTIC_RAKE] =
     {
@@ -13673,7 +13673,7 @@ use wonder gaurd logic to determine its super effective
     .pp = 30,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
-    .priority = 1, //can change priority when finish new effect so not based on last move hit by
+    .priority = 1, //can change priority when finish new effect as not based on last move hit by
     .flags = FLAG_SNATCH_AFFECTED,
     .split = SPLIT_STATUS,
 }
