@@ -4249,6 +4249,9 @@ static void BattleStartClearSetData(void)
         gBattleResults.caughtMonNick[i] = 0;//potentially just add another field moonnick2 may work for double wild catching
     }
     gBattleStruct->swapDamageCategory = FALSE; // Photon Geyser, Shell Side Arm, Light That Burns the Sky
+    gBattleStruct->pursuitTarget = 0;
+    gBattleStruct->pursuitSwitchByMove = FALSE;
+    gBattleStruct->pursuitStoredSwitch = 0;
     gSelectedMonPartyId = PARTY_SIZE; // Revival Blessing
 }
 
@@ -4480,6 +4483,9 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gBattleStruct->lastTakenMoveFrom[gActiveBattler][1] = 0;
     gBattleStruct->lastTakenMoveFrom[gActiveBattler][2] = 0;
     gBattleStruct->lastTakenMoveFrom[gActiveBattler][3] = 0;
+    gBattleStruct->pursuitTarget = 0;
+    gBattleStruct->pursuitSwitchByMove = FALSE;
+    gBattleStruct->pursuitStoredSwitch = 0;
 
     if (gActiveBattler == gBattleStruct->stickyWebUser)
         gBattleStruct->stickyWebUser = 0xFF;    // User of sticky web fainted, so reset the stored battler ID
@@ -6133,6 +6139,10 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
     }
     gSideTimers[0].followmeTimer = 0;
     gSideTimers[1].followmeTimer = 0;
+
+    gBattleStruct->pursuitTarget = 0;
+    gBattleStruct->pursuitSwitchByMove = FALSE;
+    gBattleStruct->pursuitStoredSwitch = 0;
 }
 
 static void SpecialStatusesClear(void) //intimidatedmon is a special status so this function is what's resetting it outside of the faint condition
@@ -6349,6 +6359,7 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
 {
     u32 i, j;
     for (i = 0; i < gBattlersCount - 1; i++)
+    //for (i = gCurrentTurnActionNumber; i < gBattlersCount - 1; i++)
     {
         for (j = i + 1; j < gBattlersCount; j++)
         {
@@ -6372,11 +6383,20 @@ static void RunTurnActionsFunctions(void) //important
      // Mega Evolve / Focus Punch-like moves after switching, items, running, but before using a move.
     if (gCurrentActionFuncId == B_ACTION_USE_MOVE && !gBattleStruct->effectsBeforeUsingMoveDone)
     {
-        //if (TryDoGimmicksBeforeMoves())
-        //    return;
-        //if (TryDoMoveEffectsBeforeMoves())
-        //    return;
-        gBattleStruct->effectsBeforeUsingMoveDone = TRUE;
+         if (!gBattleStruct->pursuitTarget)
+        {
+            //if (TryDoGimmicksBeforeMoves())
+             //   return;
+            //else if
+            if (TryDoMoveEffectsBeforeMoves())
+                return;
+            gBattleStruct->effectsBeforeUsingMoveDone = TRUE;
+        }
+        /*else
+        {
+            if (TryActivateGimmick(gBattlerByTurnOrder[gCurrentTurnActionNumber]))
+                return;
+        }*/
     }
 
     *(&gBattleStruct->savedTurnActionNumber) = gCurrentTurnActionNumber;
@@ -6656,7 +6676,7 @@ static void TryEvolvePokemon(void) //want battle evolution for player and oppone
                     return;
                 }// for evo in battle, use  if (gCurrentTurnActionNumber >= gBattlersCount) && (gLeveledUpInBattle != 0 || gBattleOutcome != B_OUTCOME_WON)
             }// need to import mega evo graphic,  also make it check for or come after learn move on level up then, go into gBattleMainFunc = TryEvolvePokemon;
-        } //vsonic
+        } //vsonic IMPORTANT
     }
     gBattleMainFunc = ReturnFromBattleToOverworld;
 }

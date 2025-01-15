@@ -3339,6 +3339,7 @@ u8 DoBattlerEndTurnEffects(void)
                 {
                     gBattleMons[gActiveBattler].status2 &= ~STATUS2_SWITCH_LOCKED;
                     BattleScriptExecute(BattleScript_SwitchLockEnds);
+                    ++effect;
                 }
                 else
                 {

@@ -104,6 +104,8 @@ static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId);
 static bool8 IsBattlerProtected(u8 battlerId, u16 move);//gabe me compiler double definition error so made static
 //static void ProtectBreak(void); add back later when I figure it out
 static u8 WeightBoostedDamageFormula(void); //new seismic toss boost
+static bool32 ChangeOrderTargetAfterAttacker(void);
+static bool32 TrySetTargetToNextPursuiter(u32 battlerDef);
 
 static void SpriteCB_MonIconOnLvlUpBox(struct Sprite *sprite);
 
@@ -1752,6 +1754,11 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
 
     else if (gBattleMoves[move].effect == EFFECT_TOXIC
         && IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_POISON))   //ironically with type chart change I don't need this
+    {
+        JumpIfMoveFailed(7, move);
+        return TRUE;
+    }
+    else if (gBattleStruct->pursuitTarget & (1u << gBattlerTarget)) //hopefully gbattleratrget is right here? vsonic
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
@@ -8276,10 +8283,29 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_UPDATE_LAST_MOVES:
-            if (gMoveResultFlags & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE))
+            if ((gMoveResultFlags & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE))
+             || (gBattleMons[gBattlerAttacker].status2 & (STATUS2_FLINCHED))
+             || gProtectStructs[gBattlerAttacker].prlzImmobility)
                 gBattleStruct->lastMoveFailed |= gBitTable[gBattlerAttacker];
             else
                 gBattleStruct->lastMoveFailed &= ~(gBitTable[gBattlerAttacker]);
+
+            // Set ShellTrap to activate after the attacker's turn if target was hit by a physical move.
+            if (gBattleMoves[gChosenMoveByBattler[gBattlerTarget]].effect == EFFECT_SHELL_TRAP
+                && gBattlerTarget != gBattlerAttacker
+                && GetBattlerSide(gBattlerTarget) != GetBattlerSide(gBattlerAttacker)
+                && gProtectStructs[gBattlerTarget].physicalDmg
+                && gProtectStructs[gBattlerTarget].physicalBattlerId == gBattlerAttacker
+                && !TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
+            {
+                gProtectStructs[gBattlerTarget].shellTrap = TRUE;
+                // Change move order in double battles, so the hit mon with shell trap moves immediately after being hit.
+                if (IsDoubleBattle())
+                {
+                    ChangeOrderTargetAfterAttacker();
+                }
+            }
+
 
             if (gHitMarker & HITMARKER_SWAP_ATTACKER_TARGET)
             {
@@ -8823,7 +8849,35 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             //gBattleStruct->zmove.effect = EFFECT_HIT;*/
             ++gBattleScripting.atk49_state; //vsonic
             break;
+        case MOVE_END_PURSUIT_NEXT_ACTION:
+            if (gBattleStruct->pursuitTarget & (1u << gBattlerTarget))
+            {
+                u32 storedTarget = gBattlerTarget;
+                if (TrySetTargetToNextPursuiter(gBattlerTarget))
+                {
+                    ChangeOrderTargetAfterAttacker();
+                    *(gBattleStruct->moveTarget + gBattlerTarget) = storedTarget;
+                    gBattlerTarget = storedTarget;
+                }
+                else if (IsBattlerAlive(gBattlerTarget))
+                {
+                    gBattlerAttacker = gBattlerTarget;
 
+                    //don't think I need?
+                    if (gBattleStruct->pursuitSwitchByMove)
+                        gBattlescriptCurrInstr = BattleScript_MoveSwitchOpenPartyScreen;
+                    else
+                        gBattlescriptCurrInstr = BattleScript_DoSwitchOut;
+                    
+                    *(gBattleStruct->monToSwitchIntoId + gBattlerTarget) = gBattleStruct->pursuitStoredSwitch;
+                    gBattleStruct->pursuitTarget = 0;
+                    gBattleStruct->pursuitSwitchByMove = FALSE;
+                    gBattleStruct->pursuitStoredSwitch = 0;
+                    effect = TRUE;
+                }
+            }
+            ++gBattleScripting.atk49_state; //vsonic
+            break;
         case MOVE_END_COUNT:
             break;
         }
@@ -11521,6 +11575,48 @@ u32 GetHighestStatId(u32 battlerId)
     return highestId;
 }
 
+// Return True if the order was changed, and false if the order was not changed(for example because the target would move after the attacker anyway).
+static bool32 ChangeOrderTargetAfterAttacker(void)
+{
+    u32 i;
+    u8 data[MAX_BATTLERS_COUNT];
+
+    if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget)
+        || GetBattlerTurnOrderNum(gBattlerAttacker) + 1 == GetBattlerTurnOrderNum(gBattlerTarget))
+        return FALSE;
+
+    for (i = 0; i < gBattlersCount; i++)
+        data[i] = gBattlerByTurnOrder[i];
+    if (GetBattlerTurnOrderNum(gBattlerAttacker) == 0 && GetBattlerTurnOrderNum(gBattlerTarget) == 2)
+    {
+        gBattlerByTurnOrder[1] = gBattlerTarget;
+        gBattlerByTurnOrder[2] = data[1];
+        gBattlerByTurnOrder[3] = data[3];
+    }
+    else if (GetBattlerTurnOrderNum(gBattlerAttacker) == 0 && GetBattlerTurnOrderNum(gBattlerTarget) == 3)
+    {
+        gBattlerByTurnOrder[1] = gBattlerTarget;
+        gBattlerByTurnOrder[2] = data[1];
+        gBattlerByTurnOrder[3] = data[2];
+    }
+    else // Attacker == 1, Target == 3
+    {
+        gBattlerByTurnOrder[2] = gBattlerTarget;
+        gBattlerByTurnOrder[3] = data[2];
+    }
+    return TRUE;
+}
+
+static u32 CalculateBattlerPartyCount(u32 battler)
+{
+    u32 count;
+    if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+        count = CalculatePlayerPartyCount();
+    else
+        count = CalculateEnemyPartyCount();
+    return count;
+}
+
 #define VARIOUS_BS_COMMANDS
 
 static void atk76_various(void) //will need to add all these emerald various commands to the inc...
@@ -12471,33 +12567,14 @@ static void atk76_various(void) //will need to add all these emerald various com
     case VARIOUS_AFTER_YOU:
     {
         VARIOUS_ARGS(const u8 *failInstr);
-        if (GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget)
-            || GetBattlerTurnOrderNum(gBattlerAttacker) == GetBattlerTurnOrderNum(gBattlerTarget) + 1)
+        if (ChangeOrderTargetAfterAttacker())
         {
-            gBattlescriptCurrInstr = cmd->failInstr;
+            gSpecialStatuses[gBattlerTarget].afterYou = 1;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         }
         else
         {
-            for (i = 0; i < gBattlersCount; i++)
-                data[i] = gBattlerByTurnOrder[i];
-            if (GetBattlerTurnOrderNum(gBattlerAttacker) == 0 && GetBattlerTurnOrderNum(gBattlerTarget) == 2)
-            {
-                gBattlerByTurnOrder[1] = gBattlerTarget;
-                gBattlerByTurnOrder[2] = data[1];
-                gBattlerByTurnOrder[3] = data[3];
-            }
-            else if (GetBattlerTurnOrderNum(gBattlerAttacker) == 0 && GetBattlerTurnOrderNum(gBattlerTarget) == 3)
-            {
-                gBattlerByTurnOrder[1] = gBattlerTarget;
-                gBattlerByTurnOrder[2] = data[1];
-                gBattlerByTurnOrder[3] = data[2];
-            }
-            else
-            {
-                gBattlerByTurnOrder[2] = gBattlerTarget;
-                gBattlerByTurnOrder[3] = data[2];
-            }
-            gBattlescriptCurrInstr = cmd->nextInstr;
+            gBattlescriptCurrInstr = cmd->failInstr;
         }
         return;
     }
@@ -13282,7 +13359,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (gBattleMons[gBattlerAttacker].species == SPECIES_GRENINJA
             && GetBattlerAbility(gBattlerAttacker) == ABILITY_BATTLE_BOND
             && HasAttackerFaintedTarget()
-            && CalculateEnemyPartyCount() > 1)
+            && CalculateBattlerPartyCount(gBattlerTarget) > 1)
         {
             PREPARE_SPECIES_BUFFER(gBattleTextBuff1, gBattleMons[gBattlerAttacker].species);
             gBattleStruct->changedSpecies[GET_BATTLER_SIDE2(gBattlerAttacker)][gBattlerPartyIndexes[gBattlerAttacker]] = gBattleMons[gBattlerAttacker].species;
@@ -16940,10 +17017,61 @@ u8 CanMoveHitSwitchingTarget(u16 move)
     return FALSE;
 }
 
+u8 IsExemptFromPursuit(u32 battler)
+{
+    u16 move, ability;
+    move = gLastPrintedMoves[battler];
+    ability = GetBattlerAbility(battler);
+
+    if (move == MOVE_TELEPORT
+    || move == MOVE_BATON_PASS)
+        return TRUE;
+
+    else if (ability == ABILITY_RUN_AWAY
+    || ability == ABILITY_AVIATOR)
+        return TRUE;
+
+    return FALSE;
+}
+
+
+static bool32 TrySetTargetToNextPursuiter(u32 battlerDef)
+{
+    u32 i;
+    for (i = gCurrentTurnActionNumber + 1; i < gBattlersCount; i++)
+    {
+        u32 battler = gBattlerByTurnOrder[i];
+        if (gChosenActionByBattler[battler] == B_ACTION_USE_MOVE
+        && CanMoveHitSwitchingTarget(gChosenMoveByBattler[battler])
+        && IsBattlerAlive(battlerDef)
+        && IsBattlerAlive(battler)
+        && GetBattlerSide(battler) != GetBattlerSide(battlerDef)
+        && !(gBattleMons[battler].status1 & STATUS1_SLEEP)
+        && (gDisableStructs[battler].FrozenTurns == 0)    //new freeze check    /means not frozen
+        && !gDisableStructs[battler].truantCounter
+        && !IsExemptFromPursuit(battlerDef)
+        /*&& (B_PURSUIT_TARGET >= GEN_4 || *(gBattleStruct->moveTarget + battler) == battlerDef)
+        && !IsGimmickSelected(battler, GIMMICK_Z_MOVE)
+        && !IsGimmickSelected(battler, GIMMICK_DYNAMAX)
+        && GetActiveGimmick(battler) != GIMMICK_DYNAMAX*/
+        )
+        {
+            gBattlerTarget = battler;
+            return TRUE;
+        }
+
+    }
+    return FALSE;
+}
 //looks weird but pretty sure done this way,
 //because swaps attacker and target via command after this
 //no its because attacker is the one switching out
 //it switches target w attacker after so they can attack w the move
+//use glastusedmove to exclude things that pursuit shouldn't hit
+//ex find target, if last used move (can use that because should only work if slower anyway)
+//is teleport or baton pass, than set pursuit to false
+//actually use gLastPrintedMoves[gBattlerAttacker]
+//as that allows me to take battlerId argument
 static void atkBA_jumpifnopursuitswitchdmg(void)
 {
 
@@ -16957,9 +17085,10 @@ static void atkBA_jumpifnopursuitswitchdmg(void)
     of gchosemovebybattler I THINK it would be correct/accurate
     would just need a check for it not being on the same side as attacker
     */
-   s32 i;
-   bool8 canPursuit = FALSE;
-   for (i = 0; i < gBattlersCount; ++i)
+
+   u32 savedTarget = gBattlerTarget;
+
+   /*for (i = gCurrentTurnActionNumber + 1; i < gBattlersCount; ++i)
    {
         if (GetBattlerSide(gBattlerByTurnOrder[i]) != GetBattlerSide(gBattlerAttacker))
         {
@@ -16967,11 +17096,11 @@ static void atkBA_jumpifnopursuitswitchdmg(void)
             {
                 canPursuit = TRUE;
                 gBattlerTarget = gBattlerByTurnOrder[i];
-                gActionsByTurnOrder[i] = B_ACTION_TRY_FINISH;
+                //gActionsByTurnOrder[i] = B_ACTION_TRY_FINISH;
                 break;
             }
         }
-   }
+   }*/
    //if this works remove other use of canmovehitswitchtarget
    //works!!
    //but weird type bug also is still there
@@ -16983,25 +17112,25 @@ static void atkBA_jumpifnopursuitswitchdmg(void)
     //after I selected my switch target boosted pursuit hit me again...
     //hopefully.wait this would only stop it if I'm the last battler to move
     //idk what anymore, woah surprinsngly this actually worked
-   if (gCurrentTurnActionNumber > gBattlerTarget)
-    canPursuit = FALSE;
+    //...it doesn't work?
+   //if (gCurrentTurnActionNumber >= gBattlerTarget)
+   // canPursuit = FALSE;
 
     
 
-    if (gChosenActionByBattler[gBattlerTarget] == B_ACTION_USE_MOVE
-     && gBattlerAttacker == *(gBattleStruct->moveTarget + gBattlerTarget)
-     && !(gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP)// | STATUS1_FREEZE))
-     && (gDisableStructs[gBattlerTarget].FrozenTurns == 0)    //new freeze check    /means not frozen
-     && gBattleMons[gBattlerAttacker].hp
-     && !gDisableStructs[gBattlerTarget].truantCounter
-     && canPursuit)
+    if (TrySetTargetToNextPursuiter(gBattlerAttacker))
     {
-
-        gCurrentMove = gChosenMoveByBattler[gBattlerTarget];
-        gCurrMovePos = gChosenMovePos = *(gBattleStruct->chosenMovePositions + gBattlerTarget);
+        //This pair may not be strickly necessary
+        //gCurrentMove = gChosenMoveByBattler[gBattlerTarget];
+        //gCurrMovePos = gChosenMovePos = *(gBattleStruct->chosenMovePositions + gBattlerTarget);
+        ChangeOrderTargetAfterAttacker();
+        gBattleStruct->pursuitTarget = 1u << gBattlerAttacker;
+        gBattleStruct->pursuitSwitchByMove = gActionsByTurnOrder[gCurrentTurnActionNumber] == B_ACTION_USE_MOVE;
+        gBattleStruct->pursuitStoredSwitch = gBattleStruct->monToSwitchIntoId[gBattlerAttacker];
+        *(gBattleStruct->moveTarget + gBattlerTarget) = gBattlerAttacker;
+        gBattlerTarget = savedTarget;
         gBattlescriptCurrInstr += 5;
-        gBattleScripting.animTurn = 1;
-        gHitMarker &= ~(HITMARKER_ATTACKSTRING_PRINTED);
+
     }
     else
     {

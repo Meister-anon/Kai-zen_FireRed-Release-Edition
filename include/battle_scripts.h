@@ -322,6 +322,8 @@ extern const u8 BattleScript_MoveUsedHealBlockPrevents[];
 extern const u8 BattleScript_SlowStartEnds[];
 extern const u8 BattleScript_WonderGuardEnds[];
 extern const u8 BattleScript_SwitchLockEnds[];
+extern const u8 BattleScript_DoSwitchOut[];
+extern const u8 BattleScript_MoveSwitchOpenPartyScreen[];
 extern const u8 BattleScript_AquaRingHeal[];
 extern const u8 BattleScript_TurnHeal[];
 extern const u8 BattleScript_AnticipationActivates[];

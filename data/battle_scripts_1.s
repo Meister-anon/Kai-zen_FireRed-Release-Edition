@@ -2658,21 +2658,25 @@ BattleScript_MoveEndEscape::
 	goto BattleScript_HitEscapeEnd
 
 @thought had it but for some reason
-@doesn't become visible again
+@doesn't become visible again - was not due to script but the move anim
 BattleScript_MoveSwitch:
 	@jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_MoveSwitchEnd
 	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_MoveSwitchEnd
 	@put pursuit hit here
-BattleScript_MoveSwitchOpenPartyScreen:
-	openpartyscreen BS_ATTACKER, BattleScript_MoveSwitchEnd
 	printstring STRINGID_PKMNWENTBACK
 	@waitmessage B_WAIT_TIME_SHORT
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	jumpifnopursuitswitchdmg BattleScript_MoveSwitchDoSwitch
-	swapattackerwithtarget
+	@jumpifability BS_ATTACKER, ABILITY_RUN_AWAY, BattleScript_MoveSwitchDoSwitch
+	@jumpifability BS_ATTACKER, ABILITY_AVIATOR, BattleScript_MoveSwitchDoSwitch
+	jumpifnopursuitswitchdmg BattleScript_MoveSwitchOpenPartyScreen	@use glastusedmove to exclude things that pursuit shouldn't hit
+	@swapattackerwithtarget
 	trysetdestinybondtohappen	@check this, does it make sense, as bond only lasts till next action? ior is it specifically atk cancler?
-	call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
-	swapattackerwithtarget
+	@call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
+	@swapattackerwithtarget
+	end
+	
+BattleScript_MoveSwitchOpenPartyScreen::
+	openpartyscreen BS_ATTACKER, BattleScript_MoveSwitchEnd	@bug doesn't occur w this first
 BattleScript_MoveSwitchDoSwitch:
 	switchoutabilities BS_ATTACKER
 	waitstate
@@ -6858,9 +6862,11 @@ BattleScript_ActionSwitch::
 	hpthresholds2 BS_ATTACKER
 	printstring STRINGID_RETURNMON
 	@can put runaway avoiding pursuit here just jump to BattleScript_SkipPursuit vsonic
-	jumpifability BS_ATTACKER, ABILITY_RUN_AWAY, BattleScript_DoSwitchOut
-	jumpifability BS_ATTACKER, ABILITY_AVIATOR, BattleScript_DoSwitchOut
-	goto BattleScript_PursuitSwitch
+	@jumpifability BS_ATTACKER, ABILITY_RUN_AWAY, BattleScript_DoSwitchOut
+	@jumpifability BS_ATTACKER, ABILITY_AVIATOR, BattleScript_DoSwitchOut
+	@goto BattleScript_PursuitSwitch
+	jumpifnopursuitswitchdmg BattleScript_DoSwitchOut
+	end2
 
 @this is chosing which battler to check for pursuit
 @in double battle, is not compliant w modern setup
@@ -6870,11 +6876,12 @@ BattleScript_ActionSwitch::
 @would also be able to remove loop as their would be none - done
 BattleScript_PursuitSwitch::
 	jumpifnopursuitswitchdmg BattleScript_DoSwitchOut
-	swapattackerwithtarget
+	@swapattackerwithtarget
 	trysetdestinybondtohappen	@check this, does it make sense, as bond only lasts till next action? ior is it specifically atk cancler?
-	call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
-	swapattackerwithtarget
+	@call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
+	@swapattackerwithtarget
 BattleScript_DoSwitchOut::
+	trysetdestinybondtohappen	@think is right?
 	switchoutabilities BS_ATTACKER  @abilities that activate when switching out
 	waitstate
 	returnatktoball

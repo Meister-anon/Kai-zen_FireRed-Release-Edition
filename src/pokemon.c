@@ -4648,6 +4648,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     {
         gBattleMovePower *= 2;
     }
+
+    //should work for whatever move I use
+    if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
+        gBattleMovePower *= 2;
     
     if (gSpecialStatuses[battlerIdAtk].Lostresolve)
         gBattleMovePower = (gBattleMovePower * 75) / 100; //fix for iron will, pressure, hi pressure affect

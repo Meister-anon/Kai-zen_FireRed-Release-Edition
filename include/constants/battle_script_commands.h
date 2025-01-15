@@ -339,7 +339,8 @@
 #define MOVE_END_INFATUATION                       33  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE
 #define MOVE_END_NEXT_TARGET                       35 //was last value before count, in base firered
 #define MOVE_END_CLEAR_BITS						   36
-#define MOVE_END_COUNT							   37
+#define MOVE_END_PURSUIT_NEXT_ACTION               37
+#define MOVE_END_COUNT							   38
 
 // switch cases - PORTED right now not used, adding red card only for now
 #define B_SWITCH_NORMAL     0
