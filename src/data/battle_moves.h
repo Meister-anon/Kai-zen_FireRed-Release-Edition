@@ -2431,7 +2431,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
-    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
     .split = SPLIT_PHYSICAL,
 },
 
@@ -5373,9 +5373,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_GROUND_DMG_FLOATING,
         .split = SPLIT_SPECIAL,
-    },
+    }, //ranged attack so potentially FLAG_DMG_IN_AIR
+    
 
     [MOVE_POISON_TAIL] =
     {
@@ -6730,9 +6731,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_BALLISTIC | FLAG_GROUND_DMG_FLOATING,
         .split = SPLIT_SPECIAL,
     },
+    
 
     [MOVE_PSYCHO_CUT] =
     {
@@ -9658,9 +9660,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
-    },
+    },//Groudon Unique ability,  made flg dmg in air as in show move is shown to blast up from the ocean floor,
+    //high into the air... and other games describe it as being able to hit far away targets
 
     [MOVE_DRAGON_ASCENT] =
     {
@@ -12065,7 +12068,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,// | FLAG_WIND_MOVE,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
         ////.zMovePower = 175,
         ////.zMoveEffect = Z_EFFECT_NONE,
@@ -13642,7 +13645,7 @@ use wonder gaurd logic to determine its super effective
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GROUND_DMG_FLOATING,
         .split = SPLIT_PHYSICAL,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },//uses rollout animation

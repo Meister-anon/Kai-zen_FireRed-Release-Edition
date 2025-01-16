@@ -403,8 +403,8 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_POWDER_MOVE            (1 << 19)
 #define FLAG_TARGET_ABILITY_IGNORED (1 << 20)
 #define FLAG_DANCE                  (1 << 21)
-#define FLAG_DMG_2X_IN_AIR          (1 << 22) // If target is in the air, can hit and deal double damage.
-#define FLAG_DMG_IN_AIR             (1 << 23) // If target is in the air, can hit.
+#define FLAG_DMG_IN_AIR             (1 << 22) // If target is in the air, can hit.
+#define FLAG_DMG_2X_IN_AIR          (1 << 23) // If target is in the air, can hit and deal double damage.
 //#define FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING (1 << 24) // Makes a Ground type move do 1x damage to flying and levitating targets /realied already changed type so this doesn't do anything 
 //#define FLAG_THAW_USER                            (1 << 25) //since changed thaw to conditional effect can remove this
 //#define FLAG_TWO_STRIKES                          (1 << 27) // A move with this flag will strike twice, and may apply its effect on each hit //whgy is this necessary multihit already works that way?
@@ -414,6 +414,9 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_LETHAL_LEGS_BOOST      (1 << 27)  //hitmon lee ability kick move boost
 #define FLAG_ALWAYS_CRIT            (1 << 28)   //replace effect always crit do with flag check, simpler
 #define FLAG_SHARPNESS_AFFECTED     (1 << 29)
+#define FLAG_GROUND_DMG_FLOATING    (1 << 30)
+
+#define FLAG_GROUND_HITS_FLOATING   (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR | FLAG_GROUND_DMG_FLOATING)
 
 //thaw user and two strikes can be removed, FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING  can also be removed 
 //also flags are u32, so I beleive I can go up to 32 with this

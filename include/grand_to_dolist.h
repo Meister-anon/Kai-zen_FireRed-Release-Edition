@@ -2424,6 +2424,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also updated disguise w custom hp drop, for focus sash interaction,
     plus fixes for conversion like effects
     1/10/2025
+    Ground rebalance notes:
+    //could make idea it can't hit floating specifically because its gound based
+    //if the attack is ranged/can get off the ground can say hey it should be able to hit
+
+    //since maded grounded moves already have acc drop against flying, I guess its fine
+    //to be less selective on what ground moves can hit floating mon
+    //but this also means the moves have to hit mon in fly...
+    //floating is diff from flying, would make more sense to split off effect
+    //bonemerang makes sense to hit a flying mon but if a mon is high in the sky
+    //no way a mud slap/mud bomb would hit it
+    //plus they would ground the target,
+    //which doesn't always make sense, so yeah will separate 
+    //ground moves that dmg flying and ground moves that hit floating
+    //only those that dmg flying should do grounding effect
+    //but I somewhat need both more moves that ground flying, and that hit floating
+    //but not too many as that will just invalidate the mechanic..hmmm
+    make consolidate flag/macro like is in battle constants to be able to refer to all effects that hit floating
+    -did that also adjusted accuracy calc consolidated in gettotalyaccuracy now uniform between normal and ai file
+    1/15/2025
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?

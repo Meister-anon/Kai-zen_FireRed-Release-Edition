@@ -1763,6 +1763,12 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         JumpIfMoveFailed(7, move);
         return TRUE;
     }
+    else if (move == MOVE_SANDSEAR_STORM
+    && gBattleWeather & WEATHER_RAIN_ANY)
+    {
+        JumpIfMoveFailed(7, move);
+        return TRUE;
+    }
 
     /*if (!(gHitMarker & HITMARKER_IGNORE_ON_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
     {
@@ -1899,12 +1905,12 @@ static void atk01_accuracycheck(void)
 
     else
     {
-        u8 type, moveAcc, holdEffect, param;
-        s8 buff;
+        u8 type;
         u16 calc;
-        u8 evasionStage = gBattleMons[gBattlerTarget].statStages[STAT_EVASION];
-        s32 i;
-        u8 acc = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
+        u16 abilityAtk = GetBattlerAbility(gBattlerAttacker);
+        u16 abilityDef = GetBattlerAbility(gBattlerTarget);
+
+
 
         if (move == MOVE_NONE)
             move = gCurrentMove;
@@ -1912,256 +1918,17 @@ static void atk01_accuracycheck(void)
         if (JumpIfMoveAffectedByProtect(move) || AccuracyCalcHelper(move))
             return;
 
-        //this is default effect for keen eye so put sixth sense here
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_UNAWARE || GetBattlerAbility(gBattlerAttacker) == ABILITY_KEEN_EYE
-        || GetBattlerAbility(gBattlerAttacker) == ABILITY_SIXTH_SENSE)
-            evasionStage = DEFAULT_STAT_STAGE;
-        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
-            evasionStage = DEFAULT_STAT_STAGE;
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_UNAWARE)
-            acc = DEFAULT_STAT_STAGE;
-
-        if (gBattleMons[gBattlerTarget].status2 & STATUS2_FORESIGHT || gStatuses3[gBattlerTarget] & STATUS3_MIRACLE_EYED)    //if used foresight against target they can't evade
-        {
-            //u8 acc = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
-
-            buff = acc;
-        }
-        else
-        {
-            //u8 acc = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
-
-            buff = acc + DEFAULT_STAT_STAGE - evasionStage;
-        } //this the line that links accuracy and evasion I believe
-
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_UNAWARE)
-            buff = acc;
-
-
-        if (buff < MIN_STAT_STAGE)
-            buff = MIN_STAT_STAGE;
-        if (buff > MAX_STAT_STAGE)
-            buff = MAX_STAT_STAGE;
-        moveAcc = gBattleMoves[move].accuracy;
-
-        //cacophony boost
-        if (ShouldCacophonyBoostAccuracy(move))
-            moveAcc = 100;
+        calc = GetTotalAccuracy(
+            gBattlerAttacker,
+            gBattlerTarget,
+            move,
+            abilityAtk,
+            abilityDef,
+            holdEffectAtk,
+            GetBattlerHoldEffect(gBattlerTarget, TRUE)
+        );
 
         
-        
-
-        if (gCurrentMove == MOVE_FURY_CUTTER) { //still not quite right, doesn't display right message for things like wonderguard
-
-            //Logic for altering animation used in battle_anim_effects_2
-            if (gDisableStructs[gBattlerAttacker].furyCutterCounter == gMultiTask)
-                gDisableStructs[gBattlerAttacker].furyCutterCounter = 0;
-           
-            if (gDisableStructs[gBattlerAttacker].furyCutterCounter != gMultiTask)  //increment until reach 5
-               ++gDisableStructs[gBattlerAttacker].furyCutterCounter; //removing to test that it isn't incrementing twice. (it was)
-            
-            //acc drop effect
-            gDisableStructs[gBattlerAttacker].furyCutterAccDrop = moveAcc;
-
-                for (i = 1; i <= (gMultiTask - gMultiHitCounter); ++i) { //triggers on second hit, so i = 1 - current num hits, i =3 on4th hit
-                    
-                    if (i == 2) //should be 3rd hit
-                    {
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop = 95; //set 3rd hit to 95, 4th hit remains the same, set main acc to 100, to ensure first 2 hits land
-                    }
-                    
-                    if (i == 3) //makes only trigger onlast 4th hit, to slightly lower chance of landing 4th hit if you rolled it
-                   {
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop -= (i - 1); 
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop *= 92; //so far is working to stop the move,
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop /= 100;
-                   }  //makes 4th hit have 85 accuracy
-                 //if (i == 3) 
-                 //{/
-                 //   gDisableStructs[gBattlerAttacker].furyCutterAccDrop -= 16; //weighting for last 2 hits, only need to do for one i value as its all passed to next
-                 //}
-                    //gDisableStructs[gBattlerAttacker].furyCutterAccDrop *= 95; //so far is working to stop the move,
-                    //gDisableStructs[gBattlerAttacker].furyCutterAccDrop /= 100;  //may replace with just moveAcc  still don't know why not working
-                    
-                } //seems still overperforming potentially drop above 7 to a 8 or 9? or drop to third hit ni stead of 4th? by changing == 3 to ==2 ?  check later vsonic
-
-            moveAcc = gDisableStructs[gBattlerAttacker].furyCutterAccDrop;
-        } 
-
-        // check Thunder on sunny weather / need add hail blizzard buff?(IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_RAIN_ANY)
-        //don't rememeber why I used effect thunder instead of gcurrentmove
-        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
-            moveAcc = 65;   //make slightly more forgiving
-        // Check Wonder Skin.
-        if ((GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN
-        || GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND) 
-        && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
-            moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
-
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SPACE_CONTROL
-        && !IS_MOVE_STATUS(move))
-            moveAcc = 100;
-        
-
-        if (moveAcc > 100)
-            moveAcc = 100; // to prevent possible broken values.
-
-        calc = gAccuracyStageRatios[buff].dividend * moveAcc;
-        calc /= gAccuracyStageRatios[buff].divisor;
-
-        //with introduction of floating & flyign nerfs decide flying types
-        //need something extra to help them stand out
-        //came up with flying ace, idea flying gives you high ground and flying types
-        //are more manouvarble than any other floating mon,
-        //so flying types in air, should get an advantage against grounded mon
-        //everyone hates evasion mechanics so I'm not gonna go crazy here,
-        //just enough to make things miss that otherwise wouldn't
-        //adding exceptions since not in sandstorm sight is a factor
-        //thnk can drop this further looked at calc, and a single stage acc drop
-        //is 75% stacking sandstorm sandveil and this at 10% are 10% below that,
-        //and don't even equate to a 2 stage drop which is 60
-        //need to be careful, as it does acc drop without actually dropping stat stage
-        //don't want to overdo, but 5% drop at 95% is pretty much completely unnoticeable
-        //but it makes all accuracy drops more effective, cna treat like other games,
-        //marginal gains being the main focus not strength of individual effects
-        if (IsBattlerGrounded(gBattlerAttacker)
-        && !IsBattlerGrounded(gBattlerTarget)
-        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_KEEN_EYE
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE)
-            calc = (calc * 93) / 100;
-
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
-            || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   
-            calc = (calc * 130) / 100; // 1.3 compound eyes boost
-
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_VICTORY_STAR
-        ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
-            calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
-
-        //when I get around to it, safety goggles item should also go on these I thnk
-        //hold effect already set but think will just setup like umbrella
-        //done wrapped it into weather affected
-        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
-        && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
-        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
-            calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
-
-        //trap effect, //changed so doesn't stack w sandstorm
-        else if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
-        && IsBlackFogNotOnField())
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
-        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
-        {
-            calc = (calc * 90) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
-            //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
-        }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
-        //as special exclusions to strengthen affect/mechanic
-
-
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
-            calc = (calc * 80) / 100; // 1.2 sand veil loss
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
-            calc = (calc * 80) / 100; //
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_HUSTLE && IsPhysicalMove(gBattlerAttacker,move)) //can put status based evasion/accuracy effects here
-            calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
-        //since it uses accuract not evasion, I'll add an accuracy boost for different statuses.
-        // I'll use calc,  to adjust the move accuracy, but to avoid break, will include check that if moveAcc > 100  would instead moveAcc = 100.
-        //remember I plan to do this for more than just status 1.
-        // need a way to make sure I'm not raising evasiveness when appplying status, in case enemy evasion is lower than the level I would lower it beforehand.
-         //think I just need nest if, and have my default value in an else
-        if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFATUATED_WITH(gBattlerAttacker)) //need to figure out how to lower evasion to go along with these accuracy boosts.
-       //     calc = (calc * 160) / 100;
-            calc = (calc * 140) / 100;
-        if ((gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION) && GetBattlerAbility(gBattlerTarget) != ABILITY_TANGLED_FEET) //thought instead of self attack, make confusion chance to change move target to random
-         //   calc = (calc * 120) / 100; //that way they're still doing the same move, but they also have chance to hit attack themselves with it .
-            calc = (calc * 120) / 100; // with that there should be as much benefit as danger in being confused, singled moves could hit everyone, etc. random & interesting..
-        
-        //think want to change this to actual state stage drop, either +3 or +2 evasion boost
-        //just so it doesn't stack with other evasion boosts to do something crazy
-        //vsonic IMPORTANT
-        if ((GetBattlerAbility(gBattlerTarget) == ABILITY_TANGLED_FEET) && gBattleMons[gBattlerTarget].status2 & STATUS2_CONFUSION) 
-            calc = (calc * 50) / 100;//raises evasion double but evasion calcs different so thats +3 intead of +2
-        //12 stage base is 6 goes up to 12 & down to 0
-
-        if (gBattleMons[gBattlerTarget].status2 & STATUS2_WRAPPED)
-        //    calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
-            calc = (calc * 115) / 100;
-        if (gBattleMons[gBattlerTarget].status4 & ITS_A_TRAP_STATUS4)  //I hpoe this works
-        //    calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
-            calc = (calc * 115) / 100;
-        //vsonic
-        //don't use dodge pokeball effect when trapped, and add slight increase to catch chance, I think make it less than status chance but make it inclusive
-        //so they stack
-
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
-            if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_PSYCHIC)) //important chek this think have function for type checking
-                calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
-            else
-                //     calc = (calc * 260) / 100; // gBattleMoves[gCurrentMove].target that's the comamnd I need, then just set the target I want
-                calc = (calc * 160) / 100;//if I set it random % I can do more with it, I can make it use the normal confused hit itself, text command if it lands on target user.
-        }
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_BURN)
-            calc = (calc * 110) / 100;
-        
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_SPIRIT_LOCK)
-            calc = (calc * 110) / 100;
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_POISON) // I think I may remove the accuracy buff and just keep evasion drop, or make it more severe.
-       //     calc = (calc * 115) / 100; //depends on how evasion works, if lowered evasion alone increases chance of move hitting, then I don't need accuracy buff.
-            calc = (calc * 110) / 100;
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE)
-            calc = (calc * 160) / 100;
-            //evasionStage = 1;
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_PARALYSIS) //ok evasion and accuracy stages are put together, so I'll just use evasion.
-            calc = (calc * 130) / 100;
-        
-        if (gBattleMons[gBattlerTarget].status1 & STATUS1_TOXIC_POISON)
-        //    calc = (calc * 156) / 100;
-            calc = (calc * 115) / 100;
-
-        if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
-        {
-            holdEffect = gEnigmaBerries[gBattlerTarget].holdEffect;
-            param = gEnigmaBerries[gBattlerTarget].holdEffectParam;
-        }
-        else
-        {
-            holdEffect = GetBattlerHoldEffect(gBattlerTarget, TRUE);
-            param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
-        }
-        gPotentialItemEffectBattler = gBattlerTarget;
-
-        if (holdEffect == HOLD_EFFECT_EVASION_UP)
-            calc = (calc * (100 - param)) / 100;
-        if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_WIDE_LENS)
-            calc = (calc * (100 + ItemId_GetHoldEffectParam(gBattleMons[gBattlerAttacker].item))) / 100;
-        else if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_ZOOM_LENS && GetBattlerTurnOrderNum(gBattlerAttacker) > GetBattlerTurnOrderNum(gBattlerTarget))
-            calc = (calc * (100 + ItemId_GetHoldEffectParam(gBattleMons[gBattlerAttacker].item))) / 100;
-        
-        if (gProtectStructs[gBattlerAttacker].usedMicleBerry)
-        {
-            gProtectStructs[gBattlerAttacker].usedMicleBerry = FALSE;
-            if (GetBattlerAbility(gBattlerAttacker) == ABILITY_RIPEN)
-                calc = (calc * 140) / 100;  // ripen gives 40% acc boost
-            else
-                calc = (calc * 120) / 100;  // 20% acc boost
-        }
-
-        //since i boosted acc of most moves should I decrease this effect?
-        //consider changing to 1.4 incrase
-        if (gFieldStatuses & STATUS_FIELD_GRAVITY)
-            calc = (calc * 5) / 3; // 1.66 Gravity acc boost
         
         // final calculation
         if ((Random() % 100 + 1) > calc)    //turns accuracy value into a percent by comparing on a base 100 scale, by lowering random num I can effectively raise acc of all moves
@@ -2185,9 +1952,19 @@ static void atk01_accuracycheck(void)
             //unsure if needed but keeping for now
             //removed encountered new glitch of move not ending
 
-            //potentially put forewarn anticipation stuff here, realized what I'm doing is making it miss, 
-            //nto canceling the attack, ok issue was using this reset in move end multihit hmm
-
+            /*
+             if (gBattleMoves[gCurrentMove].effect == EFFECT_DRAGON_DARTS
+                && !recalcDragonDarts // So we don't jump back and forth between targets
+                && CanTargetPartner(gBattlerAttacker, gBattlerTarget)
+                && !TargetFullyImmuneToCurrMove(gBattlerAttacker, BATTLE_PARTNER(gBattlerTarget)))
+            {
+                // Smart target to partner if miss
+                gBattlerTarget = BATTLE_PARTNER(gBattlerTarget);
+                gMoveResultFlags &= ~MOVE_RESULT_MISSED;
+                AccuracyCheck(TRUE, nextInstr, failInstr, move);
+                return;
+            }
+            */
 
             //if (gBattleMoves[move].power)   //i ALREADY have a typecalc I don't need this to update move result flags I think?
             //am I using this at all?
@@ -2886,7 +2663,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
     //think can just remove that flag entirely freeing up more options for later
     //groudn is neutral to flying but just can't hit them if htey aren't grounded
     //so replace this check with just flag dmg_in_air which thousand arrows ALSO has
-    if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND && !(gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR) && !(gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR)) 
+    if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND && !(gBattleMoves[gCurrentMove].flags & FLAG_GROUND_HITS_FLOATING)) 
     {
         gMoveResultFlags |= (MOVE_RESULT_MISSED);
         gLastLandedMoves[gBattlerTarget] = 0;
@@ -3012,7 +2789,7 @@ static void CheckWonderGuardAndLevitate(void)   //can leave as it is, logic i ne
     GET_MOVE_TYPE(gCurrentMove, moveType);
     //&& !IsBattlerGrounded(battlerDef)
 
-    if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND && !(gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR))
+    if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND && !(gBattleMoves[gCurrentMove].flags & FLAG_GROUND_HITS_FLOATING))
     {
         gBattleCommunication[6] = B_MSG_GROUND_MISS;
         return;
@@ -3332,8 +3109,7 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
 
     if (!(IsBattlerGrounded(defender)) //set without ! it means if function is TRUE aka non-zero
         && moveType == TYPE_GROUND //just realized grounded already has conditions for levitate so I just need that.
-        && !(gBattleMoves[move].flags & FLAG_DMG_IN_AIR)
-        && !(gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR))
+        && !(gBattleMoves[move].flags & FLAG_GROUND_HITS_FLOATING))
     {
         flags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
     }
@@ -3420,7 +3196,7 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility) //facepalm was us
     multiplier = CalcTypeEffectivenessMultiplier(gCurrentMove, moveType, gBattlerAttacker, gBattlerTarget, FALSE); //cehck this if need change 
 
     if (!(IsBattlerGrounded(gBattlerTarget)) //set without ! it means if function is TRUE aka non-zero
-        && moveType == TYPE_GROUND && !(gBattleMoves[move].flags & FLAG_DMG_IN_AIR) && !(gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR))
+        && moveType == TYPE_GROUND && !(gBattleMoves[move].flags & FLAG_GROUND_HITS_FLOATING))
     {
         flags = MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE;
     }
@@ -8930,8 +8706,7 @@ static void atk4A_typecalc2(void)   //aight this is only for counter, mirror coa
        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
    }*/
     if (!(IsBattlerGrounded(gBattlerTarget)) && moveType == TYPE_GROUND
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR)
-        && !(gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR))
+        && !(gBattleMoves[gCurrentMove].flags & FLAG_GROUND_HITS_FLOATING))
     {
         gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
         gLastLandedMoves[gBattlerTarget] = 0;
@@ -9834,6 +9609,273 @@ static bool32 NoAliveMonsForOpponent(void)
 bool32 NoAliveMonsForEitherParty(void)
 {
     return (NoAliveMonsForPlayer() || NoAliveMonsForOpponent());
+}
+
+u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect)
+{
+        
+        s8 buff, evasionStage;
+        u32 calc, moveAcc, i;
+        u8 accStage = gBattleMons[battlerAtk].statStages[STAT_ACC];
+        u8 atkParam = GetBattlerHoldEffectParam(battlerAtk, gBattleMons[battlerAtk].item);
+        u8 defParam = GetBattlerHoldEffectParam(battlerDef, gBattleMons[battlerDef].item);
+
+        
+        gPotentialItemEffectBattler = battlerDef;
+        evasionStage = gBattleMons[battlerDef].statStages[STAT_EVASION];
+
+        if (atkAbility == ABILITY_UNAWARE || atkAbility == ABILITY_KEEN_EYE || atkAbility == ABILITY_SIXTH_SENSE)
+            evasionStage = DEFAULT_STAT_STAGE;
+        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
+            evasionStage = DEFAULT_STAT_STAGE;
+        if (defAbility == ABILITY_UNAWARE)
+            accStage = DEFAULT_STAT_STAGE;
+
+        if (gBattleMons[battlerDef].status2 & STATUS2_FORESIGHT || gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED)    //if used foresight against target they can't evade
+        {
+            //u8 accStage = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
+
+            buff = accStage;
+        }
+        else
+        {
+            //u8 accStage = gBattleMons[gBattlerAttacker].statStages[STAT_ACC];
+
+            buff = accStage + DEFAULT_STAT_STAGE - evasionStage;
+        } //this the line that links accuracy and evasion I believe
+
+        
+
+       
+
+        if (buff < MIN_STAT_STAGE)
+            buff = MIN_STAT_STAGE;
+        if (buff > MAX_STAT_STAGE)
+            buff = MAX_STAT_STAGE;
+
+        //trap effects - //remember plan to setup effect to persist post user switching out
+        /*if ((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB))  //hope works should lower accruacy 2 stages if trapped by sandtomb
+        {
+            accStage -= 2;
+        }*/
+
+        moveAcc = gBattleMoves[move].accuracy;
+         //think I just need nest if, and have my default value in an else
+
+        //cacophony boost
+        if (ShouldCacophonyBoostAccuracy(move))
+            moveAcc = 100;
+
+        
+        
+
+        if (gCurrentMove == MOVE_FURY_CUTTER) { //still not quite right, doesn't display right message for things like wonderguard
+
+            //Logic for altering animation used in battle_anim_effects_2
+            if (gDisableStructs[gBattlerAttacker].furyCutterCounter == gMultiTask)
+                gDisableStructs[gBattlerAttacker].furyCutterCounter = 0;
+           
+            if (gDisableStructs[gBattlerAttacker].furyCutterCounter != gMultiTask)  //increment until reach 5
+               ++gDisableStructs[gBattlerAttacker].furyCutterCounter; //removing to test that it isn't incrementing twice. (it was)
+            
+            //acc drop effect
+            gDisableStructs[gBattlerAttacker].furyCutterAccDrop = moveAcc;
+
+                for (i = 1; i <= (gMultiTask - gMultiHitCounter); ++i) { //triggers on second hit, so i = 1 - current num hits, i =3 on4th hit
+                    
+                    if (i == 2) //should be 3rd hit
+                    {
+                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop = 95; //set 3rd hit to 95, 4th hit remains the same, set main acc to 100, to ensure first 2 hits land
+                    }
+                    
+                    if (i == 3) //makes only trigger onlast 4th hit, to slightly lower chance of landing 4th hit if you rolled it
+                   {
+                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop -= (i - 1); 
+                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop *= 92; //so far is working to stop the move,
+                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop /= 100;
+                   }  //makes 4th hit have 85 accuracy
+                 //if (i == 3) 
+                 //{/
+                 //   gDisableStructs[gBattlerAttacker].furyCutterAccDrop -= 16; //weighting for last 2 hits, only need to do for one i value as its all passed to next
+                 //}
+                    //gDisableStructs[gBattlerAttacker].furyCutterAccDrop *= 95; //so far is working to stop the move,
+                    //gDisableStructs[gBattlerAttacker].furyCutterAccDrop /= 100;  //may replace with just moveAcc  still don't know why not working
+                    
+                } //seems still overperforming potentially drop above 7 to a 8 or 9? or drop to third hit ni stead of 4th? by changing == 3 to ==2 ?  check later vsonic
+
+            moveAcc = gDisableStructs[gBattlerAttacker].furyCutterAccDrop;
+        } 
+
+        // check Thunder on sunny weather / need add hail blizzard buff?(IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_RAIN_ANY)
+        //don't rememeber why I used effect thunder instead of gcurrentmove
+        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
+            moveAcc = 65;   //make slightly more forgiving
+        // Check Wonder Skin.
+        if ((GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN
+        || GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND) 
+        && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
+            moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
+
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SPACE_CONTROL
+        && !IS_MOVE_STATUS(move))
+            moveAcc = 100;
+        
+
+        if (moveAcc > 100)
+            moveAcc = 100; // to prevent possible broken values.
+
+        calc = gAccuracyStageRatios[buff].dividend * moveAcc;
+        calc /= gAccuracyStageRatios[buff].divisor;
+
+        //with introduction of floating & flyign nerfs decide flying types
+        //need something extra to help them stand out
+        //came up with flying ace, idea flying gives you high ground and flying types
+        //are more manouvarble than any other floating mon,
+        //so flying types in air, should get an advantage against grounded mon
+        //everyone hates evasion mechanics so I'm not gonna go crazy here,
+        //just enough to make things miss that otherwise wouldn't
+        //adding exceptions since not in sandstorm sight is a factor
+        //thnk can drop this further looked at calc, and a single stage acc drop
+        //is 75% stacking sandstorm sandveil and this at 10% are 10% below that,
+        //and don't even equate to a 2 stage drop which is 60
+        //need to be careful, as it does acc drop without actually dropping stat stage
+        //don't want to overdo, but 5% drop at 95% is pretty much completely unnoticeable
+        //but it makes all accuracy drops more effective, cna treat like other games,
+        //marginal gains being the main focus not strength of individual effects
+        if (IsBattlerGrounded(gBattlerAttacker)
+        && !IsBattlerGrounded(gBattlerTarget)
+        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_KEEN_EYE
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE)
+            calc = (calc * 93) / 100;
+
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
+            || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   
+            calc = (calc * 130) / 100; // 1.3 compound eyes boost
+
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_VICTORY_STAR
+        ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
+            calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
+
+        //when I get around to it, safety goggles item should also go on these I thnk
+        //hold effect already set but think will just setup like umbrella
+        //done wrapped it into weather affected
+        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+        && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
+        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+            calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
+
+        //trap effect, //changed so doesn't stack w sandstorm
+        if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
+        && IsBlackFogNotOnField())
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
+        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+        {
+            calc = (calc * 80) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
+            //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
+        }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
+        //as special exclusions to strengthen affect/mechanic
+        //realize that 75 is one stat stage drop, and since its temporary effect
+        //I think will make this 80% and have it actually stack w sandstorm
+        //at those levels its just slightly more than a full stat drop
+        //but again only for the duration of both effects
+
+
+        if (GetBattlerAbility(gBattlerTarget) == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
+            calc = (calc * 80) / 100; // 1.2 sand veil loss
+        if (GetBattlerAbility(gBattlerTarget) == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
+            calc = (calc * 80) / 100; //
+        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_HUSTLE && IsPhysicalMove(gBattlerAttacker,move)) //can put status based evasion/accuracy effects here
+            calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
+
+        
+        if (gBattleMons[battlerDef].status2 & STATUS2_INFATUATED_WITH(battlerAtk)) //need to figure out how to lower evasion to go along with these accuracy boosts.
+            calc = (calc * 140) / 100;
+           // evasionStage = 3;
+        if ((gBattleMons[battlerDef].status2 & STATUS2_CONFUSION) && defAbility != ABILITY_TANGLED_FEET) //thought instead of self attack, make confusion chance to change move target to random
+            calc = (calc * 120) / 100; //that way they're still doing the same move, but they also have chance to hit attack themselves with it .
+            //evasionStage = 5; // with that there should be as much benefit as danger in being confused, singled moves could hit everyone, etc. random & interesting..
+
+        if ((defAbility == ABILITY_TANGLED_FEET) && gBattleMons[battlerDef].status2 & STATUS2_CONFUSION)
+            calc = (calc * 50) / 100;
+            //evasionStage *= 2;//raises evasion double but evasion calcs different so thats +3 intead of +2
+        //12 stage base is 6 goes up to 12 & down to 0
+
+        if (gBattleMons[battlerDef].status2 & STATUS2_WRAPPED)
+                calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
+            //evasionStage = 3;
+        if (gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4)  //I hpoe this works
+            calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
+            //evasionStage = 3;
+        //if (gBattleMons[battlerDef].status1 & ITS_A_TRAP_STATUS1)  //I hpoe this works
+        //    calc = (calc * 115) / 100;//  should still select normally before hand, but it just change when executed.
+            //evasionStage = 3; //note need to add logic for trap effects for pokemon catching,
+            //don't use dodge pokeball effect when trapped, and add slight increase to catch chance, I think make it less than status chance but make it inclusive
+            //so they stack
+
+        if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
+            if (IS_BATTLER_OF_TYPE(battlerDef,TYPE_PSYCHIC)) //important chek this think have function for type checking
+                calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
+            else
+                //     calc = (calc * 260) / 100; // gBattleMoves[gCurrentMove].target that's the comamnd I need, then just set the target I want
+                calc = (calc * 160) / 100;//if I set it random % I can do more with it, I can make it use the normal confused hit itself, text command if it lands on target user.
+        }
+        if (gBattleMons[battlerDef].status1 & STATUS1_BURN)
+                   calc = (calc * 110) / 100;
+            //evasionStage = 4;
+        if (gBattleMons[battlerDef].status1 & STATUS1_SPIRIT_LOCK)
+            calc = (calc * 110) / 100;
+        if (gBattleMons[battlerDef].status1 & STATUS1_POISON) // I think I may remove the accuracy buff and just keep evasion drop, or make it more severe.
+            calc = (calc * 110) / 100; //depends on how evasion works, if lowered evasion alone increases chance of move hitting, then I don't need accuracy buff.
+         //   evasionStage = 4;
+        if (gBattleMons[battlerDef].status1 & STATUS1_FREEZE)
+            calc = (calc * 160) / 100;
+        if (gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS) //ok evasion and accuracy stages are put together, so I'll just use evasion.
+            calc = (calc * 130) / 100;
+          //  evasionStage = 3;
+        if (gBattleMons[battlerDef].status1 & STATUS1_TOXIC_POISON)
+            calc = (calc * 115) / 100;
+            //evasionStage = 3;
+
+
+        if (defHoldEffect == HOLD_EFFECT_EVASION_UP)
+            calc = (calc * (100 - defParam)) / 100;
+        // Attacker's hold effect - took cleaned up version from EE
+        switch (atkHoldEffect)
+        {
+        case HOLD_EFFECT_WIDE_LENS:
+            calc = (calc * (100 + atkParam)) / 100;
+            break;
+        case HOLD_EFFECT_ZOOM_LENS:
+            if (GetBattlerTurnOrderNum(battlerAtk) > GetBattlerTurnOrderNum(battlerDef))
+                calc = (calc * (100 + atkParam)) / 100;
+            break;
+        }
+
+        if (gProtectStructs[battlerAtk].usedMicleBerry)
+        {
+            gProtectStructs[battlerAtk].usedMicleBerry = FALSE;
+            if (atkAbility == ABILITY_RIPEN)
+                calc = (calc * 140) / 100;  // ripen gives 40% acc boost
+            else
+                calc = (calc * 120) / 100;  // 20% acc boost
+        }
+
+        if (gFieldStatuses & STATUS_FIELD_GRAVITY)
+            calc = (calc * 5) / 3; // 1.66 Gravity acc boost
+
+        return calc;
 }
 
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId)

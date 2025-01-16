@@ -11685,7 +11685,7 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     {
         modifier = UQ_4_12(0.0);
     }
-    else if ((moveType == TYPE_GROUND) && !IsBattlerGrounded(battlerDef) && !(gBattleMoves[move].flags & FLAG_DMG_IN_AIR) && !(gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR))
+    else if ((moveType == TYPE_GROUND) && !IsBattlerGrounded(battlerDef) && !(gBattleMoves[move].flags & FLAG_GROUND_HITS_FLOATING))
     {
         modifier = UQ_4_12(0.0);
         if (recordAbilities)

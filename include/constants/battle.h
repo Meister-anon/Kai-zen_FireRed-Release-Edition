@@ -235,6 +235,7 @@
     like I did w sleep, previously covered values 0, 1 , 2
     and sleep turn was ((num) << 0)
     //used bit logic to set, but I can just set it directly
+    when clear can make first value (1 << 0)  as that equates to 1
 
     don't want to mess w infatuate
     but can make space in confuse, lock confuse, and upraor
