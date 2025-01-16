@@ -198,13 +198,14 @@ struct ResourceFlags
 #define RESOURCE_FLAG_EMERGENCY_EXIT 8  //check how this used will prob do it differently for my implementation
 #define RESOURCE_FLAG_NEUTRALIZING_GAS 16 //works by doubling previous
 
+//vsonic important remmber bit fields can store max 2^bit value
+//ex bit 3  :3 is 2^3 = 8 can store 8 values between 0-7
 struct DisableStruct    //reset only on switch and faint, -defeatist needs to be here - not necessarily..
 {
     /*0x00*/ //u32 transformedMonPersonality; //src of gTransformedPersonalities
     /*0x04*/ u16 disabledMove;
     /*0x06*/ u16 encoredMove;
     /*0x08*/ u8 protectUses;
-    /*0x09*/ u8 stockpileCounter:2; //group
     u16 transformedViaAbility; //story ability if used ability to transform, for properly showing shininess of sprite
     s8 stockpileDef;    //vsonic still to setup
     s8 stockpileSpDef;
@@ -212,20 +213,22 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     s8 stockpileBeforeSpDef;
     /*0x0A*/ u8 substituteHP;
     /*0x0B*/ u8 disableTimer : 4;
-    /*0x0C*/ u8 encoredMovePos;
-    /*0x0E*/ u8 encoreTimer : 4;
+    /*0x0C*/ u8 encoreTimer : 4;
+    /*0x0E*/ u8 encoredMovePos;
     /*0x0F*/ u8 perishSongTimer : 4;
+             u8 tauntTimer : 4;
     /*0x10*/ u8 furyCutterCounter;  //apparently still need for anim task in anim_effects_2  //for some reason task is broken not switching hits
              u16 furyCutterAccDrop; //need for acc drop to keep value 
     /*0x11*/ u8 rolloutTimer : 4;
     /*0x11*/ u8 rolloutTimerStartValue : 4; //this one is relevant as its used to decide the animation/power, tell it how many turns have elapsed
-    /*0x13*/ u8 tauntTimer : 4;
+    /*0x13*/ 
     /*0x14*/ u8 battlerPreventingEscape;
     /*0x15*/ u8 battlerWithSureHit;
     /*0x16*/ u8 isFirstTurn:2; //group
              u8 unk18_a_2 : 1; //group
              u8 EmergencyExitTimer:1;
              u8 FrozenTurns:2; //group  //made w sleep timer and stockpile together in mind
+             u8 stockpileCounter:2; //group
     /*0x17*/ u8 unk17;
     /*0x18*/ u8 truantCounter : 1;
     /*0x18*/ u8 sleepCounter : 1;
@@ -233,7 +236,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     /*0x18*/ u8 truantSwitchInHack : 1; // unused? 
     /*0x18*/ 
     /*0x18*/ u8 mimickedMoves : 4;
-    /*0x19*/ u8 rechargeTimer; //would use 1
     //u8 toxicTurn; //wit change to statusnig will need move aqua ring ingrain and toxic turn counters to differnet way
     u8 ingrainTurn;
     u8 aquaringTurn;
@@ -243,6 +245,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 tarShot : 1;
     u8 octolock : 1;
     u8 defeatistActivated : 1;      // moved here, keep defeatist hp drop from reactivating
+    u8 usedMoves : 4; //have iondelug in field timers already
     //u8 slowStartTimer;  //move to singleuseabilitytimer
     //u8 embargoTimer; moved to gsidetimers
     u8 magnetRiseTimer;
@@ -251,7 +254,6 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 throatChopTimer;
     u8 trenchRunTimer; //timer for trench run, 4 turns end turn decrement
     u8 RoostTimer; // to set random % 4 effect after use roost setup iondelluge the same remove random make constant
-    u8 usedMoves : 4; //have iondelug in field timers already
     u8 wrapTurns;  //turn counter for wrap 
     u8 bindTurns;  // turn counter for bind
     u8 clampTurns;
@@ -269,9 +271,15 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 forewarnedBattler;
     u16 anticipatedMove;    //for storing move from anticipation ability
     u8 ActivatedWeightedGi:1; //should make 1 bit, bitfied
-    u8 SwitchBinding:4; //timer rn just for spirit shackle escape prevent effect timer set tmier to 4 so 3 full turns of bind
-    u8 pad:3; //if correct above should be 3 turns
-    u8 hasSwitchinActivated; //use for switch in end turn check
+    //u8 SwitchBinding:4; //timer rn just for spirit shackle escape prevent effect timer set tmier to 4 so 3 full turns of bind ...this is 2^bit not bit is max value *facepalm
+    u8 SwitchBinding:2;
+    u8 ConfusionTurns:3; //if correct above should be 3 turns
+    u8 buffer:2;
+    u8 rechargeTimer:1; //would use 1, just need change decrement condition
+    u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
+    u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
+    u8 padding:3;
+    u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer

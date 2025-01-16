@@ -4545,7 +4545,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
                     || gBattleMons[otherSkyDropper].status2 & STATUS2_CONFUSION
                     || IsBattlerTerrainAffected(otherSkyDropper, STATUS_FIELD_MISTY_TERRAIN)))
                 {
-                    gBattleMons[otherSkyDropper].status2 |= STATUS2_CONFUSION_TURN(((Random()) % 4) + 2);
+                    gDisableStructs[otherSkyDropper].ConfusionTurns = ((Random()% 4) + 2);
                     gBattlerAttacker = otherSkyDropper;
                     gBattlescriptCurrInstr = BattleScript_ThrashConfuses - 2;
                 }
@@ -5320,7 +5320,7 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     //of not skipping player choice if need recharge
                     //should allow player choose action, good it works perfectly
                     if (gBattleMons[gActiveBattler].status2 & STATUS2_MULTIPLETURNS)
-                    // || gBattleMons[gActiveBattler].status2 & STATUS2_RECHARGE)
+                    // || gDisableStructs[gActiveBattler].rechargeTimer)
                     {
                         gChosenActionByBattler[gActiveBattler] = B_ACTION_USE_MOVE; //skip to use move
                         gBattleCommunication[gActiveBattler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
@@ -6137,12 +6137,23 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
 
             if (gDisableStructs[gActiveBattler].isFirstTurn) //starts at 2, think this decrements so its no longer switch in?
                 --gDisableStructs[gActiveBattler].isFirstTurn;
-            if (gDisableStructs[gActiveBattler].rechargeTimer)
+
+            //if (!(gBattleMons[gActiveBattler].status2 & STATUS2_LOCK_CONFUSE))
+            //    gDisableStructs[gActiveBattler].rampageMoveTurns = 0;
+            
+            //confusing but pretty sure even without my change
+            //by default this was never used to clear the effect it got cleared in atk canceler?
+           /*if (gDisableStructs[gActiveBattler].rechargeTimer)
             {
                 --gDisableStructs[gActiveBattler].rechargeTimer;
+                
+            }
+            else
+            {
                 if (gDisableStructs[gActiveBattler].rechargeTimer == 0)
                     gBattleMons[gActiveBattler].status2 &= ~(STATUS2_RECHARGE);
-            }
+            }*/
+           //removed recharge logic just leaving to be handled in atk canceler
                 
         }
         if (gDisableStructs[gActiveBattler].substituteHP == 0)
@@ -6785,7 +6796,7 @@ static void HandleAction_UseMove(void)
         gHitMarker |= HITMARKER_NO_PPDEDUCT;
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(MOVE_STRUGGLE, 0);
     }
-    else if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS || gBattleMons[gBattlerAttacker].status2 & STATUS2_RECHARGE)
+    else if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS || gDisableStructs[gBattlerAttacker].rechargeTimer)
     {
         gCurrentMove = gChosenMove = gLockedMoves[gBattlerAttacker];
     }

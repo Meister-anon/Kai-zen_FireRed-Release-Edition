@@ -930,6 +930,7 @@ void CancelMultiTurnMoves(u8 battler)
         if (gBattleMons[otherSkyDropper].status2 & STATUS2_LOCK_CONFUSE && gBattleStruct->turnEffectsTracker != ENDTURN_YAWN)
         {
             gBattleMons[otherSkyDropper].status2 &= ~(STATUS2_LOCK_CONFUSE); //had replace setup above with constant as changed order of effects
+            gDisableStructs[otherSkyDropper].rampageMoveTurns = 0;
 
             // If the target can be confused, confuse them.
             // Don't use CanBeConfused, can cause issues in edge cases.
@@ -938,7 +939,8 @@ void CancelMultiTurnMoves(u8 battler)
                 || IsBattlerTerrainAffected(otherSkyDropper, STATUS_FIELD_MISTY_TERRAIN)))
             {
                 // Set confused status
-                gBattleMons[otherSkyDropper].status2 |= STATUS2_CONFUSION_TURN(((Random()) % 4) + 2);   //2-5 turn value for confusion
+                gDisableStructs[otherSkyDropper].ConfusionTurns = ((Random() % 4) + 2);   //2-5 turn value for confusion
+                gBattleMons[otherSkyDropper].status2 |= STATUS2_CONFUSION;
 
                 // If this CancelMultiTurnMoves is occuring due to attackcanceller
                 if (gBattlescriptCurrInstr[0] == 0x0)
@@ -3085,7 +3087,11 @@ u8 DoBattlerEndTurnEffects(void)
                     else
                     {
                     gBattlerAttacker = gActiveBattler;
-                    gBattleMons[gActiveBattler].status2 -= STATUS2_UPROAR_TURN(1);  // uproar timer goes down
+                    //gBattleMons[gActiveBattler].status2 -= STATUS2_UPROAR_TURN(1);  // uproar timer goes down
+                    //realized since statustimer was status I have to both manually set it, and turn it off
+                    if (--gDisableStructs[gActiveBattler].uproarTurns == 0)
+                        gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_UPROAR);
+
                     if (WasUnableToUseMove(gActiveBattler))
                     {
                         CancelMultiTurnMoves(gActiveBattler);
@@ -3112,7 +3118,9 @@ u8 DoBattlerEndTurnEffects(void)
             // Don't decrement STATUS2_LOCK_CONFUSE if the target is held by Sky Drop
             if (gBattleMons[gActiveBattler].status2 & STATUS2_LOCK_CONFUSE && !(gStatuses3[gActiveBattler] & STATUS3_SKY_DROPPED))
             {
-                gBattleMons[gActiveBattler].status2 -= STATUS2_LOCK_CONFUSE_TURN(1);
+                if (--gDisableStructs[gActiveBattler].rampageMoveTurns == 0)
+                    gBattleMons[gActiveBattler].status2 &= ~STATUS2_LOCK_CONFUSE;
+
                 if (WasUnableToUseMove(gActiveBattler))
                     CancelMultiTurnMoves(gActiveBattler);
                 else if (!(gBattleMons[gActiveBattler].status2 & STATUS2_LOCK_CONFUSE)
@@ -4037,10 +4045,9 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_RECHARGE: // recharge
-            if (gBattleMons[gBattlerAttacker].status2 & STATUS2_RECHARGE) //add clause for new dialga ability
+            if (gDisableStructs[gBattlerAttacker].rechargeTimer)
             {
-                gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_RECHARGE);
-                gDisableStructs[gBattlerAttacker].rechargeTimer = 0;
+                gDisableStructs[gBattlerAttacker].rechargeTimer = 0; //??? what? timer is set in end turn to 2, decremnts to 1, but in canceler gets set to 0? and status is removed?
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gBattlescriptCurrInstr = BattleScript_MoveUsedMustRecharge;
                 gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -4185,12 +4192,12 @@ u8 AtkCanceller_UnableToUseMove(void)
             { //users most likely won't notice the difference unless they attack themselves
                 u16 rando = Random() % 4;
                 u8 target = gBattleMoves[gCurrentMove].target;
-                --gBattleMons[gBattlerAttacker].status2;    //nvm couldn't put bug clause above this line, or confusion wouldn't decrement & be permanent
+                --gDisableStructs[gBattlerAttacker].ConfusionTurns;    //nvm couldn't put bug clause above this line, or confusion wouldn't decrement & be permanent
 
                 if (IsBlackFogNotOnField())
                 {
 
-                    if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION) //&& !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG))
+                    if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION && gDisableStructs[gBattlerAttacker].ConfusionTurns) //&& !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG))
                     {// idea cammymealtee trying setup so tangled feet like bug gets confused but never hits themselves
                         if (!(IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG)) && GetBattlerAbility(gBattlerAttacker) != ABILITY_TANGLED_FEET
                         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE) //moved bug exclusion to here, so goes through animations
@@ -4255,6 +4262,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                     else // snapped out of confusion
                     {
                         BattleScriptPushCursor();
+                        gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_CONFUSION; //remove confusion as need manually do that now that using timer
                         gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfusedNoMore;
                     }
                     effect = 1;

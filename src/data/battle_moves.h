@@ -5518,7 +5518,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_7
             .accuracy = 90,
-            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_2X_IN_AIR, //bsaed on similarity to rock throw
+            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR, //bsaed on similarity to rock throw
         #elif B_UPDATED_MOVE_DATA == GEN_5 || B_UPDATED_MOVE_DATA == GEN_6
             .accuracy = 90,
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -5535,6 +5535,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
     }, //give to sandshrew
+    //considering if should downgrade to just dmg in air, fly is rare
+    //but doubling damage effectively turns this into explosion,
+    //and logically you wouldn't hit all 5, yeah this shoul just be hit in air
 
     [MOVE_SHOCK_WAVE] =
     {
@@ -6468,7 +6471,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
     },
 
@@ -12346,6 +12349,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_NONE,
         // Supposedly uncallable by Metronome, but dubious
     },
+    //should  be status2, but isn't passed by baton pass
 
     [MOVE_TRIPLE_DIVE] =
     {

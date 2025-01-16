@@ -823,7 +823,6 @@ static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
     [MOVE_EFFECT_UPROAR] = STATUS2_UPROAR,
     [MOVE_EFFECT_CHARGING] = STATUS2_MULTIPLETURNS,
     [MOVE_EFFECT_WRAP] = STATUS2_WRAPPED,
-    [MOVE_EFFECT_RECHARGE] = STATUS2_RECHARGE,
     [MOVE_EFFECT_PREVENT_ESCAPE] = STATUS2_ESCAPE_PREVENTION,
     [MOVE_EFFECT_SWITCH_LOCKED] = STATUS2_SWITCH_LOCKED,
     [MOVE_EFFECT_NIGHTMARE] = STATUS2_NIGHTMARE,
@@ -4933,11 +4932,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 else
                 {
                     if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted)
-                        gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION_TURN(5);
+                        gDisableStructs[gEffectBattler].ConfusionTurns = 5;
                     else
-                        gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION_TURN(((Random()) % 4) + 2); //think this odds for confusion duration again 2-5
+                        gDisableStructs[gEffectBattler].ConfusionTurns = ((Random() % 4) + 2); //think this odds for confusion duration again 2-5
                     // If the confusion is activating due to being released from Sky Drop, go to "confused due to fatigue" script.
                     // Otherwise, do normal confusion script.
+                    //ok confusion turn etc. set the base status as well, so without it I need to manually set status
+                    gBattleMons[gEffectBattler].status2 |= STATUS2_CONFUSION;
                         if (gCurrentMove == MOVE_SKY_DROP)
                         {
                             gBattleMons[gEffectBattler].status2 &= ~(STATUS2_LOCK_CONFUSE);
@@ -4977,8 +4978,10 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 if (!(gBattleMons[gEffectBattler].status2 & STATUS2_UPROAR))
                 {
                     gBattleMons[gEffectBattler].status2 |= STATUS2_MULTIPLETURNS;
+                    gBattleMons[gEffectBattler].status2 |= STATUS2_UPROAR;
                     gLockedMoves[gEffectBattler] = gCurrentMove;
-                    gBattleMons[gEffectBattler].status2 |= ((Random() & 3) + 2) << 4;   //believe means 2-5
+                    //gBattleMons[gEffectBattler].status2 |= ((Random() & 3) + 2) << 4;   //believe means 2-5
+                    gDisableStructs[gEffectBattler].uproarTurns = 3;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 }
@@ -5425,8 +5428,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_RECHARGE:
-                gBattleMons[gEffectBattler].status2 |= STATUS2_RECHARGE;
-                gDisableStructs[gEffectBattler].rechargeTimer = 2;
+                gDisableStructs[gEffectBattler].rechargeTimer = 1;
                 gLockedMoves[gEffectBattler] = gCurrentMove;
                 ++gBattlescriptCurrInstr;
                 break;
@@ -5553,7 +5555,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
                 break;
             case MOVE_EFFECT_THRASH:
-                if (gBattleMons[gEffectBattler].status2 & STATUS2_LOCK_CONFUSE)
+                if (gBattleMons[gEffectBattler].status2 & STATUS2_LOCK_CONFUSE) //move effect thrash sets status lock confusion I think? so do nothing if already set?
                 {
                     ++gBattlescriptCurrInstr;
                 }
@@ -5561,7 +5563,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 {
                     gBattleMons[gEffectBattler].status2 |= STATUS2_MULTIPLETURNS;
                     gLockedMoves[gEffectBattler] = gCurrentMove;
-                    gBattleMons[gEffectBattler].status2 |= STATUS2_LOCK_CONFUSE_TURN((Random() & 1) + 2);   //thrash for 2-3 turns
+                    gBattleMons[gEffectBattler].status2 |= STATUS2_LOCK_CONFUSE;   //thrash for 2-3 turns
+                    gDisableStructs[gEffectBattler].rampageMoveTurns = ((Random() & 1) + 2); //thrash for 2-3 turns
                 }
                 break;
             /*case MOVE_EFFECT_KNOCK_OFF:
@@ -7988,7 +7991,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             {           //result no effect didn't work so replace w target must take dmg
                 //double checked and EE uses them together for some reason
                 if (((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
-                || (gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)   //using fly
+                || ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR))   //using fly
                 {
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
                     gSprites[gBattlerSpriteIds[gBattlerTarget]].invisible = FALSE;
@@ -9878,6 +9881,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         return calc;
 }
 
+//vsonic no brain power left look later
+//into why this clears destiny bond, action yes no?
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId)
 {
     gBattleMons[battlerId].status2 &= ~STATUS2_DESTINY_BOND;
@@ -18894,7 +18899,7 @@ static void atkEF_handleballthrow(void) //important changed
                 odds += (odds / 10);
             if (gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
                 odds += (odds / 10);
-            if (gBattleMons[gBattlerTarget].status2 & STATUS2_RECHARGE)
+            if (gDisableStructs[gBattlerTarget].rechargeTimer)
                 odds += (odds / 4);
 
             if (gLastUsedItem != ITEM_SAFARI_BALL)

@@ -2424,6 +2424,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also updated disguise w custom hp drop, for focus sash interaction,
     plus fixes for conversion like effects
     1/10/2025
+
+    Presently trying to identify stat change bug
+    raising stat via moody/early bird causes next status move to take prior stat Id
+    instead of its own.
+    have been notifid effect has never existied in EE, its something I did.
+    1/15/2025
+
+    redid status effects further update dmg in air moves
+    redid recharge, confusion rampage moves like thrash 
+    and lastly upraor to open up about 6 status2 slots.
+
     Ground rebalance notes:
     //could make idea it can't hit floating specifically because its gound based
     //if the attack is ranged/can get off the ground can say hey it should be able to hit

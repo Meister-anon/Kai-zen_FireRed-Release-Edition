@@ -198,17 +198,24 @@
 // Volatile status ailments
 // These are removed after exiting the battle or switching out
 //from what I see game is only set up to display status animations for status 1 & status2 staus...but then leech seed works and its status3?
-#define STATUS2_CONFUSION             (1 << 0 | 1 << 1 | 1 << 2)
-#define STATUS2_CONFUSION_TURN(num)   ((num) << 0)
+//if everything works will most likely reorganize
+//so free space is at the bottom
+#define STATUS2_CONFUSION             (1 << 0)
+#define STATUS2_FREESPACE             (1 << 1)
+#define STATUS2_BLANK                 (1 << 2)
+//#define STATUS2_CONFUSION_TURN(num)   ((num) << 0)
 #define STATUS2_FLINCHED              (1 << 3)
-#define STATUS2_UPROAR                (1 << 4 | 1 << 5 | 1 << 6)
-#define STATUS2_UPROAR_TURN(num)      ((num) << 4)
+#define STATUS2_UPROAR                (1 << 4)
+#define STATUS2_BLANK_SPACE           (1 << 5)
+#define STATUS2_NOTHING               (1 << 6)
+//#define STATUS2_UPROAR_TURN(num)      ((num) << 4)
 #define STATUS2_EMERGENCY_EXIT        (1 << 7)	//use for emergency exit
 #define STATUS2_BIDE                  (1 << 8) //w timer don't need take up 8 and 9 //will prob eventually remove all timer flags replace w struct values
 #define STATUS2_SWITCH_LOCKED         (1 << 9)// new status for spirit shackle, escape prevention on a timer, not locked to battler
 //#define STATUS2_BIDE_TURN(num)        (((num) << 8) & STATUS2_BIDE)
-#define STATUS2_LOCK_CONFUSE          (1 << 10 | 1 << 11) // e.g. Thrash
-#define STATUS2_LOCK_CONFUSE_TURN(num)((num) << 10)
+#define STATUS2_LOCK_CONFUSE          (1 << 10) // e.g. Thrash
+#define STATUS2_UNUSED                (1 << 11)
+//#define STATUS2_LOCK_CONFUSE_TURN(num)((num) << 10) //this isn't the confusion effect this is how many turns outrage/thrash/petal dance lasts which should be 2-3 turns
 #define STATUS2_MULTIPLETURNS         (1 << 12) //wrapped is wrap & bide  / separting just wrap, think plan put wrap into status4 so all traps together
 #define STATUS2_WRAPPED               (1 << 13)	//make individual wrapped for each, but all use same wrap turn counter / cant usesame counter and multi trap so this will just be wrap
 //#define STATUS2_WRAPPED_TURN(num)     ((num) << 13)	//left shift value is starting point of status wrapped
@@ -218,7 +225,7 @@
 #define STATUS2_INFATUATED_WITH(battler) (gBitTable[battler] << 16)
 #define STATUS2_FOCUS_ENERGY          (1 << 20)
 #define STATUS2_TRANSFORMED           (1 << 21)
-#define STATUS2_RECHARGE              (1 << 22)
+#define STATUS2_PLACEHOLDER           (1 << 22) //removing recharge as a status, as all of its logic can be done w the timer...
 #define STATUS2_RAGE                  (1 << 23)
 #define STATUS2_SUBSTITUTE            (1 << 24)
 #define STATUS2_DESTINY_BOND          (1 << 25)
@@ -247,7 +254,7 @@
 //rage , escape prevention, and torment don't work, ok this seems to be issues w the debugger
 //surprisingly enough and not actually my macro
 #define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_FLINCHED | STATUS2_UPROAR | STATUS2_BIDE | STATUS2_LOCK_CONFUSE\
-| STATUS2_MULTIPLETURNS | STATUS2_WRAPPED | STATUS2_INFATUATION | STATUS2_RECHARGE | STATUS2_RAGE\
+| STATUS2_MULTIPLETURNS | STATUS2_WRAPPED | STATUS2_INFATUATION | STATUS2_RAGE\
 | STATUS2_ESCAPE_PREVENTION | STATUS2_TORMENT)
 
 // Seems like per-battler statuses. Not quite sure how to categorize these
