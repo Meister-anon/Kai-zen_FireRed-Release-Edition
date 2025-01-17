@@ -1968,9 +1968,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro eeriespellppreduce ptr:req
+	.macro eeriespellppreduce failInstr:req
 	various BS_TARGET, VARIOUS_EERIE_SPELL_PP_REDUCE
-	.4byte \ptr
+	.4byte \failInstr
 	.endm
 
 	.macro jumpifteamhealthy battler:req, ptr:req

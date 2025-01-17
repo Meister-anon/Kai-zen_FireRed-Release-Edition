@@ -2987,26 +2987,7 @@ BattleScript_SkipToDmgPhase:
 
 	@for some reason this is ALWAYS defaulting to moveresult not effective
 BattleScript_EffectAbsorb::  @need setup multi task also make ghost with liquid ooze for extra troll...CURSOLA!
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
- 	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_EffectHit_Ret
 	jumpifhealblock BS_ATTACKER, BattleScript_AbsorbHealBlock
 	sethpdrain	@ should change battlemovedamage to half hp dealt, something weird here, removing below but setting this causes freeze
 	manipulatedamage DMG_BIG_ROOT		@should be making negatiev, but isn't, instead just does something weird with animation triwes to play animation again
@@ -4441,32 +4422,11 @@ BattleScript_EffectSpite::
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectEerieSpell::	@excluded from multitask
-	attackcanceler
-	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
-	tryspiteppreduce BattleScript_HitFromAtkString	@jumps if fails to reduce pp, would activate multitask, but is fine since it wont reduce pp.
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_PKMNREDUCEDPP
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	setmoveeffectwithchance
-	setargumentwithchance
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, 0, NULL
+	eeriespellppreduce BattleScript_MoveEnd
+	printstring STRINGID_PKMNREDUCEDPP
+	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectHealBell::
@@ -8072,6 +8032,33 @@ BattleScript_Pressure_IronWill_LostResolve::
 	playanimation BS_ATTACKER, B_ANIM_TARGET_SCARED, NULL
 	@cancelmultiturnmoves BS_ATTACKER	@shouldnt cancel as attack is still going off just weakened
 	return
+	
+@vsonic need add stuff
+BattleScript_EffectSaltCure::
+	call BattleScript_EffectHit_Ret
+	@tryfaintmon BS_TARGET, 0, NULL
+	@jumpiffainted BS_TARGET, TRUE, BattleScript_EffectSaltCure_End
+	jumpifsubstituteblocks BattleScript_EffectSaltCure_End
+	@applysaltcure BS_TARGET
+	@printstring STRINGID_TARGETISBEINGSALTCURED
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_EffectSaltCure_End:
+	goto BattleScript_MoveEnd
+
+BattleScript_SaltCureExtraDamage::
+	@playanimation BS_TARGET, B_ANIM_SALT_CURE_DAMAGE, NULL
+	@waitanimation
+	call BattleScript_HurtTarget_NoString
+	@printstring STRINGID_TARGETISHURTBYSALTCURE
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_HurtTarget_NoString:
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	tryfaintmon BS_TARGET, 0, NULL
+	return
 
 BattleScript_PowderMoveNoEffect::
 	attackstring
@@ -10090,54 +10077,16 @@ BattleScript_HyperspaceFuryRemoveProtect::
 	return
 
 BattleScript_EffectPlasmaFists:
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	setmoveeffectwithchance
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
-	applyplasmafists
+	orword gFieldStatuses, STATUS_FIELD_ION_DELUGE
+	@applyplasmafists
 	printstring STRINGID_IONDELUGEON
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectSparklySwirl:
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	healpartystatus
 	waitstate
@@ -10146,27 +10095,7 @@ BattleScript_EffectSparklySwirl:
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectFreezyFrost:
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	tryfaintmon BS_TARGET, FALSE, NULL
+	call BattleScript_EffectHit_Ret
 	normalisebuffs
 	printstring STRINGID_STATCHANGESGONE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -10174,26 +10103,7 @@ BattleScript_EffectFreezyFrost:
 
 BattleScript_EffectSappySeed:
 	jumpifstatus3 BS_TARGET, STATUS3_LEECHSEED, BattleScript_EffectHit
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	jumpifhasnohp BS_TARGET, BattleScript_MoveEnd
 	setseeded
@@ -10203,26 +10113,7 @@ BattleScript_EffectSappySeed:
 
 BattleScript_EffectBaddyBad:
 	jumpifsideaffecting BS_ATTACKER, SIDE_STATUS_REFLECT, BattleScript_EffectHit
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	setreflect
 	printfromtable gReflectLightScreenSafeguardStringIds
@@ -10231,26 +10122,7 @@ BattleScript_EffectBaddyBad:
 
 BattleScript_EffectGlitzyGlow:
 	jumpifsideaffecting BS_ATTACKER, SIDE_STATUS_LIGHTSCREEN, BattleScript_EffectHit
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	setlightscreen
 	printfromtable gReflectLightScreenSafeguardStringIds
@@ -10493,29 +10365,7 @@ BattleScript_BattleBondActivatesOnMoveEndAttacker::
 
 BattleScript_EffectRelicSong:
 	setmoveeffect MOVE_EFFECT_RELIC_SONG | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
-	attackcanceler
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
-	attackstring
-	ppreduce
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	setmoveeffectwithchance
-	@argumentstatuseffect	@ may replace with argumenttomoveeffect
-	argumenttomoveeffect
+	call BattleScript_EffectHit_Ret
 	tryfaintmon BS_TARGET, FALSE, NULL
 	goto BattleScript_MoveEnd
 
