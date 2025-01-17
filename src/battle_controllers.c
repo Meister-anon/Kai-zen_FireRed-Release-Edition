@@ -896,13 +896,13 @@ void BtlController_EmitChooseItem(u8 bufferId, u8 *arg1)
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, 4);
 }
 
-void BtlController_EmitChoosePokemon(u8 bufferId, u8 caseId, u8 arg2, u16 abilityId, u8 *arg4)
+void BtlController_EmitChoosePokemon(u8 bufferId, u8 caseId, u8 slotId, u16 abilityId, u8 *arg4)
 {
     s32 i;
 
     sBattleBuffersTransferData[0] = CONTROLLER_CHOOSEPOKEMON;
     sBattleBuffersTransferData[1] = caseId;
-    sBattleBuffersTransferData[2] = arg2;
+    sBattleBuffersTransferData[2] = slotId;
     sBattleBuffersTransferData[3] = LOBYTE(abilityId);
     sBattleBuffersTransferData[7] = HIBYTE(abilityId);
     for (i = 0; i < 3; ++i)

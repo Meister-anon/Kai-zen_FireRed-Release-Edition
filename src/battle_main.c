@@ -548,6 +548,24 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
 //logic for dark beating dark is similar to dragon, bad guys/evil are most likely to backstab/take each other out
 //same as dragons fight and defeat other dragons
 
+//reearch notes and rational for removing ground weakness for steel
+/*
+However, buildings consisting primarily of steel or other metals are much better
+at resisting earthquakes. Steel is much lighter than concrete,
+but it still brings a great deal of durability to construction projects.
+More flexible than concrete and other building materials,
+steel is more likely to bend instead of break when experiencing seismic force.
+
+(Steel and other metals are a major factor in earthquake resistance 
+not a detriment. A sinkhole would most likely still collapse a building
+but most earth moves are seismic effects/brute force and don't involve sinkholes etc.
+So is more a case of only the extreme being effective.
+
+With that in mind an argument could be made for the steel resisting groud, 
+instead keeeping it neutral is a good compromsise and balance in my mind.
+)
+*/
+
 //nature of resists/effectiveness try to keep to absolute
 //ex. adding more fire will always just make the fire stronger as its adding more of itself
 //a bug fighting another bug the advantage goes to whichever is stronger
@@ -5154,6 +5172,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     else
         holdEffect = GetBattlerHoldEffect(gActiveBattler, TRUE);
     gPotentialItemEffectBattler = gActiveBattler;
+
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
      || (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY) //
@@ -5161,6 +5180,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
      || (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
          && gDisableStructs[gActiveBattler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
+     || IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST)
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
     
@@ -5214,17 +5234,28 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     }*/
     //vsonic IMPORTANT do search, for status2_wrapped & wrappedby  implement new trap checks where it makes sense
     //similar to as below
-    if (((gBattleMons[gActiveBattler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))//vsonic need add new trap status here
+    /*if ((gBattleMons[gActiveBattler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))//vsonic need add new trap status here
      || (gBattleMons[gActiveBattler].status4 & (ITS_A_TRAP_STATUS4)
      || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-     || (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)))//I need to redo this setup,
+     || (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)))*///I need to redo this setup,
      /*|| (!IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST)
         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING))*/
-     && IsBattlerGrounded(gActiveBattler)) // I made it impossible to flee unless not gronded because I used or instead of and -__
+     //&& IsBattlerGrounded(gActiveBattler)) // I made it impossible to flee unless not gronded because I used or instead of and -__
+     //undid grouding logic potentally too destabalizing for balance
+     //but primarily if they are in the trap then they should be trapped
+     //also having easy/early access to free escape would cause pathing issues
+     //and trivialize early difficult
+    if (!CanBattlerEscape(gActiveBattler))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         return BATTLE_RUN_FORBIDDEN;
-    }
+    }//more research switch lock shouldn't have to do w grounding
+    //unless ghosts if closs to groud they should have a shadow floating or not
+    //double check floating list, think may have made prerequisite
+    //they could actually leave the groud and float to a greater height?
+    //if so theyn floating works as a flying type standin
+    //past 350 floating mon, and sub 150 of that is flyign type
+
 
     //thought  separate STATUS2_SWITCH_LOCKED  as effect shouldn't have to do w grounding
     //since its spirit based could also make it only affect that could lock ghosts hmm
@@ -5403,48 +5434,12 @@ static void HandleTurnActionSelectionState(void) //think need add case for my sw
                     break;
                 case B_ACTION_SWITCH:   //vsonic this is part that allows switch, looks like I already setup
                     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
-                    if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED | STATUS2_ESCAPE_PREVENTION) 
-                        || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-                        || (gBattleMons[gActiveBattler].status4 & (ITS_A_TRAP_STATUS4))) //hope this works...
-                    {
-                        if ((GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST
-                            && gDisableStructs[gActiveBattler].defeatistActivated) //overwrite usual switch preveention from status & traps
-                            || (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY)
-                            || (GetBattlerAbility(gActiveBattler) == ABILITY_AVIATOR)) //can escape field traps whenever want, need put ability message furthr note below vsonic
-                        {
-                            if (gActiveBattler == 2 && gChosenActionByBattler[0] == B_ACTION_SWITCH)
-                                BtlController_EmitChoosePokemon(0, PARTY_ACTION_CHOOSE_MON, *(gBattleStruct->monToSwitchIntoId + 0), ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                            else if (gActiveBattler == 3 && gChosenActionByBattler[1] == B_ACTION_SWITCH)
-                                BtlController_EmitChoosePokemon(0, PARTY_ACTION_CHOOSE_MON, *(gBattleStruct->monToSwitchIntoId + 1), ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                            else
-                                BtlController_EmitChoosePokemon(0, PARTY_ACTION_CHOOSE_MON, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                        }
-                        else
+                    if (!CanBattlerEscape(gActiveBattler))
                         BtlController_EmitChoosePokemon(0, PARTY_ACTION_CANT_SWITCH, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                    }//uturn hit escape effects already work don't need add special logic here
-                    else if ((IsAbilityOnOpposingSide(gActiveBattler, ABILITY_SHADOW_TAG) && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))
-                        || ((IsAbilityOnOpposingSide(gActiveBattler, ABILITY_ARENA_TRAP))
-                            // && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
-                             //&& gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE
-                            && IsBattlerGrounded(gActiveBattler)) //need test this
-                        || (IsAbilityOnOpposingSide(gActiveBattler, ABILITY_MAGNET_PULL)
-                            && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL)))
-                    {
-                         if ((GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST
-                             && gDisableStructs[gActiveBattler].defeatistActivated) //overwrite usual switch preveention from status & traps
-                             || (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY)
-                             || (GetBattlerAbility(gActiveBattler) == ABILITY_AVIATOR)) //can escape trap abilities //add to ability descriptions vsonic
-                         {
-                            if (gActiveBattler == 2 && gChosenActionByBattler[0] == B_ACTION_SWITCH)
-                                BtlController_EmitChoosePokemon(0, PARTY_ACTION_CHOOSE_MON, *(gBattleStruct->monToSwitchIntoId + 0), ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                            else if (gActiveBattler == 3 && gChosenActionByBattler[1] == B_ACTION_SWITCH)
-                                BtlController_EmitChoosePokemon(0, PARTY_ACTION_CHOOSE_MON, *(gBattleStruct->monToSwitchIntoId + 1), ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                            else
-                                BtlController_EmitChoosePokemon(0, PARTY_ACTION_CHOOSE_MON, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                         }
-                        else
+                    //uturn hit escape effects already work don't need add special logic here
+                    else if (IsAbilityPreventingEscape(gActiveBattler))
                         BtlController_EmitChoosePokemon(0, ((i - 1) << 4) | PARTY_ACTION_ABILITY_PREVENTS, 6, GetBattlerAbility(IsAbilityPreventingEscape(gActiveBattler) - 1), gBattleStruct->battlerPartyOrders[gActiveBattler]);
-                    } //think issue is using  glastusedability, with being able to switch out, seems to mess withthe buffers, seems to have fixed it
+                     //think issue is using  glastusedability, with being able to switch out, seems to mess withthe buffers, seems to have fixed it
                     else //can switch
                     {
                         if (gActiveBattler == 2 && gChosenActionByBattler[0] == B_ACTION_SWITCH)
@@ -7047,6 +7042,8 @@ static void HandleAction_UseItem(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
+
+
 #define RUN_LOGIC_PT2
 bool8 TryRunFromBattle(u8 battler)
 {
@@ -7062,26 +7059,30 @@ bool8 TryRunFromBattle(u8 battler)
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN)
     {
         gLastUsedItem = gBattleMons[battler].item;
-        gProtectStructs[battler].fleeFlag = 1;
+        gProtectStructs[battler].fleeFlag = FLEE_ITEM;
+        ++effect;
+    }
+    else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+    {
         ++effect;
     }
     else if (gBattleMons[battler].ability == ABILITY_RUN_AWAY)
     {
         gLastUsedAbility = ABILITY_RUN_AWAY;
-        gProtectStructs[battler].fleeFlag = 2;
+        gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
     else if (gBattleMons[battler].ability == ABILITY_DEFEATIST
         && gDisableStructs[battler].defeatistActivated)
     {
         gLastUsedAbility = ABILITY_DEFEATIST;
-        gProtectStructs[battler].fleeFlag = 2;
+        gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
     else if (gBattleMons[battler].ability == ABILITY_AVIATOR)
     {
         gLastUsedAbility = ABILITY_AVIATOR;
-        gProtectStructs[battler].fleeFlag = 2;
+        gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
     else if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
@@ -7152,8 +7153,7 @@ static void HandleAction_Run(void)
         }
         else
         {
-            if (gBattleMons[gBattlerAttacker].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED)
-            || gBattleMons[gBattlerAttacker].status4 & (ITS_A_TRAP_STATUS4))
+            if (!CanBattlerEscape(gBattlerAttacker))
             {
                 gBattleCommunication[MULTISTRING_CHOOSER] = 4;
                 gBattlescriptCurrInstr = BattleScript_PrintFailedToRunString;

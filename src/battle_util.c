@@ -10930,32 +10930,59 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
 
 u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic in battle main.c is runnign from battle impossible, /-had to retool function logic it gave me compiler issues
 {
-    u32 id = 0; //note for ghost escape make ghosts escape traps, and arena trap but not most other abilities, the whole heirarchy thing they beat moves, but not abilities
+    u32 id = 0; 
+    //note for ghost escape make ghosts escape traps, and arena trap but not most other abilities, the whole heirarchy thing they beat moves, but not abilities
     //they only beat arena trap because levitate beats that, and most ghosts would have levitate
+    //couldn't find a logical reason to exclude so took default effect
+
 
     if ((GetBattlerAbility(battlerId) == ABILITY_DEFEATIST
         && gDisableStructs[battlerId].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battlerId) == ABILITY_RUN_AWAY)
-        || (GetBattlerAbility(battlerId) == ABILITY_AVIATOR))
+        || (GetBattlerAbility(battlerId) == ABILITY_AVIATOR)
+        || IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST))
         return FALSE;
 
-    if (IsBattlerGrounded(battlerId))
-        id = IsAbilityOnOpposingSide(battlerId, ABILITY_ARENA_TRAP);
-
-    if (IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL))
-        id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL);
-
-    if (!(IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST)))
-        id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG);
-
-    /*if (id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG))
+    //don't have ghost condition on this as most ghosts float
+    //now spiritomb does not, and is liteally trapped in an earthly vesel
+    //wait its a special vessel that's the entire point 
+    //it needed a special thing to trap it...
+    //decided tweak this at least, ability on opposide side
+    //shouldn't cancel out magnet pull doens't
+    if (id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG))
+       // && (GetBattlerAbility(battlerId) != ABILITY_SHADOW_TAG))
         return id;
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_ARENA_TRAP)) && IsBattlerGrounded(battlerId))
         return id;
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL))
-        return id;*/
+        return id;
 
-    return id;
+}
+
+bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
+{
+    if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_SHED_SHELL)
+        return TRUE;
+    else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+        return TRUE;
+    else if ((GetBattlerAbility(battler) == ABILITY_DEFEATIST
+        && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
+        || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
+        || (GetBattlerAbility(battler) == ABILITY_AVIATOR)
+        || IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+        return FALSE;
+    else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
+        return FALSE;
+    else if (gStatuses3[battler] & STATUS3_ROOTED)
+        return FALSE;
+    else if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
+        return FALSE;
+    else if (gStatuses3[battler] & STATUS3_SKY_DROPPED)
+        return FALSE;
+    else if (gBattleMons[battler].status4 & (ITS_A_TRAP_STATUS4))
+        return FALSE;
+    else
+        return TRUE;
 }
 
 u32 GetMoveSlot(u16 *moves, u32 move)
@@ -11943,23 +11970,6 @@ u32 GetBattleMoveSplit(u32 moveId)
 {
     return gBattleMoves[moveId].split;
 }
-
-bool32 CanBattlerEscape(u32 battlerId) // no ability check
-{
-    if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SHED_SHELL)
-        return TRUE;
-    else if ((!IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST)) && gBattleMons[battlerId].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
-        return FALSE;
-    else if (gStatuses3[battlerId] & STATUS3_ROOTED)
-        return FALSE;
-    else if (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)
-        return FALSE;
-    else
-        return TRUE;
-}//dont need defeatist here, that dealt with in battle_main
-//From Generation VI onwards, Ghost-type Pokémon are immune to effects
-//that prevent recall or escape (such as Mean Look and Shadow Tag),
-//and they are also guaranteed to flee from any wild battle regardless of Speed.
 
 //Make sure the input bank is any bank on the specific mon's side
 bool32 CanFling(u8 battlerId)

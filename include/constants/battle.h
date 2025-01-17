@@ -527,6 +527,10 @@
 #define B_WAIT_TIME_IMPORTANT_STRINGS 9  //Replace wait time long for printstrings not crit message result message
 //changed to be array values pause time is still teh same
 
+//flee flags for tryRunfrombattle function
+#define FLEE_ITEM    1
+#define FLEE_ABILITY 2
+
 // Window Ids for sTextOnWindowsInfo_Normal
 #define B_WIN_MSG                 0
 #define B_WIN_ACTION_PROMPT       1 // "What will {x} do?"

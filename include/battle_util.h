@@ -136,7 +136,7 @@ bool32 CanMegaEvolve(u32 battler);  //updated from ee new version
 bool32 IsBattlerAffectedByHazards(u8 battlerId, bool32 toxicSpikes);
 void UndoFormChange(u32 monId, u32 side, bool32 isSwitchingOut);
 bool32 DoBattlersShareType(u32 battler1, u32 battler2);
-bool32 CanBattlerEscape(u32 battlerId);
+bool32 CanBattlerEscape(u32 battler);
 bool32 IsHealBlockPreventingMove(u32 battler, u32 move);
 u32 IsAbilityPreventingEscape(u32 battlerId);
 u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability);

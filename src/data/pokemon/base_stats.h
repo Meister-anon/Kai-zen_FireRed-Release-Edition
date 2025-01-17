@@ -6334,7 +6334,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_SWARM, ABILITY_TECHNICIAN},
-            .abilityHidden = {ABILITY_DEFIANT, ABILITY_DEFEATIST},
+            .abilityHidden = {ABILITY_DEFIANT, ABILITY_LIGHT_METAL},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -6342,6 +6342,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sScizorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give dual wingbeat and bug bite
+    //can hover doesn't really fly
+    //defeatest was a dumb idea, its defense comes from its type
+    //its not bulky enough to actually be useful in that way
+    //so while defeatist has some utility now, its still not good here
+    //replace w original ability of light metal which has been buffed
 
     [SPECIES_SHUCKLE] =
     {

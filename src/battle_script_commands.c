@@ -9169,76 +9169,24 @@ static void atk4F_jumpifcantswitch(void)
 
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1] & ~(ATK4F_DONT_CHECK_STATUSES));
     if (!(gBattlescriptCurrInstr[1] & ATK4F_DONT_CHECK_STATUSES)
-     && ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
-        || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)))
+    && !CanBattlerEscape(gActiveBattler))
     {
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
     }
-    else if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
-    {
-        if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
-            party = gEnemyParty;
-        else
-            party = gPlayerParty;
-
-        i = 0;
-        if (GetLinkTrainerFlankId(GetBattlerMultiplayerId(gActiveBattler)) == TRUE)
-            i = 3;
-        for (lastMonId = i + 3; i < lastMonId; ++i)
-        {
-            if (GetMonData(&party[i], MON_DATA_SPECIES) != SPECIES_NONE
-             && !GetMonData(&party[i], MON_DATA_IS_EGG)
-             && GetMonData(&party[i], MON_DATA_HP) != 0
-             && gBattlerPartyIndexes[gActiveBattler] != i)
-                break;
-        }
-        if (i == lastMonId)
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
-        else
-            gBattlescriptCurrInstr += 6;
-    }
     else
     {
-        u8 battlerIn1, battlerIn2;
+        if (CanBattlerSwitch(gActiveBattler))
+            gBattlescriptCurrInstr += 6;//cmd->nextInstr;
+        else
+           gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);//cmd->jumpInstr;
+    }  
 
-        if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
-        {
-            battlerIn1 = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
-            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-                battlerIn2 = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
-            else
-                battlerIn2 = battlerIn1;
-            party = gEnemyParty;
-        }
-        else
-        {
-            battlerIn1 = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-                battlerIn2 = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-            else
-                battlerIn2 = battlerIn1;
-            party = gPlayerParty;
-        }
-        for (i = 0; i < PARTY_SIZE; ++i)
-        {
-            if (GetMonData(&party[i], MON_DATA_HP) != 0
-             && GetMonData(&party[i], MON_DATA_SPECIES) != SPECIES_NONE
-             && !GetMonData(&party[i], MON_DATA_IS_EGG)
-             && i != gBattlerPartyIndexes[battlerIn1]
-             && i != gBattlerPartyIndexes[battlerIn2])
-                break;
-        }
-        if (i == 6)
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
-        else
-            gBattlescriptCurrInstr += 6;
-    }
 }
 
-static void sub_8024398(u8 arg0)
+static void ChooseMonToSendOut(u8 slotId)
 {
     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
-    BtlController_EmitChoosePokemon(0, PARTY_ACTION_SEND_OUT, arg0, 0, gBattleStruct->battlerPartyOrders[gActiveBattler]);
+    BtlController_EmitChoosePokemon(0, PARTY_ACTION_SEND_OUT, slotId, 0, gBattleStruct->battlerPartyOrders[gActiveBattler]);
     MarkBattlerForControllerExec(gActiveBattler);
 }
 
@@ -9269,7 +9217,7 @@ static void atk50_openpartyscreen(void)
                     }
                     else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                     {
-                        sub_8024398(6);
+                        ChooseMonToSendOut(6);
                         gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                     }
                 }
@@ -9297,7 +9245,7 @@ static void atk50_openpartyscreen(void)
                 }
                 else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                 {
-                    sub_8024398(gBattleStruct->monToSwitchIntoId[2]);
+                    ChooseMonToSendOut(gBattleStruct->monToSwitchIntoId[2]);
                     gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                 }
                 else
@@ -9319,7 +9267,7 @@ static void atk50_openpartyscreen(void)
                 }
                 else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                 {
-                    sub_8024398(gBattleStruct->monToSwitchIntoId[0]);
+                    ChooseMonToSendOut(gBattleStruct->monToSwitchIntoId[0]);
                     gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                 }
                 else if (!(flags & 1))
@@ -9340,7 +9288,7 @@ static void atk50_openpartyscreen(void)
                 }
                 else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                 {
-                    sub_8024398(gBattleStruct->monToSwitchIntoId[3]);
+                    ChooseMonToSendOut(gBattleStruct->monToSwitchIntoId[3]);
                     gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                 }
                 else
@@ -9362,7 +9310,7 @@ static void atk50_openpartyscreen(void)
                 }
                 else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                 {
-                    sub_8024398(gBattleStruct->monToSwitchIntoId[1]);
+                    ChooseMonToSendOut(gBattleStruct->monToSwitchIntoId[1]);
                     gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                 }
                 else if (!(flags & 2))
@@ -9423,7 +9371,7 @@ static void atk50_openpartyscreen(void)
                     }
                     else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                     {
-                        sub_8024398(gBattleStruct->monToSwitchIntoId[0]);
+                        ChooseMonToSendOut(gBattleStruct->monToSwitchIntoId[0]);
                         gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                     }
                 }
@@ -9439,7 +9387,7 @@ static void atk50_openpartyscreen(void)
                     }
                     else if (!gSpecialStatuses[gActiveBattler].faintedHasReplacement)
                     {
-                        sub_8024398(gBattleStruct->monToSwitchIntoId[1]);
+                        ChooseMonToSendOut(gBattleStruct->monToSwitchIntoId[1]);
                         gSpecialStatuses[gActiveBattler].faintedHasReplacement = 1;
                     }
                 }
