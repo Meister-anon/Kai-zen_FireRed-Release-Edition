@@ -2454,6 +2454,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     make consolidate flag/macro like is in battle constants to be able to refer to all effects that hit floating
     -did that also adjusted accuracy calc consolidated in gettotalyaccuracy now uniform between normal and ai file
     1/15/2025
+    Idea for pc, change,  remove back slash
+    but also if nickname is same as species name just don't show nickname
+    //new idea for nickname, only show backslash not nickname if same as species name
+    -done
+    1/17/2025
+    
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?

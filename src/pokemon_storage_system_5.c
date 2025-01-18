@@ -1114,12 +1114,20 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         if (gPSSData->cursorMonSpecies == SPECIES_NIDORAN_F || gPSSData->cursorMonSpecies == SPECIES_NIDORAN_M)
             gender = MON_GENDERLESS;
 
-        StringCopyPadded(gPSSData->cursorMonTexts[0], gPSSData->cursorMonNick, CHAR_SPACE, 5);
+        //changed, to remove redundancy now replaces nickname field w back slash
+        //if no nickname given
+        if (StringCompare(gBaseStats[gPSSData->cursorMonSpecies].speciesName, gPSSData->cursorMonNick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
+        {
+            StringFill(gPSSData->cursorMonTexts[0], CHAR_SPACE, 8);
+            txtPtr = gPSSData->cursorMonTexts[0];
+            *(txtPtr)++ = CHAR_SLASH;
 
-        txtPtr = gPSSData->cursorMonTexts[1];
-        *(txtPtr)++ = CHAR_SLASH;
+        }
+        else
+            StringCopyPadded(gPSSData->cursorMonTexts[0], gPSSData->cursorMonNick, CHAR_SPACE, 5);
+
         
-
+        txtPtr = gPSSData->cursorMonTexts[1];
         GetSpeciesName(gStringVar1,gPSSData->cursorMonSpecies);
         StringCopyPadded(txtPtr, gStringVar1, CHAR_SPACE, 5);
 

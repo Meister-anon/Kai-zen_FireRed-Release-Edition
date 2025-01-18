@@ -10645,16 +10645,9 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
     s32 rnd;
     s32 calc;
     u8 obedienceLevel = 0;
-
-    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_POKEDUDE)) || GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
-        return 0;
-    if (!(FlagGet(FLAG_NEW_GAME_PLUS)))
-        return 0;
-    if (FlagGet(FLAG_NEW_GAME_PLUS)) //to prevent just rolling everything with level 80s in the box; idk may remove
-    {
-        if (/*!IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName) || */FlagGet(FLAG_BADGE08_GET))
-            return 0;
-        obedienceLevel = 10;
+    //to prevent just rolling everything with level 80s in the box on NG+
+    u32 MonLevel = FlagGet(FLAG_NEW_GAME_PLUS) ? gBattleMons[gBattlerAttacker].level : GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_MET_LEVEL);
+    obedienceLevel = 10;
         if (FlagGet(FLAG_BADGE02_GET))
             obedienceLevel = 25;
         if (FlagGet(FLAG_BADGE03_GET))
@@ -10667,12 +10660,20 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
             obedienceLevel = 45;
         if (FlagGet(FLAG_BADGE07_GET))
             obedienceLevel = 60;
-    }
-    if (gBattleMons[gBattlerAttacker].level <= obedienceLevel)
+
+    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_POKEDUDE)) || GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT || FlagGet(FLAG_BADGE08_GET))
         return 0;
-    rnd = (Random() & 255);
-    calc = (gBattleMons[gBattlerAttacker].level + obedienceLevel) * rnd >> 8;
-    if (calc < obedienceLevel)
+    else
+    {   //w more openness small extra protection
+        if (MonLevel <= obedienceLevel)
+            return 0;
+        rnd = (Random() & 255);
+        calc = (MonLevel + obedienceLevel) * rnd >> 8;
+    }
+
+
+    
+    if (calc < obedienceLevel) //calc 1, it listens
         return 0;
     // is not obedient
     //if (gCurrentMove == MOVE_RAGE)//hmm didn't know about this effectively removes benefits of things
@@ -10684,8 +10685,10 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
         gBattlescriptCurrInstr = BattleScript_IgnoresWhileAsleep;
         return 1;
     }
+    //passsed first disobedience check, calcs again to decide what does
     rnd = (Random() & 255);
-    calc = (gBattleMons[gBattlerAttacker].level + obedienceLevel) * rnd >> 8;
+    calc = (MonLevel + obedienceLevel) * rnd >> 8;
+    //use random move or loaf around
     if (calc < obedienceLevel) // Additional check for focus punch in FR    //removed focus punch check
     {
         calc = CheckMoveLimitations(gBattlerAttacker, gBitTable[gCurrMovePos], 0xFF);
@@ -10708,9 +10711,10 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
             return 2;
         }
     }
+    //either falls asleep, hits itself, or loafs around
     else
     {
-        obedienceLevel = gBattleMons[gBattlerAttacker].level - obedienceLevel;
+        obedienceLevel = MonLevel - obedienceLevel;
         calc = (Random() & 255);
         if (calc < obedienceLevel && !(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY) && GetBattlerAbility(gBattlerAttacker) != ABILITY_VITAL_SPIRIT && GetBattlerAbility(gBattlerAttacker) != ABILITY_INSOMNIA
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_COMATOSE)

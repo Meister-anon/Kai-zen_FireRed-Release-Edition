@@ -2891,7 +2891,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     EncryptBoxMon(boxMon);
     StringCopy(speciesName, gBaseStats[species].speciesName); //think this may do it, already have getspeciesname in battleinterface to cap name stored for healthbox
     //GetSpeciesName(speciesName, species);//need change this, cap works but I don't want to set value to cap, I just want to store lowercase then cap when calling i.e with get
-    SetBoxMonData(boxMon, MON_DATA_NICKNAME, &speciesName);//remove use and change to use speciesname w species   vsonic IMPORTANT
+    
+    //stores species name, prints species name if no custom nickname   vsonic IMPORTANT
+    SetBoxMonData(boxMon, MON_DATA_NICKNAME, &speciesName);
     SetBoxMonData(boxMon, MON_DATA_LANGUAGE, &gGameLanguage);
     SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
     SetBoxMonData(boxMon, MON_DATA_SPECIES, &species);
