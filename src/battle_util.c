@@ -2487,7 +2487,7 @@ u8 DoBattlerEndTurnEffects(void)
                     //if (gBattleMoveDamage == 0)//this caps at 16 turns because the orginal & bit calculation == 0, then it adds 0x100 if it doesn't equal 0xF00 which is 1500
                     //    gBattleMoveDamage = 1; // so it caps the turns by essentially counting from 0 to 15. so controlling/balancing the effect is as simple as lowering 0xF00!!!
                     gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;//16; change to better visualize effet
-                    if (STATUS3_ROOTED_TURN(turn) != STATUS3_ROOTED_TURN(7)) { // not 16 turns/ facepalm just realized how this works!1!
+                    if (STATUS3_ROOTED_TURN(turn) != STATUS3_ROOTED_TURN(6)) { // not 16 turns/ facepalm just realized how this works!1!
                         ++gDisableStructs[gActiveBattler].ingrainTurn;
                         //turn += 1; //seriously spitballin' here, nothing's broken atleast all the colors below are still right
                         //counter = turn;

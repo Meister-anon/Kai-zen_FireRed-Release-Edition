@@ -2541,7 +2541,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     IMPORTANT, rolled likitongue as starter only had ghost move to damage
     can't hit any of the starter mon
     thouhgt already did but need to go over starter selection file
-    
+
 
     ok idea, (can't remember what it was)
     setup flag check for oh I remember now,
@@ -2568,6 +2568,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and replace exp share logc in battle_script_commands.c getexp
     1/17/2025
     
+    check rebalance ingain/aqua ring healing to cap lower
+    so is equivalent to other healing moves it just has to build up
+    //had already done that but were not equal reset both to cap at 6 now
+    meaning max heal is approx 37% of max hp
+    1/17/2025
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
