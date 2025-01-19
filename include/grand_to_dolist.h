@@ -2572,7 +2572,41 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     so is equivalent to other healing moves it just has to build up
     //had already done that but were not equal reset both to cap at 6 now
     meaning max heal is approx 37% of max hp
-    1/17/2025
+    1/18/2025
+
+    psywave needs to be rebalanced lowside damage is far too low
+    1/19/2025
+
+    wind rider and wind power both ignore sandstorm despite it being a wind move
+    wind rider gives immunity to wind moves and is also given to mon that are literally
+    tumbleweeds -_-  
+    So decide change wind rider at least to work when sandstorm is on field,
+    and also give immunity to sandstorm damage
+    put in switch in, is batler weather affected w sandstorm boost attack
+    would be switch in and believe move end effects
+
+    was able to setup, sandstorm logic based on tailwind script
+    now working on unique buff for sandstorm effect for wind power
+    different to how it works in tailwind, in sandstorm will reapply charge
+    if not set each turn.
+    Balanced by negatives, will not get sandstorm dmg or accuracy drop exclusions
+    that wind rider gets'
+    will need jump in script to skip wind rider if battler actions done
+    well not just battler action done need all battlers finished actions
+    
+    found it 
+    if (gCurrentTurnActionNumber >= gBattlersCount) // everyone did their actions, turn finished
+    setup effect to jump looks like should work fine,
+    last thing is also had to adjust charged status clear,
+    moved effect to moveend clear rather than attack canceler
+    not sure why was in atk canceleer but as set there,
+    chage isn't removed until the next move is being used
+
+    setting up windrider found modifybattlerstatstage command
+    very good for adjusting stat stage much cleaner
+    compare w EE and go about replacing stat changes with this command 
+    where possible
+    1/19/2025
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?

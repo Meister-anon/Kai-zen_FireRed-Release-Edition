@@ -348,6 +348,7 @@ extern const u8 BattleScript_SandSpitActivates[];
 extern const u8 BattleScript_PerishBodyActivates[];
 extern const u8 BattleScript_GulpMissileGulping[];
 extern const u8 BattleScript_GulpMissileGorging[];
+extern const u8 BattleScript_WindPowerActivates[];
 extern const u8 BattleScript_MoveEffectSmackDown[];
 extern const u8 BattleScript_MoveEffectFlameBurst[];
 extern const u8 BattleScript_MoveUsedPsychicTerrainPrevents[];

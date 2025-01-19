@@ -1417,10 +1417,17 @@ static void atk00_attackcanceler(void) //vsonic
         return;
     }
 
-    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP 
+    //think will move this to move end clear bit effects
+    //so if lastused move 
+    //double check if that goes before or after
+    //my sandstorm damage, that is in endturn field effects
+    /*if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP 
     && gBattleMoves[gLastMoves[gBattlerAttacker]].type == TYPE_ELECTRIC
     && gBattleMoves[gLastMoves[gBattlerAttacker]].split != SPLIT_STATUS)
         gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
+    */
+   //moved becuase belie this not cleared until nextz move is 
+   //being used, messing up my wind power change
 
     //split conditions, gave higher odds to iron will
     //as its affects are all odds based with no consistent affect
@@ -2439,7 +2446,7 @@ void ModulateDmgByType(u8 multiplier)   //Put all ability effects above ring tar
         && multiplier == TYPE_MUL_NO_EFFECT)
         multiplier = TYPE_MUL_NORMAL;   //not 100 on if it would work but should turn no effect into normal effectiveness
     
-    if (gBattleWeather & WEATHER_STRONG_WINDS) //ok think best put this in mod damage multiplier to change multiplier to neutral
+    if (IsBattlerWeatherAffected(gBattlerTarget, WEATHER_STRONG_WINDS)) //ok think best put this in mod damage multiplier to change multiplier to neutral
     {
         if (!DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE))
         {
@@ -8620,6 +8627,16 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
               && (gBattleMons[gBattlerAttacker].status2 & STATUS2_LOCK_CONFUSE) != STATUS2_LOCK_CONFUSE_TURN(1))  // And won't end this turn
                 CancelMultiTurnMoves(gBattlerAttacker); // Cancel it
         #endif*/
+        
+        //think will move this to move end clear bit effects
+    //so if lastused move 
+    //double check if that goes before or after
+    //my sandstorm damage, that is in endturn field effects
+    //vsonic test see if works as I want
+    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP 
+    && gBattleMoves[gLastMoves[gBattlerAttacker]].type == TYPE_ELECTRIC
+    && gBattleMoves[gLastMoves[gBattlerAttacker]].split != SPLIT_STATUS)
+        gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
 
             gBattleStruct->targetsDone[gBattlerAttacker] = 0;
             gProtectStructs[gBattlerAttacker].usesBouncedMove = FALSE;
@@ -9718,6 +9735,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+        && GetBattlerAbility(gBattlerAttacker) != ABILITY_WIND_RIDER    //addition since is wind move
         && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
@@ -15276,6 +15294,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+             && GetBattlerAbility(gBattlerAttacker) != ABILITY_WIND_RIDER  //buff for wind rider, as sandstorm is wind move
              && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
             {
                 gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
@@ -19464,6 +19483,34 @@ void BS_HandleUltraBurst(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//copy from EE believe this just handles recording
+//battler/ability data? doesn't do affect itself
+//guess simplifies logic within case block
+void BS_TryWindRiderPower(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *failInstr);
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    u16 ability = GetBattlerAbility(battler);
+    if (GetBattlerSide(battler) == GetBattlerSide(gBattlerAttacker)
+        && (ability == ABILITY_WIND_RIDER || ability == ABILITY_WIND_POWER))
+    {
+        gLastUsedAbility = ability;
+        RecordAbilityBattle(battler, gLastUsedAbility);
+        gBattlerAbility = gBattleScripting.battler = battler;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+    else
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+}
+
+void BS_modifybattlerstatstage(void)
+{
+
+}
+
 void BS_setstickyweb(void) 
 {
     NATIVE_ARGS(const u8 *ptr);
@@ -19680,6 +19727,39 @@ void BS_jumpifsubstituteblocks(void)
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
+
+//take weather flag from script make value u32 to ensure no miss
+//but values are u16 as of now,
+//used for adapation of wind rider to work w sandstorm
+
+void BS_jumpifnotweatheraffected(void) 
+{
+     NATIVE_ARGS(u8 battler, u32 weatherflags, const u8 *jumpInstr);
+    if (IsBattlerWeatherAffected(cmd->battler, cmd->weatherflags))
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    else
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+}
+
+//setup for new wind power effect to make compatible with base script
+//and doesn't activate wind rider (which would cause attack increase each turn)
+void BS_endturnSkipWindRiderActivation(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+    u8 battler = cmd->battler;
+    u16 ability = GetBattlerAbility(battler);
+    
+    if (gCurrentTurnActionNumber >= gBattlersCount) // everyone did their actions, turn finished
+    {
+        if (ability == ABILITY_WIND_RIDER)
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+
+}
+
+
 //for those that want it
 void BS_trainerslideout(void) 
 {

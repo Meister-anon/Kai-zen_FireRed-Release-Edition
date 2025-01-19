@@ -1334,6 +1334,18 @@
 	.byte \case
 	.endm
 
+	.macro trywindriderpower battler:req, failInstr:req
+	callnative BS_TryWindRiderPower
+	.byte \battler
+	.4byte \failInstr
+	.endm
+
+	.macro endturnskipwindrider battler:req, jumpInstr:req
+	callnative BS_endturnSkipWindRiderActivation
+	.byte \battler
+	.4byte \jumpInstr
+	.endm
+
 	.macro setstickyweb ptr:req
 	callnative BS_setstickyweb
 	.4byte \ptr
@@ -1366,6 +1378,14 @@
 
 	.macro jumpifsubstituteblocks jumpInstr:req
 	callnative BS_jumpifsubstituteblocks
+	.4byte \jumpInstr
+	.endm
+
+	@found jumpifweatheraffected does exist, its rn an unused various
+	.macro jumpifnotweatheraffected battler:req, weatherFlag:req, jumpInstr:req
+	callnative BS_jumpifnotweatheraffected
+	.byte \battler
+	.4byte \weatherFlag
 	.4byte \jumpInstr
 	.endm
 
@@ -2337,4 +2357,10 @@
 		.endif
 	.endif
 	waitmessage B_WAIT_TIME_LONG
+	.endm
+
+@ Will jump to script pointer if the specified battler has or has not fainted.
+	.macro jumpiffainted battler:req, value:req, ptr:req
+	getbattlerfainted \battler
+	jumpifbyte CMP_EQUAL, gBattleCommunication, \value, \ptr
 	.endm

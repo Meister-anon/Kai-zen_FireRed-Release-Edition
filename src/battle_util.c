@@ -6431,6 +6431,20 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 } //vsonic importnat rework these two into turn switch only effects, -done
                 break;
+            case ABILITY_WIND_RIDER:
+            if (!gSpecialStatuses[battler].switchInAbilityDone
+             && CompareStat(battler, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN)
+             && (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND
+             || IsBattlerWeatherAffected(battler, WEATHER_SANDSTORM_ANY)))
+            {
+                gBattleScripting.savedBattler = gBattlerAttacker;
+                gBattlerAttacker = battler;
+                gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
+                effect++;
+            }
+            break;
             case ABILITY_MIMICRY:
                 if (gBattleMons[battler].hp != 0 && gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
                 {
@@ -7195,6 +7209,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     if (gBattleMoves[moveArg].flags & FLAG_WIND_MOVE)
                         effect = 2, statId = STAT_SPATK;
                     break;
+                case ABILITY_WIND_RIDER:
+                if (gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE && !(GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove) & MOVE_TARGET_USER))
+                    effect = 2, statId = STAT_ATK;
+                break;
                 case ABILITY_LAVA_FISSURE:
                 case ABILITY_FLASH_FIRE:
                     if ((moveType == TYPE_FIRE) && !((gBattleMons[battler].status1 & STATUS1_FREEZE)))// && B_FLASH_FIRE_FROZEN <= GEN_4))
@@ -8051,6 +8069,21 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             }
+            case ABILITY_WIND_POWER:
+            if (!(gBattleMoves[gCurrentMove].flags & FLAG_WIND_MOVE))
+                break;
+            // fall through
+        case ABILITY_ELECTROMORPHOSIS:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && TARGET_TURN_DAMAGED
+             && IsBattlerAlive(gBattlerTarget))
+            {
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_WindPowerActivates;
+                effect++;
+            }
+            break;
             } //end of effet
             break;
         case ABILITYEFFECT_MOVE_END_ATTACKER: // Same as above, but for attacker with ability hits enemy

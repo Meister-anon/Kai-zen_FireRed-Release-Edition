@@ -2493,7 +2493,7 @@ BattleScript_EffectEmbargo:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
-BattleScript_EffectTailwind:
+BattleScript_EffectTailwind::
 	attackcanceler
 	attackstring
 	ppreduce
@@ -2502,7 +2502,36 @@ BattleScript_EffectTailwind:
 	waitanimation
 	printstring STRINGID_TAILWINDBLEW
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	call BattleScript_TryTailwindAbilitiesLoop
 	goto BattleScript_MoveEnd
+
+@will use for sandstorm as well nvm need make own version
+BattleScript_TryTailwindAbilitiesLoop:
+	savetarget
+	setbyte gBattlerTarget, 0
+BattleScript_TryTailwindAbilitiesLoop_Iter:
+	trywindriderpower BS_TARGET, BattleScript_TryTailwindAbilitiesLoop_Increment
+	jumpifability BS_TARGET, ABILITY_WIND_RIDER, BattleScript_TryTailwindAbilitiesLoop_WindRider
+	jumpifability BS_TARGET, ABILITY_WIND_POWER, BattleScript_TryTailwindAbilitiesLoop_WindPower
+BattleScript_TryTailwindAbilitiesLoop_Increment:
+	addbyte gBattlerTarget, 0x1
+	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_TryTailwindAbilitiesLoop_Iter
+	restoretarget
+	return
+
+@1 in modifybattlerstatstage is, stage to change, means 1 stat
+BattleScript_TryTailwindAbilitiesLoop_WindRider:
+	@call BattleScript_AbilityPopUp
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TryTailwindAbilitiesLoop_Increment, ANIM_ON
+	goto BattleScript_TryTailwindAbilitiesLoop_Increment
+
+BattleScript_TryTailwindAbilitiesLoop_WindPower:
+	@call BattleScript_AbilityPopUp
+	setcharge BS_TARGET
+	printstring STRINGID_BEINGHITCHARGEDPKMNWITHPOWER
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_TryTailwindAbilitiesLoop_Increment
+
 
 BattleScript_EffectMircleEye:
 	attackcanceler
@@ -4799,6 +4828,15 @@ BattleScript_GulpMissileGorgingTargetDefenseCantGoLower:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+BattleScript_WindPowerActivates::
+	@call BattleScript_AbilityPopUp
+	jumpifstatus3 BS_TARGET, STATUS3_CHARGED_UP, BattleScript_WindPowerReturns
+	setcharge BS_TARGET
+	printstring STRINGID_BEINGHITCHARGEDPKMNWITHPOWER
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_WindPowerReturns:
+	return
+
 BattleScript_EffectSandstorm::
 	attackcanceler
 	attackstring
@@ -5078,7 +5116,44 @@ BattleScript_MoveWeatherChange::
 	printfromtable gMoveWeatherChangeStringIds
 	waitmessage B_WAIT_TIME_LONG
 	call BattleScript_HandleWeatherFormChanges
+	call BattleScript_TrySandstormwindAbilitiesLoop
 	goto BattleScript_MoveEnd
+
+BattleScript_TrySandstormwindAbilitiesLoop:
+	savetarget
+	setbyte gBattlerTarget, 0
+BattleScript_TrySandstormwindAbilitiesLoop_Iter:
+	jumpifnotweatheraffected BS_TARGET, WEATHER_SANDSTORM_ANY, BattleScript_TrySandstormwindAbilitiesLoop_Increment
+	endturnskipwindrider BS_TARGET, BattleScript_SandstormTryWindPower
+	trywindriderpower BS_TARGET, BattleScript_TrySandstormwindAbilitiesLoop_Increment
+	jumpifability BS_TARGET, ABILITY_WIND_RIDER, BattleScript_TrySandstormwindAbilitiesLoop_WindRider
+BattleScript_SandstormTryWindPower:
+	jumpifability BS_TARGET, ABILITY_WIND_POWER, BattleScript_TrySandstormwindAbilitiesLoop_WindPower
+BattleScript_TrySandstormwindAbilitiesLoop_Increment:
+	addbyte gBattlerTarget, 0x1
+	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_TrySandstormwindAbilitiesLoop_Iter
+	restoretarget
+	return
+
+@1 in modifybattlerstatstage is, stage to change, means 1 stat
+@vsonic IMPORTANT need look into modifybattlerstatstage
+@does it just set animations or actuall change stat
+@as stat change is still set in util function
+@but that's prob for when hit by move?
+@ as this is just tailwind and sandstorm
+BattleScript_TrySandstormwindAbilitiesLoop_WindRider:
+	@call BattleScript_AbilityPopUp
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TrySandstormwindAbilitiesLoop_Increment, ANIM_ON
+	goto BattleScript_TrySandstormwindAbilitiesLoop_Increment
+
+BattleScript_TrySandstormwindAbilitiesLoop_WindPower:
+	@call BattleScript_AbilityPopUp
+	jumpifstatus3 BS_TARGET, STATUS3_CHARGED_UP, BattleScript_TrySandstormwindAbilitiesLoop_Increment
+	setcharge BS_TARGET
+	printstring STRINGID_BEINGHITCHARGEDPKMNWITHPOWER
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_TrySandstormwindAbilitiesLoop_Increment
+
 
 BattleScript_EffectSunnyDay::
 	attackcanceler
@@ -6975,6 +7050,7 @@ BattleScript_DamagingWeatherLoop::
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
 	tryfaintmon BS_ATTACKER, 0, NULL
+	call BattleScript_TrySandstormwindAbilitiesLoop
 	confirmlosingteam .+4
 BattleScript_DamagingWeatherContinuesEnd::
 	jumpifbyte CMP_NOT_EQUAL, gBattleOutcome, 0, BattleScript_WeatherDamageEndedBattle
@@ -8036,8 +8112,8 @@ BattleScript_Pressure_IronWill_LostResolve::
 @vsonic need add stuff
 BattleScript_EffectSaltCure::
 	call BattleScript_EffectHit_Ret
-	@tryfaintmon BS_TARGET, 0, NULL
-	@jumpiffainted BS_TARGET, TRUE, BattleScript_EffectSaltCure_End
+	tryfaintmon BS_TARGET, 0, NULL
+	jumpiffainted BS_TARGET, TRUE, BattleScript_EffectSaltCure_End
 	jumpifsubstituteblocks BattleScript_EffectSaltCure_End
 	@applysaltcure BS_TARGET
 	@printstring STRINGID_TARGETISBEINGSALTCURED
