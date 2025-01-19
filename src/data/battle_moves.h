@@ -343,15 +343,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 35,
             .pp = 10,
         #endif
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_FLINCH_HIT,
         .type = TYPE_GRASS,
         .accuracy = 100,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
-    },
+    },//leafage pretty much takes teh job of his,
+    //but can make unique if I change it to a flinch hit?
+    //believe would be pretty much only grass move that has that effect
 
     [MOVE_STOMP] =
     {

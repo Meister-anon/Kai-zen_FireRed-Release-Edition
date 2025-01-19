@@ -1577,11 +1577,11 @@ const u16 sBulbasaurBall[] = {
     SPECIES_SUNKERN,
     SPECIES_SCYTHER,
     SPECIES_MINCCINO,
-    SPECIES_HOPPIP, //too common, replacing oddish, replaced with hoppip, also a mon that saw significant changes
+    SPECIES_HOPPIP, 
     SPECIES_STUFFUL,
     SPECIES_FOMANTIS,
-    SPECIES_SPRITZEE, //replace
-    SPECIES_FOONGUS, //doesnt work well, breaks relation of lists, hmm replace w voltorb, pokeball in a pokeball - replaced w foongus instead as voltorbn common
+    SPECIES_SPRITZEE,
+    SPECIES_FOONGUS,
     SPECIES_PANSAGE,
     SPECIES_SPRIGATITO,
     SPECIES_TOGEDEMARU

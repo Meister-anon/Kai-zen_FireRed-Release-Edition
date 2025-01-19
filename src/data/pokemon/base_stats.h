@@ -24392,7 +24392,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FAIRY,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_IRON_BARBS, ABILITY_LIGHTNING_ROD},
-        .abilityHidden = {ABILITY_STURDY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STURDY, ABILITY_SKILL_LINK},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -24400,6 +24400,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTogedemaruTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //has sturdy give self destruct, 
 
     [SPECIES_MIMIKYU] =
     {
