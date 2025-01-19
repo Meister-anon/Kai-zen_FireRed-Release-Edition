@@ -263,7 +263,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .accuracy = 0,
-            .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+            .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
         #elif B_UPDATED_MOVE_DATA == GEN_5
             .accuracy = 100,
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -938,7 +938,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
     },
 
@@ -3091,7 +3091,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_BOTH,
     .priority = 0,
-    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR,
+    .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
     .split = SPLIT_SPECIAL,
 },
 
@@ -3171,7 +3171,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_USER,
     .priority = 1, //thought about it decided going first is good for move gives needed utility back to moves
-    .flags = 0,
+    .flags = FLAG_WIND_MOVE,
     .split = SPLIT_STATUS, //has wider  distribution than abilities and with priority gives reason to use the move
 },//would ironically work just like abilities whicher mon is slower if both set weather gest the priority for setting weather
 
@@ -3747,7 +3747,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_TWISTER] =
     {
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE,
         .effect = EFFECT_TWISTER, //smack down effect done with flag check, twister sets flinch
         .power = 55,
         .type = TYPE_DRAGON,
@@ -4070,7 +4070,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
     },
 
@@ -5796,7 +5796,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
         .priority = 0,//think affect is too strong to be given priority, same as rest
-        .flags = FLAG_SNATCH_AFFECTED,
+        .flags = FLAG_SNATCH_AFFECTED | FLAG_WIND_MOVE,
         .split = SPLIT_STATUS,
     },//vsonic important
 
@@ -8972,7 +8972,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
         .split = SPLIT_PHYSICAL,
     },
 
@@ -9157,7 +9157,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
     },
 
@@ -11759,7 +11759,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,// | FLAG_WIND_MOVE,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
         ////.zMovePower = 175,
         ////.zMoveEffect = Z_EFFECT_NONE,
@@ -12056,7 +12056,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,// | FLAG_WIND_MOVE,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
         ////.zMovePower = 175,
         ////.zMoveEffect = Z_EFFECT_NONE,

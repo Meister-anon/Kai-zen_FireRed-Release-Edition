@@ -7402,6 +7402,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //hmm w type changes this is perfect, psychic covers fairy weakness
+    //and ability change covers Ice
 
     [SPECIES_HO_OH] =
     {
