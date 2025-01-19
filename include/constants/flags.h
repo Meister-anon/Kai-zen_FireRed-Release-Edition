@@ -612,14 +612,14 @@
 #define FLAG_WOKE_UP_ROUTE_12_SNORLAX                    0x253
 #define FLAG_GOT_TM39_FROM_BROCK                         0x254
 #define FLAG_GOT_SUPER_ROD                               0x255
-#define FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE                0x256
+#define FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE                0x256 
 #define FLAG_DID_MARC_TRADE                              0x257
 #define FLAG_BEAT_RIVAL_IN_OAKS_LAB                      0x258
 #define FLAG_GOT_TM06_FROM_KOGA                          0x259
-#define FLAG_0x25A                                       0x25A
+#define FLAG_GOT_EXP_NULL_FROM_MOM                       0x25A
 #define FLAG_GOT_TM27                                    0x25B
-#define FLAG_0x25C                                       0x25C
-#define FLAG_0x25D                                       0x25D
+#define FLAG_EXP_SHARE_TURNED_ON                         0x25C
+#define FLAG_EXP_NULL_TURNED_ON                          0x25D  //vsonic IMPORTANT for setup
 #define FLAG_GOT_OLD_AMBER                               0x25E
 #define FLAG_0x25F                                       0x25F
 #define FLAG_0x260                                       0x260
@@ -1518,9 +1518,7 @@
 #define FLAG_0x8FE                                                  (SYS_FLAGS + 0xFE)
 #define FLAG_NEW_GAME_PLUS                                          (SYS_FLAGS + 0xFF)
 // My New Flags
-#define FLAG_NEW_EXP_SHARE											(SYS_FLAGS + 0x100)
-#define FLAG_START_OAK_RANCH_COUNTER                                (SYS_FLAGS + 0x101)
-#define FLAG_START_OAK_RANCH_COUNTER                                (SYS_FLAGS + 0x101)
+#define FLAG_START_OAK_RANCH_COUNTER                                (SYS_FLAGS + 0x100)
 //#define B_SMART_WILD_AI_FLAG											(SYS_FLAGS + 0x100)
 #define FLAGS_COUNT (FLAG_START_OAK_RANCH_COUNTER + 1)
 

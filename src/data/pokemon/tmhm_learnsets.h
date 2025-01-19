@@ -5185,6 +5185,7 @@ static const u16 sSunfloraTMHMLearnset[] = {
                                         ITEM_HM05_FLASH,
     TMHM_LEARNSET_END
 };
+//normal type add thunderbolt etc.
 
 static const u16 sYanmaTMHMLearnset[] = {
   ITEM_TM06_TOXIC,

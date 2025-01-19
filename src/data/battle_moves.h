@@ -3255,7 +3255,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
 
@@ -6895,7 +6895,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 140,
         #endif
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_RECOIL_33
+        .effect = EFFECT_OVERHEAT,
         .type = TYPE_GRASS,
         .accuracy = 90,
         .pp = 5,
@@ -8097,6 +8097,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //review this may have changed effect
+    //think will revert my change didn't initially
+    //understand use case for move
+    //vsonic important
 
     [MOVE_BESTOW] =
     {

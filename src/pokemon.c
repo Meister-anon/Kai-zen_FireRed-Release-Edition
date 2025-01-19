@@ -2794,6 +2794,8 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPEED, &arg);
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
+    SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &arg);
+    SetMonData(mon, MON_DATA_EXP_NULL_STATE, &arg);
     //arg = 255;
     //SetMonData(mon, MON_DATA_MAIL, &arg); //haven't removed mail yet redo later
 }
@@ -2815,7 +2817,7 @@ void ZeroEnemyPartyMons(void)
 void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
 {
    // u32 arg;
-    ZeroMonData(mon);
+    ZeroMonData(mon); //don't need to set anything for most things thanks to this
     CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
     SetMonData(mon, MON_DATA_LEVEL, &level);
    // arg = 255;
@@ -3611,11 +3613,16 @@ void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
     //SetMonData(mon, MON_DATA_HP, &currentHP);
 }
 
+//seems used for pre-setting things where mon is stored in a place
+//other than party, typically pc but also daycare
 void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
 {
     u32 value = 0;
     dest->box = *src;
     SetMonData(dest, MON_DATA_STATUS, &value);
+    //default to off 
+    SetMonData(dest, MON_DATA_EXP_SHARE_STATE, &value);
+    SetMonData(dest, MON_DATA_EXP_NULL_STATE, &value);
     //SetMonData(dest, MON_DATA_HP, &value);
     SetMonData(dest, MON_DATA_MAX_HP, &value);
     value = 255;
@@ -6601,6 +6608,12 @@ u32 GetMonData(struct Pokemon *mon, s32 field, u8 *data)
     case MON_DATA_SPDEF2:
         ret = mon->spDefense;
         break;
+    case MON_DATA_EXP_SHARE_STATE:
+        ret = mon->expShare_state;
+        break;
+    case MON_DATA_EXP_NULL_STATE:
+    ret = mon->expNull_state;
+        break;
     case MON_DATA_MAIL:
         //ret = mon->mail;
         break;
@@ -7002,6 +7015,24 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     case MON_DATA_SPDEF2:
         SET16(mon->spDefense);
         break;
+    case MON_DATA_EXP_SHARE_STATE:
+    {
+        u8 Expshare_state = *data;
+        mon->expShare_state = Expshare_state;
+
+        if (Expshare_state == TRUE)
+            mon->expNull_state = FALSE;
+    }
+    break;
+    case MON_DATA_EXP_NULL_STATE:
+    {
+        u8 Expnull_state = *data;
+        mon->expNull_state = Expnull_state;
+
+        if (Expnull_state == TRUE)
+            mon->expShare_state = FALSE;
+    }
+    break;
     case MON_DATA_MAIL:
         //SET8(mon->mail);
         break;

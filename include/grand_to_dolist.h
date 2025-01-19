@@ -2454,10 +2454,118 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     make consolidate flag/macro like is in battle constants to be able to refer to all effects that hit floating
     -did that also adjusted accuracy calc consolidated in gettotalyaccuracy now uniform between normal and ai file
     1/15/2025
+
+    //simplification of Idea for expshare based on pokemon opal
+    give item set flag that effect should work,
+    and then just handle via a party menu dialogue/task
+    that sets a value to a new mon data value
+    just like how I handled shininess just set mon data value for
+    exp share, when on display E icon in party menu to denote effect
+    plus can put in pc and return and will still have exp gain until you turn off
+
+    Thinking just pressing L in party menu while hovering a mon
+    will just set and un set it
+    
+    consider potentially interact w/removed by something in nuzlocke mode
+    also people will want an all on off switch as well,
+    so guess press start/select for that?
+
+    *Note tangent idea, make other companion item
+    none as Exp Null, opposite of exp share would 
+    block all exp gain, so set potential gain to 0
+    point of this is to be able to directly manage your levels
+
+    Would alloow for challenge runs, i.e lvl 1 runs or level cap runs
+    would work same as exp share but because you have both  would need to 
+    be able to toggle the exp share item itself,
+    so rather than it auto working soon as you acquire it,
+    it has a off/on function, you select it and turn it off or on
+
+    Changing state wouln't change what mon have been selected for exp affects
+    it just should Grey out the EXP icon,  its Blue when on
+    Grey when off for EXP Share
+
+    but for Exp Null just make it Red for on
+    and if you set null for a mon that previously had exp share,
+    it should clear the exp share state
+    ex. setmon expnull to true also sets expshare to false
+    1/17/2025 vsonic important
+
+    Notes on Shadow battler escape w flying/floating mon
+    
+    Note**(Flying birds and airplanes don’t cast a shadow on the ground
+    because they are too small and too far away from the ground 
+    to cast a prominent, observable shadow.)
+    
+    For relevance to the game that would be flying high in the air,
+    like say in move dragon ascent Fly, or skydrop
+    on average they aren't that high for normal combat,
+    they are just floating or have the ability to leave the ground
+    at that close high they would still have a shadow
+    and should be affected by shadow tag etc.
+
+    Ghosts are dead/ non corporeal so makes sense for them to 
+    just not have a shadow at all and thus be immune to those 
+    affects.
+    1/16/2025
+
     Idea for pc, change,  remove back slash
     but also if nickname is same as species name just don't show nickname
     //new idea for nickname, only show backslash not nickname if same as species name
     -done
+    1/17/2025
+
+    Note**(
+    Still plan to add effect for spirit shackle decidueye
+    make lock in effect cancel people that try to escape (still exclues ghosts)
+    along w the pursuit effect buff.
+
+    Think may be able to  do with an extra status check
+    and then just do a jump
+    )
+
+    //for exp share state stuff takes a lot of ewram to do in boxmon
+    if I just do in mon and popluate when it moves from pc
+    I could prob save large amount of space?
+    BoxMonToMon would be where I have to set it to 0 on leaving pc etc.
+    that's where mondata status is handled, and set to 0
+    every other pokemon substract value is set in calcmon stats
+
+    ok setup realized would want to mix exp share w exp null 
+    for some cases, so don't set button prompt same for both
+    Exp share activate with L button
+    exp Null activate with Select button changed mind do Start button
+    if right handed people use right sided shift
+    its even better helps prevent mis clicks
+
+    IMPORTANT, rolled likitongue as starter only had ghost move to damage
+    can't hit any of the starter mon
+    thouhgt already did but need to go over starter selection file
+    
+
+    ok idea, (can't remember what it was)
+    setup flag check for oh I remember now,
+    idea for giving exp block, keep exp share where it is,
+    have mom give player exp block at start when leaving room
+
+    hey sweetie, I stopped by the market today
+    and got you something to help on your journey.
+    idk what it does but I was told this was the most in demand item
+    right now.  Something about EXP gain?
+
+    =trick player into think getting game start exp share,
+    plus joke about moms getting wrong birthday present from 
+    the store
+
+    Gives player Exp Null  (useful but pretty much useless for 90% at start of journey lol)
+    
+    for exp null script give use FLAG_GOT_EXP_NULL_FROM_MOM as the check
+    
+    Created flag values, need item graphic for exp null?
+    potentially just do a recolor.
+
+    last things to add fo reffect are logic in party_menu.c
+    and replace exp share logc in battle_script_commands.c getexp
     1/17/2025
     
 

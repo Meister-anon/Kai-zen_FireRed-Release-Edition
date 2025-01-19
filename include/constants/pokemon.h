@@ -96,7 +96,8 @@
 #define MON_DATA_EVO_LEVEL         91 //new value store level mon evolves at, moslty for keeping relative evo consistent, becomes new floor value if non -zero
 #define MON_DATA_LOST_LOCATION     92   //both for nuzlocke mode //store location fainted   - onhold for now
 #define MON_DATA_BOX_HP            93   //when hp is 0, pass hp to box so doesn't heal
-
+#define MON_DATA_EXP_SHARE_STATE   94 //revised modern exp share, allow setting from party menu
+#define MON_DATA_EXP_NULL_STATE    95   //offshoot idea block exp gain setup same way as alt, use case more direct level control
 
 #define TYPE_DEFINES
 

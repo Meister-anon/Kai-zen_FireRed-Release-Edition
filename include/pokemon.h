@@ -188,7 +188,7 @@ struct BoxPokemon
     u32 spDefenseEV:9;
     u32 championRibbon:1; //hall of fame league champion ribbon
     u32 effortRibbon:1;
-    u32 coolRibbon:3;    
+    u32 coolRibbon:3;    //these are 3 because multiple levels, so can't lower
 
     u8 beauty;
     u8 cute;
@@ -218,6 +218,8 @@ struct Pokemon
     u16 speed;
     u16 spAttack;
     u16 spDefense;
+    u8 expShare_state;
+    u8 expNull_state;
 };
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
