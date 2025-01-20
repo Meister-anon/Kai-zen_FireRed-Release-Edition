@@ -1612,7 +1612,7 @@ const u16 sSquirtleBall[] = {
     SPECIES_PANPOUR,
     SPECIES_SANDSHREW, //resist fire weak to grass, but electric in grass ball breaks list
     SPECIES_SWINUB,
-    SPECIES_WOOPER,
+    SPECIES_WOOPER, //would swap to paldean wooper but would break conect w bulbasaur ball, hmm actually I should still have bought 4 options
     SPECIES_BUNNELBY, //works but I like SPECIES_GOLETT better? is more interesting/popular , replaced rogenrolla //oh right didn't use cuz ghost was free early game wins
     SPECIES_LOTAD,  //REPLACED wailmer
     SPECIES_MIME_JR,
