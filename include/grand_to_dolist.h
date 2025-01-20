@@ -2641,6 +2641,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     )
     vsonic IMPORTANT 1/19/2025
 
+    //new idea from looking at facade,
+    w new freeze status changes make new flame/toxic orb equivalent item
+    "Snow Globe" effect is to set freeze status especially good 
+    as it doesn't lower a stat normally, in light of that,
+    believe need to add an extra detrement idea rn is being frostbitten
+    increases odds of being frozen(again) freeze is very strong
+    so not making this boost strong think 20-50 percent
+    most freeze moves have 10% odds so this wopuld just bring them
+    up to 15%
+
+    bleakwind storm is 30, but since I'm not doubling
+    this is still find and drops it from potential 60
+    to just 45 which for a 5 pp move is still manageable
+    1/19/2025
+
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
     //I THINK I removed that? yeah I did, is never a thing but I experimented w it
