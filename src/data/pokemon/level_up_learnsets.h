@@ -435,6 +435,7 @@ static const struct LevelUpMove sRaichuLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sSandshrewLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_DIG),
     LEVEL_UP_MOVE(1, MOVE_AGILITY),
     LEVEL_UP_MOVE(1, MOVE_ROLLOUT),
     LEVEL_UP_MOVE(1, MOVE_SPIKE_CANNON),
@@ -452,7 +453,7 @@ static const struct LevelUpMove sSandshrewLevelUpLearnset[] = {
     LEVEL_UP_MOVE(28, MOVE_SANDSTORM),
     LEVEL_UP_MOVE(30, MOVE_ROLLOUT),
     LEVEL_UP_MOVE(34, MOVE_SLASH),
-    LEVEL_UP_MOVE(36, MOVE_DIG),
+    LEVEL_UP_MOVE(36, MOVE_SPIN_DASH),
     LEVEL_UP_MOVE(38, MOVE_GYRO_BALL),
     LEVEL_UP_MOVE(41, MOVE_SWORDS_DANCE),
     LEVEL_UP_MOVE(45, MOVE_EARTHQUAKE),
@@ -464,6 +465,7 @@ static const struct LevelUpMove sSandshrewLevelUpLearnset[] = {
 
 static const struct LevelUpMove sSandslashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(0, MOVE_SPIN_DASH), //a good utility move for this line, still no animation
+    LEVEL_UP_MOVE(1, MOVE_DIG),
     LEVEL_UP_MOVE(1, MOVE_AGILITY),
     LEVEL_UP_MOVE(1, MOVE_ROLLOUT),
     LEVEL_UP_MOVE(1, MOVE_SPIKE_CANNON),
@@ -481,7 +483,7 @@ static const struct LevelUpMove sSandslashLevelUpLearnset[] = {
     LEVEL_UP_MOVE(32, MOVE_SANDSTORM),
     LEVEL_UP_MOVE(35, MOVE_ROLLOUT),
     LEVEL_UP_MOVE(38, MOVE_SLASH),
-    LEVEL_UP_MOVE(41, MOVE_DIG),
+    LEVEL_UP_MOVE(41, MOVE_FISSURE),
     LEVEL_UP_MOVE(44, MOVE_GYRO_BALL),
     LEVEL_UP_MOVE(49, MOVE_SWORDS_DANCE),
     LEVEL_UP_MOVE(55, MOVE_EARTHQUAKE),    
