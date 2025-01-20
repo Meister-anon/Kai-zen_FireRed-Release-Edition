@@ -2608,6 +2608,39 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     where possible
     1/19/2025
 
+    NOTE(**
+    TESTED was able to confirm charged up status wasn't cleared
+    until next move was used.
+    
+    ok realize with modular evolution levels, I decided I need
+    to know what moves I'm close to getting to know if its a good
+    idea to evolve now.
+
+    To avoid taking up too much space idea is not to take all the moevs
+    my plan is instead to ONLY take the next 3 moves from current level
+    unsure where exactly to put, EE has similar thing in pokedex page
+    but idk maybe I can put something in the summary screen
+
+    Ok decided to put in summary screen, on move info page
+    make new input for page press L to load next 4 moves
+    replace pp w the lvl at which move is learned
+
+    main benefit of doing it this way is, be able to use
+    normal move info options to get more info on
+    the potential incomming moves can read move description
+    and see move characterstics (when I eventually setup category icons)
+
+    may make this a new page, or in task treat it like that,
+    cuz I want to return to normal moves and page
+    when press B button.
+
+    setup wise I'll either have to store my current moves in memeory
+    to reassign, or just replace the summary screen stored value w new moves
+    and can easily reset it based on my real moves that would be stored in
+    pokemon struct, so no worry of anything being lost that way
+    )
+    vsonic IMPORTANT 1/19/2025
+
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
     //I THINK I removed that? yeah I did, is never a thing but I experimented w it

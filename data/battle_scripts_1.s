@@ -5935,7 +5935,7 @@ BattleScript_EffectCharge::
 	attackcanceler
 	attackstring
 	ppreduce
-	setcharge
+	setcharge BS_ATTACKER
 	attackanimation
 	waitanimation
 	printstring STRINGID_PKMNCHARGINGPOWER

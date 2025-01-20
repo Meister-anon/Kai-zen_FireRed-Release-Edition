@@ -17773,8 +17773,10 @@ static void atkCA_setforcedtarget(void) // follow me
 
 static void atkCB_setcharge(void)
 {
-    gStatuses3[gBattlerAttacker] |= STATUS3_CHARGED_UP;
-    ++gBattlescriptCurrInstr;
+    CMD_ARGS(u8 battler);
+    u8 battler = cmd->battler;
+    gStatuses3[battler] |= STATUS3_CHARGED_UP;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 static void atkCC_callterrainattack(void) // nature power
