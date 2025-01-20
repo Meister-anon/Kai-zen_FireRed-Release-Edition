@@ -7392,7 +7392,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     priority = gBattleMoves[move].priority;
  
     //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
-    if ((gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
+    if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
     || (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
     || (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
     {
@@ -7404,7 +7404,11 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     //it makes sense that because of that they wouldn't be able to reach me in time to counter
     //me using a move that COULD reach them.
     //hmm thinkcan leave as the single exclusion to queenly majesty, can't excert control while underground
-
+    //think will remove fly effect from this, as completely invalidates fly
+    //and logic for other effects is they are already in the element that is hitting them
+    //so should be faster so equivalent would be change
+    //fly stuff to if hit by wind move?
+    //keep an eye on this effect
 
     if (GetBattlerAbility(battlerId) == ABILITY_GALE_WINGS
         && moveType == TYPE_FLYING

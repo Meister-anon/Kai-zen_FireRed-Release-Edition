@@ -46974,7 +46974,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_TOUGH_CLAWS, ABILITY_ROCK_HEAD},
+            .abilities = {ABILITY_TOUGH_CLAWS, ABILITY_NONE},//removed rock head, to hyper specialize
        // #ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         // #endif

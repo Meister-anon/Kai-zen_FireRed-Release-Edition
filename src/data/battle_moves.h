@@ -5520,7 +5520,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_7
             .accuracy = 90,
-            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR, //bsaed on similarity to rock throw
+            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_2X_IN_AIR, //bsaed on similarity to rock throw
         #elif B_UPDATED_MOVE_DATA == GEN_5 || B_UPDATED_MOVE_DATA == GEN_6
             .accuracy = 90,
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -5540,6 +5540,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //considering if should downgrade to just dmg in air, fly is rare
     //but doubling damage effectively turns this into explosion,
     //and logically you wouldn't hit all 5, yeah this shoul just be hit in air
+    //put 2x back to make diff to spike cannon on top of lower acc
 
     [MOVE_SHOCK_WAVE] =
     {
@@ -7561,7 +7562,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_STORM_THROW] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 60,
+            .power = 45,
         #else
             .power = 40,
         #endif
@@ -11881,7 +11882,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 100,
         #endif
-        .effect = EFFECT_OVERHEAT, //changed from close combat, is recoil move
+        .effect = EFFECT_CLOSE_COMBAT, //changed from close combat, is recoil move
         .type = TYPE_GROUND,
         .accuracy = 100,
         .pp = 5,
@@ -11893,6 +11894,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         ////.zMovePower = 180,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //not overheat effect, supposed to lower def & sp def
+    //oh I made it overheat to make it a recoil move, hmmm
+    //I had reworked recoil so may do that instead?
+    // vsonic keep an eye on
 
     [MOVE_BARB_BARRAGE] =
     {

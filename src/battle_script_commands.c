@@ -5836,11 +5836,15 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     if (ShouldCacophonyBoostEffectChance(gCurrentMove))
         percentChance *= 2;
 
-    //hail based freeze boost, 
+    //hail based freeze boost, -lowered given new mechanic
     if ((gBattleWeather & WEATHER_HAIL_ANY)
-        && gBattleMoves[gCurrentMove].effect == EFFECT_FREEZE_HIT)
-        percentChance *= 2; //= gBattleMoves[gCurrentMove].secondaryEffectChance * 2;  //its good, happened 2 out of 5 hits. decided to make it 1/16 dmg
+        && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE) //think this is better?
+        percentChance = (percentChance * 150) / 100; //= gBattleMoves[gCurrentMove].secondaryEffectChance * 2;  //its good, happened 2 out of 5 hits. decided to make it 1/16 dmg
     
+    //freeze boost, for later counter effect for ice toxic orb 
+    if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE
+     && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
+        percentChance = (percentChance * 150) / 100;
       
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE) //way if else-if works,they are paired and only the one that is true will be executed
         percentChance *= 2;                                         //if I need to execute multiple, than use multiple ifs instead  vsonic
@@ -5854,7 +5858,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     else if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_DARK_DEAL) //hopefully stacks
         percentChance *= 2; //ok now the order is right
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_FLINCH_HIT
+    if (gBattleScripting.moveEffect == MOVE_EFFECT_FLINCH
         && GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_FLINCH) //kings rock, make it link with move effect chance
         percentChance = (percentChance * (atkHoldEffectParam + 100)) / 100; //ex (20 * 110) = 2200  / 100 = 22  w this serene grace applies once not twice for kings rock
 
@@ -5897,13 +5901,16 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BUG_BITE)
         SetMoveEffect(0, MOVE_EFFECT_CERTAIN); */
     
+    //tested confirmed change works
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
         && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2))) //make sure effects only activate when in a pinch
     {
-        if ((gBattleMoves[gCurrentMove].effect == EFFECT_POISON_HIT || gBattleMoves[gCurrentMove].effect == EFFECT_TOXIC_FANG)
-           || (gBattleMoves[gCurrentMove].argument == EFFECT_POISON_HIT || gBattleMoves[gCurrentMove].argument == EFFECT_TOXIC_FANG))
+        if (gBattleScripting.moveEffect == MOVE_EFFECT_POISON || gBattleScripting.moveEffect == MOVE_EFFECT_TOXIC)
             gBattleScripting.moveEffect |= MOVE_EFFECT_CERTAIN;  //gauranteed poison
     }
+    //vsonic suddenly rememberd I don't need to go off argument or battle effect
+    //as they all get set to move effect and gbattlescript.moveeffect I can just simply use that
+    //and it'll work whether its the effect or argument that sets it initially. *FACEPALM
 
     /*if (gBattleMoves[gCurrentMove].effect == EFFECT_RECHARGE) 
         SetMoveEffect(0, MOVE_EFFECT_CERTAIN);  may not need as recharge alrady works with 0 effect chance - actually it works because the battlescript already sets it to certain
@@ -5913,8 +5920,9 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
 
     //trap effects
     if ((gBattleMons[gBattlerTarget].status4 == STATUS4_FIRE_SPIN)
-        && ((gBattleMoves[gCurrentMove].effect == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].effect == EFFECT_SCALD)
-        || (gBattleMoves[gCurrentMove].argument == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].argument == EFFECT_SCALD)))
+        /*&& ((gBattleMoves[gCurrentMove].effect == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].effect == EFFECT_SCALD)
+        || (gBattleMoves[gCurrentMove].argument == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].argument == EFFECT_SCALD))*/
+        && gBattleScripting.moveEffect == MOVE_EFFECT_BURN)
     {
         percentChance *= 6; //so 60% odds average and guaranteed with sun set
 
