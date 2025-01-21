@@ -2266,7 +2266,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     #endif
     .effect = EFFECT_SPEED_DOWN_HIT,
     .type = TYPE_WATER,
-    .accuracy = 100,
+    .accuracy = 95,
     .pp = 30,
     .secondaryEffectChance = 10,
     .target = MOVE_TARGET_BOTH,
@@ -2274,6 +2274,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_SPECIAL,
 },
+//bubbles are slow, changed acc to give water gun back a niche
 
 [MOVE_DIZZY_PUNCH] =
 {
@@ -4704,6 +4705,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
     },//think pair well w telepathy see if /make sure telepathy counts for this
     //and not just damaging moves
+    //vsonic
 
     [MOVE_BLAZE_KICK] =
     {

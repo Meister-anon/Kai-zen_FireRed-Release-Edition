@@ -1527,6 +1527,7 @@ static const u16 sTMHMMoves[] =
     MOVE_DOUBLE_EDGE,
     MOVE_MISTY_EXPLOSION,
     MOVE_SNOWBALL,
+    MOVE_ENERGY_BALL,
     MOVE_CELEBRATE,  //last tm
     MOVE_CUT,
     MOVE_FLY,

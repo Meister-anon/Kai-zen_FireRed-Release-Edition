@@ -7781,7 +7781,25 @@ const struct Item gItems[] =
     [ITEM_TM160] =
     {
       .name = _("TM160"),
-      .itemId = ITEM_TM160_CELEBRATE,
+      .itemId = ITEM_TM160_ENERGY_BALL,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gENERGY_BALL_Description,
+//      "description":  "A maximum-power attack of great\\nferocity, but one that also sharply\\nreduces the user's SP. ATK stat.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  0,
+      //"moveId" "Overheat"
+    }, //+100
+    [ITEM_TM161] =
+    {
+      .name = _("TM161"),
+      .itemId = ITEM_TM161_CELEBRATE,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
