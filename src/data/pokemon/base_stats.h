@@ -3964,7 +3964,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 125, 79, 81, 60, 100),
-        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
+        MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 189,
         //.evYield_Attack = 2,
@@ -10303,7 +10303,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(95, 60, 79, 81, 100, 125),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+        MON_TYPES(TYPE_WATER, TYPE_WATER), //decided leave monotype
         .catchRate = 60,
         .expYield = 189,
         //.evYield_SpDefense = 2,
@@ -10568,7 +10568,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 130, 60, 75, 75, 60),
-        MON_TYPES(TYPE_DARK, TYPE_DARK),
+        MON_TYPES(TYPE_DARK, TYPE_DARK), //since it senses disaster potentially make part psychic? gives fairy resist
         .catchRate = 30,
         .expYield = 163,
         //.evYield_Attack = 2,
@@ -10588,6 +10588,23 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAbsolTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//actually maybe keep justified over ABILITY_DARK_DEAL, absol isn't bad/evil plus w super mul drop it may survive to get the dbenefit?
+    //considering dark/psychic  vs dark/fairy,
+    //does future sight get stab?
+    //need to look into, base effect is typeless
+    //modern setup gets stab
+    //ok did as I would want to I mixed effects,
+    //doesn't get stab, does get power boost, keeps typeless
+    //dark psychic is cool and I get some good resists including a fairy resist
+    //at the cost of double weakness to bug & dark
+    //hmm increasing dark & bug weakness prob makes rattled & justified unviable
+    //but it covers fighting weakness, gives a fairy and flying resist
+
+    //dark fairy gives me double weakness to dark,
+    //but dark type covers poison weakness , I still get steal weakness tho
+    //ok fairy just removes fighting weakness, and i get ddragon immunity
+    //and a ghost resist I don't need as I alreay resist by being dark
+
+    //seems no good option, best to just keep pure dark here
 
     [SPECIES_WYNAUT] =
     {
@@ -39003,7 +39020,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAbsolTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
-    },
+    },//change magic bounce to reflect intimidate back to attacker
+    //w joat being normal allows to function as split attacker
+    //but need to remember future sight skips joat as well as stab
 
     [SPECIES_GLALIE_MEGA] =
     {
