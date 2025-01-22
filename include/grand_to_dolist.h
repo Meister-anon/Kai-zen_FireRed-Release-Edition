@@ -2656,6 +2656,40 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to just 45 which for a 5 pp move is still manageable
     1/19/2025
 
+    revisit magic coat effect realise it reflects damage
+    may need lower timer to 2 turns
+    set 2 goes to 1 at end, next turn 1 goes to 0 at end 
+    clear effect, so two full turns of effect
+    well does'nt protect but is a deterent
+    potentially broken if setup wrong,
+    did I set as sidestatus or battler status... hmmm
+
+    ok nto big deal was thinking of mirror coat
+    magical coat just reflects status effects ex. leech seed etc.
+
+    Squiretle ball starters complete moving to work on 
+    magic bounce buff to counter intimidate
+    reflect effect back to attacker bypassing dark checks etc.
+    as magic.
+
+    def names Magic Bounce, bounced/reflected the effect
+    back on attacker name think do name without prefix nah use prefix
+
+    undecided if still need message saying attack fell or not
+
+    ok got intimidate reflect working, it does the attack stat fell
+    without me needing to change anything it looks good I like how its
+    going as of now
+
+    **balance discussion
+    intimidate best ability in the game, competitively
+    I've added multiple exceptions, and now a full counter in magic bounce
+    I believe its still good, magic bounce is relatively rare
+    and on mon that are special attackers, and not too strong themselves
+    so this makes them much stronger, without completely invalidating intimidate
+    you just have to be more careful in how you use it
+    1/21/2025
+
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
     //I THINK I removed that? yeah I did, is never a thing but I experimented w it

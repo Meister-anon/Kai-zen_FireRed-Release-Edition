@@ -7118,6 +7118,13 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             u16 battlerAbility = GetBattlerAbility(battler);
             u16 targetAbility = GetBattlerAbility(gBattlerTarget);
 
+            //realized movearg takes gcurrentmove
+            //and if no move chosen i.e gets here via ability
+            //potentially could be loading nothing rather than an actual move
+            //never would have guessed it could happen but got here when triggering magic bounce 
+            //w intimidate?
+            if (moveArg != MOVE_NONE)
+            {            
             if ((gLastUsedAbility == ABILITY_SOUNDPROOF && (gBattleMoves[moveArg].type == TYPE_SOUND || gBattleMoves[moveArg].flags & FLAG_SOUND) && !(moveTarget & MOVE_TARGET_USER))
                 || (gLastUsedAbility == ABILITY_BULLETPROOF && gBattleMoves[moveArg].flags & FLAG_BALLISTIC))
             {
@@ -7138,7 +7145,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattlescriptCurrInstr = BattleScript_DazzlingProtected;
                 effect = 1;
             }
-            else if (DoesPranksterBlockMove(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && !(IS_MOVE_STATUS(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
+            else if (DoesPranksterBlockMove(moveArg, gBattlerAttacker, gBattlerTarget, TRUE) && GetChosenMovePriority(gBattlerAttacker) > 0
+            && !(IS_MOVE_STATUS(moveArg) && targetAbility == ABILITY_MAGIC_BOUNCE))
             {
                 if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) || !(moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))
                     CancelMultiTurnMoves(gBattlerAttacker); // Don't cancel moves that can hit two targets bc one target might not be protected
@@ -7154,6 +7162,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattleScripting.battler = gBattlerTarget; // For STRINGID_PKMNTRANSFORMED
                 gBattlescriptCurrInstr = BattleScript_IceFaceNullsDamage;
                 effect = 1;
+            }
             }
             break;//end of move block
         }

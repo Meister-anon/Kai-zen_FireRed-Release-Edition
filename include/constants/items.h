@@ -864,7 +864,7 @@
 #define ITEM_ALOLAN_SAND     552
 #define ITEM_GALAR_SAND     553
 #define ITEM_HISUIAN_SAND     554
-#define ITEM_PALDEAN_SAND   554 //rename use paldea stuff for select mon, just keep pokemon opal eeveelution as omage
+#define ITEM_PALDEAN_SAND   555 //rename use paldea stuff for select mon, just keep pokemon opal eeveelution as omage
 // Incenses
 #define ITEM_SEA_INCENSE 556//387 
 #define ITEM_LAX_INCENSE 557

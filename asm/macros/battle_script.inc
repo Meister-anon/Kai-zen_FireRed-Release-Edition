@@ -2330,7 +2330,12 @@
 	@taken from emerald used in intimidate in reverse, potentially useful for what I want to do with it
 	@as of yet unsure how to use
 	@ Tries to increase or decrease a battler's stat's stat stage by a specified amount. If impossible, jumps to \script.
-	.macro modifybattlerstatstage battler:req, stat:req, mode:req, amount:req, script:req, animation:req, customString
+	@checked ptr is for stat buff change, its a fail instr
+	@it jumps to ptr if cannot change stat, should never be NULL
+	@what you do is follow w a goto and set ptr to same value as goto
+	@if you want it to do same behavior whether can change stat or not
+	@potentially found issue this doesnt set affects user, so stat change stays on opponent
+	.macro modifybattlerstatstage battler:req, stat:req, mode:req, amount:req, script:req, affectsUser:req, animation:req, customString
 
 	@ \mode parameters
 	INCREASE = FALSE
@@ -2341,7 +2346,13 @@
 	ANIM_ON = TRUE
 
 	setstatchanger \stat, \amount, \mode
-	statbuffchange STAT_CHANGE_BS_PTR, \script
+	.if \affectsUser == FALSE
+		statbuffchange STAT_CHANGE_BS_PTR, \script
+	.else
+	.if \affectsUser == TRUE
+		statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+	.endif
+	.endif
 	setgraphicalstatchangevalues
 	.if \animation == TRUE
 		playanimation \battler, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1

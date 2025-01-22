@@ -2522,7 +2522,7 @@ BattleScript_TryTailwindAbilitiesLoop_Increment:
 @1 in modifybattlerstatstage is, stage to change, means 1 stat
 BattleScript_TryTailwindAbilitiesLoop_WindRider:
 	@call BattleScript_AbilityPopUp
-	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TryTailwindAbilitiesLoop_Increment, ANIM_ON
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TryTailwindAbilitiesLoop_Increment, ANIM_ON, FALSE
 	goto BattleScript_TryTailwindAbilitiesLoop_Increment
 
 BattleScript_TryTailwindAbilitiesLoop_WindPower:
@@ -5143,7 +5143,7 @@ BattleScript_TrySandstormwindAbilitiesLoop_Increment:
 @ as this is just tailwind and sandstorm
 BattleScript_TrySandstormwindAbilitiesLoop_WindRider:
 	@call BattleScript_AbilityPopUp
-	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TrySandstormwindAbilitiesLoop_Increment, ANIM_ON
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TrySandstormwindAbilitiesLoop_Increment, ANIM_ON, FALSE
 	goto BattleScript_TrySandstormwindAbilitiesLoop_Increment
 
 BattleScript_TrySandstormwindAbilitiesLoop_WindPower:
@@ -7939,7 +7939,7 @@ BattleScript_MagicCoatBounce::
 	attackstring
 	ppreduce
 	pause B_WAIT_TIME_SHORT
-	printstring STRINGID_PKMNMOVEBOUNCED
+	printfromtable gMagicCoatBounceStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	orword gHitMarker, HITMARKER_ATTACKSTRING_PRINTED | HITMARKER_NO_PPDEDUCT | HITMARKER_ALLOW_NO_PP
 	setmagiccoattarget BS_ATTACKER
@@ -9191,8 +9191,11 @@ BattleScript_IntimidateActivates::
 		@specific stat abilities like hypercutter would need to be kept out, to still do tiger mom, so make it general stat drop/intimidate exclusions not stat specific stuff.
 BattleScript_IntimidateActivationAnimLoop::
 	trygetintimidatetarget BattleScript_IntimidateEnd @updated intimidate to current gen standard
-	jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
+@plan setup logic magic bounce reflect intimidate back at user
+BattleScript_IntimidateSpecialChecks:
+	jumpifability BS_TARGET, ABILITY_MAGIC_BOUNCE, BattleScript_IntimidateReflect
 BattleScript_IntimidateDarkCheck:
+	jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
 	jumpiftype BS_TARGET, TYPE_DARK, BattleScript_IntimidateFail	
 BattleScript_IntimidateFailChecks:
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_IntimidateFail		@forgot tiger mom had to different ability exclusion need rearrange abilities here
@@ -9241,6 +9244,22 @@ BattleScript_IntimidateEnd:
 @but with dark exclusion and dark beating dark, that kind of works?
 @don't want to set intimidate as an intimidate block as that would just make more use intimidate
 
+@nulled ptr to attempt stop jump as I just need setting stat
+@magic bounce reflect intimidate
+@hmm if I put the string before the modify I can prob use the ptr
+@in the base script
+@ok ready to test
+@ok believe issue was two fold, 
+@1 didn't understand command, needed ptr argument AND a goto after
+@without the goto it continued to next script, which was the prevent from working thing
+@also it wasn't built to handle user based stat change
+@had to setup logic to default to affects user based on input
+@IT WORKS
+BattleScript_IntimidateReflect::
+	printstring STRINGID_REFLECT_INTIMIDATE	
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	modifybattlerstatstage BS_ATTACKER, STAT_ATK, DECREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON, TRUE
+	goto BattleScript_IntimidateLoopIncrement
 
 @BattleScript_IntimidateEnd::
 @	return
@@ -9251,9 +9270,16 @@ BattleScript_IntimidateAbilityFail::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_IntimidateFail
 
+@test this should work but need make sure
+@undid use of modify w how script is setup,
+@would need change it around first
+@can be done but just not with curr version of intimidate script
+@would need move to bottom rather than top since it does everything at once
+@not just set stat id
 BattleScript_TigerMomActivates::
 	setbyte gBattlerTarget, 0
 	setstatchanger STAT_DEF, 1, TRUE
+	@modifybattlerstatstage BS_TARGET, STAT_DEF, DECREASE, 1, BattleScript_IntimidateActivationAnimLoop, ANIM_ON, FALSE
 	goto BattleScript_IntimidateActivationAnimLoop
 
 BattleScript_TigerMomBattleMessage::
@@ -9289,7 +9315,7 @@ BattleScript_IntimidateInReverse:
 	copybyte sBATTLER, gBattlerTarget
 	@call BattleScript_AbilityPopUpTarget
 	pause B_WAIT_TIME_SHORT
-	@modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON, FALSE
 	@call BattleScript_TryAdrenalineOrb
 	goto BattleScript_IntimidateLoopIncrement
 

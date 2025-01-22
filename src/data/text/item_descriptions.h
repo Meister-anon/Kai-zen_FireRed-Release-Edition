@@ -498,6 +498,7 @@ extern const u8 gMoveDescription_HoldBack[];
 extern const u8 gMoveDescription_Headbutt[];
 extern const u8 gMoveDescription_HiJumpKick[];
 extern const u8 gMoveDescription_Snowball[];
+extern const u8 gENERGY_BALL_Description[];
 extern const u8 gMoveDescription_DoubleEdge[];
 extern const u8 gMISTY_EXPLOSION_Description[];
 extern const u8 gCELEBRATE_Description[];
