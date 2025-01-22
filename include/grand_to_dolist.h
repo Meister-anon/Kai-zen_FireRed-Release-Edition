@@ -2706,6 +2706,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     puts everything on an more even playing field
     1/21/2025
 
+    //add sludge wave as tm
+    1/22/2025
+
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
     //I THINK I removed that? yeah I did, is never a thing but I experimented w it

@@ -13465,6 +13465,7 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
+    //and use hitret
 
     [MOVE_SONIC_BOOM] =
     {

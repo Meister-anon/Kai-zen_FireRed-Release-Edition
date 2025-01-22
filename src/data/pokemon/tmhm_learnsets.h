@@ -4097,7 +4097,7 @@ static const u16 sMewTMHMLearnset[] = {
 }; //hope fix can use learn_all to just return yes, as no other insteance would be 0
 
 static const u16 sChikoritaTMHMLearnset[] = {
-  ITEM_TM06_TOXIC,
+  //ITEM_TM06_TOXIC,
                                         ITEM_TM09_BULLET_SEED,
                                         ITEM_TM10_HIDDEN_POWER,
                                         ITEM_TM11_SUNNY_DAY,
@@ -4115,13 +4115,14 @@ static const u16 sChikoritaTMHMLearnset[] = {
                                         ITEM_TM43_SECRET_POWER,
                                         ITEM_TM44_REST,
                                         ITEM_TM45_ATTRACT,
+                                        ITEM_TM59_DRAGON_PULSE,
                                         ITEM_HM01_CUT,
                                         ITEM_HM05_FLASH,
     TMHM_LEARNSET_END
 };
 
 static const u16 sBayleefTMHMLearnset[] = {
-  ITEM_TM06_TOXIC,
+  //ITEM_TM06_TOXIC,
                                         ITEM_TM09_BULLET_SEED,
                                         ITEM_TM10_HIDDEN_POWER,
                                         ITEM_TM11_SUNNY_DAY,
@@ -4139,6 +4140,7 @@ static const u16 sBayleefTMHMLearnset[] = {
                                         ITEM_TM43_SECRET_POWER,
                                         ITEM_TM44_REST,
                                         ITEM_TM45_ATTRACT,
+                                        ITEM_TM59_DRAGON_PULSE,
                                         ITEM_HM01_CUT,
                                         ITEM_HM04_STRENGTH,
                                         ITEM_HM05_FLASH,
@@ -4147,7 +4149,7 @@ static const u16 sBayleefTMHMLearnset[] = {
 };
 
 static const u16 sMeganiumTMHMLearnset[] = {
-  ITEM_TM06_TOXIC,
+ // ITEM_TM06_TOXIC,
                                         ITEM_TM09_BULLET_SEED,
                                         ITEM_TM10_HIDDEN_POWER,
                                         ITEM_TM11_SUNNY_DAY,
@@ -4167,6 +4169,7 @@ static const u16 sMeganiumTMHMLearnset[] = {
                                         ITEM_TM43_SECRET_POWER,
                                         ITEM_TM44_REST,
                                         ITEM_TM45_ATTRACT,
+                                        ITEM_TM59_DRAGON_PULSE,
                                         ITEM_HM01_CUT,
                                         ITEM_HM04_STRENGTH,
                                         ITEM_HM05_FLASH,

@@ -4680,7 +4680,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Meganium"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(110, 82, 100, 80, 83, 153),
+         STATS(110, 82, 100, 80, 83, 123),
         MON_TYPES(TYPE_GRASS, TYPE_GRASS),
         .catchRate = 45,
         .expYield = 236,
@@ -11542,7 +11542,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sInfernapeLevelUpLearnset,
         .tmhmLearnset = sInfernapeTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_PRINPLUP}), //Should hopefully blank these for now without issue
+        .evolutions = NULL,
     },
 
     [SPECIES_PIPLUP] =
@@ -11579,7 +11579,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 66, 68, 50, 81, 76),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+        MON_TYPES(TYPE_WATER, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_SpAttack = 2,
@@ -11599,7 +11599,12 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPrinplupLevelUpLearnset,
         .tmhmLearnset = sPrinplupTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0, SPECIES_EMPOLEON}), //Should hopefully blank these for now without issue
-    },
+    },//realize water steel is bad match for the type trio
+    //this becomes weak to the fighting mon who's fire fighting,
+    //and it resists the grass mon instead only affected by its 
+    //secondary groud type, which now no longer even does that
+    //thought about changing to fairy, would fix type relation
+    //but not really do much for this mon? not much positive
 
     [SPECIES_EMPOLEON] =
     {
