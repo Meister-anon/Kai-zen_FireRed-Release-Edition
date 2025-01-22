@@ -9195,7 +9195,7 @@ BattleScript_IntimidateActivationAnimLoop::
 BattleScript_IntimidateSpecialChecks:
 	jumpifability BS_TARGET, ABILITY_MAGIC_BOUNCE, BattleScript_IntimidateReflect
 BattleScript_IntimidateDarkCheck:
-	jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
+	@jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
 	jumpiftype BS_TARGET, TYPE_DARK, BattleScript_IntimidateFail	
 BattleScript_IntimidateFailChecks:
 	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_IntimidateFail		@forgot tiger mom had to different ability exclusion need rearrange abilities here
@@ -9255,6 +9255,9 @@ BattleScript_IntimidateEnd:
 @also it wasn't built to handle user based stat change
 @had to setup logic to default to affects user based on input
 @IT WORKS
+@need to work out how to go about to setup adrenaline orb with this
+@think will need separate adrenaline orb script for self affecting
+@i.e try attacker adrenaline orb
 BattleScript_IntimidateReflect::
 	printstring STRINGID_REFLECT_INTIMIDATE	
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS

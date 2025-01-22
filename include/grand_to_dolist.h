@@ -2688,6 +2688,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and on mon that are special attackers, and not too strong themselves
     so this makes them much stronger, without completely invalidating intimidate
     you just have to be more careful in how you use it
+    I believe having a dark type intimdator being able to get passed the dark type immunity
+    is an important part of the balance.
+
+    Mostly from the consideration there are certain mon,
+    urshifu cough you don't want running wild unchecked,
+    so being able to intimidate them at the cost of running dark type
+    seems like a good idea, (until you realize that just means more incineroar but...)
+    idk I could prob get by with out it, since I made status moves go first,
+    it would cost me a move turm, but I could just use charm or something 
+    to knock the urshifu down.
+    On the other hand keeping the dark immunity, ok nvm
+    the intimidate immunity without dark breaking it is better
+    because it doesn't incentive specifically using dark type intimidators
+    which would again just put incenroar on top
+    so removing that, and just leaving it as dark types being immune,
+    puts everything on an more even playing field
     1/21/2025
 
     Unique hard mode baby!!!
