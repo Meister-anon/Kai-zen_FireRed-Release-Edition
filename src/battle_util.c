@@ -3903,7 +3903,15 @@ u8 AtkCanceller_UnableToUseMove(void)
                     else
                         toSub = 1;
                         
-                    if ((gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)]) < toSub)
+                    //also sleep timer isn't working quite right,
+                    //its supposed to wake up early bird if the timer is on 2 as seen by emearald,
+                    //ah I see the problem in ee timer is built in to status, so while logic says only
+                    //clear sleep if "sleep timer" is less than sub,
+                    //it would automatically remove it if sleep became 0 as well,
+                    //which is logic I don't have, so I have to change to less or equal 
+                    //to account
+
+                    if ((gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)]) <= toSub)
                         {
                             gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP);
                         }
@@ -3950,12 +3958,9 @@ u8 AtkCanceller_UnableToUseMove(void)
                                     gBattleMons[gBattlerAttacker].statStages[i] = DEFAULT_STAT_STAGE;
                             }//sets stat to raise, and cleanse lowered stats
 
-                            if (gBattleScripting.statChanger != 0) //works, keeps things a little cleaner at least
-                            gBattleScripting.savedStatChanger = gBattleScripting.statChanger;
 
-                            if (validToRaise != 0) // Can lower one stat, or can raise one stat
+                            if (validToRaise != 0) 
                             {
-                                gBattleScripting.statChanger  = 0; // for raising and lowering stat respectively
                                 if (validToRaise != 0) // Find stat to raise
                                 {
                                     do
@@ -3977,7 +3982,11 @@ u8 AtkCanceller_UnableToUseMove(void)
                             gBattlescriptCurrInstr = BattleScript_MoveUsedWokeUp;
                             //to make work will need edit all stat move scripts that start w setstatchanger to push stat to savedstatchanger
                             //then copy back to statchange after looks like its fixed
-                        }
+                        }//ok THAT is the problem, I changed all scripts rather than just fixing the issue,
+                        //the only problem was I was setting statchanger within attack canceler
+                        //and for some reason all uses of statbuffchange are set BEFORE attackcanceler
+                        //all I had to do was move attackcanceler above statbuffchange, which makes perfect sense anyway,
+                        //if attack can't go off, no point in setting a stat to be raised
 
                         effect = 2;
                     }
@@ -10995,7 +11004,8 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     //it needed a special thing to trap it...
     //decided tweak this at least, ability on opposide side
     //shouldn't cancel out magnet pull doens't
-    if (id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG))
+    //extra parenthesis to avoid compiler warning
+    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)))
        // && (GetBattlerAbility(battlerId) != ABILITY_SHADOW_TAG))
         return id;
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_ARENA_TRAP)) && IsBattlerGrounded(battlerId))
