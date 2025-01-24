@@ -946,6 +946,7 @@ static void CreatePartyMonSprites(u8 slot)
 {
     u8 actualSlot;
 
+    //not sure if this is doubles or not
     if (gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE && slot >= MULTI_PARTY_SIZE)
     {
         u8 status;
@@ -961,7 +962,7 @@ static void CreatePartyMonSprites(u8 slot)
             else
                 status = GetAilmentFromStatus(gMultiPartnerParty[actualSlot].status);
             CreatePartyMonStatusSpriteParameterized(gMultiPartnerParty[actualSlot].species, status, &sPartyMenuBoxes[slot]);
-        }
+        }//add exp icon function below status
     }
     else if (GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES) != SPECIES_NONE)
     {
@@ -1826,6 +1827,8 @@ u8 GetAilmentFromStatus(u32 status) //vsonic will need add on to
         return AILMENT_FRZ;
     if (status & STATUS1_BURN)
         return AILMENT_BRN;
+    if (status & STATUS1_INFESTATION)
+        return AILMENT_INF;
     return AILMENT_NONE;
 }
 
@@ -1840,6 +1843,19 @@ u8 GetMonAilment(struct Pokemon *mon)
         return ailment;
     if (CheckPartyPokerus(mon, 0))
         return AILMENT_PKRS;
+    return AILMENT_NONE;
+}
+
+//attempt use to display exp graphic,
+//will go in diff place than ailment
+//so needs diff function
+u8 GetMonExpState(struct Pokemon *mon)
+{
+    if (GetMonData(mon, MON_DATA_EXP_SHARE_STATE) == TRUE)
+        return EXP_SHARE_ON;
+    else if (GetMonData(mon, MON_DATA_EXP_NULL_STATE) == TRUE)
+        return EXP_NULL_ON;
+    
     return AILMENT_NONE;
 }
 
@@ -3287,6 +3303,12 @@ u8 ShouldDisplayHMFieldMove(u8 fieldMove)
             }
 }
 
+//conditions above, list adding below,
+//last issue is adding things to lis that are already there,
+//i.e can be added via multiple conditions
+//mostly sweet scent which is linked to honey gather ability now
+//as well as the move
+#define FIELD_MOVE_LIST_LOGIC
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 {
     u8 i, j;

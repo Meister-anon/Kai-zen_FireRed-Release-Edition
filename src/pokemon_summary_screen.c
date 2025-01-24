@@ -347,6 +347,7 @@ extern const u16 gTrainerMemoPal1[];
 extern const u32 gPokeSumBgTiles[];
 extern const u16 gPokeSummary_ExpBarPals[];
 extern const u32 gPokeSummary_StatusAilmentIconTiles[];
+extern const u32 gPokeSummary_StatusAilmentIconTiles_Extended[];
 extern const u16 gPokeSummary_StatusAilmentIconPals[];
 extern const u32 gPokeSummary_HpBarTiles[];
 extern const u32 gPokeSummary_ExpBarTiles[];
@@ -4806,6 +4807,12 @@ static u16 GetMonPpByMoveSlot(struct Pokemon * mon, u8 moveSlot)
     return pp;
 }
 
+//for some reason faint isn't tracking,
+//in summary screen despite working in party menu
+//when it uses same condition
+//all I can guess is somehow sMonSummaryScreen->currentMon
+//isn't accurate??
+//its not tracking the actual slot I'm viewing some how
 static u8 StatusToAilment(u32 status)
 {
     if (GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP) == 0)
@@ -4825,9 +4832,12 @@ static u8 StatusToAilment(u32 status)
 
     if ((status & STATUS1_BURN) != 0)
         return AILMENT_BRN;
+
+    if ((status & STATUS1_INFESTATION) != 0)
+        return AILMENT_INF;
     
-    if ((status & STATUS1_SPIRIT_LOCK) != 0)
-        return AILMENT_SPRT;
+    //if ((status & STATUS1_SPIRIT_LOCK) != 0)
+    //    return AILMENT_SPRT;
 
     if (CheckPartyPokerus(&sMonSummaryScreen->currentMon, 0)) //important very !!
         return AILMENT_PKRS; // !! if this function can check and return/display both status1 ailment and pokerus ailment
@@ -5809,21 +5819,24 @@ static void DestroyMoveSelectionCursorObjs(void)
     }
 }
 
+//sigh ok, summary screen and party menu use different files
+//for its icons, I need to expand the link rfu file, 
+//and copy my sprite in there
 static void CreateMonStatusIconObj(u16 tileTag, u16 palTag) //important very for new status
 {
     u16 spriteId;
     void * gfxBufferPtr;
 
     sStatusIcon = AllocZeroed(sizeof(struct MonStatusIconObj));
-    gfxBufferPtr = AllocZeroed(0x20 * 32);
+    gfxBufferPtr = AllocZeroed(0x28 * 32);
 
-    LZ77UnCompWram(gPokeSummary_StatusAilmentIconTiles, gfxBufferPtr);
+    LZ77UnCompWram(gPokeSummary_StatusAilmentIconTiles_Extended, gfxBufferPtr);
 
     if (sStatusIcon != NULL)
     {
         struct SpriteSheet sheet = {
             .data = gfxBufferPtr,
-            .size = 0x20 * 32,
+            .size = 0x28 * 32,
             .tag = tileTag
         };
 

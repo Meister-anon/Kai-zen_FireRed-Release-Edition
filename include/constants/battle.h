@@ -163,7 +163,7 @@
 #define STATUS1_FREEZE           (1 << 4)
 #define STATUS1_PARALYSIS        (1 << 5)
 #define STATUS1_TOXIC_POISON     (1 << 6)
-#define STATUS1_SPIRIT_LOCK      (1 << 7)	
+#define STATUS1_SPIRIT_LOCK      (1 << 7)	//not using for now
 #define STATUS1_INFESTATION		 (1 << 8) //planned bug status 
 //#define STATUS1_TOXIC_COUNTER    (1 << 8 | 1 << 9 | 1 << 10 | 1 << 11)
 #define STATUS1_TOXIC_TURN(num)  ((num) << 10)//redid toxic, put at original value, moved others

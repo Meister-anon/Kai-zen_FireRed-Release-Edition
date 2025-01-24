@@ -5721,8 +5721,24 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             /*if (gBattleMons[gActiveBattler].statStages[STAT_DEF] < 0)
                 gBattleMons[gActiveBattler].statStages[STAT_DEF] = 0;
             APPLY_STAT_MOD(damageHelper, defender, defense, STAT_DEF)*/
-            defense /= 2;
-        }//need fix setup for this, think  stat drop isn't right as well, plan to only drop once during status duration look at how burn atk drop works //vsonic
+            
+            //defense /= 2;
+            //equivalent of 2 stage drop for something
+            //that doesn't go away is too strong
+            //don't need to do a full stat stage either,
+            //there are plenty of multipliers and its multiplicative
+            // 1 stage is a 33% dmg increase /defense drop
+            //I think I'm fine doin 20% here?
+            defense = (defense * 80) / 100;
+            //effect is so strong potentially put on a timer
+            //set like freeze and sleep where it cures itself w time,
+            //but persists through switches/battle end?
+            //timer 2-4 turns
+            //lines w idea of bugs being fast and annoying,
+            //not over bearing
+            //battler prefix shook off the infestation! whenit ends
+        }
+        //need fix setup for this, think  stat drop isn't right as well, plan to only drop once during status duration look at how burn atk drop works //vsonic
         //rather than a stat change burn just augments the attackrs damage to an equivalent of a stat drop,  fixed, may be too strong may set to 1.5
         //also setup infestation as bug status can do with augment may need to set a fixed change in case move has odds I can't set to certain
         //15% prob good if I need to. vsonic

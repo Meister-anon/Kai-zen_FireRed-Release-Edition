@@ -2708,6 +2708,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     //add sludge wave as tm
     1/22/2025
+    noteiced another bug w callback, for some resaon
+    move info callback ignores the logic I setup 
+    for not displying status graphic
+
+    */
+   goto FIELD_MOVE_LIST_LOGIC
+   /*
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?

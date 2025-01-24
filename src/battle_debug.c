@@ -263,6 +263,7 @@ static const u8 sText_SideStatus[] = _("Side Status");
 static const u8 sText_MaxHp[] = _("HP Max");
 static const u8 sText_CurrHp[] = _("HP Current");
 static const u8 sText_Freeze[] = _("freeze");
+static const u8 sText_Infested[] = _("infested");
 static const u8 sText_ToxicPoison[] = _("toxic poison");
 static const u8 sText_SleepTimer[] = _("sleep timer");
 static const u8 sText_FreezeTimer[] = _("freeze timer");
@@ -326,6 +327,7 @@ static const struct BitfieldInfo sStatus1Bitfield[] =
     {/*Freeze*/ 1, 4}, //without freeze timer is always just frostbite
     {/*Paralysis*/1, 5},
     {/*Toxic Poison*/ 1, 6},
+     {/*Infested*/ 1, 8}, //infested
     //{/*Toxic Counter*/ 4, 8}, //not accessible w this, moved to its own field
 };//looking at various realize can do alt effects with that
 //will need to do major edits to base menu for my changes
@@ -482,7 +484,8 @@ static const struct ListMenuItem sStatus1ListItems[] =
     {sText_Freeze, 3},
     {gText_Paralysis, 4},
     {sText_ToxicPoison, 5},
-    {sText_SetTimers, 6},
+    {sText_Infested, 6},
+    {sText_SetTimers, 7},
 };
 
 //must match order of bit field

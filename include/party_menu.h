@@ -42,6 +42,7 @@ bool8 IsPartyMenuTextPrinterActive(void);
 void PartyMenuModifyHP(u8 taskId, u8 slot, s8 hpIncrement, s16 hpDifference, TaskFunc task);
 u8 GetAilmentFromStatus(u32 status);
 u8 GetMonAilment(struct Pokemon *mon);
+u8 GetMonExpState(struct Pokemon *mon);
 void DisplayPartyMenuStdMessage(u32 stringId);
 void LoadHeldItemIcons(void);
 void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichParty);

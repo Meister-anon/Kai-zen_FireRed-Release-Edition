@@ -1424,8 +1424,14 @@ const u32 gPartyMenuPokeball_Gfx[] = INCBIN_U32("graphics/interface/party_menu_p
 const u32 gPartyMenuPokeballSmall_Gfx[] = INCBIN_U32("graphics/interface/party_menu_pokeball_small.4bpp.lz"); //unused
 const u32 gPartyMenuPokeball_Pal[] = INCBIN_U32("graphics/interface/party_menu_pokeball.gbapal.lz");
 
+//gfx & Elements1 pal have to match name to be able to build pal from png
 const u32 gStatusGfx_Icons[] = INCBIN_U32("graphics/interface/status_icons.4bpp.lz");
 const u32 gStatusPal_Icons[] = INCBIN_U32("graphics/interface/status_icons.gbapal.lz");
+
+//new icons w exp share icons, and bug status symbol
+const u32 gStatusGfx_Icons_2[] = INCBIN_U32("graphics/interface/status_icons_extended.4bpp.lz");
+const u32 gStatusPal_Icons_2[] = INCBIN_U32("graphics/interface/status_icons_extended.gbapal.lz");
+
 
 const u32 gUnknown_8E830CC[] = INCBIN_U32("graphics/item_menu/bag_tiles.4bpp.lz");
 
@@ -1579,6 +1585,9 @@ const u16 gUnknown_8E9BD08[] = INCBIN_U16("graphics/unknown/unknown_E9BD08.gbapa
 const u32 gEasyChatRedRectangularCursor_Tiles[] = INCBIN_U32("graphics/interface/link_rfu_frame.4bpp.lz");
 const u16 gPokeSummary_StatusAilmentIconPals[] = INCBIN_U16("graphics/interface/link_rfu_frame.gbapal");
 const u32 gPokeSummary_StatusAilmentIconTiles[] = INCBIN_U32("graphics/interface/link_rfu_status.4bpp.lz");
+
+//expanded w bug status
+const u32 gPokeSummary_StatusAilmentIconTiles_Extended[] = INCBIN_U32("graphics/interface/link_rfu_status_2.4bpp.lz");
 
 const u16 gDexScreen_TopMenuIconPals_AtoZ[] = INCBIN_U16("graphics/interface/pokedex_abc.gbapal");
 const u16 gDexScreen_TopMenuIconTiles_AtoZ[] = INCBIN_U16("graphics/interface/pokedex_abc.4bpp.lz");

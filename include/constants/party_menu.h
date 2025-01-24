@@ -6,10 +6,14 @@
 #define AILMENT_PRZ   2
 #define AILMENT_SLP   3
 #define AILMENT_FRZ   4
-#define AILMENT_BRN   5
-#define AILMENT_PKRS  6
-#define AILMENT_FNT   7
-#define AILMENT_SPRT  8   //for spirit lock, but seems letters here somewhat determine what's displayed on hp menu, so kept to 4.
+#define AILMENT_BRN   5 
+#define AILMENT_INF   6
+#define AILMENT_PKRS  7
+#define AILMENT_FNT   8
+#define EXP_SHARE_ON  9   //for spirit lock, but seems letters here somewhat determine what's displayed on hp menu, so kept to 4.
+#define EXP_NULL_ON  10
+//staus gfx order -cut sprt lock, not doing
+//psn, prz, sleep, freez, burn, infest, pkrs, fnt, exp share, exp null
 
 #define TUTOR_MOVE_MEGA_PUNCH      0
 #define TUTOR_MOVE_SWORDS_DANCE    1

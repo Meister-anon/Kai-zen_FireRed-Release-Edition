@@ -1623,7 +1623,8 @@ enum
     PAL_STATUS_PAR,
     PAL_STATUS_SLP,
     PAL_STATUS_FRZ,
-    PAL_STATUS_BRN
+    PAL_STATUS_BRN,
+    PAL_STATUS_INF  //not working in battle yet
     //PAL_STATUS_SPRT
 };
 
@@ -1634,6 +1635,7 @@ static const u16 sStatusIconColors[] = {
     [PAL_STATUS_SLP] = RGB(20, 20, 17),
     [PAL_STATUS_FRZ] = RGB(17, 22, 28),
     [PAL_STATUS_BRN] = RGB(28, 14, 10),
+    [PAL_STATUS_INF] = RGB(23, 23, 3),
     //[PAL_STATUS_SPRT] = RGB(6, 26, 24)
 };
 
@@ -1687,6 +1689,11 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
         statusGfxPtr = GetHealthboxElementGfxPtr(GetStatusIconForBattlerId(HEALTHBOX_GFX_STATUS_PRZ_BATTLER0, battlerId));
         statusPalId = PAL_STATUS_PAR;
     }
+    else if (status & STATUS1_INFESTATION)
+    {
+        statusGfxPtr = GetHealthboxElementGfxPtr(GetStatusIconForBattlerId(HEALTHBOX_GFX_STATUS_PRZ_BATTLER0, battlerId));
+        statusPalId = PAL_STATUS_INF;
+    }
     /*else if (status & STATUS1_SPIRIT_LOCK)
     {
         statusGfxPtr = GetHealthboxElementGfxPtr(GetStatusIconForBattlerId(HEALTHBOX_GFX_STATUS_SPRT_BATTLER0, battlerId));
@@ -1723,6 +1730,9 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
     TryAddPokeballIconToHealthbox(healthboxSpriteId, FALSE);
 }
 
+//no idea how this works,
+//and why it doesn't just blit the icon
+//from the tilemap onto the health box
 static u8 GetStatusIconForBattlerId(u8 statusElementId, u8 battlerId)
 {
     u8 ret = statusElementId;
