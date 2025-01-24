@@ -458,7 +458,7 @@ const u8 gFOCUS_BLAST_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks at full power.\nMay lower Sp. Def.");
 
 const u8 gENERGY_BALL_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Draws power from nature to\nattack.\nMay lower Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Draws power from\nnature to attack.\nMay lower Sp. Def.");
 
 const u8 gBRAVE_BIRD_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A low altitude charge that\nalso hurts the user.");

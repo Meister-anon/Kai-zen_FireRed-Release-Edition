@@ -84,7 +84,7 @@ static const struct PartyMenuBoxInfoRects sPartyBoxInfoRects[] =
 //status icon did -4 x position,  changed to +20 x value from pokemon x position and +4 from the y value of pokemon sprite
 //pokemon icon  & held item -10 y position
 //with planned addition exp icon, will need edit this to add an extra xy pairing
-//higher x value means further righht, - use status for reference exp x value when on right column, use held item on left column
+//higher x value means further righht, - use 184 exp x value when on right column, use held item on left column
 //higher y value means further down - use y value for held item chord for exp y value when not on left column, for left column use double pokeball y value
 //also window 4 5 is the pairs so lines w status
 //the exp icons will be pair 8 9
@@ -97,37 +97,37 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][X_Y_COORD
                     20,  40,    // held item coords,
                     38,  34,    // status coords,
                     16,  34,   // pokeball coords
-                    16,  68,},    // exp icon coords
+                    22,  68,},    // exp icon coords
 
        [SLOT_2] = {104,  18,    // pokemon coords,
                    108,  28,    // held item coords,
                    158,  17,    // status coords,
                    102,  25,   // pokeball coords
-                   180,  28,   },    // exp icon coords
+                   184,  27,},    // exp icon coords
 
        [SLOT_3] = {104,  42,    // pokemon coords,
                    108,  52,    // held item coords,
                    158,  41,    // status coords,
                    102,  49,   // pokeball coords
-                            },    // exp icon coords
+                   184,  51, },    // exp icon coords
 
        [SLOT_4] = {104,  66,    // pokemon coords,
                    108,  76,    // held item coords,
                    158,  65,    // status coords,
                    102,  73,   // pokeball coords
-                            },    // exp icon coords
+                   184,  75, },    // exp icon coords
 
        [SLOT_5] = {104,  90,    // pokemon coords,
                    108, 100,    // held item coords,
                    158,  89,    // status coords,
                    102,  97,   // pokeball coords
-                            },    // exp icon coords
+                   184,  99, },    // exp icon coords
 
        [SLOT_6] = {104, 114,    // pokemon coords,
                    108, 124,    // held item coords,
                    158, 113,    // status coords,
                    102, 121,   // pokeball coords
-                            },    // exp icon coords
+                   184, 123, },    // exp icon coords
     },
     [PARTY_LAYOUT_DOUBLE] =
     {
@@ -136,37 +136,37 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][X_Y_COORD
                     20,  24,    // held item coords,
                     38,  18,    // status coords,
                     16,  18,   // pokeball coords
-                            },    // exp icon coords
+                    22,  36,  },    // exp icon coords
 
        [SLOT_2] = {16,  70,    // pokemon coords,
                    20,  80,    // held item coords,
                    38,  74,    // status coords,
                    16,  74,   // pokeball coords
-                            },    // exp icon coords
+                   22,  148, },    // exp icon coords //double check this
 
        [SLOT_3] = {104,  18,    // pokemon coords,
                    108,  28,    // held item coords,
                    158,  17,    // status coords,
                    102,  25,   // pokeball coords
-                            },    // exp icon coords
+                   184,  27,  },    // exp icon coords
 
        [SLOT_4] = {104,  50,    // pokemon coords,
                    108,  60,    // held item coords,
                    158,  49,    // status coords,
                    102,  57,   // pokeball coords
-                            },    // exp icon coords
+                   184,  59,  },    // exp icon coords
 
        [SLOT_5] = {104,  82,    // pokemon coords,
                    108,  92,    // held item coords,
                    158,  81,    // status coords,
                    102,  89,   // pokeball coords
-                            },    // exp icon coords
+                   184,  91, },    // exp icon coords
 
        [SLOT_6] = {104, 114,    // pokemon coords,
                    108, 124,    // held item coords,
                    158, 113,    // status coords,
                    102, 121,   // pokeball coords
-                            },    // exp icon coords
+                   184, 123, },    // exp icon coords
     },
     [PARTY_LAYOUT_MULTI] =  //multi battles are partner battles, they are in emerald but not used in fire red by default
     {
@@ -175,46 +175,76 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][X_Y_COORD
                     20,  24,    // held item coords,
                     38,  18,    // status coords,
                     16,  18,   // pokeball coords
-                            },    // exp icon coords
+                    22,  36, },    // exp icon coords
 
        [SLOT_2] = { 16,  70,    // pokemon coords,
                     20,  80,    // held item coords,
                     38,  74,    // status coords,
                     16,  74,   // pokeball coords
-                            },    // exp icon coords
+                    22,  148, },    // exp icon coords
 
        [SLOT_3] = {104,  26,    // pokemon coords,
                    106,  36,    // held item coords,
                    158,  25,    // status coords,
                    102,  33,   // pokeball coords
-                            },  // exp icon coords
+                   184,  35, },  // exp icon coords
 
        [SLOT_4] = {104,  50,    // pokemon coords,
                    106,  60,    // held item coords,
                    158,  49,    // status coords,
                    102,  57,    // pokeball coords
-                            },  // exp icon coords
+                   184,  59, },  // exp icon coords
 
        [SLOT_5] = {104,  82,    // pokemon coords,
                    106,  92,    // held item coords,
                    158,  81,    // status coords,
                    102,  89,   // pokeball coords
-                            },    // exp icon coords
+                   184,  91,  },    // exp icon coords
 
        [SLOT_6] = {104,  106,    // pokemon coords,
                    106,  116,    // held item coords,
                    158,  105,    // status coords,
                    102,  113,   // pokeball coords
-                            },    // exp icon coords
+                   184,  115, },    // exp icon coords
     },
     [PARTY_LAYOUT_MULTI_SHOWCASE] =
     {
-       [SLOT_1] = { 16,  32,  20,  42,  38,  44,  16,  26}, //is in same order pairs as above
-       [SLOT_2] = {104,  34, 106,  44, 158,  43, 102,  41},
-       [SLOT_3] = {104,  58, 106,  68, 158,  67, 102,  65},
-       [SLOT_4] = { 16, 104,  20, 114,  38, 116,  16,  98},
-       [SLOT_5] = {104, 106, 106, 116, 158, 115, 102, 113},
-       [SLOT_6] = {104, 130, 106, 140, 158, 139, 102, 137},
+       [SLOT_1] = { 16,  32,    // pokemon coords,
+                    20,  42,    // held item coords,
+                    38,  44,    // status coords,
+                    16,  26,    // pokeball coords
+                    22,  52  },  // exp icon coords
+
+       [SLOT_2] = {104,  34,    // pokemon coords,
+                   106,  44,    // held item coords,
+                   158,  43,    // status coords,
+                   102,  41,    // pokeball coords
+                   184,  43, },  // exp icon coords
+
+       [SLOT_3] = {104,  58,    // pokemon coords,
+                   106,  68,    // held item coords,
+                   158,  67,    // status coords,
+                   102,  65,    // pokeball coords
+                   184,  67, },  // exp icon coords
+
+       [SLOT_4] = { 16, 104,    // pokemon coords,
+                    20, 114,    // held item coords,
+                    38, 116,    // status coords,
+                    16,  98,    // pokeball coords
+                    22,  196 },  // exp icon coords
+
+       [SLOT_5] = {104, 106,    // pokemon coords,
+                   106, 116,    // held item coords,
+                   158, 115,    // status coords,
+                   102, 113,    // pokeball coords
+                   184, 115, },  // exp icon coords
+
+       [SLOT_6] = {104, 130,    // pokemon coords,
+                   106, 140,    // held item coords,
+                   158, 139,    // status coords,
+                   102, 137,    // pokeball coords
+                   184, 139,},  // exp icon coords
+
     },
 };
 
@@ -1186,9 +1216,11 @@ static const struct CompressedSpritePalette sSpritePalette_StatusIcons =
 
 //don't know what to do about size keeping same for now
 //changed size, based on guess from pokemonsummary screen.c sheet size
+//adjusted higher as total size was greater than size previous was 0x500
+//YES WORKS
 static const struct CompressedSpriteSheet sSpriteSheet_StatusIcons =
 {
-    gStatusGfx_Icons_2, 0x400, 1202
+    gStatusGfx_Icons_2, 0x610, 1202
 };
 
 static const struct CompressedSpritePalette sSpritePalette_StatusIcons =

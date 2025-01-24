@@ -143,6 +143,7 @@ struct PartyMenuBox
     u8 itemSpriteId;
     u8 pokeballSpriteId;
     u8 statusSpriteId;
+    u8 expSpriteId; //realizes was overwriting needed its own value
 };
 
 static void BlitBitmapToPartyWindow_LeftColumn(u8 windowId, u8 x, u8 y, u8 width, u8 height, bool8 isEgg);
@@ -214,10 +215,12 @@ static void CreatePartyMonIconSpriteParameterized(u16 species, u32 pid, struct P
 static void CreatePartyMonHeldItemSpriteParameterized(u16 species, u16 item, struct PartyMenuBox *menuBox);
 static void CreatePartyMonPokeballSpriteParameterized(u16 species, struct PartyMenuBox *menuBox);
 static void CreatePartyMonStatusSpriteParameterized(u16 species, u8 status, struct PartyMenuBox *menuBox);
+static void CreatePartyMonExpSPriteParameterized(u16 species, u8 expState, struct PartyMenuBox *menuBox);
 static void CreatePartyMonIconSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox, u32 slot);
 static void CreatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void CreatePartyMonPokeballSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void CreatePartyMonStatusSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
+static void CreatePartyMonExpSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void CreateCancelConfirmPokeballSprites(void);
 static void DrawCancelConfirmButtons(void);
 static u8 CreatePokeballButtonSprite(u8 x, u8 y);
@@ -273,7 +276,9 @@ static void UpdatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBo
 static void ShowOrHideHeldItemSprite(u16 item, struct PartyMenuBox *menuBox);
 static void CreateHeldItemSpriteForTrade(u8 spriteId, bool8 isMail);
 static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox);
+static void SetPartyMonExpGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox);
+static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox);
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId);
 static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon);
 static u8 GetPartySlotEntryStatus(s8 slot);
@@ -950,6 +955,7 @@ static void CreatePartyMonSprites(u8 slot)
     if (gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE && slot >= MULTI_PARTY_SIZE)
     {
         u8 status;
+        u8 expState = 0;
 
         actualSlot = slot - MULTI_PARTY_SIZE;
         if (gMultiPartnerParty[actualSlot].species != SPECIES_NONE)
@@ -961,7 +967,19 @@ static void CreatePartyMonSprites(u8 slot)
                 status = AILMENT_FNT;
             else
                 status = GetAilmentFromStatus(gMultiPartnerParty[actualSlot].status);
+                //unsure gmultipartnerparty can be used like mon substitute vsonic need check
+                //compiler doesn't like it, 
+                //hope this is right,think it should line up but unsure?
+                //don't think will work at all, since is doing based off subtracting from 3,
+                //everything from 3 to below will just wrap to 0,
+                //think I need to loop party and do a personality check?
+                //beleive is better but still technically not infallable
+                if (gMultiPartnerParty[actualSlot].personality == GetMonData(&gPlayerParty[slot], MON_DATA_PERSONALITY))
+                    if (GetMonExpState(&gPlayerParty[slot]))
+                        expState = GetMonExpState(&gPlayerParty[slot]);
             CreatePartyMonStatusSpriteParameterized(gMultiPartnerParty[actualSlot].species, status, &sPartyMenuBoxes[slot]);
+                if (expState)
+                    CreatePartyMonExpSPriteParameterized(gMultiPartnerParty[actualSlot].species, expState, &sPartyMenuBoxes[slot]);
         }//add exp icon function below status
     }
     else if (GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES) != SPECIES_NONE)
@@ -970,6 +988,7 @@ static void CreatePartyMonSprites(u8 slot)
         CreatePartyMonHeldItemSprite(&gPlayerParty[slot], &sPartyMenuBoxes[slot]);
         CreatePartyMonPokeballSprite(&gPlayerParty[slot], &sPartyMenuBoxes[slot]);
         CreatePartyMonStatusSprite(&gPlayerParty[slot], &sPartyMenuBoxes[slot]);
+        CreatePartyMonExpSprite(&gPlayerParty[slot], &sPartyMenuBoxes[slot]);
     }
 }
 
@@ -3190,9 +3209,33 @@ static void CreatePartyMonStatusSpriteParameterized(u16 species, u8 status, stru
     }
 }
 
+static void CreatePartyMonExpSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+    if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
+    {
+        menuBox->expSpriteId = CreateSprite(&gSpriteTemplate_StatusIcons, menuBox->spriteCoords[8], menuBox->spriteCoords[9], 0);
+        SetPartyMonExpGfx(mon, menuBox);
+    }
+}
+
+static void CreatePartyMonExpSPriteParameterized(u16 species, u8 expState, struct PartyMenuBox *menuBox)
+{
+    if (species != SPECIES_NONE)
+    {
+        menuBox->expSpriteId = CreateSprite(&gSpriteTemplate_StatusIcons, menuBox->spriteCoords[8], menuBox->spriteCoords[9], 0);
+        UpdatePartyMonExpstateGfx(expState, menuBox);
+        gSprites[menuBox->expSpriteId].oam.priority = 0;
+    }
+}
+
 static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
     UpdatePartyMonAilmentGfx(GetMonAilment(mon), menuBox);
+}
+
+static void SetPartyMonExpGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+    UpdatePartyMonExpstateGfx(GetMonExpState(mon), menuBox);
 }
 
 static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
@@ -3206,6 +3249,20 @@ static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
     default:
         StartSpriteAnim(&gSprites[menuBox->statusSpriteId], status - 1);
         gSprites[menuBox->statusSpriteId].invisible = FALSE;
+        break;
+    }
+}
+
+static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox)
+{
+    switch (expState)
+    {
+    case AILMENT_NONE:
+        gSprites[menuBox->expSpriteId].invisible = TRUE;
+        break;
+    default:
+        StartSpriteAnim(&gSprites[menuBox->expSpriteId], expState - 1);
+        gSprites[menuBox->expSpriteId].invisible = FALSE;
         break;
     }
 }
@@ -3637,6 +3694,7 @@ static void MovePartyMenuBoxSprites(struct PartyMenuBox *menuBox, s16 offset)
     gSprites[menuBox->itemSpriteId].pos2.x += offset * 8;
     gSprites[menuBox->monSpriteId].pos2.x += offset * 8;
     gSprites[menuBox->statusSpriteId].pos2.x += offset * 8;
+    gSprites[menuBox->expSpriteId].pos2.x += offset * 8;
 }
 
 static void SlidePartyMenuBoxSpritesOneStep(u8 taskId)
@@ -3759,6 +3817,7 @@ static void SwitchPartyMon(void)
     SwitchMenuBoxSprites(&menuBoxes[0]->itemSpriteId, &menuBoxes[1]->itemSpriteId);
     SwitchMenuBoxSprites(&menuBoxes[0]->monSpriteId, &menuBoxes[1]->monSpriteId);
     SwitchMenuBoxSprites(&menuBoxes[0]->statusSpriteId, &menuBoxes[1]->statusSpriteId);
+    SwitchMenuBoxSprites(&menuBoxes[0]->expSpriteId, &menuBoxes[1]->expSpriteId);
 }
 
 static void SetSwitchedPartyOrderQuestLogEvent(void)
@@ -3777,6 +3836,9 @@ static void FinishTwoMonAction(u8 taskId)
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
     gPartyMenu.action = PARTY_ACTION_CHOOSE_MON;
     AnimatePartySlot(gPartyMenu.slotId, 0);
+    //believe vsonic important this may be the issue w my callbacks on switch
+    //if I use gpartymenu.slotId its storing moved mon not the current mon
+    //in the original slot?
     gPartyMenu.slotId = gPartyMenu.slotId2;
     AnimatePartySlot(gPartyMenu.slotId2, 1);
     DisplayPartyMenuStdMessage(PARTY_MSG_CHOOSE_MON);
@@ -7008,6 +7070,7 @@ static void SlideMultiPartyMenuBoxSpritesOneStep(u8 taskId)
             MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].itemSpriteId, tXPos - 8);
             MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].pokeballSpriteId, tXPos - 8);
             MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].statusSpriteId, tXPos - 8);
+            MoveMultiPartyMenuBoxSprite(sPartyMenuBoxes[i].expSpriteId, tXPos - 8);
         }
     }
     ChangeBgX(2, 0x800, 1);
