@@ -12589,6 +12589,23 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
     return FALSE;
 }
 
+//for use in party menu
+bool8 CanActivateExpShare(void)
+{
+    if ((FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE))
+    && FlagGet(FLAG_EXP_SHARE_TURNED_ON))
+        return TRUE;
+    return FALSE;
+}
+
+bool8 CanActivateExpNull(void)
+{
+    if ((FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_NULL_FROM_MOM))
+    && FlagGet(FLAG_EXP_NULL_TURNED_ON))
+        return TRUE;
+    return FALSE;
+}
+
 //put in acc check if true set to acc to 100
 //make sure to put high enough it can take effect but still be affected
 //by other accuracy factors

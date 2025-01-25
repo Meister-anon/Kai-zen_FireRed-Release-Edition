@@ -818,6 +818,7 @@ static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
     [MOVE_EFFECT_FREEZE] = STATUS1_FREEZE,
     [MOVE_EFFECT_PARALYSIS] = STATUS1_PARALYSIS,
     [MOVE_EFFECT_TOXIC] = STATUS1_TOXIC_POISON,
+    [MOVE_EFFECT_INFESTATION] = STATUS1_INFESTATION,
     [MOVE_EFFECT_CONFUSION] = STATUS2_CONFUSION,
     [MOVE_EFFECT_FLINCH] = STATUS2_FLINCHED,
     [MOVE_EFFECT_UPROAR] = STATUS2_UPROAR,
@@ -879,7 +880,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_SPD_MINUS_2] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_INFESTATION] = BattleScript_MoveEffectInfestation,
     [MOVE_EFFECT_ATTRACT] = BattleScript_MoveEffectAttract,   //see if it works as is, or I need actuall battlescript for this
-    //[MOVE_EFFECT_SPIRIT_LOCK] = BattleScript_MoveEffectSpiritLock,
+    //[MOVE_EFFECT_PLACEHOLDER_STATUS1] = BattleScript_MoveEffectSpiritLock,
 }; //don't know why a lot of these default to sleep, but I added attract to hopefully do something?
 //those that default to sleep have their effects set in SetMoveEffect function 
 
@@ -6551,7 +6552,7 @@ static void atk23_getexp(void)
                             holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
                         else
                             holdEffect = ItemId_GetHoldEffect(item);
-                        if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                        if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE))
                             ++viaExpShare;
                 }
             }
@@ -6563,7 +6564,7 @@ static void atk23_getexp(void)
                     *exp = 0; // having this be 1 ensures a gain of exp of 1 no matter what. I changed to 0
                 gExpShareExp = calculatedExp / 2 / viaExpShare;
                 if (gExpShareExp == 0)
-                    gExpShareExp = 0;
+                    gExpShareExp = 1;
             }
             else
             {
@@ -6585,7 +6586,12 @@ static void atk23_getexp(void)
                 holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
             else
                 holdEffect = ItemId_GetHoldEffect(item);
-            if (holdEffect != HOLD_EFFECT_EXP_SHARE && !(gBattleStruct->sentInPokes & 1))
+            //need identify and set specific case for exp null, for that,
+            //block exp skip most logic but still set evs and friendship increase
+            //if they were sent in
+            //belive translates to, if not sent in and not holding exp share,
+            //so what I need is, if sent in, but holding exp null
+            if (!(GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE)) && !(gBattleStruct->sentInPokes & 1))
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.atk23_getexpState = 5;
@@ -6596,7 +6602,15 @@ static void atk23_getexp(void)
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
                 gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
-                MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId], gBattleMons[gBattlerFainted].species);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+                MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+            } //hopefully this works without issue
+            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_NULL_STATE))
+            {
+                *(&gBattleStruct->sentInPokes) >>= 1;
+                gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
+                gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
+                MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
+                AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_EXP_GAINED); //
             } //hopefully this works without issue
             else
             {
@@ -6626,12 +6640,14 @@ static void atk23_getexp(void)
                         gBattleMoveDamage = *exp;
                     else
                         gBattleMoveDamage = 0;
-                    if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE))
                         gBattleMoveDamage += gExpShareExp;
+                    //don't want to display text w this,
+                    //so pretty sure not the correct place for this
+                    //else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_NULL_STATE))
+                    //    gBattleMoveDamage = 0;
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100; //since gBattlemovedamage is *exp, this is for the 1.5 exp boost from lucky egg I can make exp 0 here.
-                    if (holdEffect == HOLD_EFFECT_ULTIMA_BRACE) //should make exp 0 //may do with a flag check rather than hold effect, since mon have flag category now anyway
-                        gBattleMoveDamage = 0;
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId])
@@ -6666,7 +6682,7 @@ static void atk23_getexp(void)
                     PREPARE_STRING_BUFFER(gBattleTextBuff2, i);
                     PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff3, 5, gBattleMoveDamage);
                     PrepareStringBattle(STRINGID_PKMNGAINEDEXP, gBattleStruct->expGetterBattlerId);
-                    MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId], gBattleMons[gBattlerFainted].species);
+                    MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);
                     AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_EXP_GAINED); //apparently friendship calculation doesnt have a filter for if mon is alive
                 }//so it triggers regardless,  but putting here ensures that it would only activate if mon is alive,
                 gBattleStruct->sentInPokes >>= 1;

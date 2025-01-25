@@ -10051,7 +10051,7 @@ enum
 //think this isn't working? about 90% sure
 //yeah its not set and i need to fix this damn function smh
 //decide on my setup and clean this shit up
-void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies) // since this function doesn't use exp, it proves ev gain is separate from exp gain.
+void MonGainEVs(struct Pokemon *mon) // since this function doesn't use exp, it proves ev gain is separate from exp gain.
 { //                                            this means making an item to 0 out exp gain wouldn't break ev gain.
     u16 evs[NUM_STATS]; //per stat evs                
     u16 evIncrease = 0;

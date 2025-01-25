@@ -220,6 +220,10 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler); //for sturdy conditions
 
 s32 CountUsablePartyMons(u32 battlerId);
 
+bool8 CanActivateExpShare(void);
+bool8 CanActivateExpNull(void);
+//condition for using Exp items
+
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);

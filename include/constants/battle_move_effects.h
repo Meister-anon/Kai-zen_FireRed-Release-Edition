@@ -9,68 +9,68 @@
 #define MOVE_EFFECT_FREEZE              0x4
 #define MOVE_EFFECT_PARALYSIS           0x5
 #define MOVE_EFFECT_TOXIC               0x6
-#define PRIMARY_STATUS_MOVE_EFFECT      MOVE_EFFECT_TOXIC // All above move effects apply primary status
-//#define MOVE_EFFECT_SPIRIT_LOCK       0x6  //increase everything til v create by 1 use incrementer from discord for that
-#define MOVE_EFFECT_CONFUSION           0x7 //have to do it by hand since incrementer tool cant handle hexadecimal
-#define MOVE_EFFECT_FLINCH              0x8
-#define MOVE_EFFECT_TRI_ATTACK          0x9
-#define MOVE_EFFECT_UPROAR              0xA
-#define MOVE_EFFECT_PAYDAY              0xB
-#define MOVE_EFFECT_CHARGING            0xC
-#define MOVE_EFFECT_WRAP                0xD
-#define MOVE_EFFECT_RECOIL_25           0xE
-#define MOVE_EFFECT_ATK_PLUS_1          0xF
-#define MOVE_EFFECT_DEF_PLUS_1          0x10
-#define MOVE_EFFECT_SPD_PLUS_1          0x11
-#define MOVE_EFFECT_SP_ATK_PLUS_1       0x12
-#define MOVE_EFFECT_SP_DEF_PLUS_1       0x13
-#define MOVE_EFFECT_ACC_PLUS_1          0x14
-#define MOVE_EFFECT_EVS_PLUS_1          0x15
-#define MOVE_EFFECT_ATK_MINUS_1         0x16
-#define MOVE_EFFECT_DEF_MINUS_1         0x17
-#define MOVE_EFFECT_SPD_MINUS_1         0x18
-#define MOVE_EFFECT_SP_ATK_MINUS_1      0x19
-#define MOVE_EFFECT_SP_DEF_MINUS_1      0x1A
-#define MOVE_EFFECT_ACC_MINUS_1         0x1B
-#define MOVE_EFFECT_EVS_MINUS_1         0x1C
-#define MOVE_EFFECT_RECHARGE            0x1D
-#define MOVE_EFFECT_RAGE                0x1E
-#define MOVE_EFFECT_STEAL_ITEM          0x1F
-#define MOVE_EFFECT_PREVENT_ESCAPE      0x20
-#define MOVE_EFFECT_NIGHTMARE           0x21
-#define MOVE_EFFECT_ALL_STATS_UP        0x22
-#define MOVE_EFFECT_RAPIDSPIN           0x23
-#define MOVE_EFFECT_REMOVE_STATUS		0x24    //think remove or just add back individual status clear,  vsonic
-#define MOVE_EFFECT_ATK_DEF_DOWN        0x25
-#define MOVE_EFFECT_RECOIL_33           0x26
-#define MOVE_EFFECT_ATK_PLUS_2          0x27
-#define MOVE_EFFECT_DEF_PLUS_2          0x28
-#define MOVE_EFFECT_SPD_PLUS_2          0x29
-#define MOVE_EFFECT_SP_ATK_PLUS_2       0x2A
-#define MOVE_EFFECT_SP_DEF_PLUS_2       0x2B
-#define MOVE_EFFECT_ACC_PLUS_2          0x2C
-#define MOVE_EFFECT_EVS_PLUS_2          0x2D
-#define MOVE_EFFECT_ATK_MINUS_2         0x2E
-#define MOVE_EFFECT_DEF_MINUS_2         0x2F
-#define MOVE_EFFECT_SPD_MINUS_2         0x30
-#define MOVE_EFFECT_SP_ATK_MINUS_2      0x31
-#define MOVE_EFFECT_SP_DEF_MINUS_2      0x32
-#define MOVE_EFFECT_ACC_MINUS_2         0x33
-#define MOVE_EFFECT_EVS_MINUS_2         0x34
-#define MOVE_EFFECT_THRASH              0x35
-#define MOVE_EFFECT_KNOCK_OFF           0x36
-#define MOVE_EFFECT_CLEAR_SMOG          0x37
-#define MOVE_EFFECT_DEF_SPDEF_DOWN      0x38
-#define MOVE_EFFECT_SP_ATK_TWO_DOWN     0x39
-#define MOVE_EFFECT_HEAVY_RECOIL	        0x3A
-#define MOVE_EFFECT_MED_RECOIL_W_STATUS	0x3B
-#define MOVE_EFFECT_SMACK_DOWN          0x3C	//reordered move effects for shield dust logic //not using anymore moveed effect to flag check, so can remoe and use flame burst instead
-#define MOVE_EFFECT_FLAME_BURST         0x3D
-#define MOVE_EFFECT_FEINT				0x3E
-#define MOVE_EFFECT_SPECTRAL_THIEF      0x3F
-#define MOVE_EFFECT_ATTRACT				0x40	//just need to set this to the effect attract?	//setstatus in bscommands, this infatuates w target should work for effect spore
-#define MOVE_EFFECT_SPIRIT_LOCK			0x41  //but if
-#define MOVE_EFFECT_INFESTATION         0x42 //will need to move down when setup before primary status move effect constant
+#define MOVE_EFFECT_PLACEHOLDER_STATUS1			0x7  //but if
+#define MOVE_EFFECT_INFESTATION         0x8 //will need to move down when setup before primary status move effect constant
+#define PRIMARY_STATUS_MOVE_EFFECT      MOVE_EFFECT_INFESTATION // All above move effects apply primary status
+//#define MOVE_EFFECT_PLACEHOLDER_STATUS1       0x6  //increase everything til v create by 1 use incrementer from discord for that
+#define MOVE_EFFECT_CONFUSION           0x9 //have to do it by hand since incrementer tool cant handle hexadecimal
+#define MOVE_EFFECT_FLINCH              0xA
+#define MOVE_EFFECT_TRI_ATTACK          0xB
+#define MOVE_EFFECT_UPROAR              0xC
+#define MOVE_EFFECT_PAYDAY              0xD
+#define MOVE_EFFECT_CHARGING            0xE
+#define MOVE_EFFECT_WRAP                0xF
+#define MOVE_EFFECT_RECOIL_25           0x10
+#define MOVE_EFFECT_ATK_PLUS_1          0x11
+#define MOVE_EFFECT_DEF_PLUS_1          0x12
+#define MOVE_EFFECT_SPD_PLUS_1          0x13
+#define MOVE_EFFECT_SP_ATK_PLUS_1       0x14
+#define MOVE_EFFECT_SP_DEF_PLUS_1       0x15
+#define MOVE_EFFECT_ACC_PLUS_1          0x16
+#define MOVE_EFFECT_EVS_PLUS_1          0x17
+#define MOVE_EFFECT_ATK_MINUS_1         0x18
+#define MOVE_EFFECT_DEF_MINUS_1         0x19
+#define MOVE_EFFECT_SPD_MINUS_1         0x1A
+#define MOVE_EFFECT_SP_ATK_MINUS_1      0x1B
+#define MOVE_EFFECT_SP_DEF_MINUS_1      0x1C
+#define MOVE_EFFECT_ACC_MINUS_1         0x1D
+#define MOVE_EFFECT_EVS_MINUS_1         0x1E
+#define MOVE_EFFECT_RECHARGE            0x1F
+#define MOVE_EFFECT_RAGE                0x20
+#define MOVE_EFFECT_STEAL_ITEM          0x21
+#define MOVE_EFFECT_PREVENT_ESCAPE      0x22
+#define MOVE_EFFECT_NIGHTMARE           0x23
+#define MOVE_EFFECT_ALL_STATS_UP        0x24
+#define MOVE_EFFECT_RAPIDSPIN           0x25
+#define MOVE_EFFECT_REMOVE_STATUS		0x26    //think remove or just add back individual status clear,  vsonic
+#define MOVE_EFFECT_ATK_DEF_DOWN        0x27
+#define MOVE_EFFECT_RECOIL_33           0x28
+#define MOVE_EFFECT_ATK_PLUS_2          0x29
+#define MOVE_EFFECT_DEF_PLUS_2          0x2A
+#define MOVE_EFFECT_SPD_PLUS_2          0x2B
+#define MOVE_EFFECT_SP_ATK_PLUS_2       0x2C
+#define MOVE_EFFECT_SP_DEF_PLUS_2       0x2D
+#define MOVE_EFFECT_ACC_PLUS_2          0x2E
+#define MOVE_EFFECT_EVS_PLUS_2          0x2F
+#define MOVE_EFFECT_ATK_MINUS_2         0x30
+#define MOVE_EFFECT_DEF_MINUS_2         0x31
+#define MOVE_EFFECT_SPD_MINUS_2         0x32
+#define MOVE_EFFECT_SP_ATK_MINUS_2      0x33
+#define MOVE_EFFECT_SP_DEF_MINUS_2      0x34
+#define MOVE_EFFECT_ACC_MINUS_2         0x35
+#define MOVE_EFFECT_EVS_MINUS_2         0x36
+#define MOVE_EFFECT_THRASH              0x37
+#define MOVE_EFFECT_KNOCK_OFF           0x38
+#define MOVE_EFFECT_CLEAR_SMOG          0x39
+#define MOVE_EFFECT_DEF_SPDEF_DOWN      0x3A
+#define MOVE_EFFECT_SP_ATK_TWO_DOWN     0x3B
+#define MOVE_EFFECT_HEAVY_RECOIL	    0x3C
+#define MOVE_EFFECT_MED_RECOIL_W_STATUS	0x3D
+#define MOVE_EFFECT_SMACK_DOWN          0x3E	//reordered move effects for shield dust logic //not using anymore moveed effect to flag check, so can remoe and use flame burst instead
+#define MOVE_EFFECT_FLAME_BURST         0x3F
+#define MOVE_EFFECT_FEINT				0x40
+#define MOVE_EFFECT_SPECTRAL_THIEF      0x41
+#define MOVE_EFFECT_ATTRACT				0x42	//just need to set this to the effect attract?	//setstatus in bscommands, this infatuates w target should work for effect spore
 #define MOVE_EFFECT_HAPPY_HOUR          0x43
 #define MOVE_EFFECT_CORE_ENFORCER       0x44
 #define MOVE_EFFECT_THROAT_CHOP         0x45
