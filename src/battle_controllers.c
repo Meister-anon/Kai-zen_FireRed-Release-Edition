@@ -638,7 +638,7 @@ static void Task_HandleSendLinkBuffersData(u8 taskId)
                     gTasks[taskId].data[15] = 0;
                 }
                 blockSize = (gLinkBattleSendBuffer[gTasks[taskId].data[15] + LINK_BUFF_SIZE_LO] | (gLinkBattleSendBuffer[gTasks[taskId].data[15] + LINK_BUFF_SIZE_HI] << 8)) + LINK_BUFF_DATA;
-                SendBlock(bitmask_all_link_players_but_self(), &gLinkBattleSendBuffer[gTasks[taskId].data[15]], blockSize);
+                SendBlock(BitmaskAllOtherLinkPlayers(), &gLinkBattleSendBuffer[gTasks[taskId].data[15]], blockSize);
                 ++gTasks[taskId].data[11];
             }
             else
@@ -1312,4 +1312,29 @@ void BtlController_EmitMoveInfo(enum BattlerId battler, u32 bufferId)
 void BtlController_Complete(enum BattlerId battler)
 {
     gBattlerControllerEndFuncs[battler](battler);
+}
+
+static void Controller_HandleTrainerSlideBack(enum BattlerId battler)
+{
+    if (gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].callback == SpriteCallbackDummy)
+    {
+        if (!IsOnPlayerSide(battler))
+            FreeTrainerFrontPicPalette(gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].oam.affineParam);
+        FreeSpriteOamMatrix(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]]);
+        DestroySprite(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]]);
+        BtlController_Complete(battler);
+    }
+}
+
+void BtlController_HandleTrainerSlideBack(enum BattlerId battler, s16 data0, bool32 startAnim)
+{
+    SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]]);
+    gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].data[0] = data0;
+    gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].data[2] = IsOnPlayerSide(battler) ? -40 : 280;
+    gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].data[4] = gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].y;
+    gSprites[gBattleStruct->trainerSlideSpriteIds[battler]].callback = StartAnimLinearTranslation;
+    StoreSpriteCallbackInData6(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]], SpriteCallbackDummy);
+    if (startAnim)
+        StartSpriteAnim(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]], 1);
+    gBattlerControllerFuncs[battler] = Controller_HandleTrainerSlideBack;
 }

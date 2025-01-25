@@ -104,7 +104,7 @@ bool8 itemid_link_can_give_berry(u16 itemId)
 
 bool8 CanWriteMailHere(u16 itemId)
 {
-    if (IsUpdateLinkStateCBActive() != TRUE && InUnionRoom() != TRUE)
+    if (IsOverworldLinkActive() != TRUE && InUnionRoom() != TRUE)
         return TRUE;
     else if (ItemIsMail(itemId) != TRUE)
         return TRUE;
@@ -114,7 +114,7 @@ bool8 CanWriteMailHere(u16 itemId)
 
 bool8 MenuHelpers_IsLinkActive(void)
 {
-    if (IsUpdateLinkStateCBActive() == TRUE || gReceivedRemoteLinkPlayers == 1)
+    if (IsOverworldLinkActive() == TRUE || gReceivedRemoteLinkPlayers == 1)
         return TRUE;
     else
         return FALSE;

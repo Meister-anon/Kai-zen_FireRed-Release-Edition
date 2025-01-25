@@ -137,4 +137,68 @@ enum // effects versions
 //as focusin gon building
 //appears will need update scripts smh
 
+extern struct ScriptEffectContext *gScriptEffectContext;
+
+bool32 RunScriptImmediatelyUntilEffect_Internal(u32 effects, const u8 *ptr, struct ScriptContext *ctx);
+bool32 Script_HasNoEffect(const u8 *ptr);
+void Script_GotoBreak_Internal(void);
+void Script_RequestEffects_Internal(u32 effects);
+void Script_RequestWriteVar_Internal(u32 varId);
+
+static inline bool32 Script_IsAnalyzingEffects(void)
+{
+    return gScriptEffectContext != NULL;
+}
+
+//vsonic IMPORTANT script change cuz assert not setup yet
+//VERY important
+#define RunScriptImmediatelyUntilEffect(effects, ptr, ctx) \
+    ({ \
+        /*_Static_assert((effects) & 0x80000000, "RunScriptImmediatelyUntilEffect requires an effects version");*/ \
+        RunScriptImmediatelyUntilEffect_Internal(effects, ptr, ctx); \
+    })
+
+/* Optimize 'Script_RequestEffects' to a no-op if it would have no
+ * effect. 'Script_RequestEffects' must be called in all commands and
+ * natives/specials with 'requests_effects=TRUE' even if it would have
+ * no effect to future-proof against new effects. */
+#define Script_RequestEffects(effects) \
+    ({ \
+        /*_Static_assert((effects) & 0x80000000, "Script_RequestEffects requires an effects version");*/ \
+        if ((effects) != SCREFF_V1) \
+            if (Script_IsAnalyzingEffects()) \
+                Script_RequestEffects_Internal((effects) & SCREFF_ANY); \
+    })
+
+/* Optimize 'Script_RequestWriteVar' to a no-op if it would have no
+ * effect. */
+#define Script_RequestWriteVar(varId) \
+    ({ \
+        if (Script_IsAnalyzingEffects()) \
+            Script_RequestWriteVar_Internal(varId); \
+    })
+
+static inline void Script_CheckEffectInstrumentedSpecial(u32 specialId)
+{
+    typedef u16 (*SpecialFunc)(void);
+    extern const SpecialFunc gSpecials[];
+    // In ROM mirror 1.
+    if (Script_IsAnalyzingEffects() && (((uintptr_t)gSpecials[specialId]) & 0xE000000) != 0xA000000)
+        Script_GotoBreak_Internal();
+}
+
+static inline void Script_CheckEffectInstrumentedGotoNative(bool8 (*func)(void))
+{
+    // In ROM mirror 1.
+    if (Script_IsAnalyzingEffects() && (((uintptr_t)func) & 0xE000000) != 0xA000000)
+        Script_GotoBreak_Internal();
+}
+
+static inline void Script_CheckEffectInstrumentedCallNative(void (*func)(struct ScriptContext *))
+{
+    // In ROM mirror 1.
+    if (Script_IsAnalyzingEffects() && (((uintptr_t)func) & 0xE000000) != 0xA000000)
+        Script_GotoBreak_Internal();
+}
+
 #endif // GUARD_SCRIPT_H

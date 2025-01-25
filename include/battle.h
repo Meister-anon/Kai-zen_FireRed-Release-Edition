@@ -981,7 +981,7 @@ struct BattleStruct
     u8 battlerPartyOrders[MAX_BATTLERS_COUNT][PARTY_SIZE / 2];
     u8 runTries;
     u8 caughtMonNick[POKEMON_NAME_LENGTH + 1];
-    u8 safariGoNearCounter;
+    u8 safariGoNearCounter; //pretty sure not needed, not part of FR safari zone
     u8 safariPkblThrowCounter;
     u8 safariEscapeFactor;
     u8 safariCatchFactor;
@@ -1126,6 +1126,7 @@ struct BattleStruct
     u8 magicBounceActive:1;
     u8 moveBouncer;
     bool8 debugAISet;
+    u8 field_DA; // battle tower related
 
 };
 extern struct BattleStruct *gBattleStruct;

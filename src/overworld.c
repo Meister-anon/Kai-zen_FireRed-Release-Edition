@@ -1385,7 +1385,7 @@ static void ResetSafariZoneFlag_(void)
     ResetSafariZoneFlag();
 }
 
-bool32 IsUpdateLinkStateCBActive(void)
+bool32 IsOverworldLinkActive(void)
 {
     if (gMain.callback1 == CB1_UpdateLinkState)
         return TRUE;
@@ -1607,7 +1607,7 @@ static void c2_80567AC(void)
 
 void CB2_ReturnToField(void)
 {
-    if (IsUpdateLinkStateCBActive() == TRUE)
+    if (IsOverworldLinkActive() == TRUE)
     {
         SetMainCallback2(CB2_ReturnToFieldLink);
     }
@@ -2789,7 +2789,7 @@ static void UpdateHeldKeyCode(u16 key)
 
     if (gWirelessCommType != 0
         && GetLinkSendQueueLength() > 1
-        && IsUpdateLinkStateCBActive() == TRUE
+        && IsOverworldLinkActive() == TRUE
         && IsSendingKeysToLink() == TRUE)
     {
         switch (key)
@@ -3184,7 +3184,7 @@ static void sub_8058230(void)
 
 bool32 Overworld_LinkRecvQueueLengthMoreThan2(void)
 {
-    if (!IsUpdateLinkStateCBActive())
+    if (!IsOverworldLinkActive())
         return FALSE;
     if (GetLinkRecvQueueLength() >= 3)
         sReceivingFromLink = TRUE;
@@ -3199,7 +3199,7 @@ bool32 Overworld_RecvKeysFromLinkIsRunning(void)
 
     if (GetLinkRecvQueueLength() < 2)
         return FALSE;
-    else if (IsUpdateLinkStateCBActive() != TRUE)
+    else if (IsOverworldLinkActive() != TRUE)
         return FALSE;
     else if (IsSendingKeysToLink() != TRUE)
         return FALSE;
@@ -3223,7 +3223,7 @@ bool32 Overworld_SendKeysToLinkIsRunning(void)
 {
     if (GetLinkSendQueueLength() < 2)
         return FALSE;
-    else if (IsUpdateLinkStateCBActive() != TRUE)
+    else if (IsOverworldLinkActive() != TRUE)
         return FALSE;
     else if (IsSendingKeysToLink() != TRUE)
         return FALSE;

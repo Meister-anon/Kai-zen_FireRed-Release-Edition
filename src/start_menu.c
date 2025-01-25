@@ -211,7 +211,7 @@ static ALIGNED(2) const u8 sTextColor_LocationHeader[] = { 1, 6, 7 };
 static void SetUpStartMenu(void)
 {
     sNumStartMenuItems = 0;
-   // if (IsUpdateLinkStateCBActive() == TRUE)
+   // if (IsOverworldLinkActive() == TRUE)
      //   SetUpStartMenu_Link();
    // else if (InUnionRoom() == TRUE)
    //     SetUpStartMenu_UnionRoom();
@@ -461,7 +461,7 @@ void Task_StartMenuHandleInput(u8 taskId)
 
 void ShowStartMenu(void)
 {
-    if (!IsUpdateLinkStateCBActive())
+    if (!IsOverworldLinkActive())
     {
         FreezeObjectEvents();
         HandleEnforcedLookDirectionOnPlayerStopMoving();

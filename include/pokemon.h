@@ -1159,6 +1159,7 @@ u8 CalculateEnemyPartyCount(void);
 //from EE
 u8 CalculateEnemyPartyCountInSide(enum BattlerId battler);
 u8 GetMonsStateToDoubles(void);
+u8 GetMonsStateToDoubles_2(void);
 u16 GetAbilityBySpecies(u16 species, bool8 abilityNum, struct Pokemon *mon); //change for taught abilities
 u16 GetMonAbility(struct Pokemon *mon);
 u32 ShouldUseTaughtAbility(struct Pokemon *mon);

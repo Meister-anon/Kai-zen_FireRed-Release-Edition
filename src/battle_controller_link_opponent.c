@@ -1116,6 +1116,8 @@ static void DoSwitchOutAnimation(enum BattlerId battler)
 
 #define sSpeedX data[0]
 
+//vsonic adding EE battle tower changes would require
+//expanding save block don't want so exclude frontier stuff I guesss
 static void LinkOpponentHandleDrawTrainerPic(enum BattlerId battler)
 {
     s16 xPos;
@@ -1155,7 +1157,7 @@ static void LinkOpponentHandleDrawTrainerPic(enum BattlerId battler)
     else
     {
         xPos = 176;
-        if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
+        if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_UNION_ROOM)
         {
             trainerPicId = GetUnionRoomTrainerPic();
         }
@@ -1203,13 +1205,14 @@ static void LinkOpponentHandleTrainerSlide(enum BattlerId battler)
 
 static void LinkOpponentHandleTrainerSlideBack(enum BattlerId battler)
 {
-    SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
+    /*SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[battler]]);
     gSprites[gBattlerSpriteIds[battler]].data[0] = 35;
     gSprites[gBattlerSpriteIds[battler]].data[2] = 280;
     gSprites[gBattlerSpriteIds[battler]].data[4] = gSprites[gBattlerSpriteIds[battler]].y;
     gSprites[gBattlerSpriteIds[battler]].callback = StartAnimLinearTranslation;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[battler]], SpriteCallbackDummy);
-    gBattlerControllerFuncs[battler] = FreeTrainerSpriteAfterSlide;
+    gBattlerControllerFuncs[battler] = FreeTrainerSpriteAfterSlide;*/
+    BtlController_HandleTrainerSlideBack(battler, 35, FALSE);
 }
 
 static void LinkOpponentHandleFaintAnimation(enum BattlerId battler)

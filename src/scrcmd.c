@@ -36,6 +36,7 @@
 #include "field_effect.h"
 #include "fieldmap.h"
 #include "field_door.h"
+#include "trainer_see.h"
 #include "constants/event_objects.h"
 
 typedef u16 (*SpecialFunc)(void);
@@ -1263,7 +1264,7 @@ bool8 ScrCmd_turnvobject(struct ScriptContext * ctx)
 
 bool8 ScrCmd_lockall(struct ScriptContext * ctx)
 {
-    if (IsUpdateLinkStateCBActive())
+    if (IsOverworldLinkActive())
     {
         return FALSE;
     }
@@ -1277,7 +1278,7 @@ bool8 ScrCmd_lockall(struct ScriptContext * ctx)
 
 bool8 ScrCmd_lock(struct ScriptContext * ctx)
 {
-    if (IsUpdateLinkStateCBActive())
+    if (IsOverworldLinkActive())
     {
         return FALSE;
     }
@@ -2121,13 +2122,16 @@ bool8 ScrCmd_updatecoinsbox(struct ScriptContext * ctx)
 
 bool8 ScrCmd_trainerbattle(struct ScriptContext * ctx)
 {
+    //Script_RequestEffects(SCREFF_V1 | SCREFF_TRAINERBATTLE);
+    
+    TrainerBattleLoadArgs(ctx->scriptPtr);
     ctx->scriptPtr = BattleSetup_ConfigureTrainerBattle(ctx->scriptPtr);
     return FALSE;
 }
 
 bool8 ScrCmd_dotrainerbattle(struct ScriptContext * ctx)
 {
-    StartTrainerBattle();
+    BattleSetup_StartTrainerBattle();
     return TRUE;
 }
 
@@ -2179,7 +2183,7 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext * ctx)
 
 bool8 ScrCmd_dowildbattle(struct ScriptContext * ctx)
 {
-    StartScriptedWildBattle();
+    BattleSetup_StartScriptedWildBattle();
     ScriptContext_Stop();
     return TRUE;
 }
@@ -2788,6 +2792,33 @@ bool8 ScrCmd_normalmsg(struct ScriptContext * ctx)
 {
     MsgSetNotSignPost();
     return FALSE;
+}
+
+bool8 ScrCmd_selectapproachingtrainer(struct ScriptContext *ctx)
+{
+    //Script_RequestEffects(SCREFF_V1);
+
+    gSelectedObjectEvent = GetCurrentApproachingTrainerObjectEventId();
+    return FALSE;
+}
+
+bool8 ScrCmd_lockfortrainer(struct ScriptContext *ctx)
+{
+    //Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+
+    if (IsOverworldLinkActive())
+    {
+        return FALSE;
+    }
+    else
+    {
+        if (gObjectEvents[gSelectedObjectEvent].active)
+        {
+            FreezeForApproachingTrainers();
+            SetupNativeScript(ctx, IsFreezeObjectAndPlayerFinished);
+        }
+        return TRUE;
+    }
 }
 
 // This command will set a Pokémon's eventLegal bit; there is no similar command to clear it.

@@ -186,7 +186,7 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     {
         .flag = WEATHER_HAIL,
         .rock = HOLD_EFFECT_ICY_ROCK,
-        .abilityStartMessage = B_MSG_STARTED_HAIL_WARNING,
+        .abilityStartMessage = B_MSG_STARTED_HAIL_STORM,
         .moveStartMessage = B_MSG_STARTED_HAIL,
         .endMessage = B_MSG_WEATHER_END_HAIL,
         .continuesMessage = B_MSG_WEATHER_TURN_HAIL,

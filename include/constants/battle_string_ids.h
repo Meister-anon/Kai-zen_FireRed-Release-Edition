@@ -251,8 +251,11 @@ enum AbilityWeatherChangeStringID
     B_MSG_STARTED_DRIZZLE,
     B_MSG_STARTED_SAND_STREAM,
     B_MSG_STARTED_DROUGHT,
-    B_MSG_STARTED_HAIL_WARNING,
+    B_MSG_STARTED_HAIL_STORM,
     B_MSG_STARTED_SNOW_WARNING,
+    B_MSG_STARTED_LUNAR_SOLSTICE,
+    B_MSG_STARTED_TOXIC_DELUGE,
+    //B_MSG_STARTED_FOG_HORN, MADE move forgot didn't make fog ability least not yet
     B_MSG_STARTED_DESOLATE_LAND,
     B_MSG_STARTED_PRIMORDIAL_SEA,
     B_MSG_STARTED_STRONG_WINDS,
@@ -1168,6 +1171,7 @@ enum SportsUsedStringID
     F(STRINGID_MOONLIGHTFADED,                                        ("The Moon's rays faded from view.{PAUSE 36}"))\
     F(STRINGID_STARTEDSNOW,                                        ("It started to snow!"))\
     F(STRINGID_PKMNSXINTENSIFIEDMOONLIGHT,                                        ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY}\nintensified the moon's rays!"))\
+    F(STRINGID_PKMNSXSUMMONEDACIDRAIN,                                        ("{B_SCR_NAME_WITH_PREFIX}'s {B_SCR_ABILITY}\ncalled down a toxic rain!"))\
     F(STRINGID_ACIDRAIN_FALLS,                                        ("A toxic rain began to fall!"))\
     F(STRINGID_HURTBYRAIN,                                        ("{B_ATK_NAME_WITH_PREFIX} is seared\nby ACID RAIN!"))\
     F(STRINGID_TARGETISGETTINGSERIOUS,                                        ("{B_DEF_NAME_WITH_PREFIX} is getting serious now!"))\

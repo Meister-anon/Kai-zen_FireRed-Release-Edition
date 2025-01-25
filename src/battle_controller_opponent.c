@@ -11,6 +11,7 @@
 #include "battle_controllers.h"
 #include "battle_message.h"
 #include "battle_interface.h"
+#include "battle_setup.h"
 #include "battle_tower.h"
 #include "battle_gfx_sfx_util.h"
 #include "battle_ai_main.h"
@@ -1115,6 +1116,71 @@ static void DoSwitchOutAnimation(enum BattlerId battler)
     }
 }
 
+//made to simplify opponent handle draw trainer pic
+//need cleanup
+static u32 OpponentGetTrainerPicId(enum BattlerId battlerId)
+{
+    enum TrainerPicID trainerPicId;
+
+    /*if (gBattleTypeFlags & BATTLE_TYPE_SECRET_BASE)
+    {
+        trainerPicId = GetSecretBaseTrainerPicIndex();
+    }
+    else if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_FRONTIER_BRAIN)
+    {
+        trainerPicId = GetFrontierBrainTrainerPicIndex();
+    }
+    else */if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER /*&& gMapHeader.regionMapSectionId == MAPSEC_TRAINER_TOWER_2*/)
+    {
+        trainerPicId = GetTrainerTowerTrainerFrontSpriteId();
+    }
+    /*else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+    {
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        {
+            if (battlerId == 1)
+                trainerPicId = GetTrainerHillTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentA);
+            else
+                trainerPicId = GetTrainerHillTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentB);
+        }
+        else
+        {
+            trainerPicId = GetTrainerHillTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentA);
+        }
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+    {
+        if (gBattleTypeFlags & (BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TOWER_LINK_MULTI))
+        {
+            if (battlerId == 1)
+                trainerPicId = GetFrontierTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentA);
+            else
+                trainerPicId = GetFrontierTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentB);
+        }
+        else
+        {
+            trainerPicId = GetFrontierTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentA);
+        }
+    }*/
+    else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
+    {
+        trainerPicId = GetEreaderTrainerFrontSpriteId();
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+    {
+        if (battlerId != 1)
+            trainerPicId = GetTrainerPicFromId(TRAINER_BATTLE_PARAM.opponentB);
+        else
+            trainerPicId = GetTrainerPicFromId(TRAINER_BATTLE_PARAM.opponentA);
+    }
+    else
+    {
+        trainerPicId = GetTrainerPicFromId(TRAINER_BATTLE_PARAM.opponentA);
+    }
+
+    return trainerPicId;
+}
+
 static void OpponentHandleDrawTrainerPic(enum BattlerId battler)
 {
     u32 trainerPicId;
@@ -1125,7 +1191,7 @@ static void OpponentHandleDrawTrainerPic(enum BattlerId battler)
     else
         trainercoordinate = (gTrainerFrontPicCoords[trainerPicId].size + 2);
 
-    /*if (gTrainerBattleOpponent_A == 0x400)
+    /*if (TRAINER_BATTLE_PARAM.opponentA == 0x400)
         trainerPicId = GetSecretBaseTrainerPicIndex();
     else */if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
         trainerPicId = GetBattleTowerTrainerFrontSpriteId();
@@ -1134,7 +1200,7 @@ static void OpponentHandleDrawTrainerPic(enum BattlerId battler)
     else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
         trainerPicId = GetEreaderTrainerFrontSpriteId();
     else
-        trainerPicId = gTrainers[gTrainerBattleOpponent_A].trainerPic;
+        trainerPicId = gTrainers[TRAINER_BATTLE_PARAM.opponentA].trainerPic;
     DecompressTrainerFrontPic(trainerPicId, battler);
     SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(battler));
     gBattlerSpriteIds[battler] = CreateSprite(&gMultiuseSpriteTemplate,
@@ -1161,7 +1227,7 @@ static void OpponentHandleTrainerSlide(enum BattlerId battler)
     else
         trainercoordinate = (gTrainerFrontPicCoords[trainerPicId].size + 2);
 
-    /*if (gTrainerBattleOpponent_A == 0x400)
+    /*if (TRAINER_BATTLE_PARAM.opponentA == 0x400)
         trainerPicId = GetSecretBaseTrainerPicIndex();
     else */if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
         trainerPicId = GetBattleTowerTrainerFrontSpriteId();
@@ -1170,7 +1236,7 @@ static void OpponentHandleTrainerSlide(enum BattlerId battler)
     else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
         trainerPicId = GetEreaderTrainerFrontSpriteId();
     else
-        trainerPicId = gTrainers[gTrainerBattleOpponent_A].trainerPic;
+        trainerPicId = gTrainers[TRAINER_BATTLE_PARAM.opponentA].trainerPic;
     DecompressTrainerFrontPic(trainerPicId, battler);
     SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(battler));
     gBattlerSpriteIds[battler] = CreateSprite(&gMultiuseSpriteTemplate,
@@ -1324,9 +1390,9 @@ static void OpponentHandlePrintString(enum BattlerId battler)
     stringId = (u16 *)(&gBattleResources->bufferA[battler][2]);
     BufferStringBattle(battler, *stringId);
     if (BattleStringShouldBeColored(*stringId))
-        BattlePutTextOnWindow(gDisplayedStringBattle, 0x40);
+        BattlePutTextOnWindow(gDisplayedStringBattle, (B_WIN_MSG | B_TEXT_FLAG_NPC_CONTEXT_FONT));
     else
-        BattlePutTextOnWindow(gDisplayedStringBattle, 0);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
     {
         switch (*stringId)

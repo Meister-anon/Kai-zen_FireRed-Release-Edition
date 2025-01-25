@@ -62,3 +62,4 @@ prefabs.json
 *.js
 *.sym
 @src/data/map_group_count.h
+include/constants/script_commands.h @seems is added because is auto genereated? idk yeah cuz generated and not meant to touch it

@@ -1,232 +1,254 @@
-	.align 2
+@ 'requests_effects' should be set to 1 if the command contains a call
+@ to 'Script_RequestEffects', which allows it to be analyzed with
+@ 'RunScriptImmediatelyUntilEffect'.
+	.ifndef SCRIPT_CMD_TABLE_ENTRY_MACRO
+	.set SCRIPT_CMD_TABLE_ENTRY_MACRO, 1
+	.macro script_cmd_table_entry constant:req value:req, requests_effects=0
+	.if ALLOCATE_SCRIPT_CMD_TABLE
+	.if \requests_effects == 0
+	.4byte \value
+	.else
+	.4byte \value + ROM_SIZE
+	.endif
+	.else
+	enum \constant
+	.endif
+	.endm
+	.endif
 
 @matches w event.inc
+enum_start
+	.if ALLOCATE_SCRIPT_CMD_TABLE
+	.align 2
 gScriptCmdTable:: @ 815F9B4
-	.4byte ScrCmd_nop
-	.4byte ScrCmd_nop1
-	.4byte ScrCmd_end
-	.4byte ScrCmd_return
-	.4byte ScrCmd_call
-	.4byte ScrCmd_goto
-	.4byte ScrCmd_goto_if
-	.4byte ScrCmd_call_if
-	.4byte ScrCmd_gotostd
-	.4byte ScrCmd_callstd
-	.4byte ScrCmd_gotostd_if
-	.4byte ScrCmd_callstd_if
-	.4byte ScrCmd_gotoram
-	.4byte ScrCmd_killscript
-	.4byte ScrCmd_setmysteryeventstatus
-	.4byte ScrCmd_loadword
-	.4byte ScrCmd_loadbyte
-	.4byte ScrCmd_writebytetoaddr
-	.4byte ScrCmd_loadbytefromaddr
-	.4byte ScrCmd_setptrbyte
-	.4byte ScrCmd_copylocal
-	.4byte ScrCmd_copybyte
-	.4byte ScrCmd_setvar
-	.4byte ScrCmd_addvar
-	.4byte ScrCmd_subvar
-	.4byte ScrCmd_copyvar
-	.4byte ScrCmd_setorcopyvar
-	.4byte ScrCmd_compare_local_to_local
-	.4byte ScrCmd_compare_local_to_value
-	.4byte ScrCmd_compare_local_to_addr
-	.4byte ScrCmd_compare_addr_to_local
-	.4byte ScrCmd_compare_addr_to_value
-	.4byte ScrCmd_compare_addr_to_addr
-	.4byte ScrCmd_compare_var_to_value
-	.4byte ScrCmd_compare_var_to_var
-	.4byte ScrCmd_callnative
-	.4byte ScrCmd_gotonative
-	.4byte ScrCmd_special
-	.4byte ScrCmd_specialvar
-	.4byte ScrCmd_waitstate
-	.4byte ScrCmd_delay
-	.4byte ScrCmd_setflag
-	.4byte ScrCmd_clearflag
-	.4byte ScrCmd_checkflag
-	.4byte ScrCmd_initclock
-	.4byte ScrCmd_dodailyevents
-	.4byte ScrCmd_gettime
-	.4byte ScrCmd_playse
-	.4byte ScrCmd_waitse
-	.4byte ScrCmd_playfanfare
-	.4byte ScrCmd_waitfanfare
-	.4byte ScrCmd_playbgm
-	.4byte ScrCmd_savebgm
-	.4byte ScrCmd_fadedefaultbgm
-	.4byte ScrCmd_fadenewbgm
-	.4byte ScrCmd_fadeoutbgm
-	.4byte ScrCmd_fadeinbgm
-	.4byte ScrCmd_warp
-	.4byte ScrCmd_warpsilent
-	.4byte ScrCmd_warpdoor
-	.4byte ScrCmd_warphole
-	.4byte ScrCmd_warpteleport
-	.4byte ScrCmd_setwarp
-	.4byte ScrCmd_setdynamicwarp
-	.4byte ScrCmd_setdivewarp
-	.4byte ScrCmd_setholewarp
-	.4byte ScrCmd_getplayerxy
-	.4byte ScrCmd_getpartysize
-	.4byte ScrCmd_additem
-	.4byte ScrCmd_removeitem
-	.4byte ScrCmd_checkitemspace
-	.4byte ScrCmd_checkitem
-	.4byte ScrCmd_checkitemtype
-	.4byte ScrCmd_addpcitem
-	.4byte ScrCmd_checkpcitem
-	.4byte ScrCmd_givedecoration
-	.4byte ScrCmd_takedecoration
-	.4byte ScrCmd_checkdecor
-	.4byte ScrCmd_checkdecorspace
-	.4byte ScrCmd_applymovement
-	.4byte ScrCmd_applymovement_at
-	.4byte ScrCmd_waitmovement
-	.4byte ScrCmd_waitmovement_at
-	.4byte ScrCmd_removeobject
-	.4byte ScrCmd_removeobject_at
-	.4byte ScrCmd_addobject
-	.4byte ScrCmd_addobject_at
-	.4byte ScrCmd_setobjectxy
-	.4byte ScrCmd_showobject_at
-	.4byte ScrCmd_hideobject_at
-	.4byte ScrCmd_faceplayer
-	.4byte ScrCmd_turnobject
-	.4byte ScrCmd_trainerbattle
-	.4byte ScrCmd_dotrainerbattle
-	.4byte ScrCmd_gotopostbattlescript
-	.4byte ScrCmd_gotobeatenscript
-	.4byte ScrCmd_checktrainerflag
-	.4byte ScrCmd_settrainerflag
-	.4byte ScrCmd_cleartrainerflag
-	.4byte ScrCmd_setobjectxyperm
-	.4byte ScrCmd_moveobjectoffscreen
-	.4byte ScrCmd_setobjectmovementtype
-	.4byte ScrCmd_waitmessage
-	.4byte ScrCmd_message
-	.4byte ScrCmd_closemessage
-	.4byte ScrCmd_lockall
-	.4byte ScrCmd_lock
-	.4byte ScrCmd_releaseall
-	.4byte ScrCmd_release
-	.4byte ScrCmd_waitbuttonpress
-	.4byte ScrCmd_yesnobox
-	.4byte ScrCmd_multichoice
-	.4byte ScrCmd_multichoicedefault
-	.4byte ScrCmd_multichoicegrid
-	.4byte ScrCmd_drawbox
-	.4byte ScrCmd_erasebox
-	.4byte ScrCmd_drawboxtext
-	.4byte ScrCmd_showmonpic
-	.4byte ScrCmd_hidemonpic
-	.4byte ScrCmd_showcontestwinner
-	.4byte ScrCmd_braillemessage
-	.4byte ScrCmd_givemon
-	.4byte ScrCmd_giveegg
-	.4byte ScrCmd_setmonmove
-	.4byte ScrCmd_checkpartymove
-	.4byte ScrCmd_bufferspeciesname
-	.4byte ScrCmd_bufferleadmonspeciesname
-	.4byte ScrCmd_bufferpartymonnick
-	.4byte ScrCmd_bufferitemname
-	.4byte ScrCmd_bufferdecorationname
-	.4byte ScrCmd_buffermovename
-	.4byte ScrCmd_buffernumberstring
-	.4byte ScrCmd_bufferstdstring
-	.4byte ScrCmd_bufferstring
-	.4byte ScrCmd_pokemart
-	.4byte ScrCmd_pokemartdecoration
-	.4byte ScrCmd_pokemartdecoration2
-	.4byte ScrCmd_playslotmachine
-	.4byte ScrCmd_setberrytree
-	.4byte ScrCmd_choosecontestmon
-	.4byte ScrCmd_startcontest
-	.4byte ScrCmd_showcontestresults
-	.4byte ScrCmd_contestlinktransfer
-	.4byte ScrCmd_random
-	.4byte ScrCmd_addmoney
-	.4byte ScrCmd_removemoney
-	.4byte ScrCmd_checkmoney
-	.4byte ScrCmd_showmoneybox
-	.4byte ScrCmd_hidemoneybox
-	.4byte ScrCmd_updatemoneybox
-	.4byte ScrCmd_getpricereduction
-	.4byte ScrCmd_fadescreen
-	.4byte ScrCmd_fadescreenspeed
-	.4byte ScrCmd_setflashradius
-	.4byte ScrCmd_animateflash
-	.4byte ScrCmd_messageautoscroll
-	.4byte ScrCmd_dofieldeffect
-	.4byte ScrCmd_setfieldeffectarg
-	.4byte ScrCmd_waitfieldeffect
-	.4byte ScrCmd_setrespawn
-	.4byte ScrCmd_checkplayergender
-	.4byte ScrCmd_playmoncry
-	.4byte ScrCmd_setmetatile
-	.4byte ScrCmd_resetweather
-	.4byte ScrCmd_setweather
-	.4byte ScrCmd_doweather
-	.4byte ScrCmd_setstepcallback
-	.4byte ScrCmd_setmaplayoutindex
-	.4byte ScrCmd_setobjectpriority
-	.4byte ScrCmd_resetobjectpriority
-	.4byte ScrCmd_createvobject
-	.4byte ScrCmd_turnvobject
-	.4byte ScrCmd_opendoor
-	.4byte ScrCmd_closedoor
-	.4byte ScrCmd_waitdooranim
-	.4byte ScrCmd_setdooropen
-	.4byte ScrCmd_setdoorclosed
-	.4byte ScrCmd_addelevmenuitem
-	.4byte ScrCmd_showelevmenu
-	.4byte ScrCmd_checkcoins
-	.4byte ScrCmd_addcoins
-	.4byte ScrCmd_removecoins
-	.4byte ScrCmd_setwildbattle
-	.4byte ScrCmd_dowildbattle
-	.4byte ScrCmd_setvaddress
-	.4byte ScrCmd_vgoto
-	.4byte ScrCmd_vcall
-	.4byte ScrCmd_vgoto_if
-	.4byte ScrCmd_vcall_if
-	.4byte ScrCmd_vmessage
-	.4byte ScrCmd_vloadword
-	.4byte ScrCmd_vbufferstring
-	.4byte ScrCmd_showcoinsbox
-	.4byte ScrCmd_hidecoinsbox
-	.4byte ScrCmd_updatecoinsbox
-	.4byte ScrCmd_incrementgamestat
-	.4byte ScrCmd_setescapewarp
-	.4byte ScrCmd_waitmoncry
-	.4byte ScrCmd_bufferboxname
-	.4byte ScrCmd_textcolor
-	.4byte ScrCmd_loadhelp
-	.4byte ScrCmd_unloadhelp
-	.4byte ScrCmd_signmsg
-	.4byte ScrCmd_normalmsg
-	.4byte ScrCmd_comparestattoword
-	.4byte ScrCmd_setmoneventlegal
-	.4byte ScrCmd_checkmoneventlegal
-	.4byte ScrCmd_execram
-	.4byte ScrCmd_setworldmapflag
-	.4byte ScrCmd_warpteleport2
-	.4byte ScrCmd_setmonmetlocation
-	.4byte ScrCmd_getbraillestringwidth
-	.4byte ScrCmd_bufferitemnameplural
-	.4byte ScrCmd_bufferspeciestype
-	.4byte ScrCmd_givemon2		@new script original givemon use just for testing
-	.4byte ScrCmd_pokemart2		@new script commnd generate mart list by array/gymbadge
-	.4byte ScrCmd_givegroup		@for testing, hopefully can give set number of mon
-	.4byte ScrCmd_UpdateOakRanch @to run boxexp set from script
-	.4byte ScrCmd_PreventBoxHeal @for nuzlocke mode
-	.4byte ScrCmd_getmondata	@new script from zatsu, populate result with mon data at partyslot	
-	.4byte ScrCmd_ReturnIsPlayerBlockingObjectPath @ new checks player position to decide what movement script to execute, 
-	.4byte ScrCmd_setsafariballCount
-	.4byte ScrCmd_toggleflag
-gScriptCmdTableEnd:: @ 815FD08
-	.4byte ScrCmd_nop
+	script_cmd_table_entry SCR_OP_NOP                            ScrCmd_nop,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_NOP1                            ScrCmd_nop1,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_END                            ScrCmd_end,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_RETURN                            ScrCmd_return,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CALL                            ScrCmd_call,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTO                            ScrCmd_goto,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTO_IF                            ScrCmd_goto_if,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CALL_IF                            ScrCmd_call_if,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTOSTD                            ScrCmd_gotostd,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CALLSTD                            ScrCmd_callstd,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTOSTD_IF                            ScrCmd_gotostd_if,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CALLSTD_IF                            ScrCmd_callstd_if,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTORAM                            ScrCmd_gotoram,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_KILLSCRIPT                            ScrCmd_killscript,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETMYSTERYEVENTSTATUS                            ScrCmd_setmysteryeventstatus,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_LOADWORD                            ScrCmd_loadword,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_LOADBYTE                            ScrCmd_loadbyte,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WRITEBYTETOADDR                            ScrCmd_writebytetoaddr,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_LOADBYTEFROMADDR                            ScrCmd_loadbytefromaddr,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETPTRBYTE                            ScrCmd_setptrbyte,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COPYLOCAL                            ScrCmd_copylocal,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COPYBYTE                            ScrCmd_copybyte,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETVAR                            ScrCmd_setvar,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDVAR                            ScrCmd_addvar,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SUBVAR                            ScrCmd_subvar,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COPYVAR                            ScrCmd_copyvar,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETORCOPYVAR                            ScrCmd_setorcopyvar,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_LOCAL_TO_LOCAL                            ScrCmd_compare_local_to_local,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_LOCAL_TO_VALUE                            ScrCmd_compare_local_to_value,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_LOCAL_TO_ADDR                            ScrCmd_compare_local_to_addr,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_ADDR_TO_LOCAL                            ScrCmd_compare_addr_to_local,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_ADDR_TO_VALUE                            ScrCmd_compare_addr_to_value,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_ADDR_TO_ADDR                            ScrCmd_compare_addr_to_addr,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_VAR_TO_VALUE                            ScrCmd_compare_var_to_value,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARE_VAR_TO_VAR                            ScrCmd_compare_var_to_var,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CALLNATIVE                            ScrCmd_callnative,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTONATIVE                            ScrCmd_gotonative,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SPECIAL                            ScrCmd_special,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SPECIALVAR                            ScrCmd_specialvar,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITSTATE                            ScrCmd_waitstate,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DELAY                            ScrCmd_delay,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETFLAG                            ScrCmd_setflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CLEARFLAG                            ScrCmd_clearflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKFLAG                            ScrCmd_checkflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_INITCLOCK                            ScrCmd_initclock,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DODAILYEVENTS                            ScrCmd_dodailyevents,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GETTIME                            ScrCmd_gettime,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_PLAYSE                            ScrCmd_playse,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITSE                            ScrCmd_waitse,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_PLAYFANFARE                            ScrCmd_playfanfare,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITFANFARE                            ScrCmd_waitfanfare,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_PLAYBGM                            ScrCmd_playbgm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SAVEBGM                            ScrCmd_savebgm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FADEDEFAULTBGM                            ScrCmd_fadedefaultbgm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FADENEWBGM                            ScrCmd_fadenewbgm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FADEOUTBGM                            ScrCmd_fadeoutbgm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FADEINBGM                            ScrCmd_fadeinbgm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WARP                            ScrCmd_warp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WARPSILENT                            ScrCmd_warpsilent,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WARPDOOR                            ScrCmd_warpdoor,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WARPHOLE                            ScrCmd_warphole,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WARPTELEPORT                            ScrCmd_warpteleport,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETWARP                            ScrCmd_setwarp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETDYNAMICWARP                            ScrCmd_setdynamicwarp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETDIVEWARP                            ScrCmd_setdivewarp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETHOLEWARP                            ScrCmd_setholewarp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GETPLAYERXY                            ScrCmd_getplayerxy,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GETPARTYSIZE                            ScrCmd_getpartysize,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDITEM                            ScrCmd_additem,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_REMOVEITEM                            ScrCmd_removeitem,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKITEMSPACE                            ScrCmd_checkitemspace,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKITEM                            ScrCmd_checkitem,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKITEMTYPE                            ScrCmd_checkitemtype,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDPCITEM                            ScrCmd_addpcitem,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKPCITEM                            ScrCmd_checkpcitem,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GIVEDECORATION                            ScrCmd_givedecoration,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_TAKEDECORATION                            ScrCmd_takedecoration,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKDECOR                            ScrCmd_checkdecor,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKDECORSPACE                            ScrCmd_checkdecorspace,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_APPLYMOVEMENT                            ScrCmd_applymovement,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_APPLYMOVEMENT_AT                            ScrCmd_applymovement_at,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITMOVEMENT                            ScrCmd_waitmovement,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITMOVEMENT_AT                            ScrCmd_waitmovement_at,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_REMOVEOBJECT                            ScrCmd_removeobject,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_REMOVEOBJECT_AT                            ScrCmd_removeobject_at,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDOBJECT                            ScrCmd_addobject,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDOBJECT_AT                            ScrCmd_addobject_at,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETOBJECTXY                            ScrCmd_setobjectxy,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWOBJECT_AT                            ScrCmd_showobject_at,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_HIDEOBJECT_AT                            ScrCmd_hideobject_at,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FACEPLAYER                            ScrCmd_faceplayer,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_TURNOBJECT                            ScrCmd_turnobject,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_TRAINERBATTLE                            ScrCmd_trainerbattle,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DOTRAINERBATTLE                            ScrCmd_dotrainerbattle,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTOPOSTBATTLESCRIPT                            ScrCmd_gotopostbattlescript,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GOTOBEATENSCRIPT                            ScrCmd_gotobeatenscript,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKTRAINERFLAG                            ScrCmd_checktrainerflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETTRAINERFLAG                            ScrCmd_settrainerflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CLEARTRAINERFLAG                            ScrCmd_cleartrainerflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETOBJECTXYPERM                            ScrCmd_setobjectxyperm,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_MOVEOBJECTOFFSCREEN                            ScrCmd_moveobjectoffscreen,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETOBJECTMOVEMENTTYPE                            ScrCmd_setobjectmovementtype,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITMESSAGE                            ScrCmd_waitmessage,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_MESSAGE                            ScrCmd_message,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CLOSEMESSAGE                            ScrCmd_closemessage,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_LOCKALL                            ScrCmd_lockall,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_LOCK                            ScrCmd_lock,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_RELEASEALL                            ScrCmd_releaseall,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_RELEASE                            ScrCmd_release,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITBUTTONPRESS                            ScrCmd_waitbuttonpress,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_YESNOBOX                            ScrCmd_yesnobox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_MULTICHOICE                            ScrCmd_multichoice,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_MULTICHOICEDEFAULT                            ScrCmd_multichoicedefault,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_MULTICHOICEGRID                            ScrCmd_multichoicegrid,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DRAWBOX                            ScrCmd_drawbox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ERASEBOX                            ScrCmd_erasebox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DRAWBOXTEXT                            ScrCmd_drawboxtext,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWMONPIC                            ScrCmd_showmonpic,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_HIDEMONPIC                            ScrCmd_hidemonpic,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWCONTESTWINNER                            ScrCmd_showcontestwinner,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BRAILLEMESSAGE                            ScrCmd_braillemessage,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GIVEMON                            ScrCmd_givemon,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GIVEEGG                            ScrCmd_giveegg,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETMONMOVE                            ScrCmd_setmonmove,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKPARTYMOVE                            ScrCmd_checkpartymove,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERSPECIESNAME                            ScrCmd_bufferspeciesname,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERLEADMONSPECIESNAME                            ScrCmd_bufferleadmonspeciesname,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERPARTYMONNICK                            ScrCmd_bufferpartymonnick,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERITEMNAME                            ScrCmd_bufferitemname,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERDECORATIONNAME                            ScrCmd_bufferdecorationname,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERMOVENAME                            ScrCmd_buffermovename,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERNUMBERSTRING                            ScrCmd_buffernumberstring,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERSTDSTRING                            ScrCmd_bufferstdstring,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERSTRING                            ScrCmd_bufferstring,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_POKEMART                            ScrCmd_pokemart,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_POKEMARTDECORATION                            ScrCmd_pokemartdecoration,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_POKEMARTDECORATION2                            ScrCmd_pokemartdecoration2,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_PLAYSLOTMACHINE                            ScrCmd_playslotmachine,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETBERRYTREE                            ScrCmd_setberrytree,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHOOSECONTESTMON                            ScrCmd_choosecontestmon,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_STARTCONTEST                            ScrCmd_startcontest,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWCONTESTRESULTS                            ScrCmd_showcontestresults,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CONTESTLINKTRANSFER                            ScrCmd_contestlinktransfer,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_RANDOM                            ScrCmd_random,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDMONEY                            ScrCmd_addmoney,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_REMOVEMONEY                            ScrCmd_removemoney,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKMONEY                            ScrCmd_checkmoney,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWMONEYBOX                            ScrCmd_showmoneybox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_HIDEMONEYBOX                            ScrCmd_hidemoneybox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_UPDATEMONEYBOX                            ScrCmd_updatemoneybox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GETPRICEREDUCTION                            ScrCmd_getpricereduction,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FADESCREEN                            ScrCmd_fadescreen,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_FADESCREENSPEED                            ScrCmd_fadescreenspeed,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETFLASHRADIUS                            ScrCmd_setflashradius,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ANIMATEFLASH                            ScrCmd_animateflash,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_MESSAGEAUTOSCROLL                            ScrCmd_messageautoscroll,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DOFIELDEFFECT                            ScrCmd_dofieldeffect,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETFIELDEFFECTARG                            ScrCmd_setfieldeffectarg,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITFIELDEFFECT                            ScrCmd_waitfieldeffect,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETRESPAWN                            ScrCmd_setrespawn,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKPLAYERGENDER                            ScrCmd_checkplayergender,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_PLAYMONCRY                            ScrCmd_playmoncry,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETMETATILE                            ScrCmd_setmetatile,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_RESETWEATHER                            ScrCmd_resetweather,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETWEATHER                            ScrCmd_setweather,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DOWEATHER                            ScrCmd_doweather,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETSTEPCALLBACK                            ScrCmd_setstepcallback,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETMAPLAYOUTINDEX                            ScrCmd_setmaplayoutindex,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETOBJECTPRIORITY                            ScrCmd_setobjectpriority,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_RESETOBJECTPRIORITY                            ScrCmd_resetobjectpriority,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CREATEVOBJECT                            ScrCmd_createvobject,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_TURNVOBJECT                            ScrCmd_turnvobject,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_OPENDOOR                            ScrCmd_opendoor,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CLOSEDOOR                            ScrCmd_closedoor,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITDOORANIM                            ScrCmd_waitdooranim,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETDOOROPEN                            ScrCmd_setdooropen,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETDOORCLOSED                            ScrCmd_setdoorclosed,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDELEVMENUITEM                            ScrCmd_addelevmenuitem,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWELEVMENU                            ScrCmd_showelevmenu,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKCOINS                            ScrCmd_checkcoins,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_ADDCOINS                            ScrCmd_addcoins,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_REMOVECOINS                            ScrCmd_removecoins,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETWILDBATTLE                            ScrCmd_setwildbattle,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_DOWILDBATTLE                            ScrCmd_dowildbattle,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETVADDRESS                            ScrCmd_setvaddress,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VGOTO                            ScrCmd_vgoto,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VCALL                            ScrCmd_vcall,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VGOTO_IF                            ScrCmd_vgoto_if,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VCALL_IF                            ScrCmd_vcall_if,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VMESSAGE                            ScrCmd_vmessage,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VLOADWORD                            ScrCmd_vloadword,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_VBUFFERSTRING                            ScrCmd_vbufferstring,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SHOWCOINSBOX                            ScrCmd_showcoinsbox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_HIDECOINSBOX                            ScrCmd_hidecoinsbox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_UPDATECOINSBOX                            ScrCmd_updatecoinsbox,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_INCREMENTGAMESTAT                            ScrCmd_incrementgamestat,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETESCAPEWARP                            ScrCmd_setescapewarp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WAITMONCRY                            ScrCmd_waitmoncry,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERBOXNAME                            ScrCmd_bufferboxname,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_TEXTCOLOR                            ScrCmd_textcolor,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_LOADHELP                            ScrCmd_loadhelp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_UNLOADHELP                            ScrCmd_unloadhelp,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SIGNMSG                            ScrCmd_signmsg,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_NORMALMSG                            ScrCmd_normalmsg,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_COMPARESTATTOWORD                            ScrCmd_comparestattoword,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETMONEVENTLEGAL                            ScrCmd_setmoneventlegal,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_CHECKMONEVENTLEGAL                            ScrCmd_checkmoneventlegal,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_EXECRAM                            ScrCmd_execram,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETWORLDMAPFLAG                            ScrCmd_setworldmapflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_WARPTELEPORT2                            ScrCmd_warpteleport2,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SETMONMETLOCATION                            ScrCmd_setmonmetlocation,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GETBRAILLESTRINGWIDTH                            ScrCmd_getbraillestringwidth,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERITEMNAMEPLURAL                            ScrCmd_bufferitemnameplural,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_BUFFERSPECIESTYPE                            ScrCmd_bufferspeciestype,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_GIVEMON2                            ScrCmd_givemon2,                             requests_effects=1			@new script original givemon use just for testing
+	script_cmd_table_entry SCR_OP_POKEMART2                            ScrCmd_pokemart2,                             requests_effects=1			@new script commnd generate mart list by array/gymbadge
+	script_cmd_table_entry SCR_OP_GIVEGROUP                            ScrCmd_givegroup,                             requests_effects=1			@for testing, hopefully can give set number of mon
+	script_cmd_table_entry SCR_OP_UPDATEOAKRANCH                            ScrCmd_UpdateOakRanch,                   requests_effects=1 		@to run boxexp set from script
+	script_cmd_table_entry SCR_OP_PREVENTBOXHEAL                            ScrCmd_PreventBoxHeal,                     requests_effects=1 		@for nuzlocke mode
+	script_cmd_table_entry SCR_OP_GETMONDATA                            ScrCmd_getmondata,                             requests_effects=1		@new script from zatsu, populate result with mon data at partyslot	
+	script_cmd_table_entry SCR_OP_RETURNISPLAYERBLOCKINGOBJECTPATH       ScrCmd_ReturnIsPlayerBlockingObjectPath,       requests_effects=1 		@ new checks player position to decide what movement script to execute, 
+	script_cmd_table_entry SCR_OP_SETSAFARIBALLCOUNT                 ScrCmd_setsafariballCount,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_TOGGLEFLAG                            ScrCmd_toggleflag,                             requests_effects=1
+	script_cmd_table_entry SCR_OP_SELECTAPPROACHINGTRAINER      ScrCmd_selectapproachingtrainer,    			requests_effects=1  	@new additions had port from EE for battle trainer updates
+	script_cmd_table_entry SCR_OP_LOCKFORTRAINER                ScrCmd_lockfortrainer,              			requests_effects=1  
 
-@to find proper byte value for script, within event.inc
-@subtract 5 from line placed on within table here (table starts at line 5)
+	.if ALLOCATE_SCRIPT_CMD_TABLE
+gScriptCmdTableEnd::
+	.4byte ScrCmd_nop
+	.endif
+

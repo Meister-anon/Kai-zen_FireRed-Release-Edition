@@ -62,6 +62,7 @@
 #include "constants/coins.h"
 #include "constants/daycare.h"
 #include "constants/flags.h"
+#include "constants/script_commands.h"
 #include "constants/items.h"
 #include "constants/moves.h"
 #include "constants/map_groups.h"

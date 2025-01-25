@@ -313,6 +313,10 @@ static inline const u8 *GetTrainerNameFromId(u16 trainerId)
     {
         return gBattlePartners[trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
     }
+    
+    if (IsRivalBattle(trainerId))
+        return GetExpandedPlaceholder(PLACEHOLDER_ID_RIVAL);
+
     return GetTrainerStructFromId(trainerId)->trainerName;
 }
 

@@ -1,4 +1,6 @@
 @commands align with script_cmd_table.inc	
+	.set ALLOCATE_SCRIPT_CMD_TABLE, 0
+	.include "data/script_cmd_table.inc"
 	
 	@ Does nothing.
 	.macro nop
@@ -649,50 +651,32 @@
 	.byte \direction
 	.endm
 
-	@ If the Trainer flag for Trainer index is not set, this command does absolutely nothing.
-	.macro trainerbattle type:req, trainer:req, word:req, pointer1:req, pointer2, pointer3, pointer4
-		.byte 0x5c
-		.byte \type
-		.2byte \trainer
-		.2byte \word
-		.if \type == TRAINER_BATTLE_SINGLE
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-		.elseif \type == TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-			.4byte \pointer3 @ event script
-		.elseif \type == TRAINER_BATTLE_CONTINUE_SCRIPT
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-			.4byte \pointer3 @ event script
-		.elseif \type == TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT
-			.4byte \pointer1 @ text
-		.elseif \type == TRAINER_BATTLE_DOUBLE
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-			.4byte \pointer3 @ text
-		.elseif \type == TRAINER_BATTLE_REMATCH
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-		.elseif \type == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-			.4byte \pointer3 @ text
-			.4byte \pointer4 @ event script
-		.elseif \type == TRAINER_BATTLE_REMATCH_DOUBLE
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-			.4byte \pointer3 @ text
-		.elseif \type == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-			.4byte \pointer3 @ text
-			.4byte \pointer4 @ event script
-		.elseif \type == TRAINER_BATTLE_EARLY_RIVAL
-			.4byte \pointer1 @ text
-			.4byte \pointer2 @ text
-		.endif
+	NULL = 0
+	OBJ_ID_NONE = 0
+
+	@ Configures the arguments for a trainer battle, then jumps to the appropriate script in scripts/trainer_battle.inc
+	.macro trainerbattle type:req localIdA:req, trainer_a:req, intro_text_a:req, lose_text_a:req, event_script_a:req, localIdB:req, trainer_b:req, intro_text_b:req, lose_text_b:req, event_script_b:req, victory_text:req, cannot_battle:req, isDouble:req, playMusicA:req, playMusicB:req, isRematch:req
+	.byte 0x5c @SCR_OP_TRAINERBATTLE
+	.set trainerbattle_flags, 0
+	.ifgt \isDouble; .set trainerbattle_flags, trainerbattle_flags | (1 << 0); .endif
+	.ifgt \isRematch; .set trainerbattle_flags, trainerbattle_flags | (1 << 1); .endif
+	.ifgt \playMusicA; .set trainerbattle_flags, trainerbattle_flags | (1 << 2); .endif
+	.ifgt \playMusicB; .set trainerBattle_flags, trainerbattle_flags | (1 << 3); .endif
+	.ifgt \type; .set trainerbattle_flags, trainerbattle_flags | (\type << 4); .endif
+	.byte trainerbattle_flags
+	.byte \localIdA             @ objEventLocalIdA
+	.2byte \trainer_a           @ opponentA
+	.4byte \intro_text_a        @ introTextA
+	.4byte \lose_text_a         @ defeatTextA
+	.4byte \event_script_a      @ retAddrA
+	.byte  \localIdB            @ objEventLocalIdB
+	.2byte \trainer_b           @ opponentB
+	.4byte \intro_text_b        @ introTextB
+	.4byte \lose_text_b         @ defeatTextB
+	.4byte \event_script_b      @ retAddrB
+	.4byte \victory_text        @ victoryText
+	.4byte \cannot_battle       @ cannotBattle
+	.byte \rival_battle_flags	@ rivalBattleFlags
 	.endm
 
 	NO_MUSIC = FALSE
@@ -701,11 +685,11 @@
 	@ when used with an event script, you can also pass in an optional flag to disable music
 	.macro trainerbattle_single trainer:req, intro_text:req, lose_text:req, event_script=FALSE, music=TRUE
 	.if \event_script == FALSE
-	trainerbattle TRAINER_BATTLE_SINGLE, \trainer, 0, \intro_text, \lose_text
+	trainerbattle TRAINER_BATTLE_SINGLE, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
 	.elseif \music == TRUE
-	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT, \trainer, 0, \intro_text, \lose_text, \event_script
+	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, \event_script, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
 	.else
-	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC, \trainer, 0, \intro_text, \lose_text, \event_script
+	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, \event_script, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
 	.endif
 	.endm
 
@@ -713,44 +697,50 @@
 	@ and an optional event script, when used with an event script you can pass in an optional flag to disable music
 	.macro trainerbattle_double trainer:req, intro_text:req, lose_text:req, not_enough_pkmn_text:req, event_script=FALSE, music=TRUE
 	.if \event_script == FALSE
-	trainerbattle TRAINER_BATTLE_DOUBLE, \trainer, 0, \intro_text, \lose_text, \not_enough_pkmn_text
+	trainerbattle TRAINER_BATTLE_DOUBLE, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, TRUE, FALSE, FALSE
 	.elseif \music == TRUE
-	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE, \trainer, 0, \intro_text, \lose_text, \not_enough_pkmn_text, \event_script
+	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, \event_script, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, TRUE, FALSE, FALSE
 	.else
-	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC, \trainer, 0, \intro_text, \lose_text, \not_enough_pkmn_text, \event_script
+	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, \event_script, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, TRUE, FALSE, FALSE, FALSE
 	.endif
 	.endm
 
 	@ Starts a rematch battle, takes a trainer, intro text and loss text
 	.macro trainerbattle_rematch trainer:req, intro_text:req, lose_text:req
-	trainerbattle TRAINER_BATTLE_REMATCH, \trainer, 0, \intro_text, \lose_text
+	trainerbattle TRAINER_BATTLE_REMATCH, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE, FALSE, TRUE
 	.endm
 
 	@ Starts a rematch double battle, takes a trainer, intro text, loss text, and text for when you have too few pokemon
 	.macro trainerbattle_rematch_double trainer:req, intro_text:req, lose_text:req, not_enough_pkmn_text:req
-	trainerbattle TRAINER_BATTLE_REMATCH_DOUBLE, \trainer, 0, \intro_text, \lose_text, \not_enough_pkmn_text
+	trainerbattle TRAINER_BATTLE_REMATCH_DOUBLE, OBJ_ID_NONE, \trainer, \intro_text, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, \not_enough_pkmn_text, FALSE, TRUE, FALSE, TRUE
 	.endm
 
 	@ Starts a trainer battle, skipping intro text, takes a trainer and loss text
 	.macro trainerbattle_no_intro trainer:req, lose_text:req
-	trainerbattle TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT, \trainer, 0, \lose_text
+	trainerbattle TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT, OBJ_ID_NONE, \trainer, NULL, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
 	.endm
 
 	@ Starts a trainer battle with victory text if the player loses. If flags is nonzero, the player will be healed after battle (and its assumed to be the tutorial battle)
-	.macro trainerbattle_earlyrival trainer:req, flags:req, defeat_text:req, victory_text:req
-	trainerbattle TRAINER_BATTLE_EARLY_RIVAL, \trainer, \flags, \defeat_text, \victory_text
+	.macro trainerbattle_earlyrival trainer:req, flags:req, lose_text:req, victory_text:req
+	trainerbattle TRAINER_BATTLE_EARLY_RIVAL, OBJ_ID_NONE, \trainer, NULL, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, \victory_text, NULL, FALSE, TRUE, FALSE, FALSE, \flags
+	.endm
+
+	@ Starts a double battle with the player against two trainers
+	@ Takes two trainers and defeat text for each
+	.macro trainerbattle_two_trainers trainer_a:req, lose_text_a:req, trainer_b:req, lose_text_b:req
+	trainerbattle TRAINER_BATTLE_TWO_TRAINERS_NO_INTRO, OBJ_ID_NONE, \trainer_a, NULL, \lose_text_a, NULL, OBJ_ID_NONE, \trainer_b, NULL, \lose_text_b, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
 	.endm
 
 	@ Starts a trainer battle using the battle information stored in RAM (usually by trainerbattle, which actually calls this command behind-the-scenes), and blocks script execution until the battle finishes.
-	.macro battlebegin
+	.macro dotrainerbattle
 	.byte 0x5d
 	.endm
 
-	.macro ontrainerbattleend
+	.macro gotopostbattlescript
 	.byte 0x5e
 	.endm
 
-	.macro ontrainerbattleendgoto
+	.macro gotobeatenscript
 	.byte 0x5f
 	.endm
 
@@ -1358,41 +1348,41 @@
 	.endm
 
 	.macro vbufferstring byte:req, pointer:req
-	.byte 0xbf
+	.byte SCR_OP_VBUFFERSTRING
 	.byte \byte
 	.4byte \pointer
 	.endm
 
 	@ Spawns a secondary box showing how many Coins the player has.
 	.macro showcoinsbox x:req, y:req
-	.byte 0xc0
+	.byte SCR_OP_SHOWCOINSBOX
 	.byte \x
 	.byte \y
 	.endm
 
 	@ Hides the secondary box spawned by showcoins. It consumes its arguments but doesn''t use them.
 	.macro hidecoinsbox x:req, y:req
-	.byte 0xc1
+	.byte SCR_OP_HIDECOINSBOX
 	.byte \x
 	.byte \y
 	.endm
 
 	@ Updates the secondary box spawned by showcoins. It consumes its arguments but doesn''t use them.
 	.macro updatecoinsbox x:req, y:req
-	.byte 0xc2
+	.byte SCR_OP_UPDATECOINSBOX
 	.byte \x
 	.byte \y
 	.endm
 
 	@ Increases the value of the specified game stat by 1. The stat''s value will not be allowed to exceed 0x00FFFFFF.
 	.macro incrementgamestat stat:req
-	.byte 0xc3
+	.byte SCR_OP_INCREMENTGAMESTAT
 	.byte \stat
 	.endm
 
 	@ Sets the destination that using an Escape Rope or Dig will take the player to.
 	.macro setescapewarp map:req, warp:req, x:req, y:req
-	.byte 0xc4
+	.byte SCR_OP_SETESCAPEWARP
 	map \map
 	.byte \warp
 	.2byte \x
@@ -1401,77 +1391,77 @@
 
 	@ Blocks script execution until cry finishes.
 	.macro waitmoncry
-	.byte 0xc5
+	.byte SCR_OP_WAITMONCRY
 	.endm
 
 	@ Writes the name of the specified (box) PC box to the specified buffer.
 	.macro bufferboxname buffer:req, box:req
-	.byte 0xc6
+	.byte SCR_OP_BUFFERBOXNAME
 	.byte \buffer
 	.2byte \box
 	.endm
 
 	@ Sets the color of the text in standard message boxes. 0x00 produces blue (male) text, 0x01 produces red (female) text, 0xFF resets the color to the default for the current OW''s gender, and all other values produce black text.
 	.macro textcolor color:req
-	.byte 0xc7
+	.byte SCR_OP_TEXTCOLOR
 	.byte \color
 	.endm
 
 	@ The exact purpose of this command is unknown, but it is related to the blue help-text box that appears on the bottom of the screen when the Main Menu is opened.
 	.macro loadhelp pointer:req
-	.byte 0xc8
+	.byte SCR_OP_LOADHELP
 	.4byte \pointer
 	.endm
 
 	@ The exact purpose of this command is unknown, but it is related to the blue help-text box that appears on the bottom of the screen when the Main Menu is opened.
 	.macro unloadhelp
-	.byte 0xc9
+	.byte SCR_OP_UNLOADHELP
 	.endm
 
 	@ After using this command, all standard message boxes will use the signpost frame.
 	.macro signmsg
-	.byte 0xca
+	.byte SCR_OP_SIGNMSG
 	.endm
 
 	@ Ends the effects of signmsg, returning message box frames to normal.
 	.macro normalmsg
-	.byte 0xcb
+	.byte SCR_OP_NORMALMSG
 	.endm
 
 	@ Compares the value of a hidden variable to a dword.
 	.macro comparehiddenvar a:req, value:req
-	.byte 0xcc
+	.byte SCR_OP_COMPARESTATTOWORD
 	.byte \a
 	.4byte \value
 	.endm
 
 	@ Sets the Pokemon in the specified slot of the player party''s eventLegal bit.
 	.macro setmoneventlegal slot:req
-	.byte 0xcd
+	.byte SCR_OP_SETMONEVENTLEGAL
 	.2byte \slot
 	.endm
 
 	@ Checks if the Pokemon in the specified slot of the player''s party has its eventLegal bit set. If it isn''t set,
 	@ VAR_RESULT is TRUE. If the bit is set (or if the specified slot is empty or invalid), VAR_RESULT is FALSE.
 	.macro checkmoneventlegal slot:req
-	.byte 0xce
+	.byte SCR_OP_CHECKMONEVENTLEGAL
 	.2byte \slot
 	.endm
 
 	@ Depending on factors I haven''t managed to understand yet, this command may cause script execution to jump to the offset specified by the pointer at 0x020375C0.
 	.macro execram
-	.byte 0xcf
+	.byte SCR_OP_EXECRAM
 	.endm
 
 	@ Sets worldmapflag to 1. This allows the player to Fly to the corresponding map, if that map has a flightspot.
 	.macro setworldmapflag worldmapflag:req
-	.byte 0xd0
+	.byte SCR_OP_SETWORLDMAPFLAG
 	.2byte \worldmapflag
 	.endm
 
 	@ Clone of warpteleport? It is apparently only used in FR/LG, and only with specials.[source]
 	.macro warpteleport2 map:req, warp:req, x:req, y:req
-	.byte 0xd1
+	.byte SCR_OP_WARPTELEPORT2
 	map \map
 	.byte \warp
 	.2byte \x
@@ -1480,18 +1470,18 @@
 
 	@ Changes the location where the player caught the Pokemon in the specified slot of their party.
 	.macro setmonmetlocation slot:req, location:req
-	.byte 0xd2
+	.byte SCR_OP_SETMONMETLOCATION
 	.2byte \slot
 	.byte \location
 	.endm
 
 	.macro getbraillestringwidth pointer:req
-	.byte 0xd3
+	.byte SCR_OP_GETBRAILLESTRINGWIDTH
 	.4byte \pointer
 	.endm
 
 	.macro bufferitemnameplural buffer:req, item:req, quantity:req
-	.byte 0xd4
+	.byte SCR_OP_BUFFERITEMNAMEPLURAL
 	.byte \buffer
 	.2byte \item
 	.2byte \quantity
@@ -1500,14 +1490,14 @@
 	@Custom Macros  / commands
 	@ Writes the main type of the Pokemon at index species to the specified buffer.
 	.macro getspeciestype buffer:req, species:req
-	.byte 0xd5
+	.byte SCR_OP_BUFFERSPECIESTYPE
 	.byte \buffer
 	.2byte \species
 	.endm
 
 	@Gives the player one of the specified (species) Pokemon at level level holding item. The trailing 0s are unused parameters
 	.macro givemon2 species:req, level:req, item:req
-	.byte 0xd6
+	.byte SCR_OP_GIVEMON2
 	.2byte \species
 	.byte \level
 	.2byte \item
@@ -1519,21 +1509,21 @@
 	@plan build mart item list, internally based on gym badge shouldn''t need ptr 
 	@for item list in script, works!
 	.macro pokemart2
-	.byte 0xd7
+	.byte SCR_OP_POKEMART2
 	.endm
 
 	@for playtest attempt give a set number of random mon, by looping givemon
 	.macro givegroup loops:req
-	.byte 0xd8
+	.byte SCR_OP_GIVEGROUP
 	.byte \loops
 	.endm
 
 	.macro UpdateOakranch	@put after sound effect pc, hopefully can stil use waitse
-	.byte 0xd9
+	.byte SCR_OP_UPDATEOAKRANCH
 	.endm
 
 	.macro PreventBoxHeal
-	.byte 0xda
+	.byte SCR_OP_PREVENTBOXHEAL
 	.endm
 
 	@idea from zatsu replace getspecies etc.
@@ -1542,7 +1532,7 @@
 	@idk if I finished setting up
 	
 	.macro getmondata data:req, slot:req
-	.byte 0xdb
+	.byte SCR_OP_GETMONDATA
     .2byte \data
     .byte \slot
     .endm
@@ -1556,17 +1546,28 @@
 	@Final Note: position is stored in Var_result so dont overlap w otherthings
 	
 	.macro IsPlayerblockingObjectPath IntendedDirection:req
-	.byte 0xdc
+	.byte SCR_OP_RETURNISPLAYERBLOCKINGOBJECTPATH
 	.byte \IntendedDirection
 	.endm
 
 	.macro setsafariballcount
-	.byte 0xdd
+	.byte SCR_OP_SETSAFARIBALLCOUNT
 	.endm
 
 	.macro toggleflag FlagId:req
-	.byte 0xde
+	.byte SCR_OP_TOGGLEFLAG
 	.2byte \FlagId
+	.endm
+
+	@ Sets the selected object to the id of the currently approaching trainer.
+	.macro selectapproachingtrainer
+	.byte SCR_OP_SELECTAPPROACHINGTRAINER
+	.endm
+
+	@ Freezes all objects immediately except the player and the approaching trainers.
+	@ The player and trainers are frozen once their movement is finished.
+	.macro lockfortrainer
+	.byte SCR_OP_LOCKFORTRAINER
 	.endm
 
 

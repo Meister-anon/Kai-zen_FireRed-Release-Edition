@@ -55,7 +55,7 @@ void QuestLogSetFlagOrVar(bool8 isFlag, u16 idx, u16 value);
 void SetQuestLogRecordAndPlaybackPointers(void *oldSave);
 void sub_811246C(struct Sprite *sprite);
 void sub_81124EC(u8 a0, u8 a1, u8 a2, u8 a3);
-bool8 sub_8111C2C(void);
+bool8 QL_IsTrainerSightDisabled(void);
 void sub_81128BC(u8 a0);
 void QuestLogRecordPlayerAvatarGfxTransitionWithDuration(u8 movementActionId, u8 duration);
 //void Special_UpdateTrainerFansAfterLinkBattle(void);

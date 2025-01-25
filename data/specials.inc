@@ -60,8 +60,8 @@ gSpecials:: @ 815FD60
 	def_special GetTrainerBattleMode
 	def_special ShowTrainerIntroSpeech
 	def_special ShowTrainerCantBattleSpeech
-	def_special Script_HasTrainerBeenFought
-	def_special EndTrainerApproach
+	def_special GetTrainerFlag
+	def_special DoTrainerApproach
 	def_special PlayTrainerEncounterMusic
 	def_special ShouldTryRematchBattle
 	def_special IsTrainerReadyForRematch
@@ -321,7 +321,7 @@ gSpecials:: @ 815FD60
 	def_special StartGroudonKyogreBattle
 	def_special StartLegendaryBattle
 	def_special StartRegiBattle
-	def_special SetUpTrainerMovement
+	def_special SetTrainerFacingDirection
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
 	def_special StartDroughtWeatherBlend
@@ -405,7 +405,7 @@ gSpecials:: @ 815FD60
 	def_special CloseMuseumFossilPic
 	def_special ChooseMonForMoveTutor
 	def_special ChooseMonForWirelessMinigame
-	def_special SetBattledTrainerFlag
+	def_special SetBattledTrainerFlags
 	def_special SetHelpContextForMap
 	def_special DoSSAnneDepartureCutscene
 	def_special IsNationalPokedexEnabled

@@ -4,6 +4,7 @@
 #include "battle_bg.h"
 #include "battle_anim.h"    //added for some raeson
 #include "battle_message.h"
+#include "battle_setup.h"
 #include "battle_environment.h"
 #include "decompress.h"
 #include "graphics.h"
@@ -794,7 +795,7 @@ void DrawBattleEntryBackground(void)
     {
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
-            u8 trainerClass = gTrainers[gTrainerBattleOpponent_A].trainerClass;
+            u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
             if (trainerClass == CLASS_GYM_LEADER_FRLG)
             {
                 LoadBattleTerrainEntryGfx(BATTLE_ENVIRONMENT_BUILDING);
@@ -850,6 +851,8 @@ static u8 GetBattleEnvironmentOverride(void)
 }
 
 ////gBattleEnvironmentInfo[battleEnvironment].background.tilemap
+//confusing doesnt seem to be called anywhere? especially not that would use all cases
+//even in EE it seems to only execute cases 0-2
 bool8 LoadChosenBattleElement(u8 caseId)
 {
     const void *tilemap;
@@ -866,12 +869,12 @@ bool8 LoadChosenBattleElement(u8 caseId)
         CopyBgTilemapBufferToVram(0);
         break;
     case 2:
-        LoadPalette(gBattleInterface_Textbox_Pal, 0x00, 0x40);
+        LoadPalette(gBattleInterface_Textbox_Pal, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
         break;
     case 3:
         battleScene = GetBattleEnvironmentOverride();
         LZDecompressVram(gBattleEnvironmentInfo[battleScene].background.tileset, (void *)BG_CHAR_ADDR(2));
-        // fallthrough
+        break;// fallthrough - EE doesnt use fallthrough here vsonic important
     case 4:
         battleScene = GetBattleEnvironmentOverride();
         if (!IsDoubleBattle())
@@ -882,7 +885,7 @@ bool8 LoadChosenBattleElement(u8 caseId)
         break;
     case 5:
         battleScene = GetBattleEnvironmentOverride();
-        LoadPalette(gBattleEnvironmentInfo[battleScene].background.palette, 0x20, 0x60);
+        LoadPalette(gBattleEnvironmentInfo[battleScene].background.palette, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
         break;
     case 6:
         LoadBattleMenuWindowGfx();

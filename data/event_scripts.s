@@ -47,6 +47,7 @@
 
 	.section script_data, "aw", %progbits
 
+	.set ALLOCATE_SCRIPT_CMD_TABLE, 1
 	.include "data/script_cmd_table.inc"
 
 	.align 2
@@ -72,6 +73,9 @@ gSpecialVars:: @ 815FD0C
 	.4byte gSpecialVar_TextColor
 	.4byte gSpecialVar_PrevTextColor
 	.4byte gSpecialVar_0x8014
+	.4byte gSpecialVar_ContestRank @add here since cant figure how remove textcolor stuff rn
+	.4byte gSpecialVar_ContestCategory
+	.4byte gTrainerBattleParameter + 2 // gTrainerBattleParameter.params.opponentA
 
 	.include "data/specials.inc"
 

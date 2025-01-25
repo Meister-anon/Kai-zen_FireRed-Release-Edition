@@ -139,6 +139,7 @@ EWRAM_DATA u8 gBattleTextBuff3[TEXT_BUFF_ARRAY_COUNT] = {0};
 EWRAM_DATA u32 gBattleTypeFlags = 0;
 EWRAM_DATA u8 gBattleEnvironment = 0;
 EWRAM_DATA struct MultiPartnerMenuPokemon gMultiPartnerParty[3] = {0};
+EWRAM_DATA static struct MultiPartnerMenuPokemon *sMultiPartnerPartyBuffer = NULL;
 EWRAM_DATA u8 *gBattleAnimBgTileBuffer = NULL;
 EWRAM_DATA u8 *gBattleAnimBgTilemapBuffer = NULL;
 EWRAM_DATA u32 gTransformedPersonalities[MAX_BATTLERS_COUNT] = {0}; //wont need as not using values from transform target remove later vsonic important
@@ -1265,7 +1266,14 @@ static void CB2_InitBattleInternal(void)
     gBattle_BG2_Y = 0;
     gBattle_BG3_X = 0;
     gBattle_BG3_Y = 0;
-    gBattleEnvironment = BattleSetup_GetTerrainId();
+
+    if (!DEBUG_OVERWORLD_MENU || (DEBUG_OVERWORLD_MENU && !gIsDebugBattle))
+        gBattleEnvironment = BattleSetup_GetEnvironmentId();
+    if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+        gBattleEnvironment = BATTLE_ENVIRONMENT_BUILDING;
+    if (TestRunner_Battle_GetForcedEnvironment())
+        gBattleEnvironment = TestRunner_Battle_GetForcedEnvironment() - 1;
+        
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
     ResetSpriteData();
@@ -1281,8 +1289,17 @@ static void CB2_InitBattleInternal(void)
         SetMainCallback2(CB2_HandleStartBattle);
     if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
-        CreateNPCTrainerParty(&gEnemyParty[0], gTrainerBattleOpponent_A);
-        SetWildMonHeldItem();
+        if (!DEBUG_OVERWORLD_MENU || (DEBUG_OVERWORLD_MENU && !gIsDebugBattle))
+    {
+        if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED)))
+        {
+            CreateNPCTrainerParty(&gEnemyParty[0], TRAINER_BATTLE_PARAM.opponentA/*, TRUE*/);
+            if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && !BATTLE_TWO_VS_ONE_OPPONENT)
+                CreateNPCTrainerParty(&gEnemyParty[PARTY_SIZE / 2], TRAINER_BATTLE_PARAM.opponentB/*, FALSE*/);
+            SetWildMonHeldItem();
+            CalculateEnemyPartyCount();
+        }
+    }
     }
     gMain.inBattle = TRUE;
     for (i = 0; i < PARTY_SIZE; ++i)
@@ -2166,7 +2183,14 @@ static void CB2_HandleStartBattle(void)
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 2;
                     BufferPartyVsScreenHealth_AtStart();
                     SetPlayerBerryDataInBattleStruct();
-                    SendBlock(bitmask_all_link_players_but_self(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
+
+                    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_UNION_ROOM)
+                    {
+                        gLinkPlayers[0].id = 0;
+                        gLinkPlayers[1].id = 1;
+                    }
+
+                    SendBlock(BitmaskAllOtherLinkPlayers(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
                     gBattleCommunication[MULTIUSE_STATE] = 2;
                 }
                 if (gWirelessCommType != 0)
@@ -2201,7 +2225,7 @@ static void CB2_HandleStartBattle(void)
     case 3:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty, sizeof(struct Pokemon) * 2);
+            SendBlock(BitmaskAllOtherLinkPlayers(), gPlayerParty, sizeof(struct Pokemon) * 2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
@@ -2216,7 +2240,7 @@ static void CB2_HandleStartBattle(void)
     case 7:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty + 2, sizeof(struct Pokemon) * 2);
+            SendBlock(BitmaskAllOtherLinkPlayers(), gPlayerParty + 2, sizeof(struct Pokemon) * 2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
@@ -2231,7 +2255,7 @@ static void CB2_HandleStartBattle(void)
     case 11:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty + 4, sizeof(struct Pokemon) * 2);
+            SendBlock(BitmaskAllOtherLinkPlayers(), gPlayerParty + 4, sizeof(struct Pokemon) * 2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
@@ -2308,7 +2332,7 @@ static void PrepareOwnMultiPartnerBuffer(void)
             cur[j] = EOS;
         }
     }
-    memcpy(gBattleStruct->multiBuffer.multiBattleMons, gMultiPartnerParty, sizeof(gMultiPartnerParty));
+    memcpy(sMultiPartnerPartyBuffer, gMultiPartnerParty, sizeof(gMultiPartnerParty));
 }
 
 static void CB2_PreInitMultiBattle(void)
@@ -2333,7 +2357,7 @@ static void CB2_PreInitMultiBattle(void)
         if (gReceivedRemoteLinkPlayers && IsLinkTaskFinished())
         {
             PrepareOwnMultiPartnerBuffer();
-            SendBlock(bitmask_all_link_players_but_self(), gBattleStruct->multiBuffer.multiBattleMons, sizeof(gBattleStruct->multiBuffer.multiBattleMons));
+            SendBlock(BitmaskAllOtherLinkPlayers(), sMultiPartnerPartyBuffer, sizeof(sMultiPartnerPartyBuffer));
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
@@ -2422,7 +2446,7 @@ static void CB2_HandleStartMultiBattle(void)
                 *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 2;
                 BufferPartyVsScreenHealth_AtStart();
                 SetPlayerBerryDataInBattleStruct();
-                SendBlock(bitmask_all_link_players_but_self(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
+                SendBlock(BitmaskAllOtherLinkPlayers(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
                 ++gBattleCommunication[MULTIUSE_STATE];
             }
             if (gWirelessCommType)
@@ -2476,7 +2500,7 @@ static void CB2_HandleStartMultiBattle(void)
     case 3:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty, sizeof(struct Pokemon) * 2);
+            SendBlock(BitmaskAllOtherLinkPlayers(), gPlayerParty, sizeof(struct Pokemon) * 2);
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break;
@@ -2539,7 +2563,7 @@ static void CB2_HandleStartMultiBattle(void)
     case 7:
         if (IsLinkTaskFinished())
         {
-            SendBlock(bitmask_all_link_players_but_self(), gPlayerParty + 2, sizeof(struct Pokemon));
+            SendBlock(BitmaskAllOtherLinkPlayers(), gPlayerParty + 2, sizeof(struct Pokemon));
             ++gBattleCommunication[MULTIUSE_STATE];
         }
         break; 
@@ -2624,6 +2648,8 @@ static void CB2_HandleStartMultiBattle(void)
             gMain.callback1 = BattleMainCB1;
             SetMainCallback2(BattleMainCB2);
             if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+            {
+                TRAINER_BATTLE_PARAM.opponentA = TRAINER_LINK_OPPONENT;
                 gBattleTypeFlags |= BATTLE_TYPE_LINK_IN_BATTLE;
         }
         break;
@@ -6535,7 +6561,7 @@ static void HandleEndTurn_BattleWon(void)
     {
         gBattleTextBuff1[0] = gBattleOutcome;
         gBattlerAttacker = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-    //    gBattlescriptCurrInstr = BattleScript_LinkBattleWonOrLost;
+        gBattlescriptCurrInstr = BattleScript_LinkBattleWonOrLost;
         gBattleOutcome &= ~(B_OUTCOME_LINK_BATTLE_RAN);
     }
     else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER))
@@ -6548,7 +6574,8 @@ static void HandleEndTurn_BattleWon(void)
     {
         BattleStopLowHpSound();
         gBattlescriptCurrInstr = BattleScript_LocalTrainerBattleWon;
-        switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+
+        switch (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA))
         {
         case CLASS_GYM_LEADER_FRLG:
         case CLASS_CHAMPION_FRLG:

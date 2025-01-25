@@ -2,7 +2,10 @@
 #include "script.h"
 #include "event_data.h"
 #include "quest_log.h"
+#include "random.h"
+#include "trainer_see.h"
 #include "event_object_movement.h"
+#include "constants/script_commands.h"
 
 #define RAM_SCRIPT_MAGIC 51
 #define SCRIPT_STACK_SIZE 20
@@ -399,6 +402,8 @@ void RunScriptImmediately(const u8 *ptr)
     SetupBytecodeScript(&sImmediateScriptContext, ptr);
     while (RunScriptCommand(&sImmediateScriptContext) == TRUE);
 }
+//still missing some stuff from here
+//ScriptEffectContext add not used vsonic important
 
 u8 *mapheader_get_tagged_pointer(u8 tag)
 {
@@ -596,3 +601,154 @@ void MEventSetRamScript(u8 *script, u16 scriptSize)
         scriptSize = sizeof(gSaveBlock1Ptr->ramScript.data.script);
     InitRamScript(script, scriptSize, 0xFF, 0xFF, 0xFF);
 }
+
+bool8 LoadTrainerObjectScript(void)
+{
+    sGlobalScriptContext.scriptPtr = gApproachingTrainers[gNoOfApproachingTrainers - 1].trainerScriptPtr;
+    return TRUE;
+}
+
+struct ScriptEffectContext {
+    u32 breakOn;
+    intptr_t breakTo[5];
+    const u8 *nextCmd;
+};
+
+struct ScriptEffectContext *gScriptEffectContext = NULL;
+
+static bool32 Script_IsEffectInstrumentedCommand(ScrCmdFunc func)
+{
+    // In ROM mirror 1.
+    return (((uintptr_t)func) & 0xE000000) == 0xA000000;
+}
+
+/* 'setjmp' and 'longjmp' cause link errors, so we use
+ * '__builtin_setjmp' and '__builtin_longjmp' instead.
+ * See https://gcc.gnu.org/onlinedocs/gcc/Nonlocal-Gotos.html */
+static bool32 RunScriptImmediatelyUntilEffect_InternalLoop(struct ScriptContext *ctx)
+{
+    if (__builtin_setjmp(gScriptEffectContext->breakTo) == 0)
+    {
+        while (TRUE)
+        {
+            u32 cmdCode;
+            ScrCmdFunc *func;
+
+            gScriptEffectContext->nextCmd = ctx->scriptPtr;
+
+            if (!ctx->scriptPtr)
+                return FALSE;
+
+            cmdCode = *ctx->scriptPtr;
+            ctx->scriptPtr++;
+            func = &ctx->cmdTable[cmdCode];
+
+            // Invalid script command.
+            if (func >= ctx->cmdTableEnd)
+                return TRUE;
+
+            if (!Script_IsEffectInstrumentedCommand(*func))
+                return TRUE;
+
+            // Command which waits for a frame.
+            if ((*func)(ctx))
+            {
+                gScriptEffectContext->nextCmd = ctx->scriptPtr;
+                return TRUE;
+            }
+        }
+    }
+    else
+    {
+        return TRUE;
+    }
+}
+
+void Script_GotoBreak_Internal(void)
+{
+    __builtin_longjmp(gScriptEffectContext->breakTo, 1);
+}
+
+bool32 RunScriptImmediatelyUntilEffect_Internal(u32 effects, const u8 *ptr, struct ScriptContext *ctx)
+{
+    bool32 result;
+    struct ScriptEffectContext seCtx;
+    seCtx.breakOn = effects & 0x7FFFFFFF;
+
+    if (ctx == NULL)
+        ctx = &sImmediateScriptContext;
+
+    InitScriptContext(ctx, gScriptCmdTable, gScriptCmdTableEnd);
+    if (effects & SCREFF_TRAINERBATTLE)
+        ctx->breakOnTrainerBattle = TRUE;
+    SetupBytecodeScript(ctx, ptr);
+
+    rng_value_t rngValue = gRngValue;
+    gScriptEffectContext = &seCtx;
+    result = RunScriptImmediatelyUntilEffect_InternalLoop(ctx);
+    gScriptEffectContext = NULL;
+    gRngValue = rngValue;
+
+    if (result)
+        ctx->scriptPtr = seCtx.nextCmd;
+
+    return result;
+}
+
+bool32 Script_HasNoEffect(const u8 *ptr)
+{
+    return !RunScriptImmediatelyUntilEffect(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE, ptr, NULL);
+}
+
+void Script_RequestEffects_Internal(u32 effects)
+{
+    if (gScriptEffectContext->breakOn & effects)
+        __builtin_longjmp(gScriptEffectContext->breakTo, 1);
+}
+
+void Script_RequestWriteVar_Internal(u32 varId)
+{
+    if (varId == 0)
+        return;
+    if (SPECIAL_VARS_START <= varId && varId <= SPECIAL_VARS_END)
+        return;
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+}
+
+bool32 Script_MatchesCallNative(const u8 *script, void *funcPtr, bool32 requestEffects)
+{
+    if (script[0] != SCR_OP_CALLNATIVE)
+        return FALSE;
+    u32 callnativeFunc = (((((script[4] << 8) + script[3]) << 8) + script[2]) << 8) + script[1];
+    u32 targetFunc = (u32)funcPtr;
+    if (requestEffects)
+        targetFunc |= 0xA000000;
+    if (callnativeFunc == targetFunc)
+        return TRUE;
+    return FALSE;
+}
+
+bool32 Script_MatchesSpecial(const u8 *script, void *funcPtr)
+{
+    if (script[0] != SCR_OP_SPECIAL)
+        return FALSE;
+    typedef u16 (*SpecialFunc)(void);
+    extern const SpecialFunc gSpecials[];
+    SpecialFunc specialFunc = gSpecials[(script[2] << 8) + script[1]];
+    if ((u32)specialFunc == ((u32)funcPtr))
+        return TRUE;
+    return FALSE;
+}
+
+// FRLG
+/*void DisableMsgBoxWalkaway(void)
+{
+    // sMsgBoxWalkawayDisabled = TRUE;
+}
+
+void SetWalkingIntoSignVars(void)
+{
+    // gWalkAwayFromSignInhibitTimer = 6;
+    // sMsgBoxIsCancelable = TRUE;
+}
+*/

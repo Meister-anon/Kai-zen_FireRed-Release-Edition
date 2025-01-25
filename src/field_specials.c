@@ -2272,7 +2272,7 @@ u8 ContextNpcGetTextColor(void)
     if (gSpecialVar_TextColor != 0xFF)
         return gSpecialVar_TextColor;
     else if (gSelectedObjectEvent == 0)
-        return 3;
+        return TEXT_COLOR_LIGHT_GREY;
     else
     {
         gfxId = gObjectEvents[gSelectedObjectEvent].graphicsId;

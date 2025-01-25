@@ -8272,6 +8272,9 @@ u8 GetMonsStateToDoubles(void)
     s32 i;
     CalculatePlayerPartyCount();
 
+    //if (OW_DOUBLE_APPROACH_WITH_ONE_MON)
+    //    return PLAYER_HAS_TWO_USABLE_MONS;
+
     if (gPlayerPartyCount == 1)
         return gPlayerPartyCount; // PLAYER_HAS_ONE_MON
 
@@ -8288,6 +8291,30 @@ u8 GetMonsStateToDoubles(void)
     return (aliveCount > 1) ? PLAYER_HAS_TWO_USABLE_MONS : PLAYER_HAS_ONE_USABLE_MON;//need to understand this line
 } //ternary operator, if expression before ? is true, use value before colon :  else use value after colon :
 
+//where these two get used check for 
+//playerhas two usable mon or battle type 2 vs 1
+u8 GetMonsStateToDoubles_2(void)
+{
+    s32 aliveCount = 0;
+    s32 i;
+
+    /*if (OW_DOUBLE_APPROACH_WITH_ONE_MON
+     || FollowerNPCIsBattlePartner())
+        return PLAYER_HAS_TWO_USABLE_MONS;*/
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+        if (species != SPECIES_EGG && species != SPECIES_NONE
+         && GetMonData(&gPlayerParty[i], MON_DATA_HP) != 0)
+            aliveCount++;
+    }
+
+    if (aliveCount == 1)
+        return PLAYER_HAS_ONE_MON; // may have more than one, but only one is alive
+
+    return (aliveCount > 1) ? PLAYER_HAS_TWO_USABLE_MONS : PLAYER_HAS_ONE_USABLE_MON;
+}
 //abilitynum assigned by createboxmon this function translates that number into ability slot selection logic
 //had to assign s8 to compile to get around always true error becuase of constant values
 //this is used to set mon data to battlemon data if I change here
@@ -8439,7 +8466,7 @@ static bool32 CheckTypeBySpecies(u16 species, u8 type)
         }
     }
     gBattleTypeFlags = 8;
-    gTrainerBattleOpponent_A = 0x400;
+    TRAINER_BATTLE_PARAM.opponentA = 0x400;
 }
 
 u8 GetSecretBaseTrainerPicIndex(void)
@@ -10835,7 +10862,9 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     {
         u8 friendshipLevel = 0;
         s16 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, 0); //calc friendship level for delta
+        u32 opponentTrainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
         s8 delta;
+
         if (friendship > 99)
             friendshipLevel++;
         if (friendship > 199)
@@ -10852,7 +10881,7 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
             // Only if it's a trainer battle with league progression significance
             if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
                 return;
-            if (!IsTrainerClassLeagueSignificant(gTrainerBattleOpponent_A))
+            if (!IsTrainerClassLeagueSignificant(TRAINER_BATTLE_PARAM.opponentA))
                 return;
         }
 
@@ -10923,7 +10952,7 @@ void AdjustBoxMonFriendship(struct BoxPokemon *mon, u8 event)
             // Only if it's a trainer battle with league progression significance
             if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
                 return;
-            if (!IsTrainerClassLeagueSignificant(gTrainerBattleOpponent_A))
+            if (!IsTrainerClassLeagueSignificant(TRAINER_BATTLE_PARAM.opponentA))
                 return;
         }
 
@@ -12404,17 +12433,19 @@ void ClearBattleMonForms(void) //vsonic important if I make mega evos permanent 
         gBattleMonForms[i] = 0;
 }
 
+//potentially update later w EE stuff
+//vsonic
 static u16 GetBattleBGM(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE_GROUDON)
         return MUS_VS_WILD;
-    /*if (gBattleTypeFlags & BATTLE_TYPE_REGI) //don't need this another function sets by default in startlegendarybattle
+    /*if (gBattleTypeFlags & BATTLE_TYPE_REGI) //don't need this another function sets by default in StartLegendaryBattle
         return MUS_RS_VS_TRAINER;*/
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         return MUS_RS_VS_TRAINER;
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
-        switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+        switch (gTrainers[TRAINER_BATTLE_PARAM.opponentA].trainerClass)
         {
             case CLASS_CHAMPION_FRLG:
                 return MUS_VS_CHAMPION;

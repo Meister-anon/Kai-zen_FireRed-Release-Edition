@@ -342,7 +342,8 @@
 #define VARS_COUNT                 (VARS_END - VARS_START + 1)
 
 #define SPECIAL_VARS_START         0x8000
-
+// special vars
+// They are commonly used as parameters to commands, or return values from commands.
 #define VAR_0x8000                 0x8000
 #define VAR_0x8001                 0x8001
 #define VAR_0x8002                 0x8002
@@ -363,8 +364,19 @@
 #define VAR_MON_BOX_POS            0x8011
 #define VAR_TEXT_COLOR             0x8012
 #define VAR_PREV_TEXT_COLOR        0x8013
-#define VAR_0x8014                 0x8014 // Unknown/unused
+#define VAR_0x8014                 0x8014 // Unknown/unused //used now pc stuff I think? 
+#define VAR_CONTEST_RANK           0x8015 //added here couldn't figure how remove text color vars rn vsonic
+#define VAR_CONTEST_CATEGORY       0x8016 //linked w specialvars in event_scripts.s
+#define VAR_TRAINER_BATTLE_OPPONENT_A 0x8017 // Alias of TRAINER_BATTLE_PARAM.opponentA
 
-#define SPECIAL_VARS_END           0x8014
+#define SPECIAL_VARS_END           0x8017
+
+// Text color ids for VAR_TEXT_COLOR / VAR_PREV_TEXT_COLOR
+#define NPC_TEXT_COLOR_MALE      0 // Blue, for male NPCs
+#define NPC_TEXT_COLOR_FEMALE    1 // Red, for female NPCs
+#define NPC_TEXT_COLOR_MON       2 // Black, for Pokémon
+#define NPC_TEXT_COLOR_NEUTRAL   3 // Black, for inanimate objects and messages from the game
+#define NPC_TEXT_COLOR_DEFAULT 255 // If an NPC is selected, use the color specified by GetColorFromTextColorTable, otherwise use Neutral.
+
 
 #endif // GUARD_CONSTANTS_VARS_H

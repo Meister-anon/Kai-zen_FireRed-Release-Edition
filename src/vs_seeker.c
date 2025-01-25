@@ -24,6 +24,7 @@
 #include "constants/maps.h"
 #include "constants/items.h"
 #include "constants/quest_log.h"
+#include "constants/script_commands.h"
 #include "constants/trainer_types.h"
 
 enum
@@ -952,7 +953,7 @@ void ClearRematchStateByTrainerId(void)
 {
     u8 objEventId = 0;
     struct ObjectEventTemplate *objectEventTemplates = gSaveBlock1Ptr->objectEventTemplates;
-    int vsSeekerDataIdx = LookupVsSeekerOpponentInArray(sVsSeekerData, gTrainerBattleOpponent_A);
+    int vsSeekerDataIdx = LookupVsSeekerOpponentInArray(sVsSeekerData, TRAINER_BATTLE_PARAM.opponentA);
 
     if (vsSeekerDataIdx != -1)
     {
@@ -1057,7 +1058,7 @@ static bool8 HasRematchTrainerAlreadyBeenFought(const VsSeekerData *vsSeekerData
 void ClearRematchStateOfLastTalked(void)
 {
     gSaveBlock1Ptr->trainerRematches[gSpecialVar_LastTalked] = 0;
-    SetBattledTrainerFlag();
+    SetBattledTrainerFlags();
 }
 
 static int LookupVsSeekerOpponentInArray(const VsSeekerData * array, u16 trainerId)

@@ -180,6 +180,12 @@
 #define TRAINER_ID_LENGTH 4
 #define PARTY_SIZE 6
 #define MULTI_PARTY_SIZE (PARTY_SIZE / 2)
+#define FRONTIER_PARTY_SIZE         3
+#define FRONTIER_DOUBLES_PARTY_SIZE 4
+#define FRONTIER_MULTI_PARTY_SIZE   2
+#define MAX_FRONTIER_PARTY_SIZE    (max(FRONTIER_PARTY_SIZE,        \
+                                    max(FRONTIER_DOUBLES_PARTY_SIZE,\
+                                        FRONTIER_MULTI_PARTY_SIZE)))
 
 #define ALL_MOVES_MASK ((1 << MAX_MON_MOVES) - 1)
 

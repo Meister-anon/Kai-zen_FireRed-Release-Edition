@@ -949,7 +949,7 @@ static u8 GetQuestLogTextDisplayDuration(void)
     return 0xFF;
 }
 
-bool8 sub_8111C2C(void) //beleive meens is questlog scene active?
+bool8 QL_IsTrainerSightDisabled(void) //beleive meens is questlog scene active?
 {
     if (gQuestLogState != QL_STATE_PLAYBACK)
         return FALSE;

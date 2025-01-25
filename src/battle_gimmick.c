@@ -66,12 +66,11 @@ enum Gimmick GetActiveGimmick(enum BattlerId battler)
 bool32 ShouldTrainerBattlerUseGimmick(enum BattlerId battler, enum Gimmick gimmick)
 {
     // There are no trainer party settings in battles, but the AI needs to know which gimmick to use.
-    if (TESTING)
-    {
-        return gimmick == TestRunner_Battle_GetChosenGimmick(battler, gBattlerPartyIndexes[battler]);
-    }
+    #if TESTING
+    return gimmick == TestRunner_Battle_GetChosenGimmick(GetBattlerTrainer(battler), gBattlerPartyIndexes[battler]);
+    #else
     // The player can bypass these checks because they can choose through the controller.
-    else if (IsOnPlayerSide(battler)
+    if (IsOnPlayerSide(battler)
          && !((gBattleTypeFlags & BATTLE_TYPE_MULTI) && battler == B_POSITION_PLAYER_RIGHT))
     {
         return TRUE;
@@ -84,6 +83,7 @@ bool32 ShouldTrainerBattlerUseGimmick(enum BattlerId battler, enum Gimmick gimmi
         if (gimmick == GIMMICK_DYNAMAX && gBattleStruct->opponentMonCanDynamax & 1 << gBattlerPartyIndexes[battler])
             return TRUE;
     }
+    #endif
 
     return FALSE;
 }
