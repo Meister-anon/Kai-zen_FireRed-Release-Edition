@@ -462,6 +462,12 @@ goto BattleScript_MoveEnd  @just in case this has fallthrough
 sZero:
 .byte 0
 
+@specific filters for status type to be used w chosenstatusanimation
+.set STATUS1, 1
+.set STATUS2, 2
+.set STATUS3, 3
+.set STATUS4, 4
+
 
 BattleScript_EffectBelch::
 	attackcanceler
@@ -8174,7 +8180,7 @@ BattleScript_PrintUproarOverTurns::
 	end2
 
 BattleScript_ThrashConfuses::
-	chosenstatusanimation BS_ATTACKER, 1, STATUS2_CONFUSION
+	chosenstatusanimation BS_ATTACKER, STATUS2, STATUS2_CONFUSION
 	printstring STRINGID_PKMNFATIGUECONFUSION
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
@@ -8322,8 +8328,7 @@ BattleScript_YawnMakesAsleep::
 	updatestatusicon BS_ATTACKER
 	waitstate
 	makevisible BS_ATTACKER
-	return	@changed to ret for new placement hopefully works
-	@end2
+	goto BattleScript_MoveEnd
 
 BattlesScript_RoostEnds::
 	printstring STRINGID_PKMNSTOPPEDROOSTING
@@ -8429,24 +8434,6 @@ BattleScript_MoveEffectParalysis::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_UpdateEffectStatusIconRet
 
-@change to match above when get status icon setup, plan kamen raider esque neon green icon with bug mask
-BattleScript_MoveEffectInfestation::
-	@setmoveeffect MOVE_EFFECT_INFESTATION
-	printstring STRINGID_INFESTATION
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_StatusInfested::
-	playanimation BS_ATTACKER, B_ANIM_STATUS_INFESTED, NULL
-	printstring STRINGID_PKMNINFESTED
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	return
-
-BattleScript_StatusInfestedViaSwarm::
-	playanimation BS_ATTACKER, B_ANIM_STATUS_INFESTED, NULL
-	printstring STRINGID_PKMNINFESTED
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	end2
 
 BattleScript_MoveEffectSpiritLock::
 	goto BattleScript_UpdateEffectStatusIconRet
@@ -8641,10 +8628,28 @@ BattleScript_MoveEffectWrap::
 	return
 
 BattleScript_MoveEffectConfusion::
-	chosenstatusanimation BS_EFFECT_BATTLER, 1, STATUS2_CONFUSION
+	chosenstatusanimation BS_EFFECT_BATTLER, STATUS2, STATUS2_CONFUSION
 	printstring STRINGID_PKMNWASCONFUSED
 	waitmessage B_WAIT_TIME_LONG
 	return
+
+@change to match above when get status icon setup, plan kamen raider esque neon green icon with bug mask
+BattleScript_MoveEffectInfestation::
+	chosenstatusanimation BS_EFFECT_BATTLER, STATUS4, STATUS4_INFESTATION
+	printstring STRINGID_INFESTATION
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
+@plays wrong animation need figure out why...
+@checked status4 is linked specifically to that animation
+@playanimation uses general anim table
+@i'm using a value from statustable
+BattleScript_StatusInfested::
+	printstring STRINGID_PKMNINFESTED
+	waitmessage B_WAIT_TIME_LONG
+	playanimation BS_ATTACKER, B_ANIM_INFESTATION, NULL
+	@chosenstatusanimation BS_ATTACKER, STATUS4, STATUS4_INFESTATION
+	end2
 
 BattleScript_ToxicOrb::
 	setbyte cMULTISTRING_CHOOSER, 0
@@ -8656,6 +8661,12 @@ BattleScript_FlameOrb::
 	setbyte cMULTISTRING_CHOOSER, 0
 	copybyte gEffectBattler, gBattlerAttacker
 	call BattleScript_MoveEffectBurn
+	end2
+
+BattleScript_SnowGlobe::
+	setbyte cMULTISTRING_CHOOSER, 0
+	copybyte gEffectBattler, gBattlerAttacker
+	call BattleScript_MoveEffectFreeze
 	end2
 
 @recoil works now but still have issuse w argumentstatuseffect
@@ -10445,14 +10456,15 @@ BattleScript_AttackerCuteCharmActivates::
 	return
 	
 BattleScript_CupidsArrowActivates::
-	status2animation BS_TARGET, STATUS2_INFATUATION
+	chosenstatusanimation BS_TARGET, STATUS2, STATUS2_INFATUATION
+	@status2animation BS_TARGET, STATUS2_INFATUATION
 	printstring STRINGID_CUPIDSARROWSTRUCK
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 
 BattleScript_CupidsArrowActivatesBoth::
-	chosenstatusanimation BS_TARGET, 1, STATUS2_INFATUATION
-	chosenstatusanimation BS_TARGET_PARTNER, 1, STATUS2_INFATUATION
+	chosenstatusanimation BS_TARGET, STATUS2, STATUS2_INFATUATION
+	chosenstatusanimation BS_TARGET_PARTNER, STATUS2, STATUS2_INFATUATION
 	printstring STRINGID_CUPIDSARROWSTRUCK_BOTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3

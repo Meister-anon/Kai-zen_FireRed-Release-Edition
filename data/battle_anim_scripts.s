@@ -992,7 +992,8 @@ gBattleAnims_General::		@aligns with constants/battle_anim.h
 	.4byte General_BeakBlastSetUp           @ B_ANIM_BEAK_BLAST_SETUP
 	.4byte General_ShellTrapSetUp           @ B_ANIM_SHELL_TRAP_SETUP
 	.4byte General_ZMoveActivate            @ B_ANIM_ZMOVE_ACTIVATE
-	.4byte General_TargetMonScared			@ B_ANIM_TARGET_SCARED    /for pressure etc.
+	.4byte General_TargetMonScared			@ B_ANIM_TARGET_SCARED    /for pressure etc.	
+	.4byte Status_Infestation				@ B_ANIM_INFESTATION
 
 gBattleAnims_Special::
 	.4byte Special_LevelUp					@ B_ANIM_LVL_UP
@@ -24712,6 +24713,27 @@ Status_Nightmare:: @ 81D5B63
 Status_Powder:
 	end
 
+@not using for swarm, keep for infestation bug status so animations are different
+@since swarm sets infestation	vsonic
+@trying to setup animation to work since looked like coudln't pull status4 from normla function?
+@notice other status are global use 2 dots,
+@my status anim failed repeatedbly could that be the reason???
+Status_Infestation::
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET @black color
+	loadspritegfx ANIM_TAG_SMALL_BUBBLES @circle particles
+	monbg ANIM_DEF_PARTNER
+	monbgprio_28 ANIM_TARGET
+	createvisualtask AnimTask_BlendSelected, 10, ANIM_PAL_DEF, 0x2, 0x0, 0x9, 0x7320
+	launchtask AnimTask_ShakeMon 0x2 0x5 ANIM_TARGET 0x3 0x0 0x4f 0x1
+	loopsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER, 0x0, 30
+	call InfestationVortex
+	call InfestationVortex
+	waitforvisualfinish
+	launchtask AnimTask_BlendSelected 0xA 0x5 ANIM_PAL_DEF 0x2 0x9 0x0 0x7320
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	end
+
 General_CastformChange:: @ 81D5B88
 	createvisualtask AnimTask_IsMonInvisible, 2, 
 	jumpargeq 7, 1, CastformChangeSkipAnim
@@ -24861,24 +24883,7 @@ Status_Thunder_Cage:
 Status_Snap_Trap: @ placeholder
 	goto Move_BITE
 
-@not using for swarm, keep for infestation bug status so animations are different
-@since swarm sets infestation	vsonic
-@trying to setup animation to work since looked like coudln't pull status4 from normla function?
-Status_Infestation:
-	loadspritegfx ANIM_TAG_HANDS_AND_FEET @black color
-	loadspritegfx ANIM_TAG_SMALL_BUBBLES @circle particles
-	monbg ANIM_DEF_PARTNER
-	monbgprio_28 ANIM_TARGET
-	createvisualtask AnimTask_BlendSelected, 10, ANIM_PAL_DEF, 0x2, 0x0, 0x9, 0x7320
-	launchtask AnimTask_ShakeMon 0x2 0x5 ANIM_TARGET 0x3 0x0 0x4f 0x1
-	loopsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER, 0x0, 30
-	call InfestationVortex
-	call InfestationVortex
-	waitforvisualfinish
-	launchtask AnimTask_BlendSelected 0xA 0x5 ANIM_PAL_DEF 0x2 0x9 0x0 0x7320
-	waitforvisualfinish
-	clearmonbg ANIM_DEF_PARTNER
-	end
+
 
 Status_MagmaStorm:
 	loadspritegfx ANIM_TAG_SMALL_EMBER

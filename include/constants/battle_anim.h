@@ -548,6 +548,7 @@
 #define B_ANIM_SHELL_TRAP_SETUP         0x29
 #define B_ANIM_ZMOVE_ACTIVATE           0x2A // Using Z Moves
 #define B_ANIM_TARGET_SCARED            0x2B //scared animation for pressure/hi-pressure attempt
+#define B_ANIM_INFESTATION              0x2C
 
 // special animations table
 #define B_ANIM_LVL_UP                   0x0
@@ -560,6 +561,9 @@
 #define B_ANIM_LVL_UP_EVOLVE            0x7
 #define B_ANIM_CRITICAL_CAPTURE_THROW   0x8	//added need test
 
+//vsonic important
+//think match battle.inc & battle_anim_scripts.s
+//actyaly think battle.inc is irrelevant
 // status animation table (gBattleAnims_StatusConditions)
 #define B_ANIM_STATUS_PSN               0x0
 #define B_ANIM_STATUS_CONFUSION         0x1

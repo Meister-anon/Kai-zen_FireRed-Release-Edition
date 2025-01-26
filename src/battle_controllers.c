@@ -955,10 +955,12 @@ void BtlController_EmitStatusIconUpdate(u8 bufferId, u32 status1, u32 status2)
 //seems to be same as InitAndLaunchChosenStatusAnimation function, just used from different places?
 //actually this seems to be setting the values for that, then the values
 //are read from that battlecontroller and actually sets the status
-void BtlController_EmitStatusAnimation(u8 bufferId, bool8 status2, u32 status)
+//statusType is value to represent fi status1 status2 or status3 etc.
+//1 for status1, 2 for status2 etc.
+void BtlController_EmitStatusAnimation(u8 bufferId, u8 StatusType, u32 status)
 {
     sBattleBuffersTransferData[0] = CONTROLLER_STATUSANIMATION;
-    sBattleBuffersTransferData[1] = status2; //is true false check for if looking for status 2
+    sBattleBuffersTransferData[1] = StatusType; 
     sBattleBuffersTransferData[2] = status;
     sBattleBuffersTransferData[3] = (status & 0x0000FF00) >> 8;
     sBattleBuffersTransferData[4] = (status & 0x00FF0000) >> 16;

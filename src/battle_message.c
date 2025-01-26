@@ -567,7 +567,7 @@ static const u8 sText_StenchExits[] = _("The foul odor has cleared!");  //setup 
 //issued caused by undefined buffers  "B_ATK_TRAINER_NAME B_ATK_TEAM1 B_ATK_TEAM2 B_DEF_TEAM2 B_ATK_TRAINER_CLASS   //FIXED
 
 // New battle strings.
-static const u8 sText_Infestation[] = _("{B_DEF_NAME_WITH_PREFIX} has been afflicted\nwith an infestation by {B_ATK_NAME_WITH_PREFIX}!");
+static const u8 sText_Infestation[] = _("{B_DEF_NAME_WITH_PREFIX} has been afflicted\nwith an infestation!");
 static const u8 sText_Infested[] = _("{B_ATK_NAME_WITH_PREFIX} is infested!");
 static const s8 sText_EnduredViaSturdy[] = _("{B_DEF_NAME_WITH_PREFIX} ENDURED\nthe hit via {B_DEF_ABILITY}!");
 static const s8 sText_AttackerEnduredViaSturdy[] = _("{B_ATK_NAME_WITH_PREFIX} hung on\nvia {B_ATK_ABILITY}!");

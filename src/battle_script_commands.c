@@ -810,6 +810,11 @@ s32 CalculateMoveDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32
 //ok so it lines up with the array below,  all the 0x0000 are for entiries in the pointer list that don't correspond to a status
 */
 
+//note in setmoveeffect has check for status & sStatusFlagsForMoveEffects[gbattlescripting.moveeffect]
+//realized could potentialy overlap w status1 etc.
+//but see no status2 that would match a status1 is on here,
+//need be careful with this
+//vsonic important
 static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
 {
     [MOVE_EFFECT_SLEEP] = STATUS1_SLEEP,
@@ -818,7 +823,7 @@ static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
     [MOVE_EFFECT_FREEZE] = STATUS1_FREEZE,
     [MOVE_EFFECT_PARALYSIS] = STATUS1_PARALYSIS,
     [MOVE_EFFECT_TOXIC] = STATUS1_TOXIC_POISON,
-    [MOVE_EFFECT_INFESTATION] = STATUS1_INFESTATION,
+    [MOVE_EFFECT_INFESTATION] = STATUS4_INFESTATION,
     [MOVE_EFFECT_CONFUSION] = STATUS2_CONFUSION,
     [MOVE_EFFECT_FLINCH] = STATUS2_FLINCHED,
     [MOVE_EFFECT_UPROAR] = STATUS2_UPROAR,
@@ -841,6 +846,8 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_FREEZE] = BattleScript_MoveEffectFreeze,
     [MOVE_EFFECT_PARALYSIS] = BattleScript_MoveEffectParalysis,
     [MOVE_EFFECT_TOXIC] = BattleScript_MoveEffectToxic,
+    //[MOVE_EFFECT_PLACEHOLDER_STATUS1] = BattleScript_MoveEffectSpiritLock,
+    [MOVE_EFFECT_INFESTATION] = BattleScript_MoveEffectInfestation,
     //[MOVE_EFFECT_TOXIC] = BattleScript_MoveEffectToxic, //think should put spirit lock here so values stay in order
     [MOVE_EFFECT_CONFUSION] = BattleScript_MoveEffectConfusion,
     [MOVE_EFFECT_FLINCH] = BattleScript_MoveEffectSleep,
@@ -877,10 +884,9 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_DEF_SPDEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
     [MOVE_EFFECT_RECOIL_33] = BattleScript_MoveEffectRecoil,
     [MOVE_EFFECT_MED_RECOIL_W_STATUS] = BattleScript_MoveEffectRecoilWithStatus,
-    [MOVE_EFFECT_SPD_MINUS_2] = BattleScript_MoveEffectSleep,
-    [MOVE_EFFECT_INFESTATION] = BattleScript_MoveEffectInfestation,
+    [MOVE_EFFECT_SPD_MINUS_2] = BattleScript_MoveEffectSleep,    
     [MOVE_EFFECT_ATTRACT] = BattleScript_MoveEffectAttract,   //see if it works as is, or I need actuall battlescript for this
-    //[MOVE_EFFECT_PLACEHOLDER_STATUS1] = BattleScript_MoveEffectSpiritLock,
+    
 }; //don't know why a lot of these default to sleep, but I added attract to hopefully do something?
 //those that default to sleep have their effects set in SetMoveEffect function 
 
@@ -4753,6 +4759,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             break;
         }
         case STATUS1_TOXIC_POISON:
+        
             if ((battlerAbility == ABILITY_IMMUNITY || battlerAbility == ABILITY_PASTEL_VEIL || battlerAbility == ABILITY_COMATOSE) 
             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
@@ -4800,7 +4807,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
             }
             break;
-        }
+        }        
         if (statusChanged == TRUE)
         {
             BattleScriptPush(gBattlescriptCurrInstr + 1);//hmm or what I could do is keep full sleep turns but counter by letting heal, so you get free dmg but you may need to expend more to kill
@@ -4913,11 +4920,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
     }   //end case move effects less than 6 i.e toxic and below, ok this is potentially what it means by primary, its all status1 stuff
     else
     {       //think this means if status set is the same as the one being attempted to be set, skip to next battle string. i.e can't confuse if already confused?
-        if (gBattleMons[gEffectBattler].status2 & sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]) //not gonna be a problem for trap status as using dif status for each
+        //for fear of overlap may remove this line, and remove status2 from sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]) 
+        //instead just put explicit status check within the case
+        /*if (gBattleMons[gEffectBattler].status2 & sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]) //not gonna be a problem for trap status as using dif status for each
         {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
             ++gBattlescriptCurrInstr;
         }
-        else
+        else*/
         {
             u8 side;
             u32 TrapDuration;
@@ -4960,6 +4969,22 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         }
                 }
                 break;
+            case MOVE_EFFECT_INFESTATION:
+            {
+                if (gBattleMons[gEffectBattler].status4 & STATUS4_INFESTATION) //not gonna be a problem for trap status as using dif status for each
+                {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
+                    ++gBattlescriptCurrInstr;
+                }
+                else
+                {
+
+                gBattleMons[gEffectBattler].status4 |= STATUS4_INFESTATION;
+                
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                }
+            }
+            break;
             case MOVE_EFFECT_FLINCH:
                 if (battlerAbility == ABILITY_INNER_FOCUS || battlerAbility == ABILITY_FEMME_FATALE)
                 {
@@ -4977,9 +5002,17 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 else
                 {
-                    if (GetBattlerTurnOrderNum(gEffectBattler) > gCurrentTurnActionNumber)
-                        gBattleMons[gEffectBattler].status2 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                    ++gBattlescriptCurrInstr;
+                    if (gBattleMons[gEffectBattler].status2 & STATUS2_FLINCHED)
+                    {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
+                        ++gBattlescriptCurrInstr;
+                    }
+                    else
+                    {
+
+                        if (GetBattlerTurnOrderNum(gEffectBattler) > gCurrentTurnActionNumber)
+                            gBattleMons[gEffectBattler].status2 |= STATUS2_FLINCHED;
+                        ++gBattlescriptCurrInstr;
+                    }
                 }
                 break;
             case MOVE_EFFECT_UPROAR:
@@ -5512,9 +5545,16 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_PREVENT_ESCAPE:
-                gBattleMons[gBattlerTarget].status2 |= STATUS2_ESCAPE_PREVENTION;
-                gDisableStructs[gBattlerTarget].battlerPreventingEscape = gBattlerAttacker;
-                ++gBattlescriptCurrInstr;
+                if (gBattleMons[gEffectBattler].status2 & STATUS2_ESCAPE_PREVENTION)
+                {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
+                    ++gBattlescriptCurrInstr;
+                }
+                else
+                {
+                    gBattleMons[gBattlerTarget].status2 |= STATUS2_ESCAPE_PREVENTION;
+                    gDisableStructs[gBattlerTarget].battlerPreventingEscape = gBattlerAttacker;
+                    ++gBattlescriptCurrInstr;
+                }
                 break;
             case MOVE_EFFECT_SWITCH_LOCKED:
                 if (gBattleMons[gBattlerTarget].status2 & STATUS2_SWITCH_LOCKED)
@@ -5525,12 +5565,19 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 {
                     gBattleMons[gBattlerTarget].status2 |= STATUS2_SWITCH_LOCKED;
                     gDisableStructs[gBattlerTarget].SwitchBinding = 3;
-                }
-                ++gBattlescriptCurrInstr;
+                     ++gBattlescriptCurrInstr;
+                }               
                 break;
             case MOVE_EFFECT_NIGHTMARE:
-                gBattleMons[gBattlerTarget].status2 |= STATUS2_NIGHTMARE;
-                ++gBattlescriptCurrInstr;
+                if (gBattleMons[gEffectBattler].status2 & STATUS2_NIGHTMARE)
+                {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
+                    ++gBattlescriptCurrInstr;
+                }
+                else
+                {
+                    gBattleMons[gBattlerTarget].status2 |= STATUS2_NIGHTMARE;
+                    ++gBattlescriptCurrInstr;
+                }
                 break;
             case MOVE_EFFECT_ALL_STATS_UP:
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -5767,7 +5814,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
 
                 gBattleMons[gBattlerTarget].status2 |= STATUS2_ESCAPE_PREVENTION;
                 gBattleMons[gBattlerAttacker].status2 |= STATUS2_ESCAPE_PREVENTION;
-                break;
+                break; //vsonic important check for issues w double apply would need be double battle to test
             case MOVE_EFFECT_SCALE_SHOT:
                 if (!NoAliveMonsForEitherParty())
                 {
@@ -10722,8 +10769,10 @@ static void atk63_jumptocalledmove(void) //can't tell differenc between what the
     gBattlescriptCurrInstr = gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect];
 }
 
+//Used for only status1, eventually goes into chosenstatusanimation command
 static void atk64_statusanimation(void)//eventually figure update this for spirit lock
 {
+    u8 isStatus1 = 1;
     if (!gBattleControllerExecFlags)
     {
         gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
@@ -10731,7 +10780,7 @@ static void atk64_statusanimation(void)//eventually figure update this for spiri
          && gDisableStructs[gActiveBattler].substituteHP == 0
          && !(gHitMarker & HITMARKER_NO_ANIMATIONS))
         {
-            BtlController_EmitStatusAnimation(0, FALSE, gBattleMons[gActiveBattler].status1);
+            BtlController_EmitStatusAnimation(0, isStatus1, gBattleMons[gActiveBattler].status1);
             MarkBattlerForControllerExec(gActiveBattler);
         }
         gBattlescriptCurrInstr += 2;
@@ -10739,9 +10788,11 @@ static void atk64_statusanimation(void)//eventually figure update this for spiri
 }
 
 //vsonic
+//is just for status2 but eventually goes into chosenstatusanimation
 static void atk65_status2animation(void) //use this for intimidate confuse effect make new battlescript with just this effect & a return /maybe not don't remembber why made note
 {
     u32 wantedToAnimate;
+    u8 isStatus2 = 2;
 
     if (!gBattleControllerExecFlags)
     {
@@ -10751,16 +10802,19 @@ static void atk65_status2animation(void) //use this for intimidate confuse effec
          && gDisableStructs[gActiveBattler].substituteHP == 0
          && !(gHitMarker & HITMARKER_NO_ANIMATIONS))
         {
-            BtlController_EmitStatusAnimation(0, TRUE, gBattleMons[gActiveBattler].status2 & wantedToAnimate);
+            BtlController_EmitStatusAnimation(0, isStatus2, gBattleMons[gActiveBattler].status2 & wantedToAnimate);
             MarkBattlerForControllerExec(gActiveBattler);
         }
         gBattlescriptCurrInstr += 6;
     }
 }
 
+//STILL can't get the animation to play for this damn thing???
+//everyting works corretly execept the new status, so dive into that smh
 static void atk66_chosenstatusanimation(void) //filters for status 2, but then can play any animation, status2 or not
 {
     u32 wantedStatus;
+    u8 statusCat = gBattlescriptCurrInstr[2];
 
     if (!gBattleControllerExecFlags)
     {
@@ -10770,7 +10824,23 @@ static void atk66_chosenstatusanimation(void) //filters for status 2, but then c
          && gDisableStructs[gActiveBattler].substituteHP == 0
          && !(gHitMarker & HITMARKER_NO_ANIMATIONS))
         {
-            BtlController_EmitStatusAnimation(0, gBattlescriptCurrInstr[2], wantedStatus);
+            //takes true false as condition for logic if is status2 or not
+            //fills logic for InitAndLaunchChosenStatusAnimation
+            switch (statusCat)
+            {
+                case 1:
+                    BtlController_EmitStatusAnimation(0, gBattlescriptCurrInstr[2], gBattleMons[gActiveBattler].status1 & wantedStatus);
+                break;
+                case 2:
+                    BtlController_EmitStatusAnimation(0, gBattlescriptCurrInstr[2], gBattleMons[gActiveBattler].status2 & wantedStatus);
+                break;
+                case 3:
+                    BtlController_EmitStatusAnimation(0, gBattlescriptCurrInstr[2], gStatuses3[gActiveBattler] & wantedStatus);
+                break;
+                case 4:
+                    BtlController_EmitStatusAnimation(0, gBattlescriptCurrInstr[2], gBattleMons[gActiveBattler].status4 & wantedStatus);
+                break;
+            }
             MarkBattlerForControllerExec(gActiveBattler);
         }
         gBattlescriptCurrInstr += 7;
@@ -18890,6 +18960,8 @@ static void atkEF_handleballthrow(void) //important changed
                 odds += (odds / 8);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_CURSED)
                 odds += (odds / 10);
+            if (gBattleMons[gBattlerTarget].status4 & STATUS4_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
+                odds += (odds / 10); 
             if (gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
                 odds += (odds / 10);
             if (gDisableStructs[gBattlerTarget].rechargeTimer)
@@ -19831,9 +19903,13 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
     {
         gBattleScripting.moveEffect = gBattleMoves[gCurrentMove].argument; //potentially need make argument field for bs. as well vsonic
         atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect
-    }    
+    }   
+    else 
     gBattlescriptCurrInstr = cmd->nextInstr;
-}
+    //attempt remove this see what happens,
+    //if its causing a skip,
+    //the function it calls should have all logic needed to move script forward?
+}//HAH that was literally it, I was skipping too far forward
 
 void BS_settelekinesis(void) {
 

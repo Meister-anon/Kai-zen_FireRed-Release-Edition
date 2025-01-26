@@ -167,6 +167,7 @@
 
 //custom hold effects
 #define HOLD_EFFECT_SOUND_POWER     184   //call deci bell (I think)
+#define HOLD_EFFECT_SNOW_GLOBE      185   //ice orb,
 /*#define HOLD_EFFECT_ALOLAN_SAND     184
 #define HOLD_EFFECT_GALAR_SAND      185
 #define HOLD_EFFECT_HISUIAN_SAND    186

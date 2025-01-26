@@ -173,41 +173,83 @@ void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
 //check if (status1) increment through each status 1 to see if htey have that status flag and do animaiton if so
 //then do case checks for status2 do same thing, 
 //followed by check for status 4 then switch for status4 that increments through each status4, playing animation and doing effects if present
-void InitAndLaunchChosenStatusAnimation(bool8 isStatus2, u32 status)
+//source chosenstatusanimation command
+//rework change isstatus2 to statusCategory  rather than bool, 
+//have values 1-4 for the status types, 
+//problem rn is use of & w effect need change to equal
+//but that alone could cause unintended overlap, so set status cat
+//then do equal, w that can properly filter
+
+enum StatusType
 {
-    gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 1;
-    if (!isStatus2)
+    status1 = 1,
+    status2 = 2,
+    status3 = 3,
+    status4 = 4
+};
+
+
+/*Explanation from Sbird
+they do 2 fundamentally different things. a == b as a condition means literally a is equal to b, a & b as a condition means "the result of a logical and b is not equal to 0", or in other words every bit in b is high in a.
+as to why that works, status 1 can probably never overlap, i.e. a pokemon cannot be frozen and paralyzed at the same time
+*/
+
+//my understanding there's no functional difference between using them,
+//far as recognizing the status itself, only in whether it can oveerlap/hold more than one status,
+//so for now change all to and, so its ready, if I decide to do multi status
+void InitAndLaunchChosenStatusAnimation(u8 StatusType, u32 status)
+{
+
+
+    gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = TRUE;
+    
+    switch (StatusType)
     {
-        if (status == STATUS1_FREEZE)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_FRZ);
-        else if (status == STATUS1_POISON || status & STATUS1_TOXIC_POISON)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_PSN);
-        else if (status == STATUS1_BURN)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_BRN);
-        else if (status & STATUS1_SLEEP)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_SLP);
-        else if (status == STATUS1_PARALYSIS)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_PRZ);
-        /*else if (status & STATUS4_INFESTATION)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED);*/ //think for ionfested rather than reuse move animation do battler shake w exclamation point
-        else // no animation
-            gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
+        case status1:
+        {
+            if (status & STATUS1_FREEZE)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_FRZ);
+            else if (status & STATUS1_POISON || status & STATUS1_TOXIC_POISON)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_PSN);
+            else if (status & STATUS1_BURN)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_BRN);
+            else if (status & STATUS1_SLEEP)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_SLP);
+            else if (status & STATUS1_PARALYSIS)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_PRZ);
+            else // no animation
+                gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
+        }
+        break;
+        case status2:
+        {
+            if (status & STATUS2_INFATUATION)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFATUATION);
+            else if (status & STATUS2_CONFUSION)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CONFUSION);
+            else if (status & STATUS2_CURSED)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CURSED);
+            else if (status & STATUS2_NIGHTMARE)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_NIGHTMARE);
+            else if (status & STATUS2_WRAPPED)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
+            else // no animation
+                gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
+        }
+        break;
+        case status3:
+        break;
+        case status4:
+        {
+            if (status & STATUS4_INFESTATION)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED); //think for ionfested rather than reuse move animation do battler shake w exclamation point
+            else // no animation
+                gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
+        }
+        break;
     }
-    else
-    {
-        if (status & STATUS2_INFATUATION)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFATUATION);
-        else if (status & STATUS2_CONFUSION)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CONFUSION);
-        else if (status & STATUS2_CURSED)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CURSED);
-        else if (status & STATUS2_NIGHTMARE)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_NIGHTMARE);
-        else if (status & STATUS2_WRAPPED)
-            LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
-        else // no animation
-            gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
-    }
+    
+
 }
 
 #define tBattlerId data[0]

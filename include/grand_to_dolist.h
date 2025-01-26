@@ -2708,9 +2708,119 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     //add sludge wave as tm
     1/22/2025
+
+    //don't forget will need to remove use of gbittable
+    will be replaced w use of (1u << "storage value")
+    1/23/2025
+
+    early bird is fixed now need find what's wrong w moody
+    as that bug doesn't exist in EE
+
+    ...huh now that early bird is fixed, there's no moody issue?
+    ...ok I think...the early bird "fix" was what broke moody *facepalm
+    not the part related to attack canceler since that was blocked to only early bird
+    but the changes I made in stat change logic,
+    effectstatdown:
+    it had logic for sSAVED_STAT_CHANGER  to  sSTATCHANGER
+    assuming sSAVED_STAT_CHANGER never gets cleared, just constantly reassigned,
+    that causes a problem smh
+    -fixed
+    1/23/2025
+
+    //note for exp share change, for ui
+    either need to undo change that allowed for showing status and lvl in party menu
+    so status would cover lvl, 
+    or I would fit exp symbol to end of name and before hp bar
+    rn longest pokemon name is 12(+1) characters crabominable etc.
+    if I have space then I can put the symbonl there
+    tested looks like plenty of room there.
+    note people will want quick set for entire party
+    think best way to do that is just hold down button that normally
+    does individual set, i.e hold down start, to set for entire party
+    new Expshare icon will be about same size as status icons
+    but EXP as text, deep blue for exp share, red for exp null
+
+    test if that will fit by attempting put status icon
+    in that space as well
+
+    note make new string for rage
+    use diff string for using rage move
+    prefix atk name's rage grew!
+    so can have diff string for move power growing and atk stage increasing
+    vsonic 1/23/2025
+
     noteiced another bug w callback, for some resaon
     move info callback ignores the logic I setup 
     for not displying status graphic
+
+    ok decided infested status will be permannet
+    but swarm will be the temp version of it
+    1/24/2025
+
+    need double check disobedience logic
+    mon with matching ot idea, received via give mon script
+    was disobedient
+    1/25/2025
+
+
+    balancing bug status, 2 considerations main idea is bugs being annoying
+    that would fit better if infestation was something that could be cleared on switch,
+    as well as incentivizing use of the move swarm, which would inflict infest
+    but prevent battler from switching out.
+
+    I'm having trouble figuring how to get the health box to display new status icons
+    and am unsure if I can even get it to display the correct colors
+    as its not one solid color. and as the thing takes straight rgb values for palette
+    I"m assuming it needs tobe one color.
+    So I may not even be able to get it displayed correctly.
+
+    To that end I could just make it a status 2...
+    forcing a switch is still very impactful
+    and would also allow me to set both poison and infestation
+    together.
+
+    Annoying to lose effort/but makes sense for balance
+    and other considerations.
+    1/25/2025
+
+    noted issue with yawn, can't remmeber if decided to setup
+    to set sleep at end turn,
+    or on attacker next turn through atk canceler,
+    but rn its reading the wrong battler as going to sleep
+    think an issue of gactivebatter vs battlerattaker?
+    need fix
+
+    changes for chosenstatus anim are STILL 
+    not working????!
+
+    fixed animation was fine, issue was BS_setargumenteffectwithchance,
+    has curr instruct jump where I shouldn't have
+    then had other similar issue in the setmoveeffect function
+    which I believe was due to a curr instruction increment outside of a case
+    so both were triggering,
+    I went throuhg the funciton an cleaned up all 
+    events of it.
+
+    it seems to have cleared that up.
+    left now is to set an end turn retrigger for infested animation,
+
+    then set swarm, effect
+    needs to be different animation think can use the 
+    move animation with the attacking bugs?
+
+    just need make sure that plays first before infestation animation
+    once get end turn working, go over infestation move effect
+    and decide which moves should have it.
+
+    I want it restrictly mostly to the bug moves only bug types get
+    which is why I've removed it from u-turn
+
+    reset use of IsBlackFogNotOnField
+    realized effectively want effect to be like cloud nine
+    with weather has effect
+    so rather than funtion put everywhere setup more cleanly like a macro?
+    cloud nine didn't end the effects it just blocked them
+    vsonic important 1/25/2025
 
     */
    goto FIELD_MOVE_LIST_LOGIC

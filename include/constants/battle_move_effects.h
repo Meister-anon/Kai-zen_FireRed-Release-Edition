@@ -10,8 +10,8 @@
 #define MOVE_EFFECT_PARALYSIS           0x5
 #define MOVE_EFFECT_TOXIC               0x6
 #define MOVE_EFFECT_PLACEHOLDER_STATUS1			0x7  //but if
-#define MOVE_EFFECT_INFESTATION         0x8 //will need to move down when setup before primary status move effect constant
-#define PRIMARY_STATUS_MOVE_EFFECT      MOVE_EFFECT_INFESTATION // All above move effects apply primary status
+#define MOVE_EFFECT_INFESTATION     0x8 //will need to move down when setup before primary status move effect constant
+#define PRIMARY_STATUS_MOVE_EFFECT      MOVE_EFFECT_TOXIC // All above move effects apply primary status
 //#define MOVE_EFFECT_PLACEHOLDER_STATUS1       0x6  //increase everything til v create by 1 use incrementer from discord for that
 #define MOVE_EFFECT_CONFUSION           0x9 //have to do it by hand since incrementer tool cant handle hexadecimal
 #define MOVE_EFFECT_FLINCH              0xA

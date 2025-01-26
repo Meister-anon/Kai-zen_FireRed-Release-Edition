@@ -321,7 +321,7 @@
 #define STATUS4_SNAP_TRAP               (1 << 9)
 #define STATUS4_THUNDER_CAGE            (1 << 10)
 #define STATUS4_SALT_CURED              (1 << 11) //Doesn't prevent escape so don't treat as trap, mix of leech seed and stealth rock, 1/8th max hp, double status dmg against water and steel
-
+#define STATUS4_INFESTATION             (1 << 12)
 //removed replaced w timer
 //#define STATUS4_GROUNDED                (1 << 11)  //new status  set for move effect trench_run to more easily translate mon into grounded state, add status to groudned function
 

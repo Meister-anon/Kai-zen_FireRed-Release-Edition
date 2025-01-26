@@ -5713,7 +5713,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //anything below that does MORE damage than the base formula
 
         //trap effects & bug status def drop
-        if ((gBattleMons[battlerIdDef].status1 & STATUS1_INFESTATION) //this is bug status
+        if ((gBattleMons[battlerIdDef].status4 & STATUS4_INFESTATION) //this is bug status
             && IsBlackFogNotOnField()) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!
             //then make infested/infestation the bug status, the extra effect of swarm would be setting the infestation status
         {
@@ -5729,7 +5729,16 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //there are plenty of multipliers and its multiplicative
             // 1 stage is a 33% dmg increase /defense drop
             //I think I'm fine doin 20% here?
-            defense = (defense * 80) / 100;
+
+            //set as status4 will disipate on switch,
+            //for balance sake believe still need increase this
+            //needs to be large enough debuff to actually be worth switching off for
+            //not something you can easily ignore
+            //so somewhere between current value and new crit
+            //i.e 20% up to max 50%  where 50 is too much
+            //67% is 1 stage drop
+            //testing for now
+            defense = (defense * 67) / 100;
             //effect is so strong potentially put on a timer
             //set like freeze and sleep where it cures itself w time,
             //but persists through switches/battle end?
@@ -6002,8 +6011,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 damage /= 2;
         }
 
-        if ((attacker->status1 & STATUS1_SPIRIT_LOCK) && IsBlackFogNotOnField()) //function that gives spirit_lock special atk cut
-            damage /= 2;
+        //if ((attacker->status1 & STATUS1_SPIRIT_LOCK) && IsBlackFogNotOnField()) //function that gives spirit_lock special atk cut
+        //    damage /= 2;
 
         //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
         //    damage /= 1; //special verision double battle damage change

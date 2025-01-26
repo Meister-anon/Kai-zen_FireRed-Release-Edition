@@ -160,7 +160,6 @@ extern const u8 BattleScript_MoveUsedWokeUp[];
 extern const u8 BattleScript_MonWokeUpRefreshed[];
 extern const u8 BattleScript_MonWokeUpInUproar[];
 extern const u8 BattleScript_StatusInfested[];  //script for playing infest animation
-extern const u8 BattleScript_StatusInfestedViaSwarm[];
 extern const u8 BattleScript_PoisonWorsened[];
 extern const u8 BattleScript_PoisonTurnDmg[];
 extern const u8 BattleScript_BurnTurnDmg[];
@@ -336,6 +335,7 @@ extern const u8 BattleScript_QuickDrawActivation[];
 extern const u8 BattleScript_CustapBerryActivation[];
 extern const u8 BattleScript_ToxicOrb[];
 extern const u8 BattleScript_FlameOrb[];
+extern const u8 BattleScript_SnowGlobe[];
 extern const u8 BattleScript_DancerActivates[];
 extern const u8 BattleScript_RockyHelmetActivates[];
 extern const u8 BattleScript_RockyHelmetActivatesDmg[];

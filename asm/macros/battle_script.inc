@@ -597,6 +597,7 @@
 	.byte \param0
 	.endm
 
+	@For status1 only
 	.macro statusanimation battler:req
 	.byte 0x64
 	.byte \battler
@@ -608,10 +609,10 @@
 	.4byte \status2
 	.endm
 
-	.macro chosenstatusanimation battler:req, param1:req, status:req
+	.macro chosenstatusanimation battler:req, StatusType:req, status:req
 	.byte 0x66
 	.byte \battler
-	.byte \param1
+	.byte \StatusType
 	.4byte \status
 	.endm
 
@@ -2164,12 +2165,14 @@
 	tryfaintmon \battler, TRUE, \ptr
 	.endm
 
+	@true false is isStatus2 
+	@changed is case for status category, 1 for status1 2 for status2
 	.macro chosenstatus1animation battler:req, status:req
-	chosenstatusanimation \battler 0x0 \status
+	chosenstatusanimation \battler, 1, \status
 	.endm
 
 	.macro chosenstatus2animation battler:req, status:req
-	chosenstatusanimation \battler 0x1 \status
+	chosenstatusanimation \battler, 2, \status
 	.endm
 
 	.macro sethword dst:req, value:req

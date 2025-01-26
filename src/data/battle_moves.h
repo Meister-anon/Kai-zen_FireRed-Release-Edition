@@ -5851,10 +5851,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        .argument = MOVE_EFFECT_INFESTATION,
-        .argumentEffectChance = 15,
+        //.argument = MOVE_EFFECT_INFESTATION,
+        //.argumentEffectChance = 15,
         
-    },
+    },//too good, and too wide spread to have infestation,
+    //want to be mostly on bugs, w a rare mon being able to get access that isn't bug type
 
     [MOVE_CLOSE_COMBAT] =
     {
@@ -9545,8 +9546,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        .argument = MOVE_EFFECT_DEF_MINUS_1
+        .argument = MOVE_EFFECT_DEF_MINUS_1,
     }, //make early level move for more professional style fighting mon i.e hitmon chan lee, hariyama sawk medicham
+    //add for tyrogue machop vsonic
 
     [MOVE_SWARM] =
     {
@@ -9560,6 +9562,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_INFESTATION,
     },//previously infestation
 
     [MOVE_POWER_UP_PUNCH] =

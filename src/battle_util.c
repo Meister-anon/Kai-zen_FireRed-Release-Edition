@@ -871,6 +871,7 @@ enum   //battler end turn
     ENDTURN_TAUNT,
     ENDTURN_YAWN,
     ENDTURN_SLEEP,
+    ENDTURN_INFESTATION,
     ENDTURN_ITEMS2,
     ENDTURN_ORBS,
     ENDTURN_ROOST,
@@ -2895,7 +2896,6 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.animArg1 = moveId;
                         gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SWARM);
-                        //BattleScriptExecute(BattleScript_StatusInfested);
                         
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)
@@ -2905,17 +2905,12 @@ u8 DoBattlerEndTurnEffects(void)
                         if (gBattleMoveDamage == 0)
                             gBattleMoveDamage = 1;
 
-                        if (!(gBattleMons[gActiveBattler].status1 & STATUS1_ANY)
-                            && Random() % 4)
-                            {
-                                gBattleMons[gActiveBattler].status1 |= STATUS1_INFESTATION; //IF RIGHT should be 1 in 4 chance to set infestation at end turn after damage
-                                gBattlescriptCurrInstr = BattleScript_StatusInfestedViaSwarm;
-                            }//see if this works
 
                     }   //make sure new trap effects all have switch prevention still
                     else  // broke free
                     {   //how did I not notice I didn't have the removal status here?
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_SWARM;
+                        gBattleMons[gActiveBattler].status4 &= ~STATUS4_INFESTATION;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SWARM);
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
                     }
@@ -3278,6 +3273,16 @@ u8 DoBattlerEndTurnEffects(void)
                         BattleScriptExecute(BattleScript_SleepHealing);
                         ++effect;
                     }                    
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_INFESTATION:  // infested
+                if ((gBattleMons[gActiveBattler].status4 & STATUS4_INFESTATION) && gBattleMons[gActiveBattler].hp != 0
+                    && IsBlackFogNotOnField())
+                {
+
+                   BattleScriptExecute(BattleScript_StatusInfested);
+                    ++effect; 
                 }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
@@ -3838,34 +3843,41 @@ u8 AtkCanceller_UnableToUseMove(void)
         u16 battlerAbility = GetBattlerAbility(gBattlerAttacker);
         if (gStatuses3[gBattlerAttacker] & STATUS3_YAWN)
         {
+            //works but still has an odd delay when set?
             if (gDisableStructs[gBattlerAttacker].YawnTimer == 0)
+            { 
                 gStatuses3[gBattlerAttacker] &= ~STATUS3_YAWN;    //should remove yawn
+
             
-            if (!(gStatuses3[gBattlerAttacker] & STATUS3_YAWN) && !(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY)
-                 && battlerAbility != ABILITY_VITAL_SPIRIT
-                 && battlerAbility != ABILITY_INSOMNIA 
-                 && !UproarWakeUpCheck(gBattlerAttacker)
-                 && !IsLeafGuardProtected(gBattlerAttacker))
-            {
-                    if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_ELECTRIC_TERRAIN))
-                    {
-                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_ELECTRIC;
-                        BattleScriptExecute(BattleScript_TerrainPreventsRet);
-                    }
-                    else if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_MISTY_TERRAIN))
-                    {
-                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_MISTY;
-                        BattleScriptExecute(BattleScript_TerrainPreventsRet);
-                    }//hopefully works
-                    else
-                    {
-                        //CancelMultiTurnMoves(gActiveBattler); buff put in initial setyawn command when used
-                        gBattleMons[gBattlerAttacker].status1 |= STATUS1_SLEEP; //hopefully works and puts to sleep and sets sleep turns
-                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] = ((Random() % 3) + 3);
-                        effect = 2;
-                        BattleScriptPushCursor();
-                        gBattlescriptCurrInstr = BattleScript_YawnMakesAsleep;
-                    }
+                if (CanSleep(gBattlerAttacker)
+                && !UproarWakeUpCheck(gBattlerAttacker))
+                {
+                    //CancelMultiTurnMoves(gActiveBattler); buff put in initial setyawn command when used
+                    effect = 2;
+                    gBattleMons[gBattlerAttacker].status1 |= STATUS1_SLEEP; //hopefully works and puts to sleep and sets sleep turns
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)] = ((Random() % 3) + 2); //set to +2 rathern than +3
+                    //BattleScriptPushCursor();   //need reduce max slee turn by one, since as of now, it skips first turn through sleep canceler to decrement
+                    //gBattlescriptCurrInstr = BattleScript_YawnMakesAsleep;
+                    BattleScriptExecute(BattleScript_YawnMakesAsleep); //execute isn't right, that caused everything to go into slow motion...
+                    //ok it wasn't tht it was the chage ti infested animation...
+                    //seems to work?
+                }
+                else if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_ELECTRIC_TERRAIN))
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_ELECTRIC;
+                    //BattleScriptPushCursor();   //need reduce max slee turn by one, since as of now, it skips first turn through sleep canceler to decrement
+                    //gBattlescriptCurrInstr = BattleScript_TerrainPreventsRet;
+                    BattleScriptExecute(BattleScript_TerrainPreventsRet);
+                }
+                else if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_MISTY_TERRAIN))
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_TERRAINPREVENTS_MISTY;
+                    BattleScriptExecute(BattleScript_TerrainPreventsRet);
+                    //BattleScriptPushCursor();   //need reduce max slee turn by one, since as of now, it skips first turn through sleep canceler to decrement
+                    //gBattlescriptCurrInstr = BattleScript_TerrainPreventsRet;
+                }//hopefully works
+                //vsonic think need add uproar prevent sleep logic
+                //think need test this? make sure return works
             }
         }
         ++gBattleStruct->atkCancellerTracker;
@@ -10131,6 +10143,15 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 effect = ITEM_STATUS_CHANGE;
                 gBattleMons[battlerId].status1 = STATUS1_BURN;
                 BattleScriptExecute(BattleScript_FlameOrb);
+                RecordItemEffectBattle(battlerId, battlerHoldEffect);
+            }
+            break;
+        case HOLD_EFFECT_SNOW_GLOBE:
+            if (IsBattlerAlive(battlerId) && CanBeFrozen(battlerId))
+            {
+                effect = ITEM_STATUS_CHANGE;
+                gBattleMons[battlerId].status1 = STATUS1_FREEZE;
+                BattleScriptExecute(BattleScript_SnowGlobe);
                 RecordItemEffectBattle(battlerId, battlerHoldEffect);
             }
             break;
