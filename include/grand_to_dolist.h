@@ -2820,7 +2820,29 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     with weather has effect
     so rather than funtion put everywhere setup more cleanly like a macro?
     cloud nine didn't end the effects it just blocked them
-    vsonic important 1/25/2025
+    vsonic important 1/25/2025 - can prob add to weather has efect/logic where air lock is
+
+    working on exp share
+    find how to set in party menu
+    then can do scripts,
+    also clean up use of status1 spirit lock and status1 infestation
+    not planning on using rn
+
+    //set exp share and part loop effect,
+    slightly convoluted so think will need create
+    exp item user manual, will give w exp null from mom
+    at game start.
+
+    That way player should already be familiar with
+    using the effect by the time they get the exp share for real.
+    and yes that's assuming they actually read the manual
+
+    if can order key items by id would 
+    like to keep exp manual at top of key items tab
+    1/27/2025
+
+    //old idea may use elsewhere
+    //idea change pokemon summary box from red to black to show dead ... play the runescape death music   XD
 
     */
    goto FIELD_MOVE_LIST_LOGIC

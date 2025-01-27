@@ -112,45 +112,6 @@
 #define B_OUTCOME_MON_TELEPORTED       0xA
 #define B_OUTCOME_LINK_BATTLE_RAN      0x80
 
-// Non-volatile status conditions
-// These persist remain outside of battle and after switching out
-/*#define STATUS1_NONE             0x0
-#define STATUS1_SLEEP            0x7
-#define STATUS1_POISON           0x8
-#define STATUS1_BURN             0x10
-#define STATUS1_FREEZE           0x20
-#define STATUS1_PARALYSIS        0x40
-#define STATUS1_SPIRIT_LOCK      0x60
-#define STATUS1_TOXIC_POISON     0x80		//remembered need change toxic, so it still toxic on switch out
-#define STATUS1_TOXIC_COUNTER    0xF00		//idea change pokemon summary box from red to black to show dead ... play the runescape death music   XD
-#define STATUS1_PSN_ANY          (STATUS1_POISON | STATUS1_TOXIC_POISON)
-#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_SPIRIT_LOCK | STATUS1_TOXIC_POISON)
-
-// Volatile status ailments
-// These are removed after exiting the battle or switching out
-#define STATUS2_CONFUSION             0x00000007
-#define STATUS2_CONFUSION_TURN(num)   ((num) << 0)	//ported, just used to label confusion function, always followed by ((Random()) % 4) + 2)
-#define STATUS2_FLINCHED              0x00000008
-#define STATUS2_UPROAR                0x00000070
-#define STATUS2_BIDE                  0x00000300  // two bits 0x100, 0x200
-#define STATUS2_LOCK_CONFUSE          0x00000C00
-#define STATUS2_MULTIPLETURNS         0x00001000
-#define STATUS2_WRAPPED               0x0000E000
-#define STATUS2_POWDER                (1 << 14)
-#define STATUS2_INFATUATION           0x000F0000  // 4 bits, one for every battler
-#define STATUS2_INFATUATED_WITH(battler) (gBitTable[battler] << 16)
-#define STATUS2_FOCUS_ENERGY          0x00100000
-#define STATUS2_TRANSFORMED           0x00200000
-#define STATUS2_RECHARGE              0x00400000
-#define STATUS2_RAGE                  0x00800000
-#define STATUS2_SUBSTITUTE            0x01000000
-#define STATUS2_DESTINY_BOND          0x02000000
-#define STATUS2_ESCAPE_PREVENTION     0x04000000
-#define STATUS2_NIGHTMARE             0x08000000
-#define STATUS2_CURSED                0x10000000
-#define STATUS2_FORESIGHT             0x20000000
-#define STATUS2_DEFENSE_CURL          0x40000000
-#define STATUS2_TORMENT               0x80000000*/
 
 // Non-volatile status conditions
 // These persist remain outside of battle and after switching out
@@ -164,9 +125,11 @@
 #define STATUS1_PARALYSIS        (1 << 5)
 #define STATUS1_TOXIC_POISON     (1 << 6)
 #define STATUS1_SPIRIT_LOCK      (1 << 7)	//not using for now
-#define STATUS1_INFESTATION		 (1 << 8) //planned bug status 
+#define STATUS1_PLACEHOLDER		 (1 << 8) //planned bug status  //changed mind trouble w healthbox and or balance make status 2/4
 //#define STATUS1_TOXIC_COUNTER    (1 << 8 | 1 << 9 | 1 << 10 | 1 << 11)
 #define STATUS1_TOXIC_TURN(num)  ((num) << 10)//redid toxic, put at original value, moved others
+//decide remove spirit lock
+
 
 //can prob reduce values for ones that use timer
 //if can rmeove turn count from actually being needed to store the values
@@ -189,11 +152,12 @@
 //laso cean up status definex
 
 //status1_any seeems tobe used to check all status1 but exclude toxic counter values & sleep counter
-#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON | STATUS1_SPIRIT_LOCK | STATUS1_INFESTATION)
+#define STATUS1_ANY              (STATUS1_SLEEP | STATUS1_POISON | STATUS1_BURN | STATUS1_FREEZE | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON)
 
+//with setup switchlock realize don't need to make these status1 for them to persist
 //#define STATUS1_ENVIRONMENT_TRAP (STATUS1_FIRE_SPIN || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM)
 
-//#define ITS_A_TRAP_STATUS1 (STATUS1_SNAP_TRAP || STATUS1_FIRE_SPIN || STATUS1_CLAMP || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM || STATUS1_INFESTATION || STATUS1_WRAPPED)
+//#define ITS_A_TRAP_STATUS1 (STATUS1_SNAP_TRAP || STATUS1_FIRE_SPIN || STATUS1_CLAMP || STATUS1_WHIRLPOOL || STATUS1_SAND_TOMB || STATUS1_MAGMA_STORM || STATUS1_SWARM || STATUS1_WRAPPED)
 
 // Volatile status ailments
 // These are removed after exiting the battle or switching out

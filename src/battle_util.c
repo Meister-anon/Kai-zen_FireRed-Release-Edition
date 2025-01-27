@@ -4311,25 +4311,9 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
-        case CANCELLER_SPIRIT_LOCKED: //spirit lock
-            if (!gBattleStruct->isAtkCancelerForCalledMove && (gBattleMons[gBattlerAttacker].status1 & STATUS1_SPIRIT_LOCK) && (Random() % 4) == 2) //just an extra precaution in case this and paralysis would use the same counter
-            {
-                //gProtectStructs[gBattlerAttacker].prlzImmobility = 1;
-                //gBattlescriptCurrInstr = BattleScript_MoveUsedIsParalyzed;
-                gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-                if (gBattleMons[gBattlerAttacker].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
-                {
-                    ClearRageStatuses(gBattlerAttacker);
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_RageEnds; //need test
-                }
-                effect = 1;
-            } //vsonic add on to/finish effedct
-            ++gBattleStruct->atkCancellerTracker;
-            break;
         case CANCELLER_IRON_WILL:
-        if (!gBattleStruct->isAtkCancelerForCalledMove && (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL
-        && gBattlerTarget != gBattlerAttacker)) //need to ensure not self target
+            if (!gBattleStruct->isAtkCancelerForCalledMove && (GetBattlerAbility(gBattlerTarget) == ABILITY_IRON_WILL
+            && gBattlerTarget != gBattlerAttacker)) //need to ensure not self target
             {
                 if ((Random() % 7 == 3)
                 && IsBlackFogNotOnField())

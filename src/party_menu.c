@@ -1160,6 +1160,7 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
     if (!gPaletteFade.active && sub_80BF748() != TRUE)
     {
         s8 *slotPtr = GetCurrentPartySlotPtr();
+        u32 i;
 
         switch (PartyMenuButtonHandler(slotPtr))
         {
@@ -1185,10 +1186,25 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
                 AdjustPartyMonExpNullState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
             }
             break;
+            case 9: // Select button on pokeball button
+            {
+                PlaySE(SE_SELECT);
+                for (i = 0; i < gPlayerPartyCount; ++i)
+                AdjustPartyMonExpShareState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
+            }
+            break;
+            case 10: //  Start button on pokeball button
+            {
+                PlaySE(SE_SELECT);
+                for (i = 0; i < gPlayerPartyCount; ++i)
+                AdjustPartyMonExpNullState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
+            }
+            break;
         }
     }
 }
 
+//vsonic important
 static s8 *GetCurrentPartySlotPtr(void)
 {
     if (gPartyMenu.action == PARTY_ACTION_SWITCH || gPartyMenu.action == PARTY_ACTION_SOFTBOILED)
@@ -1381,11 +1397,21 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
     }
     //works just need find way to clear icon, rn only clears when close open party menu
     //looking for logic in cure status as that clears status from battler while partymneu is open
+    //doesn't work prevents from ever activating on press,
+    //attempting to switch to button combo
+    if (JOY_NEW(SELECT_BUTTON) && *slotPtr == PARTY_SIZE + 1)
+    {
+        return 9;
+    }
+    //this means or, not and
+    //if (JOY_HELD(START_BUTTON | A_BUTTON))
+    if (JOY_NEW(START_BUTTON) && *slotPtr == PARTY_SIZE + 1)
+    {
+        return 10;
+    }
     if (JOY_NEW(SELECT_BUTTON)) //CanActivateExpShare
     {
         return 7;
-        //PlaySE(SE_SELECT);
-        //AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
     }   
     if (JOY_NEW(START_BUTTON))
         return 8;
@@ -1865,8 +1891,6 @@ u8 GetAilmentFromStatus(u32 status) //vsonic will need add on to
         return AILMENT_FRZ;
     if (status & STATUS1_BURN)
         return AILMENT_BRN;
-    if (status & STATUS1_INFESTATION)
-        return AILMENT_INF;
     return AILMENT_NONE;
 }
 

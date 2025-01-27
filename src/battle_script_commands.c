@@ -739,76 +739,7 @@ s32 CalculateMoveDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32
         updateFlags, CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, updateFlags));
 }
 
-//understand how this works now, it had to line up with order of move effects
-//which is why there are so many 0's here, while the emerald setup is a more 1 to 1 arrangement 
-/*static const u32 sStatusFlagsForMoveEffects[] =
-{
-    0x00000000,
-    STATUS1_SLEEP,
-    STATUS1_POISON,
-    STATUS1_BURN,
-    STATUS1_FREEZE,
-    STATUS1_PARALYSIS,
-    STATUS1_TOXIC_POISON,
-    // STATUS1_SPIRIT_LOCK,  //for some reason flinch was doing confusion instead, I can only guess it was this...
-    STATUS2_CONFUSION, //think i have to line up with the pointer array below
-    STATUS2_FLINCHED,
-    0x00000000,
-    STATUS2_UPROAR,
-    0x00000000,
-    STATUS2_MULTIPLETURNS,
-    STATUS2_WRAPPED,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    STATUS2_RECHARGE,
-    0x00000000,
-    0x00000000,
-    STATUS2_ESCAPE_PREVENTION,
-    STATUS2_NIGHTMARE,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    STATUS2_LOCK_CONFUSE,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000,
-    0x00000000
-};//I believe the spaces between status are deliberate
-//adding someting inbetween existing entries seemed to cause overlap and cause effects to get mixed up.
-//so if I want to add status (if its even possible) I'll have to figure out pattern and most likely add to end.
-//ok so it lines up with the array below,  all the 0x0000 are for entiries in the pointer list that don't correspond to a status
-*/
+
 
 //note in setmoveeffect has check for status & sStatusFlagsForMoveEffects[gbattlescripting.moveeffect]
 //realized could potentialy overlap w status1 etc.
@@ -4637,34 +4568,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 break;
             statusChanged = TRUE;
             break;
-        case STATUS1_INFESTATION:
-            if ((battlerAbility == ABILITY_COMATOSE)// so when multi status is set will need to remove breaks
-             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
-            { 
-                gLastUsedAbility = battlerAbility;
-                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
-                BattleScriptPush(gBattlescriptCurrInstr + 1);
-                gBattlescriptCurrInstr = BattleScript_PSNPrevention; //make uniuque sctript for infestation block
-                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                return;
-            }
-
-            if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_BUG))
-                break;
-
-            //put no effect check here, below ability checks above status1 check
-            if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
-            && gBattleMoves[gCurrentMove].type != TYPE_NORMAL
-            && gBattleMoves[gCurrentMove].type != TYPE_GHOST)    
-            {
-                gBattlescriptCurrInstr = BattleScript_NotAffected; //do jump
-                break;
-            }
-
-            if (gBattleMons[gEffectBattler].status1)
-                break;
-            statusChanged = TRUE;
-            break;*/
+        */
         case STATUS1_BURN:
             if ((battlerAbility == ABILITY_WATER_VEIL
                 || battlerAbility == ABILITY_WATER_BUBBLE
@@ -9874,8 +9778,6 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         if (gBattleMons[battlerDef].status1 & STATUS1_BURN)
                    calc = (calc * 110) / 100;
             //evasionStage = 4;
-        if (gBattleMons[battlerDef].status1 & STATUS1_SPIRIT_LOCK)
-            calc = (calc * 110) / 100;
         if (gBattleMons[battlerDef].status1 & STATUS1_POISON) // I think I may remove the accuracy buff and just keep evasion drop, or make it more severe.
             calc = (calc * 110) / 100; //depends on how evasion works, if lowered evasion alone increases chance of move hitting, then I don't need accuracy buff.
          //   evasionStage = 4;
@@ -18943,7 +18845,7 @@ static void atkEF_handleballthrow(void) //important changed
             
             if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gDisableStructs[gBattlerTarget].FrozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap
                 odds *= 2;
-            if (gBattleMons[gBattlerTarget].status1 & (STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_SPIRIT_LOCK | STATUS1_TOXIC_POISON | STATUS1_INFESTATION))
+            if (gBattleMons[gBattlerTarget].status1 & (STATUS1_POISON | STATUS1_BURN | STATUS1_PARALYSIS | STATUS1_TOXIC_POISON))
                 odds = (odds * 15) / 10;
             if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE && gDisableStructs[gBattlerTarget].FrozenTurns == 0)
                 odds = (odds * 15) / 10;

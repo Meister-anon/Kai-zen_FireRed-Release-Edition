@@ -4833,11 +4833,6 @@ static u8 StatusToAilment(u32 status)
     if ((status & STATUS1_BURN) != 0)
         return AILMENT_BRN;
 
-    if ((status & STATUS1_INFESTATION) != 0)
-        return AILMENT_INF;
-    
-    //if ((status & STATUS1_SPIRIT_LOCK) != 0)
-    //    return AILMENT_SPRT;
 
     if (CheckPartyPokerus(&sMonSummaryScreen->currentMon, 0)) //important very !!
         return AILMENT_PKRS; // !! if this function can check and return/display both status1 ailment and pokerus ailment
