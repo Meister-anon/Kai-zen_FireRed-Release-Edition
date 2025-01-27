@@ -2844,6 +2844,42 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //old idea may use elsewhere
     //idea change pokemon summary box from red to black to show dead ... play the runescape death music   XD
 
+    Note*(
+    Need adjust how exp share work now that have multiple,
+    not quite triggering how I need,
+    mon that is sent in if holding exp share affects exp distribution
+    i.e 3 mon with exp share a 4th mon sent in,
+    sent in mon gets 50% exp and other 50% is  distributed among the exp share mon evenly
+
+    but if 4 mon have exp share and one is sent in
+    that one will get 50%  from being sent in,
+    PLUS the 50% divided exp thus lowering the amount the others get
+
+    Need to figure out a better way to do that,  either exclude them from exp share effect
+    if they are sent in, or something else.
+
+    Undecided as of now,
+    also plan change divisor method to speed up exp share a bit
+    to account for using on more mon
+    either give them all 50% or give them all 25% rather than
+    dividing it by number of exp share users
+
+    ok if numexp share users is greater than 1, give everyone 25% split
+    25% is what you would get from 2 exp share users so this way 
+    the grind is no worse for using on 2.
+
+    alternately using on just one mon, you keep the normal 50% split
+      
+      //leaving of for tweaking sent in exp share hp, but could be done by setting check for usign expshare & sentin w else if
+      //but point of sending in an exp share mon is to add extra boost to exp gain
+      //and the change I planned (reasigning gexpshareexp if sent in to use viaExpShare rather than the flat 25% cut)
+      //could have the effect of zeroeing out the extra exp from exp share
+      //ex get 50% from being sent in, but only add 1 exp from exp share because split
+      //replaced calculatedExp / 2 for ease of readability
+    
+    otherwise addin limit to cap split to 25% received exp
+    )
+    
     */
    goto FIELD_MOVE_LIST_LOGIC
    /*

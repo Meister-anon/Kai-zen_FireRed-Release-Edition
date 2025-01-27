@@ -6489,9 +6489,15 @@ static void atk23_getexp(void)
         break;
     case 1: // calculate experience points to redistribute
         {
-            u16 calculatedExp;
+            u32 calculatedExp;
             s32 viaSentIn;
+            u8 expCut = 2;
 
+            //considered addding a max level exclusion for sentin and expshare,
+            //but it makes more sense to leave it, tho they don't gain more exp
+            //it is taking some of the effort off other mon so makes sense to still count them
+            //for the split, hmm but will add make sure mon is not fainted
+            //ok hopefully this works
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; ++i)
             {
                 if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_HP) != 0)
@@ -6503,17 +6509,33 @@ static void atk23_getexp(void)
                             holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
                         else
                             holdEffect = ItemId_GetHoldEffect(item);
-                        if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE))
+                        if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE)
+                        && (GetMonData(&gPlayerParty[i], MON_DATA_HP)))
                             ++viaExpShare;
                 }
             }
             calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
             if (viaExpShare) // at least one mon is getting exp via exp share
             {
-                *exp = calculatedExp / 2 / viaSentIn;
+                //50% split - believe this is portion of exp for sent in mons?
+                //not yet sure how to exclude from mon w exp share rn its applied on top if they get sent in
+                //ah its applied in case 2, can just add an exception
+                //for if not using exp share
+                //leaving of for now, but could be done by setting check for usign expshare & sentin w else if
+                //but point of sending in an exp share mon is to add extra boost to exp gain
+                //and the change I planned (reasigning gexpshareexp if sent in to use viaExpShare rather than the flat 25% cut)
+                //could have the effect of zeroeing out the extra exp from exp share
+                //ex get 50% from being sent in, but only add 1 exp from exp share because split
+                //replaced calculatedExp / 2 for ease of readability
+                *exp = ((calculatedExp * 50) / 100) / viaSentIn;
                 if (*exp == 0)
                     *exp = 0; // having this be 1 ensures a gain of exp of 1 no matter what. I changed to 0
-                gExpShareExp = calculatedExp / 2 / viaExpShare;
+
+                //if more than one exp share user caps at 25% exp
+                if (viaExpShare > 1)
+                    gExpShareExp = ((calculatedExp * 50) / 100) / expCut;
+                else
+                    gExpShareExp = ((calculatedExp * 50) / 100) / viaExpShare;
                 if (gExpShareExp == 0)
                     gExpShareExp = 1;
             }
