@@ -19894,12 +19894,15 @@ bool32 IsTelekinesisBannedSpecies(u16 species)
     return FALSE;
 }
 
+//extra effect only trigger if has an argument
+//no idea why didn't think to do that in the first place
 void BS_setargumenteffectwithchance(void) //different effect for in hit, where actually setting effect
 {
     NATIVE_ARGS();
     //if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
     if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE                
-        && gBattleMoves[gCurrentMove].effect != EFFECT_LOSETYPE_HIT)
+        && gBattleMoves[gCurrentMove].effect != EFFECT_LOSETYPE_HIT
+        && gBattleMoves[gCurrentMove].argument)
     {
         gBattleScripting.moveEffect = gBattleMoves[gCurrentMove].argument; //potentially need make argument field for bs. as well vsonic
         atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect

@@ -223,6 +223,8 @@ static void CreatePartyMonStatusSprite(struct Pokemon *mon, struct PartyMenuBox 
 static void CreatePartyMonExpSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void CreateCancelConfirmPokeballSprites(void);
 static void DrawCancelConfirmButtons(void);
+static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox *menuBox);
+static void AdjustPartyMonExpNullState(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static u8 CreatePokeballButtonSprite(u8 x, u8 y);
 static u8 CreateSmallPokeballButtonSprite(u8 x, u8 y);
 static u8 GetPartyBoxPaletteFlags(u8 slot, u8 animNum);
@@ -1167,11 +1169,20 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
         case 2: // Selected Cancel
             HandleChooseMonCancel(taskId, slotPtr);
             break;
+        case 7: //Select button
+            PlaySE(SE_SELECT);
+            AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
+            break;
         case 8: // Start button
             if (sPartyMenuInternal->chooseHalf)
             {
                 PlaySE(SE_SELECT);
                 MoveCursorToConfirm();
+            }
+            else
+            {
+                PlaySE(SE_SELECT);                
+                AdjustPartyMonExpNullState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
             }
             break;
         }
@@ -1368,6 +1379,14 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
         }
         break;
     }
+    //works just need find way to clear icon, rn only clears when close open party menu
+    //looking for logic in cure status as that clears status from battler while partymneu is open
+    if (JOY_NEW(SELECT_BUTTON)) //CanActivateExpShare
+    {
+        return 7;
+        //PlaySE(SE_SELECT);
+        //AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
+    }   
     if (JOY_NEW(START_BUTTON))
         return 8;
     if (movementDir)
@@ -3228,6 +3247,26 @@ static void CreatePartyMonExpSPriteParameterized(u16 species, u8 expState, struc
     }
 }
 
+static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+    u32 SetState = GetMonData(mon, MON_DATA_EXP_SHARE_STATE) ? FALSE : TRUE;
+    SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &SetState);
+    CreatePartyMonExpSprite(mon, menuBox);
+    //if (!SetState)
+    
+    //InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_DO_WHAT_WITH_MON, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
+    //does clear but causes fade in out, and reused too much breaks
+    //InitPartyMenu(menuType, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_AND_CLOSE, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToField);
+}
+
+static void AdjustPartyMonExpNullState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+    u32 SetState = GetMonData(mon, MON_DATA_EXP_NULL_STATE) ? FALSE : TRUE;
+    SetMonData(mon, MON_DATA_EXP_NULL_STATE, &SetState);
+    CreatePartyMonExpSprite(mon, menuBox);
+}
+
+//believe this used to update status
 static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
     UpdatePartyMonAilmentGfx(GetMonAilment(mon), menuBox);
