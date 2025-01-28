@@ -732,7 +732,7 @@ s32 AICalcCritChance(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbilit
     return critChance;
 }
 
-//not used
+//not used - put in disobedience it does work -not sure if can use elsewhere tho
 s32 CalculateMoveDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower, bool32 isCrit, bool32 randomFactor, bool32 updateFlags)
 {
     return DoMoveDamageCalc(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, randomFactor,
@@ -1433,16 +1433,50 @@ static void atk00_attackcanceler(void) //vsonic
     if (!(gHitMarker & HITMARKER_OBEYS) 
      && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))
     {
-        i = IsMonDisobedient();
-        switch (i)
+
+        switch (gBattleStruct->obedienceResult)
         {
-        case 0:
+        case OBEYS:
             break;
-        case 2:
+        case DISOBEYS_LOAFS:
+            // Randomly select, then print a disobedient string
+            // B_MSG_LOAFING, B_MSG_WONT_OBEY, B_MSG_TURNED_AWAY, or B_MSG_PRETEND_NOT_NOTICE
+            gBattleCommunication[MULTISTRING_CHOOSER] = Random() % 4;
+            
+            //lower healing than truant
+            if (!(gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK))
+            {
+            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
+            if (gBattleMoveDamage == 0)
+                gBattleMoveDamage = 1;
+            gBattleMoveDamage *= -1;
+            }
+            gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
+            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+            return;
+        case DISOBEYS_HITS_SELF:
+            gBattlerTarget = gBattlerAttacker;
+            gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerAttacker], MOVE_POUND, 0, 40, 0, gBattlerAttacker, gBattlerAttacker);
+            gBattlescriptCurrInstr = BattleScript_IgnoresAndHitsItself;
+            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
             gHitMarker |= HITMARKER_OBEYS;
             return;
-        default:
+        case DISOBEYS_FALL_ASLEEP:
+            gBattlescriptCurrInstr = BattleScript_IgnoresAndFallsAsleep;
+            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+            //gMoveResultFlags |= MOVE_RESULT_MISSED;
+            return;
+        case DISOBEYS_WHILE_ASLEEP:
+            gBattlescriptCurrInstr = BattleScript_IgnoresWhileAsleep;
             gMoveResultFlags |= MOVE_RESULT_MISSED;
+            return;
+        case DISOBEYS_RANDOM_MOVE:
+            gCalledMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
+            SetAtkCancellerForCalledMove();
+            gBattlescriptCurrInstr = BattleScript_IgnoresAndUsesRandomMove;
+            gBattlerTarget = GetMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
+            gHitMarker |= HITMARKER_DISOBEDIENT_MOVE;
+            gHitMarker |= HITMARKER_OBEYS;
             return;
         }
     }

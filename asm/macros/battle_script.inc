@@ -96,6 +96,7 @@
 	.byte 0x15
 	.endm
 
+	@vsonic important check EE for update
 	.macro seteffectprimary
 	.byte 0x16
 	.endm

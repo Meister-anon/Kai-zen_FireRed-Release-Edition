@@ -9,7 +9,10 @@
 #define MOVE_LIMITATION_TORMENTED               (1 << 3)
 #define MOVE_LIMITATION_TAUNT                   (1 << 4)
 #define MOVE_LIMITATION_IMPRISON                (1 << 5)
+
+//vsonic important more need add here from EE
 #define MOVE_LIMITATIONS_ALL                    0xFF
+
 
 #define ABILITYEFFECT_ON_SWITCHIN                0x0
 #define ABILITYEFFECT_ENDTURN                    0x1
@@ -246,6 +249,16 @@ u32 IsmonOnField(u32 battlerId, u8 method); //check mon is field/well checks bat
 u32 IsTypeOnField(u32 type); //added for new idea plus/minus buff 
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
+
+
+enum {
+    OBEYS,
+    DISOBEYS_LOAFS,
+    DISOBEYS_HITS_SELF,
+    DISOBEYS_FALL_ASLEEP,
+    DISOBEYS_WHILE_ASLEEP,
+    DISOBEYS_RANDOM_MOVE,
+};
 
 #define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].argument == TYPE_FIRE)) && (gBattleMoves[move].power >= 60 || gDynamicBasePower >= 60)))
 

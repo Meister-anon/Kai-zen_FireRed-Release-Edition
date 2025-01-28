@@ -391,6 +391,10 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //they had in shadows, psychics can read their thoughts and find them, making them a counter
 //and they have high sp def, but resistances to some commonly strong physical types? -mostly just it resisting fighting
 
+//would break funny number but considering make fairy resist normal
+//as I've nerfed fairies offensiveness a good deal?
+//makes some sense, and also matches them as ghost counter part,
+//fae and spirits were seen as same thing, hmm nah, too strong
 //no longer used for type reading but keeping as its more readable, a good visual
 const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of efffectiveness since only super not effective and no effect are included. 
 { // counted from ompen bracket to end of table. so subtract line first entry is on from line closing bracket is on  then multipy by 3.
@@ -6783,6 +6787,9 @@ static void HandleAction_UseMove(void)
     gBattleCommunication[6] = 0;
     gBattleScripting.savedMoveEffect = 0;
     gCurrMovePos = gChosenMovePos = *(gBattleStruct->chosenMovePositions + gBattlerAttacker);
+    
+    gBattleStruct->obedienceResult = IsMonDisobedient();
+    
     // choose move
     if (gProtectStructs[gBattlerAttacker].noValidMoves) //this is what makes it default to sturggle, bindedmove is none, it checks for moves and finds none
     {

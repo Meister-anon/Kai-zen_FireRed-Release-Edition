@@ -2879,6 +2879,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     
     otherwise addin limit to cap split to 25% received exp
     )
+
+    remember disobedience logic was off, tested
+    and seems even more broken?
+    playing wrong animation and not healing when loafing off,?
+    plays heal animation but doesn't do anything??
+
+    not much wrong here as I thought, mostly just a matter of
+    changing default truant script, and not adding a heal argument to disobedience
+    that's fixed, but noticed weird issue.
+
+    when disobedience attempts to nap but then attempts to usse move
+    triggers multiple effects someitmes, still tracking,
+    that could be reason 
+
+    took EE obidience logic and it seems to be fine now no issue?
     
     */
    goto FIELD_MOVE_LIST_LOGIC

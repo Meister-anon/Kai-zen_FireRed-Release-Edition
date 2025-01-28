@@ -869,6 +869,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 pursuitTarget:4; // Each battler as a bit.
     u8 pursuitSwitchByMove:1;
     u8 pursuitStoredSwitch; // Stored id for the Pursuit target's switch
+    u8 obedienceResult:3;
     //u8 presentBasePower; //used for   multihit move effect check, but with my version don't need this
     //bool8 slowstartDone[MAX_BATTLERS_COUNT]; don't need this, also go over these structs as well like I did pokemon.h
     // align 4

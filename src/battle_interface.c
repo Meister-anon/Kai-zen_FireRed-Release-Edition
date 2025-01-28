@@ -1723,6 +1723,8 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
 //no idea how this works,
 //and why it doesn't just blit the icon
 //from the tilemap onto the health box
+//oh right becuuse its dumb and health box is 
+//split up on many different parts without a clear order...
 static u8 GetStatusIconForBattlerId(u8 statusElementId, u8 battlerId)
 {
     u8 ret = statusElementId;

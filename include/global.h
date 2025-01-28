@@ -280,6 +280,20 @@ static inline u32 uq4_12_multiply_by_int_half_up(uq4_12_t modifier, u32 value)
 #define SAFE_DIV(a, b) ((a) / (b))
 #endif
 
+#define IS_POW_OF_TWO(n) (((n) & ((n)-1)) == 0)
+
+// The below macro does a%n, but (to match) will switch to a&(n-1) if n is a power of 2.
+// There are cases where GF does a&(n-1) where we would really like to have a%n, because
+// if n is changed to a value that isn't a power of 2 then a&(n-1) is unlikely to work as
+// intended, and a%n for powers of 2 isn't always optimized to use &.
+//#define MOD(a, n)(((n) & ((n)-1)) ? ((a) % (n)) : ((a) & ((n)-1)))
+
+//since I don't care about matching I can just do the intended effect
+//is simple short hand can most oft be used to replace
+//random() % n  not sure what point is otherwise
+//ex. MOD(Random(), MAX_MON_MOVES)  but this appears longer not shorter?
+#define MOD(a, n) ((a) % (n))
+
 // There are many quirks in the source code which have overarching behavioral differences from
 // a number of other files. For example, diploma.c seems to declare rodata before each use while
 // other files declare out of order and must be at the beginning. There are also a number of

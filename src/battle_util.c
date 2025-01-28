@@ -1339,13 +1339,14 @@ u8 CheckMoveLimitations(u8 battlerId, u8 unusableMoves, u8 check)
     return unusableMoves;
 }
 
+#define ALL_MOVES_MASK ((1 << MAX_MON_MOVES) - 1)
 bool8 AreAllMovesUnusable(void)
 {
-    u8 unusable = CheckMoveLimitations(gActiveBattler, 0, 0xFF);
+    u8 unusable = CheckMoveLimitations(gActiveBattler, 0, MOVE_LIMITATIONS_ALL);
 
-    if (unusable == 0xF) // All moves are unusable.
+    if (unusable == ALL_MOVES_MASK) // All moves are unusable.
     {
-        gProtectStructs[gActiveBattler].noValidMoves = 1;
+        gProtectStructs[gActiveBattler].noValidMoves = TRUE;
         gSelectionBattleScripts[gActiveBattler] = BattleScript_NoMovesLeft;
         if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
             gBattleBufferB[gActiveBattler][3] = GetBattlerAtPosition((BATTLE_OPPOSITE(GetBattlerPosition(gActiveBattler))) | (Random() & 2));
@@ -1354,9 +1355,9 @@ bool8 AreAllMovesUnusable(void)
     }
     else
     {
-        gProtectStructs[gActiveBattler].noValidMoves = 0;
+        gProtectStructs[gActiveBattler].noValidMoves = FALSE;
     }
-    return (unusable == 0xF);
+    return (unusable == ALL_MOVES_MASK);
 }
 
 u8 GetImprisonedMovesCount(u8 battlerId, u16 move)
@@ -10717,11 +10718,11 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
             obedienceLevel = 60;
 
     if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_POKEDUDE)) || GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT || FlagGet(FLAG_BADGE08_GET))
-        return 0;
+        return OBEYS;
     else
     {   //w more openness small extra protection
         if (MonLevel <= obedienceLevel)
-            return 0;
+            return OBEYS;
         rnd = (Random() & 255);
         calc = (MonLevel + obedienceLevel) * rnd >> 8;
     }
@@ -10729,16 +10730,12 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
 
     
     if (calc < obedienceLevel) //calc 1, it listens
-        return 0;
-    // is not obedient
-    //if (gCurrentMove == MOVE_RAGE)//hmm didn't know about this effectively removes benefits of things
-    //   gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_RAGE);
-    //if (gBattleMons[gBattlerAttacker].status2 & STATUS2_RAGE) -don't know why I added this it removes the status each attack?
-      //  gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_RAGE); //ok this is a thing I added?
+        return OBEYS;
+    //Everything below this is not obedient
+    
     if (gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP && (gCurrentMove == MOVE_SNORE || gCurrentMove == MOVE_SLEEP_TALK))
     {
-        gBattlescriptCurrInstr = BattleScript_IgnoresWhileAsleep;
-        return 1;
+        return DISOBEYS_WHILE_ASLEEP;
     }
     //passsed first disobedience check, calcs again to decide what does
     rnd = (Random() & 255);
@@ -10746,33 +10743,25 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
     //use random move or loaf around
     if (calc < obedienceLevel) // Additional check for focus punch in FR    //removed focus punch check
     {
-        calc = CheckMoveLimitations(gBattlerAttacker, gBitTable[gCurrMovePos], 0xFF);
-        if (calc == 0xF) // all moves cannot be used
-        {
-            gBattleCommunication[MULTISTRING_CHOOSER] = Random() & 3;
-            gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
-            return 1;
-        }
+        calc = CheckMoveLimitations(gBattlerAttacker, 1u << gCurrMovePos, MOVE_LIMITATIONS_ALL);
+        //realize why didn't heal doesn't have gbattlemovedamage argument
+         
+        if (calc == ALL_MOVES_MASK) // all moves cannot be used
+            return DISOBEYS_LOAFS;
         else // use a random move
-        {
             do
                 gCurrMovePos = gChosenMovePos = Random() & 3;
-            while (gBitTable[gCurrMovePos] & calc);
-            gCalledMove = gBattleMons[gBattlerAttacker].moves[gCurrMovePos];
-            SetAtkCancellerForCalledMove();
-            gBattlescriptCurrInstr = BattleScript_IgnoresAndUsesRandomMove;
-            gBattlerTarget = GetMoveTarget(gCalledMove, 0);
-            gHitMarker |= HITMARKER_DISOBEDIENT_MOVE;
-            return 2;
-        }
+            while ((1u << gCurrMovePos) & calc);
+        return DISOBEYS_RANDOM_MOVE;
+        
     }
     //either falls asleep, hits itself, or loafs around
     else
     {
         obedienceLevel = MonLevel - obedienceLevel;
         calc = (Random() & 255);
-        if (calc < obedienceLevel && !(gBattleMons[gBattlerAttacker].status1 & STATUS1_ANY) && GetBattlerAbility(gBattlerAttacker) != ABILITY_VITAL_SPIRIT && GetBattlerAbility(gBattlerAttacker) != ABILITY_INSOMNIA
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_COMATOSE)
+        if (calc < obedienceLevel && 
+        CanSleep(gBattlerAttacker))
         {
             // try putting asleep
             int i;
@@ -10783,24 +10772,15 @@ u8 IsMonDisobedient(void) //unsure what to do with this, ok remember now plan wa
             if (i == gBattlersCount)
             {
                 gBattlescriptCurrInstr = BattleScript_IgnoresAndFallsAsleep;
-                return 1;
+                return DISOBEYS_FALL_ASLEEP;
             }
         }
         calc -= obedienceLevel;
         if (calc < obedienceLevel)
-        {
-            gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerAttacker], MOVE_POUND, 0, 40, 0, gBattlerAttacker, gBattlerAttacker);
-            gBattlerTarget = gBattlerAttacker;
-            gBattlescriptCurrInstr = BattleScript_IgnoresAndHitsItself;
-            gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-            return 2;
-        }
+            return DISOBEYS_HITS_SELF;
         else
-        {
-            gBattleCommunication[MULTISTRING_CHOOSER] = Random() & 3;
-            gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
-            return 1;
-        }
+            return DISOBEYS_LOAFS;
+
     }
 }
 
