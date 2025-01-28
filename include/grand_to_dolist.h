@@ -2895,6 +2895,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     took EE obidience logic and it seems to be fine now no issue?
     
+    Thanks to Sbird sharing Ghoulslash's fog blend branch
+    was able to accomplish wish of getting player to appear to be below fog.
+
+    source info
+    https://www.pokecommunity.com/threads/simple-modifications-directory.416647/page-9#post-10222192
+
+    https://github.com/pret/pokeemerald/compare/master...ghoulslash:pokeemerald:fog
+
+    need to fully understand it but for now it looks good for horizontal fog,
+    but it doesn't yet work well with my dark fog,
+    need to adjust and find what works
+    1/28/2025 vsonic important
+
     */
    goto FIELD_MOVE_LIST_LOGIC
    /*

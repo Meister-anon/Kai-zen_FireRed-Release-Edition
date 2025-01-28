@@ -518,7 +518,7 @@ static void SetTitleScreenScene_FadeIn(s16 * data)
         if (data[2] > 36)
         {
             CreateTask(Task_TitleScreen_SlideWin0, 3);
-            sub_80717A8(0x2000, -4, 0x01, 0x10, RGB(30, 30, 31), 0, 0);
+            BlendPalettesGradually(0x2000, -4, 0x01, 0x10, RGB(30, 30, 31), 0, 0);
             data[2] = 0;
             data[1]++;
         }
@@ -526,7 +526,7 @@ static void SetTitleScreenScene_FadeIn(s16 * data)
     case 4:
         if (!sub_807185C(0))
         {
-            sub_80717A8(0x2000, -4, 0x0F, 0x00, RGB(30, 30, 31), 0, 0);
+            BlendPalettesGradually(0x2000, -4, 0x0F, 0x00, RGB(30, 30, 31), 0, 0);
             data[1]++;
         }
         break;
@@ -535,14 +535,14 @@ static void SetTitleScreenScene_FadeIn(s16 * data)
         if (data[2] > 20)
         {
             data[2] = 0;
-            sub_80717A8(0x2000, -4, 0x01, 0x10, RGB(30, 30, 31), 0, 0);
+            BlendPalettesGradually(0x2000, -4, 0x01, 0x10, RGB(30, 30, 31), 0, 0);
             data[1]++;
         }
         break;
     case 6:
         if (!sub_807185C(0))
         {
-            sub_80717A8(0x2000, -4, 0x0F, 0x00, RGB(30, 30, 31), 0, 0);
+            BlendPalettesGradually(0x2000, -4, 0x0F, 0x00, RGB(30, 30, 31), 0, 0);
             data[1]++;
         }
         break;
@@ -551,7 +551,7 @@ static void SetTitleScreenScene_FadeIn(s16 * data)
         if (data[2] > 20)
         {
             data[2] = 0;
-            sub_80717A8(0x2000, -3, 0x00, 0x10, RGB(30, 30, 31), 0, 0);
+            BlendPalettesGradually(0x2000, -3, 0x00, 0x10, RGB(30, 30, 31), 0, 0);
             data[1]++;
         }
         break;
@@ -564,7 +564,7 @@ static void SetTitleScreenScene_FadeIn(s16 * data)
             BeginNormalPaletteFade(r4, 1, 0x10, 0x00, RGB(30, 30, 31));
             ShowBg(0);
             CpuCopy16(gGraphics_TitleScreen_BoxArtMonPals, gPlttBufferUnfaded + 0xD0, 0x20);
-            sub_80717A8(0x2000, 1, 0x0F, 0x00, RGB(30, 30, 31), 0, 0);
+            BlendPalettesGradually(0x2000, 1, 0x0F, 0x00, RGB(30, 30, 31), 0, 0);
             data[1]++;
         }
         break;

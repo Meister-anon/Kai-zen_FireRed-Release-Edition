@@ -16,6 +16,10 @@ my version is coded pretty much entirely differently
 
 Plan add Ghoul Slash bag sort  -  ghoul bag-sort -annoying to port may skip
 
+ghoul slash fog blend branch - oh and he credits skeli with the idea so put him on this too
+https://github.com/pret/pokeemerald/compare/master...ghoulslash:pokeemerald:fog
+
+
 idea have credits listeed but think
 also edit Celadon gamefreak office to have the credits as well
 can have a model for each person (default for most not unique models)

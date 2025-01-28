@@ -82,7 +82,7 @@ void TintPalette_GrayScale2(u16 *palette, u16 count);
 void TintPalette_SepiaTone(u16 *palette, u16 count);
 void TintPalette_CustomTone(u16 *palette, u16 count, u16 rTone, u16 gTone, u16 bTone);
 void sub_80716F8(const u16 *src, u16 *dst, u16 count, u8 a4);
-void sub_80717A8(u32 a1, s8 a2, u8 a3, u8 a4, u16 a5, u8 a6, u8 a7);
+void BlendPalettesGradually(u32 selectedPalettes, s8 delay, u8 coeff, u8 coeffTarget, u16 color, u8 priority, u8 id);
 bool32 sub_807185C(u8 var);
 void sub_8071898(void);
 void ResetPaletteStructByUid(u16 a1);

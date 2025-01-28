@@ -10,6 +10,8 @@
 #include "constants/songs.h"
 #include "task.h"
 #include "trig.h"
+#include "constants/rgb.h"
+#include "palette.h"
 
 //------------------------------------------------------------------------------
 // WEATHER_SUNNY_CLOUDS

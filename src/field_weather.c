@@ -10,6 +10,7 @@
 #include "constants/field_weather.h"
 #include "constants/weather.h"
 #include "constants/songs.h"
+#include "event_object_movement.h"
 
 #define DROUGHT_COLOR_INDEX(color) ((((color) >> 1) & 0xF) | (((color) >> 2) & 0xF0) | (((color) >> 3) & 0xF00))
 
@@ -190,6 +191,40 @@ void SetNextWeather(u8 weather)
     gWeatherPtr->weatherChangeComplete = FALSE;
     gWeatherPtr->nextWeather = weather;
     gWeatherPtr->finishStep = 0;
+
+    //point of this is set blend equal to what FogHorizontal_Main does
+    //meaning values in BlendPalettesGraduallym, need match value 
+    //for fog in Weather_SetTargetBlendCoeffs function
+    //he has values 12, 3, 8 for fog, that doesn't match mine,
+    //but the default function is 12, 8, 3
+    if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather)
+    {
+        #if DYNAMIC_OW_PALS
+            u32 fogPalettes = 0x7FFF0000;   // all but last sprite palette
+            u16 fogIdx = IndexOfSpritePaletteTag(PALTAG_WEATHER);
+            if (fogIdx < 15) {
+                fogPalettes &= ~(1 << fogIdx); // remove fog sprites from blend bits
+            }
+            if (gWeatherPtr->nextWeather == WEATHER_FOG_HORIZONTAL)
+                BlendPalettesGradually(fogPalettes, 11, 3, 7, RGB_WHITEALPHA, 0, 0);  //all but last sprite pal
+            else if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL)
+                BlendPalettesGradually(fogPalettes, 11, 7, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
+            if (gWeatherPtr->nextWeather == WEATHER_DARKFOG_HORIZONTAL)
+                BlendPalettesGradually(fogPalettes, 7, 3, 9, RGB_WHITEALPHA, 0, 0);  //blend first 10 sprite palette slots
+            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL)
+                BlendPalettesGradually(fogPalettes, 7, 9, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
+        #else
+            if (gWeatherPtr->nextWeather == WEATHER_FOG_HORIZONTAL)
+                BlendPalettesGradually(0x3FF0000, 11, 3, 7, RGB_WHITEALPHA, 0, 0);  //blend first 10 sprite palette slots
+            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL)
+                BlendPalettesGradually(0x3FF0000, 11, 7, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
+
+            if (gWeatherPtr->nextWeather == WEATHER_DARKFOG_HORIZONTAL)
+                BlendPalettesGradually(0x3FF0000, 7, 3, 9, RGB_WHITEALPHA, 0, 0);  //blend first 10 sprite palette slots
+            else if (gWeatherPtr->nextWeather != gWeatherPtr->currWeather && gWeatherPtr->currWeather == WEATHER_DARKFOG_HORIZONTAL)
+                BlendPalettesGradually(0x3FF0000, 7, 9, 0, RGB_WHITEALPHA, 0, 0);  //undo fog pal blend
+        #endif
+    }
 }
 
 
@@ -373,6 +408,7 @@ static void FadeInScreenWithWeather(void)
     case WEATHER_DROUGHT:
         if (FadeInScreen_Drought() == FALSE)
         {
+            //believe negative gamma makes thingsbrighter?
             gWeatherPtr->gammaIndex = -6;
             gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
         }
@@ -700,6 +736,8 @@ static bool8 LightenSpritePaletteInFog(u8 paletteIndex)
             return TRUE;
     }
 
+    if (IsObjectEventPaletteIndex(paletteIndex))
+        return TRUE;
     return FALSE;
 }
 

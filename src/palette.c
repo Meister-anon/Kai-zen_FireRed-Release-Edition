@@ -910,28 +910,28 @@ void sub_80716F8(const u16 *src, u16 *dst, u16 count, u8 a4)
     }
 }
 
-void sub_80717A8(u32 a1, s8 a2, u8 a3, u8 a4, u16 a5, u8 a6, u8 a7)
+void BlendPalettesGradually(u32 selectedPalettes, s8 delay, u8 coeff, u8 coeffTarget, u16 color, u8 priority, u8 id)
 {
     u8 taskId;
 
-    taskId = CreateTask(sub_80718B8, a6);
-    gTasks[taskId].data[0] = a3;
-    gTasks[taskId].data[1] = a4;
-    if (a2 >= 0)
+    taskId = CreateTask(sub_80718B8, priority);
+    gTasks[taskId].data[0] = coeff;
+    gTasks[taskId].data[1] = coeffTarget;
+    if (delay >= 0)
     {
-        gTasks[taskId].data[3] = a2;
+        gTasks[taskId].data[3] = delay;
         gTasks[taskId].data[2] = 1;
     }
     else
     {
         gTasks[taskId].data[3] = 0;
-        gTasks[taskId].data[2] = -a2 + 1;
+        gTasks[taskId].data[2] = -delay + 1;
     }
-    if (a4 < a3)
+    if (coeffTarget < coeff)
         gTasks[taskId].data[2] *= -1;
-    SetWordTaskArg(taskId, 5, a1);
-    gTasks[taskId].data[7] = a5;
-    gTasks[taskId].data[8] = a7;
+    SetWordTaskArg(taskId, 5, selectedPalettes);
+    gTasks[taskId].data[7] = color;
+    gTasks[taskId].data[8] = id;
     gTasks[taskId].func(taskId);
 }
 

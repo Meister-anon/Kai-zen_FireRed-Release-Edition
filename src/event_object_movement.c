@@ -8,6 +8,7 @@
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
 #include "fieldmap.h"
+#include "field_weather.h"
 #include "metatile_behavior.h"
 #include "overworld.h"
 #include "quest_log.h"
@@ -1834,11 +1835,11 @@ static u8 TrySetupObjectEventSprite(struct ObjectEventTemplate *objectEventTempl
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
     if (graphicsInfo->paletteSlot == 0)
     {
-        LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+        LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
     else if (graphicsInfo->paletteSlot == 10)
     {
-        LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+        LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
 
     if (objectEvent->movementType == MOVEMENT_TYPE_INVISIBLE)
@@ -1868,6 +1869,7 @@ static u8 TrySetupObjectEventSprite(struct ObjectEventTemplate *objectEventTempl
 
     SetObjectSubpriorityByZCoord(objectEvent->previousElevation, sprite, 1);
     UpdateObjectEventVisibility(objectEvent, sprite);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(graphicsInfo->paletteTag));
     return objectEventId;
 }
 
@@ -1941,7 +1943,7 @@ void MakeObjectTemplateFromObjectEventGraphicsInfo(u16 graphicsId, void (*callba
     const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(graphicsId);
 
     spriteTemplate->tileTag = graphicsInfo->tileTag;
-    spriteTemplate->paletteTag = graphicsInfo->paletteTag1;
+    spriteTemplate->paletteTag = graphicsInfo->paletteTag;
     spriteTemplate->oam = graphicsInfo->oam;
     spriteTemplate->anims = graphicsInfo->anims;
     spriteTemplate->images = graphicsInfo->images;
@@ -2015,7 +2017,7 @@ u8 sprite_new(u8 graphicsId, u8 a1, s16 x, s16 y, u8 z, u8 direction)
         sprite->data[1] = z;
         if (graphicsInfo->paletteSlot == 10)
         {
-            LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+            LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
         }
 
         if (subspriteTables != NULL)
@@ -2052,7 +2054,7 @@ u8 sub_805EB44(u8 graphicsId, u8 a1, s16 x, s16 y)
         sprite->data[0] = a1;
         if (graphicsInfo->paletteSlot == 10)
         {
-            LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+            LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
         }
 
         if (subspriteTables != NULL)
@@ -2177,11 +2179,11 @@ static void sub_805EE3C(u8 objectEventId, s16 x, s16 y)
     *(u16 *)&spriteTemplate.paletteTag = SPRITE_INVALID_TAG;
     if (graphicsInfo->paletteSlot == 0)
     {
-        LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+        LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
     if (graphicsInfo->paletteSlot > 9)
     {
-        LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+        LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
     *(u16 *)&spriteTemplate.paletteTag = SPRITE_INVALID_TAG;
     spriteId = CreateSprite(&spriteTemplate, 0, 0, 0);
@@ -2248,11 +2250,16 @@ void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u8 graphicsId)
     sprite = &gSprites[objectEvent->spriteId];
     if (graphicsInfo->paletteSlot == 0)
     {
-        PatchObjectPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+        PatchObjectPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
+        #if DYNAMIC_OW_PALS == TRUE
+            UpdateSpritePaletteWithWeather(FindObjectEventPaletteIndexByTag(graphicsInfo->paletteTag));
+        #else
+            UpdateSpritePaletteWithWeather(graphicsInfo->paletteSlot);
+        #endif
     }
     if (graphicsInfo->paletteSlot == 10)
     {
-        LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag1, graphicsInfo->paletteSlot);
+        LoadSpecialObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     }
     
     var = sprite->images->size / TILE_SIZE_4BPP;
@@ -2480,6 +2487,21 @@ static u8 FindObjectEventPaletteIndexByTag(u16 tag)
         }
     }
     return 0xFF;
+}
+
+bool8 IsObjectEventPaletteIndex(u8 paletteIndex)
+{
+    #if DYNAMIC_OW_PALS
+        if (FindObjectEventPaletteIndexByTag(GetSpritePaletteTagByPaletteNum(paletteIndex - 16)) != 0xFF)
+            return TRUE;
+    #else
+        if ((paletteIndex - 16) > 10)
+            return FALSE;   //don't mess with the weather pal itself
+        else if (FindObjectEventPaletteIndexByTag(GetSpritePaletteTagByPaletteNum(paletteIndex)) != 0xFF)
+            return TRUE;
+    #endif
+
+    return FALSE;
 }
 
 void LoadPlayerObjectReflectionPalette(u16 tag, u8 slot)
