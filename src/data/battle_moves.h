@@ -13457,7 +13457,7 @@ use wonder gaurd logic to determine its super effective
 
     [MOVE_NETTLE_WHIP] =
     {
-        .effect = EFFECT_BURN_HIT,
+        .effect = EFFECT_NETTLE_WHIP, //burns if not grass type
         .power = 85,
         .type = TYPE_GRASS,
         .accuracy = 100,
@@ -13468,7 +13468,8 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
-    //and use hitret
+    //think give to mostly grass/poison types
+    //since effect is essentially poison
 
     [MOVE_SONIC_BOOM] =
     {

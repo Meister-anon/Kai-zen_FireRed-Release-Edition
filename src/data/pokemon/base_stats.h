@@ -14244,7 +14244,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_SLOW_START, ABILITY_NONE},
+        .abilities = {ABILITY_SLOW_START, ABILITY_NONE},
+        .abilityHidden = {ABILITY_NONE, ABILITY_TRUANT},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,

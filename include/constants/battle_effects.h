@@ -424,6 +424,7 @@
 #define EFFECT_JUDGMENT 411 //defaults to hit, but still needed for other logic
 #define EFFECT_SHELL_TRAP 412
 #define EFFECT_SWITCH_BIND 413 //spirit shackle buff, temp escape prevention doesn't require user stay in
+#define EFFECT_NETTLE_WHIP 414 //BURN HIT grass types are immune to effect, like power moves
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking
