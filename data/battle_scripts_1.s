@@ -442,6 +442,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit					  @ EFFECT_JUDGMENT
 	.4byte BattleScript_EffectHit				      @ EFFECT_SHELL_TRAP @think still todo? check later
 	.4byte BattleScript_EffectHitSwitchBind			  @EFFECT_SWITCH_BIND @spirit shackle buff, temp escape prevention doesn't require user stay in
+	.4byte BattleScript_EffectNettleWhip			  @EFFECT_NETTLE_WHIP
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -2582,6 +2583,11 @@ BattleScript_Roosting::
 	printstring STRINGID_MONROOSTING
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
+
+BattleScript_EffectNettleWhip::
+	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_EffectHit
+	setmoveeffect MOVE_EFFECT_BURN
+	goto BattleScript_EffectHit
 
 BattleScript_EffectCaptivate:
 	setstatchanger STAT_SPATK, 2, TRUE
