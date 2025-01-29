@@ -2,6 +2,8 @@
 #include "field_weather.h"
 #include "overworld.h"
 #include "constants/weather.h"
+#include "event_data.h"
+#include "constants/region_map_sections.h"
 
 static u8 TranslateWeatherNum(u8 weather);
 static void UpdateRainCounter(u8 newWeather, u8 oldWeather);
@@ -18,10 +20,27 @@ u8 GetSav1Weather(void)
     return gSaveBlock1Ptr->weather;
 }
 
+//tested works,
+//can put the switch here, do flag check
+    //for beating team rocket at pokemon tower,
+    //assign curr weather to other fog,
+    //think what will do is have fog be main,
+    //set to dark fog after
+    //hmm well want to keep top as fog,
+    //so instead if weather dark fog and flag not set,
+    //set to fog
+    //that way will be like spirits have calmed down,
+    //and fog isn't as strong
 void SetSav1WeatherFromCurrMapHeader(void)
 {
     u8 oldWeather = gSaveBlock1Ptr->weather;
     gSaveBlock1Ptr->weather = TranslateWeatherNum(gMapHeader.weather);
+
+    if ((gSaveBlock1Ptr->weather == WEATHER_DARKFOG_HORIZONTAL)
+    && (gMapHeader.regionMapSectionId == MAPSEC_POKEMON_TOWER)
+    && !FlagGet(FLAG_RESCUED_MR_FUJI))
+        gSaveBlock1Ptr->weather = WEATHER_FOG_HORIZONTAL;
+    
     UpdateRainCounter(gSaveBlock1Ptr->weather, oldWeather);
 }
 
