@@ -2946,6 +2946,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
    order Hms etc. are printed in the tm case to shift with the number change
    1/29/2025
 
+   NOTE**(
+   important note for tm  refactor tm list is decoupled from item id
+   but there is no way to on compile limit the moves I add
+   to mons tm learnsets to things that are actually tms,
+   but I guess that didn't exist before,
+   but if a move isn't a tm it won't show up thanks to my later function 
+   chcks... ok its fine.
+
+   So get tmhm leanrsets will pull the list along with whatever moves are on it,
+   but if the moves don't pass the tmhm checks
+   it won't show up in tm case,
+
+   Meaning its, protected but you can have extra data that just won't be used at all.
+   )
+
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
     //I THINK I removed that? yeah I did, is never a thing but I experimented w it
