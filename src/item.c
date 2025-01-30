@@ -570,6 +570,7 @@ u16 BagGetQuantityByItemId(u16 itemId)
 }
 
 //vsonic may need add on to this
+#define QUEST_LOG_UPDATE
 void TrySetObtainedItemQuestLogEvent(u16 itemId)
 {
     struct QuestLogStruct_809A824

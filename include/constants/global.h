@@ -17,6 +17,7 @@
 //could be issue without how I'm removing placeholders may not be removing endcap properly
 //if that's true than length would be 12 not 11 which would explain it
 
+#define LIST_END 0xFFFF
 //define ITEM_NAME_PLURAL_LENGTH ITEM_NAME_LENGTH + 2 // 2 is used for the instance where a word's suffix becomes y->ies
 
 //value max meant to be double name length

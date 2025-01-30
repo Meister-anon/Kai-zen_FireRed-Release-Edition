@@ -20,11 +20,12 @@ struct Item
     ItemUseFunc fieldUseFunc; //seems only value 1 and 2 have an effect, otherwise just executes a default behavior? idk, seems work diff for pokeballs
     //u8 battleUsage;     //doesn't exist in emerald, searched seems this is only relevant to firered because its only used for contextmenu i.e help menu, which I've removed
     ItemUseFunc battleUseFunc; //meaning I could remove this to save room for adding fling logic, logic for it is only necessary because json, so just remove and it'll be fine
-    u8 secondaryId; //actually battleUsage doesnt seem to have special json rule so maybe not an issue?
+    u16 secondaryId; //actually battleUsage doesnt seem to have special json rule so maybe not an issue?
     u8 flingPower;
 };//got battleusage wrong context menu isn't help menu, it tells it what strings to display i.e use, give, cancel, etc. instead of usage value try to get to check for battle usage func not 0
 //replacing with battleusefunc check worked, can remove
 //removed item.json values for json_data_rules.mk able to build without battleUsage, but still follows json rull for moveinfo etc.
+//turned secondaryId into u16, so can store move id there for tms like in EE
 struct BagPocket
 {
     struct ItemSlot *itemSlots;

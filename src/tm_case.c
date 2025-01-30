@@ -82,6 +82,201 @@ enum {
     ANIM_HM,
 };
 
+//moved here this will be hard order for tms
+//no longer hard stuck to item order
+
+#define TMHM_LIST
+const u16 gTM_Moves[] =
+{
+    MOVE_FOCUS_PUNCH,
+    MOVE_DRAGON_CLAW,
+    MOVE_WATER_PULSE,
+    MOVE_CALM_MIND,
+    MOVE_ROAR,
+    MOVE_TOXIC,
+    MOVE_HAIL,
+    MOVE_BULK_UP,
+    MOVE_BULLET_SEED,
+    MOVE_HIDDEN_POWER,
+    MOVE_SUNNY_DAY,
+    MOVE_TAUNT,
+    MOVE_ICE_BEAM,
+    MOVE_BLIZZARD,
+    MOVE_HYPER_BEAM,
+    MOVE_LIGHT_SCREEN,
+    MOVE_PROTECT,
+    MOVE_RAIN_DANCE,
+    MOVE_GIGA_DRAIN,
+    MOVE_SAFEGUARD,
+    MOVE_FRUSTRATION,
+    MOVE_SOLAR_BEAM,
+    MOVE_IRON_TAIL,
+    MOVE_THUNDERBOLT,
+    MOVE_THUNDER,
+    MOVE_EARTHQUAKE,
+    MOVE_RETURN,
+    MOVE_DIG,
+    MOVE_PSYCHIC,
+    MOVE_SHADOW_BALL,
+    MOVE_BRICK_BREAK,
+    MOVE_DOUBLE_TEAM,
+    MOVE_REFLECT,
+    MOVE_SHOCK_WAVE,
+    MOVE_FLAMETHROWER,
+    MOVE_SLUDGE_BOMB,
+    MOVE_SANDSTORM,
+    MOVE_FIRE_BLAST,
+    MOVE_ROCK_TOMB,
+    MOVE_AERIAL_ACE,
+    MOVE_TORMENT,
+    MOVE_FACADE,
+    MOVE_SECRET_POWER,
+    MOVE_REST,
+    MOVE_ATTRACT,
+    MOVE_THIEF,
+    MOVE_STEEL_WING,
+    MOVE_SKILL_SWAP,
+    MOVE_SNATCH,
+    MOVE_OVERHEAT, //end of default tms
+    MOVE_WILD_CHARGE,
+    MOVE_ROOST,
+    MOVE_TELEPORT,
+    MOVE_QUASH,
+    MOVE_HONE_CLAWS,
+    MOVE_BRINE,
+    MOVE_CHARGE_BEAM,
+    MOVE_ENDURE,
+    MOVE_DRAGON_PULSE,
+    MOVE_THUNDER_PUNCH,
+    MOVE_FIRE_PUNCH,
+    MOVE_ICE_PUNCH,
+    MOVE_SHADOW_PUNCH,
+    MOVE_POISON_JAB,
+    MOVE_DRAIN_PUNCH,
+    MOVE_COMET_PUNCH,
+    MOVE_WILL_O_WISP,
+    MOVE_MEMENTO,
+    MOVE_SILVER_WIND,
+    MOVE_OMINOUS_WIND,
+    MOVE_FLING,
+    MOVE_EMBARGO,
+    MOVE_RECYCLE,
+    MOVE_HEAL_BLOCK,
+    MOVE_THUNDER_FANG,
+    MOVE_FIRE_FANG,
+    MOVE_ICE_FANG,
+    MOVE_EXPLOSION,
+    MOVE_SHADOW_CLAW,
+    MOVE_NIGHT_SLASH,
+    MOVE_RAZOR_LEAF,
+    MOVE_X_SCISSOR,
+    MOVE_CROSS_POISON,
+    MOVE_PSYCHO_CUT,
+    MOVE_FALSE_SWIPE,
+    MOVE_PAYBACK,
+    MOVE_GIGA_IMPACT,
+    MOVE_ROCK_POLISH,
+    MOVE_MUD_SPORT,
+    MOVE_WATER_SPORT,
+    MOVE_AURORA_VEIL,
+    MOVE_STONE_EDGE,
+    MOVE_REVENGE,
+    MOVE_AVALANCHE,
+    MOVE_THUNDER_WAVE,
+    MOVE_GLARE,
+    MOVE_GYRO_BALL,
+    MOVE_ELECTRO_BALL,
+    MOVE_SWORDS_DANCE,
+    MOVE_POWER_TRICK,
+    MOVE_POWER_SHIFT,
+    MOVE_POWER_SWAP,
+    MOVE_GUARD_SWAP,
+    MOVE_SPEED_SWAP,
+    MOVE_STEALTH_ROCK,
+    MOVE_SPIKES,
+    MOVE_FIRE_SPIN,
+    MOVE_SAND_TOMB,
+    MOVE_WHIRLPOOL,
+    MOVE_SWARM,
+    MOVE_PSYCH_UP,
+    MOVE_CAPTIVATE,
+    MOVE_CONFIDE,
+    MOVE_FAKE_TEARS,
+    MOVE_ACID_SPRAY,
+    MOVE_DARK_PULSE,
+    MOVE_ROCK_THROW,
+    MOVE_POWER_GEM,
+    MOVE_SLEEP_TALK,
+    MOVE_SNORE,
+    MOVE_NATURAL_GIFT,
+    MOVE_GRASS_KNOT,
+    MOVE_SWAGGER,
+    MOVE_PLUCK,
+    MOVE_BUG_BITE,
+    MOVE_U_TURN,
+    MOVE_VOLT_SWITCH,
+    MOVE_FLIP_TURN,
+    MOVE_UP_ROOT,
+    MOVE_DIVE_BOMB,
+    MOVE_SUBSTITUTE,
+    MOVE_FLASH_CANNON,
+    MOVE_AGILITY,
+    MOVE_TRICK_ROOM,
+    MOVE_MAGIC_ROOM,
+    MOVE_WONDER_ROOM,
+    MOVE_GRAVITY,
+    MOVE_DRAINING_KISS,
+    MOVE_LEECH_LIFE,
+    MOVE_FROST_BREATH,
+    MOVE_WEATHER_BALL,
+    MOVE_FLAME_CHARGE,
+    MOVE_DUAL_WINGBEAT,
+    MOVE_KNOCK_OFF,
+    MOVE_BEAT_UP,
+    MOVE_RAGE,
+    MOVE_ROCK_TOMB,
+    MOVE_ICICLE_SPEAR,
+    MOVE_ACROBATICS,
+    MOVE_ASSURANCE,
+    MOVE_SOLAR_BLADE,
+    MOVE_ICY_WIND,
+    MOVE_METAL_CLAW,
+    MOVE_HOLD_BACK,
+    MOVE_HEADBUTT,
+    MOVE_HI_JUMP_KICK,
+    MOVE_DOUBLE_EDGE,
+    MOVE_MISTY_EXPLOSION,
+    MOVE_SNOWBALL,
+    MOVE_ENERGY_BALL,
+    MOVE_CELEBRATE,  //last tm
+    LIST_END
+    };
+
+const u16 gHM_Moves[] =
+{
+    
+    MOVE_CUT,
+    MOVE_FLY,
+    MOVE_SURF,
+    MOVE_STRENGTH,
+    MOVE_FLASH,
+    MOVE_ROCK_SMASH,
+    MOVE_WATERFALL,
+    MOVE_DIVE,
+    MOVE_ROCK_CLIMB,
+    LIST_END
+};
+//add sound moves to list,
+//round, echoed voice, hyper voice
+//also smack down and think focus blast
+//think give echoed voice to zubat line, as learned move or tm?
+//hmm both yeah both
+//need to go over scarlett violet tms and add a few 
+//adding rock slide for hitmonlee 
+//add gunk shot to list, poison types have WOEFULLY bad stab options *facepalm
+//also venom drench
+//draco meteor and dragon ascent will be tutor moves
+
 struct UnkStruct_203B10C
 {
     void (* savedCallback)(void);
@@ -782,27 +977,86 @@ static void InitTMCaseListMenuItems(void)
     gMultiuseListMenuTemplate.scrollMultiple = TRUE; //changed to true to allow use left/right to scroll by max shown
 }
 
+//vsonic display tmhm number
+//would like separate from Id limit,
+//if can do with Name instead would be great
+//would need remove TM/HM from the name, then add leading zeroes as needed
+//see if can remove/ignore zeroes before a number that isn't 0?
+//then add leading zeroes back?
+
+//new idea can use sTMHMMoves array
+//to decide what the tm value is,
+//check if move listed in array is a tmhm
+//then loop array check if secondaryId moveId
+//matches item id if so break,
+//and return array id + 1
+//doesn't work for hms so will need to separte
+//hms out into their own array?
+//luckily nothing else uses sTMHMMoves
+//ok DONE I THINK, this should do what I need,
+//and order tms (as displayed by this function)
+//accordingly.
+//Only issue would be finding Tms/Hms in overworld.
+//since pretty sure those follow item name,
+//belive I could probably change that
+//most likely will make an attempt. hmm
+//if works will be extrmeley easy 
+//to adjust in game tms/hms won't even need to worry about
+//shifting Item Ids, just set the item to tmcase pocket
+//and adjust the two arrays 
+//would do similar effect to this,
+//but think do a string append for the found id,
+//with either TM or HM based on which it is
+//tested works, only issue is
+//the order the tms get printed in,
+//that is unchanged, even if I make fly the first HM
+//cut is still printed first
 static void GetTMNumberAndMoveString(u8 * dest, u16 itemId)
 {
+    u32 TMHMValue;
+    u8 isHM = TRUE; //loop tmlist if found there set to false
+
     StringCopy(gStringVar4, gText_FontSize0);
     GetMoveName(gStringVar3,ItemIdToBattleMoveId(itemId));
     
-    if (itemId >= ITEM_HM01)
+    for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
     {
-        StringAppend(gStringVar4, sText_ClearTo18);
-        StringAppend(gStringVar4, gOtherText_UnkF9_08_Clear_01);
-        ConvertIntToDecimalStringN(gStringVar1, itemId - ITEM_HM01 + 1, STR_CONV_MODE_LEADING_ZEROS, 1);
-        StringAppend(gStringVar4, gStringVar1);
+        if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+        {
+            isHM = FALSE;
+            break;
+        }    
     }
-    else
+
+    if (isHM)
     {
-        StringAppend(gStringVar4, gOtherText_UnkF9_08_Clear_01);
-        ConvertIntToDecimalStringN(gStringVar1, itemId - ITEM_TM01 + 1, STR_CONV_MODE_LEADING_ZEROS, 3);
-        StringAppend(gStringVar4, gStringVar1);
+        for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        {
+            if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+            break;  
+        }
     }
+    
+    if (IsTMHM(itemId))
+    {
+
+        if (isHM)
+        {
+            StringAppend(gStringVar4, sText_ClearTo18);
+            StringAppend(gStringVar4, gOtherText_UnkF9_08_Clear_01);
+            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEADING_ZEROS, 1);
+            StringAppend(gStringVar4, gStringVar1);
+        }
+        else
+        {
+            StringAppend(gStringVar4, gOtherText_UnkF9_08_Clear_01);
+            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEADING_ZEROS, 3);
+            StringAppend(gStringVar4, gStringVar1);
+        }
+    }
+
     StringAppend(gStringVar4, sText_SingleSpace);
     StringAppend(gStringVar4, gText_FontSize2);
-    //StringAppend(gStringVar4, gMoveNames[ItemIdToBattleMoveId(itemId)]); //hmm this is the name display in tm case from itemid so what is moveid even for?, its nto on item struct either
     StringAppend(gStringVar4, gStringVar3);
     StringCopy(dest, gStringVar4);
 }

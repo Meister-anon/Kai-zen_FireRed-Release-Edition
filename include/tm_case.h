@@ -22,6 +22,9 @@ enum {
     TMCASE_REOPENING,
 };*/
 
+extern const u16 gTM_Moves[];
+extern const u16 gHM_Moves[];
+
 // Alternative value for 'allowSelectClose' argument to InitTMCase.
 // Indicates that the previous value should be preserved
 #define TMCASE_KEEP_PREV 0xFF

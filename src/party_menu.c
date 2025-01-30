@@ -5415,21 +5415,32 @@ void ItemUseCB_PPUp(u8 taskId, UNUSED TaskFunc func)
     gTasks[taskId].func = Task_HandleWhichMoveInput;
 }
 
+//just for tmshms can prob remove use ofstmhmsMoves
+//when do tm recactor to take moves as involves adding move id to item field
+//wit hthat can just loop item list, skip/continue
+//if item pocket not tm case then check sec id and return that 
+//if it is pocket tm cases
+//...oh wouldn't need a loop at all.
 u16 ItemIdToBattleMoveId(u16 item)
 {
-    u16 tmNumber = item - ITEM_TM01_FOCUS_PUNCH; //everytghing that uses "- ITEM_TM01_FOCUS_PUNCH"  is in my way, and forces item order
+    if (gItems[item].pocket == POCKET_TM_CASE)
+       return gItems[item].secondaryId;
 
-    return sTMHMMoves[tmNumber];
 }//mt1 -tm1 is 0, so it lines up with the first value in the array
 
+//was initially just for use in summary screen
+//for hm can't be forgotton logic but no longer used.
+//I moved it out here in case it had other use tho
 bool8 IsMoveHm(u16 move)
 {
     u8 i;
 
-    for (i = 0; i < NUM_HIDDEN_MACHINES - 1; ++i) // no dive
-        if (sTMHMMoves[i + NUM_TECHNICAL_MACHINES] == move)
+    for (i = 0; gHM_Moves[i] != LIST_END; ++i)
+        if (gHM_Moves[i] == move)
             return TRUE;
+    
     return FALSE;
+
 }
 
 bool8 MonKnowsMove(struct Pokemon *mon, u16 move)

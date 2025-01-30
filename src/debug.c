@@ -54,6 +54,7 @@
 #include "string_util.h"
 #include "text.h"
 #include "task.h"
+#include "tm_case.h"
 #include "pokemon_summary_screen.h"
 #include "wild_encounter.h"
 #include "config/debug.h"
@@ -2458,16 +2459,53 @@ static void DebugAction_Give_Item_SelectQuantity(u8 taskId)
 #undef tItemId
 #undef tSpriteId
 
-//TMs
+//TMs //tested it works, a good deal slower than base method
+//but not too noticeable
 static void DebugAction_Give_AllTMs(u8 taskId)
 {
-    u16 i;
+    u32 i,j;
+    u32 TMHMValue;
+
+
     PlayFanfare(MUS_OBTAIN_TMHM);
-    for (i = ITEM_TM01; i <= ITEM_HM08; i++)
+    for (i = ITEM_NONE; i != ITEMS_COUNT; i++)
+    {
+        //skip all items that aren't Tms
+        //saves memory/time
+        if (gItems[i].pocket != POCKET_TM_CASE)
+            continue;
+
+        //checks //all tm & hm for each item value in tm case
+        for (TMHMValue = 0, j = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        {
+            if (ItemIdToBattleMoveId(i) == gTM_Moves[TMHMValue]
+            && !CheckBagHasItem(i, 1))
+            {
+                AddBagItem(i, 1);
+
+            }   
+            
+            if (gHM_Moves[j] != LIST_END)
+            {
+                if (ItemIdToBattleMoveId(i) == gHM_Moves[j]
+                && !CheckBagHasItem(i, 1))
+                {
+                    AddBagItem(i, 1);
+                    
+
+                } 
+
+                ++j;
+            }
+        }
+        
+    }
+
+    /*for (i = ITEM_TM01; i <= ITEM_HM08; i++)
     {
         if (ItemIdToBattleMoveId(i) != MOVE_NONE && !CheckBagHasItem(i, 1))
             AddBagItem(i, 1);
-    }
+    }*/
 
     Debug_DestroyMenu_Full(taskId);
     EnableBothScriptContexts();

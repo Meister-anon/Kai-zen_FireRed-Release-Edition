@@ -754,6 +754,7 @@ void GetSpeciesName(u8 *name, u16 species);
 void GetAbilityName(u8 *namebuffer, u16 ability); //new functions added for Cap
 void GetMoveName(u8 *name, u16 move);
 void GetItemName(u8 *name, u16 item); //item names not done would need to decap all names, and they are in a field not a list *pain
+void BufferTmHm_Name(u8 *buffer, u16 itemId); //new way load tmhm item name, separate from using item name always aligns w tm/hm arrays
 
 u8 CalculatePPWithBonus(u16 move, u8 ppBonuses, u8 moveIndex);
 void RemoveMonPPBonus(struct Pokemon *mon, u8 moveIndex);
@@ -783,6 +784,7 @@ u8 CheckPartyPokerus(struct Pokemon *party, u8 selection);
 u8 CheckPartyHasHadPokerus(struct Pokemon *party, u8 selection);
 void PartySpreadPokerus(struct Pokemon *party);
 bool8 TryIncrementMonLevel(struct Pokemon *mon);
+u8 IsTMHM(u16 itemId);
 u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm); //change to u16 for both, later
 u32 CanSpeciesLearnTMHM(u16 species, u16 tm);
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves);

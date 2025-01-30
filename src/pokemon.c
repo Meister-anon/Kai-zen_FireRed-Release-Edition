@@ -13,6 +13,7 @@
 #include "util.h"
 #include "money.h"
 #include "pokemon.h"
+#include "tm_case.h"
 #include "pokemon_storage_system.h"
 #include "battle_gfx_sfx_util.h"
 #include "battle_controllers.h"
@@ -7775,6 +7776,52 @@ void GetItemName(u8 *name, u16 item)
     //this setup works
 }
 
+void BufferTmHm_Name(u8 *buffer, u16 itemId)
+{
+    u32 TMHMValue;
+    u8 isHM = TRUE; //loop tmlist if found there set to false
+
+    
+    for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+    {
+        if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+        {
+            isHM = FALSE;
+            break;
+        }    
+    }
+
+    if (isHM)
+    {
+        for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        {
+            if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+            break;  
+        }
+    }
+
+    if (isHM)
+        StringCopy(buffer, gText_HM_String);
+    else
+        StringCopy(buffer, gText_TM_String);
+
+    
+    if (IsTMHM(itemId))
+    {
+
+        if (isHM)
+        {
+            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEFT_ALIGN, 0);
+            StringAppend(buffer, gStringVar1);
+        }
+        else
+        {
+            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEFT_ALIGN, 0);
+            StringAppend(buffer, gStringVar1);
+        }
+    }
+}
+
 u8 CalculatePPWithBonus(u16 move, u8 ppBonuses, u8 moveIndex)
 {
     u8 basePP = gBattleMoves[move].pp;
@@ -10928,21 +10975,20 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
     u16 i;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
+    
     if (species == SPECIES_EGG)
     {
-        return 0;
-    }
-    /*else if (tm < 32) //this may be hex 32, since 32 in hex is 50 in decimal?
+        return FALSE;
+    }    
+
+    else 
     {
-        u32 mask = 1 << tm;
-        return gTMHMLearnsets[species][0] & mask;
-    }*/
-    else  //actually I think this is a type split? breaking the array into 2 32 bit section? - yup
-    {
-        //u32 mask = 1 << (tm - 32);
+        if (!IsTMHM(tm))
+            return FALSE;
+        
         for (i = 0; teachableLearnset[i] != TMHM_LEARNSET_END; i++)
         {
-            if (teachableLearnset[i] == tm)
+            if (teachableLearnset[i] == gItems[tm].secondaryId)
                 break;
             if (teachableLearnset[i] == TMHM_LEARN_ALL)
                 break;
@@ -10955,25 +11001,25 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
     }
 }//ok so when I apply the tmhm expansion that does away with the bit stuff will have to adjust these
 
+//says tm is item id
 u32 CanSpeciesLearnTMHM(u16 species, u16 tm) //for this belive replace with loop to check?
 {
     u16 i;
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
+    
     if (species == SPECIES_EGG)
     {
-        return 0;
+        return FALSE;
     }
-    /*else if (tm < 32)
-    {
-        u32 mask = 1 << tm;
-        return gTMHMLearnsets[species][0] & mask;
-    }*/
+    
     else
     {
-        //u32 mask = 1 << (tm - 32);
+        if (!IsTMHM(tm))
+            return FALSE;
+
         for (i = 0; teachableLearnset[i] != TMHM_LEARNSET_END; i++)
         {
-            if (teachableLearnset[i] == tm)
+            if (teachableLearnset[i] == gItems[tm].secondaryId)
                 break;
             if (teachableLearnset[i] == TMHM_LEARN_ALL)
                 break;
@@ -10983,6 +11029,13 @@ u32 CanSpeciesLearnTMHM(u16 species, u16 tm) //for this belive replace with loop
         else 
             return FALSE;
     }
+}
+
+u8 IsTMHM(u16 itemId)
+{
+    if (ItemId_GetPocket(itemId) == POCKET_TM_CASE)
+        return TRUE;
+    return FALSE;
 }
 
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)

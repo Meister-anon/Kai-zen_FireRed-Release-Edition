@@ -27,6 +27,7 @@
 #include "pokemon_storage_system.h"
 #include "new_game.h"
 #include "party_menu.h"
+#include "pokemon.h"
 #include "money.h"
 #include "coins.h"
 #include "battle_setup.h"
@@ -1701,13 +1702,26 @@ bool8 ScrCmd_bufferpartymonnick(struct ScriptContext * ctx)
     return FALSE;
 }
 
+//vsonic important may involve in placeholder cap,
 bool8 ScrCmd_bufferitemname(struct ScriptContext * ctx)
 {
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 itemId = VarGet(ScriptReadHalfword(ctx));
 
     //CopyItemName(itemId, sScriptStringVars[stringVarIndex]);
-    GetItemName(sScriptStringVars[stringVarIndex], itemId);
+    //plan do this if not istmhm, then do other logic for tmhms
+    //to append based on placement in Tm lists
+    //because adds (s)/ (ies) to end of buffereditem name
+    //think can't display move name with item name,
+    //and honestly the surprise is a bit of the fun anyway
+    //for now, just Cap it and exclude from cap string logic
+    //checekd rn TM HM are already force capped,  so check later if
+    //decide to put that into a Misc file
+    if (!IsTMHM(itemId))
+        GetItemName(sScriptStringVars[stringVarIndex], itemId);
+    else
+        BufferTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
+    
     return FALSE;
 }
 

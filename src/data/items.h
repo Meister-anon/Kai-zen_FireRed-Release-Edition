@@ -4930,7 +4930,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FOCUS_PUNCH,
       //"moveId" "FocusPunch"
     },
     [ITEM_TM02] =
@@ -4948,7 +4948,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DRAGON_CLAW,
       //"moveId" "DragonClaw"
     },
     [ITEM_TM03] =
@@ -4966,7 +4966,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WATER_PULSE,
       //"moveId" "WaterPulse"
     },
     [ITEM_TM04] =
@@ -4984,7 +4984,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_CALM_MIND,
       //"moveId" "CalmMind"
     },
     [ITEM_TM05] =
@@ -5002,7 +5002,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROAR,
       //"moveId" "Roar"
     },
     [ITEM_TM06] =
@@ -5020,7 +5020,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_TOXIC,
       //"moveId" "Toxic"
     },
     [ITEM_TM07] =
@@ -5038,7 +5038,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_HAIL,
       //"moveId" "Hail"
     },
     [ITEM_TM08] =
@@ -5056,7 +5056,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BULK_UP,
       //"moveId" "BulkUp"
     },
     [ITEM_TM09] =
@@ -5074,7 +5074,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BULLET_SEED,
       //"moveId" "BulletSeed"
     },
     [ITEM_TM10] =
@@ -5092,7 +5092,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_HIDDEN_POWER,
       //"moveId" "HiddenPower"
     },
     [ITEM_TM11] =
@@ -5110,7 +5110,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SUNNY_DAY,
       //"moveId" "SunnyDay"
     },
     [ITEM_TM12] =
@@ -5128,7 +5128,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_TAUNT,
       //"moveId" "Taunt"
     },
     [ITEM_TM13] =
@@ -5146,7 +5146,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ICE_BEAM,
       //"moveId" "IceBeam"
     },
     [ITEM_TM14] =
@@ -5164,7 +5164,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BLIZZARD,
       //"moveId" "Blizzard"
     },
     [ITEM_TM15] =
@@ -5182,7 +5182,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_HYPER_BEAM,
       //"moveId" "HyperBeam"
     },
     [ITEM_TM16] =
@@ -5200,7 +5200,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_LIGHT_SCREEN,
       //"moveId" "LightScreen"
     },
     [ITEM_TM17] =
@@ -5218,7 +5218,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_PROTECT,
       //"moveId" "Protect"
     },
     [ITEM_TM18] =
@@ -5236,7 +5236,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_RAIN_DANCE,
       //"moveId" "RainDance"
     },
     [ITEM_TM19] =
@@ -5254,7 +5254,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GIGA_DRAIN,
       //"moveId" "GigaDrain"
     },
     [ITEM_TM20] =
@@ -5272,7 +5272,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SAFEGUARD,
       //"moveId" "Safeguard"
     },
     [ITEM_TM21] =
@@ -5290,13 +5290,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FRUSTRATION,
       //"moveId" "Frustration"
     },
     [ITEM_TM22] =
     {
       .name = _("TM22"),
-      .itemId = ITEM_TM22_SOLARBEAM,
+      .itemId = ITEM_TM22_SOLAR_BEAM,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -5308,7 +5308,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SOLAR_BEAM,
       //"moveId" "SolarBeam"
     },
     [ITEM_TM23] =
@@ -5326,7 +5326,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_IRON_TAIL,
       //"moveId" "IronTail"
     },
     [ITEM_TM24] =
@@ -5344,7 +5344,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_THUNDERBOLT,
       //"moveId" "Thunderbolt"
     },
     [ITEM_TM25] =
@@ -5362,7 +5362,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_THUNDER,
       //"moveId" "Thunder"
     },
     [ITEM_TM26] =
@@ -5380,7 +5380,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_EARTHQUAKE,
       //"moveId" "Earthquake"
     },
     [ITEM_TM27] =
@@ -5398,7 +5398,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_RETURN,
       //"moveId" "Return"
     },
     [ITEM_TM28] =
@@ -5416,7 +5416,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DIG,
       //"moveId" "Dig"
     },
     [ITEM_TM29] =
@@ -5434,7 +5434,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_PSYCHIC,
       //"moveId" "Psychic"
     },
     [ITEM_TM30] =
@@ -5452,7 +5452,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SHADOW_BALL,
       //"moveId" "ShadowBall"
     },
     [ITEM_TM31] =
@@ -5470,7 +5470,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BRICK_BREAK,
       //"moveId" "BrickBreak"
     },
     [ITEM_TM32] =
@@ -5488,7 +5488,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DOUBLE_TEAM,
       //"moveId" "DoubleTeam"
     },
     [ITEM_TM33] =
@@ -5506,7 +5506,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_REFLECT,
       //"moveId" "Reflect"
     },
     [ITEM_TM34] =
@@ -5524,7 +5524,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SHOCK_WAVE,
       //"moveId" "ShockWave"
     },
     [ITEM_TM35] =
@@ -5542,7 +5542,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLAMETHROWER,
       //"moveId" "Flamethrower"
     },
     [ITEM_TM36] =
@@ -5560,7 +5560,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SLUDGE_BOMB,
       //"moveId" "SludgeBomb"
     },
     [ITEM_TM37] =
@@ -5578,7 +5578,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SANDSTORM,
       //"moveId" "Sandstorm"
     },
     [ITEM_TM38] =
@@ -5596,7 +5596,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FIRE_BLAST,
       //"moveId" "FireBlast"
     },
     [ITEM_TM39] =
@@ -5614,7 +5614,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROCK_TOMB,
       //"moveId" "RockTomb"
     },
     [ITEM_TM40] =
@@ -5632,7 +5632,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_AERIAL_ACE,
       //"moveId" "AerialAce"
     },
     [ITEM_TM41] =
@@ -5650,7 +5650,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_TORMENT,
       //"moveId" "Torment"
     },
     [ITEM_TM42] =
@@ -5668,7 +5668,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FACADE,
       //"moveId" "Facade"
     },
     [ITEM_TM43] =
@@ -5686,7 +5686,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SECRET_POWER,
       //"moveId" "SecretPower"
     },
     [ITEM_TM44] =
@@ -5704,7 +5704,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_REST,
       //"moveId" "Rest"
     },
     [ITEM_TM45] =
@@ -5722,7 +5722,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ATTRACT,
       //"moveId" "Attract"
     },
     [ITEM_TM46] =
@@ -5740,7 +5740,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_THIEF,
       //"moveId" "Thief"
     },
     [ITEM_TM47] =
@@ -5758,7 +5758,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_STEEL_WING,
       //"moveId" "SteelWing"
     },
     [ITEM_TM48] =
@@ -5776,7 +5776,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SKILL_SWAP,
       //"moveId" "SkillSwap"
     },
     [ITEM_TM49] =
@@ -5794,7 +5794,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SNATCH,
       //"moveId" "Snatch"
     },
     [ITEM_TM50] =
@@ -5812,8 +5812,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_OVERHEAT,
     },
     //tm expansion
     [ITEM_TM51] =
@@ -5831,7 +5830,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WILD_CHARGE,
       //"moveId" "FocusPunch"
     },
     [ITEM_TM52] =
@@ -5849,7 +5848,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROOST,
       //"moveId" "DragonClaw"
     },
     [ITEM_TM53] =
@@ -5867,7 +5866,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_TELEPORT,
       //"moveId" "WaterPulse"
     },
     [ITEM_TM54] =
@@ -5885,7 +5884,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_QUASH,
       //"moveId" "CalmMind"
     },
     [ITEM_TM55] =
@@ -5903,7 +5902,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_HONE_CLAWS,
       //"moveId" "Roar"
     },
     [ITEM_TM56] =
@@ -5921,7 +5920,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BRINE,
       //"moveId" "Toxic"
     },
     [ITEM_TM57] =
@@ -5939,7 +5938,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_CHARGE_BEAM,
       //"moveId" "Hail"
     },
     [ITEM_TM58] =
@@ -5957,7 +5956,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ENDURE,
       //"moveId" "BulkUp"
     },
     [ITEM_TM59] =
@@ -5975,7 +5974,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DRAGON_PULSE,
       //"moveId" "BulletSeed"
     },
     [ITEM_TM60] =
@@ -5993,7 +5992,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_THUNDER_PUNCH,
       //"moveId" "HiddenPower"
     },
     [ITEM_TM61] =
@@ -6011,7 +6010,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FIRE_PUNCH,
       //"moveId" "SunnyDay"
     },
     [ITEM_TM62] =
@@ -6029,7 +6028,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ICE_PUNCH,
       //"moveId" "Taunt"
     },
     [ITEM_TM63] =
@@ -6047,7 +6046,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SHADOW_PUNCH,
       //"moveId" "IceBeam"
     },
     [ITEM_TM64] =
@@ -6065,7 +6064,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_POISON_JAB,
       //"moveId" "Blizzard"
     },
     [ITEM_TM65] =
@@ -6083,7 +6082,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DRAIN_PUNCH,
       //"moveId" "HyperBeam"
     },
     [ITEM_TM66] =
@@ -6101,7 +6100,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_COMET_PUNCH,
       //"moveId" "LightScreen"
     },
     [ITEM_TM67] =
@@ -6119,7 +6118,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WILL_O_WISP,
       //"moveId" "Protect"
     },
     [ITEM_TM68] =
@@ -6137,7 +6136,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_MEMENTO,
       //"moveId" "RainDance"
     },
     [ITEM_TM69] =
@@ -6155,7 +6154,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SILVER_WIND,
       //"moveId" "GigaDrain"
     },
     [ITEM_TM70] =
@@ -6173,7 +6172,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_OMINOUS_WIND,
       //"moveId" "Safeguard"
     },
     [ITEM_TM71] =
@@ -6191,7 +6190,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLING,
       //"moveId" "Frustration"
     },
     [ITEM_TM72] =
@@ -6209,7 +6208,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_EMBARGO,
       //"moveId" "SolarBeam"
     },
     [ITEM_TM73] =
@@ -6227,7 +6226,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_RECYCLE,
       //"moveId" "IronTail"
     },
     [ITEM_TM74] =
@@ -6245,7 +6244,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_HEAL_BLOCK,
       //"moveId" "Thunderbolt"
     },
     [ITEM_TM75] =
@@ -6263,7 +6262,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_THUNDER_FANG,
       //"moveId" "Thunder"
     },
     [ITEM_TM76] =
@@ -6281,7 +6280,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FIRE_FANG,
       //"moveId" "Earthquake"
     },
     [ITEM_TM77] =
@@ -6299,7 +6298,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ICE_FANG,
       //"moveId" "Return"
     },
     [ITEM_TM78] =
@@ -6317,7 +6316,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_EXPLOSION,
       //"moveId" "Dig"
     },
     [ITEM_TM79] =
@@ -6335,7 +6334,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SHADOW_CLAW,
       //"moveId" "Psychic"
     },
     [ITEM_TM80] =
@@ -6353,7 +6352,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_NIGHT_SLASH,
       //"moveId" "ShadowBall"
     },
     [ITEM_TM81] =
@@ -6371,7 +6370,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_RAZOR_LEAF,
       //"moveId" "BrickBreak"
     },
     [ITEM_TM82] =
@@ -6389,7 +6388,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_X_SCISSOR,
       //"moveId" "DoubleTeam"
     },
     [ITEM_TM83] =
@@ -6407,7 +6406,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_CROSS_POISON,
       //"moveId" "Reflect"
     },
     [ITEM_TM84] =
@@ -6425,7 +6424,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_PSYCHO_CUT,
       //"moveId" "ShockWave"
     },
     [ITEM_TM85] =
@@ -6443,7 +6442,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FALSE_SWIPE,
       //"moveId" "Flamethrower"
     },
     [ITEM_TM86] =
@@ -6461,7 +6460,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_PAYBACK,
       //"moveId" "SludgeBomb"
     },
     [ITEM_TM87] =
@@ -6479,7 +6478,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GIGA_IMPACT,
       //"moveId" "Sandstorm"
     },
     [ITEM_TM88] =
@@ -6497,7 +6496,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROCK_POLISH,
       //"moveId" "FireBlast"
     },
     [ITEM_TM89] =
@@ -6515,7 +6514,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_MUD_SPORT,
       //"moveId" "RockTomb"
     },
     [ITEM_TM90] =
@@ -6533,7 +6532,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WATER_SPORT,
       //"moveId" "AerialAce"
     },
     [ITEM_TM91] =
@@ -6551,7 +6550,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_AURORA_VEIL,
       //"moveId" "Torment"
     },
     [ITEM_TM92] =
@@ -6569,7 +6568,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_STONE_EDGE,
       //"moveId" "Facade"
     },
     [ITEM_TM93] =
@@ -6587,7 +6586,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_REVENGE,
       //"moveId" "SecretPower"
     },
     [ITEM_TM94] =
@@ -6605,7 +6604,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_AVALANCHE,
       //"moveId" "Rest"
     },
     [ITEM_TM95] =
@@ -6623,7 +6622,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_THUNDER_WAVE,
       //"moveId" "Attract"
     },
     [ITEM_TM96] =
@@ -6641,7 +6640,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GLARE,
       //"moveId" "Thief"
     },
     [ITEM_TM97] =
@@ -6659,7 +6658,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GYRO_BALL,
       //"moveId" "SteelWing"
     },
     [ITEM_TM98] =
@@ -6677,7 +6676,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ELECTRO_BALL,
       //"moveId" "SkillSwap"
     },
     [ITEM_TM99] =
@@ -6695,7 +6694,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SWORDS_DANCE,
       //"moveId" "Snatch"
     },
     [ITEM_TM100] =
@@ -6713,8 +6712,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_POWER_TRICK,
     }, //+50
     [ITEM_TM101] =
     {
@@ -6731,7 +6729,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_POWER_SHIFT,
       //"moveId" "FocusPunch"
     },
     [ITEM_TM102] =
@@ -6749,7 +6747,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_POWER_SWAP,
       //"moveId" "DragonClaw"
     },
     [ITEM_TM103] =
@@ -6767,7 +6765,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GUARD_SWAP,
       //"moveId" "WaterPulse"
     },
     [ITEM_TM104] =
@@ -6785,7 +6783,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SPEED_SWAP,
       //"moveId" "CalmMind"
     },
     [ITEM_TM105] =
@@ -6803,7 +6801,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_STEALTH_ROCK,
       //"moveId" "Roar"
     },
     [ITEM_TM106] =
@@ -6821,7 +6819,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SPIKES,
       //"moveId" "Toxic"
     },
     [ITEM_TM107] =
@@ -6839,7 +6837,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FIRE_SPIN,
       //"moveId" "Hail"
     },
     [ITEM_TM108] =
@@ -6857,7 +6855,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SAND_TOMB,
       //"moveId" "BulkUp"
     },
     [ITEM_TM109] =
@@ -6875,7 +6873,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WHIRLPOOL,
       //"moveId" "BulletSeed"
     },
     [ITEM_TM110] =
@@ -6893,7 +6891,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SWARM,
       //"moveId" "HiddenPower"
     },
     [ITEM_TM111] =
@@ -6911,7 +6909,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_PSYCH_UP,
       //"moveId" "SunnyDay"
     },
     [ITEM_TM112] =
@@ -6929,7 +6927,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_CAPTIVATE,
       //"moveId" "Taunt"
     },
     [ITEM_TM113] =
@@ -6947,7 +6945,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_CONFIDE,
       //"moveId" "IceBeam"
     },
     [ITEM_TM114] =
@@ -6965,7 +6963,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FAKE_TEARS,
       //"moveId" "Blizzard"
     },
     [ITEM_TM115] =
@@ -6983,7 +6981,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ACID_SPRAY,
       //"moveId" "HyperBeam"
     },
     [ITEM_TM116] =
@@ -7001,7 +6999,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DARK_PULSE,
       //"moveId" "LightScreen"
     },
     [ITEM_TM117] =
@@ -7019,7 +7017,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROCK_THROW,
       //"moveId" "Protect"
     },
     [ITEM_TM118] =
@@ -7037,7 +7035,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_POWER_GEM,
       //"moveId" "RainDance"
     },
     [ITEM_TM119] =
@@ -7055,7 +7053,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SLEEP_TALK,
       //"moveId" "GigaDrain"
     },
     [ITEM_TM120] =
@@ -7073,7 +7071,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SNORE,
       //"moveId" "Safeguard"
     },
     [ITEM_TM121] =
@@ -7091,7 +7089,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_NATURAL_GIFT,
       //"moveId" "Frustration"
     },
     [ITEM_TM122] =
@@ -7109,7 +7107,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GRASS_KNOT,
       //"moveId" "SolarBeam"
     },
     [ITEM_TM123] =
@@ -7127,7 +7125,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SWAGGER,
       //"moveId" "IronTail"
     },
     [ITEM_TM124] =
@@ -7145,7 +7143,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_PLUCK,
       //"moveId" "Thunderbolt"
     },
     [ITEM_TM125] =
@@ -7163,7 +7161,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BUG_BITE,
       //"moveId" "Thunder"
     },
     [ITEM_TM126] =
@@ -7181,7 +7179,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_U_TURN,
       //"moveId" "Earthquake"
     },
     [ITEM_TM127] =
@@ -7199,7 +7197,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_VOLT_SWITCH,
       //"moveId" "Return"
     },
     [ITEM_TM128] =
@@ -7217,7 +7215,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLIP_TURN,
       //"moveId" "Dig"
     },
     [ITEM_TM129] =
@@ -7235,7 +7233,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_UP_ROOT,
       //"moveId" "Psychic"
     },
     [ITEM_TM130] =
@@ -7253,7 +7251,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DIVE_BOMB,
       //"moveId" "ShadowBall"
     },
     [ITEM_TM131] =
@@ -7271,7 +7269,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SUBSTITUTE,
       //"moveId" "BrickBreak"
     },
     [ITEM_TM132] =
@@ -7289,7 +7287,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLASH_CANNON,
       //"moveId" "DoubleTeam"
     },
     [ITEM_TM133] =
@@ -7307,7 +7305,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_AGILITY,
       //"moveId" "Reflect"
     },
     [ITEM_TM134] =
@@ -7325,7 +7323,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_TRICK_ROOM,
       //"moveId" "ShockWave"
     },
     [ITEM_TM135] =
@@ -7343,7 +7341,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_MAGIC_ROOM,
       //"moveId" "Flamethrower"
     },
     [ITEM_TM136] =
@@ -7361,7 +7359,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WONDER_ROOM,
       //"moveId" "SludgeBomb"
     },
     [ITEM_TM137] =
@@ -7379,7 +7377,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_GRAVITY,
       //"moveId" "Sandstorm"
     },
     [ITEM_TM138] =
@@ -7397,7 +7395,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DRAINING_KISS,
       //"moveId" "FireBlast"
     },
     [ITEM_TM139] =
@@ -7415,7 +7413,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_LEECH_LIFE,
       //"moveId" "RockTomb"
     },
     [ITEM_TM140] =
@@ -7433,7 +7431,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FROST_BREATH,
       //"moveId" "AerialAce"
     },
     [ITEM_TM141] =
@@ -7451,7 +7449,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WEATHER_BALL,
       //"moveId" "Torment"
     },
     [ITEM_TM142] =
@@ -7469,7 +7467,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLAME_CHARGE,
       //"moveId" "Facade"
     },
     [ITEM_TM143] =
@@ -7487,7 +7485,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DUAL_WINGBEAT,
       //"moveId" "SecretPower"
     },
     [ITEM_TM144] =
@@ -7505,7 +7503,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_KNOCK_OFF,
       //"moveId" "Rest"
     },
     [ITEM_TM145] =
@@ -7523,7 +7521,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_BEAT_UP,
       //"moveId" "Attract"
     },
     [ITEM_TM146] =
@@ -7541,7 +7539,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_RAGE,
       //"moveId" "Thief"
     },
     [ITEM_TM147] =
@@ -7559,7 +7557,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROCK_TOMB,
       //"moveId" "SteelWing"
     },
     [ITEM_TM148] =
@@ -7577,7 +7575,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ICICLE_SPEAR,
       //"moveId" "SkillSwap"
     },
     [ITEM_TM149] =
@@ -7595,7 +7593,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ACROBATICS,
       //"moveId" "Snatch"
     },
     [ITEM_TM150] =
@@ -7613,7 +7611,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ASSURANCE,
       //"moveId" "Snatch"
     },
     [ITEM_TM151] =
@@ -7631,8 +7629,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_SOLAR_BLADE,
     }, //+100
     [ITEM_TM152] =
     {
@@ -7649,8 +7646,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_ICY_WIND,
     }, //+100
     [ITEM_TM153] =
     {
@@ -7667,8 +7663,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_METAL_CLAW,
     }, //
     [ITEM_TM154] =
     {
@@ -7685,8 +7680,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_HOLD_BACK,
     }, //+100
     [ITEM_TM155] =
     {
@@ -7703,8 +7697,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_HEADBUTT,
     }, //+100
     [ITEM_TM156] =
     {
@@ -7721,8 +7714,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_HI_JUMP_KICK,
     }, //+100
     [ITEM_TM157] =
     {
@@ -7739,8 +7731,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_DOUBLE_EDGE,
     }, //+100
     [ITEM_TM158] =
     {
@@ -7757,8 +7748,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_MISTY_EXPLOSION,
     }, //+100
     [ITEM_TM159] =
     {
@@ -7775,8 +7765,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_SNOWBALL,
     }, //+100
     [ITEM_TM160] =
     {
@@ -7793,8 +7782,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_ENERGY_BALL,
     }, //+100
     [ITEM_TM161] =
     {
@@ -7811,13 +7799,12 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
-      //"moveId" "Overheat"
+      .secondaryId =  MOVE_CELEBRATE,
     }, //+100
     [ITEM_HM01] =
     {
       .name = _("HM01"),
-      .itemId = ITEM_HM01,
+      .itemId = ITEM_HM01_CUT,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7829,13 +7816,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_CUT,
       //"moveId" "Cut"
     },
     [ITEM_HM02] =
     {
       .name = _("HM02"),
-      .itemId = ITEM_HM02,
+      .itemId = ITEM_HM02_FLY,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7847,13 +7834,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLY,
       //"moveId" "Fly"
     },
     [ITEM_HM03] =
     {
       .name = _("HM03"),
-      .itemId = ITEM_HM03,
+      .itemId = ITEM_HM03_SURF,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7865,13 +7852,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_SURF,
       //"moveId" "Surf"
     },
     [ITEM_HM04] =
     {
       .name = _("HM04"),
-      .itemId = ITEM_HM04,
+      .itemId = ITEM_HM04_STRENGTH,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7883,13 +7870,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_STRENGTH,
       //"moveId" "Strength"
     },
     [ITEM_HM05] =
     {
       .name = _("HM05"),
-      .itemId = ITEM_HM05,
+      .itemId = ITEM_HM05_FLASH,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7901,13 +7888,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_FLASH,
       //"moveId" "Flash"
     },
     [ITEM_HM06] =
     {
       .name = _("HM06"),
-      .itemId = ITEM_HM06,
+      .itemId = ITEM_HM06_ROCK_SMASH,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7919,13 +7906,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROCK_SMASH,
       //"moveId" "RockSmash"
     },
     [ITEM_HM07] =
     {
       .name = _("HM07"),
-      .itemId = ITEM_HM07,
+      .itemId = ITEM_HM07_WATERFALL,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7937,13 +7924,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_WATERFALL,
       //"moveId" "Waterfall"
     },
     [ITEM_HM08] =
     {
       .name = _("HM08"),
-      .itemId = ITEM_HM08,
+      .itemId = ITEM_HM08_DIVE,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7954,13 +7941,13 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_DIVE,
       //"moveId" "Dive"
     },
     [ITEM_HM09] =
     {
       .name = _("HM09"),
-      .itemId = ITEM_HM09,
+      .itemId = ITEM_HM09_ROCK_CLIMB,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
@@ -7971,7 +7958,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  0,
+      .secondaryId =  MOVE_ROCK_CLIMB,
       //"moveId" "RockClimb"
     },//begin of mega, descriptinos still to write
 

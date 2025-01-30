@@ -2909,8 +2909,42 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     1/28/2025 vsonic important
 
     */
+   goto QUEST_LOG_UPDATE  //for if new item find should be updated in quest log
    goto FIELD_MOVE_LIST_LOGIC
    /*
+
+   hmm think will actually do EE tmhm refactor
+   so tmhm learnsets can just take move values
+
+   not sure how tm order will be handled then,
+   potentially still use sTMHMMoves for that?
+
+   The issue in my mind with that was adding moves
+   that AREN'T tms far as I could tell there isn't protection for that?
+   
+   Looked and its moslty handled by py scripts
+
+   Note(moves are just moves, so think teachablelearnsets
+   is just all moves it can learn, even if not a tm/hm
+   but then when applying a tm it can filter if the move is
+   a tm/hm move
+   decide put move value for tm into secondary id
+   that way don't need that weird move item transpose logic)
+
+   see if I can do w python,
+   looop src/data/items.h
+   read .itemId if is item_tm##
+   copy and store that value 
+   replace item_tm## with MOVE
+   and paste it into secondaryId  in place of the 0
+
+   should be easy to do
+   then can do same thing for tmhm learnset file,
+
+   Did then also came up with idea to fully separate tmhm list
+   from Item Id, mostly works, now just need to get the
+   order Hms etc. are printed in the tm case to shift with the number change
+   1/29/2025
 
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
