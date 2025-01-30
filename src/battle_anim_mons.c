@@ -1975,7 +1975,6 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 a3, s16
     u8 spriteId;
     u16 sheet = LoadSpriteSheet(&gUnknown_83AE084[a3]);
     u16 palette = AllocSpritePalette(gUnknown_83AE054[a3].paletteTag);
-    bool32 isShiny = isShiny;
 
     if (gMonSpritesGfxPtr != NULL && gMonSpritesGfxPtr->multiUseBuffer == NULL)
         gMonSpritesGfxPtr->multiUseBuffer = AllocZeroed(0x2000);
