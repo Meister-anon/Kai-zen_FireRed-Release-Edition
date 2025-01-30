@@ -391,6 +391,7 @@ extern const u8 gMoveDescription_Snatch[];
 //const u8 gItemDescription_ITEM_TM49[] = _("A move that steals the effects of\nany status-changing or healing move\nthat the foe tries to use.");
 extern const u8 gMoveDescription_Overheat[];
 //const u8 gItemDescription_ITEM_TM50[] = _("A maximum-power attack of great\nferocity, but one that also sharply\nreduces the user's SP. ATK stat.");
+
 //tm expansion
 extern const u8 gWILD_CHARGE_Description[];
 extern const u8 gMoveDescription_Roost[];
@@ -487,7 +488,7 @@ extern const u8 gDUAL_WINGBEAT_Description[];
 extern const u8 gMoveDescription_KnockOff[];
 extern const u8 gMoveDescription_BeatUp[];
 extern const u8 gMoveDescription_Rage[];
-extern const u8 gMoveDescription_RockTomb[];
+extern const u8 gMoveDescription_MagicCoat[];
 extern const u8 gMoveDescription_IcicleSpear[];
 extern const u8 gACROBATICS_Description[];
 extern const u8 gMoveDescription_Assurance[];

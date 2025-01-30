@@ -7545,11 +7545,11 @@ const struct Item gItems[] =
     [ITEM_TM147] =
     {
       .name = _("TM147"),
-      .itemId = ITEM_TM147_ROCK_TOMB,
+      .itemId = ITEM_TM147_MAGIC_COAT,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
-     .description = gMoveDescription_RockTomb,
+     .description = gMoveDescription_MagicCoat,
 //      "description":  "The foe is struck with steel-hard\\nwings. It may also raise the user's\\nDEFENSE stat.,
       .importance = 0,
       .exitsBagOnUse = 0,
@@ -7557,7 +7557,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_PARTY_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
-      .secondaryId =  MOVE_ROCK_TOMB,
+      .secondaryId =  MOVE_MAGIC_COAT,
       //"moveId" "SteelWing"
     },
     [ITEM_TM148] =
@@ -7810,7 +7810,7 @@ const struct Item gItems[] =
       .holdEffectParam =  0,
      .description = gMoveDescription_Cut,
 //      "description":  "Attacks the foe with sharp blades\\nor claws. It can also cut down thin\\ntrees and grass outside of battle.,
-      .importance = 1,
+      .importance = 1,  //only HM & single key items have importance 1
       .exitsBagOnUse = 0,
       .pocket = POCKET_TM_CASE,
       .type = ITEM_USE_PARTY_MENU,
