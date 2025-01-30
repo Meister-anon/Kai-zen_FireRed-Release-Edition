@@ -13,7 +13,6 @@
 #include "util.h"
 #include "money.h"
 #include "pokemon.h"
-#include "tm_case.h"
 #include "pokemon_storage_system.h"
 #include "battle_gfx_sfx_util.h"
 #include "battle_controllers.h"
@@ -11036,6 +11035,50 @@ u8 IsTMHM(u16 itemId)
     if (ItemId_GetPocket(itemId) == POCKET_TM_CASE)
         return TRUE;
     return FALSE;
+}
+
+//plan return u32 split in to,
+//to take out tm/hm number and whether its a tm or hm
+//changed to u16 so can do exactly like relative evo, 
+//as I don't understand the bit stuff to do it differentl
+//with this setup would allow for max 250 (254), tms and or hms, which is fine even SV has 229 total
+u16 GetTMHMNumberandCategory(u16 itemId)
+{
+    u16 Total_TM_data;
+    u8 TMHMValue; 
+    u8 TMHM_Cat = NEITHER; //loop tmlist if found there set to false
+
+    for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+    {
+        if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+        {
+            TMHM_Cat = TM_MOVE;
+            break;
+        }    
+    }
+
+    if (!TMHM_Cat)
+    {
+        for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        {
+            if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+            {
+                TMHM_Cat = HM_MOVE;
+                break;
+            }  
+        }
+    }
+    
+    //to pull data out
+    /*
+    //TMHMValue = (Total_TM_data & 0xFF);
+    //TMHM_Cat = ((Total_TM_data & 0xFF00) >> 8);
+    //+1 to get the actual tm value since it starts at 0
+    */
+    Total_TM_data = ((TMHMValue + 1) | (TMHM_Cat << 8));
+
+    //now figure to return hmhmvalue and hmhm_cat
+    return Total_TM_data;
 }
 
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)

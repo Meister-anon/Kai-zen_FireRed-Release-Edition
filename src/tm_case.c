@@ -75,209 +75,15 @@ enum {
 
 #define TAG_DISC 400
 
-#define DISC_HIDDEN 0xFF // When no TM/HM is selected, hide the disc sprite
+//change to never run into  a possible tm value
+//and not use 0xFFFF because storage value is an s16
+#define DISC_HIDDEN 0x4000 // When no TM/HM is selected, hide the disc sprite
 
 enum {
     ANIM_TM,
     ANIM_HM,
 };
 
-//moved here this will be hard order for tms
-//no longer hard stuck to item order
-
-#define TMHM_LIST
-const u16 gTM_Moves[] =
-{
-    MOVE_FOCUS_PUNCH,
-    MOVE_DRAGON_CLAW,
-    MOVE_WATER_PULSE,
-    MOVE_CALM_MIND,
-    MOVE_ROAR,
-    MOVE_TOXIC,
-    MOVE_HAIL,
-    MOVE_BULK_UP,
-    MOVE_BULLET_SEED,
-    MOVE_HIDDEN_POWER,
-    MOVE_SUNNY_DAY,
-    MOVE_TAUNT,
-    MOVE_ICE_BEAM,
-    MOVE_BLIZZARD,
-    MOVE_HYPER_BEAM,
-    MOVE_LIGHT_SCREEN,
-    MOVE_PROTECT,
-    MOVE_RAIN_DANCE,
-    MOVE_GIGA_DRAIN,
-    MOVE_SAFEGUARD,
-    MOVE_FRUSTRATION,
-    MOVE_SOLAR_BEAM,
-    MOVE_IRON_TAIL,
-    MOVE_THUNDERBOLT,
-    MOVE_THUNDER,
-    MOVE_EARTHQUAKE,
-    MOVE_RETURN,
-    MOVE_DIG,
-    MOVE_PSYCHIC,
-    MOVE_SHADOW_BALL,
-    MOVE_BRICK_BREAK,
-    MOVE_DOUBLE_TEAM,
-    MOVE_REFLECT,
-    MOVE_SHOCK_WAVE,
-    MOVE_FLAMETHROWER,
-    MOVE_SLUDGE_BOMB,
-    MOVE_SANDSTORM,
-    MOVE_FIRE_BLAST,
-    MOVE_ROCK_TOMB,
-    MOVE_AERIAL_ACE,
-    MOVE_TORMENT,
-    MOVE_FACADE,
-    MOVE_SECRET_POWER,
-    MOVE_REST,
-    MOVE_ATTRACT,
-    MOVE_THIEF,
-    MOVE_STEEL_WING,
-    MOVE_SKILL_SWAP,
-    MOVE_SNATCH,
-    MOVE_OVERHEAT, //end of default tms
-    MOVE_WILD_CHARGE,
-    MOVE_ROOST,
-    MOVE_TELEPORT,
-    MOVE_QUASH,
-    MOVE_HONE_CLAWS,
-    MOVE_BRINE,
-    MOVE_CHARGE_BEAM,
-    MOVE_ENDURE,
-    MOVE_DRAGON_PULSE,
-    MOVE_THUNDER_PUNCH,
-    MOVE_FIRE_PUNCH,
-    MOVE_ICE_PUNCH,
-    MOVE_SHADOW_PUNCH,
-    MOVE_POISON_JAB,
-    MOVE_DRAIN_PUNCH,
-    MOVE_COMET_PUNCH,
-    MOVE_WILL_O_WISP,
-    MOVE_MEMENTO,
-    MOVE_SILVER_WIND,
-    MOVE_OMINOUS_WIND,
-    MOVE_FLING,
-    MOVE_EMBARGO,
-    MOVE_RECYCLE,
-    MOVE_HEAL_BLOCK,
-    MOVE_THUNDER_FANG,
-    MOVE_FIRE_FANG,
-    MOVE_ICE_FANG,
-    MOVE_EXPLOSION,
-    MOVE_SHADOW_CLAW,
-    MOVE_NIGHT_SLASH,
-    MOVE_RAZOR_LEAF,
-    MOVE_X_SCISSOR,
-    MOVE_CROSS_POISON,
-    MOVE_PSYCHO_CUT,
-    MOVE_FALSE_SWIPE,
-    MOVE_PAYBACK,
-    MOVE_GIGA_IMPACT,
-    MOVE_ROCK_POLISH,
-    MOVE_MUD_SPORT,
-    MOVE_WATER_SPORT,
-    MOVE_AURORA_VEIL,
-    MOVE_STONE_EDGE,
-    MOVE_REVENGE,
-    MOVE_AVALANCHE,
-    MOVE_THUNDER_WAVE,
-    MOVE_GLARE,
-    MOVE_GYRO_BALL,
-    MOVE_ELECTRO_BALL,
-    MOVE_SWORDS_DANCE,
-    MOVE_POWER_TRICK,
-    MOVE_POWER_SHIFT,
-    MOVE_POWER_SWAP,
-    MOVE_GUARD_SWAP,
-    MOVE_SPEED_SWAP,
-    MOVE_STEALTH_ROCK,
-    MOVE_SPIKES,
-    MOVE_FIRE_SPIN,
-    MOVE_SAND_TOMB,
-    MOVE_WHIRLPOOL,
-    MOVE_SWARM,
-    MOVE_PSYCH_UP,
-    MOVE_CAPTIVATE,
-    MOVE_CONFIDE,
-    MOVE_FAKE_TEARS,
-    MOVE_ACID_SPRAY,
-    MOVE_DARK_PULSE,
-    MOVE_ROCK_THROW,
-    MOVE_POWER_GEM,
-    MOVE_SLEEP_TALK,
-    MOVE_SNORE,
-    MOVE_NATURAL_GIFT,
-    MOVE_GRASS_KNOT,
-    MOVE_SWAGGER,
-    MOVE_PLUCK,
-    MOVE_BUG_BITE,
-    MOVE_U_TURN,
-    MOVE_VOLT_SWITCH,
-    MOVE_FLIP_TURN,
-    MOVE_UP_ROOT,
-    MOVE_DIVE_BOMB,
-    MOVE_SUBSTITUTE,
-    MOVE_FLASH_CANNON,
-    MOVE_AGILITY,
-    MOVE_TRICK_ROOM,
-    MOVE_MAGIC_ROOM,
-    MOVE_WONDER_ROOM,
-    MOVE_GRAVITY,
-    MOVE_DRAINING_KISS,
-    MOVE_LEECH_LIFE,
-    MOVE_FROST_BREATH,
-    MOVE_WEATHER_BALL,
-    MOVE_FLAME_CHARGE,
-    MOVE_DUAL_WINGBEAT,
-    MOVE_KNOCK_OFF,
-    MOVE_BEAT_UP,
-    MOVE_RAGE,
-    MOVE_MAGIC_COAT,
-    MOVE_ICICLE_SPEAR,
-    MOVE_ACROBATICS,
-    MOVE_ASSURANCE,
-    MOVE_SOLAR_BLADE,
-    MOVE_ICY_WIND,
-    MOVE_METAL_CLAW,
-    MOVE_HOLD_BACK,
-    MOVE_HEADBUTT,
-    MOVE_HI_JUMP_KICK,
-    MOVE_DOUBLE_EDGE,
-    MOVE_MISTY_EXPLOSION,
-    MOVE_SNOWBALL,
-    MOVE_ENERGY_BALL,
-    MOVE_CELEBRATE,  //last tm
-    LIST_END
-    };
-
-const u16 gHM_Moves[] =
-{
-    
-    MOVE_CUT,
-    MOVE_FLY,
-    MOVE_SURF,
-    MOVE_STRENGTH,
-    MOVE_FLASH,
-    MOVE_ROCK_SMASH,
-    MOVE_WATERFALL,
-    MOVE_DIVE,
-    MOVE_ROCK_CLIMB,
-    LIST_END
-};
-//add sound moves to list,
-//round, echoed voice, hyper voice
-//also smack down and think focus blast
-//think give echoed voice to zubat line, as learned move or tm?
-//hmm both yeah both
-//need to go over scarlett violet tms and add a few 
-//adding rock slide for hitmonlee 
-//add gunk shot to list, poison types have WOEFULLY bad stab options *facepalm
-//also venom drench
-//draco meteor and dragon ascent will be tutor moves
-//want add other move I added as a screan to list alongside reflect and light screen
-//magic coat that's it
 
 struct UnkStruct_203B10C
 {
@@ -380,9 +186,9 @@ static void HandleCreateYesNoMenu(u8 taskId, const struct YesNoFuncTable * ptrs)
 static u8 AddTMContextMenu(u8 * a0, u8 a1);
 static void RemoveTMContextMenu(u8 * a0);
 static u8 CreateTMSprite(u16 itemId);
-static void SetTMSpriteAnim(struct Sprite * sprite, u8 tmIdx);
+static void SetTMSpriteAnim(struct Sprite * sprite, u8 mode); //mode is if tmhm
 static void TintTMSpriteByType(u8 type); //
-static void UpdateTMSpritePosition(struct Sprite * sprite, u8 tmIdx);
+static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx); //u16 tmidx specifically so DISC_HIDDEN doesn't overwrite tm, max tm/hm still 254
 static void InitSelectedTMSpriteData(u8 a0, u16 itemId);
 static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite);
 static void LoadTMTypePalettes(void); //
@@ -1063,12 +869,14 @@ static void GetTMNumberAndMoveString(u8 * dest, u16 itemId)
     StringCopy(dest, gStringVar4);
 }
 
+//vsonic important, see what that pocket position thing is
+//my be the issue I'm having screwing order
 static void TMCase_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *list)
 {
     u16 itemId;
 
     if (itemIndex == -2) //index -2 seems to be close tm box
-        itemId = 0; //actually think this may be issue causing mew to not tint when on close tm case screen, nope didn't work cuz doesn't track to other function
+        itemId = 0;
     else
         itemId = BagGetItemIdByPocketPosition(POCKET_TM_CASE, itemIndex);
 
@@ -1951,52 +1759,71 @@ static void HandleCreateYesNoMenu(u8 taskId, const struct YesNoFuncTable *ptrs)
     CreateYesNoMenuWithCallbacks(taskId, &sYesNoWindowTemplate, 2, 0, 2, 0x5B, 0x0E, ptrs);
 }
 
-static u8 AddTMContextMenu(u8 * a0, u8 a1)
+static u8 AddTMContextMenu(u8 * windowId, u8 windowIndex)
 {
-    if (*a0 == 0xFF)
+    if (*windowId == 0xFF)
     {
-        *a0 = AddWindow(&sTMContextWindowTemplates[a1]);
-        TMCase_SetWindowBorder1(*a0);
+        *windowId = AddWindow(&sTMContextWindowTemplates[windowIndex]);
+        TMCase_SetWindowBorder1(*windowId);
         ScheduleBgCopyTilemapToVram(0);
     }
-    return *a0;
+    return *windowId;
 }
 
-static void RemoveTMContextMenu(u8 * a0)
+static void RemoveTMContextMenu(u8 * windowId)
 {
-    ClearStdWindowAndFrameToTransparent(*a0, FALSE);
-    ClearWindowTilemap(*a0);
-    RemoveWindow(*a0);
+    ClearStdWindowAndFrameToTransparent(*windowId, FALSE);
+    ClearWindowTilemap(*windowId);
+    RemoveWindow(*windowId);
     ScheduleBgCopyTilemapToVram(0);
-    *a0 = 0xFF;
+    *windowId = 0xFF;
 }
 
+//go through these, that use tmIdx, or ITEM_TM01
+//change to separate from item id,
+//for tmIdx mostly want to keep from having to calculate
+//in this function
+//but idea for the ones that need to do something
+//diff if tm or hm, add mode value
+//hopefully can do search before this,
+//if itemId is locked in above this,
+//as my current search is slow, //well no that's the fill,
+//should be much faster as I won't need to double loop,
+//if I can do above this can potentially return if tm or hm as well,
+//maybe make a function that can return both?
+//would need to do the type split thing I used for relative evo,
+//split a u32 into 2 u16s?
+//ok unfortunately this is the first instance of item set...
+//even more unfortunately its built off scroll index,
+//so if my logic is too slow, it'll directly affect scroll speed
+//or at the least be VERY noticeable...
 static u8 CreateTMSprite(u16 itemId)
 {
     u8 spriteId = CreateSprite(&sTMSpriteTemplate, DISC_BASE_X, DISC_BASE_Y, 0); //think is coord for tm sprite sits in case 
-    u8 tmIdx;
+    u16 itemData = GetTMHMNumberandCategory(itemId); //store data so don't need 2nd function call
+    u8 tmIdx = (itemData & 0xFF); //tm/hm id
+    u8 tmCat = ((itemData & 0xFF00) >> 8); //is tm or hm
     
-    if (itemId == ITEM_NONE)
+    if (itemId == ITEM_NONE) //ok didn't have the constant  in, but THIS is where value of disc hidden is relevant
     {
-        UpdateTMSpritePosition(&gSprites[spriteId], 0xFF);
+        UpdateTMSpritePosition(&gSprites[spriteId], DISC_HIDDEN);
         return spriteId;
     }
     else
     {
-        tmIdx = itemId - ITEM_TM01;
-        //r5 = itemId - 33; //think this uses 33 because tm uses - 32 to find id values,  this is using 33 prob need to adjust later w tm update/expansion vsonic
-        SetTMSpriteAnim(&gSprites[spriteId], tmIdx); //or not, did expansion so not usign bit field but still worked as is?
+        SetTMSpriteAnim(&gSprites[spriteId], tmCat); //or not, did expansion so not usign bit field but still worked as is?
         TintTMSpriteByType(gBattleMoves[ItemIdToBattleMoveId(itemId)].type);
         UpdateTMSpritePosition(&gSprites[spriteId], tmIdx);
         return spriteId;
     }
 }
 
-static void SetTMSpriteAnim(struct Sprite * sprite, u8 tmIdx)
+//as only condition is tm or hm, swap tmIdx for cat/mode
+static void SetTMSpriteAnim(struct Sprite * sprite, u8 mode)
 {
-    if (tmIdx >= NUM_TECHNICAL_MACHINES) //believe this is also for tm hm, and would need to change i.e 50 base tms
+    if (mode == HM_MOVE) //believe this is also for tm hm, and would need to change i.e 50 base tms
         StartSpriteAnim(sprite, ANIM_HM);
-    else
+    else if (mode == TM_MOVE)
         StartSpriteAnim(sprite, ANIM_TM);
 }
 
@@ -2010,7 +1837,7 @@ static void TintTMSpriteByType(u8 type) //don't get this type here is worthless 
     }
 }
 
-static void UpdateTMSpritePosition(struct Sprite * sprite, u8 tmIdx) //vsonic
+static void UpdateTMSpritePosition(struct Sprite * sprite, u16 tmIdx) //vsonic
 {
     s32 x, y;
     if (tmIdx == DISC_HIDDEN) //var is tm id,  ff is close menu I believe
@@ -2021,55 +1848,56 @@ static void UpdateTMSpritePosition(struct Sprite * sprite, u8 tmIdx) //vsonic
     }
     else
     {
-        if (tmIdx >= NUM_TECHNICAL_MACHINES) //think this is tm idea as well, so may need to adjust with tm update/expansion
-            tmIdx -= NUM_TECHNICAL_MACHINES;
-        else
-            tmIdx += NUM_HIDDEN_MACHINES;
-        //x = 0x29 - (((0xE00 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)) >> 8); //what is the 58 for?
-        //y = 0x23 + (((0x800 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)) >> 8); //adjusted y value here, to match other function
 
         x = DISC_BASE_X - Q_24_8_TO_INT(Q_24_8(14 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
         y = DISC_BASE_Y + Q_24_8_TO_INT(Q_24_8(8 * tmIdx) / (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES));
     }
     sprite->pos1.x = x;
     sprite->pos1.y = y; //0x16 value was 2E
-}
+}//changed tmIdx to u16 think shouldn't cause any issue, value stored there isn't changing.
 
+#define sItemId  data[0]
+#define sState   data[1]
 static void InitSelectedTMSpriteData(u8 spriteId, u16 itemId)
 {
-    gSprites[spriteId].data[0] = itemId;
-    gSprites[spriteId].data[1] = 0;
+    gSprites[spriteId].sItemId = itemId;
+    gSprites[spriteId].sState = 0;
     gSprites[spriteId].callback = SpriteCB_MoveTMSpriteInCase;
 }
 
 static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
 {
-    switch (sprite->data[1])
+    u16 itemData = GetTMHMNumberandCategory(sprite->sItemId); //store data so don't need 2nd function call
+    u8 tmIdx = (itemData & 0xFF); //tm/hm id
+    u8 tmCat = ((itemData & 0xFF00) >> 8); //is tm or hm
+
+    switch (sprite->sState)
     {
     case 0:
-        if (sprite->pos2.y >= 10)
+        // Lower old disc back into case
+        if (sprite->pos2.y >= 10)   //is meant to be distance but my value uses 10, default is 20
         {
-            if (sprite->data[0] != ITEM_NONE)
+            // Old disc is hidden, set up new disc
+            if (sprite->sItemId != ITEM_NONE)
             {
-                sprite->data[1]++;
-                TintTMSpriteByType(gBattleMoves[ItemIdToBattleMoveId(sprite->data[0])].type);
-                sprite->data[0] -= ITEM_TM01;
-                SetTMSpriteAnim(sprite, sprite->data[0]);
-                UpdateTMSpritePosition(sprite, sprite->data[0]);
+                sprite->sState++;
+                TintTMSpriteByType(gBattleMoves[ItemIdToBattleMoveId(sprite->sItemId)].type);
+                SetTMSpriteAnim(sprite, tmCat);
+                UpdateTMSpritePosition(sprite, tmIdx);
             }
             else
                 sprite->callback = SpriteCallbackDummy;
         }
         else
         {
-            sprite->pos2.y += 10;
+            sprite->pos2.y += DISC_Y_MOVE;
         }
         break;
     case 1:
         if (sprite->pos2.y <= 0)
             sprite->callback = SpriteCallbackDummy;
         else
-            sprite->pos2.y -= 10;
+            sprite->pos2.y -= DISC_Y_MOVE;
     }
 }
 
@@ -2096,6 +1924,7 @@ static void SpriteCB_MoveTMSpriteInCase(struct Sprite * sprite) //vsonic
 //this change gives enough space for 32 diff pallets for types
 //so the value no longer needs to be changed its future proof (effectively)
 
+//seems work for tm case but not debug?
 static void LoadTMTypePalettes(void) //would need item and type values
 {
     struct SpritePalette spritePalette;

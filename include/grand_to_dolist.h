@@ -2960,6 +2960,26 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
    Meaning its, protected but you can have extra data that just won't be used at all.
    )
+
+   just did tm refactor and setup tm list in global as static array
+   so can use in num_tms num_hms constants
+
+   unsure if that would break anything byitself,
+   but just noticed corruption in palettes for mon picks
+   at starter selection,  most likely memory leak,
+   starters turtwig, squirtle, then fuecoco,
+   feucoco is fine but after a while of going between the selections
+   the former two's graphic pics were corrupted.
+   
+   I think they took on the colors of the last one,
+   potentially an issue w my changed palette logic?
+   potentially decompression buff?
+
+   ...oh no, its goin further,
+   the naming screen is broken...
+
+   ok after get out of the task everything appears to be fine...
+   
    //added magic coat as tm needs better move description
    also go over effect see if moves that reflect are up to date
    1/30/2025

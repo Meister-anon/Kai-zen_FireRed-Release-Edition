@@ -959,8 +959,8 @@
 #define LAST_BERRY_INDEX ITEM_ENIGMA_BERRY
 #define ITEM_TO_BERRY(itemId)(((itemId - FIRST_BERRY_INDEX) + 1))
 
-#define NUM_TECHNICAL_MACHINES 161 //change to 120 later  / or more plan to add on to tms I think for ease spreading certain moves
-#define NUM_HIDDEN_MACHINES     9
+//#define NUM_TECHNICAL_MACHINES 161 //change to 120 later  / or more plan to add on to tms I think for ease spreading certain moves
+//#define NUM_HIDDEN_MACHINES     9
 
 //copy from emerald for replacing the numerical values in type field in items.json
 // Item type IDs (used to determine the exit callback)

@@ -54,7 +54,6 @@
 #include "string_util.h"
 #include "text.h"
 #include "task.h"
-#include "tm_case.h"
 #include "pokemon_summary_screen.h"
 #include "wild_encounter.h"
 #include "config/debug.h"

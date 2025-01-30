@@ -12,18 +12,7 @@ enum TmCaseType
     TMCASE_REOPENING
 };
 
-/*
-enum {
-    TMCASE_FIELD,
-    TMCASE_GIVE_PARTY,
-    TMCASE_SELL,
-    TMCASE_GIVE_PC,
-    TMCASE_POKEDUDE,
-    TMCASE_REOPENING,
-};*/
 
-extern const u16 gTM_Moves[];
-extern const u16 gHM_Moves[];
 
 // Alternative value for 'allowSelectClose' argument to InitTMCase.
 // Indicates that the previous value should be preserved

@@ -809,7 +809,7 @@ static void UpdatePickupCounter(void)
 {
     u16 *ptr = GetVarPointer(VAR_PICKUP_COUNTER);
     s32 i;
-    u32 j;
+    u32 j,k;
     s32 randomTM = Random() % NUM_TECHNICAL_MACHINES;   //using will make function automatically scale
     u16 arrayItem = sPickupItems[j].itemId;
     
@@ -833,9 +833,22 @@ static void UpdatePickupCounter(void)
                     break;
             }
 
-            if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0)
-                && (Random() % 3))    //makes it only do swap 1/3rd of the time
-                arrayItem = ((ITEM_TM10_HIDDEN_POWER - 9) + randomTM);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
+            if ((sPickupItems[j].itemId == ITEM_TM10_HIDDEN_POWER) && (BagGetQuantityByItemId(ITEM_TM10_HIDDEN_POWER) != 0))
+            {    //makes it only do swap 1/3rd of the time
+                if ((Random() % 3) == 0)
+                {
+                    for (k = ITEM_NONE; k != ITEMS_COUNT; k++)
+                    {
+                        if (gItems[k].pocket != POCKET_TM_CASE)
+                            continue;
+                        if (ItemIdToBattleMoveId(k) == gTM_Moves[randomTM])
+                            break;
+                    }
+                    arrayItem = (k);// give random tm, if already have tm10, will put add random%3  so not super easy to get everything
+                }                    
+                else
+                    arrayItem = sPickupItems[j].itemId;
+            }
             else
                 arrayItem = sPickupItems[j].itemId;
 
