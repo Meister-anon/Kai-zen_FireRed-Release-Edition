@@ -276,6 +276,8 @@ const u16 gHM_Moves[] =
 //add gunk shot to list, poison types have WOEFULLY bad stab options *facepalm
 //also venom drench
 //draco meteor and dragon ascent will be tutor moves
+//want add other move I added as a screan to list alongside reflect and light screen
+//magic coat that's it
 
 struct UnkStruct_203B10C
 {

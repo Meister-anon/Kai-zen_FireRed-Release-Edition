@@ -7393,7 +7393,7 @@ that way you don't need to keep flying aruond to different places looking for th
 
  goto END_TURN_RESET
 
- goto TMHM_LIST //party_menu.h place for listing of tmhms add on as needed as well as update technical_machine and hm count
+ goto TMHM_LIST //moved to tm_case place for listing of tmhms add on as needed as well as update technical_machine and hm count
  /*#define NUM_TECHNICAL_MACHINES 50 //change to 120 later  in item constants file
 #define NUM_HIDDEN_MACHINES     9*/
 
