@@ -2989,6 +2989,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
    //added magic coat as tm needs better move description
    also go over effect see if moves that reflect are up to date
+   
+   also go over daycare.c file see if SetEggBoost works
+   pretty sure I got the special working but the comments show otherwise?
    1/30/2025
 
     Unique hard mode baby!!!

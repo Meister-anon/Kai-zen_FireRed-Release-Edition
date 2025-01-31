@@ -212,6 +212,12 @@ void FreeBerryTagSpriteAssets(void)
 
 //no idea what this is used for seems to be not used?
 //least far as the tm stuff
+//this is used this all the item data
+//its what shows up in debug
+//and why all tms passed 50 are greyed out
+//tm case has its on list for the tm discs,
+//but that is separate
+#define ITEM_ICONS_TABLE
 static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_NONE] = {gFile_graphics_items_icons_question_mark_sheet, gFile_graphics_items_icon_palettes_question_mark_palette},
     // Pokeballs
