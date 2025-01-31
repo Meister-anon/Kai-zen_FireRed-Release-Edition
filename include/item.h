@@ -84,6 +84,7 @@ void SetBagPocketsPointers(void);
 void ItemPcCompaction(void);
 void RemovePCItem(u16 itemId, u16 quantity);
 void SortAndCompactBagPocket(struct BagPocket * pocket);
+void SortAndCompactTmCase(struct BagPocket * pocket); //comparable function specific for tmcase
 u8 CountItemsInPC(void);
 void ApplyNewEncryptionKeyToBagItems_(u32 newKey);
 bool8 CheckHasAtLeastOneBerry(void);

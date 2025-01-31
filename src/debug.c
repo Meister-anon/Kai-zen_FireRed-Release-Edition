@@ -2460,10 +2460,13 @@ static void DebugAction_Give_Item_SelectQuantity(u8 taskId)
 
 //TMs //tested it works, a good deal slower than base method
 //but not too noticeable
+//since order doesn't matter realized faster way of doing this
+//do all items in pocket tm case with importance 0, as only hms have important 1
 static void DebugAction_Give_AllTMs(u8 taskId)
 {
     u32 i,j;
     u32 TMHMValue;
+    u8 numTms = 0;
 
 
     PlayFanfare(MUS_OBTAIN_TMHM);
@@ -2474,37 +2477,19 @@ static void DebugAction_Give_AllTMs(u8 taskId)
         if (gItems[i].pocket != POCKET_TM_CASE)
             continue;
 
-        //checks //all tm & hm for each item value in tm case
-        for (TMHMValue = 0, j = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        if (numTms == NUM_TECHNICAL_MACHINES)
+            break;
+
+        if (gItems[i].importance == 0)
         {
-            if (ItemIdToBattleMoveId(i) == gTM_Moves[TMHMValue]
-            && !CheckBagHasItem(i, 1))
-            {
+            if (!CheckBagHasItem(i, 1))
                 AddBagItem(i, 1);
 
-            }   
-            
-            if (gHM_Moves[j] != LIST_END)
-            {
-                if (ItemIdToBattleMoveId(i) == gHM_Moves[j]
-                && !CheckBagHasItem(i, 1))
-                {
-                    AddBagItem(i, 1);
-                    
-
-                } 
-
-                ++j;
-            }
-        }
+            numTms++;
+        }    
         
     }
 
-    /*for (i = ITEM_TM01; i <= ITEM_HM08; i++)
-    {
-        if (ItemIdToBattleMoveId(i) != MOVE_NONE && !CheckBagHasItem(i, 1))
-            AddBagItem(i, 1);
-    }*/
 
     Debug_DestroyMenu_Full(taskId);
     EnableBothScriptContexts();
@@ -3437,12 +3422,25 @@ static void DebugAction_Fill_PocketPokeBalls(u8 taskId)
 
 static void DebugAction_Fill_PocketTMHM(u8 taskId)
 {
-    u16 itemId;
+    u32 itemId;
+    u16 numTmsHms = 0;
 
-    for (itemId = ITEM_TM01; itemId <= ITEM_HM08; itemId++)
+    for (itemId = ITEM_NONE; itemId != ITEMS_COUNT; itemId++)
     {
-        if (CheckBagHasSpace(itemId, 1) && ItemIdToBattleMoveId(itemId) != MOVE_NONE)
+        //skip all items that aren't Tms
+        //saves memory/time
+        if (gItems[itemId].pocket != POCKET_TM_CASE)
+            continue;
+
+        if (numTmsHms == NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
+            break;
+
+        if (CheckBagHasSpace(itemId, 1))
+        {
             AddBagItem(itemId, 1);
+            
+        }
+        numTmsHms++; //covers item ids in tm case
     }
 }
 

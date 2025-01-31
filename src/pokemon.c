@@ -11037,6 +11037,22 @@ u8 IsTMHM(u16 itemId)
     return FALSE;
 }
 
+u8 Isitem_HM(u16 itemId)
+{
+    u32 i;
+
+    for (i = 0; gHM_Moves[i] != LIST_END; ++i)
+    {
+        if (ItemIdToBattleMoveId(itemId) == gHM_Moves[i])
+        {
+            return HM_MOVE;
+            break;
+        }  
+    }
+
+    return FALSE;
+}
+
 //plan return u32 split in to,
 //to take out tm/hm number and whether its a tm or hm
 //changed to u16 so can do exactly like relative evo, 
@@ -11326,17 +11342,6 @@ const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 
         else
             return gSpeciesGraphics[SPECIES_NONE].palette;
     }
-}
-
-bool32 IsHMMove2(u16 move)//vsonic
-{
-    int i = 0;
-    while (sHMMoves[i] != 0xFFFF)
-    {
-        if (sHMMoves[i++] == move)
-            return FALSE;  //used for move learn to check if should be able to forget, that's why made false here
-    }
-    return FALSE;
 }
 
 bool8 IsPokeSpriteNotFlipped(u16 species)

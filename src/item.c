@@ -496,6 +496,13 @@ void BagPocketCompaction(struct ItemSlot * slots, u8 capacity)
     }
 }
 
+//only used in tm_case
+//so only really relevant for pocket tm case
+//still not fully sure how this works
+//sort&compact works off item id,
+//but all hms have higher item id to tms,
+//which would otherwise make them go last
+//so the stuff at the bottom is doing..somthing??
 void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
 {
     u16 i;
@@ -509,7 +516,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     {
         if (pocket->itemSlots[i].itemId == ITEM_NONE && GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0)
             return;
-        if (pocket->itemSlots[i].itemId >= ITEM_HM01 && GetBagItemQuantity(&pocket->itemSlots[i].quantity) != 0)
+        if (Isitem_HM(pocket->itemSlots[i].itemId) == HM_MOVE && GetBagItemQuantity(&pocket->itemSlots[i].quantity) != 0)
         {
             for (j = i + 1; j < pocket->capacity; j++)
             {
@@ -531,6 +538,9 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     Free(buff);
 }
 
+//seems to sort things to auto put lowest itemId at top?
+//if reading correct.
+//than should make separate function for tm only
 void SortAndCompactBagPocket(struct BagPocket * pocket)
 {
     u16 i, j;

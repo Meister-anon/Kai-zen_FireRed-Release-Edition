@@ -1019,22 +1019,10 @@ static void Task_EvolutionScene(u8 taskId)
                 else //if select an move slot where a move is, issue is occuring somewhere before here, its not filling moves, learned before you get here
                 {
                     u16 move = GetMonData(mon, var + MON_DATA_MOVE1);
-                    /*if (IsHMMove2(move))
-                    {
-                        BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_HMMOVESCANTBEFORGOTTEN - BATTLESTRINGS_ID_ADDER]);
-                        BattlePutTextOnWindow(gDisplayedStringBattle, 0);
-                        gTasks[taskId].tLearnMoveState = 12;
-                    }
-                    else
-                    {*/
+
                         PREPARE_MOVE_BUFFER(gBattleTextBuff2, move)
 
-                        /*RemoveMonPPBonus(mon, var);
-                        SetMonMoveSlot(mon, gMoveToLearn, var);                        
-                        gTasks[taskId].tLearnMoveState++;*/
-
                         gTasks[taskId].tLearnMoveState = 13; //should be confirm forget move?  //think this is only diffrence between mine and EE?
-                    //} //tried didn't matter still had same effect no idea what the hell is wrong
                 }
             }
             break;
@@ -1403,22 +1391,12 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
                 else
                 {
                     u16 move = GetMonData(mon, var + MON_DATA_MOVE1);
-                    /*if (IsHMMove2(move))
-                    {
-                        BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_HMMOVESCANTBEFORGOTTEN - BATTLESTRINGS_ID_ADDER]);
-                        DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
-                        gTasks[taskId].tLearnMoveState = 11;
-                    }
-                    else
-                    {*/
+
                         PREPARE_MOVE_BUFFER(gBattleTextBuff2, move)
 
-                        //RemoveMonPPBonus(mon, var);
-                        //SetMonMoveSlot(mon, gMoveToLearn, var);
                         BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF - BATTLESTRINGS_ID_ADDER]);
                         DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                         gTasks[taskId].tLearnMoveState++;
-                    //}
                 }
             }
             break;

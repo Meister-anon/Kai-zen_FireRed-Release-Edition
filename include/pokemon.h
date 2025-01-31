@@ -812,7 +812,6 @@ const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon
 //const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 //replaced previous
 const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
-bool32 IsHMMove2(u16 move);
 bool8 IsPokeSpriteNotFlipped(u16 species);
 s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor);
 bool8 IsTradedMon(struct Pokemon *mon);
@@ -844,6 +843,7 @@ u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for 
 bool8 CanEvioliteActivate(u8 target);
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
+u8 Isitem_HM(u16 itemId);
 bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating effects for if move is physical or not
 
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);

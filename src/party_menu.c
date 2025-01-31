@@ -3432,6 +3432,7 @@ u8 ShouldDisplayHMFieldMove(u8 fieldMove)
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 {
     u8 i, j;
+    u32 itemId;
     u16 species = GetMonData(&mons[slotId], MON_DATA_SPECIES_OR_EGG);
     u8 abilityNum = GetMonData(&mons[slotId], MON_DATA_ABILITY_NUM);
     u16 ability = GetAbilityBySpecies(species, abilityNum);
@@ -3458,8 +3459,16 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     //setup for hm moves
     for (j = 0; j < FIELD_MOVE_TELEPORT; ++j) //need do pointer logic to check sPartyMenuInternal->actions, to make sure its not more than 9 entries for this
     {
+        for (itemId = 0; itemId != ITEMS_COUNT; itemId++)
+        {
+            if (gItems[itemId].pocket != POCKET_TM_CASE)
+                continue;
+            
+            if (ItemIdToBattleMoveId(itemId) == sFieldMoves[j])
+                break;
+        }
         //should prevent learnable hms from showing in  list until you have the badge to use them(working)
-            if (CanSpeciesLearnTMHM(species, ((j + ITEM_HM01_CUT))) && ShouldDisplayHMFieldMove(j)
+            if (CanSpeciesLearnTMHM(species, itemId) && ShouldDisplayHMFieldMove(j)
              && sPartyMenuInternal->numActions <= 5) 
                 AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
                 //break;since I'm trying to check all didn't actually need the break, plus I only have 1 loop not 2
@@ -5530,11 +5539,10 @@ static void Task_LearnedMove(u8 taskId) //tm learn move  /or just move learn in 
     s16 *move = &gPartyMenu.data1;
     u16 item = gSpecialVar_ItemId;
 
-    if (move[1] == 0) //move[1] == 0 seems tobe a signifier of tm speciic move learn
+    if (move[1] == 0) //move[1] == 0 seems tobe a signifier of tm/hm speciic move learn
     {
         AdjustFriendship(mon, FRIENDSHIP_EVENT_LEARN_TMHM);
-        //if (item < ITEM_HM01_CUT)
-          //  RemoveBagItem(item, 1);
+
     }
     GetMonNickname(mon, gStringVar1);
     if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\

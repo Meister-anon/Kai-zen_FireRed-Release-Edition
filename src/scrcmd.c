@@ -1736,7 +1736,11 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
     u16 quantity = VarGet(ScriptReadHalfword(ctx));
 
     //CopyItemName(itemId, sScriptStringVars[stringVarIndex]);
-    GetItemName(sScriptStringVars[stringVarIndex], itemId);
+
+    if (!IsTMHM(itemId))
+        GetItemName(sScriptStringVars[stringVarIndex], itemId);
+    else
+        BufferTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
 
     if (itemId == ITEM_POKE_BALL && quantity >= 2)
     {
@@ -1951,40 +1955,28 @@ bool8 ScrCmd_setmonmove(struct ScriptContext * ctx)
 bool8 ScrCmd_checkpartymove(struct ScriptContext * ctx)
 {
     u8 i;
+    u32 itemId;
     u16 moveId = ScriptReadHalfword(ctx);
 
     gSpecialVar_Result = PARTY_SIZE;
+
+
+    for (itemId = ITEM_NONE; itemId != ITEMS_COUNT; itemId++)
+    {
+        if (gItems[itemId].pocket != POCKET_TM_CASE)
+            continue;
+
+        if (ItemIdToBattleMoveId(itemId) == moveId)
+            break;   
+    }
+
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
-        if (!species)
+        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL);
+        if (species == SPECIES_EGG)
             break;                 
-        switch (moveId) //use this to translate moveId to tmhm itemid for can Learn function
-        {
-            case MOVE_CUT:
-            moveId = ITEM_HM01_CUT;
-            break;
-            case MOVE_ROCK_SMASH:
-            moveId = ITEM_HM06_ROCK_SMASH;
-            break;
-            case MOVE_STRENGTH:
-            moveId = ITEM_HM04_STRENGTH;
-            break;
-            case MOVE_SURF:
-            moveId = ITEM_HM03_SURF;
-            break;
-            case MOVE_WATERFALL:
-            moveId = ITEM_HM07_WATERFALL;
-            break;
-            case MOVE_DIVE:
-            moveId = ITEM_HM08_DIVE;
-            break;
-            case MOVE_ROCK_CLIMB:
-            moveId = ITEM_HM09_ROCK_CLIMB;
-            break;
-        }    
-                                     //CanSpeciesLearnTMHM(species, moveId)     MonKnowsMove(&gPlayerParty[i], moveId)
-        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && CanSpeciesLearnTMHM(species, moveId))
+        
+        if (CanSpeciesLearnTMHM(species, itemId))
         {
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;

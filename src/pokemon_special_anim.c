@@ -618,7 +618,8 @@ static u16 GetAnimTypeByItemId(u16 itemId)
             return gUnknown_8459634[i].animType;
     }
 
-    if (itemId >= ITEM_TM01 && itemId <= ITEM_HM09)
+     //if right should mean if tm or hm
+    if ((GetTMHMNumberandCategory(itemId) & 0xFF00) >> 8)
     {
         return 4;
     }

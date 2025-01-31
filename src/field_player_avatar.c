@@ -10,6 +10,7 @@
 #include "field_effect_helpers.h"
 #include "field_player_avatar.h"
 #include "help_system.h"
+#include "item.h"
 #include "metatile_behavior.h"
 #include "new_menu_helpers.h"
 #include "overworld.h"
@@ -1177,16 +1178,26 @@ u8 GetPlayerAvatarGenderByGraphicsId(u8 gfxId)
 bool8 PartyHasMonWithSurf(void)
 {
     u8 i;
+    u32 j;
     u16 species;
 
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
-    {
+    {   
+        for (j = ITEM_NONE; j != ITEMS_COUNT; j++)
+        {
+            if (gItems[j].pocket != POCKET_TM_CASE)
+                continue;
+
+            if (ItemIdToBattleMoveId(j) == MOVE_SURF)
+                break;
+        }
+
         for (i = 0; i < PARTY_SIZE; i++)
         {
             species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
                 break;
-            if (CanSpeciesLearnTMHM(species, ((FIELD_MOVE_SURF + ITEM_HM01_CUT))) 
+            if (CanSpeciesLearnTMHM(species, j) 
             && ShouldDisplayHMFieldMove(FIELD_MOVE_SURF)) //for above thing change to just take tm item so can just use that for these?
                 return TRUE;    //should greatly simplify
         }
