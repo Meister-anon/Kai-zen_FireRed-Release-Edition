@@ -38,8 +38,10 @@
 #include "field_door.h"
 #include "constants/event_objects.h"
 
-extern u16 (*const gSpecials[])(void);
-extern u16 (*const gSpecialsEnd[])(void);
+typedef u16 (*SpecialFunc)(void);
+typedef void (*NativeFunc)(struct ScriptContext *ctx);
+
+extern const SpecialFunc gSpecials[];
 extern const u8 *const gStdScripts[];
 extern const u8 *const gStdScriptsEnd[];
 
@@ -97,29 +99,25 @@ bool8 ScrCmd_gotonative(struct ScriptContext * ctx)
 
 bool8 ScrCmd_special(struct ScriptContext * ctx)
 {
-    u16 (*const *specialPtr)(void) = gSpecials + ScriptReadHalfword(ctx);
-    if (specialPtr < gSpecialsEnd)
-        (*specialPtr)();
-    else
-        AGB_ASSERT_EX(0, ABSPATH("scrcmd.c"), 241);
+   u16 index = ScriptReadHalfword(ctx);
+
+    gSpecials[index]();
     return FALSE;
 }
 
 bool8 ScrCmd_specialvar(struct ScriptContext * ctx)
 {
-    u16 * varPtr = GetVarPointer(ScriptReadHalfword(ctx));
-    u16 (*const *specialPtr)(void) = gSpecials + ScriptReadHalfword(ctx);
-    if (specialPtr < gSpecialsEnd)
-        *varPtr = (*specialPtr)();
-    else
-        AGB_ASSERT_EX(0, ABSPATH("scrcmd.c"), 263);
+    u16 *var = GetVarPointer(ScriptReadHalfword(ctx));
+
+    *var = gSpecials[ScriptReadHalfword(ctx)]();
     return FALSE;
 }
 
 bool8 ScrCmd_callnative(struct ScriptContext * ctx)
 {
-    void (*func )(void) = ((void (*)(void))ScriptReadWord(ctx));
-    func();
+    NativeFunc func = (NativeFunc)ScriptReadWord(ctx);
+
+    func(ctx);
     return FALSE;
 }
 

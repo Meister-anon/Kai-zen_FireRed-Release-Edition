@@ -2980,6 +2980,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
    ok after get out of the task everything appears to be fine...
    
+
+    updated event scripts & specials setup
+    plan use python replace all event.inc
+    .byte listings with callnatives to the scrcmd macros
+    listed in script_cmd_table.inc
+    to make more clear what they do, as names don't match
    //added magic coat as tm needs better move description
    also go over effect see if moves that reflect are up to date
    1/30/2025

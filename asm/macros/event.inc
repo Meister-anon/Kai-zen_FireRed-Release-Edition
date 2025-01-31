@@ -1,3 +1,5 @@
+@commands align with script_cmd_table.inc	
+	
 	@ Does nothing.
 	.macro nop
 	.byte 0x00
@@ -114,7 +116,7 @@
 	.4byte \source
 	.endm
 
-	@ Not sure. Judging from XSE's description I think it takes the least-significant byte in bank source and writes it to destination.
+	@ Not sure. Judging from XSE''s description I think it takes the least-significant byte in bank source and writes it to destination.
 	.macro setptrbyte source:req, destination:req
 	.byte 0x13
 	.byte \source
@@ -254,7 +256,7 @@
 	.2byte SPECIAL_\function
 	.endm
 
-	@ Calls a special function. That function's output (if any) will be written to the variable you specify.
+	@ Calls a special function. That function''s output (if any) will be written to the variable you specify.
 	.macro specialvar output:req, function:req
 	.byte 0x26
 	.2byte \output
@@ -340,7 +342,7 @@
 	.2byte \song_number
 	.endm
 
-	@ Crossfades the currently-playing song into the map's default song.
+	@ Crossfades the currently-playing song into the map''s default song.
 	.macro fadedefaultbgm
 	.byte 0x35
 	.endm
@@ -441,26 +443,26 @@
 	.2byte \y
 	.endm
 
-	@ Retrieves the player's zero-indexed X- and Y-coordinates in the map, and stores them in the specified variables.
+	@ Retrieves the player''s zero-indexed X- and Y-coordinates in the map, and stores them in the specified variables.
 	.macro getplayerxy x:req, y:req
 	.byte 0x42
 	.2byte \x
 	.2byte \y
 	.endm
 
-	@ Retrieves the number of Pokemon in the player's party, and stores that number in VAR_RESULT.
+	@ Retrieves the number of Pokemon in the player''s party, and stores that number in VAR_RESULT.
 	.macro getpartysize
 	.byte 0x43
 	.endm
 
-	@ Attempts to add quantity of item index to the player's Bag. If the player has enough room, the item will be added and VAR_RESULT will be set to TRUE; otherwise, VAR_RESULT is set to FALSE.
+	@ Attempts to add quantity of item index to the player''s Bag. If the player has enough room, the item will be added and VAR_RESULT will be set to TRUE; otherwise, VAR_RESULT is set to FALSE.
 	.macro additem index:req, quantity=1
 	.byte 0x44
 	.2byte \index
 	.2byte \quantity
 	.endm
 
-	@ Removes quantity of item index from the player's Bag.
+	@ Removes quantity of item index from the player''s Bag.
 	.macro removeitem index:req, quantity=1
 	.byte 0x45
 	.2byte \index
@@ -487,14 +489,14 @@
 	.2byte \index
 	.endm
 
-	@ Adds a quantity amount of item index to the player's PC. Both arguments can be variables.
+	@ Adds a quantity amount of item index to the player''s PC. Both arguments can be variables.
 	.macro addpcitem index:req, quantity:req
 	.byte 0x49
 	.2byte \index
 	.2byte \quantity
 	.endm
 
-	@ Checks for quantity amount of item index in the player's PC. Both arguments can be variables.
+	@ Checks for quantity amount of item index in the player''s PC. Both arguments can be variables.
 	.macro checkpcitem index:req, quantity:req
 	.byte 0x4a
 	.2byte \index
@@ -581,7 +583,7 @@
 		.endif
 	.endm
 
-	@ Sets the specified (index) Object's position on the current map.
+	@ Sets the specified (index) Object''s position on the current map.
 	.macro setobjectxy index:req, x:req, y:req
 	.byte 0x57
 	.2byte \index
@@ -723,13 +725,13 @@
 	.2byte \trainer
 	.endm
 
-	@ Sets Flag (trainer + 0x500). (I didn't make a mistake. The command names actually are backwards.)
+	@ Sets Flag (trainer + 0x500). (I didn''t make a mistake. The command names actually are backwards.)
 	.macro settrainerflag trainer:req
 	.byte 0x61
 	.2byte \trainer
 	.endm
 
-	@ Clears Flag (trainer + 0x500). (I didn't make a mistake. The command names actually are backwards.)
+	@ Clears Flag (trainer + 0x500). (I didn''t make a mistake. The command names actually are backwards.)
 	.macro cleartrainerflag trainer:req
 	.byte 0x62
 	.2byte \trainer
@@ -774,7 +776,7 @@
 	.byte 0x69
 	.endm
 
-	@ If the script was called by an Object, then that Object's movement will cease.
+	@ If the script was called by an Object, then that Object''s movement will cease.
 	.macro lock
 	.byte 0x6a
 	.endm
@@ -784,7 +786,7 @@
 	.byte 0x6b
 	.endm
 
-	@ If the script was called by an Object, then that Object's movement will resume. This command also closes any standard message boxes that are still open.
+	@ If the script was called by an Object, then that Object''s movement will resume. This command also closes any standard message boxes that are still open.
 	.macro release
 	.byte 0x6c
 	.endm
@@ -895,7 +897,7 @@
 	.2byte \word
 	.endm
 
-	@ Checks if at least one Pokemon in the player's party knows the specified (index) attack. If so, VAR_RESULT is set to the (zero-indexed) slot number of the first Pokemon that knows the move. If not, VAR_RESULT is set to PARTY_SIZE. VAR_0x8004 is also set to this Pokemon's species.
+	@ Checks if at least one Pokemon in the player''s party knows the specified (index) attack. If so, VAR_RESULT is set to the (zero-indexed) slot number of the first Pokemon that knows the move. If not, VAR_RESULT is set to PARTY_SIZE. VAR_0x8004 is also set to this Pokemon''s species.
 	.macro checkpartymove index:req
 	.byte 0x7c
 	.2byte \index
@@ -910,13 +912,13 @@
 	.2byte \species
 	.endm
 
-	@ Writes the name of the species of the first Pokémon in the player's party to the specified buffer.
+	@ Writes the name of the species of the first Pokémon in the player''s party to the specified buffer.
 	.macro getfirstpartymonname buffer:req
 	.byte 0x7e
 	.byte \buffer
 	.endm
 
-	@ Writes the nickname of the Pokemon in slot slot (zero-indexed) of the player's party to the specified buffer. If an empty or invalid slot is specified, ten spaces ("") are written to the buffer.
+	@ Writes the nickname of the Pokemon in slot slot (zero-indexed) of the player''s party to the specified buffer. If an empty or invalid slot is specified, ten spaces ("") are written to the buffer.
 	.macro getpartymonname buffer:req, slot:req
 	.byte 0x7f
 	.byte \buffer
@@ -1020,14 +1022,14 @@
 	.2byte \limit
 	.endm
 
-	@ If check is 0x00, this command adds value to the player's money.
+	@ If check is 0x00, this command adds value to the player''s money.
 	.macro addmoney value:req, check:req
 	.byte 0x90
 	.4byte \value
 	.byte \check
 	.endm
 
-	@ If check is 0x00, this command subtracts value from the player's money.
+	@ If check is 0x00, this command subtracts value from the player''s money.
 	.macro removemoney value:req, check:req
 	.byte 0x91
 	.4byte \value
@@ -1071,7 +1073,7 @@
 	.byte 0x96
 	.endm
 
-	@ Fades the screen to black or back, using the specified effect. Effect 0x00 fades in, and effect 0x01 fades out. I don't know if other effects exist.
+	@ Fades the screen to black or back, using the specified effect. Effect 0x00 fades in, and effect 0x01 fades out. I don''t know if other effects exist.
 	.macro fadescreen effect:req
 	.byte 0x97
 	.byte \effect
@@ -1124,12 +1126,12 @@
 	.2byte \heallocation
 	.endm
 
-	@ Checks the player's gender. If male, then MALE (0) is stored in VAR_RESULT. If female, then FEMALE (1) is stored in VAR_RESULT.
+	@ Checks the player''s gender. If male, then MALE (0) is stored in VAR_RESULT. If female, then FEMALE (1) is stored in VAR_RESULT.
 	.macro checkplayergender
 	.byte 0xa0
 	.endm
 
-	@ Plays the specified (species) Pokemon's cry. You can use waitcry to block script execution until the sound finishes.
+	@ Plays the specified (species) Pokemon''s cry. You can use waitcry to block script execution until the sound finishes.
 	.macro playmoncry species:req, effect:req
 	.byte 0xa1
 	.2byte \species
@@ -1322,21 +1324,21 @@
 	.byte \y
 	.endm
 
-	@ Hides the secondary box spawned by showcoins. It consumes its arguments but doesn't use them.
+	@ Hides the secondary box spawned by showcoins. It consumes its arguments but doesn''t use them.
 	.macro hidecoinsbox x:req, y:req
 	.byte 0xc1
 	.byte \x
 	.byte \y
 	.endm
 
-	@ Updates the secondary box spawned by showcoins. It consumes its arguments but doesn't use them.
+	@ Updates the secondary box spawned by showcoins. It consumes its arguments but doesn''t use them.
 	.macro updatecoinsbox x:req, y:req
 	.byte 0xc2
 	.byte \x
 	.byte \y
 	.endm
 
-	@ Increases the value of the specified game stat by 1. The stat's value will not be allowed to exceed 0x00FFFFFF.
+	@ Increases the value of the specified game stat by 1. The stat''s value will not be allowed to exceed 0x00FFFFFF.
 	.macro incrementgamestat stat:req
 	.byte 0xc3
 	.byte \stat
@@ -1363,7 +1365,7 @@
 	.2byte \box
 	.endm
 
-	@ Sets the color of the text in standard message boxes. 0x00 produces blue (male) text, 0x01 produces red (female) text, 0xFF resets the color to the default for the current OW's gender, and all other values produce black text.
+	@ Sets the color of the text in standard message boxes. 0x00 produces blue (male) text, 0x01 produces red (female) text, 0xFF resets the color to the default for the current OW''s gender, and all other values produce black text.
 	.macro textcolor color:req
 	.byte 0xc7
 	.byte \color
@@ -1397,20 +1399,20 @@
 	.4byte \value
 	.endm
 
-	@ Sets the Pokemon in the specified slot of the player party's eventLegal bit.
+	@ Sets the Pokemon in the specified slot of the player party''s eventLegal bit.
 	.macro setmoneventlegal slot:req
 	.byte 0xcd
 	.2byte \slot
 	.endm
 
-	@ Checks if the Pokemon in the specified slot of the player's party has its eventLegal bit set. If it isn't set,
+	@ Checks if the Pokemon in the specified slot of the player''s party has its eventLegal bit set. If it isn''t set,
 	@ VAR_RESULT is TRUE. If the bit is set (or if the specified slot is empty or invalid), VAR_RESULT is FALSE.
 	.macro checkmoneventlegal slot:req
 	.byte 0xce
 	.2byte \slot
 	.endm
 
-	@ Depending on factors I haven't managed to understand yet, this command may cause script execution to jump to the offset specified by the pointer at 0x020375C0.
+	@ Depending on factors I haven''t managed to understand yet, this command may cause script execution to jump to the offset specified by the pointer at 0x020375C0.
 	.macro execram
 	.byte 0xcf
 	.endm
@@ -1468,7 +1470,7 @@
 	.byte 0
 	.endm
 
-	@plan build mart item list, internally based on gym badge shouldn't need ptr 
+	@plan build mart item list, internally based on gym badge shouldn''t need ptr 
 	@for item list in script, works!
 	.macro pokemart2
 	.byte 0xd7

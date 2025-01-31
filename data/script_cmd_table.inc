@@ -1,5 +1,6 @@
 	.align 2
 
+@matches w event.inc
 gScriptCmdTable:: @ 815F9B4
 	.4byte ScrCmd_nop
 	.4byte ScrCmd_nop1

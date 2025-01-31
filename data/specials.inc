@@ -7,6 +7,7 @@
 
 .set __special__, 0
 	.align 2
+@seems to work from wherever long as a function of same name exists
 gSpecials:: @ 815FD60
 	def_special HealPlayerParty
 	def_special SetCableClubWarp
@@ -444,4 +445,4 @@ gSpecials:: @ 815FD60
 	def_special SetDaycareServiceCost
 	def_special CheckIfBoostApplied
 	def_special ScriptGetPartyMonSpecies
-gSpecialsEnd::
+
