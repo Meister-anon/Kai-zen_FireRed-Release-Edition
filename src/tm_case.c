@@ -99,8 +99,8 @@ struct UnkStruct_203B118
 {
     void (* savedCallback)(void);
     u8 tmSpriteId;
-    u8 maxTMsShown;
-    u8 numTMs;
+    u8 maxTMs_Hms_Shown;
+    u8 numTMs_HMs;
     u8 contextMenuWindowId;
     u8 scrollIndicatorArrowPairId;
     u16 currItem;
@@ -108,7 +108,7 @@ struct UnkStruct_203B118
     u8 numMenuActions;
     s16 seqId;
     u8 filler_14[8];
-};
+};//decided rename some of these, as name is misleding its both tm & hms
 
 struct UnkStruct_203B11C
 {
@@ -749,7 +749,7 @@ static void CreateTMCaseListMenuBuffers(void)
 {
     struct BagPocket * pocket = &gBagPockets[POCKET_TM_CASE - 1];
     sListMenuItemsBuffer = Alloc((pocket->capacity + 1) * sizeof(struct ListMenuItem));
-    sListMenuStringsBuffer = Alloc(sTMCaseDynamicResources->numTMs * 29);
+    sListMenuStringsBuffer = Alloc(sTMCaseDynamicResources->numTMs_HMs * 29);
 }
 
 static void InitTMCaseListMenuItems(void)
@@ -757,7 +757,7 @@ static void InitTMCaseListMenuItems(void)
     struct BagPocket * pocket = &gBagPockets[POCKET_TM_CASE - 1];
     u16 i;
 
-    for (i = 0; i < sTMCaseDynamicResources->numTMs; i++)
+    for (i = 0; i < sTMCaseDynamicResources->numTMs_HMs; i++)
     {
         GetTMNumberAndMoveString(sListMenuStringsBuffer[i], pocket->itemSlots[i].itemId);
         sListMenuItemsBuffer[i].label = sListMenuStringsBuffer[i];
@@ -766,7 +766,7 @@ static void InitTMCaseListMenuItems(void)
     sListMenuItemsBuffer[i].label = gText_Close;
     sListMenuItemsBuffer[i].index = -2;
     gMultiuseListMenuTemplate.items = sListMenuItemsBuffer;
-    gMultiuseListMenuTemplate.totalItems = sTMCaseDynamicResources->numTMs + 1;
+    gMultiuseListMenuTemplate.totalItems = sTMCaseDynamicResources->numTMs_HMs + 1;
     gMultiuseListMenuTemplate.windowId = 0;
     gMultiuseListMenuTemplate.header_X = 0;
     gMultiuseListMenuTemplate.item_X = 8;
@@ -774,7 +774,7 @@ static void InitTMCaseListMenuItems(void)
     gMultiuseListMenuTemplate.lettersSpacing = 0;
     gMultiuseListMenuTemplate.itemVerticalPadding = 2;
     gMultiuseListMenuTemplate.upText_Y = 2;
-    gMultiuseListMenuTemplate.maxShowed = sTMCaseDynamicResources->maxTMsShown;
+    gMultiuseListMenuTemplate.maxShowed = sTMCaseDynamicResources->maxTMs_Hms_Shown;
     gMultiuseListMenuTemplate.fontId = 2;
     gMultiuseListMenuTemplate.cursorPal = 2;
     gMultiuseListMenuTemplate.fillValue = 0;
@@ -955,7 +955,7 @@ static void PrintListMenuCursorAt_WithColorIdx(u8 a0, u8 a1)
 
 static void CreateTMCaseScrollIndicatorArrowPair_Main(void)
 {
-    sTMCaseDynamicResources->scrollIndicatorArrowPairId = AddScrollIndicatorArrowPairParameterized(2, 0xA0, 0x08, 0x3d, sTMCaseDynamicResources->numTMs - sTMCaseDynamicResources->maxTMsShown + 1, 0x6E, 0x6E, &sTMCaseStaticResources.scrollOffset);
+    sTMCaseDynamicResources->scrollIndicatorArrowPairId = AddScrollIndicatorArrowPairParameterized(2, 0xA0, 0x08, 0x3d, sTMCaseDynamicResources->numTMs_HMs - sTMCaseDynamicResources->maxTMs_Hms_Shown + 1, 0x6E, 0x6E, &sTMCaseStaticResources.scrollOffset);
 }
 
 static void CreateTMCaseScrollIndicatorArrowPair_SellQuantitySelect(void)
@@ -979,35 +979,43 @@ void ResetTMCaseCursorPos(void)
     sTMCaseStaticResources.scrollOffset = 0;
 }
 
+//confused on how this works, and
+//how its deciding to increment numTMs_HMs
+//ok its checking the tm case pocket
+//stops if itemid is item_none, so would be cancel button?
+//otherwise to seems to loop until it hits capacity
+//which I believe should be tm count + hm count
+//so its num of individual tms in your bag
+//not what they are, and doesn't split hms?
 static void TMCaseSetup_GetTMCount(void)
 {
     struct BagPocket * pocket = &gBagPockets[POCKET_TM_CASE - 1];
     u16 i;
 
     BagPocketCompaction(pocket->itemSlots, pocket->capacity);
-    sTMCaseDynamicResources->numTMs = 0;
+    sTMCaseDynamicResources->numTMs_HMs = 0;
     for (i = 0; i < pocket->capacity; i++)
     {
         if (pocket->itemSlots[i].itemId == ITEM_NONE)
             break;
-        sTMCaseDynamicResources->numTMs++;
+        sTMCaseDynamicResources->numTMs_HMs++;
     }
-    sTMCaseDynamicResources->maxTMsShown = min(sTMCaseDynamicResources->numTMs + 1, 3); //determines how many tms to display on screen, was 5 with grhaphic change swap to 3
+    sTMCaseDynamicResources->maxTMs_Hms_Shown = min(sTMCaseDynamicResources->numTMs_HMs + 1, 3); //determines how many tms to display on screen, was 5 with grhaphic change swap to 3
 }
 
 static void TMCaseSetup_InitListMenuPositions(void)
 {
     if (sTMCaseStaticResources.scrollOffset != 0)
     {
-        if (sTMCaseStaticResources.scrollOffset + sTMCaseDynamicResources->maxTMsShown > sTMCaseDynamicResources->numTMs + 1)
-            sTMCaseStaticResources.scrollOffset = sTMCaseDynamicResources->numTMs + 1 - sTMCaseDynamicResources->maxTMsShown;
+        if (sTMCaseStaticResources.scrollOffset + sTMCaseDynamicResources->maxTMs_Hms_Shown > sTMCaseDynamicResources->numTMs_HMs + 1)
+            sTMCaseStaticResources.scrollOffset = sTMCaseDynamicResources->numTMs_HMs + 1 - sTMCaseDynamicResources->maxTMs_Hms_Shown;
     }
-    if (sTMCaseStaticResources.scrollOffset + sTMCaseStaticResources.selectedRow >= sTMCaseDynamicResources->numTMs + 1)
+    if (sTMCaseStaticResources.scrollOffset + sTMCaseStaticResources.selectedRow >= sTMCaseDynamicResources->numTMs_HMs + 1)
     {
-        if (sTMCaseDynamicResources->numTMs + 1 < 2)
+        if (sTMCaseDynamicResources->numTMs_HMs + 1 < 2)
             sTMCaseStaticResources.selectedRow = 0;
         else
-            sTMCaseStaticResources.selectedRow = sTMCaseDynamicResources->numTMs;
+            sTMCaseStaticResources.selectedRow = sTMCaseDynamicResources->numTMs_HMs;
     }
 }
 
@@ -1017,7 +1025,7 @@ static void TMCaseSetup_UpdateVisualMenuOffset(void)
     u8 i;
     if (sTMCaseStaticResources.selectedRow > 1) //adjusted for new graphic from 3 to 1, hope work
     {
-        for (i = 0; i <= sTMCaseStaticResources.selectedRow - 1 && sTMCaseStaticResources.scrollOffset + sTMCaseDynamicResources->maxTMsShown != sTMCaseDynamicResources->numTMs + 1; i++)
+        for (i = 0; i <= sTMCaseStaticResources.selectedRow - 1 && sTMCaseStaticResources.scrollOffset + sTMCaseDynamicResources->maxTMs_Hms_Shown != sTMCaseDynamicResources->numTMs_HMs + 1; i++)
         {
             do {} while (0);
             sTMCaseStaticResources.selectedRow--;
