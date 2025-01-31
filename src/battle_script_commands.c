@@ -1329,6 +1329,21 @@ static void atk00_attackcanceler(void) //vsonic
         gBattlescriptCurrInstr = BattleScript_MoveEnd;
         return;
     }
+    //how does this work for effects that set effect, but don't stop move from attacking?
+    //does it just not read everything below so all else gets ignored?
+    //even if it potentially shouldn't?
+    //ex if I had sleep checker and freeze check I should run
+    //would it stop at sleep and never check/decrement freeze logic?
+    
+    //* checked its a switch case without breaks so yes,
+    //unless I allowed fall through it would only stop
+    //when it hit a single condition
+    //think what I can do is rearrange order of attack cancel,
+    //so thinks that aren't mutually exclusive could activate ex.
+    //ex sleep check wake up, but then triggering paralysis.
+    //I would set it to fallthrough, if sleep wouldn't stop attack,
+    //then check if paralysis would stop it, if not continue on 
+    //to be sure double check my understanding of switch cases
     if (AtkCanceller_UnableToUseMove())
         return;
     // Check Protean activation.

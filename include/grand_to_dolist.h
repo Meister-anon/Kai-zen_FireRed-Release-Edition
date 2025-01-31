@@ -2820,7 +2820,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     with weather has effect
     so rather than funtion put everywhere setup more cleanly like a macro?
     cloud nine didn't end the effects it just blocked them
+    
+    make sure to consolidate effects I want it to have,
+    //so know what Its meant to be  is in setmist command rn
     vsonic important 1/25/2025 - can prob add to weather has efect/logic where air lock is
+    
 
     working on exp share
     find how to set in party menu

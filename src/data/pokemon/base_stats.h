@@ -3985,6 +3985,17 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGyaradosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },  //give new version of rage, if doesn't already get rage
+    //wait a second; with my grouded changes
+    //water flying would remove the flying weakness to electric
+    //ok so what I'll do instead is set this back to default type
+    //and make water dragon the mega form,
+    //it doesn't really make sense to be water dark?
+    //hmm nvm I do that to avoid intimidate 
+    //hmm but with atacking dark types ignoring the dark exclusion
+    //and main setter being incineroar that doesn't change anything...
+    //but do I want to remove the rule and make the dark type a full exception?
+    //especially when I'm making an ability full counter it?
+    //-think balance should be fine
 
     [SPECIES_LAPRAS] =
     {
@@ -38157,8 +38168,8 @@ const struct BaseStats gBaseStats[] =
         70,
         120
         ),
-        MON_TYPES(TYPE_WATER, TYPE_DARK), //this is its base type but w dark changes unsure if should keep as is, 
-        .catchRate = 45,  //base gyarados may be better now w its type change?s
+        MON_TYPES(TYPE_DRAGON, TYPE_DARK),
+        .catchRate = 45,
         .expYield = 224,
         //.evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),
@@ -38180,6 +38191,12 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },
+    //though water doesn't really block anything, since doesn't resist Ice anymore,
+    //potentially just make dragon dark?
+    //I like the idea of dragon's resisting bugs, makes sense
+    //but even with now hitting ghost & steel for neutral bu has so many resists
+    //yeah can't do it, while would like to, too many of the best mon are dragons,
+    //making bug resisted by dragon would automatically ensure it couldn't compete
 
     [SPECIES_AERODACTYL_MEGA] =
     {
