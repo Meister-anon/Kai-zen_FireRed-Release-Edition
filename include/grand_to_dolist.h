@@ -2986,6 +2986,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     .byte listings with callnatives to the scrcmd macros
     listed in script_cmd_table.inc
     to make more clear what they do, as names don't match
+
    //added magic coat as tm needs better move description
    also go over effect see if moves that reflect are up to date
    1/30/2025
@@ -8416,6 +8417,7 @@ goto STARTER_ULTIMATE_MOVE_SELECTION //function for setting who can learn frenzy
 //and check this function for relevance Cmd_if_type_effectiveness
 
 goto ITEM_ICON_SETTING //item_menu_icons.c
+goto ITEM_ICONS_TABLE //the actual table plus notes
 /*
  * setup new eviolite effect graphic swap here, compiles need test
  * 
