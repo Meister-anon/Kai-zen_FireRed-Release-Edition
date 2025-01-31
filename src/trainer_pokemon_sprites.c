@@ -165,7 +165,7 @@ u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPi
     images = Alloc(4 * sizeof(struct SpriteFrameImage));
     if (!images)
     {
-        Free(framePics);
+        Free(framePics);//never frees images is that an issue?
         return 0xFFFF;
     }
     if (DecompressPic(species, personality, isFrontPic, framePics, isTrainer, ignoreDeoxys))

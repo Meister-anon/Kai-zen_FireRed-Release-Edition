@@ -2998,6 +2998,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
    pretty sure I got the special working but the comments show otherwise?
    1/30/2025
 
+   for issue w starter pics look into CreatePicSprite
+   see if that is related
+   1/31/2025
+
     Unique hard mode baby!!!
     // check status move preference - idk if this is relevant thought of having type relation effect status moves but was too annoying?
     //I THINK I removed that? yeah I did, is never a thing but I experimented w it

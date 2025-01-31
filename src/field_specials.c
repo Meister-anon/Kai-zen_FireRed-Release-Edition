@@ -2741,10 +2741,13 @@ bool8 UsedPokemonCenterWarp(void)
     return FALSE;
 }
 
+//for now runs just through pickup?
+//need test if works
 bool8 BufferTMHMMoveName(void)
 {
     // 8004 = item ID
-    if (gSpecialVar_0x8004 >= ITEM_TM01 && gSpecialVar_0x8004 <= ITEM_HM09)
+    //if right should mean if tm or hm
+    if ((GetTMHMNumberandCategory(gSpecialVar_0x8004) & 0xFF00) >> 8)
     {
         //StringCopy(gStringVar1, gMoveNames[ItemIdToBattleMoveId(gSpecialVar_0x8004)]);
         GetMoveName(gStringVar1, ItemIdToBattleMoveId(gSpecialVar_0x8004));
