@@ -11037,18 +11037,18 @@ u8 IsTMHM(u16 itemId)
     return FALSE;
 }
 
+//paired down function remove unecessary loop
+//doesn't work w bag order check,so need make own 
+//ok this was the main problem, that broke start screen
+//putting in SortPocketAndPlaceHMsFirst
+//with == hm_move  broke it,
+//but just leaving without the equate as just a check
+//for return positive is fine, i.e if (isitem_hm(item))
 u8 Isitem_HM(u16 itemId)
 {
-    u32 i;
-
-    for (i = 0; gHM_Moves[i] != LIST_END; ++i)
-    {
-        if (ItemIdToBattleMoveId(itemId) == gHM_Moves[i])
-        {
-            return HM_MOVE;
-            break;
-        }  
-    }
+    if (ItemId_GetPocket(itemId) == POCKET_TM_CASE
+     && itemid_is_unique(itemId))
+        return HM_MOVE;
 
     return FALSE;
 }

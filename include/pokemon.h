@@ -785,6 +785,7 @@ u8 CheckPartyHasHadPokerus(struct Pokemon *party, u8 selection);
 void PartySpreadPokerus(struct Pokemon *party);
 bool8 TryIncrementMonLevel(struct Pokemon *mon);
 u8 IsTMHM(u16 itemId);
+u8 Isitem_HM(u16 itemId);
 u16 GetTMHMNumberandCategory(u16 itemId); //still setting up
 u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm); //change to u16 for both, later
 u32 CanSpeciesLearnTMHM(u16 species, u16 tm);
@@ -843,7 +844,6 @@ u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for 
 bool8 CanEvioliteActivate(u8 target);
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
-u8 Isitem_HM(u16 itemId);
 bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating effects for if move is physical or not
 
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);

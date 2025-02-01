@@ -503,6 +503,9 @@ void BagPocketCompaction(struct ItemSlot * slots, u8 capacity)
 //but all hms have higher item id to tms,
 //which would otherwise make them go last
 //so the stuff at the bottom is doing..somthing??
+//ok this may be more important than I thought??
+//as changin the hm check here broke EVERYTHING!! o.0
+//from the get go, new game screen the whole game broke
 void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
 {
     u16 i;
@@ -516,7 +519,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     {
         if (pocket->itemSlots[i].itemId == ITEM_NONE && GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0)
             return;
-        if (Isitem_HM(pocket->itemSlots[i].itemId) == HM_MOVE && GetBagItemQuantity(&pocket->itemSlots[i].quantity) != 0)
+        if (Isitem_HM(pocket->itemSlots[i].itemId) && GetBagItemQuantity(&pocket->itemSlots[i].quantity) != 0)
         {
             for (j = i + 1; j < pocket->capacity; j++)
             {
