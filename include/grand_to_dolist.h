@@ -2984,6 +2984,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
    ok after get out of the task everything appears to be fine...
    
+    almost fixed tm setting order in tm case
+    last thing is fix itemtoTMHMId function,
+    its the optimization works w loop but not switch rn
+
+    following that, just go back to check for instances
+    of the itemTM itemHM constants to replace if needed
+    2/1/2025
 
     updated event scripts & specials setup
     plan use python replace all event.inc

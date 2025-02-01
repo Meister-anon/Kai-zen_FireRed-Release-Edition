@@ -11058,22 +11058,59 @@ u8 Isitem_HM(u16 itemId)
 //changed to u16 so can do exactly like relative evo, 
 //as I don't understand the bit stuff to do it differentl
 //with this setup would allow for max 250 (254), tms and or hms, which is fine even SV has 229 total
+
+//ok trying to optimize replace for loop w switch cases
 u16 GetTMHMNumberandCategory(u16 itemId)
 {
+
     u16 Total_TM_data;
-    u8 TMHMValue; 
+    u32 TMHMValue = 0; 
     u8 TMHM_Cat = NEITHER; //loop tmlist if found there set to false
 
-    for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+    switch (TMHMValue)
+    {
+        
+        case 0 ... (NUM_TECHNICAL_MACHINES):
+        {
+            if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+            {
+                TMHM_Cat = TM_MOVE;
+                break;
+            }    
+            TMHMValue++;
+        }
+
+    }
+
+    /*for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
     {
         if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
         {
             TMHM_Cat = TM_MOVE;
             break;
         }    
-    }
+    }*/
 
     if (!TMHM_Cat)
+    {
+        TMHMValue = 0;
+        switch (TMHMValue)
+        {
+            case 0 ... (NUM_HIDDEN_MACHINES):
+            {
+                if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+                {
+                    TMHM_Cat = HM_MOVE;
+                    break;
+                }    
+                TMHMValue++;
+            }
+
+        }
+    }
+
+
+    /*if (!TMHM_Cat)
     {
         for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
         {
@@ -11083,7 +11120,12 @@ u16 GetTMHMNumberandCategory(u16 itemId)
                 break;
             }  
         }
-    }
+    }*/
+
+   //shouldn't happen at this point but extra protection I guess
+   //mostly so doesn't trigger plus 1, and read a 0 as a positive result
+   if (!TMHM_Cat)
+    return 0;
     
     //to pull data out
     /*
@@ -11095,6 +11137,96 @@ u16 GetTMHMNumberandCategory(u16 itemId)
 
     //now figure to return hmhmvalue and hmhm_cat
     return Total_TM_data;
+}
+
+//alright this works, guess since needed to check exact moveid
+//within tmhm arrays the plus 1 actually threw it off?
+//the above function was meant to return the tm number, not actual move
+//so yeah that makes sense
+//ok almost got it working hm tm split works
+//last thing is updating tm to match changed order in array,
+//which this function does,
+//it works when I loop but it breaks when I optimize
+//using the switch there's something I'm not understanding
+//but can commit at least
+u8 ItemtoTMHMId(u16 itemId)
+{
+
+    u8 TMHMValue = 0; 
+    u8 TMHM_Cat = NEITHER; //loop tmlist if found there set to false
+
+    //swapped hms to first loop to make things a bit faster
+    
+    switch (TMHMValue)
+    {
+        case 0 ... (NUM_HIDDEN_MACHINES - 1):
+        {
+            if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+            {
+                TMHM_Cat = HM_MOVE;
+                break;
+            }    
+            TMHMValue++;
+        }
+
+    }
+    
+    
+    /*for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+    {
+        if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+        {
+            TMHM_Cat = HM_MOVE;
+            break;
+        }  
+    }*/
+   
+
+    
+    if (!TMHM_Cat)
+    {
+        TMHMValue = 0;
+        switch (TMHMValue)
+        {
+            
+            case 0 ... (NUM_TECHNICAL_MACHINES - 1):
+            {
+                if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+                {
+                    TMHM_Cat = TM_MOVE;
+                    break;
+                }    
+                TMHMValue++;
+            }
+
+        }
+        
+        
+    }
+
+
+    /*if (!TMHM_Cat)
+    {
+         for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        {
+            if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+            {
+                TMHM_Cat = TM_MOVE;
+                break;
+            }    
+        }
+    }*/
+
+   //shouldn't happen at this point but extra protection I guess
+   //mostly so doesn't trigger plus 1, and read a 0 as a positive result
+   if (!TMHM_Cat)
+    return 0;
+    
+
+
+    return TMHMValue;
+
+   
 }
 
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)

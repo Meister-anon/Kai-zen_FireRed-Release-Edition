@@ -787,6 +787,7 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon);
 u8 IsTMHM(u16 itemId);
 u8 Isitem_HM(u16 itemId);
 u16 GetTMHMNumberandCategory(u16 itemId); //still setting up
+u8 ItemtoTMHMId(u16 itemId); //specifically made for SortAndCompactTmCase, as +1 of GetTMHMNumberandCategory funciion caused issue there
 u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm); //change to u16 for both, later
 u32 CanSpeciesLearnTMHM(u16 species, u16 tm);
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves);

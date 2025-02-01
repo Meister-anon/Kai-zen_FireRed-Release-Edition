@@ -513,7 +513,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     u16 k;
     struct ItemSlot * buff;
 
-    SortAndCompactBagPocket(pocket);
+    SortAndCompactTmCase(pocket);
 
     for (i = 0; i < pocket->capacity; i++)
     {
@@ -553,6 +553,41 @@ void SortAndCompactBagPocket(struct BagPocket * pocket)
         for (j = i + 1; j < pocket->capacity; j++)
         {
             if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0 || (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 && pocket->itemSlots[i].itemId > pocket->itemSlots[j].itemId))
+                SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
+        }
+    }
+}
+
+//rather than item id, I THINK it would work
+//if I had it filter based on tmhm index
+//if the other function puts hms first
+//than that should make it swap places if the tm
+//should come after the one following it
+
+//Causes massive bag open delay,
+/* new idea  cut down on things just do if item battle move id
+is greater compared to loop stm moves of next
+//than do same for hm
+*/
+//tested confirmed issues w this function is why
+//tm & hms are getting mixed in the case.
+void SortAndCompactTmCase(struct BagPocket * pocket)
+{
+    u16 i, j;
+
+    for (i = 0; i < pocket->capacity; i++)
+    {
+        for (j = i + 1; j < pocket->capacity; j++)
+        {
+            u8 currTmHm = ItemtoTMHMId(pocket->itemSlots[i].itemId);
+            u8 NextTmHm = ItemtoTMHMId(pocket->itemSlots[j].itemId);
+
+            //added logic to attempt to swap if hm
+            if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0 || (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 && currTmHm > NextTmHm))
+                SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
+
+            //IT WORKED!!! awesome now just need to fix optimization
+            if (Isitem_HM(pocket->itemSlots[j].itemId) && !Isitem_HM(pocket->itemSlots[i].itemId))
                 SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
         }
     }
