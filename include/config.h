@@ -29,6 +29,10 @@
 
 #define ABSPATH(x) (CODE_ROOT x)
 
+// Learnset helper toggles
+//#define P_LEARNSET_HELPER_TEACHABLE TRUE        // If TRUE, teachable_learnsets.h will be populated by tools/learnset_helpers/teachable.py using the included JSON files based on available TMs and tutors.
+
+
 #ifdef ENGLISH
 #define UNITS_IMPERIAL
 #else

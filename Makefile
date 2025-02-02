@@ -395,6 +395,13 @@ $(OBJ_DIR)/sym_common.ld: sym_common.txt $(C_OBJS) $(wildcard common_syms/*.txt)
 $(OBJ_DIR)/sym_ewram.ld: sym_ewram.txt
 	$(RAMSCRGEN) .sbss $< ENGLISH > $@
 
+
+#not used yet but this runs python on make to generate file from json,
+#will use to make tm array I need
+# NOTE: Depending on event_scripts.o is hacky, but we want to depend on everything event_scripts.s depends on without having to alter scaninc
+#$(DATA_C_SUBDIR)/pokemon/teachable_learnsets.h: $(DATA_ASM_BUILDDIR)/event_scripts.o
+#	python3 tools/learnset_helpers/teachable.py
+
 # NOTE: Based on C_DEP above, but without NODEP and KEEP_TEMPS handling.
 define TEST_DEP
 $1: $2 $$(shell $(SCANINC) -I include -I tools/agbcc/include -I gflib $2)

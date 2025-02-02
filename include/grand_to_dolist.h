@@ -3031,6 +3031,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to determine if its  a tmhm as well
     2/1/2025
 
+    Addded make file changes and learnset jsons,
+    in advance of using as template to create tm list file
+    I prob don't need a json, I think I can just use python
+    run from make file to do what I need.
+
+    plan to keep all learnset data tho, as good to have 
+    allows people to make game compatible with whatever gen they want.
+    script isn't run unless config is set to true,
+    //added to config.h file 
+    2/2/2025
+
     updated event scripts & specials setup
     plan use python replace all event.inc
     .byte listings with callnatives to the scrcmd macros
