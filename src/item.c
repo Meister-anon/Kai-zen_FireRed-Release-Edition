@@ -513,7 +513,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     u16 k;
     struct ItemSlot * buff;
 
-    SortAndCompactTmCase(pocket);
+    SortAndCompactBagPocket(pocket);
 
     for (i = 0; i < pocket->capacity; i++)
     {
@@ -558,6 +558,23 @@ void SortAndCompactBagPocket(struct BagPocket * pocket)
     }
 }
 
+
+//hedara sent  idea bag sort optimization
+//sortandcompactbagpocket apparently uses bubble sort
+//so need to research sort optimizations and learn how to setup
+//idea hedara had
+//vsonic important
+/*
+buffer[ITEMS_COUNT];
+for slot in pocket - for (i = 0; i < pocket->capacity; i++)
+{
+  if (buffer[currItem] != 0)  - if (buffer[pocket->itemSlots[i].itemId] != 0)
+    addStacksTogether(); //figur this out
+  else
+    buffer[currItem] = slot; //believe means swapitemslots
+}
+*/
+
 //rather than item id, I THINK it would work
 //if I had it filter based on tmhm index
 //if the other function puts hms first
@@ -571,24 +588,47 @@ is greater compared to loop stm moves of next
 */
 //tested confirmed issues w this function is why
 //tm & hms are getting mixed in the case.
+
+//buffer array to match itemIds in order of tm hm array
+//do this outside initial loop,
+//assentially is alloc building tmhm list  based on item ids
+//loop items count
+//other idea is a json to create the array at build time
+//for now work on building function within this
+//hms first  then do loop for tms later
+//tm item ids will be added to main array at i + num_hidden_machines
+//decided can't do it calculate list in function,
+//would still involve loops best to make it else where,
+//looking into json or python creation at make/compile time
+//make array of item ids in order I want for tm case
+//hms first then tms
+//will boil down to this, but using itemid rather than needing to do item to move id
+//(ItemIdToBattleMoveId(i) != gHM_Moves[i] && ItemIdToBattleMoveId(j) == gHM_Moves[i])
+//this
+//(pocket->itemSlots[i].itemId != gTMHM_List[i] && pocket->itemSlots[i].itemId(j) == gTMHM_List[i])
 void SortAndCompactTmCase(struct BagPocket * pocket)
 {
-    u16 i, j;
+    u32 i, j;
+
 
     for (i = 0; i < pocket->capacity; i++)
     {
         for (j = i + 1; j < pocket->capacity; j++)
         {
-            u8 currTmHm = ItemtoTMHMId(pocket->itemSlots[i].itemId);
-            u8 NextTmHm = ItemtoTMHMId(pocket->itemSlots[j].itemId);
+
+            
+            //correct conditional for when i get the tmlist file setup correcty
+            /*
+            if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0
+            || (pocket->itemSlots[i].itemId != gTMHM_List[i] && pocket->itemSlots[i].itemId(j) == gTMHM_List[i]))
+                SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
+            */
 
             //added logic to attempt to swap if hm
-            if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0 || (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 && currTmHm > NextTmHm))
-                SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
-
             //IT WORKED!!! awesome now just need to fix optimization
             if (Isitem_HM(pocket->itemSlots[j].itemId) && !Isitem_HM(pocket->itemSlots[i].itemId))
                 SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
+            
         }
     }
 }

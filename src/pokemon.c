@@ -11149,63 +11149,37 @@ u16 GetTMHMNumberandCategory(u16 itemId)
 //it works when I loop but it breaks when I optimize
 //using the switch there's something I'm not understanding
 //but can commit at least
-u8 ItemtoTMHMId(u16 itemId)
+//checked code in w3 schools terminal fond issue,
+//code is only run once, it doesn't check each case value until the end
+//i'd have to run case 0: increment; case 1: incremen; case 2: increment:
+//surely there's a way to right the range as fall through and substitue for 
+//needing to write each one out?
+//but now that I realize its as slow as it is, even with a single non loop
+//how is thi supposed to work even if I do 50 switches??
+//new idea to prevent running function twice,
+//attempt bit wise return and take 2 item ids,
+//would involve running this twice essentially so no idea if that's even better?
+//but its
+//no longer using this
+u8 ItemtoTMHMId(u16 itemId) 
 {
 
-    u8 TMHMValue = 0; 
-    u8 TMHM_Cat = NEITHER; //loop tmlist if found there set to false
+    u8 TMHMValue; 
+    u8 TMHM_Cat = NEITHER;    
 
-    //swapped hms to first loop to make things a bit faster
-    
-    switch (TMHMValue)
-    {
-        case 0 ... (NUM_HIDDEN_MACHINES - 1):
-        {
-            if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
-            {
-                TMHM_Cat = HM_MOVE;
-                break;
-            }    
-            TMHMValue++;
-        }
-
-    }
     
     
-    /*for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+    for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
     {
         if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
         {
             TMHM_Cat = HM_MOVE;
             break;
         }  
-    }*/
+    }
    
 
-    
     if (!TMHM_Cat)
-    {
-        TMHMValue = 0;
-        switch (TMHMValue)
-        {
-            
-            case 0 ... (NUM_TECHNICAL_MACHINES - 1):
-            {
-                if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
-                {
-                    TMHM_Cat = TM_MOVE;
-                    break;
-                }    
-                TMHMValue++;
-            }
-
-        }
-        
-        
-    }
-
-
-    /*if (!TMHM_Cat)
     {
          for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
         {
@@ -11215,17 +11189,13 @@ u8 ItemtoTMHMId(u16 itemId)
                 break;
             }    
         }
-    }*/
+    }
 
    //shouldn't happen at this point but extra protection I guess
-   //mostly so doesn't trigger plus 1, and read a 0 as a positive result
    if (!TMHM_Cat)
     return 0;
     
-
-
     return TMHMValue;
-
    
 }
 

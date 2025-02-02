@@ -2984,12 +2984,45 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
    ok after get out of the task everything appears to be fine...
    
+    for tm refactor believe last thing need to do,
+    is get the tm case to print in the correct order,
+    rn it changes ids correclty, but it does not
+    change the order in which things are loaded
+    within the tm case/ are printed to the tm case
+
+    ex. putting fly before cut hm
+    makes fly hm 1 but it still prints in the 2nd slot
+
+    still working on removing old links of item id to tm hm
+    search ITEM_HM0 & ITEM_TM for hits
+
+    also plan set CanSpeciesLearnTMHM to use move id
+    oh nvm I don't need to do that
+
     almost fixed tm setting order in tm case
     last thing is fix itemtoTMHMId function,
     its the optimization works w loop but not switch rn
 
     following that, just go back to check for instances
     of the itemTM itemHM constants to replace if needed
+    2/1/2025
+
+    //got hlep from rhh on tm refactor realized for sort function
+    need to have list ids created before function, creating list
+    of things in function is too slow and takes too many resource
+    plan to create file and or array of itemids in hmtm order
+    based on hmarray and tm array in global.h file
+    ghm_moves gtm_moves
+
+    want to generate from a json/python script on make
+    for futher optimzation (to not need to build every time you make)
+    find some way of telling it to only rebuild list
+    if there are changes in the global.h or src/data/items.h files
+
+    global.h becuase that's where the tmhm lists are and items.h
+    becuase there where you would change pocket item is in
+    and the item importance
+    to determine if its  a tmhm as well
     2/1/2025
 
     updated event scripts & specials setup
