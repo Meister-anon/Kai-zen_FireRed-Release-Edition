@@ -10397,6 +10397,20 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
     }
 }
 
+static const u16 sUniversalMoves[] =
+{
+    MOVE_BIDE,
+    MOVE_FRUSTRATION,
+    MOVE_HIDDEN_POWER,
+    MOVE_MIMIC,
+    MOVE_NATURAL_GIFT,
+    MOVE_RAGE,
+    MOVE_RETURN,
+    MOVE_SECRET_POWER,
+    MOVE_SUBSTITUTE,
+    MOVE_TERA_BLAST,
+};
+
 u16 SanitizeSpeciesId(u16 species)
 {
     if (species > NUM_SPECIES)
@@ -10974,25 +10988,63 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
     u16 i;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
-    
+    u16 move = gItems[tm].secondaryId;
+
     if (species == SPECIES_EGG)
     {
         return FALSE;
-    }    
-
-    else 
+    }
+    
+    else
     {
         if (!IsTMHM(tm))
             return FALSE;
-        
+
+        for (i = 0; i < ARRAY_COUNT(sUniversalMoves); i++)
+        {
+            if (sUniversalMoves[i] == move)
+            {
+                    if (move == MOVE_TERA_BLAST && GET_BASE_SPECIES_ID(species) == SPECIES_TERAPAGOS)
+                        return FALSE;
+                    //if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
+                    //    return FALSE;
+                    return TRUE;
+
+            }
+        }
+
+        if (teachableLearnset[0] == TMHM_LEARN_ALL)
+        {
+            switch (move)
+            {
+            case MOVE_BADDY_BAD:
+            case MOVE_BOUNCY_BUBBLE:
+            case MOVE_BUZZY_BUZZ:
+            case MOVE_DRAGON_ASCENT:
+            case MOVE_FLOATY_FALL:
+            case MOVE_FREEZY_FROST:
+            case MOVE_GLITZY_GLOW:
+            case MOVE_RELIC_SONG:
+            case MOVE_SAPPY_SEED:
+            case MOVE_SECRET_SWORD:
+            case MOVE_SIZZLY_SLIDE:
+            case MOVE_SPARKLY_SWIRL:
+            case MOVE_SPLISHY_SPLASH:
+            case MOVE_VOLT_TACKLE:
+            case MOVE_ZIPPY_ZAP:
+                return FALSE;
+            default:
+                return TRUE;
+            }
+        }
+
         for (i = 0; teachableLearnset[i] != TMHM_LEARNSET_END; i++)
         {
-            if (teachableLearnset[i] == gItems[tm].secondaryId)
+            if (teachableLearnset[i] == move)
                 break;
-            if (teachableLearnset[i] == TMHM_LEARN_ALL)
-                break;
-
+            
         }
+
         if (teachableLearnset[i] != TMHM_LEARNSET_END)
             return TRUE; //change to a loop
         else 
@@ -11005,7 +11057,8 @@ u32 CanSpeciesLearnTMHM(u16 species, u16 tm) //for this belive replace with loop
 {
     u16 i;
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
-    
+    u16 move = gItems[tm].secondaryId;
+
     if (species == SPECIES_EGG)
     {
         return FALSE;
@@ -11016,18 +11069,56 @@ u32 CanSpeciesLearnTMHM(u16 species, u16 tm) //for this belive replace with loop
         if (!IsTMHM(tm))
             return FALSE;
 
+        for (i = 0; i < ARRAY_COUNT(sUniversalMoves); i++)
+        {
+            if (sUniversalMoves[i] == move)
+            {
+                    if (move == MOVE_TERA_BLAST && GET_BASE_SPECIES_ID(species) == SPECIES_TERAPAGOS)
+                        return FALSE;
+                    //if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
+                    //    return FALSE;
+                    return TRUE;
+
+            }
+        }
+
+        if (teachableLearnset[0] == TMHM_LEARN_ALL)
+        {
+            switch (move)
+            {
+            case MOVE_BADDY_BAD:
+            case MOVE_BOUNCY_BUBBLE:
+            case MOVE_BUZZY_BUZZ:
+            case MOVE_DRAGON_ASCENT:
+            case MOVE_FLOATY_FALL:
+            case MOVE_FREEZY_FROST:
+            case MOVE_GLITZY_GLOW:
+            case MOVE_RELIC_SONG:
+            case MOVE_SAPPY_SEED:
+            case MOVE_SECRET_SWORD:
+            case MOVE_SIZZLY_SLIDE:
+            case MOVE_SPARKLY_SWIRL:
+            case MOVE_SPLISHY_SPLASH:
+            case MOVE_VOLT_TACKLE:
+            case MOVE_ZIPPY_ZAP:
+                return FALSE;
+            default:
+                return TRUE;
+            }
+        }
+
         for (i = 0; teachableLearnset[i] != TMHM_LEARNSET_END; i++)
         {
-            if (teachableLearnset[i] == gItems[tm].secondaryId)
+            if (teachableLearnset[i] == move)
                 break;
-            if (teachableLearnset[i] == TMHM_LEARN_ALL)
-                break;
+            
         }
+
         if (teachableLearnset[i] != TMHM_LEARNSET_END)
             return TRUE; //change to a loop
         else 
             return FALSE;
-    }
+    }    
 }
 
 u8 IsTMHM(u16 itemId)
