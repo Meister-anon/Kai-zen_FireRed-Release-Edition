@@ -3460,19 +3460,12 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     //setup for hm moves
     for (j = 0; j < FIELD_MOVE_TELEPORT; ++j) //need do pointer logic to check sPartyMenuInternal->actions, to make sure its not more than 9 entries for this
     {
-        for (itemId = 0; itemId != ITEMS_COUNT; itemId++)
-        {
-            if (gItems[itemId].pocket != POCKET_TM_CASE)
-                continue;
-            
-            if (ItemIdToBattleMoveId(itemId) == sFieldMoves[j])
-                break;
-        }
+
         //should prevent learnable hms from showing in  list until you have the badge to use them(working)
-            if (CanSpeciesLearnTMHM(species, itemId) && ShouldDisplayHMFieldMove(j)
-             && sPartyMenuInternal->numActions <= 5) 
-                AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
-                //break;since I'm trying to check all didn't actually need the break, plus I only have 1 loop not 2
+        if (CanSpeciesLearnTMHMmove(species, sFieldMoves[j]) && ShouldDisplayHMFieldMove(j)
+            && sPartyMenuInternal->numActions <= 5) 
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
+            //break;since I'm trying to check all didn't actually need the break, plus I only have 1 loop not 2
 
     }//because it was reading item list, & hm 5 did not equal field move 5, had to reorder field move list to match hm item order
     

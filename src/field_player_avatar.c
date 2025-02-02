@@ -1183,21 +1183,13 @@ bool8 PartyHasMonWithSurf(void)
 
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {   
-        for (j = ITEM_NONE; j != ITEMS_COUNT; j++)
-        {
-            if (gItems[j].pocket != POCKET_TM_CASE)
-                continue;
-
-            if (ItemIdToBattleMoveId(j) == MOVE_SURF)
-                break;
-        }
-
+        
         for (i = 0; i < PARTY_SIZE; i++)
         {
             species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
                 break;
-            if (CanSpeciesLearnTMHM(species, j) 
+            if (CanSpeciesLearnTMHMmove(species, MOVE_SURF) 
             && ShouldDisplayHMFieldMove(FIELD_MOVE_SURF)) //for above thing change to just take tm item so can just use that for these?
                 return TRUE;    //should greatly simplify
         }

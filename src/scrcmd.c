@@ -1961,22 +1961,13 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext * ctx)
     gSpecialVar_Result = PARTY_SIZE;
 
 
-    for (itemId = ITEM_NONE; itemId != ITEMS_COUNT; itemId++)
-    {
-        if (gItems[itemId].pocket != POCKET_TM_CASE)
-            continue;
-
-        if (ItemIdToBattleMoveId(itemId) == moveId)
-            break;   
-    }
-
     for (i = 0; i < PARTY_SIZE; i++)
     {
         u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL);
         if (species == SPECIES_EGG)
             break;                 
         
-        if (CanSpeciesLearnTMHM(species, itemId))
+        if (CanSpeciesLearnTMHMmove(species, moveId))
         {
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;

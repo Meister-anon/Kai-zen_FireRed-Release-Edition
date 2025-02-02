@@ -2035,11 +2035,9 @@ for dexnav to work think I may need to make a separate mon seen value*/
 static void TintPartyMonIcons(u16 tm, s32 itemIndex)
 {
     u8 i;
-    u16 species;
 
     for (i = 0; i < gPlayerPartyCount; i++)
     {
-        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT2_ALL);
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(7, 11));
         
@@ -2047,7 +2045,7 @@ static void TintPartyMonIcons(u16 tm, s32 itemIndex)
         {
             gSprites[spriteIdData[i]].oam.objMode = ST_OAM_OBJ_BLEND;//gMonIconPaletteIndices[species];
         }
-        else if (!CanSpeciesLearnTMHM(species, tm))//if cant learn tmhm grey out, 
+        else if (!CanMonLearnTMHM(&gPlayerParty[i], tm))//if cant learn tmhm grey out, 
         {
             gSprites[spriteIdData[i]].oam.objMode = ST_OAM_OBJ_BLEND;
         }

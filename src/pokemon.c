@@ -11053,11 +11053,11 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
 }//ok so when I apply the tmhm expansion that does away with the bit stuff will have to adjust these
 
 //says tm is item id
-u32 CanSpeciesLearnTMHM(u16 species, u16 tm) //for this belive replace with loop to check?
+//all instances of this can better use move id rather than item_id
+u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace with loop to check?
 {
     u16 i;
     const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
-    u16 move = gItems[tm].secondaryId;
 
     if (species == SPECIES_EGG)
     {
@@ -11066,8 +11066,7 @@ u32 CanSpeciesLearnTMHM(u16 species, u16 tm) //for this belive replace with loop
     
     else
     {
-        if (!IsTMHM(tm))
-            return FALSE;
+
 
         for (i = 0; i < ARRAY_COUNT(sUniversalMoves); i++)
         {

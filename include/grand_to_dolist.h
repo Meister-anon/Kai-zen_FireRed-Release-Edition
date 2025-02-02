@@ -2998,6 +2998,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     also plan set CanSpeciesLearnTMHM to use move id
     oh nvm I don't need to do that
+    -did it, it did make sense to do,
+    for all but tmcase I was using a large loop
+    to find an item value to use
+    changed species function and was able to remove loop
+    only kept for tm case just using canmonlearntmhm there intead now
+    2/1/2025- done
 
     almost fixed tm setting order in tm case
     last thing is fix itemtoTMHMId function,
