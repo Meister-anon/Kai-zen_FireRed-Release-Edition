@@ -91,43 +91,42 @@ FoundTms = 0
 itemId = None
 
 for TMs in tm_Array:
-    if FoundTms == TotalTMs:
-        break
     for line in lines:
         if re.compile(r'\[' + 'ITEM_').search(line):
-            #line = line.replace("\n", "")
             line = line.replace("    [", "    ")
             line = line.replace("] =", ",")
             itemId = line
             #print(itemId)
         if re.compile(r'.secondaryId').search(line):
-            #for TMs in tm_moves:
-            #    continue
-                #check if tmhm from tm_moves is on line w secondaryId
-                #if re.compile(r'' + TMs).search(line):
-            if re.compile(tm_Array[FoundTms]).search(line):
+            #check if tmhm from tm_moves is on line w secondaryId
+            if re.compile(TMs).search(line):
                 line = line.replace("\n", "")
                 line = line.replace(",", "")
                 line = line.replace("      .secondaryId =  ", "")
-                #print(itemId)
                 
-                Item_Array.append(itemId)
-                tm_itemIds += itemId
-                if FoundTms < TotalTMs:
-                    FoundTms += 1
-                if FoundTms == TotalTMs:
-                    break 
-    #if FoundTms == 3:
-    #    break
+                #print(line, TMs)
+                #surprisingly simple
+                if (re.match(line, TMs)):
+                    #print(TMs)
+                    #print(itemId)
+                    if not itemId in Item_Array:
+                        Item_Array.append(itemId)
+                        tm_itemIds += itemId
+                        if FoundTms < TotalTMs:
+                            FoundTms += 1
 
-#print(tm_itemIds)
-
-
+#print(TMs)
 #print(FoundTms)
 #print(tm_itemIds)
 #print(tm_moves)
-#print(list(Item_Array))
+#print(Item_Array)
+#print(tm_Array)
 infile.close()
+
+
+
+
+
 
 '''
 decided rather than just create entirely new file
@@ -135,46 +134,12 @@ can search for specific cut off point within tm list file
 and print generated data below that
 '''
 
-'''
-with open("/usr/decomp/Kai-zen_FireRed-Release-Edition/include/tm_List_data.h", 'r') as file:
-    CurrFile = file.read()
 
-NewFile = CurrFile
-
-
-
-
-separator = '\n' + r'//\n// DO NOT MODIFY BELOW THIS LINE! It is auto-generated from scripts_py/tm_list.py\n//\n\n'
-
-
-def header_print(str):
-    global header
-    separator += "    " + str + ",\n"
-
-separator += r"\n" + r"static const u16 gTMHM_List\[\] = {" + r"\n"
-
-
-for Items in tm_itemIds:
-    header_print(Items)
-
-separator += r'};'
-
-
-if not "// DO NOT MODIFY BELOW THE!" in CurrFile:
-    NewFile = NewFile + separator
-
-if NewFile != CurrFile:
-    print("Updated Tm List")
-'''
-
-#should hold current version of file
-curr_lines = []
 #store the default version of file without the generatedd sections
 modifiable_lines = ''
 #stores the generated data from this file
 generated_lines = ''
 
-new_lines = []
 
 #because I'm trying to print within file,
 #need to read it 2 different ways and adjsut by line as well
@@ -191,7 +156,6 @@ for line in lines:
     #if as expected should copy edited portion of file over unchanged
     if state == 0:
         modifiable_lines += line
-    curr_lines.append(line)
     
 
 
@@ -221,117 +185,7 @@ infile.close()
 if out != (modifiable_lines  + generated_lines):
     print("Updated Tm List")
 
-#outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/include/tm_List_data.h', 'w')
-#outfile.writelines(modifiable_lines + generated_lines)
-#outfile.close()
-
-
 out = (modifiable_lines + generated_lines)
 
 with open("/usr/decomp/Kai-zen_FireRed-Release-Edition/include/tm_List_data.h", 'w') as file:
     file.write(out)
-
-'''
-
-infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/include/tm_List_data.h', 'r')
-lines = infile.readlines()
-
-compositeList = []
-compositeList = (modifiable_lines + generated_lines)
-
-for line in compositeList:
-    new_lines.append(line)
-'''
-
-#print(new_lines)
-
-#outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/include/tm_List_data.h', 'w')
-#outfile.writelines(new_lines)
-#outfile.close()
-
-
-
-
-
-'''
-# actually prepare the file
-with open('./src/data/pokemon/teachable_learnsets.h', 'r') as file:
-    out = file.read()
-    list_of_mons = re.findall(r'static const u16 s(.*)TeachableLearnset', out)
-for mon in list_of_mons:
-    mon_parsed = parse_mon_name(mon)
-    tm_learnset = []
-    tutor_learnset = []
-    if mon_parsed == "NONE" or mon_parsed == "MEW":
-        continue
-    if not mon_parsed in compatibility_dict:
-        print("Unable to find %s in json" % mon)
-        continue
-    for move in tm_moves:
-        if move in universal_moves:
-            continue
-        if move in tm_learnset:
-            continue
-        if move in compatibility_dict[mon_parsed]:
-            tm_learnset.append(move)
-            continue
-    for move in tutor_moves:
-        if move in universal_moves:
-            continue
-        if move in tutor_learnset:
-            continue
-        if move in compatibility_dict[mon_parsed]:
-            tutor_learnset.append(move)
-            continue
-    tm_learnset.sort()
-    tutor_learnset.sort()
-    tm_learnset += tutor_learnset
-    repl = "static const u16 s%sTeachableLearnset[] = {\n    " % mon
-    if len(tm_learnset) > 0:
-        repl += ",\n    ".join(tm_learnset) + ",\n    "
-    repl += "MOVE_UNAVAILABLE,\n};"
-    newout = re.sub(r'static const u16 s%sTeachableLearnset\[\] = {[\s\S]*?};' % mon, repl, out)
-    if newout != out:
-        out = newout
-        print("Updated %s" % mon)
-
-# add/update header
-header = "//\n// DO NOT MODIFY THIS FILE! It is auto-generated from tools/learnset_helpers/teachable.py\n//\n\n"
-longest_move_name = 0
-for move in tm_moves + tutor_moves:
-    if len(move) > longest_move_name:
-        longest_move_name = len(move)
-longest_move_name += 2 # + 2 for a hyphen and a space
-
-universal_title = "Near-universal moves found in sUniversalMoves:"
-tmhm_title = "TM/HM moves found in gTM_Moves/gHM_Moves:"
-
-
-def header_print(str):
-    global header
-    header += "// " + str + " " * (longest_move_name - len(str)) + " //\n"
-
-header += "// " + longest_move_name * "*" + " //\n"
-header_print(tmhm_title)
-for move in tm_moves:
-    header_print("- " + move)
-header += "// " + longest_move_name * "*" + " //\n"
-header_print(tutor_title)
-tutor_moves.sort() # alphabetically sort tutor moves for easier referencing
-for move in tutor_moves:
-    header_print("- " + move)
-header += "// " + longest_move_name * "*" + " //\n"
-header_print(universal_title)
-universal_moves.sort() # alphabetically sort near-universal moves for easier referencing
-for move in universal_moves:
-    header_print("- " + move)
-header += "// " + longest_move_name * "*" + " //\n\n"
-
-if not "// DO NOT MODIFY THIS FILE!" in out:
-    out = header + out
-else:
-    out = re.sub(r"\/\/\n\/\/ DO NOT MODIFY THIS FILE!(.|\n)*\* \/\/\n\n", header, out)
-
-with open("./src/data/pokemon/teachable_learnsets.h", 'w') as file:
-    file.write(out)
-'''
