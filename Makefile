@@ -209,13 +209,25 @@ TOOLS = $(foreach tool,$(TOOLBASE),tools/$(tool)/$(tool)$(EXE))
 ALL_BUILDS := firered firered_rev1 leafgreen leafgreen_rev1
 #leaving off assign _modern so can do separate cleans
 
-.PHONY: all rom tools clean-tools mostlyclean clean compare tidy syms berry_fix $(TOOLDIRS) $(CHECKTOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) $(ALL_BUILDS:%=%_modern) modern
+.PHONY: all rom UpdateTmList tools clean-tools mostlyclean clean compare tidy syms berry_fix $(TOOLDIRS) $(CHECKTOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) $(ALL_BUILDS:%=%_modern) modern
 
 MAKEFLAGS += --no-print-directory
 
 AUTO_GEN_TARGETS :=
 
-all: tools rom
+
+#attempt build file just for tm, after colon is dependency to create file,
+#all need one think, but don't have any source for this other than py file
+#actually I'm not making a file that doesn't exist as of now,
+#so I just need to run the py script, 
+
+
+#need run python first so put first
+#but dependency is not correct so its still forcing build
+#when it shouldn't.
+#its not supposed to run unless I've changed tm_List_data.h
+#or the py script itself
+all: UpdateTmList tools rom
 
 syms: $(SYM) #believe makes map file
 
@@ -224,9 +236,22 @@ ifeq ($(COMPARE),1)
 	@$(SHA1) $(BUILD_NAME).sha1
 endif
 
+#think starting to understand, top line after collon is rule,
+#before collon is the command name?
+#and the tabbed line UNDER the command is the dependency list?
+#no part after colon is the target, the thing the rule is supposed to 
+#make?
+#can still do print at end, use @echo '' to right my message
+#just need a check for if tm_List_data.h or tm_list.py was changed
+#return True if so, and then  do echo if true
 tools: $(TOOLDIRS)
 
 check-tools: $(CHECKTOOLDIRS)
+
+UpdateTmList:
+	python3	scripts_py/tm_list.py
+
+	
 
 $(TOOLDIRS):
 	@$(MAKE) -C $@

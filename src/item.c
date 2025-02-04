@@ -513,7 +513,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     u16 k;
     struct ItemSlot * buff;
 
-    SortAndCompactBagPocket(pocket);
+    SortAndCompactTmCase(pocket);
 
     for (i = 0; i < pocket->capacity; i++)
     {
@@ -618,16 +618,18 @@ void SortAndCompactTmCase(struct BagPocket * pocket)
 
             
             //correct conditional for when i get the tmlist file setup correcty
-            /*
+            
             if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0
-            || (pocket->itemSlots[i].itemId != gTMHM_List[i] && pocket->itemSlots[i].itemId(j) == gTMHM_List[i]))
+            || (pocket->itemSlots[i].itemId != gTMHM_List[i] && pocket->itemSlots[j].itemId == gTMHM_List[i]))
                 SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
-            */
+            
 
             //added logic to attempt to swap if hm
             //IT WORKED!!! awesome now just need to fix optimization
-            if (Isitem_HM(pocket->itemSlots[j].itemId) && !Isitem_HM(pocket->itemSlots[i].itemId))
-                SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
+            //w new setup it should already put hms first without needing this call
+            //so sligthtly faster I guess
+            //if (Isitem_HM(pocket->itemSlots[j].itemId) && !Isitem_HM(pocket->itemSlots[i].itemId))
+            //    SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
             
         }
     }
