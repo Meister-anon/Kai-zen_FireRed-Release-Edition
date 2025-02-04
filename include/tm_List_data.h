@@ -1,5 +1,6 @@
-//moved here this will be hard order for tms
-//no longer hard stuck to item order
+//Recomendation, if you want to remove things from these lists//
+//I recommend commenting them out, rather than deleting//
+
 
 static const u16 sUniversalMoves[] =
 {
@@ -19,6 +20,9 @@ static const u16 sUniversalMoves[] =
 //** HM list MUST stay above TM list **//
 //** Ensure no whitespace after move ids, it'll interupt py script **/
 //* Use Shift + Click to highlight range to check spacing *//
+//** To add to the lists in this file add the move id where you want it **//
+//** And ensure itemdata is setup src/data/items.h properly for a TM or HM**//
+//** pocket must be POCKET_TM_CASE, TMs have importance 0, HMs use importance 1 **//
 #define TMHM_LIST
 static const u16 gHM_Moves[] =
 {
