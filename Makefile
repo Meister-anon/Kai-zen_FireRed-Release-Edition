@@ -227,6 +227,13 @@ AUTO_GEN_TARGETS :=
 #when it shouldn't.
 #its not supposed to run unless I've changed tm_List_data.h
 #or the py script itself
+
+#talked w yoshord in Rhh
+# things after colon are the dependencies
+#dependency meaning what must be built before the indented line below it
+#can be executed, this lower line data is the "recipe"
+#dependincies are built first, then the recipe is executed
+#if there is no recipe after depencies are done it does nothing
 all: UpdateTmList tools rom
 
 syms: $(SYM) #believe makes map file

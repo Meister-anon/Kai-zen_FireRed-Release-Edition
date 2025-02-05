@@ -182,8 +182,16 @@ infile.close()
 #print(modifiable_lines)
 #print(generated_lines)
 
+#realized there's not much point in the else,
+#generated lines are only ones that matter here,
+#as modifables have already been saved beforehand thus are identical
+#and because the file is global, changing modifiables is already enough to make it build globally
+#all it would do is prevent printing an identical output to the destination file,
+#which is an trivial process
 if out != (modifiable_lines  + generated_lines):
     print("Updated Tm List")
+else:
+    quit() #idea stop unnecessary building, if data is same don't output to file
 
 out = (modifiable_lines + generated_lines)
 
