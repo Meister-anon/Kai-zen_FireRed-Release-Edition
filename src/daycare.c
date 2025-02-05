@@ -1056,6 +1056,9 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
         sHatchedEggLevelUpMoves[i] = MOVE_NONE;
 
     numLevelUpMoves = GetLevelUpMovesBySpecies(GetMonData(egg, MON_DATA_SPECIES), sHatchedEggLevelUpMoves);
+    //figure out how to do move passing,
+    //thought set with held item but that keeps me from using
+    //an item that's actually useful for breeding
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         sHatchedEggFatherMoves[i] = GetBoxMonData(father, MON_DATA_MOVE1 + i);
@@ -1083,13 +1086,30 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
             break;
         }
     }
+
+    //hmm realize the main impact of this system
+    //was lost when tms became reusable
+    //its not doing anything you can't already do
+    //perhaps do same thing for learnset?
+    //if mon knows a move within eggs learnset teach it the move?
+    //potential being  low level mon with much higher moves
+    //makes it designer and would cut down time getting mon "usable"
+    //also consider tutor moves
+    //oh it already inherists learnset moves, ok,
+    //so all I'd have to do is add the search for tutor moves
+    //at the end, to give them preference
+    //only issue is too random can't control,
+    //so set it up so holding certain item,
+    //lets decide if take all move from mother or all from father,
+    //without that default behavior should just be to take first 2 move slots
+    //from both
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
         if (sHatchedEggFatherMoves[i] != MOVE_NONE)
         {
             for (j = 0; j < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; j++)
             {
-                if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(ITEM_TM01/*_FOCUS_PUNCH*/ + j) && CanMonLearnTMHM(egg, j))
+                if (sHatchedEggFatherMoves[i] == ItemIdToBattleMoveId(gTMHM_List[j]) && CanMonLearnTMHM(egg, gTMHM_List[j]))
                 {
                     if (GiveMoveToMon(egg, sHatchedEggFatherMoves[i]) == MON_HAS_MAX_MOVES)
                         DeleteFirstMoveAndGiveMoveToMon(egg, sHatchedEggFatherMoves[i]);

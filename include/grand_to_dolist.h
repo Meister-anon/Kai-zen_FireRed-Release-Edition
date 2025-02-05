@@ -3042,6 +3042,63 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //added to config.h file 
     2/2/2025
 
+    got tmhm list python script working
+    still todo properly set make file to only 
+    run  script on builds when tm_List_data.h has been changed
+    and work out how to display proper message at end of compile
+    
+    also idea to add gen9 egg move logic to project
+    in gen9 when doing a picnic any mon with an empty move slot
+    can pickup egg moves from other mon.
+
+    Change daycare to be able to gain egg moves from other mon
+    if has an empty move slot,
+
+    Check how I changed daycare move learn,
+    pretty sure I disabled it?
+
+    once setup pc move delete move relearn,
+    can prep mon put them in daycare
+    and have them learn the egg move I want
+    but if pc is oak ranch then perhaps they should be able
+    to pick up pc moves from anyone in the box?
+
+    can do extra dialogue for relearn 
+    either relearn learnset moves
+    or do egg move setting which will be based on any mon in box,
+    or I can have it set auto w time via the daycare
+    
+    auto set in daycare,  manual set in pc/oak ranch
+    double check how I have daycare move learn done,
+    I know I completely disabled it for the box
+    
+    rather than relearn make pc dialogue
+    to replace mark, be TEACH
+    make that bring up dialgoue to pick from
+    learnset, Egg, Tutor
+
+    for tutor think check flag and once I've encounterd
+    a move tutor I will learn how to teach it, like a tm,
+    ex. went to mega kick mega punch tutor
+    once I've used one or both I will be able to teach  both
+    via the tutor dialogue,
+    plan is have those tutors reset daily
+    only one can be used a day and the other will refuse you
+    
+    if I pick kick, then go to pc the tutor
+    option will let me select what encountered tutor moves
+    that mon can learn, 
+    returning "Pokemon/nickname has no available tutor moves"
+    if I don't have a move yet for that species
+
+    will need do like field moves and hms,
+    keep flags for available tutors I've found,
+    with list of what moves they give access to
+    building a total list   vsonic important
+    2/4/2025
+
+
+
     updated event scripts & specials setup
     plan use python replace all event.inc
     .byte listings with callnatives to the scrcmd macros
