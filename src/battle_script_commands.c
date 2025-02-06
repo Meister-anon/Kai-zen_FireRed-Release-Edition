@@ -4644,6 +4644,10 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 break;
 
             //put no effect check here, below ability checks above status1 check
+            //pretty sure this is deprecated code from idea to make status go through type checks,
+            //think rn status never sets result no effect,
+            //planned use for hard mode tho? so could remove
+            //normal/ghost exception for later
             if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
             && gBattleMoves[gCurrentMove].type != TYPE_NORMAL
             && gBattleMoves[gCurrentMove].type != TYPE_GHOST)    

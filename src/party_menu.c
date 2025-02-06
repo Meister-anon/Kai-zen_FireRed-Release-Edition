@@ -3277,8 +3277,17 @@ static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox
     u32 SetState = GetMonData(mon, MON_DATA_EXP_SHARE_STATE) ? FALSE : TRUE;
     SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &SetState);
     CreatePartyMonExpSprite(mon, menuBox);
-    //if (!SetState)
-    
+    if (!SetState)
+    {
+        //know eventually causes memory leak
+        //need figure how clear without memory leak or removing other status
+        //InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_DO_WHAT_WITH_MON, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
+        //CreatePartyMonExpSprite(&gPlayerParty[*GetCurrentPartySlotPtr()], &sPartyMenuBoxes[*GetCurrentPartySlotPtr()]);
+        //menuBox->expSpriteId = CreateSprite(&gSpriteTemplate_StatusIcons, menuBox->spriteCoords[8], menuBox->spriteCoords[9], 0);
+        //&gSprites[menuBox->expSpriteId]
+        //ResetSprite(&gSprites[menuBox->expSpriteId]);
+        
+    }    
     //InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_DO_WHAT_WITH_MON, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
     //does clear but causes fade in out, and reused too much breaks
     //InitPartyMenu(menuType, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_AND_CLOSE, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToField);

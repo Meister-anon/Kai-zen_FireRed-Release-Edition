@@ -511,7 +511,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     u16 i;
     u16 j = 0;
     u16 k;
-    struct ItemSlot * buff;
+    struct ItemSlot *buff;
 
     SortAndCompactTmCase(pocket);
 

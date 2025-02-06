@@ -524,7 +524,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+        //.argument = MOVE_EFFECT_INFESTATION,
+    },//appears health box doesn't proplery update status if set via argument?
+    //no idea why
+    //ok so it sets the status without properly doin the whole burn script...
+    //very strange I need to proplery identify what is happening,
+    //and that explains why my other logic isn't working my argument logic
+    //was off and skipped the whole script for doin move effect
 
     [MOVE_BODY_SLAM] =
     {
@@ -8107,6 +8113,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //think will revert my change didn't initially
     //understand use case for move
     //vsonic important
+    //effect is damage equals remainig hp,
+    //I changed to dmg equals lost hp
+    //so you could still get effect out of the mon
+    //vs needing to use it, as soon as it hit the field
+    //but if I do it as a last ditch effort, 
+    //its easier to use but overall the overall damage output
+    //is also lower, which balances I guess
+    //with being able to do damage before using the move
 
     [MOVE_BESTOW] =
     {
@@ -8656,7 +8670,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-    },
+    },//may need buff this and below,
+    //signature of reshiram and zeckrom, kinda underwhelming
+    //for signature moves is just slightly better thunder and fireblast
 
     [MOVE_FIERY_DANCE] =
     {

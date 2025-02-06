@@ -38572,6 +38572,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION, //there's little reason to pair this with water or flying type
     }, //give sceptile flamethrower incinerate & fire blast (incinerate is for technician)
+    //with steel gaining electric weakness pairing w this w lightning rod would be pretty nice actually
+    //consider putting lighting rod back in place of regenerator
 
     [SPECIES_BLAZIKEN_MEGA] =
     {

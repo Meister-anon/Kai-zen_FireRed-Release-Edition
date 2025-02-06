@@ -3097,6 +3097,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     building a total list   vsonic important
     2/4/2025
 
+    double check damage calc lvl 4 mankey at +3 
+    seemed to do less damage than expected to mon
+    several levels up.
+
+    
+    same level rattata got hit for 15
+    3 levels up mankey took 5?
+
+    defense is doubled so idk it may be fine
+    looked at other game seems w lvl diff thats normal
+
+    joke move tutor bullet seed, beside swallow :)
+    or spit up and swallow either works
+
     check bug catcher again potential issue?
     seems to have set ingrain some how?
     didn't see what caused it,
