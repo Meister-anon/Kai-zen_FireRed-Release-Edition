@@ -723,7 +723,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_KEEN_EYE, ABILITY_SCRAPPY},
+            .abilities = {ABILITY_KEEN_EYE, ABILITY_TANGLED_FEET},
             .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_AVIATOR},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -750,7 +750,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_KEEN_EYE, ABILITY_SCRAPPY},
+            .abilities = {ABILITY_KEEN_EYE, ABILITY_TANGLED_FEET},
             .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_AVIATOR},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -758,7 +758,11 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sPidgeotLevelUpLearnset,
         .tmhmLearnset = sPidgeotTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//I kinda wanna keep tangled feet? but doesn't really make sense,
+    //well other than being bad at walking great at flying? hmm
+    //dropped scrappy, swapped that off for toucannon line,
+    //gave that scrappy took tangled feet and gave back here
+    //toucanon has more normal moves this has mostly flyign moves not normal
 
     [SPECIES_RATTATA] =
     {
@@ -22758,7 +22762,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_KEEN_EYE, ABILITY_SKILL_LINK},
-        .abilityHidden = {ABILITY_PICKUP, ABILITY_TANGLED_FEET},
+        .abilityHidden = {ABILITY_PICKUP, ABILITY_SCRAPPY},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22793,7 +22797,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_KEEN_EYE, ABILITY_SKILL_LINK},
-        .abilityHidden = {ABILITY_PICKUP, ABILITY_TANGLED_FEET},
+        .abilityHidden = {ABILITY_PICKUP, ABILITY_SCRAPPY},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22828,7 +22832,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
             .abilities = {ABILITY_KEEN_EYE, ABILITY_SKILL_LINK},
-            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_TANGLED_FEET},
+            .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_SCRAPPY},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22836,6 +22840,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sToucannonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //to differentiate based on dex give bullet seed, rock smash think flamethrower as well & sound move
+    //fire fang/flame charge/ not flamethrower
 
     [SPECIES_YUNGOOS] =
     {

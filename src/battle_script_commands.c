@@ -9761,7 +9761,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_KEEN_EYE
         && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE)
-            calc = (calc * 93) / 100;
+            calc = (calc * 88) / 100;  //was 93, dropped to 88
+        //think may lower this a bit more?
+        //if I drop to .8 (won't actually) it'd effectively be enough to lower a stat stage drop to the next stage down
 
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
             || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   

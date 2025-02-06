@@ -3097,6 +3097,27 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     building a total list   vsonic important
     2/4/2025
 
+    check bug catcher again potential issue?
+    seems to have set ingrain some how?
+    didn't see what caused it,
+    it used bug bite and took my berry
+
+    sigh ok SOMETHING is wrong bind broke AGAIN
+    it triggered the same ingrain root issue
+    not sure how it happened smh
+    gonna assume its something weird going on w
+    battle script commands or battle effects
+    
+    ok think its my sript? bug bite stealing a berry triggers 
+    the glitch as well as bind,
+    when bug bite is used again afterward the game freezes
+    when thet trigger is used again it freezes teh game
+
+    ...just using bug bite alone does it?
+    don't even need to be holding an item
+    will attempt new save see if somehow is because of shifted data
+    from stuff was building, don't think touched anything
+    that should affect it otherwise
 
 
     updated event scripts & specials setup
