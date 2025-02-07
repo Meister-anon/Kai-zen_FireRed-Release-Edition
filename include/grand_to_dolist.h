@@ -3111,6 +3111,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     joke move tutor bullet seed, beside swallow :)
     or spit up and swallow either works
 
+    ok issue, discovered why game break,
+    alex says most likely memory corruption
+    which is an existing memory issue from bad code,
+    that can go unnoticed until triggered by access attempts
+    from other code.
+
+    it triggers on new game start so I'm assuming the new game
+    is the issue, the hacky stuff done there to attempt
+    adding in my control recs, if not that I have a major issue
+    I need to diagnos 
+
     check bug catcher again potential issue?
     seems to have set ingrain some how?
     didn't see what caused it,
