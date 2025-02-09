@@ -17,39 +17,22 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
-    [ITEM_MASTER_BALL] =
+    [ITEM_POKE_BALL] =
     {
-      .name = _("Master Ball"),
-      .itemId = ITEM_MASTER_BALL,
-      .price =  0,
+      .name = _("Poké Ball"),
+      .itemId = ITEM_POKE_BALL,
+      .price =  200,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_MASTER_BALL,
-//      "description":  "The best BALL with the ultimate\\nperformance. It will catch any wild\\nPOKéMON without fail.,
+     .description = gItemDescription_ITEM_POKE_BALL,
+//      "description":  "A BALL thrown to catch a wild\\nPOKéMON. It is designed in a\\ncapsule style.,
       .importance = 0,
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_MASTER_BALL - FIRST_BALL
-    },
-    [ITEM_ULTRA_BALL] =
-    {
-      .name = _("Ultra Ball"),
-      .itemId = ITEM_ULTRA_BALL,
-      .price =  1200,
-      .holdEffect = HOLD_EFFECT_NONE,
-      .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_ULTRA_BALL,
-//      "description":  "A very high-grade BALL that offers\\na higher POKéMON catch rate than\\na GREAT BALL.,
-      .importance = 0,
-      .exitsBagOnUse = 0,
-      .pocket = POCKET_POKE_BALLS,
-      .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
-      .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_ULTRA_BALL - FIRST_BALL
+      .secondaryId =  BALL_POKE
     },
     [ITEM_GREAT_BALL] =
     {
@@ -66,24 +49,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_GREAT_BALL - FIRST_BALL
-    },
-    [ITEM_POKE_BALL] =
-    {
-      .name = _("Poké Ball"),
-      .itemId = ITEM_POKE_BALL,
-      .price =  200,
-      .holdEffect = HOLD_EFFECT_NONE,
-      .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_POKE_BALL,
-//      "description":  "A BALL thrown to catch a wild\\nPOKéMON. It is designed in a\\ncapsule style.,
-      .importance = 0,
-      .exitsBagOnUse = 0,
-      .pocket = POCKET_POKE_BALLS,
-      .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
-      .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_POKE_BALL - FIRST_BALL
+      .secondaryId =  BALL_GREAT
     },
     [ITEM_SAFARI_BALL] =
     {
@@ -100,8 +66,44 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_SAFARI_BALL - FIRST_BALL
+      .secondaryId =  BALL_SAFARI
     },
+    
+    [ITEM_ULTRA_BALL] =
+    {
+      .name = _("Ultra Ball"),
+      .itemId = ITEM_ULTRA_BALL,
+      .price =  1200,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gItemDescription_ITEM_ULTRA_BALL,
+//      "description":  "A very high-grade BALL that offers\\na higher POKéMON catch rate than\\na GREAT BALL.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_POKE_BALLS,
+      .type = ITEM_USE_BAG_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = BattleUseFunc_PokeBallEtc,
+      .secondaryId =  BALL_ULTRA
+    },
+    [ITEM_MASTER_BALL] =
+    {
+      .name = _("Master Ball"),
+      .itemId = ITEM_MASTER_BALL,
+      .price =  0,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gItemDescription_ITEM_MASTER_BALL,
+//      "description":  "The best BALL with the ultimate\\nperformance. It will catch any wild\\nPOKéMON without fail.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_POKE_BALLS,
+      .type = ITEM_USE_BAG_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = BattleUseFunc_PokeBallEtc,
+      .secondaryId =  BALL_MASTER
+    },
+    
     [ITEM_NET_BALL] =
     {
       .name = _("Net Ball"),
@@ -117,7 +119,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_NET_BALL - FIRST_BALL
+      .secondaryId =  BALL_NET
     },
     [ITEM_DIVE_BALL] =
     {
@@ -134,7 +136,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_DIVE_BALL - FIRST_BALL
+      .secondaryId =  BALL_DIVE
     },
     [ITEM_NEST_BALL] =
     {
@@ -151,7 +153,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_NEST_BALL - FIRST_BALL
+      .secondaryId =  BALL_NEST
     },
     [ITEM_REPEAT_BALL] =
     {
@@ -168,7 +170,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_REPEAT_BALL - FIRST_BALL
+      .secondaryId =  BALL_REPEAT
     },
     [ITEM_TIMER_BALL] =
     {
@@ -185,7 +187,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_TIMER_BALL - FIRST_BALL
+      .secondaryId =  BALL_TIMER
     },
     [ITEM_LUXURY_BALL] =
     {
@@ -202,7 +204,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_LUXURY_BALL - FIRST_BALL
+      .secondaryId =  BALL_LUXURY
     },
     [ITEM_PREMIER_BALL] =
     {
@@ -219,7 +221,7 @@ const struct Item gItems[] =
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = NULL,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
-      .secondaryId =  ITEM_PREMIER_BALL - FIRST_BALL
+      .secondaryId =  BALL_PREMIER
     },
     [ITEM_POTION] =
     {
@@ -8286,6 +8288,7 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },//For holding scent vials for changing mon to region evos/variant etc. VSONIC
+    //potentially use for nature stuff instead or scrap
     [ITEM_TEACHY_TV] =
     {
       .name = _("Teachy Tv"),

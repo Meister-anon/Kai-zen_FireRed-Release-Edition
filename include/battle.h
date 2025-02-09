@@ -679,7 +679,7 @@ struct BattleResults
     u8 caughtMonNick[POKEMON_NAME_LENGTH];     // 0x2A
     u8 filler34[2];
     //u8 catchAttempts[11];     // 0x36
-    u8 catchAttempts[BALL_COUNT];     // 0x36
+    u8 catchAttempts[POKEBALL_COUNT];     // 0x36
 };//some of these seem just for statistics so may remove
 //compard to emerald 11 wasn't name was number diff balls,
 //apparently count increments for each type of ball used

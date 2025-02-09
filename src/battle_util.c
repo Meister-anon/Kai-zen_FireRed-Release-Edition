@@ -6987,13 +6987,34 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                     break;
                 }
+                //think with initial ids this was supposed to just exclude masterball?
+                //believe point of ability is to return failed caught ball,
+                //so shouldn't apply to ball that can't fail?
+                //well unless you use it accidentally?
+                //ok these are end turn abilities, if I caught it
+                //battle should end so I wouldn't trigger this ability anyway,
+                //so think there's no need to exclude masterball? hmm
+                //hmm ok keep the greater than = 1, that just means a ball was used
+                //since added secondary item slot can get more use from this
+                //double check if this works later  vsonic
+                
                 case ABILITY_BALL_FETCH:
-                    if (gBattleMons[battler].item == ITEM_NONE
-                        && gBattleResults.catchAttempts[gLastUsedBall - ITEM_ULTRA_BALL] >= 1
+                    if ((gBattleMons[battler].item == ITEM_NONE
+                        || gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == ITEM_NONE)
+                        && gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedItem)] >= 1
+                        && GetPocketByItemId(gLastUsedItem) == POCKET_POKE_BALLS
                         && !gHasFetchedBall)
                     {
                         gBattleScripting.battler = battler;
-                        BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, 2, &gLastUsedBall);
+                        //hmm actually rather than doin all this,
+                        //shold just adjust battle controller for held item,
+                        //to auto set to secondaryitemslot if full?
+                        //checked think can't actually do that?
+                        //potentially what I was thinking of was battle ctrl action functions
+                        if (gBattleMons[battler].item == ITEM_NONE)
+                            BtlController_EmitSetMonData(BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, 2, &gLastUsedBall);
+                        else
+                            gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = gLastUsedBall;
                         MarkBattlerForControllerExec(battler);
                         gHasFetchedBall = TRUE;
                         gLastUsedItem = gLastUsedBall;

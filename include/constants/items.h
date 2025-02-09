@@ -3,20 +3,13 @@
 // because of my change to the item table I need to change all values that are ITEM_(some hex value) into ITEM_NONE I think..yeah I do, because they were previously
 //auto aligned with a question mark icon & palette.   actually imma leave it for now, since I plan to fill those placeholders in.
 
-// Note: If moving ball IDs around, updating FIRST_BALL/LAST_BALL is not sufficient
-//       Several places expect the ball IDs to be first and contiguous (e.g. MON_DATA_POKEBALL)
-//       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs (and removing ITEM_034 for example)
-//    this is needed because ball effects rely on secondaryId set in item slot, each on is unique to the ball
-#define FIRST_BALL ITEM_MASTER_BALL
-#define LAST_BALL  ITEM_PREMIER_BALL
-
 //actually I think this file just needs to match the items.json //yup confirmed
 #define ITEM_NONE 0
-#define ITEM_MASTER_BALL 1
-#define ITEM_ULTRA_BALL 2
-#define ITEM_GREAT_BALL 3
-#define ITEM_POKE_BALL 4
-#define ITEM_SAFARI_BALL 5
+#define ITEM_POKE_BALL 1
+#define ITEM_GREAT_BALL 2
+#define ITEM_SAFARI_BALL 3
+#define ITEM_ULTRA_BALL 4
+#define ITEM_MASTER_BALL 5
 #define ITEM_NET_BALL 6
 #define ITEM_DIVE_BALL 7
 #define ITEM_NEST_BALL 8
@@ -28,7 +21,8 @@
 // Note: If moving ball IDs around, updating FIRST_BALL/LAST_BALL is not sufficient
 //       Several places expect the ball IDs to be first and contiguous (e.g. MON_DATA_POKEBALL)
 //       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs
-#define FIRST_BALL ITEM_MASTER_BALL
+//    this is needed because ball effects rely on secondaryId set in item slot, each on is unique to the ball
+#define FIRST_BALL ITEM_POKE_BALL
 #define LAST_BALL  ITEM_PREMIER_BALL
 #define BALL_COUNT LAST_BALL - FIRST_BALL
 
@@ -970,6 +964,11 @@
 #define ITEM_USE_PBLOCK_CASE      3
 #define ITEM_USE_BAG_MENU         4 // No exit callback, stays in bag menu / firered seem to use a nonconstant value, but its used with switch cases with fallthrough //I may have confused that for wrong type, the itemeffect type?
 #define ITEM_USE_PARTY_MENU_MOVES 5 //so I believe the overall effect should be identical?  mostly seen in pokeball variants
+
+// Secondary IDs for rods
+#define OLD_ROD   0
+#define GOOD_ROD  1
+#define SUPER_ROD 2
 
 // changing this doesn't actually do anything
 // outside of the debug menu

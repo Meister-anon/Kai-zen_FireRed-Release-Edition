@@ -8,6 +8,7 @@
 #include "decompress.h"
 #include "event_data.h"
 #include "graphics.h"
+#include "item.h"
 #include "m4a.h"
 #include "pokeball.h"
 #include "task.h"
@@ -224,7 +225,7 @@ static const u8 sBallParticleAnimNums[] =
     [BALL_PREMIER] = 4,
 };
 
-static const TaskFunc sBallParticleAnimationFuncs[] =
+static const TaskFunc sBallParticleAnimationFuncs[POKEBALL_COUNT] =
 {
     [BALL_POKE]    = PokeBallOpenParticleAnimation,
     [BALL_GREAT]   = GreatBallOpenParticleAnimation,
@@ -240,7 +241,7 @@ static const TaskFunc sBallParticleAnimationFuncs[] =
     [BALL_PREMIER] = PremierBallOpenParticleAnimation,
 };
 
-static const struct SpriteTemplate sBallParticlesSpriteTemplates[] =
+static const struct SpriteTemplate sBallParticlesSpriteTemplates[POKEBALL_COUNT] =
 {
     [BALL_POKE] = {
         .tileTag = TAG_PARTICLES_POKEBALL,
@@ -709,9 +710,14 @@ void AnimTask_IsBallBlockedByTrainerOrDodged(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
+//now that I reordered ball id constants
+//to match ball spritesheet order
+//can just use their secondary id as it matches this now
 u8 ItemIdToBallId(u16 ballItem)
 {
-    switch (ballItem)
+    return ItemId_GetSecondaryId(ballItem);
+    
+    /*switch (ballItem)
     {
     case ITEM_MASTER_BALL:
         return BALL_MASTER;
@@ -738,7 +744,7 @@ u8 ItemIdToBallId(u16 ballItem)
     case ITEM_POKE_BALL:
     default:
         return BALL_POKE;
-    }
+    }*/
 }
 
 void AnimTask_ThrowBall(u8 taskId)

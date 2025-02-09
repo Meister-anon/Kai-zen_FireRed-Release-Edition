@@ -4247,7 +4247,9 @@ static void BattleStartClearSetData(void)
     gBattleStruct->stickyWebUser = 0xFF;
     gBattleStruct->appearedInBattle = 0;  //not making burmy change form,, will keep whatever form you caught it with
 
-    for (i = 0; i < BALL_COUNT; ++i)
+    //hmm fill like this actually off and this and catchattempt should use pokeball_count
+    //as their are 12 ball types 
+    for (i = 0; i < POKEBALL_COUNT; ++i)
         gBattleResults.catchAttempts[i] = 0; //believe these first few are just statistics
     gBattleResults.battleTurnCounter = 0;
     gBattleResults.playerFaintCounter = 0;

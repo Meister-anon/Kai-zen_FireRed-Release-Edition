@@ -547,6 +547,27 @@ struct UCoords32
     u32 y;
 };
 
+//setup globally 
+//now replace secondary ids w this,
+//should work in place of needing
+//separate based on Ids
+enum Ball_Ids
+{
+    BALL_POKE,
+    BALL_GREAT,
+    BALL_SAFARI,
+    BALL_ULTRA,
+    BALL_MASTER,
+    BALL_NET,
+    BALL_DIVE,
+    BALL_NEST,
+    BALL_REPEAT,
+    BALL_TIMER,
+    BALL_LUXURY,
+    BALL_PREMIER,
+    POKEBALL_COUNT
+};
+
 //in case I need to hardcode tm/hm for speed in tm case disc loop
 //used for GetTMHMNumberandCategory
 typedef enum

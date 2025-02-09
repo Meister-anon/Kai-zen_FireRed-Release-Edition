@@ -67,7 +67,7 @@ static void SpriteCB_HitAnimHealthoxEffect(struct Sprite *sprite);
 static u16 GetBattlerPokeballItemId(u8 battlerId);
 
 // Data
-const struct CompressedSpriteSheet gBallSpriteSheets[POKEBALL_COUNT] =
+const struct CompressedSpriteSheet gBallSpriteSheets[LAST_BALL] =
 {
     {gInterfaceGfx_PokeBall,    384, GFX_TAG_POKE_BALL},
     {gInterfaceGfx_GreatBall,   384, GFX_TAG_GREAT_BALL},
@@ -83,7 +83,7 @@ const struct CompressedSpriteSheet gBallSpriteSheets[POKEBALL_COUNT] =
     {gInterfaceGfx_PremierBall, 384, GFX_TAG_PREMIER_BALL},
 };
 
-const struct CompressedSpritePalette gBallSpritePalettes[POKEBALL_COUNT] =
+const struct CompressedSpritePalette gBallSpritePalettes[LAST_BALL] =
 {
     {gInterfacePal_PokeBall,    GFX_TAG_POKE_BALL},
     {gInterfacePal_GreatBall,   GFX_TAG_GREAT_BALL},
@@ -210,7 +210,7 @@ static const union AffineAnimCmd *const sBallAffineAnimSequences[] =
     sBallAffineAnimSeq4,
 };
 
-const struct SpriteTemplate gBallSpriteTemplates[POKEBALL_COUNT] =
+const struct SpriteTemplate gBallSpriteTemplates[LAST_BALL] =
 {
     {
         .tileTag = GFX_TAG_POKE_BALL,
@@ -862,10 +862,10 @@ static void HandleBallAnimEnd(struct Sprite *sprite)
         }
         if (doneBattlers == MAX_BATTLERS_COUNT)
         {
-            for (i = 0; i < POKEBALL_COUNT; i++)
+            for (i = 0; i < LAST_BALL; i++)
                 FreeBallGfx(i);
-        }
-    }
+        }//vsonic later replace instances of last_ball back to pokoeball_count
+    }//only made change for transitioning ball ids to global enum
 }
 
 static void SpriteCB_BallThrow_CaptureMon(struct Sprite *sprite)

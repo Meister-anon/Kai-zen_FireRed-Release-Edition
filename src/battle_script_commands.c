@@ -18954,8 +18954,10 @@ static void atkEF_handleballthrow(void) //important changed
                 }
                 else
                 {
-                    if (gBattleResults.catchAttempts[gLastUsedItem - ITEM_ULTRA_BALL] < 0xFF)
-                        ++gBattleResults.catchAttempts[gLastUsedItem - ITEM_ULTRA_BALL];
+                    //used ultra ball previously as that was first ball id passed /excluding master ball
+                    //don't really need to do that as already excludes lastitem masterball for condition
+                    if (gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedItem)] < 0xFF)
+                        ++gBattleResults.catchAttempts[ItemIdToBallId(gLastUsedItem)];
                 }
             }
             if (((odds > 254) || (gLastUsedItem == ITEM_MASTER_BALL))
