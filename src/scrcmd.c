@@ -1742,6 +1742,7 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
     else
         BufferTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
 
+    //unsure if should change to back pokeball pouch as poke is written differently
     if (itemId == ITEM_POKE_BALL && quantity >= 2)
     {
         if (ShouldCapitalizeItems())
@@ -1751,6 +1752,7 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
         //CapializeString(gUnknown_83A72A0); 
         StringAppend(sScriptStringVars[stringVarIndex], gStringVar3);
     }
+    //do plan change this to berry pouch vsonic
     else if (itemId >= ITEM_CHERI_BERRY && itemId < ITEM_ENIGMA_BERRY && quantity >= 2)
     {
         u16 strlength = StringLength(sScriptStringVars[stringVarIndex]);
