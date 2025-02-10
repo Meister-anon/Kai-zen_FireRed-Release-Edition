@@ -5947,7 +5947,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMurkrowLevelUpLearnset,
         .tmhmLearnset = sMurkrowTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_DUSK_STONE, 0, SPECIES_HONCHKROW},
-                          {EVO_LEVEL_NIGHT, RELATIVE_EVO(42, MEDIUM_EFFORT), 0, SPECIES_HONCHKROW}), //Should hopefully blank these for now without issue
+                          {EVO_LEVEL_NIGHT, RELATIVE_EVO(42, HIGH_EFFORT), 0, SPECIES_HONCHKROW}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_SLOWKING] =
@@ -14782,6 +14782,10 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0, SPECIES_SAMUROTT},
         {EVO_LEVEL_FORM, RELATIVE_EVO(36, AVERAGE_EFFORT), F_HISUIAN_FORM, SPECIES_SAMUROTT_HISUIAN}), //Should hopefully blank these for now without issue
     },
+    //still undecided on if should make water fighting instead
+    //would be counter part to hisuian form 
+    //decided keep as normal, gets variety of tm moves
+    //and mostly normal moves via level up
 
     [SPECIES_SAMUROTT] =
     {

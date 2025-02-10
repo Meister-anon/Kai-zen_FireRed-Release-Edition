@@ -3281,7 +3281,7 @@
               {
                 "min_level": 19,
                 "max_level": 19,
-                "species": "SPECIES_GASTLY"
+                "species": "SPECIES_LITWICK"
               },
               {
                 "min_level": 20,
@@ -3368,9 +3368,9 @@
                 "species": "SPECIES_CUBONE"
               },
               {
-                "min_level": 22,
+                "min_level": 18,
                 "max_level": 22,
-                "species": "SPECIES_GASTLY"
+                "species": "SPECIES_LITWICK"
               },
               {
                 "min_level": 24,
