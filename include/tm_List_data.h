@@ -225,6 +225,8 @@ static const u16 gTM_Moves[] =
 //draco meteor and dragon ascent will be tutor moves
 //want add other move I added as a screan to list alongside reflect and light screen
 //magic coat that's it
+//add heatwave
+//add scorching sands
 
 
 

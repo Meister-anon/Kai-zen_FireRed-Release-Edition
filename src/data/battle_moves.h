@@ -184,7 +184,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_RAZOR_WIND] =
     {
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_WIND_MOVE,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         .effect = EFFECT_TWO_TYPED_MOVE,
         .power = 80,
         .type = TYPE_NORMAL, //since joat change, this doesn't do much other than just giving stab since move is mostly for normal types
@@ -2240,14 +2240,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .type = TYPE_FLYING,
     .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
     .pp = 10,
-    .secondaryEffectChance = 15,
-    .target = MOVE_TARGET_BOTH,
+    .secondaryEffectChance = 20,
+    .target = MOVE_TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_PHYSICAL,
     .argument = MOVE_EFFECT_FLINCH,
 }, //DO SOMething with this, thinking raise evasiveness one or two stages, may lower power since hitting both
 //it stil needs to be strongest flying move though and brave bird is base 120 no charge 
 //ok alraedy added a 2 stage evasion boost to this, done on the charging turn
+//with change to flying types the evasion boost on this is exemplary of the type
+//as the strongest move potentially lower to 1 stage evasion boost
+//vsonic don't want the move to be too free, that its spammable
 
 [MOVE_TRANSFORM] =
 {
@@ -5890,6 +5893,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //check effect see how will use,
+    //as effect changed w gens
+    //research deside how will setup
+    //vsonic
 
     [MOVE_ASSURANCE] =
     {

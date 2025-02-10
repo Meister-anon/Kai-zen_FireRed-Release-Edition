@@ -12832,7 +12832,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(57, 80, 95, 10, 10, 45),
-        MON_TYPES(TYPE_ROCK, TYPE_GRASS),
+        MON_TYPES(TYPE_ROCK),
         .catchRate = 255,
         .expYield = 58,
         //.evYield_Defense = 1,
@@ -12853,6 +12853,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBonslyTMHMLearnset,
         .evolutions = EVOLUTION({EVO_MOVE, MOVE_MIMIC, 0, SPECIES_SUDOWOODO}), //Should hopefully blank these for now without issue
     },
+    //decided change make only evo be part grass
+    //idea it mimics so well it becomes it
 
     [SPECIES_MIME_JR] =
     {
@@ -21356,6 +21358,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSkrelpTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(48, AVERAGE_EFFORT), 0, SPECIES_DRAGALGE}), //Should hopefully blank these for now without issue
     },
+    //vsonic put this encounterable somewhere
+    //hmm think safari zone
 
     [SPECIES_DRAGALGE] =
     {
