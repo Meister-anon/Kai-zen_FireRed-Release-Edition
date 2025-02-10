@@ -3144,6 +3144,36 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     from stuff was building, don't think touched anything
     that should affect it otherwise
 
+    -was memory corruption apparently in new game intro,
+    made some fixes there and it seems to have fixed itself,
+    downloaded valgrind to analize my memory for further issues
+
+    -Note**(
+    Look into flag dmg in air 2x in air, see if they have logic for interupting
+    flying moves etc. multiturn moves as well as just hitting fly
+    makes sense as knock out of air,
+    if so would be good use against sky drop as well
+    make cehck to see if works
+
+
+    Had a thought  inspired by something someone else was working on,
+    and wanted to ask does it make sense, to separate the type icons 
+    from the chart into separate files to get around the
+    16 color palette limit or are their other issues I'm not aware of? 
+
+    Idea in practice is keep the old gen type icons on the default list,
+    then have fairy and any other new icons on a modern types image,
+    and just do type checks and load from that file if its a newer type?
+
+    If that worked would free up my type chart to 
+    allow me to have the cleaner pokeball icons rather than
+    the janky version I made
+    )
+
+    2/10/2025
+    (remember refer back to note for owrk on black fog
+    weather toggle flag toggle macro toggle)
+
 
     updated event scripts & specials setup
     plan use python replace all event.inc
