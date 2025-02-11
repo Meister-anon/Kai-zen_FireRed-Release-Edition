@@ -1612,7 +1612,7 @@ static void Task_ItemMenuAction_Give(u8 taskId)
     CopyWindowToVram(0, COPYWIN_MAP);
     if (!CanWriteMailHere(itemId))
         DisplayItemMessageInBag(taskId, 2, gText_CantWriteMailHere, Task_WaitAButtonAndCloseContextMenu);
-    else if (!itemid_is_unique(itemId))
+    else if (!itemid_is_unique(itemId) && GetPocketByItemId(itemId) != POCKET_TM_CASE)
     {
         if (CalculatePlayerPartyCount() == 0)
         {
@@ -1626,7 +1626,7 @@ static void Task_ItemMenuAction_Give(u8 taskId)
     }
     else
         Task_PrintItemCantBeHeld(taskId);
-}
+}//specific logic to block tms from being given
 
 static void Task_PrintThereIsNoPokemon(u8 taskId)
 {
@@ -1635,9 +1635,18 @@ static void Task_PrintThereIsNoPokemon(u8 taskId)
 
 static void Task_PrintItemCantBeHeld(u8 taskId)
 {
-    CopyItemName(gSpecialVar_ItemId, gStringVar1);
-    StringExpandPlaceholders(gStringVar4, gText_ItemCantBeHeld);
-    DisplayItemMessageInBag(taskId, 2, gStringVar4, Task_WaitAButtonAndCloseContextMenu);
+    if (IsTMHM(gSpecialVar_ItemId))
+    {
+        StringExpandPlaceholders(gStringVar4, gText_ItemCantBeHeld2);
+        DisplayItemMessageInBag(taskId, 2, gStringVar4, Task_WaitAButtonAndCloseContextMenu);
+    }    
+    else
+    {
+        CopyItemName(gSpecialVar_ItemId, gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_ItemCantBeHeld);
+        DisplayItemMessageInBag(taskId, 2, gStringVar4, Task_WaitAButtonAndCloseContextMenu);
+    }
+    
 }
 
 static void Task_WaitAButtonAndCloseContextMenu(u8 taskId)

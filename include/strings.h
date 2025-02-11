@@ -102,6 +102,7 @@ extern const u8 gText_TimesStrVar1[];
 extern const u8 gText_IsSelected[];
 extern const u8 gText_ThereIsNoPokemon[];
 extern const u8 gText_ItemCantBeHeld[];
+extern const u8 gText_ItemCantBeHeld2[]; //setup for change stuff
 extern const u8 gText_TMCase[];
 extern const u8 gText_Close[];
 extern const u8 gText_TMCaseWillBePutAway[];

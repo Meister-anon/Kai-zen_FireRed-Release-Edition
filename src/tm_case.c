@@ -1218,22 +1218,10 @@ static void TMHMContextMenuAction_Give(u8 taskId)
     PutWindowTilemap(5);
     ScheduleBgCopyTilemapToVram(0);
     ScheduleBgCopyTilemapToVram(1);
-    if (!itemid_is_unique(itemId))
-    {
-        if (CalculatePlayerPartyCount() == 0)
-        {
-            PrintError_ThereIsNoPokemon(taskId);
-        }
-        else
-        {
-            sTMCaseDynamicResources->savedCallback = CB2_ChooseMonToGiveItem;
-            Task_BeginFadeOutFromTMCase(taskId);
-        }
-    }
-    else
-    {
-        PrintError_ItemCantBeHeld(taskId);
-    }
+
+    PrintError_ItemCantBeHeld(taskId);
+    //block both tms and hms from being given as held items,
+    //no idea why this was allowed
 }
 
 static void PrintError_ThereIsNoPokemon(u8 taskId)
@@ -1243,8 +1231,7 @@ static void PrintError_ThereIsNoPokemon(u8 taskId)
 
 static void PrintError_ItemCantBeHeld(u8 taskId)
 {
-    CopyItemName(gSpecialVar_ItemId, gStringVar1);
-    StringExpandPlaceholders(gStringVar4, gText_ItemCantBeHeld);
+    StringExpandPlaceholders(gStringVar4, gText_ItemCantBeHeld2);
     TMCase_PrintMessageWithFollowupTask(taskId, 2, gStringVar4, Task_WaitButtonAfterErrorPrint);
 }
 

@@ -2767,6 +2767,7 @@ static const struct LevelUpMove sLedybaLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sLedianLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(0, MOVE_POWER_UP_PUNCH),
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_SUPERSONIC),
     LEVEL_UP_MOVE(8, MOVE_SUPERSONIC),

@@ -182,6 +182,7 @@ const u8 gText_ThereIsNoPokemon[] = _("There is no\nPOKéMON.");
 const u8 gOtherText_WhereShouldTheStrVar1BePlaced[] = _("Where should the {STR_VAR_1}\nbe placed?");
 const u8 gText_ItemCantBeHeld[] = _("The {STR_VAR_1} can't be held.");
 const u8 gText_TheStrVar1CantBeHeldHere[] = _("The {STR_VAR_1} can't be held\nhere.");
+const u8 gText_ItemCantBeHeld2[] = _("This item can't be held.");
 const u8 gText_DepositHowManyStrVars1[] = _("Deposit how many\n{STR_VAR_1}(s)?");
 const u8 gText_DepositedStrVar2StrVar1s[] = _("Deposited {STR_VAR_2}\n{STR_VAR_1}(s).");
 const u8 gText_NoRoomToStoreItems[] = _("There's no room to\nstore items.");

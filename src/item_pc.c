@@ -476,36 +476,21 @@ static bool8 ItemPc_AllocateResourcesForListMenu(void)
     return TRUE;
 }
 
-//special trick for passing const
-//...ok I got it to work for this,
-//that means I potentially may be able to get
-//pokedex to work with abig enough buffer
-//if so I could prob cut down on rom size to a big degree
-//assuming it can even work there
-static const u8* ReturnItemNameConst2(u16 itemId)
-{
-    u8 *itembuff = Alloc(sizeof(gSaveBlock1Ptr->pcItems));
 
-    GetItemName(itembuff, itemId);
-    
-
-    return itembuff;
-    free(itembuff);
-}//huh worked ok
-
+//hms  can't be given by defautl so rather than needing to change this
+//all I have to do is set so tms can't be given same as hms
+//doesn't really make sense to hold a tm/hm anyway
+//doesnt even work w fling so no reason
 static void ItemPc_BuildListMenuTemplate(void) //use after free, needs to use label later to print but freeing label
 {//instead attempting to store base and just change in print function no idea if tried that before or nah
     u16 i;
-    u8 *itembuff = NULL;
 
     for (i = 0; i < sStateDataPtr->nItems; i++)
     {
-        itembuff = Alloc(sizeof(gSaveBlock1Ptr->pcItems)); //works but pretty sure am allocating lot more memory than I need each loop?
-       // GetItemName(itembuff, gSaveBlock1Ptr->pcItems[i].itemId);
         sListMenuItems[i].label = gItems[SanitizeItemId(gSaveBlock1Ptr->pcItems[i].itemId)].name;//itembuff;//ReturnItemNameConst2(gSaveBlock1Ptr->pcItems[i].itemId);
         sListMenuItems[i].index = i;
+        
     }
-    //FREE_AND_SET_NULL(itembuff); //test addapted from dex apparent fix test both later
 
     sListMenuItems[i].label = gFameCheckerText_Cancel;
     sListMenuItems[i].index = -2;
