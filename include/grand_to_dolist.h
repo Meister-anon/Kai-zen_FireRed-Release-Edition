@@ -3184,6 +3184,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //potential mode switch argument,
     //so would only display exp stuff
     if not mode move learn etc.
+
+    also still has issue w tm rework setup
+    need to print actual order rather than item name
+    works fine for tm case but gText_ItemCantBeHeld
+    is an issue need print based on order
+    within tmhm list tmcase just uses GetTMNumberAndMoveString 
     2/10/2025 IMPORTANT
 
 
