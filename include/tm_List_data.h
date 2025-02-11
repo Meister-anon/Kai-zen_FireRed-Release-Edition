@@ -1,5 +1,5 @@
-//Recomendation, if you want to remove things from these lists//
-//I recommend commenting them out, rather than deleting//
+//Recomendation, if you want to remove things from the tm or hm lists//
+//Delete them rather than commenting them out //
 
 
 static const u16 sUniversalMoves[] =
@@ -108,6 +108,7 @@ static const u16 gTM_Moves[] =
     MOVE_DRAIN_PUNCH,
     MOVE_COMET_PUNCH,
     MOVE_WILL_O_WISP,
+    MOVE_FLASH_FREEZE,
     MOVE_MEMENTO,
     MOVE_SILVER_WIND,
     MOVE_OMINOUS_WIND,
@@ -227,6 +228,7 @@ static const u16 gTM_Moves[] =
 //magic coat that's it
 //add heatwave
 //add scorching sands
+//add flash freeze  ice will o wisp and give to lunatone
 
 
 
@@ -315,6 +317,7 @@ static const u16 gTMHM_List[] = {
     ITEM_TM65,
     ITEM_TM66,
     ITEM_TM67,
+    ITEM_TM_FLASH_FREEZE,
     ITEM_TM68,
     ITEM_TM69,
     ITEM_TM70,

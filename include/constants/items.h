@@ -465,7 +465,7 @@
 #define ITEM_TM158 446
 #define ITEM_TM159 447
 #define ITEM_TM160 448
-#define ITEM_TM161 449//end of tms   +110
+#define ITEM_TM161 449//end of tms   +110 /seperated tms from item id sequence putting further tms on end
 
 #define ITEM_HM01 450 
 #define ITEM_HM02 451
@@ -860,10 +860,13 @@
 #define ITEM_HISUIAN_SAND     554
 #define ITEM_PALDEAN_SAND   555 //rename use paldea stuff for select mon, just keep pokemon opal eeveelution as omage
 // Incenses
-#define ITEM_SEA_INCENSE 556//387 
+#define ITEM_SEA_INCENSE 556
 #define ITEM_LAX_INCENSE 557
 #define ITEM_BLACK_SLUDGE 558
 #define ITEM_BAD_ONION 559 //  ok these new values for incense are actually better, since they aren't supposed to be for use, just hold.
+
+
+
 /*#define ITEM_ODD_INCENSE 387
 #define ITEM_ROCK_INCENSE 388
 #define ITEM_FULL_INCENSE 389
@@ -941,13 +944,19 @@
 #define ITEM_ADAMANT_ORB
 #define ITEM_LUSTROUS_ORB
 #define ITEM_GRISEOUS_ORB */
+
+
 #define ITEM_SCENT_CASE 560 //USE TM CASE grahpic for holding region scent vials
-#define ITEM_N_A 561 // keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error
+
+//New Tms - w diff setup no longer need to hard lock number to item id I guess
+#define ITEM_TM_FLASH_FREEZE 561
+#define ITEM_N_A 562 
+// keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error// keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error
 #define ITEMS_COUNT ITEM_N_A +1
 #define ITEM_FIELD_ARROW ITEM_N_A//field arrow isn't defined as an item, it just end of item_menu_icons.c list
 // Emerald   BUT based on list from vanilla its actually ID was equal to items N_A, circumventing that equation.
 
-#define LAST_ITEM_INDEX ITEM_SCENT_CASE
+#define LAST_ITEM_INDEX ITEM_TM_FLASH_FREEZE
 
 #define FIRST_BERRY_INDEX ITEM_CHERI_BERRY
 #define LAST_BERRY_INDEX ITEM_ENIGMA_BERRY
@@ -958,7 +967,7 @@
 
 //copy from emerald for replacing the numerical values in type field in items.json
 // Item type IDs (used to determine the exit callback)
-//#define ITEM_USE_MAIL             0
+//#define ITEM_USE_MAIL           0
 #define ITEM_USE_PARTY_MENU       1
 #define ITEM_USE_FIELD            2
 #define ITEM_USE_PBLOCK_CASE      3

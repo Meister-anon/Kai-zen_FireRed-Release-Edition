@@ -9702,6 +9702,24 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     }, //last item
+    [ITEM_TM_FLASH_FREEZE] =
+    {
+      .name = _("TM001"),
+      .itemId = ITEM_TM_FLASH_FREEZE,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gMoveDescription_FlashFreeze,
+//      "description":  "An extremely powerful attack.\\nHowever, if the user is hit before\\nusing the move, they will flinch.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  MOVE_FLASH_FREEZE,
+      //"moveId" "FocusPunch"
+    },
     [ITEM_N_A] =
     {
       .name = _("????????"),

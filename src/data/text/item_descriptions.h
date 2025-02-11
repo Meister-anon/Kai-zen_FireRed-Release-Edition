@@ -410,6 +410,7 @@ extern const u8 gPOISON_JAB_Description[];
 extern const u8 gMoveDescription_MegaDrain[];
 extern const u8 gMoveDescription_CometPunch[];
 extern const u8 gMoveDescription_WillOWisp[];
+extern const u8 gMoveDescription_FlashFreeze[];
 extern const u8 gMoveDescription_Memento[];
 extern const u8 gMoveDescription_SilverWind[];
 extern const u8 gOMINOUS_WIND_Description[];

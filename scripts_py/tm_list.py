@@ -90,7 +90,11 @@ TotalTMs = len(tm_Array)
 FoundTms = 0
 itemId = None
 
-for TMs in tm_Array:
+#putting the break directly under this doesn't work
+#believe issue is doesn't update value until loop ends?
+#put print foundtms here and it only returned 3 times
+while FoundTms != TotalTMs:
+#for TMs in tm_Array:
     for line in lines:
         if re.compile(r'\[' + 'ITEM_').search(line):
             line = line.replace("    [", "    ")
@@ -98,15 +102,20 @@ for TMs in tm_Array:
             itemId = line
             #print(itemId)
         if re.compile(r'.secondaryId').search(line):
+            #print(FoundTms)
             #check if tmhm from tm_moves is on line w secondaryId
-            if re.compile(TMs).search(line):
+            if re.compile(tm_Array[FoundTms]).search(line):
+            #if re.compile(TMs).search(line):
+                #print(FoundTms, line)
                 line = line.replace("\n", "")
                 line = line.replace(",", "")
                 line = line.replace("      .secondaryId =  ", "")
                 
+                #print(line, tm_Array[FoundTms])
                 #print(line, TMs)
                 #surprisingly simple
-                if (re.match(line, TMs)):
+                if (re.match(line, tm_Array[FoundTms])):
+                #if (re.match(line, TMs)):
                     #print(TMs)
                     #print(itemId)
                     if not itemId in Item_Array:
@@ -114,6 +123,8 @@ for TMs in tm_Array:
                         tm_itemIds += itemId
                         if FoundTms < TotalTMs:
                             FoundTms += 1
+                        if FoundTms == TotalTMs:
+                            break
 
 #print(TMs)
 #print(FoundTms)
@@ -121,6 +132,7 @@ for TMs in tm_Array:
 #print(tm_moves)
 #print(Item_Array)
 #print(tm_Array)
+#print(TotalTMs)
 infile.close()
 
 
