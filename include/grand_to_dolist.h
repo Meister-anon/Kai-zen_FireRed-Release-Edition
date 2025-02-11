@@ -3174,6 +3174,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     (remember refer back to note for owrk on black fog
     weather toggle flag toggle macro toggle)
 
+    noted realized for task tm hm learn
+    other move learn have to specifically load party menu
+    //to not display exp grapics
+    as it would block the can learn/not able to learn text
+
+    nto exactly simple but not really hard either,
+    requires setup new task that doesn't do normal graphic load
+    //potential mode switch argument,
+    //so would only display exp stuff
+    if not mode move learn etc.
+    2/10/2025 IMPORTANT
+
 
     updated event scripts & specials setup
     plan use python replace all event.inc
