@@ -1732,7 +1732,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Meowth"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(40, 45, 35, 97, 45, 40),
+         STATS(42, 47, 37, 97, 47, 42),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 58,
@@ -1760,7 +1760,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Persian"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 77, 60, 115, 77, 65),
+         STATS(67, 80, 60, 114, 80, 67),
         MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 154,
@@ -40024,7 +40024,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sPersianAlolanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
-    }, //changed up sprite face
+    }, //change up sprite face vsonic
 
     [SPECIES_GEODUDE_ALOLAN] =
     {
@@ -40276,9 +40276,9 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        50,
-        65,
         55,
+        67,
+        60,
         40,
         40,
         50
