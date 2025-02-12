@@ -2278,7 +2278,7 @@ bool8 RunHelpMenuSubroutine(struct HelpSystemListMenu * helpListMenu, struct Lis
     case  2:
         return HelpMenuSubroutine_ReturnFromSubmenu(helpListMenu, listMenuItemsBuffer);
     case  3:
-        return HelpMenuSubroutine_SubmenuInputHandler(helpListMenu, listMenuItemsBuffer);
+        return FALSE;// HelpMenuSubroutine_SubmenuInputHandler(helpListMenu, listMenuItemsBuffer);
     case  4:
         return HelpMenuSubroutine_HelpItemPrint(helpListMenu, listMenuItemsBuffer);
     case  5:

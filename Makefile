@@ -367,6 +367,23 @@ ifeq ($(DINFO),1)
 override CFLAGS += -g
 endif
 
+ifeq ($(NOOPT),1)
+override CFLAGS := $(filter-out -O1 -Og -O2,$(CFLAGS))
+override CFLAGS += -O0
+endif
+
+#no optimization debug
+#make for use w valgrind
+#realize cant use valgrind w gba unfortunatley
+#potentially still useful for caching other issues
+#believe want to fuse w nodep functionality can't figure out for now
+#run this command every once in a while, at times can find
+#missed issues
+ifeq ($(VLGND),1)
+override CFLAGS := $(filter-out -O1 -Og -O2,$(CFLAGS))
+override CFLAGS += -O0 -g #unsure if should use gdbb
+endif
+
 $(C_BUILDDIR)/%.o : $(C_SUBDIR)/%.c $$(c_dep)
 	@$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
 	@$(PREPROC) $(C_BUILDDIR)/$*.i charmap.txt | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
