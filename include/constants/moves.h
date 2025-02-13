@@ -901,7 +901,7 @@
 #define MOVE_SPIN_DASH 867 //groud move tuck into ball and spin at the foe, give flag dmg in air can bounce into the air
 #define MOVE_ARCTIC_RAKE 868    //move for base sneasel line
 #define MOVE_CONVERSION_Z 869 //don't forget adjust battle_anim_scritpts
-
+#define MOVE_SOLAR_FLARE 870 //idea solrock magmar, fire based electro web
 //#define MOVES_COUNT_GEN8 757
 
 //#define MOVES_COUNT MOVES_COUNT_GEN8
@@ -910,7 +910,7 @@
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_CONVERSION_Z
+#define LAST_MOVE_INDEX     MOVE_SOLAR_FLARE
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 

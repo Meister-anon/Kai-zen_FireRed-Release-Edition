@@ -9939,7 +9939,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Lunatone"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(90, 65, 65, 70, 105, 85),
+         STATS(90, 75, 65, 70, 105, 85),
         MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 161,
@@ -9968,6 +9968,8 @@ const struct BaseStats gBaseStats[] =
     //so dns would shift each minute from current blend/ until it reaches the target time frame and then return to 
     //normal progression  i.e use moon dance, during afternoon, so each minute shift to  evening twilight to night
     //for opposite using sunny day from their would shift, from night, to twilight, to day.
+    //maybe not, lunar dance is already a move, mmm could call it solstice?
+    //may just do a clock to change time in game
 
     [SPECIES_SOLROCK] =
     {

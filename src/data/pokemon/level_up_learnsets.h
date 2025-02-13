@@ -2081,18 +2081,23 @@ static const struct LevelUpMove sElectabuzzLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sMagmarLevelUpLearnset[] = {
-    LEVEL_UP_MOVE(1, MOVE_EMBER),
-    LEVEL_UP_MOVE(1, MOVE_LEER),
-    LEVEL_UP_MOVE(1, MOVE_SMOG),
-    LEVEL_UP_MOVE(1, MOVE_FIRE_PUNCH),
-    LEVEL_UP_MOVE(7, MOVE_LEER),
-    LEVEL_UP_MOVE(13, MOVE_SMOG),
-    LEVEL_UP_MOVE(19, MOVE_FIRE_PUNCH),
-    LEVEL_UP_MOVE(25, MOVE_SMOKESCREEN),
-    LEVEL_UP_MOVE(33, MOVE_SUNNY_DAY),
-    LEVEL_UP_MOVE(41, MOVE_FLAMETHROWER),
-    LEVEL_UP_MOVE(49, MOVE_CONFUSE_RAY),
-    LEVEL_UP_MOVE(57, MOVE_FIRE_BLAST),
+    LEVEL_UP_MOVE( 1, MOVE_SMOG),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_EMBER),
+    LEVEL_UP_MOVE( 1, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE(12, MOVE_CLEAR_SMOG),
+    LEVEL_UP_MOVE(16, MOVE_FLAME_WHEEL),
+    LEVEL_UP_MOVE(20, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(22, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE(25, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(28, MOVE_FIRE_PUNCH),
+    LEVEL_UP_MOVE(34, MOVE_LAVA_PLUME),
+    LEVEL_UP_MOVE(40, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE(46, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE(52, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(58, MOVE_FIRE_BLAST),
+    LEVEL_UP_MOVE(64, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(80, MOVE_SOLAR_FLARE),
     LEVEL_UP_END
 };
 
@@ -5689,6 +5694,7 @@ static const struct LevelUpMove sLunatoneLevelUpLearnset[] = {
     LEVEL_UP_MOVE(40, MOVE_FUTURE_SIGHT),
     LEVEL_UP_MOVE(45, MOVE_MAGIC_ROOM),
     LEVEL_UP_MOVE(50, MOVE_MISTY_EXPLOSION),
+    LEVEL_UP_MOVE(76, MOVE_LUNAR_BLESSING),
     LEVEL_UP_END
 };//need give fairy moves fae worship moon, also moonblast is so obvious
 //moon is cold sun is hot, decided give ice moves
@@ -5719,8 +5725,15 @@ static const struct LevelUpMove sSolrockLevelUpLearnset[] = {
     LEVEL_UP_MOVE(40, MOVE_SOLAR_BEAM),
     LEVEL_UP_MOVE(45, MOVE_WONDER_ROOM),
     LEVEL_UP_MOVE(50, MOVE_EXPLOSION),
+    LEVEL_UP_MOVE(76, MOVE_SOLAR_FLARE),
     LEVEL_UP_END
 }; //add on more fire moves etc. when do learnset update
+//lunatone has moon based moves, give solrock sun based move
+//idea solar flare, fire based electro web
+//flares/super heats its body then strikes at the enemy
+//with the heat haze sapping their energy lowers speed one stage
+//think animation some combination
+//super power flash heatwave
 
 static const struct LevelUpMove sAzurillLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_WATER_SPORT),
@@ -8379,23 +8392,26 @@ static const struct LevelUpMove sElectivireLevelUpLearnset[] = {
 
 static const struct LevelUpMove sMagmortarLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_PUNCH),
+    LEVEL_UP_MOVE( 1, MOVE_FEINT_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_FIRE_SPIN),
+    LEVEL_UP_MOVE( 1, MOVE_FLAME_BURST),
     LEVEL_UP_MOVE( 1, MOVE_SMOG),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_EMBER),
     LEVEL_UP_MOVE( 1, MOVE_SMOKESCREEN),
-    LEVEL_UP_MOVE( 5, MOVE_EMBER),
-    LEVEL_UP_MOVE( 8, MOVE_SMOKESCREEN),
-    LEVEL_UP_MOVE(12, MOVE_FEINT_ATTACK),
-    LEVEL_UP_MOVE(15, MOVE_FIRE_SPIN),
-    LEVEL_UP_MOVE(19, MOVE_CLEAR_SMOG),
-    LEVEL_UP_MOVE(22, MOVE_FLAME_BURST),
-    LEVEL_UP_MOVE(26, MOVE_CONFUSE_RAY),
-    LEVEL_UP_MOVE(29, MOVE_FIRE_PUNCH),
-    LEVEL_UP_MOVE(36, MOVE_LAVA_PLUME),
-    LEVEL_UP_MOVE(42, MOVE_SUNNY_DAY),
-    LEVEL_UP_MOVE(49, MOVE_FLAMETHROWER),
-    LEVEL_UP_MOVE(55, MOVE_FIRE_BLAST),
-    LEVEL_UP_MOVE(62, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(12, MOVE_CLEAR_SMOG),
+    LEVEL_UP_MOVE(16, MOVE_FLAME_WHEEL),
+    LEVEL_UP_MOVE(20, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE(22, MOVE_SMOKESCREEN),
+    LEVEL_UP_MOVE(25, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(28, MOVE_FIRE_PUNCH),
+    LEVEL_UP_MOVE(34, MOVE_LAVA_PLUME),
+    LEVEL_UP_MOVE(40, MOVE_LOW_KICK),
+    LEVEL_UP_MOVE(46, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE(52, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(58, MOVE_FIRE_BLAST),
+    LEVEL_UP_MOVE(64, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(80, MOVE_SOLAR_FLARE),
     LEVEL_UP_END
 };
 
@@ -8874,11 +8890,12 @@ static const struct LevelUpMove sCresseliaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(38, MOVE_FUTURE_SIGHT),
     LEVEL_UP_MOVE(47, MOVE_SLASH),
     LEVEL_UP_MOVE(57, MOVE_MOONLIGHT),
+    LEVEL_UP_MOVE(60, MOVE_MOONBLAST),
     LEVEL_UP_MOVE(66, MOVE_PSYCHO_CUT),
+    LEVEL_UP_MOVE(72, MOVE_LUNAR_BLESSING),
     LEVEL_UP_MOVE(75, MOVE_PSYCHO_SHIFT),
     LEVEL_UP_MOVE(84, MOVE_LUNAR_DANCE),
-    LEVEL_UP_MOVE(93, MOVE_PSYCHIC),
-    LEVEL_UP_MOVE(99, MOVE_MOONBLAST),
+    LEVEL_UP_MOVE(93, MOVE_PSYCHIC),    
     LEVEL_UP_END
 };
 

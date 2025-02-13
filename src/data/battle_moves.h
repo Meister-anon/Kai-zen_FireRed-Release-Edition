@@ -13713,16 +13713,40 @@ use wonder gaurd logic to determine its super effective
 
     
     [MOVE_CONVERSION_Z] =
-{
-    .effect = EFFECT_CONVERSION_Z,
-    .power = 0,
-    .type = TYPE_NORMAL,
-    .accuracy = 0,
-    .pp = 30,
-    .secondaryEffectChance = 0,
-    .target = MOVE_TARGET_SELECTED,
-    .priority = 1, //can change priority when finish new effect as not based on last move hit by
-    .flags = FLAG_SNATCH_AFFECTED,
-    .split = SPLIT_STATUS,
-}
+    {
+        .effect = EFFECT_CONVERSION_Z,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 30,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 1, //can change priority when finish new effect as not based on last move hit by
+        .flags = FLAG_SNATCH_AFFECTED,
+        .split = SPLIT_STATUS,
+    },
+
+    [MOVE_SOLAR_FLARE] =
+    {
+        .effect = EFFECT_SPEED_DOWN,
+        .power = 0,
+        .type = TYPE_FIRE,
+        .accuracy = 95,
+        .pp = 10,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .split = SPLIT_STATUS,
+        .argument = MOVE_EFFECT_FLINCH,
+        .argumentEffectChance = 10,
+    },//think may keep priority at 0,
+    //flinch chance is low but as it hits both
+    //still a good idea to lower
+    //idea is flinch from heat not brightness
+    //still to do add animation
+
+
+
+
 };
