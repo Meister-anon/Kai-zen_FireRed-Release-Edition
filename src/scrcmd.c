@@ -1718,7 +1718,7 @@ bool8 ScrCmd_bufferitemname(struct ScriptContext * ctx)
     if (!IsTMHM(itemId))
         GetItemName(sScriptStringVars[stringVarIndex], itemId);
     else
-        BufferTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
+        GetTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
     
     return FALSE;
 }
@@ -1740,7 +1740,7 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
     if (!IsTMHM(itemId))
         GetItemName(sScriptStringVars[stringVarIndex], itemId);
     else
-        BufferTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
+        GetTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
 
     //unsure if should change to back pokeball pouch as poke is written differently
     if (itemId == ITEM_POKE_BALL && quantity >= 2)

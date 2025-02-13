@@ -723,7 +723,7 @@ const u8 * ItemId_GetName(u16 itemId)
     if (!IsTMHM(itemId))
         GetItemName(name, itemId);
     else
-        BufferTmHm_Name(name, itemId);
+        GetTmHm_Name(name, itemId);
 
     return name;//gItems[SanitizeItemId(itemId)].name;
 

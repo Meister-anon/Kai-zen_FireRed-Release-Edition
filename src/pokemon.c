@@ -7775,7 +7775,7 @@ void GetItemName(u8 *name, u16 item)
     //this setup works
 }
 
-void BufferTmHm_Name(u8 *buffer, u16 itemId)
+void GetTmHm_Name(u8 *dest, u16 itemId)
 {
     u32 TMHMValue;
     u8 isHM = TRUE; //loop tmlist if found there set to false
@@ -7795,31 +7795,36 @@ void BufferTmHm_Name(u8 *buffer, u16 itemId)
         for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
         {
             if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
-            break;  
+                break;  
         }
     }
 
     if (isHM)
-        StringCopy(buffer, gText_HM_String);
+        StringCopy(gStringVar4, gText_HM_String);
     else
-        StringCopy(buffer, gText_TM_String);
+        StringCopy(gStringVar4, gText_TM_String);
 
     
     if (IsTMHM(itemId))
     {
+        u8 value = TMHMValue + 1;
+        u8 digits = value < 100 ? 2 : 3;
 
         if (isHM)
         {
-            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEFT_ALIGN, 0);
-            StringAppend(buffer, gStringVar1);
+            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEADING_ZEROS, digits);
+            StringAppend(gStringVar4, gStringVar1);
         }
         else
         {
-            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEFT_ALIGN, 0);
-            StringAppend(buffer, gStringVar1);
+            ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEADING_ZEROS, digits);
+            StringAppend(gStringVar4, gStringVar1);
         }
+
+        StringCopy(dest, gStringVar4);
     }
 }
+
 
 u8 CalculatePPWithBonus(u16 move, u8 ppBonuses, u8 moveIndex)
 {
