@@ -1258,9 +1258,30 @@ static const u8 sTerrainToType[] =
 };
 
 //if I add more balls may need to adjust this also see how it links to each ball
+//ok think this is problem with ball reorder need to change this,
+//yup this was it, vsonic
 static const u8 sBallCatchBonuses[] =
 {
-    20, 15, 10, 15 // Ultra, Great, Poke, Safari
+    [BALL_POKE] =
+    {
+        10,
+    },
+
+    [BALL_GREAT] =
+    {
+        15,
+    },
+
+    [BALL_SAFARI] =
+    {
+        15,
+    },
+
+    [BALL_ULTRA] =
+    {
+        20,
+    }
+   
 };
 
 // not used
@@ -18871,7 +18892,7 @@ static void atkEF_handleballthrow(void) //important changed
                 catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
             else
                 catchRate = gBaseStats[gBattleMons[gBattlerTarget].species].catchRate;
-            if (gLastUsedItem > ITEM_SAFARI_BALL) //pretty much if pokeball is one of the special balls (not poke, great, ultra, or master
+            if (gLastUsedItem > ITEM_MASTER_BALL) //pretty much if pokeball is one of the special balls (not poke, great, ultra, or master
             {
                 switch (gLastUsedItem)
                 {
@@ -18917,7 +18938,7 @@ static void atkEF_handleballthrow(void) //important changed
                 }
             }
             else
-                ballMultiplier = sBallCatchBonuses[gLastUsedItem - 2];
+                ballMultiplier = sBallCatchBonuses[ItemIdToBallId(gLastUsedItem)];
             odds = (catchRate * ballMultiplier / 10) * (gBattleMons[gBattlerTarget].maxHP * 3 - gBattleMons[gBattlerTarget].hp * 2) / (3 * gBattleMons[gBattlerTarget].maxHP);
             
             if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gDisableStructs[gBattlerTarget].FrozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap

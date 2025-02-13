@@ -7283,7 +7283,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         u8 pokeball = *data;
         boxMon->pokeball = pokeball;
         break;
-    }
+    }//think would need change  *data to u32 or not? and pokeball to u16 since meant to hold item id
     case MON_DATA_BOX_HP:
     {
         u8 boxHP = *data;
@@ -8492,7 +8492,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 friendship += friendshipDelta;
                             if (friendshipDelta > 0)
                             {
-                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == 11)
+                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)
                                     friendship++;
                                 if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
                                     friendship++;
@@ -8517,7 +8517,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 friendship += friendshipDelta;
                             if (friendshipDelta > 0)
                             {
-                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == 11)
+                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)
                                     friendship++;
                                 if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
                                     friendship++;
@@ -8541,7 +8541,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 friendship += friendshipDelta;
                             if (friendshipDelta > 0)
                             {
-                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == 11)
+                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)
                                     friendship++;
                                 if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
                                     friendship++;

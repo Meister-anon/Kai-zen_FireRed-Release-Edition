@@ -22,6 +22,13 @@
 //       Several places expect the ball IDs to be first and contiguous (e.g. MON_DATA_POKEBALL)
 //       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs
 //    this is needed because ball effects rely on secondaryId set in item slot, each on is unique to the ball
+//I made some adjustments I belive the only thing
+//keeping me to puttin all new pokeballs together is
+//some type limit stuff? some places use u8 I would need to change,
+//other than that think just need keep secondary id in sequence,
+// and ensure all special balls come after master ball, according to my current setup
+//it is nice to have them all together, visually, just annoying to reorder list
+
 #define FIRST_BALL ITEM_POKE_BALL
 #define LAST_BALL  ITEM_PREMIER_BALL
 #define BALL_COUNT LAST_BALL - FIRST_BALL
