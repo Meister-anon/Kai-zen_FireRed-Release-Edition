@@ -3191,6 +3191,68 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     is an issue need print based on order
     within tmhm list tmcase just uses GetTMNumberAndMoveString 
     2/10/2025 IMPORTANT
+    -fixed just prevent then from being held,
+
+    fixed bind it was just related to memory corruption
+    fixing that fixed most things,
+    but bug bite still has some small issue where
+    it doesn't properly faint mon,
+    mon dies but doesn't trigger faint logic mon sprite doesn't go down
+    -found effect is tied to argument
+    so think something to do w setting move effect
+    doin 
+    BattleScriptPush(gBattlescriptCurrInstr + 1);
+    gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+
+    think the jump moves passed tryfaintmon
+    think only way to solve may be getting the
+    move effect refactor done...
+
+    still fixing tm refactor need better sort option
+    to fit tm options not in sequence based on item id
+
+    then fix party menu exp share setup
+    and add to script
+    2/11/2025 
+
+    can't figure out tm sorting,
+    planning to use ghoulslashes bag sort
+    which implements merge sort based on diff filters
+    
+    https://github.com/pret/pokeemerald/compare/master...ghoulslash:pokeemerald:bag_sort
+
+    plan is do python stuff to 
+    hard code the item names to match tmhm list
+    then will have a filter to use to sort
+    can use alphabetical filter to make work
+    Hms would auto go first and pretty sure higher numbers would after lower numbers
+
+    would need store length of ghm list to determine what number/ tmhm to print
+    while loop over length of gtmhmlist
+    use foundtm
+    if found tm is less than legnth ghmlist
+    (for now less than 9)
+    name sub would be HM + (foundtm + 1) - since foudtm starts at 0
+    ex. HM01 HM 02 etc.
+    else
+    would do TM + (foudtm - 8) should start at foudtm 9 so would reset to 1
+
+    would add to botom of tm_list.py loop src/data/items.h
+    for item id that matches place in gtmhmlist
+    then search .name field and replace everything in double quotes
+    nameSub is replace value
+
+    ok I got the  sort working properly, my condition was just wrong,
+    so hopefully can skip having to hard code the name values
+    for work with hma may need to, anyway tho, just to prevent confusion hmmm
+    anyway hmmm
+    but for now just need test that item names display correctly
+    in overworld, flsh freeze is set as 68,
+    everything after that is shifted from the name value
+    so all I'd have to do to test is drop ITEM_TM69 silver wind
+    to pickup, if it displays as 70 its fine,
+    if it displays anything else its not working
+    2/12/2025
 
 
     updated event scripts & specials setup

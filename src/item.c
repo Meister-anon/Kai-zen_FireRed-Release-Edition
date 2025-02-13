@@ -513,6 +513,9 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     u16 k;
     struct ItemSlot *buff;
 
+    //ok so this calls itself a compact
+    //what I think its doing is runnnig a pre-sort
+    //to lessen work of this function which also does sort?
     SortAndCompactTmCase(pocket);
 
     for (i = 0; i < pocket->capacity; i++)
@@ -530,6 +533,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
         }
     }
 
+    //is this swapping the quantity to match for swapped slots?
     for (k = 0; k < pocket->capacity; k++)
         pocket->itemSlots[k].quantity = GetBagItemQuantity(&pocket->itemSlots[k].quantity);
     buff = AllocZeroed(pocket->capacity * sizeof(struct ItemSlot));
@@ -539,6 +543,7 @@ void SortPocketAndPlaceHMsFirst(struct BagPocket * pocket)
     for (k = 0; k < pocket->capacity; k++)
         SetBagItemQuantity(&pocket->itemSlots[k].quantity, pocket->itemSlots[k].quantity);
     Free(buff);
+    
 }
 
 //seems to sort things to auto put lowest itemId at top?
@@ -568,12 +573,13 @@ void SortAndCompactBagPocket(struct BagPocket * pocket)
 buffer[ITEMS_COUNT];
 for slot in pocket - for (i = 0; i < pocket->capacity; i++)
 {
-  if (buffer[currItem] != 0)  - if (buffer[pocket->itemSlots[i].itemId] != 0)
+  if (buffer[currItem] != 0)  - if (buffer[pocket->itemSlots[i].itemId] != 0) //or quantity either should work
     addStacksTogether(); //figur this out
   else
-    buffer[currItem] = slot; //believe means swapitemslots
+    buffer[currItem] = slot; //believe means swapitemslots  // or other way around and this just means leave where it is?
 }
 */
+
 
 //rather than item id, I THINK it would work
 //if I had it filter based on tmhm index
@@ -609,30 +615,22 @@ is greater compared to loop stm moves of next
 void SortAndCompactTmCase(struct BagPocket * pocket)
 {
     u32 i, j;
-
-
+   
     for (i = 0; i < pocket->capacity; i++)
     {
-        for (j = i + 1; j < pocket->capacity; j++)
+
+        for (j = 0; j < pocket->capacity; j++)
         {
 
-            
-            //correct conditional for when i get the tmlist file setup correcty
-            
-            if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0
-            || (pocket->itemSlots[i].itemId != gTMHM_List[i] && pocket->itemSlots[j].itemId == gTMHM_List[i]))
+            if (GetBagItemQuantity(&pocket->itemSlots[i].quantity) == 0 ||
+            (GetBagItemQuantity(&pocket->itemSlots[j].quantity) != 0 && pocket->itemSlots[j].itemId == gTMHM_List[i]))
+            {
                 SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
-            
 
-            //added logic to attempt to swap if hm
-            //IT WORKED!!! awesome now just need to fix optimization
-            //w new setup it should already put hms first without needing this call
-            //so sligthtly faster I guess
-            //if (Isitem_HM(pocket->itemSlots[j].itemId) && !Isitem_HM(pocket->itemSlots[i].itemId))
-            //    SwapItemSlots(&pocket->itemSlots[i], &pocket->itemSlots[j]);
+            }    
             
         }
-    }
+    }    
 }
 
 u16 BagGetItemIdByPocketPosition(u8 pocketId, u16 slotId)
@@ -712,19 +710,20 @@ u16 SanitizeItemId(u16 itemId)
     return itemId;
 }
 
-//special trick for passing const - didn't work won't use
-static const u8* ReturnItemNameConst(u16 itemId)
-{
-    GetItemName(gStringVar4, itemId);
-    return gStringVar4;
-}//not working with player pc, wondering if use free adn custom buffer it would work?
 
+//not sure if this works? for tms
 //this was the issue bad attmpt pass const value without memory allocation
+//need check if this works
 const u8 * ItemId_GetName(u16 itemId)
 {
     u8 text[ITEM_NAME_LENGTH + 1];
     u8 * name = Alloc(sizeof(text));
-    GetItemName(name, itemId);
+    //GetItemName(name, itemId);
+
+    if (!IsTMHM(itemId))
+        GetItemName(name, itemId);
+    else
+        BufferTmHm_Name(name, itemId);
 
     return name;//gItems[SanitizeItemId(itemId)].name;
 
