@@ -1094,9 +1094,9 @@
 	.4byte \param0
 	.endm
 
-	.macro settaunt param0:req
+	.macro settaunt failInstr:req
 	.byte 0xd0
-	.4byte \param0
+	.4byte \failInstr
 	.endm
 
 	.macro trysethelpinghand param0:req
@@ -1422,9 +1422,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro tryworryseed ptr:req
+	.macro tryworryseed failInstr:req
 	callnative BS_tryworryseed
-	.4byte \ptr
+	.4byte \failInstr
 	.endm
 
 	.macro metalburstdamagecalculator ptr:req

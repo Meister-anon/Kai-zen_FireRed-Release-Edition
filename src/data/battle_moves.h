@@ -6166,6 +6166,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },//makes target ability insomnia
+    //for some reason this broke game?
+    //or it breaks starter battle
+    //changed to use call native now works
 
     [MOVE_SUCKER_PUNCH] =
     {

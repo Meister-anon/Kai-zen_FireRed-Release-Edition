@@ -17926,22 +17926,25 @@ static void atkCF_jumpifnodamage(void)
 
 static void atkD0_settaunt(void)    //adjusted setup to be more in line with torment
 {
-    
+    NATIVE_ARGS(const u8* failInstr);
+
     if ((gDisableStructs[gBattlerTarget].tauntTimer != 0)
         || GetBattlerAbility(gBattlerTarget) == ABILITY_UNAWARE 
         || GetBattlerAbility(gBattlerTarget) == ABILITY_OWN_TEMPO
         || GetBattlerAbility(gBattlerTarget) == ABILITY_OBLIVIOUS
         || GetBattlerAbility(gBattlerTarget) == ABILITY_FEMME_FATALE)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gDisableStructs[gBattlerTarget].tauntTimer = 3;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     
-}
+}//consider increasing timer for modern vsonic
+//and text indicators, end turn mon calmed down
+//-done
 
 static void atkD1_trysethelpinghand(void)
 {

@@ -1275,6 +1275,7 @@ u8 TrySetCantSelectMoveBattleScript(void)
     return limitations;
 }
 
+//vsonic need check when this is run -seems run in ai files, and before atk cancel so should be fine
 u8 CheckMoveLimitations(u8 battlerId, u8 unusableMoves, u8 check)
 {
     u8 holdEffect;
