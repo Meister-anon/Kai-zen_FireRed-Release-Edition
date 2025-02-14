@@ -17937,7 +17937,7 @@ static void atkD0_settaunt(void)    //adjusted setup to be more in line with tor
     }
     else
     {
-        gDisableStructs[gBattlerTarget].tauntTimer = 2;
+        gDisableStructs[gBattlerTarget].tauntTimer = 3;
         gBattlescriptCurrInstr += 5;
     }
     
@@ -19992,18 +19992,20 @@ void BS_trygetbaddreamstarget(void) {
 }
 
 void BS_tryworryseed(void) {
-    switch (gBattleMons[gBattlerTarget].ability)
+    NATIVE_ARGS(const u8* failInstr);
+
+    switch (GetBattlerAbility(gBattlerTarget))
     {
     case ABILITY_INSOMNIA:
     case ABILITY_MULTITYPE:
     case ABILITY_TRUANT:
     case ABILITY_STANCE_CHANGE:
     case ABILITY_DISGUISE:
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
         break;
     default:
         gBattleMons[gBattlerTarget].ability = ABILITY_INSOMNIA;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
         break;
     }
 }

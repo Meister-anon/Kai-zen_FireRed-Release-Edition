@@ -274,11 +274,12 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //u8 SwitchBinding:4; //timer rn just for spirit shackle escape prevent effect timer set tmier to 4 so 3 full turns of bind ...this is 2^bit not bit is max value *facepalm
     u8 SwitchBinding:2;
     u8 ConfusionTurns:3; //if correct above should be 3 turns
-    u8 buffer:2;
+    u8 buffer:2; //forget what htis is for I guess free space?
     u8 rechargeTimer:1; //would use 1, just need change decrement condition
     u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
     u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
-    u8 padding:3;
+    u8 tauntEnds:1; //set taunt to atk cancel decrement, made this for end turm message
+    u8 padding:2;
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used

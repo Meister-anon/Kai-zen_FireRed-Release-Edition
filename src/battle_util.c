@@ -3247,9 +3247,13 @@ u8 DoBattlerEndTurnEffects(void)
             }
             ++gBattleStruct->turnEffectsTracker;
             break;
-            case ENDTURN_TAUNT:  // taunt
-                if (gDisableStructs[gActiveBattler].tauntTimer)
-                    --gDisableStructs[gActiveBattler].tauntTimer;
+            case ENDTURN_TAUNT:  // taunt - changeed, based on ect descr. in EE its clear modern games shiftedd timer to atk canceler which makes sense, its more consistent that way as well
+                if (gDisableStructs[gActiveBattler].tauntEnds && --gDisableStructs[gActiveBattler].tauntEnds == 0)
+                {
+                    BattleScriptExecute(BattleScript_BufferEndTurn);
+                    PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_TAUNT);
+                    ++effect;
+                }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_YAWN:  // yawn -change set effect decrement in endturn, but assign sleep in attackcanceler
@@ -4187,13 +4191,19 @@ u8 AtkCanceller_UnableToUseMove(void)
             ++gBattleStruct->atkCancellerTracker;
             break;
         case CANCELLER_TAUNTED: // taunt
-            if (gDisableStructs[gBattlerAttacker].tauntTimer && IS_MOVE_STATUS(gCurrentMove))
+            if (gDisableStructs[gBattlerAttacker].tauntTimer)
             {
-                gProtectStructs[gBattlerAttacker].usedTauntedMove = TRUE;
-                CancelMultiTurnMoves(gBattlerAttacker);
-                gBattlescriptCurrInstr = BattleScript_MoveUsedIsTaunted;
-                gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-                effect = 1;
+                if (--gDisableStructs[gBattlerAttacker].tauntTimer == 0)
+                    gDisableStructs[gBattlerAttacker].tauntEnds = 1;
+                
+                if (IS_MOVE_STATUS(gCurrentMove))
+                {
+                    gProtectStructs[gBattlerAttacker].usedTauntedMove = TRUE;
+                    CancelMultiTurnMoves(gBattlerAttacker);
+                    gBattlescriptCurrInstr = BattleScript_MoveUsedIsTaunted;
+                    gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+                    effect = 1;
+                }
             }
             ++gBattleStruct->atkCancellerTracker;
             break;
