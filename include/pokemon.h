@@ -204,6 +204,19 @@ struct BoxPokemon
 //from josh/shinydragonhunter
 //hard to get space saving since space is allocated to max of all structs
 //but think can just remove and put all in boxmon here
+enum ExpStates
+{
+    OFF,
+    EXP_SHARE,
+    EXP_NULL
+};
+
+enum StatsSetState
+{
+    NONE,
+    SET_VIA_BATTLE,
+    SET_VIA_PARTY
+};
 
 struct Pokemon
 {
@@ -218,8 +231,8 @@ struct Pokemon
     u16 speed;
     u16 spAttack;
     u16 spDefense;
-    u8 expShare_state;
-    u8 expNull_state;
+    u8 StatusSetState;
+    u8 Exp_state;
 };
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);

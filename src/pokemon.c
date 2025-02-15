@@ -2795,7 +2795,7 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
     SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &arg);
-    SetMonData(mon, MON_DATA_EXP_NULL_STATE, &arg);
+    SetMonData(mon, MON_DATA_STATUS_SET_STATE, &arg);
     //arg = 255;
     //SetMonData(mon, MON_DATA_MAIL, &arg); //haven't removed mail yet redo later
 }
@@ -3622,7 +3622,7 @@ void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
     SetMonData(dest, MON_DATA_STATUS, &value);
     //default to off 
     SetMonData(dest, MON_DATA_EXP_SHARE_STATE, &value);
-    SetMonData(dest, MON_DATA_EXP_NULL_STATE, &value);
+    SetMonData(dest, MON_DATA_STATUS_SET_STATE, &value);
     //SetMonData(dest, MON_DATA_HP, &value);
     SetMonData(dest, MON_DATA_MAX_HP, &value);
     value = 255;
@@ -6634,10 +6634,10 @@ u32 GetMonData(struct Pokemon *mon, s32 field, u8 *data)
         ret = mon->spDefense;
         break;
     case MON_DATA_EXP_SHARE_STATE:
-        ret = mon->expShare_state;
+        ret = mon->Exp_state;
         break;
-    case MON_DATA_EXP_NULL_STATE:
-    ret = mon->expNull_state;
+    case MON_DATA_STATUS_SET_STATE:
+        ret = mon->StatusSetState;
         break;
     case MON_DATA_MAIL:
         //ret = mon->mail;
@@ -7041,22 +7041,10 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
         SET16(mon->spDefense);
         break;
     case MON_DATA_EXP_SHARE_STATE:
-    {
-        u8 Expshare_state = *data;
-        mon->expShare_state = Expshare_state;
-
-        if (Expshare_state == TRUE)
-            mon->expNull_state = FALSE;
-    }
+        SET8(mon->Exp_state);
     break;
-    case MON_DATA_EXP_NULL_STATE:
-    {
-        u8 Expnull_state = *data;
-        mon->expNull_state = Expnull_state;
-
-        if (Expnull_state == TRUE)
-            mon->expShare_state = FALSE;
-    }
+    case MON_DATA_STATUS_SET_STATE:
+        SET8(mon->StatusSetState);
     break;
     case MON_DATA_MAIL:
         //SET8(mon->mail);

@@ -1262,25 +1262,10 @@ static const u8 sTerrainToType[] =
 //yup this was it, vsonic
 static const u8 sBallCatchBonuses[] =
 {
-    [BALL_POKE] =
-    {
-        10,
-    },
-
-    [BALL_GREAT] =
-    {
-        15,
-    },
-
-    [BALL_SAFARI] =
-    {
-        15,
-    },
-
-    [BALL_ULTRA] =
-    {
-        20,
-    }
+    [BALL_POKE]   =  10,
+    [BALL_GREAT]  =  15,
+    [BALL_SAFARI] =  15,
+    [BALL_ULTRA]  =  20,
    
 };
 
@@ -6583,7 +6568,7 @@ static void atk23_getexp(void)
                             holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
                         else
                             holdEffect = ItemId_GetHoldEffect(item);
-                        if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE)
+                        if (GetMonData(&gPlayerParty[i], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE
                         && (GetMonData(&gPlayerParty[i], MON_DATA_HP)))
                             ++viaExpShare;
                 }
@@ -6638,7 +6623,7 @@ static void atk23_getexp(void)
             //if they were sent in
             //belive translates to, if not sent in and not holding exp share,
             //so what I need is, if sent in, but holding exp null
-            if (!(GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE)) && !(gBattleStruct->sentInPokes & 1))
+            if ((GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) != EXP_SHARE) && !(gBattleStruct->sentInPokes & 1))
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.atk23_getexpState = 5;
@@ -6651,7 +6636,7 @@ static void atk23_getexp(void)
                 gBattleMoveDamage = 0; // used for exp // confirmed from Lunos, apparently the case jump only happens after everything in the code block is run so he added the evgain function here and it ran even though it was below the case jump
                 MonGainEVs(&gPlayerParty[gBattleStruct->expGetterMonId]);// his method works but not sure if stats will change since think that's in case 3,  so I'm removing the jump and putting ev gain to here.
             } //hopefully this works without issue
-            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_NULL_STATE))
+            else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_NULL)
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.atk23_getexpState = 3;  //commented out to remove the jump to case 5. should allow for ev gain at max level
@@ -6687,12 +6672,9 @@ static void atk23_getexp(void)
                         gBattleMoveDamage = *exp;
                     else
                         gBattleMoveDamage = 0;
-                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE))
+                    if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_SHARE_STATE) == EXP_SHARE)
                         gBattleMoveDamage += gExpShareExp;
-                    //don't want to display text w this,
-                    //so pretty sure not the correct place for this
-                    //else if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_EXP_NULL_STATE))
-                    //    gBattleMoveDamage = 0;
+                    
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100; //since gBattlemovedamage is *exp, this is for the 1.5 exp boost from lucky egg I can make exp 0 here.
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)

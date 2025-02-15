@@ -224,7 +224,7 @@ static void CreatePartyMonExpSprite(struct Pokemon *mon, struct PartyMenuBox *me
 static void CreateCancelConfirmPokeballSprites(void);
 static void DrawCancelConfirmButtons(void);
 static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox *menuBox);
-static void AdjustPartyMonExpNullState(struct Pokemon *mon, struct PartyMenuBox *menuBox);
+static void AdjustPartyMonStatusState(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static u8 CreatePokeballButtonSprite(u8 x, u8 y);
 static u8 CreateSmallPokeballButtonSprite(u8 x, u8 y);
 static u8 GetPartyBoxPaletteFlags(u8 slot, u8 animNum);
@@ -428,6 +428,9 @@ void (*gItemUseCB)(u8, TaskFunc);
 
 #include "data/pokemon/tutor_learnsets.h"
 #include "data/party_menu.h"
+
+static void CyclePrimaryStatus(struct Pokemon *mon);
+//new additions
 
 void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, u8 messageId, TaskFunc task, MainCallback callback)
 {
@@ -1172,7 +1175,7 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             break;
         case 7: //Select button
             PlaySE(SE_SELECT);
-            AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
+            AdjustPartyMonStatusState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
             break;
         case 8: // Start button
             if (sPartyMenuInternal->chooseHalf)
@@ -1183,21 +1186,21 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             else
             {
                 PlaySE(SE_SELECT);                
-                AdjustPartyMonExpNullState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
+                AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
             }
             break;
             case 9: // Select button on pokeball button
             {
                 PlaySE(SE_SELECT);
                 for (i = 0; i < gPlayerPartyCount; ++i)
-                AdjustPartyMonExpShareState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
+                AdjustPartyMonStatusState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
             }
             break;
             case 10: //  Start button on pokeball button
             {
                 PlaySE(SE_SELECT);
                 for (i = 0; i < gPlayerPartyCount; ++i)
-                AdjustPartyMonExpNullState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
+                AdjustPartyMonExpShareState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
             }
             break;
         }
@@ -1913,12 +1916,18 @@ u8 GetMonAilment(struct Pokemon *mon)
 //so needs diff function
 u8 GetMonExpState(struct Pokemon *mon)
 {
-    if (GetMonData(mon, MON_DATA_EXP_SHARE_STATE) == TRUE)
-        return EXP_SHARE_ON;
-    else if (GetMonData(mon, MON_DATA_EXP_NULL_STATE) == TRUE)
-        return EXP_NULL_ON;
+    //looks weird but has to return 9 10 to get correct sprites I think?
+    switch (GetMonData(mon, MON_DATA_EXP_SHARE_STATE))
+    {
+        case EXP_SHARE:
+            return EXP_SHARE_ON;
+
+        case EXP_NULL:
+            return EXP_NULL_ON;
+        
+    }
     
-    return AILMENT_NONE;
+    return OFF;
 }
 
 static void SetPartyMonsAllowedInMinigame(void)
@@ -3272,32 +3281,99 @@ static void CreatePartyMonExpSPriteParameterized(u16 species, u8 expState, struc
     }
 }
 
+//clear and set works,
+//but still need to setup
+//when I select the opposite
+//i.e has null and set share
+//rn icon doesn't change til clear and return to menu
+//so correct logic isn't present
 static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
-    u32 SetState = GetMonData(mon, MON_DATA_EXP_SHARE_STATE) ? FALSE : TRUE;
+    u32 SetState = GetMonData(mon, MON_DATA_EXP_SHARE_STATE);
+
+    //this works for now, but will have to setup
+    //proper conditional to filter things based on what should be available
+    //so flag check
+    if (++SetState > 2)
+        SetState = 0;
     SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &SetState);
-    CreatePartyMonExpSprite(mon, menuBox);
+    
     if (!SetState)
     {
-        //know eventually causes memory leak
-        //need figure how clear without memory leak or removing other status
-        //InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_DO_WHAT_WITH_MON, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
-        //CreatePartyMonExpSprite(&gPlayerParty[*GetCurrentPartySlotPtr()], &sPartyMenuBoxes[*GetCurrentPartySlotPtr()]);
-        //menuBox->expSpriteId = CreateSprite(&gSpriteTemplate_StatusIcons, menuBox->spriteCoords[8], menuBox->spriteCoords[9], 0);
-        //&gSprites[menuBox->expSpriteId]
-        //ResetSprite(&gSprites[menuBox->expSpriteId]);
-        
+        //recomendation from cawt see if this works - WORKS
+        DestroySprite(&gSprites[menuBox->expSpriteId]);
     }    
-    //InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_DO_WHAT_WITH_MON, Task_HandleChooseMonInput, gPartyMenu.exitCallback);
-    //does clear but causes fade in out, and reused too much breaks
-    //InitPartyMenu(menuType, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_AND_CLOSE, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToField);
+    else
+    {
+        //think with this change should destroy opposing sprite before set new one?
+        //breaks party wide set not sure how but it does
+        //if (gSprites[menuBox->expSpriteId])
+        //if (menuBox->expSpriteId)
+        //checked destroysprite shouldn't be causing memory issues
+        //from what I see it already has a check for
+        //if sprite is in use, and only resets sprite if its used
+        DestroySprite(&gSprites[menuBox->expSpriteId]);
+        CreatePartyMonExpSprite(mon, menuBox);
+    }
+        
+    
 }
 
-static void AdjustPartyMonExpNullState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+#define Reset_Status \
+SetMonData(mon, MON_DATA_STATUS, &resetStatus);
+
+static void CyclePrimaryStatus(struct Pokemon *mon)
 {
-    u32 SetState = GetMonData(mon, MON_DATA_EXP_NULL_STATE) ? FALSE : TRUE;
-    SetMonData(mon, MON_DATA_EXP_NULL_STATE, &SetState);
-    CreatePartyMonExpSprite(mon, menuBox);
+    u32 resetStatus = 0;
+    u32 StatusSet = 0;
+
+    switch (GetMonData(mon, MON_DATA_STATUS))
+    {
+        case STATUS1_NONE:
+            Reset_Status
+            StatusSet = STATUS1_SLEEP;
+            SetMonData(mon, MON_DATA_STATUS, &StatusSet);
+            break;
+        case STATUS1_SLEEP:
+            Reset_Status
+            StatusSet = STATUS1_POISON;
+            SetMonData(mon, MON_DATA_STATUS, &StatusSet);
+            break;
+        case STATUS1_POISON:
+            Reset_Status
+            StatusSet = STATUS1_BURN;
+            SetMonData(mon, MON_DATA_STATUS, &StatusSet);
+            break;
+        case STATUS1_BURN:
+            Reset_Status
+            StatusSet = STATUS1_FREEZE;
+            SetMonData(mon, MON_DATA_STATUS, &StatusSet);
+            break;
+        case STATUS1_FREEZE:
+            Reset_Status
+            StatusSet = STATUS1_PARALYSIS;
+            SetMonData(mon, MON_DATA_STATUS, &StatusSet);
+            break;
+        case STATUS1_PARALYSIS:
+            Reset_Status
+            StatusSet = STATUS1_NONE;
+            SetMonData(mon, MON_DATA_STATUS, &StatusSet);
+            break;        
+    }
+}//works now
+
+static void AdjustPartyMonStatusState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+
+    if (GetMonData(mon, MON_DATA_STATUS_SET_STATE) == SET_VIA_BATTLE)
+        return;
+    else
+    {
+        CyclePrimaryStatus(mon);
+        SetPartyMonAilmentGfx(mon,menuBox);
+    }
+
+  
 }
 
 //believe this used to update status

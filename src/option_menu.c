@@ -66,8 +66,8 @@ enum MiscOptions
 //for binary state  (text options)
 enum
 {
-    OFF,
-    ON
+    _OFF,
+    _ON
 };
 
 // Window Ids
@@ -241,10 +241,10 @@ static const u16 sTextOptionsMenuItemCounts[TEXT_MENUITEM_COUNT] =
 
 static const u16 sMiscOptionsMenuItemCounts[MISC_MENUITEM_COUNT] =
 {
-    [MISC_MENUITEM_EVENT_SPEEDUP]     = 2, //OFF - ON
+    [MISC_MENUITEM_EVENT_SPEEDUP]     = 2, //_OFF - ON
     [MISC_MENUITEM_BATTLE_SPEED]     = 4, //1x - 4x
-    [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = 2, //OFF - ON
-    [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //OFF - ON
+    [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = 2, //_OFF - ON
+    [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //_OFF - ON
 
     [MISC_MENUITEM_CANCEL]          = 0,
 };
@@ -1119,37 +1119,37 @@ static void UpdateSettingSelectionDisplay(u16 selection)
 
 static void UpdateSettingDecapSpecies(u8 selection)
 {
-    if (selection == ON)
+    if (selection == _ON)
         FlagSet(FLAG_CAPITALIZE_SPECIES_TEXT);
-    else if (selection == OFF)
+    else if (selection == _OFF)
         FlagClear(FLAG_CAPITALIZE_SPECIES_TEXT);
 }
 static void UpdateSettingDecapAbility(u8 selection)
 {
-    if (selection == ON)
+    if (selection == _ON)
         FlagSet(FLAG_CAPITALIZE_ABILITY_TEXT);
-    else if (selection == OFF)
+    else if (selection == _OFF)
         FlagClear(FLAG_CAPITALIZE_ABILITY_TEXT);
 }
 static void UpdateSettingDecapMoves(u8 selection)
 {
-    if (selection == ON)
+    if (selection == _ON)
         FlagSet(FLAG_CAPITALIZE_MOVE_TEXT);
-    else if (selection == OFF)
+    else if (selection == _OFF)
         FlagClear(FLAG_CAPITALIZE_MOVE_TEXT);
 }
 static void UpdateSettingDecapItem(u8 selection)
 {
-    if (selection == ON)
+    if (selection == _ON)
         FlagSet(FLAG_CAPITALIZE_ITEM_TEXT);
-    else if (selection == OFF)
+    else if (selection == _OFF)
         FlagClear(FLAG_CAPITALIZE_ITEM_TEXT);
 }
 static void UpdateSettingDecapMisc(u8 selection)
 {
-    if (selection == ON)
+    if (selection == _ON)
         FlagSet(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
-    else if (selection == OFF)
+    else if (selection == _OFF)
         FlagClear(FLAG_CAPITALIZE_MISC_PLACEHOLDER);
 }
 
