@@ -3254,6 +3254,41 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     if it displays anything else its not working
     2/12/2025
 
+    able to get party menu icons to display
+    but still has issue with clear it does weird things
+    icon dissapears when it shouldn't
+
+    new idea put exp logic on one button,
+    don't split for share and null,
+    make it 3 button press share, null, off
+    //what button press will do 
+    should depen on what options are avaialable currenlty
+
+    make other button be status setter 
+    will be pre status allows setting
+    status to a mon in overworld,
+    idea is press button to cycle status
+    hmm but then would be able to exploit
+    to remove battle status, hmm
+    unless I can make a new field
+    statusedFromBattle?  make true false
+    would be removed when status is removed
+
+    could make it so cycle status never cycles to no status
+    so it doesn't accidentaly...no I do want to be able to turn it off
+    as that would also allow me to pre damage.
+
+    could set poison and run back and forth till at hp I want 
+    then turn off
+
+    ok make value for battleSetStatus
+    if that is set can't cycle status
+
+    exp state w start button
+    status w select button
+    2/14/2025
+
+
 
     updated event scripts & specials setup
     plan use python replace all event.inc
