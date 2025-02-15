@@ -618,8 +618,8 @@
 #define FLAG_GOT_TM06_FROM_KOGA                          0x259
 #define FLAG_GOT_EXP_NULL_FROM_MOM                       0x25A
 #define FLAG_GOT_TM27                                    0x25B
-#define FLAG_EXP_SHARE_TURNED_ON                         0x25C
-#define FLAG_EXP_NULL_TURNED_ON                          0x25D  //vsonic IMPORTANT for setup
+#define FLAG_GOT_OMNI_BOX                                0x25C //want to give early game not sure when, game start? lol have teach tv man give it 
+#define FLAG_0x25D                                       0x25D  
 #define FLAG_GOT_OLD_AMBER                               0x25E
 #define FLAG_0x25F                                       0x25F
 #define FLAG_0x260                                       0x260

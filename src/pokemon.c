@@ -2795,7 +2795,7 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
     SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &arg);
-    SetMonData(mon, MON_DATA_STATUS_SET_STATE, &arg);
+    //SetMonData(mon, MON_DATA_STATUS_SET_STATE, &arg);
     //arg = 255;
     //SetMonData(mon, MON_DATA_MAIL, &arg); //haven't removed mail yet redo later
 }
@@ -3622,10 +3622,11 @@ void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
     SetMonData(dest, MON_DATA_STATUS, &value);
     //default to off 
     SetMonData(dest, MON_DATA_EXP_SHARE_STATE, &value);
-    SetMonData(dest, MON_DATA_STATUS_SET_STATE, &value);
+    //removed cuz new logic should already zero this, when status is zeroed
+    //SetMonData(dest, MON_DATA_STATUS_SET_STATE, &value);
     //SetMonData(dest, MON_DATA_HP, &value);
     SetMonData(dest, MON_DATA_MAX_HP, &value);
-    value = 255;
+    //value = 255;
     //SetMonData(dest, MON_DATA_MAIL, &value);
     CalculateMonStats(dest);
 }
@@ -7010,6 +7011,18 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     {
     case MON_DATA_STATUS:
         SET32(mon->status);
+
+        if (*data != STATUS1_NONE)
+        {
+            if (gMain.inBattle)
+                mon->StatusSetState = SET_VIA_BATTLE;
+            else
+                mon->StatusSetState = SET_VIA_PARTY;
+        }
+        else if (*data == STATUS1_NONE)
+        {
+                mon->StatusSetState = NONE;
+        }//hack should track status set based on what happens in mondatastatus, also reset on box and party heal
         break;
     case MON_DATA_LEVEL:
         SET8(mon->level);

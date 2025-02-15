@@ -9704,7 +9704,7 @@ const struct Item gItems[] =
     }, //last item
     [ITEM_TM_FLASH_FREEZE] =
     {
-      .name = _("TM001"),
+      .name = _("TM Flash Freeze"),
       .itemId = ITEM_TM_FLASH_FREEZE,
       .price =  3000,
       .holdEffect = HOLD_EFFECT_NONE,

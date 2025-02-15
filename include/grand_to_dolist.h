@@ -3285,11 +3285,26 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     if that is set can't cycle status
 
     exp state w start button
-    status w select button
+    status w select button -done and doesn't appear to have set/clear glitch at exp does...
     2/14/2025
 
+    //decided call it the omni box or something
+    description: A unique box with special traits,
+    Simulates the status  effects on selected pokemon.
+    but cannot overwrite a status set in battle.
+
+    says simulate to give reason why it doesn't change set status
+    kind of like a heirarcical thing
+
+    -finished fixing issus w status set and exp share state
+    conditions have also been set,
+    last thing is make the graphc for omni box
+    and add other relevant item data for that
+    and exp null
+    Then add to scripts so can be given
 
 
+    planned
     updated event scripts & specials setup
     plan use python replace all event.inc
     .byte listings with callnatives to the scrcmd macros

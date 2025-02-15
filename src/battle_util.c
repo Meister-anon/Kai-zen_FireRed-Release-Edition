@@ -12608,16 +12608,14 @@ bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 //for use in party menu
 bool8 CanActivateExpShare(void)
 {
-    if ((FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE))
-    && FlagGet(FLAG_EXP_SHARE_TURNED_ON))
+    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_SHARE_FROM_OAKS_AIDE))
         return TRUE;
     return FALSE;
 }
 
 bool8 CanActivateExpNull(void)
 {
-    if ((FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_NULL_FROM_MOM))
-    && FlagGet(FLAG_EXP_NULL_TURNED_ON))
+    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_EXP_NULL_FROM_MOM))
         return TRUE;
     return FALSE;
 }

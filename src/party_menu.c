@@ -3281,44 +3281,6 @@ static void CreatePartyMonExpSPriteParameterized(u16 species, u8 expState, struc
     }
 }
 
-//clear and set works,
-//but still need to setup
-//when I select the opposite
-//i.e has null and set share
-//rn icon doesn't change til clear and return to menu
-//so correct logic isn't present
-static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
-{
-    u32 SetState = GetMonData(mon, MON_DATA_EXP_SHARE_STATE);
-
-    //this works for now, but will have to setup
-    //proper conditional to filter things based on what should be available
-    //so flag check
-    if (++SetState > 2)
-        SetState = 0;
-    SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &SetState);
-    
-    if (!SetState)
-    {
-        //recomendation from cawt see if this works - WORKS
-        DestroySprite(&gSprites[menuBox->expSpriteId]);
-    }    
-    else
-    {
-        //think with this change should destroy opposing sprite before set new one?
-        //breaks party wide set not sure how but it does
-        //if (gSprites[menuBox->expSpriteId])
-        //if (menuBox->expSpriteId)
-        //checked destroysprite shouldn't be causing memory issues
-        //from what I see it already has a check for
-        //if sprite is in use, and only resets sprite if its used
-        DestroySprite(&gSprites[menuBox->expSpriteId]);
-        CreatePartyMonExpSprite(mon, menuBox);
-    }
-        
-    
-}
-
 #define Reset_Status \
 SetMonData(mon, MON_DATA_STATUS, &resetStatus);
 
@@ -3362,6 +3324,14 @@ static void CyclePrimaryStatus(struct Pokemon *mon)
     }
 }//works now
 
+static u8 CanStatusShiftPartyMon(void)
+{
+    if (FlagGet(FLAG_GOT_OMNI_BOX))
+        return TRUE;
+
+    return FALSE;
+}
+
 static void AdjustPartyMonStatusState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
 
@@ -3369,12 +3339,114 @@ static void AdjustPartyMonStatusState(struct Pokemon *mon, struct PartyMenuBox *
         return;
     else
     {
-        CyclePrimaryStatus(mon);
-        SetPartyMonAilmentGfx(mon,menuBox);
+        if (CanStatusShiftPartyMon())
+        {
+            CyclePrimaryStatus(mon);
+            SetPartyMonAilmentGfx(mon,menuBox);
+        }
+        
     }
-
   
 }
+
+static u8 FilterExpState(u8 currState)
+{
+    if (CanActivateExpNull() && CanActivateExpShare())
+    {
+        switch (currState)
+        {
+            case OFF:
+                return EXP_SHARE;
+            break;
+            case EXP_SHARE:
+                return EXP_NULL;
+            break;
+            case EXP_NULL:
+                return OFF;
+            break;
+        }
+    }
+
+    else if (CanActivateExpNull())
+    {
+        switch (currState)
+        {
+            case OFF:
+                return EXP_NULL;
+            break;
+            case EXP_NULL:
+                return OFF;
+            break;
+        }
+    }
+
+    else if (CanActivateExpShare())
+    {
+        switch (currState)
+        {
+            case OFF:
+                return EXP_SHARE;
+            break;
+            case EXP_SHARE:
+                return OFF;
+            break;
+        }
+    }
+    
+    return 0xFF;
+
+}
+//clear and set works,
+//but still need to setup
+//when I select the opposite
+//i.e has null and set share
+//rn icon doesn't change til clear and return to menu
+//so correct logic isn't present
+static void AdjustPartyMonExpShareState(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+    u8 SetState = GetMonData(mon, MON_DATA_EXP_SHARE_STATE);
+    u8 currState = SetState;
+
+    
+    SetState = FilterExpState(currState);
+    
+    if (SetState == 0xFF)
+        return;
+    
+    SetMonData(mon, MON_DATA_EXP_SHARE_STATE, &SetState);
+    
+    if (!SetState)
+    {
+        //recomendation from cawt see if this works - WORKS
+        DestroySprite(&gSprites[menuBox->expSpriteId]);
+    }    
+    else
+    {
+        //think with this change should destroy opposing sprite before set new one?
+        //breaks party wide set not sure how but it does
+        //if (gSprites[menuBox->expSpriteId])
+        //if (menuBox->expSpriteId)
+        //checked destroysprite shouldn't be causing memory issues
+        //from what I see it already has a check for
+        //if sprite is in use, and only resets sprite if its used
+        //test to attempt perceived issue of destroying sprite when isn't set
+        //smh that actually fixed it
+        //ok think this should work,
+        //don't destroy sprite if was off beforehand, 
+        //i.e no sprite should exist
+        if (currState != OFF)
+        DestroySprite(&gSprites[menuBox->expSpriteId]);
+        CreatePartyMonExpSprite(mon, menuBox);
+    }
+        
+    
+}
+//shold cover most everything last issue
+//is to destroy the sprite when loading party menu
+//for move learn typically tms but think tutor moves etc.
+//need do this anytime party menu is opened and text is displayed
+//below health bar, hmm it doesn't load health bar in those situations
+
 
 //believe this used to update status
 static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox)
