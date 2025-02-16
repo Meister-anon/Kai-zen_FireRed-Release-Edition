@@ -253,6 +253,10 @@ ViridianCity_EventScript_DoTutorialBattle:: @ 8165B4C
 	setvar VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2
 	giveitem ITEM_TEACHY_TV
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
+	msgbox ViridianCity_Text_TakeOmniBox
+	giveitem ITEM_OMNI_BOX
+	setflag FLAG_GOT_OMNI_BOX
+	msgbox ViridianCity_Text_MoreOptions
 	return
 
 ViridianCity_EventScript_SkipTutorialBattle::
@@ -262,4 +266,8 @@ ViridianCity_EventScript_SkipTutorialBattle::
 	msgbox ViridianCity_Text_TakeTeachTV
 	giveitem ITEM_TEACHY_TV
 	msgbox ViridianCity_Text_WatchThatToLearnBasics
+	msgbox ViridianCity_Text_TakeOmniBox
+	giveitem ITEM_OMNI_BOX
+	setflag FLAG_GOT_OMNI_BOX
+	msgbox ViridianCity_Text_MoreOptions
 	return

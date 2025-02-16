@@ -36,3 +36,18 @@ PalletTown_PlayersHouse_1F_Text_MovieOnTVGirlOnBrickRoad:: @ 818D492
 PalletTown_PlayersHouse_1F_Text_OopsWrongSide:: @ 818D4F9
     .string "Oops, wrong side…$"
 
+PalletTown_PlayersHouse_1F_Text_NearlyForgot::
+    .string "MOM: Oh my, I nearly forgot!$"
+
+PalletTown_PlayersHouse_1F_Text_MomsGift::
+    .string "Here I got you something.\p"
+    .string "The nice man at the mart said\n"
+    .string "this item is all the rage!\p"
+    .string "MOM: It'll help your POKéMON\n"
+    .string "gain EXP!$"
+
+PalletTown_PlayersHouse_1F_Text_ReceiveExpShare::
+    .string "MOM: Its an Exp. Share!\n"
+    .string "{PLAYER}: …\p"
+    .string "MOM: Well hurry on now\n"
+    .string "PROF. OAK is waiting.$"

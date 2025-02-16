@@ -198,7 +198,7 @@
 #define ITEM_ENIGMA_BERRY 175
 #define ITEM_PROTECTOR 176 // add more evo "use" items below 0B2
 #define ITEM_DRAGON_SCALE 177
-#define ITEM_0B2 178 //last value for can be used on pokemon  //i.e via party menu
+#define ITEM_EXP_NULL 178 //last value for can be used on pokemon  //i.e via party menu
 #define ITEM_BRIGHT_POWDER 179
 #define ITEM_WHITE_HERB 180
 #define ITEM_MACHO_BRACE 181
@@ -694,7 +694,7 @@
 #define ITEM_TM_CASE 475
 #define ITEM_BERRY_POUCH 476
 #define ITEM_TEACHY_TV 477
-#define ITEM_LINK_KEY 478 //NEW IDEA make key item call link key, trade evos can level up evolve long as yuo have this item //remove later don' tneed
+#define ITEM_OMNI_BOX 478 // tempt name, set pre status in partys
 #define ITEM_TRI_PASS 479 //  AND they meet whatever other condition they have
 #define ITEM_RAINBOW_PASS 480
 #define ITEM_TEA 481
@@ -999,7 +999,7 @@
 //ok what those do is decide if an item gets used i.e if it triggers its effect
 //pokemonitemusenoeffect tells under what condition using an item will trigger
 //"it wont have an effect" text
-#define IS_POKEMON_ITEM(item) ((item) > ITEM_PREMIER_BALL && (item) < ITEM_0B2)
+#define IS_POKEMON_ITEM(item) ((item) > ITEM_PREMIER_BALL && (item) <= ITEM_DRAGON_SCALE)
 #define IS_POKEMON_ITEM2(item) ((item) > ITEM_MEGA_BRACELET && (item) < ITEM_SEA_INCENSE)
 //BECAUSE of this need to add mega stones in somewhere before to cutoff.
 // or copy function for define and create a new range, for IS_POKEMON_ITEM2

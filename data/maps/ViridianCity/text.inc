@@ -78,6 +78,16 @@ ViridianCity_Text_WatchThatToLearnBasics:: @ 817DEEB
     .string "For anything else you can try the\n"
     .string "trainer school back down the road.$"
 
+ViridianCity_Text_TakeOmniBox::
+    .string "Oh! Please, take this too.$"
+
+ViridianCity_Text_MoreOptions::
+    .string "As a trainer you'll face\n"
+    .string "all types of situations.\p"
+    .string "It's always good to have\n"
+    .string "more options!$"
+
+
 ViridianCity_Text_WeakenMonsFirstToCatch:: @ 817DF61
     .string "Well, now, I've had my coffee, and\n"
     .string "that's what I need to get going!\p"

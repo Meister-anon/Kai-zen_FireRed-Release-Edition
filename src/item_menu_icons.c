@@ -217,6 +217,7 @@ void FreeBerryTagSpriteAssets(void)
 //and why all tms passed 50 are greyed out
 //tm case has its on list for the tm discs,
 //but that is separate
+//appears placement within list doesn't matter, just item id
 #define ITEM_ICONS_TABLE
 static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_NONE] = {gFile_graphics_items_icons_question_mark_sheet, gFile_graphics_items_icon_palettes_question_mark_palette},
@@ -377,7 +378,6 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_BRIGHT_POWDER] = {gItemIcon_BrightPowder, gItemIconPalette_BrightPowder},
     [ITEM_WHITE_HERB] = {gItemIcon_InBattleHerb, gItemIconPalette_WhiteHerb},
     [ITEM_MACHO_BRACE] = {gItemIcon_MachoBrace, gItemIconPalette_MachoBrace},
-    [ITEM_EXP_SHARE] = {gItemIcon_ExpShare, gItemIconPalette_ExpShare},
     [ITEM_QUICK_CLAW] = {gItemIcon_QuickClaw, gItemIconPalette_QuickClaw},
     [ITEM_SOOTHE_BELL] = {gItemIcon_SootheBell, gItemIconPalette_SootheBell},
     [ITEM_MENTAL_HERB] = {gItemIcon_InBattleHerb, gItemIconPalette_MentalHerb},
@@ -533,6 +533,8 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_HELIX_FOSSIL] = {gItemIcon_HelixFossil, gItemIconPalette_KantoFossil},
     [ITEM_DOME_FOSSIL] = {gItemIcon_DomeFossil, gItemIconPalette_KantoFossil},
     [ITEM_SILPH_SCOPE] = {gItemIcon_SilphScope, gItemIconPalette_SilphScope},
+    [ITEM_EXP_SHARE] = {gItemIcon_ExpShare, gItemIconPalette_ExpShare},
+    [ITEM_EXP_NULL] = {gItemIcon_ExpShare, gItemIconPalette_ExpNull},
     [ITEM_BICYCLE] = {gItemIcon_Bicycle, gItemIconPalette_Bicycle},
     [ITEM_TOWN_MAP] = {gItemIcon_TownMap, gItemIconPalette_TownMap},
     [ITEM_VS_SEEKER] = {gItemIcon_VSSeeker, gItemIconPalette_VSSeeker},
@@ -540,6 +542,7 @@ static const void *const sItemIconGfxPtrs[][2] = {
     [ITEM_TM_CASE] = {gItemIcon_TMCase, gItemIconPalette_TMCase},
     [ITEM_BERRY_POUCH] = {gItemIcon_BerryPouch, gItemIconPalette_BerryPouch},
     [ITEM_TEACHY_TV] = {gItemIcon_TeachyTV, gItemIconPalette_TeachyTV},
+    [ITEM_OMNI_BOX] = {gItemIcon_DevonGoods, gItemIconPalette_DevonGoods},
     [ITEM_TRI_PASS] = {gItemIcon_TriPass, gItemIconPalette_TriPass},
     [ITEM_RAINBOW_PASS] = {gItemIcon_RainbowPass, gItemIconPalette_RainbowPass},
     [ITEM_TEA] = {gItemIcon_Tea, gItemIconPalette_Tea},

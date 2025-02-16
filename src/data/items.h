@@ -3030,18 +3030,18 @@ const struct Item gItems[] =
       .secondaryId =  0
     }, //only used as evo for seadra, but is very hard to get, could make level evo, and turn it into a seadra hold item instead
     // but with boosts to eviolite there isn't much use for this, other than as an alt if you only have 1 eviolite
-    [ITEM_0B2] =
+    [ITEM_EXP_NULL] =
     {
-      .name = _("????????"),
-      .itemId = ITEM_NONE,
+      .name = _("Exp. Null"),
+      .itemId = ITEM_EXP_NULL,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_NONE,
-//      "description":  gItemDescription_ITEM_NONE
-      .importance = 0,
-      .exitsBagOnUse = 0,
-      .pocket = POCKET_ITEMS,
+     .description = gItemDescription_ITEM_EXP_NULL,
+//      "description":  "An item to be held by a POKéMON.\\nThe holder gets a share of EXP.\\npoints without having to battle.,
+      .importance = 1,
+      .exitsBagOnUse = 1,
+      .pocket = POCKET_KEY_ITEMS,
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
@@ -3102,14 +3102,14 @@ const struct Item gItems[] =
     {
       .name = _("Exp. Share"),
       .itemId = ITEM_EXP_SHARE,
-      .price =  3000,
-      .holdEffect = HOLD_EFFECT_EXP_SHARE,
+      .price =  0,
+      .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_EXP_SHARE,
 //      "description":  "An item to be held by a POKéMON.\\nThe holder gets a share of EXP.\\npoints without having to battle.,
-      .importance = 0,
-      .exitsBagOnUse = 0,
-      .pocket = POCKET_ITEMS,
+      .importance = 1,
+      .exitsBagOnUse = 1,
+      .pocket = POCKET_KEY_ITEMS,
       .type = ITEM_USE_BAG_MENU,
       .fieldUseFunc = FieldUseFunc_OakStopsYou,
       .battleUseFunc = NULL,
@@ -8306,15 +8306,14 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
-    //not usign this, replace later
-    [ITEM_LINK_KEY] =
+    [ITEM_OMNI_BOX] =
     {
-      .name = _("?????"),
-      .itemId = ITEM_LINK_KEY,
-      .price =  2000,
+      .name = _("Omni Box"),
+      .itemId = ITEM_OMNI_BOX,
+      .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,
       .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_LINK_KEY,
+     .description = gItemDescription_ITEM_OMNI_BOX,
 //      "description":  "A item with the strange power\\nto Link to other realms.,
       .importance = 1,
       .exitsBagOnUse = 1,

@@ -398,6 +398,7 @@ const u32 gItemIconPalette_MachoBrace[] = INCBIN_U32("graphics/items/icon_palett
 
 const u32 gItemIcon_ExpShare[] = INCBIN_U32("graphics/items/icons/exp_share.4bpp.lz");
 const u32 gItemIconPalette_ExpShare[] = INCBIN_U32("graphics/items/icon_palettes/exp_share.gbapal.lz");
+const u32 gItemIconPalette_ExpNull[] = INCBIN_U32("graphics/items/icon_palettes/exp_null.gbapal.lz");
 
 const u32 gItemIcon_QuickClaw[] = INCBIN_U32("graphics/items/icons/quick_claw.4bpp.lz");
 const u32 gItemIconPalette_QuickClaw[] = INCBIN_U32("graphics/items/icon_palettes/quick_claw.gbapal.lz");

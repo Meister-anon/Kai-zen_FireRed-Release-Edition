@@ -3326,7 +3326,7 @@ static void CyclePrimaryStatus(struct Pokemon *mon)
 
 static u8 CanStatusShiftPartyMon(void)
 {
-    if (FlagGet(FLAG_GOT_OMNI_BOX))
+    if (FlagGet(FLAG_NEW_GAME_PLUS) || FlagGet(FLAG_GOT_OMNI_BOX))
         return TRUE;
 
     return FALSE;
