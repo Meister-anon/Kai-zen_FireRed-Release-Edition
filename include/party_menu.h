@@ -20,6 +20,13 @@ struct PartyMenu
     s16 learnMoveState;
 };
 
+enum
+{
+    CHOOSE_MONS_FOR_CABLE_CLUB_BATTLE,
+    CHOOSE_MONS_FOR_BATTLE_TOWER,
+    CHOOSE_MONS_FOR_UNION_ROOM_BATTLE,
+};
+
 extern struct PartyMenu gPartyMenu;
 extern bool8 gPartyMenuUseExitCallback;
 extern u8 gSelectedMonPartyId;

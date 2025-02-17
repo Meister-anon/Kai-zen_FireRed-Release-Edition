@@ -4505,7 +4505,7 @@ static void CursorCB_Enter(u8 taskId)
     u8 i;
     const u8 *str;
     
-    if (gPartyMenu.chooseMonsBattleType == 2)
+    if (gPartyMenu.chooseMonsBattleType == CHOOSE_MONS_FOR_UNION_ROOM_BATTLE)
     {
         maxBattlers = 2;
         str = gUnknown_8416B3E;
