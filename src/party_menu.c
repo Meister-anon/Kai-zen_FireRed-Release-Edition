@@ -281,6 +281,7 @@ static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menu
 static void SetPartyMonExpGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox);
 static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox);
+static u8 ShouldDisablePartyMenuFeatures(void);
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId);
 static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon);
 static u8 GetPartySlotEntryStatus(s8 slot);
@@ -838,7 +839,7 @@ static void DisplayPartyPokemonDataForChooseHalf(u8 slot)
     }
     else
     {
-        if (gPartyMenu.unk_8_6 == 2)
+        if (gPartyMenu.chooseMonsBattleType == 2)
             maxBattlers = 2;
         else
             maxBattlers = 3;
@@ -1174,6 +1175,8 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             HandleChooseMonCancel(taskId, slotPtr);
             break;
         case 7: //Select button
+            if (ShouldDisablePartyMenuFeatures())
+                    return;
             PlaySE(SE_SELECT);
             AdjustPartyMonStatusState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
             break;
@@ -1184,13 +1187,17 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
                 MoveCursorToConfirm();
             }
             else
-            {
+            {   
+                if (ShouldDisablePartyMenuFeatures())
+                    return;
                 PlaySE(SE_SELECT);                
                 AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
             }
             break;
             case 9: // Select button on pokeball button
             {
+                if (ShouldDisablePartyMenuFeatures())
+                    return;
                 PlaySE(SE_SELECT);
                 for (i = 0; i < gPlayerPartyCount; ++i)
                 AdjustPartyMonStatusState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
@@ -1198,6 +1205,8 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             break;
             case 10: //  Start button on pokeball button
             {
+                if (ShouldDisablePartyMenuFeatures())
+                    return;
                 PlaySE(SE_SELECT);
                 for (i = 0; i < gPlayerPartyCount; ++i)
                 AdjustPartyMonExpShareState(&gPlayerParty[i], &sPartyMenuBoxes[i]);
@@ -3474,8 +3483,44 @@ static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
     }
 }
 
+static u8 ShouldDisablePartyMenuFeatures(void)
+{
+
+
+
+    if (IsTMHM(gSpecialVar_ItemId)
+    || gPartyMenu.action == PARTY_ACTION_SOFTBOILED
+    || gPartyMenu.action == PARTY_ACTION_MOVE_TUTOR
+    || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_REGISTER
+    || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_TRADE
+    || gPartyMenu.menuType == PARTY_MENU_TYPE_MOVE_RELEARNER
+    || gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE
+    || gPartyMenu.menuType == PARTY_MENU_TYPE_CHOOSE_HALF
+    )
+        return TRUE;
+
+    return FALSE;
+}
+
 static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox)
 {
+    u32 i;
+    //test attempt clear set icon based on task
+    //works for tmhm mov elearn, need figure tutor move
+    //and selected mon for multibattle/towers
+    //seems it works EXCEPT this??
+    //it worked for a minute now breaking 
+    if (ShouldDisablePartyMenuFeatures()) 
+    {
+        for (i = 0; i < PARTY_SIZE; i++)         
+        {
+            if (GetMonData(gPlayerParty[i], MON_DATA_EXP_SHARE_STATE) != OFF)
+                DestroySprite(&gSprites[menuBox->expSpriteId]);
+            
+        }
+        return;        
+    }
+
     switch (expState)
     {
     case AILMENT_NONE:
@@ -4460,7 +4505,7 @@ static void CursorCB_Enter(u8 taskId)
     u8 i;
     const u8 *str;
     
-    if (gPartyMenu.unk_8_6 == 2)
+    if (gPartyMenu.chooseMonsBattleType == 2)
     {
         maxBattlers = 2;
         str = gUnknown_8416B3E;
@@ -6413,12 +6458,6 @@ void CB2_PartyMenuFromStartMenu(void)
     InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToFieldWithOpenMenu);
 }
 
-//made for dex call back 
-//to specifically return to id started from
-void CB2_PartyMenuFromStartMenu2(void)
-{
-    InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, TRUE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToFieldWithOpenMenu);
-}
 
 // Giving an item by selecting Give from the bag menu
 // As opposted to by selecting Give in the party menu, which is handled by CursorCB_Give
@@ -6642,7 +6681,7 @@ void InitChooseHalfPartyForBattle(u8 a1)
 {
     ClearSelectedPartyOrder();
     InitPartyMenu(PARTY_MENU_TYPE_CHOOSE_HALF, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, gMain.savedCallback);
-    gPartyMenu.unk_8_6 = a1;
+    gPartyMenu.chooseMonsBattleType = a1;
     gPartyMenu.task = Task_ValidateChosenHalfParty;
 }
 
@@ -6667,7 +6706,7 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
 
     if (GetMonData(mon, MON_DATA_IS_EGG))
         return FALSE;
-    switch (gPartyMenu.unk_8_6)
+    switch (gPartyMenu.chooseMonsBattleType)
     {
     default:
         if (GetMonData(mon, MON_DATA_LEVEL) > 30)
@@ -6696,7 +6735,7 @@ static u8 CheckBattleEntriesAndGetMessage(void)
     struct Pokemon *party = gPlayerParty;
     u8 *order = gSelectedOrderFromParty;
     
-    switch (gPartyMenu.unk_8_6)
+    switch (gPartyMenu.chooseMonsBattleType)
     {
     case 1:
         if (order[2] == 0)

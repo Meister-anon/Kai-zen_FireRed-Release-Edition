@@ -11,7 +11,7 @@ struct PartyMenu
     TaskFunc task;
     u8 menuType:4;
     u8 layout:2;
-    u8 unk_8_6:2;
+    u8 chooseMonsBattleType:2; //appears for battle tower and union room?
     s8 slotId;
     s8 slotId2;
     u8 action;
@@ -67,8 +67,7 @@ void ItemUseCB_SacredAsh(u8 taskId, UNUSED TaskFunc func);
 void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc func);
 u8 GetItemEffectType(u16 item);
 void CB2_PartyMenuFromStartMenu(void);
-void CB2_PartyMenuFromStartMenu2(void); //my additions
-void CB2_ShowPokemonSummaryScreen2(void);
+void CB2_ShowPokemonSummaryScreen2(void);//my additions
 void CB2_ShowPokemonSummaryScreen3(void); //for pc callback
 void UpdatePartyToBattleOrder(void); //for battle move info callback
 
