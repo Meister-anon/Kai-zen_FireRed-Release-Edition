@@ -723,8 +723,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_KEEN_EYE, ABILITY_TANGLED_FEET},
-            .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_AVIATOR},
+            .abilities = {ABILITY_KEEN_EYE, ABILITY_AVIATOR},
+            .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -750,8 +750,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_KEEN_EYE, ABILITY_TANGLED_FEET},
-            .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_AVIATOR},
+            .abilities = {ABILITY_KEEN_EYE, ABILITY_AVIATOR},
+            .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -763,6 +763,7 @@ const struct BaseStats gBaseStats[] =
     //dropped scrappy, swapped that off for toucannon line,
     //gave that scrappy took tangled feet and gave back here
     //toucanon has more normal moves this has mostly flyign moves not normal
+    //decided want to keep early bird, tangled feet really doesn't make much sense
 
     [SPECIES_RATTATA] =
     {
@@ -2619,7 +2620,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_INNER_FOCUS},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_DEFIANT, ABILITY_NONE},
+            .abilityHidden = {ABILITY_DEFIANT, ABILITY_TANGLED_FEET},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -4961,7 +4962,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_INSOMNIA, ABILITY_TINTED_LENS},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_NONE},
+            .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_COMATOSE},
         // #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -5017,7 +5018,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_TECHNICIAN, ABILITY_SCRAPPY}, //technician or adaptability as idea is make mon uber flexible in move choice
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MULTI_TASK, ABILITY_IRON_FIST}, //want skill link can't fit think will instead add to multi task, think of it like
+            .abilityHidden = {ABILITY_MULTI_TASK, ABILITY_VICTORY_STAR}, //want skill link can't fit think will instead add to multi task, think of it like
         // #endif           //using multiple appendages to hit multi strike moves all at once therefore guaranteeing full strikes  //give mind reader fury cutter based on zen mode yt
         .bodyColor = BODY_COLOR_RED,    //also give beat up  give special version fo power trick since that apparently doesn't exist call it power switch swaps sp def & sp atk
         .noFlip = FALSE,
@@ -5045,7 +5046,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_TECHNICIAN, ABILITY_SCRAPPY},
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_MULTI_TASK, ABILITY_IRON_FIST},
+            .abilityHidden = {ABILITY_MULTI_TASK, ABILITY_VICTORY_STAR},
         // #endif
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -5054,6 +5055,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sLedianTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think want to give victory star?
+    //iron punch is cool but doesn't really suit image,
+    //this way could be the hero and niche support mon
 
     [SPECIES_SPINARAK] =
     {

@@ -409,19 +409,27 @@ static bool8 DoWildEncounterRateTest(u32 encounterRate, bool8 ignoreAbility)
     return DoWildEncounterRateDiceRoll(encounterRate);
 }
 
+enum
+{
+    NO_EFFECT,
+    REDUCE_ENCOUNTER_RATE,
+    INCREASE_ENCOUNTER_RATE,
+};
+
+//keep an eye on this make sure its fine
 static u8 GetAbilityEncounterRateModType(void) //redo this based on emerald logic but dang I was so sure I had already done this stuff...wait its probably in my other repo still to add
 {
-    sWildEncounterData.abilityEffect = 0;
+    sWildEncounterData.abilityEffect = NO_EFFECT;
     if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
     {
         u16 ability = GetMonAbility(&gPlayerParty[0]);
         if (ability == ABILITY_STENCH)
-            sWildEncounterData.abilityEffect = 1;
+            sWildEncounterData.abilityEffect = REDUCE_ENCOUNTER_RATE;
         else if (ability == ABILITY_ILLUMINATE
         || ability == ABILITY_ARENA_TRAP
         //|| ability == ABILITY_HONEY_GATHER    //removed this reworked into better effect, gave sweet scent
         )
-            sWildEncounterData.abilityEffect = 2;
+            sWildEncounterData.abilityEffect = INCREASE_ENCOUNTER_RATE;
     }
     return sWildEncounterData.abilityEffect;
 }

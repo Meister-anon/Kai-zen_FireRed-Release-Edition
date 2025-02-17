@@ -6737,7 +6737,7 @@ static u8 CheckBattleEntriesAndGetMessage(void)
     
     switch (gPartyMenu.chooseMonsBattleType)
     {
-    case 1:
+    case CHOOSE_MONS_FOR_BATTLE_TOWER:
         if (order[2] == 0)
             return PARTY_MSG_THREE_MONS_ARE_NEEDED;
         for (i = 0; i < 2; ++i)
@@ -6753,7 +6753,7 @@ static u8 CheckBattleEntriesAndGetMessage(void)
             }
         }
         break;
-    case 2:
+    case CHOOSE_MONS_FOR_UNION_ROOM_BATTLE:
         if (order[1] == 0)
             return PARTY_MSG_TWO_MONS_ARE_NEEDED;
         break;
