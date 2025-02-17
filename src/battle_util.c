@@ -3303,19 +3303,36 @@ u8 DoBattlerEndTurnEffects(void)
                 if (gBattleResources->flags->flags[gActiveBattler] & RESOURCE_FLAG_ROOST)
                 {
                     //put here so active before decrement to ensure easier condition setting //shuold be not first turn and not last turn of roost
+                    //looks a bit janky does this work?
+                    //tested yup looks weird but works pefectly
                     if (gDisableStructs[gActiveBattler].RoostTimer != 4 && gDisableStructs[gActiveBattler].RoostTimer != 1) 
                     {
                         MarkBattlerForControllerExec(gActiveBattler);
                         gEffectBattler = gActiveBattler;
+                        //initial heal 50% then heal for a 3rd of that for next 3 turns, so does same amount
+                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 6;
+                        if (gBattleMoveDamage == 0)
+                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage *= -1;
                         BattleScriptExecute(BattleScript_EndturnRoost); //issue is endturn cant end with return
                         ++effect;
                     }
+                    
                     if (--gDisableStructs[gActiveBattler].RoostTimer == 0)
                     {
                         gBattleResources->flags->flags[gActiveBattler] &= ~(RESOURCE_FLAG_ROOST);
                         MarkBattlerForControllerExec(gActiveBattler);
                         gEffectBattler = gActiveBattler;
-                        BattleScriptExecute(BattlesScript_RoostEnds);
+                        if (gBattleMons[gActiveBattler].maxHP == gBattleMons[gActiveBattler].hp)
+                            BattleScriptExecute(BattlesScript_RoostEnds);
+                        else
+                        {
+                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 6;
+                            if (gBattleMoveDamage == 0)
+                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage *= -1;
+                            BattleScriptExecute(BattlesScript_RoostEndsHeal);
+                        }                        
                         ++effect; //think logic is if execute/uses battle script use should increment effect?
                         //gBattleMons[gActiveBattler].type1 = gBattleStruct->roostTypes[gActiveBattler][0];
                         //gBattleMons[gActiveBattler].type2 = gBattleStruct->roostTypes[gActiveBattler][1];

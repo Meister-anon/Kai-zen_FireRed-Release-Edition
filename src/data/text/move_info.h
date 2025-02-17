@@ -357,7 +357,7 @@ const u8 gMoveDescription_DoomDesire[MOVE_DESCRIPTION_LENGTH + 5] = _("A move th
 const u8 gMoveDescription_PsychoBoost[MOVE_DESCRIPTION_LENGTH + 5] = _("An intense attack\nthat also sharply\nreduces the user's\nSP. ATK stat.");
 
 //NEW values    -   rules for reading space, 19 chars per line,  5 line breaks. read number letters per word, n # of words, then add number of spaces which is n - 1
-const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Restores the user's HP by\na third of its max HP.");
+const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Rests on the ground\nrestoring the user's\nhealth by half.\nThen heals a small\namount each turn\nuntil end of effect.");
 const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounds floating\nPKMN.\nMoves that involve\nflying can’t be used.");
 const u8 gMoveDescription_MiracleEye[MOVE_DESCRIPTION_LENGTH + 5] = _("Makes GHOSTS and\nevasive foes easier\nto hit.");
 const u8 gMoveDescription_WakeupSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("Doubles dmg against\nsleeping foes, but\nalso awakens them.");
@@ -663,6 +663,8 @@ const u8 gSOAK_Description
 
 const u8 gFLAME_CHARGE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks in a cloak of\nflames. Raises Speed.");
+
+const u8 gTrailBlaze_Description[MOVE_DESCRIPTION_LENGTH + 5]  = _("The user attacks suddenly\nas if leaping out\nfrom tall grass.\nThe user's nimble\nfootwork boosts its\nSpeed stat.");
 
 const u8 gCOIL_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Coils up to raise Attack,\nDefense and Accuracy.");

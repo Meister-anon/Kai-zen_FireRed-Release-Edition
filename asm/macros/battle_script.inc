@@ -706,7 +706,7 @@
 	.4byte \ptr
 	.endm
 
-	.macro tryhealthirdhealth ptr:req, battler:req
+	.macro tryhealportionhealth ptr:req, battler:req
 	.byte 0x7b
 	.4byte \ptr
 	.byte \battler
@@ -1278,8 +1278,9 @@
 	.byte 0xf7
 	.endm
 
-	.macro setroost
+	.macro setroost failInstr:req
 	.byte 0xf8
+	.4byte \failInstr
 	.endm
 
 	.macro mondamaged

@@ -598,7 +598,7 @@ BattleScript_PurifyWorks:
 	updatestatusicon BS_TARGET
 	printstring STRINGID_ATTACKERCUREDTARGETSTATUS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	tryhealthirdhealth BattleScript_AlreadyAtFullHp, BS_ATTACKER
+	tryhealportionhealth BattleScript_AlreadyAtFullHp, BS_ATTACKER
 	goto BattleScript_RestoreHp
 	
 BattleScript_EffectStrengthSap:
@@ -2575,8 +2575,8 @@ BattleScript_EffectRoost:
 	attackcanceler
 	attackstring
 	ppreduce
-	setroost @just move above heal, and include text message for grounding 
-	tryhealthirdhealth BattleScript_AlreadyAtFullHp, BS_TARGET
+	setroost BattleScript_ButItFailed @just move above heal, and include text message for grounding 
+	tryhealportionhealth BattleScript_AlreadyAtFullHp, BS_TARGET
 	goto BattleScript_PresentHealTarget
 
 BattleScript_Roosting::
@@ -3699,7 +3699,7 @@ BattleScript_EffectRestoreHp::
 	attackcanceler
 	attackstring
 	ppreduce
-	tryhealthirdhealth BattleScript_AlreadyAtFullHp, BS_ATTACKER
+	tryhealportionhealth BattleScript_AlreadyAtFullHp, BS_ATTACKER
 	attackanimation
 	waitanimation
 BattleScript_RestoreHp:
@@ -5646,7 +5646,7 @@ BattleScript_EffectSoftboiled::
 	attackcanceler
 	attackstring
 	ppreduce
-	tryhealthirdhealth BattleScript_AlreadyAtFullHp, BS_TARGET
+	tryhealportionhealth BattleScript_AlreadyAtFullHp, BS_TARGET
 BattleScript_PresentHealTarget::
 	attackanimation
 	waitanimation
@@ -8341,9 +8341,16 @@ BattlesScript_RoostEnds::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
+BattlesScript_RoostEndsHeal::
+	call BattleScript_EndTurnHealWithoutMessage
+	printstring STRINGID_PKMNSTOPPEDROOSTING
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
 BattleScript_EndturnRoost::
 	printstring STRINGID_MONROOSTING
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	jumpifnotfullhp	BS_ATTACKER, BattleScript_TruantHealing
 	end2
 
 BattleScript_EmbargoEndTurn::
@@ -8880,6 +8887,13 @@ BattleScript_HealWithoutMessage::
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
 	end3
+
+BattleScript_EndTurnHealWithoutMessage::
+	call BattleScript_HealAnimation
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	return
 
 BattleScript_CheekPouchActivates::
 	copybyte sBATTLER, gBattlerAttacker

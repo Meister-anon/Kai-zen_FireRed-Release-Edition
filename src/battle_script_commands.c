@@ -232,7 +232,7 @@ static void atk77_setprotectlike(void);
 static void atk78_faintifabilitynotdamp(void);
 static void atk79_setatkhptozero(void);
 static void atk7A_jumpifnexttargetvalid(void);
-static void atk7B_tryhealthirdhealth(void);
+static void atk7B_tryhealportionhealth(void);
 static void atk7C_trymirrormove(void);
 static void atk7D_setrain(void);
 static void atk7E_setreflect(void);
@@ -492,7 +492,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atk78_faintifabilitynotdamp,
     atk79_setatkhptozero,
     atk7A_jumpifnexttargetvalid,
-    atk7B_tryhealthirdhealth,
+    atk7B_tryhealportionhealth,
     atk7C_trymirrormove,
     atk7D_setrain,
     atk7E_setreflect,
@@ -14064,17 +14064,17 @@ static void atk7A_jumpifnexttargetvalid(void)
     }
 }
 
-static void atk7B_tryhealthirdhealth(void)
+static void atk7B_tryhealportionhealth(void)
 {
     const u8 *failPtr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
 
     if (gBattlescriptCurrInstr[5] == BS_ATTACKER)
         gBattlerTarget = gBattlerAttacker;
         
-    if (gCurrentMove != MOVE_PURIFY)
+    if (gCurrentMove != MOVE_PURIFY && gCurrentMove != MOVE_ROOST)
         gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 3;
     else
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 2; //since purify is so specific that gets to keep half health heal
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 2; //since purify is so specific that gets to keep half health heal /same for roost
 
     if (gBattleMoveDamage == 0)
         gBattleMoveDamage = 1;
@@ -19353,9 +19353,20 @@ static void atkF7_finishturn(void)
 }
 
 //vsonic need remember to add to ai decision tree
+//since so niche decide keep at 50% heal
+//potentially make it only work if used on floating mon?
+//would make it the only heal move that is on a cooldown tho...
+//plus w flying change you're already losing the flying type evasion bonus
+//hmm ok I like idea of it only works if floating since idea is you're meant to rest on the ground
+//(will make it be roost timer not floating)
+//then just do an end turn to heal a small portion each turn you're
+//in roost status
+//making move work only if floating mon/not grounded is too difficult,
+//instead just make sure to only give to mon  that can float typically
+//or birds I guess
 static void atkF8_setroost(void) { //actually I don't like this type change idea so not gonna do it.
-    CMD_ARGS();
-    if (gDisableStructs[gBattlerAttacker].RoostTimer == 0)
+    CMD_ARGS(const u8* failInstr);
+    if (gDisableStructs[gBattlerAttacker].RoostTimer == 0) //!IsBattlerGrounded(gBattlerTarget)
     {
         //u16 virtue = Random() % 4; //had to make start value timer and set equal so they use the same value without recalc
         gDisableStructs[gBattlerAttacker].RoostTimer = 4; //setting timer to 4, should give 3 full turns
@@ -19363,7 +19374,7 @@ static void atkF8_setroost(void) { //actually I don't like this type change idea
         //u8 timervalue = gDisableStructs[gBattlerAttacker].RoostTimer && gDisableStructs[gBattlerAttacker].RoostTimerStartValue;
 
         
-    // gDisableStructs[gBattlerAttacker].RoostTimer = gDisableStructs[gBattlerAttacker].RoostTimerStartValue += virtue;
+        // gDisableStructs[gBattlerAttacker].RoostTimer = gDisableStructs[gBattlerAttacker].RoostTimerStartValue += virtue;
         //gDisableStructs[gBattlerAttacker].RoostTimer += virtue;
         //REMOVED random effect
         //ok made slight adjustment here, I think since its starts at zero, this should be enough that timer is always increased when setting roost
@@ -19414,9 +19425,12 @@ static void atkF8_setroost(void) { //actually I don't like this type change idea
         {*/
         //gBattleStruct->roostTypes[gBattlerAttacker][0] = gBattleMons[gBattlerAttacker].type1;
         //gBattleStruct->roostTypes[gBattlerAttacker][1] = gBattleMons[gBattlerAttacker].type2;
+        gBattlescriptCurrInstr = cmd->nextInstr; 
     }
+    else
+        gBattlescriptCurrInstr = cmd->failInstr;
 
-    gBattlescriptCurrInstr = cmd->nextInstr;
+    
 } //should have effect of doing pretty much nothing
 
 static void atkF9_mondamaged(void) //edited based on recommendation from mcgriffin & egg (aka dizzyegg)
