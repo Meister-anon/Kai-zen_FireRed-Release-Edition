@@ -3302,7 +3302,36 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and add other relevant item data for that
     and exp null
     Then add to scripts so can be given
+    have teach tv old man give omni box
+    have mom give exp null at game start
+    omno box grahic rectangular brown box with black bordering,
+    top of box has circular casings holding elemental energy
+    one for each status set relatively matching color
 
+    exp null just use exp share but different color I guess?
+    //need setup party menu task modes or something
+    //so can't set status/exp state while in move learn or doing certain tasks
+    2/15/2025
+
+    NOTE**(
+    for pallet town fisherman decide make 1 in 10 chance to spawn on new game
+    decided have him give old rod, with how other rod logic is done
+    would be too annoying to try making good rod rod or something else fit
+    new game leveling. 
+
+    but was able to adjust w other changes so its not JUST magikarp
+    you can get, but still all relatively low tier water mon
+    
+    idea for acquire new tms, give elemental punches from each trainer
+    in saffron fighting dojo
+
+    have poison jab be a hidden item in kogas gym that 
+    reveals itself after he is defeated
+    spawn at front near entrance
+
+    best case want to be able to pick up even while
+    its hidden
+    )
 
     planned
     updated event scripts & specials setup
