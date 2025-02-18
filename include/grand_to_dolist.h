@@ -3254,6 +3254,43 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     if it displays anything else its not working
     2/12/2025
 
+    NOTE**(
+    for planned cap for ev gain,
+    just leave it where default is, assuming 
+    highest bst is 600  with base total you can add
+    total 127 stat points to your mon
+    so I should make it that ev gain caps 
+    when your total bst adjusted for evs
+    hits 727.
+
+    That way you have more latitude for adjusting mon,
+    should you want without making everything broken.
+
+    The weaker things can come up, with effort,
+    and the strongest things will stay where they are for the most part
+
+    check effectivaly is ev gain is capped at 727
+    hmm
+    1st thought was only cap there for mon below 600 bst
+    but if I do that for everyone
+    then ubers are a beat more reachable as well, since the very top
+    is effectively brought down a bit
+
+
+    Also for pc access from overworld
+    setup so mon sent to pc and immediately brought back
+    brought back to party don't get their hp etc. refilled
+    guess will hae to add a location argument
+    to check for hwen accessing pc
+    if location is not a fly destination don't heal
+    when putting in pc, well check last entered
+    region map I guess since usually you're in a building
+    would need to include daycares as well
+    ) - foud resource for that
+    2/14/2025
+    VSONIC IMPORTANT
+
+
     able to get party menu icons to display
     but still has issue with clear it does weird things
     icon dissapears when it shouldn't
@@ -3287,6 +3324,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     exp state w start button
     status w select button -done and doesn't appear to have set/clear glitch at exp does...
     2/14/2025
+
+    consider, setting oak ranch as toggle?
+    since apparenty some people would want low level mon
+    think would need to make a boxmon toggle, then a option
+    in box to block training
+    block training as option into yes no,
+    set boxmon value to stop it
+
+    need a visual to tell at a glance its on,
+    think see if can grey out mon not sure how to do that
+    would need a monochrome palette
+    would prob not look great for everything but ok
+    look at mon palettes see if they follow some order of the colors used
+    if so can put shades of black white in a specific order
+    and it should look ok for most mon?
+    2/17/2025
 
     //decided call it the omni box or something
     description: A unique box with special traits,
