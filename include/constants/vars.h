@@ -309,14 +309,16 @@
 #define VAR_RIVAL_STARTER		   0x4100 //use rival starter species
 #define VAR_RIVAL_EVO			   0x4101 //use rival starter Evolution
 #define VAR_PLAYER_STARTER		   0x4102 //use to hold player starter for rival branch evo check (pretty much just eevee)
+#define VAR_MOMS_GIFT              0x4103
 //actually may not need since game already keeps track of player starter with the roamer check
 //so instead of really complex evo ai, I'll try to just block rival eevee from doing certain evolutions based on player starter group
 
-#define VAR_DAYS				   0x4103
-#define VAR_WEEKS				   0x4104
-#define VAR_MONTHS				   0x4105
-#define VAR_SEASONS				   0x4106
-#define VAR_TERRAIN				   0x4107	// If this var has a value, assigning a STATUS_FIELD_xx_TERRAIN to it before battle causes the battle to start with that terrain active
+#define VAR_DAYS				   0x4104
+#define VAR_WEEKS				   0x4105
+#define VAR_MONTHS				   0x4106
+#define VAR_SEASONS				   0x4107
+#define VAR_TERRAIN				   0x4108	
+// If this var has a value, assigning a STATUS_FIELD_xx_TERRAIN to it before battle causes the battle to start with that terrain active
 
 // Counts up every step. Wraps around at 325.
 // When wraparound occurs, and the player

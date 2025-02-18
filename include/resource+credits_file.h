@@ -19,6 +19,8 @@ Plan add Ghoul Slash bag sort  -  ghoul bag-sort -annoying to port may skip
 ghoul slash fog blend branch - oh and he credits skeli with the idea so put him on this too
 https://github.com/pret/pokeemerald/compare/master...ghoulslash:pokeemerald:fog
 
+New OW Sprites for Mom Object shared by Josh/ShinyDragonHunter
+believe sourced from rom hack project palladium
 
 idea have credits listeed but think
 also edit Celadon gamefreak office to have the credits as well

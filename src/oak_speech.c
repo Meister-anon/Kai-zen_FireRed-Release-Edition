@@ -10,6 +10,7 @@
 #include "event_scripts.h"
 #include "scanline_effect.h"
 #include "pokeball.h"
+#include "event_data.h"
 #include "naming_screen.h"
 #include "math_util.h"
 #include "overworld.h"
@@ -1645,6 +1646,7 @@ static void Task_OakSpeech36(u8 taskId) //Oak's last line
     {
         StringExpandPlaceholders(gStringVar4, gOakText_LegendAboutToUnfold);
         OaksSpeechPrintMessage(gStringVar4, sOakSpeechResources->textSpeed);
+        VarSet(VAR_MOMS_GIFT, 0);
         gTasks[taskId].data[3] = 30;
         gTasks[taskId].func = Task_OakSpeech37;
     }

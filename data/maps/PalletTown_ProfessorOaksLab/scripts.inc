@@ -346,7 +346,7 @@ PalletTown_ProfessorOaksLab_EventScript_RivalBattle:: @ 816930B
 
 @ The scripts for the rival approaching the player for battle are a bit bloated because
 @ both the player and rival can be in 3 different positions, so theres 9 different approaches
-@ NOTE: Names below refer to the Rival's mon (e.g. for RivalBattleSquirtle, player has Charmander)
+@ NOTE: Names below refer to the Rival''s mon (e.g. for RivalBattleSquirtle, player has Charmander)
 
 @My Note: with my change rival would be in one place so cut down a lot of this
 

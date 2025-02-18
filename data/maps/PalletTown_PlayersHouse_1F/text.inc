@@ -47,7 +47,9 @@ PalletTown_PlayersHouse_1F_Text_MomsGift::
     .string "gain EXP!$"
 
 PalletTown_PlayersHouse_1F_Text_ReceiveExpShare::
-    .string "MOM: Its an Exp. Share!\n"
+    .string "MOM: Its an Exp. Share!$"
+
+PalletTown_PlayersHouse_1F_Text_EndingResponse::
     .string "{PLAYER}: …\p"
     .string "MOM: Well hurry on now\n"
     .string "PROF. OAK is waiting.$"
