@@ -19085,7 +19085,7 @@ static void atkF0_givecaughtmon(void) //useful if I set up alt storage,
             StringCopy(gStringVar3, GetBoxNamePtr(GetPCBoxToSendMon())); //box the mon was going to be sent to
             gBattleCommunication[MULTISTRING_CHOOSER] = 2;
         }
-        if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC)) //will change to bill when get to that point
+        if (FlagGet(FLAG_SYS_UPDATED_PC)) //will change to bill when get to that point
             ++gBattleCommunication[MULTISTRING_CHOOSER];
 
         if (heldItem != ITEM_NONE)

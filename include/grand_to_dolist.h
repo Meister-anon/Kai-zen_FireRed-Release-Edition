@@ -3384,6 +3384,80 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     best case want to be able to pick up even while
     its hidden
+
+    setup pallet fishing guru and scripts
+    on advice from lucky decide make oak ranch toggleable
+    make box mon value to block exp gain, if you want to use a low level mon for strategy,
+    not what I had in mind, but the entire point is more options so I should.
+
+    Think what will do is keep it auto so people are aware of it,
+    but institute the feature to block exp gain when I introduce the feature itself.
+    i.e at bills house.
+
+    idea I had is, rescue bill he tells about oak ranch
+    joke hah hah pokemon aren't actually inside the pc that'd be ridiculous!
+    after that whole spiel he remarks OH! that reminds me,
+    then he rushes over to the pc make the pc light flash if I can,
+    have him talk about an upgrade to the pc system he was working on.
+
+    There its done.
+    I just pushed the alpha version of the upgrade,
+    now you should be able to select which mon, if any
+    you want to exclude from the training at oak's ranch.
+
+    The pc will perform effectively the same this is just
+    meant to give trainers a bit more control over how their
+    pokemon are raised.  *and that would be the end of that.
+
+    /think then just have him launch into the normal SS Anne message 
+    from there - should prob go into that now, setting up the feature would
+    be ...no I'm not going to say it -_-
+
+    from what i see bills pc doesn't flash?
+    so instead just play sound effect while he's doin stuff
+
+    ok realized exp share/ exp null aren't accesibility optimized
+    resize letters  add null symbol 0 with slash through it
+    add + sign for sure made new graphic looks good
+
+    but idea for bill event sript small snag
+    how to decide which direction he should go,
+    I don't have triggers its based on talking to him,
+    so I need player position to decide
+
+    want to do movement script but need rely on relative position to player
+    to decide movement so set that up as a new command I think
+    check within one block, check trainer see distance
+    idea return value 0 to 3 counter clockwise
+
+    gSelectedObjectEvent = objectEventId;
+    gSpecialVar_LastTalked = gObjectEvents[objectEventId].localId;
+    gSpecialVar_Facing = direction;
+
+    potentially these may do it?
+    if I checked that lasttalked is same as current objectiD
+    and then I can do the return based on direction player is facing?
+    the direction I'm facing will tell me the opposite direction is blocked
+
+    i.e if facing down, than up is blocked
+    return value should be opposite facing direction
+
+    if use current objecteveent id and lasttalked
+    should be able to ensure player is within one tile
+    
+    GetObjectEventScriptPointerPlayerFacing
+    u8 GetPlayerFacingDirection(void)
+
+    //actually since this si going within a npc script
+    //all I need is to return the opposite direction player is faving
+    as they are already talking to the object in question
+
+    decjide switch to use of GetPlayerPosition
+    get object position use object id to determine which to look for
+    if z coord is same object is impassable thus 
+    cant move in that direction
+    so return is based on player being in direction
+    and z coord being the same
     )
 
     planned

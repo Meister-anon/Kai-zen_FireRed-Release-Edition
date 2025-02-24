@@ -32,3 +32,16 @@ VermilionCity_House1_Text_NoRoomForNiceGift:: @ 819406F
     .string "I had a nice gift for you, but you\n"
     .string "have no room for it!$"
 
+VermilionCity_House1_Text_ReunionWithFishingGuru::
+    .string "I'm the FISHING GURU!\p"
+    .string "I simply looove fis- …Oh!\p"
+    .string "It's you!  Why what a suprise.\n"
+    .string "It's good to see you again kid\l"
+    .string "I hope you've been enjoying fishing\p"
+    .string "Right after we met I hooked an\n"
+    .string "amazing POKéMON!\p"
+    .string "As a gift here I'll give you what\n"
+    .string "hatched from its egg.$"
+
+    VermilionCity_House1_Text_EndMessageWithFishingGuru::
+    .string "Happy fishing!$"

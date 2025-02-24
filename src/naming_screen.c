@@ -718,7 +718,7 @@ static void pokemon_transfer_to_pc_with_message(void)
         stringToDisplay = 2;
     }
 
-    if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC))
+    if (FlagGet(FLAG_SYS_UPDATED_PC))
         stringToDisplay++;
 
     StringExpandPlaceholders(gStringVar4, sTransferredToPCMessages[stringToDisplay]);

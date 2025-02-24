@@ -2478,6 +2478,117 @@ bool8 ScrCmd_checkplayergender(struct ScriptContext * ctx)
     return FALSE;
 }
 
+
+//change to position argument based on player and last talked
+//change name will instead return if object can move in direction
+//just says if player is blocking them doesn't check for
+//other impassable objects as that can well enough
+//be determined by players eyes
+//Essentially just means can take a step in specified direction
+//without hitting the player
+bool8 ScrCmd_ReturnIsPlayerBlockingObjectPath(struct ScriptContext * ctx)
+{
+    u8 direction = ScriptReadByte(ctx);
+    bool8 SameHeight = FALSE;
+    bool8 SameColumn = FALSE;
+    bool8 SameRow = FALSE;
+    s16 Player_x, Player_y, Player_z;
+    s16 EventObject_x, EventObject_y, EventObject_z;
+    u8 PlayerId,EventObjectId;
+    
+    //gObjectEvents[objectEventId].localId == OBJ_EVENT_ID_PLAYER
+    PlayerId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+    EventObjectId = GetObjectEventIdByLocalIdAndMap(gSpecialVar_LastTalked, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
+    
+    GetPositionByObjectEventId(PlayerId,&Player_x,&Player_y);
+    GetZCoordByObjectEventId(PlayerId,&Player_z);
+
+    GetPositionByObjectEventId(EventObjectId,&EventObject_x,&EventObject_y);
+    GetZCoordByObjectEventId(EventObjectId,&EventObject_z);
+
+    if (Player_z == EventObject_z)
+        SameHeight = TRUE;
+    
+    if (Player_x == EventObject_x)
+        SameColumn = TRUE;
+
+    if (Player_y == EventObject_y)
+        SameRow = TRUE;
+
+
+    switch (direction)
+    {
+        case ABOVE:
+            if (SameHeight)
+            {
+                if (SameColumn
+                && Player_y == (EventObject_y - 1))
+                {
+                    gSpecialVar_Result = TRUE;
+                    return FALSE;
+                }  
+            }
+            else
+            {
+                gSpecialVar_Result = FALSE;
+                return FALSE;
+            }                
+        break;
+        case LEFT:
+            if (SameHeight)
+            {
+                if (SameRow
+                && Player_x == (EventObject_x - 1))
+                {
+                    gSpecialVar_Result = TRUE;
+                    return FALSE;
+                }  
+            }
+            else
+            {
+                gSpecialVar_Result = FALSE;
+                return FALSE;
+            } 
+        break;
+        case BELOW:
+            if (SameHeight)
+            {
+                if (SameColumn
+                && Player_y == (EventObject_y + 1))
+                {
+                    gSpecialVar_Result = TRUE;
+                    return FALSE;
+                }  
+            }
+            else
+            {
+                gSpecialVar_Result = FALSE;
+                return FALSE;
+            } 
+        break;
+        case RIGHT:
+            if (SameHeight)
+            {
+                if (SameRow
+                && Player_x == (EventObject_x + 1))
+                {
+                    gSpecialVar_Result = TRUE;
+                    return FALSE;
+                }  
+            }
+            else
+            {
+                gSpecialVar_Result = FALSE;
+                return FALSE;
+            } 
+        break;
+    }
+    //ok now this should work, before just set every time
+    gSpecialVar_Result = FALSE;
+
+    return FALSE;
+}
+
 bool8 ScrCmd_playmoncry(struct ScriptContext * ctx)
 {
     u16 species = VarGet(ScriptReadHalfword(ctx));

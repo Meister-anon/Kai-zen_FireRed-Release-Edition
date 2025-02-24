@@ -420,7 +420,7 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
             {
                 for (i = 0; ; i++)
                 {
-                    if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC) == TRUE)
+                    if (FlagGet(FLAG_SYS_UPDATED_PC) == TRUE)
                     {
                         if (gString_Bill[i] == EOS)
                             break;
@@ -971,7 +971,7 @@ void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 w
             {
                 for (i = 0; ; i++)
                 {
-                    if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC) == TRUE)
+                    if (FlagGet(FLAG_SYS_UPDATED_PC) == TRUE)
                     {
                         if (gString_Bill[i] == EOS)
                         {

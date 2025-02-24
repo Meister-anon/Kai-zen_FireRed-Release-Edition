@@ -989,7 +989,7 @@ static void CreatePCMenuWindow(void)
             AddTextPrinterParameterized(windowId, 2, gText_ProfOakSPc, cursorWidth, 34, 0xFF, NULL);
         AddTextPrinterParameterized(windowId, 2, gText_LogOff, cursorWidth, 2 + 16 * (nitems - 1), 0xFF, NULL);
     }
-    if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC))
+    if (FlagGet(FLAG_SYS_UPDATED_PC))
         AddTextPrinterParameterized(windowId, 2, gText_BillSPc, cursorWidth, 2 , 0xFF, NULL);
     else
         AddTextPrinterParameterized(windowId, 2, gText_SomeoneSPc, cursorWidth, 2 , 0xFF, NULL);

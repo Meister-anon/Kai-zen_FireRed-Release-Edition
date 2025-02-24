@@ -15,8 +15,8 @@ EventScript_NameReceivedBoxMon:: @ 81A8C33
 EventScript_TransferredToPC:: @ 81A8C3C
 	bufferboxname 0, VAR_PC_BOX_TO_SEND_MON
 	getspeciesname 1, VAR_TEMP_1
-	call_if_unset FLAG_SYS_NOT_SOMEONES_PC, EventScript_TransferredSomeonesPC
-	call_if_set FLAG_SYS_NOT_SOMEONES_PC, EventScript_TransferredBillsPC
+	call_if_unset FLAG_SYS_UPDATED_PC, EventScript_TransferredSomeonesPC
+	call_if_set FLAG_SYS_UPDATED_PC, EventScript_TransferredBillsPC
 	return
 
 EventScript_TransferredSomeonesPC:: @ 81A8C57

@@ -182,8 +182,8 @@
 #define FLAG_HIDE_SAFFRON_CITY_POKECENTER_SABRINA_JOURNALS 0x0AE
 
 // Unused?
-#define FLAG_0x0AF               0x0AF
-#define FLAG_0x0B0               0x0B0
+#define FLAG_HIDE_FISHERMAN_IN_PALLET_TOWN                 0x0AF
+#define FLAG_GOT_PALLET_TOWN_FISHING_ROD                   0x0B0
 #define FLAG_0x0B1               0x0B1
 #define FLAG_0x0B2               0x0B2
 #define FLAG_0x0B3               0x0B3
@@ -1376,7 +1376,7 @@
 #define FLAG_0x831                                                  (SYS_FLAGS + 0x31)
 #define FLAG_0x832                                                  (SYS_FLAGS + 0x32)
 #define FLAG_0x833                                                  (SYS_FLAGS + 0x33)
-#define FLAG_SYS_NOT_SOMEONES_PC                                    (SYS_FLAGS + 0x34)
+#define FLAG_SYS_UPDATED_PC                                    (SYS_FLAGS + 0x34)  //instead make new flag juse rename since done at same time
 #define FLAG_0x835                                                  (SYS_FLAGS + 0x35)
 #define FLAG_0x836                                                  (SYS_FLAGS + 0x36)
 #define FLAG_0x837                                                  (SYS_FLAGS + 0x37)

@@ -48,8 +48,8 @@ EventScript_AccessPlayersPC:: @ 81A69F0
 
 EventScript_AccessPokemonStorage:: @ 81A6A05
 	playse SE_PC_LOGIN
-	call_if_unset FLAG_SYS_NOT_SOMEONES_PC, EventScript_AccessSomeonesPC
-	call_if_set FLAG_SYS_NOT_SOMEONES_PC, EventScript_AccessBillsPC
+	call_if_unset FLAG_SYS_UPDATED_PC, EventScript_AccessSomeonesPC
+	call_if_set FLAG_SYS_UPDATED_PC, EventScript_AccessBillsPC
 	msgbox Text_OpenedPkmnStorage
 	special ShowPokemonStorageSystemPC
 	waitstate

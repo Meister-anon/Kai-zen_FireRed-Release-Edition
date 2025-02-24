@@ -27,7 +27,8 @@ Route25_SeaCottage_EventScript_Bill:: @ 817054B
 	faceplayer
 	goto_if_set RETURN_AFTER_SS_TICKET, Route25_SeaCottage_EventScript_BillGoLookAtPC
 	goto_if_set FLAG_GOT_SS_TICKET, Route25_SeaCottage_EventScript_BillGoToSSAnne
-	goto_if_set FLAG_HELPED_BILL_IN_SEA_COTTAGE, Route25_SeaCottage_EventScript_BillGiveSSTicket
+	goto_if_set FLAG_SYS_UPDATED_PC, Route25_SeaCottage_EventScript_BillGiveSSTicket
+	goto_if_set FLAG_HELPED_BILL_IN_SEA_COTTAGE, Route25_SeaCottage_EventScript_BillUpdatesPC
 	checkplayergender
 	compare VAR_RESULT, MALE
 	goto_if_eq Route25_SeaCottage_EventScript_BillAskForHelpMale
@@ -103,30 +104,86 @@ Route25_SeaCottage_EventScript_BillGoToSSAnne:: @ 8170640
 	release
 	end
 
-Route25_SeaCottage_EventScript_BillGiveSSTicket:: @ 817064A
-	famechecker FAMECHECKER_BILL, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+
+@want to do movement script but need rely on relative position to player
+@to decide movement so set that up as a new command I think
+@check within one block, check trainer see distance
+@idea return value 0 to 3 counter clockwise
+@hmm think could use last_talked w
+Route25_SeaCottage_EventScript_BillUpdatesPC::
 	checkplayergender
 	compare VAR_RESULT, MALE
 	call_if_eq Route25_SeaCottage_EventScript_BillThanksMale
 	compare VAR_RESULT, FEMALE
 	call_if_eq Route25_SeaCottage_EventScript_BillThanksFemale
+	@unsure if will use pin sound effect or not
+	playse SE_PIN
+	applymovement LOCALID_BILL_HUMAN, Movement_ExclamationMark
+	msgbox Route25_SeaCottage_Text_BillRemembers, MSGBOX_NPC
+	@redid text do movement to computer
+	IsPlayerblockingObjectPath BELOW
+	compare VAR_RESULT, FALSE
+	goto_if_eq Route25_SeaCottage_EventScript_BillWalkToPcDown
+	IsPlayerblockingObjectPath LEFT
+	compare VAR_RESULT, FALSE
+	goto_if_eq Route25_SeaCottage_EventScript_BillWalkToPcLeft
+Route25_SeaCottage_EventScript_BillUpdatesPCAftMovent::
+	setflag FLAG_SYS_UPDATED_PC
+	applymovement OBJ_EVENT_ID_PLAYER, Movement_FaceLeft
+	msgbox	Route25_SeaCottage_Text_BillUpdatesPC
+	msgbox Route25_SeaCottage_Text_ThanksAgain
+	release
+	end
+
+Route25_SeaCottage_EventScript_BillGiveSSTicket:: @ 817064A
+	famechecker FAMECHECKER_BILL, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	msgbox Route25_SeaCottage_Text_BillGivesTicket
 	checkitemspace ITEM_SS_TICKET, 1
 	compare VAR_RESULT, FALSE
 	goto_if_eq Route25_SeaCottage_EventScript_NoRoomForSSTicket
 	giveitem_msg Route25_SeaCottage_Text_ReceivedSSTicketFromBill, ITEM_SS_TICKET, 1, MUS_OBTAIN_KEY_ITEM
 	setflag FLAG_GOT_SS_TICKET_DUP
 	setflag FLAG_HIDE_NUGGET_BRIDGE_ROCKET
-	setflag FLAG_GOT_SS_TICKET
-	setflag FLAG_SYS_NOT_SOMEONES_PC
+	setflag FLAG_GOT_SS_TICKET	
 	goto Route25_SeaCottage_EventScript_BillGoToSSAnne
 	end
 
+Route25_SeaCottage_EventScript_BillWalkToPcDown::
+	applymovement LOCALID_BILL_HUMAN, Route25_SeaCottage_EventScript_BillWalksDown
+	waitmovement 0
+	goto Route25_SeaCottage_EventScript_BillUpdatesPCAftMovent
+
+Route25_SeaCottage_EventScript_BillWalksDown::
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	step_end
+
+Route25_SeaCottage_EventScript_BillWalkToPcLeft::
+	applymovement LOCALID_BILL_HUMAN, Route25_SeaCottage_EventScript_BillWalksLeft
+	waitmovement 0
+	goto Route25_SeaCottage_EventScript_BillUpdatesPCAftMovent
+
+Route25_SeaCottage_EventScript_BillWalksLeft::
+	walk_left
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_up
+	step_end
+
+
+
 Route25_SeaCottage_EventScript_BillThanksMale:: @ 81706AC
-	msgbox Route25_SeaCottage_Text_ThanksBudTakeThis
+	msgbox Route25_SeaCottage_Text_ThanksBud
 	return
 
 Route25_SeaCottage_EventScript_BillThanksFemale:: @ 81706B5
-	msgbox Route25_SeaCottage_Text_ThanksLadyTakeThis
+	msgbox Route25_SeaCottage_Text_ThanksLady
 	return
 
 Route25_SeaCottage_EventScript_NoRoomForSSTicket:: @ 81706BE
@@ -297,12 +354,15 @@ Route25_SeaCottage_EventScript_ExitBillsMonList:: @ 817087F
 	releaseall
 	end
 
+@changed default had extra step down
+@that put at different position from map object
+@seems kept as nod to original pokered where
+@it also did that
 Route25_SeaCottage_Movement_BillWalkToMiddleOfRoom:: @ 8170881
 	walk_right
 	walk_right
 	walk_right
 	walk_right
-	walk_down
 	walk_down
 	step_end
 

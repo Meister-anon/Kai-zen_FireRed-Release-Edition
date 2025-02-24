@@ -3210,7 +3210,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst) //logic for buffers t
                 HANDLE_NICKNAME_STRING_CASE(gBattleScripting.battler)
                 break;
             case B_PC_CREATOR_NAME: //B_PC_CREATOR_NAME lanette pc
-                if (FlagGet(FLAG_SYS_NOT_SOMEONES_PC))
+                if (FlagGet(FLAG_SYS_UPDATED_PC))
                     toCpy = sText_Bills;
                 else
                     toCpy = sText_Someones;

@@ -30,12 +30,15 @@ Route25_SeaCottage_Text_RunCellSeparationOnPC:: @ 819FFD3
     .string "When I do, go to my PC and run\n"
     .string "the Cell Separation System.$"
 
+@never new these were lines, but 
+@I''m gonna do something diabolical just to
+@make this equal lol
 Route25_SeaCottage_Text_NoPleaseChief:: @ 81A0035
     .string "No!?\n"
     .string "Now don't be so cold!\p"
     .string "Come on, you gotta help a guy in\n"
     .string "deep, deep trouble!\p"
-    .string "What do you say, chief?\n"
+    .string "What do you say, Master~?\n"
     .string "Please?\l"
     .string "Okay?\l"
     .string "All right!$"
@@ -50,25 +53,51 @@ Route25_SeaCottage_Text_NoPleaseBeautiful:: @ 81A00B6
     .string "Okay?\l"
     .string "All right!$"
 
-Route25_SeaCottage_Text_ThanksBudTakeThis:: @ 81A013B
+@move these scripts to end of cell separator script
+@plan try add exclamation point thing from game start on bill
+Route25_SeaCottage_Text_ThanksBud:: @ 81A013B
     .string "BILL: Yeehah!\n"
     .string "Thanks, bud! I owe you one!\p"
     .string "So, did you come to see my\n"
     .string "POKéMON collection?\p"
     .string "You didn't?\n"
-    .string "That's a bummer.\p"
-    .string "I've got to thank you…\n"
-    .string "Oh, here, maybe this'll do.$"
+    .string "That's a bummer.$"    
 
-Route25_SeaCottage_Text_ThanksLadyTakeThis:: @ 81A01E4
+Route25_SeaCottage_Text_ThanksLady:: @ 81A01E4
     .string "BILL: Yeehah!\n"
     .string "Thanks, lady! I owe you one!\p"
     .string "So, did you come to see my\n"
     .string "POKéMON collection?\p"
     .string "You didn't?\n"
-    .string "That's a bummer.\p"
-    .string "I've got to thank you…\n"
-    .string "Oh, here, maybe this'll do.$"
+    .string "That's a bummer.$"
+
+Route25_SeaCottage_Text_BillRemembers::
+    .string "Oh, that reminds me!$"
+
+Route25_SeaCottage_Text_BillUpdatesPC::
+    .string "BILL: Before the accident,\n"
+    .string "I was working on an update\l"
+    .string "for my PC System.\p"
+    .string "Normally POKéMON sent to\n"
+    .string "PROF. OAK's ranch gain experience\l"
+    .string "and get stronger while there.\p"
+    .string "But not every trainer wants\n"
+    .string "their POKéMON to be strong\l"
+    .string "in the typical way.\p"
+    .string "BILL: …\p"
+    .string "There we go!\p"
+    .string "With this you'll be able to\n"
+    .string "send an order to exclude\l"
+    .string "your POKéMON from training!$"
+
+Route25_SeaCottage_Text_ThanksAgain::
+    .string "BILL: Thanks again for helping me.\n"
+    .string "Come here for a sec, I have one\l"
+    .string "more thing for you.$"
+
+Route25_SeaCottage_Text_BillGivesTicket::
+    .string "BILL: Here, I hope this is\n"
+    .string "enough to show my gratitude.$"
 
 Route25_SeaCottage_Text_ReceivedSSTicketFromBill:: @ 81A028E
     .string "{PLAYER} received an S.S. TICKET\n"

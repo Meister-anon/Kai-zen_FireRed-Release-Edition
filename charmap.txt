@@ -161,7 +161,7 @@ RIGHT_ARROW = 7C
 'ü'         = F6
 @ Arrows at F7-FA are duplicates of 79-7C. Unused?  @if true can use this for my placeholders and take 1 byte/char not 2
 TALL_PLUS   = FC 0C FB
-'$'         = FF
+'$'         = FF  @want to use for money symbol but need for end string
 
 @ Hiragana
 'あ' = 01
@@ -902,6 +902,7 @@ EMOJI_UNDERSCORE = F9 D0
 EMOJI_PIPE = F9 D1
 EMOJI_HIGHBAR = F9 D2
 EMOJI_TILDE = F9 D3
+'~'  = F9 D3
 EMOJI_LEFT_PAREN = F9 D4
 EMOJI_RIGHT_PAREN = F9 D5
 EMOJI_UNION = F9 D6 @ ⊂

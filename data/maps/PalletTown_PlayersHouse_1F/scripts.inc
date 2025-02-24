@@ -7,6 +7,7 @@ PalletTown_PlayersHouse_1F_EventScript_Mom:: @ 8168C09
 	lock
 	faceplayer
 	goto_if_set FLAG_BEAT_RIVAL_IN_OAKS_LAB, PalletTown_PlayersHouse_1F_EventScript_MomHeal
+	goto_if_set FLAG_GOT_EXP_NULL_FROM_MOM, PalletTown_PlayersHouse_1F_EventScript_MomOakIsWaiting
 	checkplayergender
 	compare VAR_RESULT, MALE
 	call_if_eq PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouMale
@@ -25,6 +26,12 @@ PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouMale:: @ 8168C38
 PalletTown_PlayersHouse_1F_EventScript_MomOakLookingForYouFemale:: @ 8168C41
 	msgbox PalletTown_PlayersHouse_1F_Text_AllGirlsLeaveOakLookingForYou
 	return
+
+PalletTown_PlayersHouse_1F_EventScript_MomOakIsWaiting::
+	msgbox PalletTown_PlayersHouse_1F_Text_HurryOn
+	closemessage
+	release
+	end
 
 PalletTown_PlayersHouse_1F_EventScript_MomHeal:: @ 8168C4A
 	msgbox PalletTown_PlayersHouse_1F_Text_YouShouldTakeQuickRest
@@ -79,7 +86,7 @@ PalletTown_PlayersHouse_1F_EventScript_ReceiveMomsGiftTriggerRight:: @ 81692FF
 	end
 
 PalletTown_PlayersHouse_1F_EventScript_MomEventScript:: @ 816930B
-	textcolor 0
+	textcolor 1
 	applymovement LOCALID_MOM, Movement_FaceDown
 	waitmovement 0
 	msgbox PalletTown_PlayersHouse_1F_Text_NearlyForgot
@@ -149,11 +156,15 @@ PalletTown_PlayersHouse_1F_Movement_MomWalksToPlayerRight::
 @want trigger right at door so don''t have to worry
 @about doing a walk back
 PalletTown_PlayersHouse_1F_EventScript_ReceiveExpNull::
+	@msgbox PalletTown_PlayersHouse_1F_Text_MomsGift
+	textcolor 1
+	@giveitem_msg PalletTown_PlayersHouse_1F_Text_MomsGift, ITEM_EXP_NULL, 1, MUS_OBTAIN_KEY_ITEM
 	msgbox PalletTown_PlayersHouse_1F_Text_MomsGift
-	giveitem ITEM_EXP_NULL
 	setflag FLAG_GOT_EXP_NULL_FROM_MOM
+	giveitem ITEM_EXP_NULL
+	playfanfare MUS_OBTAIN_KEY_ITEM
 	goto_if_questlog EventScript_ReleaseEnd
-	special QuestLog_CutRecording
+	special QuestLog_CutRecording	
 	msgbox PalletTown_PlayersHouse_1F_Text_ReceiveExpShare
 	msgbox PalletTown_PlayersHouse_1F_Text_EndingResponse
 	return

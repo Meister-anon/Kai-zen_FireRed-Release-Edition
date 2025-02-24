@@ -53,3 +53,7 @@ PalletTown_PlayersHouse_1F_Text_EndingResponse::
     .string "{PLAYER}: …\p"
     .string "MOM: Well hurry on now\n"
     .string "PROF. OAK is waiting.$"
+
+PalletTown_PlayersHouse_1F_Text_HurryOn::
+    .string "MOM: Well hurry on now\n"
+    .string "PROF. OAK is waiting.$"

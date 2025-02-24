@@ -183,6 +183,8 @@ void NewGameInitData(void)
     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
     ResetTrainerTowerResults();
     SetTextCapFlags(); //sets cap but keeps game options from main save
+    if (Random() % 10 == 6)
+        FlagClear(FLAG_HIDE_FISHERMAN_IN_PALLET_TOWN);
 }
 /*
 static void ResetMiniGamesResults(void)

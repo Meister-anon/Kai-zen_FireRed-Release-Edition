@@ -11052,14 +11052,13 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
 {
     if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_SHED_SHELL)
         return TRUE;
-    else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
-        return TRUE;
+
     else if ((GetBattlerAbility(battler) == ABILITY_DEFEATIST
         && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
         || (GetBattlerAbility(battler) == ABILITY_AVIATOR)
         || IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
-        return FALSE;
+        return TRUE;
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
         return FALSE;
     else if (gStatuses3[battler] & STATUS3_ROOTED)

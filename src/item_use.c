@@ -295,6 +295,10 @@ void FieldUseFunc_OldRod(u8 taskId)
         PrintNotTheTimeToUseThat(taskId, gTasks[taskId].data[3]);
 }
 
+//since can now get early add
+//check to ensure has a pokemon for said battle
+//causes small weird graphic glitch in bag
+//but otherwise works
 static bool8 ItemUseCheckFunc_Rod(void)
 {
     s16 x, y;
@@ -306,6 +310,8 @@ static bool8 ItemUseCheckFunc_Rod(void)
     if (MetatileBehavior_IsWaterfall(behavior))
         return FALSE;
     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_UNDERWATER))
+        return FALSE;
+    if (!FlagGet(FLAG_SYS_POKEMON_GET))
         return FALSE;
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {

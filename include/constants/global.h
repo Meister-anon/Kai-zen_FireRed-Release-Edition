@@ -8,6 +8,26 @@
 #define DEX_LIST_MODE   1
 #define ITEM_PC_MODE    2
 
+
+//made enum for simplification
+//as actual direction constants don't follow 
+//simple sequential order
+//use for ScrCmd_ReturnPlayerPositionRelativeToObject
+/*enum PositionRelativeToNPC
+{
+    ABOVE,
+    LEFT,
+    BELOW,
+    RIGHT
+};*/
+//had to move this here
+//as otherwise asm file wouldnt recognize
+//it as a constant value, for the compare scrcmd
+#define ABOVE 0
+#define LEFT  1
+#define BELOW 2
+#define RIGHT 3
+
 #define WILD_ENCOUNTER_MAX_LEVEL_RANGE 15 //more stuff for enconter rework
 
 #define ITEM_NAME_LENGTH 18

@@ -34,6 +34,10 @@ PalletTown_ProfessorOaksLab_EventScript_SetSkipPokeBallCheck:: @ 8168FBC
 	setflag FLAG_OAK_SKIP_22_RIVAL_CHECK
 	return
 
+PalletTown_ProfessorOaksLab_EventScript_FishermanLeaves::
+	setflag FLAG_HIDE_FISHERMAN_IN_PALLET_TOWN
+	return
+
 PalletTown_ProfessorOaksLab_EventScript_SetNationalDexSceneFinished:: @ 8168FC0
 	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 9
 	return
@@ -770,6 +774,7 @@ PalletTown_ProfessorOaksLab_EventScript_ReceiveDexScene:: @ 816961E
 	call EventScript_RestorePrevTextColor
 	setflag FLAG_SYS_POKEDEX_GET
 	special SetUnlockedPokedexFlags
+	call_if_unset FLAG_HIDE_FISHERMAN_IN_PALLET_TOWN, PalletTown_ProfessorOaksLab_EventScript_FishermanLeaves
 	setvar VAR_MAP_SCENE_POKEMON_CENTER_TEALA, 1
 	msgbox PalletTown_ProfessorOaksLab_Text_OakCatchMonsForDataTakeThese
 	giveitem_msg PalletTown_ProfessorOaksLab_Text_ReceivedFivePokeBalls, ITEM_POKE_BALL, 5

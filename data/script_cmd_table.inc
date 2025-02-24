@@ -222,6 +222,9 @@ gScriptCmdTable:: @ 815F9B4
 	.4byte ScrCmd_UpdateOakRanch @to run boxexp set from script
 	.4byte ScrCmd_PreventBoxHeal @for nuzlocke mode
 	.4byte ScrCmd_getmondata	@new script from zatsu, populate result with mon data at partyslot	
-
+	.4byte ScrCmd_ReturnIsPlayerBlockingObjectPath @ new checks player position to decide what movement script to execute, 
 gScriptCmdTableEnd:: @ 815FD08
 	.4byte ScrCmd_nop
+
+@to find proper byte value for script, within event.inc
+@subtract 5 from line placed on within table here (table starts at line 5)

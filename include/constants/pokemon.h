@@ -100,6 +100,7 @@
                                       //offshoot idea block exp gain setup same way as alt, use case more direct level control
                                       //decided roll into one field
 #define MON_DATA_STATUS_SET_STATE    95   
+#define MON_DATA_BLOCK_BOX_EXP_GAIN 96 //joke but boxmon value to block pc exp gain, decide also use for daycare, since daycare will set for move learn/egg move
 
 #define TYPE_DEFINES
 

@@ -423,6 +423,17 @@ static void GetInFrontOfPlayerPosition(struct MapPosition *position)
         position->height = 0;
 }
 
+void GetPositionByObjectEventId(u8 objectId, s16 *x, s16 *y)
+{
+    *x = gObjectEvents[objectId].currentCoords.x;
+    *y = gObjectEvents[objectId].currentCoords.y;
+}
+
+void GetZCoordByObjectEventId(u8 objectId, s16 *z)
+{
+    *z = gObjectEvents[objectId].previousElevation;
+}
+
 static u16 GetPlayerCurMetatileBehavior(void)
 {
     s16 x, y;

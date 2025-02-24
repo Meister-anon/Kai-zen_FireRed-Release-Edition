@@ -281,7 +281,7 @@ static void SetPartyMonAilmentGfx(struct Pokemon *mon, struct PartyMenuBox *menu
 static void SetPartyMonExpGfx(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox);
 static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox);
-static u8 ShouldDisablePartyMenuFeatures(void);
+static u8 ShouldDisablePartyMenuFeatures(bool8 Mode);
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId);
 static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon);
 static u8 GetPartySlotEntryStatus(s8 slot);
@@ -1159,6 +1159,12 @@ u8 GetPartyMenuType(void)
     return gPartyMenu.menuType;
 }
 
+enum PartyFeatureMode
+{
+    Party_Status,
+    Exp_State
+};
+
 void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_SEND_OUT)
 {
     if (!gPaletteFade.active && sub_80BF748() != TRUE)
@@ -1175,7 +1181,7 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             HandleChooseMonCancel(taskId, slotPtr);
             break;
         case 7: //Select button
-            if (ShouldDisablePartyMenuFeatures())
+            if (ShouldDisablePartyMenuFeatures(Party_Status))
                     return;
             PlaySE(SE_SELECT);
             AdjustPartyMonStatusState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
@@ -1188,7 +1194,7 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             }
             else
             {   
-                if (ShouldDisablePartyMenuFeatures())
+                if (ShouldDisablePartyMenuFeatures(Exp_State))
                     return;
                 PlaySE(SE_SELECT);                
                 AdjustPartyMonExpShareState(&gPlayerParty[*slotPtr], &sPartyMenuBoxes[*slotPtr]);
@@ -1196,7 +1202,7 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             break;
             case 9: // Select button on pokeball button
             {
-                if (ShouldDisablePartyMenuFeatures())
+                if (ShouldDisablePartyMenuFeatures(Party_Status))
                     return;
                 PlaySE(SE_SELECT);
                 for (i = 0; i < gPlayerPartyCount; ++i)
@@ -1205,7 +1211,7 @@ void Task_HandleChooseMonInput(u8 taskId) //(gPartyMenu.action != PARTY_ACTION_S
             break;
             case 10: //  Start button on pokeball button
             {
-                if (ShouldDisablePartyMenuFeatures())
+                if (ShouldDisablePartyMenuFeatures(Exp_State))
                     return;
                 PlaySE(SE_SELECT);
                 for (i = 0; i < gPlayerPartyCount; ++i)
@@ -3483,21 +3489,47 @@ static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
     }
 }
 
-static u8 ShouldDisablePartyMenuFeatures(void)
+//had to tweak pre status logic
+//as setting status in battle triggered
+//status set via battle logic and prevents removal/switching
+//which could make player accidentally sleep their entire party...
+static u8 ShouldDisablePartyMenuFeatures(bool8 Mode)
 {
 
+    switch (Mode)
+    {
+        case Party_Status:
+        {
+            if (IsTMHM(gSpecialVar_ItemId)
+            || gMain.inBattle
+            || gPartyMenu.action == PARTY_ACTION_SOFTBOILED
+            || gPartyMenu.action == PARTY_ACTION_MOVE_TUTOR
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_REGISTER
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_TRADE
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_MOVE_RELEARNER
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_CHOOSE_HALF
+            )
+                return TRUE;
+        }
+        break;
+        case Exp_State:
+        {
+            if (IsTMHM(gSpecialVar_ItemId)
+            || gPartyMenu.action == PARTY_ACTION_SOFTBOILED
+            || gPartyMenu.action == PARTY_ACTION_MOVE_TUTOR
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_REGISTER
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_TRADE
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_MOVE_RELEARNER
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE
+            || gPartyMenu.menuType == PARTY_MENU_TYPE_CHOOSE_HALF
+            )
+                return TRUE;
+        }
+        break;
+    }
 
-
-    if (IsTMHM(gSpecialVar_ItemId)
-    || gPartyMenu.action == PARTY_ACTION_SOFTBOILED
-    || gPartyMenu.action == PARTY_ACTION_MOVE_TUTOR
-    || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_REGISTER
-    || gPartyMenu.menuType == PARTY_MENU_TYPE_UNION_ROOM_TRADE
-    || gPartyMenu.menuType == PARTY_MENU_TYPE_MOVE_RELEARNER
-    || gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE
-    || gPartyMenu.menuType == PARTY_MENU_TYPE_CHOOSE_HALF
-    )
-        return TRUE;
+    
 
     return FALSE;
 }
@@ -3510,7 +3542,7 @@ static void UpdatePartyMonExpstateGfx(u8 expState, struct PartyMenuBox *menuBox)
     //and selected mon for multibattle/towers
     //seems it works EXCEPT this??
     //it worked for a minute now breaking 
-    if (ShouldDisablePartyMenuFeatures()) 
+    if (ShouldDisablePartyMenuFeatures(Exp_State)) 
     {
         for (i = 0; i < PARTY_SIZE; i++)         
         {

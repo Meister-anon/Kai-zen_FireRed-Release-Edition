@@ -4,6 +4,7 @@
 #include "global.h"
 
 #define MAIL_WORDS_COUNT 9
+#define MAIL_NONE 0xFF
 
 #define IS_ITEM_MAIL(itemId)((itemId == ITEM_ORANGE_MAIL            \
                               || itemId == ITEM_HARBOR_MAIL         \

@@ -11,11 +11,16 @@ PalletTown_MapScripts:: @ 816545A
 PalletTown_OnTransition:: @ 8165465
 	setworldmapflag FLAG_WORLD_MAP_PALLET_TOWN
 	call_if_set FLAG_PALLET_LADY_NOT_BLOCKING_SIGN, PalletTown_EventScript_TryReadySignLady
+	call_if_set FLAG_GOT_PALLET_TOWN_FISHING_ROD, PalletTown_EventScript_FishermanLeaves
 	compare VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 0
 	call_if_eq PalletTown_EventScript_SetSignLadyPos
 	compare VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	call_if_eq PalletTown_EventScript_SetSignLadyDone
 	end
+
+PalletTown_EventScript_FishermanLeaves::
+	setflag FLAG_HIDE_FISHERMAN_IN_PALLET_TOWN
+	return
 
 PalletTown_EventScript_TryReadySignLady:: @ 8165488
 	goto_if_unset FLAG_OPENED_START_MENU, EventScript_Return
@@ -462,4 +467,20 @@ PalletTown_EventScript_SignLadyStartShowSign:: @ 81658C2
 	waitmovement 0
 	call PalletTown_EventScript_SignLadyShowSign
 	release
+	end
+
+@note to remember change vermillion city fishing guru 
+@if had pallet fishing rod well don''t really need new flag can just use got old rod flag
+@oh nvm do need new flag as old rod flag is already used to trigger diff text
+PalletTown_EventScript_TalkToFisherman::
+	goto_if_set FLAG_GOT_PALLET_TOWN_FISHING_ROD, PalletTown_EventScript_FishermanEndMessage
+	setflag FLAG_GOT_PALLET_TOWN_FISHING_ROD
+	setflag FLAG_GOT_OLD_ROD
+	msgbox PalletTown_Text_Fisherman, MSGBOX_NPC
+	giveitem ITEM_OLD_ROD
+	msgbox PalletTown_Text_FishermanEndMessage, MSGBOX_NPC
+	end
+
+PalletTown_EventScript_FishermanEndMessage::
+	msgbox VermilionCity_House1_Text_EndMessageWithFishingGuru, MSGBOX_NPC
 	end

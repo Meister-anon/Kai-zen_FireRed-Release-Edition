@@ -65,3 +65,13 @@ PalletTown_Text_OakYouEnjoyingTraveling:: @ 817DA16
     .string "Good for you, good for you.\n"
     .string "Hohoho.$"
 
+PalletTown_Text_Fisherman::
+    .string "Hello there, I'm the FISHING GURU!\p"
+    .string "Fishing is my greatest joy\n"
+    .string "and I want to share that joy\l"
+    .string "with as many as I can.\p"
+    .string "So I'll share with you the\n"
+    .string "gift of fishing!$"
+
+PalletTown_Text_FishermanEndMessage::
+    .string "Take this and fish, young friend!$"

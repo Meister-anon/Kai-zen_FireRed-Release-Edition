@@ -1429,8 +1429,8 @@ const u32 gStatusGfx_Icons[] = INCBIN_U32("graphics/interface/status_icons.4bpp.
 const u32 gStatusPal_Icons[] = INCBIN_U32("graphics/interface/status_icons.gbapal.lz");
 
 //new icons w exp share icons, and bug status symbol
-const u32 gStatusGfx_Icons_2[] = INCBIN_U32("graphics/interface/status_icons_extended.4bpp.lz");
-const u32 gStatusPal_Icons_2[] = INCBIN_U32("graphics/interface/status_icons_extended.gbapal.lz");
+const u32 gStatusGfx_Icons_2[] = INCBIN_U32("graphics/interface/status_icons_extended_rework.4bpp.lz");
+const u32 gStatusPal_Icons_2[] = INCBIN_U32("graphics/interface/status_icons_extended_rework.gbapal.lz");
 
 
 const u32 gUnknown_8E830CC[] = INCBIN_U32("graphics/item_menu/bag_tiles.4bpp.lz");
