@@ -62,4 +62,7 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species); //level cap for box g
 
 u8 CheckIfPcEmpty(void); //check if there is a mon in pc, for resetting pc exp gain counter
 
+void ChooseBoxMon(void);
+u32 GetInPartyMenu(void);
+
 #endif // GUARD_POKEMON_STORAGE_SYSTEM_H

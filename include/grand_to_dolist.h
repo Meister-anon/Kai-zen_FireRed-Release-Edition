@@ -3458,6 +3458,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     cant move in that direction
     so return is based on player being in direction
     and z coord being the same
+    NOTE**(
+    since make clean removes tools o
+    from now on just make mostlyclean instead
+    
+    identified issue of event script not recognizing something as
+    a constant, it needs to be included in the 
+    event_scripts.s to be work
     )
 
     planned

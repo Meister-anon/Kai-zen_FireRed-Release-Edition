@@ -10,6 +10,7 @@
 #include "item.h"
 #include "item_menu.h"
 #include "mail_data.h"
+#include "overworld.h"
 #include "menu.h"
 #include "naming_screen.h"
 #include "new_menu_helpers.h"
@@ -24,15 +25,16 @@
 #include "trig.h"
 #include "constants/items.h"
 #include "constants/help_system.h"
+#include "constants/party_menu.h"
 #include "constants/songs.h"
 
 EWRAM_DATA struct PokemonStorageSystemData *gPSSData = NULL;
 static EWRAM_DATA bool8 sInPartyMenu = 0;
 static EWRAM_DATA u8 sCurrentBoxOption = 0;
-static EWRAM_DATA u8 gUnknown_20397B6 = 0;
+static EWRAM_DATA u8 sDepositBoxId = 0;
 static EWRAM_DATA u8 sWhichToReshow = 0;
 static EWRAM_DATA u8 sLastUsedBox = 0;
-static EWRAM_DATA u16 gUnknown_20397BA = ITEM_NONE;
+static EWRAM_DATA u16 sMovingItemId = ITEM_NONE;
 
 static void Cb_InitPSS(u8 taskId);
 static void Cb_ShowPSS(u8 taskId);
@@ -100,8 +102,8 @@ static void ShowYesNoWindow(s8 species);
 static void ClearBottomWindow(void);
 static void AddWallpaperSetsMenu(void);
 static void AddWallpapersMenu(u8 wallpaperSet);
-static void sub_808FDFC(void);
-static void sub_808FE54(u8 species);
+static void InitCursorItemIcon(void);
+static void SetPokeStorageQuestLogEvent(u8 species);
 static void sub_808FF70(void);
 
 static const u32 sPokemonStorageScrollingBGTileset[] = INCBIN_U32("graphics/interface/pss_unk_83CE438.4bpp.lz");
@@ -142,6 +144,22 @@ static const u16 gUnknown_83CE7F0[] = INCBIN_U16("graphics/interface/pss_unk_83C
 static const u16 gUnknown_83CE810[] = INCBIN_U16("graphics/interface/pss_unk_83CE810.4bpp");
 static const u16 gUnknown_83CE9D0[] = INCBIN_U16("graphics/interface/pss_unk_83CE9D0.gbapal");
 static const u16 gUnknown_83CEA10[] = INCBIN_U16("graphics/interface/pss_unk_83CEA10.gbapal");
+
+// IDs for TilemapUtil
+enum {
+    TILEMAPID_PKMN_DATA, // The "Pkmn Data" text at the top of the display
+    TILEMAPID_PARTY_MENU,
+    TILEMAPID_CLOSE_BUTTON,
+    TILEMAPID_COUNT
+};
+
+enum
+{
+    SCREEN_CHANGE_EXIT_BOX,
+    SCREEN_CHANGE_SUMMARY_SCREEN,
+    SCREEN_CHANGE_NAME_BOX,
+    SCREEN_CHANGE_ITEM_FROM_BAG,
+};
 
 static const struct WindowTemplate gUnknown_83CEA30[] = {
     {
@@ -371,12 +389,15 @@ void Cb2_EnterPSS(u8 boxOption)
     sCurrentBoxOption = boxOption;
     gPSSData = Alloc(sizeof(struct PokemonStorageSystemData));
     if (gPSSData == NULL)
-        SetMainCallback2(Cb2_ExitPSS);
+        if (boxOption == BOX_OPTION_SELECT_MON)
+            SetMainCallback2(CB2_ReturnToFieldContinueScript);
+        else
+            SetMainCallback2(Cb2_ExitPSS);
     else
     {
         gPSSData->boxOption = boxOption;
         gPSSData->isReshowingPSS = FALSE;
-        gUnknown_20397BA = 0;
+        sMovingItemId = 0;
         gPSSData->state = 0;
         gPSSData->taskId = CreateTask(Cb_InitPSS, 3);
        // SetHelpContext(HELPCONTEXT_BILLS_PC);
@@ -390,7 +411,10 @@ void Cb2_ReturnToPSS(void)
     ResetTasks();
     gPSSData = Alloc(sizeof(struct PokemonStorageSystemData));
     if (gPSSData == NULL)
-        SetMainCallback2(Cb2_ExitPSS);
+        if (sCurrentBoxOption == BOX_OPTION_SELECT_MON)
+            SetMainCallback2(CB2_ReturnToFieldContinueScript);
+        else
+            SetMainCallback2(Cb2_ExitPSS);
     else
     {
         gPSSData->boxOption = sCurrentBoxOption;
@@ -433,12 +457,12 @@ static void sub_808CF10(void)
 
 static void sub_808CF94(void)
 {
-    sub_8092B50();
+    ClearSavedCursorPos();
     sInPartyMenu = gPSSData->boxOption == BOX_OPTION_DEPOSIT;
-    gUnknown_20397B6 = 0;
+    sDepositBoxId = 0;
 }
 
-static void sub_808CFC4(void)
+static void SetMonIconTransparency(void)
 {
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
     {
@@ -539,12 +563,12 @@ static void Cb_InitPSS(u8 taskId)
         }
         else
         {
-            sub_8095B5C();
-            sub_808FDFC();
+            CreateItemIconSprites();
+            InitCursorItemIcon();
         }
         break;
     case 10:
-        sub_808CFC4();
+        SetMonIconTransparency();
         if (!gPSSData->isReshowingPSS)
         {
             BlendPalettes(0xFFFFFFFF, 0x10, RGB_BLACK);
@@ -597,34 +621,50 @@ static void Cb_ReshowPSS(u8 taskId)
     }
 }
 
+// States for the outer switch in Task_PokeStorageMain / Cb_MainPSS
+enum {
+    MSTATE_HANDLE_INPUT,
+    MSTATE_MOVE_CURSOR,
+    MSTATE_SCROLL_BOX,
+    MSTATE_WAIT_MSG,
+    MSTATE_ERROR_LAST_PARTY_MON,
+    MSTATE_ERROR_HAS_MAIL,
+    MSTATE_WAIT_ERROR_MSG,
+    MSTATE_MULTIMOVE_RUN,
+    MSTATE_MULTIMOVE_RUN_CANCEL,
+    MSTATE_MULTIMOVE_RUN_MOVED,
+    MSTATE_SCROLL_BOX_ITEM,
+    MSTATE_WAIT_ITEM_ANIM,
+};
+
 static void Cb_MainPSS(u8 taskId)
 {
     switch (gPSSData->state)
     {
-    case 0:
+    case MSTATE_HANDLE_INPUT:
         switch (HandleInput())
         {
-        case 1:
+        case INPUT_MOVE_CURSOR:
             PlaySE(SE_SELECT);
-            gPSSData->state = 1;
+            gPSSData->state = MSTATE_MOVE_CURSOR;
             break;
-        case 5:
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS && gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+        case INPUT_SHOW_PARTY:
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS && gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS  && gPSSData->boxOption != BOX_OPTION_SELECT_MON)
             {
                 PrintStorageActionText(PC_TEXT_WHICH_ONE_WILL_TAKE);
-                gPSSData->state = 3;
+                gPSSData->state = MSTATE_WAIT_MSG;
             }
             else
             {
-                sub_8092B50();
+                ClearSavedCursorPos();
                 SetPSSCallback(Cb_ShowPartyPokemon);
             }
             break;
-        case 6:
-            if (gPSSData->boxOption == BOX_OPTION_MOVE_MONS)
+        case INPUT_HIDE_PARTY:
+            if (gPSSData->boxOption == BOX_OPTION_MOVE_MONS || gPSSData->boxOption == BOX_OPTION_SELECT_MON)
             {
                 if (IsMonBeingMoved() && ItemIsMail(gPSSData->cursorMonItem))
-                    gPSSData->state = 5;
+                    gPSSData->state = MSTATE_ERROR_HAS_MAIL;
                 else
                     SetPSSCallback(Cb_HidePartyPokemon);
             }
@@ -633,20 +673,20 @@ static void Cb_MainPSS(u8 taskId)
                 SetPSSCallback(Cb_HidePartyPokemon);
             }
             break;
-        case 4:
+        case INPUT_CLOSE_BOX:
             SetPSSCallback(Cb_OnCloseBoxPressed);
             break;
-        case 19:
+        case INPUT_PRESSED_B:
             SetPSSCallback(Cb_OnBPressed);
             break;
-        case 7:
+        case INPUT_BOX_OPTIONS:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_HandleBoxOptions);
             break;
-        case 8:
+        case INPUT_IN_MENU:
             SetPSSCallback(Cb_OnSelectedMon);
             break;
-        case 9:
+        case INPUT_SCROLL_RIGHT:
             PlaySE(SE_SELECT);
             gPSSData->newCurrBoxId = StorageGetCurrentBox() + 1;
             if (gPSSData->newCurrBoxId >= TOTAL_BOXES_COUNT)
@@ -654,15 +694,15 @@ static void Cb_MainPSS(u8 taskId)
             if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
             {
                 SetUpScrollToBox(gPSSData->newCurrBoxId);
-                gPSSData->state = 2;
+                gPSSData->state = MSTATE_SCROLL_BOX;
             }
             else
             {
-                sub_8094D60();
-                gPSSData->state = 10;
+                TryHideItemAtCursor();
+                gPSSData->state = MSTATE_SCROLL_BOX_ITEM;
             }
             break;
-        case 10:
+        case INPUT_SCROLL_LEFT:
             PlaySE(SE_SELECT);
             gPSSData->newCurrBoxId = StorageGetCurrentBox() - 1;
             if (gPSSData->newCurrBoxId < 0)
@@ -670,20 +710,20 @@ static void Cb_MainPSS(u8 taskId)
             if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
             {
                 SetUpScrollToBox(gPSSData->newCurrBoxId);
-                gPSSData->state = 2;
+                gPSSData->state = MSTATE_SCROLL_BOX;
             }
             else
             {
-                sub_8094D60();
-                gPSSData->state = 10;
+                TryHideItemAtCursor();
+                gPSSData->state = MSTATE_SCROLL_BOX_ITEM;
             }
             break;
-        case 11:
+        case INPUT_DEPOSIT:
             if (!CanMovePartyMon()) //false is can move
             {
                 if (ItemIsMail(gPSSData->cursorMonItem))
                 {
-                    gPSSData->state = 5;
+                    gPSSData->state = MSTATE_ERROR_HAS_MAIL;
                 }
                 else
                 {
@@ -693,13 +733,13 @@ static void Cb_MainPSS(u8 taskId)
             }
             else
             {
-                gPSSData->state = 4;
+                gPSSData->state = MSTATE_ERROR_LAST_PARTY_MON;
             }
             break;
-        case 13:
+        case INPUT_MOVE_MON:
             if (CanMovePartyMon())
             {
-                gPSSData->state = 4;
+                gPSSData->state = MSTATE_ERROR_LAST_PARTY_MON;
             }
             else
             {
@@ -707,10 +747,10 @@ static void Cb_MainPSS(u8 taskId)
                 SetPSSCallback(Cb_MoveMon);
             }
             break;
-        case 14:
+        case INPUT_SHIFT_MON:
             if (!CanShiftMon())
             {
-                gPSSData->state = 4;
+                gPSSData->state = MSTATE_ERROR_LAST_PARTY_MON;
             }
             else
             {
@@ -718,61 +758,61 @@ static void Cb_MainPSS(u8 taskId)
                 SetPSSCallback(Cb_ShiftMon);
             }
             break;
-        case 12:
+        case INPUT_WITHDRAW:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_WithdrawMon);
             break;
-        case 15:
+        case INPUT_PLACE_MON:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_PlaceMon);
             break;
-        case 16:
+        case INPUT_TAKE_ITEM:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_TakeItemForMoving);
             break;
-        case 17:
+        case INPUT_GIVE_ITEM:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_GiveMovingItemToMon);
             break;
-        case 18:
+        case INPUT_SWITCH_ITEMS:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_SwitchSelectedItem);
             break;
-        case 20:
+        case INPUT_MULTIMOVE_START:
             PlaySE(SE_SELECT);
-            sub_80950BC(0);
-            gPSSData->state = 7;
+            MultiMove_SetFunction(MULTIMOVE_START);
+            gPSSData->state = MSTATE_MULTIMOVE_RUN;
             break;
-        case 22:
-            sub_80950BC(1);
-            gPSSData->state = 8;
+        case INPUT_MULTIMOVE_SINGLE:
+            MultiMove_SetFunction(MULTIMOVE_CANCEL);
+            gPSSData->state = MSTATE_MULTIMOVE_RUN_CANCEL;
             break;
-        case 21:
+        case INPUT_MULTIMOVE_CHANGE_SELECTION:
             PlaySE(SE_SELECT);
-            sub_80950BC(2);
-            gPSSData->state = 9;
+            MultiMove_SetFunction(MULTIMOVE_CHANGE_SELECTION);
+            gPSSData->state = MSTATE_MULTIMOVE_RUN_MOVED;
             break;
-        case 23:
-            sub_80950BC(3);
-            gPSSData->state = 7;
+        case INPUT_MULTIMOVE_GRAB_SELECTION:
+            MultiMove_SetFunction(MULTIMOVE_GRAB_SELECTION);
+            gPSSData->state = MSTATE_MULTIMOVE_RUN;
             break;
-        case 25:
+        case INPUT_MULTIMOVE_MOVE_MONS:
             PlaySE(SE_SELECT);
-            sub_80950BC(4);
-            gPSSData->state = 9;
+            MultiMove_SetFunction(MULTIMOVE_MOVE_MONS);
+            gPSSData->state = MSTATE_MULTIMOVE_RUN_MOVED;
             break;
-        case 26:
+        case INPUT_MULTIMOVE_PLACE_MONS:
             PlaySE(SE_SELECT);
-            sub_808FE54(3);
-            sub_80950BC(5);
-            gPSSData->state = 7;
+            SetPokeStorageQuestLogEvent(3);
+            MultiMove_SetFunction(MULTIMOVE_PLACE_MONS);
+            gPSSData->state = MSTATE_MULTIMOVE_RUN;
             break;
-        case 24:
+        case INPUT_MULTIMOVE_UNABLE:
             PlaySE(SE_FAILURE);
             break;
         }
         break;
-    case 1:
+    case MSTATE_MOVE_CURSOR:
         if (!sub_80924A8())
         {
             if (IsCursorOnCloseBox())
@@ -782,10 +822,10 @@ static void Cb_MainPSS(u8 taskId)
 
             if (gPSSData->setMosaic)
                 BoxSetMosaic();
-            gPSSData->state = 0;
+            gPSSData->state = MSTATE_HANDLE_INPUT;
         }
         break;
-    case 2:
+    case MSTATE_SCROLL_BOX:
         if (!ScrollToBox())
         {
             SetCurrentBox(gPSSData->newCurrBoxId);
@@ -797,7 +837,7 @@ static void Cb_MainPSS(u8 taskId)
 
             if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
             {
-                sub_8094D84();
+                TryShowItemAtCursor();
                 gPSSData->state = 11;
             }
             else
@@ -806,56 +846,60 @@ static void Cb_MainPSS(u8 taskId)
             }
         }
         break;
-    case 3:
+    case MSTATE_WAIT_MSG:
         if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
         {
             ClearBottomWindow();
             gPSSData->state = 0;
         }
         break;
-    case 4: //change in system_2 file keeps this from triggering, but the on mon still blocks.
+    case MSTATE_ERROR_LAST_PARTY_MON: //change in system_2 file keeps this from triggering, but the on mon still blocks.
         PlaySE(SE_FAILURE);
         PrintStorageActionText(PC_TEXT_LAST_POKE);
-        gPSSData->state = 6;
+        gPSSData->state = MSTATE_WAIT_ERROR_MSG;
         break;
-    case 5:
+    case MSTATE_ERROR_HAS_MAIL:
         PlaySE(SE_FAILURE);
         PrintStorageActionText(PC_TEXT_PLEASE_REMOVE_MAIL);
-        gPSSData->state = 6;
+        gPSSData->state = MSTATE_WAIT_ERROR_MSG;
         break;
-    case 6:
+    case MSTATE_WAIT_ERROR_MSG:
         if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
         {
             ClearBottomWindow();
             SetPSSCallback(Cb_MainPSS);
         }
         break;
-    case 7:
-        if (!sub_80950D0())
-            gPSSData->state = 0;
+    case MSTATE_MULTIMOVE_RUN:
+        if (!MultiMove_RunFunction())
+            gPSSData->state = MSTATE_HANDLE_INPUT;
         break;
-    case 8:
-        if (!sub_80950D0())
+    case MSTATE_MULTIMOVE_RUN_CANCEL:
+        // Began a multiple Pokémon selection but
+        // ended up selecting a single Pokémon.
+        // Wait for multi move to cancel, then
+        // do a normal move.
+        if (!MultiMove_RunFunction())
             SetPSSCallback(Cb_MoveMon);
         break;
-    case 9:
-        if (!sub_80950D0())
+    case MSTATE_MULTIMOVE_RUN_MOVED:
+        if (!MultiMove_RunFunction())
         {
             if (gPSSData->setMosaic)
                 BoxSetMosaic();
-            gPSSData->state = 0;
+            gPSSData->state = MSTATE_HANDLE_INPUT;
         }
         break;
-    case 10:
-        if (!sub_809610C())
+    case MSTATE_SCROLL_BOX_ITEM:
+        if (!IsItemIconAnimActive())
         {
             SetUpScrollToBox(gPSSData->newCurrBoxId);
-            gPSSData->state = 2;
+            gPSSData->state = MSTATE_SCROLL_BOX;
         }
         break;
-    case 11:
-        if (!sub_809610C())
-            gPSSData->state = 0;
+    case MSTATE_WAIT_ITEM_ANIM:
+        if (!IsItemIconAnimActive())
+            gPSSData->state = MSTATE_HANDLE_INPUT;
         break;
     }
 }
@@ -1030,6 +1074,19 @@ static void Cb_OnSelectedMon(u8 taskId)
         case PC_TEXT_ITEM_INFO:
             SetPSSCallback(Cb_ShowItemInfo);
             break;
+        case PC_TEXT_SELECT:
+            PlaySE(SE_SELECT);
+            if (sInPartyMenu)
+                VarSet(VAR_RESULT, GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_SPECIES));
+            else
+                VarSet(VAR_RESULT, GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG));
+            
+            gSpecialVar_0x8004 = GetBoxCursorPosition();
+            //ok that was issue, using setvar
+            //without the actual varconstant it doesn't work right
+            gPSSData->screenChangeType = SCREEN_CHANGE_EXIT_BOX;
+            SetPSSCallback(Cb_ChangeScreen);
+            break;
         }
         break;
     case 3:
@@ -1082,7 +1139,7 @@ static void Cb_PlaceMon(u8 taskId)
     switch (gPSSData->state)
     {
     case 0:
-        sub_808FE54(1);
+        SetPokeStorageQuestLogEvent(1);
         InitMonPlaceChange(1);
         gPSSData->state++;
         break;
@@ -1103,7 +1160,7 @@ static void Cb_ShiftMon(u8 taskId)
     switch (gPSSData->state)
     {
     case 0:
-        sub_808FE54(0);
+        SetPokeStorageQuestLogEvent(0);
         InitMonPlaceChange(2);
         gPSSData->state++;
         break;
@@ -1152,7 +1209,7 @@ static void Cb_WithdrawMon(u8 taskId)
     case 3:
         if (!DoShowPartyMenu())
         {
-            sub_808FE54(1);
+            SetPokeStorageQuestLogEvent(1);
             InitMonPlaceChange(1);
             gPSSData->state++;
         }
@@ -1179,19 +1236,19 @@ static void Cb_DepositMenu(u8 taskId)
     case 0:
         PrintStorageActionText(PC_TEXT_DEPOSIT_IN_WHICH_BOX);
         LoadBoxSelectionPopupSpriteGfx(&gPSSData->field_1E5C, TAG_TILE_A, TAG_PAL_DAC7, 3, FALSE);
-        sub_808C940(gUnknown_20397B6);
+        CreateChooseBoxMenuSprites(sDepositBoxId);
         gPSSData->state++;
         break;
     case 1:
         boxId = HandleBoxChooseSelectionInput();
-        if (boxId == 200)
+        if (boxId == BOXID_NONE_CHOSEN)
         {
             // no box chosen yet
         }
-        else if (boxId == 201)
+        else if (boxId == BOXID_CANCELED)
         {
             ClearBottomWindow();
-            sub_808C950();
+            DestroyChooseBoxMenuSprites();
             FreeBoxSelectionPopupSpriteGfx();
             SetPSSCallback(Cb_MainPSS);
         }
@@ -1199,10 +1256,10 @@ static void Cb_DepositMenu(u8 taskId)
         {
             if (TryStorePartyMonInBox(boxId))
             {
-                gUnknown_20397B6 = boxId;
-                sub_808FE54(2);
+                sDepositBoxId = boxId;
+                SetPokeStorageQuestLogEvent(2);
                 ClearBottomWindow();
-                sub_808C950();
+                DestroyChooseBoxMenuSprites();
                 FreeBoxSelectionPopupSpriteGfx();
                 gPSSData->state = 2;
             }
@@ -1215,7 +1272,7 @@ static void Cb_DepositMenu(u8 taskId)
         break;
     case 2:
         CompactPartySlots();
-        sub_80909F4();
+        CompactPartySprites();
         gPSSData->state++;
         break;
     case 3:
@@ -1302,7 +1359,7 @@ static void Cb_ReleaseMon(u8 taskId)
             if (sInPartyMenu)
             {
                 CompactPartySlots();
-                sub_80909F4();
+                CompactPartySprites();
                 gPSSData->state++;
             }
             else
@@ -1406,14 +1463,14 @@ static void Cb_TakeItemForMoving(u8 taskId)
         }
         break;
     case 1:
-        sub_8094D14(2);
+        StartCursorAnim(2);
         Item_FromMonToMoving(sInPartyMenu ? CURSOR_AREA_IN_PARTY : CURSOR_AREA_IN_BOX, GetBoxCursorPosition());
         gPSSData->state++;
         break;
     case 2:
-        if (!sub_809610C())
+        if (!IsItemIconAnimActive())
         {
-            sub_8094D14(3);
+            StartCursorAnim(3);
             ClearBottomWindow();
             sub_8092F54();
             PrintCursorMonInfo();
@@ -1436,14 +1493,14 @@ static void Cb_GiveMovingItemToMon(u8 taskId)
         gPSSData->state++;
         break;
     case 1:
-        sub_8094D14(2);
+        StartCursorAnim(2);
         Item_GiveMovingToMon(sInPartyMenu ? CURSOR_AREA_IN_PARTY : CURSOR_AREA_IN_BOX, GetBoxCursorPosition());
         gPSSData->state++;
         break;
     case 2:
-        if (!sub_809610C())
+        if (!IsItemIconAnimActive())
         {
-            sub_8094D14(0);
+            StartCursorAnim(0);
             sub_8092F54();
             PrintCursorMonInfo();
             PrintStorageActionText(PC_TEXT_ITEM_IS_HELD);
@@ -1483,7 +1540,7 @@ static void Cb_ItemToBag(u8 taskId)
         }
         break;
     case 1:
-        if (!sub_809610C())
+        if (!IsItemIconAnimActive())
         {
             PrintStorageActionText(PC_TEXT_PLACED_IN_BAG);
             gPSSData->state = 2;
@@ -1528,14 +1585,14 @@ static void Cb_SwitchSelectedItem(u8 taskId)
         }
         break;
     case 1:
-        sub_8094D14(2);
+        StartCursorAnim(2);
         Item_SwitchMonsWithMoving(sInPartyMenu ? CURSOR_AREA_IN_PARTY : CURSOR_AREA_IN_BOX, GetBoxCursorPosition());
         gPSSData->state++;
         break;
     case 2:
-        if (!sub_809610C())
+        if (!IsItemIconAnimActive())
         {
-            sub_8094D14(3);
+            StartCursorAnim(3);
             sub_8092F54();
             PrintCursorMonInfo();
             PrintStorageActionText(PC_TEXT_CHANGED_TO_ITEM);
@@ -1643,9 +1700,9 @@ static void Cb_CloseBoxWhileHoldingItem(u8 taskId)
         gPSSData->state = 4;
         break;
     case 4:
-        if (!sub_809610C())
+        if (!IsItemIconAnimActive())
         {
-            sub_8094D14(0);
+            StartCursorAnim(0);
             SetPSSCallback(Cb_MainPSS);
         }
         break;
@@ -1662,7 +1719,7 @@ static void Cb_HandleMovingMonFromParty(u8 taskId)
     {
     case 0:
         CompactPartySlots();
-        sub_80909F4();
+        CompactPartySprites();
         gPSSData->state++;
         break;
     case 1:
@@ -1816,7 +1873,7 @@ static void Cb_JumpBox(u8 taskId)
     case 0:
         PrintStorageActionText(PC_TEXT_JUMP_TO_WHICH_BOX);
         LoadBoxSelectionPopupSpriteGfx(&gPSSData->field_1E5C, TAG_TILE_A, TAG_PAL_DAC7, 3, FALSE);
-        sub_808C940(StorageGetCurrentBox());
+        CreateChooseBoxMenuSprites(StorageGetCurrentBox());
         gPSSData->state++;
         break;
     case 1:
@@ -1827,7 +1884,7 @@ static void Cb_JumpBox(u8 taskId)
             break;
         default:
             ClearBottomWindow();
-            sub_808C950();
+            DestroyChooseBoxMenuSprites();
             FreeBoxSelectionPopupSpriteGfx();
             if (gPSSData->newCurrBoxId == 201 || gPSSData->newCurrBoxId == StorageGetCurrentBox())
             {
@@ -2051,16 +2108,34 @@ static void Cb_ChangeScreen(u8 taskId)
     u8 screenChangeType = gPSSData->screenChangeType;
 
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS && IsActiveItemMoving() == TRUE)
-        gUnknown_20397BA = GetMovingItem();
+        sMovingItemId = GetMovingItem();
     else
-        gUnknown_20397BA = ITEM_NONE;
+        sMovingItemId = ITEM_NONE;
 
     switch (screenChangeType)
     {
     case SCREEN_CHANGE_EXIT_BOX:
     default:
+        if (gPSSData->boxOption == BOX_OPTION_SELECT_MON)
+        {
+            SetMainCallback2(CB2_ReturnToFieldContinueScript);
+            
+                //ok appears to work?
+                if (VarGet(VAR_RESULT) != GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_SPECIES)
+                && (VarGet(VAR_RESULT) != GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG)))
+                    gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
+            
+            //ok now it blocks everything?
+            //even when I selet a mon?
+            //should I have a filter on this so doesn't always trigger?
+            //ok yeah this was wrong, it needed the filter
+            
+        }//don't know why but for some reason this isn't working for trade scripts
+        else
+        {
+            SetMainCallback2(Cb2_ExitPSS);
+        }
         FreePSSData();
-        SetMainCallback2(Cb2_ExitPSS);
         break;
     case SCREEN_CHANGE_SUMMARY_SCREEN:
         partyMon = gPSSData->field_218C.mon;
@@ -2413,7 +2488,7 @@ static void SetUpHidePartyMenu(void)
     gPSSData->field_2C2 = 22;
     gPSSData->field_2C5 = 0;
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
-        sub_80960C0();
+        MoveHeldItemWithPartyMenu();
 }
 
 static bool8 HidePartyMenu(void)
@@ -2668,24 +2743,24 @@ u8 GetCurrentBoxOption(void)
     return sCurrentBoxOption;
 }
 
-static void sub_808FDFC(void)
+static void InitCursorItemIcon(void)
 {
     if (!IsCursorOnBox())
     {
         if (sInPartyMenu)
-            sub_8095C84(CURSOR_AREA_IN_PARTY, GetBoxCursorPosition());
+            TryLoadItemIconAtPos(CURSOR_AREA_IN_PARTY, GetBoxCursorPosition());
         else
-            sub_8095C84(CURSOR_AREA_IN_BOX, GetBoxCursorPosition());
+            TryLoadItemIconAtPos(CURSOR_AREA_IN_BOX, GetBoxCursorPosition());
     }
 
-    if (gUnknown_20397BA != ITEM_NONE)
+    if (sMovingItemId != ITEM_NONE)
     {
-        sub_8095E2C(gUnknown_20397BA);
-        sub_8094D14(3);
+        InitItemIconInCursor(sMovingItemId);
+        StartCursorAnim(3);
     }
 }
 
-static void sub_808FE54(u8 action)
+static void SetPokeStorageQuestLogEvent(u8 action)
 {
     u16 event;
     u8 fromBox = sub_8094D34();
@@ -2762,7 +2837,7 @@ static void sub_808FE54(u8 action)
         event = QL_EVENT_DEPOSITED_MON_PC;
         qlogBuffer->species = species;
         qlogBuffer->species2 = SPECIES_NONE;
-        qlogBuffer->fromBox = gUnknown_20397B6;
+        qlogBuffer->fromBox = sDepositBoxId;
         qlogBuffer->toBox = 0xFF;
         break;
     case 3:
@@ -2783,4 +2858,15 @@ static void sub_808FF70(void)
         FlagClear(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
         VarSet(VAR_PC_BOX_TO_SEND_MON, StorageGetCurrentBox());
     }
+}
+
+u32 GetInPartyMenu(void)
+{
+    return sInPartyMenu;
+}
+
+// Used as a script special for showing a box mon to various npcs (e.g. in-game trades, move deleter)
+void ChooseBoxMon(void)
+{
+    Cb2_EnterPSS(BOX_OPTION_SELECT_MON);
 }

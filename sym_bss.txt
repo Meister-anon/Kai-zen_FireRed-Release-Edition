@@ -35,7 +35,7 @@
 	.align 2
 	.include "src/field_effect.o"
 	.align 2
-	.include "src/pokemon_storage_system_8.o"
+	.include "src/pokemon_storage_system_misc.o"
 	.align 2
 	.include "src/easy_chat.o"
 	.align 2

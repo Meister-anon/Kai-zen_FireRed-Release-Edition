@@ -601,7 +601,7 @@ void CreatePartyMonsSprites(bool8 arg0)
     }
 }
 
-void sub_80909F4(void)
+void CompactPartySprites(void)
 {
     u16 i, count;
 
@@ -827,7 +827,7 @@ void sub_8090FC4(u8 mode, u8 position)
     case MODE_BOX:
         gPSSData->field_B04 = &gPSSData->boxMonsSprites[position];
         break;
-    case MODE_2:
+    case MODE_MOVE:
         gPSSData->field_B04 = &gPSSData->movingMonSprite;
         break;
     default:

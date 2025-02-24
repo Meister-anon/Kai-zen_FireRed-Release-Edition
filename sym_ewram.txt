@@ -79,15 +79,13 @@
 	.align 2
 	.include "src/trainer_card.o"
 	.align 2
-	.include "src/pokemon_storage_system_2.o"
+	.include "src/pokemon_storage_system_menu.o"
 	.align 2
-	.include "src/pokemon_storage_system_3.o"
+	.include "src/pokemon_storage_system_tasks.o"
 	.align 2
-	.include "src/pokemon_storage_system_5.o"
+	.include "src/pokemon_storage_system_data.o"
 	.align 2
-	.include "src/pokemon_storage_system_7.o"
-	.align 2
-	.include "src/pokemon_storage_system_9.o"
+	.include "src/pokemon_storage_system_misc.o"
 	.align 2
 	.include "src/script_movement.o"
 	.align 2

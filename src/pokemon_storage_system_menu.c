@@ -23,7 +23,7 @@ struct PSS_MenuStringPtrs
 };
 
 static EWRAM_DATA u8 sPreviousBoxOption = 0;
-static EWRAM_DATA struct UnkPSSStruct_2002370 *sBoxSelectionPopupSpriteManager = NULL;
+static EWRAM_DATA struct ChooseBoxMenu *sBoxSelectionPopupSpriteManager = NULL;
 
 static void PSS_CreatePCMenu(u8 whichMenu, s16 *windowIdPtr);
 static void sub_808C9C4(u8 curBox);
@@ -525,6 +525,7 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
 {
     //struct Pokemon dst;
     //BoxMonToMon(mon, &dst); //num badge function is countering wrong after getting brock badge its returning 0
+    bool8 Blocked = FALSE;
     u32 experience = GetBoxMonData(mon, MON_DATA_EXP);
     //u32 level;
     //can use getmondata experience loop level
@@ -533,6 +534,9 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
     //gExperienceTables[gBaseStats[species].growthRate][level]
 
     //if (experience <= gExperienceTables[gBaseStats[species].growthRate][12])
+
+    if (GetBoxMonData(mon, MON_DATA_BLOCK_BOX_EXP_GAIN))   
+        return FALSE;
 
     if (GetNumberofBadges() < 1 && (experience < gExperienceTables[gBaseStats[species].growthRate][12])) //mostly just for pidgey, shuold be before first badge
         return experience; //to ensure non  0
@@ -546,7 +550,7 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
         return FALSE;
 }
 
-void LoadBoxSelectionPopupSpriteGfx(struct UnkPSSStruct_2002370 *a0, u16 tileTag, u16 palTag, u8 a3, bool32 loadPal)
+void LoadBoxSelectionPopupSpriteGfx(struct ChooseBoxMenu *a0, u16 tileTag, u16 palTag, u8 a3, bool32 loadPal)
 {
     struct SpritePalette palette = {
         sBoxSelectionPopupPalette, palTag
@@ -576,12 +580,12 @@ void FreeBoxSelectionPopupSpriteGfx(void)
     FreeSpriteTilesByTag(sBoxSelectionPopupSpriteManager->tilesTag + 1);
 }
 
-void sub_808C940(u8 curBox)
+void CreateChooseBoxMenuSprites(u8 curBox)
 {
     sub_808C9C4(curBox);
 }
 
-void sub_808C950(void)
+void DestroyChooseBoxMenuSprites(void)
 {
     sub_808CBA4();
 }
