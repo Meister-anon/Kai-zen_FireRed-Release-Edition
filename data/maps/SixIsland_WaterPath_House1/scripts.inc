@@ -12,11 +12,14 @@ SixIsland_WaterPath_House1_EventScript_Beauty:: @ 817206D
 	goto_if_eq SixIsland_WaterPath_House1_EventScript_NoHeracrossInParty
 	special GetHeracrossSizeRecordInfo
 	msgbox SixIsland_WaterPath_House1_Text_MayIMeasureHeracross
-	special ChoosePartyMon
+	@special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
 	waitstate
 	copyvar VAR_RESULT, VAR_0x8004
-	compare VAR_RESULT, PARTY_SIZE
-	goto_if_ge SixIsland_WaterPath_House1_EventScript_DontShowMon
+	@compare VAR_RESULT, PARTY_SIZE
+	@goto_if_ge SixIsland_WaterPath_House1_EventScript_DontShowMon
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, SixIsland_WaterPath_House1_EventScript_DontShowMon
 	special CompareHeracrossSize
 	compare VAR_RESULT, 1
 	goto_if_eq SixIsland_WaterPath_House1_EventScript_ShownNonHeracross

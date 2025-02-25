@@ -10,6 +10,9 @@ FuchsiaCity_House3_EventScript_MoveDeleter:: @ 816D895
 	goto FuchsiaCity_House3_EventScript_CancelForgetMove
 	end
 
+@plan completely change this, no move delete
+@instead takes money to teach how to delete moves
+@so you can do it from the pc whenever you want
 FuchsiaCity_House3_EventScript_ChooseMonForMoveDeleter:: @ 816D8B0
 	msgbox FuchsiaCity_House3_Text_WhichMonShouldForgetMove
 	special ChoosePartyMon

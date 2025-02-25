@@ -961,8 +961,8 @@ static void CB2_InitTradeAnim_InGameTrade(void)
     switch (gMain.state)
     {
     case 0:
-        gSelectedTradeMonPositions[0] = gSpecialVar_0x8005;
-        gSelectedTradeMonPositions[1] = 6;
+        gSelectedTradeMonPositions[TRADE_PLAYER] = gSpecialVar_0x8005;
+        gSelectedTradeMonPositions[TRADE_PARTNER] = 6;
         StringCopy(gLinkPlayers[0].name, gSaveBlock2Ptr->playerName);
         GetMonData(&gEnemyParty[0], MON_DATA_OT_NAME, otName);
         StringCopy(gLinkPlayers[1].name, otName);
@@ -1091,7 +1091,46 @@ static void TradeMons(u8 playerPartyIdx, u8 partnerPartyIdx)
     *partnerMon = sTradeData->mon;
 
     // By default, a Pokemon received from a trade will have 70 Friendship.
-    friendship = 70;
+    friendship = 50;
+    if (!GetMonData(playerMon, MON_DATA_IS_EGG))
+        SetMonData(playerMon, MON_DATA_FRIENDSHIP, &friendship);
+
+    // Associate your partner's mail with the Pokemon they sent over.
+    //if (partnerMail != 0xFF)
+        //GiveMailToMon2(playerMon, &gLinkPartnerMail[partnerMail]);
+
+    ReceivedMonSetPokedexFlags(playerPartyIdx);
+    if (gReceivedRemoteLinkPlayers)
+        RS_TryEnableNationalPokedex();
+}
+
+
+//try figure out later
+static void TradeMonsFromBox(u8 playerPartyIdx, u8 partnerPartyIdx)
+{
+    u8 friendship;
+    u8 boxId = StorageGetCurrentBox();
+    
+    // Get whether the offered Pokemon have mail
+    struct Pokemon * playerMon = &gPlayerParty[playerPartyIdx];
+    //u16 playerMail = GetMonData(playerMon, MON_DATA_MAIL);
+
+    struct Pokemon * partnerMon = &gEnemyParty[partnerPartyIdx];
+    //u16 partnerMail = GetMonData(partnerMon, MON_DATA_MAIL);
+
+    // The mail attached to the sent Pokemon no longer exists in your file.
+    //if (playerMail != 0xFF)
+      //  return;       //think this is why trade failed, this returned before actual trade was part of my attempted mail removal. *facepalm
+        //ClearMailStruct(&gSaveBlock1Ptr->mail[playerMail]);
+
+    // This is where the actual trade happens!!
+    sTradeData->mon = *playerMon;
+    *playerMon = *partnerMon;
+    *partnerMon = sTradeData->mon;
+
+    // By default, a Pokemon received from a trade will have 70 Friendship.
+    //lowered because did friendship rework while back
+    friendship = 50;
     if (!GetMonData(playerMon, MON_DATA_IS_EGG))
         SetMonData(playerMon, MON_DATA_FRIENDSHIP, &friendship);
 
@@ -1741,14 +1780,36 @@ static bool8 DoTradeAnim_Cable(void)
         }
         break;
     case 72: // Only if in-game trade
-        TradeMons(gSpecialVar_0x8005, 0);
-        gCB2_AfterEvolution = CB2_RunTradeAnim_InGameTrade;
-        evoTarget = GetEvolutionTargetSpecies(&gPlayerParty[gSelectedTradeMonPositions[0]], EVO_MODE_TRADE, ITEM_NONE);
-        if (evoTarget != SPECIES_NONE)
+    {    
+        u8 monId = gSpecialVar_0x8005;  //should equal gSelectedTradeMonPositions[0]
+        struct Pokemon pkmn;
+        
+        if(GetInPartyMenu())
         {
-            TradeEvolutionScene(&gPlayerParty[gSelectedTradeMonPositions[0]], evoTarget, sTradeData->pokePicSpriteIdxs[1], gSelectedTradeMonPositions[0]);
+            TradeMons(gSpecialVar_0x8005, 0);
+            gCB2_AfterEvolution = CB2_RunTradeAnim_InGameTrade;
+            evoTarget = GetEvolutionTargetSpecies(&gPlayerParty[gSelectedTradeMonPositions[TRADE_PLAYER]], EVO_MODE_TRADE, ITEM_NONE);
+            if (evoTarget != SPECIES_NONE)
+            {
+                TradeEvolutionScene(&gPlayerParty[gSelectedTradeMonPositions[TRADE_PLAYER]], evoTarget, sTradeData->pokePicSpriteIdxs[1], gSpecialVar_0x8005);
+            }
+        }
+        else
+        {
+            u8 boxId = StorageGetCurrentBox();
+            BoxMonToMon(&gPokemonStoragePtr->boxes[boxId][monId], &pkmn);
+            
+            TradeMons(gSpecialVar_0x8005, 0);
+            //TradeMonsFromBox(gSpecialVar_0x8005, 0);
+            gCB2_AfterEvolution = CB2_RunTradeAnim_InGameTrade;
+            evoTarget = GetEvolutionTargetSpecies(&pkmn, EVO_MODE_TRADE, ITEM_NONE);
+            if (evoTarget != SPECIES_NONE)
+            {
+                TradeEvolutionScene(&pkmn, evoTarget, sTradeData->pokePicSpriteIdxs[1], gSpecialVar_0x8005);
+            }
         }
         sTradeData->state++;
+    }
         break;
     case 73:
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
@@ -2261,15 +2322,36 @@ static bool8 DoTradeAnim_Wireless(void)
             sTradeData->state++;
         }
         break;
-    case 72: // Only if in-game trade
-        TradeMons(gSpecialVar_0x8005, 0);
-        gCB2_AfterEvolution = CB2_RunTradeAnim_InGameTrade;
-        evoTarget = GetEvolutionTargetSpecies(&gPlayerParty[gSelectedTradeMonPositions[0]], EVO_MODE_TRADE, ITEM_NONE);
-        if (evoTarget != SPECIES_NONE)
+    case 72: // Only if in-game trade - from party works, but not from box believe will have to completely rewrite logic
+    {    
+        u8 monId = gSpecialVar_0x8005;  //should equal gSelectedTradeMonPositions[0]
+        struct Pokemon pkmn;
+        
+        if(GetInPartyMenu())
         {
-            TradeEvolutionScene(&gPlayerParty[gSelectedTradeMonPositions[0]], evoTarget, sTradeData->pokePicSpriteIdxs[1], gSelectedTradeMonPositions[0]);
+            TradeMons(gSpecialVar_0x8005, 0);
+            gCB2_AfterEvolution = CB2_RunTradeAnim_InGameTrade;
+            evoTarget = GetEvolutionTargetSpecies(&gPlayerParty[gSelectedTradeMonPositions[TRADE_PLAYER]], EVO_MODE_TRADE, ITEM_NONE);
+            if (evoTarget != SPECIES_NONE)
+            {
+                TradeEvolutionScene(&gPlayerParty[gSelectedTradeMonPositions[TRADE_PLAYER]], evoTarget, sTradeData->pokePicSpriteIdxs[1], gSpecialVar_0x8005);
+            }
+        }
+        else
+        {
+            u8 boxId = StorageGetCurrentBox();
+            BoxMonToMon(&gPokemonStoragePtr->boxes[boxId][monId], &pkmn);
+
+            TradeMonsFromBox(gSpecialVar_0x8005, 0);
+            gCB2_AfterEvolution = CB2_RunTradeAnim_InGameTrade;
+            evoTarget = GetEvolutionTargetSpecies(&pkmn, EVO_MODE_TRADE, ITEM_NONE);
+            if (evoTarget != SPECIES_NONE)
+            {
+                TradeEvolutionScene(&pkmn, evoTarget, sTradeData->pokePicSpriteIdxs[1], gSpecialVar_0x8005);
+            }
         }
         sTradeData->state++;
+    }
         break;
     case 73:
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
@@ -2429,7 +2511,8 @@ u16 GetInGameTradeSpeciesInfo(void)
     // Populates gStringVar1 with the name of the requested species and
     // gStringVar2 with the name of the offered species.
     // Returns the requested species.
-    const struct InGameTrade * inGameTrade = &sInGameTrades[gSpecialVar_0x8004];
+    //had to change value for chooseboxmon as that uses 8004
+    const struct InGameTrade * inGameTrade = &sInGameTrades[gSpecialVar_0x8001];
     GetSpeciesName(gStringVar1, inGameTrade->requestedSpecies);
     GetSpeciesName(gStringVar2, inGameTrade->species);
 
@@ -2451,6 +2534,8 @@ static void BufferInGameTradeMonName(void)
     GetSpeciesName(gStringVar2, inGameTrade->species);
 }//ok looks weird but is correct/works
 
+//player slot is only relevant for id,
+//I THINK need figure how to put in box
 static void CreateInGameTradePokemonInternal(u8 playerSlot, u8 inGameTradeIdx) //make sure to remove any mail items from in game trades
 {
     const struct InGameTrade * inGameTrade = &sInGameTrades[inGameTradeIdx];
@@ -2518,9 +2603,11 @@ u16 GetTradeSpecies(void)
         return GetMonData(&gPlayerParty[gSpecialVar_0x8005], MON_DATA_SPECIES);
 }
 
+//same as above changed to suit chooseboxmon special
 void CreateInGameTradePokemon(void)
 {
-    CreateInGameTradePokemonInternal(gSpecialVar_0x8005, gSpecialVar_0x8004);
+    //CreateInGameTradePokemonInternal(gSpecialVar_0x8005, gSpecialVar_0x8004);
+    CreateInGameTradePokemonInternal(gSpecialVar_0x8005, gSpecialVar_0x8001);
 }
 
 static void CB2_RunTradeAnim_LinkTrade(void)

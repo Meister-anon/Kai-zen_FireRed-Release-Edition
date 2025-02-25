@@ -11,14 +11,26 @@ LavenderTown_House2_EventScript_NameRater:: @ 816B266
 	goto_if_eq LavenderTown_House2_EventScript_DontRateNickname
 	end
 
+@think will change this up too,
+@makes more sense to all player to set nickname 
+@whenever they want, not even as something to unlock
+@hmm ok think add to summary screen
+@would need to check if in party or box
+@for callback
+@so think will change this potentially make daily event
+@instead of rename, check a mon with a nickname
+@and high friendship and give the player something
 LavenderTown_House2_EventScript_ChooseMon:: @ 816B287
 	msgbox LavenderTown_House2_Text_CritiqueWhichMonsNickname
-	special ChoosePartyMon
+	@special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_lt LavenderTown_House2_EventScript_CheckCanRateMon
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge LavenderTown_House2_EventScript_DontRateNickname
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_lt LavenderTown_House2_EventScript_CheckCanRateMon
+	goto_if_ne VAR_0x8004, PARTY_NOTHING_CHOSEN, LavenderTown_House2_EventScript_CheckCanRateMon
+	@compare VAR_0x8004, PARTY_SIZE
+	goto LavenderTown_House2_EventScript_DontRateNickname
 	end
 
 LavenderTown_House2_EventScript_DontRateNickname:: @ 816B2AA
@@ -27,7 +39,7 @@ LavenderTown_House2_EventScript_DontRateNickname:: @ 816B2AA
 	end
 
 LavenderTown_House2_EventScript_CheckCanRateMon:: @ 816B2B4
-	specialvar VAR_RESULT, GetPartyMonSpecies
+	@specialvar VAR_RESULT, GetPartyMonSpecies
 	compare VAR_RESULT, SPECIES_EGG
 	goto_if_eq LavenderTown_House2_EventScript_CantNicknameEgg
 	special BufferMonNickname

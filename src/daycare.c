@@ -34,6 +34,7 @@
 #include "constants/daycare.h"
 #include "constants/region_map_sections.h"
 #include "daycare.h"
+#include "pokemon_storage_system_internal.h"
 
 // Combination of RSE's Day-Care (re-used on Four Island), FRLG's Day-Care, and egg_hatch.c
 
@@ -479,6 +480,35 @@ static void StorePokemonInDaycare(struct Pokemon *mon, struct DaycareMon *daycar
     CalculatePlayerPartyCount();
 }
 
+static void StorePokemonInDaycare2(struct BoxPokemon *mon, struct DaycareMon *daycareMon)
+{
+    if (BoxMonHasMail(mon))
+    {
+        u8 mailId;
+
+        /*StringCopy(daycareMon->mail.otName, gSaveBlock2Ptr->playerName);
+        DayCare_GetMonNickname(mon, daycareMon->mail.monName);
+        StripExtCtrlCodes(daycareMon->mail.monName);
+        daycareMon->mail.gameLanguage = GAME_LANGUAGE;
+        daycareMon->mail.monLanguage = GetBoxMonData(mon, MON_DATA_LANGUAGE);
+        mailId = GetBoxMonData(mon, MON_DATA_MAIL);
+        daycareMon->mail.message = gSaveBlock1Ptr->mail[mailId];
+        */
+        //TakeMailFromBoxMon(mon);
+    }
+
+    daycareMon->mon = *mon;
+    daycareMon->steps = 0;
+    BoxMonRestorePP(&daycareMon->mon);
+    ZeroBoxMonData(mon);
+    CalculatePlayerPartyCount();
+
+    //attempt set this later,
+    //gen9 transfer egg movesby being in daycare together
+    //if (P_EGG_MOVE_TRANSFER >= GEN_8)
+    //    TransferEggMoves();
+}
+
 static void StorePokemonInEmptyDaycareSlot(struct Pokemon *mon, struct DayCare *daycare)
 {
     s8 slotId = Daycare_FindEmptySpot(daycare);
@@ -488,21 +518,53 @@ static void StorePokemonInEmptyDaycareSlot(struct Pokemon *mon, struct DayCare *
         StorePokemonInDaycare(mon, &daycare->mons[slotId]);
 }
 
+static void StorePokemonInEmptyDaycareSlot2(struct BoxPokemon *mon, struct DayCare *daycare)
+{
+    s8 slotId = Daycare_FindEmptySpot(daycare);
+    if (VarGet(VAR_PLAYER_AT_ROUTE5_DAYCARE) == TRUE)
+        StorePokemonInDaycare2(mon, &daycare->route5_daycareMon[slotId]);
+    else
+        StorePokemonInDaycare2(mon, &daycare->mons[slotId]);
+}
+
 //this command is used
+//add check here for MON_DATA_BLOCK_BOX_EXP_GAIN
+//so I can trigger a text for the daycare person to  say
+//"this pokemon wont gain exp with us, is that ok" YES/NO
+//moslty so player is aware the block is indeed working
+//then go to normal alright we'll take care of this pokemon 
+
 void StoreSelectedPokemonInDaycare(void)
 {
-    u8 monId = GetCursorSelectionMonId();
-    if ((IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[monId], MON_DATA_HP, NULL) == 0)))
+    //u8 monId = GetCursorSelectionMonId();
+    u8 monId = GetBoxCursorPosition();
+    if(GetInPartyMenu())
     {
-        gSpecialVar_0x8008 = NUZLOCKE_BANNED_MON;
-        return;
-    } //need do sometning figure how to make play print text and continue script
-        //say sorry I can't take that pokemon
-        //hmm can do set result var then put a compare var result after
-        //to jump to other command
-        //yeah that'd work
-
-    StorePokemonInEmptyDaycareSlot(&gPlayerParty[monId], &gSaveBlock1Ptr->daycare);
+        if ((IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[monId], MON_DATA_HP, NULL) == 0)))
+        {
+            gSpecialVar_0x8008 = NUZLOCKE_BANNED_MON;
+            return;
+        } //need do sometning figure how to make play print text and continue script
+            //say sorry I can't take that pokemon
+            //hmm can do set result var then put a compare var result after
+            //to jump to other command
+            //yeah that'd work
+        
+        //unsure if should use this or slot2
+        //want to only access through box?
+        StorePokemonInEmptyDaycareSlot(&gPlayerParty[monId], &gSaveBlock1Ptr->daycare);
+    }
+    else
+    {
+        u8 boxId = StorageGetCurrentBox();
+        if (IsNuzlockeModeOn() && (GetCurrentBoxMonData(monId, MON_DATA_BOX_HP) == 0))
+        {
+            gSpecialVar_0x8008 = NUZLOCKE_BANNED_MON;
+            return;
+        }
+        StorePokemonInEmptyDaycareSlot2(&gPokemonStoragePtr->boxes[boxId][monId], &gSaveBlock1Ptr->daycare);
+    }
+    
 }
 
 // Shifts the second daycare pokemon slot into the first slot.
@@ -594,7 +656,10 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
 
     if (GetMonData(&pokemon, MON_DATA_LEVEL) != MAX_LEVEL)
     {
-        experience = GetMonData(&pokemon, MON_DATA_EXP) + daycareMon->steps;
+        if (GetBoxMonData(&daycareMon->mon, MON_DATA_BLOCK_BOX_EXP_GAIN))   
+            experience = GetMonData(&pokemon, MON_DATA_EXP);
+        else
+            experience = GetMonData(&pokemon, MON_DATA_EXP) + daycareMon->steps;
         SetMonData(&pokemon, MON_DATA_EXP, &experience);
         ApplyDaycareExperience(&pokemon);
     }
@@ -1876,10 +1941,19 @@ static void _GetDaycareMonNicknames(struct DayCare *daycare)
     }
 }
 
+//believe this doesn't run through get species name
+//so may not do proper caps? vsonic important
 u16 GetSelectedMonNicknameAndSpecies(void)
 {
-    DayCare_GetBoxMonNickname(&gPlayerParty[GetCursorSelectionMonId()].box, gStringVar1);
-    return GetBoxMonData(&gPlayerParty[GetCursorSelectionMonId()].box, MON_DATA_SPECIES);
+    //DayCare_GetBoxMonNickname(&gPlayerParty[GetCursorSelectionMonId()].box, gStringVar1);
+    //return GetBoxMonData(&gPlayerParty[GetCursorSelectionMonId()].box, MON_DATA_SPECIES);
+
+     if(GetInPartyMenu()!=0){
+        DayCare_GetBoxMonNickname(&gPlayerParty[GetBoxCursorPosition()].box, gStringVar1);
+        return GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_SPECIES);
+    }
+    DayCare_GetBoxMonNickname(&gPokemonStoragePtr->boxes[StorageGetCurrentBox()][GetBoxCursorPosition()], gStringVar1);
+    return GetBoxMonData(&gPokemonStoragePtr->boxes[StorageGetCurrentBox()][GetBoxCursorPosition()], MON_DATA_SPECIES);
 }
 
 void GetDaycareMonNicknames(void)

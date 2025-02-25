@@ -9,6 +9,7 @@
 #include "constants/metatile_labels.h"
 #include "constants/pokemon.h"
 #include "constants/moves.h"
+#include "constants/party_menu.h"
 #include "constants/songs.h"
 #include "constants/species.h"
 #include "constants/trainer_classes.h"
@@ -1014,6 +1015,7 @@ Text_MoveCanOnlyBeLearnedOnce:: @ 81A644F
 EventScript_ResetAllMapFlags:: @ 81A6481
 	setflag FLAG_HIDE_OAK_IN_HIS_LAB
 	setflag FLAG_HIDE_OAK_IN_PALLET_TOWN
+	setflag FLAG_HIDE_FISHERMAN_IN_PALLET_TOWN
 	setflag FLAG_HIDE_BILL_HUMAN_SEA_COTTAGE
 	setflag FLAG_HIDE_PEWTER_CITY_RUNNING_SHOES_GUY
 	setflag FLAG_HIDE_POKEHOUSE_FUJI
@@ -1202,14 +1204,27 @@ EventScript_DelayedLookAround:: @ 81A80FE
 	.include "data/scripts/silphco_doors.inc"
 	.include "data/scripts/pc_transfer.inc"
 
+@listed scripts are in order they appear in script
+@species info is firs then choosemon
+@then getradespecies & do trade
+@with way box special is setup
+@cant overwrite var_result till end
+@realize cant overwrite 8008 or 800A either...
+@VAR_0x8008 stores which trade it is
+@VAR_0x8003 believe is storing the species they want
 EventScript_GetInGameTradeSpeciesInfo:: @ 81A8CAD
-	copyvar VAR_0x8004, VAR_0x8008
-	specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
-	copyvar VAR_0x8009, VAR_RESULT
+	copyvar VAR_0x8001, VAR_0x8008
+	specialvar VAR_0x8003, GetInGameTradeSpeciesInfo
+	copyvar VAR_0x8009, VAR_0x8003
 	return
 
+@pretty sure this script is always
+@called from within an active event script
+@so lock & face player have already been used
 EventScript_ChooseMonForInGameTrade:: @ 81A8CBD
-	special ChoosePartyMon
+	@special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
 	waitstate
 	lock
 	faceplayer
@@ -1218,13 +1233,13 @@ EventScript_ChooseMonForInGameTrade:: @ 81A8CBD
 
 EventScript_GetInGameTradeSpecies:: @ 81A8CC9
 	copyvar VAR_0x8005, VAR_0x800A
-	specialvar VAR_RESULT, GetTradeSpecies
+	@specialvar VAR_0x8003, GetTradeSpecies
 	copyvar VAR_0x800B, VAR_RESULT
 	return
 
 EventScript_DoInGameTrade:: @ 81A8CD9
-	copyvar VAR_0x8004, VAR_0x8008
-	copyvar VAR_0x8005, VAR_0x800A
+	copyvar VAR_0x8001, VAR_0x8008
+	copyvar VAR_0x8005, VAR_0x8004
 	special CreateInGameTradePokemon
 	special DoInGameTradeScene
 	waitstate

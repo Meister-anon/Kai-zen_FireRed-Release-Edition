@@ -3458,6 +3458,41 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     cant move in that direction
     so return is based on player being in direction
     and z coord being the same
+    found pc bug only one pokemon pokemon
+    not able to cancel move bricks game smh
+    -fixed issue was I set && when I should have set ||
+    classic smh
+
+    was able to test the vermillion custom script,
+    it works without issue, but there's no message for it,
+    need to see about making a message or if there's a give mon message script
+    look at how trade stuff is done
+
+    box access works now, but script is not quite
+    right for selection, it doesn't accept the mon
+    2/18/2025 - 2/19/2025 -fixed
+
+    works for daycare etc. not for trade 
+    all that stuff defaults to pokemon
+    think would need to make specific box equivalent for everything
+    or perhaps typecast some stuff??
+    -fixed mostly, was issue w code for feature
+    didn't properly filter and set the variables
+    still doesn't work for in-game trade from box,
+    but works when the mon you need is in your party.
+    Trade logic uses pokemon so think will have to rewrite it,
+    hmm could just make the entire thing use the box,
+    and just have it use partyslot for the enemy so they're
+    always choosing from party hmm that could work
+    least for the in game stuff
+
+    Also need add nuzlocke banned to more checks
+    //ex shouldn't be able to use for things that
+    need to take a mon, should check if alive etc.
+    ex. block from grooming, trade etc.
+    //if (IsNuzlockeModeOn() && (GetCurrentBoxMonData(monId, MON_DATA_BOX_HP) == 0))
+    2/24/2025
+    )
     NOTE**(
     since make clean removes tools o
     from now on just make mostlyclean instead

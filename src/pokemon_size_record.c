@@ -57,6 +57,21 @@ static u32 GetMonSizeHash(struct Pokemon * pkmn)
     return (hibyte << 8) + lobyte;
 }
 
+static u32 GetBoxMonSizeHash(struct BoxPokemon * pkmn)
+{
+    u16 personality = GetBoxMonData(pkmn, MON_DATA_PERSONALITY);
+    u16 hpIV = GetBoxMonData(pkmn, MON_DATA_HP_IV) & 0xF;
+    u16 attackIV = GetBoxMonData(pkmn, MON_DATA_ATK_IV) & 0xF;
+    u16 defenseIV = GetBoxMonData(pkmn, MON_DATA_DEF_IV) & 0xF;
+    u16 speedIV = GetBoxMonData(pkmn, MON_DATA_SPEED_IV) & 0xF;
+    u16 spAtkIV = GetBoxMonData(pkmn, MON_DATA_SPATK_IV) & 0xF;
+    u16 spDefIV = GetBoxMonData(pkmn, MON_DATA_SPDEF_IV) & 0xF;
+    u32 hibyte = ((attackIV ^ defenseIV) * hpIV) ^ (personality & 0xFF);
+    u32 lobyte = ((spAtkIV ^ spDefIV) * speedIV) ^ (personality >> 8);
+
+    return (hibyte << 8) + lobyte;
+}
+
 static u8 TranslateBigMonSizeTableIndex(u16 a)
 {
     u8 i;
@@ -101,13 +116,20 @@ static void FormatMonSizeRecord(u8 *string, u32 size)
 
 static u8 CompareMonSize(u16 species, u16 *sizeRecord)
 {
-    if (gSpecialVar_Result >= PARTY_SIZE)
+    struct Pokemon *pkmn = &gPlayerParty[gSpecialVar_Result];
+    u8 monId = gSpecialVar_Result;
+    
+    //think can remove this line already,
+    //as new check goes through box and command
+    //is below cancel filter
+    /*if (gSpecialVar_Result >= PARTY_SIZE)
     {
         return 0;
     }
-    else
+    else*/ 
+    if(GetInPartyMenu())
     {
-        struct Pokemon * pkmn = &gPlayerParty[gSpecialVar_Result];
+       
 
         if (GetMonData(pkmn, MON_DATA_IS_EGG) == TRUE || GetMonData(pkmn, MON_DATA_SPECIES) != species)
         {
@@ -120,6 +142,41 @@ static u8 CompareMonSize(u16 species, u16 *sizeRecord)
             u16 sizeParams;
 
             *(&sizeParams) = GetMonSizeHash(pkmn);
+            newSize = GetMonSize(species, sizeParams);
+            oldSize = GetMonSize(species, *sizeRecord);
+            FormatMonSizeRecord(gStringVar3, oldSize);
+            FormatMonSizeRecord(gStringVar2, newSize);
+            if (newSize == oldSize)
+            {
+                return 4;
+            }
+            else if (newSize < oldSize)
+            {
+                return 2;
+            }
+            else
+            {
+                *sizeRecord = sizeParams;
+                return 3;
+            }
+        }
+    }
+    else
+    {
+        u8 boxId = StorageGetCurrentBox();
+        struct BoxPokemon *pkmn = &gPokemonStoragePtr->boxes[boxId][monId];
+
+        if (GetBoxMonData(pkmn, MON_DATA_IS_EGG) == TRUE || GetMonData(pkmn, MON_DATA_SPECIES) != species)
+        {
+            return 1;
+        }
+        else
+        {
+            u32 oldSize;
+            u32 newSize;
+            u16 sizeParams;
+
+            *(&sizeParams) = GetBoxMonSizeHash(pkmn);
             newSize = GetMonSize(species, sizeParams);
             oldSize = GetMonSize(species, *sizeRecord);
             FormatMonSizeRecord(gStringVar3, oldSize);

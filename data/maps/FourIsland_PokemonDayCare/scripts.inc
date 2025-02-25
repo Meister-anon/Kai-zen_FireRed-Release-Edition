@@ -27,13 +27,14 @@ FourIsland_PokemonDayCare_GiveMonToRaise:: @ 8171993
 	goto_if_eq FourIsland_PokemonDayCare_OnlyOneMonInParty
 	msgbox DayCare_Text_WhichMonShouldWeRaise
 	fadescreen FADE_TO_BLACK
-	special ChooseSendDaycareMon
+	@special ChooseSendDaycareMon
+	special ChooseBoxMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge FourIsland_PokemonDayCare_ComeAgain
-	specialvar VAR_RESULT, CountPartyAliveNonEggMons_IgnoreVar0x8004Slot
-	compare VAR_RESULT, 0
-	goto_if_eq FourIsland_PokemonDayCare_OnlyOneAliveMonInParty
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_ge FourIsland_PokemonDayCare_ComeAgain
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, FourIsland_PokemonDayCare_ComeAgain
+	@specialvar VAR_RESULT, CountPartyAliveNonEggMons_IgnoreVar0x8004Slot
+	goto_if_eq VAR_RESULT, 0, FourIsland_PokemonDayCare_OnlyOneAliveMonInParty
 	specialvar VAR_0x8005, GetSelectedMonNicknameAndSpecies
 	waitse
 	playmoncry VAR_0x8005, 0

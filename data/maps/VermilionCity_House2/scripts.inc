@@ -11,8 +11,9 @@ VermilionCity_House2_EventScript_Elyssa:: @ 816B5D7
 	compare VAR_RESULT, NO
 	goto_if_eq VermilionCity_House2_EventScript_DeclineTrade
 	call EventScript_ChooseMonForInGameTrade
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge VermilionCity_House2_EventScript_DeclineTrade
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_ge VermilionCity_House2_EventScript_DeclineTrade
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, VermilionCity_House2_EventScript_DeclineTrade
 	call EventScript_GetInGameTradeSpecies
 	compare VAR_RESULT, VAR_0x8009
 	goto_if_ne VermilionCity_House2_EventScript_NotRequestedMon

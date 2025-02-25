@@ -38,11 +38,14 @@ Route12_FishingHouse_EventScript_CheckMagikarpRecord:: @ 816FF7F
 	goto_if_eq Route12_FishingHouse_EventScript_NoMagikarpInParty
 	special GetMagikarpSizeRecordInfo
 	msgbox Route12_FishingHouse_Text_OhMagikarpAllowMeToSee
-	special ChoosePartyMon
+	@special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
 	waitstate
 	copyvar VAR_RESULT, VAR_0x8004
-	compare VAR_RESULT, PARTY_SIZE
-	goto_if_ge Route12_FishingHouse_EventScript_CancelShowMon
+	@compare VAR_RESULT, PARTY_SIZE
+	@goto_if_ge Route12_FishingHouse_EventScript_CancelShowMon
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, Route12_FishingHouse_EventScript_CancelShowMon
 	special CompareMagikarpSize
 	compare VAR_RESULT, 1
 	goto_if_eq Route12_FishingHouse_EventScript_NotMagikarp

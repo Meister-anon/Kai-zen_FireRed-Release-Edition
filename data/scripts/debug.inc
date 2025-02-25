@@ -147,18 +147,25 @@ Debug_ROMSize::
 	.string "ROM size: {STR_VAR_1}MB/32MB.\n"
 	.string "Free space: {STR_VAR_2}MB.$"
 
+@again thouhgt would be simple but not 
+@leave as is, cant do box hatch rn,
+@plus plan to make incubator
+@which will be separate space from party and box
 Debug_HatchAnEgg::
 	lockall
 	getpartysize
 	compare VAR_RESULT, 0
 	goto_if_eq Debug_HatchAnEgg_NoPokemon
 	special ChoosePartyMon
+	@fadescreen FADE_TO_BLACK
+	@special ChooseBoxMon
 	waitstate
 	compare VAR_0x8004, PARTY_SIZE
 	goto_if_ge Debug_HatchAnEgg_End
+	@goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, Debug_HatchAnEgg_End
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
-	compare VAR_RESULT, SPECIES_EGG
-	goto_if_ne DebugScript_HatchAnEgg_CantForceHatch
+	@compare VAR_RESULT, SPECIES_EGG
+	goto_if_ne VAR_RESULT, SPECIES_EGG, DebugScript_HatchAnEgg_CantForceHatch
 	special EggHatch
 	waitstate
 Debug_HatchAnEgg_End::

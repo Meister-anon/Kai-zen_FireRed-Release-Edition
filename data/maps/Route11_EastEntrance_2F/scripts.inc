@@ -29,8 +29,9 @@ Route11_EastEntrance_2F_EventScript_Turner:: @ 816FD5C
 	compare VAR_RESULT, NO
 	goto_if_eq Route11_EastEntrance_2F_EventScript_DeclineTrade
 	call EventScript_ChooseMonForInGameTrade
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge Route11_EastEntrance_2F_EventScript_DeclineTrade
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_ge Route11_EastEntrance_2F_EventScript_DeclineTrade
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, Route11_EastEntrance_2F_EventScript_DeclineTrade
 	call EventScript_GetInGameTradeSpecies
 	compare VAR_RESULT, VAR_0x8009
 	goto_if_ne Route11_EastEntrance_2F_EventScript_NotRequestedMon

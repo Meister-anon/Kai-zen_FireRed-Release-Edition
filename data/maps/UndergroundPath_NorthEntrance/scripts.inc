@@ -11,8 +11,9 @@ UndergroundPath_NorthEntrance_EventScript_Saige:: @ 8160E39
 	compare VAR_RESULT, NO
 	goto_if_eq UndergroundPath_NorthEntrance_EventScript_DeclineTrade
 	call EventScript_ChooseMonForInGameTrade
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge UndergroundPath_NorthEntrance_EventScript_DeclineTrade
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_ge UndergroundPath_NorthEntrance_EventScript_DeclineTrade
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, UndergroundPath_NorthEntrance_EventScript_DeclineTrade
 	call EventScript_GetInGameTradeSpecies
 	compare VAR_RESULT, VAR_0x8009
 	goto_if_ne UndergroundPath_NorthEntrance_EventScript_NotRequestedMon

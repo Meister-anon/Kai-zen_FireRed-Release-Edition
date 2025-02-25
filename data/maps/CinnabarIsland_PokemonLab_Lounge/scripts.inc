@@ -15,8 +15,9 @@ CinnabarIsland_PokemonLab_Lounge_EventScript_Clifton:: @ 816E2C2
 	compare VAR_RESULT, NO
 	goto_if_eq CinnabarIsland_PokemonLab_Lounge_EventScript_CliftonDeclineTrade
 	call EventScript_ChooseMonForInGameTrade
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge CinnabarIsland_PokemonLab_Lounge_EventScript_CliftonDeclineTrade
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_ge CinnabarIsland_PokemonLab_Lounge_EventScript_CliftonDeclineTrade
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, CinnabarIsland_PokemonLab_Lounge_EventScript_CliftonDeclineTrade
 	call EventScript_GetInGameTradeSpecies
 	compare VAR_RESULT, VAR_0x8009
 	goto_if_ne CinnabarIsland_PokemonLab_Lounge_EventScript_CliftonNotRequestedMon
@@ -53,21 +54,27 @@ CinnabarIsland_PokemonLab_Lounge_EventScript_Norma:: @ 816E33E
 	msgbox Trade_Text_DoYouHaveMonWantToTradeForMon, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq CinnabarIsland_PokemonLab_Lounge_EventScript_NormaDeclineTrade
-	special ChoosePartyMon
-	waitstate
-	copyvar VAR_0x800A, VAR_0x8004
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge CinnabarIsland_PokemonLab_Lounge_EventScript_NormaDeclineTrade
-	copyvar VAR_0x8005, VAR_0x800A
-	specialvar VAR_RESULT, GetTradeSpecies
-	copyvar VAR_0x800B, VAR_RESULT
+	@special ChoosePartyMon
+	call EventScript_ChooseMonForInGameTrade
+	@need change this based on other  trade logic
+	@not sure why this doesnt run in game trade event scripts
+	@and instead tries to run everything manually?
+	@copyvar VAR_0x800A, VAR_0x8004
+	@compare VAR_0x8004, PARTY_SIZE
+	@goto_if_ge CinnabarIsland_PokemonLab_Lounge_EventScript_NormaDeclineTrade
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, CinnabarIsland_PokemonLab_Lounge_EventScript_NormaDeclineTrade
+	@copyvar VAR_0x8005, VAR_0x800A
+	@specialvar VAR_RESULT, GetTradeSpecies
+	@copyvar VAR_0x800B, VAR_RESULT
+	call EventScript_GetInGameTradeSpecies
 	compare VAR_RESULT, VAR_0x8009
 	goto_if_ne CinnabarIsland_PokemonLab_Lounge_EventScript_NormaNotRequestedMon
-	copyvar VAR_0x8004, VAR_0x8008
-	copyvar VAR_0x8005, VAR_0x800A
-	special CreateInGameTradePokemon
-	special DoInGameTradeScene
-	waitstate
+	@copyvar VAR_0x8004, VAR_0x8008
+	@copyvar VAR_0x8005, VAR_0x800A
+	@special CreateInGameTradePokemon
+	@special DoInGameTradeScene
+	@waitstate
+	call EventScript_DoInGameTrade
 	msgbox Trade_Text_ThanksYoureAPal
 	setflag FLAG_DID_TANGENY_TRADE
 	release

@@ -14,6 +14,9 @@
 -Couldn't direclty translate to FireRed so took inspiration from
 my version is coded pretty much entirely differently
 
+added ChooseBoxMon special by Artrios
+https://github.com/rh-hideout/pokeemerald-expansion/pull/5428/files
+
 Plan add Ghoul Slash bag sort  -  ghoul bag-sort -annoying to port may skip
 
 ghoul slash fog blend branch - oh and he credits skeli with the idea so put him on this too
