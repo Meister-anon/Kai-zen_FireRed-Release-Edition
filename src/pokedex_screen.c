@@ -220,6 +220,7 @@ static const u8 sText_EVO_LEVEL_FORM_NIGHT[] =_("{LV}{UP_ARROW}to {STR_VAR_2}, o
 static const u8 sText_EVO_MOVE_TYPE_ATK_GT_DEF[] =_("{LV}{UP_ARROW}, w. {STR_VAR_2} type move, Atk > Def"); //string var 4 doesn't exist? find some extra buffer to use for flags
 static const u8 sText_EVO_MOVE_TYPE_ATK_LT_DEF[] =_("{LV}{UP_ARROW}, w. {STR_VAR_2} type move, Atk < Def");//{STR_VAR_1} can hopefully use without issue
 static const u8 sText_EVO_HIGH_RICHES[] =_("{LV}{UP_ARROW}, w. ¥{STR_VAR_2}");
+static const u8 sText_EVO_LEVEL_FRIENDSHIP[] =_("{LV}{UP_ARROW}to {STR_VAR_2}, or +{STR_VAR_3} Lv, {UP_ARROW}friendship");
 
 static void ResetEvoScreenDataStruct(void);
 static void GetSeenFlagTargetSpecies(void); //not sure if will need this
@@ -8223,6 +8224,11 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
     bool8 NoEvo = FALSE;
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
 
+    //wanted to use these as abreviations but noticed
+    //for some reason it broke number display on certain evos
+    //so just using raw value instead
+    //u32 EvoCeiling = (evolutions[i].param & 0xFF);
+    //u32 EvoEffort = ((evolutions[i].param & 0xFF00) >> 8); //how many levels it needs to ga
 
     //found form view evo page has the task input I need, it doesn't create an arrow until you press A
     #ifdef POKEMON_EXPANSION
@@ -8319,7 +8325,6 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
         switch (evolutions[i].method)
         {
         case EVO_FRIENDSHIP:
-            ConvertIntToDecimalStringN(gStringVar2, 220, STR_CONV_MODE_LEADING_ZEROS, 3); //friendship value
             StringExpandPlaceholders(gStringVar4, sText_EVO_FRIENDSHIP );
             break;
         case EVO_FRIENDSHIP_DAY:
@@ -8382,7 +8387,6 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
             StringExpandPlaceholders(gStringVar4, sText_EVO_LEVEL_SHEDINJA );
             break;
         case EVO_BEAUTY:
-            ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 3); //beauty
             StringExpandPlaceholders(gStringVar4, sText_EVO_BEAUTY );
             break;
         //#ifdef POKEMON_EXPANSION
@@ -8449,6 +8453,11 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param & 0xFF, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); //level
                 StringExpandPlaceholders(gStringVar4, sText_EVO_LEVEL_RAIN);
                 break;
+            case EVO_LEVEL_FRIENDSHIP:
+                ConvertIntToDecimalStringN(gStringVar3, ((evolutions[i].param & 0xFF00) >> 8), STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS);
+                ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param & 0xFF, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); //level
+                StringExpandPlaceholders(gStringVar4, sText_EVO_LEVEL_FRIENDSHIP);
+                break;
             case EVO_SPECIFIC_MON_IN_PARTY:
                 GetSpeciesName(gStringVar2, evolutions[i].param);
                 StringExpandPlaceholders(gStringVar4, sText_EVO_SPECIFIC_MON_IN_PARTY );
@@ -8469,7 +8478,7 @@ static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth,
                 break; //need add on to this with, my custom methods,can remove trade methods as well
             /*New Additions*/
             case EVO_HIGH_RICHES:
-                ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS);
+                ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 5);
                 StringExpandPlaceholders(gStringVar4, sText_EVO_HIGH_RICHES ); //hope got right
                 break;
         //#endif

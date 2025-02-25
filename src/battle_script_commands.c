@@ -5822,6 +5822,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
 
     //hey old me, that ish is all wrong, without secondary chance, effects won't apply, and that's dealt with in battle_moves file
     //
+    CMD_ARGS();
     u32 percentChance,argumentChance;
     u8 atkHoldEffectParam = GetBattlerHoldEffectParam(gBattlerAttacker, gBattleMons[gBattlerAttacker].item); //for kings rock
     if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
@@ -5968,7 +5969,7 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     }
     else //doesn't have move effect  /need double check and make sure two_typed_moves aren't passing type from arguemnt to moveEffect 
     {                                               //argumenttomoveeffect was taking them but I added conditional to exclude it
-        ++gBattlescriptCurrInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     gBattleScripting.moveEffect = 0;
     gBattleScripting.multihitMoveEffect = 0;    //sMULTIHIT_EFFECT believe its this
@@ -19909,11 +19910,68 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
         atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect
     }   
     else 
-    gBattlescriptCurrInstr = cmd->nextInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     //attempt remove this see what happens,
     //if its causing a skip,
     //the function it calls should have all logic needed to move script forward?
 }//HAH that was literally it, I was skipping too far forward
+
+//will use this replace arguemtn logic move effect set function later
+/*void BS_setadditionaleffects(void)
+{
+    NATIVE_ARGS();
+
+    if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        if (gMovesInfo[gCurrentMove].numAdditionalEffects > gBattleStruct->additionalEffectsCounter)
+        {
+            u32 percentChance;
+            const struct AdditionalEffect *additionalEffect = &gMovesInfo[gCurrentMove].additionalEffects[gBattleStruct->additionalEffectsCounter];
+            const u8 *currentPtr = gBattlescriptCurrInstr;
+
+            // Various checks for if this move effect can be applied this turn
+            if (CanApplyAdditionalEffect(additionalEffect))
+            {
+                percentChance = CalcSecondaryEffectChance(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), additionalEffect);
+
+                // Activate effect if it's primary (chance == 0) or if RNGesus says so
+                if ((percentChance == 0) || RandomPercentage(RNG_SECONDARY_EFFECT + gBattleStruct->additionalEffectsCounter, percentChance))
+                {
+                    gBattleScripting.moveEffect = additionalEffect->moveEffect | (MOVE_EFFECT_AFFECTS_USER * (additionalEffect->self));
+
+                    SetMoveEffect(
+                        percentChance == 0, // a primary effect
+                        percentChance >= 100 // certain to happen
+                    );
+                }
+            }
+
+            // Move script along if we haven't jumped elsewhere
+            if (gBattlescriptCurrInstr == currentPtr)
+                gBattlescriptCurrInstr = cmd->nextInstr;
+
+            // Call setadditionaleffects again in the case of a move with multiple effects
+            gBattleStruct->additionalEffectsCounter++;
+            if (gMovesInfo[gCurrentMove].numAdditionalEffects > gBattleStruct->additionalEffectsCounter)
+                gBattleScripting.moveEffect = MOVE_EFFECT_CONTINUE;
+            else
+                gBattleScripting.moveEffect = gBattleStruct->additionalEffectsCounter = 0;
+        }
+        else
+        {
+            gBattleScripting.moveEffect = 0;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+    }
+    else
+    {
+        gBattleScripting.moveEffect = 0;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+
+    gBattleScripting.multihitMoveEffect = 0;
+}
+*/
 
 void BS_settelekinesis(void) {
 

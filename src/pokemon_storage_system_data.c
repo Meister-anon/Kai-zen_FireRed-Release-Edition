@@ -1277,7 +1277,6 @@ static u8 InBoxInput_Normal(void)
         }
         //believe can replace this for set block exp box
         //just use L R for quick box change
-        //belive can use SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, TRUE);
 
         if ((JOY_NEW(A_BUTTON)) && sub_8094924())
         {

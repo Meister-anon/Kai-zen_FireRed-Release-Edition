@@ -2914,7 +2914,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_BOX_HP, &setOne); //set non-zero only use if 0
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
-    if (IsMonShiny(boxMon))
+    if (IsBoxMonShiny(boxMon))
         fixedIV = MAX_PER_STAT_IVS; //change from Lucky, should make every shiny perfect IVs
 
     if (fixedIV < USE_RANDOM_IVS) //if is 32 use random ivs, so here is fixed, else is random
@@ -4850,6 +4850,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     {
         OffensiveModifer(125);        
     }
+
+    //may change to 125, half of guts
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_DEFIANT && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
         attack = (130 * attack) / 100;
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_COMPETITIVE && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
@@ -6863,6 +6865,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_BOX_HP:
         retVal = boxMon->boxHp;
         break;
+    case MON_DATA_BLOCK_BOX_EXP_GAIN:
+        retVal = boxMon->NoBoxExp;
+        break;
     case MON_DATA_OT_GENDER:
         retVal = boxMon->otGender;
         break;
@@ -7291,6 +7296,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         boxMon->boxHp = boxHP;
         break;
     }
+    case MON_DATA_BLOCK_BOX_EXP_GAIN:
+        SET8(boxMon->NoBoxExp);
+        break;
     case MON_DATA_OT_GENDER:
         SET8(boxMon->otGender);
         break;
@@ -11639,6 +11647,12 @@ void SetWildMonHeldItem(void)
 bool8 IsMonShiny(struct Pokemon *mon)
 {
     return GetMonData(mon, MON_DATA_SHINY_CHECK, NULL);
+   
+}
+
+bool8 IsBoxMonShiny(struct BoxPokemon *mon)
+{
+    return GetBoxMonData(mon, MON_DATA_SHINY_CHECK, NULL);
    
 }
 

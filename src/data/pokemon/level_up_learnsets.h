@@ -5246,12 +5246,20 @@ static const struct LevelUpMove sLuvdiscLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(4, MOVE_CHARM),
     LEVEL_UP_MOVE(12, MOVE_WATER_GUN),
-    LEVEL_UP_MOVE(16, MOVE_AGILITY),
-    LEVEL_UP_MOVE(24, MOVE_TAKE_DOWN),
-    LEVEL_UP_MOVE(28, MOVE_ATTRACT),
-    LEVEL_UP_MOVE(36, MOVE_SWEET_KISS),
-    LEVEL_UP_MOVE(40, MOVE_FLAIL),
-    LEVEL_UP_MOVE(48, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(15, MOVE_AGILITY),
+    LEVEL_UP_MOVE(18, MOVE_DRAINING_KISS),
+    LEVEL_UP_MOVE(20, MOVE_TEARFUL_LOOK),
+    LEVEL_UP_MOVE(21, MOVE_WATER_PULSE),
+    LEVEL_UP_MOVE(23, MOVE_ATTRACT),
+    LEVEL_UP_MOVE(25, MOVE_BRINE),
+    LEVEL_UP_MOVE(26, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(31, MOVE_SWEET_KISS),    
+    LEVEL_UP_MOVE(34, MOVE_FLAIL),
+    LEVEL_UP_MOVE(37, MOVE_BABY_DOLL_EYES),
+    LEVEL_UP_MOVE(40, MOVE_AQUA_RING),
+    LEVEL_UP_MOVE(42, MOVE_SOAK),
+    LEVEL_UP_MOVE(46, MOVE_HYDRO_PUMP),
+    LEVEL_UP_MOVE(49, MOVE_SAFEGUARD),    
     LEVEL_UP_END
 };
 
@@ -8912,6 +8920,8 @@ static const struct LevelUpMove sCresseliaLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
+//hmm perhaps make it so phione can learn all tms like mew
+//as a reason to use it? -done
 static const struct LevelUpMove sPhioneLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BUBBLE),
     LEVEL_UP_MOVE( 1, MOVE_WATER_SPORT),

@@ -141,6 +141,9 @@ struct BoxPokemon
     u8 boxHp:1; //realized only need value 0 & 1
     u8 metGame:4;    
     
+    u8 NoBoxExp:1; //true false is all I need for this
+    u8 padding:7;
+    
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
     u32 winningRibbon:1; //these two for emerald battle tower
@@ -870,6 +873,7 @@ struct ToneData *GetCryIdBySpecies(u16 species); //added for cry table rehash
 
 //u8 IsMonShiny(struct Pokemon *mon); //for species graphic file setup
 bool8 IsMonShiny(struct Pokemon *mon);
+bool8 IsBoxMonShiny(struct BoxPokemon *mon);
 bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, u32 personality);
 

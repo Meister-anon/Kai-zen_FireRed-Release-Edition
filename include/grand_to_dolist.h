@@ -3458,6 +3458,35 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     cant move in that direction
     so return is based on player being in direction
     and z coord being the same
+    created boxmon value MON_DATA_BLOCK_BOX_EXP_GAIN
+    set from within pc believe should be
+    press start and will work on index hovering
+    or selected mon,
+    selected mon so can hopefully
+    use the orange hand to set for a range at once
+    
+    for block exp plan make gray scale visual to easily identify
+    effect is off, but palettes are all different,
+    but believe found something that may work,
+    the title screen uses 'TintPalette_GrayScale2'
+    for the charizard/venusaur before the full color loads in
+
+    think TintPalette_GrayScale has more contrast?
+    so think may use that if I can
+
+    Figure out how exp block should work
+    since I want to work in daycare and box
+    that means would need effect to not clear on removal from pc
+    but the issue is I'd need to keep the visual
+    efffect outside the pc, but then again if I get the 
+    access from box working for daycare that 
+    would solve all the problems.
+
+    I could set the effect on a mon from within
+    selection and when I set a mon to go to daycare
+    it'd show the greyscale palette
+
+    ok that'll work perfectly
     found pc bug only one pokemon pokemon
     not able to cancel move bricks game smh
     -fixed issue was I set && when I should have set ||
