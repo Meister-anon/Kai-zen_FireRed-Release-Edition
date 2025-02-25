@@ -4031,6 +4031,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sLaprasTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //turn gigantamax lapras into mega lapras,
+    //make ability aurora borialas or northern lights
+    //or something, but essentially it just sets up auraura veil
+    //on switch in, without needing hail up
 
     [SPECIES_DITTO] =
     {
@@ -6442,9 +6446,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_INNER_FOCUS, ABILITY_KEEN_EYE},
+        .abilities = {ABILITY_INNER_FOCUS, ABILITY_KEEN_EYE}, //was keen eye
         //#ifdef BATTLE_ENGINE
-            .abilityHidden = {ABILITY_GUTS, ABILITY_PRESSURE},//pickpocket on this mon is compltely worthless   //swapping for guts or moxie
+            .abilityHidden = {ABILITY_GUTS, ABILITY_PICKPOCKET},//pickpocket on this mon is compltely worthless   //swapping for guts or moxie
         // #endif
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
@@ -6454,6 +6458,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_ITEM_HOLD_NIGHT, ITEM_RAZOR_CLAW, 0, SPECIES_WEAVILE}), //Should hopefully blank these for now without issue
     }, //make move for sneasel weavel line phsyical ice move that's actually good.
     //will be a slash variant 2 typed move, arctic rake, ice/dark
+    //give inner focus but not on evo, as option to eviolite this
+    //keeping pickpocket realized combining with eviolite & hail is very interesting
 
     [SPECIES_TEDDIURSA] =
     {
@@ -6897,8 +6903,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_PICKUP, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_SAND_RUSH},
+        .abilities = {ABILITY_PICKUP, ABILITY_SAND_RUSH},
+        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6924,8 +6930,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_STURDY, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_SAND_RUSH},
+        .abilities = {ABILITY_STURDY, ABILITY_SAND_RUSH},
+        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_MUSCLE_MAGIC},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6937,6 +6943,13 @@ const struct BaseStats gBaseStats[] =
     //keep an eye on this, dependong on how setup could completely invalidate sandshrew line
     //maybe give something other than sandrush
     //hmm actually nvm it doesn't have dry skin
+    //consider muscle magic?
+    //also since elephant consider give hydro pump
+    //or water spout since can hold water in its trunk
+    //and blow it out
+    //for same reason perhaps vacuum wave?
+    //blow air through trunk,
+    //normal type variety coverage
 
     [SPECIES_PORYGON2] =
     {
@@ -10310,7 +10323,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFeebasTMHMLearnset,
         .evolutions = EVOLUTION({EVO_BEAUTY, 170, 0, SPECIES_MILOTIC},
                                        {EVO_ITEM, ITEM_PRISM_SCALE, 0, SPECIES_MILOTIC},
-                                       {EVO_LEVEL_FRIENDSHIP, RELATIVE_EVO(34, MEDIUM_EFFORT), 0, SPECIES_MILOTIC}), //Should hopefully blank these for now without issue //wanna give move mud bomb
+                                       {EVO_LEVEL_FRIENDSHIP, RELATIVE_EVO(34, HIGH_EFFORT), 0, SPECIES_MILOTIC}), //Should hopefully blank these for now without issue //wanna give move mud bomb
     },//change give high sp def think thick skin from everyone calling it ugly
     //talked w hedara feebas supposedly alt counterpart of magikarp
     //rare difficulty to evolve comapared to its easy to evolve and common
@@ -13503,7 +13516,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_PRESSURE, ABILITY_NONE},
+        .abilities = {ABILITY_HI_PRESSURE, ABILITY_KEEN_EYE}, //ABILITY_KEEN_EYE
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_GUTS, ABILITY_SNOW_CLOAK},
         // #endif
@@ -13513,7 +13526,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sWeavileLevelUpLearnset,
         .tmhmLearnset = sWeavileTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//unsure if hi pressure is too much, but changes made
+    //to attempt make weavile stand out have a niche outside of chen pao
 
     [SPECIES_MAGNEZONE] =
     {

@@ -236,6 +236,7 @@ if (!IsBlackFogNotOnField()) \
     return FALSE;\
 }//realized shouldn't put in weather function as would break weather set what I need is put in end turn
 
+//oh nvm this specifically goes into attack cancel stuff
 void PressurePPLose(u8 target, u8 attacker, u16 move)
 {
     s32 i;
@@ -353,7 +354,8 @@ void PressurePPLoseOnUsingPerishSong(u8 attacker)
                 perishSongPos = j;
                 if (gBattleMons[attacker].pp[j])
                     --gBattleMons[attacker].pp[j];
-                --gBattleMons[attacker].pp[j];
+                if (gBattleMons[attacker].pp[j])
+                    --gBattleMons[attacker].pp[j];
             }
         }
     }

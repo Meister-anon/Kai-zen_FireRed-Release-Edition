@@ -2106,10 +2106,16 @@ static void atk02_attackstring(void)
     }
 }
 
- static void atk03_ppreduce(void)
+//believe this is for setmondata
+//battle util does battle pp
+//this does adjusting mon data to match?
+static void atk03_ppreduce(void)
 {
     s32 ppToDeduct = 1; //not 100% but this seems to be more about targetting than the actual drop?
     //as that has a function for handling that
+    //pp is 1, for normal move use,
+    //then increments if true here,
+    //so need do 2 for hi pressure believe
 
     if (!gBattleControllerExecFlags)
     {
@@ -2120,17 +2126,19 @@ static void atk02_attackstring(void)
             case MOVE_TARGET_FOES_AND_ALLY:
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
+                ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_ON_FIELD, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 break;
             case MOVE_TARGET_BOTH:
             case MOVE_TARGET_OPPONENTS_FIELD:
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_PRESSURE, 0, 0);
+                ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 ppToDeduct += AbilityBattleEffects(ABILITYEFFECT_COUNT_OTHER_SIDE, gBattlerAttacker, ABILITY_HI_PRESSURE, 0, 0);
                 break;
             default:    //loks like normal battle, but with a check to make sure move isn't a self targetting move?
                 if (gBattlerAttacker != gBattlerTarget && GetBattlerAbility(gBattlerTarget) == ABILITY_PRESSURE)
                     ++ppToDeduct;
                 if (gBattlerAttacker != gBattlerTarget && GetBattlerAbility(gBattlerTarget) == ABILITY_HI_PRESSURE)
-                    ++ppToDeduct;
+                    ppToDeduct += 2;
                 break;
             }
         }
