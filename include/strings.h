@@ -1420,6 +1420,7 @@ extern const u8 gUnknown_841EE2B[];
 
 // naming_screen
 extern const u8 gText_MoveOkBack[];
+extern const u8 gText_ResetMoveOkBack[];
 extern const u8 gText_AlphabetUpperLower[];
 extern const u8 gText_YourName[];
 extern const u8 gText_BoxName[];
@@ -1569,6 +1570,7 @@ extern const u8 gText_PokeSum_ExpPoints[];
 extern const u8 gText_PokeSum_NextLv[];
 extern const u8 gText_PokeSum_PageName_PokemonInfo[];
 extern const u8 gText_PokeSum_Controls_PageCancel[];
+extern const u8 gText_PokeSum_Controls_PageRename[];
 extern const u8 gText_PokeSum_Controls_Cancel[];
 extern const u8 gText_PokeSum_PageName_PokemonSkills[];
 extern const u8 gText_PokeSum_Controls_Page[];

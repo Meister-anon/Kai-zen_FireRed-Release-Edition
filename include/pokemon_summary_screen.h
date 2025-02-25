@@ -19,6 +19,7 @@ void ShowMoveInfoForSelectedMove(struct Pokemon *party, u8 partyMember, u8 lastI
 void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember, u8 lastIdx, MainCallback savedCallback, u8 mode);
 void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 lastIdx, MainCallback savedCallback, u8 mode);
 void PokeballIcon_CaughtIn(u8 y);
+void SummScreen_ChangePokemonNickname_CB(void); //to reference callback for filtering in naming_screen
 
 //sLevelNickTextColors
 #define WHITE 0

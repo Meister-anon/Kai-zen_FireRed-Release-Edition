@@ -38,6 +38,9 @@ LavenderTown_House2_EventScript_DontRateNickname:: @ 816B2AA
 	release
 	end
 
+@vsonic change this add friendship check,
+@if friendship high enough & nicknamed
+@give special item
 LavenderTown_House2_EventScript_CheckCanRateMon:: @ 816B2B4
 	@specialvar VAR_RESULT, GetPartyMonSpecies
 	compare VAR_RESULT, SPECIES_EGG

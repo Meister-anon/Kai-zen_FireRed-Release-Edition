@@ -16,6 +16,7 @@
 #include "new_menu_helpers.h"
 #include "pokemon_icon.h"
 #include "pokemon_storage_system.h"
+#include "pokemon_summary_screen.h"
 #include "strings.h"
 #include "task.h"
 #include "text_window.h"
@@ -31,6 +32,7 @@
 #define KBEVENT_PRESSED_B 6
 #define KBEVENT_PRESSED_SELECT 8
 #define KBEVENT_PRESSED_START 9
+#define KBEVENT_PRESSED_L   10
 
 #define KBROW_COUNT 4
 #define KBCOL_COUNT 8
@@ -211,6 +213,9 @@ static void NamingScreen_InitDisplayMode(void);
 static void VBlankCB_NamingScreen(void);
 static void ShowAllBgs(void);
 static bool8 IsLetter(u8 character);
+
+//new addition
+static void ResetNametoSpeciesName(void);
 
 // Forward declarations
 
@@ -1402,6 +1407,11 @@ static bool8 HandleKeyboardEvent(void)
         MoveCursorToOKButton();
         return FALSE;
     }
+    else if (event == KBEVENT_PRESSED_L)
+    {
+        ResetNametoSpeciesName();
+        return FALSE;
+    }
     else
     {
         return sKeyboardKeyHandlers[keyRole](event);
@@ -1510,6 +1520,8 @@ static void InputState_Disabled(struct Task *task)
     task->tKeyboardEvent = 0;
 }
 
+//not sure why these don't go in sequence from 0
+//but my new value doesnt' seem to have an issue?
 static void InputState_Enabled(struct Task *task)
 {
     task->tKeyboardEvent = 0;
@@ -1522,6 +1534,8 @@ static void InputState_Enabled(struct Task *task)
         task->tKeyboardEvent = KBEVENT_PRESSED_SELECT;
     else if (JOY_NEW(START_BUTTON))
         task->tKeyboardEvent = KBEVENT_PRESSED_START;
+    else if (JOY_NEW(L_BUTTON) && sNamingScreenData->returnCallback == SummScreen_ChangePokemonNickname_CB)
+        task->tKeyboardEvent = KBEVENT_PRESSED_L;
     else
         HandleDpadMovement(task);
 }
@@ -1773,6 +1787,35 @@ static void CopyStringToDestBuffer(void)
     }
 }
 
+static void CopySpeciesNameToDestBuffer(void)
+{
+    // Copy from the first non-whitespace character
+    u8 i;
+
+    //can't bypass textBuffer otherwise print to screen won't work
+    StringCopy(sNamingScreenData->textBuffer, gStringVar3);
+
+    for (i = 0; i < sNamingScreenData->template->maxChars; i++)
+    {
+        if (sNamingScreenData->textBuffer[i] != CHAR_SPACE && sNamingScreenData->textBuffer[i] != EOS)
+        {
+            StringCopyN(sNamingScreenData->destBuffer, sNamingScreenData->textBuffer, sNamingScreenData->template->maxChars + 1);
+            break;
+        }
+    }
+}
+
+//works, just need to fix 
+//symbol display at top
+static void ResetNametoSpeciesName(void)
+{
+    CopySpeciesNameToDestBuffer();
+    PrintBufferCharactersOnScreen();
+    CopyBgTilemapBufferToVram(3);
+    PlaySE(SE_SELECT);
+    MoveCursorToOKButton();
+}
+
 static void choose_name_or_words_screen_load_bg_tile_patterns(void)
 {
     LZ77UnCompWram(gNamingScreenMenu_Gfx, sNamingScreenData->tileBuffer);
@@ -1899,12 +1942,24 @@ static void sub_809FA60(void)
 static void sub_809FAE4(void)
 {
     const u8 color[3] = { TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY };
-    int strwidth = GetStringWidth(0, gText_MoveOkBack, 0);
+    const u8 *StringValue;
+    int strwidth;
 
-    FillWindowPixelBuffer(sNamingScreenData->windows[4], PIXEL_FILL(15));
-    AddTextPrinterParameterized3(sNamingScreenData->windows[4], 0, 236 - strwidth, 0, color, 0, gText_MoveOkBack);
-    PutWindowTilemap(sNamingScreenData->windows[4]);
-    CopyWindowToVram(sNamingScreenData->windows[4], COPYWIN_BOTH);
+    if (sNamingScreenData->returnCallback == SummScreen_ChangePokemonNickname_CB)
+    {
+        StringValue = gText_ResetMoveOkBack;
+        strwidth = GetStringWidth(0, StringValue, 0);
+    }    
+    else
+    {
+        StringValue = gText_MoveOkBack;
+        strwidth = GetStringWidth(0, StringValue, 0);
+    }
+
+    FillWindowPixelBuffer(sNamingScreenData->windows[WIN_BANNER], PIXEL_FILL(15));
+    AddTextPrinterParameterized3(sNamingScreenData->windows[WIN_BANNER], 0, 236 - strwidth, 0, color, 0, StringValue);
+    PutWindowTilemap(sNamingScreenData->windows[WIN_BANNER]);
+    CopyWindowToVram(sNamingScreenData->windows[WIN_BANNER], COPYWIN_BOTH);
 }
 
 static void sub_809FB70(void)

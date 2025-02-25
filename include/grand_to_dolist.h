@@ -3522,6 +3522,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //if (IsNuzlockeModeOn() && (GetCurrentBoxMonData(monId, MON_DATA_BOX_HP) == 0))
     2/24/2025
     )
+
+    Change summary screen remove gaphic press A
+    to cancel replace with press L to rename
+    since cant always come up with good nickname on catch
+    believe would need a check for if doing so from within party
+    or from the box, as would need a different callback
+    -Finished callback, need to do lavender town event script
+    change script from rename mon, to instead
+    check if mon is nicknamed and if high friendship
+    give a rare item as a congrats for a great nickname
+    "Wow this pokemon really loves its Nickname!"
+    "hmm I think this pokemon isn't used to its name yet"
     NOTE**(
     since make clean removes tools o
     from now on just make mostlyclean instead

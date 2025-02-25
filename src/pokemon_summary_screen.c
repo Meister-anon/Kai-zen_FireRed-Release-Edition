@@ -23,6 +23,7 @@
 #include "constants/region_map_sections.h"
 #include "region_map.h"
 #include "field_specials.h"
+#include "naming_screen.h"
 #include "party_menu.h"
 #include "constants/battle.h"
 #include "constants/battle_move_effects.h"
@@ -146,8 +147,8 @@ static s8 SeekToNextMonInMultiParty(s8);
 
 //new additions for battle move info callback
 static void Task_InputHandler_BattleMoveInfo(u8 taskId);
-
-
+//new addition for summary nickname callback
+static void SummScreen_ChangePokemonNickname(void);
 
 #define SINGLE_BATTLE   (gMain.inBattle && singles)
 #define DOUBLE_BATTLE   (gMain.inBattle && doubles)
@@ -1370,29 +1371,29 @@ void ShowSummaryScreenSelectMoveFromBattle(struct Pokemon *party, u8 partyMember
     SetMainCallback2(CB2_SetUpPSS);
 }
 
-static u8 sub_813476C(u8 a0)
+static u8 PageFlipInputIsDisabled(u8 direction)
 {
-    if (sMonSummaryScreen->inhibitPageFlipInput == TRUE && sMonSummaryScreen->pageFlipDirection != a0)
+    if (sMonSummaryScreen->inhibitPageFlipInput == TRUE && sMonSummaryScreen->pageFlipDirection != direction)
         return TRUE;
 
     return FALSE;
 }
 
-u32 sub_81347A4(u8 a0)
+u32 IsPageFlipInput(u8 direction)
 {
     if (sMonSummaryScreen->isEgg)
         return FALSE;
 
-    if (sMonSummaryScreen->lastPageFlipDirection[0] != 0xff && sMonSummaryScreen->lastPageFlipDirection[0] == a0)
+    if (sMonSummaryScreen->lastPageFlipDirection[0] != 0xff && sMonSummaryScreen->lastPageFlipDirection[0] == direction)
     {
         sMonSummaryScreen->lastPageFlipDirection[0] = 0xff;
         return TRUE;
     }
 
-    if (sub_813476C(a0))
+    if (PageFlipInputIsDisabled(direction))
         return FALSE;
 
-    switch (a0)
+    switch (direction)
     {
     case 1:
         if (JOY_NEW(DPAD_RIGHT))
@@ -1405,9 +1406,9 @@ u32 sub_81347A4(u8 a0)
     case 0:
         if (JOY_NEW(DPAD_LEFT))
             return TRUE;
-
-        if (gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR && JOY_NEW(L_BUTTON))
-            return TRUE;
+        //had to remove to use L button for rename
+        //if (gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR && JOY_NEW(L_BUTTON))
+        //    return TRUE;
 
         break;
     }
@@ -1442,7 +1443,7 @@ static void Task_InputHandler_Info(u8 taskId)
 
         if (sMonSummaryScreen->curPageIndex != PSS_PAGE_MOVES_INFO)
         {
-            if (sub_81347A4(1) == TRUE)
+            if (IsPageFlipInput(1) == TRUE)
             {
                 if (FuncIsActiveTask(Task_PokeSum_FlipPages))
                 {
@@ -1460,7 +1461,7 @@ static void Task_InputHandler_Info(u8 taskId)
                 }
                 return;
             }
-            else if (sub_81347A4(0) == TRUE)
+            else if (IsPageFlipInput(0) == TRUE)
             {
                 if (FuncIsActiveTask(Task_PokeSum_FlipPages))
                 {
@@ -1512,6 +1513,21 @@ static void Task_InputHandler_Info(u8 taskId)
             else if (JOY_NEW(B_BUTTON))
             {
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
+            }
+            else if (JOY_NEW(L_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
+            {
+                if (sMonSummaryScreen->curPageIndex == PSS_PAGE_INFO)
+                {
+                    //trigger rename logic vsonic
+                    PlaySE(SE_SELECT);
+                    sMonSummaryScreen->savedCallback = SummScreen_ChangePokemonNickname;
+                    sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
+                }
+                //works now, but want change rename logic,
+                //add functionality to reset back to default name
+                //press L, auto fill default name
+                //then move cursor over start to confirm
+
             }
             #if DEBUG_POKEMON_MENU == TRUE
             else if (JOY_NEW(SELECT_BUTTON) && !gMain.inBattle)
@@ -4061,7 +4077,12 @@ static void PokeSum_PrintPageHeaderText(u8 curPageIndex) //
     case PSS_PAGE_INFO:
         PokeSum_PrintPageName(gText_PokeSum_PageName_PokemonInfo);
         if (!sMonSummaryScreen->isEgg)
-            PokeSum_PrintControlsString(gText_PokeSum_Controls_PageCancel);
+        {
+            if (!gMain.inBattle)
+                PokeSum_PrintControlsString(gText_PokeSum_Controls_PageRename);
+            else
+                PokeSum_PrintControlsString(gText_PokeSum_Controls_PageCancel);
+        }
         else
             PokeSum_PrintControlsString(gText_PokeSum_Controls_Cancel);
 
@@ -4367,6 +4388,43 @@ static void PokeSum_SetHelpContext(void)
        // SetHelpContext(HELPCONTEXT_POKEMON_MOVES);
         break;
     }
+}
+
+//decide wont do from box,
+//since id is mon is at oak ranch
+//makes more sense to do when its actually with you
+//think can use GetInPartyMenu to filter
+//&gPlayerParty[sLastViewedMonIndex]  
+//use as argument
+//test
+static void SummScreen_ChangePokemonNickname()
+{
+    u16 species;
+    u8 gender;
+    u32 personality;
+
+    //GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar3);
+    //GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    species = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_SPECIES, NULL);
+    gender = GetMonGender(&gPlayerParty[sLastViewedMonIndex]);
+    personality = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
+    
+    //unsure what stringVar3 is being used for
+    //if not used can populate w species, for reset fill
+    //ok so since getmondata only actually stores a value from pokemon.c
+    //does this mean string var isn't actually holding anything
+    //and is instead being used as a buffer allocation?
+    //LMAO THAT WAS IT, the getmondata values for stringvars were doing absolutely nothing
+    StringCopy(gStringVar3, gBaseStats[species].speciesName);
+    DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, SummScreen_ChangePokemonNickname_CB);
+}
+
+void SummScreen_ChangePokemonNickname_CB(void)
+{
+    SetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    //change based on CB2_OpenDexPageFromSummScreen to set info page callback
+    //CB2_ReturnToFieldContinueScriptPlayMapMusic();
+    CB2_ShowPokemonSummaryScreen2();
 }
 
 static u8 PokeSum_BufferOtName_IsEqualToCurrentOwner(struct Pokemon * mon)
