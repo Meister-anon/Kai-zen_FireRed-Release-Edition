@@ -1210,8 +1210,8 @@ EventScript_DelayedLookAround:: @ 81A80FE
 @with way box special is setup
 @cant overwrite var_result till end
 @realize cant overwrite 8008 or 800A either...
-@VAR_0x8008 stores which trade it is
-@VAR_0x8003 believe is storing the species they want
+@VAR_0x8008 stores which in-game-trade it is
+@VAR_0x8003 is storing the species they want
 EventScript_GetInGameTradeSpeciesInfo:: @ 81A8CAD
 	copyvar VAR_0x8001, VAR_0x8008
 	specialvar VAR_0x8003, GetInGameTradeSpeciesInfo
@@ -1237,6 +1237,8 @@ EventScript_GetInGameTradeSpecies:: @ 81A8CC9
 	copyvar VAR_0x800B, VAR_RESULT
 	return
 
+@here is where I need to start changing stuff,
+@to get boxmon to work
 EventScript_DoInGameTrade:: @ 81A8CD9
 	copyvar VAR_0x8001, VAR_0x8008
 	copyvar VAR_0x8005, VAR_0x8004

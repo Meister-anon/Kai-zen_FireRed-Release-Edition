@@ -1793,7 +1793,7 @@ static void CopySpeciesNameToDestBuffer(void)
     u8 i;
 
     //can't bypass textBuffer otherwise print to screen won't work
-    StringCopy(sNamingScreenData->textBuffer, gStringVar3);
+    StringCopy(sNamingScreenData->textBuffer, gBaseStats[sNamingScreenData->monSpecies].speciesName);
 
     for (i = 0; i < sNamingScreenData->template->maxChars; i++)
     {

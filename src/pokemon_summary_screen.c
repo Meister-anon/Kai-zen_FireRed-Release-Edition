@@ -4403,19 +4403,16 @@ static void SummScreen_ChangePokemonNickname()
     u8 gender;
     u32 personality;
 
+    //unsure what stringVar3 is being used for
     //GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar3);
-    //GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
+    //think this is necessary so if don't right anything it can still set the value it already has
+    //otherwise it would set garbage data, as its already using gstringvar2's value
+    GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_NICKNAME, gStringVar2);
     species = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_SPECIES, NULL);
     gender = GetMonGender(&gPlayerParty[sLastViewedMonIndex]);
     personality = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_PERSONALITY, NULL);
     
-    //unsure what stringVar3 is being used for
-    //if not used can populate w species, for reset fill
-    //ok so since getmondata only actually stores a value from pokemon.c
-    //does this mean string var isn't actually holding anything
-    //and is instead being used as a buffer allocation?
-    //LMAO THAT WAS IT, the getmondata values for stringvars were doing absolutely nothing
-    StringCopy(gStringVar3, gBaseStats[species].speciesName);
+    
     DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar2, species, gender, personality, SummScreen_ChangePokemonNickname_CB);
 }
 

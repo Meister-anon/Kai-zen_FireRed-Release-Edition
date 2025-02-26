@@ -1077,9 +1077,15 @@ static void Cb_OnSelectedMon(u8 taskId)
         case PC_TEXT_SELECT:
             PlaySE(SE_SELECT);
             if (sInPartyMenu)
+            {
                 VarSet(VAR_RESULT, GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_SPECIES));
+                VarSet(VAR_0x8014, GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_PERSONALITY));
+            }
             else
-                VarSet(VAR_RESULT, GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG));
+            {
+               VarSet(VAR_RESULT, GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG));
+               VarSet(VAR_0x8014, GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_PERSONALITY));
+            }
             
             gSpecialVar_0x8004 = GetBoxCursorPosition();
             //ok that was issue, using setvar
@@ -2120,10 +2126,10 @@ static void Cb_ChangeScreen(u8 taskId)
         {
             SetMainCallback2(CB2_ReturnToFieldContinueScript);
             
-                //ok appears to work?
-                if (VarGet(VAR_RESULT) != GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_SPECIES)
-                && (VarGet(VAR_RESULT) != GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG)))
-                    gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
+            //attempt better filter, check species AND personality
+            if (((VarGet(VAR_0x8014) != GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_PERSONALITY)) && (VarGet(VAR_RESULT) != GetBoxMonData(&gPlayerParty[GetBoxCursorPosition()].box, MON_DATA_SPECIES)))
+            && ((VarGet(VAR_0x8014) != GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_PERSONALITY)) && (VarGet(VAR_RESULT) != GetBoxMonDataAt(gPSSData->newCurrBoxId, GetBoxCursorPosition(), MON_DATA_SPECIES_OR_EGG))))
+                gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
             
             //ok now it blocks everything?
             //even when I selet a mon?
