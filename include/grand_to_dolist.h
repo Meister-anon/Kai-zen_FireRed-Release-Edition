@@ -3458,6 +3458,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     cant move in that direction
     so return is based on player being in direction
     and z coord being the same
+
+    New Idea add back gigantimax forms
+    from Expansion graphics, 
+    idea take gigantimax and turn into megas
+    butterfree and lapras are what I'm thinking of rn
+
     created boxmon value MON_DATA_BLOCK_BOX_EXP_GAIN
     set from within pc believe should be
     press start and will work on index hovering
@@ -3522,6 +3528,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     //if (IsNuzlockeModeOn() && (GetCurrentBoxMonData(monId, MON_DATA_BOX_HP) == 0))
     2/24/2025
     )
+
+    IDentified still have problem with new health setup
+    HP MaxHP  the max hp and health bar
+    is using that of the battler
+    even if I'm healing a party member,
+    because of that when I heal the hp bar
+    glitches
+    IMPORTANT
+    2/25/2025
 
     Change summary screen remove gaphic press A
     to cancel replace with press L to rename
