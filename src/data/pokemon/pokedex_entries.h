@@ -16,10 +16,17 @@ const struct PokedexEntry gPokedexEntries[] =
     //offset appars to be a y vaue, mon at scale 256 or lower seem to use offset 0
     //offset should decrease as scale decreases. i.e as mon gets bigger scale gets lower
 
+    //edit unsure how true that last statement is, as pidgey and spearow use offset 22
+    //to appear at bottom of screen? - more testing necessary
+
     //ok seems 256 is min value used for scale? lower number means bigger, so if mon is bigger trainerscale is higher, and trainer offset must be raised
     //rather than pokemon offset
 
     //loose formula pkscale/trainer scale * 10 , doesnt always work? would need to go over this later
+
+    //note does look strange since all are unsigned types
+    //but negative pokemonOffset values do make sense
+    //it makes them float  ex.magnemite
 
     [NATIONAL_DEX_NONE] =
     {
@@ -220,7 +227,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .weight = 18,
         .description = gPidgeyPokedexText,
         .pokemonScale = 508,
-        .pokemonOffset = -3,
+        .pokemonOffset = 18,
         .trainerScale = 256,
         .trainerOffset = 0,
     },

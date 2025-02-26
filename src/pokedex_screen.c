@@ -972,8 +972,8 @@ const struct WindowTemplate sWindowTemplate_AreaMap_SpeciesName = {
     .bg = 2,
     .tilemapLeft = 5,
     .tilemapTop = 2,
-    .width = 10,
-    .height = 5,
+    .width = 16,
+    .height = 2,
     .paletteNum = 0,
     .baseBlock = 0x01b8
 };
@@ -985,7 +985,7 @@ const struct WindowTemplate sWindowTemplate_AreaMap_Size = {
     .width = 10,
     .height = 2,
     .paletteNum = 0,
-    .baseBlock = 0x01d5
+    .baseBlock = 0x01e5
 };
 
 const struct WindowTemplate sWindowTemplate_AreaMap_Area = {
@@ -995,17 +995,17 @@ const struct WindowTemplate sWindowTemplate_AreaMap_Area = {
     .width = 10,
     .height = 2,
     .paletteNum = 0,
-    .baseBlock = 0x01e9
+    .baseBlock = 0x01f9
 };
 
 const struct WindowTemplate sWindowTemplate_AreaMap_MonTypes = {
     .bg = 2,
-    .tilemapLeft = 5,
+    .tilemapLeft = 3,
     .tilemapTop = 6,
     .width = 9,
     .height = 2,
     .paletteNum = 11,
-    .baseBlock = 0x01fd
+    .baseBlock = 0x020d
 };
 
 const struct WindowTemplate sWindowTemplate_AreaMap_Kanto = {
@@ -1015,7 +1015,7 @@ const struct WindowTemplate sWindowTemplate_AreaMap_Kanto = {
     .width = 12,
     .height = 9,
     .paletteNum = 0,
-    .baseBlock = 0x020d
+    .baseBlock = 0x021d
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_OneIsland = {
@@ -1025,7 +1025,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_OneIsland = {
     .width = 4,
     .height = 3,
     .paletteNum = 0,
-    .baseBlock = 0x0279
+    .baseBlock = 0x0289
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_TwoIsland = {
@@ -1035,7 +1035,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_TwoIsland = {
     .width = 4,
     .height = 3,
     .paletteNum = 0,
-    .baseBlock = 0x0285
+    .baseBlock = 0x0295
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_ThreeIsland = {
@@ -1045,7 +1045,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_ThreeIsland = {
     .width = 4,
     .height = 3,
     .paletteNum = 0,
-    .baseBlock = 0x0292
+    .baseBlock = 0x02a2
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_FourIsland = {
@@ -1055,7 +1055,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_FourIsland = {
     .width = 4,
     .height = 4,
     .paletteNum = 0,
-    .baseBlock = 0x029d
+    .baseBlock = 0x02ad
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_FiveIsland = {
@@ -1065,7 +1065,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_FiveIsland = {
     .width = 4,
     .height = 4,
     .paletteNum = 0,
-    .baseBlock = 0x02ad
+    .baseBlock = 0x02bd
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_SixIsland = {
@@ -1075,7 +1075,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_SixIsland = {
     .width = 4,
     .height = 4,
     .paletteNum = 0,
-    .baseBlock = 0x02bd
+    .baseBlock = 0x02cd
 };
 
 static const struct WindowTemplate sWindowTemplate_AreaMap_SevenIsland = {
@@ -1085,7 +1085,7 @@ static const struct WindowTemplate sWindowTemplate_AreaMap_SevenIsland = {
     .width = 4,
     .height = 4,
     .paletteNum = 0,
-    .baseBlock = 0x02cd
+    .baseBlock = 0x02dd
 };
 
 struct {
@@ -5489,15 +5489,12 @@ u8 DexScreen_DrawMonAreaPage(void)
         FormSpecies = species; //already uses dex->species
     
 
-    //seems can just fully replace speciesId use, as its only used in size comparison
     if (species > NATIONAL_SPECIES_COUNT && species < GEN_9_FORMS_START)
         speciesId = SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)); //returns base form species
-    //else
-        //speciesId = SpeciesToNationalPokedexNum(species);
+    else
+        speciesId = SpeciesToNationalPokedexNum(species);
         //plan make  gen9 defualt to 0 so dex entries load, instead of causing freeze for empty data
-    //    speciesId = (species <= NATIONAL_SPECIES_COUNT && species > SPECIES_ENAMORUS_INCARNATE) ? SPECIES_NONE : SpeciesToNationalPokedexNum(species);
-    //doesn't work with out below
-    //speciesId = SpeciesToNationalPokedexNum(species); //kept this , as before was using nat number so hopefully won't break anything
+    
     
     if (DexScreen_GetSetPokedexFlag(FormSpecies, FLAG_GET_CAUGHT, TRUE) || DexScreen_GetSetPokedexFlag(species, FLAG_GET_CAUGHT, TRUE))
         monIsCaught = TRUE;
@@ -5589,10 +5586,11 @@ u8 DexScreen_DrawMonAreaPage(void)
 
     GetSpeciesName(gStringVar1,species);
 
-    // Print species name
+    // Print Dex num & species name
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[8], PIXEL_FILL(0));
     DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[8], FONT_SMALL, species, 0, 4);
-    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[8], FONT_NORMAL, gStringVar1, 3, 16, 0);
+    //species name
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[8], FONT_NORMAL, gStringVar1, 30, 4, 0);
     PutWindowTilemap(sPokedexScreenData->windowIds[8]);
     CopyWindowToVram(sPokedexScreenData->windowIds[8], COPYWIN_GFX);
 
