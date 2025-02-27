@@ -15269,6 +15269,8 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
     {
         u16 chance;
 
+        //decided don't want ot add space control to this
+        //would be too much
         if ((((gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS)
                 && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
                 || GetBattlerAbility(gBattlerAttacker) == ABILITY_NO_GUARD

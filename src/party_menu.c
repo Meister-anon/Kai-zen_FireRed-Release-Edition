@@ -197,9 +197,9 @@ static void DrawEmptySlot(u8 windowId);
 static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
 static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
 static void DisplayPartyPokemonGenderNidoranCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
-static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
-static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
-static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox);
+static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 slot, u8 drawMenuBoxOrText);
+static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 slot, u8 drawMenuBoxOrText);
+static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 slot);
 static void DisplayPartyPokemonDescriptionText(u8 stringId, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
 static bool8 GetBattleEntryEligibility(struct Pokemon *mon);
 static bool8 IsMonAllowedInMinigame(u8 slot);
@@ -806,9 +806,9 @@ static void DisplayPartyPokemonData(u8 slot)
         DisplayPartyPokemonNickname(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
         DisplayPartyPokemonLevelCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
         DisplayPartyPokemonGenderNidoranCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
-        DisplayPartyPokemonHPCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
-        DisplayPartyPokemonMaxHPCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], 0);
-        DisplayPartyPokemonHPBarCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot]);
+        DisplayPartyPokemonHPCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], slot, 0);
+        DisplayPartyPokemonMaxHPCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], slot, 0);
+        DisplayPartyPokemonHPBarCheck(&gPlayerParty[slot], &sPartyMenuBoxes[slot], slot);
     }
 }
 
@@ -1835,8 +1835,8 @@ static void Task_PartyMenuModifyHP(u8 taskId)
     tHP += tHPIncrement;
     --tHPToAdd;
     SetMonData(&gPlayerParty[tPartyId], MON_DATA_HP, &tHP);
-    DisplayPartyPokemonHPCheck(&gPlayerParty[tPartyId], &sPartyMenuBoxes[tPartyId], 1);
-    DisplayPartyPokemonHPBarCheck(&gPlayerParty[tPartyId], &sPartyMenuBoxes[tPartyId]);
+    DisplayPartyPokemonHPCheck(&gPlayerParty[tPartyId], &sPartyMenuBoxes[tPartyId], tPartyId, 1);
+    DisplayPartyPokemonHPBarCheck(&gPlayerParty[tPartyId], &sPartyMenuBoxes[tPartyId], tPartyId);
     if (tHPToAdd == 0 || tHP == 0 || tHP == tMaxHP)
     {
         // If HP was recovered, buffer the amount recovered
@@ -2564,7 +2564,7 @@ static void DisplayPartyPokemonGender(u8 gender, u16 species, u8 *nickname, stru
 }
 
 //appears fixed all issues now, is perfectly in sync w transform changes
-static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
+static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 slot, u8 drawMenuBoxOrText)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
@@ -2575,14 +2575,14 @@ static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox 
 
             if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
             {    
-                if (sPartyMenuInternal->data[0] == 0) //should be slot1
+                if (slot == 0)
                 {
 
                     DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);            
                 }
                 else
                 {
-                    if (sPartyMenuInternal->data[0] == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                    if (slot == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                     {
                         DisplayPartyPokemonHP(GetMonData(mon, MON_DATA_HP), menuBox);
                     }
@@ -2607,7 +2607,7 @@ static void DisplayPartyPokemonHP(u16 hp, struct PartyMenuBox *menuBox)
     DisplayPartyPokemonBarDetail(menuBox->windowId, gStringVar1, 0, &menuBox->infoRects->dimensions[12]);
 }
 
-static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText)
+static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 slot, u8 drawMenuBoxOrText)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
@@ -2617,14 +2617,19 @@ static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuB
         {
             if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
             {   
-                if (sPartyMenuInternal->data[0] == 0) //should be slot1
+                //weird logic but using slot somehow seems to be better than the personality filter,
+                //I think cuz weird things happen when switching?
+                //if (sPartyMenuInternal->data[0] == 0) //should be slot1
+                //if (GetMonData(mon, MON_DATA_PERSONALITY,NULL) == GetMonData(&gPlayerParty[gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)]], MON_DATA_PERSONALITY,NULL))
+                if (slot == 0)
                 {
-                    DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
+                    DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);       
+                         
                 }
                 else
                 {
 
-                    if (sPartyMenuInternal->data[0] == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                    if (slot == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                     {
                         DisplayPartyPokemonMaxHP(gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);  
                     }
@@ -2647,20 +2652,25 @@ static void DisplayPartyPokemonMaxHP(u16 maxhp, struct PartyMenuBox *menuBox)
     DisplayPartyPokemonBarDetail(menuBox->windowId, gStringVar1, 0, &menuBox->infoRects->dimensions[16]);
 }
 
-static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+//this appears to bethe issue,
+//think I messed up the condition compared to other stuff?
+//ok appears to work now, 
+//only issue is when I use a healing item
+//so its a problem with that logic
+static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 slot)
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
         if (gMain.inBattle && GetMonData(mon, MON_DATA_HP))
         {    
-
-            if (sPartyMenuInternal->data[0] == 0) //should be slot1
+            
+            if (slot == 0)
             {
                 DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].maxHP, menuBox);            
             }
             else
             {   
-                if (sPartyMenuInternal->data[0] == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+                if (slot == 1 && gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                 {
                     DisplayPartyPokemonHPBar(GetMonData(mon, MON_DATA_HP), gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].maxHP, menuBox);            
                 }
@@ -3863,6 +3873,9 @@ void CB2_ShowPokemonSummaryScreen3(void) //almost works, just doesn't track pc p
     //gPartyMenu.slotId = GetLastViewedMonIndex();
     BoxMonToMon(Pokemon,partyMon);
 
+    //potentially useful
+    //&gPokemonStoragePtr->boxes[StorageGetCurrentBox()][GetBoxCursorPosition()]
+
     //if use 0, or gPartyMenu.slotId properly loads icon on return from pc but pc slot resets to 0,
     //if use getlastviewedmonindex properly tracks position in pc but returns garbage for sum screen data
     //if I assign partymenu slot id to getlastviewedmonidex and use that it breaks
@@ -3890,6 +3903,8 @@ static void CursorCB_Switch(u8 taskId)
     gTasks[taskId].func = Task_HandleChooseMonInput;
 }
 
+//logic for switching believe
+//slotId1 & slotId2
 #define tSlot1Left     data[0]
 #define tSlot1Top      data[1]
 #define tSlot1Width    data[2]
@@ -6097,9 +6112,9 @@ static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)
     SetPartyMonAilmentGfx(mon, &sPartyMenuBoxes[slot]);
     if (gSprites[sPartyMenuBoxes[slot].statusSpriteId].invisible)
         DisplayPartyPokemonLevelCheck(mon, &sPartyMenuBoxes[slot], 1); //this is issue/ setting to 0,prevent cutoff but overlaps old lvl w new lvl
-    DisplayPartyPokemonHPCheck(mon, &sPartyMenuBoxes[slot], 1);
-    DisplayPartyPokemonMaxHPCheck(mon, &sPartyMenuBoxes[slot], 1);
-    DisplayPartyPokemonHPBarCheck(mon, &sPartyMenuBoxes[slot]);
+    DisplayPartyPokemonHPCheck(mon, &sPartyMenuBoxes[slot], slot, 1);
+    DisplayPartyPokemonMaxHPCheck(mon, &sPartyMenuBoxes[slot], slot, 1);
+    DisplayPartyPokemonHPBarCheck(mon, &sPartyMenuBoxes[slot], slot);
     UpdatePartyMonHPBar(sPartyMenuBoxes[slot].monSpriteId, mon);
     AnimatePartySlot(slot, 1);
     ScheduleBgCopyTilemapToVram(0);
