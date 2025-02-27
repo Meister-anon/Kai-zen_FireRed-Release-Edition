@@ -24,6 +24,10 @@ const struct PokedexEntry gPokedexEntries[] =
 
     //loose formula pkscale/trainer scale * 10 , doesnt always work? would need to go over this later
 
+    //actually screw a formula just use height 
+    //and copy existing values it should work without issue
+    //do that to fill gen 9
+
     //note does look strange since all are unsigned types
     //but negative pokemonOffset values do make sense
     //it makes them float  ex.magnemite
@@ -4678,8 +4682,8 @@ const struct PokedexEntry gPokedexEntries[] =
         .height = 4,
         .weight = 102,
         .description = gTurtwigPokedexText,
-        .pokemonScale = 356,
-        .pokemonOffset = 17,
+        .pokemonScale = 455,
+        .pokemonOffset = 20,
         .trainerScale = 256,
         .trainerOffset = 0,
     },
@@ -5903,7 +5907,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .weight = 31,
         .description = gPhionePokedexText,
         .pokemonScale = 356,
-        .pokemonOffset = 17,
+        .pokemonOffset = -4,
         .trainerScale = 256,
         .trainerOffset = 0,
     },
@@ -5915,7 +5919,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .weight = 14,
         .description = gManaphyPokedexText,
         .pokemonScale = 356,
-        .pokemonOffset = 17,
+        .pokemonOffset = -4,
         .trainerScale = 256,
         .trainerOffset = 0,
     },
@@ -12796,7 +12800,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-
+    //floats
     [NATIONAL_DEX_POLTCHAGEIST] =
     {
         .categoryName = _("Matcha"),
