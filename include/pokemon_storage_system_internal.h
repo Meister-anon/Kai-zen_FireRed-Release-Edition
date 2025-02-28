@@ -501,6 +501,13 @@ struct PokemonStorageSystemData
 
 extern struct PokemonStorageSystemData *gPSSData;
 
+//new addition for use w ChooseBoxMon special
+//when need to filter specific logic for in party
+//or from box, requries function define both struct Pokemon & struct Boxmon
+//after this function check if value is null, if so
+//we use the other value
+void AssignMonOrBoxMon(struct Pokemon *mon, struct BoxPokemon *boxmon, u8 monId, u8 boxId);
+
 void Cb2_EnterPSS(u8 a0);
 u8 GetCurrentBoxOption(void);
 struct Sprite *sub_809223C(u16 x, u16 y, u8 animId, u8 priority, u8 subpriority);

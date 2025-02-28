@@ -72,11 +72,11 @@ PalletTown_GarysHouse_Text_CantGroomAnEgg:: @ 818D97B
     .string "Oh, sorry. I honestly can't\n"
     .string "groom an EGG.$"
 
-PalletTown_GarysHouse_Text_MayISeeFirstMon:: @ 818D9A5
+PalletTown_GarysHouse_Text_MayISeeMon:: @ 818D9A5
     .string "DAISY: Your POKéMON grow to love\n"
     .string "you if you raise them with love.\p"
     .string "For example, {PLAYER}, may I see\n"
-    .string "your first POKéMON?$"
+    .string "a POKéMON of yours?$"
 
 PalletTown_GarysHouse_Text_CouldntLoveYouMore:: @ 818DA16
     .string "It couldn't possibly love you\n"

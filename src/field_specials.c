@@ -23,7 +23,7 @@
 #include "random.h"
 #include "mail_data.h"
 #include "help_system.h"
-#include "pokemon_storage_system.h"
+#include "pokemon_storage_system_internal.h"
 #include "script_menu.h"
 #include "data.h"
 #include "pokedex.h"
@@ -182,6 +182,54 @@ u8 GetLeadMonFriendship(void)
     else
         return 0;
 }
+
+u8 GetSelectedMonFriendship(void)
+{
+    struct BoxPokemon * box_mon;
+    struct Pokemon *mon;
+    u8 boxId = StorageGetCurrentBox();
+    u8 monId = VarGet(VAR_0x8004);
+
+    //to simplify decide make its own function
+    AssignMonOrBoxMon(mon, box_mon, monId, boxId);
+
+    if (box_mon == NULL)
+    {
+        if (GetMonData(mon, MON_DATA_FRIENDSHIP) == 255)
+            return 6;
+        else if (GetMonData(mon, MON_DATA_FRIENDSHIP) >= 200)
+            return 5;
+        else if (GetMonData(mon, MON_DATA_FRIENDSHIP) >= 150)
+            return 4;
+        else if (GetMonData(mon, MON_DATA_FRIENDSHIP) >= 100)
+            return 3;
+        else if (GetMonData(mon, MON_DATA_FRIENDSHIP) >= 50)
+            return 2;
+        else if (GetMonData(mon, MON_DATA_FRIENDSHIP) > 0)
+            return 1;
+        else
+            return 0;   
+    }
+    else
+    {
+        if (GetBoxMonData(box_mon, MON_DATA_FRIENDSHIP) == 255)
+            return 6;
+        else if (GetBoxMonData(box_mon, MON_DATA_FRIENDSHIP) >= 200)
+            return 5;
+        else if (GetBoxMonData(box_mon, MON_DATA_FRIENDSHIP) >= 150)
+            return 4;
+        else if (GetBoxMonData(box_mon, MON_DATA_FRIENDSHIP) >= 100)
+            return 3;
+        else if (GetBoxMonData(box_mon, MON_DATA_FRIENDSHIP) >= 50)
+            return 2;
+        else if (GetBoxMonData(box_mon, MON_DATA_FRIENDSHIP) > 0)
+            return 1;
+        else
+            return 0;
+    }
+  
+}
+
 
 void ShowTownMap(void)
 {
@@ -1714,30 +1762,11 @@ u16 GetStarterSpecies(void) //this is just used for the roamer,
 //think what want do is change this to 
 //not exclusively eevee but just any mon w branching evos
 //i.e the same mon has multiple target species
-const u16 sEeveelutionGrassStarter[] =
-{
-    SPECIES_FLAREON,
-    SPECIES_GLACEON,
-    //SPECIES_CEFIREON
-};
-
-const u16 sEeveelutionWaterStarter[] =
-{
-    SPECIES_JOLTEON,
-    SPECIES_LEAFEON
-};
-
-const u16 sEeveelutionFireStarter[] =
-{
-    SPECIES_VAPOREON,
-    SPECIES_SYLVEON
-};
-
 const u16 sEeveelutionListing[] =
 {
     SPECIES_FLAREON,
     SPECIES_GLACEON,
-    SPECIES_CEFIREON,
+    //SPECIES_CEFIREON,
     SPECIES_JOLTEON,
     SPECIES_LEAFEON,
     SPECIES_VAPOREON,
@@ -1815,12 +1844,6 @@ u16 RivalEeveelutionForPlayerStarter(void) //rather than this can just do like, 
 
     return viable_Eeveelution;
 
-    /*if (starter == STARTER_BULBASAUR)
-        return sEeveelutionGrassStarter[Random() % NELEMS(sEeveelutionGrassStarter)];
-    else if (starter == STARTER_SQUIRTLE)
-        return sEeveelutionWaterStarter[Random() % NELEMS(sEeveelutionWaterStarter)];
-    else if (starter == STARTER_CHARMANDER)
-        return sEeveelutionFireStarter[Random() % NELEMS(sEeveelutionFireStarter)];*/
 }
 
 //mostly for eevee rival check, simple would only work for non branching evo

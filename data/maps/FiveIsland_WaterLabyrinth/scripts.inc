@@ -9,7 +9,11 @@ FiveIsland_WaterLabyrinth_EventScript_EggGentleman:: @ 816884E
 	goto_if_set FLAG_GOT_TOGEPI_EGG, FiveIsland_WaterLabyrinth_EventScript_PostEggComment
 	goto_if_set FLAG_NO_ROOM_FOR_TOGEPI_EGG, FiveIsland_WaterLabyrinth_EventScript_ReturnForEgg
 	msgbox FiveIsland_WaterLabyrinth_Text_LetMeTakeLookAtMons
-	specialvar VAR_RESULT, GetLeadMonFriendship
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
+	waitstate
+	@specialvar VAR_RESULT, GetLeadMonFriendship
+	specialvar VAR_RESULT, GetSelectedMonFriendship
 	compare VAR_RESULT, 6  @ Max friendship
 	goto_if_eq FiveIsland_WaterLabyrinth_EventScript_LeadMonMaxFriendship
 	msgbox FiveIsland_WaterLabyrinth_Text_HmmISeeIsee

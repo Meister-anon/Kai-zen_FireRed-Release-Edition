@@ -92,8 +92,12 @@ PalletTown_GarysHouse_EventScript_DeclineGrooming:: @ 8168E3C
 	end
 
 PalletTown_GarysHouse_EventScript_RateMonFriendship:: @ 8168E46
-	msgbox PalletTown_GarysHouse_Text_MayISeeFirstMon
-	specialvar VAR_RESULT, GetLeadMonFriendship
+	msgbox PalletTown_GarysHouse_Text_MayISeeMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
+	waitstate
+	@specialvar VAR_RESULT, GetLeadMonFriendship
+	specialvar VAR_RESULT, GetSelectedMonFriendship
 	switch VAR_RESULT
 	case 0, PalletTown_GarysHouse_EventScript_MonFriendshipLowest
 	case 1, PalletTown_GarysHouse_EventScript_MonFriendshipLower

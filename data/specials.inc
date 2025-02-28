@@ -262,7 +262,7 @@ gSpecials:: @ 815FD60
 	def_special GetInGameTradeSpeciesInfo
 	def_special CreateInGameTradePokemon
 	def_special DoInGameTradeScene
-	def_special GetTradeSpecies
+	def_special GetSelectedMonFriendship	@was GetTradeSpecies since ChooseBoxMon removed need for it, decided to repalce
 	def_special NullFieldSpecial  @ Misc Hoenn specials
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
@@ -334,7 +334,7 @@ gSpecials:: @ 815FD60
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
-	def_special GetPartyMonSpecies
+	def_special GetPartyMonSpecies	@because of ChooseBoxMon this special is also not being used vsonic
 	def_special IsSelectedMonEgg
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
