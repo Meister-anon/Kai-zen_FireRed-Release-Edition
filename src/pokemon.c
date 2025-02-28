@@ -11482,11 +11482,11 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, bool32 isShiny,
         return gMonShinyPaletteTable[species].data;
     else
         return gMonPaletteTable[species].data;*/
-    return GetMonSpritePalFromSpecies(species, isShiny, personality);
+    return GetMonSpritePalFromSpecies(species, isShiny);
 
 }
 
-const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, u32 personality)
+const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny)
 {
     //species = SanitizeSpeciesId(species);
 

@@ -1516,17 +1516,22 @@ static void Task_InputHandler_Info(u8 taskId)
             }
             else if (JOY_NEW(L_BUTTON) && !gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {
-                if (sMonSummaryScreen->curPageIndex == PSS_PAGE_INFO)
+                if (IsTradedMon(&gPlayerParty[sLastViewedMonIndex]))
+                    PlaySE(SE_FAILURE);
+                else
                 {
-                    //trigger rename logic vsonic
-                    PlaySE(SE_SELECT);
-                    sMonSummaryScreen->savedCallback = SummScreen_ChangePokemonNickname;
-                    sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
+                    if (sMonSummaryScreen->curPageIndex == PSS_PAGE_INFO)
+                    {
+                        //trigger rename logic vsonic
+                        PlaySE(SE_SELECT);
+                        sMonSummaryScreen->savedCallback = SummScreen_ChangePokemonNickname;
+                        sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
+                    }
+                    //works now, but want change rename logic,
+                    //add functionality to reset back to default name
+                    //press L, auto fill default name
+                    //then move cursor over start to confirm
                 }
-                //works now, but want change rename logic,
-                //add functionality to reset back to default name
-                //press L, auto fill default name
-                //then move cursor over start to confirm
 
             }
             #if DEBUG_POKEMON_MENU == TRUE
