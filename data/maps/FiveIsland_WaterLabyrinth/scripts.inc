@@ -12,7 +12,6 @@ FiveIsland_WaterLabyrinth_EventScript_EggGentleman:: @ 816884E
 	fadescreen FADE_TO_BLACK
 	special ChooseBoxMon
 	waitstate
-	@specialvar VAR_RESULT, GetLeadMonFriendship
 	specialvar VAR_RESULT, GetSelectedMonFriendship
 	compare VAR_RESULT, 6  @ Max friendship
 	goto_if_eq FiveIsland_WaterLabyrinth_EventScript_LeadMonMaxFriendship

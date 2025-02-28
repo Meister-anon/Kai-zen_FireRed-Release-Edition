@@ -236,8 +236,8 @@ gSpecials:: @ 815FD60
 	def_special NullFieldSpecial
 	def_special GetPlayerAvatarBike
 	def_special NullFieldSpecial
-	def_special NullFieldSpecial
-	def_special GetLeadMonFriendship
+	def_special GetSelectedMonFriendship
+	def_special GetLeadMonFriendship  @with use of ChooseBoxMon, no longer using replaced w below
 	def_special BattleTowerMapScript2
 	def_special ChooseNextBattleTowerTrainer
 	def_special CheckPartyBattleTowerBanlist
@@ -262,7 +262,7 @@ gSpecials:: @ 815FD60
 	def_special GetInGameTradeSpeciesInfo
 	def_special CreateInGameTradePokemon
 	def_special DoInGameTradeScene
-	def_special GetSelectedMonFriendship	@was GetTradeSpecies since ChooseBoxMon removed need for it, decided to repalce
+	def_special NullFieldSpecial	@was GetTradeSpecies since ChooseBoxMon removed need for it, decided to repalce
 	def_special NullFieldSpecial  @ Misc Hoenn specials
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial

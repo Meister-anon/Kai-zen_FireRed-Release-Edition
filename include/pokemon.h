@@ -793,6 +793,7 @@ bool16 GetLinkTrainerFlankId(u8 linkPlayerId);
 s32 GetBattlerMultiplayerId(u16 a1);
 u8 GetTrainerEncounterMusicId(u16 trainer);
 void AdjustFriendship(struct Pokemon *mon, u8 event);
+void AdjustBoxMonFriendship(struct BoxPokemon *mon, u8 event);
 void MonGainEVs(struct Pokemon *mon); //removed defeated species argument as no longer based on opponenet
 u16 GetMonEVCount(struct Pokemon *mon);
 void RandomlyGivePartyPokerus(struct Pokemon *party);

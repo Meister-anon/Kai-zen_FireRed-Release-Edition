@@ -10101,6 +10101,79 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     }
 }
 
+void AdjustBoxMonFriendship(struct BoxPokemon *mon, u8 event)
+{
+    u16 species = GetBoxMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
+    u16 heldItem = GetBoxMonData(mon, MON_DATA_HELD_ITEM, 0);
+    u8 holdEffect;
+
+    if (heldItem == ITEM_ENIGMA_BERRY)
+    {
+        if (gMain.inBattle)
+            holdEffect = gEnigmaBerries[0].holdEffect;
+        else
+            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+    }
+    else
+    {
+        holdEffect = ItemId_GetHoldEffect(heldItem); //get hold effect for checking for friendship item
+    }
+
+    if (species && species != SPECIES_EGG)
+    {
+        u8 friendshipLevel = 0;
+        s16 friendship = GetBoxMonData(mon, MON_DATA_FRIENDSHIP, 0); //calc friendship level for delta
+        s8 delta;
+        if (friendship > 99)
+            friendshipLevel++;
+        if (friendship > 199)
+            friendshipLevel++;
+
+        if (event == FRIENDSHIP_EVENT_WALKING)
+        {
+            // 50% chance every 128 steps
+            if (Random() & 1)
+                return;
+        }
+        if (event == FRIENDSHIP_EVENT_LEAGUE_BATTLE)
+        {
+            // Only if it's a trainer battle with league progression significance
+            if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+                return;
+            if (!(gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_LEADER
+                || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_ELITE_FOUR
+                || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_CHAMPION))
+                return;
+        }
+
+        delta = sFriendshipEventDeltas[event][friendshipLevel]; //exp friendship is now part of this
+            if (delta > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP) //if event delta raises friendship boost if have hold item that boosts friendhsip
+                delta = (150 * delta) / 100; //boost the increase you would have
+
+
+            friendship += delta; //adds delta to friendship is a plus but as delta can be negative this is where subtraction is done as well as main setting of friendship value
+            
+            if (delta > 0) //if your friendship should be raised, add an additional increase based on these conditions
+            {
+                if (GetBoxMonData(mon, MON_DATA_POKEBALL, 0) == ITEM_LUXURY_BALL)
+                    friendship++;
+                if (GetBoxMonData(mon, MON_DATA_MET_LOCATION, 0) == GetCurrentRegionMapSectionId())
+                    friendship++;
+            }
+
+           
+            if (friendship < 0)
+                friendship = 0;
+            if (friendship > 255)
+                friendship = 255; //standard limitter stuff
+
+            //don't need loop, this function is usually called within a loop so using mon is enough
+                if (GetBoxMonData(mon, MON_DATA_HP, NULL) != 0) //added filter for if mon is alive,wouldn't affect exp event as it already works based on mon being alive
+                    SetBoxMonData(mon, MON_DATA_FRIENDSHIP, &friendship); //need check message script and vitamin use/itemuse to make sure can't be done on fainted mon vsonic
+
+    }
+}
+
 enum
 {
     HP,

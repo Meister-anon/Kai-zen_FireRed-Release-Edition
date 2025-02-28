@@ -2383,7 +2383,18 @@ static void ChangePokemonNickname_CB(void)
 
 void BufferMonNickname(void)
 {
-    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar1);
+    struct BoxPokemon * box_mon;
+    struct Pokemon *mon;
+    u8 boxId = StorageGetCurrentBox();
+    u8 monId = VarGet(VAR_0x8004);
+
+    //to simplify decide make its own function
+    AssignMonOrBoxMon(mon, box_mon, monId, boxId);
+    if (box_mon == NULL)
+        GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar1);
+    else
+        GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_NICKNAME, gStringVar1);
+    
     StringGet_Nickname(gStringVar1);
 }
 
@@ -2789,7 +2800,19 @@ void RunMassageCooldownStepCounter(void)
 
 void DaisyMassageServices(void)
 {
-    AdjustFriendship(&gPlayerParty[gSpecialVar_0x8004], FRIENDSHIP_EVENT_MASSAGE);
+    struct BoxPokemon * box_mon;
+    struct Pokemon *mon;
+    u8 boxId = StorageGetCurrentBox();
+    u8 monId = VarGet(VAR_0x8004);
+
+    //to simplify decide make its own function
+    AssignMonOrBoxMon(mon, box_mon, monId, boxId);
+
+    if (box_mon == NULL)
+        AdjustFriendship(&gPlayerParty[monId], FRIENDSHIP_EVENT_MASSAGE);
+    else
+        AdjustBoxMonFriendship(&gPokemonStoragePtr->boxes[boxId][monId], FRIENDSHIP_EVENT_MASSAGE);
+
     VarSet(VAR_MASSAGE_COOLDOWN_STEP_COUNTER, 0);
 }
 

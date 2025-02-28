@@ -61,8 +61,6 @@ PalletTown_GarysHouse_EventScript_GroomMon:: @ 8168DB9
 	fadescreen FADE_TO_BLACK
 	special ChooseBoxMon
 	waitstate
-	lock
-	faceplayer
 	@compare VAR_0x8004, PARTY_SIZE
 	@goto_if_ge PalletTown_GarysHouse_EventScript_DeclineGrooming
 	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, PalletTown_GarysHouse_EventScript_DeclineGrooming
@@ -96,7 +94,6 @@ PalletTown_GarysHouse_EventScript_RateMonFriendship:: @ 8168E46
 	fadescreen FADE_TO_BLACK
 	special ChooseBoxMon
 	waitstate
-	@specialvar VAR_RESULT, GetLeadMonFriendship
 	specialvar VAR_RESULT, GetSelectedMonFriendship
 	switch VAR_RESULT
 	case 0, PalletTown_GarysHouse_EventScript_MonFriendshipLowest
