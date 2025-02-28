@@ -4041,7 +4041,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Ditto"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(48, 99, 99, 130, 99, 99),
+         STATS(48, 99, 99, 60, 99, 99),
         MON_TYPES(TYPE_NORMAL, TYPE_GHOST), //the ghost type was a joke but eh guess I'll give it night shade
         .catchRate = 35,
         .expYield = 101,
@@ -4059,7 +4059,7 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_IMMUNITY, ABILITY_IMPOSTER},
         //#ifdef BATTLE_ENGINE
             .abilityHidden = {ABILITY_INVERSION, ABILITY_ILLUSION}, //inversion still to do //think will add bst to logic to avoid transforming into legendaries
-        // #endif   -disguise is here based on wild appearance and rework so it works in wild
+        // #endif   -illusion is here based on wild appearance and rework so it works in wild
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,

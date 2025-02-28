@@ -1059,10 +1059,15 @@
 
 //#define SPECIES_CEFIREON 1029
 //#define SPECIES_FRAEYJTA 1030    //fray-eat-ah fray-tah  fray-itta original mon fairy ghost mysthic from another world (fairy world) protector healer and watches over the dead, so found graveyard comforts living and dead
+#define SPECIES_CEFIREON COSMETIC_FORMS_END + 1
+#define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
+#define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 3
+#define SPECIES_BEINFAE COSMETIC_FORMS_END + 4 //Faedentin evo, mostly literal translation mix w old english name of fairy
+//move back to end of base spescies when done w fixes
 
 
-
-// Megas
+// Megas - megas other than ray,
+//are in order of species num
 #define SPECIES_VENUSAUR_MEGA                FORMS_START + 1
 #define SPECIES_CHARIZARD_MEGA_X             FORMS_START + 2
 #define SPECIES_CHARIZARD_MEGA_Y             FORMS_START + 3
@@ -1566,7 +1571,7 @@
 
 //think put gen 7 forms here
 
-//New Mega Forms
+//New Mega Forms will put meags
 #define SPECIES_TORTERRA_MEGA				        FORMS_START + 354
 #define SPECIES_MAROWAK_MEGA                FORMS_START + 355
 
@@ -1706,11 +1711,7 @@
 #define COSMETIC_FORMS_END  SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL + 1
 //add vivilon other cosmetics here
 
-#define SPECIES_CEFIREON COSMETIC_FORMS_END + 1
-#define SPECIES_FRAEYJTA COSMETIC_FORMS_END + 2  //put here test dex values contingeously
-#define SPECIES_FAEDENTIN COSMETIC_FORMS_END + 3
-#define SPECIES_BEINFAE COSMETIC_FORMS_END + 4 //Faedentin evo, mostly literal translation mix w old english name of fairy
-//move back to end of base spescies when done w fixes
+
 
 /*since gender form array only has 5 values
   can't use [SPECIES_NAME] = value,
@@ -3022,6 +3023,11 @@
 #define NATIONAL_DEX_TERAPAGOS_TERASTAL             NATIONAL_SPECIES_COUNT + 150
 #define NATIONAL_DEX_TERAPAGOS_STELLAR              NATIONAL_SPECIES_COUNT + 151
 #define NATIONAL_DEX_URSALUNA_BLOODMOON             NATIONAL_SPECIES_COUNT + 152
+
+//put new megas as make here I guess
+//actually no reorder to put with other megas
+//as otherwise would massively increase 
+//size of dex list
 
 //#define NATIONAL_SPECIES_COUNT NATIONAL_DEX_CALYREX
 
