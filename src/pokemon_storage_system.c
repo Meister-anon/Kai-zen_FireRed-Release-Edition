@@ -220,6 +220,7 @@ static void ApplyOakRanchExperience(struct Pokemon *mon)
     //CalculateMonStats(mon);
 }
 
+//Didn't work - keep for knowledge  remove later
 void AssignMonOrBoxMon(struct Pokemon *mon, struct BoxPokemon *boxmon, u8 monId, u8 boxId)
 {
     boxmon = NULL;
@@ -229,6 +230,24 @@ void AssignMonOrBoxMon(struct Pokemon *mon, struct BoxPokemon *boxmon, u8 monId,
             boxmon =  &gPokemonStoragePtr->boxes[boxId][monId];
         else
             mon = &gPlayerParty[monId];
+}
+
+struct Pokemon *AssignMonForChooseBoxMon(u8 monId, u8 boxId)
+{
+
+    if ((VarGet(VAR_0x8014) != GetBoxMonData(&gPlayerParty[monId].box, MON_DATA_PERSONALITY)) && (VarGet(VAR_RESULT) != GetBoxMonData(&gPlayerParty[monId].box, MON_DATA_SPECIES)))
+            return NULL;
+        else
+            return &gPlayerParty[monId];
+}
+
+struct BoxPokemon *AssignBoxMonForChooseBoxMon(u8 monId, u8 boxId)
+{
+
+    if ((VarGet(VAR_0x8014) != GetBoxMonData(&gPlayerParty[monId].box, MON_DATA_PERSONALITY)) && (VarGet(VAR_RESULT) != GetBoxMonData(&gPlayerParty[monId].box, MON_DATA_SPECIES)))
+            return &gPokemonStoragePtr->boxes[boxId][monId];
+        else
+            return NULL;
 }
 
 void BoxMonAtToMon(u8 boxId, u8 boxPosition, struct Pokemon * dst)

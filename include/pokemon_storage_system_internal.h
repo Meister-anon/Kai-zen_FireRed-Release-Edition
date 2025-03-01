@@ -508,6 +508,13 @@ extern struct PokemonStorageSystemData *gPSSData;
 //we use the other value
 void AssignMonOrBoxMon(struct Pokemon *mon, struct BoxPokemon *boxmon, u8 monId, u8 boxId);
 
+//Above didn't  work so broke into individual assignments
+//to be used direclty in declaration always after monId & boxId
+//made function type same as type to assign to so no issue
+//with the return
+struct Pokemon *AssignMonForChooseBoxMon(u8 monId, u8 boxId);
+struct BoxPokemon *AssignBoxMonForChooseBoxMon(u8 monId, u8 boxId);
+
 void Cb2_EnterPSS(u8 a0);
 u8 GetCurrentBoxOption(void);
 struct Sprite *sub_809223C(u16 x, u16 y, u8 animId, u8 priority, u8 subpriority);

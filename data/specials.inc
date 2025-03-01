@@ -132,7 +132,7 @@ gSpecials:: @ 815FD60
 	def_special NameRaterWasNicknameChanged
 	def_special BufferMonNickname
 	def_special IsMonOTIDNotPlayers
-	def_special NullFieldSpecial
+	def_special IsMonNicknamed  @new special for name rater change
 	def_special NullFieldSpecial
 	def_special BufferRandomHobbyOrLifestyleString
 	def_special NullFieldSpecial
@@ -343,7 +343,7 @@ gSpecials:: @ 815FD60
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
 	def_special HasAllKantoMons
-	def_special IsMonOTNameNotPlayers
+	def_special IsMonOTNameNotPlayers	@very weird special when already has IsMonOTIDNotPlayers not using
 	def_special NullFieldSpecial
 	def_special Dummy_TryEnableBravoTrainerBattleTower
 	def_special DoesPartyHaveEnigmaBerry

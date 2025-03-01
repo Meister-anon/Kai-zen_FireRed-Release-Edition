@@ -8,12 +8,29 @@ LavenderTown_House2_Text_CritiqueWhichMonsNickname:: @ 8193AA6
     .string "Which POKéMON's nickname should\n"
     .string "I critique?$"
 
-LavenderTown_House2_Text_GiveItANicerName:: @ 8193AD2
+@change this, make multiple compare ,
+@actually no just say whether its friendly enough or not
+LavenderTown_House2_Text_PokemonNotUsedtoName:: @ 8193AD2
     .string "{STR_VAR_1}, is it?\n"
-    .string "That is a decent nickname!\p"
-    .string "But, would you like me to give it\n"
-    .string "a nicer name?\p"
-    .string "How about it?$"
+    .string "That is a decent nickname.\p"
+    .string "But, this POKéMON doesn't seem\n"
+    .string "to be used to it yet.\p"
+    .string "If you grow your bond further\n"
+    .string "I'll give you something quite nice!$"
+
+LavenderTown_House2_Text_PokemonWonderfulName:: @ 8193AD2
+    .string "{STR_VAR_1}, is it?\n"
+    .string "That is a wonderful nickname.\p"
+    .string "You can truly tell how much\n"
+    .string "{STR_VAR_1} loves both you\l"
+    .string "and its name!\p"
+    .string "Here, please take this!$"
+
+LavenderTown_House2_Text_DoesntHaveNickname::
+    .string "Hmm, this POKéMON doesn't seem\n"
+    .string "to have a nickname.\p"
+    .string "Did you mean to show me\n"
+    .string "someone else?$"
 
 LavenderTown_House2_Text_WhatShallNewNicknameBe:: @ 8193B36
     .string "Ah, good. Then, what shall the new\n"

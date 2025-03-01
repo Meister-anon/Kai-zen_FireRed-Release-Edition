@@ -185,13 +185,10 @@ u8 GetLeadMonFriendship(void)
 
 u8 GetSelectedMonFriendship(void)
 {
-    struct BoxPokemon * box_mon;
-    struct Pokemon *mon;
     u8 boxId = StorageGetCurrentBox();
     u8 monId = VarGet(VAR_0x8004);
-
-    //to simplify decide make its own function
-    AssignMonOrBoxMon(mon, box_mon, monId, boxId);
+    struct BoxPokemon *box_mon = AssignBoxMonForChooseBoxMon(monId, boxId);
+    struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
 
     if (box_mon == NULL)
     {
@@ -593,16 +590,6 @@ u8 GetLeadMonIndex(void)
 u16 GetPartyMonSpecies(void)
 {
     return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG, NULL);
-}
-
-bool8 IsMonOTNameNotPlayers(void)
-{
-    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_NAME, gStringVar1);
-    
-    if (!StringCompare(gSaveBlock2Ptr->playerName, gStringVar1))
-        return FALSE;
-    else
-        return TRUE;
 }
 
 // Used to nop all the unused specials from RS
@@ -2383,27 +2370,88 @@ static void ChangePokemonNickname_CB(void)
 
 void BufferMonNickname(void)
 {
-    struct BoxPokemon * box_mon;
-    struct Pokemon *mon;
     u8 boxId = StorageGetCurrentBox();
     u8 monId = VarGet(VAR_0x8004);
-
-    //to simplify decide make its own function
-    AssignMonOrBoxMon(mon, box_mon, monId, boxId);
-    if (box_mon == NULL)
-        GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar1);
-    else
-        GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_NICKNAME, gStringVar1);
+    struct BoxPokemon *box_mon = AssignBoxMonForChooseBoxMon(monId, boxId);
+    struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
     
-    StringGet_Nickname(gStringVar1);
+
+    if (box_mon == NULL)
+        GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
+    else
+        GetBoxMonData(box_mon, MON_DATA_NICKNAME, gStringVar1);
+    
+    //StringGet_Nickname(gStringVar1); -didn't need
 }
 
-void IsMonOTIDNotPlayers(void)
+//change to return true false
+//as cant use var result w boxmon logic
+//or can't properly filter
+bool8 IsMonOTIDNotPlayers(void)
 {
-    if (GetPlayerTrainerId() == GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_ID, NULL))
-        gSpecialVar_Result = FALSE;
+    u8 boxId = StorageGetCurrentBox();
+    u8 monId = VarGet(VAR_0x8004);
+    struct BoxPokemon *box_mon = AssignBoxMonForChooseBoxMon(monId, boxId);
+    struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
+
+    if (box_mon == NULL)
+    {
+        if (GetPlayerTrainerId() == GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_ID, NULL))
+            return FALSE;
+        else
+            return TRUE;
+    }    
     else
-        gSpecialVar_Result = TRUE;
+    {
+        if (GetPlayerTrainerId() == GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_OT_ID, NULL))
+            return FALSE;
+        else
+            return TRUE;
+    }
+}
+
+//no longer used
+bool8 IsMonOTNameNotPlayers(void)
+{
+    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_NAME, gStringVar1);
+    
+    if (!StringCompare(gSaveBlock2Ptr->playerName, gStringVar1))
+        return FALSE;
+    else
+        return TRUE;
+}
+
+//use following BufferMonNickname special
+//so nickname should already be populated to gstringvar1
+bool8 IsMonNicknamed(void)
+{
+    u8 boxId = StorageGetCurrentBox();
+    u8 monId = VarGet(VAR_0x8004);
+    struct BoxPokemon *box_mon = AssignBoxMonForChooseBoxMon(monId, boxId);
+    struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
+    
+    u16 species;
+
+
+    if (box_mon == NULL)
+    {
+        species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+        
+        if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL)
+            return FALSE;
+        else
+            return TRUE;
+    }
+    else
+    {
+        species = GetBoxMonData(box_mon, MON_DATA_SPECIES, NULL);
+        
+        if (StringCompare(gBaseStats[species].speciesName, gStringVar1) == IDENTICAL)
+            return FALSE;
+        else
+            return TRUE;
+    }
+    
 }
 
 u32 GetPlayerTrainerId(void)
@@ -2800,13 +2848,10 @@ void RunMassageCooldownStepCounter(void)
 
 void DaisyMassageServices(void)
 {
-    struct BoxPokemon * box_mon;
-    struct Pokemon *mon;
     u8 boxId = StorageGetCurrentBox();
     u8 monId = VarGet(VAR_0x8004);
-
-    //to simplify decide make its own function
-    AssignMonOrBoxMon(mon, box_mon, monId, boxId);
+    struct BoxPokemon *box_mon = AssignBoxMonForChooseBoxMon(monId, boxId);
+    struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
 
     if (box_mon == NULL)
         AdjustFriendship(&gPlayerParty[monId], FRIENDSHIP_EVENT_MASSAGE);
