@@ -605,7 +605,7 @@ u8 GetBoxWallpaper(u8 boxId);
 bool8 IsCursorOnBox(void);
 bool8 IsCursorInBox(void);
 
-void sub_808FFAC(void);
+void InitMonIconFields(void);
 struct Sprite * CreateMonIconSprite(u16 species, u32 pid, s16 x, s16 y, u8 priority, u8 subpriority);
 void CreatePartyMonsSprites(bool8 species);
 void CompactPartySprites(void);
@@ -625,7 +625,7 @@ void sub_8090D58(u8 cursorArea, u8 cursorPos);
 void DestroyPartyMonIcon(u8 partyId);
 void DestroyMovingMonIcon(void);
 s16 GetFirstFreeBoxSpot(u8 boxId);
-void sub_80901EC(u8 boxPosition);
+void CreateBoxMonIconAtPos(u8 boxPosition);
 void sub_8090FC4(u8 mode, u8 position);
 bool8 sub_8091084(void);
 void sub_80910CC(void);

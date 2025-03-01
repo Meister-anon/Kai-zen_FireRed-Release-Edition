@@ -1269,7 +1269,7 @@ static void sub_8095918(void)
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             if (GetBoxMonData(&sMoveMonsPtr->boxMons[monArrayId], MON_DATA_SANITY_HAS_SPECIES))
-                sub_80901EC(boxPosition);
+                CreateBoxMonIconAtPos(boxPosition);
             monArrayId++;
             boxPosition++;
         }

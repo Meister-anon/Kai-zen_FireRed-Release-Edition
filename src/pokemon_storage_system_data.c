@@ -47,7 +47,7 @@ static void AddBoxMenu(void);
 static bool8 sub_8094924(void);
 static bool8 SetMenuTexts_Mon(void);
 static bool8 sub_8094A0C(void);
-static void sub_8094AD8(void);
+static void CreateCursorSprites(void);
 static void ToggleCursorMultiMoveMode(void);
 
 static const u16 sHandCursorPalette[] = INCBIN_U16("graphics/interface/pss_unk_83D2BCC.gbapal");
@@ -67,7 +67,7 @@ void sub_80922C0(void)
     sMovingMonOrigBoxPos = 0;
     sCanOnlyMove = FALSE;
     ClearSavedCursorPos();
-    sub_8094AD8();
+    CreateCursorSprites();
     gPSSData->field_CD6 = 1;
     gPSSData->inBoxMovingMode = 0;
     sub_8093A10();
@@ -75,7 +75,7 @@ void sub_80922C0(void)
 
 void sub_8092340(void)
 {
-    sub_8094AD8();
+    CreateCursorSprites();
     sub_8093AAC();
     gPSSData->field_CD6 = 1;
     gPSSData->inBoxMovingMode = 0;
@@ -670,7 +670,7 @@ bool8 TryStorePartyMonInBox(u8 boxId) //think this one place for moving mon form
     }
 
     if (boxId == StorageGetCurrentBox())
-        sub_80901EC(boxPosition); //seems is create sprite in box, based on personality
+        CreateBoxMonIconAtPos(boxPosition); //seems is create sprite in box, based on personality
 
     StartSpriteAnim(gPSSData->field_CB4, 1);
     return TRUE;
@@ -1924,13 +1924,13 @@ static bool8 sub_8094A0C(void)
     return TRUE;
 }
 
-static void sub_8094AB8(struct Sprite *sprite)
+static void SpriteCB_CursorShadow(struct Sprite *sprite)
 {
     sprite->pos1.x = gPSSData->field_CB4->pos1.x;
     sprite->pos1.y = gPSSData->field_CB4->pos1.y + 20;
 }
 
-static void sub_8094AD8(void)
+static void CreateCursorSprites(void)
 {
     u16 x, y;
     u8 spriteId;
@@ -1999,7 +1999,7 @@ static void sub_8094AD8(void)
         .anims = gDummySpriteAnimTable,
         .images = NULL,
         .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = sub_8094AB8,
+        .callback = SpriteCB_CursorShadow,
     };
 
     LoadSpriteSheets(spriteSheets);

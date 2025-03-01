@@ -523,7 +523,7 @@ static void Cb_InitPSS(u8 taskId)
             sub_808CF94();
         break;
     case 4:
-        sub_808FFAC();
+        InitMonIconFields();
         if (!gPSSData->isReshowingPSS)
             sub_80922C0();
         else

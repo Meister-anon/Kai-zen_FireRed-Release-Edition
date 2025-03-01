@@ -14,14 +14,14 @@ static void SetBoxSpeciesAndPersonalities(u8 boxId);
 static void sub_8090A74(struct Sprite * sprite, u16 idx);
 static void sub_8090AE0(struct Sprite * sprite);
 static void DestroyBoxMonIcon(struct Sprite * sprite);
-static void sub_80911B0(struct Sprite * sprite);
+static void SpriteCB_HeldMon(struct Sprite * sprite);
 static void sub_8091420(u8 taskId);
 static s8 sub_80916F4(u8 boxId);
 static void LoadWallpaperGfx(u8 wallpaperId, s8 direction);
 static bool32 WaitForWallpaperGfxLoad(void);
 static void sub_8091984(void *buffer, const void *buffer2, s8 direction, u8 baseBlock);
 static void sub_8091A24(void *buffer);
-static void sub_8091A94(u8 wallpaperId);
+static void InitBoxTitle(u8 wallpaperId);
 static void sub_8091C48(u8 wallpaperId, s8 direction);
 static void sub_8091E84(struct Sprite * sprite);
 static void sub_8091EB8(struct Sprite * sprite);
@@ -253,7 +253,7 @@ static const struct SpriteTemplate gUnknown_83D2BB4 = {
     .callback = sub_8092164
 };
 
-void sub_808FFAC(void)
+void InitMonIconFields(void)
 {
     u16 i;
 
@@ -271,7 +271,7 @@ void sub_808FFAC(void)
     gPSSData->field_78C = 0;
 }
 
-static u8 sub_8090058(void)
+static u8 GetMonIconPriorityByCursorArea(void)
 {
     return (IsCursorInBox() ? 2 : 1);
 }
@@ -280,13 +280,13 @@ void CreateMovingMonIcon(void)
 {
     u32 personality = GetMonData(&gPSSData->movingMon, MON_DATA_PERSONALITY);
     u16 species = GetMonData(&gPSSData->movingMon, MON_DATA_SPECIES_OR_EGG);
-    u8 priority = sub_8090058();
+    u8 priority = GetMonIconPriorityByCursorArea();
 
     gPSSData->movingMonSprite = CreateMonIconSprite(species, personality, 0, 0, priority, 7);
-    gPSSData->movingMonSprite->callback = sub_80911B0;
+    gPSSData->movingMonSprite->callback = SpriteCB_HeldMon;
 }
 
-static void sub_80900D4(u8 boxId)
+static void InitBoxMonSprites(u8 boxId)
 {
     u8 boxPosition;
     u16 i, j, count;
@@ -324,7 +324,7 @@ static void sub_80900D4(u8 boxId)
     }
 }
 
-void sub_80901EC(u8 boxPosition)
+void CreateBoxMonIconAtPos(u8 boxPosition)
 {
     u16 species = GetCurrentBoxMonData(boxPosition, MON_DATA_SPECIES_OR_EGG);
 
@@ -748,8 +748,8 @@ void sub_8090CC0(u8 mode, u8 id)
         return;
     }
 
-    gPSSData->movingMonSprite->callback = sub_80911B0;
-    gPSSData->movingMonSprite->oam.priority = sub_8090058();
+    gPSSData->movingMonSprite->callback = SpriteCB_HeldMon;
+    gPSSData->movingMonSprite->oam.priority = GetMonIconPriorityByCursorArea();
     gPSSData->movingMonSprite->subpriority = 7;
 }
 
@@ -800,7 +800,7 @@ bool8 sub_8090E74(void)
     {
         gPSSData->movingMonSprite->oam.priority = (*gPSSData->field_B00)->oam.priority;
         gPSSData->movingMonSprite->subpriority = (*gPSSData->field_B00)->subpriority;
-        (*gPSSData->field_B00)->oam.priority = sub_8090058();
+        (*gPSSData->field_B00)->oam.priority = GetMonIconPriorityByCursorArea();
         (*gPSSData->field_B00)->subpriority = 7;
     }
 
@@ -810,7 +810,7 @@ bool8 sub_8090E74(void)
         gPSSData->movingMonSprite = (*gPSSData->field_B00);
         *gPSSData->field_B00 = sprite;
 
-        gPSSData->movingMonSprite->callback = sub_80911B0;
+        gPSSData->movingMonSprite->callback = SpriteCB_HeldMon;
         (*gPSSData->field_B00)->callback = SpriteCallbackDummy;
     }
 
@@ -889,7 +889,7 @@ void SetMovingMonPriority(u8 priority)
     gPSSData->movingMonSprite->oam.priority = priority;
 }
 
-static void sub_80911B0(struct Sprite *sprite)
+static void SpriteCB_HeldMon(struct Sprite *sprite)
 {
     sprite->pos1.x = gPSSData->field_CB4->pos1.x;
     sprite->pos1.y = gPSSData->field_CB4->pos1.y + gPSSData->field_CB4->pos2.y + 4;
@@ -1009,9 +1009,9 @@ static void sub_8091420(u8 taskId)
         if (!WaitForWallpaperGfxLoad())
             return;
 
-        sub_8091A94(task->data[2]);
+        InitBoxTitle(task->data[2]);
         sub_8091F80();
-        sub_80900D4(task->data[2]);
+        InitBoxMonSprites(task->data[2]);
         SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(27) | BGCNT_TXT512x256);
         break;
     case 4:
@@ -1213,7 +1213,7 @@ static void sub_8091A24(void *arg0)
     }
 }
 
-static void sub_8091A94(u8 boxId)
+static void InitBoxTitle(u8 boxId)
 {
     u8 tagIndex;
     s16 r6;
