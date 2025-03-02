@@ -698,11 +698,11 @@ static void sub_808C9C4(u8 curBox)
     }
     for (i = 0; i < 2; i++)
     {
-        sBoxSelectionPopupSpriteManager->unk_0020[i] = sub_809223C(72 * i + 0x7c, 0x58, i, 0, sBoxSelectionPopupSpriteManager->subpriority);
-        if (sBoxSelectionPopupSpriteManager->unk_0020[i])
+        sBoxSelectionPopupSpriteManager->unkUtil[i] = sub_809223C(72 * i + 0x7c, 0x58, i, 0, sBoxSelectionPopupSpriteManager->subpriority);
+        if (sBoxSelectionPopupSpriteManager->unkUtil[i])
         {
-            sBoxSelectionPopupSpriteManager->unk_0020[i]->data[0] = (i == 0 ? -1 : 1);
-            sBoxSelectionPopupSpriteManager->unk_0020[i]->callback = sub_808CD64;
+            sBoxSelectionPopupSpriteManager->unkUtil[i]->data[0] = (i == 0 ? -1 : 1);
+            sBoxSelectionPopupSpriteManager->unkUtil[i]->callback = sub_808CD64;
         }
     }
     PrintBoxNameAndCountToSprite();
@@ -728,8 +728,8 @@ static void sub_808CBA4(void)
     }
     for (i = 0; i < 2; i++)
     {
-        if (sBoxSelectionPopupSpriteManager->unk_0020[i])
-            DestroySprite(sBoxSelectionPopupSpriteManager->unk_0020[i]);
+        if (sBoxSelectionPopupSpriteManager->unkUtil[i])
+            DestroySprite(sBoxSelectionPopupSpriteManager->unkUtil[i]);
     }
 }
 

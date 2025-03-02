@@ -22,6 +22,11 @@
 #define MAX_ITEM_ICONS 3
 #define MAX_MENU_ITEMS 7 //max list items can fit on list before breaks window
 
+//vsonic
+//wondering if I can do items like this,
+//so they are always displayed not just on hover over?
+//#define MAX_ITEM_ICONS max(IN_BOX_COUNT + PARTY_SIZE + 1, 40)
+
 
 enum
 {
@@ -289,7 +294,7 @@ struct ChooseBoxMenu
     struct Sprite *unk_0000;
     struct Sprite *unk_0004[4];
     u32 unk_0014[3]; // unused
-    struct Sprite *unk_0020[2];
+    struct Sprite *unkUtil[2];
     u8 buffer[0x200]; // passed but not used
     u8 strbuf[20];
     bool32 loadPal;
@@ -348,79 +353,81 @@ struct PokemonStorageSystemData
     u8 screenChangeType;
     bool8 isReshowingPSS;
     u8 taskId;
-    struct UnkStruct_2000020 unk_0020;
-    struct UnkStruct_2000028 unk_0028[8];
-    u16 field_B0[528 / 2];
-    u16 field_2C0;
-    u16 field_2C2;
-    u8 field_2C4;
-    u8 field_2C5;
+    struct UnkStruct_2000020 unkUtil;
+    struct UnkStruct_2000028 unkUtilData[8];
+    u16 partyMenuTilemapBuffer[0x108];
+    //u16 partyMenuUnused1; // Never read
+    u16 partyMenuY;
+    //u8 partyMenuUnused2; // Unused
+    u8 partyMenuMoveTimer;
     u8 showPartyMenuState;
-    bool8 unk_02C7;
-    u8 unk_02C8;
-    bool8 unk_02C9;
+    bool8 closeBoxFlashing;
+    u8 closeBoxFlashTimer;
+    bool8 closeBoxFlashState;
     s16 newCurrBoxId;
     u16 bg2_X;
-    s16 field_2CE;
-    u16 field_2D0;
-    u8 field_2D2;
-    u8 field_2D3;
-    u8 field_2D4;
-    u16 field_2D6;
-    s16 field_2D8;
-    u16 field_2DA;
-    u16 field_2DC;
-    u16 field_2DE;
-    u16 field_2E0;
+    s16 scrollSpeed;
+    u16 scrollTimer;
+    u8 wallpaperOffset;
+    //ok so removing THESE is what broke the tex
+    //u8 scrollUnused1; // Never read
+    //u8 scrollToBoxIdUnused; // Never read
+    //u16 scrollUnused2; // Never read
+    //s16 scrollDirectionUnused; // Never read
+    //u16 scrollUnused3; // Never read
+    //u16 scrollUnused4; // Never read
+   //u16 scrollUnused5; // Never read
+    //u16 scrollUnused6; // Never read //seems to be just this one???
+    u8 blank; //ok weird thing it just breaks if there's no value here?, is it an allignment problem?
     u8 filler[22];
-    u8 field_2F8[512];
-    u8 field_4F8[512];
-    u8 field_6F8;
-    u8 field_6F9;
-    u8 field_6FA;
-    s8 field_6FB;
-    u16 field_6FC[16];
-    u16 field_71C;
-    u16 field_71E;
-    struct Sprite *field_720[2];
-    struct Sprite *field_728[2];
-    struct Sprite *field_730[2];
-    u32 field_738;
-    u8 field_73C[80];
-    u16 field_78C;
+    u8 boxTitleTiles[512];
+    u8 boxTitleUnused[512]; //says unused but its used as a buffer?, decided just keep only saves rom space and not worried bout that, as other option is using alloc
+    u8 boxTitleCycleId;
+    u8 wallpaperLoadState; // Written to, but never read.
+    u8 wallpaperLoadBoxId;
+    s8 wallpaperLoadDir;
+    u16 boxTitlePal[16];
+    u16 boxTitlePalOffset;
+    u16 boxTitleAltPalOffset;
+    struct Sprite *curBoxTitleSprites[2];
+    struct Sprite *nextBoxTitleSprites[2];
+    struct Sprite *arrowSprites[2];
+    u32 wallpaperPalBits;
+    //u8 filler2[80]; // Unused
+    //u16 unusedField1; // Never read.
     s16 wallpaperSetId;
     s16 wallpaperId;
-    u16 field_792[360];
+    u16 wallpaperTilemap[360];
     u8 wallpaperChangeState;
-    u8 field_A63;
-    u8 field_A64;
-    s8 field_A65;
+    u8 scrollState;
+    u8 scrollToBoxId;
+    s8 scrollDirection;
     // u8 *wallpaperTiles; // used only in Emerald for Walda
     /* 0a68 */ struct Sprite *movingMonSprite;
     /* 0a6c */ struct Sprite *partySprites[PARTY_SIZE];
     /* 0a84 */ struct Sprite *boxMonsSprites[IN_BOX_COUNT];
-    /* 0afc */ struct Sprite **field_B00;
-    /* 0b00 */ struct Sprite **field_B04;
-    /* 0b04 */ u16 field_B08[MAX_MON_ICONS];
-    /* 0b54 */ u16 field_B58[MAX_MON_ICONS];
+    /* 0afc */ struct Sprite **shiftMonSpritePtr;
+    /* 0b00 */ struct Sprite **releaseMonSpritePtr;
+    /* 0b04 */ u16 numIconsPerSpecies[MAX_MON_ICONS];
+    /* 0b54 */ u16 iconSpeciesList[MAX_MON_ICONS];
     /* 0ba4 */ u16 boxSpecies[IN_BOX_COUNT];
     /* 0be0 */ u32 boxPersonalities[IN_BOX_COUNT];
-    /* 0c58 */ u8 field_C5C;
-    /* 0c59 */ u8 field_C5D;
-    /* 0c5a */ u8 field_C5E;
-    /* 0c5c */ u16 field_C60;
-    /* 0c5e */ s16 field_C62;
-    /* 0c60 */ s16 field_C64;
-    /* 0c62 */ u16 field_C66;
-    /* 0c64 */ u8 field_C68;
-    /* 0c65 */ s8 field_C69;
-    /* 0c66 */ u8 field_C6A;
-    /* 0c67 */ u8 field_C6B;
+    /* 0c58 */ u8 incomingBoxId;
+    /* 0c59 */ u8 shiftTimer;
+    /* 0c5a */ u8 numPartySpritesToCompact;
+    /* 0c5c */ u16 iconScrollDistance;
+    /* 0c5e */ s16 iconScrollPos;
+    /* 0c60 */ s16 iconScrollSpeed;
+    /* 0c62 */ u16 iconScrollNumIncoming;
+    /* 0c64 */ u8 iconScrollCurColumn;
+    /* 0c65 */ s8 iconScrollDirection; // Unnecessary duplicate of scrollDirection, I guess try replace checks for this w scrolldirection then remove
+    /* 0c66 */ u8 iconScrollState;
+    /* 0c67 */ u8 iconScrollToBoxId;  // Unused duplicate of scrollToBoxId
     /* 0c68 */ struct WindowTemplate menuWindow;
     /* 0c70 */ struct StorageMenu menuItems[MAX_MENU_ITEMS];
     /* 0ca8 */ u8 menuItemsCount;
     /* 0ca9 */ u8 menuWidth;
-    /* 0caa */ u8 field_CAE;
+    /* 0caa */ //u8 menuUnusedField; // Never read.
     /* 0cac */ u16 field_CB0;
     /* 0cb0 */ struct Sprite *field_CB4;
     /* 0cb4 */ struct Sprite *field_CB8;
@@ -444,7 +451,7 @@ struct PokemonStorageSystemData
     /* 0ce2 */ u16 cursorMonItem;
     /* 0ce4 */ u16 field_CE8;
     /* 0ce6 */ bool8 setMosaic;
-    /* 0ce7 */ u8 cursorMonMarkings;
+    /* 0ce7 */ //u8 cursorMonMarkings;
     /* 0ce8 */ u8 cursorMonLevel;
     /* 0ce9 */ bool8 cursorMonIsEgg;
     /* 0cea */ u8 cursorMonNick[POKEMON_NAME_LENGTH + 1];
@@ -452,9 +459,9 @@ struct PokemonStorageSystemData
     /* 0d88 */ bool8 (*monPlaceChangeFunc)(void);
     /* 0d8c */ u8 monPlaceChangeState;
     /* 0d8d */ u8 field_D91;
-    /* 0d90 */ struct Sprite *monMarkingSprite;
+    /* 0d90 */ //struct Sprite *monMarkingSprite; //to remove
     /* 0d94 */ struct Sprite *field_D98[2];
-    /* 0d9c */ u16 *monMarkingSpriteTileStart;
+    /* 0d9c */ //u16 *monMarkingSpriteTileStart; //to remove
     /* 0da0 */ //struct PokemonMarkMenu field_DA4;
     /* 1e58 */ struct ChooseBoxMenu field_1E5C;
     /* 20a0 */ struct Pokemon movingMon;
@@ -491,12 +498,13 @@ struct PokemonStorageSystemData
     /* 2232 */ u16 field_223A;
     /* 2234 */ u16 *field_223C;
     /* 2238 */ struct Sprite *cursorMonSprite;
-    /* 223c */ u16 field_2244[0x40];
-    /* 22bc */ u8 field_22C4[0x800];
-    /* 2abc */ u8 field_2AC4[0x1800];
-    /* 42bc */ u8 field_42C4[0x800];
-    /* 4abc */ u8 field_4AC4[0x1000];
-    /* 5abc */ u8 field_5AC4[0x800];
+    /* 223c */ u16 field_2244[0x40]; //in pret this is 0x20
+    /* 22bc */ u8 PSS_tileBuffer[0x800];
+    /* 2abc */ //u8 unusedBuffer2[0x1800];
+    /* 42bc */ u8 itemIconBuffer[0x200]; //believe pret splits this off, between icon buffer & unused buffer? 0x200 according to pret, 
+    /* 42bc */ //u8 field_42C4[0x800]; //believe pret splits this off, between icon buffer & unused buffer? 0x200 according to pret, 
+    /* 4abc */ u8 wallpaperBgTilemapBuffer[0x1000];
+    /* 5abc */ u8 menuTilemapBuffer[0x800];
 }; // size=62bc
 
 extern struct PokemonStorageSystemData *gPSSData;

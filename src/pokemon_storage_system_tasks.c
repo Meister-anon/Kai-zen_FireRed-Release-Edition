@@ -446,13 +446,13 @@ static void sub_808CF10(void)
     FreeAllSpritePalettes();
     ClearDma3Requests();
     gReservedSpriteTileCount = 0x280;
-    sub_8096BE4(&gPSSData->unk_0020, gPSSData->unk_0028, 8);
+    sub_8096BE4(&gPSSData->unkUtil, gPSSData->unkUtilData, 8);
     gKeyRepeatStartDelay = 20;
     ClearScheduledBgCopiesToVram();
     AllocBoxPartyPokemonDropdowns(3);
     SetBoxPartyPokemonDropdownMap2(0, 1, gUnknown_83CE6F8, 8, 4);
     SetBoxPartyPokemonDropdownMap2Pos(0, 1, 0);
-    gPSSData->unk_02C7 = FALSE;
+    gPSSData->closeBoxFlashing = FALSE;
 }
 
 static void sub_808CF94(void)
@@ -2210,8 +2210,8 @@ static void LoadPSSMenuGfx(void)
 {
     InitBgsFromTemplates(0, gUnknown_83CEA50, NELEMS(gUnknown_83CEA50));
     DecompressAndLoadBgGfxUsingHeap(1, gPSSMenu_Gfx, 0, 0, 0);
-    LZ77UnCompWram(gUnknown_83CE5FC, gPSSData->field_5AC4);
-    SetBgTilemapBuffer(1, gPSSData->field_5AC4);
+    LZ77UnCompWram(gUnknown_83CE5FC, gPSSData->menuTilemapBuffer);
+    SetBgTilemapBuffer(1, gPSSData->menuTilemapBuffer);
     ShowBg(1);
     ScheduleBgCopyTilemapToVram(1);
 }
@@ -2319,12 +2319,12 @@ static void LoadCursorMonSprite(void)
     u16 tileStart;
     u8 palSlot;
     u8 spriteId;
-    struct SpriteSheet sheet = {gPSSData->field_22C4, 0x800, TAG_TILE_2};
+    struct SpriteSheet sheet = {gPSSData->PSS_tileBuffer, 0x800, TAG_TILE_2};
     struct SpritePalette palette = {gPSSData->field_2244, TAG_PAL_DAC6};
     struct SpriteTemplate template = sSpriteTemplate_CursorMon;
 
     for (i = 0; i < 0x800; i++)
-        gPSSData->field_22C4[i] = 0;
+        gPSSData->PSS_tileBuffer[i] = 0;
     for (i = 0; i < 0x10; i++)
         gPSSData->field_2244[i] = 0;
 
@@ -2363,9 +2363,9 @@ static void LoadCursorMonGfx(u16 species, u32 pid)
 
     if (species != SPECIES_NONE)
     {
-        HandleLoadSpecialPokePic(TRUE, gPSSData->field_22C4, species, pid);
+        HandleLoadSpecialPokePic(TRUE, gPSSData->PSS_tileBuffer, species, pid);
         LZ77UnCompWram(gPSSData->cursorMonPalette, gPSSData->field_2244);
-        CpuCopy32(gPSSData->field_22C4, gPSSData->field_223C, 0x800);
+        CpuCopy32(gPSSData->PSS_tileBuffer, gPSSData->field_223C, 0x800);
         LoadPalette(gPSSData->field_2244, gPSSData->field_223A, 0x20);
         gPSSData->cursorMonSprite->invisible = FALSE;
     }
@@ -2398,15 +2398,16 @@ static void PrintCursorMonInfo(void)
     }
 
     CopyWindowToVram(0, COPYWIN_GFX);
-    if (gPSSData->cursorMonSpecies != SPECIES_NONE)
-    /*{
+    /*if (gPSSData->cursorMonSpecies != SPECIES_NONE)
+    {
         RequestDma3LoadMonMarking(gPSSData->cursorMonMarkings, gPSSData->monMarkingSpriteTileStart);
         gPSSData->monMarkingSprite->invisible = FALSE;
     }
-    else*/
+    else
     {
-        gPSSData->monMarkingSprite->invisible = TRUE;
+        //gPSSData->monMarkingSprite->invisible = TRUE;
     }
+    */
 }
 
 static void sub_808F5E8(void)
@@ -2432,9 +2433,9 @@ static void sub_808F5E8(void)
 
 static void sub_808F68C(void)
 {
-    LZ77UnCompWram(gUnknown_8E9CAEC, gPSSData->field_B0);
+    LZ77UnCompWram(gUnknown_8E9CAEC, gPSSData->partyMenuTilemapBuffer);
     LoadPalette(gPSSMenu_Pal, 0x10, 0x20);
-    SetBoxPartyPokemonDropdownMap2(1, 1, gPSSData->field_B0, 12, 22);
+    SetBoxPartyPokemonDropdownMap2(1, 1, gPSSData->partyMenuTilemapBuffer, 12, 22);
     SetBoxPartyPokemonDropdownMap2(2, 1, gUnknown_83CE778, 9, 4);
     SetBoxPartyPokemonDropdownMap2Pos(1, 10, 0);
     SetBoxPartyPokemonDropdownMap2Pos(2, 21, 0);
@@ -2455,29 +2456,29 @@ static void sub_808F68C(void)
     }
 
     ScheduleBgCopyTilemapToVram(1);
-    gPSSData->unk_02C7 = FALSE;
+    gPSSData->closeBoxFlashing = FALSE;
 }
 
 static void SetUpShowPartyMenu(void)
 {
-    gPSSData->field_2C0 = 20;
-    gPSSData->field_2C2 = 2;
-    gPSSData->field_2C5 = 0;
+    //gPSSData->partyMenuUnused1 = 20;
+    gPSSData->partyMenuY = 2;
+    gPSSData->partyMenuMoveTimer = 0;
     CreatePartyMonsSprites(FALSE);
 }
 
 static bool8 ShowPartyMenu(void)
 {
-    if (gPSSData->field_2C5 == 20)
+    if (gPSSData->partyMenuMoveTimer == 20)
         return FALSE;
 
-    gPSSData->field_2C0--;
-    gPSSData->field_2C2++;
+    //gPSSData->partyMenuUnused1--;
+    gPSSData->partyMenuY++;
     AdjustBoxPartyPokemonDropdownPos(1, 3, 1);
     CopyBoxPartyPokemonDropdownToBgTilemapBuffer(1);
     ScheduleBgCopyTilemapToVram(1);
     sub_8090B98(8);
-    if (++gPSSData->field_2C5 == 20)
+    if (++gPSSData->partyMenuMoveTimer == 20)
     {
         sInPartyMenu = TRUE;
         return FALSE;
@@ -2490,24 +2491,24 @@ static bool8 ShowPartyMenu(void)
 
 static void SetUpHidePartyMenu(void)
 {
-    gPSSData->field_2C0 = 0;
-    gPSSData->field_2C2 = 22;
-    gPSSData->field_2C5 = 0;
+    //gPSSData->partyMenuUnused1 = 0;
+    gPSSData->partyMenuY = 22;
+    gPSSData->partyMenuMoveTimer = 0;
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
         MoveHeldItemWithPartyMenu();
 }
 
 static bool8 HidePartyMenu(void)
 {
-    if (gPSSData->field_2C5 != 20)
+    if (gPSSData->partyMenuMoveTimer != 20)
     {
-        gPSSData->field_2C0++;
-        gPSSData->field_2C2--;
+        //gPSSData->partyMenuUnused1++;
+        gPSSData->partyMenuY--;
         AdjustBoxPartyPokemonDropdownPos(1, 3, -1);
         CopyBoxPartyPokemonDropdownToBgTilemapBuffer(1);
-        FillBgTilemapBufferRect_Palette0(1, 0x100, 10, gPSSData->field_2C2, 12, 1);
+        FillBgTilemapBufferRect_Palette0(1, 0x100, 10, gPSSData->partyMenuY, 12, 1);
         sub_8090B98(-8);
-        if (++gPSSData->field_2C5 != 20)
+        if (++gPSSData->partyMenuMoveTimer != 20)
         {
             ScheduleBgCopyTilemapToVram(1);
             return TRUE;
@@ -2540,27 +2541,27 @@ static void sub_808F90C(bool8 arg0)
 
 static void sub_808F948(void)
 {
-    gPSSData->unk_02C7 = TRUE;
-    gPSSData->unk_02C8 = 30;
-    gPSSData->unk_02C9 = TRUE;
+    gPSSData->closeBoxFlashing = TRUE;
+    gPSSData->closeBoxFlashTimer = 30;
+    gPSSData->closeBoxFlashState = TRUE;
 }
 
 static void sub_808F974(void)
 {
-    if (gPSSData->unk_02C7)
+    if (gPSSData->closeBoxFlashing)
     {
-        gPSSData->unk_02C7 = FALSE;
+        gPSSData->closeBoxFlashing = FALSE;
         sub_808F90C(TRUE);
     }
 }
 
 static void sub_808F99C(void)
 {
-    if (gPSSData->unk_02C7 && ++gPSSData->unk_02C8 > 30)
+    if (gPSSData->closeBoxFlashing && ++gPSSData->closeBoxFlashTimer > 30)
     {
-        gPSSData->unk_02C8 = 0;
-        gPSSData->unk_02C9 = (gPSSData->unk_02C9 == FALSE);
-        sub_808F90C(gPSSData->unk_02C9);
+        gPSSData->closeBoxFlashTimer = 0;
+        gPSSData->closeBoxFlashState = (gPSSData->closeBoxFlashState == FALSE);
+        sub_808F90C(gPSSData->closeBoxFlashState);
     }
 }
 
@@ -2592,7 +2593,7 @@ static void sub_808FA30(u8 pos, bool8 isPartyMon)
     {
         for (j = 0; j < 4; j++)
         {
-            gPSSData->field_B0[index + j] = data[j];
+            gPSSData->partyMenuTilemapBuffer[index + j] = data[j];
         }
         data += 4;
         index += 12;

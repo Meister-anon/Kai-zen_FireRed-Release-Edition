@@ -1047,6 +1047,8 @@ static void SetCursorMonData(void *pokemon, u8 mode)
             gPSSData->cursorMonLevel = GetMonData(mon, MON_DATA_LEVEL);
             //gPSSData->cursorMonMarkings = GetMonData(mon, MON_DATA_MARKINGS);
             gPSSData->cursorMonPersonality = GetMonData(mon, MON_DATA_PERSONALITY);
+            //checked this all I noticed is the party menu pallets
+            //being affected
             gPSSData->cursorMonPalette = GetMonSpritePal(mon);
             gender = GetMonGender(mon);
             gPSSData->cursorMonItem = GetMonData(mon, MON_DATA_HELD_ITEM);
@@ -2187,7 +2189,6 @@ void AddMenu(void)
     PrintTextArray(gPSSData->field_CB0, 1, 8, 2, 16, gPSSData->menuItemsCount, (void*)gPSSData->menuItems);
     Menu_InitCursor(gPSSData->field_CB0, 1, 0, 2, 16, gPSSData->menuItemsCount, 0);
     ScheduleBgCopyTilemapToVram(0);
-    gPSSData->field_CAE = 0;
 }
 
 bool8 sub_8094F90(void)
