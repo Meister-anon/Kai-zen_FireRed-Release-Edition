@@ -2955,7 +2955,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 62, 160, 113, 30, 55),//still not up to snuff, but can't do much more to its stats without breaking early game, think can only boost speed
-        MON_TYPES(TYPE_ROCK, TYPE_GROUND),     //will be fastest rock type TYPE_GROUND),
+        MON_TYPES(TYPE_ROCK, TYPE_GROUND),     //will be fastest rock type
         .catchRate = 45,
         .expYield = 77,
         //.evYield_Defense = 1,
@@ -18893,8 +18893,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_WEIGHTED_GI, ABILITY_REGENERATOR},
-            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_RECKLESS},
+            .abilities = {ABILITY_INNER_FOCUS, ABILITY_REGENERATOR},
+            .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_RECKLESS},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -18902,6 +18902,19 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMienfooTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(39, AVERAGE_EFFORT), 0, SPECIES_MIENSHAO}), //Should hopefully blank these for now without issue
     },
+    //hmm I dropped ABILITY_INNER_FOCUS but its actually good now?
+    //ok only point of reckless is to boost hi jump kick
+    //also it learns uturn so that's why regenerator
+    //slow speed would also be good here as you get slow uturn on regenerator for free heals
+    //meaning if I want inner focus I can only shift
+    //weighted gi and infiltrator, 
+    //fuck it I like what I have, 
+    //wait no this is a change I made, so it just makes it worse
+    //ABILITY_WEIGHTED_GI   ABILITY_INFILTRATOR    
+    //one of above in hidden slot
+    //meinfoo is slow so maybe give that weighted gi,
+    //and infiltrator on the evo? since its already fast
+    //would allow for nice eviolite strats
 
     [SPECIES_MIENSHAO] =
     {
@@ -18927,15 +18940,15 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         //#ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_WEIGHTED_GI, ABILITY_REGENERATOR},
-            .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_RECKLESS},
+            .abilities = {ABILITY_INNER_FOCUS, ABILITY_REGENERATOR},
+            .abilityHidden = {ABILITY_WEIGHTED_GI, ABILITY_RECKLESS},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sMienshaoLevelUpLearnset,
         .tmhmLearnset = sMienshaoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//ABILITY_INFILTRATOR
 
     [SPECIES_DRUDDIGON] =
     {
