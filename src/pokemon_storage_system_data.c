@@ -1271,17 +1271,14 @@ static u8 InBoxInput_Normal(void)
         {
             u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
             //testing - works
-            SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
-            if (GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
-                gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
-            else
-                gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
-            
-            
-            
-            /*input = TRUE;
-            cursorArea = CURSOR_AREA_BOX_TITLE;
-            cursorPosition = 0;*/
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+            {
+                SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+                if (GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                    gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+                else
+                    gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
+            }
             break;
         }
         //believe can replace this for set block exp box
@@ -1565,12 +1562,14 @@ static u8 HandleInput_InParty(void)
         {
             u8 value = GetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
             //testing - works
-            SetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
-            if (GetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN))
-                gPSSData->partySprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
-            else
-                gPSSData->partySprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
-
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+            {
+                SetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+                if (GetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                    gPSSData->partySprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+                else
+                    gPSSData->partySprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
+            }    
             break;
         }
 
