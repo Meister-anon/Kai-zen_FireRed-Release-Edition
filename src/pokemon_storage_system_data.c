@@ -91,8 +91,8 @@ static void sub_8092398(u8 cursorArea, u8 cursorPosition, u16 *x, u16 *y)
     switch (cursorArea)
     {
     case CURSOR_AREA_IN_BOX:
-        *x = (cursorPosition % IN_BOX_ROWS) * 24 + 100;
-        *y = (cursorPosition / IN_BOX_ROWS) * 24 +  32;
+        *x = (cursorPosition % IN_BOX_COLUMNS) * 24 + 100;
+        *y = (cursorPosition / IN_BOX_COLUMNS) * 24 +  32;
         break;
     case CURSOR_AREA_IN_PARTY:
         if (cursorPosition == 0)
@@ -1214,9 +1214,9 @@ static u8 InBoxInput_Normal(void)
         if (JOY_REPT(DPAD_UP))
         {
             input = TRUE;
-            if (sCursorPosition >= IN_BOX_ROWS)
+            if (sCursorPosition >= IN_BOX_COLUMNS)
             {
-                cursorPosition -= IN_BOX_ROWS;
+                cursorPosition -= IN_BOX_COLUMNS;
             }
             else
             {
@@ -1228,7 +1228,7 @@ static u8 InBoxInput_Normal(void)
         else if (JOY_REPT(DPAD_DOWN))
         {
             input = TRUE;
-            cursorPosition += IN_BOX_ROWS;
+            cursorPosition += IN_BOX_COLUMNS;
             if (cursorPosition >= IN_BOX_COUNT)
             {
                 cursorArea = CURSOR_AREA_BUTTONS;
@@ -1242,28 +1242,28 @@ static u8 InBoxInput_Normal(void)
         else if (JOY_REPT(DPAD_LEFT))
         {
             input = TRUE;
-            if (sCursorPosition % IN_BOX_ROWS != 0)
+            if (sCursorPosition % IN_BOX_COLUMNS != 0)
             {
                 cursorPosition--;
             }
             else
             {
                 gPSSData->field_CD3 = -1;
-                cursorPosition += (IN_BOX_ROWS - 1);
+                cursorPosition += (IN_BOX_COLUMNS - 1);
             }
             break;
         }
         else if (JOY_REPT(DPAD_RIGHT))
         {
             input = TRUE;
-            if ((sCursorPosition + 1) % IN_BOX_ROWS != 0)
+            if ((sCursorPosition + 1) % IN_BOX_COLUMNS != 0)
             {
                 cursorPosition++;
             }
             else
             {
                 gPSSData->field_CD3 = 1;
-                cursorPosition -= (IN_BOX_ROWS - 1);
+                cursorPosition -= (IN_BOX_COLUMNS - 1);
             }
             break;
         }
@@ -1349,9 +1349,9 @@ static u8 InBoxInput_GrabbingMultiple(void)
     {
         if (JOY_REPT(DPAD_UP))
         {
-            if (sCursorPosition / IN_BOX_ROWS != 0)
+            if (sCursorPosition / IN_BOX_COLUMNS != 0)
             {
-                SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition - IN_BOX_ROWS);
+                SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition - IN_BOX_COLUMNS);
                 return 21;
             }
             else
@@ -1361,9 +1361,9 @@ static u8 InBoxInput_GrabbingMultiple(void)
         }
         else if (JOY_REPT(DPAD_DOWN))
         {
-            if (sCursorPosition + IN_BOX_ROWS < IN_BOX_COUNT)
+            if (sCursorPosition + IN_BOX_COLUMNS < IN_BOX_COUNT)
             {
-                SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition + IN_BOX_ROWS);
+                SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition + IN_BOX_COLUMNS);
                 return 21;
             }
             else
@@ -1373,7 +1373,7 @@ static u8 InBoxInput_GrabbingMultiple(void)
         }
         else if (JOY_REPT(DPAD_LEFT))
         {
-            if (sCursorPosition % IN_BOX_ROWS != 0)
+            if (sCursorPosition % IN_BOX_COLUMNS != 0)
             {
                 SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition - 1);
                 return 21;
@@ -1385,7 +1385,7 @@ static u8 InBoxInput_GrabbingMultiple(void)
         }
         else if (JOY_REPT(DPAD_RIGHT))
         {
-            if ((sCursorPosition + 1) % IN_BOX_ROWS != 0)
+            if ((sCursorPosition + 1) % IN_BOX_COLUMNS != 0)
             {
                 SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition + 1);
                 return 21;
@@ -1424,7 +1424,7 @@ static u8 InBoxInput_MovingMultiple(void)
     {
         if (sub_8095474(0))
         {
-            SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition - IN_BOX_ROWS);
+            SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition - IN_BOX_COLUMNS);
             return 25;
         }
         else
@@ -1436,7 +1436,7 @@ static u8 InBoxInput_MovingMultiple(void)
     {
         if (sub_8095474(1))
         {
-            SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition + IN_BOX_ROWS);
+            SetCursorPosition(CURSOR_AREA_IN_BOX, sCursorPosition + IN_BOX_COLUMNS);
             return 25;
         }
         else
@@ -2064,8 +2064,8 @@ void GetCursorBoxColumnAndRow(u8 *arg0, u8 *arg1)
 {
     if (sBoxCursorArea == CURSOR_AREA_IN_BOX)
     {
-        *arg0 = sCursorPosition % IN_BOX_ROWS;
-        *arg1 = sCursorPosition / IN_BOX_ROWS;
+        *arg0 = sCursorPosition % IN_BOX_COLUMNS;
+        *arg1 = sCursorPosition / IN_BOX_COLUMNS;
     }
     else
     {

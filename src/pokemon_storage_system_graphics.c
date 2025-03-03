@@ -270,7 +270,6 @@ void InitMonIconFields(void)
         gPSSData->boxMonsSprites[i] = NULL;
 
     gPSSData->movingMonSprite = NULL;
-    //gPSSData->unusedField1 = 0;
 }
 
 static u8 GetMonIconPriorityByCursorArea(void)
@@ -297,9 +296,10 @@ static void InitBoxMonSprites(u8 boxId)
 
     count = 0;
     boxPosition = 0;
-    for (i = 0; i < IN_BOX_COLUMNS; i++)
+    for (i = 0; i < IN_BOX_ROWS; i++)
     {
-        for (j = 0; j < IN_BOX_ROWS; j++)
+        // For each box slot, create a Pokémon icon if a species is present
+        for (j = 0; j < IN_BOX_COLUMNS; j++)
         {
             species = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_SPECIES_OR_EGG);
             if (species != SPECIES_NONE)
@@ -332,11 +332,11 @@ void CreateBoxMonIconAtPos(u8 boxPosition)
 
     if (species != SPECIES_NONE)
     {
-        s16 x = 8 * (3 * (boxPosition % IN_BOX_ROWS)) + 100;
-        s16 y = 8 * (3 * (boxPosition / IN_BOX_ROWS)) + 44;
+        s16 x = 8 * (3 * (boxPosition % IN_BOX_COLUMNS)) + 100;
+        s16 y = 8 * (3 * (boxPosition / IN_BOX_COLUMNS)) + 44;
         u32 personality = GetCurrentBoxMonData(boxPosition, MON_DATA_PERSONALITY);
 
-        gPSSData->boxMonsSprites[boxPosition] = CreateMonIconSprite(species, personality, x, y, 2, 19 - (boxPosition % IN_BOX_ROWS));
+        gPSSData->boxMonsSprites[boxPosition] = CreateMonIconSprite(species, personality, x, y, 2, 19 - (boxPosition % IN_BOX_COLUMNS));
         if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
             gPSSData->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
     }
@@ -382,40 +382,42 @@ static void sub_8090324(struct Sprite *sprite)
     {
         sprite->pos1.x += sprite->data[2];
         sprite->data[5] = sprite->pos1.x + sprite->pos2.x;
+        
+        // Check if mon icon has scrolled out of view of the box area
         if (sprite->data[5] <= 68 || sprite->data[5] >= 252)
             sprite->callback = SpriteCallbackDummy;
     }
 }
 
-static void DestroyAllIconsInRow(u8 row)
+static void DestroyAllIconsInColumn(u8 column)
 {
-    u16 column;
-    u8 boxPosition = row;
+    u16 row;
+    u8 boxPosition = column;
 
-    for (column = 0; column < IN_BOX_COLUMNS; column++)
+    for (row = 0; row < IN_BOX_ROWS; row++)
     {
         if (gPSSData->boxMonsSprites[boxPosition] != NULL)
         {
             DestroyBoxMonIcon(gPSSData->boxMonsSprites[boxPosition]);
             gPSSData->boxMonsSprites[boxPosition] = NULL;
         }
-        boxPosition += IN_BOX_ROWS;
+        boxPosition += IN_BOX_COLUMNS;
     }
 }
 
-static u8 sub_80903A4(u8 row, u16 times, s16 xDelta)
+static u8 CreateBoxMonIconsInColumn(u8 column, u16 times, s16 xDelta)
 {
     s32 i;
     u16 y = 44;
-    s16 xDest = 8 * (3 * row) + 100;
+    s16 xDest = 8 * (3 * column) + 100;
     u16 x = xDest - ((times + 1) * xDelta);
-    u8 subpriority = 19 - row;
+    u8 subpriority = 19 - column;
     u8 count = 0;
-    u8 boxPosition = row;
+    u8 boxPosition = column;
 
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
     {
-        for (i = 0; i < IN_BOX_COLUMNS; i++)
+        for (i = 0; i < IN_BOX_ROWS; i++)
         {
             if (gPSSData->boxSpecies[boxPosition] != SPECIES_NONE)
             {
@@ -431,13 +433,13 @@ static u8 sub_80903A4(u8 row, u16 times, s16 xDelta)
                     count++;
                 }
             }
-            boxPosition += IN_BOX_ROWS;
+            boxPosition += IN_BOX_COLUMNS;
             y += 24;
         }
     }
     else
     {
-        for (i = 0; i < IN_BOX_COLUMNS; i++)
+        for (i = 0; i < IN_BOX_ROWS; i++)
         {
             if (gPSSData->boxSpecies[boxPosition] != SPECIES_NONE)
             {
@@ -455,7 +457,7 @@ static u8 sub_80903A4(u8 row, u16 times, s16 xDelta)
                     count++;
                 }
             }
-            boxPosition += IN_BOX_ROWS;
+            boxPosition += IN_BOX_COLUMNS;
             y += 24;
         }
     }
@@ -463,7 +465,7 @@ static u8 sub_80903A4(u8 row, u16 times, s16 xDelta)
     return count;
 }
 
-static void sub_8090574(u8 boxId, s8 direction)
+static void InitBoxMonIconScroll(u8 boxId, s8 direction)
 {
     gPSSData->iconScrollState = 0;
     gPSSData->iconScrollToBoxId = boxId;
@@ -475,13 +477,13 @@ static void sub_8090574(u8 boxId, s8 direction)
     if (direction > 0)
         gPSSData->iconScrollCurColumn = 0;
     else
-        gPSSData->iconScrollCurColumn = IN_BOX_ROWS - 1;
+        gPSSData->iconScrollCurColumn = IN_BOX_COLUMNS - 1;
 
     gPSSData->iconScrollPos = (24 * gPSSData->iconScrollCurColumn) + 100;
     sub_809029C(gPSSData->iconScrollSpeed);
 }
 
-static bool8 sub_809062C(void)
+static bool8 UpdateBoxMonIconScroll(void)
 {
     if (gPSSData->iconScrollDistance != 0)
         gPSSData->iconScrollDistance--;
@@ -492,15 +494,16 @@ static bool8 sub_809062C(void)
         gPSSData->iconScrollPos += gPSSData->iconScrollSpeed;
         if (gPSSData->iconScrollPos <= 64 || gPSSData->iconScrollPos >= 252)
         {
-            DestroyAllIconsInRow(gPSSData->iconScrollCurColumn);
+            // A column of icons has gone offscreen, destroy them
+            DestroyAllIconsInColumn(gPSSData->iconScrollCurColumn);
             gPSSData->iconScrollPos += gPSSData->iconScrollDirection * 24;
             gPSSData->iconScrollState++;
         }
         break;
     case 1:
         gPSSData->iconScrollPos += gPSSData->iconScrollSpeed;
-        gPSSData->iconScrollNumIncoming += sub_80903A4(gPSSData->iconScrollCurColumn, gPSSData->iconScrollDistance, gPSSData->iconScrollSpeed);
-        if ((gPSSData->iconScrollDirection > 0 && gPSSData->iconScrollCurColumn == IN_BOX_ROWS - 1)
+        gPSSData->iconScrollNumIncoming += CreateBoxMonIconsInColumn(gPSSData->iconScrollCurColumn, gPSSData->iconScrollDistance, gPSSData->iconScrollSpeed);
+        if ((gPSSData->iconScrollDirection > 0 && gPSSData->iconScrollCurColumn == IN_BOX_COLUMNS - 1)
             || (gPSSData->iconScrollDirection < 0 && gPSSData->iconScrollCurColumn == 0))
         {
             gPSSData->iconScrollState++;
@@ -530,9 +533,9 @@ static void SetBoxSpeciesAndPersonalities(u8 boxId)
     s32 i, j, boxPosition;
 
     boxPosition = 0;
-    for (i = 0; i < IN_BOX_COLUMNS; i++)
+    for (i = 0; i < IN_BOX_ROWS; i++)
     {
-        for (j = 0; j < IN_BOX_ROWS; j++)
+        for (j = 0; j < IN_BOX_COLUMNS; j++)
         {
             gPSSData->boxSpecies[boxPosition] = GetBoxMonDataAt(boxId, boxPosition, MON_DATA_SPECIES_OR_EGG);
             if (gPSSData->boxSpecies[boxPosition] != SPECIES_NONE)
@@ -767,7 +770,7 @@ void sub_8090D58(u8 boxId, u8 position)
     {
         gPSSData->boxMonsSprites[position] = gPSSData->movingMonSprite;
         gPSSData->boxMonsSprites[position]->oam.priority = 2;
-        gPSSData->boxMonsSprites[position]->subpriority = 19 - (position % IN_BOX_ROWS);
+        gPSSData->boxMonsSprites[position]->subpriority = 19 - (position % IN_BOX_COLUMNS);
     }
     gPSSData->movingMonSprite->callback = SpriteCallbackDummy;
     gPSSData->movingMonSprite = NULL;
@@ -1061,12 +1064,12 @@ bool8 ScrollToBox(void)
         if (!WaitForWallpaperGfxLoad())
             return TRUE;
 
-        sub_8090574(gPSSData->scrollToBoxId, gPSSData->scrollDirection);
+        InitBoxMonIconScroll(gPSSData->scrollToBoxId, gPSSData->scrollDirection);
         CreateIncomingBoxTitle(gPSSData->scrollToBoxId, gPSSData->scrollDirection);
         sub_809200C(gPSSData->scrollDirection);
         break;
     case 2:
-        var = sub_809062C();
+        var = UpdateBoxMonIconScroll();
         if (gPSSData->scrollTimer != 0)
         {
             gPSSData->bg2_X += gPSSData->scrollSpeed;

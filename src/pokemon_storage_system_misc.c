@@ -401,7 +401,7 @@ static void sub_809566C(u8 arg0, u8 arg1, u8 arg2)
 
 static void sub_80956A4(u8 x, u8 y)
 {
-    u8 position = x + (IN_BOX_ROWS * y);
+    u8 position = x + (IN_BOX_COLUMNS * y);
     u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES_OR_EGG);
     u32 personality = GetCurrentBoxMonData(position, MON_DATA_PERSONALITY);
 
@@ -426,7 +426,7 @@ static void sub_80956A4(u8 x, u8 y)
 
 static void sub_809572C(u8 x, u8 y)
 {
-    u8 position = x + (IN_BOX_ROWS * y);
+    u8 position = x + (IN_BOX_COLUMNS * y);
     u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES_OR_EGG);
 
     if (species != SPECIES_NONE)
@@ -479,9 +479,9 @@ static void sub_8096A74(struct Sprite * sprite);
 static void sub_8096B10(struct Sprite * sprite);
 static void sub_8096BAC(struct Sprite * sprite);
 
-static const u32 gUnknown_83D35DC[] = INCBIN_U32("graphics/interface/pss_unk_83D35DC.4bpp");
+static const u32 sItemInfoFrame_Gfx[] = INCBIN_U32("graphics/interface/pss_unk_83D35DC.4bpp");
 
-static const struct OamData gUnknown_83D365C = {
+static const struct OamData sOamData_ItemIcon = {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_NORMAL,
     .objMode = ST_OAM_OBJ_NORMAL,
@@ -497,65 +497,65 @@ static const struct OamData gUnknown_83D365C = {
     .affineParam = 0
 };
 
-static const union AffineAnimCmd gUnknown_83D3664[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_Small[] = {
     AFFINEANIMCMD_FRAME(128, 128, 0, 0),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd gUnknown_83D3674[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_Appear[] = {
     AFFINEANIMCMD_FRAME(88, 88, 0, 0),
     AFFINEANIMCMD_FRAME(5, 5, 0, 8),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd gUnknown_83D368C[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_Disappear[] = {
     AFFINEANIMCMD_FRAME(128, 128, 0, 0),
     AFFINEANIMCMD_FRAME(-5, -5, 0, 8),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd gUnknown_83D36A4[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_PickUp[] = {
     AFFINEANIMCMD_FRAME(128, 128, 0, 0),
     AFFINEANIMCMD_FRAME(10, 10, 0, 12),
     AFFINEANIMCMD_FRAME(256, 256, 0, 0),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd gUnknown_83D36C4[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_PutDown[] = {
     AFFINEANIMCMD_FRAME(256, 256, 0, 0),
     AFFINEANIMCMD_FRAME(-10, -10, 0, 12),
     AFFINEANIMCMD_FRAME(128, 128, 0, 0),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd gUnknown_83D36E4[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_PutAway[] = {
     AFFINEANIMCMD_FRAME(256, 256, 0, 0),
     AFFINEANIMCMD_FRAME(-5, -5, 0, 16),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd gUnknown_83D36FC[] = {
+static const union AffineAnimCmd sAffineAnim_ItemIcon_Large[] = {
     AFFINEANIMCMD_FRAME(256, 256, 0, 0),
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd *const gUnknown_83D370C[] = {
-    gUnknown_83D3664,
-    gUnknown_83D3674,
-    gUnknown_83D368C,
-    gUnknown_83D36A4,
-    gUnknown_83D36C4,
-    gUnknown_83D36E4,
-    gUnknown_83D36FC
+static const union AffineAnimCmd *const sAffineAnims_ItemIcon[] = {
+    [ITEM_ANIM_NONE]      = sAffineAnim_ItemIcon_Small,
+    [ITEM_ANIM_APPEAR]    = sAffineAnim_ItemIcon_Appear,
+    [ITEM_ANIM_DISAPPEAR] = sAffineAnim_ItemIcon_Disappear,
+    [ITEM_ANIM_PICK_UP]   = sAffineAnim_ItemIcon_PickUp,
+    [ITEM_ANIM_PUT_DOWN]  = sAffineAnim_ItemIcon_PutDown,
+    [ITEM_ANIM_PUT_AWAY]  = sAffineAnim_ItemIcon_PutAway,
+    [ITEM_ANIM_LARGE]     = sAffineAnim_ItemIcon_Large,
 };
 
-static const struct SpriteTemplate gUnknown_83D3728 = {
-    .tileTag = TAG_TILE_7,
-    .paletteTag = TAG_PAL_DACB,
-    .oam = &gUnknown_83D365C,
+static const struct SpriteTemplate sSpriteTemplate_ItemIcon = {
+    .tileTag = GFXTAG_ITEM_ICON_0,
+    .paletteTag = PALTAG_ITEM_ICON_0,
+    .oam = &sOamData_ItemIcon,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
-    .affineAnims = gUnknown_83D370C,
+    .affineAnims = sAffineAnims_ItemIcon,
     .callback = SpriteCallbackDummy,
 };
 
@@ -565,24 +565,24 @@ void CreateItemIconSprites(void)
     u8 spriteId;
     struct CompressedSpriteSheet spriteSheet;
     struct SpriteTemplate spriteTemplate;
-    static u32 gUnknown_3000FE8[0x61];
+    static u32 sItemIconGfxBuffer[0x61];
 
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
     {
-        spriteSheet.data = gUnknown_3000FE8;
+        spriteSheet.data = sItemIconGfxBuffer;
         spriteSheet.size = 0x200;
-        spriteTemplate = gUnknown_83D3728;
+        spriteTemplate = sSpriteTemplate_ItemIcon;
 
         for (i = 0; i < MAX_ITEM_ICONS; i++)
         {
-            spriteSheet.tag = TAG_TILE_7 + i;
+            spriteSheet.tag = GFXTAG_ITEM_ICON_0 + i;
             LoadCompressedSpriteSheet(&spriteSheet);
             gPSSData->itemIconSprites[i].tiles = GetSpriteTileStartByTag(spriteSheet.tag) * 32 + (void*)(OBJ_VRAM0);
-            gPSSData->itemIconSprites[i].palIndex = AllocSpritePalette(TAG_PAL_DACB + i);
+            gPSSData->itemIconSprites[i].palIndex = AllocSpritePalette(PALTAG_ITEM_ICON_0 + i);
             gPSSData->itemIconSprites[i].palIndex *= 16;
             gPSSData->itemIconSprites[i].palIndex += 0x100;
-            spriteTemplate.tileTag = TAG_TILE_7 + i;
-            spriteTemplate.paletteTag = TAG_PAL_DACB + i;
+            spriteTemplate.tileTag = GFXTAG_ITEM_ICON_0 + i;
+            spriteTemplate.paletteTag = PALTAG_ITEM_ICON_0 + i;
             spriteId = CreateSprite(&spriteTemplate, 0, 0, 11);
             gPSSData->itemIconSprites[i].sprite = &gSprites[spriteId];
             gPSSData->itemIconSprites[i].sprite->invisible = TRUE;
@@ -899,8 +899,8 @@ static void sub_80962F0(u8 id, u8 cursorArea, u8 cursorPos)
     switch (cursorArea)
     {
     case CURSOR_AREA_IN_BOX:
-        row = cursorPos % IN_BOX_ROWS;
-        column = cursorPos / IN_BOX_ROWS;
+        row = cursorPos % IN_BOX_COLUMNS;
+        column = cursorPos / IN_BOX_COLUMNS;
         gPSSData->itemIconSprites[id].sprite->pos1.x = (24 * row) + 112;
         gPSSData->itemIconSprites[id].sprite->pos1.y = (24 * column) + 56;
         gPSSData->itemIconSprites[id].sprite->oam.priority = 2;
@@ -1023,7 +1023,7 @@ void PrintItemDescription(void)
 void sub_80966F4(void)
 {
     gPSSData->field_2236 = 25;
-    LoadBgTiles(0, gUnknown_83D35DC, 0x80, 0x1A4);
+    LoadBgTiles(0, sItemInfoFrame_Gfx, 0x80, 0x1A4);
     sub_8096898(0);
 }
 
@@ -1225,7 +1225,7 @@ static void sub_80957C8(void)
     columnCount = sMoveMonsPtr->minColumn + sMoveMonsPtr->columsTotal;
     for (i = sMoveMonsPtr->minColumn; i < columnCount; i++)
     {
-        u8 boxPosition = (IN_BOX_ROWS * i) + sMoveMonsPtr->minRow;
+        u8 boxPosition = (IN_BOX_COLUMNS * i) + sMoveMonsPtr->minRow;
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             struct BoxPokemon *boxMon = GetBoxedMonPtr(boxId, boxPosition);
@@ -1246,7 +1246,7 @@ static void sub_80958A0(void)
 
     for (i = sMoveMonsPtr->minColumn; i < columnCount; i++)
     {
-        u8 boxPosition = (IN_BOX_ROWS * i) + sMoveMonsPtr->minRow;
+        u8 boxPosition = (IN_BOX_COLUMNS * i) + sMoveMonsPtr->minRow;
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             DestroyBoxMonIconAtPosition(boxPosition);
@@ -1265,7 +1265,7 @@ static void sub_8095918(void)
 
     for (i = sMoveMonsPtr->minColumn; i < columnCount; i++)
     {
-        u8 boxPosition = (IN_BOX_ROWS * i) + sMoveMonsPtr->minRow;
+        u8 boxPosition = (IN_BOX_COLUMNS * i) + sMoveMonsPtr->minRow;
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             if (GetBoxMonData(&sMoveMonsPtr->boxMons[monArrayId], MON_DATA_SANITY_HAS_SPECIES))
@@ -1286,7 +1286,7 @@ static void sub_80959A8(void)
 
     for (i = sMoveMonsPtr->minColumn; i < columnCount; i++)
     {
-        u8 boxPosition = (IN_BOX_ROWS * i) + sMoveMonsPtr->minRow;
+        u8 boxPosition = (IN_BOX_COLUMNS * i) + sMoveMonsPtr->minRow;
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             if (GetBoxMonData(&sMoveMonsPtr->boxMons[monArrayId], MON_DATA_SANITY_HAS_SPECIES))
@@ -1309,7 +1309,7 @@ static void sub_8095A58(void)
 
 u8 sub_8095AA0(void)
 {
-    return (IN_BOX_ROWS * sMoveMonsPtr->fromColumn) + sMoveMonsPtr->fromRow;
+    return (IN_BOX_COLUMNS * sMoveMonsPtr->fromColumn) + sMoveMonsPtr->fromRow;
 }
 
 bool8 sub_8095ABC(void)
@@ -1321,7 +1321,7 @@ bool8 sub_8095ABC(void)
 
     for (i = sMoveMonsPtr->minColumn; i < columnCount; i++)
     {
-        u8 boxPosition = (IN_BOX_ROWS * i) + sMoveMonsPtr->minRow;
+        u8 boxPosition = (IN_BOX_COLUMNS * i) + sMoveMonsPtr->minRow;
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             if (GetBoxMonData(&sMoveMonsPtr->boxMons[monArrayId], MON_DATA_SANITY_HAS_SPECIES)

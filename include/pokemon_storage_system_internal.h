@@ -9,8 +9,8 @@
 #define BOXID_NONE_CHOSEN 200
 #define BOXID_CANCELED    201
 
-#define IN_BOX_COLUMNS 5
-#define IN_BOX_ROWS    6
+#define IN_BOX_ROWS 5
+#define IN_BOX_COLUMNS    6
 
 // The maximum number of Pokémon icons that can appear on-screen.
 // By default the limit is 40 (though in practice only 37 can be).
@@ -200,7 +200,7 @@ enum
 #define TAG_PAL_DAC7        0xDAC7
 #define TAG_PAL_DAC9        0xDAC9
 #define TAG_PAL_DAC0        0xDAC0
-#define TAG_PAL_DACB        0xDACB
+#define PALTAG_ITEM_ICON_0        0xDACB
 
 #define TAG_TILE_WAVEFORM   0x5
 #define TAG_TILE_10         0x10
@@ -210,7 +210,7 @@ enum
 #define TAG_TILE_3          0x3
 #define TAG_TILE_4          0x4
 #define TAG_TILE_12         0x12
-#define TAG_TILE_7          0x7
+#define GFXTAG_ITEM_ICON_0          0x7
 #define TAG_TILE_0          0x0
 #define TAG_TILE_1          0x1
 #define TAG_TILE_6          0x6
