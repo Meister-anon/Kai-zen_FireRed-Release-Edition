@@ -264,9 +264,9 @@ static void SetCursorPosition(u8 newCurosrArea, u8 newCursorPosition)
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
     {
         if (sBoxCursorArea == CURSOR_AREA_IN_BOX)
-            sub_8095D44(CURSOR_AREA_IN_BOX, sCursorPosition);
+            TryHideItemIconAtPos(CURSOR_AREA_IN_BOX, sCursorPosition);
         else if (sBoxCursorArea == CURSOR_AREA_IN_PARTY)
-            sub_8095D44(CURSOR_AREA_IN_PARTY, sCursorPosition);
+            TryHideItemIconAtPos(CURSOR_AREA_IN_PARTY, sCursorPosition);
 
         if (newCurosrArea == CURSOR_AREA_IN_BOX)
             TryLoadItemIconAtPos(newCurosrArea, newCursorPosition);
@@ -1272,6 +1272,13 @@ static u8 InBoxInput_Normal(void)
             u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
             //testing - works
             SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+            if (GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+            else
+                gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
+            
+            
+            
             /*input = TRUE;
             cursorArea = CURSOR_AREA_BOX_TITLE;
             cursorPosition = 0;*/
@@ -1556,9 +1563,14 @@ static u8 HandleInput_InParty(void)
         }
         else if (JOY_NEW(START_BUTTON))
         {
-            u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
+            u8 value = GetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
             //testing - works
-            SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+            SetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+            if (GetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                gPSSData->partySprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+            else
+                gPSSData->partySprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
+
             break;
         }
 
@@ -2092,7 +2104,7 @@ void sub_8094D40(void)
 void TryHideItemAtCursor(void)
 {
     if (sBoxCursorArea == CURSOR_AREA_IN_BOX)
-        sub_8095D44(CURSOR_AREA_IN_BOX, sCursorPosition);
+        TryHideItemIconAtPos(CURSOR_AREA_IN_BOX, sCursorPosition);
 }
 
 void TryShowItemAtCursor(void)

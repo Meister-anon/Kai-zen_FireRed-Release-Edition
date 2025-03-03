@@ -316,6 +316,18 @@ static void InitBoxMonSprites(u8 boxId)
         }
     }
 
+    // If not in item mode, set all Pokémon icons to be transparent if they should not gain exp in box
+    //think change here should also track for daycare?
+    if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+    {
+        for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
+        {
+            if (GetBoxMonDataAt(boxId, boxPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                gPSSData->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+        }
+    }
+
+    // If in item mode, set all Pokémon icons with no item to be transparent
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
     {
         for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
@@ -337,7 +349,12 @@ void CreateBoxMonIconAtPos(u8 boxPosition)
         u32 personality = GetCurrentBoxMonData(boxPosition, MON_DATA_PERSONALITY);
 
         gPSSData->boxMonsSprites[boxPosition] = CreateMonIconSprite(species, personality, x, y, 2, 19 - (boxPosition % IN_BOX_COLUMNS));
+        //can't tell what this does, as above function
+        //actually sets them transparent?
         if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
+            gPSSData->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+        
+        if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS && GetCurrentBoxMonData(boxPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
             gPSSData->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
     }
 }
@@ -430,6 +447,8 @@ static u8 CreateBoxMonIconsInColumn(u8 column, u16 times, s16 xDelta)
                     gPSSData->boxMonsSprites[boxPosition]->data[2] = xDelta;
                     gPSSData->boxMonsSprites[boxPosition]->data[3] = xDest;
                     gPSSData->boxMonsSprites[boxPosition]->callback = sub_80902E0;
+                    if (GetBoxMonDataAt(gPSSData->incomingBoxId, boxPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                        gPSSData->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
                     count++;
                 }
             }
@@ -593,6 +612,15 @@ void CreatePartyMonsSprites(bool8 arg0)
         {
             gPSSData->partySprites[i]->pos1.y -= 160;
             gPSSData->partySprites[i]->invisible = TRUE;
+        }
+    }
+
+    if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+    {
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            if (gPSSData->partySprites[i] != NULL && GetMonData(&gPlayerParty[i], MON_DATA_BLOCK_BOX_EXP_GAIN))
+                gPSSData->partySprites[i]->oam.objMode = ST_OAM_OBJ_BLEND;
         }
     }
 

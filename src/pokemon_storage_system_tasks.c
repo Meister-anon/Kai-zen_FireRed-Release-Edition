@@ -462,9 +462,10 @@ static void sub_808CF94(void)
     sDepositBoxId = 0;
 }
 
+//removed filter so can apply everywhere I want it
 static void SetMonIconTransparency(void)
 {
-    if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
+    //if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
     {
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT2_ALL);
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(7, 11));
@@ -2767,6 +2768,8 @@ static void InitCursorItemIcon(void)
     }
 }
 
+//vsonic when change remove deposit withdraw
+//will need update this, so tracks in questlog
 static void SetPokeStorageQuestLogEvent(u8 action)
 {
     u16 event;

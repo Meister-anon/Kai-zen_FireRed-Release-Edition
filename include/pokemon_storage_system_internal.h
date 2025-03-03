@@ -644,7 +644,7 @@ s8 sub_8094E50(u8 a0);
 bool8 sub_8095474(u8 action);
 u8 sub_8095AA0(void);
 bool8 sub_8095ABC(void);
-void sub_8095D44(u8 cursorArea, u8 cursorPos);
+void TryHideItemIconAtPos(u8 cursorArea, u8 cursorPos);
 void GetCursorBoxColumnAndRow(u8 *arg0, u8 *arg1);
 void sub_8094D40(void);
 void sub_8092BAC(bool8 arg0);

@@ -460,14 +460,14 @@ static u8 sub_8095790(void)
 }
 
 
-static u8 sub_80961D8(void);
+static u8 GetNewItemIconIdx(void);
 static bool32 sub_8096210(u8 cursorArea, u8 cursorPos);
-static u8 sub_8096258(u8 cursorArea, u8 cursorPos);
-static void sub_80962F0(u8 id, u8 cursorArea, u8 cursorPos);
-static void sub_8096408(u8 id, const u32 * tiles, const u32 * pal);
-static void sub_80964B8(u8 id, u8 affineAnimNo);
-static void sub_80964E8(u8 id, u8 command, u8 cursorArea, u8 cursorPos);
-static void sub_8096624(u8 id, bool8 show);
+static u8 GetItemIconIdxByPosition(u8 cursorArea, u8 cursorPos);
+static void SetItemIconPosition(u8 id, u8 cursorArea, u8 cursorPos);
+static void LoadItemIconGfx(u8 id, const u32 * tiles, const u32 * pal);
+static void SetItemIconAffineAnim(u8 id, u8 affineAnimNo);
+static void SetItemIconCallback(u8 id, u8 command, u8 cursorArea, u8 cursorPos);
+static void SetItemIconActive(u8 id, bool8 show);
 //static const u32 *GetItemIconPic(u16 itemId);
 //static const u32 *GetItemIconPalette(u16 itemId);
 static void sub_8096898(u32 x);
@@ -621,25 +621,25 @@ void TryLoadItemIconAtPos(u8 cursorArea, u8 cursorPos)
     {
         const u32 *tiles = GetItemIconPic(heldItem);
         const u32 *pal = GetItemIconPalette(heldItem);
-        u8 id = sub_80961D8();
+        u8 id = GetNewItemIconIdx();
 
-        sub_80962F0(id, cursorArea, cursorPos);
-        sub_8096408(id, tiles, pal);
-        sub_80964B8(id, 1);
-        sub_8096624(id, TRUE);
+        SetItemIconPosition(id, cursorArea, cursorPos);
+        LoadItemIconGfx(id, tiles, pal);
+        SetItemIconAffineAnim(id, 1);
+        SetItemIconActive(id, TRUE);
     }
 }
 
-void sub_8095D44(u8 cursorArea, u8 cursorPos)
+void TryHideItemIconAtPos(u8 cursorArea, u8 cursorPos)
 {
     u8 id;
 
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
         return;
 
-    id = sub_8096258(cursorArea, cursorPos);
-    sub_80964B8(id, 2);
-    sub_80964E8(id, 0, cursorArea, cursorPos);
+    id = GetItemIconIdxByPosition(cursorArea, cursorPos);
+    SetItemIconAffineAnim(id, ITEM_ANIM_DISAPPEAR);
+    SetItemIconCallback(id, ITEM_CB_WAIT_ANIM, cursorArea, cursorPos);
 }
 
 void Item_FromMonToMoving(u8 cursorArea, u8 cursorPos)
@@ -650,11 +650,11 @@ void Item_FromMonToMoving(u8 cursorArea, u8 cursorPos)
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
         return;
 
-    id = sub_8096258(cursorArea, cursorPos);
+    id = GetItemIconIdxByPosition(cursorArea, cursorPos);
     item = 0;
-    sub_80964B8(id, ITEM_ANIM_PICK_UP);
-    sub_80964E8(id, ITEM_CB_TO_HAND, cursorArea, cursorPos);
-    sub_80962F0(id, CURSOR_AREA_IN_HAND, 0);
+    SetItemIconAffineAnim(id, ITEM_ANIM_PICK_UP);
+    SetItemIconCallback(id, ITEM_CB_TO_HAND, cursorArea, cursorPos);
+    SetItemIconPosition(id, CURSOR_AREA_IN_HAND, 0);
     if (cursorArea  == CURSOR_AREA_IN_BOX)
     {
         SetCurrentBoxMonData(cursorPos, MON_DATA_HELD_ITEM, &item);
@@ -673,13 +673,13 @@ void InitItemIconInCursor(u16 item)
 {
     const u32 *tiles = GetItemIconPic(item);
     const u32 *pal = GetItemIconPalette(item);
-    u8 id = sub_80961D8();
+    u8 id = GetNewItemIconIdx();
 
-    sub_8096408(id, tiles, pal);
-    sub_80964B8(id, ITEM_ANIM_LARGE);
-    sub_80964E8(id, ITEM_CB_TO_HAND, 0, 0);
-    sub_80962F0(id, CURSOR_AREA_IN_HAND, 0);
-    sub_8096624(id, TRUE);
+    LoadItemIconGfx(id, tiles, pal);
+    SetItemIconAffineAnim(id, ITEM_ANIM_LARGE);
+    SetItemIconCallback(id, ITEM_CB_TO_HAND, 0, 0);
+    SetItemIconPosition(id, CURSOR_AREA_IN_HAND, 0);
+    SetItemIconActive(id, TRUE);
     gPSSData->movingItem = item;
 }
 
@@ -691,9 +691,9 @@ void Item_SwitchMonsWithMoving(u8 cursorArea, u8 cursorPos)
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
         return;
 
-    id = sub_8096258(cursorArea, cursorPos);
-    sub_80964B8(id, ITEM_ANIM_PICK_UP);
-    sub_80964E8(id, ITEM_CB_SWAP_TO_HAND, CURSOR_AREA_IN_HAND, 0);
+    id = GetItemIconIdxByPosition(cursorArea, cursorPos);
+    SetItemIconAffineAnim(id, ITEM_ANIM_PICK_UP);
+    SetItemIconCallback(id, ITEM_CB_SWAP_TO_HAND, CURSOR_AREA_IN_HAND, 0);
     if (cursorArea == CURSOR_AREA_IN_BOX)
     {
         item = GetCurrentBoxMonData(cursorPos, MON_DATA_HELD_ITEM);
@@ -707,9 +707,9 @@ void Item_SwitchMonsWithMoving(u8 cursorArea, u8 cursorPos)
         gPSSData->movingItem = item;
     }
 
-    id = sub_8096258(2, 0);
-    sub_80964B8(id, ITEM_ANIM_PUT_DOWN);
-    sub_80964E8(id, ITEM_CB_SWAP_TO_MON, cursorArea, cursorPos);
+    id = GetItemIconIdxByPosition(2, 0);
+    SetItemIconAffineAnim(id, ITEM_ANIM_PUT_DOWN);
+    SetItemIconCallback(id, ITEM_CB_SWAP_TO_MON, cursorArea, cursorPos);
 }
 
 void Item_GiveMovingToMon(u8 cursorArea, u8 cursorPos)
@@ -719,9 +719,9 @@ void Item_GiveMovingToMon(u8 cursorArea, u8 cursorPos)
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
         return;
 
-    id = sub_8096258(2, 0);
-    sub_80964B8(id, ITEM_ANIM_PUT_DOWN);
-    sub_80964E8(id, ITEM_CB_TO_MON, cursorArea, cursorPos);
+    id = GetItemIconIdxByPosition(2, 0);
+    SetItemIconAffineAnim(id, ITEM_ANIM_PUT_DOWN);
+    SetItemIconCallback(id, ITEM_CB_TO_MON, cursorArea, cursorPos);
     if (cursorArea == CURSOR_AREA_IN_BOX)
     {
         SetCurrentBoxMonData(cursorPos, MON_DATA_HELD_ITEM, &gPSSData->movingItem);
@@ -743,9 +743,9 @@ void Item_TakeMons(u8 cursorArea, u8 cursorPos)
         return;
 
     item = ITEM_NONE;
-    id = sub_8096258(cursorArea, cursorPos);
-    sub_80964B8(id, ITEM_ANIM_DISAPPEAR);
-    sub_80964E8(id, ITEM_CB_WAIT_ANIM, cursorArea, cursorPos);
+    id = GetItemIconIdxByPosition(cursorArea, cursorPos);
+    SetItemIconAffineAnim(id, ITEM_ANIM_DISAPPEAR);
+    SetItemIconCallback(id, ITEM_CB_WAIT_ANIM, cursorArea, cursorPos);
     if (cursorArea  == CURSOR_AREA_IN_BOX)
     {
         SetCurrentBoxMonData(cursorPos, MON_DATA_HELD_ITEM, &item);
@@ -762,9 +762,9 @@ void sub_8096088(void)
 {
     if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
     {
-        u8 id = sub_8096258(CURSOR_AREA_IN_HAND, 0);
-        sub_80964B8(id, ITEM_ANIM_PUT_AWAY);
-        sub_80964E8(id, ITEM_CB_WAIT_ANIM, 2, 0);
+        u8 id = GetItemIconIdxByPosition(CURSOR_AREA_IN_HAND, 0);
+        SetItemIconAffineAnim(id, ITEM_ANIM_PUT_AWAY);
+        SetItemIconCallback(id, ITEM_CB_WAIT_ANIM, 2, 0);
     }
 }
 
@@ -781,7 +781,7 @@ void MoveHeldItemWithPartyMenu(void)
     for (i = 0; i < MAX_ITEM_ICONS; i++)
     {
         if (gPSSData->itemIconSprites[i].active && gPSSData->itemIconSprites[i].cursorArea == CURSOR_AREA_IN_PARTY)
-            sub_80964E8(i, ITEM_CB_HIDE_PARTY, 2, 0);
+            SetItemIconCallback(i, ITEM_CB_HIDE_PARTY, 2, 0);
     }
 }
 
@@ -829,7 +829,7 @@ u16 GetMovingItem(void)
     return gPSSData->movingItem;
 }
 
-static u8 sub_80961D8(void)
+static u8 GetNewItemIconIdx(void)
 {
     u8 i;
 
@@ -860,7 +860,7 @@ static bool32 sub_8096210(u8 cursorArea, u8 cursorPos)
     return FALSE;
 }
 
-static u8 sub_8096258(u8 cursorArea, u8 cursorPos)
+static u8 GetItemIconIdxByPosition(u8 cursorArea, u8 cursorPos)
 {
     u8 i;
 
@@ -889,7 +889,7 @@ static u8 sub_80962A8(struct Sprite *sprite)
     return MAX_ITEM_ICONS;
 }
 
-static void sub_80962F0(u8 id, u8 cursorArea, u8 cursorPos)
+static void SetItemIconPosition(u8 id, u8 cursorArea, u8 cursorPos)
 {
     u8 row, column;
 
@@ -924,7 +924,7 @@ static void sub_80962F0(u8 id, u8 cursorArea, u8 cursorPos)
     gPSSData->itemIconSprites[id].cursorPos = cursorPos;
 }
 
-static void sub_8096408(u8 id, const u32 *itemTiles, const u32 *itemPal)
+static void LoadItemIconGfx(u8 id, const u32 *itemTiles, const u32 *itemPal)
 {
     s32 i;
 
@@ -941,7 +941,7 @@ static void sub_8096408(u8 id, const u32 *itemTiles, const u32 *itemPal)
     LoadPalette(gPSSData->itemIconBuffer, gPSSData->itemIconSprites[id].palIndex, 0x20);
 }
 
-static void sub_80964B8(u8 id, u8 animNum)
+static void SetItemIconAffineAnim(u8 id, u8 animNum)
 {
     if (id >= MAX_ITEM_ICONS)
         return;
@@ -949,7 +949,7 @@ static void sub_80964B8(u8 id, u8 animNum)
     StartSpriteAffineAnim(gPSSData->itemIconSprites[id].sprite, animNum);
 }
 
-static void sub_80964E8(u8 id, u8 command, u8 cursorArea, u8 cursorPos)
+static void SetItemIconCallback(u8 id, u8 command, u8 cursorArea, u8 cursorPos)
 {
     if (id >= MAX_ITEM_ICONS)
         return;
@@ -988,7 +988,7 @@ static void sub_80964E8(u8 id, u8 command, u8 cursorArea, u8 cursorPos)
     }
 }
 
-static void sub_8096624(u8 id, bool8 show)
+static void SetItemIconActive(u8 id, bool8 show)
 {
     if (id >= MAX_ITEM_ICONS)
         return;
@@ -1085,7 +1085,7 @@ static void sub_809692C(struct Sprite *sprite)
 {
     if (sprite->affineAnimEnded)
     {
-        sub_8096624(sprite->data[0], FALSE);
+        SetItemIconActive(sprite->data[0], FALSE);
         sprite->callback = SpriteCallbackDummy;
     }
 }
@@ -1137,7 +1137,7 @@ static void sub_80969F4(struct Sprite *sprite)
         sprite->pos1.y = sprite->data[2] >> 4;
         if (++sprite->data[5] > 11)
         {
-            sub_80962F0(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
+            SetItemIconPosition(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
             sprite->callback = SpriteCallbackDummy;
         }
         break;
@@ -1163,7 +1163,7 @@ static void sub_8096A74(struct Sprite *sprite)
         sprite->pos2.x = gSineTable[sprite->data[5] * 8] >> 4;
         if (++sprite->data[5] > 11)
         {
-            sub_80962F0(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
+            SetItemIconPosition(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
             sprite->pos2.x = 0;
             sprite->callback = sub_80969BC;
         }
@@ -1190,7 +1190,7 @@ static void sub_8096B10(struct Sprite *sprite)
         sprite->pos2.x = -(gSineTable[sprite->data[5] * 8] >> 4);
         if (++sprite->data[5] > 11)
         {
-            sub_80962F0(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
+            SetItemIconPosition(sub_80962A8(sprite), sprite->data[6], sprite->data[7]);
             sprite->callback = SpriteCallbackDummy;
             sprite->pos2.x = 0;
         }
@@ -1204,7 +1204,7 @@ static void sub_8096BAC(struct Sprite *sprite)
     if (sprite->pos1.y + sprite->pos2.y < -16)
     {
         sprite->callback = SpriteCallbackDummy;
-        sub_8096624(sub_80962A8(sprite), FALSE);
+        SetItemIconActive(sub_80962A8(sprite), FALSE);
     }
 }
 

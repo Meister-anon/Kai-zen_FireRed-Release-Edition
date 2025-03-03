@@ -2384,6 +2384,22 @@ void BufferMonNickname(void)
     //StringGet_Nickname(gStringVar1); -didn't need
 }
 
+//use w specialvar to set to whatever var I want
+//more flexibility desired to not cause issue with
+//chooseboxmon
+bool8 CheckBlockExpGainInDaycare(void)
+{
+    u8 boxId = StorageGetCurrentBox();
+    u8 monId = VarGet(VAR_0x8004);
+    struct BoxPokemon *box_mon = AssignBoxMonForChooseBoxMon(monId, boxId);
+    struct Pokemon *mon = AssignMonForChooseBoxMon(monId, boxId);
+    
+    if (box_mon == NULL)
+        return  GetMonData(mon, MON_DATA_BLOCK_BOX_EXP_GAIN, NULL);
+    else
+        return  GetBoxMonData(box_mon, MON_DATA_BLOCK_BOX_EXP_GAIN, NULL);
+}
+
 //change to return true false
 //as cant use var result w boxmon logic
 //or can't properly filter

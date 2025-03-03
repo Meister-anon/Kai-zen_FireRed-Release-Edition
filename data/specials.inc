@@ -129,13 +129,13 @@ gSpecials:: @ 815FD60
 	def_special CompareHeracrossSize
 	def_special GetMagikarpSizeRecordInfo
 	def_special CompareMagikarpSize
-	def_special NameRaterWasNicknameChanged
+	def_special NameRaterWasNicknameChanged @oh this is also not used anymore, due to new nickname feature
 	def_special BufferMonNickname
 	def_special IsMonOTIDNotPlayers
 	def_special IsMonNicknamed  @new special for name rater change
 	def_special NullFieldSpecial
 	def_special BufferRandomHobbyOrLifestyleString
-	def_special NullFieldSpecial
+	def_special CheckBlockExpGainInDaycare @gets block exp gain state
 	def_special RegisteredItemHandleBikeSwap
 	def_special CalculatePlayerPartyCount
 	def_special CountPartyNonEggMons
@@ -237,7 +237,7 @@ gSpecials:: @ 815FD60
 	def_special GetPlayerAvatarBike
 	def_special NullFieldSpecial
 	def_special GetSelectedMonFriendship
-	def_special GetLeadMonFriendship  @with use of ChooseBoxMon, no longer using replaced w below
+	def_special GetLeadMonFriendship  @with use of ChooseBoxMon, no longer using replaced w above
 	def_special BattleTowerMapScript2
 	def_special ChooseNextBattleTowerTrainer
 	def_special CheckPartyBattleTowerBanlist

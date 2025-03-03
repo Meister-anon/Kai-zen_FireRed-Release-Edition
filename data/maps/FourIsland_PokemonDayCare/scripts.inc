@@ -27,22 +27,19 @@ FourIsland_PokemonDayCare_GiveMonToRaise:: @ 8171993
 	goto_if_eq FourIsland_PokemonDayCare_OnlyOneMonInParty
 	msgbox DayCare_Text_WhichMonShouldWeRaise
 	fadescreen FADE_TO_BLACK
-	@special ChooseSendDaycareMon
 	special ChooseBoxMon
 	waitstate
-	@compare VAR_0x8004, PARTY_SIZE
-	@goto_if_ge FourIsland_PokemonDayCare_ComeAgain
 	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, FourIsland_PokemonDayCare_ComeAgain
-	@specialvar VAR_RESULT, CountPartyAliveNonEggMons_IgnoreVar0x8004Slot
-	goto_if_eq VAR_RESULT, 0, FourIsland_PokemonDayCare_OnlyOneAliveMonInParty
 	specialvar VAR_0x8005, GetSelectedMonNicknameAndSpecies
+	specialvar VAR_0x8002, CheckBlockExpGainInDaycare
+	call_if_eq VAR_0x8002, TRUE, FourIsland_PokemonDayCare_ConfirmExpStateAndSelection
 	waitse
 	playmoncry VAR_0x8005, 0
 	msgbox DayCare_Text_WellRaiseYourMon
 	waitmoncry
 	special StoreSelectedPokemonInDaycare
 	compare VAR_0x8008, NUZLOCKE_BANNED_MON
-	goto_if_eq Route5_PokemonDayCare_EventScript_SorryCantRaiseThat
+	goto_if_eq FourIsland_PokemonDayCare_EventScript_SorryCantRaiseThat
 	incrementgamestat GAME_STAT_USED_DAYCARE
 	specialvar VAR_RESULT, GetDaycareState
 	compare VAR_RESULT, DAYCARE_ONE_MON
@@ -52,6 +49,11 @@ FourIsland_PokemonDayCare_GiveMonToRaise:: @ 8171993
 	goto_if_eq FourIsland_PokemonDayCare_CheckIfBoostApplied
 	release
 	end
+
+FourIsland_PokemonDayCare_ConfirmExpStateAndSelection::
+	msgbox Route5_PokemonDayCare_Text_MonWontGetStronger, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, FourIsland_PokemonDayCare_GiveMonToRaise
+	return
 
 FourIsland_PokemonDayCare_ComeAgain:: @ 81719F7
 	msgbox DayCare_Text_ComeAgain

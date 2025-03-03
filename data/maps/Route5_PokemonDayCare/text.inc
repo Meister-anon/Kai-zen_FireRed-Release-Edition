@@ -49,6 +49,12 @@ Route5_PokemonDayCare_Text_WhatWillYouBattleWith:: @ 819DF1D
 	.string "If you leave me that POKéMON,\n"
 	.string "what will you battle with?$"
 
+Route5_PokemonDayCare_Text_MonWontGetStronger::
+	.string "Oh!\p"
+	.string "Your {STR_VAR_1} won't grow\n"
+	.string "any stronger while it's here.\p"
+	.string "Is that fine with you?"
+
 Route5_PokemonDayCare_Text_MonHasGrownByXLevels:: @ 819DF56
 	.string "Your {STR_VAR_1} has grown a lot.\n"
 	.string "Yes, quite a lot, I'd say.\p"
