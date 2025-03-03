@@ -950,3 +950,6 @@ EMOJI_BIGANGER = F9 FE
 '\l' = FA @ scroll up window text
 '\p' = FB @ new paragraph
 '\n' = FE @ new line
+@perfect this works, is ... ellipses, 
+'\.' = B0    
+
