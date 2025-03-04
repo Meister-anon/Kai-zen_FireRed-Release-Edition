@@ -27,17 +27,32 @@
 //so they are always displayed not just on hover over?
 //#define MAX_ITEM_ICONS max(IN_BOX_COUNT + PARTY_SIZE + 1, 40)
 
-
+//these values matters cuz it sinks with the list order of pss menu
+//when you select A the input function returns the cursor position
+//and that lines up 
 enum
 {
-    BOX_OPTION_WITHDRAW,
-    BOX_OPTION_DEPOSIT,
+    
     BOX_OPTION_MOVE_MONS,
     BOX_OPTION_MOVE_ITEMS,
-    BOX_OPTION_EXIT,
+    BOX_OPTION_DELETE_MOVE,
+    BOX_OPTION_RELEARN_MOVE,
+    BOX_OPTION_EXIT,    //this no longer matters
     BOX_OPTION_COUNT,
+    BOX_OPTION_WITHDRAW,
+    BOX_OPTION_DEPOSIT,
     BOX_OPTION_SELECT_MON
 };
+//be careful with deleting this
+//as entries affect constants elsewhere
+//moved withdraw out of the way, as keeping it where it was
+//but changing entires in menu file,
+//messed up list, and the descriptions kept using
+//the withdraw/deposit function logic
+//need to figure out how to properly translate this
+//as the list goes based on state
+////attempt repalce boxoption exit so dont need rely on static enum value
+
 
 enum
 {

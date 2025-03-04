@@ -948,6 +948,8 @@ bool8 CreatePCMenu(void)
     return TRUE;
 }
 
+//this determines how many options I have
+//main options not pokemon storage options
 static void CreatePCMenuWindow(void)
 {
     u8 cursorWidth = GetMenuCursorDimensionByFont(2, 0);

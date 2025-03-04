@@ -40,13 +40,7 @@ static const u16 sBoxSelectionPopupPalette[];
 static const u16 sBoxSelectionPopupCenterTiles[];
 static const u16 sBoxSelectionPopupSidesTiles[];
 
-static const struct PSS_MenuStringPtrs sUnknown_83CDA20[] = {
-    {gText_WithdrawPokemon, gText_WithdrawMonDescription},
-    {gText_DepositPokemon,  gText_DepositMonDescription },
-    {gText_MovePokemon,     gText_MoveMonDescription    },
-    {gText_MoveItems,       gText_MoveItemsDescription  },
-    {gText_SeeYa,           gText_SeeYaDescription      }
-};
+
 
 void DrawTextWindowAndBufferTiles(const u8 *string, void *dst, u8 zero1, u8 zero2, u8 *buffer, s32 bytesToBuffer)
 {
@@ -116,6 +110,90 @@ static void PrintStringToBufferCopyNow(const u8 *string, void *dst, u16 rise, u8
     CpuCopy16(tileData1, dst, var);
     CpuCopy16(tileData2, dst + rise, var);
     RemoveWindow(windowId);
+}
+
+//with how setup, may need to 
+//make multiple different tables for each state?
+//checked and yes each menu referes to this,
+
+/*static const struct PSS_MenuStringPtrs sPSS_DefaultState[] = {
+    {gText_WithdrawPokemon, gText_WithdrawMonDescription},
+    {gText_DepositPokemon,  gText_DepositMonDescription },
+    {gText_MovePokemon,     gText_MoveMonDescription    },
+    {gText_MoveItems,       gText_MoveItemsDescription  },
+    {gText_SeeYa,           gText_SeeYaDescription      }
+};
+*/
+
+//remove withdraw and dposit when I fully understand logic
+static const struct PSS_MenuStringPtrs sPSS_DefaultState[] = {
+    //{gText_WithdrawPokemon, gText_WithdrawMonDescription},
+    //{gText_DepositPokemon,  gText_DepositMonDescription },
+    {gText_MovePokemon,     gText_MoveMonDescription    },
+    {gText_MoveItems,       gText_MoveItemsDescription  },
+    {gText_SeeYa,           gText_SeeYaDescription      }
+};
+
+static const struct PSS_MenuStringPtrs sPSS_State1[] = {
+    {gText_MovePokemon,     gText_MoveMonDescription    },
+    {gText_MoveItems,       gText_MoveItemsDescription  },
+    {gText_DeleteMove,       gText_DeleteMoveDescription  },
+    //{gText_RelearnMove,       gText_RelearnMoveDescription  },
+    {gText_SeeYa,           gText_SeeYaDescription      }
+};
+
+static const struct PSS_MenuStringPtrs sPSS_State2[] = {
+    {gText_MovePokemon,     gText_MoveMonDescription    },
+    {gText_MoveItems,       gText_MoveItemsDescription  },
+    //{gText_DeleteMove,       gText_DeleteMoveDescription  },
+    {gText_RelearnMove,       gText_RelearnMoveDescription  },
+    {gText_SeeYa,           gText_SeeYaDescription      }
+};
+
+static const struct PSS_MenuStringPtrs sPSS_FinalState[] = {
+    {gText_MovePokemon,     gText_MoveMonDescription    },
+    {gText_MoveItems,       gText_MoveItemsDescription  },
+    {gText_DeleteMove,       gText_DeleteMoveDescription  },
+    {gText_RelearnMove,       gText_RelearnMoveDescription  },
+    {gText_SeeYa,           gText_SeeYaDescription      }
+};
+
+static u8 ReturnPSS_ListSizebyState(void)
+{
+    if ((FlagGet(FLAG_TAUGHT_MOVE_DELETE) && FlagGet(FLAG_TAUGHT_MOVE_RELEARN)) || FlagGet(FLAG_NEW_GAME_PLUS))
+        return NELEMS(sPSS_FinalState);    
+    else if (FlagGet(FLAG_TAUGHT_MOVE_DELETE))
+        return NELEMS(sPSS_State1);
+    else if (FlagGet(FLAG_TAUGHT_MOVE_RELEARN))
+        return NELEMS(sPSS_State2);
+    else
+        return NELEMS(sPSS_DefaultState);
+}
+
+static const u8 *ReturnPSS_ListDescription(u8 fillValue)
+{
+   // sPSS_DefaultState[task->tSelectedOption].desc
+   if ((FlagGet(FLAG_TAUGHT_MOVE_DELETE) && FlagGet(FLAG_TAUGHT_MOVE_RELEARN)) || FlagGet(FLAG_NEW_GAME_PLUS))
+        return sPSS_FinalState[fillValue].desc;    
+    else if (FlagGet(FLAG_TAUGHT_MOVE_DELETE))
+        return sPSS_State1[fillValue].desc;
+    else if (FlagGet(FLAG_TAUGHT_MOVE_RELEARN))
+        return sPSS_State2[fillValue].desc;
+    else
+        return sPSS_DefaultState[fillValue].desc;
+}
+
+static const struct PSS_MenuStringPtrs *ReturnPSSListArray_BasedOnState(void)
+{
+    if ((FlagGet(FLAG_TAUGHT_MOVE_DELETE) && FlagGet(FLAG_TAUGHT_MOVE_RELEARN)) || FlagGet(FLAG_NEW_GAME_PLUS))
+        return sPSS_FinalState;    
+    else if (FlagGet(FLAG_TAUGHT_MOVE_DELETE))
+        return sPSS_State1;
+    else if (FlagGet(FLAG_TAUGHT_MOVE_RELEARN))
+        return sPSS_State2;
+    else
+        return sPSS_DefaultState;
+
 }
 
 static u8 CountMonsInBox(u8 boxId)
@@ -235,46 +313,69 @@ static void sub_808C2D8(u16 *dest, u16 dest_left, u16 dest_top, u16 width, u16 h
         Dma3FillLarge16_(0, dest, width);
 }
 
+enum {
+    STATE_LOAD,
+    STATE_FADE_IN,
+    STATE_HANDLE_INPUT,
+    STATE_ERROR_MSG,
+    STATE_ENTER_PC,
+};
+
+//references from pret,
+//never undefined by on average
+//end of use is around line 370
+//can safely do a ranged selection to replace
+#define tState          data[0]
+#define tSelectedOption data[1]
+#define tInput          data[2]
+#define tNextOption     data[3]
+#define tWindowId       data[15]
 #define MORE_PCLOGIC
 static void Task_PokemonStorageSystemPC(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
 
-    switch (task->data[0])
+    switch (task->tState)
     {
-    case 0:
+    case STATE_LOAD:
         //SetHelpContext(HELPCONTEXT_BILLS_PC);
-        PSS_CreatePCMenu(task->data[1], &task->data[15]);
+        PSS_CreatePCMenu(task->tSelectedOption, &task->tWindowId);
         LoadStdWindowFrameGfx();
         DrawDialogueFrame(0, 0);
         FillWindowPixelBuffer(0, PIXEL_FILL(1));
-        AddTextPrinterParameterized2(0, 2, sUnknown_83CDA20[task->data[1]].desc, TEXT_SKIP_DRAW, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+        //think make a function to return pointer
+        //of list I need to use same as other function
+        AddTextPrinterParameterized2(0, 2, ReturnPSS_ListDescription(task->tSelectedOption), TEXT_SKIP_DRAW, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+        //AddTextPrinterParameterized2(0, 2, sPSS_DefaultState[task->tSelectedOption].desc, TEXT_SKIP_DRAW, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
         CopyWindowToVram(0, COPYWIN_BOTH);
-        CopyWindowToVram(task->data[15], COPYWIN_BOTH);
-        task->data[0]++;
+        CopyWindowToVram(task->tWindowId, COPYWIN_BOTH);
+        task->tState++;
         break;
-    case 1:
+    case STATE_FADE_IN:
         if (IsWeatherNotFadingIn())
         {
-            task->data[0]++;
+            task->tState++;
         }
         break;
-    case 2:
-        task->data[2] = Menu_ProcessInput();
-        switch(task->data[2])
+    case STATE_HANDLE_INPUT:
+        task->tInput = Menu_ProcessInput(); //ok think I found my problem, its going off of cursor position for input, and that's what sets boxoption
+        switch(task->tInput)
         {
         case MENU_NOTHING_CHOSEN:
-            task->data[3] = task->data[1];
-            if (JOY_NEW(DPAD_UP) && --task->data[3] < 0)
-                task->data[3] = 4;
+            task->tNextOption = task->tSelectedOption;
+            if (JOY_NEW(DPAD_UP) && --task->tNextOption < 0)//I believe it is, think this should be size of list NELEMS(sPSS_DefaultState)
+                task->tNextOption = (ReturnPSS_ListSizebyState() - 1);
+                //task->tNextOption = 4; 
 
-            if (JOY_NEW(DPAD_DOWN) && ++task->data[3] > 4)
-                task->data[3] = 0;
-            if (task->data[1] != task->data[3])
+            //if (JOY_NEW(DPAD_DOWN) && ++task->tNextOption > 4) //find if this is related to size of list
+            if (JOY_NEW(DPAD_DOWN) && ++task->tNextOption > (ReturnPSS_ListSizebyState() - 1)) //find if this is related to size of list
+                task->tNextOption = 0;
+            if (task->tSelectedOption != task->tNextOption)//if so think will make function to return correct size based on state
             {
-                task->data[1] = task->data[3];
+                task->tSelectedOption = task->tNextOption;
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));
-                AddTextPrinterParameterized2(0, 2, sUnknown_83CDA20[task->data[1]].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+                AddTextPrinterParameterized2(0, 2, ReturnPSS_ListDescription(task->tSelectedOption), 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+                //AddTextPrinterParameterized2(0, 2, sPSS_DefaultState[task->tSelectedOption].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
             }
             break;
         case MENU_B_PRESSED:
@@ -282,69 +383,85 @@ static void Task_PokemonStorageSystemPC(u8 taskId)
             {
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));
                 AddTextPrinterParameterized2(0, 2, gText_NoPkmnInParty, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-                task->data[0] = 3;
+                task->tState = 3;
             }//no break because I want fallthrough
-        case  4:
+        /*case  BOX_OPTION_EXIT:
             ClearStdWindowAndFrame(0, TRUE);
-            ClearStdWindowAndFrame(task->data[15], TRUE);
+            ClearStdWindowAndFrame(task->tWindowId, TRUE);
             UnlockPlayerFieldControls();    //unlocks me
             EnableBothScriptContexts();     //...locks me again
             DestroyTask(taskId);//believe thsi is end of task, or one of them, so from here would end pss and go back to main pc menu
-            break;
+            break;*/
         default:    //these trigger on outside of pc menu,  think this is what I was looking for but this is for pressing A I want pressing B.
-            if (task->data[2] == BOX_OPTION_WITHDRAW && CountPartyMons() == PARTY_SIZE) //I think numbers are for menu list, 0 is top, withdraw
+            if (task->tInput == MENU_B_PRESSED
+            || task->tInput == (ReturnPSS_ListSizebyState() - 1))//ok awesome this worked, no longer need box_option_exit
+            {
+                ClearStdWindowAndFrame(0, TRUE);
+                ClearStdWindowAndFrame(task->tWindowId, TRUE);
+                UnlockPlayerFieldControls();    //unlocks me
+                EnableBothScriptContexts();     //...locks me again
+                DestroyTask(taskId);//believe thsi is end of task, or one of them, so from here would end pss and go back to main pc menu
+                break;
+            }
+            else if (task->tInput == BOX_OPTION_WITHDRAW && CountPartyMons() == PARTY_SIZE) //I think numbers are for menu list, 0 is top, withdraw
             {
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));
                 AddTextPrinterParameterized2(0, 2, gText_PartyFull, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-                task->data[0] = 3;
+                task->tState = 3;
             }
-            else if (task->data[2] == BOX_OPTION_DEPOSIT && CountPartyMons() == 1)   //1 is middle deposit //hmm but this also works for move    prevents putting away last mon, remove this
+            else if (task->tInput == BOX_OPTION_DEPOSIT && CountPartyMons() == 1)   //1 is middle deposit //hmm but this also works for move    prevents putting away last mon, remove this
             {
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));
                 AddTextPrinterParameterized2(0, 2, gText_JustOnePkmn, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-                task->data[0] = 3;
+                task->tState = 3;
             } //removing allows for depositing full party, still has issues to work out, code otherwhere,  that create a default question mark icon that doesn't track
             else //success condition access box
             {
                 FadeScreen(FADE_TO_BLACK, 0);
-                task->data[0] = 4;
+                task->tState = 4;
             }
             break;
         }
         break;
-    case 3:
+    case STATE_ERROR_MSG:
         if (JOY_NEW(A_BUTTON | B_BUTTON))   //pressign A or B, after can't access box messages redisplays menu cursor options and goes back to case 2
         {
             FillWindowPixelBuffer(0, PIXEL_FILL(1));
-            AddTextPrinterParameterized2(0, 2, sUnknown_83CDA20[task->data[1]].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-            task->data[0] = 2;
+            AddTextPrinterParameterized2(0, 2, ReturnPSS_ListDescription(task->tSelectedOption), 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+            //AddTextPrinterParameterized2(0, 2, sPSS_DefaultState[task->tSelectedOption].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+            task->tState = 2;
         }
         else if (JOY_NEW(DPAD_UP))
         {
-            if (--task->data[1] < 0)
-                task->data[1] = 4;
+            if (--task->tSelectedOption < 0)
+                task->tSelectedOption = (ReturnPSS_ListSizebyState() - 1);
+                //task->tSelectedOption = 4;
             Menu_MoveCursor(-1);
-            task->data[1] = Menu_GetCursorPos();
+            task->tSelectedOption = Menu_GetCursorPos();
             FillWindowPixelBuffer(0, PIXEL_FILL(1));
-            AddTextPrinterParameterized2(0, 2, sUnknown_83CDA20[task->data[1]].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-            task->data[0] = 2;
+            AddTextPrinterParameterized2(0, 2, ReturnPSS_ListDescription(task->tSelectedOption), 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+            //AddTextPrinterParameterized2(0, 2, sPSS_DefaultState[task->tSelectedOption].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+            task->tState = 2;
         }
         else if (JOY_NEW(DPAD_DOWN))
-        {
-            if (++task->data[1] > 3)
-                task->data[1] = 0;
+        {   
+            //if (++task->tSelectedOption > 3)
+            //double check this substittion see if this works
+            if (++task->tSelectedOption > (ReturnPSS_ListSizebyState() - 2))
+                task->tSelectedOption = 0;
             Menu_MoveCursor(1);
-            task->data[1] = Menu_GetCursorPos();
+            task->tSelectedOption = Menu_GetCursorPos();
             FillWindowPixelBuffer(0, PIXEL_FILL(1));
-            AddTextPrinterParameterized2(0, 2, sUnknown_83CDA20[task->data[1]].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
-            task->data[0] = 2;
+            AddTextPrinterParameterized2(0, 2, ReturnPSS_ListDescription(task->tSelectedOption), 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+            //AddTextPrinterParameterized2(0, 2, sPSS_DefaultState[task->tSelectedOption].desc, 0, NULL, TEXT_COLOR_DARK_GREY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GREY);
+            task->tState = 2;
         }
         break;
-    case 4:
+    case STATE_ENTER_PC:
         if (!gPaletteFade.active)
         {
             CleanupOverworldWindowsAndTilemaps();
-            Cb2_EnterPSS(task->data[2]);
+            Cb2_EnterPSS(task->tInput);
             DestroyTask(taskId);
         }
         break;
@@ -354,8 +471,8 @@ static void Task_PokemonStorageSystemPC(u8 taskId)
 void ShowPokemonStorageSystemPC(void)
 {
     u8 taskId = CreateTask(Task_PokemonStorageSystemPC, 80);
-    gTasks[taskId].data[0] = 0;
-    gTasks[taskId].data[1] = 0;
+    gTasks[taskId].tState = 0;
+    gTasks[taskId].tSelectedOption = 0;
     LockPlayerFieldControls();
 }
 
@@ -366,14 +483,19 @@ static void FieldCb_ReturnToPcMenu(void)
 
     SetVBlankCallback(NULL);
     taskId = CreateTask(Task_PokemonStorageSystemPC, 80);   //reloads pss menu
-    gTasks[taskId].data[0] = 0;
-    gTasks[taskId].data[1] = sPreviousBoxOption;    //returns cursor to box option initially clicked
+    gTasks[taskId].tState = 0;
+    gTasks[taskId].tSelectedOption = sPreviousBoxOption;    //returns cursor to box option initially clicked
     Task_PokemonStorageSystemPC(taskId);
     SetVBlankCallback(vblankCb);
     FadeInFromBlack();      //removes black screen, so everything is visible
 }
 
-static const struct WindowTemplate sUnknown_83CDA48 = {
+//need template for each state w diff num entries
+//4 states but only 3 different sizes as state1 and state2 are same num entires
+//height is the only diff factor,
+//default is 5 strings/list entires,
+//so assuming value of 2 for each as default is 10
+static const struct WindowTemplate sWindowTemplate_MainMenu_FinalState = {
     .bg = 0,
     .tilemapLeft = 1,
     .tilemapTop = 1,
@@ -383,14 +505,48 @@ static const struct WindowTemplate sUnknown_83CDA48 = {
     .baseBlock = 0x001
 };
 
+static const struct WindowTemplate sWindowTemplate_MainMenu_MiddleState = {
+    .bg = 0,
+    .tilemapLeft = 1,
+    .tilemapTop = 1,
+    .width = 17,
+    .height = 8,
+    .paletteNum = 15,
+    .baseBlock = 0x001
+};
+
+static const struct WindowTemplate sWindowTemplate_MainMenu_DefaultState = {
+    .bg = 0,
+    .tilemapLeft = 1,
+    .tilemapTop = 1,
+    .width = 17,
+    .height = 6,
+    .paletteNum = 15,
+    .baseBlock = 0x001
+};
+
+static const struct WindowTemplate* ReturnWindowTemplateFromState(void)
+{
+    if ((FlagGet(FLAG_TAUGHT_MOVE_DELETE) && FlagGet(FLAG_TAUGHT_MOVE_RELEARN)) || FlagGet(FLAG_NEW_GAME_PLUS))
+        return &sWindowTemplate_MainMenu_FinalState;    
+    else if (FlagGet(FLAG_TAUGHT_MOVE_DELETE))
+        return &sWindowTemplate_MainMenu_MiddleState;
+    else if (FlagGet(FLAG_TAUGHT_MOVE_RELEARN))
+        return &sWindowTemplate_MainMenu_MiddleState;
+    else
+        return &sWindowTemplate_MainMenu_DefaultState;
+}
+
+
 static void PSS_CreatePCMenu(u8 whichMenu, s16 *windowIdPtr)
 {
     s16 windowId;
-    windowId = AddWindow(&sUnknown_83CDA48);
+    //windowId = AddWindow(&sWindowTemplate_MainMenu_DefaultState);
+    windowId = AddWindow(ReturnWindowTemplateFromState());
 
     DrawStdWindowFrame(windowId, FALSE);
-    PrintTextArray(windowId, 2, GetMenuCursorDimensionByFont(2, 0), 2, 16, NELEMS(sUnknown_83CDA20), (void *)sUnknown_83CDA20);
-    Menu_InitCursor(windowId, 2, 0, 2, 16, NELEMS(sUnknown_83CDA20), whichMenu);
+    PrintTextArray(windowId, 2, GetMenuCursorDimensionByFont(2, 0), 2, 16, ReturnPSS_ListSizebyState(), (void *)ReturnPSSListArray_BasedOnState());
+    Menu_InitCursor(windowId, 2, 0, 2, 16, ReturnPSS_ListSizebyState(), whichMenu);
     *windowIdPtr = windowId;
     //if (FlagGet(FLAG_START_OAK_RANCH_COUNTER) && gSaveBlock1Ptr->oakRanchStepCounter != 0)
     //    UpdatePokemonStorageSystemMonExp(); //forgot to set here to update when open pc
