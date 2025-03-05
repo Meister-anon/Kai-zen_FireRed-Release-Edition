@@ -3416,6 +3416,34 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     from what i see bills pc doesn't flash?
     so instead just play sound effect while he's doin stuff
 
+    bug bite broken freezing game again?
+    unsure what caused hoping its just  the unfinished
+    work i'm done on the pokemon storage system?
+
+    bug noticed same turn stat change has graphic bug,
+    ex mankey w anger point uses leer lowering target defense then gets crit
+    activating anger point, the attack boost is applied correctly
+    but it uses the green graphic rather than the red one for the stat change
+    hmm seems to be an issue even if not used the same turn?
+
+    bug endure isn't quite working right w multi hit or multitask ability one or other
+    mon is dying to a multi hit move rather than holding on,
+    and needing to be hit again to faint
+
+    bug potenntial same terrain effects don't work,  starterrival had grassy surge,
+    effect got triggered in everybattle??
+    seems separate from me?
+
+    very strange bug bite breaks as soon as all effects are done
+    no matter how many bugs trigger after mvoe ends
+    had used bug bite attack ended shell bell triggered
+    then terrain healing activatd, THEN game froze
+    even when set argument move effect to burn not infestation
+
+    don'nt know why this keeps happeing so instead
+    decide to do the move effects refactor after
+    along w set of new updates
+
     ok realized exp share/ exp null aren't accesibility optimized
     resize letters  add null symbol 0 with slash through it
     add + sign for sure made new graphic looks good
@@ -3464,6 +3492,53 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     idea take gigantimax and turn into megas
     butterfree and lapras are what I'm thinking of rn
 
+    Looking at show mon pic 
+    think there could be something
+    wrong w my implementation of decompression buffer
+    removal. hmm
+
+    NOTE**(
+    Later comb over pokedex_entries.h file
+    for species gen 4 up
+    that use default entries
+
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+
+    replace those values based on height,
+    just search for a mon of same height
+    that matches criteria
+    essentially if mon is floating 
+    look for a floating mon if it exists,
+    pokemon offset is elevation a negative
+    value there makes the pokemon float in
+    size comparison box,
+
+    hmm ok will have to do with python
+    there's 8k plus values to replace oof
+    ok store values for nat dex of species
+    from gen1-3 
+    loop the file once and build a table
+    using all unique height values from that range
+    storing all the scale offsets for later use
+    think need a dictionary for that?
+
+
+    -of note,
+    there are variations within the same height value
+    ex clampearl pikachu and mankey all use height value 4
+    but are different sizes
+    one is flat 1"  other is 1" 4'
+    and last is 1" 6'  and the size reflects that diff
+
+    so copying existing height based values isn't enough
+    will, but should comb over list again to make small adjustments
+    to suit
+
+    )
+
     created boxmon value MON_DATA_BLOCK_BOX_EXP_GAIN
     set from within pc believe should be
     press start and will work on index hovering
@@ -3493,6 +3568,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     it'd show the greyscale palette
 
     ok that'll work perfectly
+
+    See if can attempt make dex scroll
+    to all values from show mon page without
+    having set limit for scroll
+    //think if can somehow skip
+    reading blank entires between curr and target entry/species
+    instead read based on seen flag that would be great
+    #check EE see what happens there
+    checked and yeah EE has no problem moving
+    betwen hundreds of entries to get to next value
+   
+    believe found it,  source function is Task_WaitForExitInfoScreen
+    while main logic for movement/selection is TryDoInfoScreenScroll
+
+    vsonic important
+
     found pc bug only one pokemon pokemon
     not able to cancel move bricks game smh
     -fixed issue was I set && when I should have set ||
@@ -3520,6 +3611,85 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and just have it use partyslot for the enemy so they're
     always choosing from party hmm that could work
     least for the in game stuff
+
+    ex. &gPlayerParty[GetBoxCursorPosition()].box
+    unsure if that will work well, for enemyparty unsure how box will for that
+    don't think I can do anything nbut test it?
+    based on struct it seems it should be fine?
+
+    decide for trade since base setup worked for
+    box from party,
+    instead of scrapping make 2 versions
+    for in party can just use normal setup,
+    use trademonbox for other
+
+    found middle ground testing now, -works
+    also need adjust new naming setup to 
+    account for not being able to rename 
+    traded mon
+
+    broke something, with box title is no longer dipslaying text correctly
+    hmm ok its literally just the text font?
+
+    just simple check for if can nickname,
+    //if mon otid does not equal player id 
+    return false, play fail sound effect
+    -logic mon was raised w nickame, 
+    would recognize a new name being used for it,
+    its an animal
+
+    setup new script for name rater made new specials
+    to track if nicknamed that pair with ChooseBoxMon
+    still need to add the list of items for name rater to give,
+    and setup a timer,
+    most likely on daily timer
+    so don't worry about step counter
+
+    ...ok something wrong w x defense its not working,
+    need to figure that out?
+
+    couldn't initialy find palette thing,
+    decided instead, of doing palette grey
+    add exp null icon on box display
+    if have block exp thing,
+    should be simpler
+
+    changed mind decided just make sprite transperent
+    same thing that's done on move item pc option
+    simple clean and can be seen from a distance
+
+    Also discovered option for how I want to do move delete move relearn,
+    figured too clunky to add as list items 
+    within pc,
+    BUT, if instead I make them main list tasks
+    it'd work perfectly!
+
+    Would be just like select mon,
+    only difference is changing what happens when I select a mon.
+
+    Plan replace withdraw pokemon and deposit pokemon
+    as they are never used anyway.
+
+    With Delete Move,
+    Relearn Move
+
+    Just like how bill's pc changes pc options based on flag check,
+    add the options as they become available.
+
+    Otherwise Move Pokemon and Move Item will be only options
+    There honestly isn't much point to have Withdraw and Deposit as options anyway
+    -think can look at playerpc for figuring how to expand options
+    w progression
+
+    setup like select mon where press A on mon
+    does task, think set callback to returntoPSS or reshowPSS
+    then move Box_option stuff so move mon and move item is at top
+    think want change move relearn menus so it selects from current mon
+    or pre evos and generates list from that,
+    just to cut down on list size a bit
+
+    -may not do below, would be too much issue would just be annoying I think
+    for most things. unnecessary at best
 
     Also need add nuzlocke banned to more checks
     //ex shouldn't be able to use for things that
@@ -3549,6 +3719,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     give a rare item as a congrats for a great nickname
     "Wow this pokemon really loves its Nickname!"
     "hmm I think this pokemon isn't used to its name yet"
+
+    for party can use dex callback I already have setup
+    but would need figure out pc stuff,
+    hmm actually box setup can probably
+    get me through that issue,
+    since it shows how to return to proper
+    box and slot
+    so reattempt get summaryscreen to dex stuff working
+    add new get inparty or box function to that
+    so can toggle which callback to set/use
+    after get that working can tackle new feature
+    2/23/2025
+
     NOTE**(
     since make clean removes tools o
     from now on just make mostlyclean instead
@@ -3556,6 +3739,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     identified issue of event script not recognizing something as
     a constant, it needs to be included in the 
     event_scripts.s to be work
+
+    add ability capsule to mart changes
+    so can change abilities whenever you want
+    in post game and in new game plus
+    other ones use badge check have this use flag check
+    FLAG_BECAME_LEAGUE_CHAMPION
+    hmm think will keep roaming legendaries on for new game plus
+    cuz funny to be reset to lvl 1 but run into a lvl 50
+    Legendary and just get fucked
+
+    Note change party menu so nuzlocke fainted mon
+    don't move at all, just extra thing to make seem dead
     )
 
     planned

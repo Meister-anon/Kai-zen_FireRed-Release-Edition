@@ -1377,8 +1377,8 @@
 #define FLAG_TAUGHT_MOVE_DELETE                                     (SYS_FLAGS + 0x32) //new flags for new effect player taught how to do move delete and relearn
 #define FLAG_TAUGHT_MOVE_RELEARN                                    (SYS_FLAGS + 0x33)
 #define FLAG_SYS_UPDATED_PC                                    (SYS_FLAGS + 0x34)  //instead make new flag juse rename since done at same time
-#define FLAG_0x835                                                  (SYS_FLAGS + 0x35)
-#define FLAG_0x836                                                  (SYS_FLAGS + 0x36)
+#define FLAG_MET_MOVE_DELETER                                       (SYS_FLAGS + 0x35)
+#define FLAG_MET_MOVE_REMINDER                                      (SYS_FLAGS + 0x36)//these 2 flags are for filtering messages in new script
 #define FLAG_0x837                                                  (SYS_FLAGS + 0x37)
 #define FLAG_0x838                                                  (SYS_FLAGS + 0x38)
 #define FLAG_SYS_MYSTERY_GIFT_ENABLED                               (SYS_FLAGS + 0x39)

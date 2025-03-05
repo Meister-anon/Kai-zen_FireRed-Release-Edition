@@ -1,13 +1,41 @@
 FuchsiaCity_House3_Text_WouldYouLikeToForgetMove:: @ 81993B9
     .string "Uh…\n"
     .string "Oh, yes, I'm the MOVE DELETER.\p"
-    .string "I can make POKéMON forget their\n"
-    .string "moves.\p"
+    .string "Did you come here to make POKéMON\n"
+    .string "forget their moves?\p"
     .string "Would you like me to do that?$"
 
 FuchsiaCity_House3_Text_WhichMonShouldForgetMove:: @ 8199421
     .string "Which POKéMON should forget a\n"
     .string "move?$"
+
+@long message so use flag set so it only plays
+@for first time
+FuchsiaCity_House3_Text_YouWantMeToDeleteAMove::
+    .string "Well\. I don't do that anymore!\p"
+    .string "After offering my service freely\n"
+    .string "to every trainer that stops by,\l"
+    .string "I realized something\.\p"
+    .string "I COULD BE MAKING MONEY!!\p"
+    .string "So I stopped deleting moves\n"
+    .string "and instead for a small fee\l"
+    .string "I'll teach you how to do it!$"
+
+@follow up message that will play
+@get special populate w cost do open moneybox
+@like daycare etc.
+FuchsiaCity_House3_Text_TeachYouHowToDeleteMove::
+    .string "If you would like to learn\n"
+    .string "how to delete moves for your\l"
+    .string "POKéMON, I can teach you.$"
+
+FuchsiaCity_House3_Text_PlayerLearnedToForget::
+    .string "{PLAYER} learned how to forget moves!$"
+
+FuchsiaCity_House3_Text_PlayerHasLearnedToForgetCompletely:: @ 81994B1
+    .string "It worked to perfection!\p"
+    .string "You can now delete moves for\n"
+    .string "your POKéMON from the pc.$"
 
 FuchsiaCity_House3_Text_WhichMoveShouldBeForgotten:: @ 8199445
     .string "Which move should be forgotten?$"

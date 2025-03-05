@@ -70,7 +70,7 @@
 #define BATTLE_TYPE_LEGENDARY        0x2000
 #define BATTLE_TYPE_GHOST_UNVEILED   0x2000 // Re-use of BATTLE_TYPE_LEGENDARY, when combined with BATTLE_TYPE_GHOST
 #define BATTLE_TYPE_SAFARI           0x4000 //no using regi can replace this //replaced w safari
-#define BATTLE_TYPE_GHOST            0x8000
+#define BATTLE_TYPE_GHOST            0x8000 //check want to setup for if target mon is ghost type and doesnt have silf scope, to put ghosts in underpass at nighttime
 #define BATTLE_TYPE_POKEDUDE         0x10000
 #define BATTLE_TYPE_WILD_SCRIPTED    0x20000
 #define BATTLE_TYPE_LEGENDARY_FRLG   0x40000
