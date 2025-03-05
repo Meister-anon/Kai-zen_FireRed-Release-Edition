@@ -30,7 +30,12 @@ FuchsiaCity_House3_Text_TeachYouHowToDeleteMove::
     .string "POKéMON, I can teach you.$"
 
 FuchsiaCity_House3_Text_PlayerLearnedToForget::
+    .string "{PAUSE 0x20}1, {PAUSE 0x0F}2, and {PAUSE 0x0F}‥ {PAUSE 0x0F}‥ {PAUSE 0x0F}‥ {PAUSE 0x0F}{PLAY_SE SE_BALL_BOUNCE_1}Poof!\p"
     .string "{PLAYER} learned how to forget moves!$"
+
+FuchsiaCity_House3_Text_TeachCost::
+    .string "It'll only cost you\n"
+    .string "the low price of ¥{STR_VAR_2}!$"
 
 FuchsiaCity_House3_Text_PlayerHasLearnedToForgetCompletely:: @ 81994B1
     .string "It worked to perfection!\p"
@@ -53,9 +58,18 @@ FuchsiaCity_House3_Text_MonHasForgottenMoveCompletely:: @ 81994B1
     .string "{STR_VAR_1} has forgotten\n"
     .string "{STR_VAR_2} completely.$"
 
-FuchsiaCity_House3_Text_ComeAgainToForgetOtherMoves:: @ 81994EA
-    .string "Come again if there are other\n"
-    .string "moves to be forgotten.$"
+
+FuchsiaCity_House3_Text_ComeAgainToForget:: @ 81994EA
+    .string "Come again if you decide you\n"
+    .string "want to learn to forget moves.$"
+
+@end message for already learned skill
+FuchsiaCity_House3_Text_ComeAgainToRememberToForget:: @ 81994EA
+    .string "I can see you already know\n"
+    .string "how to delete moves.\p"
+    .string "Feel free to stop by if you\n"
+    .string "ever need a reminder on\l"
+    .string "how to forget!$"
 
 FuchsiaCity_House3_Text_NoEggShouldKnowMoves:: @ 819951F
     .string "What?\n"

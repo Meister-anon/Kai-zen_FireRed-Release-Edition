@@ -1,6 +1,10 @@
 CeruleanCity_House1_MapScripts:: @ 816A7EF
 	.byte 0
 
+@hmm ok this is mostly worthless think will move this
+@to fuchsia city and replace w move deleter
+@makes more sense to have this when you actually have
+@more badges
 CeruleanCity_House1_EventScript_BadgeGuy:: @ 816A7F0
 	lock
 	faceplayer
