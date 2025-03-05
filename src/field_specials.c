@@ -2384,6 +2384,13 @@ void BufferMonNickname(void)
     //StringGet_Nickname(gStringVar1); -didn't need
 }
 
+void GetMoveDeleterMoveReminderCost(void)
+{
+    u32 cost = 7000;
+    gSpecialVar_0x8005 = cost;
+    ConvertIntToDecimalStringN(gStringVar2, cost, STR_CONV_MODE_LEFT_ALIGN, 5);
+}
+
 //use w specialvar to set to whatever var I want
 //more flexibility desired to not cause issue with
 //chooseboxmon

@@ -227,7 +227,7 @@ gSpecials:: @ 815FD60
 	def_special NullFieldSpecial  @ Lottery Corner specials
 	def_special NullFieldSpecial
 	def_special SelectMoveTutorMon
-	def_special SelectMoveDeleterMove
+	def_special GetMoveDeleterMoveReminderCost	@was SelectMovDeleterMove repalced
 	def_special MoveDeleterForgetMove
 	def_special BufferMoveDeleterNicknameAndMove
 	def_special GetNumMovesSelectedMonHas
