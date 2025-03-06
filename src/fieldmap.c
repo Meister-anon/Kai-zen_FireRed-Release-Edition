@@ -486,7 +486,7 @@ void MapGridSetMetatileImpassabilityAt(s32 x, s32 y, bool32 arg2)
 
 u32 GetBehaviorByMetatileIdAndMapLayout(const struct MapLayout *mapLayout, u16 metatile, u8 attr)
 {
-    u32 * attributes;
+    const u32 * attributes;
 
     if (metatile < NUM_METATILES_IN_PRIMARY)
     {
@@ -943,18 +943,18 @@ static void apply_map_tileset_palette(struct Tileset const *tileset, u16 destOff
         if (tileset->isSecondary == FALSE)
         {
             LoadPalette(&black, destOffset, 2);
-            LoadPalette(((u16*)tileset->palettes) + 1, destOffset + 1, size - 2);
-            sub_80598CC(destOffset + 1, (size - 2) >> 1);
+            LoadPalette(tileset->palettes[0] + 1, destOffset + 1, size - 2);
+            ApplyGlobalTintToPaletteEntries(destOffset + 1, (size - 2) >> 1);
         }
         else if (tileset->isSecondary == TRUE)
         {
-            LoadPalette(((u16*)tileset->palettes) + (NUM_PALS_IN_PRIMARY * 16), destOffset, size);
-            sub_80598CC(destOffset, size >> 1);
+            LoadPalette(tileset->palettes[NUM_PALS_IN_PRIMARY], destOffset, size);
+            ApplyGlobalTintToPaletteEntries(destOffset, size >> 1);
         }
         else
         {
-            LoadCompressedPalette((u32*)tileset->palettes, destOffset, size);
-            sub_80598CC(destOffset, size >> 1);
+            LoadCompressedPalette((const u32 *)tileset->palettes, destOffset, size);
+            ApplyGlobalTintToPaletteEntries(destOffset, size >> 1);
         }
     }
 }

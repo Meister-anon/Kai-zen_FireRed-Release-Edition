@@ -365,85 +365,120 @@
 	.byte \speed
 	.endm
 
-	@ Sends the player to Warp warp on Map bank.map. If the specified warp is 0xFF, then the player will instead be sent to (x, y) on the map.
-	.macro warp map:req, warp:req, x:req, y:req
+	@ Helper macro for warp commands that formats their arguments.
+	@ It allows warp macros to either provide 1. a valid id for which warp location to use,
+	@ or 2. a pair of x/y coordinates to use. Both may be provided but at least one will be
+	@ ignored by SetPlayerCoordsFromWarp. If none are provided it will use dummy arguments,
+	@ and the warp will send the player to the center of the map.
+	@ Examples of valid inputs for a warp command:
+	@ - warp MAP, x, y
+	@ - warp MAP, warpId
+	@ - warp MAP
+	@ - warp MAP, warpId, x, y
+	.macro formatwarp map:req, a, b, c
+	map \map
+	.ifb \a @ No arguments provided, use dummy warpId and coords.
+		.byte WARP_ID_NONE
+		.2byte -1 @ x
+		.2byte -1 @ y
+	.else
+	.ifb \b @ Only one argument provided, treat it as a warpId and use dummy coords.
+		.byte \a   @ warpId
+		.2byte -1  @ x
+		.2byte -1  @ y
+	.else
+	.ifb \c @ Only two arguments provided, treat them as a coord pair and use dummy warpId.
+		.byte WARP_ID_NONE
+		.2byte \a  @ x
+		.2byte \b  @ y
+	.else @ All three arguments provided. Output them and let the warp sort out which to use.
+		.byte \a  @ warpId
+		.2byte \b @ x
+		.2byte \c @ y
+	.endif
+	.endif
+	.endif
+	.endm
+
+	@ Warps the player to the specified map.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro warp map:req, a, b, c
 	.byte 0x39
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Clone of warp that does not play a sound effect.
-	.macro warpsilent map:req, warp:req, x:req, y:req
+	@ Warps the player to the specified map without playing a sound effect.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro warpsilent map:req, a, b, c
 	.byte 0x3a
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Clone of warp that uses "a walking effect".
-	.macro warpdoor map:req, warp:req, x:req, y:req
+	@ Warps the player to the specified map and plays a door opening animation before stepping upwards into it.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro warpdoor map:req, a, b, c
 	.byte 0x3b
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Warps the player to another map using a hole animation.
+	@ Warps the player to another map using a hole animation. If the specified map is MAP_UNDEFINED it will instead
+	@ use the map set by setholewarp. In either case the target coordinates on the destination map will be the
+	@ player''s current position.
 	.macro warphole map:req
 	.byte 0x3c
 	map \map
 	.endm
 
-	@ Clone of warp that uses a teleport effect. It is apparently only used in R/S/E.[source]
-	.macro warpteleport map:req, warp:req, x:req, y:req
+	@ Warps the player to the specified map using a teleport effect. Effect is similar to warpspinenter but
+	@ this warp has a fade out first and doesn''t maintain the original facing direction.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro warpteleport map:req, a, b, c
 	.byte 0x3d
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Clone of warp. Used by an (unused?) Safari Zone script to return the player to the gatehouse and end the Safari Game.
-	.macro setwarp map:req, warp:req, x:req, y:req
+	@ Sets the warp destination to be used later.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro setwarp map:req, a, b, c
 	.byte 0x3e
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Sets a default warp place. If a warp tries to send the player to Warp 127 on Map 127.127, they will instead be sent here. Useful when a map has warps that need to go to script-controlled locations (i.e. elevators).
-	.macro setdynamicwarp map:req, warp:req, x:req, y:req
+	@ Sets the dynamic warp destination. Warps with a destination map of MAP_DYNAMIC will target this destination.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro setdynamicwarp map:req, a, b, c
 	.byte 0x3f
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Clone of warp3, except that this writes data to different offsets...
-	.macro setdivewarp map:req, warp:req, x:req, y:req
+	@ Sets the destination that diving or emerging from a dive will take the player to. Note that this only
+	@ applies if the current map does not have a dive/emerge connection. If it does have a corresponding
+	@ map connection then that map and the player''s current coordinates will be used as the destination instead.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro setdivewarp map:req, a, b, c
 	.byte 0x40
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \x
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Clone of warp3, except that this writes data to different offsets...
-	.macro setholewarp map:req, warp:req, x:req, y:req
+	@ Sets the destination that falling into a hole will take the player to.
+	@ While it does accept and set the x/y coordinates and warpId, they are ultimately ignored.
+	@ This is only used to set the map the player should fall to. The exact location on the
+	@ map to fall to is determined by warphole.
+	@ Warp commands can be given either the id of which warp location to go to on the destination map
+	@ or a pair of x/y coordinates to go to directly on the destination map.
+	.macro setholewarp map:req, a=0, b=0, c
 	.byte 0x41
-	map \map
-	.byte \warp
-	.2byte \x
-	.2byte \y
+	formatwarp \map, \a, \b, \c
 	.endm
 
-	@ Retrieves the player''s zero-indexed X- and Y-coordinates in the map, and stores them in the specified variables.
+	@ Retrieves the player''s zero-indexed x- and y-coordinates in the map, and stores them in the specified variables.
 	.macro getplayerxy x:req, y:req
 	.byte 0x42
 	.2byte \x

@@ -134,7 +134,7 @@ static bool8 MovementType_CopyPlayer_Step2(struct ObjectEvent *objectEvent, stru
 static bool8 MovementType_Buried_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 static bool8 MovementType_WalkInPlace_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 static bool8 MovementType_MoveInPlace_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite);
-static bool8 MovementType_WalkSlowlyInPlace_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
+static bool8 MovementType_WalkInPlaceFast_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 static bool8 MovementType_MoveInPlace_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 static bool8 MovementType_JogInPlace_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 static bool8 MovementType_MoveInPlace_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite);
@@ -581,7 +581,7 @@ u8 (*const gMovementTypeFuncs_WalkInPlace[])(struct ObjectEvent *, struct Sprite
 };
 
 u8 (*const gMovementTypeFuncs_WalkSlowlyInPlace[])(struct ObjectEvent *, struct Sprite *) = {
-    MovementType_WalkSlowlyInPlace_Step0,
+    MovementType_WalkInPlaceFast_Step0,
     MovementType_MoveInPlace_Step1,
 };
 
@@ -596,18 +596,18 @@ u8 (*const gMovementTypeFuncs_Invisible[])(struct ObjectEvent *, struct Sprite *
     MovementType_Invisible_Step2,
 };
 
-u8 (*const gUnknown_83A63F0[])(struct ObjectEvent *, struct Sprite *) = {
+u8 (*const gMovementTypeFuncs_RaiseHandAndStop[])(struct ObjectEvent *, struct Sprite *) = {
     sub_8063364,
     sub_8063384,
     sub_80633A4,
 };
 
-u8 (*const gUnknown_83A63FC[])(struct ObjectEvent *, struct Sprite *) = {
+u8 (*const gMovementTypeFuncs_RaiseHandAndJump[])(struct ObjectEvent *, struct Sprite *) = {
     sub_80633B4,
     sub_80633F4,
 };
 
-u8 (*const gUnknown_83A6404[])(struct ObjectEvent *, struct Sprite *) = {
+u8 (*const gMovementTypeFuncs_RaiseHandAndSwim[])(struct ObjectEvent *, struct Sprite *) = {
     sub_80633D4,
     sub_80633F4,
 };

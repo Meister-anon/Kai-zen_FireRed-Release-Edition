@@ -1089,7 +1089,8 @@ const union AnimCmd *const gAnimTable_83A3410[] = {
     gAnimCmd_83A2F68,
     gAnimCmd_83A2F7C,
 };
-
+//redo these compare file against pret
+//cherry pick the commit with these changes too so can get that
 const union AnimCmd *const gObjectEventImageAnimTable_RedGreenNormal[] = {
     gAnimCmd_83A2AC4,
     gAnimCmd_83A2ACC,

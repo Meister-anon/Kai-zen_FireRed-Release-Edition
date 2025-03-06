@@ -40,27 +40,17 @@ enum
     TILE_TERRAIN_WATERFALL,
 };
 
-enum
-{
-    CONNECTION_SOUTH = 1,
-    CONNECTION_NORTH,
-    CONNECTION_WEST,
-    CONNECTION_EAST,
-    CONNECTION_DIVE,
-    CONNECTION_EMERGE
-};
-
 typedef void (*TilesetCB)(void);
 
 struct Tileset
 {
     /*0x00*/ bool8 isCompressed;
     /*0x01*/ bool8 isSecondary;
-    /*0x04*/ void *tiles;
-    /*0x08*/ void *palettes;
-    /*0x0c*/ void *metatiles;
+    /*0x04*/ const u32 *tiles;
+    /*0x08*/ const u16 (*palettes)[16];
+    /*0x0c*/ const u16 *metatiles;
     /*0x10*/ TilesetCB callback;
-    /*0x14*/ void *metatileAttributes;
+    /*0x14*/ const u32 *metatileAttributes;
 };
 
 struct MapLayout
@@ -82,29 +72,30 @@ struct BackupMapLayout
     u16 *map;
 };
 
-union __attribute__((packed)) ObjectEventRange {
-    u8 as_byte;
-    struct __attribute__((packed)) {
-        u8 x:4;
-        u8 y:4;
-    } __attribute__((aligned (1))) as_nybbles;
-} __attribute__((aligned (1)));
-
 struct ObjectEventTemplate
 {
-    /*0x00*/ u8 localId;
-    /*0x01*/ u8 graphicsId;
-    /*0x02*/ u8 inConnection;
-    /*0x04*/ s16 x;
-    /*0x06*/ s16 y;
-    /*0x08*/ u8 elevation;
-    /*0x09*/ u8 movementType;
-    /*0x0A*/ u16 movementRangeX:4;
-             u16 movementRangeY:4;
-    /*0x0C*/ u16 trainerType;
-    /*0x0E*/ u16 trainerRange_berryTreeId;
-    /*0x10*/ const u8 *script;
-    /*0x14*/ u16 flagId;
+    u8 localId;
+    u8 graphicsId;
+    u8 kind; // The "kind" field determines how to access objUnion union below.
+    s16 x, y;
+    union {
+        struct {
+            u8 elevation;
+            u8 movementType;
+            u16 movementRangeX:4;
+            u16 movementRangeY:4;
+            u16 trainerType;
+            u16 trainerRange_berryTreeId;
+        } normal;
+        struct {
+            u8 targetLocalId;
+            u8 padding[3];
+            u16 targetMapNum;
+            u16 targetMapGroup;
+        } clone;
+    } objUnion;
+    const u8 *script;
+    u16 flagId;
 };  /*size = 0x18*/
 
 struct WarpEvent
@@ -240,7 +231,8 @@ struct ObjectEvent
     /*0x14*/        struct Coords16 previousCoords;
     /*0x18*/        u8 facingDirection:4;
     /*0x18*/        u8 movementDirection:4;
-    /*0x19*/        union ObjectEventRange range;
+                    u16 rangeX:4;
+                    u16 rangeY:4;
     /*0x1A*/        u8 fieldEffectSpriteId;
     /*0x1B*/        u8 warpArrowSpriteId;
     /*0x1C*/        u8 movementActionId;

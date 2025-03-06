@@ -87,14 +87,14 @@ void SetSav1ObjectEventsFromQuestLog(const struct QuestLog * questLog, const str
         gObjectEvents[i].directionSequenceIndex = questLogObjectEvents[i].directionSequenceIndex;
         gObjectEvents[i].playerCopyableMovement = questLogObjectEvents[i].animId;
 
-        for (j = 0; j < 0x40; j++)
+        for (j = 0; j < OBJECT_EVENT_TEMPLATES_COUNT; j++)
         {
             if (gObjectEvents[i].localId == templates[j].localId)
             {
-                gObjectEvents[i].initialCoords.x = templates[j].x + 7;
-                gObjectEvents[i].initialCoords.y = templates[j].y + 7;
-                gObjectEvents[i].range.as_nybbles.x = templates[j].movementRangeX;
-                gObjectEvents[i].range.as_nybbles.y = templates[j].movementRangeY;
+                gObjectEvents[i].initialCoords.x = templates[j].x + MAP_OFFSET;
+                gObjectEvents[i].initialCoords.y = templates[j].y + MAP_OFFSET;
+                gObjectEvents[i].rangeX = templates[j].objUnion.normal.movementRangeX;
+                gObjectEvents[i].rangeY = templates[j].objUnion.normal.movementRangeY;
             }
         }
 
