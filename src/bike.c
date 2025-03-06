@@ -188,7 +188,10 @@ static void BikeTryMoveFastInDirection(u8 direction)
         {
             if (collision == COLLISION_LEDGE_JUMP)
                 PlayerJumpLedge(direction);
-            else if (collision != COLLISION_STOP_SURFING && collision != COLLISION_LEDGE_JUMP && collision != COLLISION_PUSHED_BOULDER && collision != COLLISION_UNKNOWN_WARP_6C_6D_6E_6F)
+            else if (collision != COLLISION_STOP_SURFING
+                  && collision != COLLISION_LEDGE_JUMP
+                  && collision != COLLISION_PUSHED_BOULDER
+                  && collision != COLLISION_DIRECTIONAL_STAIR_WARP)
                 PlayerOnBikeCollide(direction);
         }
         else
