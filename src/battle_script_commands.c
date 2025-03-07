@@ -3287,7 +3287,9 @@ static inline void ApplyRandomDmgMultiplier(void) //vsonic test works
 
     species = GetMonData(mon, MON_DATA_SPECIES);
 
+    //facepalm only noticed this with growl, but I forgot to exclude from STATUS MOVES
     if ((randPercent == 100 || IS_CRIT) 
+    && GetBattleMoveSplit(gCurrentMove) != SPLIT_STATUS
     && gBattleMoves[gCurrentMove].effect != EFFECT_MULTI_HIT
     && !(gBattleMoves[gCurrentMove].flags & FLAG_ALWAYS_CRIT) //hope this is still right vsonic
     && gBattleMoves[gCurrentMove].effect != EFFECT_TRIPLE_KICK

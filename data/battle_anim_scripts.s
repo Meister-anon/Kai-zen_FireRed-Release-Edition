@@ -5736,7 +5736,7 @@ RoarEffect:: @ 81CDB06
 
 Move_GROWL:: @ 81CDB57
 	loadspritegfx ANIM_TAG_NOISE_LINE
-	createvisualtask SoundTask_PlayDoubleCry, 2, 0, 255
+	createvisualtask SoundTask_PlayDoubleCry, 2, 0, DOUBLE_CRY_GROWL
 	call RoarEffect
 	delay 10
 	createvisualtask AnimTask_ShakeMon2, 2, 1, 1, 0, 9, 1

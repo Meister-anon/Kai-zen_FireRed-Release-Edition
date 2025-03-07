@@ -1629,6 +1629,20 @@ void DummyFunc(void)
 {
 }
 
+//used in setpokemonycrytone
+//sets if cry is compressed or uncompressed
+static bool8 ReturnCryCompType(u16 species)
+{
+    switch (species)
+    {
+        case SPECIES_KLEFKI:
+            return TRUE;
+        break;
+        default:
+            return FALSE;
+    }
+}
+
 #define CRY_LOGIC //const u8 *
 ///struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone)
 struct MusicPlayerInfo *SetPokemonCryTone(bool32 reverse, u16 species, struct ToneData *tone)
@@ -1637,11 +1651,8 @@ struct MusicPlayerInfo *SetPokemonCryTone(bool32 reverse, u16 species, struct To
     s32 maxClockIndex = 0;
     s32 i;
     struct MusicPlayerInfo *mplayInfo;
-    bool8 uncomp = FALSE;
+    bool8 uncomp = ReturnCryCompType(species);
     
-    //set uncomp true based on species
-    if (species == SPECIES_KLEFKI)
-        uncomp = TRUE;
 
     if (uncomp == FALSE)
         tone->type = reverse ? 0x30 : 0x20;

@@ -4083,7 +4083,7 @@ static void PokeSum_PrintPageHeaderText(u8 curPageIndex) //
         PokeSum_PrintPageName(gText_PokeSum_PageName_PokemonInfo);
         if (!sMonSummaryScreen->isEgg)
         {
-            if (!gMain.inBattle)
+            if (!gMain.inBattle && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
                 PokeSum_PrintControlsString(gText_PokeSum_Controls_PageRename);
             else
                 PokeSum_PrintControlsString(gText_PokeSum_Controls_PageCancel);

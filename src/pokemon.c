@@ -20,7 +20,7 @@
 #include "battle_message.h"
 #include "battle_util.h"
 #include "link.h"
-#include "cry_defines.h" //trying to figure out why this is causing issue
+#include "cry_defines.h" //unsure if this needs to be here, but it works so I guess leave it?
 #include "m4a.h"
 #include "pokedex.h"
 #include "sound.h"
