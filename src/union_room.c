@@ -3223,19 +3223,19 @@ static void Task_RunUnionRoom(u8 taskId)
         }
         break;
     case 42:
-        if (GetHostRFUtgtGname()->species == SPECIES_NONE)
+        if (GetHostRFUtgtGname()->tradeSpecies == SPECIES_NONE)
         {
             data->state = 43;
         }
         else
         {
-            if (GetHostRFUtgtGname()->species == SPECIES_EGG)
+            if (GetHostRFUtgtGname()->tradeSpecies == SPECIES_EGG)
             {
                 StringCopy(gStringVar4, gUnknown_8458DE8);
             }
             else
             {
-                StringCopy(gStringVar1, gBaseStats[GetHostRFUtgtGname()->species].speciesName);
+                StringCopy(gStringVar1, gBaseStats[GetHostRFUtgtGname()->tradeSpecies].speciesName);
                 ConvertIntToDecimalStringN(gStringVar2, GetHostRFUtgtGname()->level, STR_CONV_MODE_LEFT_ALIGN, 3);
                 StringExpandPlaceholders(gStringVar4, gUnknown_8458DBC);
             }
@@ -3348,7 +3348,7 @@ static void Task_RunUnionRoom(u8 taskId)
                 data->state = 4;
                 break;
             default:
-                switch (IsRequestedTypeAndSpeciesInPlayerParty(data->field_0->arr[var5].gname_uname.gname.type, data->field_0->arr[var5].gname_uname.gname.species))
+                switch (IsRequestedTypeAndSpeciesInPlayerParty(data->field_0->arr[var5].gname_uname.gname.tradeType, data->field_0->arr[var5].gname_uname.gname.tradeSpecies))
                 {
                 case UR_TRADE_MATCH:
                     IntlConvPartnerUname(gStringVar1, data->field_0->arr[var5]);
@@ -3357,12 +3357,12 @@ static void Task_RunUnionRoom(u8 taskId)
                     break;
                 case UR_TRADE_NOTYPE:
                     IntlConvPartnerUname(gStringVar1, data->field_0->arr[var5]);
-                    StringCopy(gStringVar2, gTypeNames[data->field_0->arr[var5].gname_uname.gname.type]);
+                    StringCopy(gStringVar2, gTypeNames[data->field_0->arr[var5].gname_uname.gname.tradeType]);
                     UnionRoom_ScheduleFieldMessageWithFollowupState(46, gUnknown_8458ED0);
                     break;
                 case UR_TRADE_NOEGG:
                     IntlConvPartnerUname(gStringVar1, data->field_0->arr[var5]);
-                    StringCopy(gStringVar2, gTypeNames[data->field_0->arr[var5].gname_uname.gname.type]);
+                    StringCopy(gStringVar2, gTypeNames[data->field_0->arr[var5].gname_uname.gname.tradeType]);
                     UnionRoom_ScheduleFieldMessageWithFollowupState(46, gUnknown_8458F04);
                     break;
                 }
@@ -3388,8 +3388,8 @@ static void Task_RunUnionRoom(u8 taskId)
         {
             sUnionRoomTrade.field_0 = 2;
             memcpy(&gPartnerTgtGnameSub, &data->field_0->arr[taskData[1]].gname_uname.gname.unk_00, sizeof(gPartnerTgtGnameSub));
-            gUnionRoomRequestedMonType = data->field_0->arr[taskData[1]].gname_uname.gname.type;
-            gUnionRoomOfferedSpecies = data->field_0->arr[taskData[1]].gname_uname.gname.species;
+            gUnionRoomRequestedMonType = data->field_0->arr[taskData[1]].gname_uname.gname.tradeType;
+            gUnionRoomOfferedSpecies = data->field_0->arr[taskData[1]].gname_uname.gname.tradeSpecies;
             gFieldCallback = sub_807DCE4;
             ChooseMonForTradingBoard(PARTY_MENU_TYPE_UNION_ROOM_TRADE, CB2_ReturnToField);
             BackUpURoomField0ToDecompressionBuffer(data);
@@ -4126,12 +4126,12 @@ static bool32 AreUnionRoomPlayerGnamesDifferent(struct UnionGnameUnamePair * lef
         }
     }
 
-    if (left->gname.species != right->gname.species)
+    if (left->gname.tradeSpecies != right->gname.tradeSpecies)
     {
         return TRUE;
     }
 
-    if (left->gname.type != right->gname.type)
+    if (left->gname.tradeType != right->gname.tradeType)
     {
         return TRUE;
     }
@@ -4325,8 +4325,8 @@ static void nullsub_92(u8 windowId, s32 itemId, u8 y)
 static void TradeBoardPrintItemInfo(u8 windowId, u8 y, struct GFtgtGname * gname, const u8 * uname, u8 colorIdx)
 {
     u8 level_t[4];
-    u16 species = gname->species;
-    u8 type = gname->type;
+    u16 species = gname->tradeSpecies;
+    u8 type = gname->tradeType;
     u8 level = gname->level;
 
     UR_AddTextPrinterParameterized(windowId, 2, uname, 8, y, colorIdx);
@@ -4353,7 +4353,7 @@ static void TradeBoardListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y)
     if (itemId == -3 && y == sTradeBoardListMenuTemplate.upText_Y)
     {
         rfu = GetHostRFUtgtGname();
-        if (rfu->species != SPECIES_NONE)
+        if (rfu->tradeSpecies != SPECIES_NONE)
         {
             TradeBoardPrintItemInfo(windowId, y, rfu, gSaveBlock2Ptr->playerName, 5);
         }
@@ -4363,7 +4363,7 @@ static void TradeBoardListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y)
         j = 0;
         for (i = 0; i < UROOM_MAX_GROUP_COUNT; i++)
         {
-            if (leader->field_0->arr[i].groupScheduledAnim == UNION_ROOM_SPAWN_IN && leader->field_0->arr[i].gname_uname.gname.species != SPECIES_NONE)
+            if (leader->field_0->arr[i].groupScheduledAnim == UNION_ROOM_SPAWN_IN && leader->field_0->arr[i].gname_uname.gname.tradeSpecies != SPECIES_NONE)
             {
                 j++;
             }
@@ -4384,7 +4384,7 @@ static s32 GetIndexOfNthTradeBoardOffer(struct UnkStruct_x20 * x20, s32 n)
 
     for (i = 0; i < UROOM_MAX_GROUP_COUNT; i++)
     {
-        if (x20[i].groupScheduledAnim == UNION_ROOM_SPAWN_IN && x20[i].gname_uname.gname.species != SPECIES_NONE)
+        if (x20[i].groupScheduledAnim == UNION_ROOM_SPAWN_IN && x20[i].gname_uname.gname.tradeSpecies != SPECIES_NONE)
         {
             j++;
         }

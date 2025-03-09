@@ -890,7 +890,7 @@ static void copy_tileset_patterns_to_vram2(struct Tileset const *tileset, u16 nu
     }
 }
 
-static void sub_80598CC(u16 a0, u16 a1)
+static void ApplyGlobalTintToPaletteEntries(u16 a0, u16 a1)
 {
     switch (gUnknown_2036E28)
     {

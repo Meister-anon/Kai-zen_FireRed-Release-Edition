@@ -425,10 +425,6 @@ const u8 gInitialMovementTypeFacingDirections[NUM_FIELD_MAP_OBJECT_TEMPLATES] = 
     [MOVEMENT_TYPE_JOG_IN_PLACE_UP] = DIR_NORTH,
     [MOVEMENT_TYPE_JOG_IN_PLACE_LEFT] = DIR_WEST,
     [MOVEMENT_TYPE_JOG_IN_PLACE_RIGHT] = DIR_EAST,
-    [MOVEMENT_TYPE_JOG_IN_PLACE_DOWN] = DIR_SOUTH,
-    [MOVEMENT_TYPE_JOG_IN_PLACE_UP] = DIR_NORTH,
-    [MOVEMENT_TYPE_JOG_IN_PLACE_LEFT] = DIR_WEST,
-    [MOVEMENT_TYPE_JOG_IN_PLACE_RIGHT] = DIR_EAST,
     [MOVEMENT_TYPE_INVISIBLE] = DIR_SOUTH,
     [MOVEMENT_TYPE_RAISE_HAND_AND_STOP] = DIR_SOUTH,
     [MOVEMENT_TYPE_RAISE_HAND_AND_JUMP] = DIR_SOUTH,
@@ -2733,7 +2729,12 @@ u8 CameraObjectGetFollowedObjectId(void)
 
 void CameraObjectReset2(void)
 {
-    FindCameraObject()->data[1] = 2;
+    struct Sprite *cameraObject = FindCameraObject();
+#ifdef UBFIX
+    if (cameraObject == NULL)
+        return;
+#endif
+    cameraObject->data[1] = 2;
 }
 
 u8 CopySprite(struct Sprite *sprite, s16 x, s16 y, u8 subpriority)

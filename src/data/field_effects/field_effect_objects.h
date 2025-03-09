@@ -19,8 +19,8 @@ const struct SpriteFrameImage gUnknown_83A5374[] = { obj_frame_tiles(gUnknown_83
 
 const struct SpriteTemplate gUnknown_83A537C =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_8x8,
     .anims = gUnknown_83A5358,
     .images = gUnknown_83A535C,
@@ -30,8 +30,8 @@ const struct SpriteTemplate gUnknown_83A537C =
 
 const struct SpriteTemplate gUnknown_83A5394 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_16x8,
     .anims = gUnknown_83A5358,
     .images = gUnknown_83A5364,
@@ -41,8 +41,8 @@ const struct SpriteTemplate gUnknown_83A5394 =
 
 const struct SpriteTemplate gUnknown_83A53AC =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_32x8,
     .anims = gUnknown_83A5358,
     .images = gUnknown_83A536C,
@@ -52,8 +52,8 @@ const struct SpriteTemplate gUnknown_83A53AC =
 
 const struct SpriteTemplate gUnknown_83A53C4 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_64x32,
     .anims = gUnknown_83A5358,
     .images = gUnknown_83A5374,
@@ -87,7 +87,7 @@ const union AnimCmd *const gUnknown_83A541C[] =
 
 const struct SpriteTemplate gUnknown_83A5420 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A541C,
@@ -125,7 +125,7 @@ const union AnimCmd *const gUnknown_83A5484[] =
 
 const struct SpriteTemplate gUnknown_83A5488 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5484,
@@ -153,17 +153,17 @@ const union AnimCmd gUnknown_83A54C8[] =
     ANIMCMD_END,
 };
 
-const union AnimCmd *const gUnknown_83A54E0[] = 
+const union AnimCmd *const sAnimTable_Ash[] = 
 {
     gUnknown_83A54C8,
 };
 
-const struct SpriteTemplate gUnknown_83A54E4 =
+const struct SpriteTemplate gFieldEffectObjectTemplate_Ash =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
-    .anims = gUnknown_83A54E0,
+    .anims = sAnimTable_Ash,
     .images = gUnknown_83A54A0,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = UpdateAshFieldEffect,
@@ -179,46 +179,46 @@ static const struct SpriteFrameImage sPicTable_SurfBlob[] =
     overworld_frame(gObjectEventPic_SurfBlob, 2, 8, 5),
 };
 
-const union AnimCmd gUnknown_83A552C[] =
+const union AnimCmd sSurfBlobAnim_FaceSouth[] =
 {
     ANIMCMD_FRAME(0, 48),
     ANIMCMD_FRAME(1, 48),
     ANIMCMD_JUMP(0),
 };
 
-const union AnimCmd gUnknown_83A5538[] =
+const union AnimCmd sSurfBlobAnim_FaceNorth[] =
 {
     ANIMCMD_FRAME(2, 48),
     ANIMCMD_FRAME(3, 48),
     ANIMCMD_JUMP(0),
 };
 
-const union AnimCmd gUnknown_83A5544[] =
+const union AnimCmd sSurfBlobAnim_FaceWest[] =
 {
     ANIMCMD_FRAME(4, 48),
     ANIMCMD_FRAME(5, 48),
     ANIMCMD_JUMP(0),
 };
 
-const union AnimCmd gUnknown_83A5550[] =
+const union AnimCmd sSurfBlobAnim_FaceEast[] =
 {
     ANIMCMD_FRAME(4, 48, .hFlip = TRUE),
     ANIMCMD_FRAME(5, 48, .hFlip = TRUE),
     ANIMCMD_JUMP(0),
 };
 
-const union AnimCmd *const gUnknown_83A555C[] = 
+const union AnimCmd *const sAnimTable_SurfBlob[] = 
 {
-    gUnknown_83A552C,
-    gUnknown_83A5538,
-    gUnknown_83A5544,
-    gUnknown_83A5550,
+    [DIR_SOUTH - 1] = sSurfBlobAnim_FaceSouth,
+    [DIR_NORTH - 1] = sSurfBlobAnim_FaceNorth,
+    [DIR_WEST  - 1] = sSurfBlobAnim_FaceWest,
+    [DIR_EAST  - 1] = sSurfBlobAnim_FaceEast,
 };
 
-const struct SpriteTemplate gUnknown_83A556C =
+const struct SpriteTemplate gFieldEffectObjectTemplate_SurfBlob =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_32x32,
     .anims = sAnimTable_SurfBlob,
     .images = sPicTable_SurfBlob,
@@ -276,8 +276,8 @@ const union AnimCmd *const gUnknown_83A55F4[] =
 
 const struct SpriteTemplate gUnknown_83A5604 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A55F4,
     .images = gUnknown_83A5584,
@@ -307,7 +307,7 @@ const union AnimCmd *const gUnknown_83A5644[] =
 
 const struct SpriteTemplate gUnknown_83A5648 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x8,
     .anims = gUnknown_83A5644,
@@ -340,7 +340,7 @@ const union AnimCmd *const gUnknown_83A5694[] =
 
 const struct SpriteTemplate gUnknown_83A5698 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x8,
     .anims = gUnknown_83A5694,
@@ -390,7 +390,7 @@ const union AnimCmd *const gUnknown_83A56E0[] =
 
 const struct SpriteTemplate gUnknown_83A56F4 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A56E0,
@@ -440,7 +440,7 @@ const union AnimCmd *const gUnknown_83A573C[] =
 
 const struct SpriteTemplate gUnknown_83A5750 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A573C,
@@ -520,7 +520,7 @@ const union AnimCmd *const gUnknown_83A57C8[] =
 
 const struct SpriteTemplate gUnknown_83A57EC =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A57C8,
@@ -553,7 +553,7 @@ const union AnimCmd *const gUnknown_83A5838[] =
 
 const struct SpriteTemplate gUnknown_83A583C =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5838,
@@ -596,7 +596,7 @@ const union AnimCmd *const gUnknown_83A5894[] =
 
 const struct SpriteTemplate gUnknown_83A589C =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x8,
     .anims = gUnknown_83A5894,
@@ -627,7 +627,7 @@ const union AnimCmd *const gUnknown_83A58DC[] =
 
 const struct SpriteTemplate gUnknown_83A58E0 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x8,
     .anims = gUnknown_83A58DC,
@@ -663,7 +663,7 @@ const union AnimCmd *const gUnknown_83A5938[] =
 
 const struct SpriteTemplate gUnknown_83A593C =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5938,
@@ -700,7 +700,7 @@ const union AnimCmd *const gUnknown_83A59A0[] =
 
 const struct SpriteTemplate gUnknown_83A59A4 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A59A0,
@@ -743,7 +743,7 @@ const union AnimCmd *const gUnknown_83A5A2C[] =
 
 const struct SpriteTemplate gUnknown_83A5A30 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5A2C,
@@ -778,7 +778,7 @@ const union AnimCmd *const gUnknown_83A5A84[] =
 
 const struct SpriteTemplate gUnknown_83A5A88 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5A84,
@@ -811,7 +811,7 @@ const union AnimCmd *const gUnknown_83A5AD4[] =
 
 const struct SpriteTemplate gUnknown_83A5AD8 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5AD4,
@@ -842,7 +842,7 @@ const union AnimCmd *const gUnknown_83A5B18[] =
 
 const struct SpriteTemplate gUnknown_83A5B1C =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x8,
     .anims = gUnknown_83A5B18,
@@ -877,7 +877,7 @@ const union AnimCmd *const gUnknown_83A5B70[] =
 
 const struct SpriteTemplate gUnknown_83A5B74 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5B70,
@@ -923,7 +923,7 @@ const union AffineAnimCmd *const gUnknown_83A5C2C[] =
 const struct SpriteTemplate gUnknown_83A5C34 =
 {
     .tileTag = 0x0,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .paletteTag = TAG_NONE,
     .oam = &gDummyOamData,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -968,8 +968,8 @@ const union AnimCmd *const gUnknown_83A5CAC[] =
 
 const struct SpriteTemplate gUnknown_83A5CB4 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_16x32,
     .anims = gUnknown_83A5CAC,
     .images = gUnknown_83A5C4C,
@@ -1014,8 +1014,8 @@ const union AnimCmd *const gUnknown_83A5D2C[] =
 
 const struct SpriteTemplate gUnknown_83A5D34 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_16x32,
     .anims = gUnknown_83A5D2C,
     .images = gUnknown_83A5CCC,
@@ -1036,8 +1036,8 @@ const struct SpriteFrameImage gUnknown_83A5D4C[] =
 
 const struct SpriteTemplate gUnknown_83A5D84 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_16x32,
     .anims = gUnknown_83A5CAC,
     .images = gUnknown_83A5D4C,
@@ -1095,8 +1095,8 @@ const union AnimCmd *const gUnknown_83A5DEC[] =
 
 const struct SpriteTemplate gUnknown_83A5E00 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
-    .paletteTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
+    .paletteTag = TAG_NONE,
     .oam = &gObjectEventBaseOam_64x64,
     .anims = gUnknown_83A5DEC,
     .images = gUnknown_83A5D9C,
@@ -1124,7 +1124,7 @@ const union AnimCmd *const gUnknown_83A5E34[] =
 
 const struct SpriteTemplate gUnknown_83A5E38 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5E34,
@@ -1151,7 +1151,7 @@ const union AnimCmd *const gUnknown_83A5E60[] =
 
 const struct SpriteTemplate gUnknown_83A5E64 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1005,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5E60,
@@ -1186,7 +1186,7 @@ const union AnimCmd *const gUnknown_83A5EBC[] =
 
 const struct SpriteTemplate gUnknown_83A5EC0 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x100D,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5EBC,
@@ -1223,7 +1223,7 @@ const union AnimCmd *const gUnknown_83A5F20[] =
 
 const struct SpriteTemplate gUnknown_83A5F24 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x100D,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5F20,
@@ -1264,7 +1264,7 @@ const union AnimCmd *const gUnknown_83A5FA0[] =
 
 const struct SpriteTemplate gUnknown_83A5FA4 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x1004,
     .oam = &gObjectEventBaseOam_16x32,
     .anims = gUnknown_83A5FA0,
@@ -1294,7 +1294,7 @@ const union AnimCmd *const gUnknown_83A5FDC[] =
 
 const struct SpriteTemplate gUnknown_83A5FE0 =
 {
-    .tileTag = SPRITE_INVALID_TAG,
+    .tileTag = TAG_NONE,
     .paletteTag = 0x100F,
     .oam = &gObjectEventBaseOam_16x16,
     .anims = gUnknown_83A5FDC,

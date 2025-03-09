@@ -10,7 +10,7 @@ MEMORY
 
 SECTIONS {
 
-    .ewram.sbss 0x2000000 (NOLOAD) :
+    .ewram 0x2000000 (NOLOAD) :
     ALIGN(4)
     {
         gHeap = .;
@@ -19,7 +19,7 @@ SECTIONS {
 
 <EWRAM>
        INCLUDE "sym_ewram.ld"
-        src/*.o(.sbss);
+        src/*.o(.ewram_data);
 
         *libc.a:impure.o(.data);
         *libc.a:locale.o(.data);

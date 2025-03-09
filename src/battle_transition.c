@@ -18,6 +18,33 @@
 #include "event_object_movement.h"
 #include "constants/songs.h"
 
+#define PALTAG_UNUSED_MUGSHOT 0x100A
+
+#define B_TRANS_DMA_FLAGS (1 | ((DMA_SRC_INC | DMA_DEST_FIXED | DMA_REPEAT | DMA_16BIT | DMA_START_HBLANK | DMA_ENABLE) << 16))
+
+// Used by each transition task to determine which of its functions to call
+#define tState          data[0]
+
+// Below are data defines for InitBlackWipe and UpdateBlackWipe, for the TransitionData data array.
+// These will be re-used by any transitions that use these functions.
+#define tWipeStartX data[0]
+#define tWipeStartY data[1]
+#define tWipeCurrX  data[2]
+#define tWipeCurrY  data[3]
+#define tWipeEndX   data[4]
+#define tWipeEndY   data[5]
+#define tWipeXMove  data[6]
+#define tWipeYMove  data[7]
+#define tWipeXDist  data[8]
+#define tWipeYDist  data[9]
+#define tWipeTemp   data[10]
+
+#define SET_TILE(ptr, posY, posX, tile) \
+{                                       \
+    u32 index = (posY) * 32 + posX;     \
+    ptr[index] = tile | (15 << 12);     \
+}
+
 typedef bool8 (*TransitionStateFunc)(struct Task *task);
 typedef bool8 (*TransitionSpriteCallback)(struct Sprite *sprite);
 
@@ -174,7 +201,7 @@ static void BT_GetBg0TilemapAndTilesetBase(u16 **tilemapPtr, u16 **tilesetPtr);
 static void BT_LoadWaveIntoBuffer(s16 *buffer, s16 offset, s16 theta, s16 frequency, s16 amplitude, s16 bufSize);
 static void BT_GenerateCircle(s16 *buffer, s16 x, s16 y, s16 radius);
 static void BT_BlendPalettesToBlack(void);
-static void BT_DiagonalSegment_InitParams(s16 *data, s16 startPtX, s16 startPtY, s16 endPtX, s16 endPtY, s16 stepX, s16 stepY);
+static void InitBlackWipe(s16 *data, s16 startPtX, s16 startPtY, s16 endPtX, s16 endPtY, s16 stepX, s16 stepY);
 static bool8 BT_DiagonalSegment_ComputePointOnSegment(s16 *data, bool8 checkBoundary1, bool8 checkBoundary2);
 static void BT_SetSpriteAsOpponentOrPlayer(s16 spriteId, bool16 value);
 static void BT_StartSpriteSlide(s16 spriteId);
@@ -1125,13 +1152,6 @@ static void SpriteCB_BT_Phase2SlidingPokeballs(struct Sprite *sprite)
     }
 }
 
-#define trStartPtX data[0]
-#define trStartPtY data[1]
-#define trCurrentPtX data[2]
-#define trCurrentPtY data[3]
-#define trEndPtX data[4]
-#define trEndPtY data[5]
-
 static void BT_Phase2ClockwiseBlackFade(u8 taskId)
 {
     while (sBT_Phase2ClockwiseBlackFadeFuncs[gTasks[taskId].tState](&gTasks[taskId]));
@@ -1150,7 +1170,7 @@ static bool8 BT_Phase2ClockwiseBlackFade_Init(struct Task *task)
     for (i = 0; i < 160; ++i)
         gScanlineEffectRegBuffers[1][i] = WIN_RANGE(0xF3, 0xF4);
     SetVBlankCallback(VBCB_BT_Phase2ClockwiseBlackFade);
-    sTransitionStructPtr->trEndPtX = 120;
+    sTransitionStructPtr->tWipeEndX = 120;
     ++task->tState;
     return TRUE;
 }
@@ -1159,17 +1179,21 @@ static bool8 BT_Phase2ClockwiseBlackFade_Init(struct Task *task)
 static bool8 BT_Phase2ClockwiseBlackFade_Step1(struct Task *task)
 {
     sTransitionStructPtr->vblankDma = FALSE;
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->trEndPtX, 0, 1, 1);
+#ifdef UBFIX
+    InitBlackWipe(sTransitionStructPtr->data, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, sTransitionStructPtr->tWipeEndX, 0, 1, 1);
+#else
+    InitBlackWipe(sTransitionStructPtr->data, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, sTransitionStructPtr->tWipeEndX, -1, 1, 1);
+#endif
     do
     {
-        gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = WIN_RANGE(0x78, sTransitionStructPtr->trCurrentPtX + 1);
+        gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] = WIN_RANGE(0x78, sTransitionStructPtr->tWipeCurrX + 1);
     }
     while (!BT_DiagonalSegment_ComputePointOnSegment(sTransitionStructPtr->data, TRUE, TRUE));
 
-    sTransitionStructPtr->trEndPtX += 32;
-    if (sTransitionStructPtr->trEndPtX >= 240)
+    sTransitionStructPtr->tWipeEndX += 32;
+    if (sTransitionStructPtr->tWipeEndX >= 240)
     {
-        sTransitionStructPtr->trEndPtY = 0;
+        sTransitionStructPtr->tWipeEndY = 0;
         ++task->tState;
     }
     ++sTransitionStructPtr->vblankDma;
@@ -1182,31 +1206,31 @@ static bool8 BT_Phase2ClockwiseBlackFade_Step2(struct Task *task)
     vu8 finished = FALSE;
 
     sTransitionStructPtr->vblankDma = FALSE;
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, 240, sTransitionStructPtr->trEndPtY, 1, 1);
+    InitBlackWipe(sTransitionStructPtr->data, 120, 80, 240, sTransitionStructPtr->tWipeEndY, 1, 1);
     while (TRUE)
     {
         left = 120;
-        right = sTransitionStructPtr->trCurrentPtX + 1;
-        if (sTransitionStructPtr->trEndPtY >= 80)
+        right = sTransitionStructPtr->tWipeCurrX + 1;
+        if (sTransitionStructPtr->tWipeEndY >= 80)
         {
-            left = sTransitionStructPtr->trCurrentPtX;
+            left = sTransitionStructPtr->tWipeCurrX;
             right = 240;
         }
-        gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = WIN_RANGE2(left, right);
+        gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] = WIN_RANGE2(left, right);
         if (finished)
             break;
         finished = BT_DiagonalSegment_ComputePointOnSegment(sTransitionStructPtr->data, TRUE, TRUE);
     }
-    sTransitionStructPtr->trEndPtY += 16;
-    if (sTransitionStructPtr->trEndPtY >= 160)
+    sTransitionStructPtr->tWipeEndY += 16;
+    if (sTransitionStructPtr->tWipeEndY >= 160)
     {
-        sTransitionStructPtr->trEndPtX = 240;
+        sTransitionStructPtr->tWipeEndX = 240;
         ++task->tState;
     }
     else
     {
-        while (sTransitionStructPtr->trCurrentPtY < sTransitionStructPtr->trEndPtY)
-            gScanlineEffectRegBuffers[0][++sTransitionStructPtr->trCurrentPtY] = WIN_RANGE2(left, right);
+        while (sTransitionStructPtr->tWipeCurrY < sTransitionStructPtr->tWipeEndY)
+            gScanlineEffectRegBuffers[0][++sTransitionStructPtr->tWipeCurrY] = WIN_RANGE2(left, right);
     }
     ++sTransitionStructPtr->vblankDma;
     return FALSE;
@@ -1215,16 +1239,16 @@ static bool8 BT_Phase2ClockwiseBlackFade_Step2(struct Task *task)
 static bool8 BT_Phase2ClockwiseBlackFade_Step3(struct Task *task)
 {
     sTransitionStructPtr->vblankDma = FALSE;
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->trEndPtX, 160, 1, 1);
+    InitBlackWipe(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->tWipeEndX, 160, 1, 1);
     do
     {
-        gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = (sTransitionStructPtr->trCurrentPtX << 8) | 0xF0;
+        gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] = (sTransitionStructPtr->tWipeCurrX << 8) | 0xF0;
     }
     while (!BT_DiagonalSegment_ComputePointOnSegment(sTransitionStructPtr->data, TRUE, TRUE));
-    sTransitionStructPtr->trEndPtX -= 32;
-    if (sTransitionStructPtr->trEndPtX <= 0)
+    sTransitionStructPtr->tWipeEndX -= 32;
+    if (sTransitionStructPtr->tWipeEndX <= 0)
     {
-        sTransitionStructPtr->trEndPtY = 160;
+        sTransitionStructPtr->tWipeEndY = 160;
         ++task->tState;
     }
     ++sTransitionStructPtr->vblankDma;
@@ -1250,32 +1274,32 @@ static bool8 BT_Phase2ClockwiseBlackFade_Step4(struct Task *task)
     vu8 finished = FALSE;
 
     sTransitionStructPtr->vblankDma = FALSE;
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, 0, sTransitionStructPtr->trEndPtY, 1, 1);
+    InitBlackWipe(sTransitionStructPtr->data, 120, 80, 0, sTransitionStructPtr->tWipeEndY, 1, 1);
     while (TRUE)
     {
-        right = (gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY]) & 0xFF;
-        left = sTransitionStructPtr->trCurrentPtX;
-        if (sTransitionStructPtr->trEndPtY <= 80)
+        right = (gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY]) & 0xFF;
+        left = sTransitionStructPtr->tWipeCurrX;
+        if (sTransitionStructPtr->tWipeEndY <= 80)
         {
             left = 120;
-            right = sTransitionStructPtr->trCurrentPtX;
+            right = sTransitionStructPtr->tWipeCurrX;
         }
         win0H = WIN_RANGE2(left, right);
-        gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = win0H;
+        gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] = win0H;
         if (finished)
             break;
         finished = BT_DiagonalSegment_ComputePointOnSegment(sTransitionStructPtr->data, TRUE, TRUE);
     }
-    sTransitionStructPtr->trEndPtY -= 16;
-    if (sTransitionStructPtr->trEndPtY <= 0)
+    sTransitionStructPtr->tWipeEndY -= 16;
+    if (sTransitionStructPtr->tWipeEndY <= 0)
     {
-        sTransitionStructPtr->trEndPtX = 0;
+        sTransitionStructPtr->tWipeEndX = 0;
         ++task->tState;
     }
     else
     {
-        while (sTransitionStructPtr->trCurrentPtY > sTransitionStructPtr->trEndPtY)
-            gScanlineEffectRegBuffers[0][--sTransitionStructPtr->trCurrentPtY] = WIN_RANGE2(left, right);
+        while (sTransitionStructPtr->tWipeCurrY > sTransitionStructPtr->tWipeEndY)
+            gScanlineEffectRegBuffers[0][--sTransitionStructPtr->tWipeCurrY] = WIN_RANGE2(left, right);
     }
     ++sTransitionStructPtr->vblankDma;
     return FALSE;
@@ -1286,21 +1310,21 @@ static bool8 BT_Phase2ClockwiseBlackFade_Step5(struct Task *task)
     s16 left, right;
 
     sTransitionStructPtr->vblankDma = FALSE;
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->trEndPtX, 0, 1, 1);
+    InitBlackWipe(sTransitionStructPtr->data, 120, 80, sTransitionStructPtr->tWipeEndX, 0, 1, 1);
     do
     {
         left = 120;
-        right = sTransitionStructPtr->trCurrentPtX;
-        if (sTransitionStructPtr->trCurrentPtX >= 120)
+        right = sTransitionStructPtr->tWipeCurrX;
+        if (sTransitionStructPtr->tWipeCurrX >= 120)
         {
             left = 0;
             right = 240;
         }
-        gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = WIN_RANGE2(left, right);
+        gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] = WIN_RANGE2(left, right);
     }
     while (!BT_DiagonalSegment_ComputePointOnSegment(sTransitionStructPtr->data, TRUE, TRUE));
-    sTransitionStructPtr->trEndPtX += 32;
-    if (sTransitionStructPtr->trCurrentPtX > 120)
+    sTransitionStructPtr->tWipeEndX += 32;
+    if (sTransitionStructPtr->tWipeCurrX > 120)
         ++task->tState;
     ++sTransitionStructPtr->vblankDma;
     return FALSE;
@@ -1327,12 +1351,12 @@ static void VBCB_BT_Phase2ClockwiseBlackFade(void)
     DmaSet(0, gScanlineEffectRegBuffers[1], &REG_WIN0H, ((DMA_ENABLE | DMA_START_HBLANK | DMA_REPEAT | DMA_16BIT | DMA_SRC_INC | DMA_DEST_FIXED) << 16) | 1);
 }
 
-#undef trStartPtX
-#undef trStartPtY
-#undef trCurrentPtX
-#undef trCurrentPtY
-#undef trEndPtX
-#undef trEndPtY
+#undef tWipeStartX
+#undef tWipeStartY
+#undef tWipeCurrX
+#undef tWipeCurrY
+#undef tWipeEndX
+#undef tWipeEndY
 
 #define tTheta data[1]
 #define tAmplitude data[2]
@@ -2486,8 +2510,8 @@ static bool8 BT_Phase2GridSquares_IsDone(struct Task *task)
 #define tWhichSide data[2]
 #define tDelay data[3]
 
-#define trCurrentPtX data[2]
-#define trCurrentPtY data[3]
+#define tWipeCurrX data[2]
+#define tWipeCurrY data[3]
 
 static void BT_Phase2BlackDoodles(u8 taskId)
 {
@@ -2513,7 +2537,7 @@ static bool8 BT_Phase2BlackDoodles_Init(struct Task *task)
 
 static bool8 BT_Phase2BlackDoodles_InitSingleBrush(struct Task *task)
 {
-    BT_DiagonalSegment_InitParams(sTransitionStructPtr->data, sBlackDoodlesSegments[task->tWhichBrush][0], sBlackDoodlesSegments[task->tWhichBrush][1], sBlackDoodlesSegments[task->tWhichBrush][2], sBlackDoodlesSegments[task->tWhichBrush][3], 1, 1);
+    InitBlackWipe(sTransitionStructPtr->data, sBlackDoodlesSegments[task->tWhichBrush][0], sBlackDoodlesSegments[task->tWhichBrush][1], sBlackDoodlesSegments[task->tWhichBrush][2], sBlackDoodlesSegments[task->tWhichBrush][3], 1, 1);
     task->tWhichSide = sBlackDoodlesSegments[task->tWhichBrush][4];
     ++task->tState;
     return TRUE;
@@ -2527,23 +2551,23 @@ static bool8 BT_Phase2BlackDoodles_DrawSingleBrush(struct Task *task)
     sTransitionStructPtr->vblankDma = FALSE;
     for (i = 0, nextFunc = FALSE; i < 16; ++i)
     {
-        s16 left = gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] >> 8;
-        s16 right = gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] & 0xFF;
+        s16 left = gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] >> 8;
+        s16 right = gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] & 0xFF;
         if (task->tWhichSide == 0)
         {
-            if (left < sTransitionStructPtr->trCurrentPtX)
-                left = sTransitionStructPtr->trCurrentPtX;
+            if (left < sTransitionStructPtr->tWipeCurrX)
+                left = sTransitionStructPtr->tWipeCurrX;
             if (left > right)
                 left = right;
         }
         else
         {
-            if (right > sTransitionStructPtr->trCurrentPtX)
-                right = sTransitionStructPtr->trCurrentPtX;
+            if (right > sTransitionStructPtr->tWipeCurrX)
+                right = sTransitionStructPtr->tWipeCurrX;
             if (right <= left)
                 right = left;
         }
-        gScanlineEffectRegBuffers[0][sTransitionStructPtr->trCurrentPtY] = WIN_RANGE2(left, right);
+        gScanlineEffectRegBuffers[0][sTransitionStructPtr->tWipeCurrY] = WIN_RANGE2(left, right);
         if (nextFunc)
         {
             ++task->tState;
@@ -2601,8 +2625,8 @@ static void VBCB_BT_Phase2BlackDoodles(void)
 #undef tWhichSide
 #undef tDelay
 
-#undef trCurrentPtX
-#undef trCurrentPtY
+#undef tWipeCurrX
+#undef tWipeCurrY
 
 #define tFadeOutDelay data[1]
 #define tFadeInDelay data[2]
@@ -2783,26 +2807,26 @@ static void BT_GenerateCircle(s16 *buffer, s16 x, s16 y, s16 radius)
     }
 }
 
-#define trStartPtX data[0]
-#define trStartPtY data[1]
-#define trCurrentPtX data[2]
-#define trCurrentPtY data[3]
-#define trEndPtX data[4]
-#define trEndPtY data[5]
+#define tWipeStartX data[0]
+#define tWipeStartY data[1]
+#define tWipeCurrX data[2]
+#define tWipeCurrY data[3]
+#define tWipeEndX data[4]
+#define tWipeEndY data[5]
 #define trStepX data[6]
 #define trStepY data[7]
 #define trAbsDeltaX data[8]
 #define trAbsDeltaY data[9]
 #define trAccum data[10] // track one dimension based on slope
 
-static void BT_DiagonalSegment_InitParams(s16 *data, s16 startPtX, s16 startPtY, s16 endPtX, s16 endPtY, s16 stepX, s16 stepY)
+static void InitBlackWipe(s16 *data, s16 startPtX, s16 startPtY, s16 endPtX, s16 endPtY, s16 stepX, s16 stepY)
 {
-    trStartPtX = startPtX;
-    trStartPtY = startPtY;
-    trCurrentPtX = startPtX;
-    trCurrentPtY = startPtY;
-    trEndPtX = endPtX;
-    trEndPtY = endPtY;
+    tWipeStartX = startPtX;
+    tWipeStartY = startPtY;
+    tWipeCurrX = startPtX;
+    tWipeCurrY = startPtY;
+    tWipeEndX = endPtX;
+    tWipeEndY = endPtY;
     trStepX = stepX;
     trStepY = stepY;
     trAbsDeltaX = endPtX - startPtX;
@@ -2826,36 +2850,36 @@ static bool8 BT_DiagonalSegment_ComputePointOnSegment(s16 *data, bool8 checkBoun
 
     if (trAbsDeltaX > trAbsDeltaY)
     {
-        trCurrentPtX += trStepX;
+        tWipeCurrX += trStepX;
         trAccum += trAbsDeltaY;
         if (trAccum > trAbsDeltaX)
         {
-            trCurrentPtY += trStepY;
+            tWipeCurrY += trStepY;
             trAccum -= trAbsDeltaX;
         }
     }
     else
     {
-        trCurrentPtY += trStepY;
+        tWipeCurrY += trStepY;
         trAccum += trAbsDeltaX;
         if (trAccum > trAbsDeltaY)
         {
-            trCurrentPtX += trStepX;
+            tWipeCurrX += trStepX;
             trAccum -= trAbsDeltaY;
         }
     }
     finish = 0;
-    if ((trStepX > 0 && trCurrentPtX >= trEndPtX) || (trStepX < 0 && trCurrentPtX <= trEndPtX))
+    if ((trStepX > 0 && tWipeCurrX >= tWipeEndX) || (trStepX < 0 && tWipeCurrX <= tWipeEndX))
     {
         ++finish;
         if (checkBoundary1)
-            trCurrentPtX = trEndPtX;
+            tWipeCurrX = tWipeEndX;
     }
-    if ((trStepY > 0 && trCurrentPtY >= trEndPtY) || (trStepY < 0 && trCurrentPtY <= trEndPtY))
+    if ((trStepY > 0 && tWipeCurrY >= tWipeEndY) || (trStepY < 0 && tWipeCurrY <= tWipeEndY))
     {
         ++finish;
         if (checkBoundary2)
-            trCurrentPtY = trEndPtY;
+            tWipeCurrY = tWipeEndY;
     }
     if (finish == 2)
         return TRUE;
@@ -2863,12 +2887,12 @@ static bool8 BT_DiagonalSegment_ComputePointOnSegment(s16 *data, bool8 checkBoun
         return FALSE;
 }
 
-#undef trStartPtX
-#undef trStartPtY
-#undef trCurrentPtX
-#undef trCurrentPtY
-#undef trEndPtX
-#undef trEndPtY
+#undef tWipeStartX
+#undef tWipeStartY
+#undef tWipeCurrX
+#undef tWipeCurrY
+#undef tWipeEndX
+#undef tWipeEndY
 #undef trStepX
 #undef trStepY
 #undef trAbsDeltaX

@@ -4,8 +4,8 @@ const struct SpriteTemplate gUnknown_83A53AC;
 const struct SpriteTemplate gUnknown_83A53C4;
 const struct SpriteTemplate gUnknown_83A5420;
 const struct SpriteTemplate gUnknown_83A5488;
-const struct SpriteTemplate gUnknown_83A54E4;
-const struct SpriteTemplate gUnknown_83A556C;
+const struct SpriteTemplate gFieldEffectObjectTemplate_Ash;
+const struct SpriteTemplate gFieldEffectObjectTemplate_SurfBlob;
 const struct SpriteTemplate gUnknown_83A5604;
 const struct SpriteTemplate gUnknown_83A5648;
 const struct SpriteTemplate gUnknown_83A5698;
@@ -41,8 +41,8 @@ const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[] = {
     &gUnknown_83A53C4,
     &gUnknown_83A5420,
     &gUnknown_83A5488,
-    &gUnknown_83A54E4,
-    &gUnknown_83A556C,
+    &gFieldEffectObjectTemplate_Ash,
+    &gFieldEffectObjectTemplate_SurfBlob,
     &gUnknown_83A5604,
     &gUnknown_83A5648,
     &gUnknown_83A5698,

@@ -21,7 +21,6 @@
 *.id1
 *.id2
 *.latfont
-*.ld
 *.lz
 *.map
 *.nam
@@ -56,8 +55,9 @@ types_*.taghl
 !.github/calcrom/calcrom.pl
 !sound/programmable_wave_samples/*.pcm
 _Deparsed_XSubs.pm
-porymap.project.cfg
+porymap.*.cfg
+prefabs.json
 .vscode/*.*
 *.js
 *.sym
-src/data/map_group_count.h
+@src/data/map_group_count.h

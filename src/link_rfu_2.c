@@ -1723,6 +1723,32 @@ static void ReceiveRfuLinkPlayers(const struct SioInfo *chunk)
     }
 }
 
+// Could be relocated to top of file, but would also require relocating assert strings
+static const char sASCII_PokemonSioInfo[] = "PokemonSioInfo";
+ALIGNED(4) static const u8 sText_Akito[] = _("あきと"); // Presumably "Akito Mori", one of Game Freak's programmers
+static const char sASCII_LinkLossDisconnect[] = "LINK LOSS DISCONNECT!";
+static const char sASCII_LinkLossRecoveryNow[] = "LINK LOSS RECOVERY NOW";
+ALIGNED(4) static const char sASCII_30Spaces[] = {"                              "};
+static const char sASCII_15Spaces[] = {"               "};
+static const char sASCII_8Spaces[] = {"        "};
+ALIGNED(4) static const char sASCII_Space[] = {" "};
+static const char sASCII_Asterisk[] = {"*"};
+static const char sASCII_NowSlot[] = "NOWSLOT";
+
+static const char sASCII_ClockCmds[][12] = {
+    "           ",
+    "CLOCK DRIFT",
+    "BUSY SEND  ",
+    "CMD REJECT ",
+    "CLOCK SLAVE"
+};
+
+static const char sASCII_ChildParentSearch[][8] = {
+    "CHILD ",
+    "PARENT",
+    "SEARCH"
+};
+
 static void ValidateAndReceivePokemonSioInfo(void *recvBuffer)
 {
     if (strcmp("PokemonSioInfo", recvBuffer) == 0)
@@ -1932,8 +1958,8 @@ void SetGnameBufferWonderFlags(bool32 hasNews, bool32 hasCard)
 
 void RfuUpdatePlayerGnameStateAndSend(u32 type, u32 species, u32 level)
 {
-    gHostRFUtgtGnameBuffer.type = type;
-    gHostRFUtgtGnameBuffer.species = species;
+    gHostRFUtgtGnameBuffer.tradeType = type;
+    gHostRFUtgtGnameBuffer.tradeSpecies = species;
     gHostRFUtgtGnameBuffer.level = level;
 }
 
@@ -2655,16 +2681,16 @@ static bool32 ShouldRejectPartnerConnectionBasedOnActivity(s16 activity, struct 
     else if (activity == (ACTIVITY_TRADE | IN_UNION_ROOM))
     {
         struct GFtgtGname *myTradeGname = (struct GFtgtGname *)&Rfu.unk_104.gname;
-        if (myTradeGname->species == SPECIES_EGG)
+        if (myTradeGname->tradeSpecies == SPECIES_EGG)
         {
-            if (partnerGname->species == myTradeGname->species)
+            if (partnerGname->tradeSpecies == myTradeGname->tradeSpecies)
                 return FALSE;
             else
                 return TRUE;
         }
-        else if (partnerGname->species != myTradeGname->species
+        else if (partnerGname->tradeSpecies != myTradeGname->tradeSpecies
                  || partnerGname->level != myTradeGname->level
-                 || partnerGname->type != myTradeGname->type)
+                 || partnerGname->tradeType != myTradeGname->tradeType)
         {
             return TRUE;
         }

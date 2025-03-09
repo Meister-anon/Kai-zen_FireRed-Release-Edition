@@ -3732,6 +3732,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     after get that working can tackle new feature
     2/23/2025
 
+    note for reading sound data lost from move from songs.mk to midi.cpp
+    #G is the voicegroup  V is the volume, P is pan I think or something
+
     NOTE**(
     since make clean removes tools o
     from now on just make mostlyclean instead
