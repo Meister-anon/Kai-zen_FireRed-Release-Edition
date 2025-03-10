@@ -11,7 +11,7 @@ MEMORY
 SECTIONS {
     . = 0x2000000;
 
-    .ewram 0x2000000 (NOLOAD) :
+    ewram 0x2000000 (NOLOAD) :
     ALIGN(4)
     {
         gHeap = .;
@@ -31,6 +31,7 @@ SECTIONS {
 
         /* COMMON starts at 0x30022A8 */
         *(COMMON);
+        *(common_data);
         end = .;
         } > IWRAM
 

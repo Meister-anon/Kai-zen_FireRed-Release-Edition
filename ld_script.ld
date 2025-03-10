@@ -10,16 +10,16 @@ MEMORY
 
 SECTIONS {
 
-    .ewram 0x2000000 (NOLOAD) :
+    ewram 0x2000000 (NOLOAD) :
     ALIGN(4)
     {
         gHeap = .;
 
         . = 0x1C000;
 
-<EWRAM>
+/*<EWRAM>*/
        INCLUDE "sym_ewram.ld"
-        src/*.o(.ewram_data);
+        src/*.o(ewram_data);
 
         *libc.a:impure.o(.data);
         *libc.a:locale.o(.data);
@@ -30,7 +30,7 @@ SECTIONS {
     ALIGN(4)
     {
         /* .bss starts at 0x3000000 */
-<BSS>
+/*<BSS>*/
         INCLUDE "sym_bss.ld"
         src/*.o(.bss);
         data/*.o(.bss);
@@ -39,7 +39,9 @@ SECTIONS {
         src/m4a.o(.bss.code);
 
         /* COMMON starts at 0x30030E0 */
-<COMMON>
+/*<COMMON>*/
+        INCLUDE "sym_common.ld"
+        src/*.o(COMMON);
 
         *libc.a:sbrkr.o(COMMON);
         end = .;

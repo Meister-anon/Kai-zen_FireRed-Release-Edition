@@ -1467,11 +1467,11 @@ static void DisplayCurrentDungeonName(void)
          descOffset = mapsecId - MAPSECS_KANTO;
          SetDispCnt(WIN_DUNGEON_NAME, FALSE);
          sRegionMap->dungeonWinTop = TRUE;
-         sRegionMap->dungeonWinLeft = StringLength(gMapNames[descOffset]);
+         sRegionMap->dungeonWinLeft = StringLength(sMapNames[descOffset]);
          sRegionMap->dungeonWinRight = sRegionMap->dungeonWinLeft * 10 + 50;
          sRegionMap->dungeonWinBottom = 48;
          FillWindowPixelBuffer(WIN_DUNGEON_NAME, PIXEL_FILL(0));
-         StringCopy(sRegionMap->dungeonName, gMapNames[descOffset]);
+         StringCopy(sRegionMap->dungeonName, sMapNames[descOffset]);
          AddTextPrinterParameterized3(WIN_DUNGEON_NAME, 2, 12, 2, sTextColorTable[GetSelectedMapsecType(LAYER_DUNGEON) - 2], 0, sRegionMap->dungeonName);
          PutWindowTilemap(WIN_DUNGEON_NAME);
          CopyWindowToVram(WIN_DUNGEON_NAME, COPYWIN_BOTH);
@@ -3803,7 +3803,7 @@ u8 *GetMapName(u8 *dst0, u16 mapsec, u16 fill)
         if (IsCeladonDeptStoreMapsec(mapsec) == TRUE)
             dst = StringCopy(dst0, sMapsecName_CELADON_DEPT_);
         else
-            dst = StringCopy(dst0, gMapNames[idx]);
+            dst = StringCopy(dst0, sMapNames[idx]);
     }
     else
     {
