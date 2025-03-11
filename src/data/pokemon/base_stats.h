@@ -14082,7 +14082,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSerperiorLevelUpLearnset,
         .tmhmLearnset = sSerperiorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//as gets contrary and now made ground give headlong rush, make it extra tanky
 
     [SPECIES_TEPIG] =
     {
@@ -22271,7 +22271,7 @@ const struct BaseStats gBaseStats[] =
         70,
         90,
         100,
-        145,
+        135,
         75
         ),
         MON_TYPES(TYPE_BUG, TYPE_ELECTRIC),
@@ -22284,8 +22284,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_GALVANIZE, ABILITY_MOTOR_DRIVE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_SWARM, ABILITY_GALVANIZE},
+        .abilityHidden = {ABILITY_MOTOR_DRIVE, ABILITY_INTIMIDATE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22293,6 +22293,18 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sVikavoltTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //canonically carries charjabug potentially do same thing as dondozo,
+    //where it can carry/absorb partner mon in doubles for  power boost,
+    //think would be a speed and sp atk boost?
+    //consider giving intimidate, would be one of few bug mons w intimidate
+    //w dark immbunity w still be good as could threaten the dark type anyway
+    //hmm ok that's logic I could add onto battery since its only charjabug that has it anyway
+    //if charjabug w battery and partner is vikavolt it'll give it a charge
+    //believe it'd still get the benefit of charjabugs ability to droping the enemy sp def
+    //to further boost its sp damage output
+    //also look at why thunder wave didnt work on ground
+    //pretty sure not suppsoed to have type based immunity for status moves
+    //and if I only have it on ground it doesn't make much sense?
 
     [SPECIES_CRABRAWLER] =
     {
