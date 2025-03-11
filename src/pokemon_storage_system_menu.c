@@ -537,15 +537,17 @@ static const struct WindowTemplate* ReturnWindowTemplateFromState(void)
         return &sWindowTemplate_MainMenu_DefaultState;
 }
 
-
+//ok passing value seems to have fixed issue nice
 static void PSS_CreatePCMenu(u8 whichMenu, s16 *windowIdPtr)
 {
     s16 windowId;
+    static const struct PSS_MenuStringPtrs *template;
     //windowId = AddWindow(&sWindowTemplate_MainMenu_DefaultState);
     windowId = AddWindow(ReturnWindowTemplateFromState());
+    template = ReturnPSSListArray_BasedOnState();
 
     DrawStdWindowFrame(windowId, FALSE);
-    PrintTextArray(windowId, 2, GetMenuCursorDimensionByFont(2, 0), 2, 16, ReturnPSS_ListSizebyState(), (void *)ReturnPSSListArray_BasedOnState());
+    PrintTextArray(windowId, 2, GetMenuCursorDimensionByFont(2, 0), 2, 16, ReturnPSS_ListSizebyState(), (void *)template);
     Menu_InitCursor(windowId, 2, 0, 2, 16, ReturnPSS_ListSizebyState(), whichMenu);
     *windowIdPtr = windowId;
     //if (FlagGet(FLAG_START_OAK_RANCH_COUNTER) && gSaveBlock1Ptr->oakRanchStepCounter != 0)
