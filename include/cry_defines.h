@@ -10,7 +10,8 @@ enum {
 
 };
 
-	//.align 2
+	//.align 2 //unsure why but without align caues memory glitch on new game screen
+	//unless is a sign of other memory issue potentially from pokemon storage menu smh
 ALIGNED(4) const s8 Cry_Bulbasaur[] = INCBIN_S8("sound/direct_sound_samples/cries/bulbasaur.bin");
 
 	//.align 2
