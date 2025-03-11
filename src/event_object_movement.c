@@ -93,10 +93,10 @@ static void CameraObject_2(struct Sprite *);
 static struct ObjectEventTemplate *FindObjectEventTemplateByLocalId(u8 localId, struct ObjectEventTemplate *templates, u8 count);
 static void ClearObjectEventMovement(struct ObjectEvent *, struct Sprite *);
 static void ObjectEventSetSingleMovement(struct ObjectEvent *, struct Sprite *, u8);
-static bool8 sub_805E238(struct ObjectEventTemplate *, u8, s16, s16);
-static bool8 sub_805E27C(struct ObjectEventTemplate *, s16, s16);
-static bool8 sub_805E2E8(struct ObjectEventTemplate *, s16, s16);
-static void sub_805E384(struct ObjectEventTemplate *);
+static bool8 ShouldInitObjectEventStateFromTemplate(const struct ObjectEventTemplate *, u8, s16, s16);
+static bool8 TemplateIsObstacleAndWithinView(const struct ObjectEventTemplate *, s16, s16);
+static bool8 TemplateIsObstacleAndVisibleFromConnectingMap(const struct ObjectEventTemplate *, s16, s16);
+static void SetHideObstacleFlag(const struct ObjectEventTemplate *);
 static bool8 MovementType_Disguise_Callback(struct ObjectEvent *, struct Sprite *);
 static bool8 MovementType_Buried_Callback(struct ObjectEvent *, struct Sprite *);
 static u8 MovementType_RaiseHandAndStop_Callback(struct ObjectEvent *, struct Sprite *);
@@ -332,7 +332,9 @@ static const bool8 gRangedMovementTypes[MOVEMENT_TYPES_COUNT] = {
     [MOVEMENT_TYPE_COPY_PLAYER_OPPOSITE_IN_GRASS] = TRUE,
     [MOVEMENT_TYPE_COPY_PLAYER_COUNTERCLOCKWISE_IN_GRASS] = TRUE,
     [MOVEMENT_TYPE_COPY_PLAYER_CLOCKWISE_IN_GRASS] = TRUE,
-    /*[MOVEMENT_TYPE_BURIED] = FALSE,
+
+    /*
+    [MOVEMENT_TYPE_BURIED] = FALSE,
     [MOVEMENT_TYPE_WALK_IN_PLACE_DOWN] = FALSE,
     [MOVEMENT_TYPE_WALK_IN_PLACE_UP] = FALSE,
     [MOVEMENT_TYPE_WALK_IN_PLACE_LEFT] = FALSE,
@@ -341,14 +343,13 @@ static const bool8 gRangedMovementTypes[MOVEMENT_TYPES_COUNT] = {
     [MOVEMENT_TYPE_JOG_IN_PLACE_UP] = FALSE,
     [MOVEMENT_TYPE_JOG_IN_PLACE_LEFT] = FALSE,
     [MOVEMENT_TYPE_JOG_IN_PLACE_RIGHT] = FALSE,
-    [MOVEMENT_TYPE_RUN_IN_PLACE_DOWN] = FALSE,
-    [MOVEMENT_TYPE_RUN_IN_PLACE_UP] = FALSE,
-    [MOVEMENT_TYPE_RUN_IN_PLACE_LEFT] = FALSE,
-    [MOVEMENT_TYPE_RUN_IN_PLACE_RIGHT] = FALSE,
+
     [MOVEMENT_TYPE_INVISIBLE] = FALSE,
-    [MOVEMENT_TYPE_RAISE_HAND_AND_STOP] = FALSE,
+    [MOVEMENT_TYPE_RAISE_HAND_AND_STOP] = FALSE, //huh putting this back fixed it?
     [MOVEMENT_TYPE_RAISE_HAND_AND_JUMP] = FALSE,
-    [MOVEMENT_TYPE_RAISE_HAND_AND_SWIM] = FALSE,*/
+    [MOVEMENT_TYPE_RAISE_HAND_AND_SWIM] = FALSE,
+    */
+
     [MOVEMENT_TYPE_WANDER_AROUND_SLOWER] = TRUE,
 };
 
@@ -1298,6 +1299,90 @@ static u8 GetObjectEventIdByLocalId(u8 localId)
     return OBJECT_EVENTS_COUNT;
 }
 
+//ok issue was gRangedMovementTypes change,
+//it shuold default to 0, but it didn't because
+//I had the weird matching bit stuff below in place of this function.
+//restorying this fixed it
+static u8 InitObjectEventStateFromTemplate(const struct ObjectEventTemplate *template, u8 mapNum, u8 mapGroup)
+{
+    struct ObjectEvent *objectEvent;
+    const struct MapHeader *mapHeader;
+    u8 objectEventId;
+    s16 x;
+    s16 y;
+    bool8 isClone = FALSE;
+    u8 localId = 0;
+    s16 x2 = 0;
+    s16 y2 = 0;
+    s16 x3 = 0;
+    s16 y3 = 0;
+    
+    if (template->kind == OBJ_KIND_CLONE)
+    {
+        isClone = TRUE;
+        localId = template->objUnion.clone.targetLocalId;
+        mapNum = template->objUnion.clone.targetMapNum;
+        mapGroup = template->objUnion.clone.targetMapGroup;
+        x2 = template->x;
+        y2 = template->y;
+        x3 = template->x;
+        y3 = template->y;
+        mapHeader = Overworld_GetMapHeaderByGroupAndId(mapGroup, mapNum);
+        template = &(mapHeader->events->objectEvents[localId - 1]);
+    }
+
+    if (GetAvailableObjectEventId(template->localId, mapNum, mapGroup, &objectEventId))
+        return OBJECT_EVENTS_COUNT;
+
+    if (!ShouldInitObjectEventStateFromTemplate(template, isClone, x3, y3))
+        return OBJECT_EVENTS_COUNT;
+
+    objectEvent = &gObjectEvents[objectEventId];
+    ClearObjectEvent(objectEvent);
+    if (isClone)
+    {
+        x = x2 + MAP_OFFSET;
+        y = y2 + MAP_OFFSET;
+    }
+    else
+    {
+        x = template->x + MAP_OFFSET;
+        y = template->y + MAP_OFFSET;
+    }
+    objectEvent->active = TRUE;
+    objectEvent->triggerGroundEffectsOnMove = TRUE;
+    objectEvent->graphicsId = template->graphicsId;
+    objectEvent->movementType = template->objUnion.normal.movementType;
+    objectEvent->localId = template->localId;
+    objectEvent->mapNum = mapNum;
+    objectEvent->mapGroup = mapGroup;
+    objectEvent->initialCoords.x = x;
+    objectEvent->initialCoords.y = y;
+    objectEvent->currentCoords.x = x;
+    objectEvent->currentCoords.y = y;
+    objectEvent->previousCoords.x = x;
+    objectEvent->previousCoords.y = y;
+    objectEvent->currentElevation = template->objUnion.normal.elevation;
+    objectEvent->previousElevation = template->objUnion.normal.elevation;
+    objectEvent->rangeX = template->objUnion.normal.movementRangeX;
+    objectEvent->rangeY = template->objUnion.normal.movementRangeY;
+    objectEvent->trainerType = template->objUnion.normal.trainerType;
+    objectEvent->trainerRange_berryTreeId = template->objUnion.normal.trainerRange_berryTreeId;
+    objectEvent->mapNum = mapNum; // oops (yes this is required for matching)
+    objectEvent->previousMovementDirection = gInitialMovementTypeFacingDirections[template->objUnion.normal.movementType];
+    SetObjectEventDirection(objectEvent, objectEvent->previousMovementDirection);
+    SetObjectEventDynamicGraphicsId(objectEvent);
+    if (gRangedMovementTypes[objectEvent->movementType])
+    {
+        if (objectEvent->rangeX == 0)
+            objectEvent->rangeX++;
+        if (objectEvent->rangeY == 0)
+            objectEvent->rangeY++;
+    }
+    return objectEventId;
+}
+
+/*
 #ifdef NONMATCHING
 static u8 InitObjectEventStateFromTemplate(struct ObjectEventTemplate *template, u8 mapNum, u8 mapGroup)
 {
@@ -1335,7 +1420,7 @@ static u8 InitObjectEventStateFromTemplate(struct ObjectEventTemplate *template,
         template = &(mapHeader->events->objectEvents[localId - 1]);
     }
     if (GetAvailableObjectEventId(template->localId, mapNum, mapGroup, &objectEventId)
-        && !sub_805E238(template, var, x2, y2))
+        && !ShouldInitObjectEventStateFromTemplate(template, var, x2, y2))
         return OBJECT_EVENTS_COUNT;
     objectEvent = &gObjectEvents[objectEventId];
     ClearObjectEvent(objectEvent);
@@ -1373,9 +1458,9 @@ static u8 InitObjectEventStateFromTemplate(struct ObjectEventTemplate *template,
     objectEvent->previousMovementDirection = gInitialMovementTypeFacingDirections[template->objUnion.normal.movementType];
     SetObjectEventDirection(objectEvent, objectEvent->previousMovementDirection);
     SetObjectEventDynamicGraphicsId(objectEvent);
-/*#ifndef NONMATCHING
-    asm("":::"r5", "r6"); is a trick used in pokeruby and pokeemerald here
-#endif*/
+    //#ifndef NONMATCHING
+    //asm("":::"r5", "r6"); is a trick used in pokeruby and pokeemerald here
+//#endif
     if (gRangedMovementTypes[objectEvent->movementType])
     {
        if (objectEvent->rangeX == 0)
@@ -1614,21 +1699,22 @@ static u8 InitObjectEventStateFromTemplate(struct ObjectEventTemplate *template,
     ");
 }
 #endif
+*/
 
-static bool8 sub_805E238(struct ObjectEventTemplate *template, u8 var, s16 x, s16 y)
+static bool8 ShouldInitObjectEventStateFromTemplate(const struct ObjectEventTemplate *template, u8 isClone, s16 x, s16 y)
 {
-    if (var)
+    if (isClone)
     {
-        if (!sub_805E27C(template, x, y))
+        if (!TemplateIsObstacleAndWithinView(template, x, y))
             return FALSE;
     }
-    if (!sub_805E2E8(template, x, y))
+    if (!TemplateIsObstacleAndVisibleFromConnectingMap(template, x, y))
         return FALSE;
     
     return TRUE;
 }
 
-static bool8 sub_805E27C(struct ObjectEventTemplate *template, s16 x, s16 y)
+static bool8 TemplateIsObstacleAndWithinView(const struct ObjectEventTemplate *template, s16 x, s16 y)
 {
     if ((u8)(template->graphicsId - OBJ_EVENT_GFX_CUT_TREE) > 1)
         return TRUE;
@@ -1653,7 +1739,7 @@ static bool8 sub_805E27C(struct ObjectEventTemplate *template, s16 x, s16 y)
     return TRUE;
 }
 
-static bool8 sub_805E2E8(struct ObjectEventTemplate *template, s16 x, s16 y)
+static bool8 TemplateIsObstacleAndVisibleFromConnectingMap(const struct ObjectEventTemplate *template, s16 x, s16 y)
 {
     s32 x2, y2;
     
@@ -1670,7 +1756,7 @@ static bool8 sub_805E2E8(struct ObjectEventTemplate *template, s16 x, s16 y)
     {
         if (template->x <= 8)
         {
-            sub_805E384(template);
+            SetHideObstacleFlag(template);
             return FALSE;
         }
     }
@@ -1679,7 +1765,7 @@ static bool8 sub_805E2E8(struct ObjectEventTemplate *template, s16 x, s16 y)
     {
         if (template->x >= x2 - 8)
         {
-            sub_805E384(template);
+            SetHideObstacleFlag(template);
             return FALSE;
         }
     }
@@ -1688,7 +1774,7 @@ static bool8 sub_805E2E8(struct ObjectEventTemplate *template, s16 x, s16 y)
     {
         if (template->y <= 6)
         {
-            sub_805E384(template);
+            SetHideObstacleFlag(template);
             return FALSE;
         }
     }
@@ -1697,7 +1783,7 @@ static bool8 sub_805E2E8(struct ObjectEventTemplate *template, s16 x, s16 y)
     {
         if (template->y >= y2 - 6)
         {
-            sub_805E384(template);
+            SetHideObstacleFlag(template);
             return FALSE;
         }
     }
@@ -1705,9 +1791,9 @@ static bool8 sub_805E2E8(struct ObjectEventTemplate *template, s16 x, s16 y)
     return TRUE;
 }
 
-static void sub_805E384(struct ObjectEventTemplate *template)
+static void SetHideObstacleFlag(const struct ObjectEventTemplate *template)
 {
-    if ((u16)(template->flagId - 17) < 15)
+    if (template->flagId >= FLAG_TEMP_11 && template->flagId <= FLAG_TEMP_1F)
         FlagSet(template->flagId);
 }
 
