@@ -142,7 +142,7 @@ struct BoxPokemon
     u8 metGame:4;    
     
     u8 NoBoxExp:1; //true false is all I need for this
-    u8 padding:7;
+    u8 padding:7; //would like add extra u16 for allowing any ability for post game fun in trade battles would turn off and use normal abilities, not sure have save space for it
     
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10

@@ -4837,8 +4837,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
 
 
-    /*if (GetBattlerAbility(battlerIdDef) == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
-        spAttack /= 2;*/    //removed this version as it only blocked special moves not physical moves too, more efficient
+    
     //stat change abilities/same effect as gbattlemovedamage change but just more complient
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_HUSTLE)
         attack = (150 * attack) / 100;

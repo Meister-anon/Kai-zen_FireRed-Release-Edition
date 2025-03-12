@@ -6738,7 +6738,66 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }
                     break;
+                case ABILITY_HYDRATION:
+                if (IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY)) //remove status1 part, since already filters below
+                // && gBattleMons[battler].status1 & STATUS1_ANY)
+                {
+                    bool8 FoundStatus = FALSE;
+                        if (gBattleMons[battler].status1 & (STATUS1_PSN_ANY))
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, gStatusConditionString_PoisonJpn); //no idea why this is here? but its in emerald too
+                        }
+                            
+                        if (gBattleMons[battler].status1 & STATUS1_SLEEP) //here because shedskin string uses buff1 to read status on mon
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, gStatusConditionString_SleepJpn);
+                        }
+                            
+                        if (gBattleMons[battler].status1 & STATUS1_PARALYSIS)
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, gStatusConditionString_ParalysisJpn);
+                        }
+                            
+                        if (gBattleMons[battler].status1 & STATUS1_BURN)
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, gStatusConditionString_BurnJpn);
+                        }
+                            
+                        if (gBattleMons[battler].status1 & STATUS1_FREEZE)
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
+                        }
+                            
+                        
+                        if (gBattleMons[battler].status2 & STATUS2_DESTINY_BOND)
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, COMPOUND_STRING("Status"));
+                        }
+                            
+                        if (gStatuses3[battler] & STATUS3_YAWN)
+                        {
+                            ++FoundStatus; StringCopy(gBattleTextBuff1, COMPOUND_STRING("Status"));
+                        }//condition works not by line but by expression/statement.
+                        //statements are separated by semicolon so it would only read the next semicolon ended argument as part of the condition
+                            
+                        //add more stuff here, destiny bond etc. also since destiny bond is priority is still very scary if they spam it
+                        //but you still have some benefity from this ex. priority hitting before they can reapply
+                        //think make a function to check for status
+                        //leave for now, figure out how I want to do this and effects like this later on
+                        //vsonic IMPORTANT //NEED set list  simlar abilites healer queenly majesty? femme fatale?
+                        gBattleMons[battler].status1 = 0;
+                        gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
 
+                    if (FoundStatus)
+                    {
+                        gBattleScripting.battler = gActiveBattler = battler;
+                        BattleScriptPushCursorAndCallback(BattleScript_ShedSkinActivates);
+                        BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
+                        MarkBattlerForControllerExec(gActiveBattler);
+                        ++effect;
+                    }
+                }
+                break;
                 case ABILITY_SHED_SKIN: //don't need to make switch in effect, it activates before status dmg
                     if ((gBattleMons[battler].status1 & STATUS1_ANY) && (Random() % 2) == 0) //buffed odds to 50%
                     {

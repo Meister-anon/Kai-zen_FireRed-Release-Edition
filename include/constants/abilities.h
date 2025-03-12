@@ -96,7 +96,7 @@
 #define ABILITY_POISON_HEAL 91
 #define ABILITY_ADAPTABILITY 92
 #define ABILITY_SKILL_LINK 93
-#define ABILITY_HYDRATION 94
+#define ABILITY_HYDRATION 94    //plan buff to include any negative status, so yawn think attraction taunt torment and also destiny bond  perish song? nah too much
 #define ABILITY_SOLAR_POWER 95
 #define ABILITY_QUICK_FEET 96
 #define ABILITY_NORMALIZE 97 //gets power boost + stab, but always neutral dmg, have to give to weak mon, is pretty much huge power
