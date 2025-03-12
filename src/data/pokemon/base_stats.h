@@ -1511,8 +1511,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_EFFECT_SPORE, ABILITY_DRY_SKIN},
         .safariZoneFleeRate = 50,
+        .abilities = {ABILITY_EFFECT_SPORE, ABILITY_DRY_SKIN},        
         .abilityHidden = {ABILITY_DAMP, ABILITY_IMMUNITY},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -1543,10 +1543,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_GRASS,
-        .abilities = {ABILITY_EFFECT_SPORE, ABILITY_DRY_SKIN},
         .safariZoneFleeRate = 75,
-        .abilityHidden = {ABILITY_DAMP, ABILITY_IMMUNITY},
-        .bodyColor = BODY_COLOR_RED,
+        .abilities = {ABILITY_EFFECT_SPORE, ABILITY_DRY_SKIN}, //dang I don't think I can find room?        
+        .abilityHidden = {ABILITY_DAMP, ABILITY_IMMUNITY}, //replace one of these w sixty_sense, ironically w its type it is immune to base type of all explosion moves
+        .bodyColor = BODY_COLOR_RED, //I want to give sixth sense but cant decide what to remove, it even makes sense the mushroom is attackign you not the bug
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sParasectLevelUpLearnset,
@@ -2627,8 +2627,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_THICK_FAT, ABILITY_HYDRATION},
-        .abilityHidden = {ABILITY_ICE_BODY, ABILITY_SWIFT_SWIM},
+        .abilities = {ABILITY_HYDRATION, ABILITY_ICE_BODY},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_SLUSH_RUSH},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2653,15 +2653,22 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_THICK_FAT, ABILITY_HYDRATION},
-        .abilityHidden = {ABILITY_ICE_BODY, ABILITY_SWIFT_SWIM},
+        .abilities = {ABILITY_HYDRATION, ABILITY_ICE_BODY},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_SLUSH_RUSH},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sDewgongLevelUpLearnset,
         .tmhmLearnset = sDewgongTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//potentially drop hydration for?
+    //oh ice speed boost already exists its slush rush
+    //...DID A SEARCH i HADN'T DONE THE logic for hydration face palm
+    //ok fixed, think drop thick fat?
+    //move all other abilities up, then put slush rush on the end
+    //so has both hail and rain options
+    //so walrein will be for bulk this will be versatility
+    //so they each have a niche, also goes well w hydration buffs/planned buffs
 
     [SPECIES_GRIMER] =
     {
@@ -2882,6 +2889,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sOnixTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_METAL_COAT, 0, SPECIES_STEELIX}), //Should hopefully blank these for now without issue
     },
+    //w sturdy buffs think give this flail
+    //eviolite solid rock is gonna go dummy o.0
 
     [SPECIES_DROWZEE] =
     {
@@ -2915,7 +2924,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(105, 73, 70, 67, 73, 115),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_PSYCHIC, TYPE_DARK), //idea from Hoop youtuber
         .catchRate = 75,
         .expYield = 169,
         //.evYield_SpDefense = 2,
@@ -3499,7 +3508,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_2,
         .eggGroup2 = EGG_GROUP_WATER_2,
-        .abilities = {ABILITY_WATER_BUBBLE, ABILITY_HYDRATION},
+        .abilities = {ABILITY_SWIFT_SWIM, ABILITY_WATER_BUBBLE},
         .safariZoneFleeRate = 50,
         .abilityHidden = {ABILITY_LIGHTNING_ROD, ABILITY_STALL},//idk why I gaev this stall, its slow but not at all bulky
         .bodyColor = BODY_COLOR_RED, //welp nvm its kinda tankin pretty good??
@@ -3527,7 +3536,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_2,
         .eggGroup2 = EGG_GROUP_WATER_2,
-        .abilities = {ABILITY_WATER_BUBBLE, ABILITY_HYDRATION},
+        .abilities = {ABILITY_SWIFT_SWIM, ABILITY_WATER_BUBBLE},//Ddon't remember why I gave this hydration and dropped swift swim?
         .safariZoneFleeRate = 75,
         .abilityHidden = {ABILITY_LIGHTNING_ROD, ABILITY_UNAWARE},
         .bodyColor = BODY_COLOR_RED,
@@ -4823,6 +4832,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sNoctowlTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//change the type to match grand colloseum [done]
+    //potentially give shadow tag? as nocturnal predetaor? idk
+    //same logic as luxray
 
     [SPECIES_LEDYBA] =
     {
@@ -8120,7 +8131,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 62, 90, 100, 102),
-        MON_TYPES(TYPE_BUG, TYPE_WATER),
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 75,
         .expYield = 200,
         //.evYield_SpAttack = 1,
@@ -8141,6 +8152,13 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMasquerainTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //dang do want to keep this bug water but its dex entry of being an expert flyer
+    //essentially force me to keep this flying,
+    //and its not the worst since both bug and flying have been given
+    //unique mechanics and bugs type change woudl cover the electric weakness,
+    //plus it DOES still have water moves to cover the given fire weakness
+    //hmm technically this sholdn't be floating if rain is up and I could potentially
+    //make that a thing, but idk
 
     [SPECIES_SHROOMISH] =
     {
@@ -10356,7 +10374,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_THICK_FAT, ABILITY_ICE_BODY},
-        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_SLUSH_RUSH},
+        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_OBLIVIOUS},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -10382,14 +10400,14 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_THICK_FAT, ABILITY_ICE_BODY},
-        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_SLUSH_RUSH},
+        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_OBLIVIOUS},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sSealeoLevelUpLearnset,
         .tmhmLearnset = sSealeoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(44, AVERAGE_EFFORT), 0, SPECIES_WALREIN}), //Should hopefully blank these for now without issue
-    },
+    },//adding oblivious back late gen gets good physical move access so intimidate block is useful
 
     [SPECIES_WALREIN] =
     {
@@ -10408,7 +10426,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_THICK_FAT, ABILITY_ICE_BODY},
-        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_SLUSH_RUSH},
+        .abilityHidden = {ABILITY_RAIN_DISH, ABILITY_OBLIVIOUS},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,

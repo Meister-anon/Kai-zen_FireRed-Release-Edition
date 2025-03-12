@@ -1738,9 +1738,9 @@ const u8 gSurskitPokedexText[] = _(
 
 const u8 gMasquerainPokedexText[] = _(
     "It intimidates foes with the large eyelike\n"
-    "patterns on its antennae. Because it can't\n"
-    "fly if its wings get wet, it shelters itself\n"
-    "from rain under large trees and eaves.");
+    "patterns on its antennae. This Pokémon flaps\n"
+    "its four wings to fly in any direction,\n"
+    "but it cant fly if its wings get wet.");   
 
 const u8 gWailmerPokedexText[] = _(
     "While this Pokémon usually lives in the\n"
