@@ -70,6 +70,20 @@
 //if works checked emerald and won't need to list all teh graphics in 
 //externs for them to work, can just pull directly from table here
 
+//Vsonic IMPORTANT
+//note still need set enemyMonElevation from EE for all mon post gen 3
+//do with python make dictionary of species with non 0 elevations in their files
+//as key with elevation as entry
+//other idea, can take the line rather than just the value,
+//as EE also uses .enemyMonElevation = value,
+
+//whichever I need make global table to hold values  as I loop over all the base stat files
+//in EE because they decided to separate them into separte files smh
+//so in order I'd have to get the data of Gen_4_families - Gen_9_families
+//then match species of this file with those found w non 0 elevations there
+//and replace elevation 0 here
+
+
 //tag equals species constant
 //can put that in functinon rather than needing to put in table
 //use get tag and have it just set to species
