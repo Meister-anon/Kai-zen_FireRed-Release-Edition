@@ -1017,6 +1017,7 @@ static void Task_ScriptShowMonPic(u8 taskId)
         task->data[0]++;
         break;
     case 1:
+        // Wait until state is advanced by ScriptMenu_HidePokemonPic
         break;
     case 2:
         FreeResourcesAndDestroySprite(&gSprites[task->data[2]], task->data[2]);
@@ -1035,7 +1036,7 @@ bool8 ScriptMenu_ShowPokemonPic(u16 species, u8 x, u8 y)
     u8 taskId;
     if (QuestLog_SchedulePlaybackCB(QLPlaybackCB_DestroyScriptMenuMonPicSprites) == TRUE)
         return TRUE;
-    if (FindTaskIdByFunc(Task_ScriptShowMonPic) != 0xFF)
+    if (FindTaskIdByFunc(Task_ScriptShowMonPic) != TASK_NONE)
         return FALSE;
     spriteId = CreateMonSprite_PicBox(species, 8 * x + 40, 8 * y + 40, FALSE);
     taskId = CreateTask(Task_ScriptShowMonPic, 80);
@@ -1050,10 +1051,10 @@ bool8 ScriptMenu_ShowPokemonPic(u16 species, u8 x, u8 y)
     return TRUE;
 }
 
-bool8 (*ScriptMenu_GetPicboxWaitFunc(void))(void)
+bool8 (*ScriptMenu_HidePokemonPic(void))(void)
 {
     u8 taskId = FindTaskIdByFunc(Task_ScriptShowMonPic);
-    if (taskId == 0xFF)
+    if (taskId == TASK_NONE)
         return NULL;
     gTasks[taskId].data[0]++;
     return PicboxWait;
@@ -1061,7 +1062,7 @@ bool8 (*ScriptMenu_GetPicboxWaitFunc(void))(void)
 
 static bool8 PicboxWait(void)
 {
-    if (FindTaskIdByFunc(Task_ScriptShowMonPic) == 0xFF)
+    if (FindTaskIdByFunc(Task_ScriptShowMonPic) == TASK_NONE)
         return TRUE;
     else
         return FALSE;
@@ -1071,7 +1072,7 @@ void PicboxCancel(void)
 {
     u8 taskId = FindTaskIdByFunc(Task_ScriptShowMonPic);
     struct Task * task;
-    if (taskId != 0xFF)
+    if (taskId != TASK_NONE)
     {
         task = &gTasks[taskId];
         switch (task->data[0])

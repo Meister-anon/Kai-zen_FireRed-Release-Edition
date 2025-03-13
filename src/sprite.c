@@ -895,12 +895,22 @@ void ResetAllSprites(void)
 
 void FreeSpriteTiles(struct Sprite *sprite)
 {
-    if (sprite->template->tileTag != 0xFFFF)
+    // UB: template pointer may point to freed temporary storage
+#ifdef UBFIX
+    if (!sprite || !sprite->template)
+        return;
+#endif
+    if (sprite->template->tileTag != TAG_NONE)
         FreeSpriteTilesByTag(sprite->template->tileTag);
 }
 
 void FreeSpritePalette(struct Sprite *sprite)
 {
+    // UB: template pointer may point to freed temporary storage
+#ifdef UBFIX
+    if (!sprite || !sprite->template)
+        return;
+#endif
     FreeSpritePaletteByTag(sprite->template->paletteTag);
 }
 
@@ -1670,7 +1680,7 @@ void FreeSpritePaletteByTag(u16 tag)
 {
     u8 index = IndexOfSpritePaletteTag(tag);
     if (index != 0xFF)
-        sSpritePaletteTags[index] = 0xFFFF;
+        sSpritePaletteTags[index] = TAG_NONE;
 }
 
 void SetSubspriteTables(struct Sprite *sprite, const struct SubspriteTable *subspriteTables)

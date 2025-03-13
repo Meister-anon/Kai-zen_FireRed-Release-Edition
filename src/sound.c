@@ -361,11 +361,11 @@ void PlayCry_ReleaseDouble(u16 species, s8 pan, u8 mode)
 
 // exclusive to FR/LG
 //-no it isn't its local version of PlayCry_Script,  same just with quest log logic too
-void PlayCry7(u16 species, u8 mode) 
+void PlayCry_Script(u16 species, u8 mode) 
 {
     if (!QL_IS_PLAYBACK_STATE)
     {
-        m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, 85);
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 85);
         PlayCryInternal(species, 0, CRY_VOLUME, CRY_PRIORITY_NORMAL, mode);
     }
     gPokemonCryBGMDuckingCounter = 2;

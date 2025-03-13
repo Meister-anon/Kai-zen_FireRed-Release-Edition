@@ -30,7 +30,7 @@ void PlayCry_ByMode(u16 species, s8 pan, u8 mode);
 void PlayCry_ReleaseDouble(u16 species, s8 pan, u8 mode);
 void PlayCry5(u16 species, u8 mode);
 void PlayCry6(u16 species, s8 pan, u8 mode);
-void PlayCry7(u16 species, u8 mode);
+void PlayCry_Script(u16 species, u8 mode);
 void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode);
 bool8 IsCryFinished(void);
 void StopCryAndClearCrySongs(void);

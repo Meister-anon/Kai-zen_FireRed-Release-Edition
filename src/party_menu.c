@@ -5862,7 +5862,7 @@ static void Task_ShowSummaryScreenToForgetMove(u8 taskId)
 //that's not problem its in battle that's issue.
 static void CB2_ShowSummaryScreenToForgetMove(void)
 {
-    ShowSelectMovePokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuWhileLearningMove, gPartyMenu.data1);
+    ShowSelectMovePokemonSummaryScreen(gPlayerParty, gPartyMenu.slotId, gPlayerPartyCount - 1, CB2_ReturnToPartyMenuWhileLearningMove, gPartyMenu.data1);//last value here is tm move
 }
 
 static void CB2_ReturnToPartyMenuWhileLearningMove(void)

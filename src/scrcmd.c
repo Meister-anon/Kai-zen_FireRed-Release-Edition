@@ -1550,13 +1550,15 @@ bool8 ScrCmd_showmonpic(struct ScriptContext * ctx)
     u8 y = ScriptReadByte(ctx);
 
     ScriptMenu_ShowPokemonPic(species, x, y);
-    PlayCry7(species, 0);
+    PlayCry_Script(species, CRY_MODE_NORMAL); //tested cry isn't the problem thankfully
     return FALSE;
 }
 
 bool8 ScrCmd_hidemonpic(struct ScriptContext * ctx)
 {
-    bool8 (*func)(void) = ScriptMenu_GetPicboxWaitFunc();
+    // The hide function returns a pointer to a function
+    // that returns true once the pic is hidden
+    bool8 (*func)(void) = ScriptMenu_HidePokemonPic();
 
     if (func == NULL)
         return FALSE;
@@ -2594,7 +2596,7 @@ bool8 ScrCmd_playmoncry(struct ScriptContext * ctx)
     u16 species = VarGet(ScriptReadHalfword(ctx));
     u16 mode = VarGet(ScriptReadHalfword(ctx));
 
-    PlayCry7(species, mode);
+    PlayCry_Script(species, mode);
     return FALSE;
 }
 

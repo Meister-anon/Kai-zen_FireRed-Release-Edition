@@ -121,21 +121,23 @@ void LoadSpecialPokePic(void *dest, s32 species, u32 personality, bool8 isFrontP
         LZ77UnCompWram(gMonFrontPicTable[0].data, dest);
     else
         LZ77UnCompWram(src->data, dest);*/
-    if (isFrontPic)
-    {
-        if (gSpeciesGraphics[species].frontPic != NULL)
-            LZ77UnCompWram(gSpeciesGraphics[species].frontPic, dest);
-        else
-            LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].frontPic, dest);
-    }
     else
     {
-        if (gSpeciesGraphics[species].backPic != NULL)
-            LZ77UnCompWram(gSpeciesGraphics[species].backPic, dest);
+        if (isFrontPic)
+        {
+            if (gSpeciesGraphics[species].frontPic != NULL)
+                LZ77UnCompWram(gSpeciesGraphics[species].frontPic, dest);
+            else
+                LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].frontPic, dest);
+        }
         else
-            LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].backPic, dest);
+        {
+            if (gSpeciesGraphics[species].backPic != NULL)
+                LZ77UnCompWram(gSpeciesGraphics[species].backPic, dest);
+            else
+                LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].backPic, dest);
+        }
     }
-
     //DuplicateDeoxysTiles(dest, species);
     DrawSpindaSpots(species, personality, dest, isFrontPic);
 }
@@ -152,7 +154,7 @@ static void Unused_LZDecompressWramIndirect(const void **src, void *dest)
     LZ77UnCompWram(*src, dest);
 }
 
-static void sub_800EDDC(s32 object_size, s32 object_count, u8 *src_tiles, u8 *dest_tiles)
+static void StitchObjectsOn8x8Canvas(s32 object_size, s32 object_count, u8 *src_tiles, u8 *dest_tiles)
 {
     /*
       This function appears to emulate behaviour found in the GB(C) versions regarding how the Pokemon images
@@ -373,19 +375,22 @@ void LoadSpecialPokePic_DontHandleDeoxys(void *dest, s32 species, u32 personalit
         else
             LZ77UnCompWram(gSpeciesGraphics[i].frontPic, dest);
     }
-    if (isFrontPic)
-    {
-        if (gSpeciesGraphics[species].frontPic != NULL)
-            LZ77UnCompWram(gSpeciesGraphics[species].frontPic, dest);
-        else
-            LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].frontPic, dest);
-    }
     else
     {
-        if (gSpeciesGraphics[species].backPic != NULL)
-            LZ77UnCompWram(gSpeciesGraphics[species].backPic, dest);
+        if (isFrontPic)
+        {
+            if (gSpeciesGraphics[species].frontPic != NULL)
+                LZ77UnCompWram(gSpeciesGraphics[species].frontPic, dest);
+            else
+                LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].frontPic, dest);
+        }
         else
-            LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].backPic, dest);
+        {
+            if (gSpeciesGraphics[species].backPic != NULL)
+                LZ77UnCompWram(gSpeciesGraphics[species].backPic, dest);
+            else
+                LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].backPic, dest);
+        }
     }
     DrawSpindaSpots(species, personality, dest, isFrontPic);
 }

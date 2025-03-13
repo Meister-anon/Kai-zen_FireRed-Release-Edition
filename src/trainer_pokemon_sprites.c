@@ -31,9 +31,9 @@ static EWRAM_DATA struct PicData sSpritePics[PICS_COUNT] = {};
 
 // .rodata
 
-static const struct PicData gUnknown_8453178 = {};
+static const struct PicData sDummyPicData = {};
 
-static const struct OamData gUnknown_8453184 =
+static const struct OamData sOamData_Normal =
 {
     .shape = SPRITE_SHAPE(64x64),
     .size = SPRITE_SIZE(64x64)
@@ -51,7 +51,7 @@ bool16 ResetAllPicSprites(void)
     int i;
 
     for (i = 0; i < PICS_COUNT; i ++)
-        sSpritePics[i] = gUnknown_8453178;
+        sSpritePics[i] = sDummyPicData;
 
     return FALSE;
 }
@@ -179,7 +179,7 @@ u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPi
         images[j].size = 0x800;
     }
     sCreatingSpriteTemplate.tileTag = 0xFFFF;
-    sCreatingSpriteTemplate.oam = &gUnknown_8453184;
+    sCreatingSpriteTemplate.oam = &sOamData_Normal;
     AssignSpriteAnimsTable(isTrainer);
     sCreatingSpriteTemplate.images = images;
     sCreatingSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
@@ -203,7 +203,7 @@ u16 CreatePicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality, bo
     return CreatePicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, isTrainer, FALSE);
 }
 
-u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
+static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
 {
     u8 i;
     u8 *framePics;
@@ -222,14 +222,14 @@ u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
     }
     framePics = sSpritePics[i].frames;
     images = sSpritePics[i].images;
-    if (sSpritePics[i].paletteTag != 0xFFFF)
+    if (sSpritePics[i].paletteTag != TAG_NONE)
     {
         FreeSpritePaletteByTag(GetSpritePaletteTagByPaletteNum(gSprites[spriteId].oam.paletteNum));
     }
     DestroySprite(&gSprites[spriteId]);
     Free(framePics);
     Free(images);
-    sSpritePics[i] = gUnknown_8453178;
+    sSpritePics[i] = sDummyPicData;
     return 0;
 }
 
