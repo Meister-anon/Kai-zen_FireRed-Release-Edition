@@ -11,6 +11,7 @@
 #include "constants/moves.h"
 #include "constants/party_menu.h"
 #include "constants/songs.h"
+#include "constants/sound.h"
 #include "constants/species.h"
 #include "constants/trainer_classes.h"
 #include "constants/vars.h"

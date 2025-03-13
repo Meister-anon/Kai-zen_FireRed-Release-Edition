@@ -31,7 +31,7 @@ Route5_PokemonDayCare_EventScript_TryGiveMon:: @ 81BF3DD
 	call_if_eq VAR_0x8002, TRUE, Route5_PokemonDayCare_EventScript_ConfirmExpStateAndSelection
 	msgbox Route5_PokemonDayCare_Text_LookAfterMonForAWhile
 	waitse
-	playmoncry VAR_0x8005, 0
+	playmoncry VAR_0x8005, CRY_MODE_NORMAL
 	msgbox Route5_PokemonDayCare_Text_ComeSeeMeInAWhile
 	waitmoncry
 	special StoreSelectedPokemonInDaycare
@@ -150,7 +150,7 @@ Route5_PokemonDayCare_EventScript_RetrieveMon:: @ 81BF4EA
 	msgbox Route5_PokemonDayCare_Text_ThankYouHeresMon
 	textcolor 3
 	waitse
-	playmoncry VAR_RESULT, 0
+	playmoncry VAR_RESULT, CRY_MODE_NORMAL
 	msgbox Route5_PokemonDayCare_Text_PlayerGotMonBack
 	call EventScript_RestorePrevTextColor
 	waitmoncry

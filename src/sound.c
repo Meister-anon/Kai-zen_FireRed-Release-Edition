@@ -366,7 +366,7 @@ void PlayCry7(u16 species, u8 mode)
     if (!QL_IS_PLAYBACK_STATE)
     {
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, 85);
-        PlayCryInternal(species, 0, CRY_VOLUME, 10, mode);
+        PlayCryInternal(species, 0, CRY_VOLUME, CRY_PRIORITY_NORMAL, mode);
     }
     gPokemonCryBGMDuckingCounter = 2;
     RestoreBGMVolumeAfterPokemonCry();
