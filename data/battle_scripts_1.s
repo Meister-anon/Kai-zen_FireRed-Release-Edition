@@ -2797,7 +2797,7 @@ BattleScript_HitFromHpUpdate::
 	setmoveeffectwithchance		@seems to be fine
 BattleScript_TrySetArgumentEffect::
 	setargumentwithchance	@seems to be fine   @this dosent work need make into separate ommand arguentefectwcance  @ok think should work now?
-@BattleScript_TryFaintMon::
+BattleScript_TryFaintMon::
 	tryfaintmon BS_TARGET, FALSE, NULL	
 BattleScript_MoveEnd::
 	moveendall
@@ -5331,8 +5331,8 @@ BattleScript_EffectSkyAttack::
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
 	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SKY_ATTACK
 	call BattleScriptFirstChargingTurn
-	setstatchanger STAT_EVASION, 2, FALSE  @ give evasion boost on charging turn, since go into sky and give off bright light
-	statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SkyAttackEnd
+	@setstatchanger STAT_EVASION, 2, FALSE  @ give evasion boost on charging turn, since go into sky and give off bright light
+	@statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SkyAttackEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_SkyAttackEnd
 	setgraphicalstatchangevalues
 	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1

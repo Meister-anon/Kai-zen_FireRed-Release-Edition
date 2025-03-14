@@ -2240,7 +2240,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .type = TYPE_FLYING,
     .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
     .pp = 10,
-    .secondaryEffectChance = 20,
+    .secondaryEffectChance = 30,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
     .split = SPLIT_PHYSICAL,
@@ -2251,6 +2251,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 //with change to flying types the evasion boost on this is exemplary of the type
 //as the strongest move potentially lower to 1 stage evasion boost
 //vsonic don't want the move to be too free, that its spammable
+//review revise remove evasion boost as flying types now already get that
+//instead leave it up to strategizing i.e force target follow me stuff like that
+//to ensure can survive to do damage - done removed stat boost
 
 [MOVE_TRANSFORM] =
 {
