@@ -30,7 +30,7 @@ static void MultiChoicePrintHelpDescription(u8 mcId);
 static void Task_YesNoMenu_HandleInput(u8 taskId);
 static void Hask_MultichoiceGridMenu_HandleInput(u8 taskId);
 static void CreatePCMenuWindow(void);
-static bool8 PicboxWait(void);
+static bool8 IsPicboxClosed(void);
 static void DestroyScriptMenuWindow(u8 windowId);
 static u8 CreateWindowFromRect(u8 left, u8 top, u8 width, u8 height);
 
@@ -1038,7 +1038,7 @@ bool8 ScriptMenu_ShowPokemonPic(u16 species, u8 x, u8 y)
         return TRUE;
     if (FindTaskIdByFunc(Task_ScriptShowMonPic) != TASK_NONE)
         return FALSE;
-    spriteId = CreateMonSprite_PicBox(species, 8 * x + 40, 8 * y + 40, FALSE);
+    spriteId = CreateMonSprite_PicBox(species, 8 * x + 40, 8 * y + 40);
     taskId = CreateTask(Task_ScriptShowMonPic, 80);
     gTasks[taskId].data[5] = CreateWindowFromRect(x, y, 8, 8);
     gTasks[taskId].data[0] = 0;
@@ -1057,10 +1057,10 @@ bool8 (*ScriptMenu_HidePokemonPic(void))(void)
     if (taskId == TASK_NONE)
         return NULL;
     gTasks[taskId].data[0]++;
-    return PicboxWait;
+    return IsPicboxClosed;
 }
 
-static bool8 PicboxWait(void)
+static bool8 IsPicboxClosed(void)
 {
     if (FindTaskIdByFunc(Task_ScriptShowMonPic) == TASK_NONE)
         return TRUE;

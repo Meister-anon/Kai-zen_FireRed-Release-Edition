@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "data.h"
 #include "decompress.h"
 
 extern const struct CompressedSpriteSheet gMonFrontPicTable[];
@@ -23,6 +24,10 @@ struct PicData
 
 // Static RAM declarations
 #define PICS_COUNT 8
+
+// Needs to be large enough to store either a decompressed Pokémon pic or trainer pic
+#define PIC_SPRITE_SIZE max(MON_PIC_SIZE, TRAINER_PIC_SIZE)
+#define MAX_PIC_FRAMES  max(MAX_MON_PIC_FRAMES, MAX_TRAINER_PIC_FRAMES)
 
 static EWRAM_DATA struct SpriteTemplate sCreatingSpriteTemplate = {};
 static EWRAM_DATA struct PicData sSpritePics[PICS_COUNT] = {};
@@ -157,7 +162,7 @@ u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPi
     {
         return 0xFFFF;
     }
-    framePics = Alloc(4 * 0x800);
+    framePics = Alloc(4 * PIC_SPRITE_SIZE);
     if (!framePics)
     {
         return 0xFFFF;
@@ -175,8 +180,8 @@ u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPi
     }
     for (j = 0; j < 4; j ++)
     {
-        images[j].data = framePics + 0x800 * j;
-        images[j].size = 0x800;
+        images[j].data = framePics + PIC_SPRITE_SIZE * j;
+        images[j].size = PIC_SPRITE_SIZE;
     }
     sCreatingSpriteTemplate.tileTag = 0xFFFF;
     sCreatingSpriteTemplate.oam = &sOamData_Normal;

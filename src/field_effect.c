@@ -592,7 +592,10 @@ static u8 AddNewGameBirchObject(s16 x, s16 y, u8 subpriority)
 
 //believed used at gamestart for showing starter species,
 //make not display shiny so can be suprise
-u8 CreateMonSprite_PicBox(u16 species, s16 x, s16 y, u8 subpriority)
+//personality here is largely inconsequential, it uses flat value
+//eventually it gets used for unown shape and spinda spots
+//but ofcourse doesn't accurately track
+u8 CreateMonSprite_PicBox(u16 species, s16 x, s16 y)
 {
     u16 spriteId = CreateMonPicSprite_HandleDeoxys(species, FALSE, 0x8000, TRUE, x, y, 0, species);
     PreservePaletteInWeather(IndexOfSpritePaletteTag(species) + 0x10);
@@ -602,7 +605,7 @@ u8 CreateMonSprite_PicBox(u16 species, s16 x, s16 y, u8 subpriority)
         return spriteId;
 }
 
-static u8 CreateMonSprite_FieldMove(u16 species, bool8 isShiny, u32 personality, s16 x, s16 y, u8 subpriority)
+static u8 CreateMonSprite_FieldMove(u16 species, bool8 isShiny, u32 personality, s16 x, s16 y)
 {
     u16 spriteId = CreateMonPicSprite_HandleDeoxys(species, isShiny, personality, 1, x, y, 0, species);
     PreservePaletteInWeather(IndexOfSpritePaletteTag(gSprites[spriteId].oam.paletteNum) + 0x10);
@@ -2826,7 +2829,7 @@ static u8 InitFieldMoveMonSprite(u32 species, u32 isShiny, u32 personality)
     struct Sprite * sprite;
     playCry = (species & 0x80000000) >> 16;
     species &= 0x7fffffff;
-    monSprite = CreateMonSprite_FieldMove(species, isShiny, personality, 0x140, 0x50, 0);
+    monSprite = CreateMonSprite_FieldMove(species, isShiny, personality, 0x140, 0x50);
     sprite = &gSprites[monSprite];
     sprite->callback = SpriteCallbackDummy;
     sprite->oam.priority = 0;

@@ -640,6 +640,41 @@ bool8 ScrCmd_fadescreenspeed(struct ScriptContext * ctx)
     return TRUE;
 }
 
+//ported from EE not default to fr but may be useful
+//used at sky pillar etc in Em,
+//believe if flash screen black and white?
+static EWRAM_DATA u32 *sPalBuffer = NULL;
+bool8 ScrCmd_fadescreenswapbuffers(struct ScriptContext *ctx)
+{
+    u8 mode = ScriptReadByte(ctx);
+
+    switch (mode)
+    {
+    case FADE_TO_BLACK:
+    case FADE_TO_WHITE:
+    default:
+        if (sPalBuffer == NULL)
+        {
+            sPalBuffer = Alloc(PLTT_SIZE);
+            CpuCopy32(gPlttBufferUnfaded, sPalBuffer, PLTT_SIZE);
+            FadeScreen(mode, 0);
+        }
+        break;
+    case FADE_FROM_BLACK:
+    case FADE_FROM_WHITE:
+        if (sPalBuffer != NULL)
+        {
+            CpuCopy32(sPalBuffer, gPlttBufferUnfaded, PLTT_SIZE);
+            FadeScreen(mode, 0);
+            FREE_AND_SET_NULL(sPalBuffer);
+        }
+        break;
+    }
+
+    SetupNativeScript(ctx, IsPaletteNotActive);
+    return TRUE;
+}
+
 static bool8 RunPauseTimer(void)
 {
     sPauseCounter--;

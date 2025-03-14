@@ -6,6 +6,7 @@
 #include "sprite.h"
 
 //extern u8 gDecompressionBuffer[0x4000];
+#define MAX_DECOMPRESSION_BUFFER_SIZE 0x4000
 
 void LZDecompressWram(const void *src, void *dest);
 void LZDecompressVram(const void *src, void *dest);

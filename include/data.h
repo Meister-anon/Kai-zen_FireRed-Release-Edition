@@ -6,6 +6,11 @@
 #define SPECIES_SHINY_TAG 500
 #define TRAINER_ENCOUNTER_MUSIC(trainer)((gTrainers[trainer].encounterMusic_gender & 0x7F))
 
+#define MAX_TRAINER_ITEMS 4
+
+#define TRAINER_PIC_WIDTH 64
+#define TRAINER_PIC_HEIGHT 64
+#define TRAINER_PIC_SIZE (TRAINER_PIC_WIDTH * TRAINER_PIC_HEIGHT / 2)
 struct MonCoords
 {
     // This would use a bitfield, but some function
