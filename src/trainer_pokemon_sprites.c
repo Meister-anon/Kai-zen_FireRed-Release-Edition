@@ -208,7 +208,7 @@ u16 CreatePicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality, bo
     return CreatePicSprite(species, isShiny, personality, isFrontPic, x, y, paletteSlot, paletteTag, isTrainer, FALSE);
 }
 
-static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
+static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId, u8 clearPalette)
 {
     u8 i;
     u8 *framePics;
@@ -227,10 +227,10 @@ static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
     }
     framePics = sSpritePics[i].frames;
     images = sSpritePics[i].images;
-    if (sSpritePics[i].paletteTag != TAG_NONE)
+    if (clearPalette && sSpritePics[i].paletteTag != TAG_NONE)
     {
         FreeSpritePaletteByTag(GetSpritePaletteTagByPaletteNum(gSprites[spriteId].oam.paletteNum));
-    }
+    }//ok without palette free it doesnt break?? ...I really don't understand but best I can do is port EE version of function
     DestroySprite(&gSprites[spriteId]);
     Free(framePics);
     Free(images);
@@ -292,7 +292,12 @@ u16 CreateMonPicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality,
 
 u16 FreeAndDestroyMonPicSprite(u16 spriteId)
 {
-    return FreeAndDestroyPicSpriteInternal(spriteId);
+    return FreeAndDestroyPicSpriteInternal(spriteId, TRUE);
+}
+
+u16 FreeAndDestroyMonPicSpriteNoPalette(u16 spriteId)
+{
+    return FreeAndDestroyPicSpriteInternal(spriteId, FALSE);
 }
 
 //never loads shiny pic, just default palette
@@ -314,7 +319,7 @@ u16 CreateTrainerPicSprite(u16 species, bool8 isFrontPic, s16 x, s16 y, u8 palet
 
 u16 FreeAndDestroyTrainerPicSprite(u16 spriteId)
 {
-    return FreeAndDestroyPicSpriteInternal(spriteId);
+    return FreeAndDestroyPicSpriteInternal(spriteId, TRUE);
 }
 
 ///unused
