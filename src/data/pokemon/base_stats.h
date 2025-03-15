@@ -4824,11 +4824,11 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_INSOMNIA, ABILITY_TINTED_LENS},
-        .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_STORM_BREAK},
-        .bodyColor = BODY_COLOR_BROWN,
-        .noFlip = FALSE,
-        .floating = TRUE,
-        .levelUpLearnset = sNoctowlLevelUpLearnset,
+        .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_SHADOW_TAG}, //storm break would give it a strong niche but it doesn't really make sense?
+        .bodyColor = BODY_COLOR_BROWN, //especially without flying type, eh storm break could still make sense if instead fo flapping its wings
+        .noFlip = FALSE,    //it couldl be a mystic use of psychic power, its not fast or bulky, so while it hits hard
+        .floating = TRUE,   //it can't really make use of shadow tag... oh right I made the trap abilities lower enemy speed! ok that seems good
+        .levelUpLearnset = sNoctowlLevelUpLearnset, //storm break is cool, but think it can get more use out of shadow tag
         .tmhmLearnset = sNoctowlTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//change the type to match grand colloseum [done]

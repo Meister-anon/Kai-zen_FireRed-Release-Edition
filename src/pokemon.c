@@ -5299,11 +5299,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     switch (GetBattlerAbility(battlerIdDef))  //readjusted order of abilities to be numeric order in case I need switch case to flow low to high
     {                          //after examining switches from emerald repo, appears value order of the switch case doesn't matter, can go anywhere
         //don't need put absorb abilities that heal here, as they use gbattlemovedamage todo heal and convert it in the util
-    case ABILITY_THICK_FAT:
-        if (moveType == (TYPE_FIRE || TYPE_ICE))
-        OffensiveModifer(50);
+    /*case ABILITY_THICK_FAT:
+        if (moveType == (TYPE_FIRE || TYPE_ICE)) //removing decide just straight up change effectiveness more or less same effect
+        OffensiveModifer(50); //but just makes more sense to me
             //gBattleMoveDamage /= 2;
         break;
+        */
     case ABILITY_FEATHER_JACKET:
         if (moveType == TYPE_ICE)
             OffensiveModifer(50);

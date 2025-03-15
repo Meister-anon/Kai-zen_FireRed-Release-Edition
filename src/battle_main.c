@@ -5190,39 +5190,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
     
-    /*side = GetBattlerSide(gActiveBattler);
-    for (i = 0; i < gBattlersCount; ++i)
-    {
-        if (/*side != GetBattlerSide(i)
-         && IsAbilityOnOpposingSide(i, ABILITY_SHADOW_TAG)
-         && gBattleMons[i].ability == ABILITY_SHADOW_TAG //since shadow tag is like an exorcism talismon 
-            IsAbilityOnOpposingSide(i, ABILITY_SHADOW_TAG)
-         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST))//meant to keep spirits from escaping it makes sense for shadow tag
-            // to still lock in ghost types
-        {
-            //gBattleScripting.battler = i;
-            gBattleScripting.battler = battler = IsAbilityOnOpposingSide(i, ABILITY_SHADOW_TAG);
-            //gLastUsedAbility = gBattleMons[i].ability;
-            gLastUsedAbility = gBattleMons[battler].ability;
-            gBattleCommunication[MULTISTRING_CHOOSER] = 2;//shadow tag isn't an exorcism talisom based on translation its the ghost posessing your shadow, keeping you from moving
-            return BATTLE_RUN_FAILURE;  //like seen in horror or movies ghost touching your shadow affects person, logic behind it not affecting ghost is I guess ghosts don't have shadows
-        }
-        if (side != GetBattlerSide(i)
-         && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE
-         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
-         && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST)
-         && gBattleMons[i].ability == ABILITY_ARENA_TRAP
-         IsAbilityOnOpposingSide(i, ABILITY_ARENA_TRAP)
-         && IsBattlerGrounded(gActiveBattler)) //need add grounded check for flying  vsonic
-        {
-            //gBattleScripting.battler = i;
-            gBattleScripting.battler = battler = IsAbilityOnOpposingSide(i, ABILITY_ARENA_TRAP);
-            //gLastUsedAbility = gBattleMons[i].ability;
-            gLastUsedAbility = gBattleMons[battler].ability;
-            gBattleCommunication[MULTISTRING_CHOOSER] = 2;
-            return BATTLE_RUN_FAILURE;
-        }
-    }*/
+    
     if (IsAbilityPreventingEscape(gActiveBattler)) //if works can remove i, and side
     {
         gBattleScripting.battler = battler = (IsAbilityPreventingEscape(gActiveBattler) - 1);

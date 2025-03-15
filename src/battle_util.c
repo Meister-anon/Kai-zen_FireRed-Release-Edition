@@ -11100,7 +11100,6 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     //shouldn't cancel out magnet pull doens't
     //extra parenthesis to avoid compiler warning
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)))
-       // && (GetBattlerAbility(battlerId) != ABILITY_SHADOW_TAG))
         return id;
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_ARENA_TRAP)) && IsBattlerGrounded(battlerId))
         return id;
@@ -11785,6 +11784,13 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //put here to not accidentally trigger strong winds reduction
     if (moveType == TYPE_FIRE && gDisableStructs[battlerDef].tarShot)
         mod = uq4_12_multiply(mod, UQ_4_12(1.55));
+
+    //decide change thick fat to change effectiveness
+    //so clear the moves aren't effecting it much
+    if (moveType == TYPE_FIRE || moveType == TYPE_ICE
+    && GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT)
+        mod = uq4_12_divide(mod, UQ_4_12(2.0));
+
 
     if (mod < UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_BRICK_BREAK) //let brick break hit all mon
         mod = UQ_4_12(0.5);
