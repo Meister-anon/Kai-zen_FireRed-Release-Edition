@@ -7366,9 +7366,10 @@ static void Task_WaitAfterMultiPartnerPartySlideIn(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     // data[0] used as a timer afterwards rather than the x pos
-    if (++data[0] == 256)
+    //changed to div 2 in attempt quick transition
+    if (++data[0] == 256 / 2)
         Task_ClosePartyMenu(taskId);
-}
+}//vsonic need test
 
 static void MoveMultiPartyMenuBoxSprite(u8 spriteId, s16 x)
 {

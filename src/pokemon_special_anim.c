@@ -375,6 +375,10 @@ static void Task_ForgetMove(u8 taskId)
         break;
     case 13:
         SetUseItemAnimCallback(taskId, Task_MachineSet);
+        //test
+            //SetUseItemAnimCallback(taskId, Task_CleanUp); //works something wrong w machine set,
+            // but only when accessed from here
+            //something wrong w growl in everywhere don't knomw why
         break;
     }
 }
@@ -499,6 +503,7 @@ static void Task_UseTM_NoForget(u8 taskId)
     }
 }
 
+//for some reason it seems to  break within this?
 static void Task_MachineSet(u8 taskId)
 {
     struct PokemonSpecialAnim * ptr = (void *)GetWordTaskArg(taskId, 0);

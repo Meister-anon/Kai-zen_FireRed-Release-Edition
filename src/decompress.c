@@ -139,7 +139,8 @@ void LoadSpecialPokePic(void *dest, s32 species, u32 personality, bool8 isFrontP
         }
     }
     //DuplicateDeoxysTiles(dest, species);
-    DrawSpindaSpots(species, personality, dest, isFrontPic);
+    if (species == SPECIES_SPINDA && isFrontPic)
+        DrawSpindaSpots(species, personality, dest, isFrontPic);
 }
 
 //tryue seems no longer need this, however it wasused
@@ -392,5 +393,6 @@ void LoadSpecialPokePic_DontHandleDeoxys(void *dest, s32 species, u32 personalit
                 LZ77UnCompWram(gSpeciesGraphics[SPECIES_NONE].backPic, dest);
         }
     }
-    DrawSpindaSpots(species, personality, dest, isFrontPic);
+    if (species == SPECIES_SPINDA && isFrontPic)
+        DrawSpindaSpots(species, personality, dest, isFrontPic);
 }

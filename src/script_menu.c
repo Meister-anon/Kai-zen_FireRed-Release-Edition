@@ -1019,8 +1019,8 @@ static void Task_ScriptShowMonPic(u8 taskId)
     case 1:
         // Wait until state is advanced by ScriptMenu_HidePokemonPic
         break;
-    case 2:
-        FreeResourcesAndDestroySprite(&gSprites[task->data[2]], task->data[2]);
+    case 2://problem is something here, palette not being cleared?
+        FreeResourcesAndDestroySprite(&gSprites[task->data[2]], task->data[2]); 
         task->data[0]++;
         break;
     case 3:
@@ -1166,7 +1166,7 @@ static u8 CreateWindowFromRect(u8 left, u8 top, u8 width, u8 height)
 
 static void DestroyScriptMenuWindow(u8 windowId)
 {
-    ClearWindowTilemap(windowId);
+    //ClearWindowTilemap(windowId); //removed as already part of following function
     ClearStdWindowAndFrameToTransparent(windowId, TRUE);
     RemoveWindow(windowId);
 }

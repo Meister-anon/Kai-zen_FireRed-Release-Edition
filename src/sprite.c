@@ -1620,7 +1620,7 @@ u8 LoadSpritePalette(const struct SpritePalette *palette)
     if (index != 0xFF)
         return index;
 
-    index = IndexOfSpritePaletteTag(0xFFFF);
+    index = IndexOfSpritePaletteTag(TAG_NONE);
 
     if (index == 0xFF)
     {
@@ -1644,12 +1644,12 @@ void LoadSpritePalettes(const struct SpritePalette *palettes)
 
 void DoLoadSpritePalette(const u16 *src, u16 paletteOffset)
 {
-    LoadPalette(src, paletteOffset + 0x100, 32);
+    LoadPalette(src, paletteOffset + OBJ_PLTT_OFFSET, 32);
 }
 
 u8 AllocSpritePalette(u16 tag)
 {
-    u8 index = IndexOfSpritePaletteTag(0xFFFF);
+    u8 index = IndexOfSpritePaletteTag(TAG_NONE);
     if (index == 0xFF)
     {
         return 0xFF;

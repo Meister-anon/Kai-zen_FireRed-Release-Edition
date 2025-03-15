@@ -78,6 +78,9 @@ struct TrainerCardData
     bool8 timeColonNeedDraw;
     u8 language;
 }; /* size = 0x7BD0 */
+//load differently think load some data/front data constantly
+//so can save time on load, /callback
+//as it is now it takes too long to load
 
 // RAM
 EWRAM_DATA struct TrainerCard gTrainerCards[2] = {0};

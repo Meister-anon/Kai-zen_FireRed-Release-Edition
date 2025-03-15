@@ -3735,6 +3735,63 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     note for reading sound data lost from move from songs.mk to midi.cpp
     #G is the voicegroup  V is the volume, P is pan I think or something
 
+    fixed issues updating to curr porymap standard,
+    next issue to tackle,
+    fixing tm learn after deleting move,
+    causes glitch on tm animation.
+
+    need fix mon cry thought had it working but with sound on,
+    it doesn't play  the same as pret does.
+    something is going wrong, hmm test with speed up off,
+    unsure if its related to something wrong with my update moving
+    things to C file, or if its a result of the way speed up works
+    doesn't have to do with speed up, its someting I did.
+
+    Also species graphics file still needs the enemymonelevation for modern mon
+    post gen 3.
+
+    And rediscovered  party menu special item use animation glitch
+    when I attempt to learn move via tm, but have to first delete a move
+    the tm animation glithces breaking the game.
+
+    Also attempt figure out why opening trainer card is so laggy,
+    I removed several things so I'd think it would be faster,.
+    ...compared against pokefirered and mine is 3x slower to load..
+    so its something I did *facepalm
+
+    Following all that still need to update my repo
+    for all the funtions named after I started
+    I've already setup my old repo as a remote & branch on this reo
+    alone with current pret,
+    planned to rebase realized would need my full history.
+    plan is rebase my current master onto my old kai zen branch
+    to remerge my history for total history - (hopefully readding that stupid git thing that had all broken bloated data)
+    
+    once that works, rebase onto pokefirered and will need to go through massive
+    merge conflicts to get all the files as I need them
+    3/11/2025
+
+    thought of something for speed up gameplay
+    objectmovement is not simple and can break things
+    and also issue of syncing with steps for sprite
+    but realized if I do so for the bike instead
+    visual desync would be less noticable
+    and like in em which had acro and mach bike
+    which operated at diff speeds and new features in decomp
+    which allow switching between bike states  mid ride
+    I could probably make a super mach bike,
+    that moves much faster?
+
+    Then believe what I would need to do is something similar to
+    what I did for reading object block from script comamand
+    I would need to read a certain amount of steps/tiles ahead,
+    and if there is an empassable object and player is in super mach state
+    swhich down to mach state,
+    while in mach state don't switch back to super mach state
+    unless the way player is trying to move is clear for at minimum two tiles
+    3/14/2025
+    vsonic important
+
     NOTE**(
     since make clean removes tools o
     from now on just make mostlyclean instead

@@ -9938,7 +9938,7 @@ static void DrawSpindaSpotsUnused(u16 species, u32 personality, u8 *dest)
 
 void DrawSpindaSpots(u16 species, u32 personality, u8 *dest, bool8 isFrontPic)
 {
-    if (species == SPECIES_SPINDA && isFrontPic)
+    //if (species == SPECIES_SPINDA && isFrontPic)
         DRAW_SPINDA_SPOTS;
 }
 
