@@ -3792,6 +3792,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     3/14/2025
     vsonic important
 
+    //note idea from sayu vt
+    change payday to give coins assuming you have coin case
+    instead of money, if user is player side
+    maybe something like 350 coins?
+    hmm or potentially mess around with effect make it random
+    to lean into gambling,
+    could give varying levels of money/coins or a rare amulet coin 
+    3/16/2025
+
     NOTE**(
     since make clean removes tools o
     from now on just make mostlyclean instead

@@ -579,10 +579,11 @@ void ProcessRecvCmds(u8 unused)
                 {
                     buffer[(sBlockRecv[i].pos / 2) + j] = gRecvCmds[i][j + 1];
                 }
+                //EE does different but leaving for now
             }
             else
             {
-                u16 j;
+                u32 j;
 
                 for (j = 0; j < CMD_LENGTH - 1; j++)
                 {

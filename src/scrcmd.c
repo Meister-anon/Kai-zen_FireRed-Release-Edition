@@ -643,6 +643,12 @@ bool8 ScrCmd_fadescreenspeed(struct ScriptContext * ctx)
 //ported from EE not default to fr but may be useful
 //used at sky pillar etc in Em,
 //believe if flash screen black and white?
+
+//text for event.inc
+/*
+@ Equivalent to fadescreen but copies gPlttBufferUnfaded to an allocated buffer on the fade out
+@ and the reverse on the fade in, in effect saving gPlttBufferUnfaded to restore it.
+*/
 static EWRAM_DATA u32 *sPalBuffer = NULL;
 bool8 ScrCmd_fadescreenswapbuffers(struct ScriptContext *ctx)
 {

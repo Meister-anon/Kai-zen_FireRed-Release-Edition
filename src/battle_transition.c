@@ -2068,16 +2068,16 @@ static void HBCB_BT_Phase2Mugshot(void)
 static void BT_Phase2Mugshots_CreateSprites(struct Task *task)
 {
     struct Sprite *opponentSprite, *playerSprite;
-    void *buffer;
+    //void *buffer;
     s16 mugshotId;
 
-    buffer = Alloc(0x800);
+    //buffer = Alloc(0x800);
     gReservedSpritePaletteCount = 10;
     mugshotId = task->tWhichMugshot;
-    task->tOpponentSpriteId = CreateTrainerSprite(sMugshotsTrainerPicIDsTable[mugshotId], sMugshotsOpponentCoords[mugshotId][0] - 32, sMugshotsOpponentCoords[mugshotId][1] + 42, 0, buffer);
-    task->tPlayerSpriteId = CreateTrainerSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), 272, 106, 0, buffer);
+    task->tOpponentSpriteId = CreateTrainerSprite(sMugshotsTrainerPicIDsTable[mugshotId], sMugshotsOpponentCoords[mugshotId][0] - 32, sMugshotsOpponentCoords[mugshotId][1] + 42, 0, NULL);
+    task->tPlayerSpriteId = CreateTrainerSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), 272, 106, 0, NULL);
     gReservedSpritePaletteCount = 12;
-    Free(buffer);
+    //Free(buffer);
     opponentSprite = &gSprites[task->tOpponentSpriteId];
     playerSprite = &gSprites[task->tPlayerSpriteId];
     opponentSprite->callback = SpriteCB_BT_Phase2Mugshots;

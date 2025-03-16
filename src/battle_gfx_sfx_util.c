@@ -9,6 +9,7 @@
 #include "data.h"
 #include "util.h"
 #include "party_menu.h"
+#include "menu.h"
 #include "battle.h"
 #include "battle_main.h"
 #include "battle_anim.h"
@@ -406,14 +407,17 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
         lzPaletteData = GetMonSpritePal(mon);
     else
         lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, currentPersonality);
-    buffer = AllocZeroed(0x400);
+    
+    //buffer = AllocZeroed(0x400);
+    buffer = malloc_and_decompress(lzPaletteData, NULL);
     LZDecompressWram(lzPaletteData, buffer);
-    LoadPalette(buffer, paletteOffset, 0x20);
-    LoadPalette(buffer, 0x80 + battlerId * 16, 0x20);
+    LoadPalette(buffer, paletteOffset, PLTT_SIZE_4BPP);
+    LoadPalette(buffer, BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
     Free(buffer);
+
     if (species == SPECIES_CASTFORM)
     {
-        paletteOffset = 0x100 + battlerId * 16;
+        paletteOffset = 0x100 + BG_PLTT_ID(battlerId);
         LZDecompressWram(lzPaletteData, gBattleStruct->castformPalette[0]);
         LoadPalette(gBattleStruct->castformPalette[gBattleMonForms[battlerId]], paletteOffset, 0x20);
     }
@@ -467,10 +471,11 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
         lzPaletteData = GetMonSpritePal(mon);
     else
         lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, currentPersonality);
-    buffer = AllocZeroed(0x400);
+    //buffer = AllocZeroed(0x400);
+    buffer = malloc_and_decompress(lzPaletteData, NULL);
     LZDecompressWram(lzPaletteData, buffer);
-    LoadPalette(buffer, paletteOffset, 0x20);
-    LoadPalette(buffer, 0x80 + battlerId * 16, 0x20);
+    LoadPalette(buffer, paletteOffset, PLTT_SIZE_4BPP);
+    LoadPalette(buffer, BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
     Free(buffer);
     if (species == SPECIES_CASTFORM)
     {
@@ -493,11 +498,12 @@ void DecompressGhostFrontPic(struct Pokemon *unused, u8 battlerId)
     u8 position = GetBattlerPosition(battlerId);
 
     LZ77UnCompWram(gGhostFrontPic, gMonSpritesGfxPtr->sprites[position]);
-    palOffset = 0x100 + 16 * battlerId;
-    buffer = AllocZeroed(0x400);
+    palOffset = 0x100 + BG_PLTT_ID(battlerId);
+    //buffer = AllocZeroed(0x400);
+    buffer = malloc_and_decompress(gGhostPalette, NULL);
     LZDecompressWram(gGhostPalette, buffer);
-    LoadPalette(buffer, palOffset, 0x20);
-    LoadPalette(buffer, 0x80 + 16 * battlerId, 0x20);
+    LoadPalette(buffer, palOffset, PLTT_SIZE_4BPP);
+    LoadPalette(buffer, BG_PLTT_ID(8) + BG_PLTT_ID(battlerId), PLTT_SIZE_4BPP);
     Free(buffer);
 }
 
@@ -747,9 +753,10 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
         paletteOffset = 0x100 + battlerAtk * 16;
         isShiny = IsMonShiny(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]]);
         lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(targetSpecies, isShiny, personalityValue);
-        buffer = AllocZeroed(0x400);
+        //buffer = AllocZeroed(0x400);
+        buffer = malloc_and_decompress(lzPaletteData, NULL);
         LZDecompressWram(lzPaletteData, buffer);
-        LoadPalette(buffer, paletteOffset, 32);
+        LoadPalette(buffer, paletteOffset, PLTT_SIZE_4BPP);
         Free(buffer);
         gSprites[gBattlerSpriteIds[battlerAtk]].pos1.y = GetBattlerSpriteDefault_Y(battlerAtk);
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[battlerAtk]], gBattleMonForms[battlerAtk]);
@@ -815,7 +822,8 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 notTransform)
             personalityValue = GetMonData(&PartyMon, MON_DATA_PERSONALITY);
         }
         lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(targetSpecies, isShiny, personalityValue);
-        buffer = AllocZeroed(0x400);
+        //buffer = AllocZeroed(0x400);
+        buffer = malloc_and_decompress(lzPaletteData, NULL);
         LZDecompressWram(lzPaletteData, buffer);
         LoadPalette(buffer, paletteOffset, 32);
         Free(buffer);

@@ -23,6 +23,7 @@
 #include "link_rfu.h"
 #include "load_save.h"
 #include "m4a.h"
+#include "menu.h"
 #include "party_menu.h"
 #include "pokeball.h"
 #include "pokedex.h"
@@ -1910,17 +1911,20 @@ static void CB2_HandleStartMultiBattle(void)
     case 2:
         if ((GetBlockReceivedStatus() & 0xF) == 0xF)
         {
+            void *buffer = Alloc(sizeof(struct Pokemon) * 3);
             ResetBlockReceivedFlags();
             LinkBattleComputeBattleTypeFlags(4, playerMultiplayerId);
             SetAllPlayersBerryData();
             SetDeoxysStats();
             //memcpy(gDecompressionBuffer, gPlayerParty, sizeof(struct Pokemon) * 3); //for some reason not in EE
+            memcpy(buffer, gPlayerParty, sizeof(struct Pokemon) * 3);
             taskId = CreateTask(InitLinkBattleVsScreen, 0);
             gTasks[taskId].data[1] = 270;
             gTasks[taskId].data[2] = 90;
             gTasks[taskId].data[5] = 0;
             gTasks[taskId].data[3] = 0;
             gTasks[taskId].data[4] = 0;
+            Free(buffer); //changed hopefully makes sense? I had just commented it out
             for (id = 0; id < MAX_LINK_PLAYERS; ++id)
             {
                 switch (gLinkPlayers[id].id)

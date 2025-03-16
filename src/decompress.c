@@ -1,6 +1,7 @@
 #include "global.h"
 #include "gflib.h"
 #include "decompress.h"
+#include "menu.h"
 #include "pokemon.h"
 
 extern const struct CompressedSpriteSheet gMonFrontPicTable[];
@@ -18,56 +19,94 @@ void LZDecompressVram(const void *src, void *dest)
     LZ77UnCompVram(src, dest);
 }
 
+// Checks if `ptr` is likely LZ77 data
+// Checks word-alignment, min/max size, and header byte
+// Returns uncompressed size if true, 0 otherwise
+u32 IsLZ77Data(const void *ptr, u32 minSize, u32 maxSize)
+{
+    const u8 *data = ptr;
+    u32 size;
+    // Compressed data must be word aligned
+    if (((u32)ptr) & 3)
+        return 0;
+    // Check LZ77 header byte
+    // See https://problemkaputt.de/gbatek.htm#biosdecompressionfunctions
+    if (data[0] != 0x10)
+        return 0;
+
+    // Read 24-bit uncompressed size
+    size = data[1] | (data[2] << 8) | (data[3] << 16);
+    if (size >= minSize && size <= maxSize)
+        return size;
+    return 0;
+}
+
 // NOTE: Functionally equivalent to LoadCompressedSpriteSheetUsingHeap, but returns tileStart
-u16 LoadCompressedSpriteSheet(const struct CompressedSpriteSheet *src)
+//no longer, changed for EE version
+static inline u32 DoLoadCompressedSpriteSheet(const struct CompressedSpriteSheet *src, void *buffer)
 {
     struct SpriteSheet dest; //data is the image itself
 
-    void *buffer;
-    u16 tileStart;
-    buffer = AllocZeroed(src->data[0] >> 8);
-    LZ77UnCompWram(src->data, buffer);
     dest.data = buffer;
     dest.size = src->size;
     dest.tag = src->tag;
-    tileStart = LoadSpriteSheet(&dest);
+    return LoadSpriteSheet(&dest);
+}
+
+u32 LoadCompressedSpriteSheet(const struct CompressedSpriteSheet *src)
+{
+    void *buffer = malloc_and_decompress(src->data, NULL);
+    u32 ret = DoLoadCompressedSpriteSheet(src, buffer);
     Free(buffer);
-    return tileStart;
+
+    return ret;
 }
 
-void LoadCompressedSpritePaletteWithTag(const u32 *pal, u16 tag) //vsonic
+u32 LoadCompressedSpriteSheetOverrideBuffer(const struct CompressedSpriteSheet *src, void *buffer)
 {
-    struct SpritePalette dest;
+    LZDecompressWram(src->data, buffer);
+    return DoLoadCompressedSpriteSheet(src, buffer);
+}
+
+// This can be used for either compressed or uncompressed sprite sheets
+u32 LoadCompressedSpriteSheetByTemplate(const struct SpriteTemplate *template, s32 offset)
+{
+    struct SpriteTemplate myTemplate;
+    struct SpriteFrameImage myImage;
+    u32 size, ret;
     void *buffer;
-    buffer = AllocZeroed(*(pal));
-    //buffer = AllocZeroed(*((u32*)src->data) >> 8);  idea reference
 
-    LZ77UnCompWram(pal, buffer);
-    dest.data = (void *) buffer;
-    dest.tag = tag;
-    LoadSpritePalette(&dest);
+    // Check for LZ77 header and read uncompressed size, or fallback if not compressed (zero size)
+    if ((size = IsLZ77Data(template->images->data, TILE_SIZE_4BPP, MAX_DECOMPRESSION_BUFFER_SIZE)) == 0)
+        return LoadSpriteSheetByTemplate(template, 0, offset);
+
+    buffer = malloc_and_decompress(template->images->data, NULL);
+    myImage.data = buffer;
+    myImage.size = size + offset;
+    myTemplate.images = &myImage;
+    myTemplate.tileTag = template->tileTag;
+
+    ret = LoadSpriteSheetByTemplate(&myTemplate, 0, offset);
+    Free(buffer);
+    return ret;
 }
 
-void LoadCompressedSpriteSheetOverrideBuffer(const struct CompressedSpriteSheet *src, void *buffer)
+u32 LoadCompressedSpritePalette(const struct CompressedSpritePalette *src)
 {
-    struct SpriteSheet dest;
+    return LoadCompressedSpritePaletteWithTag(src->data, src->tag);
+}
 
-    LZ77UnCompWram(src->data, buffer);
+u32 LoadCompressedSpritePaletteWithTag(const u32 *pal, u16 tag) //vsonic
+{
+    u32 index;
+    struct SpritePalette dest;
+    void *buffer = malloc_and_decompress(pal, NULL);
+
     dest.data = buffer;
-    dest.size = src->size;
-    dest.tag = src->tag;
-    LoadSpriteSheet(&dest);
-}
-
-void LoadCompressedSpritePalette(const struct CompressedSpritePalette *src)
-{
-    /*struct SpritePalette dest;
-
-    LZ77UnCompWram(src->data, gDecompressionBuffer);
-    dest.data = (void*) gDecompressionBuffer;
-    dest.tag = src->tag;
-    LoadSpritePalette(&dest);*/
-    (void) LoadCompressedSpritePaletteUsingHeap(src);
+    dest.tag = tag;
+    index = LoadSpritePalette(&dest);
+    Free(buffer);
+    return index;
 }
 
 void LoadCompressedSpritePaletteOverrideBuffer(const struct CompressedSpritePalette *a, void *buffer)
@@ -321,12 +360,11 @@ bool8 LoadCompressedSpritePaletteUsingHeap(const struct CompressedSpritePalette 
     struct SpritePalette dest;
     void* buffer;
 
-    buffer = AllocZeroed(*((u32*)src->data) >> 8);
-    if (!buffer)
-        return TRUE;
+    buffer = AllocZeroed(src->data[0] >> 8);
     LZ77UnCompWram(src->data, buffer);
     dest.data = buffer;
     dest.tag = src->tag;
+
     LoadSpritePalette(&dest);
     Free(buffer);
     return FALSE;

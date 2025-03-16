@@ -153,6 +153,30 @@ static void WindowFunc_ClearStdWindowAndFrameToTransparent(u8 bg, u8 tilemapLeft
     FillBgTilemapBufferRect(bg, 0, tilemapLeft - 1, tilemapTop - 1, width + 2, height + 2, 0);
 }
 
+void *malloc_and_decompress(const void *src, u32 *size)
+{
+    u32 sizeLocal; // If size is passed as NULL, because we don't care about knowing the size
+    u8 *sizeAsBytes;
+    u8 *srcAsBytes;
+    void *ptr;
+
+    if (size == NULL)
+        size = &sizeLocal;
+
+    sizeAsBytes = (u8 *)size;
+    srcAsBytes = (u8 *)src;
+
+    sizeAsBytes[0] = srcAsBytes[1];
+    sizeAsBytes[1] = srcAsBytes[2];
+    sizeAsBytes[2] = srcAsBytes[3];
+    sizeAsBytes[3] = 0;
+
+    ptr = Alloc(*size);
+    if (ptr)
+        LZ77UnCompWram(src, ptr);
+    return ptr;
+}
+
 /*
    The following functions are used for handling top bar window
    in hall of fame screen and story mode screen before oak intro. 

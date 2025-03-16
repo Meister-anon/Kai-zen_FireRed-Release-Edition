@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gflib.h"
+#include "data.h"
 #include "decompress.h"
 #include "event_data.h"
 #include "event_object_movement.h"
@@ -13,6 +14,7 @@
 #include "field_weather.h"
 #include "fieldmap.h"
 #include "help_system.h"
+#include "malloc.h"
 #include "metatile_behavior.h"
 #include "new_menu_helpers.h"
 #include "overworld.h"
@@ -565,9 +567,20 @@ bool8 FieldEffectActiveListContains(u8 fldeff)
 
 u8 CreateTrainerSprite(u8 trainerSpriteID, s16 x, s16 y, u8 subpriority, u8 *buffer)
 {
+    bool32 alloced = FALSE;
     struct SpriteTemplate spriteTemplate;
+
+    // Allocate memory for buffer
+    if (buffer == NULL)
+    {
+        buffer = Alloc(TRAINER_PIC_SIZE + PLTT_SIZEOF(16));
+        alloced = TRUE;
+    }
     LoadCompressedSpritePaletteOverrideBuffer(&gTrainerFrontPicPaletteTable[trainerSpriteID], buffer);
     LoadCompressedSpriteSheetOverrideBuffer(&gTrainerFrontPicTable[trainerSpriteID], buffer);
+    if (alloced)
+        Free(buffer);
+        
     spriteTemplate.tileTag = gTrainerFrontPicTable[trainerSpriteID].tag;
     spriteTemplate.paletteTag = gTrainerFrontPicPaletteTable[trainerSpriteID].tag;
     spriteTemplate.oam = &sNewGameOakOamAttributes;

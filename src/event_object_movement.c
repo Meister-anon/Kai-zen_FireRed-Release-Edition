@@ -1881,6 +1881,118 @@ void Unref_RemoveAllObjectEventsExceptPlayer(void)
     }
 }
 
+// Free a sprite's current tiles and reallocate with a new size
+// Used when changing to a gfx info with a larger size
+//-both these added for follower mon I think? from EE
+/*static s16 ReallocSpriteTiles(struct Sprite *sprite, u32 byteSize)
+{
+    s16 i;
+    bool32 wasVisible = sprite->invisible;
+    sprite->invisible = TRUE;
+
+    i = CopySprite(sprite, sprite->x, sprite->y, 0xFF);
+    if (i < MAX_SPRITES)
+    {
+        DestroySprite(&gSprites[i]);
+        i = AllocSpriteTiles(byteSize / TILE_SIZE_4BPP);
+        if (i >= 0)
+        {
+            // Fill the allocated area with zeroes
+            // To avoid visual glitches if the frame hasn't been copied yet
+            CpuFastFill16(0, (u8 *)OBJ_VRAM0 + TILE_SIZE_4BPP * i, byteSize);
+            sprite->oam.tileNum = i;
+        }
+    }
+    else
+    {
+        i = -1;
+    }
+
+    sprite->invisible = wasVisible;
+    return i;
+}
+
+u16 LoadSheetGraphicsInfo(const struct ObjectEventGraphicsInfo *info, u16 uuid, struct Sprite *sprite)
+{
+    u16 tag = info->tileTag;
+    if (tag != TAG_NONE || info->compressed)
+    {
+        // sheet-based gfx
+        u32 sheetSpan = GetSpanPerImage(info->oam->shape, info->oam->size);
+        u16 oldTiles = 0;
+        u16 tileStart;
+        bool32 oldInvisible;
+        if (tag == TAG_NONE)
+            tag = COMP_OW_TILE_TAG_BASE + uuid;
+
+        if (sprite)
+        {
+            oldInvisible = sprite->invisible;
+            oldTiles = sprite->sheetTileStart;
+            sprite->sheetTileStart = 0; // mark unused
+            // Note: If sprite was not allocated to use a sheet,
+            // the tiles assigned to it will leak here,
+            // as its tileNum will be repointed to the new tileStart
+            // TODO: Unload static tiles!
+        }
+
+        tileStart = GetSpriteTileStartByTag(tag);
+        // sheet not loaded; unload any old tiles and load it
+        if (tileStart == TAG_NONE)
+        {
+            struct SpriteFrameImage image = {.size = info->size, .data = info->images->data};
+            struct SpriteTemplate template = {.tileTag = tag, .images = &image};
+            // Load, then free, in order to avoid displaying garbage data
+            // before sprite's `sheetTileStart` is repointed
+            tileStart = LoadCompressedSpriteSheetByTemplate(&template, TILE_SIZE_4BPP << sheetSpan);
+            if (oldTiles)
+            {
+                FieldEffectFreeTilesIfUnused(oldTiles);
+                // We weren't able to load the sheet;
+                // retry (after having freed), and set sprite to invisible until done
+                if (tileStart <= 0)
+                {
+                    if (sprite)
+                        sprite->invisible = TRUE;
+                    tileStart = LoadCompressedSpriteSheetByTemplate(&template, TILE_SIZE_4BPP << sheetSpan);
+                }
+            }
+        // sheet loaded; unload any *other* sheet for sprite
+        }
+        else if (oldTiles && oldTiles != tileStart)
+        {
+            FieldEffectFreeTilesIfUnused(oldTiles);
+        }
+
+        if (sprite)
+        {
+            sprite->sheetTileStart = tileStart;
+            sprite->sheetSpan = sheetSpan;
+            sprite->usingSheet = TRUE;
+            sprite->invisible = oldInvisible;
+        }
+    // Going from sheet -> !sheet, reset tile number
+    // (sheet stays loaded)
+    // Note: It's possible to load a non-sheet gfx
+    // larger than the allocated prefix space,
+    // in which case we would have to realloc
+    // TODO: Realloc usingSheet -> !usingSheet larger gfx
+    }
+    else if (sprite && sprite->usingSheet)
+    {
+        sprite->oam.tileNum = sprite->sheetTileStart;
+        sprite->usingSheet = FALSE;
+
+    }
+    else if (sprite && !sprite->sheetTileStart && sprite->oam.size != info->oam->size)
+    {
+        // Not usingSheet and info size differs; realloc tiles
+        ReallocSpriteTiles(sprite, info->images->size);
+    }
+    return tag;
+}
+*/
+
 static u8 TrySetupObjectEventSprite(struct ObjectEventTemplate *objectEventTemplate, struct SpriteTemplate *spriteTemplate, u8 mapNum, u8 mapGroup, s16 cameraX, s16 cameraY)
 {
     u8 spriteId;

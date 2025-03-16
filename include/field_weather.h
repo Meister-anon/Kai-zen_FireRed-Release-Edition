@@ -123,7 +123,7 @@ void sub_807B0C4(u16 *, u16 *, u32);
 void PlayRainStoppingSoundEffect(void);
 bool8 IsWeatherNotFadingIn(void);
 void SetWeatherScreenFadeOut(void);
-void sub_807B070(void);
+void SetWeatherPalStateIdle(void);
 u8 GetCurrentWeather(void);
 void delay(u8, u8, u32);
 void UpdateSpritePaletteWithWeather(u8 palIdx);
