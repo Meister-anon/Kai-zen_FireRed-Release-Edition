@@ -11787,7 +11787,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
 
     //decide change thick fat to change effectiveness
     //so clear the moves aren't effecting it much
-    if (moveType == TYPE_FIRE || moveType == TYPE_ICE
+    if ((moveType == TYPE_FIRE || moveType == TYPE_ICE)
     && GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT)
         mod = uq4_12_divide(mod, UQ_4_12(2.0));
 
