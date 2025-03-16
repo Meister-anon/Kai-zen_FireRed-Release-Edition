@@ -8285,7 +8285,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_TRUANT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SLOW_START, ABILITY_SLOW_START},
+        .abilityHidden = {ABILITY_SLOW_START, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -8619,7 +8619,7 @@ const struct BaseStats gBaseStats[] =
     }, //stopped making major stat buffs
     //started focusing on smaller tweaks and abilities
     //new update made ghost type to cover its weaker stats, leans on the cats 9 lives thing
-    //its a live but techinically could have been dead.  prob need tweak its pokedex entry to fit
+    //its alive but techinically could have been dead.  prob need tweak its pokedex entry to fit
     [SPECIES_SABLEYE] =
     {
         .speciesName = _("Sableye"),
@@ -21120,7 +21120,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
+        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_SpDefense = 1,
@@ -21140,8 +21140,8 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sGoomyLevelUpLearnset,
         .tmhmLearnset = sGoomyTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(32, AVERAGE_EFFORT), 0, SPECIES_SLIGGOO},
-            {EVO_LEVEL_FORM, RELATIVE_EVO(32, AVERAGE_EFFORT), F_HISUIAN_FORM, SPECIES_SLIGGOO_HISUIAN}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(32, LOW_EFFORT), 0, SPECIES_SLIGGOO},
+            {EVO_LEVEL_FORM, RELATIVE_EVO(32, LOW_EFFORT), F_HISUIAN_FORM, SPECIES_SLIGGOO_HISUIAN}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_SLIGGOO] =
