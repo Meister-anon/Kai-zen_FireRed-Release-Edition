@@ -408,7 +408,8 @@
 #define ABILITY_STORM_BREAK 376 //old cloud nine effect, by for flying types, pretty much delta stream but just to break weather have to find birds I have space to give this to
 #define ABILITY_SPACE_CONTROL 377 //hmm domain expansion? nah too long, palkia ability uses portals to make moves 100% accurate and is immune to ice because adapted to void of space
 #define ABILITY_COLD_EMBRACE 378    //froslass ability 
+#define ABILITY_TOXIC_WING 379
 
-#define ABILITIES_COUNT ABILITY_COLD_EMBRACE + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_TOXIC_WING + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

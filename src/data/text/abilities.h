@@ -688,6 +688,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_RISING_PHOENIX] = COMPOUND_ABILITY_STRING("Cures status and heals if hit by fire.\nMay also burn on contact."), //fire absorption plus stat cleans + egg hatch
     [ABILITY_DREAD_WING] = COMPOUND_ABILITY_STRING("Spreads despair. Foes take more damage.\nWeakens foes Physical Attacks."),
     [ABILITY_PLAGUE_WINGS] = sPlagueWingsDescription,
+    [ABILITY_TOXIC_WING] = COMPOUND_ABILITY_STRING("Spreads poison powder on attack.\nMay poison the foe."),
     [ABILITY_PHANTOM_TOUCH] = sPhantomTouchDescription,
     [ABILITY_SIXTH_SENSE] = COMPOUND_ABILITY_STRING("Ignores accuracy and evasion changes.\nImmune to effects of being confused."),//sSixthSenseDescription,
     [ABILITY_WEIGHTED_GI] = COMPOUND_ABILITY_STRING("Casts off weighted clothes/fur\nwhen in a pinch boosting SPEED."),
@@ -1100,4 +1101,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_STORM_BREAK] =_("Storm Break"),
     [ABILITY_SPACE_CONTROL] =_("Space Control"),
     [ABILITY_COLD_EMBRACE] =_("Cold Embrace"),
+    [ABILITY_TOXIC_WING] =_("Toxic Wing"),
 };//can have comma

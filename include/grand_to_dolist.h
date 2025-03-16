@@ -3800,10 +3800,22 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to lean into gambling,
     could give varying levels of money/coins or a rare amulet coin 
     3/16/2025
+    
 
     NOTE**(
+
+    note check how multi hit works in my setup,
+    want ensure missing doesn't stop the move 
+    if you have multiple attacks it should go until the num attacks ends
+    regardless of if you miss some, just do number of hits that actually land as count
+
+    rn I think it ends whewn you miss an attack
+    would be best rework with my change to need acc chheck each hit,
+    rather than single, if missing doesn't stop them it makes most sense
+    3/16/2025
+
     since make clean removes tools o
-    from now on just make mostlyclean instead
+    from now on just make mostlyclean instead - no longer matters w make file change
     
     identified issue of event script not recognizing something as
     a constant, it needs to be included in the 

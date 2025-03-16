@@ -8273,6 +8273,23 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;
                 }
                 break;
+            case ABILITY_TOXIC_WING:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                    && gBattleMons[gBattlerTarget].hp != 0
+                    && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                    && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GRASS)
+                    && GetBattlerAbility(gBattlerTarget) != ABILITY_OVERCOAT
+                    && GetBattlerHoldEffect(gBattlerTarget, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
+                    && TARGET_TURN_DAMAGED //no issue with status set, all is good
+                    && (Random() % 3) == 0)
+                {
+                    gBattleScripting.moveEffect = MOVE_EFFECT_POISON;   //unsure but need test I THINK should be able to do poison worsened?
+                    
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
+                    ++effect;
+                }
+                break;
             case ABILITY_STATIC:
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0

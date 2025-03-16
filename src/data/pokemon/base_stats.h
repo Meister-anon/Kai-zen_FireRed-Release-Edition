@@ -659,7 +659,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SWARM, ABILITY_NONE}, //could give merciless but think good enough without it
+        .abilities = {ABILITY_SWARM, ABILITY_MERCILESS}, //could give merciless but think good enough without it- ... :)
         .abilityHidden = {ABILITY_SNIPER, ABILITY_POISONED_LEGACY},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -7646,7 +7646,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Beautifly"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 70, 60, 90, 105, 60),
+         STATS(60, 78, 60, 90, 105, 60),
         MON_TYPES(TYPE_BUG, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 178,
@@ -7660,8 +7660,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SWARM, ABILITY_NONE},
-        .abilityHidden = {ABILITY_RIVALRY, ABILITY_ANTICIPATION},
+        .abilities = {ABILITY_SWARM, ABILITY_LONG_REACH},
+        .abilityHidden = {ABILITY_RIVALRY, ABILITY_ANTICIPATION}, //jabs at foes w proboscus think give long reach
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -7670,9 +7670,36 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//changed to just pure bug, since it doesn't learn fly
     //or have many flying moves,
-    //will need to add to non-grounded list, so it still avoides ground moves.
-    
+    //will need to add to non-grounded list, so it still avoides ground moves.    
     //will do the same for dustox and other winged-non flying types
+    //has really good coverage so can make use of normal type,
+    //but considering give flying type back it does have 2 pairs of wings
+
+    //still can't decide if want bug/normal or bug/flying gets rage, giga impact hyper beam several special coverage moves
+    /*
+    flying gives quad ice & rock weakness
+    more weakness to electricity which bug resists
+    makes quad resist grass & fighting,
+    gives bug resist
+    as well as innate evasion buff
+
+    normal gives ghost immunity
+    more weakness to fighing & fairy which bug resists
+    stab on several normal moves it gets
+    as well as innate 17% dmg buff on non stab
+
+    Reminder all effects are on top of bug innate
+    of immunity to confusion self-hit
+
+    ok flying makes it kinda stronger in singles
+    but normal w proper setup makes it much stronger in doubles
+    hmm but most of the benefit it gains in doubles it would 
+    still have if it was flying, plus getting the evasion boost
+
+    think may end up making flying but will require testing,
+    flying makes it much less frail, normal just makes it hit harder
+
+    */
 
     [SPECIES_CASCOON] =
     {
@@ -7704,7 +7731,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Dustox"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(60, 60, 70, 85, 60, 105),
+         STATS(70, 60, 70, 85, 60, 105),
         MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 45,
         .expYield = 173,
@@ -7718,7 +7745,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SHIELD_DUST, ABILITY_NONE},
+        .abilities = {ABILITY_SHIELD_DUST, ABILITY_TOXIC_WING}, //give poison only version of ABILITY_PLAGUE_WINGS
         .abilityHidden = {ABILITY_COMPOUND_EYES, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
