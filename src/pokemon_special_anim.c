@@ -608,7 +608,7 @@ static void Task_CleanUp(u8 taskId)
 static const struct {
     u16 itemId;
     u16 animType;
-} gUnknown_8459634[2] = {
+} sItemAnimMap[2] = {
     {ITEM_RARE_CANDY, 0},
     {ITEM_POTION,     1}
 };
@@ -617,14 +617,16 @@ static u16 GetAnimTypeByItemId(u16 itemId)
 {
     int i;
 
-    for (i = 0; i < NELEMS(gUnknown_8459634); i++)
+    for (i = 0; i < NELEMS(sItemAnimMap); i++)
     {
-        if (gUnknown_8459634[i].itemId == itemId)
-            return gUnknown_8459634[i].animType;
+        if (sItemAnimMap[i].itemId == itemId)
+            return sItemAnimMap[i].animType;
     }
 
      //if right should mean if tm or hm
-    if ((GetTMHMNumberandCategory(itemId) & 0xFF00) >> 8)
+    //if ((GetTMHMNumberandCategory(itemId) & 0xFF00) >> 8)
+    //bruh that was the problem, replaced w this and its fine now
+    if (IsTMHM(itemId)) 
     {
         return 4;
     }
