@@ -2335,6 +2335,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     so long as using same save ie. not deleted it stays
     need see how many values are stored on back fo trainer card
     could increment at new game long as nuzlocke option is on
+    -scrapped
 
     mon gets healed as side effect,
     of data passing to boxmon struct as boxmon doesn't store hp
@@ -3739,6 +3740,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     next issue to tackle,
     fixing tm learn after deleting move,
     causes glitch on tm animation.
+    -current
+
+    -fixed anim glitch was use of long looping function
+    to check tm category,
+    was too slow for placement
+
+    also issue w stat change playing wrong color animations
+    started somewhat recently prob like a month back noticed it?
+
+    also need port font change so can use narrow font for longer mon names
+    and don't need to change the health box to display full mon names
 
     need fix mon cry thought had it working but with sound on,
     it doesn't play  the same as pret does.

@@ -229,6 +229,7 @@ static const u16 gTM_Moves[] =
 //magic coat that's it
 //add heatwave
 //add scorching sands
+//need add flatter aroud swagger
 //add flash freeze  ice will o wisp and give to lunatone
 
 //consider rename this file to item_List_data
