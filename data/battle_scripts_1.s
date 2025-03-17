@@ -9236,7 +9236,7 @@ BattleScript_IntimidateSpecialChecks:
 	jumpifability BS_TARGET, ABILITY_MAGIC_BOUNCE, BattleScript_IntimidateReflect
 BattleScript_IntimidateDarkCheck:
 	@jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
-	jumpiftype BS_TARGET, TYPE_DARK, BattleScript_IntimidateFail	
+	jumpiftype BS_TARGET, TYPE_DARK, BattleScript_IntimidateDarkFail	
 BattleScript_IntimidateFailChecks:
 	jumpifsubstituteblocks BattleScript_IntimidateFail		@forgot tiger mom had to different ability exclusion need rearrange abilities here
 	jumpifability BS_TARGET, ABILITY_CLEAR_BODY, BattleScript_IntimidateAbilityFail		@and then jump out, before atk stat specific exclusions
@@ -9278,6 +9278,12 @@ BattleScript_IntimidateEnd:
 	@destroyabilitypopup
 	pause B_WAIT_TIME_MED
 	end3
+
+BattleScript_IntimidateDarkFail::
+	pause B_WAIT_TIME_SHORT
+	printstring STRINGID_DARKTYPE_INTIMIDATE_RESIST
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_IntimidateFail
 
 @far as I can tell change to intimidate from emereald seems to still work the same
 @realized adding dark type exclusion just makes incineroar even stronger...

@@ -1176,9 +1176,9 @@
 	.4byte \param0
 	.endm
 
-	.macro trygetintimidatetarget param0:req
+	.macro trygetintimidatetarget failInstr:req
 	.byte 0xe1
-	.4byte \param0
+	.4byte \failInstr
 	.endm
 
 	.macro switchoutabilities battler:req

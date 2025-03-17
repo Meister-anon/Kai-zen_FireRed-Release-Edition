@@ -18386,6 +18386,7 @@ static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it o
 //ABILITYEFFECT_INTIMIDATE2 is the one  for switchin  so changing the targetting for just that should make it work how I want
 //maybe do it like trace and have the targetting built into the activation function
 {
+    //NATIVE_ARGS(const u8 *failInstr);
     u8 side; //if use of gbattletarget messes up switchin use, I can take notes from synchronize ability scrpit
     //and add different activation to the function based on if its attacker or target  IMPORTANT
 
@@ -18397,6 +18398,7 @@ static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it o
         if (GetBattlerSide(gBattlerTarget) != side && !(gAbsentBattlerFlags & gBitTable[gBattlerTarget]))
             break; //If they are on the opposite side and not absent, it breaks to end the loop, saying that its found an valid target
     
+    //idk why but changing this to try using native args breaks this?
     if (gBattlerTarget >= gBattlersCount) //from Griffin R if it break before reaching the end of the loop then gBattlerTarget >= gBattlersCount will be false. 
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     else //It has found a valid target for intimidate, and it won't take jump to the specified pointer, it will instead move to the next command

@@ -1027,9 +1027,12 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
     else if (stringId == STRINGID_STATSWONTINCREASE2 && battlerAbility == ABILITY_CONTRARY)
         stringId = STRINGID_STATSWONTDECREASE2;
 
-
+    //try to make cleaner version of this, as need to change the defense block version to 1 level
     // Check Defiant and Competitive stat raise whenever a stat is lowered. - missing something causes infini loop even with emerald logic
-    else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES)
+    //ok need figure out how to do this need something w mon can use intimiate, but hasn't yet
+    //so usedIntimdate is false,
+    //hmm actually all I need to do is make a string for dark exclusion and add it here
+    else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
         && ((targetAbility == ABILITY_DEFIANT && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))
             || (targetAbility == ABILITY_COMPETITIVE && CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
             || (targetAbility == ABILITY_USURPER && (CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
@@ -1054,7 +1057,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
     }
 
 
-    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES)
+    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
         && targetAbility == ABILITY_RATTLED
         && CompareStat(gBattlerTarget, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN))
     {
@@ -1063,7 +1066,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
         gBattlescriptCurrInstr = BattleScript_AbilityRaisesDefenderStat;
         SET_STATCHANGER(STAT_SPEED, 2, FALSE);  //buffed to 2 stage stat boost
     }
-    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES)
+    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
         && targetAbility == ABILITY_JUSTIFIED
         && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))
     {
@@ -1072,7 +1075,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
         gBattlescriptCurrInstr = BattleScript_AbilityRaisesDefenderStat;
         SET_STATCHANGER(STAT_ATK, 2, FALSE);  //gave to justified
     }
-    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES)
+    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
         && targetAbility == ABILITY_ANGER_POINT 
         && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN)) //For the trolls  :)
     {
