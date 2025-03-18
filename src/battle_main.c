@@ -375,7 +375,9 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
 #undef X
 
-
+//with new strength of dark types consider putting
+//fairy resist back to parallel psychic better
+//i.e fairy resisting dark
 
 // format: attacking type, defending type, damage multiplier
 // the multiplier is a (decimal) fixed-point number:

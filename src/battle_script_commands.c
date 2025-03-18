@@ -9743,12 +9743,12 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             moveAcc = 65;   //make slightly more forgiving
         // Check Wonder Skin.
-        if ((GetBattlerAbility(gBattlerTarget) == ABILITY_WONDER_SKIN
-        || GetBattlerAbility(gBattlerTarget) == ABILITY_IMMUTABLE_WIND) 
+        if ((defAbility == ABILITY_WONDER_SKIN
+        || defAbility == ABILITY_IMMUTABLE_WIND) 
         && IS_MOVE_STATUS(move) && moveAcc != 50)   //changed so can include 0 accuracy status moves.
             moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
 
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SPACE_CONTROL
+        if (atkAbility == ABILITY_SPACE_CONTROL
         && !IS_MOVE_STATUS(move))
             moveAcc = 100;
         
@@ -9777,17 +9777,17 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         if (IsBattlerGrounded(gBattlerAttacker)
         && !IsBattlerGrounded(gBattlerTarget)
         && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_KEEN_EYE
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE)
-            calc = (calc * 88) / 100;  //was 93, dropped to 88
+        && atkAbility != ABILITY_KEEN_EYE
+        && atkAbility != ABILITY_SIXTH_SENSE)
+            calc = (calc * 88) / 100;  //was 93, dropped to 88 - think i sfine where is at most drop to 87 want keep above sand veil likes
         //think may lower this a bit more?
         //if I drop to .8 (won't actually) it'd effectively be enough to lower a stat stage drop to the next stage down
 
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_COMPOUND_EYES
-            || GetBattlerAbility(gBattlerAttacker) == ABILITY_ILLUMINATE)   
+        if (atkAbility == ABILITY_COMPOUND_EYES
+            || atkAbility == ABILITY_ILLUMINATE)   
             calc = (calc * 130) / 100; // 1.3 compound eyes boost
 
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_VICTORY_STAR
+        if (atkAbility == ABILITY_VICTORY_STAR
         ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
             calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
 
@@ -9798,10 +9798,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_WIND_RIDER    //addition since is wind move
+        && atkAbility != ABILITY_SAND_RUSH
+        && atkAbility != ABILITY_SAND_VEIL
+        && atkAbility != ABILITY_SAND_FORCE
+        && atkAbility != ABILITY_WIND_RIDER    //addition since is wind move
         && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
@@ -9812,9 +9812,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
-        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
+        && atkAbility != ABILITY_SAND_RUSH
+        && atkAbility != ABILITY_SAND_VEIL
+        && atkAbility != ABILITY_SAND_FORCE
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
         {
             calc = (calc * 80) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
@@ -9827,11 +9827,11 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //but again only for the duration of both effects
 
 
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
+        if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
             calc = (calc * 80) / 100; // 1.2 sand veil loss
-        if (GetBattlerAbility(gBattlerTarget) == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
+        if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
             calc = (calc * 80) / 100; //
-        if (GetBattlerAbility(gBattlerAttacker) == ABILITY_HUSTLE && IsPhysicalMove(gBattlerAttacker,move)) //can put status based evasion/accuracy effects here
+        if (atkAbility == ABILITY_HUSTLE && IsPhysicalMove(gBattlerAttacker,move)) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
 
         

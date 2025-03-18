@@ -3375,7 +3375,7 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_NATURAL_CURE, ABILITY_SERENE_GRACE},
         .safariZoneFleeRate = 125,
         .abilityHidden = {ABILITY_HEALER, ABILITY_TRUANT},//replace slow start with immunity, a little TOO unkillable.. //nvm did truant as gave blissey stall, better themati matchup
-        .bodyColor = BODY_COLOR_PINK,//giving fairy type as well, mostly just  a few other weaknesses to counter its increased strength witih super changes
+        .bodyColor = BODY_COLOR_PINK,//giving fairy type as well, mostly just  a few other weaknesses to counter its increased survivability witih super changes
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sChanseyLevelUpLearnset,
@@ -9601,6 +9601,20 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sZangooseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //if I setup right dark change could be even bette than planned,
+    //have defiant etc. trigger even with the immunity
+    //if I get that working may drop attack slighlty, 
+    //back to 115, oh 115 is its base attack lol, uhhh idk then
+    //but normal type w joat plus multiple coverage things that beat its own type
+    //this thing is going to be an insane punisher
+    //run toxic boost or defiant
+    //w defiant inceineroar switches in boosts its attack when intimidate hits
+    //then just gets obliterated by close combat
+    //vsonic important keep an eye on number of dark type mon
+    //that get intimidate attack state boost abilities
+    //i.e justified defiant competitive anger point
+    //with new strength of dark types consider putting
+    //fairy resist back to parallel psychic better
 
     [SPECIES_SEVIPER] =
     {
@@ -25278,7 +25292,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_PRESSURE, ABILITY_UNNERVE},
+        .abilities = {ABILITY_HI_PRESSURE, ABILITY_UNNERVE}, //potentially change to hi_pressure
         .abilityHidden = {ABILITY_MIRROR_ARMOR, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
@@ -25286,7 +25300,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sCorviknightLevelUpLearnset,
         .tmhmLearnset = sCorviknightTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//w steel change felt need to buff so gave hi pressure
+    //plus unnerve already is enough overlap w base ability
 
     [SPECIES_BLIPBUG] =
     {

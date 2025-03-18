@@ -1842,6 +1842,41 @@ void DecompressGlyphFont0(u16 glyphId, bool32 isJapanese)
     }
 }
 
+static const s8 sNarrowerFontIds[] =
+{
+
+    /*[FONT_SMALL] = FONT_SMALL_NARROW,
+    [FONT_NORMAL] = FONT_NARROW,
+    [FONT_SHORT] = FONT_SHORT_NARROW,
+    [FONT_SHORT_COPY_1] = FONT_SHORT_NARROW,
+    [FONT_SHORT_COPY_2] = FONT_SHORT_NARROW,
+    [FONT_SHORT_COPY_3] = FONT_SHORT_NARROW,
+    [FONT_BRAILLE] = -1,
+    [FONT_NARROW] = FONT_NARROWER,
+    [FONT_SMALL_NARROW] = FONT_SMALL_NARROWER,
+    [FONT_BOLD] = -1,
+    [FONT_NARROWER] = -1,
+    [FONT_SMALL_NARROWER] = -1,
+    [FONT_SHORT_NARROW] = -1,*/
+};
+
+// If the narrowest font ID doesn't fit the text, we still return that
+// ID because clipping is better than crashing.
+//try setup again after font port vsonic IMPORTANT
+u32 GetFontIdToFit(const u8 *string, u32 fontId, u32 letterSpacing, u32 widthPx)
+{
+    for (;;)
+    {
+        //s32 narrowerFontId = sNarrowerFontIds[fontId];
+        s32 narrowerFontId = FONT_SMALL;
+        if (narrowerFontId == -1)
+            return fontId;
+        if (GetStringWidth(fontId, string, letterSpacing) <= widthPx)
+            return fontId;
+        fontId = narrowerFontId;
+    }
+}
+
 s32 GetGlyphWidthFont0(u16 glyphId, bool32 isJapanese)
 {
     if (isJapanese == TRUE)
