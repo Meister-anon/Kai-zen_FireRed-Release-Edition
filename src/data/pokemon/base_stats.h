@@ -8686,10 +8686,10 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Mawile"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 85, 90, 50, 65, 80),
+         STATS(70, 85, 90, 50, 65, 65),
         MON_TYPES(TYPE_STEEL, TYPE_FAIRY),
-        .catchRate = 45,
-        .expYield = 133,
+        .catchRate = 45, //changed stat dist. still a pluss w health increase
+        .expYield = 133, //and not completely perfect so you have something to ev focus
         //.evYield_Attack = 1,
         //.evYield_Defense = 1,
        // #ifdef ITEM_EXPANSION
