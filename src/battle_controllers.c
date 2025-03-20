@@ -372,7 +372,7 @@ u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
     u8 hasBattleInputStarted = 0;
 
     // Hold L to slow down
-    if(JOY_HELD(L_BUTTON))
+    if(JOY_HELD(L_BUTTON)) //won't work for main screen as uses L for move info, but fine overall
         return 1;
 
     // We want to speed up all anims until input selection starts

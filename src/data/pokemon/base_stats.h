@@ -5564,14 +5564,14 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Sunflora"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 75, 85, 53, 135, 95),
+         STATS(75, 75, 85, 43, 135, 95),
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL), //zenmode yt may keep this normal too?
         .catchRate = 120, //can still keep fire moves
         .expYield = 149,
         //.evYield_SpAttack = 2,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50), //previously base 30 speed was good for trick room may drop speed back
         .eggCycles = 20,
-         .friendship = 15,
+         .friendship = 15,//or just drop it to 43? should be able to take advantage of trick room or speed ability
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_GRASS,
@@ -5584,6 +5584,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSunfloraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//made fire match grand colloseum changes - give the grass move that burns nettle whip
+    //as normal believe will give low kick as more variety move
 
     [SPECIES_YANMA] =
     {
@@ -12980,6 +12981,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sLumineonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //give water sport should pair well with sunflora
 
     [SPECIES_MANTYKE] =
     {
@@ -15390,7 +15392,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sGurdurrLevelUpLearnset,
         .tmhmLearnset = sGurdurrTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0, SPECIES_CONKELDURR}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(45, AVERAGE_EFFORT), 0, SPECIES_CONKELDURR}), //Should hopefully blank these for now without issue
     },//changed now only rock fighting besides terrakion - changed back
 
     [SPECIES_CONKELDURR] =
@@ -15406,7 +15408,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        MON_TYPES(TYPE_FIGHTING, TYPE_FIGHTING),
+        MON_TYPES(TYPE_FIGHTING, TYPE_ROCK),
         .catchRate = 45,
         .expYield = 227,
         //.evYield_Attack = 3,
@@ -15424,7 +15426,9 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sConkeldurrLevelUpLearnset,
         .tmhmLearnset = sConkeldurrTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    }, //didn't I make this rock fighting?
+    //ok I changed it back cuz it wasn't a type improvement
+    //think what I'll do is make only the final evo part rock
 
     [SPECIES_TYMPOLE] =
     {

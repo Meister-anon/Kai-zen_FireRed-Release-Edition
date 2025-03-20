@@ -2141,6 +2141,8 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
     if (gBattleResults.caughtMonSpecies)    //WORKED!!
         speedScale = 1;
 
+    if (gBattleScripting.atk6C_drawlvlupboxState) //hope works attempt prevent skip view level up box by accident
+        speedScale = 1; //works slows down when displaying box, and returns to speed after box is closed
     
 
 
@@ -6636,11 +6638,20 @@ static void HandleEndTurn_FinishBattle(void)
     }
 }
 
+//ok EE removed replaced some checks/use for gLeveldUpInBattle
+//becuse they ported the dumb evo methods from gen8
+//which specifically don't require exp/leveling to trigger
 static void FreeResetData_ReturnToOvOrDoEvolutions(void) //  this causes end battle, and starts evolutions, need to make one for in battle, 
 { // the way this is setup to work on palettefade causes it to happen one after another, return to overworld causes palette fade the else make evo happen during palette fade.
     if (!gPaletteFade.active)
     { // Ok it wasn't that simple for some reason, so this leads to one function, which leads to another that actually does the palette fade that triggers the evo...
         ResetSpriteData();
+
+        //will most likley swap order, much easier to work from true condition
+        //than attempting to set or inverse
+        //should just be this entire thing but all true and using AND not or
+        ///double check leveldupinbattle see if it resets on switch or how it tracks
+        //individual mon
         if (gLeveledUpInBattle == 0 || (gBattleOutcome != B_OUTCOME_WON  && gBattleOutcome != B_OUTCOME_CAUGHT)) //0 is false anything but 0. //ok this is reason for not evoling w exp on catch
             gBattleMainFunc = ReturnFromBattleToOverworld;
         else
@@ -6670,20 +6681,24 @@ static void TryEvolvePokemon(void) //want battle evolution for player and oppone
                 u16 species;
                 u8 levelUpBits = gLeveledUpInBattle;
 
-                levelUpBits &= ~(gBitTable[i]);
+                levelUpBits &= ~(gBitTable[i]); //This holds specfic mon value so removing keeps from retriggering I believe?
                 gLeveledUpInBattle = levelUpBits;
                 species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, levelUpBits);
                 if (species != SPECIES_NONE)
                 {
                     gBattleMainFunc = WaitForEvoSceneToFinish;
-                    EvolutionScene(&gPlayerParty[i], species, 0x81, i);
+                    EvolutionScene(&gPlayerParty[i], species, 0x81, i);//checked 81 doesnt matter here not a constant, its a bool any positive value tells it I can stop the evo
                     return;
                 }// for evo in battle, use  if (gCurrentTurnActionNumber >= gBattlersCount) && (gLeveledUpInBattle != 0 || gBattleOutcome != B_OUTCOME_WON)
             }// need to import mega evo graphic,  also make it check for or come after learn move on level up then, go into gBattleMainFunc = TryEvolvePokemon;
-        } //vsonic IMPORTANT
+        } //vsonic IMPORTANT, hmm actually no don't want it to wait till end turn action, want it to all be calculated mid turn just like speed is
     }
-    gBattleMainFunc = ReturnFromBattleToOverworld;
-}
+    //put conditional on this only dio if battle outcome won or caught, other wise return to battle
+    //hmm will need to adjust more when I setup dual catch,hmmm no just would change 
+    //battle outcome caught to only be if last mon on field was caught
+    gBattleMainFunc = ReturnFromBattleToOverworld; 
+}//need test and see if can handle more than one evo happening,
+//will it be skipped or will it trigger next party members evo if they can evolve
 
 static void WaitForEvoSceneToFinish(void)
 {

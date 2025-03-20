@@ -88,8 +88,8 @@ static bool8 IsTwoTurnsMove(u16 move);
 static void TrySetDestinyBondToHappen(void);
 static void CheckWonderGuardAndLevitate(void);//attempted replace, not currently using, attempt using emerald equivalent CalcTypeEffectivenessMultiplier need test,then can remove funtion
 static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr);
-static void sub_8026480(void);
-static bool8 sub_80264D0(void);
+static void InitLevelUpBanner(void);
+static bool8 SlideInLevelUpBanner(void);
 static void DrawLevelUpWindow1(void);
 static void DrawLevelUpWindow2(void);
 static bool8 sub_8026648(void);
@@ -3621,11 +3621,14 @@ static void atk0A_waitanimation(void)
 
 static void atk0B_healthbarupdate(void)
 {
+    CMD_ARGS(u8 battler);
+
     if (!gBattleControllerExecFlags)
     {
         if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
         {
-            gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+            //gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+            gActiveBattler = GetBattlerForBattleScript(cmd->battler);
 
             if (DoesSubstituteBlockMove(gBattlerAttacker, gActiveBattler, gCurrentMove) && gDisableStructs[gActiveBattler].substituteHP && !(gHitMarker & HITMARKER_IGNORE_SUBSTITUTE))
             {
@@ -3651,7 +3654,7 @@ static void atk0B_healthbarupdate(void)
                     gBattleResults.playerMonWasDamaged = TRUE;
             }
         }
-        gBattlescriptCurrInstr += 2;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -3660,6 +3663,7 @@ static void atk0B_healthbarupdate(void)
 //dropped for now but attempt consolidate effets later
 static void atk0C_datahpupdate(void)
 {
+    CMD_ARGS(u8 battler);
     //u32 moveType; //removed this as its a hold over from when moves didn't use split and instead relied on type order
     u16 move = gCurrentMove;
 
@@ -3668,7 +3672,8 @@ static void atk0C_datahpupdate(void)
 
         if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
         {
-            gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+            //gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
+            gActiveBattler = GetBattlerForBattleScript(cmd->battler);
             if (DoesSubstituteBlockMove(gBattlerAttacker, gActiveBattler, gCurrentMove) && gDisableStructs[gActiveBattler].substituteHP && !(gHitMarker & HITMARKER_IGNORE_SUBSTITUTE))
             {
                 if (gDisableStructs[gActiveBattler].substituteHP >= gBattleMoveDamage)
@@ -3688,7 +3693,7 @@ static void atk0C_datahpupdate(void)
                 // check substitute fading
                 if (gDisableStructs[gActiveBattler].substituteHP == 0)
                 {
-                    gBattlescriptCurrInstr += 2;
+                    gBattlescriptCurrInstr = cmd->nextInstr;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_SubstituteFade;
                     return;
@@ -3700,7 +3705,8 @@ static void atk0C_datahpupdate(void)
                 //would prefer to pull from form_change_table rather than change species
                 gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = TRUE; //should keep disguise from working again
                 gBattleMoveDamage = 1;
-                BattleScriptPush(gBattlescriptCurrInstr += 2); //use this instead of pushcursor, keeps from repeating curr script
+                //BattleScriptPush(gBattlescriptCurrInstr += 2); //use this instead of pushcursor, keeps from repeating curr script
+                BattleScriptPush(cmd->nextInstr);
                 //BattleScriptPushCursor(); //ability line works, but doesn't transform into correct form //,keeps species change, above line does have effect
                 gBattlescriptCurrInstr = BattleScript_TargetFormChange; //prevents ability reset on faint
                 return;
@@ -3724,7 +3730,8 @@ static void atk0C_datahpupdate(void)
                     else
                     {
                         gTakenDmg[gActiveBattler] += gBattleMoveDamage;
-                        if (gBattlescriptCurrInstr[1] == BS_TARGET)
+                        //if (gBattlescriptCurrInstr[1] == BS_TARGET)
+                        if (cmd->battler == BS_TARGET)
                             gTakenDmgByBattler[gActiveBattler] = gBattlerAttacker;
                         else
                             gTakenDmgByBattler[gActiveBattler] = gBattlerTarget;
@@ -3747,7 +3754,8 @@ static void atk0C_datahpupdate(void)
                     {
                         gProtectStructs[gActiveBattler].physicalDmg = gHpDealt;
                         gSpecialStatuses[gActiveBattler].physicalDmg = gHpDealt;
-                        if (gBattlescriptCurrInstr[1] == BS_TARGET)
+                        //if (gBattlescriptCurrInstr[1] == BS_TARGET)
+                        if (cmd->battler == BS_TARGET)
                         {
                             gProtectStructs[gActiveBattler].physicalBattlerId = gBattlerAttacker;
                             gSpecialStatuses[gActiveBattler].physicalBattlerId = gBattlerAttacker;
@@ -3762,7 +3770,8 @@ static void atk0C_datahpupdate(void)
                     {   //keep that's how it is in emerald
                         gProtectStructs[gActiveBattler].specialDmg = gHpDealt;
                         gSpecialStatuses[gActiveBattler].specialDmg = gHpDealt;
-                        if (gBattlescriptCurrInstr[1] == BS_TARGET)
+                        //if (gBattlescriptCurrInstr[1] == BS_TARGET)
+                        if (cmd->battler == BS_TARGET)
                         {
                             gProtectStructs[gActiveBattler].specialBattlerId = gBattlerAttacker;
                             gSpecialStatuses[gActiveBattler].specialBattlerId = gBattlerAttacker;
@@ -3785,11 +3794,12 @@ static void atk0C_datahpupdate(void)
         }
         else //need look into this think may be for status moves? / and with how I changed some status moves to read type this may be an issue
         {
-            gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]); //no think for no efect stuff that miss etc.
+            //gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]); //no think for no efect stuff that miss etc.
+            gActiveBattler = GetBattlerForBattleScript(cmd->battler);
             if (gSpecialStatuses[gActiveBattler].dmg == 0)
                 gSpecialStatuses[gActiveBattler].dmg = 0xFFFF;
         }
-        gBattlescriptCurrInstr += 2;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -4847,20 +4857,31 @@ void SetMoveEffect(bool32 primary, u32 certain)
             }
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_TOXIC_POISON)
             {
-                if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
+                if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON)//normal toxic setting
+                {
+                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
+                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
+                    //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                }
+                else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
                 && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
                     //gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2; //works now, awesome
-                    //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
-                } //ok issue was setting wrong thing, toxic turn is a counter, but gDisableStructs[gActiveBattler].toxicTurn is the actual dmg part
-                //else //normal toxic setting
-                //{
                     gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
-                //}
+                    //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                } //ok issue was setting wrong thing, toxic turn is a counter, but gDisableStructs[gActiveBattler].toxicTurn is the actual dmg part
+         
+                else //normal toxic setting
+                {
+                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                }
             }            
             else //normal status setting
             {
@@ -6775,6 +6796,7 @@ static void atk23_getexp(void)
                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gActiveBattler, gBattleStruct->expGetterMonId);
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 3, GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL));
                 BattleScriptPushCursor();
+                //hm ok believe this is what specifically tells which pokemon is leveling up
                 gLeveledUpInBattle |= gBitTable[gBattleStruct->expGetterMonId];
                 gBattlescriptCurrInstr = BattleScript_LevelUp;
                 gBattleMoveDamage = (gBattleBufferB[gActiveBattler][2] | (gBattleBufferB[gActiveBattler][3] << 8));
@@ -11093,11 +11115,11 @@ static void atk6C_drawlvlupbox(void)
         gBattle_BG2_Y = 0x60;
         SetBgAttribute(2, BG_ATTR_PRIORITY, 0);
         ShowBg(2);
-        sub_8026480();
+        InitLevelUpBanner();
         gBattleScripting.atk6C_drawlvlupboxState = 2;
         break;
     case 2:
-        if (!sub_80264D0())
+        if (!SlideInLevelUpBanner())
             gBattleScripting.atk6C_drawlvlupboxState = 3;
         break;
     case 3:
@@ -11160,6 +11182,8 @@ static void atk6C_drawlvlupbox(void)
             SetBgAttribute(1, BG_ATTR_PRIORITY, 1);
             ShowBg(0);
             ShowBg(1);
+            if (gBattleScripting.atk6C_drawlvlupboxState) //attempting to use in speed up
+                gBattleScripting.atk6C_drawlvlupboxState = 0; //works
             ++gBattlescriptCurrInstr;
         }
         break;
@@ -11184,18 +11208,18 @@ static void DrawLevelUpWindow2(void)
     DrawLevelUpWindowPg2(12, currStats, 0xE, 0xD, 0xF);
 }
 
-static void sub_8026480(void)
+static void InitLevelUpBanner(void)
 {
     gBattle_BG2_Y = 0;
     gBattle_BG2_X = 0x1A0;
     LoadPalette(gUnknown_82506D0, 0x60, 0x20);
-    CopyToWindowPixelBuffer(13, gUnknown_82506F0, 0, 0);
-    PutWindowTilemap(13);
-    CopyWindowToVram(13, COPYWIN_BOTH);
+    CopyToWindowPixelBuffer(B_WIN_LEVEL_UP_BANNER, gUnknown_82506F0, 0, 0);
+    PutWindowTilemap(B_WIN_LEVEL_UP_BANNER);
+    CopyWindowToVram(B_WIN_LEVEL_UP_BANNER, COPYWIN_BOTH);
     PutMonIconOnLvlUpBox();
 }
 
-static bool8 sub_80264D0(void)
+static bool8 SlideInLevelUpBanner(void)
 {
     if (IsDma3ManagerBusyWithBgCopy())
         return TRUE;
@@ -18386,7 +18410,7 @@ static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it o
 //ABILITYEFFECT_INTIMIDATE2 is the one  for switchin  so changing the targetting for just that should make it work how I want
 //maybe do it like trace and have the targetting built into the activation function
 {
-    //NATIVE_ARGS(const u8 *failInstr);
+    CMD_ARGS(const u8 *failInstr);
     u8 side; //if use of gbattletarget messes up switchin use, I can take notes from synchronize ability scrpit
     //and add different activation to the function based on if its attacker or target  IMPORTANT
 
@@ -18400,9 +18424,9 @@ static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it o
     
     //idk why but changing this to try using native args breaks this?
     if (gBattlerTarget >= gBattlersCount) //from Griffin R if it break before reaching the end of the loop then gBattlerTarget >= gBattlersCount will be false. 
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     else //It has found a valid target for intimidate, and it won't take jump to the specified pointer, it will instead move to the next command
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }//this prob important for my implementaiton of intimidate, since
 //I need to have selective targetting, since I don't want it to reactivate
 //for mon that have already been intimidated.  unless i switch in again
