@@ -3866,7 +3866,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGyaradosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },  //give new version of rage, if doesn't already get rage
-    //wait a second; with my grouded changes
+    //wait a second; with my grounded changes
     //water flying would remove the flying weakness to electric
     //ok so what I'll do instead is set this back to default type
     //and make water dragon the mega form,

@@ -348,7 +348,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
 
-    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),   ______,   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
+    [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),  X(0.5),   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
 
     [TYPE_MYSTERY] =    {______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
 
@@ -360,7 +360,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_ELECTRIC] =   {______,   ______,   X(1.55),  ______,    X(0.0),   X(0.5),   X(0.5),   ______,   X(1.55),   ______,  ______,   X(1.55),   ______,   X(0.5),   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // electric
 
-    [TYPE_PSYCHIC] =    {______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,   ______}, // psychic
+    [TYPE_PSYCHIC] =    {______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,   ______}, // psychic
 
     [TYPE_ICE] =        {______,   ______,   X(1.55),   ______,   X(1.55),   ______,   X(1.55),   X(0.5),  X(0.5),  ______,   X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______}, // ice
 
@@ -378,6 +378,21 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //with new strength of dark types consider putting
 //fairy resist back to parallel psychic better
 //i.e fairy resisting dark
+
+//make psychic also beat steel makes sense, whole bending spoons thing
+//don't know why I never saw it.
+//ok doing that is really nice, makes psychic an alt of fairy,
+//and also gives them a nice relation, so with that in mind,
+//will keep fairy weak to dark like it better thematically
+//thought of like psychic is the mysteries we comprehend and can control
+//while fairy are the mysteries that are alien and unknowable
+//and dark is cable of corrupting both
+
+//consider remove flying resist for psychic think won't
+//hmm could make psychic resist steel?
+//can stop bullets etc, idea behind w psychic energy they are able to 
+//resist or stop any kinetic force?
+//which lines up with resisting fighting
 
 // format: attacking type, defending type, damage multiplier
 // the multiplier is a (decimal) fixed-point number:
@@ -488,7 +503,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_PSYCHIC, TYPE_POISON, TYPE_MUL_SUPER_EFFECTIVE,    //think logic is psychic powers would keep you from being poisoned/subtle attacks you could read their mind, so its "very effective"
     TYPE_PSYCHIC, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,     //psychic power can stop a target cold, can keep them from flying, or confuse them which would make it impossible to fly, so makes sense,
     TYPE_PSYCHIC, TYPE_DARK, TYPE_MUL_NO_EFFECT,        //mostly done to counter fairy resistance
-    TYPE_PSYCHIC, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //effect prob too strong, flying is weak defensively and psychic is strong offenseively
+    TYPE_PSYCHIC, TYPE_STEEL, TYPE_MUL_SUPER_EFFECTIVE,   //effect prob too strong, flying is weak defensively and psychic is strong offenseively
     //TYPE_PSYCHIC, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //decided change fairy resist to psychic, to a psychic resist to fairy, as psychic mostly fell off, and was replaced by fairy, - change logic to psychic doesn't believe in fairy/mystics
     TYPE_BUG, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,    //plus fairy nerfed, will replace with resistancee instad of super effectiveness
     TYPE_BUG, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,
@@ -526,6 +541,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_STEEL, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_FIGHTING, TYPE_MUL_NOT_EFFECTIVE,
+    TYPE_STEEL, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_STEEL, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_STEEL, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE,
