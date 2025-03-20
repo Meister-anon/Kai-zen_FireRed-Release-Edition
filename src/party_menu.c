@@ -5514,7 +5514,7 @@ static void ShowMoveSelectWindow(u8 slot)
                                     //gMoveNames[move],
                                     GetFontAttribute(fontId, FONTATTR_MAX_LETTER_WIDTH) + GetFontAttribute(fontId, FONTATTR_LETTER_SPACING),
                                     (i * 16) + 2,
-                                    TEXT_SPEED_FF,
+                                    TEXT_SKIP_DRAW,
                                     NULL);
         if (move != MOVE_NONE)
             ++moveCount;

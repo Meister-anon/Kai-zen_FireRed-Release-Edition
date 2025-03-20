@@ -2383,19 +2383,19 @@ static void PrintCursorMonInfo(void)
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
     {
-        for (i = 0, y = 0; i < 3; i++, y += 14)
-        {
-            AddTextPrinterParameterized(0, 2, gPSSData->cursorMonTexts[i], i == 2 ? 10 : 6, y, TEXT_SKIP_DRAW, NULL);
-        }
-        AddTextPrinterParameterized(0, 0, gPSSData->cursorMonTexts[3], 6, y + 2, TEXT_SKIP_DRAW, NULL);
+
+        AddTextPrinterParameterized(0, 2, gPSSData->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(0, 2, gPSSData->displayMonSpeciesName, 6, 14, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(0, 2, gPSSData->displayMonGenderLvlText, 10, 28, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(0, 0, gPSSData->displayMonItemName, 6, 44, TEXT_SKIP_DRAW, NULL);
     }
     else
     {
-        AddTextPrinterParameterized(0, 0, gPSSData->cursorMonTexts[3], 6, 0, TEXT_SKIP_DRAW, NULL);
-        for (i = 0, y = 15; i < 3; i++, y += 14)
-        {
-            AddTextPrinterParameterized(0, 2, gPSSData->cursorMonTexts[i], i == 2 ? 10 : 6, y, TEXT_SKIP_DRAW, NULL);
-        }
+        AddTextPrinterParameterized(0, 0, gPSSData->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(0, 2, gPSSData->displayMonNameText, 6, 15, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(0, 2, gPSSData->displayMonSpeciesName, 6, 29, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(0, 2, gPSSData->displayMonGenderLvlText, 10, 43, TEXT_SKIP_DRAW, NULL);
+
     }
 
     CopyWindowToVram(0, COPYWIN_GFX);
@@ -2672,7 +2672,7 @@ static void PrintStorageActionText(u8 id)
         if (IsActiveItemMoving())
             txtPtr = StringCopy(gPSSData->itemName, GetMovingItemName());
         else
-            txtPtr = StringCopy(gPSSData->itemName, gPSSData->cursorMonTexts[3]);
+            txtPtr = StringCopy(gPSSData->itemName, gPSSData->displayMonItemName);
 
         while (*(txtPtr - 1) == CHAR_SPACE)
             txtPtr--;

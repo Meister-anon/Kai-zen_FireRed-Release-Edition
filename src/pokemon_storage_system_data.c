@@ -1101,21 +1101,21 @@ static void SetCursorMonData(void *pokemon, u8 mode)
     if (gPSSData->cursorMonSpecies == SPECIES_NONE)
     {
         StringFill(gPSSData->cursorMonNick, CHAR_SPACE, 5);
-        StringFill(gPSSData->cursorMonTexts[0], CHAR_SPACE, 8);
-        StringFill(gPSSData->cursorMonTexts[1], CHAR_SPACE, 8);
-        StringFill(gPSSData->cursorMonTexts[2], CHAR_SPACE, 8);
-        StringFill(gPSSData->cursorMonTexts[3], CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonNameText, CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonSpeciesName, CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonGenderLvlText, CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonItemName, CHAR_SPACE, 8);
     }
     else if (gPSSData->cursorMonIsEgg)
     {
         if (sanityIsBagEgg)
-            StringCopyPadded(gPSSData->cursorMonTexts[0], gPSSData->cursorMonNick, CHAR_SPACE, 5);
+            StringCopyPadded(gPSSData->displayMonNameText, gPSSData->cursorMonNick, CHAR_SPACE, 5);
         else
-            StringCopyPadded(gPSSData->cursorMonTexts[0], gText_EggNickname, CHAR_SPACE, 8);
+            StringCopyPadded(gPSSData->displayMonNameText, gText_EggNickname, CHAR_SPACE, 8);
 
-        StringFill(gPSSData->cursorMonTexts[1], CHAR_SPACE, 8);
-        StringFill(gPSSData->cursorMonTexts[2], CHAR_SPACE, 8);
-        StringFill(gPSSData->cursorMonTexts[3], CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonSpeciesName, CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonGenderLvlText, CHAR_SPACE, 8);
+        StringFill(gPSSData->displayMonItemName, CHAR_SPACE, 8);
     }
     else
     {
@@ -1126,20 +1126,20 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         //if no nickname given
         if (StringCompare(gBaseStats[gPSSData->cursorMonSpecies].speciesName, gPSSData->cursorMonNick) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         {
-            StringFill(gPSSData->cursorMonTexts[0], CHAR_SPACE, 8);
-            txtPtr = gPSSData->cursorMonTexts[0];
+            StringFill(gPSSData->displayMonNameText, CHAR_SPACE, 8);
+            txtPtr = gPSSData->displayMonNameText;
             *(txtPtr)++ = CHAR_SLASH;
 
         }
         else
-            StringCopyPadded(gPSSData->cursorMonTexts[0], gPSSData->cursorMonNick, CHAR_SPACE, 5);
+            StringCopyPadded(gPSSData->displayMonNameText, gPSSData->cursorMonNick, CHAR_SPACE, 5);
 
         
-        txtPtr = gPSSData->cursorMonTexts[1];
+        txtPtr = gPSSData->displayMonSpeciesName;
         GetSpeciesName(gStringVar1,gPSSData->cursorMonSpecies);
         StringCopyPadded(txtPtr, gStringVar1, CHAR_SPACE, 5);
 
-        txtPtr = gPSSData->cursorMonTexts[2];
+        txtPtr = gPSSData->displayMonGenderLvlText;
         *(txtPtr)++ = EXT_CTRL_CODE_BEGIN;
         *(txtPtr)++ = EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW;
         switch (gender)
@@ -1178,9 +1178,9 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         txtPtr[1] = EOS;
 
         if (gPSSData->cursorMonItem != 0)
-            StringCopyPadded(gPSSData->cursorMonTexts[3], ItemId_GetName(gPSSData->cursorMonItem), CHAR_SPACE, 8);
+            StringCopyPadded(gPSSData->displayMonItemName, ItemId_GetName(gPSSData->cursorMonItem), CHAR_SPACE, 8);
         else
-            StringFill(gPSSData->cursorMonTexts[3], CHAR_SPACE, 8);
+            StringFill(gPSSData->displayMonItemName, CHAR_SPACE, 8);
     }
 }
 

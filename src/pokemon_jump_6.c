@@ -116,14 +116,14 @@ static void sub_814B5C4(u16 windowId)
     LoadStdWindowGfx(windowId, 0x21D, 0xD0);
     DrawTextBorderOuter(windowId, 0x21D, 0xD);
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
-    AddTextPrinterParameterized5(windowId, 2, gText_PkmnJumpRecords, 0, 0, TEXT_SPEED_FF, NULL, 1, 0);
+    AddTextPrinterParameterized5(windowId, 2, gText_PkmnJumpRecords, 0, 0, TEXT_SKIP_DRAW, NULL, 1, 0);
     for (i = 0; i < NELEMS(gUnknown_846E2D4); i++)
     {
-        AddTextPrinterParameterized5(windowId, 2, gUnknown_846E2D4[i], 0, 20 + (i * 14), TEXT_SPEED_FF, NULL, 1, 0);
+        AddTextPrinterParameterized5(windowId, 2, gUnknown_846E2D4[i], 0, 20 + (i * 14), TEXT_SKIP_DRAW, NULL, 1, 0);
         ConvertIntToDecimalStringN(strbuf, results[i], STR_CONV_MODE_LEFT_ALIGN, 5);
         TruncateToFirstWordOnly(strbuf);
         x = 0xDE - GetStringWidth(2, strbuf, 0);
-        AddTextPrinterParameterized5(windowId, 2, strbuf, x, 20 + (i * 14), TEXT_SPEED_FF, NULL, 0, 0);
+        AddTextPrinterParameterized5(windowId, 2, strbuf, x, 20 + (i * 14), TEXT_SKIP_DRAW, NULL, 0, 0);
     }
     PutWindowTilemap(windowId);
 }

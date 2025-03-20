@@ -1034,7 +1034,7 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
 static void PrintOptionMenuHeader(void)
 {
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
-    AddTextPrinterParameterized(WIN_TEXT_OPTION, 2, gText_MenuOption, 8, 1, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(WIN_TEXT_OPTION, 2, gText_MenuOption, 8, 1, TEXT_SKIP_DRAW, NULL);
     PutWindowTilemap(0);
     CopyWindowToVram(0, COPYWIN_BOTH);
 }
@@ -1074,28 +1074,28 @@ static void Init_OptionsMenuListNames(void)
             Menu_Count = MAIN_MENU_COUNT;
             for (i = 0; i < Menu_Count; i++) 
             {
-                AddTextPrinterParameterized(WIN_OPTIONS, 2, sMainOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
+                AddTextPrinterParameterized(WIN_OPTIONS, 2, sMainOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SKIP_DRAW, NULL);    
             }
         break;
         case GAME_OPTIONS:
             Menu_Count = GAME_MENUITEM_COUNT;
             for (i = 0; i < Menu_Count; i++) 
             {
-                AddTextPrinterParameterized(WIN_OPTIONS, 2, sGameOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
+                AddTextPrinterParameterized(WIN_OPTIONS, 2, sGameOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SKIP_DRAW, NULL);    
             }
         break;
         case TEXT_OPTIONS:
             Menu_Count = TEXT_MENUITEM_COUNT;
             for (i = 0; i < Menu_Count; i++) 
             {
-                AddTextPrinterParameterized(WIN_OPTIONS, 2, sTextOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
+                AddTextPrinterParameterized(WIN_OPTIONS, 2, sTextOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SKIP_DRAW, NULL);    
             }
         break;
         case MISC_OPTIONS:
             Menu_Count = MISC_MENUITEM_COUNT;
             for (i = 0; i < Menu_Count; i++) 
             {
-                AddTextPrinterParameterized(WIN_OPTIONS, 2, sMiscOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SPEED_FF, NULL);    
+                AddTextPrinterParameterized(WIN_OPTIONS, 2, sMiscOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(2, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SKIP_DRAW, NULL);    
             }
         break;
     }

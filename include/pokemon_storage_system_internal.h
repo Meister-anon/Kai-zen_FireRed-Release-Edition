@@ -470,7 +470,10 @@ struct PokemonStorageSystemData
     /* 0ce8 */ u8 cursorMonLevel;
     /* 0ce9 */ bool8 cursorMonIsEgg;
     /* 0cea */ u8 cursorMonNick[POKEMON_NAME_LENGTH + 1];
-    /* 0cf5 */ u8 cursorMonTexts[4][36];
+    /* 0cf5 */ u8 displayMonNameText[36]; //replace cursorMonTexts block with individual strings
+               u8 displayMonSpeciesName[36];
+               u8 displayMonGenderLvlText[36];
+               u8 displayMonItemName[36];
     /* 0d88 */ bool8 (*monPlaceChangeFunc)(void);
     /* 0d8c */ u8 monPlaceChangeState;
     /* 0d8d */ u8 field_D91;

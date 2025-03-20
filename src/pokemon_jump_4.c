@@ -337,7 +337,7 @@ static void sub_814A0C8(void)
     {
     case 0:
         gUnknown_203F3D8->unk12 = sub_814A754(1, 8, 20, 2);
-        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_WantToPlayAgain2, 0, 2, TEXT_SPEED_FF, NULL);
+        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_WantToPlayAgain2, 0, 2, TEXT_SKIP_DRAW, NULL);
         CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
         gUnknown_203F3D8->unk4++;
         break;
@@ -364,7 +364,7 @@ static void sub_814A174(void)
     {
     case 0:
         gUnknown_203F3D8->unk12 = sub_814A754(2, 7, 26, 4);
-        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_SavingDontTurnOffPower, 0, 2, TEXT_SPEED_FF, NULL);
+        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_SavingDontTurnOffPower, 0, 2, TEXT_SKIP_DRAW, NULL);
         CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
         gUnknown_203F3D8->unk4++;
         break;
@@ -407,7 +407,7 @@ static void sub_814A264(void)
     {
     case 0:
         gUnknown_203F3D8->unk12 = sub_814A754(2, 8, 22, 4);
-        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_SomeoneDroppedOut2, 0, 2, TEXT_SPEED_FF, NULL);
+        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_SomeoneDroppedOut2, 0, 2, TEXT_SKIP_DRAW, NULL);
         CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
         gUnknown_203F3D8->unk4++;
         break;
@@ -433,7 +433,7 @@ static void sub_814A308(void)
     {
     case 0:
         gUnknown_203F3D8->unk12 = sub_814A754(7, 10, 16, 2);
-        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_CommunicationStandby4, 0, 2, TEXT_SPEED_FF, NULL);
+        AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gText_CommunicationStandby4, 0, 2, TEXT_SKIP_DRAW, NULL);
         CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
         gUnknown_203F3D8->unk4++;
         break;
@@ -526,7 +526,7 @@ void sub_814A468(u16 itemId, u16 quantity)
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gUnknown_203F3D8->txtBuff[1]);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gUnknown_203F3D8->strBuff, gText_AwesomeWonF701F700);
     gUnknown_203F3D8->unk12 = sub_814A754(4, 8, 22, 4);
-    AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gUnknown_203F3D8->strBuff, 0, 2, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gUnknown_203F3D8->strBuff, 0, 2, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
     gUnknown_203F3D8->unk14 = MUS_LEVEL_UP;
     gUnknown_203F3D8->unkD = 0;
@@ -539,7 +539,7 @@ void sub_814A53C(u16 itemId)
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gUnknown_203F3D8->txtBuff[0]);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gUnknown_203F3D8->strBuff, gText_FilledStorageSpace2);
     gUnknown_203F3D8->unk12 = sub_814A754(4, 8, 22, 4);
-    AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gUnknown_203F3D8->strBuff, 0, 2, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gUnknown_203F3D8->strBuff, 0, 2, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
     gUnknown_203F3D8->unk14 = 0;
     gUnknown_203F3D8->unkD = 0;
@@ -552,7 +552,7 @@ void sub_814A5B4(u16 itemId)
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gUnknown_203F3D8->txtBuff[0]);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gUnknown_203F3D8->strBuff, gText_CantHoldMore);
     gUnknown_203F3D8->unk12 = sub_814A754(4, 9, 22, 2);
-    AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gUnknown_203F3D8->strBuff, 0, 2, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(gUnknown_203F3D8->unk12, 2, gUnknown_203F3D8->strBuff, 0, 2, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(gUnknown_203F3D8->unk12, COPYWIN_GFX);
     gUnknown_203F3D8->unk14 = 0;
     gUnknown_203F3D8->unkD = 0;
