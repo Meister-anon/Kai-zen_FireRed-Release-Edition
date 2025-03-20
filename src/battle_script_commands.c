@@ -11248,8 +11248,8 @@ static void PutLevelAndGenderOnLvlUpBox(void)
     monGender = GetMonGender(&gPlayerParty[gBattleStruct->expGetterMonId]);
     GetMonNickname(&gPlayerParty[gBattleStruct->expGetterMonId], gStringVar4);
     printerTemplate.currentChar = gStringVar4;
-    printerTemplate.windowId = 13;
-    printerTemplate.fontId = 0;
+    printerTemplate.windowId = B_WIN_LEVEL_UP_BANNER;
+    printerTemplate.fontId = FONT_SMALL;
     printerTemplate.x = 32;
     printerTemplate.y = 0;
     printerTemplate.currentX = 32;
