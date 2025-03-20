@@ -3804,6 +3804,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     3/14/2025
     vsonic important
 
+    in progress setup new fonts/ font narrowing
+    for health box,
+    last major bugs are the cry bug and figuring out why
+    poison worsening has broken, it worked at one point,
+    (I think?) but now the timer incraeses but it never does poison dmg
+
+    following that small mechanci changes then figure how to setup
+    pokedex callback to work from pc use poke storage changes for trade
+    (showboxmon) as template for new works
+
+    double check multi hit see if it auto ends on  miss if so change
+    want to continue attempting to attack until  rolled his ends,
+    then print num hits based on what landed
+
     //note idea from sayu vt
     change payday to give coins assuming you have coin case
     instead of money, if user is player side

@@ -1950,6 +1950,9 @@ static void atk01_accuracycheck(void)
             gMultiHitCounter = 0; //if miss reset to 0, think this was reason, grouded stuff wasn't triggering, has check for counter being 0
             //unsure if needed but keeping for now
             //removed encountered new glitch of move not ending
+            //will change/remove this as don't want count/hits to stop just because missed
+            //double check is furycutt counter for dmg or just for the swing animation?
+            //I would want fury cutter dmg to reset if I miss
 
             /*
              if (gBattleMoves[gCurrentMove].effect == EFFECT_DRAGON_DARTS
