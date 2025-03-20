@@ -14526,6 +14526,7 @@ static const struct LevelUpMove sAraquanidLevelUpLearnset[] = {
 static const struct LevelUpMove sFomantisLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_GROWTH),
     LEVEL_UP_MOVE(4, MOVE_CONSTRICT),
+    LEVEL_UP_MOVE(5, MOVE_SCRATCH),
     LEVEL_UP_MOVE(6, MOVE_LEAFAGE),
     LEVEL_UP_MOVE(8, MOVE_VINE_WHIP),
     LEVEL_UP_MOVE(12, MOVE_SWEET_SCENT),
@@ -14546,6 +14547,7 @@ static const struct LevelUpMove sLurantisLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_PETAL_BLIZZARD),
     LEVEL_UP_MOVE( 1, MOVE_X_SCISSOR),
     LEVEL_UP_MOVE( 1, MOVE_NIGHT_SLASH),
+    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_CONSTRICT),
     LEVEL_UP_MOVE( 1, MOVE_DUAL_STRIKE),
     LEVEL_UP_MOVE( 1, MOVE_FURY_CUTTER),
