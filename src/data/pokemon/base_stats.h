@@ -5564,9 +5564,9 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Sunflora"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 75, 85, 43, 135, 95),
+         STATS(75, 75, 85, 53, 135, 95),
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL), //zenmode yt may keep this normal too?
-        .catchRate = 120, //can still keep fire moves
+        .catchRate = 120, //can still keep fire moves / put speed back as 53 is still good for trick room
         .expYield = 149,
         //.evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50), //previously base 30 speed was good for trick room may drop speed back
