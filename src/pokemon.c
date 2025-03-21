@@ -5548,27 +5548,32 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //using gbattlemovedmage didn't seem to change dmg, only fix I can think of is to reuse and just keep damage
     //value but put inside both physical and special
     // are effects of weather negated with cloud nine or air lock
-    if (WEATHER_HAS_EFFECT2 && IsBlackFogNotOnField()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
+    if (WeatherHasEffect() && IsBlackFogNotOnField()) //weather dmg changes weren't working at all, think was becuz I had  below dmg calc
     {
         if (gBattleWeather & WEATHER_RAIN_ANY)
         {
-            switch (moveType)
+            if (defenderHoldEffect == HOLD_EFFECT_UTILITY_UMBRELLA)
+            {}
+            else
             {
-            case TYPE_FIRE:
-            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                OffensiveModifer(50); //tested workss perfectly
-                break;
-            case TYPE_WATER:
-            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
-                OffensiveModifer(150);
-                break;
-            }
+                switch (moveType)
+                {
+                case TYPE_FIRE:
+                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                    OffensiveModifer(50); //tested workss perfectly
+                    break;
+                case TYPE_WATER:
+                if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                    OffensiveModifer(150);
+                    break;
+                }
 
-            if (GetBattlerAbility(battlerIdAtk) == ABILITY_LIQUID_SOUL
-                && gBattleMoves[move].type == TYPE_WATER)  //hopefully checks if move was orginally water and will boost damage in rain even when ghost type
-            {
-                OffensiveModifer(150);
+                if (GetBattlerAbility(battlerIdAtk) == ABILITY_LIQUID_SOUL
+                    && gBattleMoves[move].type == TYPE_WATER)  //hopefully checks if move was orginally water and will boost damage in rain even when ghost type
+                {
+                    OffensiveModifer(150);
+                }
             }
         }
 
@@ -5590,42 +5595,52 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         // sunny
         if (gBattleWeather & WEATHER_SUN_ANY)
         {
-            switch (moveType)
+            if (defenderHoldEffect == HOLD_EFFECT_UTILITY_UMBRELLA)
+            {}
+            else
             {
-            case TYPE_FIRE:
-            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
-                OffensiveModifer(150);
-                break;
-            case TYPE_WATER:
-            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                OffensiveModifer(50);
-                break;
-            case TYPE_ICE:
-            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                OffensiveModifer(33);
-                 //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
-                break;//reverted sunflora to grass normal but still good
+                switch (moveType)
+                {
+                case TYPE_FIRE:
+                if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                    OffensiveModifer(150);
+                    break;
+                case TYPE_WATER:
+                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                    OffensiveModifer(50);
+                    break;
+                case TYPE_ICE:
+                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                    OffensiveModifer(33);
+                    //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
+                    break;//reverted sunflora to grass normal but still good
+                }
             }
         }
 
         // hail
         if (gBattleWeather & WEATHER_HAIL_ANY)
         {
-            switch (moveType)
+            if (defenderHoldEffect == HOLD_EFFECT_SAFETY_GOGGLES)
+            {}
+            else
             {
-            case TYPE_FIRE:
-            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                OffensiveModifer(33);
-                //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
-                break;  //changed to 66% cut,  so for mon weak to fire they take slightly less than neutral dmg
+                switch (moveType)
+                {
+                case TYPE_FIRE:
+                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                    OffensiveModifer(33);
+                    //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
+                    break;  //changed to 66% cut,  so for mon weak to fire they take slightly less than neutral dmg
 
-            //case TYPE_ICE:
-              //  damage = (damage * 125) / 100;  //fixed now is 25% damage increase rather than 50 since hail also does damage
-              //  break;
-            } //since I made hail a defensive boost, I may remove dmg boost, 
+                //case TYPE_ICE:
+                //  damage = (damage * 125) / 100;  //fixed now is 25% damage increase rather than 50 since hail also does damage
+                //  break;
+                } //since I made hail a defensive boost, I may remove dmg boost, 
+            }
         }// !important slight ice buff, mostly gives glaile options on sandstorm or hail. so here in hail ice types would take 2/3 fire damage
     }//it makes sense to add hail ice type damage buff. would also make late game  ice routes more punishing
 

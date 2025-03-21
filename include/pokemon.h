@@ -341,7 +341,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
             u16 statTotal;  //with new macro from GriffinR am able to display mon bst
  /* 0x06 */ u8 type1;
  /* 0x07 */ u8 type2;
-            u8 speciesName[13];
+            u8 speciesName[POKEMON_NAME_LENGTH + 1];
  /* 0x08 */ u16 expYield;
  /* 0x09 */ 
  /* 0x0A */ //u16 evYield_HP:2; //not using these so might as well remove from struct to save room

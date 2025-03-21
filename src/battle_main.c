@@ -1279,7 +1279,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
                 gBattleStruct->dynamicMoveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
         }
     }
-    else if ((move == MOVE_WEATHER_BALL) && (WEATHER_HAS_EFFECT)) //thought set elsewhere but guess no longer need that
+    else if ((move == MOVE_WEATHER_BALL) && (WeatherHasEffect())) //thought set elsewhere but guess no longer need that
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             gBattleStruct->dynamicMoveType = TYPE_WATER;
@@ -1461,7 +1461,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
                 moveType = TYPE_NORMAL;// | F_DYNAMIC_TYPE_2;
         }
     }
-    else if ((move == MOVE_WEATHER_BALL) && (WEATHER_HAS_EFFECT))
+    else if ((move == MOVE_WEATHER_BALL) && (WeatherHasEffect()))
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             moveType = TYPE_WATER;

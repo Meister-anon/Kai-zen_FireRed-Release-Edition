@@ -2838,7 +2838,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
             type = TYPE_FAIRY; // or may need to increase it by 6 to get over other types to 21 since the +1 and ++ adds 2 tellign the last type added
         //type |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //no idea why removing this fixed it but guess makes sense?
 
-        if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WEATHER_HAS_EFFECT))
+        if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
         {
             if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
                 sMonSummaryScreen->moveTypes[i] = TYPE_WATER;
@@ -2854,7 +2854,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
         else
             sMonSummaryScreen->moveTypes[i] = type;
     }
-    /*if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WEATHER_HAS_EFFECT))
+    /*if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             sMonSummaryScreen->moveTypes[i] = TYPE_WATER;
@@ -2869,7 +2869,7 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
     }*/
     else
         sMonSummaryScreen->moveTypes[i] = gBattleMoves[sMonSummaryScreen->moveIds[i]].type;
-    /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WEATHER_HAS_EFFECT))
+    /*else if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
     {
          if (gBattleWeather & WEATHER_RAIN_ANY) //TEST TO MAKE SURE WORKS - works
             sMonSummaryScreen->moveTypes[i] = TYPE_WATER;

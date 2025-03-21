@@ -67,9 +67,6 @@
 #define ITEMEFFECT_LIFEORB_SHELLBELL            0x7		
 #define ITEMEFFECT_USE_LAST_ITEM                0x8
 
-//replaced cloud nine
-#define WEATHER_HAS_EFFECT ((!AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, ABILITY_STORM_BREAK, 0, 0) && !AbilityBattleEffects(ABILITYEFFECT_CHECK_ON_FIELD, 0, ABILITY_AIR_LOCK, 0, 0)))
-#define WEATHER_HAS_EFFECT2 ((!AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_STORM_BREAK, 0, 0) && !AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_AIR_LOCK, 0, 0)))
 
 #define BS_GET_TARGET                   0
 #define BS_GET_ATTACKER                 1
@@ -250,6 +247,7 @@ u32 IsTypeOnField(u32 type); //added for new idea plus/minus buff
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
 
+bool32 WeatherHasEffect(void); //meant to replace macro for Weather_has_effect
 
 enum {
     OBEYS,

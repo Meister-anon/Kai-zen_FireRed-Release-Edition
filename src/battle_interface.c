@@ -438,6 +438,22 @@ static const struct SpriteTemplate sStatusSummaryBallsSpriteTemplates[] = {
     }
 };
 
+// This function is here to cover a specific case - one player's mon in a 2 vs 1 double battle. In this scenario - display singles layout.
+// The same goes for a 2 vs 1 where opponent has only one pokemon.
+u32 WhichBattleCoords(u32 battlerId) // 0 - singles, 1 - doubles
+{
+    if (GetBattlerPosition(battlerId) == B_POSITION_PLAYER_LEFT
+        && gPlayerPartyCount == 1
+        && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+        return 0;
+    else if (GetBattlerPosition(battlerId) == B_POSITION_OPPONENT_LEFT
+             && gEnemyPartyCount == 1
+             && !(gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS))
+        return 0;
+    else
+        return IsDoubleBattle();
+}
+
 static void sub_8047B0C(s16 number, u16 *dest, bool8 unk)
 {
     s8 i, j;
@@ -1549,15 +1565,32 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
         break;
     }
 
-    windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(gDisplayedStringBattle, 0, 3, 2, &windowId);
-    //windowTileData = AddTextPrinterAndCreateWindowOnHealthboxToFit(gDisplayedStringBattle, 0, 3, 2, &windowId, 55);
+    //windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(gDisplayedStringBattle, 0, 3, 2, &windowId);
+    windowTileData = AddTextPrinterAndCreateWindowOnHealthboxToFit(gDisplayedStringBattle, 0, 3, 2, &windowId, 55);
 
     spriteTileNum = gSprites[healthboxSpriteId].oam.tileNum * TILE_SIZE_4BPP;
+
+    if (GetBattlerSide(gSprites[healthboxSpriteId].sBattlerId) == B_SIDE_PLAYER)
+    {
+        TextIntoHealthboxObject((void *)(OBJ_VRAM0 + 0x40 + spriteTileNum), windowTileData, 6);
+        ptr = (void *)(OBJ_VRAM0);
+        if (!WhichBattleCoords(gSprites[healthboxSpriteId].sBattlerId))
+            ptr += spriteTileNum + 0x800;
+        else
+            ptr += spriteTileNum + 0x400;
+        TextIntoHealthboxObject(ptr, windowTileData + 0xC0, 1);
+    }
+    else
+    {
+        TextIntoHealthboxObject((void *)(OBJ_VRAM0 + 0x20 + spriteTileNum), windowTileData, 7);
+    }
+    //commented below to attempt setup new narrow font, not working but everything builds?
+    //believe missing commits I guess?
 
     //ok player uses 2 different healthbox sizes for single & double battles
     //enemy uses the same healthbox for both, they use the small one that player uses for doubles
     //based on function is 32 * tile size 4bpp
-    if (GetBattlerSide(gSprites[healthboxSpriteId].sBattlerId) == B_SIDE_PLAYER)
+    /*if (GetBattlerSide(gSprites[healthboxSpriteId].sBattlerId) == B_SIDE_PLAYER)
     {
         TextIntoHealthboxObject((void *)(OBJ_VRAM0 + 2 * TILE_SIZE_4BPP + spriteTileNum), windowTileData, 6);//which is last value here
         ptr = (void *)(OBJ_VRAM0);
@@ -1589,7 +1622,9 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
         if ((StringLength(nickname)) < 11) //think using nickname alone will work, as if you dont nickname belive it defaults to same as species name
             TextIntoHealthboxObject(ptr, windowTileData + 7 * TILE_SIZE_4BPP, 0); //7 sems right    
     }//since using 7 rathre than end width 1, need base to be 0, and when having longer name use window width 1, that way it is equal to if I use width 2, on 6 for playre side
+    */
 
+   
     RemoveWindowOnHealthbox(windowId);
 }
 

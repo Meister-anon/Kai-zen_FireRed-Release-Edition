@@ -161,8 +161,8 @@ enum
     SCREEN_CHANGE_ITEM_FROM_BAG,
 };
 
-static const struct WindowTemplate gUnknown_83CEA30[] = {
-    {
+static const struct WindowTemplate sWindowTemplates[] = {
+    [WIN_DISPLAY_INFO] = {
         .bg = 1,
         .tilemapLeft = 0,
         .tilemapTop = 11,
@@ -170,7 +170,8 @@ static const struct WindowTemplate gUnknown_83CEA30[] = {
         .height = 7,
         .paletteNum = 3,
         .baseBlock = 0x0c0
-    }, {
+    }, 
+    [WIN_MESSAGE] = {
         .bg = 0,
         .tilemapLeft = 11,
         .tilemapTop = 17,
@@ -178,7 +179,8 @@ static const struct WindowTemplate gUnknown_83CEA30[] = {
         .height = 2,
         .paletteNum = 13,
         .baseBlock = 0x014
-    }, {
+    }, 
+    [WIN_ITEM_DESC] = {
         .bg = 0,
         .tilemapLeft = 0,
         .tilemapTop = 12,
@@ -189,7 +191,7 @@ static const struct WindowTemplate gUnknown_83CEA30[] = {
     }, DUMMY_WIN_TEMPLATE
 };
 
-static const struct BgTemplate gUnknown_83CEA50[] = {
+static const struct BgTemplate sBgTemplates[] = {
     {
         .bg = 0,
         .charBaseIndex = 0,
@@ -2209,7 +2211,7 @@ static void ScrollBackground(void)
 
 static void LoadPSSMenuGfx(void)
 {
-    InitBgsFromTemplates(0, gUnknown_83CEA50, NELEMS(gUnknown_83CEA50));
+    InitBgsFromTemplates(0, sBgTemplates, NELEMS(sBgTemplates));
     DecompressAndLoadBgGfxUsingHeap(1, gPSSMenu_Gfx, 0, 0, 0);
     LZ77UnCompWram(gUnknown_83CE5FC, gPSSData->menuTilemapBuffer);
     SetBgTilemapBuffer(1, gPSSData->menuTilemapBuffer);
@@ -2219,7 +2221,7 @@ static void LoadPSSMenuGfx(void)
 
 static bool8 InitPSSWindows(void)
 {
-    if (!InitWindows(gUnknown_83CEA30))
+    if (!InitWindows(sWindowTemplates))
     {
         return FALSE;
     }
@@ -2383,16 +2385,16 @@ static void PrintCursorMonInfo(void)
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
     {
 
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonSpeciesName, 6, 14, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(gPSSData->displayMonNameText, FONT_NORMAL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), gPSSData->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(gPSSData->displayMonSpeciesName, FONT_NORMAL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), gPSSData->displayMonSpeciesName, 6, 14, TEXT_SKIP_DRAW, NULL);        
         AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonGenderLvlText, 10, 28, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SMALL, gPSSData->displayMonItemName, 6, 44, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(gPSSData->displayMonItemName, FONT_SMALL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), gPSSData->displayMonItemName, 6, 44, TEXT_SKIP_DRAW, NULL);
     }
     else
     {
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SMALL, gPSSData->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonNameText, 6, 15, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonSpeciesName, 6, 29, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(gPSSData->displayMonItemName, FONT_SMALL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), gPSSData->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(gPSSData->displayMonNameText, FONT_NORMAL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), gPSSData->displayMonNameText, 6, 15, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, GetFontIdToFit(gPSSData->displayMonSpeciesName, FONT_NORMAL, 0, WindowWidthPx(WIN_DISPLAY_INFO) - 6), gPSSData->displayMonSpeciesName, 6, 29, TEXT_SKIP_DRAW, NULL);
         AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonGenderLvlText, 10, 43, TEXT_SKIP_DRAW, NULL);
 
     }

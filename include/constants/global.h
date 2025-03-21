@@ -31,7 +31,7 @@
 #define WILD_ENCOUNTER_MAX_LEVEL_RANGE 15 //more stuff for enconter rework
 
 #define ITEM_NAME_LENGTH 18
-#define POKEMON_NAME_LENGTH 11 //remember set back to 12 //will break save data was 11
+#define POKEMON_NAME_LENGTH 12 //remember set back to 12 //will break save data was 11
 //tested increasing to 12 fixed issue with bellsprout other length 11 mon, so 
 //can use this constant to track issue, but think issue may be in getspeciesname
 //could be issue without how I'm removing placeholders may not be removing endcap properly

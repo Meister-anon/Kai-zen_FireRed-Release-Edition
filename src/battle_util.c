@@ -720,7 +720,7 @@ u16 GetUsedHeldItem(u8 battler) //vsonic  //looks weird but matches emerald logi
 
 bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add utility umbrella clause to weather effects
 {
-    if (!WEATHER_HAS_EFFECT)
+    if (!WeatherHasEffect())
         return FALSE;
 
     if (!IsBlackFogNotOnField())
@@ -5412,7 +5412,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 #endif
                 break;//hopefully can put terrain here without problems, start of weather abilities
             case ABILITY_DRIZZLE:
-                if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -5426,7 +5426,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_SQUALL:
-                if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -5440,7 +5440,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }//normal abilities don't have weather checks cuz its built into function
                 break;
             case ABILITY_SAND_STREAM:
-                if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -5454,7 +5454,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_DROUGHT:
-                if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -5469,7 +5469,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 break;
             case ABILITY_SUN_DISK:
             case ABILITY_ORICHALCUM_PULSE:
-                if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -5483,7 +5483,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_SNOW_WARNING:
-                if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                 {
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -7522,7 +7522,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && TARGET_TURN_DAMAGED
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker)))
                 {
-                    if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                    if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                     {
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -8140,9 +8140,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED
-                    && !(gBattleWeather & WEATHER_SANDSTORM_TEMPORARY && WEATHER_HAS_EFFECT))
+                    && !(gBattleWeather & WEATHER_SANDSTORM_TEMPORARY && WeatherHasEffect()))
                 {
-                    if (gBattleWeather & WEATHER_PRIMAL_ANY && WEATHER_HAS_EFFECT)
+                    if (gBattleWeather & WEATHER_PRIMAL_ANY && WeatherHasEffect())
                     {
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_BlockedByPrimalWeatherRet;
@@ -11729,7 +11729,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
         //perhaps not, seems cold kills birds outright regardless of flying, which is why they migrate
     
     // B_WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pok�mon
-    else if (gBattleWeather & WEATHER_STRONG_WINDS && WEATHER_HAS_EFFECT)
+    else if (gBattleWeather & WEATHER_STRONG_WINDS && WeatherHasEffect())
     {
         if (defType == TYPE_FLYING && mod == UQ_4_12(1.55))
             mod = UQ_4_12(1.0);//moved here to avoid collision w other modifier effects, think should work
@@ -12971,4 +12971,11 @@ void SetAbilityStatGraphic(u8 StatVal1, u8 StatChange1, u8 StatVal2, u8 StatChan
     gBattleScripting.animArg1 = STAT_ANIM_PLUS1 + STAT_SPEED; //find what this is referencing so I don't accidentally break,
     gBattleScripting.animArg1 = StatChange1 + StatVal1;
     gBattleScripting.animArg2 = 0; //figured out
+}
+
+bool32 WeatherHasEffect(void)
+{
+    if (IsAbilityOnField(ABILITY_STORM_BREAK) || IsAbilityOnField(ABILITY_AIR_LOCK))
+        return FALSE;
+    return TRUE;
 }

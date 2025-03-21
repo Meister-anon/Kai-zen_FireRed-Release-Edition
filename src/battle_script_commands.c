@@ -18714,7 +18714,7 @@ static void atkE8_settypebasedhalvers(void) // water and mud sport
 //not using now, movedlogic to settypebeforeusingmove
 static void atkE9_setweatherballtype(void)//think move to settypebeforeusemove function so it'll show in sum menu
 {
-    /*if (WEATHER_HAS_EFFECT)
+    /*if (WeatherHasEffect())
     {
         //if (gBattleWeather & WEATHER_ANY)
         //    gBattleScripting.dmgMultiplier = 2;  //moved to calcbasdmg function in pokemon c
