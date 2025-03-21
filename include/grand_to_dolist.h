@@ -2181,6 +2181,7 @@ goto BATTLE_SPEED_UP  //pokAbbie in battle speed up
 goto BATTLE_ANIM_DELAY_CMD //value for battle scrtip animations, not sure if can use, this & pokabbies set have small hickups w waitvisualtask finish
 goto SCRIPT_DELAY //function for delay in event scripts set to new option when port pokieabbie changes but for now scripts move a bit faster
 goto NEW_DEX_USE_NOTES //new big idea for more dex utility - more realism, make like show, look at battle bag callback, restrict movement for in battle
+goto FONT_INFO //setup specifics of how diff fonts are displayed
 /*
 
   issue with nicknames mon with nicknames aren't having their name said

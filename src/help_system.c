@@ -377,9 +377,12 @@ void sub_813C004(u8 a0, u8 mode)
     }
 }
 
+//not used
+/*
 #define HelpSystemHandleRenderGlyph(character) ({\
     do {DecompressAndRenderGlyph(font, character, &srcBlit, &destBlit, dest, x, y, width, height);} while (0); font;\
 })
+*/
 
 /*
 #ifdef NONMATCHING
@@ -917,7 +920,9 @@ void HelpSystemRenderText(u8 font, u8 * dest, const u8 * src, u8 x, u8 y, u8 wid
 #endif //NONMATCHING
 */
 
-void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 width, u8 height)
+//not used anywhere
+/*
+void HelpSystemRenderText(u8 fontId, u32 * dest, const u8 * src, u8 x, u8 y, u8 width, u8 height)
 {
     // fontId -> sp+24
     // dest -> sp+28
@@ -1103,16 +1108,19 @@ void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 w
     }
 }
 
-
+//also not referenced as only used in above function
 void DecompressAndRenderGlyph(u8 font, u16 glyph, struct Bitmap *srcBlit, struct Bitmap *destBlit, u8 *destBuffer, u8 x, u8 y, u8 width, u8 height)
 {
-    if (font == 0)
+
+    if (font == FONT_SMALL)
         DecompressGlyphFont0(glyph, FALSE);
-    else if (font == 5)
+    else if (font == FONT_FEMALE)
         DecompressGlyphFont5(glyph, FALSE);
     else
         DecompressGlyphFont2(glyph, FALSE);
-    srcBlit->pixels = gGlyphInfo.pixels;
+
+    glyphPixels = gGlyphInfo.gfxBufferTop;
+    srcBlit->pixels = glyphPixels;
     srcBlit->width = 16;
     srcBlit->height = 16;
     destBlit->pixels = destBuffer;
@@ -1120,6 +1128,7 @@ void DecompressAndRenderGlyph(u8 font, u16 glyph, struct Bitmap *srcBlit, struct
     destBlit->height = height * 8;
     BlitBitmapRect4Bit(srcBlit, destBlit, 0, 0, x, y, gGlyphInfo.width, gGlyphInfo.height, 0);
 }
+*/
 
 void HelpSystem_PrintText_Row61(const u8 * str)
 {

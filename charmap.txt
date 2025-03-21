@@ -453,8 +453,8 @@ HIGHLIGHT = FC 02 @ same as fc 01
 SHADOW = FC 03 @ same as fc 01
 COLOR_HIGHLIGHT_SHADOW = FC 04 @ takes 3 bytes
 PALETTE = FC 05 @ used in credits
-SIZE = FC 06 @ note that anything other than "SMALL" is invalid
-RESET_SIZE = FC 07
+FONT = FC 06 @ note that anything other than "SMALL" is invalid  @these are fonts think invalid means it default to small_font unless add number?
+RESET_FONT = FC 07
 PAUSE = FC 08 @ manually print the wait byte after this, havent mapped them
 PAUSE_UNTIL_PRESS = FC 09
 WAIT_SE = FC 0A
@@ -493,6 +493,10 @@ FONT_NORMAL = FC 06 02
 FONT_NORMAL_COPY_2 = FC 06 03
 FONT_MALE = FC 06 04
 FONT_FEMALE = FC 06 05
+FONT_NARROW = FC 06 08
+FONT_SMALL_NARROW = FC 06 09
+FONT_NARROWER = FC 06 0A
+FONT_SMALL_NARROWER = FC 06 0B
 
 @ colors
 

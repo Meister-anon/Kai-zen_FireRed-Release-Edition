@@ -320,15 +320,27 @@ i.e my changes/ renames I've made etc.
 //for capitalize de-capitalize species name  ability names move names etc
 //if can triger from options menu would be great
 
+//these enums are given value by being in line with
+//the font glphs the pngs for the font graphic itself
+//as used in the specific font functions
+//ex sFont1LatinGlyphs is used in the font1 function
+//EE seems to have some things that just aren't in firered,
+//so I'll attempt add the narrow fonts separate rather than replacing this setup
+//don't know what short is or refers too
 enum {
     FONT_SMALL,
     FONT_NORMAL_COPY_1,
     FONT_NORMAL,
-    FONT_NORMAL_COPY_2,
+    FONT_NORMAL_COPY_2, //font 3 is a copy of 2, but 1 is its own thing, so is not a normal copy at all
     FONT_MALE,
     FONT_FEMALE,
     FONT_BRAILLE,
     FONT_BOLD,
+    FONT_NARROW,
+    FONT_SMALL_NARROW,
+    FONT_NARROWER,
+    FONT_SMALL_NARROWER,
+
 };
 
 enum
@@ -373,9 +385,11 @@ struct TextPrinterSubStruct
     u8 autoScrollDelay;
 };
 
-struct GlyphInfo
+struct GlyphInfo //equats to TextGlyph in EE
 {
-    u8 pixels[0x80];
+    //u8 pixels[0x80];
+    u32 gfxBufferTop[16];
+    u32 gfxBufferBottom[16];
     u8 width;
     u8 height;
 };
@@ -436,7 +450,7 @@ extern const struct FontInfo *gFonts;
 struct GlyphWidthFunc
 {
     u32 fontId;
-    s32 (*func)(u16 glyphId, bool32 isJapanese);
+    u32 (*func)(u16 glyphId, bool32 isJapanese);
 };
 
 struct KeypadIcon
@@ -472,7 +486,7 @@ u32 RenderFont(struct TextPrinter *textPrinter);
 void GenerateFontHalfRowLookupTable(u8 fgColor, u8 bgColor, u8 shadowColor);
 void SaveTextColors(u8 *fgColor, u8 *bgColor, u8 *shadowColor);
 void RestoreTextColors(u8 *fgColor, u8 *bgColor, u8 *shadowColor);
-void DecompressGlyphTile(const u16 *src, u16 *dest);
+void DecompressGlyphTile(const void *src_, void *dest_);
 u8 GetLastTextColor(u8 colorType);
 void CopyGlyphToWindow(struct TextPrinter *x);
 void ClearTextSpan(struct TextPrinter *textPrinter, u32 width);
@@ -487,6 +501,10 @@ u16 Font5Func(struct TextPrinter *textPrinter);
 u16 Font7Func(struct TextPrinter *textPrinter);
 u16 Font8Func(struct TextPrinter *textPrinter);
 u16 FontFunc_Braille(struct TextPrinter *textPrinter);
+u16 FontFunc_Narrow(struct TextPrinter *textPrinter);
+u16 FontFunc_SmallNarrow(struct TextPrinter *textPrinter);
+u16 FontFunc_Narrower(struct TextPrinter *textPrinter);
+u16 FontFunc_SmallNarrower(struct TextPrinter *textPrinter);
 
 void TextPrinterInitDownArrowCounters(struct TextPrinter *textPrinter);
 void TextPrinterDrawDownArrow(struct TextPrinter *textPrinter);
@@ -497,7 +515,7 @@ bool16 TextPrinterWait(struct TextPrinter *textPrinter);
 void DrawDownArrow(u8 windowId, u16 x, u16 y, u8 bgColor, bool8 drawArrow, u8 *counter, u8 *yCoordIndex);
 u16 RenderText(struct TextPrinter *textPrinter);
 s32 GetStringWidthFixedWidthFont(const u8 *str, u8 fontId, u8 letterSpacing);
-s32 (*GetFontWidthFunc(u8 glyphId))(u16, bool32);
+u32 (*GetFontWidthFunc(u8 glyphId))(u16, bool32);
 s32 GetStringWidth(u8 fontId, const u8 *str, s16 letterSpacing);
 u8 RenderTextFont9(u8 *pixels, u8 fontId, u8 *str, int a3, int a4, int a5, int a6, int a7);
 u8 DrawKeypadIcon(u8 windowId, u8 keypadIconId, u16 x, u16 y);
@@ -507,24 +525,24 @@ u8 GetKeypadIconHeight(u8 keypadIconId);
 u8 GetFontAttribute(u8 fontId, u8 attributeId);
 u8 GetMenuCursorDimensionByFont(u8 fontId, u8 whichDimension);
 void DecompressGlyphFont0(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont0(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont0(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont7(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont7(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont7(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont8(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont8(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont8(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont2(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont2(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont2(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont1(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont1(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont1(u16 glyphId, bool32 isJapanese);
 void DecompressGlyph_Bold(u16 glyphId);
-s32 GetGlyphWidthFont3(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont4(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont3(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont4(u16 glyphId, bool32 isJapanese);
 void DecompressGlyphFont5(u16 glyphId, bool32 isJapanese);
-s32 GetGlyphWidthFont5(u16 glyphId, bool32 isJapanese);
+u32 GetGlyphWidthFont5(u16 glyphId, bool32 isJapanese);
 void sub_80062B0(struct Sprite *sprite);
 u8 CreateTextCursorSpriteForOakSpeech(u8 sheetId, u16 x, u16 y, u8 priority, u8 subpriority);
 void sub_8006398(u8 spriteId);
-s32 GetGlyphWidthFont6(u16 font_type, bool32 isJapanese);
+u32 GetGlyphWidthFont6(u16 font_type, bool32 isJapanese);
 u32 GetFontIdToFit(const u8 *string, u32 widestFontId, u32 letterSpacing, u32 widthPx);
 
 #endif // GUARD_TEXT_H

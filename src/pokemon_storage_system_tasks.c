@@ -2378,27 +2378,26 @@ static void LoadCursorMonGfx(u16 species, u32 pid)
 
 static void PrintCursorMonInfo(void)
 {
-    u16 i;
-    u16 y;
-    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+
+    FillWindowPixelBuffer(WIN_DISPLAY_INFO, PIXEL_FILL(1));
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
     {
 
-        AddTextPrinterParameterized(0, 2, gPSSData->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(0, 2, gPSSData->displayMonSpeciesName, 6, 14, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(0, 2, gPSSData->displayMonGenderLvlText, 10, 28, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(0, 0, gPSSData->displayMonItemName, 6, 44, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonNameText, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonSpeciesName, 6, 14, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonGenderLvlText, 10, 28, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SMALL, gPSSData->displayMonItemName, 6, 44, TEXT_SKIP_DRAW, NULL);
     }
     else
     {
-        AddTextPrinterParameterized(0, 0, gPSSData->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(0, 2, gPSSData->displayMonNameText, 6, 15, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(0, 2, gPSSData->displayMonSpeciesName, 6, 29, TEXT_SKIP_DRAW, NULL);
-        AddTextPrinterParameterized(0, 2, gPSSData->displayMonGenderLvlText, 10, 43, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_SMALL, gPSSData->displayMonItemName, 6, 0, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonNameText, 6, 15, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonSpeciesName, 6, 29, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_DISPLAY_INFO, FONT_NORMAL, gPSSData->displayMonGenderLvlText, 10, 43, TEXT_SKIP_DRAW, NULL);
 
     }
 
-    CopyWindowToVram(0, COPYWIN_GFX);
+    CopyWindowToVram(WIN_DISPLAY_INFO, COPYWIN_GFX);
     /*if (gPSSData->cursorMonSpecies != SPECIES_NONE)
     {
         RequestDma3LoadMonMarking(gPSSData->cursorMonMarkings, gPSSData->monMarkingSpriteTileStart);

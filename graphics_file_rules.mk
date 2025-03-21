@@ -53,6 +53,8 @@ $(CASTFORMGFXDIR)/shiny.gbapal: $(CASTFORMGFXDIR)/normal/shiny.gbapal \
 									$(CASTFORMGFXDIR)/snowy/shiny.gbapal
 	@cat $^ >$@
 
+### Fonts ###
+
 $(FONTGFXDIR)/font0_latin.latfont: $(FONTGFXDIR)/font0_latin.png
 	$(GFX) $< $@
 
@@ -84,6 +86,18 @@ $(FONTGFXDIR)/font5_jap.fwjpnfont: $(FONTGFXDIR)/font5_jap.png
 	$(GFX) $< $@
 
 $(FONTGFXDIR)/font6.fwjpnfont: $(FONTGFXDIR)/font6_braille.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/narrow.latfont: $(FONTGFXDIR)/latin_narrow.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/small_narrow.latfont: $(FONTGFXDIR)/latin_small_narrow.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/narrower.latfont: $(FONTGFXDIR)/latin_narrower.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/small_narrower.latfont: $(FONTGFXDIR)/latin_small_narrower.png
 	$(GFX) $< $@
 
 $(FONTGFXDIR)/font9_jap.fwjpnfont: $(FONTGFXDIR)/font9_jap.png
