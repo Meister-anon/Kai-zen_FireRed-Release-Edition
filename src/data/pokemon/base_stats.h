@@ -12469,8 +12469,7 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(20, 25, 45, 60, 70, 90),
         //#if P_UPDATED_TYPES >= GEN_6
-            MON_TYPES(TYPE_PSYCHIC,
-            TYPE_NORMAL),
+        MON_TYPES(TYPE_PSYCHIC, TYPE_NORMAL),
         .catchRate = 145,
         .expYield = 62,
         //.evYield_SpDefense = 1,
