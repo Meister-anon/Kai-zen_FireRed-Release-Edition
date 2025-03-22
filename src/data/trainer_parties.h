@@ -6410,10 +6410,17 @@ static const struct TrainerMonItemCustomMoves sTrainerMons_EliteFourLance[] = {
     },
 };
 
+//gave a second geodude for the joke
 static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderBrock[] = {
     {
         .iv = MIN_FIXED_IVS,
-        .lvl = 12,
+        .lvl = 9,
+        .species = SPECIES_GEODUDE,
+        //.moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_NONE, MOVE_NONE},
+    },
+    {
+        .iv = MIN_FIXED_IVS,
+        .lvl = 11,
         .species = SPECIES_GEODUDE,
         //.moves = {MOVE_TACKLE, MOVE_DEFENSE_CURL, MOVE_NONE, MOVE_NONE},
     },
