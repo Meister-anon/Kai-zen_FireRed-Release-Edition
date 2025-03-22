@@ -387,7 +387,7 @@ TEST("Species names fit on Pokemon Storage System")
         }
     }
     EXPECT_LE(GetStringWidth(FONT_NARROWER, gSpeciesInfo[species].speciesName, 0), 66);
-    EXPECT_LE(GetStringWidth(FONT_SHORT_NARROW, gSpeciesInfo[species].speciesName, 0), 60);
+    EXPECT_LE(GetStringWidth(FONT_FRLG_NARROW, gSpeciesInfo[species].speciesName, 0), 60);
 }
 
 TEST("Species names fit on Contest Screen")
@@ -423,7 +423,7 @@ TEST("Species names fit on Contest Screen - Rankings")
 TEST("Species names fit on Battle Dome Screen")
 {
     u32 i;
-    const u32 fontId = FONT_SHORT_NARROW, widthPx = 60;
+    const u32 fontId = FONT_FRLG_NARROW, widthPx = 60;
     u32 species = SPECIES_NONE;
     for (i = 1; i < NUM_SPECIES; i++)
     {

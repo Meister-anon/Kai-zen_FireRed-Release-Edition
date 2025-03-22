@@ -177,6 +177,26 @@ static const struct FontInfo gFontInfos[] =
         .bgColor = 1,
         .shadowColor = 3,
     },
+    [FONT_FRLG_NARROW] = {
+        .fontFunction = FontFunc_FrLgNarrow,
+        .maxLetterWidth = 5,
+        .maxLetterHeight = 14,
+        .letterSpacing = 0,
+        .lineSpacing = 0,
+        .fgColor = 2,
+        .bgColor = 1,
+        .shadowColor = 3,
+    },
+    [FONT_FRLG_NARROWER] = {
+        .fontFunction = FontFunc_FrLgNarrower,
+        .maxLetterWidth = 5,
+        .maxLetterHeight = 14,
+        .letterSpacing = 0,
+        .lineSpacing = 0,
+        .fgColor = 2,
+        .bgColor = 1,
+        .shadowColor = 3,
+    },
 };
 
 static const u8 gMenuCursorDimensions[][2] = 
@@ -192,7 +212,9 @@ static const u8 gMenuCursorDimensions[][2] =
     [FONT_NARROW]         = { 8,  15 },
     [FONT_SMALL_NARROW]   = { 8,   8 },
     [FONT_NARROWER]       = { 8,  15 },
-    [FONT_SMALL_NARROWER] = { 8,   8 }
+    [FONT_SMALL_NARROWER] = { 8,   8 },
+    [FONT_FRLG_NARROW]   = { 8,  14 },
+    [FONT_FRLG_NARROWER] = { 8,  14 }
 };
 
 static u16 CopyDecompressedTileDataToVram(u8 bgId, const void *src, u16 size, u16 offset, u8 mode);

@@ -327,6 +327,7 @@ i.e my changes/ renames I've made etc.
 //EE seems to have some things that just aren't in firered,
 //so I'll attempt add the narrow fonts separate rather than replacing this setup
 //don't know what short is or refers too
+//short in EE is actually Identical to FRLG Normal Font
 enum {
     FONT_SMALL,
     FONT_NORMAL_COPY_1,
@@ -340,8 +341,11 @@ enum {
     FONT_SMALL_NARROW,
     FONT_NARROWER,
     FONT_SMALL_NARROWER,
+    FONT_FRLG_NARROW, //font_short in EE
+    FONT_FRLG_NARROWER, //font short narrower in EE
 
-};
+};//need check more but font narrow and narrower aren't used
+//so mayu remove
 
 enum
 {
@@ -505,6 +509,8 @@ u16 FontFunc_Narrow(struct TextPrinter *textPrinter);
 u16 FontFunc_SmallNarrow(struct TextPrinter *textPrinter);
 u16 FontFunc_Narrower(struct TextPrinter *textPrinter);
 u16 FontFunc_SmallNarrower(struct TextPrinter *textPrinter);
+u16 FontFunc_FrLgNarrow(struct TextPrinter *textPrinter);
+u16 FontFunc_FrLgNarrower(struct TextPrinter *textPrinter);
 
 void TextPrinterInitDownArrowCounters(struct TextPrinter *textPrinter);
 void TextPrinterDrawDownArrow(struct TextPrinter *textPrinter);
