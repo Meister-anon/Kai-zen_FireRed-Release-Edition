@@ -4617,8 +4617,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     //lost location don't display if 0,
 
     //boxhp only set if is 0                
-    if (IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_HP, NULL) == 0)
-    && FlagGet(FLAG_SYS_POKEDEX_GET)
+    if (IsMonNuzlockeDead(party)
     && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
     {
         u8 boxHP = 0;

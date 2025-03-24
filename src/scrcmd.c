@@ -1962,12 +1962,11 @@ bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poiso
     u8 boxHP = 0;
     //u8 map = GetCurrentRegionMapSectionId();
 
-    if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)) //if has pokedex received pokeballs already
+    if (IsMonNuzlockeDead(&gPlayerParty[i])) //if has pokedex received pokeballs already
     {
         for (i = 0; i != PARTY_SIZE; i++)
         {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
-                SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
+            SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
 
         }
         

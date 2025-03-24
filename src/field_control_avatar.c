@@ -748,8 +748,7 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
 
         }//forgot exclude egg from check, its triggering for eggs
 
-        if (IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
-        && FlagGet(FLAG_SYS_POKEDEX_GET))
+        if (IsMonNuzlockeDead(&gPlayerParty[i]))
             found = FALSE; //ensure mon not counted if dead by nuzlocke clause
     }
 
@@ -808,8 +807,7 @@ static void UpdateHappinessStepCounter(void)
         struct Pokemon *mon = gPlayerParty;
         for (i = 0; i < PARTY_SIZE; i++)
         {
-            if (!(IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
-            && FlagGet(FLAG_SYS_POKEDEX_GET)))
+            if (!(IsMonNuzlockeDead(&gPlayerParty[i])))
             AdjustFriendship(mon, FRIENDSHIP_EVENT_WALKING);
             mon++;
         }

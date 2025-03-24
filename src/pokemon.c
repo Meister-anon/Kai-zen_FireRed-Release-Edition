@@ -3465,6 +3465,7 @@ void CalculateMonStats(struct Pokemon *mon)
 
 
     //feel like this is all I need?
+    //uses box hp keep as is
     if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
     && GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
     {   
@@ -3569,6 +3570,7 @@ void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
 
 
     //feel like this is all I need?
+    //uses box hp keep as is
     if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
     && GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
     {   
@@ -8052,8 +8054,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     
     if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
     || gItems[item].fieldUseFunc == NULL
-    || (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_HP, NULL) == 0)
-    && FlagGet(FLAG_SYS_POKEDEX_GET)))
+    || IsMonNuzlockeDead(mon))
         return TRUE;    //builds so hopefully works
         //ok now get it, was saying don't execute function if NOT oakstopsyou, 
         //when that was supposed to be the break condition ok lets try again
@@ -8690,8 +8691,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
 
     if (gItems[item].fieldUseFunc == FieldUseFunc_OakStopsYou
     || gItems[item].fieldUseFunc == NULL
-    || (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_HP, NULL) == 0)
-    && FlagGet(FLAG_SYS_POKEDEX_GET)))
+    || (IsMonNuzlockeDead(mon)))
         return TRUE;
         
     //if (!(IS_POKEMON_ITEM(item)) && !IS_POKEMON_ITEM2(item))  //based on crit calc this DOES need to be and, not or
@@ -11767,6 +11767,15 @@ bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
     if (shinyValue < SHINY_ODDS)
         retVal = TRUE;*/
     return 0;
+}
+
+bool8 IsMonNuzlockeDead(struct Pokemon *mon)
+{
+   if (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_HP, NULL) == 0)
+    && FlagGet(FLAG_SYS_POKEDEX_GET))
+        return TRUE;
+
+    return FALSE;
 }
 
 u8 *GetTrainerPartnerName(void)

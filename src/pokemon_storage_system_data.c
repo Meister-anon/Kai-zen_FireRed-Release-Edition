@@ -1053,6 +1053,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
             gender = GetMonGender(mon);
             gPSSData->cursorMonItem = GetMonData(mon, MON_DATA_HELD_ITEM);
 
+            //uses box hp so leave this
             if (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
             && FlagGet(FLAG_SYS_POKEDEX_GET))
             {

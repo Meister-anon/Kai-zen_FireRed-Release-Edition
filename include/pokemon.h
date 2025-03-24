@@ -876,6 +876,7 @@ struct ToneData *GetCryIdBySpecies(u16 species); //added for cry table rehash
 bool8 IsMonShiny(struct Pokemon *mon);
 bool8 IsBoxMonShiny(struct BoxPokemon *mon);
 bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
+bool8 IsMonNuzlockeDead(struct Pokemon *mon);
 const u32 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny);
 
 void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst);

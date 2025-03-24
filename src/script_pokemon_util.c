@@ -27,10 +27,10 @@ void HealPlayerParty(void)
     {
         u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
 
-        if ((IsNuzlockeModeOn() && (GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) == 0)
-        && FlagGet(FLAG_SYS_POKEDEX_GET)))
+        if (IsMonNuzlockeDead(&gPlayerParty[i]))
             continue;
         
+        //uses boxhp so keep as is
         else if (!(IsNuzlockeModeOn())
         && FlagGet(FLAG_SYS_POKEDEX_GET) && (GetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, NULL) == 0))
             SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &clearNuzlockeDeath);
