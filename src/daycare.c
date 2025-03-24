@@ -1473,6 +1473,8 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
 }
 
 //triggered when at daycare picking up egg
+//vsonic important attempt set egg species name here 
+//gText_EggNickname
 static void _GiveEggFromDaycare(struct DayCare *daycare)
 {
     struct Pokemon egg;

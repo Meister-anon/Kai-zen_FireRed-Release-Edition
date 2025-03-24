@@ -4149,7 +4149,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//should I drop priority on thsi?
+    //I did for flash freeze but that's incompaciating,
+    //that logic works keep all incompacitating moves at 0
+    
+
 
     [MOVE_MEMENTO] =
     {
