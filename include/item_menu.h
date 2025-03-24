@@ -19,6 +19,13 @@ struct BagStruct
     u16 cursorPos[3];
 };
 
+enum contextMenuState
+{
+    CONTEXT_ITEMS_POCKET,
+    CONTEXT_KEY_ITEMS_POCKET,
+    CONTEXT_POKEBALL_POCKET
+};
+
 extern struct BagStruct gBagMenuState;
 
 extern u16 gSpecialVar_ItemId;

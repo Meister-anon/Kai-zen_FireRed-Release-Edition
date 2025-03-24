@@ -9339,7 +9339,8 @@ goto ITEM_ICONS_TABLE //the actual table plus notes
 */
 
 
- goto ITEM_USE
+ goto ITEM_USE ///sets blah balh blah usage
+ goto SET_ITEM_USE_MENU_OPTIONS //sets item use options
 /* 
 * low cost of ev boost items.  1k or 2k per rebalance other things I like that cost economy balance
 * get incubator so can hatch eggs easily while on the go, would greatly speed up breeding as well

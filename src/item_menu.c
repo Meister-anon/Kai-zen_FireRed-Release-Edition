@@ -215,22 +215,32 @@ static const struct MenuAction sItemMenuContextActions[] = {
     [ITEMMENUACTION_DUMMY] = {gString_Dummy, {.void_u8 = NULL}}
 };
 
+//may be able to do better but for now,
+//is filteed based on bac pocket
+//0 for bag item, 1, for key items, 2 for pokeball
+#define SET_ITEM_USE_MENU_OPTIONS
 static const u8 sContextMenuItems_Field[][4] = {
+    [CONTEXT_ITEMS_POCKET] =
     {
         ITEMMENUACTION_USE,
         ITEMMENUACTION_GIVE,
         ITEMMENUACTION_TOSS,
         ITEMMENUACTION_CANCEL
-    }, {
+    },
+    [CONTEXT_KEY_ITEMS_POCKET] = 
+    {
         ITEMMENUACTION_USE,
         ITEMMENUACTION_REGISTER,
         ITEMMENUACTION_CANCEL,
         ITEMMENUACTION_DUMMY
-    }, {
+    }, 
+    [CONTEXT_POKEBALL_POCKET] =
+    {
+        ITEMMENUACTION_USE,
         ITEMMENUACTION_GIVE,
         ITEMMENUACTION_TOSS,
         ITEMMENUACTION_CANCEL,
-        ITEMMENUACTION_DUMMY
+        
     }
 };
 
@@ -1402,7 +1412,7 @@ static void OpenContextMenu(u8 taskId)
                 sContextMenuItemsPtr = sContextMenuItemsBuffer;
                 sContextMenuNumItems = 3;
                 sContextMenuItemsBuffer[2] = ITEMMENUACTION_CANCEL;
-                if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId) // can do global exp share like this
+                if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
                     sContextMenuItemsBuffer[1] = ITEMMENUACTION_DESELECT;
                 else
                     sContextMenuItemsBuffer[1] = ITEMMENUACTION_REGISTER;
@@ -1415,7 +1425,7 @@ static void OpenContextMenu(u8 taskId)
                 break;
             case OPEN_BAG_POKEBALLS:
                 sContextMenuItemsPtr = sContextMenuItems_Field[gBagMenuState.pocket];
-                sContextMenuNumItems = 3;
+                sContextMenuNumItems = 4; //change from 3 test
                 break;
             }
         }
