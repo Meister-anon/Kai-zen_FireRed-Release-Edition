@@ -43,9 +43,9 @@ static EWRAM_DATA void (*sItemUseOnFieldCB)(u8 taskId) = NULL;
 static void FieldCB_FadeInFromBlack(void);
 static void Task_WaitFadeIn_CallItemUseOnFieldCB(u8 taskId);
 static void Task_ItemUse_CloseMessageBoxAndReturnToField(u8 taskId);
-static void sub_80A11C0(u8 taskId);
-static bool8 sub_80A1194(void);
-static void sub_80A1208(void);
+static void Task_ItemUseWaitForFade(u8 taskId);
+static bool8 FieldCB2_UseItemFromField(void);
+static void CB2_CheckMail(void);
 static void ItemUseOnFieldCB_Bicycle(u8 taskId);
 static bool8 ItemUseCheckFunc_Rod(void);
 static void ItemUseOnFieldCB_Rod(u8 taskId);
@@ -128,13 +128,13 @@ static const u8 sUnref_83E27B4[] = {
 
 //means only type values of value 1 and 2 have any real meaning?
 static void (*const sExitCallbackByItemType[])(void) = {
-    CB2_ShowPartyMenuForItemUse,
-    CB2_ReturnToField,
-    NULL,
-    NULL
+    [ITEM_TYPE_PARTY_MENU - 1] = CB2_ShowPartyMenuForItemUse,
+    [ITEM_TYPE_FIELD      - 1] = CB2_ReturnToField,
+    [ITEM_TYPE_UNUSED     - 1] = NULL,
+    [ITEM_TYPE_BAG_MENU   - 1] = NULL,
 };
 
-static void Task_FadeOuFromBackToField(u8 taskId)
+static void SetUpItemUseCallback(u8 taskId)
 {
     u8 itemType;
     if (gSpecialVar_ItemId == ITEM_ENIGMA_BERRY)
@@ -149,18 +149,18 @@ static void Task_FadeOuFromBackToField(u8 taskId)
     else
     {
         ItemMenu_SetExitCallback(sExitCallbackByItemType[itemType]);
-        if (itemType == 1)
+        if (itemType == ITEM_TYPE_FIELD - 1)
             Bag_BeginCloseWin0Animation();
         ItemMenu_StartFadeToExitCallback(taskId);
     }
 }
 
-static void sub_80A103C(u8 taskId)
+static void SetUpItemUseOnFieldCallback(u8 taskId)
 {
     if (gTasks[taskId].data[3] != 1)
     {
         gFieldCallback = FieldCB_FadeInFromBlack;
-        Task_FadeOuFromBackToField(taskId);
+        SetUpItemUseCallback(taskId);
     }
     else
         sItemUseOnFieldCB(taskId);
@@ -212,22 +212,22 @@ u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId)
         return 0;
 }
 
-static void sub_80A1184(void)
+static void SetFieldCallback2ForItemUse(void)
 {
-    gFieldCallback2 = sub_80A1194;
+    gFieldCallback2 = FieldCB2_UseItemFromField;
 }
 
-static bool8 sub_80A1194(void)
+static bool8 FieldCB2_UseItemFromField(void)
 {
     FreezeObjectEvents();
     LockPlayerFieldControls();
     FadeInFromBlack();
-    CreateTask(sub_80A11C0, 10);
+    CreateTask(Task_ItemUseWaitForFade, 10);
     gUnknown_2031DE0 = 0;
     return TRUE;
 }
 
-static void sub_80A11C0(u8 taskId)
+static void Task_ItemUseWaitForFade(u8 taskId)
 {
     if (IsWeatherNotFadingIn() == TRUE)
     {
@@ -237,13 +237,13 @@ static void sub_80A11C0(u8 taskId)
     }
 }
 
-void FieldUseFunc_OrangeMail(u8 taskId)
+void FieldUseFunc_Mail(u8 taskId)
 {
-    ItemMenu_SetExitCallback(sub_80A1208);
+    ItemMenu_SetExitCallback(CB2_CheckMail);
     ItemMenu_StartFadeToExitCallback(taskId);
 }
 
-static void sub_80A1208(void)
+static void CB2_CheckMail(void)
 {
     struct MailStruct mail;
 
@@ -268,7 +268,7 @@ void FieldUseFunc_MachBike(u8 taskId)
     else if (Overworld_IsBikingAllowed() == TRUE && !MetatileAtPlayerPositionForbidsBiking())
     {
         sItemUseOnFieldCB = ItemUseOnFieldCB_Bicycle;
-        sub_80A103C(taskId);
+        SetUpItemUseOnFieldCallback(taskId);
     }
     else
         PrintNotTheTimeToUseThat(taskId, gTasks[taskId].data[3]);
@@ -289,7 +289,7 @@ void FieldUseFunc_FishingRod(u8 taskId)
     if (ItemUseCheckFunc_Rod() == TRUE)
     {
         sItemUseOnFieldCB = ItemUseOnFieldCB_Rod;
-        sub_80A103C(taskId);
+        SetUpItemUseOnFieldCallback(taskId);
     }
     else
         PrintNotTheTimeToUseThat(taskId, gTasks[taskId].data[3]);
@@ -338,7 +338,7 @@ void ItemUseOutOfBattle_Itemfinder(u8 taskId)
 {
     IncrementGameStat(GAME_STAT_USED_ITEMFINDER);
     sItemUseOnFieldCB = ItemUseOnFieldCB_Itemfinder;
-    sub_80A103C(taskId);
+    SetUpItemUseOnFieldCallback(taskId);
 }
 
 void FieldUseFunc_CoinCase(u8 taskId)
@@ -409,51 +409,70 @@ static void sub_80A1674(u8 taskId)
     }
 }
 
-static void sub_80A16D0(u8 taskId)
+static void DoSetUpItemUseCallback(u8 taskId)
 {
-    Task_FadeOuFromBackToField(taskId);
+    SetUpItemUseCallback(taskId);
+}
+
+//ok see if this is usable
+void FieldUseFunc_PokeBallEtc(u8 taskId)
+{
+
+    gItemUseCB = ItemUseCB_PokeBall;
+    DoSetUpItemUseCallback(taskId);
+
+    /*if (!IsPlayerPartyAndPokemonStorageFull())
+    {
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        Bag_BeginCloseWin0Animation();
+        ItemMenu_StartFadeToExitCallback(taskId);
+    }
+    else
+    {
+        DisplayItemMessageInBag(taskId, 2, gUnknown_8416631, Task_ReturnToBagFromContextMenu);
+    }*/
 }
 
 void FieldUseFunc_Medicine(u8 taskId)
 {
     gItemUseCB = ItemUseCB_Medicine;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_Ether(u8 taskId)
 {
     gItemUseCB = ItemUseCB_PPRecovery;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_PpUp(u8 taskId)
 {
     gItemUseCB = ItemUseCB_PPUp;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_RareCandy(u8 taskId)
 {
     gItemUseCB = ItemUseCB_RareCandy;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_EvoItem(u8 taskId)
 {
     gItemUseCB = ItemUseCB_EvolutionStone;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_RegionalVial(u8 taskId)
 {
     gItemUseCB = ItemUseCB_Medicine;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_SacredAsh(u8 taskId)
 {
     gItemUseCB = ItemUseCB_SacredAsh;
-    Task_FadeOuFromBackToField(taskId);
+    SetUpItemUseCallback(taskId);
 }
 
 void FieldUseFunc_TmCase(u8 taskId)
@@ -479,7 +498,7 @@ static void InitTMCaseFromBag(void)
 void FieldUseFunc_AbilityCapsule(u8 taskId)
 {
     gItemUseCB = ItemUseCB_AbilityCapsule;
-    sub_80A16D0(taskId);
+    DoSetUpItemUseCallback(taskId);
 }
 
 static void Task_InitTMCaseFromField(u8 taskId)
@@ -487,7 +506,7 @@ static void Task_InitTMCaseFromField(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        sub_80A1184();
+        SetFieldCallback2ForItemUse();
         InitTMCase(0, CB2_ReturnToField, 1);
         DestroyTask(taskId);
     }
@@ -518,7 +537,7 @@ static void Task_InitBerryPouchFromField(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        sub_80A1184();
+        SetFieldCallback2ForItemUse();
         InitBerryPouch(BERRYPOUCH_FROMFIELD, CB2_ReturnToField, 1);
         DestroyTask(taskId);
     }
@@ -561,7 +580,7 @@ static void Task_InitTeachyTvFromField(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        sub_80A1184();
+        SetFieldCallback2ForItemUse();
         InitTeachyTvController(0, CB2_ReturnToField);
         DestroyTask(taskId);
     }
@@ -669,7 +688,7 @@ void ItemUseOutOfBattle_EscapeRope(u8 taskId)
     {
         ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, gSpecialVar_ItemId, gMapHeader.regionMapSectionId);
         sItemUseOnFieldCB = sub_80A1C08;
-        sub_80A103C(taskId);
+        SetUpItemUseOnFieldCallback(taskId);
     }
     else
         PrintNotTheTimeToUseThat(taskId, gTasks[taskId].data[3]);
@@ -715,7 +734,7 @@ static void sub_80A1CC0(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        sub_80A1184();
+        SetFieldCallback2ForItemUse();
         InitRegionMapWithExitCB(REGIONMAP_TYPE_NORMAL, CB2_ReturnToField);
         DestroyTask(taskId);
     }
@@ -747,7 +766,7 @@ static void sub_80A1D68(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        sub_80A1184();
+        SetFieldCallback2ForItemUse();
         UseFameChecker(CB2_ReturnToField);
         DestroyTask(taskId);
     }
@@ -769,7 +788,7 @@ void FieldUseFunc_VsSeeker(u8 taskId)
     else
     {
         sItemUseOnFieldCB = Task_VsSeeker_0;
-        sub_80A103C(taskId);
+        SetUpItemUseOnFieldCallback(taskId);
     }
 }
 

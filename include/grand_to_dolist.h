@@ -3828,6 +3828,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     could give varying levels of money/coins or a rare amulet coin 
     3/16/2025
     
+    Idea setup pokeballs with use function/option
+    idea is able to swap pokeballs for mon whenever you want.
+    so even if you don't catch a mon in a ball you can change the ball later
+    but it consumes the ball you "use"
+    3/24/2025
 
     NOTE**(
 

@@ -61,6 +61,7 @@ void CB2_ReturnToPartyMenuFromFlyMap(void);
 void SetUsedFlyQuestLogEvent(const u8 *healLocCtrlData);
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc func);
+void ItemUseCB_PokeBall(u8 taskId, TaskFunc func);
 void ItemUseCB_MedicineStep(u8 taskId, TaskFunc func);
 void ItemUseCB_PPRecovery(u8 taskId, UNUSED TaskFunc func);
 void ItemUseCB_PPUp(u8 taskId, UNUSED TaskFunc func);

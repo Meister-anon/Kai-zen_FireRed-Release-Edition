@@ -32,6 +32,16 @@ struct BagPocket
     u8 capacity;
 };
 
+// Item type IDs (used to determine the exit callback)
+enum {
+    ITEM_TYPE_MAIL,
+    ITEM_TYPE_PARTY_MENU,
+    ITEM_TYPE_FIELD,
+    ITEM_TYPE_UNUSED, // Used for Pokeblock case in RSE
+    ITEM_TYPE_BAG_MENU, // No exit callback, stays in bag menu
+};
+
+
 extern const struct Item gItems[];
 extern struct BagPocket gBagPockets[];
 

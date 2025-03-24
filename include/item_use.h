@@ -6,12 +6,13 @@
 void Task_ItemUse_CloseMessageBoxAndReturnToField_VsSeeker(u8);
 void ItemUse_SetQuestLogEvent(u8, struct Pokemon *, u16, u16);
 
-void FieldUseFunc_OrangeMail(u8 taskId);
+void FieldUseFunc_Mail(u8 taskId);
 void FieldUseFunc_MachBike(u8 taskId);
 void FieldUseFunc_FishingRod(u8 taskId);
 void FieldUseFunc_CoinCase(u8 taskId);
 void FieldUseFunc_PowderJar(u8 taskId);
 void FieldUseFunc_PokeFlute(u8 taskId);
+void FieldUseFunc_PokeBallEtc(u8 taskId);
 void FieldUseFunc_Medicine(u8 taskId);
 void FieldUseFunc_AbilityCapsule(u8 taskId);
 void FieldUseFunc_Ether(u8 taskId);

@@ -30,7 +30,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_POKE
     },
@@ -47,7 +47,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_GREAT
     },
@@ -64,7 +64,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_SAFARI
     },
@@ -82,7 +82,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_ULTRA
     },
@@ -99,7 +99,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_MASTER
     },
@@ -117,7 +117,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_NET
     },
@@ -134,7 +134,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_DIVE
     },
@@ -151,7 +151,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_NEST
     },
@@ -168,7 +168,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_REPEAT
     },
@@ -185,7 +185,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_TIMER
     },
@@ -202,7 +202,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_LUXURY
     },
@@ -219,7 +219,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_POKE_BALLS,
       .type = ITEM_USE_BAG_MENU,
-      .fieldUseFunc = NULL,
+      .fieldUseFunc = FieldUseFunc_PokeBallEtc,
       .battleUseFunc = BattleUseFunc_PokeBallEtc,
       .secondaryId =  BALL_PREMIER
     },
@@ -2073,7 +2073,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 0,
       .pocket = POCKET_ITEMS,
       .type = 0,
-      .fieldUseFunc = FieldUseFunc_OakStopsYou,//FieldUseFunc_OrangeMail,
+      .fieldUseFunc = FieldUseFunc_OakStopsYou,//FieldUseFunc_Mail,
       .battleUseFunc = NULL,
       .secondaryId =  0
     },

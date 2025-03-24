@@ -5253,11 +5253,37 @@ static bool8 ExecuteTableBasedItemEffect_(u8 partyMonIndex, u16 item, u8 monMove
         return ExecuteTableBasedItemEffect(&gPlayerParty[partyMonIndex], item, partyMonIndex, monMoveIndex);
 }
 
-void ItemUseCB_RegionalVial(u8 taskId, TaskFunc func)
+//was regionvial callback never used,
+//thinnk repurpose for pokeballs
+//can setup base effect but will need to disable for nuzlocke dead mon
+void ItemUseCB_PokeBall(u8 taskId, TaskFunc func)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     u16 item = gSpecialVar_ItemId;
-    bool8 canUse = FALSE;
+    bool8 canUse = TRUE;
+    u16 currentball = GetMonData(mon, MON_DATA_POKEBALL, NULL);
+
+    if (item == currentball || IsMonNuzlockeDead(mon))
+        canUse = FALSE;
+
+    if (canUse)
+    {
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, item, 0xFFFF);
+        RemoveBagItem(item, 1);
+        SetMonData(mon, MON_DATA_POKEBALL, &item);
+        Task_DoUseItemAnim(taskId); //potentially see if can make only pokeball left after use?
+        //set false if mon is dead/nuzlocke mode on       
+
+    }
+    else
+    {
+        gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_SELECT);
+            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = func;
+    }
+    
 } //actually can potentially just use medicine call back just need add extra stuff
 
 void ItemUseCB_Medicine(u8 taskId, TaskFunc func)
