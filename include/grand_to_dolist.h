@@ -3832,6 +3832,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     idea is able to swap pokeballs for mon whenever you want.
     so even if you don't catch a mon in a ball you can change the ball later
     but it consumes the ball you "use"
+    -done also setup return used pokeball on swap
     3/24/2025
 
     NOTE**(

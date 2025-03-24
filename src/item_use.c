@@ -128,10 +128,11 @@ static const u8 sUnref_83E27B4[] = {
 
 //means only type values of value 1 and 2 have any real meaning?
 static void (*const sExitCallbackByItemType[])(void) = {
-    [ITEM_TYPE_PARTY_MENU - 1] = CB2_ShowPartyMenuForItemUse,
-    [ITEM_TYPE_FIELD      - 1] = CB2_ReturnToField,
-    [ITEM_TYPE_UNUSED     - 1] = NULL,
-    [ITEM_TYPE_BAG_MENU   - 1] = NULL,
+    [ITEM_TYPE_PARTY_MENU   - 1] = CB2_ShowPartyMenuForItemUse,
+    [ITEM_TYPE_FIELD        - 1] = CB2_ReturnToField,
+    [ITEM_TYPE_BAG_OR_PARTY - 1] = NULL,
+    [ITEM_TYPE_UNUSED       - 1] = NULL,
+    [ITEM_TYPE_BAG_MENU     - 1] = NULL,
 };
 
 static void SetUpItemUseCallback(u8 taskId)
@@ -141,13 +142,22 @@ static void SetUpItemUseCallback(u8 taskId)
         itemType = gTasks[taskId].data[4] - 1; //use item effect?
     else
         itemType = ItemId_GetType(gSpecialVar_ItemId) - 1; //otherwise use type field
+    
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_BERRY_POUCH)
     {
         BerryPouch_SetExitCallback(sExitCallbackByItemType[itemType]);
         BerryPouch_StartFadeToExitCallback(taskId);
     }
     else
-    {
+    {   
+        //secifically for new pokeball use effect
+        if (itemType == ITEM_TYPE_BAG_OR_PARTY - 1)
+        {
+            if (gMain.inBattle)
+                itemType = (ITEM_TYPE_BAG_MENU     - 1);
+            else
+                itemType = (ITEM_TYPE_PARTY_MENU   - 1);
+        } 
         ItemMenu_SetExitCallback(sExitCallbackByItemType[itemType]);
         if (itemType == ITEM_TYPE_FIELD - 1)
             Bag_BeginCloseWin0Animation();

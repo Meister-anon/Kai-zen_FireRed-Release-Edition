@@ -342,6 +342,7 @@ static void Task_StopLearningMoveYesNo(u8 taskId);
 static void Task_HandleStopLearningMoveYesNoInput(u8 taskId);
 static void Task_TryLearningNextMoveAfterText(u8 taskId);
 static void ItemUseCB_RareCandyStep(u8 taskId, UNUSED TaskFunc func);
+static void ItemUseCB_PokeBallStep(u8 taskId, UNUSED TaskFunc func);
 static void Task_DisplayLevelUpStatsPg1(u8 taskId);
 static void Task_DisplayLevelUpStatsPg2(u8 taskId);
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon);
@@ -5256,6 +5257,8 @@ static bool8 ExecuteTableBasedItemEffect_(u8 partyMonIndex, u16 item, u8 monMove
 //was regionvial callback never used,
 //thinnk repurpose for pokeballs
 //can setup base effect but will need to disable for nuzlocke dead mon
+//without using step function, and gItemUseCB, the function retriggered/looped
+//and activated both true and false code blocks
 void ItemUseCB_PokeBall(u8 taskId, TaskFunc func)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -5266,25 +5269,48 @@ void ItemUseCB_PokeBall(u8 taskId, TaskFunc func)
     if (item == currentball || IsMonNuzlockeDead(mon))
         canUse = FALSE;
 
+    PlaySE(SE_SELECT);
     if (canUse)
     {
-        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, item, 0xFFFF);
-        RemoveBagItem(item, 1);
-        SetMonData(mon, MON_DATA_POKEBALL, &item);
+
+        AddBagItem(currentball, 1);
         Task_DoUseItemAnim(taskId); //potentially see if can make only pokeball left after use?
-        //set false if mon is dead/nuzlocke mode on       
+        gItemUseCB = ItemUseCB_PokeBallStep;       
 
     }
     else
     {
+        //it works have no idea if this is necessary
         gPartyMenuUseExitCallback = FALSE;
-            PlaySE(SE_SELECT);
-            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
-            ScheduleBgCopyTilemapToVram(2);
-            gTasks[taskId].func = func;
+            
+        GetMonNickname(mon, gStringVar1);
+        if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/
+            GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
+        StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} is already\nin that POKé BALL.{PAUSE_UNTIL_PRESS}"));
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = func;
     }
     
-} //actually can potentially just use medicine call back just need add extra stuff
+}
+
+static void ItemUseCB_PokeBallStep(u8 taskId, UNUSED TaskFunc func)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    
+    gPartyMenuUseExitCallback = TRUE;
+    ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, mon, gSpecialVar_ItemId, 0xFFFF);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    SetMonData(mon, MON_DATA_POKEBALL, &gSpecialVar_ItemId);
+
+    GetMonNickname(mon, gStringVar1);
+    if (StringCompare(gBaseStats[GetMonData(mon,MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/
+        GetSpeciesName(gStringVar1, GetMonData(mon,MON_DATA_SPECIES));
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("{STR_VAR_1} swapped\nPOKé BALLS.{PAUSE_UNTIL_PRESS}"));
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+}
 
 void ItemUseCB_Medicine(u8 taskId, TaskFunc func)
 {
