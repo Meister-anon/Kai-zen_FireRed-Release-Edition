@@ -424,23 +424,17 @@ static void DoSetUpItemUseCallback(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
-//ok see if this is usable
+//works still todo onboard feature,
+//think change start menu girl to  intead
+//ask player if they know they can swap pokeballs from bag
+//think setup like options,
+//should be a flag check, set on new game without save
+//so it wouldn't trigger every single new game
 void FieldUseFunc_PokeBallEtc(u8 taskId)
 {
 
     gItemUseCB = ItemUseCB_PokeBall;
     DoSetUpItemUseCallback(taskId);
-
-    /*if (!IsPlayerPartyAndPokemonStorageFull())
-    {
-        RemoveBagItem(gSpecialVar_ItemId, 1);
-        Bag_BeginCloseWin0Animation();
-        ItemMenu_StartFadeToExitCallback(taskId);
-    }
-    else
-    {
-        DisplayItemMessageInBag(taskId, 2, gUnknown_8416631, Task_ReturnToBagFromContextMenu);
-    }*/
 }
 
 void FieldUseFunc_Medicine(u8 taskId)
