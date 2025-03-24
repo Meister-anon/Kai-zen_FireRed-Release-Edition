@@ -4471,7 +4471,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 1,
       .pocket = POCKET_KEY_ITEMS,
       .type = ITEM_USE_FIELD,
-      .fieldUseFunc = FieldUseFunc_OldRod,
+      .fieldUseFunc = FieldUseFunc_FishingRod,
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
@@ -4488,7 +4488,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 1,
       .pocket = POCKET_KEY_ITEMS,
       .type = ITEM_USE_FIELD,
-      .fieldUseFunc = FieldUseFunc_OldRod,
+      .fieldUseFunc = FieldUseFunc_FishingRod,
       .battleUseFunc = NULL,
       .secondaryId =  1
     },
@@ -4505,7 +4505,7 @@ const struct Item gItems[] =
       .exitsBagOnUse = 1,
       .pocket = POCKET_KEY_ITEMS,
       .type = ITEM_USE_FIELD,
-      .fieldUseFunc = FieldUseFunc_OldRod,
+      .fieldUseFunc = FieldUseFunc_FishingRod,
       .battleUseFunc = NULL,
       .secondaryId =  2
     },

@@ -682,15 +682,16 @@ static void SetUpListMenuTemplate(void)
     gMultiuseListMenuTemplate.scrollMultiple = 0;
 }
 
+//setup just like tm case smh
 static void GetBerryNameAndIndexForMenu(u8 * dest, u16 itemId)
 {
-    StringCopy(gStringVar4, gText_FontSize0);
+    StringCopy(gStringVar4, gText_FontSizeSmall);
     StringAppend(gStringVar4, gOtherText_UnkF9_08_Clear_01);
     ConvertIntToDecimalStringN(gStringVar1, itemId - FIRST_BERRY_INDEX + 1, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringAppend(gStringVar4, gStringVar1);
     CopyItemName(itemId, gStringVar1);
     StringAppend(gStringVar4, sText_Space);
-    StringAppend(gStringVar4, gText_FontSize2);
+    StringAppend(gStringVar4, gText_FontSizeNormal);
     StringAppend(gStringVar4, gStringVar1);
     StringCopy(dest, gStringVar4);
 }

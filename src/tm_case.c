@@ -158,8 +158,8 @@ static void PrintError_ItemCantBeHeld(u8 taskId);
 static void Task_WaitButtonAfterErrorPrint(u8 taskId);
 static void Subtask_CloseContextMenuAndReturnToMain(u8 taskId);
 static void TMHMContextMenuAction_Exit(u8 taskId);
-static void Task_SelectTMAction_Type1(u8 taskId);
-static void Task_SelectTMAction_Type3(u8 taskId);
+static void Task_SelectTMAction_GiveItemFromParty(u8 taskId);
+static void Task_SelectTMAction_GiveItemFromPc(u8 taskId);
 static void Task_SelectTMAction_FromSellMenu(u8 taskId);
 static void Task_AskConfirmSaleWithAmount(u8 taskId);
 static void Task_PlaceYesNoBox(u8 taskId);
@@ -228,9 +228,9 @@ static const struct BgTemplate sBGTemplates[] = {
 
 static void (*const sSelectTMActionTasks[])(u8 taskId) = {
     Task_SelectTMAction_FromFieldBag,
-    Task_SelectTMAction_Type1,
+    Task_SelectTMAction_GiveItemFromParty,
     Task_SelectTMAction_FromSellMenu,
-    Task_SelectTMAction_Type3
+    Task_SelectTMAction_GiveItemFromPc
 };
 
 static const struct MenuAction sMenuActions_UseGiveExit[] = {
@@ -255,6 +255,7 @@ static const u8 sTextColors[][3] = {
     [COLOR_MOVE_INFO] = {0, 14, 10},
 };
 
+//figure what these do / kept using for mart sell tms
 static const struct WindowTemplate sWindowTemplates[] = {
     [WIN_LIST] = {
         .bg = 0,
@@ -327,7 +328,7 @@ static const struct WindowTemplate sWindowTemplates[] = {
         .height = 4,
         .paletteNum = 15,
         .baseBlock = 0x310
-    },
+    },//think the tm case window shows moves and quantity
     [WIN_MONEY] = {
         .bg = 1,
         .tilemapLeft = 1,
@@ -340,7 +341,7 @@ static const struct WindowTemplate sWindowTemplates[] = {
     DUMMY_WIN_TEMPLATE
 };
 
-
+//version from port for new tm case update
 static const struct WindowTemplate sWindowTemplates2[] = {
     [WIN_LIST] = {
         .bg = 0,
@@ -767,7 +768,7 @@ static void InitTMCaseListMenuItems(void)
     sListMenuItemsBuffer[i].index = -2;
     gMultiuseListMenuTemplate.items = sListMenuItemsBuffer;
     gMultiuseListMenuTemplate.totalItems = sTMCaseDynamicResources->numTMs_HMs + 1;
-    gMultiuseListMenuTemplate.windowId = 0;
+    gMultiuseListMenuTemplate.windowId = WIN_LIST;
     gMultiuseListMenuTemplate.header_X = 0;
     gMultiuseListMenuTemplate.item_X = 8;
     gMultiuseListMenuTemplate.cursor_X = 0;
@@ -775,8 +776,8 @@ static void InitTMCaseListMenuItems(void)
     gMultiuseListMenuTemplate.itemVerticalPadding = 2;
     gMultiuseListMenuTemplate.upText_Y = 2;
     gMultiuseListMenuTemplate.maxShowed = sTMCaseDynamicResources->maxTMs_Hms_Shown;
-    gMultiuseListMenuTemplate.fontId = 2;
-    gMultiuseListMenuTemplate.cursorPal = 2;
+    gMultiuseListMenuTemplate.fontId = FONT_NORMAL; //this doesn't appear to do anything?
+    gMultiuseListMenuTemplate.cursorPal = 2; //wrong it does something setting font to narrower, broke all display for tm case...
     gMultiuseListMenuTemplate.fillValue = 0;
     gMultiuseListMenuTemplate.cursorShadowPal = 3;
     gMultiuseListMenuTemplate.moveCursorFunc = TMCase_MoveCursorFunc;
@@ -890,6 +891,7 @@ static void TMCase_MoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *
     TMCase_MoveCursor_UpdatePrintedTMInfo(itemId);
 }
 
+//ok so this is onlyu relevant on the for sale screen?
 static void TMCase_ItemPrintFunc(u8 windowId, s32 itemId, u8 y)
 {
     if (itemId != -2) //this seems to be same as itemIndex??
@@ -1123,6 +1125,7 @@ static void Subtask_ReturnToTMCaseMain(u8 taskId)
     gTasks[taskId].func = Task_TMCaseMain;
 }
 
+//I cant tell what strbuf in this does?? nor the entire function?
 static void Task_SelectTMAction_FromFieldBag(u8 taskId)
 {
     u8 * strbuf;
@@ -1144,7 +1147,7 @@ static void Task_SelectTMAction_FromFieldBag(u8 taskId)
     strbuf = Alloc(256);
     GetTMNumberAndMoveString(strbuf, gSpecialVar_ItemId);
     StringAppend(strbuf, gText_Var1IsSelected + 2); // +2 skips over the stringvar
-    AddTextPrinterParameterized_ColorByIndex(2, 2, strbuf, 0, 2, 0, 0, 0, 1);
+    AddTextPrinterParameterized_ColorByIndex(2, FONT_NORMAL, strbuf, 0, 2, 0, 0, 0, 1);
     Free(strbuf);
     
     //RemoveTMContextMenu(&sTMCaseDynamicResources->contextMenuWindowId); //below is essentially this funtion, but couldnt get to take arg 2
@@ -1278,7 +1281,7 @@ static void TMHMContextMenuAction_Exit(u8 taskId)
     Subtask_ReturnToTMCaseMain(taskId);
 }
 
-static void Task_SelectTMAction_Type1(u8 taskId)
+static void Task_SelectTMAction_GiveItemFromParty(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
 
@@ -1293,7 +1296,7 @@ static void Task_SelectTMAction_Type1(u8 taskId)
     }
 }
 
-static void Task_SelectTMAction_Type3(u8 taskId)
+static void Task_SelectTMAction_GiveItemFromPc(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
 
@@ -1328,7 +1331,7 @@ static void Task_SelectTMAction_FromSellMenu(u8 taskId)
         }
         else
         {
-            if (data[2] > 99)
+            if (data[2] > 99)//quantity
                 data[2] = 99;
             CopyItemName(gSpecialVar_ItemId, gStringVar1);
             StringExpandPlaceholders(gStringVar4, gText_HowManyWouldYouLikeToSell);

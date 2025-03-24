@@ -91,13 +91,19 @@ $(FONTGFXDIR)/font6.fwjpnfont: $(FONTGFXDIR)/font6_braille.png
 $(FONTGFXDIR)/narrow.latfont: $(FONTGFXDIR)/latin_narrow.png
 	$(GFX) $< $@
 
-$(FONTGFXDIR)/small_narrow.latfont: $(FONTGFXDIR)/latin_small_narrow.png
-	$(GFX) $< $@
-
 $(FONTGFXDIR)/narrower.latfont: $(FONTGFXDIR)/latin_narrower.png
 	$(GFX) $< $@
 
+$(FONTGFXDIR)/small_narrow.latfont: $(FONTGFXDIR)/latin_small_narrow.png
+	$(GFX) $< $@
+
 $(FONTGFXDIR)/small_narrower.latfont: $(FONTGFXDIR)/latin_small_narrower.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/short_narrow.latfont: $(FONTGFXDIR)/latin_FRLG_narrow.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/short_narrower.latfont: $(FONTGFXDIR)/latin_FRLG_narrower.png
 	$(GFX) $< $@
 
 $(FONTGFXDIR)/font9_jap.fwjpnfont: $(FONTGFXDIR)/font9_jap.png

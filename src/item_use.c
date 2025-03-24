@@ -284,7 +284,7 @@ static void ItemUseOnFieldCB_Bicycle(u8 taskId)
     DestroyTask(taskId);
 }
 
-void FieldUseFunc_OldRod(u8 taskId)
+void FieldUseFunc_FishingRod(u8 taskId)
 {
     if (ItemUseCheckFunc_Rod() == TRUE)
     {
@@ -307,12 +307,12 @@ static bool8 ItemUseCheckFunc_Rod(void)
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
     behavior = MapGridGetMetatileBehaviorAt(x, y);
 
+    if (!FlagGet(FLAG_SYS_POKEMON_GET))
+        return FALSE;
     if (MetatileBehavior_IsWaterfall(behavior))
         return FALSE;
     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_UNDERWATER))
-        return FALSE;
-    if (!FlagGet(FLAG_SYS_POKEMON_GET))
-        return FALSE;
+        return FALSE;    
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {
         if (IsPlayerFacingSurfableFishableWater())

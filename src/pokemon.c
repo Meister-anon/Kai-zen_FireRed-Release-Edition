@@ -7752,7 +7752,7 @@ void GetMoveName(u8 *name, u16 move)
         // Hmm? FRLG has < while Ruby/Emerald has <=
         for (i = 0; i < MOVE_NAME_LENGTH; i++)
         {
-            if (move > NUM_SPECIES)
+            if (move > MOVES_COUNT)
                 name[i] = gMoveNames[0][i];
             else
                 name[i] = gMoveNames[move][i];
@@ -7762,6 +7762,7 @@ void GetMoveName(u8 *name, u16 move)
         }
 
     name[i] = EOS;
+    
    //if should cap species
    //does simple Char replacement, no buffers/placeholders necessary
    //this way cap species char will never trigger, if works for scripts should be able to remove all and save space
@@ -7775,6 +7776,8 @@ void GetMoveName(u8 *name, u16 move)
 void GetItemName(u8 *name, u16 item)
 {
     s32 i;
+    //u16 pocket = ItemId_GetPocket(item); careful where I put item could be referenced outside pocket
+    //u8 *end;
 
         // Hmm? FRLG has < while Ruby/Emerald has <=
         for (i = 0; i < ITEM_NAME_LENGTH; i++)
@@ -7789,12 +7792,24 @@ void GetItemName(u8 *name, u16 item)
         }//changed to greater or equal as realized items count doesn't have anentry either
 
     name[i] = EOS;
+    //end = name;
    //if should cap species
    //does simple Char replacement, no buffers/placeholders necessary
    //this way cap species char will never trigger, if works for scripts should be able to remove all and save space
     
     if (ShouldCapitalizeItems())
-        CapializeString(name); 
+        CapializeString(name);
+
+    /*switch (pocket)
+    {
+        case POCKET_BERRY_POUCH:
+            PrependFontIdToFit(name, end, FONT_FRLG_NARROW, 61);
+        break;
+        default:
+            PrependFontIdToFit(name, end, FONT_FRLG_NARROW, 88);
+        break;
+    }*/
+    
 
     //this setup works
 }
