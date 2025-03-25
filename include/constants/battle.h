@@ -174,7 +174,7 @@
 #define STATUS2_NOTHING               (1 << 6)
 //#define STATUS2_UPROAR_TURN(num)      ((num) << 4)
 #define STATUS2_EMERGENCY_EXIT        (1 << 7)	//use for emergency exit
-#define STATUS2_BIDE                  (1 << 8) //w timer don't need take up 8 and 9 //will prob eventually remove all timer flags replace w struct values
+#define STATUS2_BIDE                  (1 << 8)
 #define STATUS2_SWITCH_LOCKED         (1 << 9)// new status for spirit shackle, escape prevention on a timer, not locked to battler
 //#define STATUS2_BIDE_TURN(num)        (((num) << 8) & STATUS2_BIDE)
 #define STATUS2_LOCK_CONFUSE          (1 << 10) // e.g. Thrash

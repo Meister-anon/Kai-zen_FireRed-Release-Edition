@@ -5322,6 +5322,7 @@ BattleScript_EffectSkullBash::
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_SkullBashEnd::
+	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
 	jumpifnotholdeffect BS_ATTACKER, HOLD_EFFECT_POWER_HERB, BattleScript_MoveEnd
 	call BattleScript_PowerHerbActivation
 	goto BattleScript_TwoTurnMovesSecondTurn
@@ -5339,6 +5340,7 @@ BattleScript_EffectSkyAttack::
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_SkyAttackEnd::
+	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
 	jumpifnotholdeffect BS_ATTACKER, HOLD_EFFECT_POWER_HERB, BattleScript_MoveEnd
 	call BattleScript_PowerHerbActivation
 	goto BattleScript_TwoTurnMovesSecondTurn
@@ -5420,14 +5422,16 @@ BattleScript_EffectSolarbeam::
 	@jumpifabilitypresent ABILITY_CLOUD_NINE, BattleScript_SolarbeamDecideTurn
 	jumpifabilitypresent ABILITY_AIR_LOCK, BattleScript_SolarbeamDecideTurn
 	jumpifabilitypresent ABILITY_STORM_BREAK, BattleScript_SolarbeamDecideTurn
-	attackthisturn BattleScript_SolarbeamOnFirstTurn @replacement for sun check, also setup for fluorescence
+	attackthisturn BattleScript_TwoTurnMovesSecondTurn @replacement for sun check, also setup for fluorescence
 BattleScript_SolarbeamDecideTurn::
+	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
 	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SOLAR_BEAM
 	call BattleScriptFirstChargingTurn
 	goto BattleScript_MoveEnd
 
+@think no longer used?
 BattleScript_SolarbeamOnFirstTurn::
 	orword gHitMarker, HITMARKER_CHARGING
 	setmoveeffect MOVE_EFFECT_CHARGING | MOVE_EFFECT_AFFECTS_USER
@@ -5515,6 +5519,7 @@ BattleScript_EffectTwoTurnsAttack::
 	setbyte sTWOTURN_STRINGID, 0x0
 BattleScript_EffectTwoTurnsAttackContinue:
 	call BattleScriptFirstChargingTurn
+	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
 	jumpifnotholdeffect BS_ATTACKER, HOLD_EFFECT_POWER_HERB, BattleScript_MoveEnd
 	call BattleScript_PowerHerbActivation
 	goto BattleScript_TwoTurnMovesSecondTurn
@@ -5526,6 +5531,7 @@ BattleScript_EffectGeomancy:
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_GeomancySecondTurn
 	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_GEOMANCY
 	call BattleScriptFirstChargingTurn
+	tryTimecontrol BattleScript_GeomancySecondTurn
 	jumpifnotholdeffect BS_ATTACKER, HOLD_EFFECT_POWER_HERB, BattleScript_MoveEnd
 	call BattleScript_PowerHerbActivation
 BattleScript_GeomancySecondTurn:

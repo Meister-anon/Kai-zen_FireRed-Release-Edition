@@ -7003,6 +7003,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                 }
                 break;
+                case ABILITY_TIME_CONTROL:
+                    if (gDisableStructs[gActiveBattler].timecontrolAbilityTimer != 0)
+                        --gDisableStructs[gActiveBattler].timecontrolAbilityTimer;
+                    break;
             case ABILITY_WIMP_OUT: //this is triggering instead of the move end script when ti shouldn't be able to
                 if (gBattleResources->flags->flags[gActiveBattler] & RESOURCE_FLAG_EMERGENCY_EXIT)
                 {
@@ -12262,6 +12266,17 @@ bool32 IsEntrainmentTargetOrSimpleBeamBannedAbility(u16 ability)
             return TRUE;
     }
     return FALSE;
+}
+
+//use in script to check if 
+bool32 CanActivateTimeControl(u32 battler)
+{
+    if (GetBattlerAbility(battler) == ABILITY_TIME_CONTROL
+    && gDisableStructs[battler].timecontrolAbilityTimer == 0)
+        return TRUE;
+    
+    return FALSE;
+
 }
 
 bool32 TryRemoveScreens(u8 battler)

@@ -187,6 +187,7 @@ u32 ApplyModifier(uq4_12_t modifier, u32 val);
 bool32 UnnerveOn(u32 battlerId, u32 itemId);
 void TryRestoreStolenItems(void);
 void TrySaveExchangedItem(u8 battlerId, u16 stolenItem);
+bool32 CanActivateTimeControl(u32 battler);
 bool32 TryActivateBattlePoisonHeal(void);   //replaced normal poisonheal checks, allows use for poison types
 uq4_12_t CalcTypeEffectivenessMultiplier(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities);
 u32 GetBattlerMoveTargetType(u8 battlerId, u16 move); //need port these two fully

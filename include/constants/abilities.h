@@ -409,7 +409,8 @@
 #define ABILITY_SPACE_CONTROL 377 //hmm domain expansion? nah too long, palkia ability uses portals to make moves 100% accurate and is immune to ice because adapted to void of space
 #define ABILITY_COLD_EMBRACE 378    //froslass ability 
 #define ABILITY_TOXIC_WING 379
+#define ABILITY_TIME_CONTROL 380 //new dialga ability
 
-#define ABILITIES_COUNT ABILITY_TOXIC_WING + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_TIME_CONTROL + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

@@ -1493,6 +1493,11 @@
 	.4byte \failInstr
 	.endm
 
+	.macro tryTimecontrol jumpInstr:req
+	callnative BS_TryActivateTimeControl
+	.4byte \jumpInstr
+	.endm
+
 	@consolidates multiple effects that use gDynamicBasePower and dont jump
 	@furycuttercalc rageboostcalc happinesstodamagecalculation magnitudedamagecalculation  snowball /cant do rollout cuz acc check order
 	@put all future effects here

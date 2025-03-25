@@ -281,6 +281,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 tauntEnds:1; //set taunt to atk cancel decrement, made this for end turm message
     u8 padding:2;
     u8 hasSwitchinActivated; //use for switch in end turn check //rn just for zacian zamazenta effetcts, triggered on switch in activate/end in endturn
+    u8 timecontrolAbilityTimer:2; //for dialga stay 0, set to 2 when use that should actiavte it,and decrement only if non zero in end turn
+    u8 padspace:6;
     //u8 RoostTimerStartValue;  //remove for now until I get 
     /*0x1A*/ u8 unk1A[2]; //don't think this is used
 }; //think I may not actually need roost start value, long as I have timer

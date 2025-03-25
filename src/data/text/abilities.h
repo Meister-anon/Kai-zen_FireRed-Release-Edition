@@ -701,7 +701,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_BONE_ARMOR] = COMPOUND_ABILITY_STRING("Increased heat protection.\nPrevents recoil and force switch."),
     [ABILITY_STORM_BREAK] = COMPOUND_ABILITY_STRING("User creates a gust of wind dissipating\nweather effects on entry."),
     [ABILITY_SPACE_CONTROL] = COMPOUND_ABILITY_STRING("Attacks via portal, attacks are 100% Acc\nAdapted to space is immune to Ice Dmg."),
-    [ABILITY_COLD_EMBRACE] = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact.")
+    [ABILITY_COLD_EMBRACE] = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact."),
+    [ABILITY_TIME_CONTROL] = COMPOUND_ABILITY_STRING("Every two turns can distort time\nnegating charging and recharge turns.")
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1102,4 +1103,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_SPACE_CONTROL] =_("Space Control"),
     [ABILITY_COLD_EMBRACE] =_("Cold Embrace"),
     [ABILITY_TOXIC_WING] =_("Toxic Wing"),
+    [ABILITY_TIME_CONTROL] =_("Time Control")
 };//can have comma

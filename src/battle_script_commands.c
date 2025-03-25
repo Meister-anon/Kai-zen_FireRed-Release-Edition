@@ -27,6 +27,7 @@
 #include "battle_ai_util.h"
 #include "battle_scripts.h"
 #include "battle_string_ids.h"
+#include "battle_util.h"
 #include "reshow_battle_screen.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
@@ -85,6 +86,8 @@
 extern const u8 *const gBattleScriptsForBattleEffects[];
 
 static bool8 IsTwoTurnsMove(u16 move);
+static bool8 IsSemiInvulnerableMove(u16 move);
+static bool8 CanTwoTurnMoveAttackThisTurn(u16 move);
 static void TrySetDestinyBondToHappen(void);
 static void CheckWonderGuardAndLevitate(void);//attempted replace, not currently using, attempt using emerald equivalent CalcTypeEffectivenessMultiplier need test,then can remove funtion
 static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr);
@@ -1626,7 +1629,9 @@ static void atk00_attackcanceler(void) //vsonic
     }
     else if (IsBattlerProtected(gBattlerTarget, gCurrentMove)
         && (gCurrentMove != MOVE_CURSE || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
-        && ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
+        //&& ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
+        && (CanTwoTurnMoveAttackThisTurn(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS) || !IsTwoTurnsMove(gCurrentMove))
+        && gCurrentMove != MOVE_BIDE //make bide immune to protect
         && gBattleMoves[gCurrentMove].effect != EFFECT_SUCKER_PUNCH)
     {
         if (IsMoveMakingContact(gCurrentMove, gBattlerAttacker))
@@ -5466,8 +5471,15 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_RECHARGE:
-                gDisableStructs[gEffectBattler].rechargeTimer = 1;
-                gLockedMoves[gEffectBattler] = gCurrentMove;
+                if (CanActivateTimeControl(gEffectBattler))
+                {
+                    gDisableStructs[gEffectBattler].timecontrolAbilityTimer = 2;
+                }
+                else
+                {                
+                    gDisableStructs[gEffectBattler].rechargeTimer = 1;
+                    gLockedMoves[gEffectBattler] = gCurrentMove;
+                }
                 ++gBattlescriptCurrInstr;
                 break;
             case MOVE_EFFECT_RAGE:
@@ -13908,6 +13920,21 @@ void BS_TryQuash(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+
+//think I put this in attack canceler?
+void BS_TryActivateTimeControl(void)
+{
+    NATIVE_ARGS(const u8 *jumpInstr); //jumps to skip chargeturn of twoturn moves
+    if (CanActivateTimeControl(gBattlerAttacker)
+    && IsTwoTurnsMove(gCurrentMove))//need add two turnmoves list here
+    {
+        gDisableStructs[gBattlerAttacker].timecontrolAbilityTimer = 2;
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
+    
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 void BS_CheckParentalBondCounter(void)
 {
     NATIVE_ARGS(u8 counter, const u8 *jumpInstr);
@@ -16493,11 +16520,19 @@ static void atkA8_copymovepermanently(void) // sketch
 static bool8 IsTwoTurnsMove(u16 move) //prob need to add on to this
 {
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
-     || gBattleMoves[move].effect == EFFECT_RAZOR_WIND
+     || gBattleMoves[move].effect == EFFECT_GEOMANCY
      || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
      || gBattleMoves[move].effect == EFFECT_SOLARBEAM
-     || gBattleMoves[move].effect == EFFECT_SEMI_INVULNERABLE
-     || gBattleMoves[move].effect == EFFECT_BIDE)
+     || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+static bool8 IsSemiInvulnerableMove(u16 move)
+{
+    if (gBattleMoves[move].effect == EFFECT_SEMI_INVULNERABLE
+    || gBattleMoves[move].effect == EFFECT_SKY_DROP)
         return TRUE;
     else
         return FALSE;
@@ -16532,7 +16567,9 @@ static void atkA9_trychoosesleeptalkmove(void)
         if (IsInvalidForSleepTalk(gBattleMons[gBattlerAttacker].moves[i])
          //|| gBattleMons[gBattlerAttacker].moves[i] == MOVE_FOCUS_PUNCH
          || gBattleMons[gBattlerAttacker].moves[i] == MOVE_UPROAR
-         || IsTwoTurnsMove(gBattleMons[gBattlerAttacker].moves[i]))
+         || !CanTwoTurnMoveAttackThisTurn(gBattleMons[gBattlerAttacker].moves[i])
+         || IsSemiInvulnerableMove(gBattleMons[gBattlerAttacker].moves[i])
+         || gBattleMons[gBattlerAttacker].status2 & STATUS2_BIDE)
         {
             unusableMovesBits |= gBitTable[i];
         }
@@ -20256,20 +20293,21 @@ void BS_AttacksThisTurn(void) // Note: returns 1 if it's a charging turn, otherw
     NATIVE_ARGS(const u8 *ptr);
     bool8 Thisturn = FALSE;
     // first argument is unused
-    if ((gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM) //rebalanced effect not using special status for
+    /*if ((gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM) //rebalanced effect not using special status for
      && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
       || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())) 
-    )                                                
+    )   
+    */            
+    if (CanTwoTurnMoveAttackThisTurn(gCurrentMove))                                 
         Thisturn = TRUE;             //not using most of below but will keep as is incase I plan to expand this function/macros use beyond just solar beam   
 
-    else if (gBattleMoves[gCurrentMove].effect == EFFECT_SKULL_BASH
-     || gBattleMoves[gCurrentMove].effect == EFFECT_RAZOR_WIND
-     || gBattleMoves[gCurrentMove].effect == EFFECT_SKY_ATTACK
-     || gBattleMoves[gCurrentMove].effect == EFFECT_SOLARBEAM
-     || gBattleMoves[gCurrentMove].effect == EFFECT_SEMI_INVULNERABLE
-     || gBattleMoves[gCurrentMove].effect == EFFECT_BIDE
+    else if (IsTwoTurnsMove(gCurrentMove)
+     //|| gBattleMoves[gCurrentMove].effect == EFFECT_SEMI_INVULNERABLE
+     //|| gBattleMoves[gCurrentMove].effect == EFFECT_BIDE
+     || (gBattleMons[gBattlerAttacker].status2 & STATUS2_BIDE && gDisableStructs[gBattlerAttacker].bideTimer != 0)
+     || (IsSemiInvulnerableMove(gCurrentMove) && !gStatuses3[gBattlerAttacker] & STATUS3_SEMI_INVULNERABLE)
      || gHitMarker & HITMARKER_CHARGING)  //not sure how this works??  oh nvm note above seems to clarify
-            Thisturn = FALSE;
+            Thisturn = FALSE; //think rather than effect need status,
     else
         Thisturn = TRUE;
 
@@ -20280,6 +20318,25 @@ void BS_AttacksThisTurn(void) // Note: returns 1 if it's a charging turn, otherw
        gBattlescriptCurrInstr = cmd->nextInstr;
     
 } //vsonic double check, nvm planning to only use for solar beam/fluorescence so can leave other setups as they are
+
+static bool8 CanTwoTurnMoveAttackThisTurn(u16 move)
+{
+    if ((gBattleMoves[move].effect == EFFECT_SKULL_BASH
+     || gBattleMoves[move].effect == EFFECT_GEOMANCY
+     || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
+     || gBattleMoves[move].effect == EFFECT_SOLARBEAM
+     || gBattleMoves[move].effect == EFFECT_SKY_DROP
+     || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
+     && CanActivateTimeControl(gBattlerAttacker))
+        return TRUE;
+
+    else if ((gBattleMoves[move].effect == EFFECT_SOLARBEAM) //rebalanced effect not using special status for
+    && (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY)
+    || (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField())))
+        return TRUE;
+    else
+        return FALSE;
+}
 
 //should let multihit moves display effectiveness of first hit
 //causes freeze for no apparent reason
