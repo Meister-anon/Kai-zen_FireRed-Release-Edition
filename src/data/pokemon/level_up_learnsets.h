@@ -5324,11 +5324,16 @@ static const struct LevelUpMove sFeebasLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_SPLASH),    
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_SCARY_FACE), //HAH
+    LEVEL_UP_MOVE(8, MOVE_WHIRLPOOL),
     LEVEL_UP_MOVE(10, MOVE_MUD_SPORT),
     LEVEL_UP_MOVE(15, MOVE_FLAIL),
     LEVEL_UP_MOVE(21, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(26, MOVE_MUDDY_WATER),
     LEVEL_UP_END
 };
+//ok ofthe mon you can get w eary game old rod,
+//feebas will be the only one able to get a water move
+//before brock lvl
 
 static const struct LevelUpMove sMiloticLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_WATER_GUN),

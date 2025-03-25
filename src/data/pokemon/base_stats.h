@@ -2382,8 +2382,8 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sPonytaLevelUpLearnset,
         .tmhmLearnset = sPonytaTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, MEDIUM_EFFORT), 0, SPECIES_RAPIDASH}), //Should hopefully blank these for now without issue
-    },
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, MEDIUM_EFFORT), 0, SPECIES_RAPIDASH}), //Should hopefully blank these for now without issue
+    },//only evolves at 40 cuz it was available at 30/34
 
     [SPECIES_RAPIDASH] =
     {
@@ -2876,7 +2876,8 @@ const struct BaseStats gBaseStats[] =
         //.evYield_Defense = 1,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 25,
-         .friendship = 15,
+        .friendship = 15,
+        //.itemRare = ITEM_BLACK_AUGURITE,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
@@ -13722,8 +13723,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_PRESSURE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilities = {ABILITY_TIME_CONTROL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_TELEPATHY},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -13735,6 +13736,13 @@ const struct BaseStats gBaseStats[] =
     //actually nvm dialga is way too good for anything besides pressure
     //it literally has 0 weaknesses except fighting, its not even weak to ground anymore
     //oh dang forgot I buffed pressure lol
+
+    //idea more balanced time control,
+    //once activated has to wait two turns to use again
+    //allows user to use two turns move on first turn,
+    //or use a recharge move without needing to recharge
+    //uses power over time to skip the charge turn or recharge turn of moves
+    //must wait two turns to reactivate
    
     [SPECIES_PALKIA] =
     {
@@ -13753,7 +13761,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SPACE_CONTROL, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PRESSURE, ABILITY_TELEPATHY},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -39307,7 +39315,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sPonytaGalarianLevelUpLearnset,
         .tmhmLearnset = sPonytaGalarianTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, AVERAGE_EFFORT), 0, SPECIES_RAPIDASH_GALARIAN}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, MEDIUM_EFFORT), 0, SPECIES_RAPIDASH_GALARIAN}), //Should hopefully blank these for now without issue
         .flags = F_GALARIAN_FORM,
     },
 
