@@ -23,7 +23,7 @@ PalletTown_EventScript_FishermanLeaves::
 	return
 
 PalletTown_EventScript_TryReadySignLady:: @ 8165488
-	goto_if_unset FLAG_OPENED_START_MENU, EventScript_Return
+	goto_if_unset FLAG_SAW_POKEBALL_SWAP_INTRO, EventScript_Return
 	compare VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	goto_if_ge EventScript_Return
 	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
@@ -432,7 +432,7 @@ PalletTown_EventScript_TownSign:: @ 8165862
 
 PalletTown_EventScript_TrainerTips:: @ 816586B
 	lockall
-	msgbox PalletTown_Text_PressStartToOpenMenu
+	msgbox PalletTown_Text_CanSwapPokeballsFromBagMenu
 	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	releaseall
 	end
@@ -452,13 +452,13 @@ PalletTown_EventScript_SignLadyShowSign:: @ 8165894
 	closemessage
 	delay 20
 	textcolor 3
-	setflag FLAG_OPENED_START_MENU
+	setflag FLAG_SAW_POKEBALL_SWAP_INTRO
 	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	setvar SIGN_LADY_READY, FALSE
 	special SetWalkingIntoSignVars
 	special DisableMsgBoxWalkaway
 	signmsg
-	msgbox PalletTown_Text_PressStartToOpenMenuCopy
+	msgbox PalletTown_Text_CanSwapPokeballsFromBagMenuCopy
 	normalmsg
 	return
 

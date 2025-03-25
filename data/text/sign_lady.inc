@@ -12,9 +12,12 @@ PalletTown_Text_ReadItReadIt:: @ 81B1CAF
 	.string "Read it, read it!$"
 
 @ Used by sign
-PalletTown_Text_PressStartToOpenMenu:: @ 81B1CC1
+PalletTown_Text_CanSwapPokeballsFromBagMenu:: @ 81B1CC1
 	.string "TRAINER TIPS\p"
-	.string "Press START to open the MENU!$"
+	.string "You can now use POKé BALLS\n"
+	.string "to change what BALL your\l"
+	.string "POKéMON is in, from the bag!$"
+
 
 PalletTown_Text_SignsAreUsefulArentThey:: @ 81B1CEC
 	.string "Signs are useful, aren't they?$"
@@ -25,6 +28,13 @@ PalletTown_Text_LookCopiedTrainerTipsSign:: @ 81B1D0B
 	.string "those TRAINER TIPS signs!$"
 
 @ Used by NPC
+PalletTown_Text_CanSwapPokeballsFromBagMenuCopy:: @ 81B1D51
+	.string "TRAINER TIPS\p"
+	.string "You can now use POKé BALLS\n"
+	.string "to change what BALL your\l"
+	.string "POKéMON is in, from the bag!$"
+
+@just for reference, replaced 
 PalletTown_Text_PressStartToOpenMenuCopy:: @ 81B1D51
 	.string "TRAINER TIPS!\p"
 	.string "Press START to open the MENU!$"

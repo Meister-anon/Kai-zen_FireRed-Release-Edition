@@ -169,7 +169,7 @@ void NewGameInitData(void)
     gSaveBlock1Ptr->registeredItem = 0;
     gSaveBlock1Ptr->oakRanchStepCounter = 0;
     ClearBag();//skip for new game plus
-    NewGameInitPCItems();//skip for new game plus
+    NewGameInitPCItems();
     sub_809C794();
     InitEasyChatPhrases();
     ResetTrainerFanClub();
@@ -179,7 +179,7 @@ void NewGameInitData(void)
     SetAllRenewableItemFlags();
     //SetDefaultOptions();
     WarpToPlayersRoom();
-    ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags); 
+    ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags); //clears most all flags, if Imake a new one and don't add here, it'll stay
     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
     ResetTrainerTowerResults();
     SetTextCapFlags(); //sets cap but keeps game options from main save
