@@ -486,6 +486,8 @@ static void StartMenu_FadeScreenIfLeavingOverworld(void)
     }
 }
 
+//hmm ok believe this is just a bug catch
+//makes sure you can't open pokdex without having a pokemon?
 static bool8 StartMenuPokedexSanityCheck(void)
 {
     if (sStartMenuActionTable[sStartMenuOrder[sStartMenuCursorPos]].func.u8_void == StartMenuPokedexCallback && GetNationalPokedexCount(0) == 0)

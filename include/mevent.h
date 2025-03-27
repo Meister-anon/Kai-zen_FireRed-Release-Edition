@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-struct MEventClientHeaderStruct
+struct MysteryGiftLinkGameData
 {
     u32 unk_00;
     u16 unk_04;
@@ -14,9 +14,9 @@ struct MEventClientHeaderStruct
     u16 unk_16[4];
     struct MEventBuffer_3430_Sub unk_20;
     u8 maxDistributionMons;
-    u8 playerName[7];
-    u8 playerTrainerId[4];
-    u16 easyChatProfile[6];
+    u8 playerName[PLAYER_NAME_LENGTH];
+    u8 playerTrainerId[TRAINER_ID_LENGTH];
+    u16 easyChatProfile[EASY_CHAT_BATTLE_WORDS_COUNT];
     u8 gameCode[4];
     u8 version;
 };
@@ -61,12 +61,12 @@ bool32 MEvent_HaveAlreadyReceivedWonderNews(const u8 * src);
 bool32 OverwriteSavedWonderCardWithReceivedCard(const struct MEWonderCardData * data);
 void MEvent_WonderCardResetUnk08_6(struct MEWonderCardData * buffer);
 bool32 MEvent_ReceiveDistributionMon(const u16 * data);
-void BuildMEventClientHeader(struct MEventClientHeaderStruct * data);
-bool32 ValidateMEventClientHeader(const struct MEventClientHeaderStruct * data);
-u32 sub_8144418(const u16 * a0, const struct MEventClientHeaderStruct * a1, void * unused);
-u32 MEvent_CanPlayerReceiveDistributionMon(const u16 * a0, const struct MEventClientHeaderStruct * a1, void * unused);
-bool32 sub_8144474(const struct MEventClientHeaderStruct * a0, const u16 * a1);
-u16 sub_81444B0(const struct MEventClientHeaderStruct * a0, u32 command);
+void BuildMEventClientHeader(struct MysteryGiftLinkGameData * data);
+bool32 ValidateMEventClientHeader(const struct MysteryGiftLinkGameData * data);
+u32 sub_8144418(const u16 * a0, const struct MysteryGiftLinkGameData * a1, void * unused);
+u32 MEvent_CanPlayerReceiveDistributionMon(const u16 * a0, const struct MysteryGiftLinkGameData * a1, void * unused);
+bool32 sub_8144474(const struct MysteryGiftLinkGameData * a0, const u16 * a1);
+u16 sub_81444B0(const struct MysteryGiftLinkGameData * a0, u32 command);
 bool32 InitWonderCardResources(struct MEWonderCardData * r5, struct MEventBuffer_3430_Sub * r6);
 bool32 InitWonderNewsResources(const struct MEWonderNewsData * a0);
 s32 FadeToWonderCardMenu(void);

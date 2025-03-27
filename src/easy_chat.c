@@ -100,10 +100,12 @@ static bool8 IsECGroupUnlocked(u8 groupId)
     }
 }
 
+//was too long before cuz was taking large species count
+//hopefully this helps someting? caps at old end value of nat dex deoxys
 static u16 EasyChat_GetNumWordsInGroup(u8 groupId)
 {
     if (groupId == EC_GROUP_POKEMON)
-        return GetNationalPokedexCount(FLAG_GET_SEEN);
+        return EC_GetNationalPokedexCount(FLAG_GET_SEEN);
 
     if (IsECGroupUnlocked(groupId))
         return sEasyChatGroups[groupId].numEnabledWords;
@@ -148,24 +150,29 @@ static bool8 IsECWordInvalid(u16 easyChatWord)
     }
 }
 
+//THIS was the issue changing this fixed everything,
+//think it was a combination of this and the pokemonname
+//using national species couunt instead of base limit of deoxys
 static const u8 *GetEasyChatWord(u8 groupId, u16 index)
 {
     u8 *speciesBuffer = 0;
     u8 *moveBufer = 0;
 
-    GetSpeciesName(speciesBuffer, index);
-    GetMoveName(moveBufer, index);
+    
+    
 
     switch (groupId)
     {
     case EC_GROUP_POKEMON:
     case EC_GROUP_POKEMON_2:
-        //return gSpeciesNames[index];
-        return speciesBuffer;
+        //return gBaseStats[index].speciesName;
+        GetSpeciesName(gStringVar4, index);
+        return gStringVar4;
     case EC_GROUP_MOVE_1:
     case EC_GROUP_MOVE_2:
         //return gMoveNames[index];
-        return moveBufer;
+        GetMoveName(gStringVar4, index);
+        return gStringVar4;
     default:
         return sEasyChatGroups[groupId].wordData.words[index].text;
     }
@@ -467,12 +474,17 @@ void InitEasyChatPhrases(void)
             gSaveBlock1Ptr->mail[i].words[j] = EC_WORD_UNDEFINED;
     }
 
+    #ifndef UBFIX
     // BUG: This is supposed to clear 64 bits, but this loop is clearing 64 bytes.
     // However, this bug has no resulting effect on gameplay because only the
     // Mauville old man data is corrupted, which is initialized directly after
     // this function is called when starting a new game.
     for (i = 0; i < 64; i++)
         gSaveBlock1Ptr->additionalPhrases[i] = 0;
+#else
+    for (i = 0; i < NELEMS(gSaveBlock1Ptr->additionalPhrases); i++)
+        gSaveBlock1Ptr->additionalPhrases[i] = 0;
+#endif
 }
 
 void EC_ResetMEventProfileMaybe(void)

@@ -54,7 +54,8 @@ u16 GetKantoPokedexCount(u8);
 bool16 HasAllMons(void);
 u8 CreateDexDisplayMonDataTask(u16 dexNum, u32 trainerId, u32 personality);
 s8 GetSetPokedexFlag(u16 nationalNum, u8 caseId);
-u16 GetNationalPokedexCount(u8);
+u16 GetNationalPokedexCount(u8); //idk why Ihave 2 ofthese...apparently its defaultas
+u16 EC_GetNationalPokedexCount(u8 caseID); 
 u16 sub_80C0844(u8);
 u16 GetKantoPokedexCount(u8);
 bool16 HasAllHoennMons(void);

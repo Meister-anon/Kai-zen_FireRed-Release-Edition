@@ -344,7 +344,7 @@ extern u8 gStringVar4[];
 
 #define DIV_ROUND_UP(val, roundBy)(((val) / (roundBy)) + (((val) % (roundBy)) ? 1 : 0))
 
-#define ROUND_BITS_TO_BYTES(numBits)(((numBits) / 8) + (((numBits) % 8) ? 1 : 0))
+#define ROUND_BITS_TO_BYTES(numBits) DIV_ROUND_UP(numBits, 8)
 
 #define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES)) //num species here affects ewram believe going into saveablock
 #define NUM_FLAG_BYTES (ROUND_BITS_TO_BYTES(FLAGS_COUNT)) //this also affects ewram but to a lesser degree than num_species
@@ -742,15 +742,16 @@ struct BattleTowerData // Leftover from R/S
     /*0x04D0, 0x0580*/ u8 lastStreakLevelType; // 0 = level 50, 1 = level 100.  level type of the last streak. Used by tv to report the level mode.
     /*0x04D1, 0x0581*/ u8 filler_4D1[0x317];
 }; /* size = 0x7E8 */
+//keep this see if can add to FR
 
-//u16 values need to be no even bytes or they add extra padding
+//u16 values need to be on even bytes or they add extra padding
 //C rule learned from Mggriffin
 struct SaveBlock2
 {
     /*0x000*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
     /*0x008*/ u8 playerGender; // MALE, FEMALE
     /*0x009*/ u8 specialSaveWarpFlags;
-    /*0x00A*/ u8 playerTrainerId[4];
+    /*0x00A*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
     /*0x00E*/ u16 playTimeHours;
     /*0x010*/ u8 playTimeMinutes;
     /*0x011*/ u8 playTimeSeconds;
@@ -772,8 +773,8 @@ struct SaveBlock2
     /*0x098*/ struct Time localTimeOffset;
     /*0x0A0*/ struct Time lastBerryTreeUpdate;
     /*0x0A8*/ //u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD - not needed, plus needed space for mon data
-    /*0x0AC*/ u8 field_AC;
-    /*0x0AD*/ u8 field_AD;
+    /*0x0AC*/ u8 unkFlag1; // Set TRUE, never read
+    /*0x0AD*/ u8 unkFlag2; // Set FALSE, never read
     /*0x0B0*/ struct BattleTowerData battleTower;
     /*0x898*/ u16 mapView[0x100];
     /*0xA98*/ //struct LinkBattleRecords linkBattleRecords;
@@ -888,14 +889,16 @@ struct RamScript
     struct RamScriptData data;
 };
 
-/*struct EasyChatPair
+/*
+// Leftover from R/S
+struct DewfordTrend
 {
-    u16 unk0_0:7;
-    u16 unk0_7:7;
-    u16 unk1_6:1;
-    u16 unk2;
+    u16 trendiness:7;
+    u16 maxTrendiness:7;
+    u16 gainingTrendiness:1;
+    u16 rand;
     u16 words[2];
-};*/ /*size = 0x8*/
+}; /*size = 0x8*/
 
 struct MailStruct
 {
@@ -1152,7 +1155,7 @@ struct FameCheckerSaveData
 };
 
 #define NUM_EASY_CHAT_EXTRA_PHRASES 33
-#define EASY_CHAT_EXTRA_PHRASES_SIZE ((NUM_EASY_CHAT_EXTRA_PHRASES >> 3) + (NUM_EASY_CHAT_EXTRA_PHRASES % 8 ? 1 : 0))
+#define NUM_ADDITIONAL_PHRASE_BYTES ROUND_BITS_TO_BYTES(NUM_EASY_CHAT_EXTRA_PHRASES)
 
 struct MEWonderNewsData
 {
@@ -1328,16 +1331,16 @@ struct SaveBlock1
     /*0x1000*/ u16 vars[VARS_COUNT];
     /*0x1200*/ u32 gameStats[NUM_GAME_STATS];//don't know how much but can prob save some by removing some of these
     /*0x1300*/ struct QuestLog questLog[QUEST_LOG_SCENE_COUNT];
-    /*0x2CA0*/ u16 easyChatProfile[6];
-    /*0x2CAC*/ u16 easyChatBattleStart[6];
-    /*0x2CB8*/ u16 easyChatBattleWon[6];
-    /*0x2CC4*/ u16 easyChatBattleLost[6];
+    /*0x2CA0*/ u16 easyChatProfile[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2CAC*/ u16 easyChatBattleStart[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2CB8*/ u16 easyChatBattleWon[EASY_CHAT_BATTLE_WORDS_COUNT];
+    /*0x2CC4*/ u16 easyChatBattleLost[EASY_CHAT_BATTLE_WORDS_COUNT];
     /*0x2CD0*/ struct MailStruct mail[MAIL_COUNT]; //still to remove
-    /*0x2F10*/ u8 additionalPhrases[EASY_CHAT_EXTRA_PHRASES_SIZE];
+    /*0x2F10*/ u8 additionalPhrases[NUM_ADDITIONAL_PHRASE_BYTES];
     /*0x2F18*/ //OldMan oldMan; // unused  //emerald exlusive mauwile man stuff
-    /*0x2F54*/ //struct EasyChatPair easyChatPairs[5]; // unused
+    /*0x2F54*/ //struct DewfordTrend dewfordTrends[5]; // unused
     /*0x2F80*/ struct DayCare daycare;
-    /*0x309C*/ u8 giftRibbons[11]; //check this since removed some this may not bneed to be 11
+    /*0x309C*/ u8 giftRibbons[11]; //check this since removed some this may not bneed to be 11 vsonic
     /*0x30A7*/ struct ExternalEventData externalEventData; //can remove external events would like make some way of giving within game
     /*0x30BB*/ struct ExternalEventFlags externalEventFlags;
     /*0x30D0*/ struct Roamer roamer; //remove other stuff then make copy of this but 6 array for rival mon data

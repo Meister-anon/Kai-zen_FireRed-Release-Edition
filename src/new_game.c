@@ -149,8 +149,8 @@ void NewGameInitData(void)
     ClearMailData();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     //gSaveBlock2Ptr->gcnLinkFlags = 0;
-    gSaveBlock2Ptr->field_AC = 1;
-    gSaveBlock2Ptr->field_AD = 0;
+    gSaveBlock2Ptr->unkFlag1 = 1;
+    gSaveBlock2Ptr->unkFlag2 = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();//skip for new game plus
     ClearPokedexFlags(); //skip for new game plus

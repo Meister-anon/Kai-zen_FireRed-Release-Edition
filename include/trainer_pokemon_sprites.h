@@ -15,7 +15,7 @@ u16 CreateTrainerPicSprite(u16 species, bool8 isFrontPic, s16 x, s16 y, u8 palet
 u16 FreeAndDestroyMonPicSprite(u16);
 u16 FreeAndDestroyMonPicSpriteNoPalette(u16 spriteId);
 u16 FreeAndDestroyTrainerPicSprite(u16);
-u16 PlayerGenderToFrontTrainerPicId_Debug(u8 gender, bool8 getClass);
+u16 PlayerGenderToFrontTrainerPicId(u8 gender, bool8 getClass);
 u16 CreateMonPicSprite_HandleDeoxys(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag);
 u16 LoadMonPicInWindow(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, u8 paletteSlot, u8 windowId, bool8 LoadMonPalette);
 u16 CreateMonPicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 ignoreDeoxys);

@@ -47,6 +47,29 @@ u16 GetNationalPokedexCount(u8 caseID) //changd from NATIONAL_DEX_COUNT
     return count;
 }
 
+//new function specific for easy chat
+u16 EC_GetNationalPokedexCount(u8 caseID)
+{
+    u16 count = 0;
+    u16 i;
+
+    for (i = 0; i < NATIONAL_DEX_DEOXYS; i++)
+    {
+        switch (caseID)
+        {
+        case FLAG_GET_SEEN:
+            if (GetSetPokedexFlag(i + 1, FLAG_GET_SEEN))
+                count++;
+            break;
+        case FLAG_GET_CAUGHT:
+            if (GetSetPokedexFlag(i + 1, FLAG_GET_CAUGHT))
+                count++;
+            break;
+        }
+    }
+    return count;
+}
+
 u16 GetKantoPokedexCount(u8 caseID)
 {
     u16 count = 0;

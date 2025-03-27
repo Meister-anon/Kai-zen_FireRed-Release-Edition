@@ -752,10 +752,10 @@ bool32 MEvent_ReceiveDistributionMon(const u16 * data)
 #define MEVENT_HEADER_VERSION_CODE 2
 #endif
 
-void BuildMEventClientHeader(struct MEventClientHeaderStruct * data)
+void BuildMEventClientHeader(struct MysteryGiftLinkGameData * data)
 {
     s32 i;
-    CpuFill32(0, data, sizeof(struct MEventClientHeaderStruct));
+    CpuFill32(0, data, sizeof(struct MysteryGiftLinkGameData));
     // Magic
     data->unk_00 = 0x101;
     data->unk_04 = 1;
@@ -787,7 +787,7 @@ void BuildMEventClientHeader(struct MEventClientHeaderStruct * data)
     data->version = RomHeaderSoftwareVersion;
 }
 
-bool32 ValidateMEventClientHeader(const struct MEventClientHeaderStruct * data)
+bool32 ValidateMEventClientHeader(const struct MysteryGiftLinkGameData * data)
 {
     if (data->unk_00 != 0x101)
         return FALSE;
@@ -802,7 +802,7 @@ bool32 ValidateMEventClientHeader(const struct MEventClientHeaderStruct * data)
     return TRUE;
 }
 
-u32 sub_8144418(const u16 * a0, const struct MEventClientHeaderStruct * a1, void * unused)
+u32 sub_8144418(const u16 * a0, const struct MysteryGiftLinkGameData * a1, void * unused)
 {
     if (a1->id == 0)
         return 0;
@@ -811,7 +811,7 @@ u32 sub_8144418(const u16 * a0, const struct MEventClientHeaderStruct * a1, void
     return 2;
 }
 
-u32 MEvent_CanPlayerReceiveDistributionMon(const u16 * a0, const struct MEventClientHeaderStruct * a1, void * unused)
+u32 MEvent_CanPlayerReceiveDistributionMon(const u16 * a0, const struct MysteryGiftLinkGameData * a1, void * unused)
 {
     s32 numSpaces = a1->maxDistributionMons - CountReceivedDistributionMons(&a1->unk_20, a1->maxDistributionMons);
     if (numSpaces == 0)
@@ -823,7 +823,7 @@ u32 MEvent_CanPlayerReceiveDistributionMon(const u16 * a0, const struct MEventCl
     return 2;
 }
 
-bool32 sub_8144474(const struct MEventClientHeaderStruct * a0, const u16 * a1)
+bool32 sub_8144474(const struct MysteryGiftLinkGameData * a0, const u16 * a1)
 {
     s32 i;
     for (i = 0; i < 4; i++)
@@ -834,12 +834,12 @@ bool32 sub_8144474(const struct MEventClientHeaderStruct * a0, const u16 * a1)
     return TRUE;
 }
 
-static s32 GetNumReceivedDistributionMons(const struct MEventClientHeaderStruct * a0)
+static s32 GetNumReceivedDistributionMons(const struct MysteryGiftLinkGameData * a0)
 {
     return CountReceivedDistributionMons(&a0->unk_20, a0->maxDistributionMons);
 }
 
-u16 sub_81444B0(const struct MEventClientHeaderStruct * a0, u32 command)
+u16 sub_81444B0(const struct MysteryGiftLinkGameData * a0, u32 command)
 {
     switch (command)
     {

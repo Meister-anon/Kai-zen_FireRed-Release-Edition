@@ -2264,8 +2264,8 @@ u8 *PrependFontIdToFit(u8 *start, u8 *end, u32 fontId, u32 width)
 {
     u32 fitFontId = GetFontIdToFit(start, fontId, 0, width);
 
-    //if (fitFontId == fontId)
-    //    return end;
+    if (fitFontId == fontId)
+        return end;
 
     memmove(&start[3], &start[0], end - start);
     start[0] = EXT_CTRL_CODE_BEGIN;

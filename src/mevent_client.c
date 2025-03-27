@@ -191,7 +191,7 @@ static u32 client_mainseq_4(struct mevent_client * svr)
         return 4;
     case 8:
         BuildMEventClientHeader(svr->sendBuffer);
-        mevent_srv_sub_init_send(&svr->manager, 0x11, svr->sendBuffer, sizeof(struct MEventClientHeaderStruct));
+        mevent_srv_sub_init_send(&svr->manager, 0x11, svr->sendBuffer, sizeof(struct MysteryGiftLinkGameData));
         break;
     case 14:
         mevent_client_send_word(svr, 0x13, svr->param);

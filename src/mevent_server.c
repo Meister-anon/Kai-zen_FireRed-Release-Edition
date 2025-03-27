@@ -48,7 +48,7 @@ static void mevent_srv_init_common(struct mevent_srv_common * svr, const void * 
     svr->card = AllocZeroed(sizeof(struct MEWonderCardData));
     svr->news = AllocZeroed(sizeof(struct MEWonderNewsData));
     svr->recvBuffer = AllocZeroed(ME_SEND_BUF_SIZE);
-    svr->mevent_unk1442cc = AllocZeroed(sizeof(struct MEventClientHeaderStruct));
+    svr->mevent_unk1442cc = AllocZeroed(sizeof(struct MysteryGiftLinkGameData));
     svr->cmdBuffer = cmdBuffer;
     svr->cmdidx = 0;
     mevent_srv_sub_init(&svr->manager, sendPlayerNo, recvPlayerNo);
@@ -145,7 +145,7 @@ static u32 common_mainseq_4(struct mevent_srv_common * svr)
         case 5:
             AGB_ASSERT_EX(cmd->flag == FALSE, ABSPATH("mevent_server.c"), 376);
             AGB_ASSERT_EX(cmd->parameter == NULL, ABSPATH("mevent_server.c"), 377);
-            memcpy(svr->mevent_unk1442cc, svr->recvBuffer, sizeof(struct MEventClientHeaderStruct));
+            memcpy(svr->mevent_unk1442cc, svr->recvBuffer, sizeof(struct MysteryGiftLinkGameData));
             break;
         case 6:
             AGB_ASSERT_EX(cmd->flag == FALSE, ABSPATH("mevent_server.c"), 382);

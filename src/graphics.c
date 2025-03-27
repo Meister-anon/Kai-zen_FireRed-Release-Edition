@@ -1553,8 +1553,8 @@ const u16 gEasyChatMode_Pal[] = INCBIN_U16("graphics/link_rfu/unk_8E99DAC.gbapal
 const u32 gEasyChatWindow_Gfx[] = INCBIN_U32("graphics/link_rfu/unk_8E99DAC.4bpp.lz");
 const u32 gEasyChatWindow_Tilemap[] = INCBIN_U32("graphics/link_rfu/unk_8E99E74.bin.lz");
 
-const u16 gUnknown_8E99F24[] = INCBIN_U16("graphics/link_rfu/unk_8E9A168.gbapal");
-const u32 gEasyChatSelectGroupHelp_Tiles[] = INCBIN_U32("graphics/link_rfu/unk_8E99F44.4bpp.lz");
+const u16 gEasyChatButtonWindow_Pal[] = INCBIN_U16("graphics/link_rfu/unk_8E9A168.gbapal");
+const u32 gEasyChatButtonWindow_Gfx[] = INCBIN_U32("graphics/link_rfu/unk_8E99F44.4bpp.lz");
 const u32 gEasyChatModeIcons_Tiles[] = INCBIN_U32("graphics/link_rfu/unk_8E9A168.4bpp.lz");
 
 #define SUMMARY_GRAPHICS

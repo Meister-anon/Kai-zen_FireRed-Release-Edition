@@ -49,8 +49,8 @@ static void sub_80956A4(u8 x, u8 y);
 static void sub_809572C(u8 x, u8 y);
 static void sub_8095780(u16 bgX, u16 bgY, u16 duration);
 static u8 sub_8095790(void);
-static void sub_80957C8(void);
-static void sub_80958A0(void);
+static void MultiMove_GetMonsFromSelection(void);
+static void MultiMove_RemoveMonsFromBox(void);
 static void sub_8095918(void);
 static void sub_80959A8(void);
 static void sub_8095A58(void);
@@ -208,8 +208,8 @@ static bool8 sub_8095314(void)
     switch (sMoveMonsPtr->state)
     {
     case 0:
-        sub_80957C8();
-        sub_80958A0();
+        MultiMove_GetMonsFromSelection();
+        MultiMove_RemoveMonsFromBox();
         sub_8092BAC(FALSE);
         sMoveMonsPtr->state++;
         break;
@@ -1208,7 +1208,7 @@ static void sub_8096BAC(struct Sprite *sprite)
     }
 }
 
-static void sub_80957C8(void)
+static void MultiMove_GetMonsFromSelection(void)
 {
     s32 i, j;
     s32 rowCount, columnCount;
@@ -1229,7 +1229,13 @@ static void sub_80957C8(void)
         for (j = sMoveMonsPtr->minRow; j < rowCount; j++)
         {
             struct BoxPokemon *boxMon = GetBoxedMonPtr(boxId, boxPosition);
-
+            // UB: possible null dereference
+#ifdef UBFIX
+            if (boxMon != NULL)
+                sMoveMonsPtr->boxMons[monArrayId] = *boxMon;
+#else
+            sMoveMonsPtr->boxMons[monArrayId] = *boxMon;
+#endif
             sMoveMonsPtr->boxMons[monArrayId] = *boxMon;
             monArrayId++;
             boxPosition++;
@@ -1237,7 +1243,7 @@ static void sub_80957C8(void)
     }
 }
 
-static void sub_80958A0(void)
+static void MultiMove_RemoveMonsFromBox(void)
 {
     s32 i, j;
     s32 rowCount = sMoveMonsPtr->minRow + sMoveMonsPtr->rowsTotal;

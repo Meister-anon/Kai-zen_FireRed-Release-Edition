@@ -5627,7 +5627,7 @@ u8 DexScreen_DrawMonAreaPage(void)
             monScale = gPokedexEntries[SpeciesToNationalPokedexNum(SPECIES_MEW)].pokemonScale;
         SetOamMatrix(2, monScale, 0, 0, monScale);
         //trainer pic values
-        sPokedexScreenData->windowIds[15] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), 1, 80, 104, 0, 0xFFFF); //same as above
+        sPokedexScreenData->windowIds[15] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), 1, 80, 104, 0, 0xFFFF); //same as above
         gSprites[sPokedexScreenData->windowIds[15]].oam.paletteNum = 2;
         gSprites[sPokedexScreenData->windowIds[15]].oam.affineMode = ST_OAM_AFFINE_NORMAL;
         gSprites[sPokedexScreenData->windowIds[15]].oam.matrixNum = 1;

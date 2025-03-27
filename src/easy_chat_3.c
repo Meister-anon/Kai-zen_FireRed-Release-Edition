@@ -275,10 +275,10 @@ static const u8 gUnknown_843F8D8[] = _("{UNDERSCORE}");
 static const u8 sText_Clear17[] = _("{CLEAR 17}");
 
 static const u8 *const sEasyChatKeyboardText[] = {
-    gUnknown_847A8D8,
-    gUnknown_847A8FA,
-    gUnknown_847A913,
-    gUnknown_847A934
+    gText_EasyChatKeyboard_ABCDEFothers,
+    gText_EasyChatKeyboard_GHIJKL,
+    gText_EasyChatKeyboard_MNOPQRS,
+    gText_EasyChatKeyboard_TUVWXYZ
 };
 
 static const struct SpriteSheet sEasyChatSpriteSheets[] = {
@@ -291,7 +291,7 @@ static const struct SpriteSheet sEasyChatSpriteSheets[] = {
 static const struct SpritePalette sEasyChatSpritePalettes[] = {
     {gUnknown_843F3B8, 0},
     {gUnknown_843F3D8, 1},
-    {gUnknown_8E99F24, 2},
+    {gEasyChatButtonWindow_Pal, 2},
     {gUnknown_843F618, 3},
     {}
 };
@@ -299,7 +299,7 @@ static const struct SpritePalette sEasyChatSpritePalettes[] = {
 static const struct CompressedSpriteSheet sEasyChatCompressedSpriteSheets[] = {
     {gUnknown_843F638, 0x0800, 5},
     {gEasyChatRedRectangularCursor_Tiles, 0x1000, 1},
-    {gEasyChatSelectGroupHelp_Tiles, 0x0800, 6},
+    {gEasyChatButtonWindow_Gfx, 0x0800, 6},
     {gEasyChatModeIcons_Tiles, 0x1000, 4}
 };
 
@@ -1451,7 +1451,7 @@ static void PrintECFields(void)
         }
 
         *str = EOS;
-        EC_AddTextPrinterParameterized(sEasyChatGraphicsResources->windowId, 1, sEasyChatGraphicsResources->ecPrintBuffer, 0, i * 16, TEXT_SKIP_DRAW, NULL);
+        EC_AddTextPrinterParameterized(sEasyChatGraphicsResources->windowId, FONT_NORMAL_COPY_1, sEasyChatGraphicsResources->ecPrintBuffer, 0, i * 16, TEXT_SKIP_DRAW, NULL);
     }
 
     CopyWindowToVram(sEasyChatGraphicsResources->windowId, COPYWIN_BOTH);

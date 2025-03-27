@@ -253,6 +253,10 @@ static void DismantleEasyChat(MainCallback callback)
     SetMainCallback2(callback);
 }
 
+//solved it, it only lags because it needs
+//to access and load a word from easychat BEFORE
+//the fade ends to display screen.
+//so I did something with the easychat words that broke it
 void ShowEasyChatScreen(void)
 {
     u16 *words;

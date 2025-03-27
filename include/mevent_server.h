@@ -103,7 +103,7 @@ struct mevent_srv_common
     void * recvBuffer;
     struct MEWonderCardData * card;
     struct MEWonderNewsData * news;
-    struct MEventClientHeaderStruct * mevent_unk1442cc;
+    struct MysteryGiftLinkGameData * mevent_unk1442cc;
     void * sendBuffer1;
     u32 sendBuffer1Size;
     void * sendBuffer2;
