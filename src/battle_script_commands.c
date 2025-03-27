@@ -4839,19 +4839,19 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON)//now i understand the note,
                 {   //the two lins are removing the status even though, the prior logic ensured that no status was set, ironically necessary for my changes
                     // It's redundant, because at this point we know the status1 value is 0.
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON); //^not my notes
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON);
-                    gBattleMons[gEffectBattler].status1 |= STATUS1_TOXIC_POISON;
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON); //^not my notes
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON);
+                    gBattleMons[gEffectBattler].status1 = STATUS1_TOXIC_POISON;
                     gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
-                    //attempting set toxic counter, to start above normal poison base dmg //will o 3/16
+                    //attempting set toxic counter, to start above normal poison base dmg //will o 3/16 - nah, this was already meant to put it on same footing as poison legacy
                     gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
                 }
                 else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
                 && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
-                    gBattleMons[gEffectBattler].status1 |= STATUS1_TOXIC_POISON;
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    gBattleMons[gEffectBattler].status1 = STATUS1_TOXIC_POISON;
                     gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
                     gBattlescriptCurrInstr = BattleScript_MoveEffectToxic; //setup its own message ability severely poisoned I think
                     
@@ -4867,20 +4867,20 @@ void SetMoveEffect(bool32 primary, u32 certain)
             {
                 if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON)//normal toxic setting
                 {
-                    gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
+                    gBattleMons[gEffectBattler].status1 = sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattlescriptCurrInstr = BattleScript_PoisonWorsened;
                     //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
-                }
+                }//since setting bad poison on top of normla poinson may increase to 3, keep regular poison on poison at 2
                 else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
                 && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2)))
                 {
                     //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON);
                     //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_POISON); //extra protection
                     //gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                    gBattleMons[gEffectBattler].status1 = sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2; //works now, awesome
-                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                     //gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
                 } //ok issue was setting wrong thing, toxic turn is a counter, but gDisableStructs[gActiveBattler].toxicTurn is the actual dmg part

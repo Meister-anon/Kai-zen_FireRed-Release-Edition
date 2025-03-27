@@ -2659,7 +2659,7 @@ u8 DoBattlerEndTurnEffects(void)
                     {
                         gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
 
-                        if (turn != 15) // not 16 turns - should this be 16 not 15?
+                        if (turn != 16) // not 16 turns - should this be 16 not 15?
                             ++gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)]; //isn't this an issue like toxic counter gets reset if switch out?-- ...yup and same for sleep and freeze..
                             //gBattleMons[gActiveBattler].status1 += STATUS1_TOXIC_TURN(1);   //increments by 100 up to F00 , assume starting from 000, which is why 16 turns
                         gBattleMoveDamage *= gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)];
