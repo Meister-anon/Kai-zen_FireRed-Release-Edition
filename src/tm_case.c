@@ -750,7 +750,7 @@ static void CreateTMCaseListMenuBuffers(void)
 {
     struct BagPocket * pocket = &gBagPockets[POCKET_TM_CASE - 1];
     sListMenuItemsBuffer = Alloc((pocket->capacity + 1) * sizeof(struct ListMenuItem));
-    sListMenuStringsBuffer = Alloc(sTMCaseDynamicResources->numTMs_HMs * 34);
+    sListMenuStringsBuffer = Alloc(sTMCaseDynamicResources->numTMs_HMs * sizeof(*sListMenuStringsBuffer));
 }
 
 static void InitTMCaseListMenuItems(void)
