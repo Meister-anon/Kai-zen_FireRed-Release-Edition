@@ -11781,6 +11781,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
         mod = UQ_4_12(1.0);
     //had to write out whole thing as realized, function logic would break type chart/other things
     //think this may be obsolete, from when doin typed status moves, it would work for hard mode tho I guess
+    //vsonic look over, consider wanted do type relation important for hard mode
     if (moveType == TYPE_POISON 
     && (((GetBattlerAbility(battlerAtk) == ABILITY_CORROSION) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
     || ((GetBattlerAbility(battlerAtk) == ABILITY_POISONED_LEGACY) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))))
@@ -11792,7 +11793,8 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     
 
     if (moveType == TYPE_POISON && GetBattlerAbility(battlerAtk) == ABILITY_POISONED_LEGACY
-    && IS_BATTLER_OF_TYPE(battlerDef,TYPE_POISON)
+    && (IS_BATTLER_OF_TYPE(battlerDef,TYPE_POISON)
+    || IS_BATTLER_OF_TYPE(battlerDef,TYPE_STEEL))
     /*&& gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 2)*/)
     {
         if (mod == UQ_4_12(0.0))
