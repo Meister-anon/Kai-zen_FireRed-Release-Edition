@@ -3827,13 +3827,118 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to lean into gambling,
     could give varying levels of money/coins or a rare amulet coin 
     3/16/2025
+
+    working on text font narrow for healthbox,
+    after that's done add merp pss icon change
+    better models and allow display shiny sprite in pc
+    and eventually maybe not now,
+    work out displaying actually item icon on mon in pc,
+    want to have all mon with icons displayed not just on hover over
+    hopefully no reason can't load 30 icons at once
+
+    then get that working in party as well
+    double check merp branch believe she said there may have still been
+    issuse?
+    3/21/2025
+
+    idea partally seen in fangame pookemon royal,
+    setup egg to display species name i.e   species Egg
+    so can tell eggs apart -_-
+
+    potentially do a name thing on creation
+    use pokemon name buffer
+    //then when it hatches rename to species name
+    attempt do this way so I don't need to create a new field and take memory/space
+    3/21/2025
+
+    -edit may need to finish font work,
+    so I don't need to increase buffers in these spaces
+    can just add egg to species name and have it shrunk
+    as it needs with name size
+    vsonic IMPORTANT
+
+    note very important add all UBFIX and BUGFIX 
+    from pret
+    3/26/25
+
+    curr-
+    NOTE**(
+    -next thing add all UBFIX & BUGFIX changes from pret
+    finish setup move relearner move delete reworks,
+    double check porymap bug breaking issues make sure have all the commits
+    setup field move menu changes
+    then do bag menu & summary screen nickname font work
+    and egg name feature
+    )
     
+
     Idea setup pokeballs with use function/option
     idea is able to swap pokeballs for mon whenever you want.
     so even if you don't catch a mon in a ball you can change the ball later
     but it consumes the ball you "use"
     -done also setup return used pokeball on swap
     3/24/2025
+
+
+
+    make sure remember to check massage mon logic 
+    to see if friendship adjust can be done on fained mon,
+    don't want to allow that
+
+    -font narrow port working, need adjust quotation mark and apostrophe
+    and do different gender symbol so it doesn't get shrunken
+
+    last thing add for items and 
+    see about changing battle move font to small narrow
+    for slightly more space
+
+    struggling with setting for tm case correctly
+
+    then add font adjust to summary screen
+    debug
+    and potentially bag
+    maybe tm case?
+
+    yeah do for tm case, misty explosion is slightly too long,
+    thought could move graphic but there really isn't room
+    to shift the grahpic further
+
+    in EE it uses the getmovename getitemname functions to do that
+    it appends font to the start of function,
+    i need to look into that and see how it'll work
+    -fixed tm case and ability name in summary screen last thing is,
+    summary screen for nickname to use for egg
+    and for bag items
+    
+
+
+    
+    thought fix for field move not being shown,
+    change party menu,
+    put all field moves on separate window like how 
+    you can press left right on start menu to show other expanded options
+
+    or make a FIELD MOVES tab where pressing A
+    will destroy window load another window
+    with just the moves so it should never get cut off
+    then pressing B will load default window
+
+    maybe task state party menu default mode
+    then party menu field move display
+
+    also considering swapping new move reminder placement 
+    with where I moved badge talk guy,
+    with my changes cinibar is easy to reach early 
+    probably too easy to get move reminder?
+
+    early fossils is good enough, but move reminder
+    with certain mon would really shift game balance.
+    yeah think will toss it into fuchisia instead
+
+    Also finish setting up move relearn move delete change
+    have a bad habit of jumping between implementations
+    before they're finished
+    3/27/25
 
     NOTE**(
 
@@ -3863,8 +3968,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     cuz funny to be reset to lvl 1 but run into a lvl 50
     Legendary and just get fucked
 
+    SPECIES_GOTHITA - planned gothia new sprite work,
+    instead of lookin like smoochum change  have similar to kirlia,
+    flowy dress like pattern sitting on ground, with an umbrella
+    do something like dex entry change doesn't handle sunlight well
+    so carries a parasoul similar to what  farfetch'd does with its leek
+
     Note change party menu so nuzlocke fainted mon
     don't move at all, just extra thing to make seem dead
+
+    //idea more balanced time control, ability for dialga
+    //once activated has to wait two turns to use again
+    //allows user to use two turns move on first turn,
+    //or use a recharge move without needing to recharge
+    //uses power over time to skip the charge turn or recharge turn of moves
+    //must wait two turns to reactivate - vsonic important
     )
 
     planned
