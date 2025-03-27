@@ -123,7 +123,7 @@ static EWRAM_DATA struct UnkStruct_203B118 * sTMCaseDynamicResources = NULL;
 static EWRAM_DATA struct UnkStruct_203B11C * sPokedudePackBackup = NULL;
 static EWRAM_DATA void * sTilemapBuffer = NULL; // tilemap buffer
 static EWRAM_DATA struct ListMenuItem * sListMenuItemsBuffer = NULL;
-static EWRAM_DATA u8 (* sListMenuStringsBuffer)[29] = NULL;
+static EWRAM_DATA u8 (* sListMenuStringsBuffer)[34] = NULL; //length of list string tm name in tm case, had increase from 29
 static EWRAM_DATA u16 * sTMSpritePaletteBuffer = NULL;
 //added for new tm case
 static EWRAM_DATA u8    spriteIdData[PARTY_SIZE] = {};
@@ -750,7 +750,7 @@ static void CreateTMCaseListMenuBuffers(void)
 {
     struct BagPocket * pocket = &gBagPockets[POCKET_TM_CASE - 1];
     sListMenuItemsBuffer = Alloc((pocket->capacity + 1) * sizeof(struct ListMenuItem));
-    sListMenuStringsBuffer = Alloc(sTMCaseDynamicResources->numTMs_HMs * 29);
+    sListMenuStringsBuffer = Alloc(sTMCaseDynamicResources->numTMs_HMs * 34);
 }
 
 static void InitTMCaseListMenuItems(void)
@@ -820,13 +820,61 @@ static void InitTMCaseListMenuItems(void)
 //the order the tms get printed in,
 //that is unchanged, even if I make fly the first HM
 //cut is still printed first
+static const u8 *TM_Case_AppendFontToFit(u8 *nameBuffer, u16 move)
+{
+    s32 i;
+
+
+        // Hmm? FRLG has < while Ruby/Emerald has <=
+        for (i = 0; i < MOVE_NAME_LENGTH; i++)
+        {
+            if (move > MOVES_COUNT)
+                nameBuffer[i] = gMoveNames[0][i];
+            else
+                nameBuffer[i] = gMoveNames[move][i];
+
+            if (nameBuffer[i] == EOS)
+                break;
+        }
+
+    nameBuffer[i] = EOS;
+    
+   
+    if (ShouldCapitalizeMoves())
+        CapializeString(nameBuffer); 
+
+    
+
+
+    switch (GetFontIdToFit(nameBuffer, FONT_NORMAL, 0, 88))
+    {
+        case FONT_NORMAL:
+            StringCopy(gStringVar2, COMPOUND_STRING("{FONT_NORMAL}"));
+            return gStringVar2;
+        break;
+        case FONT_FRLG_NARROW:
+            StringCopy(gStringVar2, COMPOUND_STRING("{FONT_FRLG_NARROW}"));
+            return gStringVar2;
+        break;
+        case FONT_FRLG_NARROWER:
+            StringCopy(gStringVar2, COMPOUND_STRING("{FONT_FRLG_NARROWER}"));
+            return gStringVar2;
+        break;
+
+    }
+}
+
+//fuck me the whole thing worked before it was all because 
+//I didn't realize I needed to update the listmenusring buff length allocation *FACEPALM
+//it had a static ewram value at top of string at 29, I didn't realize I had ran out of characters,
+//because the characters I was adding weren't visible, but they still take space smh
 static void GetTMNumberAndMoveString(u8 * dest, u16 itemId)
 {
     u32 TMHMValue;
     u8 isHM = TRUE; //loop tmlist if found there set to false
 
-    StringCopy(gStringVar4, gText_FontSize0);
-    GetMoveName(gStringVar3,ItemIdToBattleMoveId(itemId));
+    StringCopy(gStringVar4, gText_FontSizeSmall);
+    //GetMoveName(gStringVar3,ItemIdToBattleMoveId(itemId));
     
     for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
     {
@@ -865,8 +913,9 @@ static void GetTMNumberAndMoveString(u8 * dest, u16 itemId)
     }
 
     StringAppend(gStringVar4, sText_SingleSpace);
-    StringAppend(gStringVar4, gText_FontSize2);
-    StringAppend(gStringVar4, gStringVar3);
+    //StringAppend(gStringVar4, gText_FontSizeNormal);//give up on prepend just make alt of this setup
+    StringAppend(gStringVar4, TM_Case_AppendFontToFit(gStringVar3,ItemIdToBattleMoveId(itemId))); //should return font placeholder to apennd,
+    StringAppend(gStringVar4, gStringVar3); //^ while also setting movestring to stringvar3 unsure if will work for berries too
     StringCopy(dest, gStringVar4);
 }
 

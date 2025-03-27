@@ -3890,7 +3890,9 @@ static void PokeSum_PrintAbilityNameAndDesc(void)
 
     FillWindowPixelBuffer(sMonSummaryScreen->windowIds[5], 0);//checked window fills entire graphic
 
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], FONT_NORMAL,
+    //not sure how count width but 60 is far too small its about 2/3rds the whole space?
+    //but 72 is slightly too large to fit box ok 71 is good
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], GetFontIdToFit(sMonSummaryScreen->summary.abilityNameStrBuf, FONT_NORMAL, 0, 71), 
         66, 0, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.abilityNameStrBuf);
 
     AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[5], FONT_NORMAL,
