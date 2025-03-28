@@ -5,21 +5,44 @@
 #define UNION_ROOM_SPAWN_IN   1
 #define UNION_ROOM_SPAWN_OUT  2
 
-#define ACTIVITY_NONE       0
+// The number of possible trainer classes for a trainer of a given gender in the Union Room.
+// This value is necessarily a power of 2 because of the way it's treated in GetUnionRoomTrainerPic / GetUnionRoomTrainerClass
+#define NUM_UNION_ROOM_CLASSES (1 << 3) // 8
+
+
+//#define ACTIVITY_NONE       0
 #define ACTIVITY_BATTLE     1
 #define ACTIVITY_DBLBATTLE  2
 #define ACTIVITY_MLTBATTLE  3
-#define ACTIVITY_TRADE      4
-#define ACTIVITY_CHAT       5
+//#define ACTIVITY_TRADE      4
+//#define ACTIVITY_CHAT       5
 #define ACTIVITY_WCARD      6
 #define ACTIVITY_WNEWS      7
-#define ACTIVITY_CARD       8
+//#define ACTIVITY_CARD       8
 #define ACTIVITY_PJUMP      9
 #define ACTIVITY_BCRUSH    10
 #define ACTIVITY_BPICK     11
-#define ACTIVITY_SEARCH    12
+//#define ACTIVITY_SEARCH    12
 #define ACTIVITY_SPINTRADE 13
 #define ACTIVITY_ITEMTRADE 14
+
+#define ACTIVITY_NONE               0
+#define ACTIVITY_BATTLE_SINGLE      1
+#define ACTIVITY_BATTLE_DOUBLE      2
+#define ACTIVITY_BATTLE_MULTI       3
+#define ACTIVITY_TRADE              4
+#define ACTIVITY_CHAT               5
+#define ACTIVITY_WONDER_CARD_DUP    6 // Duplicates of later WONDER constants
+#define ACTIVITY_WONDER_NEWS_DUP    7 //
+#define ACTIVITY_CARD               8
+#define ACTIVITY_POKEMON_JUMP       9
+#define ACTIVITY_BERRY_CRUSH        10
+#define ACTIVITY_BERRY_PICK         11
+#define ACTIVITY_SEARCH             12
+#define ACTIVITY_SPIN_TRADE         13
+#define ACTIVITY_ITEM_TRADE         14 // Replaced with ACTIVITY_BATTLE_TOWER_OPEN in Emerald
+#define ACTIVITY_RECORD_CORNER      15
+#define ACTIVITY_BERRY_BLENDER      16
 
 // Player response
 #define ACTIVITY_ACCEPT    17
@@ -28,11 +51,14 @@
 #define ACTIVITY_NPCTALK   19
 #define ACTIVITY_PLYRTALK  20
 
-// Duplicate IDs?
 #define ACTIVITY_WCARD2    21
 #define ACTIVITY_WNEWS2    22
 
-#define IN_UNION_ROOM   0x40
+#define ACTIVITY_WONDER_CARD        21
+#define ACTIVITY_WONDER_NEWS        22
+
+#define IN_UNION_ROOM               (1 << 6)
+//#define IN_UNION_ROOM   0x40
 
 // Used in UR_AddTextPrinterParameterized
 #define UR_COLOR_DKE_WHT_LTE 0

@@ -187,7 +187,8 @@
 #define STAT_EVASION 7 // only in battles
 
 #define NUM_STATS 6
-#define NUM_BATTLE_STATS 8
+#define NUM_NATURE_STATS (NUM_STATS - 1) // excludes HP
+#define NUM_BATTLE_STATS (NUM_STATS + 2) // includes Accuracy and Evasion
 
 #define MIN_STAT_STAGE     0
 #define DEFAULT_STAT_STAGE 6

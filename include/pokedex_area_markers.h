@@ -11,7 +11,7 @@ struct PAM_TaskData
     u16 unk_10;
 };
 
-void SetAreaSubsprite(s32 i, s32 whichArea, struct Subsprite * subsprites);
+void GetAreaMarkerSubsprite(s32 i, s32 whichArea, struct Subsprite * subsprites);
 void DestroyPokedexAreaMarkers(u8 taskId);
 u8 CreatePokedexAreaMarkers(u16 species, u16 tilesTag, u8 palIdx, u8 y);
 u8 GetNumPokedexAreaMarkers(u8 taskId);

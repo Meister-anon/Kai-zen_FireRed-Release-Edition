@@ -43,6 +43,7 @@
 //value max meant to be double name length
 #define POKEMON_NAME_BUFFER_SIZE max((POKEMON_NAME_LENGTH + 1) * 2, POKEMON_NAME_LENGTH + 1) // Frequently used buffer size. Larger than necessary
 
+// string lengths
 #define OT_NAME_LENGTH PLAYER_NAME_LENGTH    //player name length
 #define MOVE_NAME_LENGTH 16 //longest move name is 16 
 
@@ -53,6 +54,13 @@
 #define TRAINER_NAME_LENGTH 12
 
 #define EASY_CHAT_BATTLE_WORDS_COUNT 6 //added w recorded battle for test system unsure if need
+
+#define NUM_QUESTIONNAIRE_WORDS 4
+#define WONDER_CARD_TEXT_LENGTH 40
+#define WONDER_NEWS_TEXT_LENGTH 40
+#define WONDER_CARD_BODY_TEXT_LINES 4
+#define WONDER_NEWS_BODY_TEXT_LINES 10
+
 
 
 #define VERSION_SAPPHIRE    1

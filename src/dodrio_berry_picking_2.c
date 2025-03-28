@@ -834,8 +834,8 @@ void sub_81546C0(void)
 
 static void sub_81546EC(u8 frameId)
 {
-    LoadBgTiles(0, GetUserFrameGraphicsInfo(frameId)->tiles, 0x120, 1);
-    LoadPalette(GetUserFrameGraphicsInfo(frameId)->palette, 0xA0, 0x20);
+    LoadBgTiles(0, GetUserWindowGraphics(frameId)->tiles, 0x120, 1);
+    LoadPalette(GetUserWindowGraphics(frameId)->palette, 0xA0, 0x20);
 }
 
 static void sub_8154720(void)
@@ -1578,7 +1578,7 @@ static void sub_8155EA0(void)
     ChangeBgX(3, 0, 0);
     ChangeBgY(3, 0, 0);
     InitStandardTextBoxWindows();
-    ResetBg0();
+    InitTextBoxGfxAndPrinters();
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
     SetBgTilemapBuffer(3, gUnknown_203F440->tilemapBuffers[0]);
     SetBgTilemapBuffer(1, gUnknown_203F440->tilemapBuffers[1]);

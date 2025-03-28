@@ -25,7 +25,7 @@
 #define TRAINER_PIC_RS_RUIN_MANIAC          4
 #define TRAINER_PIC_INTERVIEWER             5
 #define TRAINER_PIC_RS_TUBER_F              6
-#define TRAINER_PIC_TUBER_M                 7
+#define TRAINER_PIC_RS_TUBER_M              7
 #define TRAINER_PIC_RS_COOLTRAINER_M        8
 #define TRAINER_PIC_RS_COOLTRAINER_F        9
 #define TRAINER_PIC_HEX_MANIAC             10
@@ -76,7 +76,7 @@
 #define TRAINER_PIC_WALLY                  55
 #define TRAINER_PIC_RS_BRENDAN_1           56
 #define TRAINER_PIC_RS_MAY_1               57
-#define TRAINER_PIC_POKEMON_BREEDER_M      58
+#define TRAINER_PIC_RS_POKEMON_BREEDER_M   58
 #define TRAINER_PIC_RS_POKEMON_BREEDER_F   59
 #define TRAINER_PIC_RS_POKEMON_RANGER_M    60
 #define TRAINER_PIC_RS_POKEMON_RANGER_F    61
@@ -115,7 +115,7 @@
 #define TRAINER_PIC_FISHERMAN              94
 #define TRAINER_PIC_SWIMMER_M              95
 #define TRAINER_PIC_CUE_BALL               96
-#define TRAINER_PIC_GAMBLER                  97
+#define TRAINER_PIC_GAMBLER                97
 #define TRAINER_PIC_BEAUTY                 98
 #define TRAINER_PIC_SWIMMER_F              99
 #define TRAINER_PIC_PSYCHIC_M             100
@@ -124,7 +124,7 @@
 #define TRAINER_PIC_TAMER                 103
 #define TRAINER_PIC_BIRD_KEEPER           104
 #define TRAINER_PIC_BLACK_BELT            105
-#define TRAINER_PIC_RIVAL_1               106
+#define TRAINER_PIC_RIVAL_EARLY           106
 #define TRAINER_PIC_SCIENTIST             107
 #define TRAINER_PIC_LEADER_GIOVANNI       108
 #define TRAINER_PIC_ROCKET_GRUNT_M        109
@@ -142,7 +142,7 @@
 #define TRAINER_PIC_LEADER_BLAINE         121
 #define TRAINER_PIC_LEADER_SABRINA        122
 #define TRAINER_PIC_GENTLEMAN             123
-#define TRAINER_PIC_RIVAL_2               124
+#define TRAINER_PIC_RIVAL_LATE            124
 #define TRAINER_PIC_CHAMPION_RIVAL        125
 #define TRAINER_PIC_CHANNELER             126
 #define TRAINER_PIC_TWINS                 127
@@ -167,8 +167,21 @@
 #define TRAINER_PIC_LADY                  146
 #define TRAINER_PIC_PAINTER               147
 
+
+// The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
+#define TRAINER_BACK_PIC_RED                    0
+#define TRAINER_BACK_PIC_LEAF                   1
+#define TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN  2
+#define TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY      3
+#define TRAINER_BACK_PIC_POKEDUDE               4
+#define TRAINER_BACK_PIC_OLD_MAN                5
+
+// Special Trainer Ids.
+#define TRAINER_UNION_ROOM          0xC00
+#define TRAINER_LINK_OPPONENT       0x800
 // Leftover from R/S
-#define TRAINER_SECRET_BASE                 1024
+#define TRAINER_SECRET_BASE         0x400
+
 
 #define F_TRAINER_FEMALE (1 << 7)
 

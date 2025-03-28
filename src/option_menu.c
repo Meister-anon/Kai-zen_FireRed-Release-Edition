@@ -561,10 +561,10 @@ static bool8 LoadOptionMenuPalette(void)
     switch (sOptionMenuPtr->loadPaletteState)
     {
     case 0:
-        LoadBgTiles(1, GetUserFrameGraphicsInfo(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->tiles, 0x120, 0x1AA);
+        LoadBgTiles(1, GetUserWindowGraphics(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->tiles, 0x120, 0x1AA);
         break;
     case 1:
-        LoadPalette(GetUserFrameGraphicsInfo(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->palette, 0x20, 0x20);
+        LoadPalette(GetUserWindowGraphics(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->palette, 0x20, 0x20);
         break;
     case 2:
         LoadPalette(sOptionMenuPalette, 0x10, 0x20);
@@ -606,8 +606,8 @@ static void Task_OptionMenu(u8 taskId)
             sOptionMenuPtr->loadState++;
             break;
         case 2:
-            LoadBgTiles(1, GetUserFrameGraphicsInfo(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->tiles, 0x120, 0x1AA);
-            LoadPalette(GetUserFrameGraphicsInfo(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->palette, 0x20, 0x20);
+            LoadBgTiles(1, GetUserWindowGraphics(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->tiles, 0x120, 0x1AA);
+            LoadPalette(GetUserWindowGraphics(sOptionMenuPtr->GameOptions[GAME_MENUITEM_FRAMETYPE])->palette, 0x20, 0x20);
             BufferOptionMenuString(sOptionMenuPtr->cursorPos);
             break;
         case 3:

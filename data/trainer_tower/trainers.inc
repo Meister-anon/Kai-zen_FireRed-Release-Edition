@@ -22,7 +22,7 @@
 
 	.macro dummy_tower_team
 	.string "$", 11
-	.byte FACILITY_CLASS_AQUA_LEADER, 0x01
+	.byte FACILITY_CLASS_AQUA_LEADER_ARCHIE, 0x01
 	.align 1
 	.2byte 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 	.2byte 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
@@ -3292,7 +3292,7 @@ gUnknown_847FD0C::
 	.byte 255 @ friendship
 
 	.string "$", 11
-	.byte FACILITY_CLASS_AQUA_LEADER, 0x01
+	.byte FACILITY_CLASS_AQUA_LEADER_ARCHIE, 0x01
 	.align 1
 	.2byte 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 	.2byte 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF

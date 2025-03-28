@@ -34,8 +34,8 @@ bool8 MapGridIsImpassableAt(s32, s32);
 s32 GetMapBorderIdAt(s32, s32);
 bool32 CanCameraMoveInDirection(s32);
 u32 GetBehaviorByMetatileIdAndMapLayout(const struct MapLayout *mapLayout, u16 metatile, u8 attr);
-const struct MapHeader * mapconnection_get_mapheader(struct MapConnection * connection);
-struct MapConnection * GetMapConnectionAtPos(s16 x, s16 y);
+const struct MapHeader * GetMapHeaderFromConnection(const struct MapConnection * connection);
+const struct MapConnection * GetMapConnectionAtPos(s16 x, s16 y);
 void sub_8059948(u8 a0, u8 a1);
 
 void save_serialize_map(void);

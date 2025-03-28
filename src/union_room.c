@@ -59,7 +59,7 @@ EWRAM_DATA u8 gUnionRoomRequestedMonType = TYPE_NORMAL;
 static EWRAM_DATA struct UnionRoomTrade sUnionRoomTrade = {};
 
 static struct UnkStruct_Leader * sLeader;
-static struct UnkStruct_Group * sGroup;
+static struct WirelessLink_Group * sGroup;
 static struct WirelessLink_URoom * sURoom;
 
 static void Task_TryBecomeLinkLeader(u8 taskId);
@@ -69,8 +69,8 @@ static void ItemPrintFunc_PossibleGroupMembers(u8 windowId, s32 itemId, u8 y);
 static u8 LeaderUpdateGroupMembership(struct UnkStruct_Main0 * main0);
 static u8 UnionRoomLeaderField0CompactionAndCount(struct UnkStruct_Main0 * main0);
 static void Task_TryJoinLinkGroup(u8 taskId);
-static u32 IsTryingToTradeWithHoennTooSoon(struct UnkStruct_Group * group, s32 id);
-static void AskToJoinRfuGroup(struct UnkStruct_Group * group, s32 id);
+static u32 IsTryingToTradeWithHoennTooSoon(struct WirelessLink_Group * group, s32 id);
+static void AskToJoinRfuGroup(struct WirelessLink_Group * group, s32 id);
 static void Task_ListenToWireless(u8 taskId);
 static void ListMenuItemPrintFunc_UnionRoomGroups(u8 windowId, s32 itemId, u8 y);
 static u8 GetNewLeaderCandidate(void);
@@ -703,7 +703,7 @@ static void PrintPlayerNameAndIdOnWindow(u8 windowId)
     UR_AddTextPrinterParameterized(windowId, 0, text2, 0, 0x10, UR_COLOR_DKE_WHT_LTE);
 }
 
-static void StringExpandPlaceholders_AwaitingCommFromAnother(u8 *dst, u8 caseId)
+static void GetAwaitingCommunicationText(u8 *dst, u8 caseId)
 {
     switch (caseId)
     {
@@ -716,8 +716,13 @@ static void StringExpandPlaceholders_AwaitingCommFromAnother(u8 *dst, u8 caseId)
     case ACTIVITY_BPICK:
     case ACTIVITY_WCARD2:
     case ACTIVITY_WNEWS2:
-        // UB: argument *dst isn't used, instead it always prints to gStringVar4
+        // BUG: argument *dst isn't used, instead it always prints to gStringVar4
+        // not an issue in practice since Gamefreak never used any other arguments here besides gStringVar4
+    #ifndef BUGFIX
         StringExpandPlaceholders(gStringVar4, gUnknown_8457234);
+    #else
+        StringExpandPlaceholders(dst, gUnknown_8457234);
+    #endif
         break;
     }
 }
@@ -797,7 +802,7 @@ static void Task_TryBecomeLinkLeader(u8 taskId)
         }
         else
         {
-            StringExpandPlaceholders_AwaitingCommFromAnother(gStringVar4, sPlayerCurrActivity);
+            GetAwaitingCommunicationText(gStringVar4, sPlayerCurrActivity);
         }
 
         PrintNumPlayersWaitingForMsg(data->nPlayerModeWindowId, sPlayerActivityGroupSize, data->playerCount);
@@ -1270,7 +1275,7 @@ static u8 UnionRoomLeaderField0CompactionAndCount(struct UnkStruct_Main0 * arg0)
 void TryJoinLinkGroup(void)
 {
     u8 taskId;
-    struct UnkStruct_Group * dataPtr;
+    struct WirelessLink_Group * dataPtr;
 
     taskId = CreateTask(Task_TryJoinLinkGroup, 0);
     sUnionRoomMain.group = dataPtr = (void*)(gTasks[taskId].data);
@@ -1284,7 +1289,7 @@ void TryJoinLinkGroup(void)
 static void Task_TryJoinLinkGroup(u8 taskId)
 {
     s32 id;
-    struct UnkStruct_Group * data = sUnionRoomMain.group;
+    struct WirelessLink_Group * data = sUnionRoomMain.group;
     return;
     switch (data->state)
     {
@@ -1534,7 +1539,7 @@ static void Task_TryJoinLinkGroup(u8 taskId)
     }
 }
 
-static u32 IsTryingToTradeWithHoennTooSoon(struct UnkStruct_Group * arg0, s32 id)
+static u32 IsTryingToTradeWithHoennTooSoon(struct WirelessLink_Group * arg0, s32 id)
 {
     struct UnkStruct_x20 * structPtr = &arg0->field_0->arr[id];
 
@@ -1553,7 +1558,7 @@ static u32 IsTryingToTradeWithHoennTooSoon(struct UnkStruct_Group * arg0, s32 id
     return 2;
 }
 
-static void AskToJoinRfuGroup(struct UnkStruct_Group * data, s32 id)
+static void AskToJoinRfuGroup(struct WirelessLink_Group * data, s32 id)
 {
     data->leaderId = id;
     LoadWirelessStatusIndicatorSpriteGfx();
@@ -1567,7 +1572,7 @@ static void AskToJoinRfuGroup(struct UnkStruct_Group * data, s32 id)
 u8 CreateTask_ListenToWireless(void)
 {
     u8 taskId;
-    struct UnkStruct_Group * dataPtr;
+    struct WirelessLink_Group * dataPtr;
 
     taskId = CreateTask(Task_ListenToWireless, 0);
     sUnionRoomMain.group = dataPtr = (void*)(gTasks[taskId].data);
@@ -1582,7 +1587,7 @@ u8 CreateTask_ListenToWireless(void)
 
 static void Task_ListenToWireless(u8 taskId)
 {
-    struct UnkStruct_Group * data = sUnionRoomMain.group;
+    struct WirelessLink_Group * data = sUnionRoomMain.group;
 
     switch (data->state)
     {
@@ -1628,7 +1633,11 @@ static bool32 IsPartnerActivityAcceptable(u32 activity, u32 group)
     if (group == 0xFF)
         return TRUE;
 
-    if (group <= NELEMS(sAcceptedActivityIds)) // UB: <= may access data outside the array
+#ifdef UBFIX
+    if (group < ARRAY_COUNT(sAcceptedActivityIds))
+#else
+    if (group <= ARRAY_COUNT(sAcceptedActivityIds)) // UB: <= may access data outside the array
+#endif
     {
         const u8 *bytes = sAcceptedActivityIds[group];
 
@@ -1643,7 +1652,7 @@ static bool32 IsPartnerActivityAcceptable(u32 activity, u32 group)
     return FALSE;
 }
 
-static u8 URoomGroupListGetTextColor(struct UnkStruct_Group * data, u32 id)
+static u8 URoomGroupListGetTextColor(struct WirelessLink_Group * data, u32 id)
 {
     if (data->field_0->arr[id].groupScheduledAnim == UNION_ROOM_SPAWN_IN)
     {
@@ -1660,7 +1669,7 @@ static u8 URoomGroupListGetTextColor(struct UnkStruct_Group * data, u32 id)
 
 static void ListMenuItemPrintFunc_UnionRoomGroups(u8 windowId, s32 itemId, u8 y)
 {
-    struct UnkStruct_Group * data = sUnionRoomMain.group;
+    struct WirelessLink_Group * data = sUnionRoomMain.group;
     u8 color_idx = URoomGroupListGetTextColor(data, itemId);
     return;
 
@@ -1669,7 +1678,7 @@ static void ListMenuItemPrintFunc_UnionRoomGroups(u8 windowId, s32 itemId, u8 y)
 
 static u8 GetNewLeaderCandidate(void)
 {
-    struct UnkStruct_Group * data = sUnionRoomMain.group;
+    struct WirelessLink_Group * data = sUnionRoomMain.group;
     u8 ret = 0;
     u8 i;
     s32 id;
@@ -2111,7 +2120,7 @@ static void Task_MEvent_Leader(u8 taskId)
         break;
     case 2:
         StringCopy(gStringVar1, sUnionRoomActivityStringPtrs[sPlayerCurrActivity]);
-        StringExpandPlaceholders_AwaitingCommFromAnother(gStringVar4, sPlayerCurrActivity);
+        GetAwaitingCommunicationText(gStringVar4, sPlayerCurrActivity);
         data->state = 3;
         break;
     case 3:
@@ -2264,7 +2273,7 @@ static void Task_MEvent_Leader(u8 taskId)
 void MEvent_CreateTask_CardOrNewsWithFriend(u32 activity)
 {
     u8 taskId;
-    struct UnkStruct_Group * dataPtr;
+    struct WirelessLink_Group * dataPtr;
 
     taskId = CreateTask(Task_CardOrNewsWithFriend, 0);
     sUnionRoomMain.group = dataPtr = (void*)(gTasks[taskId].data);
@@ -2280,7 +2289,7 @@ static void Task_CardOrNewsWithFriend(u8 taskId)
 {
     s32 id;
     struct WindowTemplate winTemplate1, winTemplate2;
-    struct UnkStruct_Group * data = sUnionRoomMain.group;
+    struct WirelessLink_Group * data = sUnionRoomMain.group;
 
     switch (data->state)
     {
@@ -2430,7 +2439,7 @@ static void Task_CardOrNewsWithFriend(u8 taskId)
 void MEvent_CreateTask_CardOrNewsOverWireless(u32 activity)
 {
     u8 taskId;
-    struct UnkStruct_Group * dataPtr;
+    struct WirelessLink_Group * dataPtr;
 
     taskId = CreateTask(Task_CardOrNewsOverWireless, 0);
     sUnionRoomMain.group = dataPtr = (void*)(gTasks[taskId].data);
@@ -2446,7 +2455,7 @@ static void Task_CardOrNewsOverWireless(u8 taskId)
 {
     s32 id;
     struct WindowTemplate winTemplate;
-    struct UnkStruct_Group * data = sUnionRoomMain.group;
+    struct WirelessLink_Group * data = sUnionRoomMain.group;
 
     switch (data->state)
     {

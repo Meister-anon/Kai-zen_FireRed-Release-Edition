@@ -4,7 +4,7 @@ EventScript_UseSurf:: @ 81A6AC8
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_UseSurfEnd
 	getpartymonname 0, VAR_RESULT
-	setfieldeffectarg 0, VAR_RESULT
+	setfieldeffectargument 0, VAR_RESULT
 	lockall
 	msgbox Text_WantToSurf, MSGBOX_YESNO
 	compare VAR_RESULT, NO

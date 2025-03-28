@@ -178,7 +178,7 @@ u8 CreatePokedexAreaMarkers(u16 species, u16 tilesTag, u8 palIdx, u8 y)
     subsprites = Alloc(120 * sizeof(struct Subsprite));
     data->buffer = subsprites;
     data->subsprites.subsprites = subsprites;
-    data->subsprites.subspriteCount = BuildPokedexAreaSubspriteBuffer(species, subsprites);
+    data->subsprites.subspriteCount = GetSpeciesPokedexAreaMarkers(species, subsprites);
     SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_OBJWIN_ON);
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG0 | BLDCNT_TGT2_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_BD);
     SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(12, 8));
@@ -221,7 +221,7 @@ void DestroyPokedexAreaMarkers(u8 taskId)
     DestroyTask(taskId);
 }
 
-void SetAreaSubsprite(s32 i, s32 whichArea, struct Subsprite * subsprites)
+void GetAreaMarkerSubsprite(s32 i, s32 whichArea, struct Subsprite * subsprites)
 {
     subsprites[i] = *sSubsprites[sSubspriteLookupTable[whichArea][0]];
     subsprites[i].x = sSubspriteLookupTable[whichArea][1];

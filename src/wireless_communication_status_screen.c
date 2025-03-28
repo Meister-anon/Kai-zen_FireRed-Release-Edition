@@ -14,6 +14,34 @@
 #include "constants/songs.h"
 #include "constants/union_room.h"
 
+
+enum {
+    COLOR_NONE,
+    COLOR_NORMAL,
+    COLOR_TOTAL,
+    COLOR_TITLE,
+    COLOR_UNUSED,
+};
+
+enum {
+    GROUPTYPE_NONE = -1,
+    GROUPTYPE_TRADE,
+    GROUPTYPE_BATTLE,
+    GROUPTYPE_UNION,
+    GROUPTYPE_TOTAL,
+    NUM_GROUPTYPES
+};
+
+static struct
+{
+    u32 groupCounts[NUM_GROUPTYPES];
+    u32 prevGroupCounts[NUM_GROUPTYPES];
+    u32 activities[NUM_TASK_DATA];
+    u8 taskId;
+    u8 rfuTaskId;
+    u8 filler[10];
+} * sStatusScreen;
+
 struct WirelessCommunicationStatusScreenStruct
 {
     u32 counts[4];
@@ -398,7 +426,7 @@ static bool32 UpdateCommunicationCounts(u32 * counts, u32 * lastCounts, u32 * ac
 {
     bool32 activitiesUpdated = FALSE;
     u32 buffer[4] = {0, 0, 0, 0};
-    struct UnkStruct_Group * group = (void *)gTasks[taskId].data;
+    struct WirelessLink_Group * group = (void *)gTasks[taskId].data;
     s32 i;
 
     for (i = 0; i < 16; i++)
@@ -421,6 +449,12 @@ static bool32 UpdateCommunicationCounts(u32 * counts, u32 * lastCounts, u32 * ac
 
     memcpy(counts, buffer, sizeof(buffer));
     memcpy(lastCounts, buffer, sizeof(buffer));
-    counts[3] = counts[0] + counts[1] + counts[2];
+    counts[GROUPTYPE_TOTAL] = counts[GROUPTYPE_TRADE]
+                            + counts[GROUPTYPE_BATTLE]
+                            + counts[GROUPTYPE_UNION]
+                            #ifdef BUGFIX
+                            + counts[GROUPTYPE_TOTAL] // Missing count for activities not in above groups
+                            #endif
+                            ;
     return TRUE;
 }

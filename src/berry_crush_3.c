@@ -510,7 +510,7 @@ int BerryCrush_InitBgs(void)
             return 0;
 
         InitStandardTextBoxWindows();
-        ResetBg0();
+        InitTextBoxGfxAndPrinters();
         sub_814EB38(game);
         sub_814EBB0(game);
         gPaletteFade.bufferTransferDisabled = TRUE;

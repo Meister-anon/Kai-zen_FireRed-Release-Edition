@@ -239,7 +239,7 @@ struct Pokemon
 };
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
-u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex); //made global for bs command level up calc
+u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc
 
 struct PokemonStorage
 {

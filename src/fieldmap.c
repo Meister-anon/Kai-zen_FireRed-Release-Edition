@@ -22,9 +22,9 @@ static void fillNorthConnection(struct MapHeader const *mapHeader, struct MapHea
 static void fillWestConnection(struct MapHeader const *mapHeader, struct MapHeader const *connectedMapHeader, s32 offset);
 static void fillEastConnection(struct MapHeader const *mapHeader, struct MapHeader const *connectedMapHeader, s32 offset);
 static void LoadSavedMapView(void);
-static struct MapConnection *sub_8059600(u8 direction, s32 x, s32 y);
-static bool8 sub_8059658(u8 direction, s32 x, s32 y, struct MapConnection *connection);
-static bool8 sub_80596BC(s32 x, s32 src_width, s32 dest_width, s32 offset);
+static const struct MapConnection*GetIncomingConnection(u8 direction, s32 x, s32 y);
+static bool8 IsPosInIncomingConnectingMap(u8 direction, s32 x, s32 y, const struct MapConnection *connection);
+static bool8 IsCoordInIncomingConnectingMap(s32 x, s32 src_width, s32 dest_width, s32 offset);
 
 struct BackupMapLayout VMap;
 EWRAM_DATA u16 gBackupMapData[VIRTUAL_MAP_SIZE] = {};
@@ -57,7 +57,7 @@ static const u8 sMetatileAttrShifts[METATILE_ATTRIBUTE_COUNT] = {
     [METATILE_ATTRIBUTE_7]              = 31
 };
 
-const struct MapHeader * mapconnection_get_mapheader(struct MapConnection * connection)
+const struct MapHeader * GetMapHeaderFromConnection(const struct MapConnection * connection)
 {
     return Overworld_GetMapHeaderByGroupAndId(connection->mapGroup, connection->mapNum);
 }
@@ -104,7 +104,7 @@ static void map_copy_with_padding(u16 *map, u16 width, u16 height)
 static void mapheader_copy_mapdata_of_adjacent_maps(struct MapHeader *mapHeader)
 {
     s32 count;
-    struct MapConnection *connection;
+    const struct MapConnection *connection;
     s32 i;
 
     gMapConnectionFlags = sDummyConnectionFlags;
@@ -122,7 +122,7 @@ static void mapheader_copy_mapdata_of_adjacent_maps(struct MapHeader *mapHeader)
         // gMapConnectionFlags = sDummyConnectionFlags;
         for (i = 0; i < count; i++, connection++)
         {
-            struct MapHeader const *cMap = mapconnection_get_mapheader(connection);
+            struct MapHeader const *cMap = GetMapHeaderFromConnection(connection);
             u32 offset = connection->offset;
             switch (connection->direction)
             {
@@ -528,9 +528,14 @@ static bool32 SavedMapViewIsEmpty(void)
     u16 i;
     u32 marker = 0;
 
+#ifndef UBFIX
     // BUG: This loop extends past the bounds of the mapView array. Its size is only 0x100.
     for (i = 0; i < 0x200; i++)
         marker |= gSaveBlock2Ptr->mapView[i];
+#else
+    for (i = 0; i < NELEMS(gSaveBlock2Ptr->mapView); i++)
+        marker |= gSaveBlock2Ptr->mapView[i];
+#endif
 
     if (marker == 0)
         return TRUE;
@@ -687,10 +692,10 @@ bool32 CanCameraMoveInDirection(s32 direction)
     return TRUE;
 }
 
-static void sub_80594AC(struct MapConnection *connection, int direction, s32 x, s32 y)
+static void sub_80594AC(const struct MapConnection *connection, int direction, s32 x, s32 y)
 {
     struct MapHeader const *mapHeader;
-    mapHeader = mapconnection_get_mapheader(connection);
+    mapHeader = GetMapHeaderFromConnection(connection);
     switch (direction)
     {
         case CONNECTION_EAST:
@@ -714,12 +719,13 @@ static void sub_80594AC(struct MapConnection *connection, int direction, s32 x, 
 
 bool8 CameraMove(s32 x, s32 y)
 {
-    u32 direction;
-    struct MapConnection *connection;
+    s32 direction;
+    const struct MapConnection *connection;
     s32 old_x, old_y;
     gCamera.active = FALSE;
     direction = GetPostCameraMoveMapBorderId(x, y);
-    if (direction + 1 <= 1)
+
+    if (direction == CONNECTION_NONE || direction == CONNECTION_INVALID)
     {
         gSaveBlock1Ptr->pos.x += x;
         gSaveBlock1Ptr->pos.y += y;
@@ -729,7 +735,7 @@ bool8 CameraMove(s32 x, s32 y)
         save_serialize_map();
         old_x = gSaveBlock1Ptr->pos.x;
         old_y = gSaveBlock1Ptr->pos.y;
-        connection = sub_8059600(direction, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
+        connection = GetIncomingConnection(direction, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
         sub_80594AC(connection, direction, x, y);
         LoadMapFromCameraTransition(connection->mapGroup, connection->mapNum);
         gCamera.active = TRUE;
@@ -742,39 +748,45 @@ bool8 CameraMove(s32 x, s32 y)
     return gCamera.active;
 }
 
-struct MapConnection *sub_8059600(u8 direction, s32 x, s32 y)
+const struct MapConnection *GetIncomingConnection(u8 direction, s32 x, s32 y)
 {
     s32 count;
-    struct MapConnection *connection;
+    const struct MapConnection *connection;
+    const struct MapConnections *connections = gMapHeader.connections;
     s32 i;
-    count = gMapHeader.connections->count;
-    connection = gMapHeader.connections->connections;
+
+#ifdef UBFIX // UB: Multiple possible null dereferences
+    if (connections == NULL || connections->connections == NULL)
+        return NULL;
+#endif
+    count = connections->count;
+    connection = connections->connections;
     for (i = 0; i < count; i++, connection++)
     {
-        if (connection->direction == direction && sub_8059658(direction, x, y, connection) == TRUE)
+        if (connection->direction == direction && IsPosInIncomingConnectingMap(direction, x, y, connection) == TRUE)
             return connection;
     }
     return NULL;
 
 }
 
-static bool8 sub_8059658(u8 direction, s32 x, s32 y, struct MapConnection *connection)
+static bool8 IsPosInIncomingConnectingMap(u8 direction, s32 x, s32 y, const struct MapConnection *connection)
 {
     struct MapHeader const *mapHeader;
-    mapHeader = mapconnection_get_mapheader(connection);
+    mapHeader = GetMapHeaderFromConnection(connection);
     switch (direction)
     {
         case CONNECTION_SOUTH:
         case CONNECTION_NORTH:
-            return sub_80596BC(x, gMapHeader.mapLayout->width, mapHeader->mapLayout->width, connection->offset);
+            return IsCoordInIncomingConnectingMap(x, gMapHeader.mapLayout->width, mapHeader->mapLayout->width, connection->offset);
         case CONNECTION_WEST:
         case CONNECTION_EAST:
-            return sub_80596BC(y, gMapHeader.mapLayout->height, mapHeader->mapLayout->height, connection->offset);
+            return IsCoordInIncomingConnectingMap(y, gMapHeader.mapLayout->height, mapHeader->mapLayout->height, connection->offset);
     }
     return FALSE;
 }
 
-static bool8 sub_80596BC(s32 x, s32 src_width, s32 dest_width, s32 offset)
+static bool8 IsCoordInIncomingConnectingMap(s32 x, s32 src_width, s32 dest_width, s32 offset)
 {
     s32 offset2 = max(offset, 0);
 
@@ -795,10 +807,10 @@ static bool32 sub_80596E8(s32 x, s32 width)
     return FALSE;
 }
 
-static s32 sub_80596FC(struct MapConnection *connection, s32 x, s32 y)
+static s32 sub_80596FC(const struct MapConnection *connection, s32 x, s32 y)
 {
     struct MapHeader const *mapHeader;
-    mapHeader = mapconnection_get_mapheader(connection);
+    mapHeader = GetMapHeaderFromConnection(connection);
     switch (connection->direction)
     {
         case CONNECTION_SOUTH:
@@ -811,10 +823,10 @@ static s32 sub_80596FC(struct MapConnection *connection, s32 x, s32 y)
     return FALSE;
 }
 
-struct MapConnection *GetMapConnectionAtPos(s16 x, s16 y)
+const struct MapConnection *GetMapConnectionAtPos(s16 x, s16 y)
 {
     s32 count;
-    struct MapConnection *connection;
+    const struct MapConnection *connection;
     s32 i;
     u8 direction;
     if (!gMapHeader.connections)

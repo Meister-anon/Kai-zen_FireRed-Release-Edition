@@ -219,7 +219,7 @@ static const union AnimCmd *const sSpriteAnimTable_MonMarkSet[] = {
 static void GetUserFrameForMonMarkings(void)
 {
     return;
-    /*const struct TextWindowGraphics * frame = GetUserFrameGraphicsInfo(gSaveBlock2Ptr->optionsWindowFrameType);
+    /*const struct TextWindowGraphics * frame = GetUserWindowGraphics(gSaveBlock2Ptr->optionsWindowFrameType);
     sMenu->frameTiles = frame->tiles;
     sMenu->framePalette = frame->palette;
     sMenu->tileLoadState = 0;

@@ -83,7 +83,7 @@ static void RemoveObjectEventIfOutsideView(struct ObjectEvent *);
 static void sub_805EE3C(u8, s16, s16);
 static void SetPlayerAvatarObjectEventIdAndObjectId(u8, u8);
 static void sub_805EFF4(struct ObjectEvent *);
-static u8 sub_805F510(const struct SpritePalette *);
+static u8 TryLoadObjectPalette(const struct SpritePalette *);
 static u8 FindObjectEventPaletteIndexByTag(u16);
 static bool8 ObjectEventDoesZCoordMatch(struct ObjectEvent *, u8);
 static void ObjectCB_CameraObject(struct Sprite *);
@@ -2606,9 +2606,13 @@ static void LoadObjectEventPalette(u16 paletteTag)
 {
     u16 i = FindObjectEventPaletteIndexByTag(paletteTag);
 
+    #ifdef BUGFIX
+    if (sObjectEventSpritePalettes[i].tag != OBJ_EVENT_PAL_TAG_NONE)
+#else
     if (i != OBJ_EVENT_PAL_TAG_NONE) // always true
+#endif
     {
-        sub_805F510(&sObjectEventSpritePalettes[i]);
+        TryLoadObjectPalette(&sObjectEventSpritePalettes[i]);
     }
 }
 
@@ -2622,7 +2626,7 @@ void Unused_LoadObjectEventPaletteSet(u16 *paletteTags)
     }
 }
 
-static u8 sub_805F510(const struct SpritePalette *spritePalette)
+static u8 TryLoadObjectPalette(const struct SpritePalette *spritePalette)
 {
     if (IndexOfSpritePaletteTag(spritePalette->tag) != 0xFF)
     {
@@ -2995,7 +2999,13 @@ const u8 *GetObjectEventScriptPointerByObjectEventId(u8 objectEventId)
 
 static u16 GetObjectEventFlagIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup)
 {
-    return GetObjectEventTemplateByLocalIdAndMap(localId, mapNum, mapGroup)->flagId;
+        const struct ObjectEventTemplate *obj = GetObjectEventTemplateByLocalIdAndMap(localId, mapNum, mapGroup);
+#ifdef UBFIX
+    // BUG: The function may return NULL, and attempting to read from NULL may freeze the game using modern compilers.
+    if (obj == NULL)
+        return 0;
+#endif // UBFIX
+    return obj->flagId;
 }
 
 static u16 GetObjectEventFlagIdByObjectEventId(u8 objectEventId)

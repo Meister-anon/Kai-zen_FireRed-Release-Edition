@@ -2616,7 +2616,7 @@ static void CopyGiftRibbonsToSav1(void)
     }
 }
 
-static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCount, int cursorPos)
+static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCount, int monIdx)
 {
     int i, sum;
     struct LinkPlayer * player;
@@ -2629,16 +2629,26 @@ static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCo
         species[i] = GetMonData(&party[i], MON_DATA_SPECIES);
     }
 
+   // Cant trade Eggs or non-Kanto mons if player doesn't have National Dex
     /*if (!IsNationalPokedexEnabled())
     {
-        if (species2[cursorPos] > SPECIES_MEW)
-        {
-            return 2;
-        }
-        if (species2[cursorPos] == SPECIES_NONE)
-        {
+        // See comment below
+    #ifdef BUGFIX
+        if (species2[monIdx] == SPECIES_EGG)
+            return 3; //cant trade egg
+    #endif
+
+        if (species2[monIdx] > KANTO_DEX_COUNT)
+            return 2; //cant trade national
+
+        // This is meant to be SPECIES_EGG. There are obviously no circumstances
+        // where you're allowed to trade SPECIES_NONE, so it wouldn't make sense to
+        // only check this if the National Dex is missing. SPECIES_EGG will accidentally
+        // be handled instead by the conditional above. Both of these problems are fixed in Emerald.
+    #ifndef BUGFIX
+        if (species2[monIdx] == SPECIES_NONE)
             return 3;
-        }
+    #endif
     }*/
 
     player = &gLinkPlayers[GetMultiplayerId() ^ 1];
@@ -2647,21 +2657,21 @@ static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCo
     {
         if ((player->name[10] & 0xF) == 0)
         {
-            if (species2[cursorPos] == SPECIES_EGG)
+            if (species2[monIdx] == SPECIES_EGG)
             {
                 return 5;
             }
 
-            if (species2[cursorPos] > SPECIES_MEW)
+            if (species2[monIdx] > SPECIES_MEW)
             {
                 //return 4;
             }
         }
     }
 
-    if (species[cursorPos] == SPECIES_DEOXYS || species[cursorPos] == SPECIES_MEW)
+    if (species[monIdx] == SPECIES_DEOXYS || species[monIdx] == SPECIES_MEW)
     {
-        /*if (!GetMonData(&party[cursorPos], MON_DATA_EVENT_LEGAL))
+        /*if (!GetMonData(&party[monIdx], MON_DATA_EVENT_LEGAL))
         {
             return 4;
         }*/
@@ -2677,7 +2687,7 @@ static u32 TestWhetherSelectedMonCanBeTraded(struct Pokemon * party, int partyCo
 
     for (sum = 0, i = 0; i < partyCount; i++)
     {
-        if (i != cursorPos)
+        if (i != monIdx)
         {
             sum += species2[i];
         }

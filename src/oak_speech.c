@@ -729,7 +729,7 @@ static void Task_NewGameScene(u8 taskId)
     case 4:
         gPaletteFade.bufferTransferDisabled = TRUE;
         InitStandardTextBoxWindows();
-        ResetBg0();
+        InitTextBoxGfxAndPrinters();
         Menu_LoadStdPalAt(0xD0);
         LoadPalette(sHelpDocsPalette, 0x000, 0x080);
         LoadPalette(GetTextWindowPalette(2) + 15, 0x000, 0x002);
@@ -1846,8 +1846,15 @@ static void CB2_ReturnFromNamingScreen(void)
     case 3:
         FreeAllWindowBuffers();
         InitStandardTextBoxWindows();
-        ResetBg0();
-        LoadPalette(sHelpDocsPalette, 0, 0xe0);
+        InitTextBoxGfxAndPrinters();
+        //LoadPalette(sHelpDocsPalette, 0, 0xe0);
+        // Below is reading 48 colors beyond the background palette (into the tiles that follow it).
+        // This color range is used by the player and rival pic, which will overwrite them with the correct colors.
+#ifdef BUGFIX
+        LoadPalette(sHelpDocsPalette, BG_PLTT_ID(0), sizeof(sHelpDocsPalette));
+#else
+        LoadPalette(sHelpDocsPalette, BG_PLTT_ID(0), sizeof(sHelpDocsPalette) + PLTT_SIZEOF(48));
+#endif
         break;
     case 4:
         DecompressAndCopyTileDataToVram(1, sOakSpeechGfx_SolidColors, 0, 0, 0);

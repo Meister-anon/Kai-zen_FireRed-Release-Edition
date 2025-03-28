@@ -56,9 +56,9 @@ static void SpriteCB_ReleaseMon2FromBall(struct Sprite *sprite);
 static void SpriteCB_OpponentMonSendOut(struct Sprite *sprite);
 static u8 LaunchBallStarsTaskForPokeball(u8 x, u8 y, u8 kindOfStars, u8 d);
 static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, u8 battlerId, u32 arg2);
-static void sub_804B9E8(struct Sprite *sprite);
-static void sub_804BAA4(struct Sprite *sprite);
-static void sub_804BC50(struct Sprite *sprite);
+static void SpriteCB_PokeballReleaseMon(struct Sprite *sprite);
+static void SpriteCB_ReleasedMonFlyOut(struct Sprite *sprite);
+static void SpriteCB_TradePokeball(struct Sprite *sprite);
 static void sub_804BCF8(struct Sprite *sprite);
 static void sub_804BD6C(struct Sprite *sprite);
 static void sub_804BE24(struct Sprite *sprite);
@@ -1007,6 +1007,17 @@ static u8 LaunchBallFadeMonTaskForPokeball(bool8 unFadeLater, u8 battlerId, u32 
     return LaunchBallFadeMonTask(unFadeLater, battlerId, arg2, BALL_POKE);
 }
 
+// Sprite data for the pokeball
+#define sMonSpriteId data[0]
+#define sDelay       data[1]
+#define sMonPalNum   data[2]
+#define sFadePalsLo  data[3]
+#define sFadePalsHi  data[4]
+#define sFinalMonX   data[5]
+#define sFinalMonY   data[6]
+#define sTrigIdx     data[7]
+
+// Pokeball in Oak intro, and when receiving via trade
 void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, u8 battlerId, u8 x, u8 y, u8 oamPriority, u8 subpriortiy, u8 g, u32 h)
 {
     u8 spriteId;
@@ -1024,11 +1035,11 @@ void CreatePokeballSpriteToReleaseMon(u8 monSpriteId, u8 battlerId, u8 x, u8 y, 
     gSprites[spriteId].data[3] = h;
     gSprites[spriteId].data[4] = h >> 0x10;
     gSprites[spriteId].oam.priority = oamPriority;
-    gSprites[spriteId].callback = sub_804B9E8;
+    gSprites[spriteId].callback = SpriteCB_PokeballReleaseMon;
     gSprites[monSpriteId].invisible = TRUE;
 }
 
-static void sub_804B9E8(struct Sprite *sprite)
+static void SpriteCB_PokeballReleaseMon(struct Sprite *sprite)
 {
     if (sprite->data[1] == 0)
     {
@@ -1045,7 +1056,7 @@ static void sub_804B9E8(struct Sprite *sprite)
         StartSpriteAnim(sprite, 1);
         LaunchBallStarsTaskForPokeball(sprite->pos1.x, sprite->pos1.y - 5, sprite->oam.priority, r5);
         sprite->data[1] = LaunchBallFadeMonTaskForPokeball(1, battlerId, r4);
-        sprite->callback = sub_804BAA4;
+        sprite->callback = SpriteCB_ReleasedMonFlyOut;
         gSprites[r7].invisible = FALSE;
         StartSpriteAffineAnim(&gSprites[r7], 1);
         AnimateSprite(&gSprites[r7]);
@@ -1058,7 +1069,7 @@ static void sub_804B9E8(struct Sprite *sprite)
     }
 }
 
-static void sub_804BAA4(struct Sprite *sprite)
+static void SpriteCB_ReleasedMonFlyOut(struct Sprite *sprite)
 {
     bool8 r12 = FALSE;
     bool8 r6 = FALSE;
@@ -1100,6 +1111,12 @@ static void sub_804BAA4(struct Sprite *sprite)
         DestroySpriteAndFreeResources(sprite);
 }
 
+#undef sFinalMonX
+#undef sFinalMonY
+#undef sTrigIdx
+
+#define sTimer       data[5]
+
 u8 CreateTradePokeballSprite(u8 a, u8 b, u8 x, u8 y, u8 oamPriority, u8 subPriority, u8 g, u32 h)
 {
     u8 spriteId;
@@ -1113,11 +1130,11 @@ u8 CreateTradePokeballSprite(u8 a, u8 b, u8 x, u8 y, u8 oamPriority, u8 subPrior
     gSprites[spriteId].data[3] = h;
     gSprites[spriteId].data[4] = h >> 16;
     gSprites[spriteId].oam.priority = oamPriority;
-    gSprites[spriteId].callback = sub_804BC50;
+    gSprites[spriteId].callback = SpriteCB_TradePokeball;
     return spriteId;
 }
 
-static void sub_804BC50(struct Sprite *sprite)
+static void SpriteCB_TradePokeball(struct Sprite *sprite)
 {
     if (sprite->data[1] == 0)
     {
@@ -1133,8 +1150,14 @@ static void sub_804BC50(struct Sprite *sprite)
 
         StartSpriteAnim(sprite, 1);
         LaunchBallStarsTaskForPokeball(sprite->pos1.x, sprite->pos1.y - 5, sprite->oam.priority, r6);
+        // sDelay re-used to store task id but never read
         sprite->data[1] = LaunchBallFadeMonTaskForPokeball(1, r8, r5);
         sprite->callback = sub_804BCF8;
+        #ifdef BUGFIX
+        // FIX: If this is used on a sprite that has previously had an affine animation, it will not
+        // play the shrink anim properly due to being paused.
+        gSprites[r7].affineAnimPaused = FALSE;
+#endif // BUGFIX
         StartSpriteAffineAnim(&gSprites[r7], 2);
         AnimateSprite(&gSprites[r7]);
         gSprites[r7].data[1] = 0;

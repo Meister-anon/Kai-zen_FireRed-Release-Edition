@@ -5,7 +5,7 @@ EventScript_CutTree:: @ 81BDF13
 	checkpartymove MOVE_CUT
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantCutTree
-	setfieldeffectarg 0, VAR_RESULT
+	setfieldeffectargument 0, VAR_RESULT
 	getpartymonname 0, VAR_RESULT
 	getmovename 1, MOVE_CUT
 	msgbox Text_CutTreeDown, MSGBOX_YESNO
@@ -65,7 +65,7 @@ EventScript_RockSmash:: @ 81BE00C
 	checkpartymove MOVE_ROCK_SMASH
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantSmashRock
-	setfieldeffectarg 0, VAR_RESULT
+	setfieldeffectargument 0, VAR_RESULT
 	getpartymonname 0, VAR_RESULT
 	getmovename 1, MOVE_ROCK_SMASH
 	msgbox Text_UseRockSmash, MSGBOX_YESNO
@@ -129,7 +129,7 @@ EventScript_StrengthBoulder:: @ 81BE11D
 	checkpartymove MOVE_STRENGTH
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantMoveBoulder
-	setfieldeffectarg 0, VAR_RESULT
+	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_UseStrength, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq EventScript_DontUseStrength
@@ -189,7 +189,7 @@ EventScript_Waterfall:: @ 81BE2B7
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_WaterCrashingDown
 	getpartymonname 0, VAR_RESULT
-	setfieldeffectarg 0, VAR_RESULT
+	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_UseWaterfall, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq EventScript_EndWaterfall
@@ -224,8 +224,8 @@ EventScript_DeepWaterDive:: @ 81BE38B
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_MayGoUnderwater
 	getpartymonname 0, VAR_RESULT
-	setfieldeffectarg 0, VAR_RESULT
-	setfieldeffectarg 1, 1
+	setfieldeffectargument 0, VAR_RESULT
+	setfieldeffectargument 1, 1
 	msgbox Text_SeaIsDeepUseDive, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq EventScript_EndDive
@@ -247,8 +247,8 @@ EventScript_TrySurface:: @ 81BE3D4
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq EventScript_CantSurface
 	getpartymonname 0, VAR_RESULT
-	setfieldeffectarg 0, VAR_RESULT
-	setfieldeffectarg 1, 1
+	setfieldeffectargument 0, VAR_RESULT
+	setfieldeffectargument 1, 1
 	msgbox Text_LightFilteringUseDive, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq EventScript_EndSurface

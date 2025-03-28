@@ -8,10 +8,20 @@
 #include "mevent.h"
 #include "battle_anim.h"
 
+
+enum {
+    WIN_HEADER,
+    WIN_BODY,
+    WIN_FOOTER,
+    WIN_COUNT
+};
+
+#define TAG_STAMP_SHADOW 0x8000
+
 struct MEventScreenMgr_02DC
 {
     u8 nDigits;
-    u8 nameTxt[41];
+    u8 nameTxt[WONDER_CARD_TEXT_LENGTH + 1];
     u8 numberTxt[4];
 };
 
@@ -40,7 +50,7 @@ static EWRAM_DATA struct MEventScreenMgr * sMEventScreenData = NULL;
 static void sub_8145A98(void);
 static void sub_8145D18(u8 whichWindow);
 static void sub_8146060(void);
-static void sub_81461D8(void);
+static void DestroyCardSprites(void);
 
 static const u8 gUnknown_8467068[][3] = {
     {0, 2, 3},
@@ -105,22 +115,28 @@ static const u16 sUnknown_8467ED4[] = INCBIN_U16("graphics/mevent/pal_467ED4.gba
 static const u32 sUnknown_8467EF4[] = INCBIN_U32("graphics/mevent/gfx_467EF4.4bpp.lz");
 
 static const struct CompressedSpriteSheet sShadowSpriteSheet = {
-    sUnknown_8467EF4, 0x100, 0x8000
+    sUnknown_8467EF4, 0x100, TAG_STAMP_SHADOW
 };
 
 static const struct SpritePalette sShadowSpritePalettes[] = {
-    {sUnknown_8467DF4, 0x8000},
-    {sUnknown_8467E14, 0x8000},
-    {sUnknown_8467E34, 0x8000},
-    {sUnknown_8467E54, 0x8000},
-    {sUnknown_8467E74, 0x8000},
-    {sUnknown_8467E94, 0x8000},
-    {sUnknown_8467EB4, 0x8000},
-    {sUnknown_8467ED4, 0x8000}
+    {sUnknown_8467DF4, TAG_STAMP_SHADOW},
+    {sUnknown_8467E14, TAG_STAMP_SHADOW},
+    {sUnknown_8467E34, TAG_STAMP_SHADOW},
+    {sUnknown_8467E54, TAG_STAMP_SHADOW},
+    {sUnknown_8467E74, TAG_STAMP_SHADOW},
+    {sUnknown_8467E94, TAG_STAMP_SHADOW},
+    {sUnknown_8467EB4, TAG_STAMP_SHADOW},
+    {sUnknown_8467ED4, TAG_STAMP_SHADOW}
 };
 
 static const struct SpriteTemplate sShadowSpriteTemplate = {
-    0x8000, 0x8000, &gOamData_AffineOff_ObjNormal_32x16, gDummySpriteAnimTable, NULL, gDummySpriteAffineAnimTable, SpriteCallbackDummy
+    .tileTag = TAG_STAMP_SHADOW,
+    .paletteTag = TAG_STAMP_SHADOW,
+    .oam = &gOamData_AffineOff_ObjNormal_32x16,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
 };
 
 static const struct UnkStruct_8467FB8 sCardGfxPtrs[8] = {
@@ -256,7 +272,7 @@ s32 FadeOutFromWonderCard(bool32 flag)
             RemoveWindow(sMEventScreenData->windowIds[0]);
             break;
         case 4:
-            sub_81461D8();
+            DestroyCardSprites();
             FreeMonIconPalettes();
             break;
         case 5:
@@ -426,7 +442,7 @@ static void sub_8146060(void)
     }
 }
 
-static void sub_81461D8(void)
+static void DestroyCardSprites(void)
 {
     u8 r6 = 0;
     if (sMEventScreenData->monIconId != 0xFF)
@@ -438,15 +454,18 @@ static void sub_81461D8(void)
             if (sMEventScreenData->cardIconAndShadowSprites[r6][0] != 0xFF)
             {
                 DestroySprite(&gSprites[sMEventScreenData->cardIconAndShadowSprites[r6][0]]);
-                // This might be a typo.  Uncomment the next line, and comment the one that follows, to get the presumed intended behavior.
-                // if (sMEventScreenData->cardIconAndShadowSprites[r6][1] != 0xFF)
-                if (sMEventScreenData->cardIconAndShadowSprites[r6][0] != 0xFF)
+                #ifdef BUGFIX
+                if (sMEventScreenData->cardIconAndShadowSprites[r6][1] != SPRITE_NONE)
+            #else
+                if (sMEventScreenData->cardIconAndShadowSprites[r6][0] != SPRITE_NONE)
+            #endif
                 {
                     DestroyMonIcon(&gSprites[sMEventScreenData->cardIconAndShadowSprites[r6][1]]);
                 }
+                
             }
         }
-        FreeSpriteTilesByTag(0x8000);
-        FreeSpritePaletteByTag(0x8000);
+        FreeSpriteTilesByTag(TAG_STAMP_SHADOW);
+        FreeSpritePaletteByTag(TAG_STAMP_SHADOW);
     }
 }

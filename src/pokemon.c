@@ -2741,7 +2741,7 @@ const u16 gLinkPlayerFacilityClasses[] =
     FACILITY_CLASS_COOLTRAINER_M, FACILITY_CLASS_BLACK_BELT, FACILITY_CLASS_CAMPER, FACILITY_CLASS_YOUNGSTER, FACILITY_CLASS_PSYCHIC_M,
     FACILITY_CLASS_BUG_CATCHER, FACILITY_CLASS_TAMER, FACILITY_CLASS_JUGGLER, FACILITY_CLASS_COOLTRAINER_F, FACILITY_CLASS_CHANNELER,
     FACILITY_CLASS_PICNICKER, FACILITY_CLASS_LASS, FACILITY_CLASS_PSYCHIC_F, FACILITY_CLASS_CRUSH_GIRL, FACILITY_CLASS_PKMN_BREEDER,
-    FACILITY_CLASS_BEAUTY, FACILITY_CLASS_AQUA_LEADER,
+    FACILITY_CLASS_BEAUTY, FACILITY_CLASS_AQUA_LEADER_ARCHIE,
 };
 
 static const struct OamData sOakSpeechNidoranFDummyOamData = 
@@ -10030,26 +10030,40 @@ u8 GetTrainerEncounterMusicId(u16 trainer)
     return gTrainers[trainer].encounterMusic_gender & 0x7F;
 }
 
-u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex)
+u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex)
 {
-    if (statIndex < 1 || statIndex > 5) //I think this is to exclude hp and battle stats i.e accuracy & evasion
-    {
-        // should just be "return n", but it wouldn't match without this
-        u16 retVal = n;
-        retVal++;
-        retVal--;
-        return retVal;
-    }
+// Because this is a u16 it will be unable to store the
+// result of the multiplication for any stat > 595 for a
+// positive nature and > 728 for a negative nature.
+// Neither occur in the base game, but this can happen if
+// any Nature-affected base stat is increased to a value
+// above 248. The closest by default is Shuckle at 230.
+#ifdef BUGFIX
+    u32 retVal;
+#else
+    u16 retVal;
+#endif
+
+    // Don't modify HP, Accuracy, or Evasion by nature
+    if (statIndex <= STAT_HP || statIndex > NUM_NATURE_STATS)
+        return stat;
 
     switch (sNatureStatTable[nature][statIndex - 1])
     {
     case 1:
-        return (u16)(n * 110) / 100;
+        retVal = stat * 110;
+        retVal /= 100;
+        break;
     case -1:
-        return (u16)(n * 90) / 100;
+        retVal = stat * 90;
+        retVal /= 100;
+        break;
+    default:
+        retVal = stat;
+        break;
     }
 
-    return n;
+    return retVal;
 }
 
 // TODO: Move these to constants/trainers.h

@@ -1143,10 +1143,10 @@
 	.endm
 
 	@ Sets up the field effect argument argument with the value value.
-	.macro setfieldeffectarg argument:req, param:req
+	.macro setfieldeffectargument argNum:req, value:req
 	.byte 0x9d
-	.byte \argument
-	.2byte \param
+	.byte \argNum
+	.2byte \value
 	.endm
 
 	@ Blocks script execution until all playing field move animations complete.

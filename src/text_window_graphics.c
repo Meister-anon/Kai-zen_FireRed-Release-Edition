@@ -51,9 +51,13 @@ const struct TextWindowGraphics gUserFrames[] = {
     {gUnknown_84717CC, gUnknown_8471A2C}
 }; // NELEMS = 10
 
-const struct TextWindowGraphics * GetUserFrameGraphicsInfo(u8 idx)
+const struct TextWindowGraphics * GetUserWindowGraphics(u8 idx)
 {
-    if (idx >= 20) // if (idx >= NELEMS(gUserFrames))
+    #ifdef BUGFIX
+    if (idx >= ARRAY_COUNT(gUserFrames))
+#else
+    if (idx >= 20) // Using the RSE number of elements
+#endif
         return &gUserFrames[0];
     else
         return &gUserFrames[idx];
