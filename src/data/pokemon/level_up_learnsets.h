@@ -13014,8 +13014,9 @@ static const struct LevelUpMove sAegislashLevelUpLearnset[] = {
 
 static const struct LevelUpMove sSpritzeeLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SWEET_SCENT),
-    LEVEL_UP_MOVE( 1, MOVE_FAIRY_WIND),
-    LEVEL_UP_MOVE( 6, MOVE_SWEET_KISS),
+    LEVEL_UP_MOVE( 1, MOVE_PSYWAVE),
+    LEVEL_UP_MOVE( 4, MOVE_SWEET_KISS),
+    LEVEL_UP_MOVE( 6, MOVE_FAIRY_WIND),
     LEVEL_UP_MOVE( 8, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(13, MOVE_ECHOED_VOICE),
     LEVEL_UP_MOVE(17, MOVE_CALM_MIND),
@@ -17385,7 +17386,8 @@ static const struct LevelUpMove sRaticateAlolanLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sRaichuAlolanLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_PSYCHIC),
+    LEVEL_UP_MOVE( 0, MOVE_PSYCHIC),    
+    LEVEL_UP_MOVE( 1, MOVE_ELECTRIFY),
     LEVEL_UP_MOVE( 1, MOVE_PSYCHIC),
     LEVEL_UP_MOVE( 1, MOVE_SPEED_SWAP),
     LEVEL_UP_MOVE( 1, MOVE_THUNDER_SHOCK),
