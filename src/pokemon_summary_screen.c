@@ -2825,7 +2825,8 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
 
     if (sMonSummaryScreen->moveIds[i] == MOVE_HIDDEN_POWER || sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL)
     {
-        s32 typeBits = ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_IV) & 1) << 0)
+        
+        /*s32 typeBits = ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_IV) & 1) << 0)
         | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK_IV) & 1) << 1)
         | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF_IV) & 1) << 2)
         | ((GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED_IV) & 1) << 3)
@@ -2837,6 +2838,20 @@ static void BufferMonMoveI(u8 i)//think this is the menu/function I need has mov
         if (type == TYPE_MYSTERY || type == TYPE_SOUND)
             type = TYPE_FAIRY; // or may need to increase it by 6 to get over other types to 21 since the +1 and ++ adds 2 tellign the last type added
         //type |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //no idea why removing this fixed it but guess makes sense?
+        */
+        u32 type;
+        //cant test this part until item port is done vsonic IMPORTANT
+        if (gMain.inBattle
+        && (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
+        == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))
+        {
+            type = GetBattlerHiddenPowerType(gBattlerAttacker);
+        }
+
+        if (!(gMain.inBattle)
+        || (GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattlerAttacker]], MON_DATA_PERSONALITY, NULL)
+        != GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL)))        
+            type = GetMonHiddenPowerType(&sMonSummaryScreen->currentMon);
 
         if (sMonSummaryScreen->moveIds[i] == MOVE_WEATHER_BALL && (WeatherHasEffect()))
         {

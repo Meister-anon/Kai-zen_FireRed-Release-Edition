@@ -3870,6 +3870,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     then do bag menu & summary screen nickname font work
     and egg name feature
     )
+    plan add value to boxmon hiddenpowertype
+    set at mon creation, using hidden power type logic, so is accurate - done works
+    make item power_capsule, similar to ability_capsule,
+    but lets you set your hidden power type
+    *take step from poke MMO use Gems to change type of hidden power
+    don't make consumable but if hold gem will take stat for that
+    for hidden power type
+    
+    if I use a gem I change the default type,
+    if I hold a gem it overwrites my type
+    -3/28/2025
     
 
     Idea setup pokeballs with use function/option

@@ -143,7 +143,8 @@ struct BoxPokemon
     
     u8 NoBoxExp:1; //true false is all I need for this
     u8 padding:7; //would like add extra u16 for allowing any ability for post game fun in trade battles would turn off and use normal abilities, not sure have save space for it
-    
+    u8 HiddenPowerType; //20 types need bit 5 to store //may just set its own byte to keep padd space
+
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
     u32 winningRibbon:1; //these two for emerald battle tower
@@ -240,6 +241,9 @@ struct Pokemon
 
 u8 GetLevelFromMonExp(struct Pokemon *mon);
 u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);//made global for bs command level up calc
+u8 GetMonHiddenPowerType(struct Pokemon *mon); //simplified call
+u8 GetBattlerHiddenPowerType(u8 battler);
+void SetHiddenPowerType(struct BoxPokemon *mon);
 
 struct PokemonStorage
 {

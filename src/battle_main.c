@@ -1379,7 +1379,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     else if (move == MOVE_HIDDEN_POWER)
     {
 
-        typeBits = ((gBattleMons[battlerAtk].hpIV & 1) << 0)
+        /*typeBits = ((gBattleMons[battlerAtk].hpIV & 1) << 0)
             | ((gBattleMons[battlerAtk].attackIV & 1) << 1)
             | ((gBattleMons[battlerAtk].defenseIV & 1) << 2)
             | ((gBattleMons[battlerAtk].speedIV & 1) << 3)
@@ -1393,6 +1393,11 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         if (gBattleStruct->dynamicMoveType == TYPE_MYSTERY || gBattleStruct->dynamicMoveType == TYPE_SOUND) //add or for type sound
             gBattleStruct->dynamicMoveType = TYPE_FAIRY; 
         gBattleStruct->dynamicMoveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
+*/
+
+       typeBits = GetBattlerHiddenPowerType(battlerAtk); //works
+       typeBits |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
+       gBattleStruct->dynamicMoveType = typeBits;
     }
 
     // Check if a gem should activate.
@@ -1558,7 +1563,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
     else if (move == MOVE_HIDDEN_POWER)
     {
 
-        typeBits = ((gBattleMons[battlerAtk].hpIV & 1) << 0)
+        /*typeBits = ((gBattleMons[battlerAtk].hpIV & 1) << 0)
             | ((gBattleMons[battlerAtk].attackIV & 1) << 1)
             | ((gBattleMons[battlerAtk].defenseIV & 1) << 2)
             | ((gBattleMons[battlerAtk].speedIV & 1) << 3)
@@ -1572,6 +1577,11 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
         if (moveType == TYPE_MYSTERY || moveType == TYPE_SOUND) //add or for type sound
             moveType = TYPE_FAIRY; 
         moveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
+*/
+       typeBits = GetBattlerHiddenPowerType(battlerAtk); //think works still confused on issue w dynamic type masks
+       typeBits |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
+        //moveType  = GetBattlerHiddenPowerType(battlerAtk);
+        moveType  = typeBits;
     }
 
     return moveType;

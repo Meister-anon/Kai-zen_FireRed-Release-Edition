@@ -3000,6 +3000,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
+    SetHiddenPowerType(boxMon);
+
     //from what I can see 2nd hidden ability  seems to be the rarest even before adding random boost.   may boost higher
     /*if (gBaseStats[species].abilityHidden[1]) //will have if at highest i.e = abilityNum, meaniing all all slots are filled, with else ifs below decreasing by 1.
     {
@@ -6446,6 +6448,48 @@ u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality)
         return MON_MALE;
 }
 
+u8 GetBattlerHiddenPowerType(u8 battler)
+{
+    
+    u8 side = GetBattlerSide(battler);    
+    struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
+
+    if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_GEMS)
+        return ItemId_GetSecondaryId(gBattleMons[battler].item);
+    else
+        return GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_HIDDEN_POWER_TYPE, NULL);
+
+}
+
+u8 GetMonHiddenPowerType(struct Pokemon * mon)
+{
+    return GetMonData(mon, MON_DATA_HIDDEN_POWER_TYPE, NULL);
+}
+
+void SetHiddenPowerType(struct BoxPokemon *mon)
+{
+    s32 typeBits;
+    u8 storedType;
+
+
+    typeBits = ((GetBoxMonData(mon, MON_DATA_HP_IV, NULL) & 1) << 0)
+            | ((GetBoxMonData(mon, MON_DATA_ATK_IV, NULL) & 1) << 1)
+            | ((GetBoxMonData(mon, MON_DATA_DEF_IV, NULL) & 1) << 2)
+            | ((GetBoxMonData(mon, MON_DATA_SPEED_IV, NULL) & 1) << 3)
+            | ((GetBoxMonData(mon, MON_DATA_SPATK_IV, NULL) & 1) << 4)
+            | ((GetBoxMonData(mon, MON_DATA_SPDEF_IV, NULL) & 1) << 5);
+
+        //// Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
+         // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
+        //changed to -4 for sound type addition, need test unsure if fully necessary
+        storedType = ((NUMBER_OF_MON_TYPES - 4) * typeBits) / 63 + 1; //think changing from 15 to 16 adds one more type to options so now have fairy
+        if (storedType == TYPE_MYSTERY || storedType == TYPE_SOUND) //add or for type sound
+            storedType = TYPE_FAIRY; 
+        //storedType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2; //again had to remove this to work w summary screen
+
+        SetBoxMonData(mon, MON_DATA_HIDDEN_POWER_TYPE, &storedType);
+}
+
 void SetMultiuseSpriteTemplateToPokemon(u16 speciesTag, u8 battlerPosition)
 {
     if (gMonSpritesGfxPtr != NULL)
@@ -6885,6 +6929,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_BLOCK_BOX_EXP_GAIN:
         retVal = boxMon->NoBoxExp;
         break;
+case MON_DATA_HIDDEN_POWER_TYPE:
+        retVal = boxMon->HiddenPowerType;
+        break;
     case MON_DATA_OT_GENDER:
         retVal = boxMon->otGender;
         break;
@@ -7315,6 +7362,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     }
     case MON_DATA_BLOCK_BOX_EXP_GAIN:
         SET8(boxMon->NoBoxExp);
+        break;
+case MON_DATA_HIDDEN_POWER_TYPE:
+        SET8(boxMon->HiddenPowerType);
         break;
     case MON_DATA_OT_GENDER:
         SET8(boxMon->otGender);
