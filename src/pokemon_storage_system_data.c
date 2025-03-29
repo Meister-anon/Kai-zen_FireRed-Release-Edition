@@ -1268,15 +1268,11 @@ static u8 InBoxInput_Normal(void)
             }
             break;
         }
-        else if (JOY_NEW(START_BUTTON) && FlagGet(FLAG_SYS_UPDATED_PC)) //forgot put progression blocker, needs bill upgrade thing
+        //oh it breaks because joy_new stuff is setup uniquely
+        else if (JOY_NEW(START_BUTTON))//putting flagget in this conditional broke things?
         {
-            
             //testing - works
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
-            {
-                if (cursorArea == CURSOR_AREA_BOX_TITLE && cursorPosition == 0)
-                {}
-                else
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS && FlagGet(FLAG_SYS_UPDATED_PC))
                 {
                     u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
                     SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
@@ -1285,8 +1281,8 @@ static u8 InBoxInput_Normal(void)
                     else
                         gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
                 }
-            }
-            break; //also want to set loop all mon in box, if press start on box name
+            break;
+            //also want to set loop all mon in box, if press start on box name
             
             //cursorArea = CURSOR_AREA_BOX_TITLE;
             //cursorPosition = 0;
