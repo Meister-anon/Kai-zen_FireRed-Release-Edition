@@ -17347,10 +17347,10 @@ const struct BaseStats gBaseStats[] =
         114,
         85,
         70,
-        40,
+        30,
         85,
-        95
-        ),
+        80
+        ), //over buffed doesnt mmeed ANY buffs
         MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 75,
         .expYield = 162,
