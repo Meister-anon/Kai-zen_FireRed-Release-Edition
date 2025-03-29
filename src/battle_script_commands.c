@@ -9831,6 +9831,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //when I get around to it, safety goggles item should also go on these I thnk
         //hold effect already set but think will just setup like umbrella
         //done wrapped it into weather affected
+        //added sixth sense as an ability not meant to relyon eyes
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
@@ -9838,12 +9839,13 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
+        && atkAbility != ABILITY_SIXTH_SENSE
         && atkAbility != ABILITY_WIND_RIDER    //addition since is wind move
         && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
 
-        //trap effect, //changed so doesn't stack w sandstorm
+        //trap effect,
         if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
         && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
@@ -9852,6 +9854,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
+        && atkAbility != ABILITY_SIXTH_SENSE
         && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
         {
             calc = (calc * 80) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing

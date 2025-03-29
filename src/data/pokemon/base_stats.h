@@ -43392,7 +43392,7 @@ const struct BaseStats gBaseStats[] =
         105,
         80
         ),
-        MON_TYPES(TYPE_GROUND, TYPE_FLYING),
+        MON_TYPES(TYPE_GROUND, TYPE_FLYING), //nvm with my flying change this thing is busted so keep atk drop
         .catchRate = 3,
         .expYield = 270,
         //.evYield_Attack = 3,
