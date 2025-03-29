@@ -288,7 +288,7 @@ static bool8 IsAbilityAllowingEncounter(u8 level)
     return TRUE;
 }
 
-#define WILD_NATURE_SETTING
+#define WILD_NATURE_SETTING //is where wild mon data is set, not npctrainerparty
 static void GenerateWildMon(u16 species, u8 level, u8 slot)
 {
     u32 personality;

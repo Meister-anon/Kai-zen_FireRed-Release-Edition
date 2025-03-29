@@ -3863,7 +3863,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     curr-
     NOTE**(
-    -next thing add all UBFIX & BUGFIX changes from pret
+    -next thing add all UBFIX & BUGFIX changes from pret - done
     finish setup move relearner move delete reworks,
     double check porymap bug breaking issues make sure have all the commits
     setup field move menu changes
@@ -3881,7 +3881,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     if I use a gem I change the default type,
     if I hold a gem it overwrites my type
     -3/28/2025
-    
+
 
     Idea setup pokeballs with use function/option
     idea is able to swap pokeballs for mon whenever you want.

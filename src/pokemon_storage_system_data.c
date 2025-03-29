@@ -1268,22 +1268,34 @@ static u8 InBoxInput_Normal(void)
             }
             break;
         }
-        else if (JOY_NEW(START_BUTTON))
+        else if (JOY_NEW(START_BUTTON) && FlagGet(FLAG_SYS_UPDATED_PC)) //forgot put progression blocker, needs bill upgrade thing
         {
-            u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
+            
             //testing - works
             if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
             {
-                SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
-                if (GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
-                    gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+                if (cursorArea == CURSOR_AREA_BOX_TITLE && cursorPosition == 0)
+                {}
                 else
-                    gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
+                {
+                    u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
+                    SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+                    if (GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                        gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
+                    else
+                        gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
+                }
             }
-            break;
+            break; //also want to set loop all mon in box, if press start on box name
+            
+            //cursorArea = CURSOR_AREA_BOX_TITLE;
+            //cursorPosition = 0;
+            //believe combination of these two should be for for cursor ontitle
+            //then just pick at box exp setup to loop box
         }
         //believe can replace this for set block exp box
         //just use L R for quick box change
+        //START BUTTON previously moved cursor to box title
 
         if ((JOY_NEW(A_BUTTON)) && sub_8094924())
         {

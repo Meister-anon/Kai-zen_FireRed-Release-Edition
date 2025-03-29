@@ -3252,7 +3252,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Koffing"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(40, 65, 75, 35, 60, 95),
+         STATS(40, 65, 95, 35, 60, 75),
         MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 190,
         .expYield = 68,
@@ -3280,7 +3280,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Weezing"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 90, 88, 60, 85, 120),
+         STATS(65, 90, 120, 60, 85, 88),
         MON_TYPES(TYPE_POISON, TYPE_POISON),
         .catchRate = 60,
         .expYield = 172,
@@ -4015,7 +4015,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Jolteon"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(65, 90, 50, 120, 110, 90),
+         STATS(65, 90, 40, 130, 110, 90),
         MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 184,
@@ -4034,7 +4034,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sJolteonLevelUpLearnset,
         .tmhmLearnset = sJolteonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//ok what I'll do is drop its defense and have that be accounted for
+    //with new ev limits, would require 80 investment to get it back to old base
 
     [SPECIES_FLAREON] =
     {
@@ -39490,7 +39491,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_POISON_POINT, ABILITY_NEUTRALIZING_GAS},
-        .abilityHidden = {ABILITY_MISTY_SURGE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MISTY_SURGE, ABILITY_WHITE_SMOKE}, //think makes sense since reverses polution
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = TRUE,

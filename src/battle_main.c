@@ -1393,7 +1393,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         if (gBattleStruct->dynamicMoveType == TYPE_MYSTERY || gBattleStruct->dynamicMoveType == TYPE_SOUND) //add or for type sound
             gBattleStruct->dynamicMoveType = TYPE_FAIRY; 
         gBattleStruct->dynamicMoveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
-*/
+        */
 
        typeBits = GetBattlerHiddenPowerType(battlerAtk); //works
        typeBits |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
@@ -1577,7 +1577,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
         if (moveType == TYPE_MYSTERY || moveType == TYPE_SOUND) //add or for type sound
             moveType = TYPE_FAIRY; 
         moveType |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
-*/
+        */
        typeBits = GetBattlerHiddenPowerType(battlerAtk); //think works still confused on issue w dynamic type masks
        typeBits |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
         //moveType  = GetBattlerHiddenPowerType(battlerAtk);
@@ -2332,7 +2332,9 @@ bool8 IsRivalBattle(u16 trainerNum)
         return FALSE;
 }
 
-#define TRAINER_PARTY_DATA
+#define TRAINER_PARTY_DATA  //specifically for trainer mon, wild mon data is set in GenerateWildMon
+//plan claenup function by setting rival data separate make function for doing rival data
+//do all data not just species set, since plan make rival data consistant across playthrough
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 {
     u32 nameHash = 0; //check other function that sets abilitysot for wilds may not need that randomability value vsonic
@@ -2366,8 +2368,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 nameHash += gTrainers[trainerNum].trainerName[j];
             switch (gTrainers[trainerNum].partyFlags)
             {
-            case 0: //evolution works, only issue is if you give the rival multiple instances of the same starter line, with the evolved form first
+                //evolution works, only issue is if you give the rival multiple instances of the same starter line, with the evolved form first
                 //because their both using the same var, it just eliminated the unevolved version of the pokemon if it comes after the evolved form.
+            case F_TRAINER_PARTY_NO_ITEM_DEFAULT_MOVESET: 
             {
                 const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
                 if (IsRivalBattle(trainerNum)) // && i == gTrainers[trainerNum].partySize - 1) //probably go back & make a nested function based on the species
@@ -2662,7 +2665,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 }
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                RandomAbility = Random() % 4;
+                RandomAbility = Random() % NUM_ABILITY_SLOTS;
                 //Set ability slot
                 abilityNum = partyData[i].abilityNum;
                 if (abilityNum == 0)
@@ -2955,13 +2958,13 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 }
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                RandomAbility = Random() % 4;
-                //Set ability slot
-                abilityNum = partyData[i].abilityNum;
+                RandomAbility = Random() % NUM_ABILITY_SLOTS; //why doI have this? ability is already set within createboxmon??
+                //Set ability slot - no this is correct as its specifically for trainer mon, not wild mon, this way more variety in battles
+                abilityNum = partyData[i].abilityNum;//its meant to overwrite the default odds
                 if (abilityNum == 0)
                     SetMonData(&party[i], MON_DATA_ABILITY_NUM, &RandomAbility);
                 else
-                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);
+                    SetMonData(&party[i], MON_DATA_ABILITY_NUM, &abilityNum - 1);//I just need this for ability override
 
                 for (j = 0; j < MAX_MON_MOVES; ++j) //max moves is 4, .moves field is size 4, so loop is to loop through all possible moves
                 {
@@ -3260,7 +3263,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
 
                 }
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                RandomAbility = Random() % 4;
+                RandomAbility = Random() % NUM_ABILITY_SLOTS;
                 //Set ability slot
                 abilityNum = partyData[i].abilityNum;
                 if (abilityNum == 0)
@@ -3558,7 +3561,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                 //iv ev lvl species Helditem moves
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-                RandomAbility = Random() % 4;
+                RandomAbility = Random() % NUM_ABILITY_SLOTS;
                 //Set ability slot
                 abilityNum = partyData[i].abilityNum;
                 if (abilityNum == 0)

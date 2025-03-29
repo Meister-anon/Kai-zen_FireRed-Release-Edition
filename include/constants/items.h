@@ -918,6 +918,7 @@
 #define ITEM_ROCK_GEM 355
 #define ITEM_STEEL_GEM 356
 #define ITEM_WATER_GEM 357
+#define ITEM_SOUND_GEM 358
 // Memories
 #define ITEM_BUG_MEMORY 372
 #define ITEM_DARK_MEMORY 373

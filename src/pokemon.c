@@ -6929,7 +6929,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_BLOCK_BOX_EXP_GAIN:
         retVal = boxMon->NoBoxExp;
         break;
-case MON_DATA_HIDDEN_POWER_TYPE:
+    case MON_DATA_HIDDEN_POWER_TYPE:
         retVal = boxMon->HiddenPowerType;
         break;
     case MON_DATA_OT_GENDER:
@@ -7363,7 +7363,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_BLOCK_BOX_EXP_GAIN:
         SET8(boxMon->NoBoxExp);
         break;
-case MON_DATA_HIDDEN_POWER_TYPE:
+    case MON_DATA_HIDDEN_POWER_TYPE:
         SET8(boxMon->HiddenPowerType);
         break;
     case MON_DATA_OT_GENDER:
@@ -10298,8 +10298,8 @@ void MonGainEVs(struct Pokemon *mon) // since this function doesn't use exp, it 
     u8 hasHadPokerus;
     int multiplier = 1; //base multiplier, but with how it used, best to think of it more as an exponent, as changing this will shift others exponentially
     int i;
-    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
-    u16 Global_Stat_Total_Limit = GetBaseStatTotal(species) < 600 ? 600 : 650; //sets limit based on bst
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL); //figure out what will do with global limit, either set off of bst, or have legendary check
+    u16 Global_Stat_Total_Limit = GetBaseStatTotal(species) < 600 ? 600 : 650; //sets limit based on bst  //decide will change this  idea lock legendary to 750 or 800, and non-legend to 700 idk hmm main result of taht is mon at 600 would miss 20 bst so not great i.e default game 63 * 2 126bst available
 
     for (i = 0; i < NUM_STATS; i++)//totalling stats
     {
