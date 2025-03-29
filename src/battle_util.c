@@ -11792,13 +11792,25 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //    mod = UQ_4_12(1.0);//think I can completely remove this, as I already changed tyep thing and this is after accuracy check?
     
 
+//with poison being so resisted think what I will do is just make neutral if resisted?
+    //ok base ability ignores immunity, boosted state of ability
+    //also removes resistances
     if (moveType == TYPE_POISON && GetBattlerAbility(battlerAtk) == ABILITY_POISONED_LEGACY
-    && (IS_BATTLER_OF_TYPE(battlerDef,TYPE_POISON)
-    || IS_BATTLER_OF_TYPE(battlerDef,TYPE_STEEL))
+    //&& (IS_BATTLER_OF_TYPE(battlerDef,TYPE_POISON)
+    //|| IS_BATTLER_OF_TYPE(battlerDef,TYPE_STEEL)
+    //|| IS_BATTLER_OF_TYPE(battlerDef,TYPE_ROCK))
     /*&& gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 2)*/)
     {
-        if (mod == UQ_4_12(0.0))
+        if (gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 2))
+        {
+            if (mod <= UQ_4_12(0.5))
             mod = UQ_4_12(1.0);
+}
+        else
+        {
+            if (mod == UQ_4_12(0.0)) //poison, steel, rock
+                mod = UQ_4_12(1.0);
+        }
     } //may remove set for needing to be low hp for this to activate,
     //idea being an elite among poison users
 
