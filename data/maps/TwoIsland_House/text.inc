@@ -1,18 +1,37 @@
-TwoIsland_House_Text_TeachMonMoveForMushroom:: @ 81A2B88
+TwoIsland_House_Text_TeachPlayerForMushroomFee:: @ 81A2B88
     .string "I'm the POKéMON MOVE MANIAC.\p"
     .string "I know every single move that\n"
     .string "POKéMON learn growing up.\p"
     .string "I'm also a mushroom maniac.\p"
-    .string "Bring me two TINYMUSHROOMS,\n"
-    .string "or one BIG MUSHROOM.\p"
-    .string "If you do that for me, I'll teach\n"
-    .string "a move to one POKéMON.$"
+    .string "But recently I've wanted\n"
+    .string "to try something more unique.\p"
+    .string "Unfortunately, Truffles are\.\n"
+    .string "quite expensive.\p"
+    .string "If you're willing to pay\n"
+    .string "a small fee.\p"
+    .string "I'll show you how to teach\n"
+    .string "moves to your POKéMON.$"
 
 TwoIsland_House_Text_WantMeToTeachMove:: @ 81A2C63
-    .string "Sniff, sniff…\n"
-    .string "Hm! You smell of MUSHROOMS!\p"
-    .string "Do you want me to teach a move\n"
-    .string "to a POKéMON of yours?$"
+    .string "Well, do you want me to show you\n"
+    .string "how to teach moves to your POKéMON?\n"
+    .string "My fee is ¥{STR_VAR_2}.$"
+
+TwoIsland_House_Text_ComeAgainToRemember:: 
+    .string "Come again if you decide you\n"
+    .string "want to learn to remember moves.$"
+
+TwoIsland_House_Text_PlayerLearnedToRemember::
+    .string "{PLAYER} learned how to teach moves!$"
+
+TwoIsland_House_Text_PlayerHasLearnedToRememberMoves:: @ 81994B1
+    .string "Congratulations!\p"
+    .string "Now you can have your POKéMON\n"
+    .string "remember moves from the pc.$"
+
+TwoIsland_House_Text_ThanksForBuying::
+    .string "Thanks again for your patronage.\n"
+    .string "My truffe fund is very grateful!$"
 
 TwoIsland_House_Text_TutorWhichMon:: @ 81A2CC3
     .string "Which POKéMON needs tutoring?$"

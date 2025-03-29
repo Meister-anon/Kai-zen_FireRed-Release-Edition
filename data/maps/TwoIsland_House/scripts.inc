@@ -11,13 +11,61 @@ TwoIsland_House_EventScript_MoveManiac:: @ 8171619
 	special QuestLog_CutRecording
 	lock
 	faceplayer
-	clearflag HAS_BIG_MUSHROOM
-	clearflag HAS_TINY_MUSHROOMS
-	clearflag HAS_BOTH_MUSHROOMS
-	goto_if_set CHECKED_MUSHROOMS, TwoIsland_House_EventScript_CheckPlayerHasMushrooms
-	msgbox TwoIsland_House_Text_TeachMonMoveForMushroom
-	setflag CHECKED_MUSHROOMS
-	goto TwoIsland_House_EventScript_CheckPlayerHasMushrooms
+	goto_if_set FLAG_TAUGHT_MOVE_RELEARN, TwoIsland_House_EventScript_AlreadyLearnedMoveReminder
+	@clearflag HAS_BIG_MUSHROOM
+	@clearflag HAS_TINY_MUSHROOMS
+	@clearflag HAS_BOTH_MUSHROOMS
+	@goto_if_set CHECKED_MUSHROOMS, TwoIsland_House_EventScript_CheckPlayerHasMushrooms
+	goto_if_set FLAG_MET_MOVE_REMINDER, TwoIsland_House_EventScript_ChooseLearnMove
+	msgbox TwoIsland_House_Text_TeachPlayerForMushroomFee
+	setflag FLAG_MET_MOVE_REMINDER
+	goto TwoIsland_House_EventScript_ChooseLearnMove
+	end
+
+@think will make fast and open moneybox from here
+TwoIsland_House_EventScript_ChooseLearnMove::
+	textcolor 0
+	showmoneybox 0, 0, 0
+	special GetMoveDeleterMoveReminderCost
+	msgbox TwoIsland_House_Text_WantMeToTeachMove, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq TwoIsland_House_EventScript_CheckEnoughMoney
+	goto TwoIsland_House_EventScript_CancelLearnMoveAtCostSelection
+	end
+
+TwoIsland_House_EventScript_CancelLearnMoveAtCostSelection:
+	hidemoneybox 0, 0
+	msgbox TwoIsland_House_Text_ComeAgainToRemember
+	release
+	end
+
+TwoIsland_House_EventScript_CheckEnoughMoney:
+	specialvar VAR_RESULT, IsEnoughForCostInVar0x8005
+	compare VAR_RESULT, TRUE
+	goto_if_eq TwoIsland_House_EventScript_TaughtMoveRelearn
+	hidemoneybox 0, 0
+	msgbox DayCare_Text_NotEnoughMoney
+	release
+	end
+
+TwoIsland_House_EventScript_TaughtMoveRelearn:
+	setflag FLAG_TAUGHT_MOVE_RELEARN
+	playse SE_SHOP
+	removemoney VAR_0x8005, 0
+	updatemoneybox 0, 0, 0
+	waitse
+	hidemoneybox 0, 0
+	msgbox TwoIsland_House_Text_PlayerLearnedToRemember
+	playfanfare MUS_LEVEL_UP
+	waitfanfare
+	closemessage
+	msgbox TwoIsland_House_Text_PlayerHasLearnedToRememberMoves
+	release
+	end
+
+TwoIsland_House_EventScript_AlreadyLearnedMoveReminder::
+	msgbox TwoIsland_House_Text_ThanksForBuying
+	release 
 	end
 
 TwoIsland_House_EventScript_CheckPlayerHasMushrooms:: @ 817164F
