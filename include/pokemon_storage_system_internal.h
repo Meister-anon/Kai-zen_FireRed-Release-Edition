@@ -35,8 +35,8 @@ enum
     
     BOX_OPTION_MOVE_MONS,
     BOX_OPTION_MOVE_ITEMS,
-    BOX_OPTION_DELETE_MOVE,
-    BOX_OPTION_RELEARN_MOVE,
+    BOX_OPTION_DELETE_MOVE, //because box_option is based on input pos from menu, 
+    BOX_OPTION_RELEARN_MOVE, //these 2 won't line up with other states, will adjust w reference function
     BOX_OPTION_EXIT,    //this no longer matters
     BOX_OPTION_COUNT,
     BOX_OPTION_WITHDRAW,
@@ -74,7 +74,9 @@ enum
     PC_TEXT_SWITCH_ITEM,
     PC_TEXT_BAG,
     PC_TEXT_ITEM_INFO,
-    PC_TEXT_SCENERY1,
+    PC_TEXT_DELETE_MOVE,
+    PC_TEXT_RELEARN_MOVE,
+    PC_TEXT_SCENERY1, //pc backgrounds
     PC_TEXT_SCENERY2,
     PC_TEXT_SCENERY3,
     PC_TEXT_ETCETERA,
@@ -127,6 +129,8 @@ enum {
     INPUT_MULTIMOVE_MOVE_MONS,
     INPUT_MULTIMOVE_PLACE_MONS,
     INPUT_SELECT_MON,
+    INPUT_DELETE_MOVE,
+    INPUT_RELEARN_MOVE,
 };
 
 enum
@@ -194,7 +198,10 @@ enum
     PC_TEXT_ITEM_IS_HELD,
     PC_TEXT_CHANGED_TO_ITEM,
     PC_TEXT_CANT_STORE_MAIL,
+    PC_TEXT_DELETE_MOVE_FROM_MON, 
+    PC_TEXT_REMEMBER_MOVE_FOR_MON,
 };
+//these are messages
 
 enum
 {
@@ -542,6 +549,7 @@ struct Pokemon *AssignMonForChooseBoxMon(u8 monId, u8 boxId);
 struct BoxPokemon *AssignBoxMonForChooseBoxMon(u8 monId, u8 boxId);
 
 void Cb2_EnterPSS(u8 a0);
+u8 RealignBoxOptionWithPSS_State(u8 input); //made to adjust for new menu states
 u8 GetCurrentBoxOption(void);
 struct Sprite *sub_809223C(u16 x, u16 y, u8 animId, u8 priority, u8 subpriority);
 void SetBoxWallpaper(u8 boxId, u8 wallpaperId);
@@ -658,7 +666,7 @@ void sub_80910CC(void);
 u8 CountPartyMons(void);
 u8 CountPartyAliveNonEggMonsExcept(u8 slotToIgnore);
 
-s8 sub_8094E50(u8 a0);
+s8 GetMenuItemTextId(u8 a0);
 bool8 sub_8095474(u8 action);
 u8 sub_8095AA0(void);
 bool8 sub_8095ABC(void);

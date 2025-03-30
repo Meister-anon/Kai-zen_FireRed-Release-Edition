@@ -44,9 +44,9 @@ static u8 InBoxInput_Normal(void);
 static u8 InBoxInput_GrabbingMultiple(void);
 static u8 InBoxInput_MovingMultiple(void);
 static void AddBoxMenu(void);
-static bool8 sub_8094924(void);
+static bool8 SetSelectionMenuTexts(void);
 static bool8 SetMenuTexts_Mon(void);
-static bool8 sub_8094A0C(void);
+static bool8 SetMenuTextsForItem(void);
 static void CreateCursorSprites(void);
 static void ToggleCursorMultiMoveMode(void);
 
@@ -1268,11 +1268,16 @@ static u8 InBoxInput_Normal(void)
             }
             break;
         }
+        //putting flagget in this conditional broke things?
+        //if (JOY_NEW(START_BUTTON) && FlagGet(FLAG_SYS_UPDATED_PC))
         //oh it breaks because joy_new stuff is setup uniquely
-        else if (JOY_NEW(START_BUTTON))//putting flagget in this conditional broke things?
+        //ok from this I see issue was I just need extra parenthesis for it?
+        //seems joynew needs to be fully enclosed to be used w other conditions
+        //if ((JOY_NEW(A_BUTTON)) && SetSelectionMenuTexts())
+        else if ((JOY_NEW(START_BUTTON)) && FlagGet(FLAG_SYS_UPDATED_PC))
         {
-            //testing - works
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS && FlagGet(FLAG_SYS_UPDATED_PC))
+            //testing - works  
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
                 {
                     u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
                     SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
@@ -1284,23 +1289,21 @@ static u8 InBoxInput_Normal(void)
             break;
             //also want to set loop all mon in box, if press start on box name
             
-            //cursorArea = CURSOR_AREA_BOX_TITLE;
-            //cursorPosition = 0;
-            //believe combination of these two should be for for cursor ontitle
+            // put in HandleInput_OnBox
             //then just pick at box exp setup to loop box
         }
         //believe can replace this for set block exp box
         //just use L R for quick box change
         //START BUTTON previously moved cursor to box title
 
-        if ((JOY_NEW(A_BUTTON)) && sub_8094924())
+        if ((JOY_NEW(A_BUTTON)) && SetSelectionMenuTexts())
         {
             if (!sCanOnlyMove)
-                return 8;
+                return INPUT_IN_MENU;
 
             if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS || sIsMonBeingMoved == TRUE)
             {
-                switch (sub_8094E50(0))
+                switch (GetMenuItemTextId(0)) //issue wasn't compound string, it was I didn't have all the needed additions in
                 {
                 case PC_TEXT_STORE:
                     return INPUT_DEPOSIT;
@@ -1320,37 +1323,41 @@ static u8 InBoxInput_Normal(void)
                     return INPUT_SWITCH_ITEMS;
                 case PC_TEXT_SELECT:
                     return INPUT_SELECT_MON;
+                case PC_TEXT_DELETE_MOVE:
+                    return INPUT_DELETE_MOVE;
+                case PC_TEXT_RELEARN_MOVE:
+                    return INPUT_RELEARN_MOVE;
                 }
             }
             else
             {
-                gPSSData->inBoxMovingMode = 1;
-                return 20;
+                gPSSData->inBoxMovingMode = MOVE_MODE_MULTIPLE_SELECTING;
+                return INPUT_MULTIMOVE_START;
             }
         }
 
         if (JOY_NEW(B_BUTTON))
-            return 19;
+            return INPUT_PRESSED_B;
 
         if (gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR)
         {
             if (JOY_HELD(L_BUTTON))
-                return 10;
+                return INPUT_SCROLL_LEFT;
             if (JOY_HELD(R_BUTTON))
-                return 9;
+                return INPUT_SCROLL_RIGHT;
         }
 
         if (JOY_NEW(SELECT_BUTTON))
         {
             ToggleCursorMultiMoveMode();
-            return 0;
+            return INPUT_NONE;
         }
 
-        input = 0;
+        input = INPUT_NONE;
 
     } while (0);
 
-    if (input)
+    if (input != INPUT_NONE)
         SetCursorPosition(cursorArea, cursorPosition);
 
     return input;
@@ -1587,16 +1594,16 @@ static u8 HandleInput_InParty(void)
             if (sCursorPosition == PARTY_SIZE)
             {
                 if (gPSSData->boxOption == BOX_OPTION_DEPOSIT)
-                    return 4;
+                    return INPUT_CLOSE_BOX;
 
                 gotoBox = TRUE;
             }
-            else if (sub_8094924())
+            else if (SetSelectionMenuTexts())
             {
                 if (!sCanOnlyMove)
-                    return 8;
+                    return INPUT_IN_MENU;
 
-                switch (sub_8094E50(0))
+                switch (GetMenuItemTextId(0))
                 {
                 case PC_TEXT_STORE:
                     return INPUT_DEPOSIT;
@@ -1616,6 +1623,10 @@ static u8 HandleInput_InParty(void)
                     return INPUT_SWITCH_ITEMS;
                 case PC_TEXT_SELECT:
                     return INPUT_SELECT_MON;
+                case PC_TEXT_DELETE_MOVE:
+                    return INPUT_DELETE_MOVE;
+                case PC_TEXT_RELEARN_MOVE:
+                    return INPUT_RELEARN_MOVE;
                 }
             }
         }
@@ -1637,14 +1648,14 @@ static u8 HandleInput_InParty(void)
         else if (JOY_NEW(SELECT_BUTTON))
         {
             ToggleCursorMultiMoveMode();
-            return 0;
+            return INPUT_NONE;
         }
 
     } while (0);
 
-    if (input != 0)
+    if (input != INPUT_NONE)
     {
-        if (input != 6)
+        if (input != INPUT_HIDE_PARTY)
             SetCursorPosition(cursorArea, cursorPosition);
     }
 
@@ -1830,13 +1841,13 @@ static void AddBoxMenu(void)
     SetMenuText(PC_TEXT_CANCEL);
 }
 
-static bool8 sub_8094924(void)
+static bool8 SetSelectionMenuTexts(void)
 {
     InitMenu();
     if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
         return SetMenuTexts_Mon();
     else
-        return sub_8094A0C();
+        return SetMenuTextsForItem();
 }
 
 static bool8 SetMenuTexts_Mon(void)
@@ -1879,6 +1890,18 @@ static bool8 SetMenuTexts_Mon(void)
         else
             return FALSE;
         break;
+    case BOX_OPTION_DELETE_MOVE:
+        if (species != SPECIES_NONE)
+            SetMenuText(PC_TEXT_DELETE_MOVE);
+        else
+            return FALSE;
+        break;
+    case BOX_OPTION_RELEARN_MOVE:
+        if (species != SPECIES_NONE)
+            SetMenuText(PC_TEXT_RELEARN_MOVE);
+        else
+            return FALSE;
+        break;
     case BOX_OPTION_MOVE_ITEMS:
     default:
         return FALSE;
@@ -1900,7 +1923,7 @@ static bool8 SetMenuTexts_Mon(void)
     return TRUE;
 }
 
-static bool8 sub_8094A0C(void)
+static bool8 SetMenuTextsForItem(void)
 {
     if (gPSSData->cursorMonSpecies == SPECIES_EGG)
         return FALSE;
@@ -2149,6 +2172,8 @@ static const u8 *const sMenuTexts[] = {
     [PC_TEXT_SWITCH_ITEM] = gPCText_Switch,
     [PC_TEXT_BAG]        = gPCText_Bag,
     [PC_TEXT_ITEM_INFO]  = gPCText_Info,
+    [PC_TEXT_DELETE_MOVE] = COMPOUND_STRING("DELETE"),
+    [PC_TEXT_RELEARN_MOVE] = COMPOUND_STRING("RELEARN"),
     [PC_TEXT_SCENERY1]   = gPCText_Scenery1,
     [PC_TEXT_SCENERY2]   = gPCText_Scenery2,
     [PC_TEXT_SCENERY3]   = gPCText_Scenery3,
@@ -2189,7 +2214,9 @@ void SetMenuText(u8 textId)
     }
 }
 
-s8 sub_8094E50(u8 arg0)
+//still don't fully understand but believe prints
+//top line string for menu list?
+s8 GetMenuItemTextId(u8 arg0)
 {
     if (arg0 >= gPSSData->menuItemsCount)
         return -1;

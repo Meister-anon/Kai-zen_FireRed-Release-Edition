@@ -13,8 +13,8 @@ TwoIsland_House_Text_TeachPlayerForMushroomFee:: @ 81A2B88
     .string "moves to your POKéMON.$"
 
 TwoIsland_House_Text_WantMeToTeachMove:: @ 81A2C63
-    .string "Well, do you want me to show you\n"
-    .string "how to teach moves to your POKéMON?\n"
+    .string "Well, do you want to learn how\n"
+    .string "to teach moves to your POKéMON?\l"
     .string "My fee is ¥{STR_VAR_2}.$"
 
 TwoIsland_House_Text_ComeAgainToRemember:: 

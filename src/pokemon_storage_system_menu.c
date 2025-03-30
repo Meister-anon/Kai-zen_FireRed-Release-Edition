@@ -158,6 +158,49 @@ static const struct PSS_MenuStringPtrs sPSS_FinalState[] = {
     {gText_SeeYa,           gText_SeeYaDescription      }
 };
 
+enum PSS_States
+{
+    DefaultState,
+    State1_UnlockedDelete,
+    State2_UnlockedRelearn,
+    FinalState_UnlockedBoth
+};
+
+static u8 ReturnPSS_MenuState(void)
+{
+    if ((FlagGet(FLAG_TAUGHT_MOVE_DELETE) && FlagGet(FLAG_TAUGHT_MOVE_RELEARN)) || FlagGet(FLAG_NEW_GAME_PLUS))
+        return FinalState_UnlockedBoth;    
+    else if (FlagGet(FLAG_TAUGHT_MOVE_DELETE))
+        return State1_UnlockedDelete;
+    else if (FlagGet(FLAG_TAUGHT_MOVE_RELEARN))
+        return State2_UnlockedRelearn;
+    else
+        return DefaultState;
+}
+
+#define BOX_OPTION_DELETE_OR_RELEARN 2
+//in state 1 or 2, box option can be either, but will only default to delete's logic
+//will use define to return correct value
+//ok works now
+u8 RealignBoxOptionWithPSS_State(u8 input)
+{
+    //Enter PSS
+    if (input == 2)
+    {
+
+        if (ReturnPSS_MenuState() == State2_UnlockedRelearn)
+            input = BOX_OPTION_RELEARN_MOVE;
+
+    }
+    //Exit PSS
+    else if (input == 3)
+    {
+        if (ReturnPSS_MenuState() == State2_UnlockedRelearn)
+            --input;
+    }
+    return input;
+}
+
 static u8 ReturnPSS_ListSizebyState(void)
 {
     if ((FlagGet(FLAG_TAUGHT_MOVE_DELETE) && FlagGet(FLAG_TAUGHT_MOVE_RELEARN)) || FlagGet(FLAG_NEW_GAME_PLUS))
@@ -461,6 +504,10 @@ static void Task_PokemonStorageSystemPC(u8 taskId)
         if (!gPaletteFade.active)
         {
             CleanupOverworldWindowsAndTilemaps();
+            //ok now realizing boxoption refers to the menu option
+            //u enter pc from, since I set different states
+            //I need a condition here to change based on state
+            //done decided put within function
             Cb2_EnterPSS(task->tInput);
             DestroyTask(taskId);
         }
@@ -557,6 +604,7 @@ static void PSS_CreatePCMenu(u8 whichMenu, s16 *windowIdPtr)
 void Cb2_ExitPSS(void)  //exit box to return to pss menu
 {
     sPreviousBoxOption = GetCurrentBoxOption();
+    sPreviousBoxOption = RealignBoxOptionWithPSS_State(sPreviousBoxOption);
     gFieldCallback = FieldCb_ReturnToPcMenu;
     if (CheckIfPcEmpty() && FlagGet(FLAG_START_OAK_RANCH_COUNTER)) //make only run loop check if pc empty and flag has been set before
     {

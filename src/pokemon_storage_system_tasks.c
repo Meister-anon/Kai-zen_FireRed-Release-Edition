@@ -280,6 +280,8 @@ static const struct StorageAction sPCStorageActionTexts[] = {
     [PC_TEXT_ITEM_IS_HELD] = {gText_ItemIsNowHeld, PC_TEXT_FMT_ITEM_NAME},
     [PC_TEXT_CHANGED_TO_ITEM] = {gText_ChangedToNewItem, PC_TEXT_FMT_ITEM_NAME},
     [PC_TEXT_CANT_STORE_MAIL] = {gText_MailCantBeStored, PC_TEXT_FMT_NORMAL},
+    [PC_TEXT_DELETE_MOVE_FROM_MON] = {COMPOUND_STRING("Delete move on POKéMON?"), PC_TEXT_FMT_NORMAL},
+    [PC_TEXT_REMEMBER_MOVE_FOR_MON] = {COMPOUND_STRING("Teach move to POKéMON?"), PC_TEXT_FMT_NORMAL},
 };
 
 // Yes/No menu
@@ -388,6 +390,7 @@ static void Cb2_PSS(void)
 void Cb2_EnterPSS(u8 boxOption)
 {
     ResetTasks();
+    boxOption = RealignBoxOptionWithPSS_State(boxOption);
     sCurrentBoxOption = boxOption;
     gPSSData = Alloc(sizeof(struct PokemonStorageSystemData));
     if (gPSSData == NULL)
@@ -624,7 +627,9 @@ static void Cb_ReshowPSS(u8 taskId)
     }
 }
 
+//Taken from EE believe not all line up w FR main funcitons/states
 // States for the outer switch in Task_PokeStorageMain / Cb_MainPSS
+//guess M stands for Main
 enum {
     MSTATE_HANDLE_INPUT,
     MSTATE_MOVE_CURSOR,
@@ -651,8 +656,8 @@ static void Cb_MainPSS(u8 taskId)
             PlaySE(SE_SELECT);
             gPSSData->state = MSTATE_MOVE_CURSOR;
             break;
-        case INPUT_SHOW_PARTY:
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS && gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS  && gPSSData->boxOption != BOX_OPTION_SELECT_MON)
+        case INPUT_SHOW_PARTY: //pretty sure this was just for deposit and withdrawal? weird condition
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS && gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS  && gPSSData->boxOption != BOX_OPTION_SELECT_MON  && gPSSData->boxOption != BOX_OPTION_DELETE_MOVE  && gPSSData->boxOption != BOX_OPTION_RELEARN_MOVE)
             {
                 PrintStorageActionText(PC_TEXT_WHICH_ONE_WILL_TAKE);
                 gPSSData->state = MSTATE_WAIT_MSG;
@@ -671,7 +676,7 @@ static void Cb_MainPSS(u8 taskId)
                 else
                     SetPSSCallback(Cb_HidePartyPokemon);
             }
-            else if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS)
+            else if (gPSSData->boxOption == BOX_OPTION_MOVE_ITEMS || gPSSData->boxOption == BOX_OPTION_DELETE_MOVE || gPSSData->boxOption == BOX_OPTION_RELEARN_MOVE)
             {
                 SetPSSCallback(Cb_HidePartyPokemon);
             }
@@ -780,6 +785,10 @@ static void Cb_MainPSS(u8 taskId)
         case INPUT_SWITCH_ITEMS:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_SwitchSelectedItem);
+            break;
+        case INPUT_DELETE_MOVE:
+        case INPUT_RELEARN_MOVE:
+            SetPSSCallback(Cb_OnBPressed); //maybe lacking input logic is what caused itto break?
             break;
         case INPUT_MULTIMOVE_START:
             PlaySE(SE_SELECT);
@@ -957,7 +966,11 @@ static void Cb_OnSelectedMon(u8 taskId)
         if (!BoxGetMosaic())
         {
             PlaySE(SE_SELECT);
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+            if (gPSSData->boxOption == BOX_OPTION_DELETE_MOVE)
+                PrintStorageActionText(PC_TEXT_DELETE_MOVE_FROM_MON);
+            else if (gPSSData->boxOption == BOX_OPTION_RELEARN_MOVE)
+                PrintStorageActionText(PC_TEXT_REMEMBER_MOVE_FOR_MON);
+            else if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
                 PrintStorageActionText(PC_TEXT_IS_SELECTED);
             else if (IsActiveItemMoving() || gPSSData->cursorMonItem != 0)
                 PrintStorageActionText(PC_TEXT_IS_SELECTED2);
@@ -1053,10 +1066,6 @@ static void Cb_OnSelectedMon(u8 taskId)
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_ShowMonSummary);
             break;
-        /*case 8:
-            PlaySE(SE_SELECT);
-            SetPSSCallback(Cb_ShowMarkMenu);
-            break;*/
         case PC_TEXT_TAKE_ITEM:
             PlaySE(SE_SELECT);
             SetPSSCallback(Cb_TakeItemForMoving);
@@ -1076,6 +1085,11 @@ static void Cb_OnSelectedMon(u8 taskId)
             break;
         case PC_TEXT_ITEM_INFO:
             SetPSSCallback(Cb_ShowItemInfo);
+            break;
+        case PC_TEXT_DELETE_MOVE:
+        case PC_TEXT_RELEARN_MOVE:
+            PlaySE(SE_SELECT);
+            //SetPSSCallback(Cb_ShowMarkMenu);
             break;
         case PC_TEXT_SELECT:
             PlaySE(SE_SELECT);
@@ -2042,6 +2056,7 @@ static void Cb_OnCloseBoxPressed(u8 taskId) //not what I thought, this isn't clo
     }
 }
 
+//vsonic important
 static void Cb_OnBPressed(u8 taskId)    //pressing B, while inside box.
 {
     switch (gPSSData->state)    
