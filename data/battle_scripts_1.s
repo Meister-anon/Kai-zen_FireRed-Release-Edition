@@ -4247,7 +4247,8 @@ BattleScript_EffectLeechSeed::
 	pause B_WAIT_TIME_SHORT
 	ppreduce
 	jumpifsubstituteblocks BattleScript_ButItFailed
-	accuracycheck .+6, ACC_CURR_MOVE
+	accuracycheck BattleScript_DoLeechSeed, ACC_CURR_MOVE
+BattleScript_DoLeechSeed::	
 	setseeded
 	attackanimation
 	waitanimation
@@ -4873,8 +4874,9 @@ BattleScript_EffectRollout::
 	attackstring
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_RolloutHit
 	ppreduce
+BattleScript_RolloutCheckAccuracy::
+	accuracycheck BattleScript_RolloutHit, ACC_CURR_MOVE
 BattleScript_RolloutHit::
-	accuracycheck .+6, ACC_CURR_MOVE
 	@typecalc2 @was just for ending multi turn if move would have no effect -_- replace this with callif  (do switch case check for move effect and just do what I need it to then continue)
 	rolloutdamagecalculation	@in this case switch over battlemoves[gCurrentMove].effect  if rollout, run function cancelmultiturn if no effect  not explicitly a bs call but same effect, 
 	goto BattleScript_HitFromCritCalc		@since call is just executing some logic, then continuining on in the script	vsonic  using callnative to setup
@@ -6721,10 +6723,11 @@ BattleScript_FaintedMonEnd::
 
 @new script made for activating switchin effects 
 @for fainting enemy mon ensure works after they switch back in
+@revert switchblock change, not that great effect would just cause issues w misclicks
 BattleScript_FaintedMonSwitchinEffects::
 	setatktoplayer0
-	@openpartyscreen BS_ATTACKER | OPEN_PARTY_ALLOW_CANCEL, BattleScript_FaintedMonChooseAnother	@...oh literally just remove the allow cancel part
-	openpartyscreen BS_ATTACKER, BattleScript_FaintedMonChooseAnother
+	openpartyscreen BS_ATTACKER | OPEN_PARTY_ALLOW_CANCEL, BattleScript_FaintedMonChooseAnother	@...oh literally just remove the allow cancel part if I want to block that
+	@openpartyscreen BS_ATTACKER, BattleScript_FaintedMonChooseAnother
 	switchhandleorder BS_ATTACKER, 2
 	jumpifbyte CMP_EQUAL, gBattleCommunication, 6, BattleScript_FaintedMonChooseAnother
 	atknameinbuff1

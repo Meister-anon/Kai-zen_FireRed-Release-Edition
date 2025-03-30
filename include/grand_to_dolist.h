@@ -3871,6 +3871,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     then do bag menu & summary screen nickname font work
     and egg name feature
     )
+    -undid switch 2.0 change that locks player into actually switching if they click it
+
+    also rollout (and potentially other multihit but maybe just rollout)
+    has some bug where sometimes it doesn't continue, even when it lands'
+    -believe fixed, issue seems to be weird outdated verion of accuracy check?
+
+
     plan add value to boxmon hiddenpowertype
     set at mon creation, using hidden power type logic, so is accurate - done works
     make item power_capsule, similar to ability_capsule,
