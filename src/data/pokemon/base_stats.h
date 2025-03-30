@@ -508,6 +508,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBlastoiseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //rain dish doesn't really make sense, I'd kinda wanta swap it for swift swim?
 
     [SPECIES_CATERPIE] =
     {
@@ -6409,7 +6410,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_3,
         .abilities = {ABILITY_HUSTLE, ABILITY_NATURAL_CURE},
-        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_NONE},
+        .abilityHidden = {ABILITY_REGENERATOR, ABILITY_SOLID_ROCK}, //may change solid rock?
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7369,7 +7370,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_LETHAL_LEGS},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7395,7 +7396,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SPEED_BOOST, ABILITY_LETHAL_LEGS},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7447,7 +7448,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_SWIFT_SWIM}, //swift swim or rain dish, leaning latter
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7473,7 +7474,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DAMP, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DAMP, ABILITY_SWIFT_SWIM},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -8173,10 +8174,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_INTIMIDATE, ABILITY_SWIFT_SWIM}, //keep this cuz water strider can still stand on water w wings
-        .abilityHidden = {ABILITY_UNNERVE, ABILITY_ANTICIPATION},
-        .bodyColor = BODY_COLOR_BLUE,
-        .noFlip = FALSE,
+        .abilities = {ABILITY_INTIMIDATE, ABILITY_WIND_RIDER}, //keep this cuz water strider can still stand on water w wings
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_ANTICIPATION}, //hmm I kinda want to give wind rider? ok swift swimis something I added so not an issue to drop
+        .bodyColor = BODY_COLOR_BLUE, //decided go wind rider, gives some degree of immunity also helps preserve flying floating bonus
+        .noFlip = FALSE,    //ok dropped swiftswim even dex entry says it has to hide in rain, cuz it can't fly
         .floating = TRUE,
         .levelUpLearnset = sMasquerainLevelUpLearnset,
         .tmhmLearnset = sMasquerainTMHMLearnset,
@@ -13510,7 +13511,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 100, 135, 45, 65, 135),
-        MON_TYPES(TYPE_GHOST), //this keeps ghost dark),
+        MON_TYPES(TYPE_GHOST, TYPE_DARK), //this keeps ghost dark),
         .catchRate = 45, //reverted back to ghost w curr changes gains psyhic immunity
         .expYield = 236, //but in exchange for weakness to bug and fairy
         //.evYield_Defense = 1, //plus doesn't really have any dark moves
@@ -13810,7 +13811,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sHeatranTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    },//need to finish idea of lava fissure
+    //scorch effect is similar to x/y combo move effect
+    //vsonic
 
     [SPECIES_REGIGIGAS] =
     {
@@ -13972,6 +13975,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },//haven't set despair effect yet      
+    //vsonic important
 
     [SPECIES_SHAYMIN_LAND] =
     {
@@ -15009,7 +15013,7 @@ const struct BaseStats gBaseStats[] =
         50,
         32
         ),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC),
         .catchRate = 190,
         .expYield = 59,
         //.evYield_Speed = 1,
@@ -15042,11 +15046,11 @@ const struct BaseStats gBaseStats[] =
         80,
         63
         ),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_NORMAL, TYPE_ELECTRIC), //has good amount normal moves may keep pure electric?
         .catchRate = 75,
         .expYield = 174,
         //.evYield_Speed = 2,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50), //idea is this is electric equiv to rapidash line
         .eggCycles = 20,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -15754,7 +15758,7 @@ const struct BaseStats gBaseStats[] =
         40,
         89
         ),
-        MON_TYPES(TYPE_BUG, TYPE_POISON),
+        MON_TYPES(TYPE_BUG, TYPE_POISON), //base speed was 47 should keep weirdly slow for bulky trick room mon?
         .catchRate = 120,
         .expYield = 126,
         //.evYield_Defense = 2,
@@ -20273,7 +20277,7 @@ const struct BaseStats gBaseStats[] =
         63,
         60
         ),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC), //may make normal psychic as joke as anything but normal i.e autism pokemon
         .catchRate = 190,
         .expYield = 71,
         //.evYield_Speed = 1,
@@ -24504,6 +24508,7 @@ const struct BaseStats gBaseStats[] =
     },//apparently guzzlord is bad?
     //guess the quad fairy weakness?
     //anyway corruption is still in concept phase
+    //change corruption to be onfield ability, rather than timer?
 
     [SPECIES_NECROZMA] =
     {

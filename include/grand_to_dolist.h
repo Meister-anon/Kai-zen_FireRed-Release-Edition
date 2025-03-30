@@ -3866,6 +3866,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -next thing add all UBFIX & BUGFIX changes from pret - done
     finish setup move relearner move delete reworks,
     double check porymap bug breaking issues make sure have all the commits
+    -fixed poison worsening
     setup field move menu changes
     then do bag menu & summary screen nickname font work
     and egg name feature
