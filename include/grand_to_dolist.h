@@ -3882,6 +3882,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     if I hold a gem it overwrites my type
     -3/28/2025
 
+    tested poisoned legacy revised,
+    but poison worsening is stil bugged in someway
+    haven't been able to identify condition
+    best i can tell is it happens when I use poison two turns in a row?
+
+    nope used another status move inbetween and it still caused it
+    //maybe its an issue with how I use status setting may need todo something
+    to check mon data status setting?
+
+    oh MY GOD it was becuase I was missing the
+    if (gBattleMoveDamage == 0)
+      gBattleMoveDamage = 1;
+
+    filter for the toxic damage 
 
     Idea setup pokeballs with use function/option
     idea is able to swap pokeballs for mon whenever you want.

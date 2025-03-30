@@ -118,6 +118,7 @@
 #define STATUS1_NONE             0
 //#define STATUS1_SLEEP            (1 << 0 | 1 << 1 | 1 << 2) // First 3 bits (Number of turns to sleep)
 //#define STATUS1_SLEEP_TURN(num)  ((num) << 0) // Just for readability (or if rearranging statuses)
+#define STATUS1_PLACEHOLDER		 (1 << 0) //planned bug status  //changed mind trouble w healthbox and or balance make status 2/4
 #define STATUS1_SLEEP            (1 << 1)
 #define STATUS1_POISON           (1 << 2)
 #define STATUS1_BURN             (1 << 3)
@@ -125,7 +126,6 @@
 #define STATUS1_PARALYSIS        (1 << 5)
 #define STATUS1_TOXIC_POISON     (1 << 6)
 #define STATUS1_SPIRIT_LOCK      (1 << 7)	//not using for now
-#define STATUS1_PLACEHOLDER		 (1 << 8) //planned bug status  //changed mind trouble w healthbox and or balance make status 2/4
 //#define STATUS1_TOXIC_COUNTER    (1 << 8 | 1 << 9 | 1 << 10 | 1 << 11)
 //#define STATUS1_TOXIC_TURN(num)  ((num) << 10)//redid toxic, put at original value, moved others
 //decide remove spirit lock  - since I made a turn counter value realized dont need turn status at all?

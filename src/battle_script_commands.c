@@ -4555,103 +4555,6 @@ void SetMoveEffect(bool32 primary, u32 certain)
             CancelMultiTurnMoves(gEffectBattler); //if it passes all checks cancel multi turn moves and appply sleep. I think
             statusChanged = TRUE;
             break;//NEED to better check swithch statements to see if break ends entire switch, or it just makes it continue checking for matches in other cases
-        case STATUS1_POISON: //checked break ends entire switch function, but they have fallthrough, w/o breaks it would continue to next case
-            if ((battlerAbility == ABILITY_IMMUNITY || battlerAbility == ABILITY_PASTEL_VEIL || battlerAbility == ABILITY_COMATOSE)// so when multi status is set will need to remove breaks
-             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))//and reorganize statements so it follows alternate paths rather than just going down
-            {   //so make it if   and else using multiple or operands to group up the thinigs that break status and status changd will equal false
-                // then an else that will do the normal things that go along with status being applied. and then keeps going without a break
-                gLastUsedAbility = battlerAbility;
-                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
-                BattleScriptPush(gBattlescriptCurrInstr + 1);
-                gBattlescriptCurrInstr = BattleScript_PSNPrevention;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                return;
-            }
-            
-            /*if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler) //corrossion logic here
-                && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)))
-            {
-                BattleScriptPush(gBattlescriptCurrInstr + 1);
-                gBattlescriptCurrInstr = BattleScript_PSNPrevention;
-                gBattleCommunication[MULTISTRING_CHOOSER] = 2;
-                return;
-            }*/  //need properly review this for later
-
-            //put no effect check here, below ability checks above status1 check
-            //needs else if here only to make sure it takes into account corrosion check from above
-            //vsonic will need change move type checks to use getmovetype or check settypebeforeusingmove function to get actual move type
-            else if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
-            && (AttackerAbility != ABILITY_CORROSION 
-            && AttackerAbility != ABILITY_POISONED_LEGACY)
-            && gBattleMoves[gCurrentMove].type != TYPE_NORMAL
-            && gBattleMoves[gCurrentMove].type != TYPE_GHOST)    
-            {
-                gBattlescriptCurrInstr = BattleScript_NotAffected; //do jump
-                break;
-            }//think add poisoned legacy to this - done below
-            
-
-            /*if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_POISON))
-                break;
-            if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_STEEL))
-                break;  */
-
-            if (!(CanBePoisoned(gBattleScripting.battler, gEffectBattler)))
-                break;
-
-            /*if (gBattleMons[gEffectBattler].status1)
-                break;*/    //removed this line, has check in battlescript, think will just not do text string, there's no way to do it simply?
-            //instead can just do jump in commands to set move effect toxic,  just need to remove poison with this function
-            //think this shouldn't go here, status is set below this so it would set twice?
-             //OK THIS hopefully works.?   //should remove poison and set toxic, the missing part is setting toxic counter value
-            //dont know if works as I want but it compiles
-            
-           /* else if (gBattleMons[gEffectBattler].status1)   //realized i could keep this, if i use else if,  since thsi should mean if status1 not 0?
-                break;*/ //removed put comparative logic in ported function
-            statusChanged = TRUE;
-            break;
-            
-            /*if (CanBePoisoned(gBattleScripting.battler, gEffectBattler))
-            {
-                   
-                statusChanged = TRUE;
-                break;
-            }
-            else if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler)))
-            {
-                gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
-            }
-            break;*/
-            
-        /*case STATUS1_SPIRIT_LOCK: //can set theese 2 up when reorddr status constants
-            if ((battlerAbility == ABILITY_COMATOSE)// so when multi status is set will need to remove breaks
-             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
-            { 
-                gLastUsedAbility = battlerAbility;
-                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
-                BattleScriptPush(gBattlescriptCurrInstr + 1);
-                gBattlescriptCurrInstr = BattleScript_PSNPrevention; //make uniuque sctript for spirit loke  block
-                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-                return;
-            }
-
-            if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_FAIRY))
-                break;
-
-            //put no effect check here, below ability checks above status1 check
-            if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
-            && gBattleMoves[gCurrentMove].type != TYPE_NORMAL
-            && gBattleMoves[gCurrentMove].type != TYPE_GHOST)    
-            {
-                gBattlescriptCurrInstr = BattleScript_NotAffected; //do jump
-                break;
-            }
-
-            if (gBattleMons[gEffectBattler].status1)
-                break;
-            statusChanged = TRUE;
-            break;
-        */
         case STATUS1_BURN:
             if ((battlerAbility == ABILITY_WATER_VEIL
                 || battlerAbility == ABILITY_WATER_BUBBLE
@@ -4749,6 +4652,88 @@ void SetMoveEffect(bool32 primary, u32 certain)
             statusChanged = TRUE;
             break;
         }
+        case STATUS1_POISON: //checked break ends entire switch function, but they have fallthrough, w/o breaks it would continue to next case
+            if ((battlerAbility == ABILITY_IMMUNITY || battlerAbility == ABILITY_PASTEL_VEIL || battlerAbility == ABILITY_COMATOSE)// so when multi status is set will need to remove breaks
+             && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))//and reorganize statements so it follows alternate paths rather than just going down
+            {   //so make it if   and else using multiple or operands to group up the thinigs that break status and status changd will equal false
+                // then an else that will do the normal things that go along with status being applied. and then keeps going without a break
+                gLastUsedAbility = battlerAbility;
+                RecordAbilityBattle(gEffectBattler, gLastUsedAbility);
+                BattleScriptPush(gBattlescriptCurrInstr + 1);
+                gBattlescriptCurrInstr = BattleScript_PSNPrevention;
+                gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+                return;
+            }
+            
+            /*if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler) //corrossion logic here
+                && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN)))
+            {
+                BattleScriptPush(gBattlescriptCurrInstr + 1);
+                gBattlescriptCurrInstr = BattleScript_PSNPrevention;
+                gBattleCommunication[MULTISTRING_CHOOSER] = 2;
+                return;
+            }*/  //need properly review this for later
+
+            if (!CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+                break;
+
+            //put no effect check here, below ability checks above status1 check
+            //needs else if here only to make sure it takes into account corrosion check from above
+            //vsonic will need change move type checks to use getmovetype or check settypebeforeusingmove function to get actual move type
+            if ((gMoveResultFlags & MOVE_RESULT_NO_EFFECT && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
+            && (AttackerAbility != ABILITY_CORROSION 
+            && AttackerAbility != ABILITY_POISONED_LEGACY)
+            && gBattleMoves[gCurrentMove].type != TYPE_NORMAL
+            && gBattleMoves[gCurrentMove].type != TYPE_GHOST)    
+            {
+                gBattlescriptCurrInstr = BattleScript_NotAffected; //do jump
+                break;
+            }//think add poisoned legacy to this - done below
+            
+
+            /*if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_POISON))
+                break;
+            if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_STEEL))
+                break;  */
+
+            //if (!(CanBePoisoned(gBattleScripting.battler, gEffectBattler)))
+            //    break;
+
+            /*if (gBattleMons[gEffectBattler].status1)
+                break;*/    //removed this line, has check in battlescript, think will just not do text string, there's no way to do it simply?
+            //instead can just do jump in commands to set move effect toxic,  just need to remove poison with this function
+            //think this shouldn't go here, status is set below this so it would set twice?
+             //OK THIS hopefully works.?   //should remove poison and set toxic, the missing part is setting toxic counter value
+            //dont know if works as I want but it compiles
+            
+           /* else if (gBattleMons[gEffectBattler].status1)   //realized i could keep this, if i use else if,  since thsi should mean if status1 not 0?
+                break;*/ //removed put comparative logic in ported function
+            //statusChanged = TRUE;
+            //break;
+            if (CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            {
+                   
+                statusChanged = TRUE;
+                //break;
+            }
+            /*else// if (!CanPoisonType(gBattleScripting.battler, gEffectBattler))
+            {
+                gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
+            }
+            */
+            break;
+            
+            /*if (CanBePoisoned(gBattleScripting.battler, gEffectBattler))
+            {
+                   
+                statusChanged = TRUE;
+                break;
+            }
+            else if (!(CanPoisonType(gBattleScripting.battler, gEffectBattler)))
+            {
+                gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
+            }
+            break;*/
         case STATUS1_TOXIC_POISON:
         
             if ((battlerAbility == ABILITY_IMMUNITY || battlerAbility == ABILITY_PASTEL_VEIL || battlerAbility == ABILITY_COMATOSE) 
@@ -4900,12 +4885,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
             BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gEffectBattler].status1);  //not really sure what this is doing but leave it
             MarkBattlerForControllerExec(gActiveBattler);
            gBattleCommunication[MULTISTRING_CHOOSER] = 0; //add infestation and spirit lock when done to below
+            
             // for synchronize / empath / empathic curse
             if (gBattleScripting.moveEffect == MOVE_EFFECT_POISON
              || gBattleScripting.moveEffect == MOVE_EFFECT_TOXIC
              || gBattleScripting.moveEffect == MOVE_EFFECT_PARALYSIS
-             //|| (gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE && gDisableStructs[gEffectBattler].FrozenTurns == 0)
-             //|| gBattleScripting.moveEffect == MOVE_EFFECT_ATTRACT // doestn' yet exist, I'm trying to add
              || gBattleScripting.moveEffect == MOVE_EFFECT_BURN) //figure out how infatuation works 
              {
                 u8 *synchronizeEffect = &gBattleStruct->synchronizeMoveEffect;
