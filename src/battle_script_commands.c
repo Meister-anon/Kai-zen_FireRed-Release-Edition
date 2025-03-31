@@ -16123,8 +16123,7 @@ static u8 WeightBoostedDamageFormula(void)
 //ex primape is 300,  machoke is 700,  while in oxic is 2400
 static void atk9F_dmgtolevel(void) 
 {
-    u8 max_skill_lvl = 50;
-    u8 level_Limiter = gBattleMons[gBattlerAttacker].level;
+    u8 level_Limiter;// = gBattleMons[gBattlerAttacker].level;
     u32 weightscaling = WeightBoostedDamageFormula();
     u8 lvl_scaling = 85;  //means % dmg is from lvl
 
@@ -16136,10 +16135,14 @@ static void atk9F_dmgtolevel(void)
         //if (GetBattlerWeight(gBattlerTarget) > (GetBattlerWeight(gBattlerAttacker) * 4))
         //    gMoveResultFlags |= MOVE_RESULT_FAILED;
 
+        //think need adjust early part of function to avoid 0 value?
         //if (level_Limiter < max_skill_lvl)
-        {
-            gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100) + ((weightscaling / 4) * (level_Limiter / max_skill_lvl)); //max 145 or +45% lvl
-        }
+        level_Limiter = ((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100);
+
+        if (level_Limiter == 0)
+            level_Limiter = 1;
+
+        gBattleMoveDamage = level_Limiter + (weightscaling / 2);// * (level_Limiter / max_skill_lvl)); //max 145 or +45% lvl
         //else
           //  gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].level * lvl_scaling) / 100) + weightscaling;    //max dmg 205;
     }
@@ -16147,6 +16150,12 @@ static void atk9F_dmgtolevel(void)
         gBattleMoveDamage = gBattleMons[gBattlerAttacker].level;
     ++gBattlescriptCurrInstr;
 }
+//adjust this want weight to have more...weight 
+//right now its /4 and max returned value is 120 think may do /2?
+//min weight value is 20, so at min weight adds 10 to dmg
+//so at lower level it should auto be stronger than base move
+//which actually isn't bad as usually move wasn't useful until late?
+//if I cut off the scaling stuff at the end it may be balanced?
 
 static void atkA0_psywavedamageeffect(void) //talk with unfolding scales too high, misunderstood what actual hp ranges were for lvls, 1.75 one shots/2shots bringin gback to 1.5 ceiling remove from direct random value to damage.
 {
