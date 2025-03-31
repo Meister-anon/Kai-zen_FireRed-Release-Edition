@@ -11810,7 +11810,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
         {
             if (mod <= UQ_4_12(0.5))
             mod = UQ_4_12(1.0);
-}
+        }
         else
         {
             if (mod == UQ_4_12(0.0)) //poison, steel, rock
@@ -11834,9 +11834,14 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     && GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT)
         mod = uq4_12_divide(mod, UQ_4_12(2.0));
 
+    //move specific effects
 
+    //may adjust this don't wan to make worsethandefault
     if (mod < UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_BRICK_BREAK) //let brick break hit all mon
         mod = UQ_4_12(0.5);
+
+    if (mod == UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_PSYWAVE)
+        mod = UQ_4_12(1.0);
 
     //modifier is uq(1.0) mod is values that shift and are multiplied into to alter modifier
     MulModifier(modifier, mod);

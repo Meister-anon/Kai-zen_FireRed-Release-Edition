@@ -4305,11 +4305,17 @@ BattleScript_EffectPsywave::
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
+	critcalc
+	variablepowercalc
+	damagecalc
 	typecalc
-	bicbyte gMoveResultFlags, MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE	@dont know what this does, check it vsonic @ok these moves always hit for neutral,
-	psywavedamageeffect
-	adjustsetdamage
-	goto BattleScript_HitFromAtkAnimation	@skips dmg calc command
+	@need test see if new effect works - works
+	@oh realized can't do this as it, doesnt shift type multiplier
+	@I think all that's been done is change sound effect, dmg was still resist?
+	@bicbyte gMoveResultFlags, MOVE_RESULT_NOT_VERY_EFFECTIVE	@dont know what this does, check it vsonic @ok these moves always hit for neutral,
+	@psywavedamageeffect
+	@adjustsetdamage
+	goto BattleScript_HitFromPostGeneralCalcs
 
 BattleScript_EffectCounter::
 	attackcanceler

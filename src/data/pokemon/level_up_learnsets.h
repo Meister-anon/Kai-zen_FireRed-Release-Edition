@@ -1992,6 +1992,7 @@ static const struct LevelUpMove sSeakingLevelUpLearnset[] = {
     LEVEL_UP_MOVE(69, MOVE_MEGAHORN),
     LEVEL_UP_END
 };
+//give more horn based moves
 
 static const struct LevelUpMove sStaryuLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
@@ -2472,9 +2473,10 @@ static const struct LevelUpMove sMewtwoLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SWIFT),
     LEVEL_UP_MOVE( 8, MOVE_ANCIENT_POWER),
     LEVEL_UP_MOVE(11, MOVE_BARRIER),    
-    LEVEL_UP_MOVE(16, MOVE_PSYCHO_CUT),
+    LEVEL_UP_MOVE(16, MOVE_PSYWAVE),
     LEVEL_UP_MOVE(20, MOVE_MIST),
     LEVEL_UP_MOVE(24, MOVE_AMNESIA),
+    LEVEL_UP_MOVE(26, MOVE_PSYCHO_CUT),
     LEVEL_UP_MOVE(36, MOVE_SHADOW_BALL),
     LEVEL_UP_MOVE(40, MOVE_PSYCHIC),
     LEVEL_UP_MOVE(44, MOVE_POWER_SWAP),

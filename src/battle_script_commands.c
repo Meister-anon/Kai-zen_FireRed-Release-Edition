@@ -2420,7 +2420,7 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
 //separating it out makes it easier to shift multiplier  with conditionals, but can still just do it at the top here.
 //The only effect types I need to handle with this function, rather than just the type calc functions, are those that effect multiple types
 //rather than just requiring a single line edit, like scrappy, freeze dry etc. 
-//I don't see this used literally anywhere?? 
+//I don't see this used literally anywhere?? -yeah seems I scrapped this...
 void ModulateDmgByType(u8 multiplier)   //Put all ability effects above ring target.
 {
     u8 moveType = 0;
@@ -7210,6 +7210,9 @@ static void atk35_orword(void)
     gBattlescriptCurrInstr += 9;
 }
 
+//seems to be to remove a value from a pointer?
+//typically used w gMoveResultFlags 
+//to exclude super effective and not very effective
 static void atk36_bicbyte(void)
 {
     u8 *memByte = T2_READ_PTR(gBattlescriptCurrInstr + 1);
@@ -16157,6 +16160,20 @@ static void atk9F_dmgtolevel(void)
 //which actually isn't bad as usually move wasn't useful until late?
 //if I cut off the scaling stuff at the end it may be balanced?
 
+
+//ok NO idea what I was doing with this move,
+//defualt afffet was neutral dmg move that does dmg
+//between 50% to 150% of user level
+//for some reason I dropped the higher threshold,
+//and had just made it 70 to 120 lvl dmg
+//I still don't like it, instead what I think I'll do is keep the oddness of the move
+//but remove the flat dmg and let it scale w sp atk
+//ie switch to dynamicpower and put in the variable function
+//new idea variable power between 50 and 80 maybe 90/100
+//that ignores resistances, but can still do super effective dmg
+//hmm yeah think will make it base 50-80 to not outright outclass psychic
+//as being able to do super makes it much stronger plus ignoring resist makes it more useful
+//rework done, no longer using this
 static void atkA0_psywavedamageeffect(void) //talk with unfolding scales too high, misunderstood what actual hp ranges were for lvls, 1.75 one shots/2shots bringin gback to 1.5 ceiling remove from direct random value to damage.
 {
     s32 randDamage;
@@ -16165,13 +16182,15 @@ static void atkA0_psywavedamageeffect(void) //talk with unfolding scales too hig
 
     //experession/condition? value : value2  see if use for different values without having to use big if elses etc
     //found its ternary operator if value before ? is true value uses value before colon, else uses value after colon
-    randDamage = (Random() % 6) + 2; //VALUe between 2-7 with scaler is 70% up to 120%
+    randDamage = (Random() % 9) + 2; //VALUe between 2-10 with scaler is 70% up to 120%
 
-    randDamage *= 10;   //becomes a value between 0 & 100
+    randDamage *= 10;   //becomes a value between 20 & 100
     gBattleMoveDamage = lvl * (randDamage + scaler) / 100;  
     ++gBattlescriptCurrInstr;
-    //lvl 50 max roll 60,  lvl 100 max roll 120, 
+    //lvl 50 max roll 75,  lvl 100 max roll 150, 
 } //adjust sesimic toss, kinda op at high levels given super effectgive changes I made, especially since I already boosted it to do more damage for weight, think bring down to 85% lvl
+//better now rolls between 70-150% of level
+//goes higher than seismic toss because of inconsistency
 
 static void atkA1_counterdamagecalculator(void)
 {
@@ -17147,6 +17166,12 @@ void BS_VariablePowerCalc(void)
             }
             //gBattlescriptCurrInstr = cmd->nextInstr;
         
+        }
+        break;
+        case EFFECT_PSYWAVE:
+        {
+            gDynamicBasePower = (Random() % 4) + 5; //0-3 total 5-8
+            gDynamicBasePower *= 10; //50 - 80
         }
         break;
         case EFFECT_RAGE:
