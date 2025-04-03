@@ -6799,7 +6799,7 @@ BattleScript_LocalTrainerBattleWon::
 	getmoneyreward .+4
 	printstring STRINGID_PLAYERGOTMONEY
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_PayDayMoneyAndPickUpItems::
+BattleScript_PayDayMoneyPostBattle::
 	givepaydaymoney
 	@pickup
 	end2

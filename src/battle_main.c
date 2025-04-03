@@ -362,7 +362,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_PSYCHIC] =    {______,   X(1.55),   ______,   X(1.55),  ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   X(0.0),   ______,   ______}, // psychic
 
-    [TYPE_ICE] =        {______,   ______,   X(1.55),   ______,   X(1.55),   ______,   X(1.55),   X(0.5),  X(0.5),  ______,   X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______}, // ice
+    [TYPE_ICE] =        {______,   ______,   X(1.55),   ______,   X(1.55),  ______,   X(1.55),   X(0.5),  X(0.5),  ______,    X(0.5),  ______,   X(1.55),   ______,   ______,   X(0.5),   X(1.55),   ______,   ______,   ______}, // ice
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
@@ -6490,7 +6490,7 @@ static void HandleEndTurn_BattleWon(void)
     }
     else
     {
-        gBattlescriptCurrInstr = BattleScript_PayDayMoneyAndPickUpItems;
+        gBattlescriptCurrInstr = BattleScript_PayDayMoneyPostBattle;
     }
     gBattleMainFunc = HandleEndTurn_FinishBattle;
 }

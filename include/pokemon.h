@@ -438,6 +438,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_SHARPNESS_AFFECTED     (1 << 29)
 #define FLAG_GROUND_DMG_FLOATING    (1 << 30)
 
+#define FLAG_DAMAGE_AIRBORNE          (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR)
 #define FLAG_GROUND_HITS_FLOATING   (FLAG_DMG_IN_AIR | FLAG_DMG_2X_IN_AIR | FLAG_GROUND_DMG_FLOATING)
 
 //thaw user and two strikes can be removed, FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING  can also be removed 
