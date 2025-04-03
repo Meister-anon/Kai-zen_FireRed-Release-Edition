@@ -4281,7 +4281,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_SNOW_WARNING, ABILITY_EARLY_BIRD},
-        .abilityHidden = {ABILITY_STORM_BREAK, ABILITY_REFRIGERATE},
+        .abilityHidden = {ABILITY_STORM_BREAK, ABILITY_SNOW_CLOAK},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -4290,6 +4290,10 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },//think give rest if doesn't have it
+    //potentially drop refrigerate? snow cloak w flyign type buff
+    //would be pretty insane
+    //idk why I gave this refrigerate,
+    //only normal moves it gets are physical 
 
     [SPECIES_ZAPDOS] =
     {
@@ -7474,14 +7478,14 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DAMP, ABILITY_SWIFT_SWIM},
+        .abilityHidden = {ABILITY_STAMINA, ABILITY_SWIFT_SWIM},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sSwampertLevelUpLearnset,
         .tmhmLearnset = sSwampertTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//give stamina? eh why not
 
     [SPECIES_POOCHYENA] =
     {
@@ -11859,7 +11863,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Vespiquen"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 80, 102, 45, 80, 102),
+         STATS(75, 80, 102, 40, 80, 102),
         MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
         .expYield = 166,
@@ -18135,7 +18139,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_SNOW_CLOAK, ABILITY_SLUSH_RUSH},
-        .abilityHidden = {ABILITY_RATTLED, ABILITY_STAMINA},
+        .abilityHidden = {ABILITY_SWIFT_SWIM, ABILITY_STAMINA},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -18143,6 +18147,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBearticTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //make ground ice? idea from pokemon photon
+    //cool but think doesn't make sense, I can give 
+    //it swift swim tho, dex entry says its a great swimmer
 
     [SPECIES_CRYOGONAL] =
     {

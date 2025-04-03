@@ -12070,7 +12070,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #endif
         .effect = EFFECT_FREEZE_HIT,//EFFECT_SPEED_DOWN_HIT, //put freeze back on this
         .type = TYPE_FLYING, //is balanced w my freeze changes
-        .accuracy = 80,
+        .accuracy = 85,
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -13704,6 +13704,8 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_PHYSICAL,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },//uses rollout animation
+    //why didn't I make this damage in air?
+    //hmm I guess because it requries a launching pad?
 
     [MOVE_ARCTIC_RAKE] =
     {

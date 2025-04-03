@@ -3865,18 +3865,73 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     NOTE**(
     -next thing add all UBFIX & BUGFIX changes from pret - done
     finish setup move relearner move delete reworks,
-    double check porymap bug breaking issues make sure have all the commits
+    double check porymap bug breaking issues make sure have all the commits - nothing wrong, issues were becuaase of issues w poke storage changes
     -fixed poison worsening
     setup field move menu changes
     then do bag menu & summary screen nickname font work
     and egg name feature
     )
+    check where have move delete, cerulean badge guy
+    and move relearner
+    moved between 4 different places or some reason 
+    rather than just swapping them around each other
+
+    -nvm think will keep as I have it,
+    getting move relearned from cinibar seems too fast
+    but it works better that way, can more readily
+    make use of daycare stuff that way.
+    as well as box exp since you won't gain moves,
+    with that you can relearn anything you may have missed
+
+    important need clean up type relation for starter
+    I had charmander ball on likitongue poison normal
+    with magnemite in bulbasaur ball
+    charmander should be advanageous to bulbasaur
+    but both likitongues type have either a resist or 
+    a FULL immunity into steel *facepalm
+
+    also smack in the middle is spheal waterice, its resists likitung which is fine,
+    problem is the connection with magnemite
+    bulbasaur ball should beat squirtle ball but spheal resists
+    BOTH of magnemites types...
+    ice resists electric and water resists steel
+    even tho alonel they are both weak to the opposite
+    both weaknesses are covered
+
+    look into replacing logic with my  conversion z logic,
+    or some version of it
+
+    -what the rival picks seems to work better?
+    so I made different logic for starter balls and rival balls?
+
+    yeah I can't remember how I setup starter balls...
+    -ok rival starter I had  reloop after starter was set,
+    to ensure type relation advantage was kept between player and rival.
+
+    but for player starter I did nothing, 
+    other than attempting to ensure every starter
+    within the lists somewhat followed the basic type triangle,
+    ex. if I had fairy I put it in the bulbasaurball cuz fairy can't hit fire
+
+    to ensure the larger amount of mon in said lists are actuallya accessible
+    and aren't accidentally suprressed I didnt add any extra filters,
+    plus w rival no longer pulling from the table it wasn't an issue
+    so player starter is fine then, may look odd at times but is a tradeoff
+
     -undid switch 2.0 change that locks player into actually switching if they click it
 
     also rollout (and potentially other multihit but maybe just rollout)
     has some bug where sometimes it doesn't continue, even when it lands'
     -believe fixed, issue seems to be weird outdated verion of accuracy check?
 
+    
+
+
+    review how I setup seismic toss and if it makes sense?
+    -ok it makes sense I just forgot to upgrade move description
+    when I scrapped the weight limit idea.
+
+    reworked psywave again, 
 
     plan add value to boxmon hiddenpowertype
     set at mon creation, using hidden power type logic, so is accurate - done works

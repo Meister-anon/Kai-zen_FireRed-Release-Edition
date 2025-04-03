@@ -297,7 +297,7 @@ struct BattlePokemon
     /*0x06*/ u16 speed;
     /*0x08*/ u16 spAttack;
     /*0x0A*/ u16 spDefense;
-    /*0x0C*/ u16 moves[4];
+    /*0x0C*/ u16 moves[MAX_MON_MOVES];
     
     /*0x14*/ u32 hpIV:5;
     /*0x14*/ u32 attackIV:5;
