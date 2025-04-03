@@ -11575,7 +11575,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_WICKED_BLOW] =
     {
         .effect = EFFECT_HIT,
-        .power = 75,
+        .power = 72,
         .type = TYPE_DARK,
         .accuracy = 95,
         .pp = 5,
@@ -11589,7 +11589,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SURGING_STRIKES] =
     {
         .effect = EFFECT_TRIPLE_KICK,   
-        .power = 25,
+        .power = 24,
         .type = TYPE_WATER,
         .accuracy = 95,
         .pp = 5,
@@ -11601,6 +11601,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     }, //rebalanced these 2 for og crit
     //on advice from Chief, changing from full crit to defense pen, will ignore either 25% or 35% of defense
     //in exchange can't crit
+    //made small tweak to rebalance ability unseen fist, so signature moves can still be used w ability
+    //plan only allow moves below power 75 to slip through protect
+    //makes it more of a chip ability somewhat
 
     [MOVE_THUNDER_CAGE] =
     {

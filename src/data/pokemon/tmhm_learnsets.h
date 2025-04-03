@@ -22609,7 +22609,7 @@ MOVE_ROCK_SMASH,
     TMHM_LEARNSET_END
 };
 
-static const u16 sUrshifuTMHMLearnset[] = {
+static const u16 sUrshifuSingleStrikeStyleTMHMLearnset[] = {
 MOVE_AERIAL_ACE,
 MOVE_ATTRACT,
 MOVE_BRICK_BREAK,

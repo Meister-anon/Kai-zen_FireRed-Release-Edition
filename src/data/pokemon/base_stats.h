@@ -27639,8 +27639,8 @@ const struct BaseStats gBaseStats[] =
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
-        .levelUpLearnset = sUrshifuLevelUpLearnset,
-        .tmhmLearnset = sUrshifuTMHMLearnset,
+        .levelUpLearnset = sUrshifuSingleStrikeStyleLevelUpLearnset,
+        .tmhmLearnset = sUrshifuSingleStrikeStyleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },

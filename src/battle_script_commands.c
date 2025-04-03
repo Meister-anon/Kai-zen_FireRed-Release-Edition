@@ -1717,7 +1717,8 @@ static bool8 IsBattlerProtected(u8 battlerId, u16 move)//IMPORTANT change to fal
 
     if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
         return FALSE;
-    else if (IsMoveMakingContact(move, gBattlerAttacker) && GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST)
+    else if (IsMoveMakingContact(move, gBattlerAttacker) && GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST
+    && gBattleMoves[gCurrentMove].power < 75)
         return FALSE;
     else if ((gProtectStructs[battlerId].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
         return TRUE;
