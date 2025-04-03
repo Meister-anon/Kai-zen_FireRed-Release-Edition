@@ -1,4 +1,5 @@
 #include "global.h"
+#include "gpu_regs.h"
 
 #define GPU_REG_BUF_SIZE 0x60
 
