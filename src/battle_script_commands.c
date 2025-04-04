@@ -9799,7 +9799,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //don't want to overdo, but 5% drop at 95% is pretty much completely unnoticeable
         //but it makes all accuracy drops more effective, cna treat like other games,
         //marginal gains being the main focus not strength of individual effects
-//add accuracy exclusion for moves that hit flying mon
+        //add accuracy exclusion for moves that hit flying mon
         if (IsBattlerGrounded(gBattlerAttacker)
         && !IsBattlerGrounded(gBattlerTarget)
         && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)

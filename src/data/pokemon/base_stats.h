@@ -660,15 +660,15 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SWARM, ABILITY_MERCILESS}, //could give merciless but think good enough without it- ... :)
-        .abilityHidden = {ABILITY_SNIPER, ABILITY_POISONED_LEGACY},
+        .abilities = {ABILITY_SWARM, ABILITY_SNIPER}, //could give merciless but think good enough without it- ... :)
+        .abilityHidden = {ABILITY_MERCILESS, ABILITY_POISONED_LEGACY},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sBeedrillLevelUpLearnset,
         .tmhmLearnset = sBeedrillTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//decide put merciless on hidden slot keeping all poison related moves in hidden slots
 
     [SPECIES_PIDGEY] =
     {
@@ -3207,7 +3207,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_HUMAN_LIKE,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_IRON_FIST},
+        .abilities = {ABILITY_KEEN_EYE, ABILITY_IRON_FIST},//I wanna give defiant,well inner focus blocks intimidate
         .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_WEIGHTED_GI},
         .bodyColor = BODY_COLOR_BROWN,//dropped muscle magic for her, don't want spread to much
         .noFlip = FALSE,//it was meant for marowak so should feel special
@@ -3363,7 +3363,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(250, 15, 10, 50, 45, 105),
-        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
+        MON_TYPES(TYPE_NORMAL, TYPE_NORMAL),
         .catchRate = 30,
         .expYield = 395,
         //.evYield_HP = 2,
@@ -6959,13 +6959,13 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(255, 30, 20, 55, 75, 135),
-        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
-        .catchRate = 30,
-        .expYield = 608,
-        //.evYield_HP = 3,
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),//unsure if keep this as normal, or keep normal fairy,
+        .catchRate = 30,    //point was to give more weaknessesto cover incraesed survivability,
+        .expYield = 608,    //but normal already has fairy as an added weaknesss
+        //.evYield_HP = 3,  //nah egg group fairy, just keep normal fairy hmm nah I don't think I want dragon immunity on this
         //.itemRare = ITEM_LUCKY_EGG,
-        .genderRatio = MON_FEMALE,
-        .eggCycles = 40,
+        .genderRatio = MON_FEMALE, //ok decide keep this on just blissey to differentiate from chansey
+        .eggCycles = 40,    //undecided if will...nah eviolite buffed is WAY too strong to give to chansey
          .friendship = 30,
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FAIRY,
@@ -37042,9 +37042,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_POISONED_LEGACY, ABILITY_POISONED_LEGACY}, //replaced adaptability
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_YELLOW,
+        .abilities = {ABILITY_ADAPTABILITY, ABILITY_NONE}, //replaced adaptability
+        .abilityHidden = {ABILITY_POISONED_LEGACY, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_YELLOW,//hmm fuck it may keep this like this
        .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sBeedrillLevelUpLearnset,
@@ -37059,6 +37059,8 @@ const struct BaseStats gBaseStats[] =
     //can hit it for neutral
     //think best strat for this is pairing w a bulky dark deal mon,
     //rn I'm thinking umbreon get umbreon heal pulse, to attempt keep me alive
+    //hmm base version already gets this ability so think will keep this with adaptability
+    //just to give a different niche than the base form,even if it isn't necessarily better?
 
     [SPECIES_PIDGEOT_MEGA] =
     {

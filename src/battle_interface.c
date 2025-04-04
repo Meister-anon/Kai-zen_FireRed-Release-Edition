@@ -1535,7 +1535,7 @@ void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
     StringGet_Nickname(nickname);
     ptr = StringCopy(ptr, nickname);
     *ptr++ = EXT_CTRL_CODE_BEGIN;
-    *ptr++ = EXT_CTRL_CODE_COLOR;
+    *ptr++ = EXT_CTRL_CODE_COLOR; //couldn't figure out how to do font change here
 
     
 
