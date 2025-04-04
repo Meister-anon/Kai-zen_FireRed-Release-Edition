@@ -743,22 +743,28 @@ struct StatFractions
 extern const struct StatFractions gAccuracyStageRatios[];
 
 //think effects meant to last all battle should go here rather than special status as that is cleared on switch
+//ya know the simplest solution here is just to further buff traps
+//so they aren't cleared when the setting mon switches out...
+//plus that already makes sense for the environment traps
+//they all have timers so just make them free chip damage at the cost
+//of investing in weaker move
 struct BattleStruct //fill in unused fields when porting
 {
     u8 turnEffectsTracker;
     u8 turnEffectsBattlerId;
     u8 debugBattler;
-    u8 turnCountersTracker;
-    u16 wrappedMove[MAX_BATTLERS_COUNT]; // Leftover from Ruby's ewram access. /u16 because epanded move ids  //no longer need the * 2 forgot I redid these
+    u8 turnCountersTracker; //wrapped move is no longer used, still needfigure how to adjust wrappedby tho
+    //u16 wrappedMove[MAX_BATTLERS_COUNT]; // Leftover from Ruby's ewram access. /u16 because epanded move ids  //no longer need the * 2 forgot I redid these
     u16 moveTarget[MAX_BATTLERS_COUNT]; //checked is u16 in emerald, and fixed missed replacement of wrappedMove logic
+    u16 assistPossibleMoves[PARTY_SIZE * MAX_MON_MOVES]; // 6 mons, each of them knowing 4 moves
     u8 expGetterMonId;
     u8 targetsDone[MAX_BATTLERS_COUNT]; // Each battler as a bit.
     bool8 debugAISet;
-    u8 wildVictorySong;
-    u8 dynamicMoveType;
-    u8 wrappedBy[MAX_BATTLERS_COUNT];
-    u16 assistPossibleMoves[PARTY_SIZE * MAX_MON_MOVES]; // 6 mons, each of them knowing 4 moves
+    u8 wildVictorySong;//yeah decide move to pokemon struct but will use party size set true false to indicate which battler set effect
+    u8 dynamicMoveType;//thinkbest I can do for wrappyby is move to battlepokemon struct so auto linked to targetmon, than can use maxbattlers to store a value for each battler, but auto default to 0xFF at battle start switch in
+    //u8 wrappedBy[MAX_BATTLERS_COUNT]; //since mon can use multiple trap moves on a target and can be trapped by diff mon think need revise this, first block mon hit, 2nd block mon that used move, stores battleid of mon that used move,  slightly redundant but think should work
     //u8 focusPunchBattlerId; //don't need as changed focus punch effct
+    u8 sentInPokes;
     u8 battlerPreventingSwitchout;
     u8 moneyMultiplier;
     u8 moneyMultiplierMove : 1;
@@ -772,7 +778,6 @@ struct BattleStruct //fill in unused fields when porting
     // balign 2
     u16 expValue;
     u8 scriptPartyIdx; // for printing the nickname
-    u8 sentInPokes;
     bool8 selectionScriptFinished[MAX_BATTLERS_COUNT];
     u8 battlerPartyIndexes[MAX_BATTLERS_COUNT];
     u8 monToSwitchIntoId[MAX_BATTLERS_COUNT];

@@ -3871,6 +3871,42 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     then do bag menu & summary screen nickname font work
     and egg name feature
     )
+    
+    notice w starter battle seems weird issue?
+    used sizzlipede against totodile had both wrap and firespin triggered on enemy,
+    and when  lost the battle  
+    it for some reason triggered the text for
+    item(s) added to bag, as if I had caught a mon that had a held item?
+    ...ooh it actually added something to my bag...
+
+    note could also have to do with me flyign to a different map and triggering an event
+    before I did starter town stuff,....
+
+    I flew to cinnibar todo move relearner
+
+    I know oak battle is strange, but keep an eye on
+    //tested it is broken, when have wrap and 2nd trap on when mon dies/battle ends
+    for some reason it generates and gives a random item?
+
+    //ok checked end battle funtion 
+    I think I'm triggering BattleScript_PayDayMoneyPostBattle ?
+    //nvm not that, removed pickup stuff in rework should rename script
+    -renamed
+    think I'm somehow isntead triggering my caught mon had held item script?
+    //BattleScript_SecondaryItemtoBag
+
+    double checked think I almost confirmed that is what's happening, 
+    print message matches, 
+    but should only be triggered if there's a value in gBattleStruct->SecondaryItemSlot
+    which shouldn't be happening, so thinksomehow there's weird memory overwrite here?
+    wrapturns are in disable struct so are envinromenttrapturn(firespin etc) 
+    while secondaryitemslot are in battle structs so no idea what's happening
+
+    can't reliably reproduce bug, but the results it produces are a serious issue
+    ok think I found it, applied wrap then fire spin then used wrap again,
+    perhaps its applying counter again when it shouldn't?
+    -fixed by revizing traps so no longer track, they last even on switch out
+    also saved space no longer need wrapped by or wrapped move
     check where have move delete, cerulean badge guy
     and move relearner
     moved between 4 different places or some reason 

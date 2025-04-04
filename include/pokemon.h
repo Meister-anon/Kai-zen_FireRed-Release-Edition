@@ -321,7 +321,6 @@ struct BattlePokemon
     /*0x3B*/ u8 ppBonuses;
     /*0x3C*/ u8 otName[OT_NAME_LENGTH + 1];
              u8 isEgg:1; //changed to u8 to align w above array
-             
     /*0x44*/ u32 experience;
     /*0x48*/ u32 personality;
     /*0x4C*/ u32 status1;   //stays on switch

@@ -2471,22 +2471,37 @@ static u32 GetCurseDamage(u8 battlerId)
     return damage;
 }
 
-static u32 GetTrapDamage(u8 battlerId)
+//updated this for new trap sets
+static u32 GetTrapDamage(u8 battlerId) 
 {
     // ai has no knowledge about turns remaining
     u32 damage = 0;
-    u32 holdEffect = AI_DATA->holdEffects[gBattleStruct->wrappedBy[battlerId]];
-    if (gBattleMons[battlerId].status2 & STATUS2_WRAPPED)   //will need to adjust for trap statuses made when done vsonic
+    //u32 holdEffect = AI_DATA->holdEffects[gBattleStruct->wrappedBy[battlerId]];
+    
+    if (gBattleMons[battlerId].status2 & STATUS2_WRAPPED
+    || gBattleMons[battlerId].status4 & STATUS4_BIND
+    || gBattleMons[battlerId].status4 & STATUS4_CLAMP
+    || gBattleMons[battlerId].status4 & STATUS4_SWARM
+    || gBattleMons[battlerId].status4 & STATUS4_SNAP_TRAP
+    || gBattleMons[battlerId].status4 & STATUS4_FIRE_SPIN
+    || gBattleMons[battlerId].status4 & STATUS4_WHIRLPOOL
+    || gBattleMons[battlerId].status4 & STATUS4_SAND_TOMB
+    || gBattleMons[battlerId].status4 & STATUS4_MAGMA_STORM)
     {
-        if (holdEffect == HOLD_EFFECT_BINDING_BAND)
 
-            damage = gBattleMons[battlerId].maxHP / 6;
-        else
-            damage = gBattleMons[battlerId].maxHP / 16; //may make 8, but still working out final effects/setup
+        damage = gBattleMons[battlerId].maxHP / 12; //may make 8, but still working out final effects/setup
 
         if (damage == 0)
             damage = 1;
     }
+    else if (gBattleMons[battlerId].status4 & STATUS4_THUNDER_CAGE)
+    {
+        damage = gBattleMons[battlerId].maxHP / 8;
+
+        if (damage == 0)
+            damage = 1;
+    }
+
     return damage;
 }
 
