@@ -15429,13 +15429,14 @@ static void atk96_weatherdamage(void)
         ++gBattlescriptCurrInstr;
         return;
     }
+
     if (IsBattlerAlive(gBattlerAttacker) && ability != ABILITY_MAGIC_GUARD
         && !(ability == ABILITY_WONDER_GUARD && gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gBattlerAttacker]][GetBattlerSide(gBattlerAttacker)])
         && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE)
         && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
         && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER)  
         && !(gStatuses3[gBattlerAttacker] & STATUS3_PHANTOM_FORCE) //specific so flying still affected
-        && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES)
+        )//don't need safetygoggles here as isbattlerweatheraffected handles that now
     {
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
         {
@@ -15482,6 +15483,7 @@ static void atk96_weatherdamage(void)
     {
         gBattleMoveDamage = 0;
     }
+    
     if (gAbsentBattlerFlags & gBitTable[gBattlerAttacker])
         gBattleMoveDamage = 0;
     ++gBattlescriptCurrInstr;

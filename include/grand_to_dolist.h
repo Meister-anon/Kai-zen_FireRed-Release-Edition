@@ -3907,6 +3907,36 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     perhaps its applying counter again when it shouldn't?
     -fixed by revizing traps so no longer track, they last even on switch out
     also saved space no longer need wrapped by or wrapped move
+    can't track trap moves so fuck it just get rid of switch/faint removal
+    also need update binding band effect since won't be able to properly track 
+    what's set what.
+
+    //since I can't track trap effects will think need new effect for binding band, its not really used anyway
+    //idea I have is binding so linking, like life linking, and what it'll do is,
+    //heal a mon that a drain move was used on, for the same amount of hp the user will heal for.
+    //best case do like how sitrus now works, when hp falls below a certain range,
+    //stop hp loss and heal to prevent death
+
+    Think what can do is toss in same place where liquid ooze logic is?
+    or something
+
+    Also with loss of potential dmg from binding band just boost trap dmg
+    up from 16 to idk fuck something like 12? just somewhere between 1/8 amd 1/16
+    HOLD_EFFECT_BINDING_BAND think would need new ewram value to hold heal amount?
+    is overall a much stronger effect, but would still be pretty niche,
+    prob more useful for certain types i.e mon weak to grass?
+    gStoredHp is what I use to hold value, just set to 0 after its accessed
+    4/3/2025
+
+    in progress hold effect Binding band rework the base logic is there,
+    just left to bug test and figure how I need to trigger it,
+    want it to activate after health drop but also prevent from dying if would die
+    what I want is how berry's trigger hp drops item activates and procs heal
+    I THINK I can do that, would prob need a custom hp trigger range,
+    since berries are static range I think?
+    IMPORTANT
+
+
     check where have move delete, cerulean badge guy
     and move relearner
     moved between 4 different places or some reason 

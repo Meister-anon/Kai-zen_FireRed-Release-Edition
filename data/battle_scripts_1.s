@@ -3039,7 +3039,6 @@ BattleScript_EffectAbsorb::  @need setup multi task also make ghost with liquid 
 	goto BattleScript_AbsorbUpdateHp @went one by one, the problem was jumpifability from when I expanded abilities 
 
 BattleScript_AbsorbLiquidOoze::
-  	@manipulatedamage NEGATIVE_DMG  @think will remove and do in function
 	setbyte cMULTISTRING_CHOOSER, 1
 BattleScript_AbsorbUpdateHp::
 	healthbarupdate BS_ATTACKER

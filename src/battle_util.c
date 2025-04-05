@@ -736,10 +736,29 @@ bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add ut
         // given weather is active -> check if its sun, rain against utility umbrella ( since only 1 weather can be active at once)
         else if (gBattleWeather & (WEATHER_SUN_ANY | WEATHER_RAIN_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
             return FALSE; // utility umbrella blocks sun, rain effects
-        else if (gBattleWeather & (WEATHER_HAIL_ANY | WEATHER_SANDSTORM_ANY) && GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
+        else if (gBattleWeather & (WEATHER_HAIL_ANY | WEATHER_SANDSTORM_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
         return TRUE;
     }
+    return FALSE;
+}
+
+//will take attacker argument in case some weird logic,
+//where gbattler attacker isn't actually the attacker
+//if just checking current move effect applied is the one attacking
+//so don't need battlerId at all...
+//checked this covers everything,
+//all I have left to do is setup end turn for leech seed
+//also potentially make ghost leech seed that works on grass
+//but not ghost, life force drain,
+//ghastly Bloom?
+static u8 IsAttackerUsingDrainingMove(void)
+{
+    if (gBattleMoves[gCurrentMove].effect == EFFECT_ABSORB
+    || gBattleMoves[gCurrentMove].effect == EFFECT_DREAM_EATER
+    || gBattleMoves[gCurrentMove].effect == EFFECT_STRENGTH_SAP)
+        return TRUE;
+
     return FALSE;
 }
 
@@ -1520,13 +1539,12 @@ bool32 CanThaw(u32 move)
 s32 GetDrainedBigRootHp(u32 battler, s32 hp)
 {
     s32 ghostdmg;
+
+    //Since adding binding band logic here separated out ingrain and aqua ring
     if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
     {
         
-        if (gStatuses3[battler] & STATUS3_ROOTED) //hopefully that works. //should be a weakened effect
-            hp = (hp * 110) / 100;
-        else
-            hp = (hp * 130) / 100;
+        hp = (hp * 130) / 100;
     }
 
     //if (gBattlerTarget == (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER)) //specific logic to separate leech seed from normal drain effects
@@ -1618,7 +1636,12 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     if (hp == 0)
          hp = 1;
 
-       hp *= -1;
+    hp *= -1;
+    
+    //think need adjust to get correct taget for leech seed?
+    if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_BINDING_BAND
+    && IsAttackerUsingDrainingMove())
+       gStoredHp = hp;
 
     return hp; //sets value negative as pass command
 }
@@ -2502,8 +2525,19 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     
                     gBattleMoveDamage *= gDisableStructs[gActiveBattler].ingrainTurn; 
-                    gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
-                    //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);        // need understand
+
+                    if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
+                    {
+                        
+                        if (gStatuses3[gActiveBattler] & STATUS3_ROOTED || gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully that works. //should be a weakened effect
+                            gBattleMoveDamage = (gBattleMoveDamage * 110) / 100; //can't do more than this as would get far too close to 50%
+                    }
+
+                    if (gBattleMoveDamage == 0)
+                        gBattleMoveDamage = 1;
+
+                    gBattleMoveDamage *= -1;
+                    //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
                      //moved this to the bottom previously, because it doesn't need to be up top, and so its read last, 
                     BattleScriptExecute(BattleScript_IngrainTurnHeal);
                     ++effect; //next step augment battlescript to be similar to poisonturndamage../no changes needed everything handled by gbattlemovedamage in these funtions
@@ -2527,8 +2561,19 @@ u8 DoBattlerEndTurnEffects(void)
 
                     }
                     gBattleMoveDamage *= gDisableStructs[gActiveBattler].aquaringTurn;
-                    gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
-                    //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage); 
+                    if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
+                    {
+                        
+                        if (gStatuses3[gActiveBattler] & STATUS3_ROOTED || gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully that works. //should be a weakened effect
+                            gBattleMoveDamage = (gBattleMoveDamage * 110) / 100; //can't do more than this as would get far too close to 50%
+                    }
+
+                    if (gBattleMoveDamage == 0)
+                        gBattleMoveDamage = 1;
+
+                    gBattleMoveDamage *= -1;
+                    
+                    //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
                     BattleScriptExecute(BattleScript_AquaRingHeal);
                     ++effect;
                 }
@@ -10135,6 +10180,36 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     RecordItemEffectBattle(battlerId, HOLD_EFFECT_ROCKY_HELMET);
                 }
                 break;
+            case HOLD_EFFECT_BINDING_BAND:
+                if (IsBattlerAlive(battlerId)
+                && IsAttackerUsingDrainingMove()) //needcheck but believe battlerId here is gbattlertarget
+                {
+                    //think I need a filter for move effect
+                    //to ensure its not being triggered by a mon using draining moves
+                    //that isn't targetted at bind band holder,
+                    //think just make a function for IsAttackerUsingDrainingMove just take battler and move arguemnt
+                    //where move is gcurrentmove and that should be fine? and battler is gbattlerattacker
+                    //excluded target holdeffect check in function
+                    //as this case already precludes target has desired hold effect
+                    if (gStoredHp)
+                    {
+                            gBattleMoveDamage = gStoredHp;
+                            gStoredHp = 0;
+                        
+                        
+                        if (gBattleMoveDamage == 0)
+                            gBattleMoveDamage = 1;
+                        effect = ITEM_HP_CHANGE;
+                        BattleScriptPushCursor();
+                        //gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
+                        //think should work, only thing is to figure how to do berry hp threshold thing
+                        gBattlescriptCurrInstr = BattleScript_ItemHealHP_Ret;
+                        PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+                        GetItemName(gBattleTextBuff1, gLastUsedItem);
+                        RecordItemEffectBattle(battlerId, HOLD_EFFECT_BINDING_BAND);
+                    }
+                }
+                break;
             case HOLD_EFFECT_WEAKNESS_POLICY:
                 if (IsBattlerAlive(battlerId)
                     && TARGET_TURN_DAMAGED
@@ -10675,7 +10750,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
 
 u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
 {
-    if (checkNegating)  //if equals 0, I think?
+    if (checkNegating) //bandit king needs be added here nvm bandit king sets embargo
     {
 
         if (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_EMBARGO)

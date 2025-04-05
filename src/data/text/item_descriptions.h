@@ -88,7 +88,8 @@ const u8 gItemDescription_ITEM_ESCAPE_ROPE[] = _("A long, durable rope.\nUse it 
 const u8 gItemDescription_ITEM_REPEL[] = _("Prevent POKéMON upto your level\nfrom appearing for 150 steps.\nAlso lowers the wild encounter rate.");
 const u8 gItemDescription_ITEM_ABILITY_CAPSULE[] = _("Switches a Pokémon's ability.");
 
-
+//new description for new binding band effect
+const u8 gItemDescription_ITEM_BINDING_BAND[] =_("Binds the life of holder and attacker\nDraining-moves also heal user.");
 
 
 

@@ -176,7 +176,7 @@ EWRAM_DATA u8 gCritMultiplier = 0;
 EWRAM_DATA u8 gMultiHitCounter = 0;
 EWRAM_DATA u8 gMultiTask = 0;
 EWRAM_DATA const u8 *gBattlescriptCurrInstr = NULL;
-EWRAM_DATA u32 gUnusedBattleMainVar = 0;
+EWRAM_DATA s32 gStoredHp = 0; //previously gUnusedBattleMainVar converetd for storing hp, default use case for binding band rework, need reset to 0 at endturn
 EWRAM_DATA u8 gChosenActionByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA const u8 *gSelectionBattleScripts[MAX_BATTLERS_COUNT] = {NULL};
 EWRAM_DATA u16 gLastPrintedMoves[MAX_BATTLERS_COUNT] = {0};
@@ -4224,6 +4224,7 @@ static void BattleStartClearSetData(void)
 
     gPauseCounterBattle = 0;
     gBattleMoveDamage = 0;
+    gStoredHp = 0;
     gIntroSlideFlags = 0;
     gBattleScripting.animTurn = 0;
     gBattleScripting.animTargetsHit = 0;
@@ -5211,6 +5212,7 @@ void BattleTurnPassed(void) //after all moves used
     gBattleScripting.animTargetsHit = 0;
     gBattleScripting.atk49_state = 0;
     gBattleMoveDamage = 0;
+    gStoredHp = 0;
     gMoveResultFlags = 0;
     for (i = 0; i < 5; ++i)
         gBattleCommunication[i] = 0;
