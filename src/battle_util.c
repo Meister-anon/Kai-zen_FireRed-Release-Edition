@@ -1639,8 +1639,11 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     hp *= -1;
     
     //think need adjust to get correct taget for leech seed?
-    if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_BINDING_BAND
-    && IsAttackerUsingDrainingMove())
+    //don't need drain move logic I've already cleaned this function 
+    //of any effect that shouldn't trigger, just need to figure out the targetting for leech seed
+    //and think instead of move end, put in hp drop? then in same place have sturdy/focus sash?
+    //nah different place
+    if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_BINDING_BAND)
        gStoredHp = hp;
 
     return hp; //sets value negative as pass command
