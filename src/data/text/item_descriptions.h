@@ -89,7 +89,8 @@ const u8 gItemDescription_ITEM_REPEL[] = _("Prevent POKéMON upto your level\nfr
 const u8 gItemDescription_ITEM_ABILITY_CAPSULE[] = _("Switches a Pokémon's ability.");
 
 //new description for new binding band effect
-const u8 gItemDescription_ITEM_BINDING_BAND[] =_("Binds the life of holder and attacker\nDraining-moves also heal user.");
+//if don't space = from _  causes memory issue...
+const u8 gItemDescription_ITEM_BINDING_BAND[] = _("Binds the life of holder and attacker\nDraining-moves also heal user.");
 
 
 
@@ -278,7 +279,7 @@ const u8 gItemDescription_ITEM_POKEBLOCK_CASE[] = _("A case for holding {POKEBLO
 const u8 gItemDescription_ITEM_LETTER[] = _("An extremely important letter to\nSTEVEN from the PRESIDENT of the\nDEVON CORPORATION.");
 const u8 gItemDescription_ITEM_EON_TICKET[] = _("The ticket required for sailing on a\nferry to a distant southern island.\nIt features a drawing of an island.");
 const u8 gItemDescription_ITEM_RED_ORB[] = _("An orb that glows red.\nIt is said to contain an incredible\npower from ancient times.");
-const u8 gItemDescription_ITEM_MEGA_RING[] =_("Enables POKéMON to Mega Evolve\nwith their corresponding\nMega Stone.");
+const u8 gItemDescription_ITEM_MEGA_RING[] = _("Enables POKéMON to Mega Evolve\nwith their corresponding\nMega Stone.");
 const u8 gItemDescription_ITEM_BLUE_ORB[] = _("An orb that glows blue.\nIt is said to contain an incredible\npower from ancient times.");
 const u8 gItemDescription_ITEM_SCANNER[] = _("A device used to search for\nlife-forms in water.\nIt looks too difficult to use.");
 const u8 gItemDescription_ITEM_GO_GOGGLES[] = _("A pair of protective goggles.\nThey enable a TRAINER to travel\nthrough even desert sandstorms.");

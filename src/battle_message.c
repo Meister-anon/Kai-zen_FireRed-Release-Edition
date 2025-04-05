@@ -161,7 +161,7 @@ static const u8 sText_PkmnClamped[] = _("{B_ATK_NAME_WITH_PREFIX} CLAMPED\n{B_DE
 static const u8 sText_PkmnHurtBy[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt\nby {B_BUFF1}!");
 static const u8 sText_PkmnHurtEmpathCurse[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} suffered\nthe {B_DEF_ABILITY}!");
 static const u8 sText_PkmnFreedFrom[] = _("{B_ATK_NAME_WITH_PREFIX} was freed\nfrom {B_BUFF1}!");
-static const u8 sText_BindMoveOutofPP[] =_("{B_BUFF1} ran out PP!");
+static const u8 sText_BindMoveOutofPP[] = _("{B_BUFF1} ran out PP!");
 static const u8 sText_PkmnCrashed[] = _("{B_ATK_NAME_WITH_PREFIX} kept going\nand crashed!");
 const u8 gBattleText_MistShroud[] = _("{B_ATK_PREFIX2} became\nshrouded in MIST!"); //using mist
 static const u8 sText_PkmnProtectedByMist[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is protected\nby MIST!");  //when targetted with mist up
@@ -852,7 +852,7 @@ static const u8 sText_MeteorBeamCharging[] = _("{B_ATK_NAME_WITH_PREFIX} is over
 static const u8 sText_HeatingUpBeak[] = _("{B_ATK_NAME_WITH_PREFIX} started\nheating up its beak!");
 static const u8 sText_StatWentBackDown[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1} went back down!"); //main use revert sky drop evasion boost, want specific stat tobe in buffer
 static const u8 sText_CelebrateTrollString[] = _("{B_ATK_NAME_WITH_PREFIX} began to dance strangely!");
-static const u8 sText_JudgmentString[] =_("{B_DEF_NAME} faced {STR_VAR_2} Judgment!{PAUSE 15}");
+static const u8 sText_JudgmentString[] = _("{B_DEF_NAME} faced {STR_VAR_2} Judgment!{PAUSE 15}");
 
 //default values
 static const u8 sText_YouThrowABallNowRight[] = _("You throw a BALL now, right?\nI… I'll do my best!");

@@ -3233,11 +3233,11 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_BACK_STAB] = _("Backstab"),
     [MOVE_POUNCE] = _("Pounce"),
     [MOVE_CHEAP_SHOT] = _("Cheap Shot"),
-    [MOVE_SNOWBALL] =_("Snowball"),
+    [MOVE_SNOWBALL] = _("Snowball"),
     [MOVE_TRENCH_RUN] = _("Trench-run"), //revisit
-    [MOVE_SPIN_DASH] =_("Spin Dash"),
-    [MOVE_ARCTIC_RAKE] =_("Arctic Rake"),
-    [MOVE_CONVERSION_Z] =_("Conversion Z"),
+    [MOVE_SPIN_DASH] = _("Spin Dash"),
+    [MOVE_ARCTIC_RAKE] = _("Arctic Rake"),
+    [MOVE_CONVERSION_Z] = _("Conversion Z"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars
