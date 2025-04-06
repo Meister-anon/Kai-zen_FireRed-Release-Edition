@@ -10689,7 +10689,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
         targetType = GetBattlerMoveTargetType(gBattlerAttacker, move);
 
     // Special cases
-    if (move == MOVE_CURSE && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
+    if (move == MOVE_CURSE && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GHOST))
         targetType = MOVE_TARGET_USER;
     switch (targetType)
     {
@@ -12201,8 +12201,9 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
     }*/
     
 
-    if (move == MOVE_GLARE && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_GHOST)
-    || IS_BATTLER_OF_TYPE(battlerDef, TYPE_DARK))) //can keep this line
+    if (move == MOVE_GLARE 
+    && (DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_GHOST)
+    || DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_DARK))) //can keep this line
     {
         modifier = UQ_4_12(0.0);
     }

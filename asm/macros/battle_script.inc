@@ -191,7 +191,7 @@
 	@.4byte \ptr
 	@.endm
 
-	.macro jumpbasedontype battler:req, type:req, case:req, ptr:req
+	.macro typebasedjump battler:req, type:req, case:req, ptr:req
 	.byte 0x22
 	.byte \battler
 	.byte \type
@@ -200,11 +200,19 @@
 	.endm
 
 	.macro jumpiftype battler:req, type:req, ptr:req
-	jumpbasedontype \battler, \type, TRUE, \ptr
+	typebasedjump \battler, \type, TRUE, \ptr
+	.endm
+
+	.macro jumpiftypeAffinty battler:req, type:req, ptr:req
+	typebasedjump2 \battler, \type, TRUE, \ptr
 	.endm
 
 	.macro jumpifnottype battler:req, type:req, ptr:req
-	jumpbasedontype \battler, \type, FALSE, \ptr
+	typebasedjump \battler, \type, FALSE, \ptr
+	.endm
+
+	.macro jumpifnottypeAffinty battler:req, type:req, ptr:req
+	typebasedjump2 \battler, \type, FALSE, \ptr
 	.endm
 
 	.macro getexp battler:req
@@ -1377,6 +1385,14 @@
 
 	.macro setstealthrock ptr:req
 	callnative BS_setstealthrock
+	.4byte \ptr
+	.endm
+
+	.macro typebasedjump2 battler:req, type:req, case:req, ptr:req
+	callnative BS_typebasedjump2
+	.byte \battler
+	.byte \type
+	.byte \case
 	.4byte \ptr
 	.endm
 

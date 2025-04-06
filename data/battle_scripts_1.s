@@ -663,7 +663,7 @@ BattleScript_SkyDropTurn2:
 	clearsemiinvulnerablebit
 	attackstring
 	clearskydrop BattleScript_SkyDropChangedTarget
-	jumpiftype BS_TARGET, TYPE_FLYING, BattleScript_SkyDropFlyingType
+	jumpiftypeAffinty BS_TARGET, TYPE_FLYING, BattleScript_SkyDropFlyingType
 	goto BattleScript_SkyDropHitFromAtkString
 BattleScript_SkyDropFlyingType:
 	makevisible BS_TARGET
@@ -994,7 +994,11 @@ BattleScript_EffectMagneticFlux::
 	ppreduce
 	setbyte gBattleCommunication, 0x0
 BattleScript_EffectMagneticFluxStart:
-	jumpiftype BS_TARGET, TYPE_ELECTRIC, BattleScript_EffectMagneticFluxCheckStats
+	@reworked allow work on electric/steel & plus/minus not just latter
+	jumpifability BS_TARGET, ABILITY_PLUS, BattleScript_EffectMagneticFluxCheckStats
+	jumpifability BS_TARGET, ABILITY_MINUS, BattleScript_EffectMagneticFluxCheckStats
+	jumpiftypeAffinty BS_TARGET, TYPE_ELECTRIC, BattleScript_EffectMagneticFluxCheckStats
+	jumpiftypeAffinty BS_TARGET, TYPE_STEEL, BattleScript_EffectMagneticFluxCheckStats
 	goto BattleScript_EffectMagneticFluxLoop
 BattleScript_EffectMagneticFluxCheckStats:
 	jumpifstat BS_TARGET, CMP_LESS_THAN, STAT_DEF, 0xC, BattleScript_EffectMagneticFluxTryDef
@@ -1032,7 +1036,11 @@ BattleScript_EffectGearUp::
 	ppreduce
 	setbyte gBattleCommunication, 0x0
 BattleScript_EffectGearUpStart:
-	jumpiftype BS_TARGET, TYPE_ELECTRIC, BattleScript_EffectGearUpCheckStats
+	@reworked allow work on electric/steel & plus/minus not just latter
+	jumpifability BS_TARGET, ABILITY_PLUS, BattleScript_EffectGearUpCheckStats
+	jumpifability BS_TARGET, ABILITY_MINUS, BattleScript_EffectGearUpCheckStats
+	jumpiftypeAffinty BS_TARGET, TYPE_ELECTRIC, BattleScript_EffectGearUpCheckStats
+	jumpiftypeAffinty BS_TARGET, TYPE_STEEL, BattleScript_EffectGearUpCheckStats
 	goto BattleScript_EffectGearUpLoop
 BattleScript_EffectGearUpCheckStats:
 	jumpifstat BS_TARGET, CMP_LESS_THAN, STAT_ATK, 0xC, BattleScript_EffectGearUpTryAtk
@@ -1112,14 +1120,14 @@ BattleScript_EffectFlowerShield:
 	ppreduce
 	selectfirstvalidtarget
 BattleScript_FlowerShieldIsAnyGrass:
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoopStart
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoopStart
 	jumpifnexttargetvalid BattleScript_FlowerShieldIsAnyGrass
 	goto BattleScript_ButItFailed
 BattleScript_FlowerShieldLoopStart:
 	selectfirstvalidtarget
 BattleScript_FlowerShieldLoop:
 	movevaluescleanup
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoop2
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_FlowerShieldLoop2
 	goto BattleScript_FlowerShieldMoveTargetEnd
 BattleScript_FlowerShieldLoop2:
 	setstatchanger STAT_DEF, 1, FALSE
@@ -1149,7 +1157,7 @@ BattleScript_EffectRototiller:
 BattleScript_RototillerLoop:
 	movevaluescleanup
 	jumpifnotgrounded BS_TARGET, BattleScript_RototillerNoEffect
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_RototillerLoop2
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_RototillerLoop2
 BattleScript_RototillerNoEffect:
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_NOEFFECTONTARGET
@@ -2586,7 +2594,7 @@ BattleScript_Roosting::
 	return
 
 BattleScript_EffectNettleWhip::
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_EffectHit
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_EffectHit
 	setmoveeffect MOVE_EFFECT_BURN
 	goto BattleScript_EffectHit
 
@@ -4620,7 +4628,7 @@ BattleScript_EffectMinimize::
 	goto BattleScript_EffectStatUpAfterAtkCanceler
 
 BattleScript_EffectCurse::	@
-	jumpiftype BS_ATTACKER, TYPE_GHOST, BattleScript_GhostCurse
+	jumpiftypeAffinty BS_ATTACKER, TYPE_GHOST, BattleScript_GhostCurse
 	attackcanceler
 	attackstring
 	ppreduce
@@ -5810,7 +5818,7 @@ BattleScript_EffectWillOWisp::
 	ppreduce
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	jumpifstatus BS_TARGET, STATUS1_BURN, BattleScript_AlreadyBurned
-	jumpiftype BS_TARGET, TYPE_FIRE, BattleScript_NotAffected
+	jumpiftypeAffinty BS_TARGET, TYPE_FIRE, BattleScript_NotAffected
 	jumpifability BS_TARGET, ABILITY_WATER_VEIL, BattleScript_WaterVeilPrevents
 	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_LeafGuardProtects
 	jumpifflowerveil BattleScript_FlowerVeilProtects
@@ -5833,7 +5841,7 @@ BattleScript_EffectFlashFreeze::	@nearly done  just need to make animation for..
 	ppreduce
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	jumpifstatus BS_TARGET, STATUS1_FREEZE, BattleScript_AlreadyFrozen	@prevents refreezing given new freeze status but thats fine
-	jumpiftype BS_TARGET, TYPE_ICE, BattleScript_NotAffected
+	jumpiftypeAffinty BS_TARGET, TYPE_ICE, BattleScript_NotAffected
 	jumpifability BS_TARGET, ABILITY_COMATOSE, BattleScript_LeafGuardProtects
 	jumpifleafguard BattleScript_LeafGuardProtects
 	jumpifshieldsdown BS_TARGET, BattleScript_LeafGuardProtects
@@ -8163,7 +8171,7 @@ BattleScript_PowderMoveNoEffect::
 	attackstring
 	ppreduce
 	pause B_WAIT_TIME_SHORT
-	jumpiftype BS_TARGET, TYPE_GRASS, BattleScript_PowderMoveNoEffectPrint
+	jumpiftypeAffinty BS_TARGET, TYPE_GRASS, BattleScript_PowderMoveNoEffectPrint
 	jumpifability BS_TARGET, ABILITY_OVERCOAT, BattleScript_PowderMoveNoEffectOvercoat
 	printstring STRINGID_SAFETYGOGGLESPROTECTED
 	goto BattleScript_PowderMoveNoEffectWaitMsg
@@ -9236,7 +9244,7 @@ BattleScript_IntimidateSpecialChecks:
 	jumpifability BS_TARGET, ABILITY_MAGIC_BOUNCE, BattleScript_IntimidateReflect
 BattleScript_IntimidateDarkCheck:
 	@jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
-	jumpiftype BS_TARGET, TYPE_DARK, BattleScript_IntimidateDarkFail	
+	jumpiftypeAffinty BS_TARGET, TYPE_DARK, BattleScript_IntimidateDarkFail	
 BattleScript_IntimidateFailChecks:
 	jumpifsubstituteblocks BattleScript_IntimidateFail		@forgot tiger mom had to different ability exclusion need rearrange abilities here
 	jumpifability BS_TARGET, ABILITY_CLEAR_BODY, BattleScript_IntimidateAbilityFail		@and then jump out, before atk stat specific exclusions

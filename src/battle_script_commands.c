@@ -146,7 +146,7 @@ static void atk1E_jumpbasedonability(void);
 static void atk1F_jumpifsideaffecting(void);
 static void atk20_jumpifstat(void);
 static void atk21_jumpifstatus3condition(void);
-static void atk22_jumpbasedontype(void);
+static void atk22_typebasedjump(void);
 static void atk23_getexp(void);
 static void atk24_confirmlosingteam(void);
 static void atk25_movevaluescleanup(void);
@@ -406,7 +406,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atk1F_jumpifsideaffecting,
     atk20_jumpifstat,
     atk21_jumpifstatus3condition,
-    atk22_jumpbasedontype,
+    atk22_typebasedjump,
     atk23_getexp,
     atk24_confirmlosingteam,
     atk25_movevaluescleanup,
@@ -1629,7 +1629,7 @@ static void atk00_attackcanceler(void) //vsonic
         }
     }
     else if (IsBattlerProtected(gBattlerTarget, gCurrentMove)
-        && (gCurrentMove != MOVE_CURSE || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST))
+        && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
         //&& ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
         && (CanTwoTurnMoveAttackThisTurn(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS) || !IsTwoTurnsMove(gCurrentMove))
         && gCurrentMove != MOVE_BIDE //make bide immune to protect
@@ -6473,19 +6473,23 @@ static void atk21_jumpifstatus3condition(void) //breaks into jumpif, and jump if
         gBattlescriptCurrInstr += 7;
 }*/
 
-static void atk22_jumpbasedontype(void)  //may need to adjust currinstr values
+static void atk22_typebasedjump(void)  //may need to adjust currinstr values
 {
-    u8 battlerId = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    u8 type = gBattlescriptCurrInstr[2];
-    const u8* jumpPtr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
+    CMD_ARGS(u8 battler, u8 type, u8 state, const u8 *jumpInstr);
+    u8 battlerId = GetBattlerForBattleScript(cmd->battler);
+    u8 type = cmd->type;
+    const u8* jumpPtr = cmd->jumpInstr;
 
     // jumpiftype
-    if (gBattlescriptCurrInstr[3])  //TRUE
+    if (cmd->state)  //TRUE
     {
+        //need check consider replacing w DoesBattlerGetTypeBasedAffinity
+        //but only want that to apply to specific type based system effects not type chart related things
+        //so think will reinstate jumpiftype2 script to use specifically for that as an alternative
         if (IS_BATTLER_OF_TYPE(battlerId, type))
             gBattlescriptCurrInstr = jumpPtr;
         else
-            gBattlescriptCurrInstr += 8;
+            gBattlescriptCurrInstr = cmd->nextInstr;
     }
     // jumpifnottype
     else       //FALSE
@@ -6493,7 +6497,38 @@ static void atk22_jumpbasedontype(void)  //may need to adjust currinstr values
         if (!IS_BATTLER_OF_TYPE(battlerId, type))
             gBattlescriptCurrInstr = jumpPtr;
         else
-            gBattlescriptCurrInstr += 8;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+//ok good idea to replace as while most cases could use the new version 
+//and didn't explicilty need to rely on type, there were a few that did
+//the burn out moves, si.e moves that consume type when used 
+void BS_typebasedjump2(void)  //may need to adjust currinstr values
+{
+    NATIVE_ARGS(u8 battler, u8 type, u8 state, const u8 *jumpInstr);
+    u8 battlerId = GetBattlerForBattleScript(cmd->battler);
+    u8 type = cmd->type;
+    const u8* jumpPtr = cmd->jumpInstr;
+
+    // jumpiftype
+    if (cmd->state)  //TRUE
+    {
+        //need check consider replacing w DoesBattlerGetTypeBasedAffinity
+        //but only want that to apply to specific type based system effects not type chart related things
+        //so think will reinstate jumpiftype2 script to use specifically for that as an alternative
+        if (DoesBattlerGetTypeBasedAffinity(battlerId, type))
+            gBattlescriptCurrInstr = jumpPtr;
+        else
+            gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+    // jumpifnottype
+    else       //FALSE
+    {
+        if (!DoesBattlerGetTypeBasedAffinity(battlerId, type))
+            gBattlescriptCurrInstr = jumpPtr;
+        else
+            gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
