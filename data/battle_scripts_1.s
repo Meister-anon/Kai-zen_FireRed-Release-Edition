@@ -3028,8 +3028,12 @@ BattleScript_DoPoison:
 BattleScript_SkipToDmgPhase:
 	goto BattleScript_EffectHit
 
-	@for some reason this is ALWAYS defaulting to moveresult not effective
-BattleScript_EffectAbsorb::  @need setup multi task also make ghost with liquid ooze for extra troll...CURSOLA!
+@for binding band to work, will need adjust this
+@stuff for sethpdrain and the big root function call
+@I need it earlier before target hp drop
+@with gbattlemovedamage rework can prob put bigroot stuff
+@after damage calc? or within damagecalc,
+BattleScript_EffectAbsorb::
 	call BattleScript_EffectHit_Ret
 	jumpifhealblock BS_ATTACKER, BattleScript_AbsorbHealBlock
 	sethpdrain	@ should change battlemovedamage to half hp dealt, something weird here, removing below but setting this causes freeze

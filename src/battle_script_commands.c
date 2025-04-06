@@ -3394,6 +3394,14 @@ static void atk07_adjustnormaldamage(void)
     if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT) && gBattleMoveDamage >= 1)
         gSpecialStatuses[gBattlerAttacker].damagedMons |= gBitTable[gBattlerTarget];
 
+    //believe putting these here have effect of triggering before
+    //attack animation, believe I would wantafter
+    //looked at ee think need putmy binding band change in
+    //healthbar update doa function return that calls script with return,
+    //make sure it reutrns false on recall, and function returns at start
+    //make conition check for activatre  binding band
+    //have gStoredHp not be 0, and set to 0 on use
+
     // Check gems and damage reducing berries.
     if (gSpecialStatuses[gBattlerTarget].berryReduced
         && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
@@ -3403,6 +3411,8 @@ static void atk07_adjustnormaldamage(void)
         gBattlescriptCurrInstr = BattleScript_BerryReduceDmg;
         gLastUsedItem = gBattleMons[gBattlerTarget].item;
     }
+
+
     if (gSpecialStatuses[gBattlerAttacker].gemBoost
         && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
         && gBattleMons[gBattlerAttacker].item)
@@ -3646,13 +3656,24 @@ static void atk0A_waitanimation(void)
 static void atk0B_healthbarupdate(void)
 {
     CMD_ARGS(u8 battler);
+    gActiveBattler = GetBattlerForBattleScript(cmd->battler);
+
+    //somewhat as expected this was the problem,
+    //set is diff from emerald rather than return, just put as or
+    //in other condition below
+    //if (ShouldActivateBindingBand())
+    //    return;
+
+    //idk why this doesn't work... is it an agbcc thing??
+    //if (gBattleControllerExecFlags || ShouldActivateBindingBand())
+    //    return;
 
     if (!gBattleControllerExecFlags)
     {
         if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
         {
             //gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-            gActiveBattler = GetBattlerForBattleScript(cmd->battler);
+            //gActiveBattler = GetBattlerForBattleScript(cmd->battler);
 
             if (DoesSubstituteBlockMove(gBattlerAttacker, gActiveBattler, gCurrentMove) && gDisableStructs[gActiveBattler].substituteHP && !(gHitMarker & HITMARKER_IGNORE_SUBSTITUTE))
             {

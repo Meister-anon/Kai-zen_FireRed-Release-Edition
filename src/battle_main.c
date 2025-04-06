@@ -5725,7 +5725,8 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_UNBURDEN)
         speed *= 2;
     if (IS_BATTLER_OF_TYPE(battlerId, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
-        speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized
+        speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
+        //put in moveendI guess moveend sport, just to display string vsonic
 
     // paralysis drop
     if ((gBattleMons[battlerId].status1 & STATUS1_PARALYSIS)
@@ -7064,7 +7065,7 @@ bool8 TryRunFromBattle(u8 battler)
     else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
     {
         ++effect;
-    }
+    }//vsonic if add ability that gives ghost type affinity keep isbattlertype and add below same as aviator
     else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
     {
         ++effect;

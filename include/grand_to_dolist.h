@@ -3431,6 +3431,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     bug endure isn't quite working right w multi hit or multitask ability one or other
     mon is dying to a multi hit move rather than holding on,
     and needing to be hit again to faint
+    4/4/2025 important
 
     bug potenntial same terrain effects don't work,  starterrival had grassy surge,
     effect got triggered in everybattle??
@@ -3818,6 +3819,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     double check multi hit see if it auto ends on  miss if so change
     want to continue attempting to attack until  rolled his ends,
     then print num hits based on what landed
+    can work for fury cutter all need is make damage reset if attack misses
 
     //note idea from sayu vt
     change payday to give coins assuming you have coin case
@@ -3907,6 +3909,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     perhaps its applying counter again when it shouldn't?
     -fixed by revizing traps so no longer track, they last even on switch out
     also saved space no longer need wrapped by or wrapped move
+
+    exp share not obtained until fuchisia city and locked behind catchig mon
+    ok move further up think swap places w everstone/eviolite guy
+    in the tunnel by pewter side of diglet cave?
+
+    do what I did in my old hack, play normla script
+    but if haven't caught enough mon have him on the sly
+    say he'll give it to you for money.
+    4/6/2025  vsonic important
+
     can't track trap moves so fuck it just get rid of switch/faint removal
     also need update binding band effect since won't be able to properly track 
     what's set what.
@@ -3926,7 +3938,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     is overall a much stronger effect, but would still be pretty niche,
     prob more useful for certain types i.e mon weak to grass?
     gStoredHp is what I use to hold value, just set to 0 after its accessed
+    //will need setup end turn for end turn leech seed,
+    //and a move end effect somehow unsure if should go in itembattle effects or move end
+    ok move end function uses ItemBattleEffects which has move end funtions
+    so I should add to the correct case in the ItemBattleEffects function to set up
+    still to see if is MOVE_END_ITEM_EFFECTS_TARGET or MOVE_END_ITEM_EFFECTS_ALL
+    I think the target one
     4/3/2025
+
+    save list of PRs with new thing wants to add,
+    new move animations and adjusted data structure to set w python
+    need test all new move animations in EE, want better spirit shackle anim
+    but new one from EE sucks and is worse than the current
+    so need test othes
+
 
     in progress hold effect Binding band rework the base logic is there,
     just left to bug test and figure how I need to trigger it,
@@ -3934,7 +3959,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     what I want is how berry's trigger hp drops item activates and procs heal
     I THINK I can do that, would prob need a custom hp trigger range,
     since berries are static range I think?
+    ok think what will do is setup effect to activate before healthbar drop
+    to act as a damage reducer, similar to reduce berries,
+    this way effect will always activate,
+    just need make custom message will trigger when takes damage
+    make move that will activate should bindingband activate
+    would make leech seed do no damage, 
+    since amount healed is equal to amount hp lost
     IMPORTANT
+
 
     also of note
     think attempt simplify leech seed logic, the targetting is very weird
@@ -4047,6 +4080,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     when I scrapped the weight limit idea.
 
     reworked psywave again, 
+
+    NOTE**(see if summary screen moves page can be one large window
+    instead of individual ones for moves
+    I know I changed it because I struggled with it and icons,
+    but want to see if I may have just been lacking knowledge,
+    if I can blit rect the icons it feels like that should work fine
+    and allow for better icon placement,
+    so I can get the graphic to display evenly,
+
+    then just have to adjust how the sroll red box moves
+    )
+    3/31/2025
+
+    -wamt add merp icon branch
+    allows shiny icon in pc and just looks better
 
     plan add value to boxmon hiddenpowertype
     set at mon creation, using hidden power type logic, so is accurate - done works

@@ -413,6 +413,16 @@ static void MoveRelearnerLoadBgGfx(void)
     }
 }
 
+//this is used for many thing so think will 
+//need to make my own effect from scratch
+//put in either PSS tasks or misc I guess?
+//hmm or just a separate path to slot into the main process
+//guess can also take this change to make my changes to move learn that I wanted.
+//to be able to scroll to stat page and back,
+//so I can check how advantageous or disadvantageous a specific move is
+//plenty of time I'd learn a  move but forget if the character
+//was a physical or special user, so couldn't tell how good
+//or bad the move is for the characterin question.
 static void CB2_MoveRelearner_Init(void)
 {
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
@@ -421,7 +431,7 @@ static void CB2_MoveRelearner_Init(void)
     ResetTasks();
     sMoveRelearner = AllocZeroed(sizeof(struct LearnMoveGfxResources));
     InitMoveRelearnerStateVariables();
-    sMoveRelearner->selectedPartyMember = gSpecialVar_0x8004;
+    sMoveRelearner->selectedPartyMember = gSpecialVar_0x8004;//holds player slot
     MoveRelearnerInitListMenuBuffersEtc();
     SetVBlankCallback(VBlankCB_MoveRelearner);
     MoveRelearnerLoadBgGfx();

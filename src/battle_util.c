@@ -780,6 +780,7 @@ u8 ShouldActivateBindingBand(void)
         BattleScriptPushCursor();
         //gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
         //think should work, only thing is to figure how to do berry hp threshold thing
+        //need make new script itembuffer stole the heal or something
         gBattlescriptCurrInstr = BattleScript_ItemHealHP_Ret;
         PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
         GetItemName(gBattleTextBuff1, gLastUsedItem);
@@ -7007,7 +7008,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
                 case ABILITY_SHED_SKIN: //don't need to make switch in effect, it activates before status dmg
-                    if ((gBattleMons[battler].status1 & STATUS1_ANY) && (Random() % 2) == 0) //buffed odds to 50%
+                    if ((gBattleMons[battler].status1 & STATUS1_ANY) && (Random() % 2) == 0) //buffed odds to 50%,may need lower?  ok so I buffed because 30% odds felt like it never triggered?
                     {
                         if (gBattleMons[battler].status1 & (STATUS1_PSN_ANY))
                             StringCopy(gBattleTextBuff1, gStatusConditionString_PoisonJpn); //no idea why this is here? but its in emerald too
@@ -7023,7 +7024,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
                         if (gBattleMons[battler].hp < gBattleMons[battler].maxHP)
                         {
-                            gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff
+                            gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff - potentially drop to 1/5 since can retrigger with orbs?
                             if (gBattleMoveDamage == 0)
                                 gBattleMoveDamage = 1;
                             gBattleMoveDamage *= -1;

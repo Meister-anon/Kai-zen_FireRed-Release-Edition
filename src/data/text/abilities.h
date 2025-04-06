@@ -718,6 +718,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 //-remember all these are having +1 added to them, so sub 1 from name value to get actual value name length is 16, so max for table is 17
 //like moves think need lowercase version, for those that want it.
 //then just make option 
+
+//plan do like move data put name and descriptions togeter in table
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 {
     [ABILITY_NONE] = _("-------"),

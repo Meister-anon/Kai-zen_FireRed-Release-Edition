@@ -1475,6 +1475,10 @@ const u8 gMoveDescription_BugBite[MOVE_DESCRIPTION_LENGTH + 5] = _("A biting att
 const u8 gMoveDescription_VoltSwitch[MOVE_DESCRIPTION_LENGTH + 5] = _("The user charges up\nthen tackles the foe\nswitching out\nas they pass.");
     //_Description can hold 5 line breaks (so 6 lines total) given current space post expansion!  at approx 19 chars per line// so 114 max ( + 5 for escape chars)
 
+
+//use python consolidate both below into array/table
+//2 entires name and description together
+//think also put anim here
 const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_NONE         ] = gMoveDescription_Pound,
     [MOVE_POUND        ] = gMoveDescription_Pound,
