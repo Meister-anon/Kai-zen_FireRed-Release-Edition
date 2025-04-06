@@ -204,7 +204,7 @@ s32 CalculateMoveDamageAndEffectiveness(u16 move, u8 battlerAtk, u8 battlerDef, 
 //instead of in disable struct so lasts all battle
 //keeps from being reset on switch/faint
 u8 GetAbilityTimer(u16 ability);
-bool8 DoesBattlerGetTypeBasedBonus(u32 battler, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
+bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u8 typeFactor); //for new category of abiility, replace sipmle checks for isbattler type
 u8 ShouldActivateBindingBand(void); //function made for attempt setup pre healthbar drop activation
 
 u8 ShouldAbilityAbsorb(u16 move); //ATTEMPT workaroud for absorb abilty/lightning rod targetting

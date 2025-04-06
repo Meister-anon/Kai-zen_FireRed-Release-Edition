@@ -4191,7 +4191,7 @@ static void BattleStartClearSetData(void)
         gBattleStruct->lastTakenMoveFrom[i][3] = MOVE_NONE;
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
-        gBattleStruct->leechSeederBattlerId[gActiveBattler] = BATTLE_ID_NONE;
+        gBattleStruct->seedSetterBattleId[gActiveBattler] = BATTLE_ID_NONE;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
         // Record HP of each battler
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
@@ -4370,7 +4370,7 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         //could just put if battler that set status was holding grip claw don't clear   
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
-        gBattleStruct->leechSeederBattlerId[gActiveBattler] = BATTLE_ID_NONE;
+        gBattleStruct->seedSetterBattleId[gActiveBattler] = BATTLE_ID_NONE;
     }
     for (i = 0; i < gBattlersCount; ++i)// is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
     {
@@ -5196,8 +5196,8 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
      || (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
          && gDisableStructs[gActiveBattler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
-     || (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
-     //|| (DoesBattlerGetTypeBasedBonus(gActiveBattler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[gActiveBattler].species))
+     || (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
+     //|| (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[gActiveBattler].species))
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
     
@@ -5749,8 +5749,8 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         //flyig tuype can still just get up and fly away
         //and strengthens type a bit, but need function for flyingmonthatcantfly or something
         //make simpler permanently grounded species could combine nah can't fit in category well
-        if ((IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
-        || (DoesBattlerGetTypeBasedBonus(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        if ((DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
+        || (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
         {}
         else
             speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 

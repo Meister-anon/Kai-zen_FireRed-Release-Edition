@@ -2627,7 +2627,7 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
             if ((moveType == TYPE_FAIRY
             || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
             && argument == TYPE_FAIRY))
-            && DoesBattlerGetTypeBasedBonus(gBattlerAttacker, TYPE_FAIRY))
+            && DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_FAIRY))
             {
                 gBattleMoveDamage = gBattleMoveDamage * 135;
                 gBattleMoveDamage = gBattleMoveDamage / 100;
@@ -9832,7 +9832,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //add accuracy exclusion for moves that hit flying mon
         if (IsBattlerGrounded(gBattlerAttacker)
         && !IsBattlerGrounded(gBattlerTarget) //make function for below
-        && DoesBattlerGetTypeBasedBonus(gBattlerTarget, TYPE_FLYING)
+        && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_FLYING)
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_SIXTH_SENSE
         && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE))
@@ -14263,7 +14263,7 @@ static void atk7F_setseeded(void)  //removed grass immunity - revisit
     //since grounded isn't necessarily made of earth, just more suited for the dry environment.  also plants can steal nutrients from other plants, typically throughts roots so more or less same
     else
     {
-        gBattleStruct->leechSeederBattlerId[gBattlerTarget] = gBattlerAttacker;
+        gBattleStruct->seedSetterBattleId[gBattlerTarget] = gBattlerAttacker;
         gStatuses3[gBattlerTarget] |= STATUS3_LEECHSEED;
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
     }
@@ -17551,7 +17551,7 @@ static void atkBE_rapidspinfree(void) //need fix this clear isn't right
     else if (gStatuses3[gBattlerAttacker] & STATUS3_LEECHSEED)
     {
         gStatuses3[gBattlerAttacker] &= ~STATUS3_LEECHSEED;
-        gBattleStruct->leechSeederBattlerId[gBattlerAttacker] = BATTLE_ID_NONE;
+        gBattleStruct->seedSetterBattleId[gBattlerAttacker] = BATTLE_ID_NONE;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_LeechSeedFree;
     }

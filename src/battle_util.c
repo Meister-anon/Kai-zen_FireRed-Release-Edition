@@ -1564,15 +1564,33 @@ bool32 CanThaw(u32 move)
 // Ingrain, Leech Seed, Strength Sap and Aqua Ring
 //leech seed has weird targetting so I'm worried it'llc ause issues for ghost drain & leech seed logic
 //but if works for big root which uses battler and is pulled from gbattlerattacker, so I think it should work
+//battler arguemnts used for this function are just attacker and activebattler
+//and actiebattler are no longer used as that was ingrain/aqua ring
+//tldr battler is gbattlerattacker
 s32 GetDrainedBigRootHp(u32 battler, s32 hp)
 {
     s32 ghostdmg;
 
     //Since adding binding band logic here separated out ingrain and aqua ring
-    if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BIG_ROOT) //prob need to balance this for ingrain,
+
+    //as I change sign multiple times believe this should be at top not end
+    if (hp == 0)
+        hp = 1;
+
+    //leech seed end turn
+    if (gCurrentTurnActionNumber >= gBattlersCount)
     {
-        
-        hp = (hp * 130) / 100;
+        if (gBattleStruct->seedSetterBattleId[gBattlerTarget] != BATTLE_ID_NONE)
+        {
+            if (GetBattlerHoldEffect(gBattleStruct->seedSetterBattleId[gBattlerTarget], TRUE)  == HOLD_EFFECT_BIG_ROOT)
+                hp = (hp * 130) / 100;
+        }
+    }
+    //normal drain move mid turn
+    else
+    {
+        if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BIG_ROOT)
+            hp = (hp * 130) / 100;
     }
 
     //if (gBattlerTarget == (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER)) //specific logic to separate leech seed from normal drain effects
@@ -1601,18 +1619,53 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
    // }//this cancels below, if need set not seeded as below - if below does everything what is thi seven doing? leech seed ghost isn't working either
     //removed attempt do in endturn
     
-    if ((!IS_BATTLER_OF_TYPE(gBattleStruct->leechSeederBattlerId[gActiveBattler], TYPE_GHOST)) //mon getting healed no t ghost, this part works
-    && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST)) //IT FINALLY WORKS
+    //leech seed on a ghost type?
+    //if leech seed and triggered in endturn
+    //activebattler is the mon with leechseed status
+    //but I've also swapped battlerIds
+    //previously attacker was activebattler
+    //and target was mon receiving healing
+    //thinkm problem here keeping this separate from normal drain moves stuff
+    //ok understand it now, is sayign mon that set leech seed is not a ghost
+    //and battler (attacker) who previously was the mon being draied, IS a ghost type
+    //so yeah this is myghost drain logic just need change battle ids
+    
+    if (gCurrentTurnActionNumber >= gBattlersCount) // everyone did their actions, turn finished
     {
-        if ((hp / 2) < gBattleMons[battler].maxHP / 8)
-            hp = hp; 
+        if ((!DoesBattlerGetTypeBasedAffinity(gBattleStruct->seedSetterBattleId[gBattlerTarget], TYPE_GHOST))
+        && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GHOST)) //IT FINALLY WORKS
+        {
+            ghostdmg = hp;
+            if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE)
+            {
+                //to ensure is not too punishing
+                //by fully doubling the dmg instead of 1/4
+                //sholdbe just shy of 1/5th , is something like 1/5 and a third
+                ghostdmg /= 2;
 
-        else if ((hp / 2) > gBattleMons[battler].maxHP / 8)
-            hp = (hp / 2);
+                if (ghostdmg == 0)
+                    ghostdmg = 1;   
 
-        hp *= -1;
-    } //still not working , but ghosts aren't getting leech seed drained so idk may just leave it sigh
-    // O.O its working!!!
+                hp *= -1;
+                ghostdmg *= -1;
+
+                hp = hp + ghostdmg;
+
+            }
+            else
+            {
+                ghostdmg *= -1;
+                hp = ghostdmg;
+            }
+            
+            
+        }//end of ghost dmg on end turn drain
+        
+
+        else if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE)
+                hp *= -1;
+
+    }//end of leech seed/end turn drain effect
 
      //set ghost drain damg
      //hp argument is gbattlemovedamage 
@@ -1630,46 +1683,68 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     //no, gbattlertarget should staythe same I believe, as
     //this function is used for more than just leech seed
     //review unsure how will change
-    if (gBattlerTarget != gBattleStruct->leechSeederBattlerId[gActiveBattler])
+    //I think means not leech seed,but still draining move? - yeah
+    //but don't need condition, that's not a proper filter,
+    //I need something that excludes it from being endturn
+    //so I need a turn order value, not a battleId value
+    //then can use that as a wrapping If, for above and just use an else for this
+    //so it knows to use this for non end turn drain effects
+    //if (gBattlerTarget != gBattleStruct->seedSetterBattleId[gActiveBattler])
+    else
     {
-        if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST) //w leech seed logic target at this point is mon receiving hp
-            && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST)
-            && gBattleMoves[gCurrentMove].effect != EFFECT_DREAM_EATER) //work on physical drain moves, dream eater is mental/dreams not lifeforce
-            //should prevent damage for ghost types
+        //ghost dmg case for normal drain move
+        if (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GHOST) //w leech seed logic target at this point is mon receiving hp
+        && !DoesBattlerGetTypeBasedAffinity(battler, TYPE_GHOST)
+        )
+        //should prevent damage for ghost types
         {
-            if ((hp / 2) < gBattleMons[battler].maxHP / 8)
-                ghostdmg = -(gBattleMons[battler].maxHP / 8);
-
-            else if ((hp / 2) > gBattleMons[battler].maxHP / 8)
-                ghostdmg = -(hp / 2);
-            //take the greater of the two, changed from else, so I don't have to worry about it
-            if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE) //rest fo liquid ooze logic handled in script
+            if (gBattleMoves[gCurrentMove].effect != EFFECT_DREAM_EATER) //work on physical drain moves, dream eater is mental/dreams not lifeforce)
             {
-                hp = -hp;
-                hp += ghostdmg;
 
-                //if (gBattleMoves[gCurrentMove].effect == EFFECT_STRENGTH_SAP)
-                //    hp = (hp + ghostdmg) / 2; //to try keep this from just being an insta kill
-                    //...nevermnid then -_- liquid ooze was meant to work with strength sap from the start
-                    //so I should let it work as is, not try to scale it back for balance I guess
+                //added on to ensure not taking more damage than doing
+                //ex hit a blissey do 2 damage but take 30 becausehigh hp
+                //setting floor value here so its worthile as a mechanic
+                if (((hp / 2) <= gBattleMons[gBattlerTarget].maxHP / 8)
+                && hp >= gBattleMons[gBattlerTarget].maxHP / 8)
+                    ghostdmg = (gBattleMons[gBattlerTarget].maxHP / 8);
+
+                else// if ((hp / 2) > gBattleMons[battler].maxHP / 8)
+                    ghostdmg = (hp / 2);
+
+                    //extra protection
+                    if (ghostdmg == 0)
+                        ghostdmg = 1;
+
+                    ghostdmg *= -1;
+                
+                //take the greater of the two, changed from else, so I don't have to worry about it
+                if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE) //rest fo liquid ooze logic handled in script
+                {
+                    hp = -hp; //reverse hp into damage, then add ghostdmg
+                    hp += ghostdmg;
+
+                    //if (gBattleMoves[gCurrentMove].effect == EFFECT_STRENGTH_SAP)
+                    //    hp = (hp + ghostdmg) / 2; //to try keep this from just being an insta kill
+                        //...nevermnid then -_- liquid ooze was meant to work with strength sap from the start
+                        //so I should let it work as is, not try to scale it back for balance I guess
+                }
+                else
+                {
+                    hp = ghostdmg; //since below flips sign need set this negative to properly do damage
+                        //would love a script for this but cant do anything as set in a command? idk I might be able to put
+                        //something below that pushes and returns?
+                }      
             }
-            else
-            {
-                hp = ghostdmg; //since below flips sign need set this negative to properly do damage
-                    //would love a script for this but cant do anything as set in a command? idk I might be able to put
-                    //something below that pushes and returns?
-            }      
             //if can setup text to say aborb ghostly energy!  it'd go here vsonic  
         }
-        else if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE) //rest fo liquid ooze logic handled in script
+        //no ghost dmg just liquid ooze case
+        else if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE //rest fo liquid ooze logic handled in script
+        && gBattleMoves[gCurrentMove].effect != EFFECT_DREAM_EATER) //work on physical drain moves, dream eater is mental/dreams not lifeforce/affecting body itself)
         {
             hp = -hp;
         }//think need logic so if liquid ooze mon uses a move on itself like ingrain, this won't trigger
     }
 
-
-    if (hp == 0)
-         hp = 1;
 
     hp *= -1;
     
@@ -2644,7 +2719,7 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_LEECH_SEED:  // leech seed  /gActiveBattler is seeded mon, gbattlertarget is mon receiving hp
                 if ((gStatuses3[gActiveBattler] & STATUS3_LEECHSEED) //idea increased healing if in rain or hit with water gBattleMoveDamage *= 2 
-                    && gBattleMons[gBattleStruct->leechSeederBattlerId[gActiveBattler]].hp != 0
+                    && gBattleMons[gBattleStruct->seedSetterBattleId[gActiveBattler]].hp != 0
                     && gBattleMons[gActiveBattler].hp != 0
                     && IsBlackFogNotOnField())
                 {
@@ -2686,13 +2761,14 @@ u8 DoBattlerEndTurnEffects(void)
                     //yeah won't have to worry about if positions are already swapped for 
                     //other places that deal with leech seed
 
-                    gBattlerTarget = gBattleStruct->leechSeederBattlerId[gActiveBattler];
-                    
-                    //wait wtf?? in the script below it sets arg1 of drain anim to attacker??
+                    //all works
+                    gBattlerAttacker = gBattleStruct->seedSetterBattleId[gActiveBattler];
+                    gBattlerTarget = gActiveBattler;
+
                     //hp bubbles coming to heal mon
-                    gBattleScripting.animArg1 = gBattlerTarget;
+                    gBattleScripting.animArg1 = gBattlerAttacker;
                     //root animation to drain health
-                    gBattleScripting.animArg2 = gBattlerAttacker;
+                    gBattleScripting.animArg2 = gBattlerTarget;
                     BattleScriptExecute(BattleScript_LeechSeedTurnDrain); //I'll figure this out, and I think what I want to do is for all these ghost effects
                     ++effect; //if absorbign from a ghost just change the color of the effect animation to a purple one
                 }//TODO     //new message hurt by ghostly energy look at liquid ooze script
@@ -8800,7 +8876,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gStatuses3[battler] &= ~(STATUS3_LEECHSEED | STATUS3_PERISH_SONG | STATUS3_SMACKED_DOWN | STATUS3_TELEKINESIS
                         | STATUS3_MIRACLE_EYED);
 
-                        gBattleStruct->leechSeederBattlerId[battler] = BATTLE_ID_NONE;
+                        gBattleStruct->seedSetterBattleId[battler] = BATTLE_ID_NONE;
 
                         /*gBattleMons[battler].status3 &= ~(STATUS3_LEECHSEED); //hope works right, should be remove leech seed if seeded
                         gBattleMons[battler].status3 &= ~(STATUS3_PERISH_SONG);
@@ -11271,7 +11347,7 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
 //normal gets joat
 //think will keep this separted from type chart relations
 #define NEW_ABILITY_CATEGORY
-bool8 DoesBattlerGetTypeBasedBonus(u32 battler, u8 typeFactor)
+bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u8 typeFactor)
 {
     u16 ability = GetBattlerAbility(battler);
 
@@ -11295,6 +11371,10 @@ bool8 DoesBattlerGetTypeBasedBonus(u32 battler, u8 typeFactor)
                 return TRUE;
         }//toadstool nymph is just to give stab on fairy moves
         break;
+        default:
+        if (IS_BATTLER_OF_TYPE(battler, typeFactor))
+            return TRUE;
+
     }
 
     return FALSE;
@@ -11315,8 +11395,8 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     if ((GetBattlerAbility(battlerId) == ABILITY_DEFEATIST
         && gDisableStructs[battlerId].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battlerId) == ABILITY_RUN_AWAY)
-        || (IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB))
-        //|| (DoesBattlerGetTypeBasedBonus(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        || (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB))
+        //|| (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
         return FALSE;
 
     //don't have ghost condition on this as most ghosts float
@@ -11329,7 +11409,7 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL))
         return id;
 
-    else if (DoesBattlerGetTypeBasedBonus(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species))
+    else if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species))
         return FALSE; //flying away would work for all but magnet pull,
 
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)))
@@ -11348,8 +11428,8 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
     else if ((GetBattlerAbility(battler) == ABILITY_DEFEATIST
         && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
-        || (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)  //considering below - decidedhad already done research flying birds dont have shadow makes sense can escape shadow tag and normally
-        || (DoesBattlerGetTypeBasedBonus(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)))
+        || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)  //considering below - decidedhad already done research flying birds dont have shadow makes sense can escape shadow tag and normally
+        || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)))
         return TRUE;
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
         return FALSE;

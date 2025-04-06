@@ -614,9 +614,9 @@ bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
 {
     u8 holdEffect = AI_DATA->holdEffects[battler];
 
-    if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    if (DoesBattlerGetTypeBasedAffinity(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
         return FALSE;
-    if (DoesBattlerGetTypeBasedBonus(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
+    if (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
         return FALSE;
     if (checkSwitch && holdEffect == HOLD_EFFECT_SHED_SHELL)
         return FALSE;
@@ -2448,7 +2448,7 @@ static u32 GetLeechSeedDamage(u8 battlerId)
 {
     u32 damage = 0;
     if ((gStatuses3[battlerId] & STATUS3_LEECHSEED)
-    && gBattleMons[gBattleStruct->leechSeederBattlerId[battlerId]].hp != 0)
+    && gBattleMons[gBattleStruct->seedSetterBattleId[battlerId]].hp != 0)
      {
         damage = gBattleMons[battlerId].maxHP / 8;
         if (damage == 0)

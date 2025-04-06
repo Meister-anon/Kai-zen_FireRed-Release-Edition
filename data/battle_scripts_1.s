@@ -7126,29 +7126,31 @@ BattleScript_SafeguardEnds::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
+@updated reversed all battleIds now makes sense
+@that said notice gbattlemovedamage is being copied to
+@but I'm already setting from in util function, weird.
 BattleScript_LeechSeedTurnDrain::
-	playanimation BS_ATTACKER, B_ANIM_LEECH_SEED_DRAIN, sB_ANIM_ARG1
-	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
-	healthbarupdate BS_ATTACKER
-	datahpupdate BS_ATTACKER
-	copyword gBattleMoveDamage, gHpDealt
-	setbyte cMULTISTRING_CHOOSER, 3
-	jumpifhealblock BS_TARGET, BattleScript_LeechSeedHealBlock
-	manipulatedamage DMG_BIG_ROOT
-	jumpifability BS_ATTACKER, ABILITY_LIQUID_OOZE, BattleScript_LeechSeedTurnPrintLiquidOoze
-	goto BattleScript_LeechSeedTurnPrintAndUpdateHp
-BattleScript_LeechSeedTurnPrintLiquidOoze::
-	@manipulatedamage NEGATIVE_DMG
-	copybyte gBattlerAbility, gBattlerAttacker
-	setbyte cMULTISTRING_CHOOSER, 4	@don'tknow what this does so hope nota problem
-BattleScript_LeechSeedTurnPrintAndUpdateHp::
+	playanimation BS_TARGET, B_ANIM_LEECH_SEED_DRAIN, sB_ANIM_ARG1
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
+	copyword gBattleMoveDamage, gHpDealt
+	setbyte cMULTISTRING_CHOOSER, 3
+	jumpifhealblock BS_ATTACKER, BattleScript_LeechSeedHealBlock
+	manipulatedamage DMG_BIG_ROOT
+	jumpifability BS_TARGET, ABILITY_LIQUID_OOZE, BattleScript_LeechSeedTurnPrintLiquidOoze
+	goto BattleScript_LeechSeedTurnPrintAndUpdateHp
+BattleScript_LeechSeedTurnPrintLiquidOoze::
+	copybyte gBattlerAbility, gBattlerTarget
+	setbyte cMULTISTRING_CHOOSER, 4	@don'tknow what this does so hope nota problem
+BattleScript_LeechSeedTurnPrintAndUpdateHp::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
 	printfromtable gLeechSeedStringIds
 	waitmessage B_WAIT_TIME_LONG
-	tryfaintmon BS_ATTACKER, FALSE, NULL
 	tryfaintmon BS_TARGET, FALSE, NULL
+	tryfaintmon BS_ATTACKER, FALSE, NULL
 	end2
 
 BattleScript_LeechSeedHealBlock::
