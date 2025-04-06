@@ -5231,6 +5231,8 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
     //looked up move description and no, it works exactly as shadow tag does
     //it works by stiching to shadow on the ground
 
+    //beelive this is a leftoer from Emerald, 
+    //where first battle is a wildbattle
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;

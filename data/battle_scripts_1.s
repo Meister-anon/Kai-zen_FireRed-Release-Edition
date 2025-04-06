@@ -5457,6 +5457,7 @@ BattleScript_EffectTeleport::
 	attackanimation
 	waitanimation
 	jumpifbattletype BATTLE_TYPE_TRAINER, BattleScript_EffectTeleportNew	@test but think should be enough for my version of teleport
+	jumpifside BS_ATTACKER, B_SIDE_PLAYER, BattleScript_EffectTeleportNew
 	printstring STRINGID_PKMNFLEDFROMBATTLE	@ok tried againm, switch worked, but setting as faint forces enemytrainer to also switch, so I need something original here.
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	setbyte gBattleOutcome, B_OUTCOME_PLAYER_TELEPORTED

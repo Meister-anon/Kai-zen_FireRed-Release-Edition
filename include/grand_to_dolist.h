@@ -3955,6 +3955,37 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     but then pidgeots aviator ability will do less/be useless, look into
 
 
+
+
+    in RHH they replaced it with gBattleStruct->moveDamage[battler]
+    which yeah makes sense but damn that's going to be a pain
+
+   I need that change for the binding band setup
+    to separate move damage for target to reduce dmg
+    and move damage from attacker for heal amount.
+
+    and worse than that is a MASSIVE commit, that changes many more things,
+    "simultaneous hp reduction"
+    don't want simultaneous hp redution but need the battler based separation
+    so will need to pick through the whole thing fuck
+    changes tracking for critstage, gbattlemove damage and eventually removes ghpdealt, idk if I'll keep that last part
+    or atleast notright now
+    EXTREMELY IMPORTANT - 
+    4/5/2025
+
+
+    forgot plan adjust itemset from battlecontroller
+    NOTE**(
+                        //shold just adjust battle controller for held item,
+                        //to auto set to secondaryitemslot if full?
+                        //checked think can't actually do that?
+                        //potentially what I was thinking of was battle ctrl action functions
+    )
+
+    re-review type changes in relation to fairy type
+    consider add back resistance to dark, if I find I 
+    overnerfed it
+
     check where have move delete, cerulean badge guy
     and move relearner
     moved between 4 different places or some reason 
@@ -11588,6 +11619,7 @@ goto ABSORB_ABILITY_TARGETTING
 goto STAT_ANIM_W_ABILITIES
 goto STAT_CHANGE_ABILITIES
 goto ACCURACY_BASED_ABILITIES   //other ability logic exists outside battle_util.c  make sure to go over all ability effects
+goto NEW_ABILITY_CATEGORY //abilities that give a mon the benefits of said type without needing tobe that type
 goto ABILITYBATTLE_FUNCTION	//	battle_util.c function other more complex ability activation logic.  STILL need to update   vsonic
 /*
 * Setting up new effeets for absorb abilities
@@ -11917,6 +11949,8 @@ goto RUN_LOGIC_PT1 //battle_main.c 1st area that deals with running logic
 goto RUN_LOGIC_PT2 //last part for setting up run based effects battle_main.c
 
 goto TURN_ACTIONS_SWITCH_ETC // battle_main.c  HandleTurnActionSelectionState function deaels with logic  for turn actions i.e switching catching using moves etc.
+
+goto PURSUIT_EXEMPTIONS //what effects make battler immune to pursuit
 
 goto EXP_FUNCTION //battle_script_commands.c has exp & level up logic, can be used as example for mid battle evo 
 //	                and needed pokedex logic for double wilds check case 5

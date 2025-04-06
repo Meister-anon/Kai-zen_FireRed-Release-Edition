@@ -1862,7 +1862,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SELF_DESTRUCT] =
     {
         .effect = EFFECT_EXPLOSION,
-        .power = 200,
+        .power = 140,// 200,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 5,
@@ -1871,7 +1871,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
-    },
+    },//will drop power since added back defense fall,
+    //but keep above misty explosion as is normal type
+    //hmm couple put self destruct at 140, below hyper beams
+    //but since it cuts defense its actually twice as strong?
 
     [MOVE_EGG_BOMB] =
     {
@@ -2411,7 +2414,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 [MOVE_EXPLOSION] =
 {
     .effect = EFFECT_EXPLOSION,
-    .power = 250,
+    .power = 200,//250,
     .type = TYPE_NORMAL,
     .accuracy = 100,
     .pp = 5,
@@ -11368,11 +11371,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_FOES_AND_ALLY,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,// | FLAG_BALLISTIC,
         .split = SPLIT_SPECIAL,
     }, //buffed was given explosion effect defense stat drop (will drop sp def)
     //think reason for lower power as only non normal explosion so can get type multiplier,
     //seems my change is appropriate buff without breaking its balance
+    //think remove misty explosion from balistic i.e bulletproof immunity, not physical,
+    //and is mystical in nature
 
     [MOVE_GRASSY_GLIDE] =
     {

@@ -1526,6 +1526,12 @@
 	callnative BS_TrySymbiosis
 	.endm
 
+	@ returns B_SIDE_x to gBattleCommunication[0]
+	.macro getbattlerside battler:req
+	callnative BS_GetBattlerSide
+	.byte \battler
+	.endm
+
 	@.macro CheckPassSecondaryItem battler:req
 	@callnative BS_checksecondaryItemslot
 	@.byte \battler
@@ -2236,6 +2242,11 @@
 
 	.macro jumpifmovehadnoeffect jumpptr:req
 	jumpifbyte CMP_COMMON_BITS, gMoveResultFlags, MOVE_RESULT_NO_EFFECT, \jumpptr
+	.endm
+
+	.macro jumpifside battler:req, side:req, equalJumpInstr:req
+	getbattlerside \battler
+	jumpifbyte CMP_EQUAL, gBattleCommunication, \side, \equalJumpInstr
 	.endm
 
 	.macro jumpifbattletype flags:req, jumpptr:req

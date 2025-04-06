@@ -11079,6 +11079,13 @@ static void atk6A_removeitem(void) //vsonic
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+void BS_GetBattlerSide(void)
+{
+    NATIVE_ARGS(u8 battler);
+    gBattleCommunication[0] = GetBattlerSide(GetBattlerForBattleScript(cmd->battler));
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 void BS_TrySymbiosis(void)
 {
     NATIVE_ARGS();
@@ -17297,6 +17304,8 @@ u8 CanMoveHitSwitchingTarget(u16 move)
     return FALSE;
 }
 
+//realize is very important
+#define PURSUIT_EXEMPTIONS
 u8 IsExemptFromPursuit(u32 battler)
 {
     u16 move, ability;
@@ -19508,68 +19517,18 @@ static void atkF8_setroost(void) { //actually I don't like this type change idea
     {
         //u16 virtue = Random() % 4; //had to make start value timer and set equal so they use the same value without recalc
         gDisableStructs[gBattlerAttacker].RoostTimer = 4; //setting timer to 4, should give 3 full turns
-        //gDisableStructs[gBattlerAttacker].RoostTimerStartValue = 0;
-        //u8 timervalue = gDisableStructs[gBattlerAttacker].RoostTimer && gDisableStructs[gBattlerAttacker].RoostTimerStartValue;
-
         
-        // gDisableStructs[gBattlerAttacker].RoostTimer = gDisableStructs[gBattlerAttacker].RoostTimerStartValue += virtue;
-        //gDisableStructs[gBattlerAttacker].RoostTimer += virtue;
-        //REMOVED random effect
-        //ok made slight adjustment here, I think since its starts at zero, this should be enough that timer is always increased when setting roost
-        //which shoud give a nice balance to repeatedly using the move.
-
         //should be set timer value, and if flag not set, set flag
         if (!(gBattleResources->flags->flags[gBattlerAttacker] & RESOURCE_FLAG_ROOST)) //check if this means flag not set
             gBattleResources->flags->flags[gBattlerAttacker] |= RESOURCE_FLAG_ROOST;  //why do I need this if I have a timer? but potentially use for trenchrun
 
-        //need to come up with adjustment to ensure subsequent uses of roost can't give
-        //a value lower than what's already on the timer.
-
-        //think I can use += virtue to do what I want so if timer isn't 0, and roost is set,
-        //the value gets added to time remaining.
-
-        /*else if (gDisableStructs[gBattlerAttacker].RoostTimer && gDisableStructs[gBattlerAttacker].RoostTimerStartValue != 0)
-            timervalue += virtue;*/
-
-
-        // then check if need to update battlescript to for a loop like gravity
-        //need make change for flying type 1 || type 2 & resource flag roost
-
-        //actually don't need to change anything, forgot I removed round to flying immunity
-        //so when ground hits, it should just be treated as a normally effective attack without interfering
-
-        /*
-        // Pure flying type.
-        if (gBattleMons[gBattlerAttacker].type1 == TYPE_FLYING && gBattleMons[gBattlerAttacker].type2 == TYPE_FLYING)
-        {
-            gBattleStruct->roostTypes[gBattlerAttacker][0] = TYPE_FLYING;
-            gBattleStruct->roostTypes[gBattlerAttacker][1] = TYPE_FLYING;
-            gBattleStruct->roostTypes[gBattlerAttacker][2] = TYPE_FLYING;
-            SET_BATTLER_TYPE(gBattlerAttacker, TYPE_NORMAL);
-        }
-        // Dual Type with Flying Type.
-        else if ((gBattleMons[gBattlerAttacker].type1 == TYPE_FLYING && gBattleMons[gBattlerAttacker].type2 != TYPE_FLYING)
-            || (gBattleMons[gBattlerAttacker].type2 == TYPE_FLYING && gBattleMons[gBattlerAttacker].type1 != TYPE_FLYING))
-        {
-            gBattleStruct->roostTypes[gBattlerAttacker][0] = gBattleMons[gBattlerAttacker].type1;
-            gBattleStruct->roostTypes[gBattlerAttacker][1] = gBattleMons[gBattlerAttacker].type2;
-            if (gBattleMons[gBattlerAttacker].type1 == TYPE_FLYING)
-                gBattleMons[gBattlerAttacker].type1 = TYPE_MYSTERY;
-            if (gBattleMons[gBattlerAttacker].type2 == TYPE_FLYING)
-                gBattleMons[gBattlerAttacker].type2 = TYPE_MYSTERY;
-        }
-        // Non-flying type.
-        else if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_FLYING))
-        {*/
-        //gBattleStruct->roostTypes[gBattlerAttacker][0] = gBattleMons[gBattlerAttacker].type1;
-        //gBattleStruct->roostTypes[gBattlerAttacker][1] = gBattleMons[gBattlerAttacker].type2;
         gBattlescriptCurrInstr = cmd->nextInstr; 
     }
     else
         gBattlescriptCurrInstr = cmd->failInstr;
 
     
-} //should have effect of doing pretty much nothing
+}
 
 static void atkF9_mondamaged(void) //edited based on recommendation from mcgriffin & egg (aka dizzyegg)
 {

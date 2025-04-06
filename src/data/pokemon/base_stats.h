@@ -4842,6 +4842,7 @@ const struct BaseStats gBaseStats[] =
     //potentially give shadow tag? as nocturnal predetaor? idk
     //same logic as luxray
 
+
     [SPECIES_LEDYBA] =
     {
         .speciesName = _("Ledyba"),
@@ -8867,6 +8868,7 @@ const struct BaseStats gBaseStats[] =
     //I think this is perfect now
     //ok from what i learned from Agustin (I think is FBI?)
     //purepower etc. is  actually more effective than doubling base stat
+    //-from bulbapedia it doesn't take into account stat stages
 
     [SPECIES_ELECTRIKE] =
     {

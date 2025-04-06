@@ -762,6 +762,34 @@ static u8 IsAttackerUsingDrainingMove(void)
     return FALSE;
 }
 
+u8 ShouldActivateBindingBand(void)
+{
+    if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_BINDING_BAND
+    && IsAttackerUsingDrainingMove()
+    && gStoredHp)
+    {
+        //should work but will require I make the
+        //gbattlemovedamage change so it can store for each battler...
+        gBattleMoveDamage -= gStoredHp;
+        gStoredHp = 0;
+        
+        
+        if (gBattleMoveDamage == 0)
+            gBattleMoveDamage = 1;
+        //effect = ITEM_HP_CHANGE;
+        BattleScriptPushCursor();
+        //gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
+        //think should work, only thing is to figure how to do berry hp threshold thing
+        gBattlescriptCurrInstr = BattleScript_ItemHealHP_Ret;
+        PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+        GetItemName(gBattleTextBuff1, gLastUsedItem);
+        RecordItemEffectBattle(gBattlerTarget, HOLD_EFFECT_BINDING_BAND);
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
 // This function is the body of "jumpifstat", but can be used dynamically in a function
 bool32 CompareStat(u8 battlerId, u8 statId, u8 cmpTo, u8 cmpKind)
 {
@@ -4857,13 +4885,6 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; //nice new version of floating setup greatly cleanns up this function
 
-    /*if ((IS_BATTLER_OF_TYPE(battlerId, TYPE_FLYING))
-        && !(gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_ROOST))
-        grounded = FALSE;  //since setting flying mon w floating species data can remove this
-
-    if (IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST))
-        grounded = FALSE; //and this
-        */
     
     //for setting the sript to play think can do it in atk49 moveend
     //check battlescript.moveeffect if sleep or paralysis

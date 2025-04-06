@@ -1336,6 +1336,9 @@ bool32 AI_IsBattlerGrounded(u8 battlerId)
     u16 species = gBattleMons[battlerId].species;
     bool8 grounded = TRUE;
 
+    //whyu aren't I useing isbattlergrouded function?
+    //ah everything is same except hold effectwhich needs ai data struct to guess
+
     if (IsFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE; 
     
@@ -2399,6 +2402,7 @@ bool8 IsMonFloatingSpecies(u16 species)
 
 //vsonic
 //need to redo effect to match new grounded function
+//if can, will attempt not usethis anduse other groune function
 bool8 AI_Hazard_Grounded(struct Pokemon *mon) //used for PartyBattlerShouldAvoidHazards function  removed battler statuses, and hold effects as they could be done by main funnction
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);

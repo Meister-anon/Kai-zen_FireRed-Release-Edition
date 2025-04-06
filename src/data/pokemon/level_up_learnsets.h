@@ -3157,9 +3157,10 @@ static const struct LevelUpMove sPolitoedLevelUpLearnset[] = {
 
 static const struct LevelUpMove sHoppipLevelUpLearnset[] = {
     //LEVEL_UP_MOVE(1, MOVE_SPLASH),  //thought could keep but ai too stupid to not use it...
-    LEVEL_UP_MOVE(1, MOVE_ABSORB),    
+    LEVEL_UP_MOVE(1, MOVE_GRASS_WHISTLE),    //to take stab think replace w MOVE_GRASS_WHISTLE
     LEVEL_UP_MOVE(3, MOVE_TACKLE),    
-    LEVEL_UP_MOVE(5, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE(4, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE(6, MOVE_ABSORB),
     LEVEL_UP_MOVE(7, MOVE_SYNTHESIS),
     LEVEL_UP_MOVE(9, MOVE_LEAFAGE),
     LEVEL_UP_MOVE(11, MOVE_MAGICAL_LEAF),
@@ -3182,6 +3183,7 @@ static const struct LevelUpMove sHoppipLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sSkiploomLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_GRASS_WHISTLE),
     LEVEL_UP_MOVE(1, MOVE_ABSORB),    
     LEVEL_UP_MOVE(3, MOVE_TACKLE),    
     LEVEL_UP_MOVE(5, MOVE_TAIL_WHIP),
@@ -3209,6 +3211,7 @@ static const struct LevelUpMove sSkiploomLevelUpLearnset[] = {
 //as unique evo stage
 
 static const struct LevelUpMove sJumpluffLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_GRASS_WHISTLE),
     LEVEL_UP_MOVE(1, MOVE_ABSORB),    
     LEVEL_UP_MOVE(3, MOVE_TACKLE),    
     LEVEL_UP_MOVE(5, MOVE_TAIL_WHIP),
@@ -10206,9 +10209,9 @@ static const struct LevelUpMove sSandileLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_POWER_TRIP),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_RAGE),
-    LEVEL_UP_MOVE( 4, MOVE_BITE),
-    LEVEL_UP_MOVE( 6, MOVE_HONE_CLAWS),
-    LEVEL_UP_MOVE( 8, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 4, MOVE_HONE_CLAWS),
+    LEVEL_UP_MOVE( 6, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE( 8, MOVE_BITE),
     LEVEL_UP_MOVE(10, MOVE_TORMENT),
     LEVEL_UP_MOVE(13, MOVE_SAND_TOMB),
     LEVEL_UP_MOVE(16, MOVE_ASSURANCE),
