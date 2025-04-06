@@ -1572,7 +1572,8 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
         } *///it alsmost works I've got everything but leech seed hurting teh target if they aren't a ghost
    // }//this cancels below, if need set not seeded as below - if below does everything what is thi seven doing? leech seed ghost isn't working either
     //removed attempt do in endturn
-    if ((!IS_BATTLER_OF_TYPE(gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER, TYPE_GHOST)) //mon getting healed no t ghost, this part works
+    
+    if ((!IS_BATTLER_OF_TYPE(gBattleStruct->leechSeederBattlerId[gActiveBattler], TYPE_GHOST)) //mon getting healed no t ghost, this part works
     && IS_BATTLER_OF_TYPE(battler, TYPE_GHOST)) //IT FINALLY WORKS
     {
         if ((hp / 2) < gBattleMons[battler].maxHP / 8)
@@ -1595,7 +1596,13 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     //this makes normal drain effects hurt users if use against ghosts
     //but for some reason also makes leech seed hurt ghosts?
     
-    if (gBattlerTarget != (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER))//if (!(gStatuses3[gBattlerTarget] & STATUS3_LEECHSEED_BATTLER)) //using this as target was wrong, now I got it right, but leech seed ghost dmg still not rightg 
+    //gbattlertarget here should work with default effect
+    //but possibly want to shift that? //because here think target is swapped
+    //where target is user/mon being healed?
+    //no, gbattlertarget should staythe same I believe, as
+    //this function is used for more than just leech seed
+    //review unsure how will change
+    if (gBattlerTarget != gBattleStruct->leechSeederBattlerId[gActiveBattler])
     {
         if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST) //w leech seed logic target at this point is mon receiving hp
             && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST)
@@ -1642,7 +1649,7 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     //don't need drain move logic I've already cleaned this function 
     //of any effect that shouldn't trigger, just need to figure out the targetting for leech seed
     //and think instead of move end, put in hp drop? then in same place have sturdy/focus sash?
-    //nah different place
+    //nah different place, effect should be like damage reducing berry
     if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_BINDING_BAND)
        gStoredHp = hp;
 
@@ -2609,14 +2616,17 @@ u8 DoBattlerEndTurnEffects(void)
                 break;
             case ENDTURN_LEECH_SEED:  // leech seed  /gActiveBattler is seeded mon, gbattlertarget is mon receiving hp
                 if ((gStatuses3[gActiveBattler] & STATUS3_LEECHSEED) //idea increased healing if in rain or hit with water gBattleMoveDamage *= 2 
-                    && gBattleMons[gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER].hp != 0
+                    && gBattleMons[gBattleStruct->leechSeederBattlerId[gActiveBattler]].hp != 0
                     && gBattleMons[gActiveBattler].hp != 0
                     && IsBlackFogNotOnField())
                 {
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
 
-                    gBattlerTarget = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER; // Notice gBattlerTarget is actually the HP receiver.
+                    //ok THIS is the part I want to change, its clear active battler is the mon 
+                    //its taking from, activebattler will eventually go away
+                    //so see what should do for animarguments below
+                    //gBattlerTarget = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER; // Notice gBattlerTarget is actually the HP receiver.
                     gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;//heal leech target max hp
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
@@ -2641,7 +2651,19 @@ u8 DoBattlerEndTurnEffects(void)
                     //sets gbattlemovedamage to seeded hp, which is passed to bigroot command/function to be used for healing
                     //so it is correct to setup the heal THERE not here
 
+                    //without gactivebattler witll still use target adn attacker
+                    //check above think activebattler already subbed in for attacker
+                    //but for this function will swap place of attacker and target
+                    //think that will be clearer?
+                    //yeah won't have to worry about if positions are already swapped for 
+                    //other places that deal with leech seed
+
+                    gBattlerTarget = gBattleStruct->leechSeederBattlerId[gActiveBattler];
+                    
+                    //wait wtf?? in the script below it sets arg1 of drain anim to attacker??
+                    //hp bubbles coming to heal mon
                     gBattleScripting.animArg1 = gBattlerTarget;
+                    //root animation to drain health
                     gBattleScripting.animArg2 = gBattlerAttacker;
                     BattleScriptExecute(BattleScript_LeechSeedTurnDrain); //I'll figure this out, and I think what I want to do is for all these ghost effects
                     ++effect; //if absorbign from a ghost just change the color of the effect animation to a purple one
@@ -4788,6 +4810,28 @@ bool8 IsFloatingSpecies(u16 species)
     if (gBaseStats[species].floating)
         return TRUE;
 
+    return FALSE;
+}
+
+//including mon without wings,
+//and mon that simply are very bad flyers
+//so can't lore wise easily start flying
+//is more fleible with species rather than battler argument
+bool8 IsFlyingTypeSpeciesUnableToFly(u16 species) 
+{
+    if (species == SPECIES_DODUO
+    || species == SPECIES_DODRIO
+    || species == SPECIES_ARCHEN
+    || species == SPECIES_ARCHEOPS
+    || species == SPECIES_GYARADOS
+    || species == SPECIES_NATU
+    || species == SPECIES_VULLABY    
+    || species == SPECIES_SIRFETCHD
+    || species == SPECIES_FARFETCHD_GALARIAN
+    || species == SPECIES_ZAPDOS_GALARIAN
+    || species == SPECIES_SILVALLY_FLYING)
+        return TRUE;
+    
     return FALSE;
 }
 
@@ -8735,6 +8779,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gStatuses3[battler] &= ~(STATUS3_LEECHSEED | STATUS3_PERISH_SONG | STATUS3_SMACKED_DOWN | STATUS3_TELEKINESIS
                         | STATUS3_MIRACLE_EYED);
 
+                        gBattleStruct->leechSeederBattlerId[battler] = BATTLE_ID_NONE;
+
                         /*gBattleMons[battler].status3 &= ~(STATUS3_LEECHSEED); //hope works right, should be remove leech seed if seeded
                         gBattleMons[battler].status3 &= ~(STATUS3_PERISH_SONG);
                         gBattleMons[battler].status3 &= ~(STATUS3_SMACKED_DOWN);
@@ -11196,6 +11242,47 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
     return 0;
 }
 
+//make new chategory of ability that gives mon the same bonuses as being of said type
+//ex ice types can't be frozen, and not hurt by hail, and get hail bonus
+//poison types can't be poisened, immune to poison moves(maybe)
+//bug dont get confused,
+//electric cant be paralyzed by electric moves
+//normal gets joat
+//think will keep this separted from type chart relations
+#define NEW_ABILITY_CATEGORY
+bool8 DoesBattlerGetTypeBasedBonus(u32 battler, u8 typeFactor)
+{
+    u16 ability = GetBattlerAbility(battler);
+
+    switch(typeFactor)
+    {
+        case TYPE_FLYING:
+        {
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_AVIATOR)
+                return TRUE;
+        }
+        break;
+        case TYPE_BUG:
+        {
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_SIXTH_SENSE)
+                return TRUE;   
+        }
+        break;
+        case TYPE_FAIRY:
+        {
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TOADSTOOL_NYMPH)
+                return TRUE;
+        }//toadstool nymph is just to give stab on fairy moves
+        break;
+    }
+
+    return FALSE;
+}
+
+//make note flying birds dn't hvae shadow
+//would also be excluded from shadow tag so put them 
+//in can escape logic,
+//then revise aviator ability as needed
 u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic in battle main.c is runnign from battle impossible, /-had to retool function logic it gave me compiler issues
 {
     u32 id = 0; 
@@ -11207,8 +11294,8 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     if ((GetBattlerAbility(battlerId) == ABILITY_DEFEATIST
         && gDisableStructs[battlerId].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battlerId) == ABILITY_RUN_AWAY)
-        || (GetBattlerAbility(battlerId) == ABILITY_AVIATOR)
-        || IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST))
+        || (IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB))
+        //|| (DoesBattlerGetTypeBasedBonus(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
         return FALSE;
 
     //don't have ghost condition on this as most ghosts float
@@ -11218,12 +11305,17 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     //decided tweak this at least, ability on opposide side
     //shouldn't cancel out magnet pull doens't
     //extra parenthesis to avoid compiler warning
+    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL))
+        return id;
+
+    else if (DoesBattlerGetTypeBasedBonus(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species))
+        return FALSE; //flying away would work for all but magnet pull,
+
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)))
         return id;
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_ARENA_TRAP)) && IsBattlerGrounded(battlerId))
         return id;
-    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL))
-        return id;
+    
 
 }
 
@@ -11235,8 +11327,8 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
     else if ((GetBattlerAbility(battler) == ABILITY_DEFEATIST
         && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
-        || (GetBattlerAbility(battler) == ABILITY_AVIATOR)
-        || IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+        || (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)  //considering below - decidedhad already done research flying birds dont have shadow makes sense can escape shadow tag and normally
+        || (DoesBattlerGetTypeBasedBonus(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)))
         return TRUE;
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
         return FALSE;
@@ -11246,7 +11338,7 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
         return FALSE;
     else if (gStatuses3[battler] & STATUS3_SKY_DROPPED)
         return FALSE;
-    else if (gBattleMons[battler].status4 & (ITS_A_TRAP_STATUS4))
+    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)
         return FALSE;
     else
         return TRUE;

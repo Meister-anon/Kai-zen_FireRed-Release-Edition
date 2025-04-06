@@ -2704,17 +2704,10 @@ BattleScript_MoveEndEscape::
 BattleScript_MoveSwitch:
 	@jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_MoveSwitchEnd
 	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_MoveSwitchEnd
-	@put pursuit hit here
 	printstring STRINGID_PKMNWENTBACK
-	@waitmessage B_WAIT_TIME_SHORT
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	@jumpifability BS_ATTACKER, ABILITY_RUN_AWAY, BattleScript_MoveSwitchDoSwitch
-	@jumpifability BS_ATTACKER, ABILITY_AVIATOR, BattleScript_MoveSwitchDoSwitch
 	jumpifnopursuitswitchdmg BattleScript_MoveSwitchOpenPartyScreen	@use glastusedmove to exclude things that pursuit shouldn't hit
-	@swapattackerwithtarget
 	trysetdestinybondtohappen	@check this, does it make sense, as bond only lasts till next action? ior is it specifically atk cancler?
-	@call BattleScript_PursuitDmgOnSwitchOut	@checked yes in attack canceler normal switch doesnt go through attack cancel, so is relevant to check
-	@swapattackerwithtarget
 	end
 	
 BattleScript_MoveSwitchOpenPartyScreen::

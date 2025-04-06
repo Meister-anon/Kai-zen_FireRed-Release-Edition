@@ -186,7 +186,7 @@ EWRAM_DATA u16 gLastHitByType[MAX_BATTLERS_COUNT] = {0};    //may need to add la
 EWRAM_DATA u16 gLastResultingMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLockedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastUsedMove = 0; //still unsure if I need to add this or can just use gLastResultingMoves which seems to be equivalent
-EWRAM_DATA u8 gLastHitBy[MAX_BATTLERS_COUNT] = {0};//ran make with and without above line came to same conclusion so either works
+EWRAM_DATA u8 gLastHitBy[MAX_BATTLERS_COUNT] = {0};//ran make with and without above line came to same conclusion so either works  //stores battleId
 EWRAM_DATA u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT] = {0};//rn I'll use existing value to save on ram
 EWRAM_DATA u8 gMoveResultFlags = 0;
 EWRAM_DATA u32 gHitMarker = 0;
@@ -4178,7 +4178,7 @@ static void BattleStartClearSetData(void)
         gLastLandedMoves[i] = MOVE_NONE;
         gLastHitByType[i] = 0;
         gLastResultingMoves[i] = MOVE_NONE;
-        gLastHitBy[i] = 0xFF;
+        gLastHitBy[i] = BATTLE_ID_NONE;
         gLockedMoves[i] = MOVE_NONE;
         gLastPrintedMoves[i] = MOVE_NONE;
         gBattleResources->flags->flags[i] = 0;
@@ -4190,7 +4190,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->lastTakenMoveFrom[i][2] = MOVE_NONE;
         gBattleStruct->lastTakenMoveFrom[i][3] = MOVE_NONE;
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
-        gBattleStruct->skyDropTargets[i] = 0xFF;
+        gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
+        gBattleStruct->leechSeederBattlerId[gActiveBattler] = BATTLE_ID_NONE;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
         // Record HP of each battler
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
@@ -4345,7 +4346,7 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS) //added yawn to baton pass effects with change to activation should work
     {
         gBattleMons[gActiveBattler].status2 &= (STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_CURSED);
-        gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED_BATTLER | STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_YAWN | STATUS3_PERISH_SONG | STATUS3_ROOTED
+        gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_YAWN | STATUS3_PERISH_SONG | STATUS3_ROOTED
                                        | STATUS3_GASTRO_ACID | STATUS3_TELEKINESIS | STATUS3_MAGNET_RISE | STATUS3_AQUA_RING | STATUS3_POWER_TRICK);
         for (i = 0; i < gBattlersCount; ++i)
         {
@@ -4369,49 +4370,15 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         //could just put if battler that set status was holding grip claw don't clear   
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
+        gBattleStruct->leechSeederBattlerId[gActiveBattler] = BATTLE_ID_NONE;
     }
     for (i = 0; i < gBattlersCount; ++i)// is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
     {
         if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
             gBattleMons[i].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler)); //forgot I planned steup for suction cup and certain held item to make traps persist
 
-        /*if ((GetBattlerAbility(gActiveBattler) != ABILITY_SUCTION_CUPS) && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_GRIP_CLAW)
-        {
-            if ((gBattleMons[i].status2 & STATUS2_WRAPPED) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status2 &= ~(STATUS2_WRAPPED);
-                gDisableStructs[i].wrapTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_BIND) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_BIND); 
-                gDisableStructs[i].bindTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_CLAMP) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_CLAMP); 
-                gDisableStructs[i].clampTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_SWARM) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_SWARM); 
-                gDisableStructs[i].swarmTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_THUNDER_CAGE) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_THUNDER_CAGE);  
-                gDisableStructs[i].thundercageTurns = 0;
-            }
-            if ((gDisableStructs[i].environmentTrapTurns) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gDisableStructs[i].environmentTrapTurns = 0;
-                gBattleMons[i].status4 &= ~STATUS4_FIRE_SPIN;
-                gBattleMons[i].status4 &= ~STATUS4_WHIRLPOOL;
-                gBattleMons[i].status4 &= ~STATUS4_SAND_TOMB;
-                gBattleMons[i].status4 &= ~STATUS4_MAGMA_STORM;
-            }//snaptrap not included here, so trap will persist if switch like I want
-        }*/
-        //too annoying to track, just remove battler switch clearing, may need other buff for suction cups
+        
+        // was too annoying to track, just removed battler switch clearing for traps, may need other buff for suction cups
     }
     gActionSelectionCursor[gActiveBattler] = 0;
     gMoveSelectionCursor[gActiveBattler] = 0;
@@ -4491,42 +4458,8 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
         if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
             gBattleMons[i].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
         
-        //...I can't believe I forgot to add all the timers to this
-        /*if ((gBattleMons[i].status2 & STATUS2_WRAPPED) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status2 &= ~(STATUS2_WRAPPED);
-                gDisableStructs[i].wrapTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_BIND) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_BIND); 
-                gDisableStructs[i].bindTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_CLAMP) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_CLAMP); 
-                gDisableStructs[i].clampTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_SWARM) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_SWARM); 
-                gDisableStructs[i].swarmTurns = 0;
-            }
-        if ((gBattleMons[i].status4 & STATUS4_THUNDER_CAGE) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gBattleMons[i].status4 &= ~(STATUS4_THUNDER_CAGE);  
-                gDisableStructs[i].thundercageTurns = 0;
-            }
-        if ((gDisableStructs[i].environmentTrapTurns) && gBattleStruct->wrappedBy[i] == gActiveBattler)
-            {
-                gDisableStructs[i].environmentTrapTurns = 0;
-                gBattleMons[i].status4 &= ~STATUS4_FIRE_SPIN;
-                gBattleMons[i].status4 &= ~STATUS4_WHIRLPOOL;
-                gBattleMons[i].status4 &= ~STATUS4_SAND_TOMB;
-                gBattleMons[i].status4 &= ~STATUS4_MAGMA_STORM;
-            }
-            */
-    }//leaving snaptrap, as they are separate from the battler's body/control they will still exist even if they faint
+        //cleared trap timers too hard to track w rework
+    }
 
     gActionSelectionCursor[gActiveBattler] = 0;
     gMoveSelectionCursor[gActiveBattler] = 0;
@@ -5253,14 +5186,18 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
         holdEffect = GetBattlerHoldEffect(gActiveBattler, TRUE);
     gPotentialItemEffectBattler = gActiveBattler;
 
+
+    //removed flying check here as it should be overwritten by
+    //condition in abilityprevention, if it passes that filter
+    //it'll still get to escape successfily
     if (holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN
      || (gBattleTypeFlags & BATTLE_TYPE_LINK)
      || (GetBattlerAbility(gActiveBattler) == ABILITY_RUN_AWAY) //
-     || (GetBattlerAbility(gActiveBattler) == ABILITY_AVIATOR) //
      || (GetBattlerAbility(gActiveBattler) == ABILITY_DEFEATIST //
          && gDisableStructs[gActiveBattler].defeatistActivated) //
      || holdEffect == HOLD_EFFECT_SHED_SHELL
-     || IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST)
+     || (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST) && gBattleMons[gActiveBattler].species != SPECIES_SPIRITOMB)
+     //|| (DoesBattlerGetTypeBasedBonus(gActiveBattler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[gActiveBattler].species))
      || (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))) //added cuz issue created with adding shadow tag to gastly
         return BATTLE_RUN_SUCCESS;
     
@@ -5272,23 +5209,7 @@ u8 IsRunningFromBattleImpossible(void) // equal to emerald is ability preventing
         gBattleCommunication[MULTISTRING_CHOOSER] = 2;
         return BATTLE_RUN_FAILURE;
     }
-    /*i = AbilityBattleEffects(ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER, gActiveBattler, ABILITY_MAGNET_PULL, 0, 0);
-    if (i != 0 && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL))
-    {
-        gBattleScripting.battler = i - 1;
-        gLastUsedAbility = gBattleMons[i - 1].ability;
-        gBattleCommunication[MULTISTRING_CHOOSER] = 2;
-        return BATTLE_RUN_FAILURE;
-    }*/
-    //vsonic IMPORTANT do search, for status2_wrapped & wrappedby  implement new trap checks where it makes sense
-    //similar to as below
-    /*if ((gBattleMons[gActiveBattler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))//vsonic need add new trap status here
-     || (gBattleMons[gActiveBattler].status4 & (ITS_A_TRAP_STATUS4)
-     || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
-     || (gFieldStatuses & STATUS_FIELD_FAIRY_LOCK)))*///I need to redo this setup,
-     /*|| (!IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST)
-        && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING))*/
-     //&& IsBattlerGrounded(gActiveBattler)) // I made it impossible to flee unless not gronded because I used or instead of and -__
+    
      //undid grouding logic potentally too destabalizing for balance
      //but primarily if they are in the trap then they should be trapped
      //also having easy/early access to free escape would cause pathing issues
@@ -5814,13 +5735,25 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         && IsBlackFogNotOnField())
         speed /= 4;
 
-    //trap effects
-    if ((gBattleMons[battlerId].status4 & STATUS4_WHIRLPOOL)
-        && IsBlackFogNotOnField())  //should be good
-        speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
-    if ((gBattleMons[battlerId].status2 & STATUS2_WRAPPED)
-        && IsBlackFogNotOnField())
-        speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
+    //trap effects  gBattleMons[battlerAtk].status4 & ITS_A_TRAP_STATUS4  potentially make all drop speed, on top of new effects //vsonic
+    //ok decided roll these all together, but make exclusion for ghost and flying type
+    //as both should be able to escape
+    //excluding spiritomb and several flying types that can't fly
+    if ((gBattleMons[battlerId].status2 & STATUS2_WRAPPED
+    || gBattleMons[battlerId].status4 & ITS_A_TRAP_STATUS4)
+    && IsBlackFogNotOnField())
+    {
+        //decide want to make flyig type also a species exclusion since even if knocked down
+        //flyig tuype can still just get up and fly away
+        //and strengthens type a bit, but need function for flyingmonthatcantfly or something
+        //make simpler permanently grounded species could combine nah can't fit in category well
+        if ((IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST) && gBattleMons[battlerId].species != SPECIES_SPIRITOMB)
+        || (DoesBattlerGetTypeBasedBonus(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species)))
+        {}
+        else
+            speed /= 2; //cut speed by half, which is the same as 2 stat stage drops & guess it makes more sense to cut 
+
+    }
 
     return speed;
 }
@@ -7126,7 +7059,11 @@ bool8 TryRunFromBattle(u8 battler)
         gProtectStructs[battler].fleeFlag = FLEE_ITEM;
         ++effect;
     }
-    else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+    else if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+    {
+        ++effect;
+    }
+    else if (IS_BATTLER_OF_TYPE(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
     {
         ++effect;
     }
@@ -7143,7 +7080,8 @@ bool8 TryRunFromBattle(u8 battler)
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;
         ++effect;
     }
-    else if (gBattleMons[battler].ability == ABILITY_AVIATOR)
+    else if (gBattleMons[battler].ability == ABILITY_AVIATOR
+    && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
     {
         gLastUsedAbility = ABILITY_AVIATOR;
         gProtectStructs[battler].fleeFlag = FLEE_ABILITY;

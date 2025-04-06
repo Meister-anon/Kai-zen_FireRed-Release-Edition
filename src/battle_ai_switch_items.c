@@ -312,6 +312,7 @@ bool32 ShouldSwitch(void)
     s32 availableToSwitch;
 
     if ((gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+     || (gBattleMons[gActiveBattler].status4 & ITS_A_TRAP_STATUS4)
      || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
      || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_SHADOW_TAG, 0, 0)
      || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_ARENA_TRAP, 0, 0))

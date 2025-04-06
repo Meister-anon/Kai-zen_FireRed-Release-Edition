@@ -2622,16 +2622,30 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
         //joat stacks w stab long as not normal move, added mystrey type exclusion for normalize change
         //forgot calculatebasedamage in pokemon.c, has it set so mystery type does 0 damage will need to remove that. 
         //why does it even do that? there are no mystery moves, is it an extra failsafe for hidden power?
-        else if (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_NORMAL)) //added mystery line to prevent triggering joat, on normalize
+        else
         {
-            if ((moveType != TYPE_NORMAL && moveType != TYPE_MYSTERY)
-                || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
-                    && (argument != TYPE_NORMAL && argument != TYPE_MYSTERY)))
+            if ((moveType == TYPE_FAIRY
+            || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
+            && argument == TYPE_FAIRY))
+            && DoesBattlerGetTypeBasedBonus(gBattlerAttacker, TYPE_FAIRY))
             {
-                gBattleMoveDamage = gBattleMoveDamage * 117; //on recomendation from uploading cut power back
+                gBattleMoveDamage = gBattleMoveDamage * 135;
                 gBattleMoveDamage = gBattleMoveDamage / 100;
             }
-        } //changed joat to be non inclusive with stab
+            //ok SHOULD be stab on fairy moves for toadstool nymph
+            //with else ifs, should have alraedy excluded type matching move type
+
+            else if (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_NORMAL)) //added mystery line to prevent triggering joat, on normalize
+            {
+                if ((moveType != TYPE_NORMAL && moveType != TYPE_MYSTERY)
+                    || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
+                        && (argument != TYPE_NORMAL && argument != TYPE_MYSTERY)))
+                {
+                    gBattleMoveDamage = gBattleMoveDamage * 117; //on recomendation from uploading cut power back
+                    gBattleMoveDamage = gBattleMoveDamage / 100;
+                }
+            } //changed joat to be non inclusive with stab
+        }
 
         /*else if (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)) //BONUS for groud mon, to balance changes
         {
@@ -9817,8 +9831,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //marginal gains being the main focus not strength of individual effects
         //add accuracy exclusion for moves that hit flying mon
         if (IsBattlerGrounded(gBattlerAttacker)
-        && !IsBattlerGrounded(gBattlerTarget)
-        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_FLYING)
+        && !IsBattlerGrounded(gBattlerTarget) //make function for below
+        && DoesBattlerGetTypeBasedBonus(gBattlerTarget, TYPE_FLYING)
         && atkAbility != ABILITY_KEEN_EYE
         && atkAbility != ABILITY_SIXTH_SENSE
         && !(gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE))
@@ -13718,7 +13732,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         return;
     }
-    case VARIOUS_TRY_NO_RETREAT:
+    case VARIOUS_TRY_NO_RETREAT: //vsonic unsure if or/and
     {
         VARIOUS_ARGS(const u8 *failInstr);
         if (gDisableStructs[battler].noRetreat)
@@ -13727,7 +13741,8 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         else
         {
-            if (!(gBattleMons[battler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED)))
+            if (!(gBattleMons[battler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+            && !gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)
                 gDisableStructs[battler].noRetreat = TRUE;
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
@@ -14241,7 +14256,7 @@ static void atk7F_setseeded(void)  //removed grass immunity - revisit
     //since grounded isn't necessarily made of earth, just more suited for the dry environment.  also plants can steal nutrients from other plants, typically throughts roots so more or less same
     else
     {
-        gStatuses3[gBattlerTarget] |= gBattlerAttacker; //figure what this does    //is it hits? STATUS3_LEECHSEED_BATTLER
+        gBattleStruct->leechSeederBattlerId[gBattlerTarget] = gBattlerAttacker;
         gStatuses3[gBattlerTarget] |= STATUS3_LEECHSEED;
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
     }
@@ -15483,7 +15498,7 @@ static void atk96_weatherdamage(void)
     {
         gBattleMoveDamage = 0;
     }
-    
+
     if (gAbsentBattlerFlags & gBitTable[gBattlerAttacker])
         gBattleMoveDamage = 0;
     ++gBattlescriptCurrInstr;
@@ -15999,7 +16014,8 @@ static void atk9C_setsubstitute(void)
         if (gBattleMoveDamage == 0)
             gBattleMoveDamage = 1;
         gBattleMons[gBattlerAttacker].status2 |= STATUS2_SUBSTITUTE;
-        gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_WRAPPED);
+        gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_WRAPPED); //huh seting substitute clears from traps I guesss that makes sense
+        gBattleMons[gBattlerAttacker].status4 &= ~ITS_A_TRAP_STATUS4; //hopefully works
         gDisableStructs[gBattlerAttacker].substituteHP = gBattleMoveDamage;
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         gHitMarker |= HITMARKER_IGNORE_SUBSTITUTE;
@@ -17526,7 +17542,7 @@ static void atkBE_rapidspinfree(void) //need fix this clear isn't right
     else if (gStatuses3[gBattlerAttacker] & STATUS3_LEECHSEED)
     {
         gStatuses3[gBattlerAttacker] &= ~STATUS3_LEECHSEED;
-        gStatuses3[gBattlerAttacker] &= ~STATUS3_LEECHSEED_BATTLER;
+        gBattleStruct->leechSeederBattlerId[gBattlerAttacker] = BATTLE_ID_NONE;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_LeechSeedFree;
     }
@@ -19059,7 +19075,7 @@ static void atkEF_handleballthrow(void) //important changed
                 odds += (odds / 10);  //TO increase catch chance by 10%,
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_WRAPPED)
                 odds += (odds / 5);
-            else if (gBattleMons[gBattlerTarget].status4 & (ITS_A_TRAP_STATUS4))//(STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP))
+            else if (gBattleMons[gBattlerTarget].status4 & ITS_A_TRAP_STATUS4)//(STATUS4_BIND | STATUS4_FIRE_SPIN | STATUS4_CLAMP | STATUS4_WHIRLPOOL | STATUS4_SAND_TOMB | STATUS4_MAGMA_STORM | STATUS4_SWARM | STATUS4_SNAP_TRAP))
                 odds += (odds / 5);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFATUATION)
                 odds += (odds / 2);

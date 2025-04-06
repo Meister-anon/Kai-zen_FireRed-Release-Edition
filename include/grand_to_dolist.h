@@ -3936,6 +3936,24 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     since berries are static range I think?
     IMPORTANT
 
+    also of note
+    think attempt simplify leech seed logic, the targetting is very weird
+    with how it swaps attacker and target.
+    consider maybe I can make new value that just stores the battler position
+    that should receive leech seed hp,
+    can add on to mon struct leechseedreceiver/battler
+    if mon has status3 leech seed set battler position
+    and then use getbattlerposition/id  leechseedbattler of mon with status for that
+    //without needing to do the weird gbattlerattacker gbattlertarget swap
+    Important
+    4/5/2025
+
+    in adjusting for leechseed change, found missing issues
+    with trap status, also revised effect to exclude debuff slow
+    from flying types
+    think may also add flyign types to list of mon that can escape traps
+    but then pidgeots aviator ability will do less/be useless, look into
+
 
     check where have move delete, cerulean badge guy
     and move relearner

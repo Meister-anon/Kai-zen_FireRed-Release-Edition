@@ -762,8 +762,7 @@ struct BattleStruct //fill in unused fields when porting
     bool8 debugAISet;
     u8 wildVictorySong;//yeah decide move to pokemon struct but will use party size set true false to indicate which battler set effect
     u8 dynamicMoveType;//thinkbest I can do for wrappyby is move to battlepokemon struct so auto linked to targetmon, than can use maxbattlers to store a value for each battler, but auto default to 0xFF at battle start switch in
-    //u8 wrappedBy[MAX_BATTLERS_COUNT]; //since mon can use multiple trap moves on a target and can be trapped by diff mon think need revise this, first block mon hit, 2nd block mon that used move, stores battleid of mon that used move,  slightly redundant but think should work
-    //u8 focusPunchBattlerId; //don't need as changed focus punch effct
+    u8 leechSeederBattlerId[MAX_BATTLERS_COUNT]; //scrapped previous entry was wrappedby think can use store leechseed battler, instead of weird attacker swap logic?, if works gains +2 spaces in status3
     u8 sentInPokes;
     u8 battlerPreventingSwitchout;
     u8 moneyMultiplier;

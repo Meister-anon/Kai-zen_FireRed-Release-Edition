@@ -452,6 +452,7 @@ static u8 ChooseMoveOrAction_Singles(void)
     if (CountUsablePartyMons(sBattler_AI) > 0
         && !IsAbilityPreventingEscape(sBattler_AI)
         && !(gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+        && !(gBattleMons[gActiveBattler].status4 & ITS_A_TRAP_STATUS4)
         && !(gStatuses3[gActiveBattler] & STATUS3_ROOTED)
         && AI_THINKING_STRUCT->aiFlags & (AI_FLAG_CHECK_VIABILITY | AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_PREFER_BATON_PASS))
     {
@@ -1637,7 +1638,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         case EFFECT_HIT_ESCAPE:
             break;
         case EFFECT_RAPID_SPIN:
-            if ((gBattleMons[battlerAtk].status2 & STATUS2_WRAPPED) || (gStatuses3[battlerAtk] & STATUS3_LEECHSEED))
+            if ((gBattleMons[battlerAtk].status2 & STATUS2_WRAPPED) || (gStatuses3[battlerAtk] & STATUS3_LEECHSEED) || (gBattleMons[battlerAtk].status4 & ITS_A_TRAP_STATUS4))
                 break;  // check damage/accuracy
             //Spin checks
             if (!(gSideStatuses[GetBattlerSide(battlerAtk)] & SIDE_STATUS_HAZARDS_ANY))
@@ -2748,7 +2749,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score += 5;
             break;
         case EFFECT_PERISH_SONG:
-            if (!(gBattleMons[battlerDef].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED)))
+            if (!(gBattleMons[battlerDef].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED))
+            && !(gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4))
             {
                 if (IsTrappingMoveEffect(effect) || predictedMove == MOVE_INGRAIN)
                     score++;
@@ -3659,7 +3661,9 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
           || HasMoveEffect(battlerDef, EFFECT_CONFUSE)
           || HasMoveEffect(battlerDef, EFFECT_LEECH_SEED))
             score += 2;
-        if (!gBattleMons[battlerDef].status2 & (STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED | STATUS2_ESCAPE_PREVENTION && AI_DATA->hpPercents[battlerAtk] > 70))
+        if (!gBattleMons[battlerDef].status2 & (STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED | STATUS2_ESCAPE_PREVENTION) 
+        && AI_DATA->hpPercents[battlerAtk] > 70
+        && !(gBattleMons[battlerDef].status4 & ITS_A_TRAP_STATUS4))
             score++;
         break;
     case EFFECT_MIMIC:
@@ -4213,7 +4217,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             }
             break;
         case MOVE_RAPID_SPIN:
-            if (gStatuses3[battlerAtk] & STATUS3_LEECHSEED || gBattleMons[battlerAtk].status2 & STATUS2_WRAPPED)
+            if (gStatuses3[battlerAtk] & STATUS3_LEECHSEED || gBattleMons[battlerAtk].status2 & STATUS2_WRAPPED || gBattleMons[battlerAtk].status4 & ITS_A_TRAP_STATUS4)
                 score += 3;
             break;
         }

@@ -362,7 +362,7 @@
 #define ABILITY_DARK_DEAL 336   //
 #define ABILITY_CORRUPTION 337   //anti heal switch in ability,  users corrupted influence spreads decay, preventing foe from healing, giving to guzzlord etc. make side based effect
 #define ABILITY_BANDIT_KING 338   //embargo on switch in
-#define ABILITY_AVIATOR 339   //Usually flying type, an experienced flyer who's speed can't be lowered  flying version of run away
+#define ABILITY_AVIATOR 339   //Usually flying type, an experienced flyer who's speed can't be lowered  flying version of run away //ok change what will do is make class of ability that gives all benefits of type based bonus, aviator will give all benefits flying types get
 #define ABILITY_USURPER 340	//NEW giratina base ability
 #define ABILITY_INVERSE_WORLD 341	//NEW giratina origin ability
 #define ABILITY_SONAR 342	//sound move boost for bat pokemon,  double move damage, mostly to make sonic boom do dragon breath damage, and be strong early HA only

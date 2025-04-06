@@ -614,7 +614,9 @@ bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
 {
     u8 holdEffect = AI_DATA->holdEffects[battler];
 
-    if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST))
+    if (IS_BATTLER_OF_TYPE(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)
+        return FALSE;
+    if (DoesBattlerGetTypeBasedBonus(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species))
         return FALSE;
     if (checkSwitch && holdEffect == HOLD_EFFECT_SHED_SHELL)
         return FALSE;
@@ -623,6 +625,8 @@ bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
     else if (!checkSwitch && holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN)
         return FALSE;
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_WRAPPED | STATUS2_SWITCH_LOCKED))
+        return TRUE;
+    else if (gBattleMons[battler].status4 & ITS_A_TRAP_STATUS4)
         return TRUE;
     else if (gStatuses3[battler] & (STATUS3_ROOTED | STATUS3_SKY_DROPPED))
         return TRUE;
@@ -2402,7 +2406,8 @@ bool8 AI_Hazard_Grounded(struct Pokemon *mon) //used for PartyBattlerShouldAvoid
 
 
 
-    if (IsMonType(mon, TYPE_FLYING) && (species == (SPECIES_DODUO || SPECIES_DODRIO)))
+    if ((IsMonType(mon, TYPE_FLYING) && IsFlyingTypeSpeciesUnableToFly(species))
+    || species == SPECIES_SPIRITOMB)
         grounded = TRUE; //hope this set up right/works
     if (gFieldStatuses & STATUS_FIELD_GRAVITY)
         grounded = TRUE;
@@ -2416,9 +2421,10 @@ bool8 AI_Hazard_Grounded(struct Pokemon *mon) //used for PartyBattlerShouldAvoid
     else if (IsMonType(mon, TYPE_GHOST))
         grounded = FALSE;
     
-    if (IsMonFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
+    
+    if (IsMonType(mon, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(species))
         grounded = FALSE;
-    if (IsMonType(mon, TYPE_FLYING) && (species != SPECIES_DODUO && species != SPECIES_DODRIO))
+    if (IsMonFloatingSpecies(species))//used if as breakline, as else if only reads if everything above it is false
         grounded = FALSE;
 
     /*if (gBattleMons[battlerId].ability == ABILITY_LEVITATE) //remove after removing all instances of levitate on mon
@@ -2438,7 +2444,7 @@ static u32 GetLeechSeedDamage(u8 battlerId)
 {
     u32 damage = 0;
     if ((gStatuses3[battlerId] & STATUS3_LEECHSEED)
-     && gBattleMons[gStatuses3[battlerId] & STATUS3_LEECHSEED_BATTLER].hp != 0)
+    && gBattleMons[gBattleStruct->leechSeederBattlerId[battlerId]].hp != 0)
      {
         damage = gBattleMons[battlerId].maxHP / 8;
         if (damage == 0)

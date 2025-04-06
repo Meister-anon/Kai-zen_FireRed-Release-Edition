@@ -38,6 +38,10 @@
 #define B_POSITION_PLAYER_RIGHT       2
 #define B_POSITION_OPPONENT_RIGHT     3	//read from back of enemy, oponent right is left from player view
 
+//could read battle_position_none 
+//but believe this is more readable as id is used more oft than position
+#define BATTLE_ID_NONE 0xFF
+
 // These macros can be used with either battler ID or positions to get the partner or the opposite mon
 #define BATTLE_OPPOSITE(id) ((id) ^ 1)
 #define BATTLE_PARTNER(id) ((id) ^ 2)
