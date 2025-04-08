@@ -4444,8 +4444,8 @@ u8 AtkCanceller_UnableToUseMove(void)
 
                     if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION && gDisableStructs[gBattlerAttacker].ConfusionTurns) //&& !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG))
                     {// idea cammymealtee trying setup so tangled feet like bug gets confused but never hits themselves
-                        if (!(IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_BUG)) && GetBattlerAbility(gBattlerAttacker) != ABILITY_TANGLED_FEET
-                        && GetBattlerAbility(gBattlerAttacker) != ABILITY_SIXTH_SENSE) //moved bug exclusion to here, so goes through animations
+                        if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_BUG) && GetBattlerAbility(gBattlerAttacker) != ABILITY_TANGLED_FEET
+                        ) //moved bug exclusion to here, so goes through animations //keep an eye on this make sure double not still works for AND here
                         {
                             if ((Random() % 2) == 0) //chance confused but used move anyway   think 50% may equal random % 2 not 0
                             {
@@ -11347,7 +11347,25 @@ u32 IsAbilityOnFieldExcept(u32 battlerId, u32 ability)
 //electric cant be paralyzed by electric moves
 //normal gets joat
 //think will keep this separted from type chart relations
-#define NEW_ABILITY_CATEGORY
+//need to be considerate of how I use this, as may not want ability to give ALL characteristcs
+//ex toadstool nymph just gives fairy stab
+//while sixth sense isn't exactly linked directly to bug, but gives the bug type immunity to confusion selfhit
+//but I do like the idea of making mon linked w a type without needing them to specifically be the type
+//ex could give tepig line fire affinity, and make like toadstool nymph where it gives fire stab
+//now if I have separate abilities that give different varying degrees of affinity/or different effects
+//I could add an abilityEffect to this function u16, so I could specify the ability I'm looking for
+//but that would break the battle script changes for jumpiftypeaffinity
+//hmm actually that wouldn't even work for this either, hmm no it would work
+//would be battler type factor abilityeffect
+//would auto go to only the type case I'm looking for,
+//than would be, is battler type or ability == abilityeffect
+//wouldn't see the specific abilities that affect it here within function
+//but logic would work
+//anyway need give more thought to establish how I'll do this
+//could make separate function for most of repo for specificying the ability that shuold get effect
+//than just keep this for bs, with the abilities that get the full set of affinities
+//TypeAffinityCheck - will be for type and specific ability
+#define NEW_ABILITY_CATEGORY //-use only for things that don't affect type chart relations
 bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u8 typeFactor)
 {
     u16 ability = GetBattlerAbility(battler);
@@ -11360,9 +11378,15 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u8 typeFactor)
                 return TRUE;
         }
         break;
+        case TYPE_FIRE:
+        {
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TORCHSOUL)
+                return TRUE;
+        }
+        break;
         case TYPE_BUG:
         {
-            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_SIXTH_SENSE)
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_APOTHEOSCENT)
                 return TRUE;   
         }
         break;

@@ -394,7 +394,7 @@
                             //should be equivalent to amount of 1 stat stage drop
 #define ABILITY_PLAGUE_WINGS 365 //butterfree ability, effect spore no contect, work like powder move, grass immune
 #define ABILITY_PHANTOM_TOUCH 366  //cubone line, contact only scrappy
-#define ABILITY_SIXTH_SENSE 367  //immune to affect of being confused like bugs, and prevent acc drop  for mon w extra senses, fightnig psychic ghost insinct etc.
+#define ABILITY_APOTHEOSCENT 367  //immune to affect of being confused like bugs, and prevent acc drop  for mon w extra senses, fightnig psychic ghost insinct etc.
                                     //planned for parasect if made grass ghost, so still keep bug type confuse exclusion
 #define ABILITY_WEIGHTED_GI 368     //dbz themed in a pinch fighting abiility, boost speed throwing off weights in a pinch boost 1.5x or 2x, give to bulky fighting types and mienshoo line (based on dex entry)
 #define ABILITY_VOLT_DASH 369       //thunderous therian ability volt absorb + speed boost
@@ -410,7 +410,8 @@
 #define ABILITY_COLD_EMBRACE 378    //froslass ability 
 #define ABILITY_TOXIC_WING 379
 #define ABILITY_TIME_CONTROL 380 //new dialga ability
+#define ABILITY_TORCHSOUL 381 //fire affinity ability, embroar
 
-#define ABILITIES_COUNT ABILITY_TIME_CONTROL + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_TORCHSOUL + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

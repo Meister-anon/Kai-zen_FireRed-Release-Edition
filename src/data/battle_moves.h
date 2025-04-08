@@ -7621,6 +7621,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .argument = MOVE_EFFECT_BURN,
         .argumentEffectChance = 10,
     },
+    //may need to revise battle script to actually set adjacent burn effect
+    //vsonic
 
     [MOVE_SLUDGE_WAVE] =
     {

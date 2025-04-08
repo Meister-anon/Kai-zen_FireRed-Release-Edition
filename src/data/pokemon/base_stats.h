@@ -322,7 +322,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sIvysaurLevelUpLearnset,
         .tmhmLearnset = sIvysaurTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(32, MEDIUM_EFFORT), 0,  SPECIES_VENUSAUR}), //Should hopefully blank these for now without issue
-    },
+    },//make all base starters low effort first evo, medium effort 2nd evo
 
     [SPECIES_VENUSAUR] =
     {
@@ -6311,7 +6311,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sSlugmaLevelUpLearnset,
         .tmhmLearnset = sSlugmaTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, LOW_EFFORT), 0, SPECIES_MAGCARGO}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(34, LOW_EFFORT), 0, SPECIES_MAGCARGO}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_MAGCARGO] =
@@ -6750,7 +6750,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_FRISK},
-        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_SIXTH_SENSE},
+        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_APOTHEOSCENT},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6834,7 +6834,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_TECHNICIAN},
         .abilityHidden = {ABILITY_STEADFAST, ABILITY_MULTI_TASK},
-        .bodyColor = BODY_COLOR_BROWN, //ABILITY_SIXTH_SENSE kinda want this here, spinning top never bothered by confusion
+        .bodyColor = BODY_COLOR_BROWN, //ABILITY_APOTHEOSCENT kinda want this here, spinning top never bothered by confusion
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sHitmontopLevelUpLearnset,
@@ -12735,7 +12735,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
         .abilities = {ABILITY_STEADFAST, ABILITY_INNER_FOCUS},
-        .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_SIXTH_SENSE}, //given because aura sense
+        .abilityHidden = {ABILITY_JUSTIFIED, ABILITY_APOTHEOSCENT}, //given because aura sense
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14255,7 +14255,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_BLAZE, ABILITY_KLUTZ}, //magma armor, or klutz magma armor would be nice but think it wants recoil block more
+        .abilities = {ABILITY_TORCHSOUL, ABILITY_KLUTZ}, //magma armor, or klutz magma armor would be nice but think it wants recoil block more
         .abilityHidden = {ABILITY_THICK_FAT, ABILITY_SAND_RUSH},// want to get triple stab so blaze may get rid of adaptability?
         .bodyColor = BODY_COLOR_RED, //w speed drop don't think sand rush really worth it, keep anyway
         .noFlip = FALSE,
@@ -17916,7 +17916,7 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sLitwickLevelUpLearnset,
         .tmhmLearnset = sLitwickTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(32, AVERAGE_EFFORT), 0, SPECIES_LAMPENT}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(32, LOW_EFFORT), 0, SPECIES_LAMPENT}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_LAMPENT] =
@@ -18765,7 +18765,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_HUSTLE, ABILITY_TRUANT}, //no idea why thsi was an ability but w my chagnes would actualy be usable
         .bodyColor = BODY_COLOR_GRAY, //now 90% sure hidden ability was just for the pun
         .noFlip = FALSE, //but with my rework it can be a physical wall with leftovers
-        .floating = FALSE,
+        .floating = FALSE, //found reason apparently colony ants are known to be lazy?
         .levelUpLearnset = sDurantLevelUpLearnset,
         .tmhmLearnset = sDurantTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
@@ -27875,7 +27875,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_FRISK},
-        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_SIXTH_SENSE},
+        .abilityHidden = {ABILITY_SAP_SIPPER, ABILITY_APOTHEOSCENT},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -28009,7 +28009,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_FEMME_FATALE, ABILITY_QUEENLY_MAJESTY},
-        .abilityHidden = {ABILITY_POISON_TOUCH, ABILITY_NONE},
+        .abilityHidden = {ABILITY_POISON_TOUCH, ABILITY_UNBURDEN},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -31234,7 +31234,7 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              50,
+              60,
               62,
               40,
               50,
@@ -31296,7 +31296,7 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              65,
+              75,
               108,
               65,
               75,
@@ -31314,7 +31314,7 @@ const struct BaseStats gBaseStats[] =
         MON_EGG_GROUPS(EGG_GROUP_GRASS),
         .abilities = { ABILITY_CHLOROPHYLL, ABILITY_INSOMNIA  },
         .abilityHidden = {ABILITY_MOODY, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GREEN,
+        .bodyColor = BODY_COLOR_GREEN, //abilities are kind of lacking?
         .noFlip = FALSE,
         .floating = FALSE,
         /*.speciesName = _("Scovillain"),
@@ -40984,7 +40984,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_LIGHTNING_ROD, ABILITY_OVERCHARGE},
-        .abilityHidden = {ABILITY_RECKLESS, ABILITY_SIXTH_SENSE},
+        .abilityHidden = {ABILITY_RECKLESS, ABILITY_APOTHEOSCENT},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
