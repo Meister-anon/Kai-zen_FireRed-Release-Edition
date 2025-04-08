@@ -13262,28 +13262,26 @@ s32 CountUsablePartyMons(u32 battlerId)//this counts mon in party excepting batt
 //can use hopefully to clean up summary screen functions
 //changed make return battler for easy app into summary funcions
 //BATTLER id only needed for getting correct side
-u32 IsmonOnField(u32 battlerId, u8 method)
+//ok revised should check if mon at position is alive
+//and matches personality of mon at pos with that of current viewing summ mon
+//doesn't check all player side of field, only checks specific position
+//mostly used for poke sumary screen battle update logic
+bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
 {
 
-    u8 FAILED = 0xFF;
+    
+    u8 battler = GetBattlerAtPosition(position);
+    u8 side = GetBattlerSide(battler);
+    u32 battler_personality = gBattleMons[battler].personality;
+    u32 mon_personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
+
+    if (IsBattlerAlive(battler) && side == B_SIDE_PLAYER
+    && battler_personality == mon_personality)
+        return TRUE;
+
+    return FALSE;
 
 
-    switch (method)
-    {
-        case B_POSITION_PLAYER_LEFT:
-        //if (GetMonData(gBattlerPartyIndexes[battlerOnField1], MON_DATA_HP) != 0)
-         if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp != 0)
-            return GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-        break;
-        case B_POSITION_PLAYER_RIGHT:
-        //if (GetMonData(gBattlerPartyIndexes[battlerOnField2], MON_DATA_HP) != 0)
-        if (gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp != 0)
-            return GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-        break;
-
-    }//this function is so fucked
-
-    return FAILED;
 }//vsonic pretty sure I need to add a plus 1 to return value
 //as it'll just return false for position player left
 

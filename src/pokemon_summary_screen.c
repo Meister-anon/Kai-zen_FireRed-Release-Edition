@@ -2491,14 +2491,18 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
         {
         
         //doesn't work in doubles - works in doubles now
-        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        //mon on field does next to nothing its actually an alive check,
+        //it tests whether should treat mon as being in position
+        //because believe not cleared on faint, but on new switchin
+        //so best thing is replace mon on field function w check thaat does everything
+        //hp check and personality test together //battler argument isn't need
+        //all I need isa is battler alive but using battler position for battler argument I think
+        if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
         {
             sMonSummaryScreen->monTypes[0] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].type1;
             sMonSummaryScreen->monTypes[1] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].type2;
         }
-        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
         {
             sMonSummaryScreen->monTypes[0] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].type1;
             sMonSummaryScreen->monTypes[1] = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].type2;
@@ -2612,8 +2616,7 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     {
         if (gMain.inBattle)
         {
-            if (IsmonOnField(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT), B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-            && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+            if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
             {
                 hp = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].hp;
                 ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
@@ -2643,8 +2646,7 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
                 ConvertIntToDecimalStringN(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE], statValue, STR_CONV_MODE_LEFT_ALIGN, 3);
                 sMonSkillsPrinterXpos->speStr = MACRO_8136350_1(sMonSummaryScreen->summary.statValueStrBufs[PSS_STAT_SPE]);
             }
-            else if (IsmonOnField(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT), B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-            && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+            else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
             {
                 hp = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].hp;
                 ConvertIntToDecimalStringN(sMonSummaryScreen->summary.curHpStrBuf, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
@@ -2758,14 +2760,12 @@ static void BufferMonSkills(void) // seems to be PSS_PAGE_SKILLS or data for it.
     
     if (gMain.inBattle) //seems works   //issue is I need to translate currentmon into a battlerid
     {
-    if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+    if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
     {
         GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability);
         StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].ability]);
     }
-    else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+    else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
     {
         GetAbilityName(sMonSummaryScreen->summary.abilityNameStrBuf, gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability);
         StringCopy(sMonSummaryScreen->summary.abilityDescStrBuf, gAbilityDescriptionPointers[gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].ability]);
@@ -4542,11 +4542,9 @@ static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with la
     case 0://move 1
         if (gMain.inBattle) //seems works
         {
-        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
         {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[0];}
-        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
         {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[0];}
         else
             move = GetMonData(mon, MON_DATA_MOVE1);
@@ -4557,11 +4555,9 @@ static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with la
     case 1://move 2
         if (gMain.inBattle) //seems works
         {
-        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
         {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[1];}
-        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
         {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[1];}
         else
             move = GetMonData(mon, MON_DATA_MOVE2);
@@ -4572,11 +4568,9 @@ static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with la
     case 2://move 3
         if (gMain.inBattle) //seems works
         {
-        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
         {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[2];}
-        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
         {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[2];}
         else
             move = GetMonData(mon, MON_DATA_MOVE3);
@@ -4587,11 +4581,9 @@ static u16 GetMonMoveBySlotId(struct Pokemon * mon, u8 moveSlot) //issue with la
     default://move 4
         if (gMain.inBattle) //seems works
         {
-        if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_LEFT) == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_LEFT))
         {move = gBattleMons[B_POSITION_PLAYER_LEFT].moves[3];}
-        else if (IsmonOnField(gBattlerAttacker, B_POSITION_PLAYER_RIGHT) == GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)
-        && gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].personality == GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY))
+        else if (IscurrentMonOnFieldAtPos(&sMonSummaryScreen->currentMon, B_POSITION_PLAYER_RIGHT))
         {move = gBattleMons[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)].moves[3];}
         else
             move = GetMonData(mon, MON_DATA_MOVE4);

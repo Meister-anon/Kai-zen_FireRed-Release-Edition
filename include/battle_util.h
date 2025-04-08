@@ -246,7 +246,7 @@ u16 GetBattleFormChangeTargetSpecies(u8 battlerId, u16 method);
 bool32 IsBattlerMegaEvolved(u8 battlerId);
 bool32 IsBattlerPrimalReverted(u8 battlerId);
 
-u32 IsmonOnField(u32 battlerId, u8 method); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
+bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position); //check mon is field/well checks battler side not entire field just a check for if mon is in battle vs party
 //checks for type other than user
 //added for new idea plus/minus buff 
 u32 IsTypeOnField(u32 battlerId, u8 type); 
