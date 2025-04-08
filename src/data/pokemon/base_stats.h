@@ -8876,7 +8876,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(40, 45, 40, 65, 65, 40),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 59,
         //.evYield_Speed = 1,
@@ -8895,6 +8895,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sElectrikeTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0, SPECIES_MANECTRIC}), //Should hopefully blank these for now without issue
     },
+    //normal second cuz think I want to give early level rage
+    //load early levels w physical electric moves spark etc.
 
     [SPECIES_MANECTRIC] =
     {
@@ -8902,7 +8904,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 75, 60, 105, 105, 60),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
+        MON_TYPES(TYPE_ELECTRIC, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 166,
         //.evYield_Speed = 2,
@@ -8920,7 +8922,10 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sManectricLevelUpLearnset,
         .tmhmLearnset = sManectricTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//should I make part normal? gets dmg boost but gives it 2 more weaknesses
+    //I could give it psychic fang to counter fighting
+    //yeah this is a fast glass canon type mon so think I'll go that route
+    //risk it for the bisquick at all that
 
     [SPECIES_PLUSLE] =
     {
@@ -18347,8 +18352,8 @@ const struct BaseStats gBaseStats[] =
         95,
         60
         ),
-        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),
-        .catchRate = 45,
+        MON_TYPES(TYPE_FIGHTING, TYPE_NORMAL),//review this, makes less defensive cant switch into fighting fairy
+        .catchRate = 45,    //does gain ghost immunity tho I think its overall better
         .expYield = 179,
         //.evYield_Attack = 2,
         .genderRatio = PERCENT_FEMALE(50),

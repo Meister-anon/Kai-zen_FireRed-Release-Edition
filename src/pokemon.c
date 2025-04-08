@@ -4861,11 +4861,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         spAttack = (130 * spAttack) / 100;  //CUT Back to 130, because it already has stat raise component
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_PLUS 
     && (ABILITY_ON_FIELD2(ABILITY_MINUS)
-    || IsTypeOnField(TYPE_ELECTRIC)))
+    || IsTypeOnField(battlerIdAtk,TYPE_ELECTRIC)))
         spAttack = (150 * spAttack) / 100;
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_MINUS 
     && (ABILITY_ON_FIELD2(ABILITY_PLUS)
-    || IsTypeOnField(TYPE_ELECTRIC)))
+    || IsTypeOnField(battlerIdAtk,TYPE_ELECTRIC)))
         spAttack = (150 * spAttack) / 100;
     if (GetBattlerAbility(battlerIdAtk) == ABILTY_UNKNOWN_POWER && (BATTLE_PARTNER(attacker->species) == SPECIES_UNOWN))
         OffensiveModifer(200);

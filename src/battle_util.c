@@ -11311,20 +11311,20 @@ u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability) // use for intimidate on
     return IsAbilityOnSide(BATTLE_OPPOSITE(battlerId), ability);
 }
 
-//checks for type other than user
-u32 IsTypeOnField(u32 type)
+u32 IsTypeOnField(u32 battlerId, u32 type)
 {
     
     u32 i;
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (i != gActiveBattler && IsBattlerAlive(i) && IS_BATTLER_OF_TYPE(i, type))
+        if (i != battlerId && IsBattlerAlive(i) && DoesBattlerGetTypeBasedAffinity(i, type))
             return i + 1;
     }
 
     return 0;
-}
+}//think changeo gactivebattler to attacker
+//or may add battler id to this, think that's what emerald does
 
 //can be used as true false, but also can be used to return battler with ability in question
 //todo that use battler = function - 1;  as seen with damp in abilitybattleeffects
