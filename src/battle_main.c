@@ -5712,7 +5712,8 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
 
     else if (holdEffect == HOLD_EFFECT_IRON_BALL) //MADE float stone counterpart to iron ball
         speed /= 2;
-    else if (IS_BATTLER_OF_TYPE(battlerId, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
+    //note with affinity change need to pay close attention to interaction could be broken on wrong mon
+    else if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)
         speed = (speed * 150) / 100;
@@ -5724,7 +5725,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed *= 2;
     if (gBattleResources->flags->flags[battlerId] & RESOURCE_FLAG_UNBURDEN)
         speed *= 2;
-    if (IS_BATTLER_OF_TYPE(battlerId, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
+    if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GRASS) && (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_WATERSPORT)) //give to more grass types
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 

@@ -667,7 +667,7 @@ bool32 IsTruantMonVulnerable(u32 battlerAI, u32 opposingBattler)
 bool32 IsAffectedByPowder(u8 battler, u16 ability, u16 holdEffect)
 {
     if (ability == ABILITY_OVERCOAT
-        || IS_BATTLER_OF_TYPE(battler, TYPE_GRASS)
+        || DoesBattlerGetTypeBasedAffinity(battler, TYPE_GRASS)
         || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES)
         return FALSE;
     return TRUE;
@@ -1318,6 +1318,9 @@ bool32 AI_IsTerrainAffected(u8 battlerId, u32 flags)
         return FALSE;
     else if (!(gFieldStatuses & flags))
         return FALSE;
+    else if (GetBattlerAbility(battlerId) == ABILITY_EVERGREEN
+    && flags == STATUS_FIELD_GRASSY_TERRAIN)
+        return TRUE;
     return AI_IsBattlerGrounded(battlerId);
 }
 
@@ -1593,7 +1596,7 @@ bool32 IsMoveEncouragedToHit(u8 battlerAtk, u8 battlerDef, u16 move)
         return TRUE;
 
 
-    if (gBattleMoves[move].effect == EFFECT_TOXIC && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_POISON))
+    if (gBattleMoves[move].effect == EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_POISON))
         return TRUE;
 
 
@@ -1630,7 +1633,7 @@ bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbilit
     if (!DoesBattlerIgnoreAbilityChecks(atkAbility, move) && defAbility == ABILITY_STURDY)
         return FALSE;
 
-    if (move == MOVE_SHEER_COLD && IS_BATTLER_OF_TYPE(battlerDef, TYPE_ICE))//adjust this later so well, its a high level move so low level trainers shouhldn't have it 
+    if (move == MOVE_SHEER_COLD && DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_ICE))//adjust this later so well, its a high level move so low level trainers shouhldn't have it 
         return FALSE;   //was gonna add random factor for low level trainers but guess not necessary
 
     if ((((gStatuses3[battlerDef] & STATUS3_ALWAYS_HITS)
@@ -1649,6 +1652,11 @@ bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbilit
     return FALSE;
 }
 
+//after rework dmg is based on species castform rather than forcast itself
+//cant remember how I have form change setup,
+//is castform staying the same species when it changes forms?
+//may need to replace species check with base form species check...
+//pretty sure I have that function in pokedex. done
 bool32 ShouldSetSandstorm(u8 battler, u16 ability, u16 holdEffect)
 {
     if (!AI_WeatherHasEffect())
@@ -1659,12 +1667,15 @@ bool32 ShouldSetSandstorm(u8 battler, u16 ability, u16 holdEffect)
     if (ability == ABILITY_SAND_VEIL
       || ability == ABILITY_SAND_RUSH
       || ability == ABILITY_SAND_FORCE
+      //|| ability == ABILITY_FORECAST
       || ability == ABILITY_OVERCOAT
       || ability == ABILITY_MAGIC_GUARD
+      || ability == ABILITY_WIND_RIDER
       || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES
-      || IS_BATTLER_OF_TYPE(battler, TYPE_ROCK)
-      || IS_BATTLER_OF_TYPE(battler, TYPE_STEEL)
-      || IS_BATTLER_OF_TYPE(battler, TYPE_GROUND)
+      || GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_CASTFORM
+      || DoesBattlerGetTypeBasedAffinity(battler, TYPE_ROCK)
+      || DoesBattlerGetTypeBasedAffinity(battler, TYPE_STEEL)
+      || DoesBattlerGetTypeBasedAffinity(battler, TYPE_GROUND)
       || HasMoveEffect(battler, EFFECT_SHORE_UP)
       || HasMoveEffect(battler, EFFECT_WEATHER_BALL))
     {
@@ -1682,12 +1693,13 @@ bool32 ShouldSetHail(u8 battler, u16 ability, u16 holdEffect)
 
     if (ability == ABILITY_SNOW_CLOAK
       || ability == ABILITY_ICE_BODY
-      || ability == ABILITY_FORECAST
+      //|| ability == ABILITY_FORECAST
       || ability == ABILITY_SLUSH_RUSH
       || ability == ABILITY_MAGIC_GUARD
       || ability == ABILITY_OVERCOAT
       || holdEffect == HOLD_EFFECT_SAFETY_GOGGLES
-      || IS_BATTLER_OF_TYPE(battler, TYPE_ICE)
+      || GetBaseFormSpecies(gBattleMons[battler].species) == SPECIES_CASTFORM
+      || DoesBattlerGetTypeBasedAffinity(battler, TYPE_ICE)
       || HasMove(battler, MOVE_BLIZZARD)
       || HasMoveEffect(battler, EFFECT_AURORA_VEIL)
       || HasMoveEffect(battler, EFFECT_WEATHER_BALL))
@@ -1695,7 +1707,9 @@ bool32 ShouldSetHail(u8 battler, u16 ability, u16 holdEffect)
         return TRUE;
     }
     return FALSE;
-}
+}//may adjust these for castform to also include held item check
+//since made forcast lock to specific weather if holding certain items for consistency
+//if castform and holding weather lock item, can say hey, my team is  built around this specific weather
 
 bool32 ShouldSetRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
 {
@@ -1706,10 +1720,11 @@ bool32 ShouldSetRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
 
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
      && (atkAbility == ABILITY_SWIFT_SWIM
-      || atkAbility == ABILITY_FORECAST
+      //|| atkAbility == ABILITY_FORECAST
       || atkAbility == ABILITY_HYDRATION
       || atkAbility == ABILITY_RAIN_DISH
       || atkAbility == ABILITY_DRY_SKIN
+      || GetBaseFormSpecies(gBattleMons[battlerAtk].species) == SPECIES_CASTFORM
       || HasMoveEffect(battlerAtk, EFFECT_THUNDER)
       || HasMoveEffect(battlerAtk, EFFECT_HURRICANE)
       || HasMoveEffect(battlerAtk, EFFECT_WEATHER_BALL)
@@ -1730,10 +1745,11 @@ bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
      && (atkAbility == ABILITY_CHLOROPHYLL
       || atkAbility == ABILITY_FLOWER_GIFT
-      || atkAbility == ABILITY_FORECAST
+      //|| atkAbility == ABILITY_FORECAST
       || atkAbility == ABILITY_LEAF_GUARD
       || atkAbility == ABILITY_SOLAR_POWER
       || atkAbility == ABILITY_HARVEST
+      || GetBaseFormSpecies(gBattleMons[battlerAtk].species) == SPECIES_CASTFORM
       || HasMoveEffect(battlerAtk, EFFECT_SOLARBEAM)
       || HasMoveEffect(battlerAtk, EFFECT_MORNING_SUN)
       || HasMoveEffect(battlerAtk, EFFECT_SYNTHESIS)
@@ -1746,7 +1762,7 @@ bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
     }
     return FALSE;
 }
-
+//vsonic
 
 void ProtectChecks(u8 battlerAtk, u8 battlerDef, u16 move, u16 predictedMove, s16 *score)
 {
@@ -2546,25 +2562,28 @@ static u32 GetPoisonDamage(u8 battlerId)
 
 static bool32 BattlerAffectedBySandstorm(u8 battlerId, u16 ability)
 {
-    if (!IS_BATTLER_OF_TYPE(battlerId, TYPE_ROCK)
-      && !IS_BATTLER_OF_TYPE(battlerId, TYPE_GROUND)
-      && !IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL)
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ROCK)
+      && !DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GROUND)
+      && !DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_STEEL)
       && ability != ABILITY_SAND_VEIL
       && ability != ABILITY_SAND_FORCE
       && ability != ABILITY_SAND_RUSH
-      && ability != ABILITY_OVERCOAT)
+      && ability != ABILITY_OVERCOAT
+      && ability != ABILITY_WIND_RIDER
+      && GetBaseFormSpecies(gBattleMons[battlerId].species) != SPECIES_CASTFORM)
         return TRUE;
     return FALSE;
 }
 
 static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
 {
-    if (!IS_BATTLER_OF_TYPE(battlerId, TYPE_ICE)
+    if (!DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ICE)
       && ability != ABILITY_SNOW_CLOAK
       && ability != ABILITY_OVERCOAT
       && ability != ABILITY_GLACIAL_ICE
       && ability != ABILITY_ABSOLUTE_ZERO
-      && ability != ABILITY_ICE_BODY)
+      && ability != ABILITY_ICE_BODY
+      && GetBaseFormSpecies(gBattleMons[battlerId].species) != SPECIES_CASTFORM)
         return TRUE;
     return FALSE;
 }
@@ -3004,7 +3023,8 @@ bool32 AI_CanSleep(u8 battler, u16 ability)//why is comatose not here? vsonic ha
       || ability == ABILITY_COMATOSE
       || gBattleMons[battler].status1 & STATUS1_ANY
       || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD
-      || (gFieldStatuses & (STATUS_FIELD_MISTY_TERRAIN | STATUS_FIELD_ELECTRIC_TERRAIN))
+      || AI_IsTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN)
+      || AI_IsTerrainAffected(battler, STATUS_FIELD_ELECTRIC_TERRAIN)
       || IsAbilityStatusProtected(battler))
         return FALSE;
     return TRUE;
@@ -3021,8 +3041,9 @@ bool32 AI_CanPutToSleep(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, 
 
 static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
 {
-    return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
-            || !(IS_BATTLER_OF_TYPE(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
+    return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION)
+            || (AI_DATA->abilities[battlerAttacker] == ABILITY_POISONED_LEGACY)
+            || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)  || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
 }
 
 static bool32 AI_CanBePoisoned(u8 battlerAtk, u8 battlerDef) //vsonic tweak with setmoveeffect logic
@@ -3034,6 +3055,7 @@ static bool32 AI_CanBePoisoned(u8 battlerAtk, u8 battlerDef) //vsonic tweak with
      || ability == ABILITY_IMMUNITY
      || ability == ABILITY_COMATOSE
      || AI_IsAbilityOnSide(battlerDef, ABILITY_PASTEL_VEIL)
+     || AI_IsAbilityOnSide(battlerDef, ABILITY_SHAMAN_CURE)
      || ((gBattleMons[battlerDef].status1) && gBattleMons[battlerDef].status1 != STATUS1_POISON) //if works should exclude status none, and poison
      || IsAbilityStatusProtected(battlerDef)
      || AI_IsTerrainAffected(battlerDef, STATUS_FIELD_MISTY_TERRAIN))
@@ -3047,6 +3069,7 @@ bool32 ShouldPoisonSelf(u8 battler, u16 ability)
      ability == ABILITY_MARVEL_SCALE
       || ability == ABILITY_POISON_HEAL
       || ability == ABILITY_QUICK_FEET
+      || ability == ABILITY_SHED_SKIN
       || ability == ABILITY_MAGIC_GUARD
       || (ability == ABILITY_TOXIC_BOOST && HasMoveWithSplit(battler, SPLIT_PHYSICAL))
       || (ability == ABILITY_GUTS && HasMoveWithSplit(battler, SPLIT_PHYSICAL))
@@ -3063,9 +3086,11 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
         return FALSE;
-    else if (defAbility != ABILITY_CORROSION && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL)))
+    else if (defAbility != ABILITY_CORROSION && defAbility != ABILITY_POISONED_LEGACY && (DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_ROCK) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL)))
         return FALSE;
     else if (IsValidDoubleBattle(battlerAtk) && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] == ABILITY_PASTEL_VEIL)
+        return FALSE;
+    else if (IsValidDoubleBattle(battlerAtk) && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] == ABILITY_SHAMAN_CURE)
         return FALSE;
 
     return TRUE;
@@ -3074,7 +3099,7 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
 static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for custom effect double check
 {
     if (ability == ABILITY_LIMBER
-      || (IS_BATTLER_OF_TYPE(battler, TYPE_ELECTRIC) && (gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC || gBattleMoves[gCurrentMove].argument == TYPE_ELECTRIC))
+      || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_ELECTRIC) && (gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC || gBattleMoves[gCurrentMove].argument == TYPE_ELECTRIC))
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler))
         return FALSE;
@@ -3094,10 +3119,9 @@ bool32 AI_CanParalyze(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u1
 
 bool32 AI_CanBeConfused(u8 battler, u16 ability)
 {
-    if ((gBattleMons[battler].status2 & STATUS2_CONFUSION)
-      || (ability == ABILITY_OWN_TEMPO)
-      || IS_BATTLER_OF_TYPE(battler, TYPE_BUG)
-      || (IsBattlerGrounded(battler) && (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)))
+    if (ability == ABILITY_OWN_TEMPO
+      || (gBattleMons[battler].status2 & STATUS2_CONFUSION)
+      || AI_IsTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
         return FALSE;
     return TRUE;
 }
@@ -3120,7 +3144,7 @@ bool32 AI_CanBeBurned(u8 battler, u16 ability)//VSONIC need add on to this
 {
     if (ability == ABILITY_WATER_VEIL
       || ability == ABILITY_WATER_BUBBLE
-      || IS_BATTLER_OF_TYPE(battler, TYPE_FIRE)
+      || DoesBattlerGetTypeBasedAffinity(battler, TYPE_FIRE)
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler)
       || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD)
@@ -3134,6 +3158,7 @@ bool32 ShouldBurnSelf(u8 battler, u16 ability)
      ability == ABILITY_QUICK_FEET
       || ability == ABILITY_HEATPROOF
       || ability == ABILITY_MAGIC_GUARD
+      || ability == ABILITY_SHED_SKIN
       || (ability == ABILITY_FLARE_BOOST && HasMoveWithSplit(battler, SPLIT_SPECIAL))
       || (ability == ABILITY_GUTS && HasMoveWithSplit(battler, SPLIT_PHYSICAL))
       || HasMoveEffect(battler, EFFECT_FACADE)

@@ -4905,10 +4905,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //decideed to change to just electric not counterpart ability to make it better/more accessible
     if (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].hp <= (gBattleMons[BATTLE_PARTNER(battlerIdAtk)].maxHP / 2))
     {
-        if (GetBattlerAbility(battlerIdAtk) == ABILITY_PLUS && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC))
+        if (GetBattlerAbility(battlerIdAtk) == ABILITY_PLUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC))
             gBattleMovePower = (150 * gBattleMovePower) / 100;
 
-        else if (GetBattlerAbility(battlerIdAtk) == ABILITY_MINUS && IS_BATTLER_OF_TYPE(BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC))
+        else if (GetBattlerAbility(battlerIdAtk) == ABILITY_MINUS && DoesBattlerGetTypeBasedAffinity(BATTLE_PARTNER(battlerIdAtk), TYPE_ELECTRIC))
             gBattleMovePower = (150 * gBattleMovePower) / 100;   //used gbattlemovedamage, to stack with on field plus/minus effects , it already stacks without that
     }
 
@@ -4993,18 +4993,18 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //works now //suddenly not working again -_- oh it is working just effect is so low not very noticeable?
     //sideStatus wasn't working had to use gstatus and realied I hadn't updated the function argument while I made gsidestatus u32
     //the function was still u16, updated and that fixed it
-    if (IS_BATTLER_OF_TYPE(battlerIdDef, TYPE_GROUND) && (sideStatus & SIDE_STATUS_MUDSPORT)) //if done right these should stack
+    if (DoesBattlerGetTypeBasedAffinity(battlerIdDef, TYPE_GROUND) && (sideStatus & SIDE_STATUS_MUDSPORT)) //if done right these should stack
         spDefense = (170 * spDefense) / 100;    //gets to work as its on the ground not in the air
                     //changed mind,not as realistic but gives more options, keep just ground affecting, rock/ground are only rocks that really need 
                     //unsure if should buff further
 
     // sandstorm sp.def boost for rock types  // decided to add this for ground types as well,
-    if ((IS_BATTLER_OF_TYPE(battlerIdDef, TYPE_ROCK) || (IS_BATTLER_OF_TYPE(battlerIdDef, TYPE_GROUND)))
+    if ((DoesBattlerGetTypeBasedAffinity(battlerIdDef, TYPE_ROCK) || (DoesBattlerGetTypeBasedAffinity(battlerIdDef, TYPE_GROUND)))
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_SANDSTORM_ANY) && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)     
         spDefense = (150 * spDefense) / 100;
 
     // hail sp.def & def boost for ice types  // still deciding if I want a 50% defense boost or a 25% boost to def & sp def
-    if (IS_BATTLER_OF_TYPE(battlerIdDef, TYPE_ICE)
+    if (DoesBattlerGetTypeBasedAffinity(battlerIdDef, TYPE_ICE)
         && IsBattlerWeatherAffected(battlerIdDef, WEATHER_HAIL_ANY) && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)    
     {
         spDefense = (115 * spDefense) / 100;
@@ -5044,6 +5044,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             && IsBlackFogNotOnField())
             gBattleMovePower = (gBattleMovePower * 150 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case ABILITY_TORCHSOUL:
+        if (moveType == TYPE_FIRE)
+            gBattleMovePower = (gBattleMovePower * 120 / 100);
         break;
     case ABILITY_RECKLESS:
         if (gBattleMoves[move].flags & FLAG_RECKLESS_BOOST)
@@ -12253,6 +12257,11 @@ u16 GetFormSpeciesId(u16 speciesId, u8 formId)
         return gFormSpeciesIdTables[speciesId][formId];
     else
         return speciesId; //no forms exist so return species
+}
+
+u16 GetBaseFormSpecies(u16 speciesId)
+{
+    return GetFormSpeciesId(speciesId, 0);
 }
 
 //would return what form id it is given the species, so would need both this and above for table comparisons

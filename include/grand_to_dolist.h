@@ -3919,6 +3919,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     say he'll give it to you for money.
     4/6/2025  vsonic important
 
+    finished setup for affinity abilities all adjustments were necessary are made
+    but still need work to make more flexibile so can account for multiple abilities
+    or set specific abilities ex. multiple affinity abilities of a type
+    but having differing affects because the specific ability is set in a different place
+    ok adjust idea all affinity abilities share base affect just add on to the main ability checklist
+    but just put the ability itself (replace toadstool nymph smh) - done
+    ok was just tired and made a problem where there wasn't one.
+
+    its fine just add more abilities to affinity list and where ability would have
+    unique affect just list that ability alone
+
     can't track trap moves so fuck it just get rid of switch/faint removal
     also need update binding band effect since won't be able to properly track 
     what's set what.
@@ -11667,7 +11678,7 @@ goto ABSORB_ABILITY_TARGETTING
 goto STAT_ANIM_W_ABILITIES
 goto STAT_CHANGE_ABILITIES
 goto ACCURACY_BASED_ABILITIES   //other ability logic exists outside battle_util.c  make sure to go over all ability effects
-goto NEW_ABILITY_CATEGORY //abilities that give a mon the benefits of said type without needing tobe that type
+goto NEW_ABILITY_CATEGORY //affinity abilities that give a mon the benefits of said type without needing tobe that type
 goto ABILITYBATTLE_FUNCTION	//	battle_util.c function other more complex ability activation logic.  STILL need to update   vsonic
 /*
 * Setting up new effeets for absorb abilities

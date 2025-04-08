@@ -738,6 +738,7 @@ bool32 IsBattlerWeatherAffected(u8 battlerId, u32 weatherFlags) //need to add ut
             return FALSE; // utility umbrella blocks sun, rain effects
         else if (gBattleWeather & (WEATHER_HAIL_ANY | WEATHER_SANDSTORM_ANY) && GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SAFETY_GOGGLES)
             return FALSE; //major upgrade to safety goggles, blocks hail and sandstorm effects, useful dealing sandstorm acc drop
+        
         return TRUE;
     }
     return FALSE;
@@ -876,7 +877,7 @@ bool32 DoesPranksterBlockMove(u16 move, u8 battlerwithPrankster, u8 battlerDef, 
         return FALSE;
     if (checkTarget && (gBattleMoves[move].target & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_DEPENDS)))
         return FALSE;
-    if (!IS_BATTLER_OF_TYPE(battlerDef, TYPE_DARK))
+    if (!DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_DARK))
         return FALSE;
     if (gStatuses3[battlerDef] & STATUS3_SEMI_INVULNERABLE)
         return FALSE;
@@ -1472,7 +1473,7 @@ void TryToApplyMimicry(u8 battlerId, bool8 various)
             PREPARE_TYPE_BUFFER(gBattleTextBuff2, moveType);
         if (!various)
             BattleScriptPushCursorAndCallback(BattleScript_MimicryActivatesEnd3);
-    }
+    }//don't know much about effect but it appears to be like color change, so directly related to type so leaving out
 }
 
 void TryToRevertMimicry(void)
@@ -1547,12 +1548,25 @@ static bool32 IsBelchPreventingMove(u32 battler, u32 move)
 
 //since doesn't change type effectiveness may not need status line, non status moves should still fail?
 //typecalc irnoically breaks so need put in typecalc function, and because of that need keep status line
+//double check, unsure if poisoned legacy needs the line, but it seems to work regardless?
+//double chekc this, EE doesn't have the status line and rn only my status moves are able to poison mon
+//otherwise immune to poison?
+//i don't have this in typecalc no idea what my old notes were about...
+//idk maybe it had to do with status move followin type chart
+//think that's why I had the normal/ghost type immunity,
+//so those would be immune to each other, as the only issue of effect was for contact
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 {
-    return (((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
-        || ((GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY) && (gBattleMoves[gCurrentMove].split == SPLIT_STATUS))
-        || (!IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) && !IS_BATTLER_OF_TYPE(battlerTarget, TYPE_POISON)));
+    return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
+        || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY)
+        || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
 }
+//again unsure on this as poison immunity for steel is entirely due to type chart?
+//think will just allow it, not doing so, would break pattern for other type based status immunities
+//...even though still itself already breaks that pattern, for every other case
+//its only immunity to the status effect that represents their own type
+//DoesBattlerGetTypeBasedAffinity  ok decided keep affinity for poison, use battler type for others
+//as they have more to do with type chart immunity
 
 bool32 CanThaw(u32 move)
 {
@@ -1633,8 +1647,8 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     
     if (gCurrentTurnActionNumber >= gBattlersCount) // everyone did their actions, turn finished
     {
-        if ((!DoesBattlerGetTypeBasedAffinity(gBattleStruct->seedSetterBattleId[gBattlerTarget], TYPE_GHOST))
-        && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GHOST)) //IT FINALLY WORKS
+        if ((!IS_BATTLER_OF_TYPE(gBattleStruct->seedSetterBattleId[gBattlerTarget], TYPE_GHOST))
+        && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST)) //IT FINALLY WORKS
         {
             ghostdmg = hp;
             if (GetBattlerAbility(gBattlerTarget) == ABILITY_LIQUID_OOZE)
@@ -1694,8 +1708,8 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
     else
     {
         //ghost dmg case for normal drain move
-        if (DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GHOST) //w leech seed logic target at this point is mon receiving hp
-        && !DoesBattlerGetTypeBasedAffinity(battler, TYPE_GHOST)
+        if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST) //w leech seed logic target at this point is mon receiving hp
+        && !IS_BATTLER_OF_TYPE(battler, TYPE_GHOST)
         )
         //should prevent damage for ghost types
         {
@@ -4723,7 +4737,7 @@ u8 AtkCanceller_UnableToUseMove(void)
         case CANCELLER_POWDER_MOVE:
             if ((gBattleMoves[gCurrentMove].flags & FLAG_POWDER_MOVE) && (gBattlerAttacker != gBattlerTarget))
             {
-                if ((IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GRASS))
+                if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GRASS))
                     || GetBattlerAbility(gBattlerTarget) == ABILITY_OVERCOAT)
                 {
                     gBattlerAbility = gBattlerTarget;
@@ -7683,7 +7697,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && moveArg != MOVE_STRUGGLE
                     && gBattleMoves[moveArg].power != 0
                     && TARGET_TURN_DAMAGED
-                    && !IS_BATTLER_OF_TYPE(battler, moveType)
+                    && !IS_BATTLER_OF_TYPE(battler, moveType)//not affinity this is explicitly type related so leave
                     && gBattleMons[battler].hp != 0)
                 {
                     SET_BATTLER_TYPE2(battler, moveType);   //changed only shifts second type when hit, can take advantage of joat that way.
@@ -7750,7 +7764,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerAttacker].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GRASS)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GRASS)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
                     && GetBattlerHoldEffect(gBattlerAttacker, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
                     && TARGET_TURN_DAMAGED
@@ -7854,8 +7868,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED
                     && CanBeParalyzed(gBattlerAttacker)
-                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ELECTRIC)
-                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ELECTRIC)
+                    && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND) //leaving as involves type chart logic
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker)) //ok only thing I can gather from this is its not setting affect certaain, that's why odds are so low
                     && (Random() % 3) == 0)
                 {
@@ -8464,7 +8478,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GRASS)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GRASS)
                     && GetBattlerAbility(gBattlerTarget) != ABILITY_OVERCOAT
                     && GetBattlerHoldEffect(gBattlerTarget, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
                     && TARGET_TURN_DAMAGED //no issue with status set, all is good
@@ -8490,7 +8504,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
-                    && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GRASS)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GRASS) //grass powder immunity
                     && GetBattlerAbility(gBattlerTarget) != ABILITY_OVERCOAT
                     && GetBattlerHoldEffect(gBattlerTarget, TRUE) != HOLD_EFFECT_SAFETY_GOGGLES
                     && TARGET_TURN_DAMAGED //no issue with status set, all is good
@@ -8508,8 +8522,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleMons[gBattlerTarget].hp != 0
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && CanBeParalyzed(gBattlerTarget)
-                    && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_ELECTRIC) //only addition want make, static shouldn't work on electric types
-                    && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND)
+                    && !DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_ELECTRIC) //only addition want make, static shouldn't work on electric types
+                    && !IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND) //think this needs to stay as is, as point is groud type is immune to electric by type chart
                     && IsMoveMakingContact(moveArg, gBattlerAttacker) //not using other paralyze statemetn cuz think I already have my own logic,\ thats for moves not abilities                    
                     && TARGET_TURN_DAMAGED
                     && (Random() % 3) == 0)
@@ -9944,7 +9958,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 }
                 break;
             case HOLD_EFFECT_BLACK_SLUDGE:
-                if (IS_BATTLER_OF_TYPE(battlerId, TYPE_POISON))
+                if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_POISON))
                 {
                     goto LEFTOVERS;
                 }
@@ -11431,7 +11445,9 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     //decided tweak this at least, ability on opposide side
     //shouldn't cancel out magnet pull doens't
     //extra parenthesis to avoid compiler warning
-    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL))
+    //unsure if it makes sense to replace steel check with steel affinity check?
+    //ok could be a bio-organic that has magnetic properties?
+    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_MAGNET_PULL)) && DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_STEEL))
         return id;
 
     else if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species))
@@ -11839,7 +11855,8 @@ bool32 IsBattlerAffectedByHazards(u8 battlerId, bool32 toxicSpikes)
 {
     bool32 ret = TRUE;
     u32 holdEffect = GetBattlerHoldEffect(gActiveBattler, TRUE);
-    if (toxicSpikes && holdEffect == HOLD_EFFECT_HEAVY_DUTY_BOOTS && !IS_BATTLER_OF_TYPE(battlerId, TYPE_POISON))
+    
+    if (toxicSpikes && holdEffect == HOLD_EFFECT_HEAVY_DUTY_BOOTS && !DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_POISON))
     {
         ret = FALSE;
         RecordItemEffectBattle(battlerId, holdEffect);
@@ -12244,7 +12261,7 @@ static uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u
         return modifier;
     }
 
-    else if ((move == MOVE_SHEER_COLD) && IS_BATTLER_OF_TYPE(battlerDef, TYPE_ICE)) //no longer need with other ohko changes
+    else if ((move == MOVE_SHEER_COLD) && DoesBattlerGetTypeBasedAffinity(battlerDef, TYPE_ICE)) //no longer need with other ohko changes
     {
         modifier = UQ_4_12(0.0);
     } //potentially replace with effet ohko and not very effective change mod to 0, since it will never land, better for ai
@@ -12942,7 +12959,7 @@ bool32 CanBePoisoned(u8 PoisonUser, u8 PoisonTarget)
 bool32 CanBeBurned(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
-    if (IS_BATTLER_OF_TYPE(battlerId, TYPE_FIRE)
+    if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FIRE)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || ability == ABILITY_WATER_VEIL
@@ -12966,7 +12983,7 @@ bool32 CanBeParalyzed(u8 battlerId)
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN)
-        || (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
+        || (DoesBattlerGetTypeBasedAffinity(gEffectBattler, TYPE_ELECTRIC) && movetype == TYPE_ELECTRIC))
         return FALSE;
     return TRUE;
 }
@@ -12975,7 +12992,7 @@ bool32 CanBeFrozen(u8 battlerId)
 {
     u16 ability = GetBattlerAbility(battlerId);
     
-    if (IS_BATTLER_OF_TYPE(battlerId, TYPE_ICE)
+    if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ICE)
         || IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY)
         || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
         || ability == ABILITY_LAVA_FISSURE
@@ -13263,7 +13280,7 @@ bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions
         return TRUE;
     }
     else if ((GetBattlerAbility(gActiveBattler) == ABILITY_POISON_HEAL) && gBattleMons[gActiveBattler].hp != 0
-        && IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_POISON) && (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE))
+        && DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_POISON) && (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE))
     {
         return TRUE;
     }

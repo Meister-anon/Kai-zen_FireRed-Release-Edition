@@ -1759,7 +1759,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     }
 
     else if (gBattleMoves[move].effect == EFFECT_TOXIC
-        && IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_POISON))   //ironically with type chart change I don't need this
+        && DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_POISON))   //ironically with type chart change I don't need this
     {
         JumpIfMoveFailed(7, move);
         return TRUE;
@@ -1827,7 +1827,7 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         return TRUE;
     }
 
-    if (move == MOVE_SHEER_COLD && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_ICE))
+    if (move == MOVE_SHEER_COLD && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_ICE))
     {
         gMoveResultFlags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
         JumpIfMoveFailed(7, move);
@@ -2624,10 +2624,12 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
         //why does it even do that? there are no mystery moves, is it an extra failsafe for hidden power?
         else
         {
+            //realized didn't need affinity check here as I was just checking for ability
+            //normal stab is already handled above
             if ((moveType == TYPE_FAIRY
             || (gBattleMoves[gCurrentMove].effect == EFFECT_TWO_TYPED_MOVE
             && argument == TYPE_FAIRY))
-            && DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_FAIRY))
+            && GetBattlerAbility(gBattlerAttacker) == ABILITY_TOADSTOOL_NYMPH)
             {
                 gBattleMoveDamage = gBattleMoveDamage * 135;
                 gBattleMoveDamage = gBattleMoveDamage / 100;
@@ -3114,16 +3116,32 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
 
         //joat check jack of all trades  inclusive normal type dmg buff 
         //joat stacks w stab long as not normal move,  aka jack of all types?
-        else if (IS_BATTLER_OF_TYPE(attacker, TYPE_NORMAL)) //added mystery line to prevent triggering joat, on normalize
+        else
         {
-            if ((moveType != TYPE_NORMAL && moveType != TYPE_MYSTERY)
-                || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
-                    && (argument != TYPE_NORMAL && argument != TYPE_MYSTERY)))
+            //realized didn't need affinity check here as I was just checking for ability
+            //normal stab is already handled above
+            if ((moveType == TYPE_FAIRY
+            || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
+            && argument == TYPE_FAIRY))
+            && GetBattlerAbility(attacker) == ABILITY_TOADSTOOL_NYMPH)
             {
-                gBattleMoveDamage = gBattleMoveDamage * 117; //cut back on recomendation
+                gBattleMoveDamage = gBattleMoveDamage * 135;
                 gBattleMoveDamage = gBattleMoveDamage / 100;
             }
-        }//changed joat to be non inclusive with stab
+            //ok SHOULD be stab on fairy moves for toadstool nymph
+            //with else ifs, should have alraedy excluded type matching move type
+
+            else if (IS_BATTLER_OF_TYPE(attacker, TYPE_NORMAL)) //added mystery line to prevent triggering joat, on normalize
+            {
+                if ((moveType != TYPE_NORMAL && moveType != TYPE_MYSTERY)
+                    || (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE
+                        && (argument != TYPE_NORMAL && argument != TYPE_MYSTERY)))
+                {
+                    gBattleMoveDamage = gBattleMoveDamage * 117; //on recomendation from uploading cut power back
+                    gBattleMoveDamage = gBattleMoveDamage / 100;
+                }
+            } //changed joat to be non inclusive with stab
+        }
 
         /*else if (IS_BATTLER_OF_TYPE(attacker, TYPE_GROUND)) //BONUS for groud mon, to balance changes
         {
@@ -4606,7 +4624,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 return;
             }
     
-            if (IS_BATTLER_OF_TYPE(gEffectBattler, TYPE_FIRE)
+            if (DoesBattlerGetTypeBasedAffinity(gEffectBattler, TYPE_FIRE)
              && (primary == TRUE || certain == MOVE_EFFECT_CERTAIN))
             {
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -5383,7 +5401,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 else
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
-               if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_1) && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND)
+               if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_1) && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GROUND)
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -5465,7 +5483,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 else
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
-                if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) && IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND)
+                if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GROUND)
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND)
@@ -9909,9 +9927,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //done wrapped it into weather affected
         //added sixth sense as an ability not meant to relyon eyes
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
@@ -9924,9 +9942,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //trap effect,
         if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-        && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
@@ -9976,7 +9994,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             //so they stack
 
         if (gBattleMons[battlerDef].status1 & STATUS1_SLEEP) { //.target = MOVE_TARGET_SELECTED, 
-            if (IS_BATTLER_OF_TYPE(battlerDef,TYPE_PSYCHIC)) //important chek this think have function for type checking
+            if (DoesBattlerGetTypeBasedAffinity(battlerDef,TYPE_PSYCHIC)) //important chek this think have function for type checking
                 calc = (calc * 105) / 100; // to take advantage of these buffs I want to have a button to display real move accuracy in battle. maybe L
             else
                 //     calc = (calc * 260) / 100; // gBattleMoves[gCurrentMove].target that's the comamnd I need, then just set the target I want
@@ -10230,7 +10248,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         && IsBattlerGrounded(gActiveBattler))
     {
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_TOXIC_SPIKES_DAMAGED;
-        if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_POISON)) // Absorb the toxic spikes.
+        if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_POISON)) // Absorb the toxic spikes.
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
             gSideTimers[GetBattlerSide(gActiveBattler)].toxicSpikesAmount = 0;
@@ -10241,9 +10259,12 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         else if (IsBattlerAffectedByHazards(gActiveBattler, TRUE))
         {
             if (!(gBattleMons[gActiveBattler].status1 & STATUS1_ANY)
-                && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL)
+                && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL) //is immunity to toxic spikes poisoning
+                && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_ROCK)
                 && GetBattlerAbility(gActiveBattler) != ABILITY_IMMUNITY
+                && GetBattlerAbility(gActiveBattler) != ABILITY_COMATOSE
                 && !IsAbilityOnSide(gActiveBattler, ABILITY_PASTEL_VEIL)
+                && !IsAbilityOnSide(gActiveBattler, ABILITY_SHAMAN_CURE)                
                 && !(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SAFEGUARD)
                 && !(gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN))
             {
@@ -11395,7 +11416,7 @@ static bool32 IsRototillerAffected(u32 battlerId)
         return FALSE;
     if (!(IsBattlerGrounded(battlerId)))
         return FALSE;   // Only grounded battlers affected
-    if (!(IS_BATTLER_OF_TYPE(battlerId, TYPE_GRASS)))
+    if (!(DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_GRASS)))
         return FALSE;   // Only grass types affected
     if (gStatuses3[battlerId] & STATUS3_SEMI_INVULNERABLE)
         return FALSE;   // Rototiller doesn't affected semi-invulnerable battlers
@@ -11617,7 +11638,7 @@ static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
 
 u32 IsFlowerVeilProtected(u32 battler) //prvent stat drop & status change for user & ally
 {
-    if (IS_BATTLER_OF_TYPE(battler, TYPE_GRASS) || GetBattlerAbility(battler) == ABILITY_FLOWER_VEIL)
+    if (DoesBattlerGetTypeBasedAffinity(battler, TYPE_GRASS) || GetBattlerAbility(battler) == ABILITY_FLOWER_VEIL)
         return IsAbilityOnSide(battler, ABILITY_FLOWER_VEIL); //will return true or false, based on if ability present
     else
         return 0;
@@ -15518,15 +15539,15 @@ static void atk96_weatherdamage(void)
     {
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
         {
-            if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ROCK)
-             && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_STEEL)
-             && !IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GROUND)
+            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ROCK)
+             && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_STEEL)
+             && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GROUND)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_RUSH
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_VEIL
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SAND_FORCE
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_WIND_RIDER  //buff for wind rider, as sandstorm is wind move
-             && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+             && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
                 gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
                 if (gBattleMoveDamage == 0)
@@ -15539,13 +15560,13 @@ static void atk96_weatherdamage(void)
         }
         if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL))
         {
-            if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_ICE) //add ice weather abilities
+            if (!DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ICE) //add ice weather abilities
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_OVERCOAT
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_SNOW_CLOAK
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ICE_BODY
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_ABSOLUTE_ZERO
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_GLACIAL_ICE
-             && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+             && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
                 gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
                 if (gBattleMoveDamage == 0)
@@ -18955,6 +18976,8 @@ static void HandleScriptMegaPrimalBurst(u32 caseId, u32 battler, u32 type)
     }
 }
 
+//changes type itself based on type terrain so leave this
+//same as below
 bool32 CanCamouflage(u8 battlerId)
 {
     if (IS_BATTLER_OF_TYPE(battlerId, sTerrainToType[gBattleTerrain]))
@@ -19082,6 +19105,7 @@ static void atkEF_handleballthrow(void) //important changed
                 catchRate = gBaseStats[gBattleMons[gBattlerTarget].species].catchRate;
             if (gLastUsedItem > ITEM_MASTER_BALL) //pretty much if pokeball is one of the special balls (not poke, great, ultra, or master
             {
+                //since hard tied to type will leave net ball
                 switch (gLastUsedItem)
                 {
                 case ITEM_NET_BALL:
@@ -20333,6 +20357,11 @@ void BS_setuserstatus4(void)  //right now just usiong to set status groudned, fo
 
 }
 
+//cut and rock smash rework effect
+//since this was explicitly balanced for type effectiveness
+//will leave as is, plus gives more distinction between affinity and type itself
+//affiniity just means it has traits of a type but is not as close to said type in nature to be it
+//vsonic  by that logic is an argument for magnet pull not affecting steel affinity... hmm
 void BS_typebaseddmgboost(void)
 {
     NATIVE_ARGS();
@@ -20550,7 +20579,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
             }
                 break;*/
             case EFFECT_ACCURACY_DOWN:            
-                if ((IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GROUND) 
+                if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GROUND) 
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].type == TYPE_GROUND
                 || gBattleMoves[gCurrentMove].argument == TYPE_GROUND))
@@ -20579,7 +20608,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
                 gBattlescriptCurrInstr = cmd->nextInstr;
                 break;    
             case EFFECT_PARALYZE:
-            if ((IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_ELECTRIC) && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
+            if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_ELECTRIC) && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
             && gBattleMoves[gCurrentMove].split == SPLIT_STATUS) //for thunder wave
             {
                 gBattlescriptCurrInstr = BattleScript_NotAffected; 
