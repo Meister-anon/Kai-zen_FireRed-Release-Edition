@@ -31,6 +31,27 @@
 #define TRAINER_LINK_OPPONENT       0x800
 #define SECRET_BASE_OPPONENT        0x400 //need remove secret base stuff and help meun again, remove this after
 
+
+// Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
+//
+// For example accuracycheck is defined as:
+//
+//     .macro accuracycheck failInstr:req, move:req
+//     .byte 0x1
+//     .4byte \failInstr
+//     .2byte \move
+//     .endm
+//
+// Which corresponds to:
+//
+//     CMD_ARGS(const u8 *failInstr, u16 move);
+//
+// The arguments can be accessed as cmd->failInstr and cmd->move.
+// gBattlescriptCurrInstr = cmd->nextInstr; advances to the next instruction.
+#define CMD_ARGS(...) const struct __attribute__((packed)) { u8 opcode; RECURSIVELY(R_FOR_EACH(APPEND_SEMICOLON, __VA_ARGS__)) const u8 nextInstr[0]; } *const cmd UNUSED = (const void *)gBattlescriptCurrInstr
+#define VARIOUS_ARGS(...) CMD_ARGS(u8 battler, u8 id, ##__VA_ARGS__)
+#define NATIVE_ARGS(...) CMD_ARGS(void (*func)(void), ##__VA_ARGS__)
+
 // Used to exclude moves learned temporarily by Transform or Mimic
 #define MOVE_IS_PERMANENT(battler, moveSlot)                        \
    (!(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)           \
@@ -928,8 +949,34 @@ extern struct BattleStruct *gBattleStruct;
 #define IS_MOVE_STATUS(move)(gBattleMoves[move].split == SPLIT_STATUS)
 #define BATTLER_MAX_HP(battlerId)(gBattleMons[battlerId].hp == gBattleMons[battlerId].maxHP)
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
-#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
+//#define IS_BATTLER_OF_TYPE(battlerId, type)((gBattleMons[battlerId].type1 == type || gBattleMons[battlerId].type2 == type || gBattleMons[battlerId].type3 == type))
 #define IS_SPECIES_OF_TYPE(species, type)((gBaseStats[species].type1 == type || gBaseStats[species].type2 == type))
+
+
+/* Checks if 'battlerId' is any of the types.
+ * Passing multiple types is more efficient than calling this multiple
+ * times with one type because it shares the 'GetBattlerTypes' result. */
+#define _IS_BATTLER_ANY_TYPE(battlerId, ignoreTera, ...) \
+    ({ \
+        u32 types[3]; \
+        GetBattlerTypes(battlerId, ignoreTera, types); \
+        RECURSIVELY(R_FOR_EACH(_IS_BATTLER_ANY_TYPE_HELPER, __VA_ARGS__)) FALSE; \
+    })
+
+#define _IS_BATTLER_ANY_TYPE_HELPER(type) (types[0] == type) || (types[1] == type) || (types[2] == type) ||
+
+#define IS_BATTLER_ANY_TYPE(battlerId, ...) _IS_BATTLER_ANY_TYPE(battlerId, FALSE, __VA_ARGS__)
+
+#define IS_BATTLER_OF_TYPE IS_BATTLER_ANY_TYPE
+#define IS_BATTLER_ANY_BASE_TYPE(battlerId, ...) _IS_BATTLER_ANY_TYPE(battlerId, TRUE, __VA_ARGS__)
+#define IS_BATTLER_OF_BASE_TYPE IS_BATTLER_ANY_BASE_TYPE
+
+#define IS_BATTLER_TYPELESS(battlerId) \
+    ({ \
+        u32 types[3]; \
+        GetBattlerTypes(battlerId, FALSE, types); \
+        types[0] == TYPE_MYSTERY && types[1] == TYPE_MYSTERY && types[2] == TYPE_MYSTERY; \
+    })
 
 #define SET_BATTLER_TYPE(battlerId, type)           \
 {                                                   \

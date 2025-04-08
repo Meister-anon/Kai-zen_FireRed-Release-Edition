@@ -8267,6 +8267,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     }, //hm so is this guaranteed both?if so its VERY good now, yup looks like it
     //put this exclusively in pre evo bug learnset not full evo
     //ex caterpie, not kakuna and butterfree
+    //vsonic
 
     [MOVE_BULLDOZE] =
     {

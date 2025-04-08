@@ -1546,6 +1546,49 @@ static bool32 IsBelchPreventingMove(u32 battler, u32 move)
     return !(gBattleStruct->ateBerry[battler & BIT_SIDE] & gBitTable[gBattlerPartyIndexes[battler]]);
 }
 
+//added use for is_battler_any_type macro
+//see if can use to expand affinity check
+//if not guess could just make macro to check affinity... vsonic
+//vsonic important test later, believe compiler should work but just incompatible with agbcc
+//when get modern working test and run as so, luigi pretty much confirmed thats the issue
+void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3])
+{
+    // Terastallization.
+    /*bool32 isTera = GetActiveGimmick(battler) == GIMMICK_TERA;
+    if (!ignoreTera && isTera)
+    {
+        u32 teraType = GetBattlerTeraType(battler);
+        if (teraType != TYPE_STELLAR)
+        {
+            types[0] = types[1] = types[2] = teraType;
+            return;
+        }
+    }*/
+
+    types[0] = gBattleMons[battler].type1;
+    types[1] = gBattleMons[battler].type2;
+    types[2] = gBattleMons[battler].type3;
+
+    // Roost.
+    /*if (!isTera && gDisableStructs[battler].roostActive)
+    {
+        if (types[0] == TYPE_FLYING && types[1] == TYPE_FLYING)
+            types[0] = types[1] = B_ROOST_PURE_FLYING >= GEN_5 ? TYPE_NORMAL : TYPE_MYSTERY;
+        else if (types[0] == TYPE_FLYING)
+            types[0] = TYPE_MYSTERY;
+        else if (types[1] == TYPE_FLYING)
+            types[1] = TYPE_MYSTERY;
+    }//*/
+}
+
+u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera)
+{
+    u32 types[3];
+    GetBattlerTypes(battler, ignoreTera, types);
+    return types[typeIndex];
+}
+
+
 //since doesn't change type effectiveness may not need status line, non status moves should still fail?
 //typecalc irnoically breaks so need put in typecalc function, and because of that need keep status line
 //double check, unsure if poisoned legacy needs the line, but it seems to work regardless?
