@@ -11311,20 +11311,36 @@ u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability) // use for intimidate on
     return IsAbilityOnSide(BATTLE_OPPOSITE(battlerId), ability);
 }
 
-u32 IsTypeOnField(u32 battlerId, u32 type)
+u32 IsTypeOnField(u32 battlerId, u8 type)
 {
-    
+    u8 side;
+    u8 filter = 0;
     u32 i;
 
-    for (i = 0; i < gBattlersCount; i++)
+    side = GetBattlerSide(battlerId);
+    for (i = 0; i < gBattlersCount; ++i)
     {
-        if (i != battlerId && IsBattlerAlive(i) && DoesBattlerGetTypeBasedAffinity(i, type))
-            return i + 1;
+        if (IsBattlerAlive(i) && GetBattlerSide(i) != side && DoesBattlerGetTypeBasedAffinity(i, type))
+        {
+            filter = i + 1;
+            break;
+        }
+    }
+    if (!filter)
+    {
+        for (i = 0; i < gBattlersCount; ++i)
+        {
+            if (IsBattlerAlive(i) && DoesBattlerGetTypeBasedAffinity(i, type) && GetBattlerSide(i) == side && i != battlerId)
+            {
+                filter = i + 1;
+            }
+        }
     }
 
-    return 0;
-}//think changeo gactivebattler to attacker
-//or may add battler id to this, think that's what emerald does
+    return filter;
+}//ok seems to work no idea why had to go through so much revision 
+//fix taken from abilitybattleeffects condition case
+//ABILITYEFFECT_CHECK_FIELD_EXCEPT_BATTLER
 
 //can be used as true false, but also can be used to return battler with ability in question
 //todo that use battler = function - 1;  as seen with damp in abilitybattleeffects
@@ -11411,8 +11427,10 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u8 typeFactor)
         }//toadstool nymph is just to give stab on fairy moves
         break;
         default:
-        if (IS_BATTLER_OF_TYPE(battler, typeFactor))
-            return TRUE;
+        {
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor))
+                return TRUE;
+        }
 
     }
 
