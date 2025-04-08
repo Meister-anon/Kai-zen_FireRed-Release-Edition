@@ -1571,7 +1571,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = -6,
         .flags = 0,
         .split = SPLIT_STATUS,
-    }, //update effect work same in wilds, but for trainer battles is a switch out
+    }, //fully updated to modern effect
 
     [MOVE_NIGHT_SHADE] =
     {
