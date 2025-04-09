@@ -10539,7 +10539,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-    },
+    },//has a function for doesn't need to do in bs, meaning this can just go to hit
+    //ok adjusted now goes to hit, should still adjust split
 
     [MOVE_ZIPPY_ZAP] =
     {

@@ -1687,8 +1687,8 @@ MOVE_SAFEGUARD,
 MOVE_FRUSTRATION,
 MOVE_IRON_TAIL,
 MOVE_RETURN,
-MOVE_PSYCHIC,
-MOVE_SHADOW_BALL,
+//MOVE_PSYCHIC,
+//MOVE_SHADOW_BALL,
 MOVE_DOUBLE_TEAM,
 MOVE_REFLECT,
 MOVE_SHOCK_WAVE,
@@ -1703,6 +1703,8 @@ MOVE_SNATCH,
 MOVE_FLASH,
     TMHM_LEARNSET_END
 };
+//remove most of the big dmg moves since buffed hp
+//as trade off for abra
 
 static const u16 sKadabraTMHMLearnset[] = {
 MOVE_FOCUS_PUNCH,
