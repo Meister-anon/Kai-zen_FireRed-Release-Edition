@@ -7547,7 +7547,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattleScripting.battler = gBattlerTarget; // For STRINGID_PKMNTRANSFORMED
                 gBattlescriptCurrInstr = BattleScript_IceFaceNullsDamage;
                 effect = 1;
-            }
+            }//bulbapedia may say differently but decided for this whetherthe move is originally special matters less than what dmg type it deals, this is meant to block physical dmg so it should
             }
             break;//end of move block
         }
@@ -10472,8 +10472,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 if (IsBattlerAlive(battlerId)
                     && TARGET_TURN_DAMAGED
                     && !DoesSubstituteBlockMove(gBattlerAttacker, battlerId, gCurrentMove)
-                    && IsPhysicalMove(gBattlerAttacker,gCurrentMove)
-                    && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
+                    && GetBattleMoveDamageCategory(gBattlerAttacker,gCurrentMove) == SPLIT_PHYSICAL
+                    && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)//used above instead of physical check since figured its based on what move actually is, not the damage it inlicts ex pystrike wouldn't trigger
                 {
                     gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
                     if (gBattleMoveDamage == 0)
@@ -10494,7 +10494,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     && TARGET_TURN_DAMAGED
                     && !DoesSubstituteBlockMove(gBattlerAttacker, battlerId, gCurrentMove)
                     //&& IS_MOVE_SPECIAL(gCurrentMove)
-                    && (!IsPhysicalMove(gBattlerAttacker,gCurrentMove) && GetBattleMoveSplit(gCurrentMove) != SPLIT_STATUS)
+                    && (GetBattleMoveDamageCategory(gBattlerAttacker,gCurrentMove) == SPLIT_SPECIAL)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                 {
                     gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
@@ -10990,15 +10990,17 @@ bool8 IsMoveMakingContact(u16 move, u8 battlerAtk)
 
     if (!(gBattleMoves[move].flags & FLAG_MAKES_CONTACT))
     {
-        if (gBattleMoves[move].effect == EFFECT_SHELL_SIDE_ARM && gBattleStruct->swapDamageCategory)
+        if (gBattleMoves[move].effect == EFFECT_SHELL_SIDE_ARM && GetBattleMoveDamageCategory(battlerAtk, move) == SPLIT_PHYSICAL)
             return TRUE;
         else if (GetBattlerAbility(battlerAtk) == ABILITY_MUSCLE_MAGIC)
             return TRUE;
-        else
-            return FALSE;
+        //else
+        //    return FALSE;
     }
     else if (atkHoldEffect == HOLD_EFFECT_PROTECTIVE_PADS
-           || GetBattlerAbility(battlerAtk) == ABILITY_LONG_REACH)
+           || GetBattlerAbility(battlerAtk) == ABILITY_LONG_REACH
+           //|| (atkHoldEffect == HOLD_EFFECT_PUNCHING_GLOVE && gBattleMoves[move].flags & FLAG_IRON_FIST_BOOST)
+           )
     {
         return FALSE;
     }
@@ -12555,6 +12557,61 @@ bool32 DoBattlersShareType(u32 battler1, u32 battler2)
 
     return FALSE;
 }
+
+//finish adjusting isphysicalmoove for below func as necessary
+//review alreaady replaced as well
+//than think rename isphysicalmove function
+
+//think can put shell side arm here as well?
+// Photon Geyser, Light That Burns the Sky, Tera Blast, now also hidden power
+//my version is to do everything through damage function rather than
+//through battle script
+u32 GetBattleMoveDamageCategory(u32 battler, u16 move)
+{
+    u32 attack = gBattleMons[battler].attack;
+    u32 spAttack = gBattleMons[battler].spAttack;
+    u32 statBasedSplit;
+
+    attack = attack * gStatStageRatios[gBattleMons[battler].statStages[STAT_ATK]][0];
+    attack = attack / gStatStageRatios[gBattleMons[battler].statStages[STAT_ATK]][1];
+
+    spAttack = spAttack * gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][0];
+    spAttack = spAttack / gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][1];
+
+    if (spAttack >= attack && GetBattlerAbility(battler) != ABILITY_MUSCLE_MAGIC)
+        statBasedSplit = SPLIT_SPECIAL;
+    else
+        statBasedSplit = SPLIT_PHYSICAL;
+
+    switch (gBattleMoves[move].effect)
+    {
+    /*case EFFECT_TERA_BLAST:
+        if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA)
+            gBattleStruct->swapDamageCategory = (statBasedSplit != GetBattleMoveSplit(move));
+        break;
+    case EFFECT_TERA_STARSTORM:
+        if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA && gBattleMons[gBattlerAttacker].species == SPECIES_TERAPAGOS_STELLAR)
+            gBattleStruct->swapDamageCategory = (statBasedSplit != GetBattleMoveSplit(move));
+        break;*/
+    case EFFECT_PHOTON_GEYSER:
+    //case EFFECT_TERA_BLAST:
+    case EFFECT_HIDDEN_POWER:
+    case EFFECT_TRI_ATTACK:
+        gBattleStruct->swapDamageCategory = (statBasedSplit != GetBattleMoveSplit(move));
+        break;
+    }
+
+    if (gBattleStruct->swapDamageCategory)
+    {
+        return statBasedSplit;
+    }
+    else
+        return GetBattleMoveSplit(move);
+}//compare calc damage
+//trying separate what what defense stat it hits
+//vs what offense stat it uses,
+//use this for offense,
+//use isphysicalmove for defense
 
 u32 GetBattleMoveSplit(u32 moveId)
 {

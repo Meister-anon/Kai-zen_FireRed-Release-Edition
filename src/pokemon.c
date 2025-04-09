@@ -4454,19 +4454,44 @@ bool8 CanEvioliteActivate(u8 target)
 
 //put in calc function as terniary condition to set usesdefstat at start
 //thought about adding and not split status to muscle magic, but it doesn't matter
+//in damagecalc this is now just used for what defense stat its run against
+//if I need the offense stat of a move
+//than I should instead use GetBattleMoveDamageCategory now
 bool8 IsPhysicalMove(u32 attackerId, u16 move)
 {
     if (gBattleMoves[move].effect == EFFECT_PSYSHOCK 
-    || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC 
-    || IS_MOVE_PHYSICAL(move)
-    || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack < gBattleMons[attackerId].spAttack)
+    || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC     
+    || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack > gBattleMons[attackerId].spAttack)
     || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack == gBattleMons[attackerId].spAttack
-    &&  gBattleMons[gBattlerTarget].defense < gBattleMons[gBattlerTarget].spDefense)
-    || (move == MOVE_TRI_ATTACK && gBattleMons[attackerId].attack > gBattleMons[attackerId].spAttack))
+    &&  gBattleMons[gBattlerTarget].defense < gBattleMons[gBattlerTarget].spDefense) //works cuz hp is single target
+    || (move == MOVE_TRI_ATTACK && gBattleMons[attackerId].attack > gBattleMons[attackerId].spAttack)
+    || IS_MOVE_PHYSICAL(move))
         return TRUE;
 
     return FALSE;
 }
+
+//figure out how to do for ai, check EE
+void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCategory, s32 damage)
+{
+
+    u32 sideStatus = gSideStatuses[GetBattlerSide(battlerDef)];
+    bool32 lightScreen = (sideStatus & SIDE_STATUS_LIGHTSCREEN) && DamageCategory == SPLIT_SPECIAL;
+    bool32 reflect = (sideStatus & SIDE_STATUS_REFLECT) && DamageCategory == SPLIT_PHYSICAL;
+    bool32 auroraVeil = sideStatus & SIDE_STATUS_AURORA_VEIL;
+
+    //thinkm will remove the confusion exclusion, as idea is screen is put
+    //between attacker and target its not something on the mon itself
+    //so it wouldn't block me punching myself in the face
+    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR/* || gProtectStructs[battlerAtk].confusionSelfDmg*/)
+        return; //think should be fine would just mean do nothing to damage
+
+    if (reflect || lightScreen || auroraVeil)
+        damage /= 2;
+
+    
+}
+
 
 #define APPLY_STAT_MOD(var, mon, stat, statIndex)                                   \
 {                                                                                   \
@@ -4517,6 +4542,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u32 typeEffectiveness;
     u32 attackerhighestStat = GetHighestStatId(battlerIdAtk);
     u32 defenderhighestStat = GetHighestStatId(battlerIdDef);
+    u8 MoveDamageCategory = GetBattleMoveDamageCategory(battlerIdAtk, move); //sets offensive stat for move to use stored value is move split id
+    u8 StatMod_Stat; //offense stat that is used in stat mod for dmg calc
+    //offense stat that should be used based on above movedamagecategory
+    u32 Offensive_Stat;
 
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
@@ -4535,6 +4564,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     spAttack = attacker->spAttack;
     spDefense = defender->spDefense;
     speed = attacker->speed;
+
+    
 
     if (usesDefStat)
     {
@@ -4591,11 +4622,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
          //eh its fine as is, rn just means if their offense is greater
         //attempt tweak, so doesn't just go off all the time
-        if (usesDefStat && h > 0)
-            OffensiveModifer(130);
-
-        if (!usesDefStat && j > 0)
-            OffensiveModifer(130);
+        
 
         //I hesitate on that beause in that case, the boost would always be active,
         //unless facing much lower level pokemon.   will need balance test
@@ -4611,6 +4638,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             | ((gBattleMons[battlerIdAtk].spDefenseIV & 2) << 4);
         
         gBattleMovePower = (35 * powerBits) / 63 + 45;
+
+
+        //think should be ok, should be
+        //phsyical and attack less than target boost power
+        //or special and special lower than target
+        //keep an eye on for balance, can't remember 
+        //what the max power is post buff
+        if (usesDefStat && h > 0)
+            gBattleMovePower = (gBattleMovePower * 130) / 100;
+
+        if (!usesDefStat && j > 0)
+            gBattleMovePower = (gBattleMovePower * 130) / 100;
+        
 
         //change to set power here just like weather ball
         ////if (j > 0 && usesDefStat == FALSE)
@@ -5657,29 +5697,59 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //how does this work, do I need to move it, or does it auto boost all damage?
                                         //it boosts all because its not in physical or special formula 
 
+
+    if (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE && gStatuses3[battlerIdDef] & STATUS3_MINIMIZED)
+        OffensiveModifer(200);
+    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
+        OffensiveModifer(200);
+    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
+        OffensiveModifer(200);
+    if (gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
+        OffensiveModifer(200);
+    
+    //to make sure take in all effects realize need to put at end 
+    //of all stat changes
+    if (MoveDamageCategory == SPLIT_PHYSICAL)
+    {   
+        StatMod_Stat = STAT_ATK;
+        Offensive_Stat = attack;
+    }
+    else
+    {
+        StatMod_Stat = STAT_SPATK;
+        Offensive_Stat = spAttack;
+    }
+    
+    
     //physical specific effects
     // critical hits ignore attack stat's stage drops
+    //ok this is wrong, its still using the base from physical move
+    //I didn't change it to use the stat from the split
+    //well it uses split but it can't account for moves
+    //like pysshock which should be using the special offense stat
+    //but hit defenses rn it only treats it as fully physical
+    //so its using attack stat dispite being special
     if (usesDefStat)//IS_MOVE_PHYSICAL(move))  //forgot black fog stops crits
     {
         if (IS_CRIT)
         {
-            if (attacker->statStages[STAT_ATK] > 6)
-                APPLY_STAT_MOD(damage, attacker, attack, STAT_ATK)
+            if (attacker->statStages[StatMod_Stat] > 6)
+                APPLY_STAT_MOD(damage, attacker, Offensive_Stat, StatMod_Stat)
             else
-                damage = attack;
+                damage = Offensive_Stat;
         }
         else if (IsBlackFogNotOnField()) //is this right, for what I had in mind?
-            APPLY_STAT_MOD(damage, attacker, attack, STAT_ATK)
+            APPLY_STAT_MOD(damage, attacker, Offensive_Stat, StatMod_Stat)
         else 
-            damage = attack; //if black fog all stat changes & external effects irrelevant
+            damage = Offensive_Stat; //if black fog all stat changes & external effects irrelevant
 
         if (GetBattlerAbility(battlerIdAtk) == ABILITY_UNAWARE)
         {
-            damage = attack;
+            damage = Offensive_Stat;
         }            
 
         if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
-            damage = attack;
+            damage = Offensive_Stat;
 
         damage = damage * gBattleMovePower;
         //damage *= (2 * attacker->level / 5 + 2); //offense side of damage formula for level scaled damage  42.92
@@ -5827,17 +5897,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 damage /= 2;
         }
 
-        if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
+        ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
+
+        /*if ((sideStatus & SIDE_STATUS_REFLECT) && !IS_CRIT
             && GetBattlerAbility(battlerIdAtk) != ABILITY_INFILTRATOR
             && !gProtectStructs[battlerIdAtk].confusionSelfDmg
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
             && IsBlackFogNotOnField())
         {
-            if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
+            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
                // damage = 2 * (damage / 3); //believe what's happening here is it lowers the effectiveness of reflect for doubles 
            // else //to balance the decreased amount of damage double damaging moves do.
-                damage /= 2;
+            //    damage /= 2;
         }
+        */
 
         //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2) // this is spread move cut
         //    damage /= 1; //target 0x8 is target both    
@@ -5870,15 +5943,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //removed for normalize buff to work
 
     
-
-    if (gBattleMoves[move].flags & FLAG_DMG_MINIMIZE && gStatuses3[battlerIdDef] & STATUS3_MINIMIZED)
-        OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[battlerIdDef] & STATUS3_UNDERGROUND)
-        OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[battlerIdDef] & STATUS3_UNDERWATER)
-        OffensiveModifer(200);
-    if (gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR && gStatuses3[battlerIdDef] & STATUS3_ON_AIR)
-        OffensiveModifer(200);
+    
     //port from emerald simplify battlescript don't need jumps and damage bytes in the script
     //with realization about weather effects think this may not be working here, and instead may 
     //need to put directly into damage calc?
@@ -5889,21 +5954,21 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         // critical hits ignore attack stat's stage drops
         if (IS_CRIT)
         {
-            if (attacker->statStages[STAT_SPATK] > 6)
-                APPLY_STAT_MOD(damage, attacker, spAttack, STAT_SPATK)
+            if (attacker->statStages[StatMod_Stat] > 6)
+                APPLY_STAT_MOD(damage, attacker, Offensive_Stat, StatMod_Stat)
             else
-                damage = spAttack;
+                damage = Offensive_Stat;
         }
         else if (IsBlackFogNotOnField())
-            APPLY_STAT_MOD(damage, attacker, spAttack, STAT_SPATK)
+            APPLY_STAT_MOD(damage, attacker, Offensive_Stat, StatMod_Stat)
         else
-            damage = spAttack;
+            damage = Offensive_Stat;
 
         if (GetBattlerAbility(battlerIdAtk) == ABILITY_UNAWARE)
-            damage = spAttack;
+            damage = Offensive_Stat;
 
         if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
-            damage = spAttack;
+            damage = Offensive_Stat;
 
         damage = damage * gBattleMovePower;
         //testing w level 5 rattata and tackle
@@ -6019,17 +6084,21 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //to keep defenses the same would need make damage divider 30... wow
 
         //other damage factors
+        //ok need to turn this into a function that uses reflect or lightscreen
+        //based on attacking category as psyshock hits defense but uses special to calc the drop
 
-            if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
+        ApplyScreenModifier(battlerIdAtk, battlerIdDef, move, MoveDamageCategory, damage);
+
+        /*    if ((sideStatus & SIDE_STATUS_LIGHTSCREEN) && !IS_CRIT
             && GetBattlerAbility(battlerIdAtk) != ABILITY_INFILTRATOR
             && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
             && IsBlackFogNotOnField())
         {
-            if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
-                /*damage = 2 * (damage / 3);    //looks strange, but screens blocked less damage instead of more for doubles, 
-            else*/          //because there was already logic that cut dmg for moves that hit multiple targets
+            //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
+            //    damage = 2 * (damage / 3);    //looks strange, but screens blocked less damage instead of more for doubles, 
+            //else         //because there was already logic that cut dmg for moves that hit multiple targets
                 damage /= 2;
-        }
+        }*/
 
         //if ((attacker->status1 & STATUS1_SPIRIT_LOCK) && IsBlackFogNotOnField()) //function that gives spirit_lock special atk cut
         //    damage /= 2;

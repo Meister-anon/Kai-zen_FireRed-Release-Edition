@@ -3930,6 +3930,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     its fine just add more abilities to affinity list and where ability would have
     unique affect just list that ability alone
 
+    //ok with abra realized hidden power doesn't work
+    for mon who's offensive stats are vastly different using lowest stat
+    even w the boost would just make it completely useless
+
+    so turn into psyshock instead, it'll use highest stat for dmg
+    but hit the enemies opposite defense stat
+    that'll make it much better and keep the main idea
+    think I get rid of the boost and just leave it as that
+
+    keeping an eye on , for now leaving the buff in,
+    as should be less likely to get, rn it'll only trigger on using a 
+    weaker mon against a mon stronger in the same specialty which 
+    is pretty much what I wanted
     can't track trap moves so fuck it just get rid of switch/faint removal
     also need update binding band effect since won't be able to properly track 
     what's set what.

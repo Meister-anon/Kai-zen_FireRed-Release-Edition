@@ -7510,7 +7510,7 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     }
     else if (GetBattlerAbility(battlerId) == ABILITY_LONG_REACH
         && !IsMoveMakingContact(move, battlerId)
-        && IsPhysicalMove(battlerId, move))
+        && GetBattleMoveDamageCategory(battlerId, move) == SPLIT_PHYSICAL)
     {
         gProtectStructs[battlerId].LongReachElevated = TRUE;
         priority++;

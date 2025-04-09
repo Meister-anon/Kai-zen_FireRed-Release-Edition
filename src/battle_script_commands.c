@@ -3815,7 +3815,8 @@ static void atk0C_datahpupdate(void)
                     }
                     if (!gSpecialStatuses[gActiveBattler].dmg && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE))
                         gSpecialStatuses[gActiveBattler].dmg = gHpDealt;
-                    if (IsPhysicalMove(gBattlerAttacker,gCurrentMove) //vsonic check, hopefully right
+                    
+                    if ((GetBattleMoveDamageCategory(gBattlerAttacker,gCurrentMove) == SPLIT_PHYSICAL) //vsonic check, hopefully right
                         && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE) && gCurrentMove != MOVE_PAIN_SPLIT)
                     {
                         gProtectStructs[gActiveBattler].physicalDmg = gHpDealt;
@@ -3832,7 +3833,7 @@ static void atk0C_datahpupdate(void)
                             gSpecialStatuses[gActiveBattler].physicalBattlerId = gBattlerTarget;
                         }
                     }
-                    else if (!IsPhysicalMove(gBattlerAttacker,gCurrentMove) && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE)) //changed from special to not phsyical to account for status moves
+                    else if ((GetBattleMoveDamageCategory(gBattlerAttacker,gCurrentMove) == SPLIT_SPECIAL) && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE)) //changed from special to not phsyical to account for status moves
                     {   //keep that's how it is in emerald
                         gProtectStructs[gActiveBattler].specialDmg = gHpDealt;
                         gSpecialStatuses[gActiveBattler].specialDmg = gHpDealt;
@@ -9968,7 +9969,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             calc = (calc * 80) / 100; // 1.2 sand veil loss
         if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
             calc = (calc * 80) / 100; //
-        if (atkAbility == ABILITY_HUSTLE && IsPhysicalMove(gBattlerAttacker,move)) //can put status based evasion/accuracy effects here
+        if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(gBattlerAttacker,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
 
         
