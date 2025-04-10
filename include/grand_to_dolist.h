@@ -3815,8 +3815,33 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     following that small mechanci changes then figure how to setup
     pokedex callback to work from pc use poke storage changes for trade
     (showboxmon) as template for new works
+
+    in mon view in box, 
+    for blank space display ability of mon maybe nature too
+    plan setup box pc access for move tutor
+    can display Able not able on mon hover over in blank space instead
+    to see if mon can learn tutor move
+
+    ok idea for expanding trainer school, have test with new knowledge instead of
+    the basic old stuff
+    for passing test or maybe split into 2 tests
+    anyway for passing test/final test give extra reward
+    as well as an key item that should go over details of
+    main changed mechanics, i.e flying bug dark type based mechanics
+    how statusing can turn off type absorb abilities
+    etc. the new addition of J.O.A.T
+    4/9/2025
+
     rebalanced latios/latias ability spectre
     changed 3 dogs
+
+    //need change roamers to do a set at once together,
+    and decouple roaming dogs from starter selection    
+
+    would want it to be announced via tv
+    think start BEFORE elite four, I guess when you get access to sevii islands would be good
+    that's when region really opens up, and gives reason to back track a bit.
+
 
     double check multi hit see if it auto ends on  miss if so change
     want to continue attempting to attack until  rolled his ends,
@@ -3945,6 +3970,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     as should be less likely to get, rn it'll only trigger on using a 
     weaker mon against a mon stronger in the same specialty which 
     is pretty much what I wanted
+
+    **In_progress -noti imortant bigchange, do after delete relearn and box access to pokedex callback
     can't track trap moves so fuck it just get rid of switch/faint removal
     also need update binding band effect since won't be able to properly track 
     what's set what.

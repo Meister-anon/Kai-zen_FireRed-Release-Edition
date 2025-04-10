@@ -755,6 +755,10 @@ u32 CanBoxMonGainExp(struct BoxPokemon *mon, u16 species) //lvl cap works - didn
     else
         return FALSE;
 }
+//ok don't have box exp locked at each badge,
+//I isntead have the exp gain at a rate that as tested,
+//should keep pace with normal progression
+//the rates are shifted based on level
 
 void LoadBoxSelectionPopupSpriteGfx(struct ChooseBoxMenu *a0, u16 tileTag, u16 palTag, u8 a3, bool32 loadPal)
 {

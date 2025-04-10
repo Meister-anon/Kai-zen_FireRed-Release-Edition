@@ -11296,9 +11296,12 @@ u8 GetAbilityTimer(u16 ability)
         case ABILITY_WONDER_GUARD:
             return 4; //might use 5
         break;
+        /*
         case ABILITY_SPECTRE:
             return 2;
-        break;
+        break;*/ //causes memory corruption to rear its head, I give up
+        //I'm gonna just swap to modern fix everything as it builds and pray to GOD 
+        //I find the damned source of the issue
 
     }
 }
