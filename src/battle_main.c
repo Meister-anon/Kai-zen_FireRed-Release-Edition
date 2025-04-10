@@ -5080,7 +5080,7 @@ static void HandleEndTurn_ContinueBattle(void)
                 CancelMultiTurnMoves(i);
 
             //...ok so think what this actually does is make it so no mon on the side can use this ability at all? or is it anymon?    
-            for (j = 0; j < PARTY_SIZE; ++j) //ok actually have to use party size i.e loop 6 for this to properly track no idea why it works but it works
+            for (j = 0; j < gBattlersCount; ++j) //w battle party index i just need battler not party id and it'll track properly for everyting else
             {
                 //&gEnemyParty[gBattlerPartyIndexes[gActiveBattler]]
                 if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[j]][GetBattlerSide(i)] == TRUE 

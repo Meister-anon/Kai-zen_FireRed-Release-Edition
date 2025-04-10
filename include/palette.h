@@ -8,7 +8,8 @@
 #define gPaletteFade_delay            (gPaletteFade.multipurpose2) // normal and hardware fade
 #define gPaletteFade_submode          (gPaletteFade.multipurpose2) // fast fade
 
-#define PLTT_BUFFER_SIZE 0x200
+#define PLTT_BUFFER_SIZE (PLTT_SIZE / sizeof(u16))
+//#define PLTT_BUFFER_SIZE 0x200
 #define PLTT_DECOMP_BUFFER_SIZE (PLTT_BUFFER_SIZE * 2)
 
 #define PALETTE_FADE_STATUS_DELAY 2
@@ -58,8 +59,9 @@ struct PaletteFadeControl
 
 extern struct PaletteFadeControl gPaletteFade;
 extern u32 gPlttBufferTransferPending;
-extern u16 gPlttBufferUnfaded[PLTT_BUFFER_SIZE];
-extern u16 gPlttBufferFaded[PLTT_BUFFER_SIZE];
+extern u16 ALIGNED(4) gPlttBufferUnfaded[PLTT_BUFFER_SIZE];
+extern u16 ALIGNED(4) gPlttBufferFaded[PLTT_BUFFER_SIZE];
+
 
 void LoadCompressedPalette(const u32 *src, u16 offset, u16 size);
 void LoadPalette(const void *src, u16 offset, u16 size);

@@ -1261,7 +1261,7 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
                 {
                     gSprites[ballIconSpritesIds[5 - i]].oam.tileNum += 3;
                 }
-                else if (partyInfo[i].status != 0) // mon with major status
+                else if (partyInfo[i].status != STATUS1_NONE) // mon with major status
                 {
                     do
                     {
