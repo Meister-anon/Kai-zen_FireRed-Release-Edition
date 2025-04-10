@@ -4667,7 +4667,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_LUSTER_PURGE] =
     {
         .effect = EFFECT_SPECIAL_DEFENSE_DOWN_HIT,
-        .power = 70,
+        .power = 95, //gen 9 power upgrade
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 5,
@@ -4681,8 +4681,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MIST_BALL] =
     {
         .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
-        .power = 70,
-        .type = TYPE_PSYCHIC,
+        .power = 95,
+        .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 5,
         .secondaryEffectChance = 50,
@@ -4690,7 +4690,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-    },
+    },//somehow always thought this was a fairy move but it was psychic
 
     [MOVE_FEATHER_DANCE] =
     {

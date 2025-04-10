@@ -6987,9 +6987,9 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(90, 85, 75, 115, 115, 100),
-        MON_TYPES(TYPE_ELECTRIC, TYPE_ELECTRIC),
-        .catchRate = 3,
-        .expYield = 261,
+        MON_TYPES(TYPE_ELECTRIC, TYPE_FLYING), //its apparently able to fly too lol thanks pokemon ranger lmao
+        .catchRate = 3, //add thing about flying to raikou dex entry race across continents
+        .expYield = 261, //by land or on backs of clouds something idk
         //.evYield_Speed = 2,
         //.evYield_SpAttack = 1,
         .genderRatio = MON_GENDERLESS,
@@ -6998,8 +6998,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_OVERCHARGE, ABILITY_GALVANIZE},
-        .abilityHidden = {ABILITY_VOLT_ABSORB, ABILITY_ELECTRIC_SURGE},
+        .abilities = {ABILITY_VOLT_ABSORB, ABILITY_GALVANIZE},
+        .abilityHidden = {ABILITY_WIND_RIDER, ABILITY_ELECTRIC_SURGE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -7016,6 +7016,34 @@ const struct BaseStats gBaseStats[] =
     //do same for flash fire motor drive & sap sipper
     //counter balance by making it only work for partner if mon with ability isn't statused
     //vsonic -did
+    //OK so changed type for each of other dogs...
+    //what if...it has a cape of clouds what if I made this a flying type...
+    //and what if I gave it wind rider
+
+    //ok wind rider is VERY cool and would give a completely different niche
+    //...btu all its other abilities are too good to drop, 
+    //all I can think of is volt absorb, but that's now a lightning-rod like
+
+    //maybe drop overcharge but it turns into a sweeper with that..
+    //galvanize gives it stab extreme speed giga impact and hyper beam
+    //volt absorb is free staying power and major suppport 
+    //electric surge is a massive power boost and also great support
+    //as blocks sleep
+
+    //I just want wind rider because its thematic w flying type addition
+    //wind rider would just give an attack boost,
+    //but with updated effect it would let it run on sand teams,
+    //and be able to get the boost with tailwind
+
+    //it just offers a unique really interesting way to play and hell
+    //with flying type if given an air balloon it gets the evasion boost
+    //and sandstorm boost without losing accuracy thanks to wind rider
+
+    //its SO intrersting fuck it I think I'll drop over charge
+    //and move volt absorb to main slot
+    //"Raikou is able to fly by creating storm clouds"  HUHHH!! IT WAS MEANT TO BE!!
+    //perfect and it suits most of my flying logic,
+    //that mon can fly but not be floating becuase its not able to do so swiftly/readily.
    
 
     [SPECIES_ENTEI] =
@@ -7024,7 +7052,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(115, 115, 85, 100, 90, 75),
-        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
+        MON_TYPES(TYPE_FIRE, TYPE_PSYCHIC), //psychic as in the movie can talk, and created from psychic power
         .catchRate = 3,
         .expYield = 261,
         //.evYield_HP = 1,
@@ -7559,7 +7587,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_PICKUP, ABILITY_GLUTTONY},
-        .abilityHidden = {ABILITY_QUICK_FEET, ABILITY_SPEED_BOOST}, //Whim
+        .abilityHidden = {ABILITY_QUICK_FEET, ABILITY_UNBURDEN}, //Whim think change run away keep for evo nah better idea
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -10881,7 +10909,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(80, 80, 90, 110, 110, 130),
-        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_DRAGON, TYPE_FAIRY), //intersting this change makes it the only dragon/fairy in existence
         .catchRate = 3,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -10903,6 +10931,19 @@ const struct BaseStats gBaseStats[] =
     },//delve into their ability to turn invisible
     //start battle with +1 evasion so they are just harder to hit without needing a setup
     //red spector blue spector?Spectre  or spectrum blend?  that works, just make it a switch in ability that would increase evasiveness, so they can effectively start boosted +1 potentially +2
+    //...I kinda wanna make this dragon fairy, for its mist ball signature move
+    //if latias doesn't talk in the movie maybe I would, since part of my idea for psychic type
+    //is if the thing can "talk" speak into your mind
+    //hmm maybe I can do that to sure up Entei?
+    //psychic is solid as a defensive type now, and would make it quad resist fairy
+    //could also give it psychic fangs...fuck it we ball?
+    //ok latias is known to have strange unique skills
+    //power of illusions so that's enough for me to call it fairy
+    //plus it could use buff as seen as bad/worse latios
+    //now it'll still lose the matchup against latios, 
+    //but latias has its own niche and is much better/more distinct
+    //ok even more convinced going fairy was the right choice,
+    //latias gets several fairy moves while latios doesn't
 
     [SPECIES_LATIOS] =
     {
@@ -10930,6 +10971,10 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //rebalance spectre evasion not fun, setup like zacian zamazenta abilities
+    //base game version not my version, where it'll be only once per battle
+    //think will do slowstart wonderguard style, give a timer so even if you stay in
+    //the effect will where off
 
     [SPECIES_KYOGRE] =
     {
@@ -36481,7 +36526,7 @@ const struct BaseStats gBaseStats[] =
         */
         .levelUpLearnset = sRagingBoltLevelUpLearnset,
         //.teachableLearnset = sRagingBoltTeachableLearnset,
-    },  //alt entei/rakou 100%  not using
+    },  //alt entei/rakou 100%  not using, actually I like the raikou one now..
 //#endif //P_FAMILY_RAGING_BOLT
 
 //#if p_fAMILY_IRON_BOULDER
@@ -38240,7 +38285,7 @@ const struct BaseStats gBaseStats[] =
         120,
         140
         ),
-        MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
+        MON_TYPES(TYPE_DRAGON, TYPE_FAIRY),
         .catchRate = 3,
         .expYield = 315,
         //.evYield_SpDefense = 3,
@@ -38261,6 +38306,7 @@ const struct BaseStats gBaseStats[] =
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },//ok since these have different stats...need different looks, thinking something like gallantmon or imperialdraman?
     //with how the previous theme is used as the head or something like that
+    //apparently they aren't a fusion tho?
 
     //mega latios is suppoed to be bigger and faster, but speed stat is the same...
     [SPECIES_LATIOS_MEGA] =

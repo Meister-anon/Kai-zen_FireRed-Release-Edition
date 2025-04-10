@@ -6835,15 +6835,28 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
             break;
             case ABILITY_SPECTRE:
-            if (!gSpecialStatuses[battler].switchInAbilityDone)
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
-                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                    SET_STATCHANGER(STAT_EVASION, 1, FALSE);
-                    BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
-                    ++effect;
+                    if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == FALSE) //set in end turn when timer ends, not reset on faint
+                    {   
+                        gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE;    
+                        gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = GetAbilityTimer(gLastUsedAbility);
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                        SET_STATCHANGER(STAT_EVASION, 1, FALSE);
+                        BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
+                        ++effect;
+                    }
+
+                    else if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)])
+                    {
+                        gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                        SET_STATCHANGER(STAT_EVASION, 1, FALSE);
+                        BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
+                        ++effect;
+                    }
+
                 }
                 break;
-            break;
             case ABILITY_DEFEATIST:
                 if (gBattleMons[battler].hp < (gBattleMons[battler].maxHP / 2))
                 {
@@ -7397,8 +7410,19 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }
                     break;
+                case ABILITY_SPECTRE:
+                    if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)]) //if batterpartyindex for this would timer for each party member, //would use function to pull timer
+                    {
+                        if (--gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == 0) //so would need single use ability timer field, then pull relevant timer based on ability rn would only be slowstart and wonderguard)
+                        {
+                            SET_STATCHANGER(STAT_EVASION, 1, TRUE);
+                            BattleScriptExecute(BattleScript_WonderGuardEnds);
+                            ++effect;
+                        }
+                    }//may just use wonder guard script may make own script, ok yeah can keep as is
+                    break;
                 case ABILITY_TRUANT:
-                    gDisableStructs[gBattlerAttacker].truantCounter ^= 1;
+                    gDisableStructs[battler].truantCounter ^= 1;
                     break;
                 }//end of end turn abilities
 
@@ -11271,6 +11295,9 @@ u8 GetAbilityTimer(u16 ability)
         break;
         case ABILITY_WONDER_GUARD:
             return 4; //might use 5
+        break;
+        case ABILITY_SPECTRE:
+            return 2;
         break;
 
     }

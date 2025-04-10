@@ -1473,10 +1473,14 @@ const u8 gBlisseyPokedexText[] = _(
     "happiness that brings a smile to any face.");
 
 const u8 gRaikouPokedexText[] = _(
-    "Raikou embodies the speed of lightning.\n"
-    "Its roars send shock waves shuddering\n"
+    "Raikou embodies the speed of lightning,\n"
+    "and its roar the power of thunder.\n"
+    "It races across continents, by land\n"
+    "or on the backs of storm clouds.");
+
+    /*"Its roars send shock waves shuddering\n"
     "through the air and ground as if\n"
-    "lightning bolts were crashing down.");
+    "lightning bolts were crashing down.");*/
 
 const u8 gEnteiPokedexText[] = _(
     "Entei embodies the passion of magma.\n"
@@ -1488,7 +1492,7 @@ const u8 gSuicunePokedexText[] = _(
     "Suicune embodies the compassion of\n"
     "a pure spring of water. It runs across\n"
     "the land with gliding elegance. It has the\n"
-    "power to purify dirty water.");
+    "power to purify polluted water.");
 
 const u8 gLarvitarPokedexText[] = _(
     "A Larvitar is born deep under the ground.\n"
@@ -2315,10 +2319,10 @@ const u8 gRayquazaPokedexText[] = _(
     "were to fight.");
 
 const u8 gLatiasPokedexText[] = _(
-    "They make a small herd of only several\n"
-    "members. They rarely make contact with\n"
-    "people or other Pokémon. They disappear\n"
-    "if they sense enemies.");
+    "They make small herds and only rarely\n"
+    "make contact with others. It's said\n"
+    "they possess odd mystical abilities.\n"
+    "Latias disappear if they sense enemies.");
 
 const u8 gLatiosPokedexText[] = _(
     "Even in hiding, it can detect the location\n"

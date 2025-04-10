@@ -3815,6 +3815,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     following that small mechanci changes then figure how to setup
     pokedex callback to work from pc use poke storage changes for trade
     (showboxmon) as template for new works
+    rebalanced latios/latias ability spectre
+    changed 3 dogs
 
     double check multi hit see if it auto ends on  miss if so change
     want to continue attempting to attack until  rolled his ends,
