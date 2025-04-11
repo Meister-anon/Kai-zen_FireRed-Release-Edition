@@ -3915,7 +3915,7 @@ static void Task_FldEffUnk45(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        FieldEffectActiveListRemove(FLDEFF_UNK_45);
+        FieldEffectActiveListRemove(FLDEFF_PHOTO_FLASH);
         DestroyTask(taskId);
     }
 }

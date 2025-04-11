@@ -1163,11 +1163,11 @@ static void SpriteCB_FldEffPokeballTrail(struct Sprite *sprite)
     }
     else
     {
-        if (sprite->x >= 0 && sprite->x <= DISPLAY_WIDTH)
+        if (sprite->pos1.x >= 0 && sprite->pos1.x <= DISPLAY_WIDTH)
         {
             // Set Pokéball position
-            s16 posX = sprite->x >> 3;
-            s16 posY = sprite->y >> 3;
+            s16 posX = sprite->pos1.x >> 3;
+            s16 posY = sprite->pos1.y >> 3;
 
             // If Pokéball moved forward clear trail behind it
             if (posX != sprite->sPrevX)
@@ -1182,8 +1182,8 @@ static void SpriteCB_FldEffPokeballTrail(struct Sprite *sprite)
                 SET_TILE(ptr, posY + 1, posX, 1);
             }
         }
-        sprite->x += speeds[sprite->sSide];
-        if (sprite->x < -15 || sprite->x > DISPLAY_WIDTH + 15)
+        sprite->pos1.x += speeds[sprite->sSide];
+        if (sprite->pos1.x < -15 || sprite->pos1.x > DISPLAY_WIDTH + 15)
             FieldEffectStop(sprite, FLDEFF_POKEBALL);
     }
 }
@@ -2146,11 +2146,11 @@ static void Mugshots_CreateTrainerPics(struct Task *task)
     task->tOpponentSpriteId = CreateTrainerSprite(sMugshotsTrainerPicIDsTable[mugshotId],
                                                   sMugshotsOpponentCoords[mugshotId][0] - 32,
                                                   sMugshotsOpponentCoords[mugshotId][1] + 42,
-                                                  0, gDecompressionBuffer);
+                                                  0, NULL);
     task->tPlayerSpriteId = CreateTrainerSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE),
                                                 DISPLAY_WIDTH + 32,
                                                 106,
-                                                0, gDecompressionBuffer);
+                                                0, NULL);
     gReservedSpritePaletteCount = 12;
 
     opponentSprite = &gSprites[task->tOpponentSpriteId];
@@ -2204,12 +2204,12 @@ static bool8 MugshotTrainerPic_Init(struct Sprite *sprite)
 
 static bool8 MugshotTrainerPic_Slide(struct Sprite *sprite)
 {
-    sprite->x += sprite->sSlideSpeed;
+    sprite->pos1.x += sprite->sSlideSpeed;
 
     // Advance state when pic passes ~40% of screen
-    if (sprite->sSlideDir && sprite->x < DISPLAY_WIDTH - 107)
+    if (sprite->sSlideDir && sprite->pos1.x < DISPLAY_WIDTH - 107)
         sprite->sState++;
-    else if (!sprite->sSlideDir && sprite->x > 103)
+    else if (!sprite->sSlideDir && sprite->pos1.x > 103)
         sprite->sState++;
     return FALSE;
 }
@@ -2219,7 +2219,7 @@ static bool8 MugshotTrainerPic_SlideSlow(struct Sprite *sprite)
     // Add acceleration value to speed, then add speed.
     // For both sides acceleration is opposite speed, so slide slows down.
     sprite->sSlideSpeed += sprite->sSlideAccel;
-    sprite->x += sprite->sSlideSpeed;
+    sprite->pos1.x += sprite->sSlideSpeed;
 
     // Advance state when slide comes to a stop
     if (sprite->sSlideSpeed == 0)
@@ -2237,8 +2237,8 @@ static bool8 MugshotTrainerPic_SlideSlow(struct Sprite *sprite)
 static bool8 MugshotTrainerPic_SlideOffscreen(struct Sprite *sprite)
 {
     sprite->sSlideSpeed += sprite->sSlideAccel;
-    sprite->x += sprite->sSlideSpeed;
-    if (sprite->x < -31 || sprite->x > DISPLAY_WIDTH + 31)
+    sprite->pos1.x += sprite->sSlideSpeed;
+    if (sprite->pos1.x < -31 || sprite->pos1.x > DISPLAY_WIDTH + 31)
         sprite->sState++;
     return FALSE;
 }
@@ -2427,8 +2427,8 @@ static bool8 WhiteBarsFade_StartBars(struct Task *task)
     for (i = 0, posY = 0; i < NUM_WHITE_BARS; i++, posY += WHITE_BAR_HEIGHT)
     {
         sprite = &gSprites[CreateInvisibleSprite(SpriteCB_WhiteBarFade)];
-        sprite->x = DISPLAY_WIDTH;
-        sprite->y = posY;
+        sprite->pos1.x = DISPLAY_WIDTH;
+        sprite->pos1.y = posY;
         sprite->sDelay = delays[i];
     }
 
@@ -2524,8 +2524,8 @@ static void SpriteCB_WhiteBarFade(struct Sprite *sprite)
     else
     {
         u16 i;
-        u16 *bldY = &gScanlineEffectRegBuffers[0][sprite->y];
-        u16 *win0H = &gScanlineEffectRegBuffers[0][sprite->y + DISPLAY_HEIGHT];
+        u16 *bldY = &gScanlineEffectRegBuffers[0][sprite->pos1.y];
+        u16 *win0H = &gScanlineEffectRegBuffers[0][sprite->pos1.y + DISPLAY_HEIGHT];
 
         // Each bar is 27 pixels high. With 6 bars this is a total of 162, which is 2 pixels taller than the screen.
         // 1 bar is therefore shortened by 2 pixels
@@ -2534,14 +2534,14 @@ static void SpriteCB_WhiteBarFade(struct Sprite *sprite)
         for (i = 0; i < stripeWidth; i++)
         {
             bldY[i] = sprite->sFade >> 8;
-            win0H[i] = (u8)(sprite->x);
+            win0H[i] = (u8)(sprite->pos1.x);
         }
-        if (sprite->x == 0 && sprite->sFade == FADE_TARGET)
+        if (sprite->pos1.x == 0 && sprite->sFade == FADE_TARGET)
             sprite->sFinished = TRUE;
-        sprite->x -= 24;
+        sprite->pos1.x -= 24;
         sprite->sFade += 192;
-        if (sprite->x < 0)
-            sprite->x = 0;
+        if (sprite->pos1.x < 0)
+            sprite->pos1.x = 0;
         if (sprite->sFade > FADE_TARGET)
             sprite->sFade = FADE_TARGET;
         if (sprite->sIsMainSprite)
