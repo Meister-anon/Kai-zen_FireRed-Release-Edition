@@ -3098,10 +3098,11 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                && IsUngroundingEffect(gBattleMoves[AI_DATA->partnerMove].effect)))
                 score += 2;
             //vsonic attempt replace with effectiveness check instead of listing types as effectiveness can be changed
-            else if (IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_FIRE)
+            else if (/*IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_FIRE)
               || IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_ELECTRIC)
               || IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_POISON)
-              || IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_ROCK))
+              || IS_BATTLER_OF_TYPE(battlerAtkPartner, TYPE_ROCK)*/
+              AI_GetMoveEffectiveness(move, battlerAtk, battlerAtkPartner) >= AI_EFFECTIVENESS_x1_55)
                 score -= 10;    // partner will be hit by earthquake and is weak to it
             else
                 score -= 3;

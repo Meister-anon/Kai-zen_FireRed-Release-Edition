@@ -1748,6 +1748,7 @@ bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
       //|| atkAbility == ABILITY_FORECAST
       || atkAbility == ABILITY_LEAF_GUARD
       || atkAbility == ABILITY_SOLAR_POWER
+      || atkAbility == ABILITY_FLUORESCENCE
       || atkAbility == ABILITY_HARVEST
       || GetBaseFormSpecies(gBattleMons[battlerAtk].species) == SPECIES_CASTFORM
       || HasMoveEffect(battlerAtk, EFFECT_SOLARBEAM)
