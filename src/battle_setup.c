@@ -33,6 +33,13 @@
 #include "constants/pokemon.h"
 #include "constants/trainer_classes.h"
 
+enum {
+    TRANSITION_TYPE_NORMAL,
+    TRANSITION_TYPE_CAVE,
+    TRANSITION_TYPE_FLASH,
+    TRANSITION_TYPE_WATER,
+};
+
 enum
 {
     TRAINER_PARAM_LOAD_VAL_8BIT,
@@ -77,20 +84,22 @@ static EWRAM_DATA u8 *sTrainerBattleEndScript = NULL;
 static EWRAM_DATA u8 *sTrainerABattleScriptRetAddr = NULL;
 static EWRAM_DATA u16 sRivalBattleFlags = 0;
 
+// The first transition is used if the enemy pokemon are lower level than our pokemon.
+// Otherwise, the second transition is used.
 static const u8 sBattleTransitionTable_Wild[][2] =
 {
-    { B_TRANSITION_SLICED_SCREEN,        B_TRANSITION_WHITEFADE_IN_STRIPES },
-    { B_TRANSITION_CLOCKWISE_BLACKFADE,  B_TRANSITION_GRID_SQUARES         },
-    { B_TRANSITION_BLUR,                 B_TRANSITION_GRID_SQUARES         },
-    { B_TRANSITION_BLACK_WAVE_TO_RIGHT,  B_TRANSITION_FULLSCREEN_WAVE      },
+    [TRANSITION_TYPE_NORMAL] = {B_TRANSITION_SLICE,          B_TRANSITION_WHITE_BARS_FADE},
+    [TRANSITION_TYPE_CAVE]   = {B_TRANSITION_CLOCKWISE_WIPE, B_TRANSITION_GRID_SQUARES},
+    [TRANSITION_TYPE_FLASH]  = {B_TRANSITION_BLUR,           B_TRANSITION_GRID_SQUARES},
+    [TRANSITION_TYPE_WATER]  = {B_TRANSITION_WAVE,           B_TRANSITION_RIPPLE},
 };
 
 static const u8 sBattleTransitionTable_Trainer[][2] =
 {
-    { B_TRANSITION_SLIDING_POKEBALLS,    B_TRANSITION_BLACK_DOODLES        },
-    { B_TRANSITION_HORIZONTAL_CORRUGATE, B_TRANSITION_BIG_POKEBALL         },
-    { B_TRANSITION_BLUR,                 B_TRANSITION_GRID_SQUARES         },
-    { B_TRANSITION_DISTORTED_WAVE,       B_TRANSITION_FULLSCREEN_WAVE      },
+    [TRANSITION_TYPE_NORMAL] = {B_TRANSITION_POKEBALLS_TRAIL, B_TRANSITION_ANGLED_WIPES},
+    [TRANSITION_TYPE_CAVE]   = {B_TRANSITION_SHUFFLE,         B_TRANSITION_BIG_POKEBALL},
+    [TRANSITION_TYPE_FLASH]  = {B_TRANSITION_BLUR,            B_TRANSITION_GRID_SQUARES},
+    [TRANSITION_TYPE_WATER]  = {B_TRANSITION_SWIRL,           B_TRANSITION_RIPPLE},
 };
 
 static const struct TrainerBattleParameter sOrdinaryBattleParams[] =
@@ -184,13 +193,13 @@ static void Task_BattleStart(u8 taskId)
     case 0:
         if (!FldEffPoison_IsActive())
         {
-        	HelpSystem_Disable();
-            BT_StartOnField(tTransition);
+            HelpSystem_Disable();
+            BattleTransition_StartOnField(tTransition);
             ++tState;
         }
         break;
     case 1:
-        if (BT_IsDone() == TRUE)
+        if (IsBattleTransitionDone() == TRUE)
         {
         	HelpSystem_Enable();
             CleanupOverworldWindowsAndTilemaps();
@@ -292,7 +301,7 @@ void StartOldManTutorialBattle(void) // teech tv battle interesting wonder if, I
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_ReturnToFieldContinueScriptPlayMapMusic;
     gBattleTypeFlags = BATTLE_TYPE_OLD_MAN_TUTORIAL;
-    CreateBattleStartTask(B_TRANSITION_SLICED_SCREEN, 0);
+    CreateBattleStartTask(B_TRANSITION_SLICE, 0);
 }
 
 void StartScriptedWildBattle(void)
@@ -371,9 +380,9 @@ void StartGroudonKyogreBattle(void)
     gMain.savedCallback = CB2_EndScriptedWildBattle;
     gBattleTypeFlags = BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_KYOGRE_GROUDON;
     if (gGameVersion == VERSION_FIRE_RED)
-        CreateBattleStartTask(B_TRANSITION_BLACK_DOODLES, MUS_RS_VS_TRAINER);
+        CreateBattleStartTask(B_TRANSITION_ANGLED_WIPES, MUS_RS_VS_TRAINER);
     else // pointless, exactly the same
-        CreateBattleStartTask(B_TRANSITION_BLACK_DOODLES, MUS_RS_VS_TRAINER);
+        CreateBattleStartTask(B_TRANSITION_ANGLED_WIPES, MUS_RS_VS_TRAINER);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
 }
@@ -505,26 +514,27 @@ u8 BattleSetup_GetTerrainId(void)
 
 static u8 GetBattleTransitionTypeByMap(void)
 {
-    u16 tileBehavior;
+    u16 behavior;
     s16 x, y;
 
     PlayerGetDestCoords(&x, &y);
-    tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+    behavior = MapGridGetMetatileBehaviorAt(x, y);
+
     if (Overworld_GetFlashLevel())
-        return B_TRANSITION_HORIZONTAL_CORRUGATE;
-    if (!MetatileBehavior_IsSurfable(tileBehavior))
+        return TRANSITION_TYPE_FLASH;
+
+    if (MetatileBehavior_IsSurfable(behavior))
+        return TRANSITION_TYPE_WATER;
+
+    switch (gMapHeader.mapType)
     {
-        switch (gMapHeader.mapType)
-        {
-        case MAP_TYPE_UNDERGROUND:
-            return B_TRANSITION_DISTORTED_WAVE;
-        case MAP_TYPE_UNDERWATER:
-            return B_TRANSITION_BIG_POKEBALL;
-        default:
-            return B_TRANSITION_BLUR;
-        }
+    case MAP_TYPE_UNDERGROUND:
+        return TRANSITION_TYPE_CAVE;
+    case MAP_TYPE_UNDERWATER:
+        return TRANSITION_TYPE_WATER;
+    default:
+        return TRANSITION_TYPE_NORMAL;
     }
-    return B_TRANSITION_BIG_POKEBALL;
 }
 
 static u16 GetSumOfPlayerPartyLevel(u8 numMons) //important useful data
@@ -658,7 +668,7 @@ u8 BattleSetup_GetBattleTowerBattleTransition(void)
     u8 playerLevel = GetSumOfPlayerPartyLevel(1);
 
     if (enemyLevel < playerLevel)
-        return B_TRANSITION_SLIDING_POKEBALLS;
+        return B_TRANSITION_POKEBALLS_TRAIL;
     else
         return B_TRANSITION_BIG_POKEBALL;
 }

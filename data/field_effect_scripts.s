@@ -251,9 +251,9 @@ gFldEffScript_UseDive:: @ 81D991A
 	callnative FldEff_UseDive
 	end 
 
-gFldEffScript_Pokeball:: @ 81D9920
-	loadpal sSpritePalette_SlidingPokeball
-	callnative FldEff_Pokeball
+gFldEffScript_Pokeball::
+	loadpal gSpritePalette_Pokeball
+	callnative FldEff_PokeballTrail
 	end 
 
 gFldEffScript_HeartIcon:: @ 81D992B
