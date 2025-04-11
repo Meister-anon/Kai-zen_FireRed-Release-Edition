@@ -121,7 +121,7 @@
 #define ITEM_LEAF_STONE 98
 #define ITEM_DAWN_STONE 99
 #define ITEM_DUSK_STONE 100
-#define ITEM_SHINY_STONE 101
+#define ITEM_SHINY_STONE 101 //in-game will be known as dazzling stone
 #define ITEM_ICE_STONE 102
 #define ITEM_TINY_MUSHROOM 103
 #define ITEM_BIG_MUSHROOM 104

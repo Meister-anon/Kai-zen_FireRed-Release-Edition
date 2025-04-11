@@ -11368,7 +11368,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_MISTY_EXPLOSION] =
     {
         .effect = EFFECT_EXPLOSION,
-        .power = 100,
+        .power = 120,   //was base 100 made 120 to compare to explosion w change type multiplier accounter for
         .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 5,

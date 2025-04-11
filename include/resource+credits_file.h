@@ -8,6 +8,9 @@
 
 //Pokabbie's native battle speed up
 
+youtube mentions:
+Pchal, WolfeyVGC  ZenmodeYT JPR Woop aka PokemonWoop
+
 
 //Show Type Effectiveness In Battle w Option Menu Toggle
 // by devolov  & PokemonCrazy

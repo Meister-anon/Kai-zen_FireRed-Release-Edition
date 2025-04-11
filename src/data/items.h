@@ -1722,7 +1722,7 @@ const struct Item gItems[] =
     },
     [ITEM_SHINY_STONE] =
     {
-      .name = _("Shiny Stone"),
+      .name = _("Dazzling Stone"), //smh already has dazzling in the description makes sense
       .itemId = ITEM_NONE,
       .price =  0,
       .holdEffect = HOLD_EFFECT_NONE,

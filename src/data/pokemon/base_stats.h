@@ -896,7 +896,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(60, 96, 69, 87, 80, 89),
-        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
+        MON_TYPES(TYPE_POISON, TYPE_NORMAL),//should I make poison dark instead? better for intimidate but otherwise normal is just better
         .catchRate = 90,
         .expYield = 157,
         //.evYield_Attack = 2,
@@ -2411,6 +2411,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRapidashTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //move to cycling road as mentiokned by jpr its where it appears in pokemon yellow
 
     [SPECIES_SLOWPOKE] =
     {
@@ -4742,7 +4743,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(35, 56, 34, 25, 35, 45),
-        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
+        MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = 43,
         //.evYield_Attack = 1,
@@ -4768,7 +4769,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(85, 86, 64, 100, 45, 55),
-        MON_TYPES(TYPE_NORMAL, TYPE_GROUND),
+        MON_TYPES(TYPE_NORMAL),
         .catchRate = 90,
         .expYield = 145,
         //.evYield_Speed = 2,
@@ -4787,6 +4788,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFurretTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //believe making ground was drayano change but with joat no need to 
+    //and its better defensively as just normal, especially w new strength of ice types
 
     [SPECIES_HOOTHOOT] =
     {
@@ -5572,7 +5575,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Sunflora"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 75, 85, 53, 135, 95),
+         STATS(75, 75, 85, 43, 135, 95),
         MON_TYPES(TYPE_GRASS, TYPE_NORMAL), //zenmode yt may keep this normal too?
         .catchRate = 120, //can still keep fire moves / put speed back as 53 is still good for trick room
         .expYield = 149,
@@ -6179,6 +6182,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sShuckleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //can this explode? I know it gets rest, if it explodes w sturdy
+    //maybe it can get damage that way, explode then rest
+    // it does now :)
 
     [SPECIES_HERACROSS] =
     {
@@ -8129,6 +8135,8 @@ const struct BaseStats gBaseStats[] =
                                        {EVO_LEVEL_MALE, RELATIVE_EVO(30, AVERAGE_EFFORT), 0, SPECIES_GALLADE},
                                        {EVO_ITEM, ITEM_DAWN_STONE, 0, SPECIES_GALLADE}), //Should hopefully blank these for now without issue
     },//add stone evos for garde forms as well  //ITEM_DAWN_STONE
+    //in-game shiny stone renamed to dazzling stone, sounds a bit more right mostly used to evolve fairy pokemon
+    //and better than bland just shiny which could mistake for somehting to do w shiny odds
 
     [SPECIES_GARDEVOIR] =
     {
@@ -9039,6 +9047,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sVolbeatTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //get tail glow
 
     [SPECIES_ILLUMISE] =
     {
@@ -9066,6 +9075,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sIllumiseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give grass and fairy moves and acrobatics  strength sap
+    //give quiver dance
 
     [SPECIES_ROSELIA] =
     {
@@ -9393,6 +9403,7 @@ const struct BaseStats gBaseStats[] =
     },//vsonic plan to adjust front sprite / prob need do back as well to match
     //bro imagine grumpig o.0 Indiang god vishnu or something  but like a darker versions
     //would just be 100 in everything, maybe w dancer or own tempo
+    //think give teleport
 
     [SPECIES_SPINDA] =
     {
@@ -9419,6 +9430,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSpindaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //give back super power
 
     [SPECIES_TRAPINCH] =
     {
@@ -10281,6 +10293,8 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTropiusLevelUpLearnset,
         .tmhmLearnset = sTropiusTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
+        //cloud nine means this doesn't take extra damage from fire in sun etc.
+        //while synthesis would still boost its healing
     },
 
     [SPECIES_CHIMECHO] =
@@ -10659,6 +10673,9 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue//changed to 100% make luv disc a stall/setup mon add moves as needed. give early game endure
     }, //NEW ability will be 33% or 50% chance to infatuate on switch in loop check for target that can infatuate if double use trace targetting
     //stat ajustments made using numbers for love
+    //wow ironically I turned it into an actual gimmick pokemon now o.0
+    //bad to average stats built around a centralizing mechanic but should actually be usable
+
     [SPECIES_BAGON] =
     {
         .speciesName = _("Bagon"),
