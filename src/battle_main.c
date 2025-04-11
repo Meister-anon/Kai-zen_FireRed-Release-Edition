@@ -331,6 +331,14 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0 
 //talked w lucky came up with idea flying types on ground be weak to ground moves
 //reward for knocking them down, and help balance groud requiring more investment
 //to ensure they don't just lose to birds
+//realized did what I didn't expect give quad weakness to raikou
+//and make all land dwelling bird weak to ground whcih they shouldn't
+//so instead setup in calceffectiveness function that flying types
+//that are floating species, and grounded take super effective
+//specifically isfloatingspecies && battlergrounded
+//or check how I setup knock downe effects if they all set status smack down
+//I can just link to that status and would be better
+//since plan is they are weakened/stunned by crashing down to the ground
 const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 {
 //                       normal    fight     flying    poison    ground     rock      bug       ghost    steel     mystery    fire      water      grass    electric   psychic   ice      dragon     dark     fairy      sound
@@ -343,7 +351,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_POISON] =     {______,   X(1.55),   ______,   X(0.0),   X(0.5),   X(0.0),   ______,   X(0.5),   X(0.0),   ______,    ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,  X(0.5),   X(1.55),   ______}, // poison
 
-    [TYPE_GROUND] =     {______,   ______,   X(1.55),   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   X(0.5),   ______,   ______,   ______,   ______}, // ground
+    [TYPE_GROUND] =     {______,   ______,   ______,   X(1.55),   ______,   X(1.55),  X(0.5),   ______,   ______,   ______,   X(1.55),   ______,   X(0.5),   X(1.55),   ______,   X(0.5),   ______,   ______,   ______,   ______}, // ground
 
     [TYPE_ROCK] =       {______,   X(0.5),   X(1.55),   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  X(1.55),   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   ______,   ______}, // rock
 

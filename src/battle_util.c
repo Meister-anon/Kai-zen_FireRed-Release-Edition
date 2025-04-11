@@ -12252,6 +12252,23 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     && GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT)
         mod = uq4_12_divide(mod, UQ_4_12(2.0));
 
+    //should be fine smack down only works on floating mon
+    //and this specifically only works on the flying mon that get knocked to the ground
+    //only consideration am unsure of,is if I should specifically list
+    //floating species here or just flying
+    //main differenve is it'd exclude air balloon mon
+    //I think I will do that, as mon used to being on the ground
+    //would in theory  be able to adapt better than those used to flying
+    //smack down only set on floating mon that hit by by moves w flag dmg flying or 2x flying
+    //sleep or paralysis set on floating species
+    if (moveType == TYPE_GROUND
+    && gStatuses3[battlerDef] & STATUS3_SMACKED_DOWN
+    && mod != UQ_4_12(1.55))
+    {
+        if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING) && IsFloatingSpecies(gBattleMons[battlerDef].species))
+            mod = UQ_4_12(1.55);
+    }
+
     //move specific effects
 
     //may adjust this don't wan to make worsethandefault
