@@ -3314,6 +3314,29 @@ u8 AI_TypeCalc(u16 move, u16 targetSpecies, u16 targetAbility) //facepalm was us
 
 }
 
+//used to exclude for bottom effect doesn't include status moves that do so
+//well nah might as well include all
+static bool8 DoesMoveUseCryInBattleAnim(u16 move)
+{
+    switch (move)
+    {
+        case MOVE_GROWL:
+        case MOVE_PARTING_SHOT:
+        case MOVE_OBSTRUCT:
+        case MOVE_DISARMING_VOICE:
+        case MOVE_HYPERSPACE_FURY:
+        case MOVE_CHATTER:
+        case MOVE_ROAR:
+        case MOVE_ROAR_OF_TIME:
+            return TRUE;
+            break;
+        default:
+            return FALSE;
+            break;
+        
+    }
+}
+
 //can remove "canMultiTask" line, but would need to add in a few more effect exclusions,
 //do later vsonic
 //ok issue with this is its playing wrong species, jst a matter of including enemy party index
@@ -3333,6 +3356,8 @@ static inline void ApplyRandomDmgMultiplier(void) //vsonic test works
     species = GetMonData(mon, MON_DATA_SPECIES);
 
     //facepalm only noticed this with growl, but I forgot to exclude from STATUS MOVES
+    //for things like charming voice realize certain moves have play cry as part of their move animation
+    //meaning I need to exclude them from this
     if ((randPercent == 100 || IS_CRIT) 
     && GetBattleMoveSplit(gCurrentMove) != SPLIT_STATUS
     && gBattleMoves[gCurrentMove].effect != EFFECT_MULTI_HIT
@@ -3340,7 +3365,7 @@ static inline void ApplyRandomDmgMultiplier(void) //vsonic test works
     && gBattleMoves[gCurrentMove].effect != EFFECT_TRIPLE_KICK
     && gBattleMoves[gCurrentMove].effect != EFFECT_BEAT_UP
     && gBattleMoves[gCurrentMove].effect != EFFECT_RECOIL_IF_MISS
-    && (CanMultiTask(gCurrentMove) == TRUE) //can remove put this here  for blocking two turn but don't think need to
+    && !DoesMoveUseCryInBattleAnim(gCurrentMove)
     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MULTI_TASK) //think shoudl do it, as this is ALWAYS called after critcalc
             PlayCry_Normal(species, 25); //its inline so I "think" that will work and play in the adjustnormaldamage script
     //added effect check to keep from triggering to frequently, as to become annoying
