@@ -74,7 +74,7 @@ bool8 gRemoteLinkPlayersNotReceived[MAX_LINK_PLAYERS];
 u8 gBlockReceivedStatus[MAX_LINK_PLAYERS];
 u32 gFiller_3003EC0;
 u16 gLinkHeldKeys;
-u16 gRecvCmds[MAX_RFU_PLAYERS][CMD_LENGTH];
+u16 ALIGNED(4) gRecvCmds[MAX_RFU_PLAYERS][CMD_LENGTH];
 u32 gLinkStatus;
 bool8 gLinkAllAcked5FFF;
 bool8 gUnknown_3003F28;

@@ -42,7 +42,7 @@ struct WeatherCallbacks
 };
 
 static EWRAM_DATA struct Weather sWeather = {};
-static EWRAM_DATA u8 sFieldEffectPaletteGammaTypes[32] = {};
+static EWRAM_DATA u8 ALIGNED(2) sFieldEffectPaletteGammaTypes[32] = {};
 static EWRAM_DATA const u8 *sPaletteGammaTypes = NULL;
 static EWRAM_DATA u16 gUnknown_20386A8 = 0;
 
@@ -95,7 +95,9 @@ static void (*const sWeatherPalStateFuncs[])(void) = {
     DoNothing
 };
 
-static const u8 sBasePaletteGammaTypes[32] = {
+// This table specifies which of the color maps should be
+// applied to each of the background and sprite palettes.
+static const u8 ALIGNED(2) sBasePaletteGammaTypes[32] = {
     // background palettes
     GAMMA_NORMAL,
     GAMMA_NORMAL,
@@ -132,7 +134,8 @@ static const u8 sBasePaletteGammaTypes[32] = {
     GAMMA_NORMAL,
 };
 
-const u16 gUnknown_83C2CE0[] = INCBIN_U16("graphics/field_effects/unk_83C2CE0.gbapal");
+//in emerald this is gfogpalette?
+const u16 ALIGNED(4) gDefaultWeatherSpritePalette[] = INCBIN_U16("graphics/field_effects/unk_83C2CE0.gbapal");
 const u16 gCloudsWeatherPalette[] = INCBIN_U16("graphics/weather/cloud.gbapal");
 const u16 gSandstormWeatherPalette[] = INCBIN_U16("graphics/weather/sandstorm.gbapal");
 const u8 gWeatherFogDiagonalTiles[] = INCBIN_U8("graphics/weather/fog_diagonal.4bpp");
@@ -151,8 +154,8 @@ void StartWeather(void)
     if (!FuncIsActiveTask(Task_WeatherMain))
     {
         u8 index = AllocSpritePalette(0x1200);
-        CpuCopy32(gUnknown_83C2CE0, &gPlttBufferUnfaded[0x100 + index * 16], 32);
-        sub_8083598(index);
+        CpuCopy32(gDefaultWeatherSpritePalette, &gPlttBufferUnfaded[0x100 + index * 16], 32);
+        ApplyGlobalFieldPaletteTint(index);
         BuildGammaShiftTables();
         gWeatherPtr->altGammaSpritePalIndex = index;
         gWeatherPtr->weatherPicSpritePalIndex = index;

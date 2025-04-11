@@ -709,12 +709,12 @@ static void BerryCrush_HandlePlayerInput(struct BerryCrushGame * game)
         {
             if (game->unk10 > 70)
             {
-                sub_80FBA44();
+                ClearRecvCommands();
                 game->unk10 = 0;
             }
             else if (game->localState.unk02_3 == 0)
             {
-                sub_80FBA44();
+                ClearRecvCommands();
                 game->unk10 = 0;
             }
         }

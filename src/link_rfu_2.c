@@ -2419,7 +2419,7 @@ void RFUVSync(void)
     rfu_LMAN_syncVBlank();
 }
 
-void sub_80FBA44(void)
+void ClearRecvCommands(void)
 {
     CpuFill32(0, gRecvCmds, sizeof(gRecvCmds));
 }

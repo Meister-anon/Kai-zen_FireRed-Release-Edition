@@ -471,7 +471,6 @@ void AnimTask_DragonDanceWaver(u8 taskId)
     }
     sp.dmaControl = 0xA2600001;
     sp.initState = 1;
-    sp.unused9 = 0;
     r1 = GetBattlerYCoordWithElevation(gBattleAnimAttacker);
     task->data[3] = r1 - 32;
     task->data[4] = r1 + 32;

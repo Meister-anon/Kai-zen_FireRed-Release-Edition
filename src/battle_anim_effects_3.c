@@ -1847,7 +1847,6 @@ void AnimTask_RapinSpinMonElevation(u8 taskId)
 
     scanlineParams.dmaControl = SCANLINE_EFFECT_DMACNT_16BIT;
     scanlineParams.initState = 1;
-    scanlineParams.unused9 = 0;
     ScanlineEffect_SetParams(scanlineParams);
 
     task->func = RapinSpinMonElevation_Step;
@@ -3325,7 +3324,6 @@ void AnimTask_AcidArmor(u8 taskId)
 
     scanlineParams.dmaControl = SCANLINE_EFFECT_DMACNT_32BIT;
     scanlineParams.initState = 1;
-    scanlineParams.unused9 = 0;
     ScanlineEffect_SetParams(scanlineParams);
     task->func = AnimTask_AcidArmorStep;
 }

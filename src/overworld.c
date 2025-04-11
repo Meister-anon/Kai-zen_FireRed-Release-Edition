@@ -1760,7 +1760,6 @@ static void InitCurrentFlashLevelScanlineEffect(void)
             .dmaDest = &REG_WIN0H,
             .dmaControl = (2 >> 1) | ((DMA_16BIT | DMA_DEST_RELOAD | DMA_SRC_INC | DMA_REPEAT | DMA_START_HBLANK | DMA_ENABLE) << 16),
             .initState = 1,
-            .unused9 = 0
         });
     }
 }

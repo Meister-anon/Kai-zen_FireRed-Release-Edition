@@ -3228,7 +3228,7 @@ static void MoveDeoxysObject(u8 num)
 {
     u8 mapObjId;
     LoadPalette(sDeoxysObjectPals[num], 0x1A0, 0x08);
-    sub_8083598(10);
+    ApplyGlobalFieldPaletteTint(10);
     TryGetObjectEventIdByLocalIdAndMap(1, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &mapObjId);
     if (num == 0)
         PlaySE(SE_M_CONFUSE_RAY);
@@ -3274,7 +3274,7 @@ void SetDeoxysTrianglePalette(void)
 {
     u8 num = VarGet(VAR_DEOXYS_INTERACTION_NUM);
     LoadPalette(sDeoxysObjectPals[num], 0x1A0, 0x08);
-    sub_8083598(10);
+    ApplyGlobalFieldPaletteTint(10);
 }
 
 //no longer need special
