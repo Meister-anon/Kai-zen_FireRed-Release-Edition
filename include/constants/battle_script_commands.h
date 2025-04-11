@@ -314,14 +314,14 @@
 #define MOVE_END_ATTACKER_INVISIBLE                11
 #define MOVE_END_ATTACKER_VISIBLE                  12
 #define MOVE_END_TARGET_VISIBLE                    13
-#define MOVE_END_ITEM_EFFECTS_TARGET			   14
-#define MOVE_END_MOVE_EFFECTS2					   15     //extra stuff from setmoveffect that has to be set later 
-#define MOVE_END_ITEM_EFFECTS_ALL                  16
-#define MOVE_END_KINGSROCK						   17  //item effect need to be bfore kingsrock for things like rocky helm I guess
-#define MOVE_END_SUBSTITUTE                        18 
+#define MOVE_END_GROUND_TARGET                     14 //put here so cancel sky drop stuff = swap put before 14 so can filter for air balloon held item
+#define MOVE_END_ITEM_EFFECTS_TARGET			   15
+#define MOVE_END_MOVE_EFFECTS2					   16     //extra stuff from setmoveffect that has to be set later 
+#define MOVE_END_ITEM_EFFECTS_ALL                  17
+#define MOVE_END_KINGSROCK						   18  //item effect need to be bfore kingsrock for things like rocky helm I guess
+#define MOVE_END_SUBSTITUTE                        19 
 #define MOVE_END_TWOTURN_MOVES                      34 //for now using to remove evasion boost from sky attack STATUS2_MULTIPLETURNS keep this as filter only triger if status not present
 //only triger if curr move is a two turn move i guess
-#define MOVE_END_GROUND_TARGET                     19 //put here so cancel sky drop stuff
 #define MOVE_END_SKY_DROP_CONFUSE				   20
 #define MOVE_END_UPDATE_LAST_MOVES                 21
 #define MOVE_END_MIRROR_MOVE                       22

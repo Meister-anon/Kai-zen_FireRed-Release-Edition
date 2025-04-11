@@ -8116,7 +8116,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             }
             ++gBattleScripting.atk49_state;
             break;
-        case MOVE_END_ITEM_EFFECTS_TARGET:
+        case MOVE_END_ITEM_EFFECTS_TARGET:  //air balloon is here
             if (ItemBattleEffects(ITEMEFFECT_TARGET, gBattlerTarget, FALSE))
                 effect = TRUE;
             ++gBattleScripting.atk49_state;
@@ -8128,16 +8128,6 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             case MOVE_EFFECT_KNOCK_OFF:
                 effect = TryKnockOffBattleScript(gBattlerTarget, gBattlerAttacker, gBattleStruct->moveEffect2);
                 break;
-            /*case MOVE_EFFECT_SMACK_DOWN: //remove this instead do in MOVE_END_GROUND_TARGET
-                if (!(IsBattlerGrounded(gBattlerTarget)) && IsBattlerAlive(gBattlerTarget))
-                {
-                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
-                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
-                    effect = TRUE;
-                    BattleScriptPush(gBattlescriptCurrInstr);
-                    gBattlescriptCurrInstr = BattleScript_MoveEffectSmackDown;
-                }
-                break;*/
             case MOVE_EFFECT_REMOVE_STATUS: // Smelling salts, Wake-Up Slap, Sparkling Aria
                 if ((gBattleMons[gBattlerTarget].status1 & gBattleMoves[gCurrentMove].argument) && IsBattlerAlive(gBattlerTarget))
                 {
@@ -8207,6 +8197,15 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithoutGravity;
 
                 }//NEW bs for   //didnt need move damage multiplier that's already accounted for by damage calc
+                //do I need to add an exception for hold item air balloon or would it already be removed?
+                //ok adjusted so is before removal of air balloon, now  can filter for this
+                else if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_AIR_BALLOON
+                && !IsFloatingSpecies(gBattleMons[gBattlerTarget].species))
+                {
+                    //++gBattleScripting.atk49_state;
+                }//unsure  if can move to next case with increment
+                //with above specifically excludes non floating species with air balloon from triggering air balloon
+                //vsonic important
 
                 else if ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR)
                 || (gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
