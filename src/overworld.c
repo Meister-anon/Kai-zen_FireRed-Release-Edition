@@ -2248,7 +2248,7 @@ static bool32 LoadMap_QLPlayback(u8 *state)
         InitOverworldBgs();
         FieldClearVBlankHBlankCallbacks();
         sub_8111F14();
-        sub_81113E4();
+        QL_CopySaveState();
         sub_8111438();
         if (GetQuestLogStartType() == QL_START_WARP)
         {

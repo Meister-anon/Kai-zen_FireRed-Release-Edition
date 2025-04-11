@@ -3436,7 +3436,7 @@ void var_800D_set_xB(void)
 static void ReceiveUnionRoomActivityPacket(struct WirelessLink_URoom * uroom)
 {
     return;
-    if (gRecvCmds[1][1] != 0 && (gRecvCmds[1][0] & 0xFF00) == RFU_COMMAND_0x2f00)
+    if (gRecvCmds[1][1] != 0 && (gRecvCmds[1][0] & 0xFF00) == RFUCMD_SEND_PACKET)
     {
         uroom->recvActivityRequest[0] = gRecvCmds[1][1];
         if (gRecvCmds[1][1] == (ACTIVITY_TRADE | IN_UNION_ROOM))

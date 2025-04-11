@@ -59,7 +59,9 @@ ALIGNED(4) EWRAM_DATA u16 gPlttBufferFaded[PLTT_BUFFER_SIZE] = {0};
 static EWRAM_DATA struct PaletteStruct sPaletteStructs[NUM_PALETTE_STRUCTS] = {0};
 EWRAM_DATA struct PaletteFadeControl gPaletteFade = {0};
 static EWRAM_DATA u32 sPlttBufferTransferPending = 0;
-EWRAM_DATA u8 gPaletteDecompressionBuffer[PLTT_DECOMP_BUFFER_SIZE] = {0};
+//align basis based on use as source in cpucopy16 source value seems to match align? so think this should be align 2
+//hmm align 4 works as well so no idea what it shouldbe...
+ALIGNED(4) EWRAM_DATA u8 gPaletteDecompressionBuffer[PLTT_DECOMP_BUFFER_SIZE] = {0};
 
 static const struct PaletteStructTemplate gDummyPaletteStructTemplate =
 {

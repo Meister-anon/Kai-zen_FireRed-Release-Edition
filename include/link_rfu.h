@@ -5,17 +5,76 @@
 #include "librfu.h"
 #include "AgbRfu_LinkManager.h"
 
-#define RFU_COMMAND_0x8800 0x8800
-#define RFU_COMMAND_0x8900 0x8900
-#define RFU_COMMAND_0xa100 0xa100
-#define RFU_COMMAND_0x7700 0x7700
-#define RFU_COMMAND_0x7800 0x7800
-#define RFU_COMMAND_0x6600 0x6600
-#define RFU_COMMAND_0x5f00 0x5f00
-#define RFU_COMMAND_0x2f00 0x2f00
-#define RFU_COMMAND_0xbe00 0xbe00
-#define RFU_COMMAND_0xee00 0xee00
-#define RFU_COMMAND_0xed00 0xed00
+#define RFUCMD_MASK                0xFF00
+
+#define RFUCMD_SEND_PACKET         0x2F00
+#define RFUCMD_BLENDER_SEND_KEYS   0x4400
+#define RFUCMD_READY_CLOSE_LINK    0x5F00
+#define RFUCMD_READY_EXIT_STANDBY  0x6600
+#define RFUCMD_SEND_PLAYER_IDS     0x7700
+#define RFUCMD_SEND_PLAYER_IDS_NEW 0x7800
+#define RFUCMD_SEND_BLOCK_INIT     0x8800
+#define RFUCMD_SEND_BLOCK          0x8900
+#define RFUCMD_SEND_BLOCK_REQ      0xA100
+#define RFUCMD_SEND_HELD_KEYS      0xBE00
+#define RFUCMD_DISCONNECT          0xED00
+#define RFUCMD_DISCONNECT_PARENT   0xEE00
+
+#define RFU_SERIAL_GAME                0x0002 // Serial number for Pokémon game (FRLG or Emerald)
+#define RFU_SERIAL_WONDER_DISTRIBUTOR  0x7F7D // Serial number for distributing Wonder Cards / News
+#define RFU_SERIAL_END                 0xFFFF
+
+#define COMM_SLOT_LENGTH 14
+#define RECV_QUEUE_NUM_SLOTS 20
+#define SEND_QUEUE_NUM_SLOTS 40
+#define BACKUP_QUEUE_NUM_SLOTS 2
+
+#define RFU_PACKET_SIZE 6
+
+#define RFU_STATUS_OK                   0
+#define RFU_STATUS_FATAL_ERROR          1
+#define RFU_STATUS_CONNECTION_ERROR     2
+#define RFU_STATUS_CHILD_SEND_COMPLETE  3
+#define RFU_STATUS_NEW_CHILD_DETECTED   4
+#define RFU_STATUS_JOIN_GROUP_OK        5
+#define RFU_STATUS_JOIN_GROUP_NO        6
+#define RFU_STATUS_WAIT_ACK_JOIN_GROUP  7
+#define RFU_STATUS_LEAVE_GROUP_NOTICE   8
+#define RFU_STATUS_LEAVE_GROUP          9
+#define RFU_STATUS_CHILD_LEAVE_READY    10
+#define RFU_STATUS_CHILD_LEAVE          11
+#define RFU_STATUS_ACK_JOIN_GROUP       12
+
+// Values for disconnectMode
+enum {
+    RFU_DISCONNECT_NONE,
+    RFU_DISCONNECT_ERROR,
+    RFU_DISCONNECT_NORMAL,
+};
+
+// Values for errorState
+enum {
+    RFU_ERROR_STATE_NONE,
+    RFU_ERROR_STATE_OCCURRED,
+    RFU_ERROR_STATE_PROCESSED,
+    RFU_ERROR_STATE_DISCONNECTING,
+    RFU_ERROR_STATE_IGNORE,
+};
+
+// These error flags are set in errorInfo, and given as
+// the uppermost 16 bits of 'status' for sLinkErrorBuffer.
+// The first 8 bits are reserved for the link manager msg
+// when the error occurred, and the last 8 bits are this
+// sequence of presumably meaningful error flags, but
+// ultimately sLinkErrorBuffer's status is never read.
+#define F_RFU_ERROR_1 (1 << 8)
+#define F_RFU_ERROR_2 (1 << 9)  // Never set
+#define F_RFU_ERROR_3 (1 << 10) // Never set
+#define F_RFU_ERROR_4 (1 << 11) // Never set
+#define F_RFU_ERROR_5 (1 << 12)
+#define F_RFU_ERROR_6 (1 << 13)
+#define F_RFU_ERROR_7 (1 << 14)
+#define F_RFU_ERROR_8 (1 << 15)
 
 // RfuTgtData.gname is read as these structs.
 struct GFtgtGnameSub

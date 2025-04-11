@@ -47,8 +47,8 @@ struct HofGfx
     u8 field_2[4];
     u8 tilemap1[0x1000];
     u8 tilemap2[0x1000];
-    u8 hofSaveBuffer[SECTOR_DATA_SIZE * NUM_HOF_SECTORS];
-};
+    u8  ALIGNED(2) hofSaveBuffer[SECTOR_DATA_SIZE * NUM_HOF_SECTORS];
+};//guessing on alignement as used in cpucopy16
 
 static EWRAM_DATA u32 sSelectedPaletteIndices = 0;
 static EWRAM_DATA struct HallofFameTeam * sHofMonPtr = NULL;

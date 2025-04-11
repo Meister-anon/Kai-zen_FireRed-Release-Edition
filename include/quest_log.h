@@ -76,7 +76,7 @@ void QuestLog_AdvancePlayhead_(void);
 void sub_8111F14(void);
 void sub_8110FCC(void);
 u8 GetQuestLogStartType(void);
-void sub_81113E4(void);
+void QL_CopySaveState(void);
 void sub_8111438(void);
 void StartRecordingQuestLogEntry(u16 eventId);
 bool8 WillCommandOfSizeFitInSav1Record(u16 *cursor, size_t size);

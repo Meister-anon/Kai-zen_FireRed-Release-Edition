@@ -102,7 +102,7 @@ static void QLPlayback_InitOverworldState(void);
 static void QuestLog_GetSaneMonCounts(void);
 static u16 QuestLog_GetSanePartyCount(void);
 static u16 QuestLog_GetSaneBoxCount(void);
-static void sub_8111688(void);  //seems to also be for rematches, //remove later
+static void RestoreTrainerRematches(void);  //seems to also be for rematches, //remove later
 static void ReadQuestLogScriptFromSav1(u8, struct QuestLogEntry *);
 static void QuestLog_BeginFadeAtEndOfScene(s8 delay);
 static void QuestLog_AdvancePlayhead(void);
@@ -348,8 +348,8 @@ static void SetGameStateAtScene(u8 sceneNum)
 {
     struct QuestLog * questLog = &gSaveBlock1Ptr->questLog[sceneNum];
 
-    CpuCopy16(gSaveBlock1Ptr->flags, questLog->flags, NUM_FLAG_BYTES * sizeof(u8));
-    CpuCopy16(gSaveBlock1Ptr->vars, questLog->vars, VARS_COUNT * sizeof(u16));
+    CpuCopy16(gSaveBlock1Ptr->flags, questLog->flags, sizeof(gSaveBlock1Ptr->flags));
+    CpuCopy16(gSaveBlock1Ptr->vars, questLog->vars, sizeof(gSaveBlock1Ptr->vars));
 }
 
 static void BackUpTrainerRematchesToVars(void)  //think remove later, //commented out in main
@@ -583,14 +583,19 @@ static void QLPlayback_InitOverworldState(void)
     }
 }
 
-void sub_81113E4(void)
+void QL_CopySaveState(void)
 {
     struct QuestLog * questLog = &gSaveBlock1Ptr->questLog[sCurrentSceneNum];
 
-    CpuCopy16(questLog->flags, gSaveBlock1Ptr->flags, NUM_FLAG_BYTES * sizeof(u8));
-    CpuCopy16(questLog->vars, gSaveBlock1Ptr->vars, VARS_COUNT * sizeof(u16));
-    sub_8111688();  //think this is rematches  //think remove later
-}
+    CpuCopy16(questLog->flags, gSaveBlock1Ptr->flags, sizeof(gSaveBlock1Ptr->flags));
+    CpuCopy16(questLog->vars, gSaveBlock1Ptr->vars, sizeof(gSaveBlock1Ptr->vars));
+    RestoreTrainerRematches();  //think this is rematches  //think remove later
+}//double check what above does, if its a check for on new game reset rematches
+//would most likely just change to run directly off rtc but think could still run function here
+//from quest log
+//if correct in how works difference would just be all wouldn't reset on new game
+//but it would be a check if can be reset based on curr time vs previous time battled? or something
+//or idk if its been at least a day since last loaded quest log screen
 
 struct PokemonAndSomethingElse
 {
@@ -709,7 +714,7 @@ static u16 QuestLog_GetSaneBoxCount(void)
     return count;
 }
 
-static void sub_8111688(void) //think remove this later, was removed in main
+static void RestoreTrainerRematches(void) //think remove this later, was removed in main
 {
     u16 i, j;
     u16 sp0[4];

@@ -1514,11 +1514,9 @@
 #define FLAG_0x8FB                                                  (SYS_FLAGS + 0xFB)
 #define FLAG_0x8FC                                                  (SYS_FLAGS + 0xFC)
 #define FLAG_0x8FD                                                  (SYS_FLAGS + 0xFD)
-#define FLAG_0x8FE                                                  (SYS_FLAGS + 0xFE)
-#define FLAG_NEW_GAME_PLUS                                          (SYS_FLAGS + 0xFF)
-// My New Flags
-#define FLAG_START_OAK_RANCH_COUNTER                                (SYS_FLAGS + 0x100)
-//#define B_SMART_WILD_AI_FLAG											(SYS_FLAGS + 0x100)
+#define FLAG_NEW_GAME_PLUS                                          (SYS_FLAGS + 0xFE)
+#define FLAG_START_OAK_RANCH_COUNTER                                (SYS_FLAGS + 0xFF) //to maintain alingment think can't add above this
+//#define B_SMART_WILD_AI_FLAG	
 #define FLAGS_COUNT (FLAG_START_OAK_RANCH_COUNTER + 1)
 
 

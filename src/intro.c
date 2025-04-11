@@ -8,6 +8,7 @@
 #include "link.h"
 #include "menu.h"
 #include "save.h"
+#include "random.h"
 #include "new_game.h"
 #include "title_screen.h"
 #include "decompress.h"
@@ -100,7 +101,7 @@ static void FightScene4_StartGengarAttack(struct IntroSequenceData * ptr);
 static void Task_FightScene4_GengarAttack(u8 taskId);
 static void FightScene4_CreateGengarSwipeSprites(void);
 static void SpriteCB_GengarSwipe(struct Sprite * sprite);
-static void Task_FightScene3_Bg0Scroll(u8 taskId);
+static void Scene3_Task_GengarEnter(u8 taskId);
 static void SpriteCB_LargeStar(struct Sprite * sprite);
 static void SpriteCB_TrailingSparkles(struct Sprite * sprite);
 static void SpriteCB_TrailingSparkles2(struct Sprite * sprite);
@@ -1443,7 +1444,7 @@ static void IntroCB_FightScene3(struct IntroSequenceData * this)
             CreateTask(Task_FightScene3_ForestBgScroll, 0);
             CreateNidorinoAnimSprite(this);
             StartNidorinoAnimSpriteSlideIn(this->nidorinoAnimSprite, 0, 0xB4, 0x34);
-            CreateTask(Task_FightScene3_Bg0Scroll, 0);
+            CreateTask(Scene3_Task_GengarEnter, 0);
             FightScene3_StartBg1Scroll();
             this->data[5] = 0;
             this->state++;
@@ -1453,7 +1454,7 @@ static void IntroCB_FightScene3(struct IntroSequenceData * this)
         this->data[5]++;
         if (this->data[5] == 16)
             CreateGrassSprite(this);
-        if (!IsNidorinoAnimSpriteSlideInRunning(this) && !FuncIsActiveTask(Task_FightScene3_Bg0Scroll))
+        if (!IsNidorinoAnimSpriteSlideInRunning(this) && !FuncIsActiveTask(Scene3_Task_GengarEnter))
             SetIntroCB(this, IntroCB_FightScene4);
         break;
     }
@@ -2015,10 +2016,11 @@ static void SpriteCB_GengarSwipe(struct Sprite * sprite)
         DestroySprite(sprite);
 }
 
-static void Task_FightScene3_Bg0Scroll(u8 taskId)
+// Scroll Gengar into position for the fight
+static void Scene3_Task_GengarEnter(u8 taskId)
 {
     s16 * data = gTasks[taskId].data;
-    static EWRAM_DATA u32 gUnknown_203AB30 = 0;
+    static EWRAM_DATA u32 sGengarScroll = 0;
 
     switch (data[0])
     {
@@ -2030,10 +2032,10 @@ static void Task_FightScene3_Bg0Scroll(u8 taskId)
         data[2]++;
         if (data[2] > 39 && data[1] > 16)
             data[1] -= 16;
-        gUnknown_203AB30 = ChangeBgX(0, data[1], 1);
-        if (gUnknown_203AB30 >= 0x8000)
+        sGengarScroll = ChangeBgX(0, data[1], 1);
+        if (sGengarScroll >= 0x8000)
             ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON);
-        if (gUnknown_203AB30 >= 0xEF00)
+        if (sGengarScroll >= 0xEF00)
         {
             ChangeBgX(0, 0xEF00, 0);
             DestroyTask(taskId);
@@ -2044,7 +2046,7 @@ static void Task_FightScene3_Bg0Scroll(u8 taskId)
 
 static void SpriteCB_LargeStar(struct Sprite * sprite)
 {
-    unsigned v;
+    u32 random;
     sprite->data[0] -= sprite->data[2];
     sprite->data[1] += sprite->data[3];
     sprite->data[4] += 48;
@@ -2054,16 +2056,17 @@ static void SpriteCB_LargeStar(struct Sprite * sprite)
     sprite->data[5]++;
     if (sprite->data[5] % sTrailingSparklesSpawnRate)
     {
-        LoadWordFromTwoHalfwords(&sprite->data[6], &v);
-        v = v * 1103515245 + 24691;
-        StoreWordInTwoHalfwords(&sprite->data[6], v);
-        v >>= 16;
-        GameFreakScene_TrailingSparklesGen(sprite->pos1.x, sprite->pos1.y + sprite->pos2.y, v);
+        LoadWordFromTwoHalfwords(&sprite->data[6], &random);
+        random = ISO_RANDOMIZE1(random);
+        StoreWordInTwoHalfwords(&sprite->data[6], random);
+        random >>= 16;
+        GameFreakScene_TrailingSparklesGen(sprite->pos1.x, sprite->pos1.y + sprite->pos2.y, random);
     }
     if (sprite->pos1.x < -8)
         DestroySprite(sprite);
 }
 
+// Callback for the sparkles that trail behind the star
 static void SpriteCB_TrailingSparkles(struct Sprite * sprite)
 {
     u32 v;
