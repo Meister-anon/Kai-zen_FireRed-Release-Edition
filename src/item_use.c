@@ -325,7 +325,7 @@ static bool8 ItemUseCheckFunc_Rod(void)
         return FALSE;    
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {
-        if (IsPlayerFacingSurfableFishableWater())
+        if (IsPlayerFacingSurfableFishableWater() && !IsFishingDisallowed())
             return TRUE;
     }
     else

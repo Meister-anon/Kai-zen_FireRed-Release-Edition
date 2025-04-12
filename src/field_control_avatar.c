@@ -148,7 +148,7 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     }
     if ((tileTransitionState == T_TILE_CENTER && forcedMove == FALSE) || tileTransitionState == T_NOT_MOVING)
     {
-        if (GetPlayerSpeed() != 4)
+        if (GetPlayerSpeed() != 4)//ok seems when at full speed/on bike start doesn't open menu?
         {
             if ((newKeys & START_BUTTON) && !(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED))
                 input->pressedStartButton = TRUE;
@@ -676,7 +676,8 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 
     if (MetatileBehavior_IsSemiDeepWater(metatileBehavior) == TRUE && PartyHasMonWithSurf() == TRUE)    
         return EventScript_CurrentTooFast;
-    if (PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
+    if (PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE
+    && !IsSurfingDisallowed())
         return EventScript_UseSurf;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)

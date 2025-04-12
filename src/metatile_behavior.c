@@ -8,8 +8,8 @@ static const bool8 sTileSurfable[METATILE_COUNT] = {
     [MB_DEEP_WATER] = TRUE,
     [MB_WATERFALL] = TRUE,
     [MB_OCEAN_WATER] = TRUE,
-    [MB_1A] = TRUE,
-    [MB_1B] = TRUE,
+    [MB_UNUSED_WATER] = TRUE,
+    [MB_CYCLING_ROAD_WATER] = TRUE,
     [MB_EASTWARD_CURRENT] = TRUE,
     [MB_WESTWARD_CURRENT] = TRUE,
     [MB_NORTHWARD_CURRENT] = TRUE,
@@ -17,11 +17,11 @@ static const bool8 sTileSurfable[METATILE_COUNT] = {
 };
 
 static const u8 sTileBitAttributes[32] = {
-    [0] = 0x00,
-    [1] = 0x01,
-    [2] = 0x02,
-    [3] = 0x04,
-    [4] = 0x08,
+    [0] = 0,
+    [1] = 1 << 0,
+    [2] = 1 << 1,
+    [3] = 1 << 2,
+    [4] = 1 << 3,
 };
 
 bool8 MetatileBehavior_IsATile(u8 metatileBehavior)
@@ -91,8 +91,8 @@ bool8 MetatileBehavior_IsReflective(u8 metatileBehavior)
 {
     if(metatileBehavior == MB_POND_WATER
         || metatileBehavior == MB_PUDDLE
-        || metatileBehavior == MB_1A
-        || metatileBehavior == MB_1B
+        || metatileBehavior == MB_UNUSED_WATER
+        || metatileBehavior == MB_CYCLING_ROAD_WATER
         || metatileBehavior == MB_ICE)
         return TRUE;
     else
@@ -203,7 +203,7 @@ bool8 MetatileBehavior_IsDeepSouthWarp(u8 metatileBehavior) { return FALSE; }
 
 bool8 MetatileBehavior_IsSurfable(u8 metatileBehavior)
 {
-    if(sTileSurfable[metatileBehavior] & 1)
+    if(sTileSurfable[metatileBehavior] & 1) 
         return TRUE;
     else
         return FALSE;
@@ -523,9 +523,9 @@ bool8 MetatileBehavior_IsDeepSemiDeepOrSplashingWater(u8 metatileBehavior)
         return FALSE;
 }
 
-bool8 MetatileBehavior_UnusedIsMB1A(u8 metatileBehavior)
+bool8 MetatileBehavior_UnusedWaterBehavior(u8 metatileBehavior)
 {
-    if(metatileBehavior == MB_1A)
+    if(metatileBehavior == MB_UNUSED_WATER)
         return TRUE;
     else
         return FALSE;

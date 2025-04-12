@@ -3,14 +3,6 @@
 
 #include "global.h"
 
-enum HiddenItemAttr
-{
-    HIDDEN_ITEM_ID = 0,
-    HIDDEN_ITEM_FLAG,
-    HIDDEN_ITEM_QUANTITY,
-    HIDDEN_ITEM_UNDERFOOT
-};
-
 u8 GetLeadMonIndex(void);
 //extern const u8 gTypeNames[][TYPE_NAME_LENGTH + 1];
 extern const u16 sTypeExceptions[18]; //update this value when adding to the array

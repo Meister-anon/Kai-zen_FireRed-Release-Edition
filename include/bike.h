@@ -32,6 +32,8 @@ s16 GetPlayerSpeed(void);
 bool8 sub_80BD460(u8);
 void MovePlayerOnBike(u8 direction, u16 newKeys, u16 heldKeys);
 bool32 IsRunningDisallowed(u8 metatileBehavior);
+bool32 IsSurfingDisallowed(void);
+bool32 IsFishingDisallowed(void); //just put in file to keep together
 void Bike_HandleBumpySlopeJump(void);
 void Bike_UpdateBikeCounterSpeed(u8 counter);
 bool8 player_should_look_direction_be_enforced_upon_movement(void);

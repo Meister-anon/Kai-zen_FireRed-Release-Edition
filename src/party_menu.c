@@ -7,6 +7,7 @@
 #include "battle_interface.h"
 #include "battle_tower.h"
 #include "berry_pouch.h"
+#include "bike.h"
 #include "data.h"
 #include "decompress.h"
 #include "easy_chat.h"
@@ -4859,6 +4860,7 @@ static bool8 SetUpFieldMove_Surf(void)
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
     if (MetatileBehavior_IsSemiDeepWater(MapGridGetMetatileBehaviorAt(x, y)) != TRUE
         && IsPlayerFacingSurfableFishableWater() == TRUE
+        && !IsSurfingDisallowed()
         && ShouldDisplayHMFieldMove(FIELD_MOVE_SURF)) //hopefully that works
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;

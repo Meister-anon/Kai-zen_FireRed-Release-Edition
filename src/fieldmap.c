@@ -493,7 +493,7 @@ u32 GetBehaviorByMetatileIdAndMapLayout(const struct MapLayout *mapLayout, u16 m
         attributes = mapLayout->primaryTileset->metatileAttributes;
         return GetMetatileAttributeFromRawMetatileBehavior(attributes[metatile], attr);
     }
-    else if (metatile < 0x400)
+    else if (metatile < NUM_METATILES_TOTAL)
     {
         attributes = mapLayout->secondaryTileset->metatileAttributes;
         return GetMetatileAttributeFromRawMetatileBehavior(attributes[metatile - NUM_METATILES_IN_PRIMARY], attr);

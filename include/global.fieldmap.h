@@ -23,6 +23,7 @@ enum
     METATILE_ATTRIBUTE_LAYER_TYPE,
     METATILE_ATTRIBUTE_7,
     METATILE_ATTRIBUTE_COUNT,
+    METATILE_ATTRIBUTES_ALL = 255  // Special id to get the full attributes value
 };
 
 enum
@@ -39,6 +40,31 @@ enum
     TILE_TERRAIN_WATER,
     TILE_TERRAIN_WATERFALL,
 };
+
+// Identifiers for the hidden item data stored in BgEvent's u32 hiddenItem
+enum HiddenItemAttr
+{
+    HIDDEN_ITEM_ID = 0,
+    HIDDEN_ITEM_FLAG,
+    HIDDEN_ITEM_QUANTITY,
+    HIDDEN_ITEM_UNDERFOOT
+};
+
+// Masks/shifts to read the data above from the u32 hiddenItem, calculated from size.
+#define HIDDEN_ITEM_ITEM_BITS      16
+#define HIDDEN_ITEM_FLAG_BITS       8
+#define HIDDEN_ITEM_QUANTITY_BITS   7
+#define HIDDEN_ITEM_UNDERFOOT_BITS  1
+
+#define HIDDEN_ITEM_ITEM_SHIFT      0
+#define HIDDEN_ITEM_FLAG_SHIFT      (HIDDEN_ITEM_ITEM_SHIFT + HIDDEN_ITEM_ITEM_BITS)
+#define HIDDEN_ITEM_QUANTITY_SHIFT  (HIDDEN_ITEM_FLAG_SHIFT + HIDDEN_ITEM_FLAG_BITS)
+#define HIDDEN_ITEM_UNDERFOOT_SHIFT (HIDDEN_ITEM_QUANTITY_SHIFT + HIDDEN_ITEM_QUANTITY_BITS)
+
+#define GET_HIDDEN_ITEM_ITEM(raw)     (((raw) >> HIDDEN_ITEM_ITEM_SHIFT)      & ((1 << HIDDEN_ITEM_ITEM_BITS) - 1))
+#define GET_HIDDEN_ITEM_FLAG(raw)     (((raw) >> HIDDEN_ITEM_FLAG_SHIFT)      & ((1 << HIDDEN_ITEM_FLAG_BITS) - 1))
+#define GET_HIDDEN_ITEM_QUANTITY(raw) (((raw) >> HIDDEN_ITEM_QUANTITY_SHIFT)  & ((1 << HIDDEN_ITEM_QUANTITY_BITS) - 1))
+#define GET_HIDDEN_ITEM_UNDERFOOT(raw)(((raw) >> HIDDEN_ITEM_UNDERFOOT_SHIFT) & ((1 << HIDDEN_ITEM_UNDERFOOT_BITS) - 1))
 
 typedef void (*TilesetCB)(void);
 
@@ -177,13 +203,18 @@ struct MapHeader
     /* 0x19 */ u8 flags;
     /* 0x1A */ s8 floorNum;
     /* 0x1B */ u8 battleType;
-};
+};//could do fish/surf block here but to avoid space increase
+//will just use unused flag below
 
 // Flags for gMapHeader.flags, as defined in the map_header_flags macro
+//whenever I find where cylcing road blocks surfing and fishing
+//will rework into header checks instead, its been hell to find/identify this thing smh
 #define MAP_ALLOW_ESCAPE_ROPE  (1 << 0)
 #define MAP_ALLOW_RUN          (1 << 1)
-#define MAP_SHOW_MAP_NAME      (1 << 2)
-#define UNUSED_MAP_FLAGS       (1 << 3 | 1 << 4 | 1 << 5 | 1 << 6 | 1 << 7)
+#define MAP_SHOW_MAP_NAME      (1 << 2) 
+#define MAP_ALLOW_FISHING      (1 << 3)
+#define MAP_ALLOW_SURFING      (1 << 4)
+#define UNUSED_MAP_FLAGS       (1 << 5 | 1 << 6 | 1 << 7)
 
 #define SHOW_MAP_NAME_ENABLED  ((gMapHeader.flags & (MAP_SHOW_MAP_NAME | UNUSED_MAP_FLAGS)) == MAP_SHOW_MAP_NAME)
 

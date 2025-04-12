@@ -10,6 +10,8 @@
   "allow_cycling": false,
   "allow_escaping": true,
   "allow_running": true,
+  "allow_fishing": true,
+  "allow_surfing": true,
   "show_map_name": true,
   "floor_number": 4,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",

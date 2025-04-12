@@ -68,7 +68,7 @@ bool8 MetatileBehavior_IsShallowFlowingWater(u8 metatileBehavior);
 bool8 MetatileBehavior_IsThinIce(u8 metatileBehavior);
 bool8 MetatileBehavior_IsCrackedIce(u8 metatileBehavior);
 bool8 MetatileBehavior_IsDeepSemiDeepOrSplashingWater(u8 metatileBehavior);
-bool8 MetatileBehavior_IsMB1A(u8 metatileBehavior);
+bool8 MetatileBehavior_IsUnusedWaterBehavior(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSurfableAndNotWaterfall(u8 metatileBehavior);
 bool8 MetatileBehavior_IsEastBlocked(u8 metatileBehavior);
 bool8 MetatileBehavior_IsWestBlocked(u8 metatileBehavior);

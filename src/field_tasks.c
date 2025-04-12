@@ -273,7 +273,7 @@ static void CrackedFloorPerStepCallback(u8 taskId)
         data[3] = y;
         if (MetatileBehavior_ReturnFalse_13(behavior))
         {
-            if (GetPlayerSpeed() != 4)
+            if (GetPlayerSpeed() != 4)//speed 4 is only biking
                 VarSet(VAR_ICE_STEP_COUNT, 0);
 
             if (data[4] == 0)

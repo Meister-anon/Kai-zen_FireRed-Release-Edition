@@ -10,6 +10,8 @@
   "allow_cycling": false,
   "allow_escaping": true,
   "allow_running": false,
+  "allow_fishing": false,
+  "allow_surfing": false,
   "show_map_name": false,
   "floor_number": 0,
   "battle_scene": "MAP_BATTLE_SCENE_GYM",

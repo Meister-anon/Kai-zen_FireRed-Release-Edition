@@ -271,6 +271,27 @@ bool32 IsRunningDisallowed(u8 metatileBehavior)
         return TRUE;
 }
 
+//set true for every map except cycling road
+//then set true for cycling road when I figure out how to
+//map transition from surf to biking
+//will have tobe land go on foot
+//then transition to bike, as pretty sure no immediate transition exists
+bool32 IsSurfingDisallowed(void)
+{
+    if (!(gMapHeader.flags & MAP_ALLOW_SURFING))
+        return TRUE;
+
+    return FALSE;
+}
+
+bool32 IsFishingDisallowed(void)
+{
+    if (!(gMapHeader.flags & MAP_ALLOW_FISHING))
+        return TRUE;
+
+    return FALSE;
+}
+
 static bool8 MetatileBehaviorForbidsBiking(u8 r4)
 {
     if (MetatileBehavior_IsMB0A(r4))
@@ -369,12 +390,13 @@ static void sub_80BD664(void)
     gPlayerAvatar.bikeSpeed = SPEED_STANDING;
 }
 
-s16 GetPlayerSpeed(void)
+//vsonic
+s16 GetPlayerSpeed(void) //don't understand this setting surf to speed 4 didn't do anything for speed
 {
-    s16 exp[] = { 1, 2, 4 };
+    s16 bikeSpeed[] = { 1, 2, 4 };
 
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
-        return exp[gPlayerAvatar.bikeFrameCounter];
+        return bikeSpeed[gPlayerAvatar.bikeFrameCounter];
     else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ACRO_BIKE)
         return 3;
     else if (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_SURFING | PLAYER_AVATAR_FLAG_DASH))
