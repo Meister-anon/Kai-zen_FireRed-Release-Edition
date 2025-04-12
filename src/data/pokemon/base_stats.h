@@ -3191,6 +3191,8 @@ const struct BaseStats gBaseStats[] =
     },//think will drop muscle magic from this so its more special, and give buffed long reach instead
     //would allow priority rock slide to deal w flying types, as well as earthquake
     //ok found out reckless also boosts moves that do crass damage so was actually good on hitmonlee
+    //out of 7 mon that get long reach hitmonlee is one of 3 lines that can get hidden power as a boosted move
+    //w long reach hitmonlee gets priority boost on hidden power secret power and earthquake
 
     [SPECIES_HITMONCHAN] =
     {

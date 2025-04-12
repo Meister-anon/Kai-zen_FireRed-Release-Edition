@@ -2812,7 +2812,6 @@ MOVE_ROCK_SMASH,
 };
 
 static const u16 sHitmonleeTMHMLearnset[] = {
-MOVE_FOCUS_PUNCH,
 MOVE_TOXIC,
 MOVE_BULK_UP,
 MOVE_HIDDEN_POWER,
@@ -6378,6 +6377,7 @@ static const u16 sSmeargleTMHMLearnset[] = {
 };
 
 static const u16 sTyrogueTMHMLearnset[] = {
+MOVE_FOCUS_PUNCH,
 MOVE_TOXIC,
 MOVE_BULK_UP,
 MOVE_HIDDEN_POWER,
