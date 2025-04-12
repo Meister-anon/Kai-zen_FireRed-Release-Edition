@@ -665,11 +665,12 @@ struct SaveBlock2
               u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
               u16 optionsBattleSceneOff:1; // whether battle animations are disabled
               u16 regionMapZoom:1; // whether the map is zoomed in - u16 speread bit field over 2 bytes 3 5 = 8,then 4 1s
-              u16 optionsBattleSpeed:2; //for pokabbie setup navie battle speed up should be 4 options for 1-4x
+              u16 padding:2; //moved battle speedup as increased speed options
               u16 optionsEventSpeedup:1;
               u16 optionsNuzlockeMode:1;
-              u16 NewPlaceholder:15;
-              u16 optionsDisplayTypeEffect:1;
+              u16 NewPlaceholder:12;
+              u16 optionsBattleSpeed:3; //for pokabbie setup navie battle speed up should be 6 options for 1-6x at bit 3 has enough options for x8
+              u16 optionsDisplayTypeEffect:1;//could increase speed further? (did using 8x) all safety buffers are already in place, can just lower text speed to balance as needed
     /*0x018*/ struct Pokedex pokedex; //may need new size value fo rthis?
     /*0x090*/ u8 filler_90[0x6];
     /*0x098*/ struct Time localTimeOffset;

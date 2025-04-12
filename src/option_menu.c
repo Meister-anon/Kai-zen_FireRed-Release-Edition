@@ -242,7 +242,7 @@ static const u16 sTextOptionsMenuItemCounts[TEXT_MENUITEM_COUNT] =
 static const u16 sMiscOptionsMenuItemCounts[MISC_MENUITEM_COUNT] =
 {
     [MISC_MENUITEM_EVENT_SPEEDUP]     = 2, //_OFF - ON
-    [MISC_MENUITEM_BATTLE_SPEED]     = 4, //1x - 4x
+    [MISC_MENUITEM_BATTLE_SPEED]     = 8, //1x - 8x  - moved to bit 3 decided might as well use max
     [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = 2, //_OFF - ON
     [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //_OFF - ON
 
@@ -293,12 +293,19 @@ static const u8 *const sTextSpeedOptions[] =
     gText_TextSpeedHyperFast
 };
 
+//works like enum speed takes option here as speed itself
+//so can't skip to 6 will have to just increase up to 6
+//speed value store as bit 3, 8x is max speed  can save
 static const u8 *const sBattleSpeedOptions[] =
 {
     COMPOUND_STRING("1x"),
     COMPOUND_STRING("2x"),
     COMPOUND_STRING("3x"),
-    COMPOUND_STRING("4x")
+    COMPOUND_STRING("4x"),
+    COMPOUND_STRING("5x"),
+    COMPOUND_STRING("6x"),
+    COMPOUND_STRING("7x"),
+    COMPOUND_STRING("8x"),
 };
 
 static const u8 *const sBattleSceneOptions[] =
@@ -395,26 +402,27 @@ void CB2_OptionsMenuFromStartMenu(void)
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gSaveBlock2Ptr->optionsDisplayTypeEffect;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE] = gSaveBlock2Ptr->optionsNuzlockeMode;
     
+    //wtf does this do??
     switch (sOptionMenuPtr->MenuCategory)
     {
         case GAME_OPTIONS:
             for (i = 0; i < GAME_MENUITEM_COUNT - 1; i++)
             {
-                if (sOptionMenuPtr->GameOptions[i] > (sGameOptionMenuItemCounts[i]) - 1)
+                if (sOptionMenuPtr->GameOptions[i] > ((sGameOptionMenuItemCounts[i]) - 1))
                     sOptionMenuPtr->GameOptions[i] = 0;
             }
         break;
         case TEXT_OPTIONS:
             for (i = 0; i < TEXT_MENUITEM_COUNT - 1; i++)
             {
-                if (sOptionMenuPtr->TextOptions[i] > (sTextOptionsMenuItemCounts[i]) - 1)
+                if (sOptionMenuPtr->TextOptions[i] > ((sTextOptionsMenuItemCounts[i]) - 1))
                     sOptionMenuPtr->TextOptions[i] = 0; 
             }
         break;
         case MISC_OPTIONS:
             for (i = 0; i < MISC_MENUITEM_COUNT - 1; i++)
             {
-                if (sOptionMenuPtr->MiscOptions[i] > (sMiscOptionsMenuItemCounts[i]) - 1)
+                if (sOptionMenuPtr->MiscOptions[i] > ((sMiscOptionsMenuItemCounts[i]) - 1)) //if greater than last value
                     sOptionMenuPtr->MiscOptions[i] = 0; 
             }
         break;

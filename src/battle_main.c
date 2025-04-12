@@ -2193,7 +2193,7 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
     }
     else
     {
-        u8 s;
+        u32 s;
         u8 fadeResult;
 
         // Update select entries at higher speed
@@ -2205,7 +2205,7 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
             RunTextPrinters();
             fadeResult = UpdatePaletteFade();
 
-            if(fadeResult == PALETTE_FADE_STATUS_LOADING)
+            if (fadeResult == PALETTE_FADE_STATUS_LOADING)
             {
                 // minimal final update as we've just started a fade
                 BuildOamBuffer();
@@ -2233,6 +2233,7 @@ void BattleMainCB2(void) //make my setup test it stash it thentry hers for messa
             RunTasks();
         }
     }
+    //wait does this work for old man battle too??
     if (JOY_HELD(B_BUTTON) && gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
     {
         // Player pressed B during recorded battle playback, end battle

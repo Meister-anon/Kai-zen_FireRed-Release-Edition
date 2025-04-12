@@ -3806,6 +3806,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     3/14/2025
     vsonic important
 
+    -Boosted battle speed up above 4x for quicker grinding
+
+
     in progress setup new fonts/ font narrowing
     for health box,
     last major bugs are the cry bug and figuring out why

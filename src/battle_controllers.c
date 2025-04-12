@@ -369,7 +369,7 @@ u8 GetBattleSpeedOption(void) //return battle speed
 u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
 {
     u8 battleSpeedOption = GetBattleSpeedOption(); //retrun speed up option
-    u8 hasBattleInputStarted = 0;
+    u8 hasBattleInputStarted = FALSE;
 
     // Hold L to slow down
     if(JOY_HELD(L_BUTTON)) //won't work for main screen as uses L for move info, but fine overall
@@ -385,10 +385,14 @@ u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
         if(InBattleChoosingMoves())
             return 1;//think will change to 2 //I see problem it treats every button press as 2...
 
+        //ok checked and with my string change and text buff/pause changes I don't need it
+        //even at 8x text is still legible its hard to tell if things are even faster but
+        //that's fine lol
         // When battle anims are turned off, it's a bit too hard to read text, so force running at normal speed
         //turned off for now to test my own text options to see if can work for that
-        if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE && InBattleRunningActions())
-            return 2;
+        //if (gSaveBlock2Ptr->optionsBattleSceneOff == TRUE && InBattleRunningActions())
+        //    return 2;
+
         //if(!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && InBattleRunningActions())
         //    return 1;
     }
@@ -408,6 +412,18 @@ u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
     case OPTIONS_BATTLE_SPEED_4X:
         return 4;
 
+    case OPTIONS_BATTLE_SPEED_5X:
+        return 5;
+
+    case OPTIONS_BATTLE_SPEED_6X:
+        return 6;
+
+    case OPTIONS_BATTLE_SPEED_7X:
+        return 7;
+
+    case OPTIONS_BATTLE_SPEED_8X:
+        return 8;
+
     // Print text at a readable speed still
     /*case OPTIONS_BATTLE_SCENE_DISABLED:
         if(gRogueLocal.hasBattleInputStarted)
@@ -417,7 +433,7 @@ u8 Rogue_GetBattleSpeedScale(void) //since not taking healthbar setup make void
     }
 
     return 1; //battle speed goes through here, believe returns 1 so will always be base speed even if speed up is off
-} //relatively sure this is just a safety value, since you neer want this function to return 0
+} //relatively sure this is just a safety value, since you never want this function to return 0
 
 /*
 static void CreateTasksForSendRecvLinkBuffers(void)
