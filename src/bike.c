@@ -223,6 +223,10 @@ static void BikeTryMoveInDirection(u8 direction)
         PlayerGoSpeed1(direction);
 }
 
+//vsonic important pontentially relvant for increase bike speed
+//cliipping only occurs because you're moving faster than the game checks collission
+//if I could link tile movement speed with how far ahead should check for colision
+//maybe that would solve the issue? hold B to slow down
 static u8 CheckNextTileForBikingCollision(u8 direction)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];

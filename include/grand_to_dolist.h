@@ -3808,6 +3808,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     -Boosted battle speed up above 4x for quicker grinding
 
+    -added new header fields for block surfing and fishing
+    -added speed up for surfing hold b goes faster
+
 
     in progress setup new fonts/ font narrowing
     for health box,

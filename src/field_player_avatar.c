@@ -506,7 +506,14 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
         return;
     }
 
-    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+    if ((heldKeys & B_BUTTON) && gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+    {
+        PlayerRideWaterCurrent(direction);
+        return; //works, is about twice as fast
+    }
+
+    //think change here for faster surfing
+    else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
     {
         // speed 2 is fast, same speed as running
         PlayerGoSpeed2(direction);
@@ -1210,6 +1217,12 @@ bool8 IsPlayerSurfingNorth(void)
         return FALSE;
 }
 
+//this is what caused fail to surf on cycling road
+//base game cycling road water metatiles were different
+//and didn't weren't set as water terrain, meaning the game didn't read as surfable/fishable
+//lucky was able to change in porymap simply enough 
+//separated fishing/surfing block into header checks in file
+//instead built into the graphic itself
 bool8 IsPlayerFacingSurfableFishableWater(void)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
