@@ -897,8 +897,8 @@ const u8 gDratiniPokedexText[] = _(
     "to reach uncontrollable levels.");
 
 const u8 gDragonairPokedexText[] = _(
-    "A Dragonair stores an enormous amount of\n"
-    "energy inside its body. It is said to alter\n"
+    "Dragonair can store enormous energy within.\n"
+    "It is said to be able to fly and even alter\n"
     "the weather around it by loosing energy\n"
     "from the crystals on its neck and tail.");
 

@@ -5078,7 +5078,7 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if ((GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_AIR_BALLOON) && IsBlackFogNotOnField())
         grounded = FALSE;
 
-    //not setup fully yet
+    //not setup fully yet vsonic -//hmm w ground flying change this is also more balanced now vsonic
     if (gDisableStructs[battlerId].trenchRunTimer) //change name, using for trench run
         grounded = TRUE;
     if (gFieldStatuses & STATUS_FIELD_GRAVITY)
@@ -12275,6 +12275,7 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
         if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING) && IsFloatingSpecies(gBattleMons[battlerDef].species))
             mod = UQ_4_12(1.55);
     }
+    //vsonic important make sure this is evaluated by ai
 
     //move specific effects
 

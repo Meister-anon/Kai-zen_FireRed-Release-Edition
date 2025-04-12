@@ -2432,7 +2432,9 @@ static const struct LevelUpMove sDratiniLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
+//give evo extrasensory to illude to strange powers
 static const struct LevelUpMove sDragonairLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(0, MOVE_EXTRASENSORY),
     LEVEL_UP_MOVE(1, MOVE_WRAP),
     LEVEL_UP_MOVE(1, MOVE_LEER),
     LEVEL_UP_MOVE(1, MOVE_THUNDER_WAVE),

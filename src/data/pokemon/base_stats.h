@@ -4400,15 +4400,20 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SHED_SKIN, ABILITY_NONE},
-        .abilityHidden = {ABILITY_MARVEL_SCALE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MARVEL_SCALE, ABILITY_STORM_BREAK},
         .safariZoneFleeRate = 125,
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         .levelUpLearnset = sDragonairLevelUpLearnset,
         .tmhmLearnset = sDragonairTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(55, HIGH_EFFORT), 0, SPECIES_DRAGONITE}), //Should hopefully blank these for now without issue
-    },
+    },///dragonair can fly... its even in teh dex entry o.0
+    //need find away to adjust dex entry back to include
+    //it apparently alters the weather too...
+    //if I make it floating it can act as an alternate to dragonite w eviolite
+    //since it would do everything it does but with lower offense and less weaknesses
+    //ok and its stats ARE low enough to use eviolite nice
 
     [SPECIES_DRAGONITE] =
     {
