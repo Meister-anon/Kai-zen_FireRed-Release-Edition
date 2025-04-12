@@ -4515,7 +4515,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sChikoritaLevelUpLearnset,
         .tmhmLearnset = sChikoritaTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_BAYLEEF}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_BAYLEEF}), //Should hopefully blank these for now without issue
     },//I removed leaf guard to buff but now that I buffed it,
     //it would actually be very solid on it
     //think will drop photosynthesize here,
@@ -4598,7 +4598,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sCyndaquilLevelUpLearnset,
         .tmhmLearnset = sCyndaquilTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(14, AVERAGE_EFFORT), 0, SPECIES_QUILAVA}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(14, LOW_EFFORT), 0, SPECIES_QUILAVA}), //Should hopefully blank these for now without issue
     },//should be good, fire makes resist fairy so good defense,
     // and w normal buff  is actually a good way to stand out from charizard
 
@@ -7296,7 +7296,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sTreeckoLevelUpLearnset,
         .tmhmLearnset = sTreeckoTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_GROVYLE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_GROVYLE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_GROVYLE] =
@@ -7389,7 +7389,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sTorchicLevelUpLearnset,
         .tmhmLearnset = sTorchicTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_COMBUSKEN}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_COMBUSKEN}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_COMBUSKEN] =
@@ -7468,7 +7468,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sMudkipLevelUpLearnset,
         .tmhmLearnset = sMudkipTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_MARSHTOMP}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_MARSHTOMP}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_MARSHTOMP] =
@@ -7487,7 +7487,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
-        .abilities = {ABILITY_TORRENT, ABILITY_NONE},
+        .abilities = {ABILITY_TORRENT, ABILITY_DAMP},
         .abilityHidden = {ABILITY_DAMP, ABILITY_SWIFT_SWIM}, //swift swim or rain dish, leaning latter
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -7513,7 +7513,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_WATER_1,
-        .abilities = {ABILITY_TORRENT, ABILITY_NONE},
+        .abilities = {ABILITY_TORRENT, ABILITY_DAMP},
         .abilityHidden = {ABILITY_STAMINA, ABILITY_SWIFT_SWIM},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -7522,6 +7522,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSwampertTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//give stamina? eh why not
+    //keeping damp as forgot buffed to also block buffed aftermath
+    //and even more fire protection isn't that bad
 
     [SPECIES_POOCHYENA] =
     {
@@ -11237,7 +11239,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sChimcharLevelUpLearnset,
         .tmhmLearnset = sChimcharTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(14, AVERAGE_EFFORT), 0, SPECIES_MONFERNO}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(14, LOW_EFFORT), 0, SPECIES_MONFERNO}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_MONFERNO] =
@@ -11318,7 +11320,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sPiplupLevelUpLearnset,
         .tmhmLearnset = sPiplupTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_PRINPLUP}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_PRINPLUP}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_PRINPLUP] =
@@ -14162,7 +14164,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sSnivyLevelUpLearnset,
         .tmhmLearnset = sSnivyTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, AVERAGE_EFFORT), 0, SPECIES_SERVINE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, LOW_EFFORT), 0, SPECIES_SERVINE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_SERVINE] =
@@ -14380,7 +14382,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sOshawottLevelUpLearnset,
         .tmhmLearnset = sOshawottTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, AVERAGE_EFFORT), 0, SPECIES_DEWOTT}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, LOW_EFFORT), 0, SPECIES_DEWOTT}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_DEWOTT] =
@@ -19458,7 +19460,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sChespinLevelUpLearnset,
         .tmhmLearnset = sChespinTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_QUILLADIN}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_QUILLADIN}), //Should hopefully blank these for now without issue
     }, //making grass normal since has varied move pool, lil chespin love
 
     [SPECIES_QUILLADIN] =
@@ -19559,7 +19561,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sFennekinLevelUpLearnset,
         .tmhmLearnset = sFennekinTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_BRAIXEN}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_BRAIXEN}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_BRAIXEN] =
@@ -19658,7 +19660,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sFroakieLevelUpLearnset,
         .tmhmLearnset = sFroakieTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0, SPECIES_FROGADIER}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0, SPECIES_FROGADIER}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_FROGADIER] =
@@ -21882,7 +21884,7 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sRowletLevelUpLearnset,
         .tmhmLearnset = sRowletTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, AVERAGE_EFFORT), 0, SPECIES_DARTRIX}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, LOW_EFFORT), 0, SPECIES_DARTRIX}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_DARTRIX] =
@@ -22083,7 +22085,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sPopplioLevelUpLearnset,
         .tmhmLearnset = sPopplioTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, AVERAGE_EFFORT), 0, SPECIES_BRIONNE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(17, LOW_EFFORT), 0, SPECIES_BRIONNE}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_BRIONNE] =
@@ -28217,7 +28219,7 @@ const struct BaseStats gBaseStats[] =
         */
         .levelUpLearnset = sSprigatitoLevelUpLearnset,
         //.teachableLearnset = sSprigatitoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0,  SPECIES_FLORAGATO}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0,  SPECIES_FLORAGATO}),
     },
 
     [SPECIES_FLORAGATO] =
@@ -28404,7 +28406,7 @@ const struct BaseStats gBaseStats[] =
         */
         .levelUpLearnset = sFuecocoLevelUpLearnset,
         //.teachableLearnset = sFuecocoTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0,  SPECIES_CROCALOR}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0,  SPECIES_CROCALOR}),
     },
 
     [SPECIES_CROCALOR] =
@@ -28605,7 +28607,7 @@ const struct BaseStats gBaseStats[] =
         */
         .levelUpLearnset = sQuaxlyLevelUpLearnset,
         //.teachableLearnset = sQuaxlyTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, AVERAGE_EFFORT), 0,  SPECIES_QUAXWELL}),
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0,  SPECIES_QUAXWELL}),
     },
 
     [SPECIES_QUAXWELL] =
