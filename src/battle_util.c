@@ -1107,7 +1107,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
 
 
     else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
-        && targetAbility == ABILITY_RATTLED
+        && (targetAbility == ABILITY_RATTLED || targetAbility == ABILITY_QUICK_FEET)
         && CompareStat(gBattlerTarget, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN))
     {
         gBattlerAbility = gBattlerTarget;
@@ -2943,7 +2943,11 @@ u8 DoBattlerEndTurnEffects(void)
                         MAGIC_GUARD_CHECK;
                         WONDER_GUARD_CHECK;
 
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16; //changed to same as others, combined with hail will do  .186 kills in about 5 turns by itself
+                        if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_SNOW_GLOBE)
+                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
+                        else
+                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16; //changed to same as others, combined with hail will do  .186 kills in about 5 turns by itself
+                        
                         if (gBattleMoveDamage == 0) //balanced by being a temporary status and needing the hail setup to have a good chance of being applied.
                             gBattleMoveDamage = 1;
                         //separate to ensure doesn't block decrement

@@ -6061,7 +6061,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_RUN_AWAY},
-        .abilityHidden = {ABILITY_RATTLED, ABILITY_NONE},
+        .abilityHidden = {ABILITY_RATTLED, ABILITY_DEFIANT},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6076,7 +6076,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(86, 120, 75, 45, 60, 80),
-        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),
+        MON_TYPES(TYPE_NORMAL, TYPE_FAIRY),//may turn into dark fairy?
         .catchRate = 75,
         .expYield = 158,
         //.evYield_Attack = 2,
@@ -6087,14 +6087,15 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_INTIMIDATE, ABILITY_QUICK_FEET},
-        .abilityHidden = {ABILITY_RATTLED, ABILITY_NONE},
+        .abilityHidden = {ABILITY_RATTLED, ABILITY_DEFIANT},//only reason to be dark is couter intimidate but best is give an intimidate counter ability instead
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sGranbullLevelUpLearnset,
         .tmhmLearnset = sGranbullTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    },
+    },//ok reading dex entry it absolutely is NOT a dark type normal fairy is best
+    //hmm if  defiant intimidate and holding adrenaline orb do I get both boosts?
 
     [SPECIES_QWILFISH] =
     {
@@ -8258,7 +8259,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sShroomishLevelUpLearnset,
         .tmhmLearnset = sShroomishTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(23, AVERAGE_EFFORT), 0, SPECIES_BRELOOM}), //Should hopefully blank these for now without issue
-    },
+    },//hmm not much reason for this to have quick feet especially since it loses it once it evolves..
 
     [SPECIES_BRELOOM] =
     {
@@ -8279,7 +8280,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_EFFECT_SPORE, ABILITY_POISON_HEAL},
-        .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TECHNICIAN, ABILITY_QUICK_FEET},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -8653,8 +8654,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FAIRY,
-        .abilities = {ABILITY_CUTE_CHARM, ABILITY_NORMALIZE},
-        .abilityHidden = {ABILITY_WONDER_SKIN, ABILITY_RATTLED},
+        .abilities = {ABILITY_CUTE_CHARM, ABILITY_RATTLED}, //made rattled the common, orange cat behavior lol
+        .abilityHidden = {ABILITY_WONDER_SKIN, ABILITY_NORMALIZE},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -8680,8 +8681,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FAIRY,
-        .abilities = {ABILITY_CUTE_CHARM, ABILITY_NORMALIZE},
-        .abilityHidden = {ABILITY_WONDER_SKIN, ABILITY_RATTLED},
+        .abilities = {ABILITY_CUTE_CHARM, ABILITY_RATTLED},
+        .abilityHidden = {ABILITY_WONDER_SKIN, ABILITY_NORMALIZE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
