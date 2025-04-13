@@ -3811,6 +3811,65 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -added new header fields for block surfing and fishing
     -added speed up for surfing hold b goes faster
 
+    -Apply this change to roamers in addition to expanding roamer stuct to 3 value array
+    If the player defeats a roaming Pokémon, it will reappear when the player next enters the Hall of Fame.
+
+    NOTE**(
+
+      mostly don't want plaayer to change ivs, or see them
+      since they were idealized as a blind statistic like normal creatures
+      have differing innate ability.
+
+      But for sake of playing how you want and optimizing certain strategies
+      think will make an item that allows seeing and then setting IVs for a mon
+      but make it a reward for beating the league, will give about 6 each run.
+
+      could be something that works w the game loop farm the league before starting over
+      new game plus to prepare yourself.
+
+      now to prevent people just hoarding them and using it to see stats and never use it
+      I  could have the item be consumed even if stats aren't changed.
+
+      but no, if you have to beat the league to get it, I think that's enough
+      incentive to want to use them.
+
+
+      part of plan to consolidate  mon availability between game
+      by merging fr and lg.
+
+      all can be found through bulbapedia thankfully
+
+      need also review pokemon yellow, as some mon apparently have different/better placement
+      there than in  frlg.
+      ex. ponyta or repidash is supposedly available on cycling road, 
+      as opposed to cinibar and sevii island, which honestly makes great sense
+      horse that loves to run and a massive long straight road perfect.
+      think will toss zebstrika in here as well
+
+      hmm ok so pokemon green (japanese version of blue) apparently ALSO has diff encounters..
+      likitoung is in the safari zone...
+
+      hmm apparenlty also gen1 allowed fishiing on cycling road
+      guess at bottom near end will restore this and encounters there
+      as was a good place to get shellder and krabby
+
+      hmm also in yellow/gen 1 surfing south of lavender town 
+      would allow you slowpoke/slowbro while surving while in gen 3 remake
+      you only get tentacool in pretty much every surf location...
+
+      what this means is there's actually a good deal
+      of space for adding post gen encounters and extra mon
+      I'd want to add slowpoke back to surfing tiles maybe some corphish too
+
+      Think I may  want to expand cinnabar island so I can add a grass area
+      surrounding the mansion idea mansion is abandoned overgrown
+      
+      have to walk through overgrown grass to get to mansion
+
+      firered secret power into hidden grottos
+      open on tree find new area grass etc.
+      w rare pokemon idea courtesy of sacredalmigty
+    )
 
     in progress setup new fonts/ font narrowing
     for health box,
