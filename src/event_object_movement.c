@@ -5686,7 +5686,7 @@ dirn_to_anim(GetJumpInPlaceMovementAction, gUnknown_83A6537);
 dirn_to_anim(GetJumpInPlaceTurnAroundMovementAction, gUnknown_83A653C);
 dirn_to_anim(GetJumpMovementAction, gUnknown_83A6541);
 dirn_to_anim(sub_80641C0, gUnknown_83A6546);
-dirn_to_anim(sub_80641EC, gUnknown_83A654B);
+dirn_to_anim(GetJumpSpecialWithEffectMovementAction, gUnknown_83A654B);
 dirn_to_anim(GetStepInPlaceDelay32AnimId, gUnknown_83A6550);
 dirn_to_anim(GetWalkInPlaceNormalMovementAction, gUnknown_83A6555);
 dirn_to_anim(GetWalkInPlaceSlowMovementAction, gUnknown_83A655A);

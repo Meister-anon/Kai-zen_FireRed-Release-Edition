@@ -1398,7 +1398,7 @@ void sub_8112720(u8 movementActionId)
     }
 }
 
-void sub_811278C(u8 movementActionId, u8 duration)
+void QuestLogRecordPlayerAvatarGfxTransitionWithDuration(u8 movementActionId, u8 duration)
 {
     if (!RecordHeadAtEndOfEntry())
     {

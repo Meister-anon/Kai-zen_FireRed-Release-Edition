@@ -57,7 +57,7 @@ void sub_811246C(struct Sprite *sprite);
 void sub_81124EC(u8 a0, u8 a1, u8 a2, u8 a3);
 bool8 sub_8111C2C(void);
 void sub_81128BC(u8 a0);
-void sub_811278C(u8 movementActionId, u8 duration);
+void QuestLogRecordPlayerAvatarGfxTransitionWithDuration(u8 movementActionId, u8 duration);
 //void Special_UpdateTrainerFansAfterLinkBattle(void);
 void sub_8112628(u8 movementActionId);
 void sub_81126AC(u8 movementActionId, u8 duration);

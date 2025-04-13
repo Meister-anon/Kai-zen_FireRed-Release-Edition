@@ -593,7 +593,7 @@ u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u
     return collision;
 }
 
-static const u8 gUnknown_835B820[] = {
+static const u8 sQuestLogSurfDismountActionIds[] = {
     MOVEMENT_ACTION_FACE_DOWN_FAST,
     MOVEMENT_ACTION_FACE_DOWN_FAST,
     MOVEMENT_ACTION_FACE_UP_FAST,
@@ -607,7 +607,7 @@ static bool8 CanStopSurfing(s16 x, s16 y, u8 direction)
         && MapGridGetZCoordAt(x, y) == 3
         && GetObjectEventIdByXYZ(x, y, 3) == OBJECT_EVENTS_COUNT)
     {
-        sub_811278C(gUnknown_835B820[direction], 16);
+        QuestLogRecordPlayerAvatarGfxTransitionWithDuration(sQuestLogSurfDismountActionIds[direction], 16);
         CreateStopSurfingTask(direction);
         return TRUE;
     }
@@ -825,7 +825,7 @@ static void PlayerSetAnimId(u8 movementActionId, u8 copyableMovement)
     }
 }
 
-static void sub_805C06C(struct ObjectEvent * objectEvent, u8 movementAction)
+static void QL_TryRecordPlayerStepWithDuration0(struct ObjectEvent * objectEvent, u8 movementAction)
 {
     if (!ObjectEventSetHeldMovement(&gObjectEvents[gPlayerAvatar.objectEventId], movementAction))
         sub_81126AC(movementAction, 0);
@@ -1445,7 +1445,7 @@ static bool8 do_boulder_dust(struct Task *task, struct ObjectEvent *playerObject
     {
         ObjectEventClearHeldMovementIfFinished(playerObject);
         ObjectEventClearHeldMovementIfFinished(strengthObject);
-        sub_805C06C(playerObject, GetWalkInPlaceNormalMovementAction((u8)task->data[2]));
+        QL_TryRecordPlayerStepWithDuration0(playerObject, GetWalkInPlaceNormalMovementAction((u8)task->data[2]));
         sub_805C0A4(strengthObject, sub_8063F2C((u8)task->data[2]));
         gFieldEffectArguments[0] = strengthObject->currentCoords.x;
         gFieldEffectArguments[1] = strengthObject->currentCoords.y;
@@ -1496,7 +1496,7 @@ static bool8 PlayerAvatar_DoSecretBaseMatJump(struct Task *task, struct ObjectEv
     if (ObjectEventClearHeldMovementIfFinished(objectEvent))
     {
         PlaySE(SE_LEDGE);
-        sub_805C06C(objectEvent, GetJumpInPlaceMovementAction(objectEvent->facingDirection));
+        QL_TryRecordPlayerStepWithDuration0(objectEvent, GetJumpInPlaceMovementAction(objectEvent->facingDirection));
         task->data[1]++;
         if (task->data[1] > 1)
         {
@@ -1546,7 +1546,7 @@ static bool8 PlayerAvatar_SecretBaseMatSpinStep1(struct Task *task, struct Objec
     {
         u8 direction;
 
-        sub_805C06C(objectEvent, GetFaceDirectionMovementAction(direction = directions[objectEvent->movementDirection - 1]));
+        QL_TryRecordPlayerStepWithDuration0(objectEvent, GetFaceDirectionMovementAction(direction = directions[objectEvent->movementDirection - 1]));
         if (direction == (u8)task->data[1])
             task->data[2]++;
         task->data[0]++;
@@ -1568,7 +1568,7 @@ static bool8 PlayerAvatar_SecretBaseMatSpinStep2(struct Task *task, struct Objec
 
     if (ObjectEventClearHeldMovementIfFinished(objectEvent))
     {
-        sub_805C06C(objectEvent, actions[task->data[2]]);
+        QL_TryRecordPlayerStepWithDuration0(objectEvent, actions[task->data[2]]);
         task->data[0] = 1;
     }
     return FALSE;
@@ -1578,7 +1578,7 @@ static bool8 PlayerAvatar_SecretBaseMatSpinStep3(struct Task *task, struct Objec
 {
     if (ObjectEventClearHeldMovementIfFinished(objectEvent))
     {
-        sub_805C06C(objectEvent, sub_8063F2C(GetOppositeDirection(task->data[1])));
+        QL_TryRecordPlayerStepWithDuration0(objectEvent, sub_8063F2C(GetOppositeDirection(task->data[1])));
         UnlockPlayerFieldControls();
         gPlayerAvatar.preventStep = FALSE;
         DestroyTask(FindTaskIdByFunc(PlayerAvatar_DoSecretBaseMatSpin));
@@ -1595,13 +1595,22 @@ static void CreateStopSurfingTask(u8 direction)
     Overworld_ClearSavedMusic();
     Overworld_ChangeMusicToDefault();
     gPlayerAvatar.flags &= ~PLAYER_AVATAR_FLAG_SURFING;
-    gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_ON_FOOT;
+    if (FlagGet(FLAG_SYS_ON_CYCLING_ROAD) == TRUE)    
+    {
+        gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_MACH_BIKE;
+        Overworld_SetSavedMusic(MUS_CYCLING);
+        Overworld_ChangeMusicTo(MUS_CYCLING);        
+    }   
+    else
+        gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_ON_FOOT;
     gPlayerAvatar.preventStep = TRUE;
     taskId = CreateTask(Task_StopSurfingInit, 0xFF);
     gTasks[taskId].data[0] = direction;
     Task_StopSurfingInit(taskId);
 }
 
+//apparenlty only used in questlog, but most likley
+//still has to match above
 void CreateStopSurfingTask_NoMusicChange(u8 direction)
 {
     u8 taskId;
@@ -1609,7 +1618,10 @@ void CreateStopSurfingTask_NoMusicChange(u8 direction)
     LockPlayerFieldControls();
     FreezeObjectEvents();
     gPlayerAvatar.flags &= ~PLAYER_AVATAR_FLAG_SURFING;
-    gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_ON_FOOT;
+    if (FlagGet(FLAG_SYS_ON_CYCLING_ROAD) == TRUE)    
+        gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_MACH_BIKE;
+    else
+        gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_ON_FOOT;
     gPlayerAvatar.preventStep = TRUE;
     taskId = CreateTask(Task_StopSurfingInit, 0xFF);
     gTasks[taskId].data[0] = direction;
@@ -1620,7 +1632,7 @@ void SeafoamIslandsB4F_CurrentDumpsPlayerOnLand(void)
 {
     if (gQuestLogPlaybackState != 1 && gQuestLogPlaybackState != 3)
     {
-        sub_811278C(gUnknown_835B820[DIR_NORTH], 16);
+        QuestLogRecordPlayerAvatarGfxTransitionWithDuration(sQuestLogSurfDismountActionIds[DIR_NORTH], 16);
         CreateStopSurfingTask(DIR_NORTH);
     }
 }
@@ -1634,8 +1646,8 @@ static void Task_StopSurfingInit(u8 taskId)
         if (!ObjectEventClearHeldMovementIfFinished(playerObjEvent))
             return;
     }
-    sub_80DC44C(playerObjEvent->fieldEffectSpriteId, 2);
-    sub_805C06C(playerObjEvent, sub_80641EC((u8)gTasks[taskId].data[0]));
+    SetSurfBlob_BobState(playerObjEvent->fieldEffectSpriteId, 2);//BOB_MON_ONLY
+    QL_TryRecordPlayerStepWithDuration0(playerObjEvent, GetJumpSpecialWithEffectMovementAction((u8)gTasks[taskId].data[0]));
     gTasks[taskId].func = Task_WaitStopSurfing;
 }
 
@@ -1644,9 +1656,12 @@ static void Task_WaitStopSurfing(u8 taskId)
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (ObjectEventClearHeldMovementIfFinished(playerObjEvent))
-    {
-        ObjectEventSetGraphicsId(playerObjEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
-        sub_805C06C(playerObjEvent, GetFaceDirectionMovementAction(playerObjEvent->facingDirection));
+    {   
+        if (FlagGet(FLAG_SYS_ON_CYCLING_ROAD) == TRUE)
+            ObjectEventSetGraphicsId(playerObjEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_MACH_BIKE));
+        else
+            ObjectEventSetGraphicsId(playerObjEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
+        QL_TryRecordPlayerStepWithDuration0(playerObjEvent, GetFaceDirectionMovementAction(playerObjEvent->facingDirection));
         gPlayerAvatar.preventStep = FALSE;
         UnlockPlayerFieldControls();
         UnfreezeObjectEvents();

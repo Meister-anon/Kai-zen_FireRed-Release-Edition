@@ -150,7 +150,7 @@ static void sub_8150708(void)
         gFieldEffectArguments[2] = gPlayerAvatar.objectEventId;
         fieldEffectId = FieldEffectStart(FLDEFF_SURF_BLOB);
         objectEvent->fieldEffectSpriteId = fieldEffectId;
-        sub_80DC44C(fieldEffectId, 1);
+        SetSurfBlob_BobState(fieldEffectId, 1);
     }
 }
 
