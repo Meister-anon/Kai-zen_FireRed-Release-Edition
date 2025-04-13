@@ -3905,32 +3905,51 @@ static const struct LevelUpMove sSkarmoryLevelUpLearnset[] = {
 
 static const struct LevelUpMove sHoundourLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_LEER),
-    LEVEL_UP_MOVE(1, MOVE_ODOR_SLEUTH),
-    LEVEL_UP_MOVE(4, MOVE_POWER_TRIP), 
+    LEVEL_UP_MOVE(1, MOVE_ODOR_SLEUTH),    
+    LEVEL_UP_MOVE(4, MOVE_SMOG),
     LEVEL_UP_MOVE(5, MOVE_HOWL),
     LEVEL_UP_MOVE(7, MOVE_EMBER),
-    LEVEL_UP_MOVE(9, MOVE_SMOG),
-    LEVEL_UP_MOVE(13, MOVE_ROAR),
-    LEVEL_UP_MOVE(16, MOVE_BITE),
+    LEVEL_UP_MOVE(9, MOVE_BITE),
+    LEVEL_UP_MOVE(10, MOVE_ROAR),
+    LEVEL_UP_MOVE(12, MOVE_SNARL),
+    LEVEL_UP_MOVE(12, MOVE_SLUDGE),
+    LEVEL_UP_MOVE(16, MOVE_ACID_SPRAY), //
+    LEVEL_UP_MOVE(18, MOVE_NASTY_PLOT), 
     LEVEL_UP_MOVE(20, MOVE_TAUNT),
     LEVEL_UP_MOVE(22, MOVE_FEINT_ATTACK),    
-    LEVEL_UP_MOVE(25, MOVE_FIRE_FANG),   
-    LEVEL_UP_MOVE(28, MOVE_BEAT_UP), 
-    LEVEL_UP_MOVE(31, MOVE_FLAMETHROWER), //gets same level charmander does (now a level before)
-    LEVEL_UP_MOVE(33, MOVE_PAYBACK),
-    LEVEL_UP_MOVE(37, MOVE_FLAME_CHARGE),
-    LEVEL_UP_MOVE(40, MOVE_FOUL_PLAY),
+    LEVEL_UP_MOVE(25, MOVE_FLAME_BURST),      
+    LEVEL_UP_MOVE(28, MOVE_BEAT_UP), //changed evo 28 lines up perfectly w this like initiation
+    LEVEL_UP_MOVE(31, MOVE_NIGHT_DAZE),
+    LEVEL_UP_MOVE(33, MOVE_FLAMETHROWER), //gets same level charmander does (now a level before) changed to after
+    LEVEL_UP_MOVE(34, MOVE_SLUDGE_BOMB),
+    LEVEL_UP_MOVE(36, MOVE_GASTRO_ACID),    
+    LEVEL_UP_MOVE(38, MOVE_FLAME_CHARGE),
+    LEVEL_UP_MOVE(40, MOVE_PROTECT),
     LEVEL_UP_MOVE(44, MOVE_CRUNCH),
     LEVEL_UP_MOVE(49, MOVE_NASTY_PLOT),
-    LEVEL_UP_MOVE(52, MOVE_INFERNO),
+    LEVEL_UP_MOVE(52, MOVE_FIERY_WRATH),
     LEVEL_UP_END
 };
+//ok other than below think have enough moves
+//MOVE_BURNING_JEALOUSY  give not setup yet
+//replace physical dark moves for special ones
+//give poison moves sludge bomb sludge wave etc.
+//ideally fire move that can poison noxious flame/ember
+//hmm could make a dark move instead of fire..
+//then I can give it burn and poison chance 95 or 100 bp dark special move
+//finish organize houndoom set and poochyena mightyena sets
 
 static const struct LevelUpMove sHoundoomLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(0, MOVE_POISON_GAS),
+    LEVEL_UP_MOVE(0, MOVE_INFERNO),
+    LEVEL_UP_MOVE(1, MOVE_VENOM_DRENCH),
     LEVEL_UP_MOVE(1, MOVE_INFERNO),
+    LEVEL_UP_MOVE(1, MOVE_PAYBACK),
+    LEVEL_UP_MOVE(1, MOVE_FIRE_SPIN),
     LEVEL_UP_MOVE(1, MOVE_INCINERATE),
+    LEVEL_UP_MOVE(1, MOVE_CLEAR_SMOG),
     LEVEL_UP_MOVE(1, MOVE_NASTY_PLOT),
-    LEVEL_UP_MOVE(1, MOVE_THUNDER_FANG),
+    LEVEL_UP_MOVE(1, MOVE_FIRE_FANG),
     LEVEL_UP_MOVE(1, MOVE_TOXIC_FANG),
     LEVEL_UP_MOVE(1, MOVE_POISON_GAS),
     LEVEL_UP_MOVE(1, MOVE_LEER),
@@ -3943,17 +3962,21 @@ static const struct LevelUpMove sHoundoomLevelUpLearnset[] = {
     LEVEL_UP_MOVE(16, MOVE_BITE),
     LEVEL_UP_MOVE(20, MOVE_TAUNT),
     LEVEL_UP_MOVE(22, MOVE_FEINT_ATTACK),    
-    LEVEL_UP_MOVE(25, MOVE_FIRE_FANG),   
-    LEVEL_UP_MOVE(31, MOVE_BEAT_UP), 
-    LEVEL_UP_MOVE(34, MOVE_FLAMETHROWER), //gets same level charmeleon does 
-    LEVEL_UP_MOVE(36, MOVE_PAYBACK),
+    LEVEL_UP_MOVE(25, MOVE_FLAME_BURST),   
+    LEVEL_UP_MOVE(31, MOVE_BEAT_UP),     
+    LEVEL_UP_MOVE(34, MOVE_NIGHT_DAZE),
+    LEVEL_UP_MOVE(36, MOVE_FLAMETHROWER), //gets same level charmeleon does changed to later 
+    LEVEL_UP_MOVE(38, MOVE_SLUDGE_BOMB),
     LEVEL_UP_MOVE(40, MOVE_FLAME_CHARGE),
-    LEVEL_UP_MOVE(42, MOVE_FOUL_PLAY),
-    LEVEL_UP_MOVE(46, MOVE_CRUNCH),
-    LEVEL_UP_MOVE(52, MOVE_NASTY_PLOT),
-    LEVEL_UP_MOVE(55, MOVE_INFERNO),
+    LEVEL_UP_MOVE(42, MOVE_OBSTRUCT), 
+    LEVEL_UP_MOVE(47, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(52, MOVE_FIERY_WRATH),
+    LEVEL_UP_MOVE(55, MOVE_BURN_OUT),
+    LEVEL_UP_MOVE(65, MOVE_BELCH),
     LEVEL_UP_END
 };
+//sludge wave as a tm
+//kinda wanna make this the group shredder muilti spread moves multi target moves
 
 static const struct LevelUpMove sKingdraLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_BUBBLE),
@@ -4612,16 +4635,20 @@ static const struct LevelUpMove sSwampertLevelUpLearnset[] = {
 
 static const struct LevelUpMove sPoochyenaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
+    LEVEL_UP_MOVE(4, MOVE_POWER_TRIP), 
     LEVEL_UP_MOVE(5, MOVE_HOWL),
     LEVEL_UP_MOVE(9, MOVE_SAND_ATTACK),
-    LEVEL_UP_MOVE(13, MOVE_BITE),
+    LEVEL_UP_MOVE(13, MOVE_BITE),    
     LEVEL_UP_MOVE(17, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(21, MOVE_ROAR),
+    LEVEL_UP_MOVE(21, MOVE_QUASH),
     LEVEL_UP_MOVE(25, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(26, MOVE_PAYBACK),
     LEVEL_UP_MOVE(29, MOVE_SCARY_FACE),
     LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE(37, MOVE_TAUNT),
-    LEVEL_UP_MOVE(41, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(40, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(42, MOVE_FOUL_PLAY),
     LEVEL_UP_MOVE(45, MOVE_THIEF),
     LEVEL_UP_END
 };
@@ -4629,18 +4656,26 @@ static const struct LevelUpMove sPoochyenaLevelUpLearnset[] = {
 static const struct LevelUpMove sMightyenaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_HOWL),
+    LEVEL_UP_MOVE(1, MOVE_POWER_TRIP), 
     LEVEL_UP_MOVE(1, MOVE_SAND_ATTACK),
+    LEVEL_UP_MOVE(1, MOVE_THUNDER_FANG),
+    LEVEL_UP_MOVE(1, MOVE_FIRE_FANG),
+    LEVEL_UP_MOVE(1, MOVE_ICE_FANG),
+    LEVEL_UP_MOVE(1, MOVE_PSYCHIC_FANGS),
     LEVEL_UP_MOVE(1, MOVE_BITE),
     LEVEL_UP_MOVE(5, MOVE_HOWL),
     LEVEL_UP_MOVE(9, MOVE_SAND_ATTACK),
     LEVEL_UP_MOVE(13, MOVE_BITE),
     LEVEL_UP_MOVE(17, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(22, MOVE_ROAR),
+    LEVEL_UP_MOVE(25, MOVE_POUNCE),
     LEVEL_UP_MOVE(27, MOVE_SWAGGER),
+    LEVEL_UP_MOVE(30, MOVE_PAYBACK),
     LEVEL_UP_MOVE(32, MOVE_SCARY_FACE),
     LEVEL_UP_MOVE(37, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE(42, MOVE_TAUNT),
     LEVEL_UP_MOVE(47, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(50, MOVE_FOUL_PLAY), 
     LEVEL_UP_MOVE(52, MOVE_THIEF),
     LEVEL_UP_END
 };
@@ -7225,6 +7260,7 @@ static const struct LevelUpMove sShinxLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sLuxioLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_POUNCE),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 5, MOVE_LEER),
@@ -7243,6 +7279,7 @@ static const struct LevelUpMove sLuxioLevelUpLearnset[] = {
 
 static const struct LevelUpMove sLuxrayLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ELECTRIC_TERRAIN),
+    LEVEL_UP_MOVE( 1, MOVE_POUNCE),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_CHARGE),
@@ -14317,7 +14354,7 @@ static const struct LevelUpMove sCrabrawlerLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sCrabominableLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_ICE_PUNCH),
+    LEVEL_UP_MOVE( 0, MOVE_CHEAP_SHOT),
     LEVEL_UP_MOVE( 1, MOVE_ICE_PUNCH),
     LEVEL_UP_MOVE( 1, MOVE_BUBBLE),
     LEVEL_UP_MOVE( 1, MOVE_ROCK_SMASH),

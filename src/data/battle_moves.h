@@ -11453,7 +11453,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
-    },
+    },//think make - priorty move if on a fast mon not usefl
 
     [MOVE_LASH_OUT] =
     {
@@ -12734,6 +12734,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMovePower = 100,
         //.zMoveEffect = Z_EFFECT_NONE,
     },
+    //renamed from pounce
 
     [MOVE_TRAILBLAZE] =
     {
@@ -13656,6 +13657,7 @@ use wonder gaurd logic to determine its super effective
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
     },//normal or dark type  thought up with luxray line in mind and zenmodeYT  
+    //keeping normal
 
     [MOVE_CHEAP_SHOT] =
     {

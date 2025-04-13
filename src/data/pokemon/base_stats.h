@@ -6581,7 +6581,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Houndour"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(45, 85, 30, 65, 70, 50),
+         STATS(45, 65, 30, 65, 85, 50),
         MON_TYPES(TYPE_DARK, TYPE_FIRE),
         .catchRate = 120,
         .expYield = 66,
@@ -6592,23 +6592,24 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_EARLY_BIRD, ABILITY_FLASH_FIRE},
-        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
+        .abilities = {ABILITY_GRUNGE, ABILITY_FLASH_FIRE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sHoundourLevelUpLearnset,
         .tmhmLearnset = sHoundourTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0, SPECIES_HOUNDOOM}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_HOUNDOOM}), //Should hopefully blank these for now without issue
     },
+    //give galarian moltres signature for good special dark move
 
     [SPECIES_HOUNDOOM] =
     {
         .speciesName = _("Houndoom"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(75, 110, 50, 95, 95, 80),
-        MON_TYPES(TYPE_DARK, TYPE_FIRE),
+         STATS(75, 90, 50, 95, 125, 80),
+        MON_TYPES(TYPE_DARK, TYPE_FIRE),//may drop atk to 85 or 80 to give mightyena space
         .catchRate = 45,
         .expYield = 175,
         //.evYield_SpAttack = 2,
@@ -6618,8 +6619,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_EARLY_BIRD, ABILITY_FLASH_FIRE},
-        .abilityHidden = {ABILITY_UNNERVE, ABILITY_NONE},
+        .abilities = {ABILITY_GRUNGE, ABILITY_FLASH_FIRE},
+        .abilityHidden = {ABILITY_UNNERVE, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -6627,6 +6628,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sHoundoomTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //readjust be more special oriented, can make mightyena the phsyical counterpart
+    //think give poison affinity ability, sun moon entry says spews poison in its flames
+    //and it gets smog
+    //would prevent from being poisoned and give poison healing w toxic orb/black sludge
+    //or hold toxic orb without being poisoned so can throw at oher people I guess?
+    //fill in gaps of strong special dark moves w poison moves
 
     [SPECIES_KINGDRA] =
     {
@@ -7537,7 +7544,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Poochyena"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(35, 75, 35, 35, 30, 30),
+         STATS(35, 85, 35, 35, 30, 30),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 255,
         .expYield = 56,
@@ -7563,7 +7570,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Mightyena"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 105, 70, 77, 60, 60),
+         STATS(70, 125, 70, 77, 60, 60),
         MON_TYPES(TYPE_DARK, TYPE_DARK),
         .catchRate = 127,
         .expYield = 147,
@@ -7583,6 +7590,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMightyenaTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //keeping rattled wouldn't be bad for doubles could launch spook into your partner
+    //for a speed boost hmm shadow sneak is even better actually no
+    //w quick feet change no longer need that
 
     [SPECIES_ZIGZAGOON] =
     {
@@ -37641,10 +37651,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         75,
-        90,
+        115,
         90,
         115,
-        140,
+        130,
         90
         ),
         MON_TYPES(TYPE_DARK, TYPE_FIRE),

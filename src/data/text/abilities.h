@@ -704,6 +704,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_COLD_EMBRACE] = COMPOUND_ABILITY_STRING("Releases sub-zero breath when close.\nMay Freeze foe when they make contact."),
     [ABILITY_TIME_CONTROL] = COMPOUND_ABILITY_STRING("Every two turns can distort time\nnegating charging and recharge turns."),
     [ABILITY_TORCHSOUL] = COMPOUND_ABILITY_STRING("Possesses a burning inner-flame.\nGain FIRE Affinity and boosts Fire moves."),
+    [ABILITY_GRUNGE] = COMPOUND_ABILITY_STRING("Gain POISON Affinity and boosts Poison moves."),
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1108,4 +1109,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_TOXIC_WING] = _("Toxic Wing"),
     [ABILITY_TIME_CONTROL] = _("Time Control"),
     [ABILITY_TORCHSOUL] = _("Torch Soul"),
+    [ABILITY_GRUNGE] = _("Grunge"),
 };//can have comma

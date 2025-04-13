@@ -411,7 +411,8 @@
 #define ABILITY_TOXIC_WING 379
 #define ABILITY_TIME_CONTROL 380 //new dialga ability
 #define ABILITY_TORCHSOUL 381 //fire affinity ability, embroar
+#define ABILITY_GRUNGE 382  //poison affinity / can't be poisoned should also give poison boost? or should I go more creative give all moves chance to poison?
 
-#define ABILITIES_COUNT ABILITY_TORCHSOUL + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_GRUNGE + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

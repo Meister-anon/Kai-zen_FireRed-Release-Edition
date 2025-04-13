@@ -231,6 +231,8 @@ static const u16 gTM_Moves[] =
 //add scorching sands
 //need add flatter aroud swagger
 //add flash freeze  ice will o wisp and give to lunatone
+//add obstruct? or keep that in learnsets sparingly?
+//venoshock
 
 //consider rename this file to item_List_data
 //for adding berry data to this

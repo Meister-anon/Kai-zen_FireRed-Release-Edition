@@ -11502,6 +11502,12 @@ bool8 DoesBattlerGetTypeBasedAffinity(u32 battler, u8 typeFactor)
                 return TRUE;   
         }
         break;
+        case TYPE_POISON:
+        {
+            if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_GRUNGE)
+                return TRUE;   
+        }
+        break;
         case TYPE_FAIRY:
         {
             if (IS_BATTLER_OF_TYPE(battler, typeFactor) || ability == ABILITY_TOADSTOOL_NYMPH)
