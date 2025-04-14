@@ -40,6 +40,19 @@ static const u16 sJellicentGenderForms[] = {
     SPECIES_JELLICENT_FEMALE
 };
 
+#define GROUPED_SPECIES_FILE
+typedef enum
+{
+    UNFEZANT,       //PERCENT_FEMALE(50)
+    PYROAR,         //PERCENT_FEMALE(87.5)
+    MEOWSTIC,       //PERCENT_FEMALE(50)
+    INDEEDEE,       //PERCENT_FEMALE(50)
+    BASCULEGION,    //PERCENT_FEMALE(50)
+    OINKOLOGNE,     //PERCENT_FEMALE(50)
+    FRILLISH,       //PERCENT_FEMALE(50)
+    JELLICENT,      //PERCENT_FEMALE(50)
+}GenderForms;
+
 const u16 *const  gGenderForms[] =
 {
     [UNFEZANT] = sUnfezantGenderForms,
@@ -153,9 +166,78 @@ static const u16 sEarlyRtBirds[] = {
     SPECIES_PIDOVE,
 };
 
+static const u16 sBasculinForms[] = {
+    SPECIES_BASCULIN_RED_STRIPED,
+    SPECIES_BASCULIN_BLUE_STRIPED,
+    SPECIES_BASCULIN_WHITE_STRIPED
+};
+
+static const u16 sSquawkabillyForms[] = {
+    SPECIES_SQUAWKABILLY_GREEN_PLUMAGE,
+    SPECIES_SQUAWKABILLY_BLUE_PLUMAGE,
+    SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE,
+    SPECIES_SQUAWKABILLY_WHITE_PLUMAGE,
+};
+
+static const u16 sCosplayPikachuForms[] = {
+    SPECIES_PIKACHU_ROCK_STAR,
+    SPECIES_PIKACHU_BELLE,
+    SPECIES_PIKACHU_POP_STAR,
+    SPECIES_PIKACHU_PH_D,
+    SPECIES_PIKACHU_LIBRE,
+};
+
+static const u16 sPumpkabooForms[] = {
+    SPECIES_PUMPKABOO_SMALL,
+    SPECIES_PUMPKABOO_AVERAGE_SIZE,
+    SPECIES_PUMPKABOO_LARGE,
+    SPECIES_PUMPKABOO_SUPER,
+};
+
+static const u16 sGourgeistForms[] = {
+    SPECIES_GOURGEIST_SMALL,
+    SPECIES_GOURGEIST_AVERAGE_SIZE,
+    SPECIES_GOURGEIST_LARGE,
+    SPECIES_GOURGEIST_SUPER,
+};
+
+static const u16 sTatsugiriForms[] = {
+    SPECIES_TATSUGIRI_CURLY,
+    SPECIES_TATSUGIRI_DROOPY,
+    SPECIES_TATSUGIRI_STRETCHY,
+};
+
 const u16 *const  gSpeciesGroups[] =
 {
     sEarlyRtBirds,
     sAlcremieForms,
-    sVivillonForms
+    sVivillonForms,
+    sBasculinForms,
+    sSquawkabillyForms,
+    sCosplayPikachuForms,
+    sPumpkabooForms,
+    sGourgeistForms,
+    sTatsugiriForms,
 };
+
+
+
+typedef enum GroupedSpecies_Categories
+{
+    EARLY_ROUTE_BIRDS,
+    ALCREMIE_FORMS,
+    VIVILLION_FORMS,
+    BASCULIN_FORMS,
+    SQUAWKABILLY_FORMS,
+    COSPLAY_PIKA_FORMS,
+    PUMPKABOO_FORMS,
+    GOURGEIST_FORMS,
+    TATSUGIRI_FORMS,
+}SpeciesGroups;
+
+
+/*global enums meant for
+new mon generation logic,
+to allow splitting a single species
+for json between multiple values
+*/

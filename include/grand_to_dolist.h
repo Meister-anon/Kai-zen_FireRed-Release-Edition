@@ -3866,10 +3866,67 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       
       have to walk through overgrown grass to get to mansion
 
+      THE SAFARI ZONE!!!!
+      I can use my species groups idea to expand encounters
+      FOR THE SAFARI ZONE!!!
+
+      it doesn't matter if it takes people forever to find everything
+      that's the entire point!  exploration finding hidden rare creatures
+      just running all over the place!!
+
+      ok so plan, hm surf is the prize at the end
+      what I can do is create 2 states the default
+      and then you get an enhanced state.
+
+      Treat finding surf as a secret prize
+      once you reach the guy he gives surf congratulates you
+      and explains you've won the vip ticket which entitles you to 
+      special access to the safari.
+
+      for the same price from them on you'll start the safari
+      with MANY more safari balls, and either much more time
+      or the timer is removed entirely.
+      (pretty sure the safari version of the menu already comes
+      with a retire button to leave when you want anyway)
+      while I would love to setup 3 digit item count
+      that would bust my ui (unless can figure that out w font fitting)
+      but would like to give about 150 safari balls overall
+      -figure out right balance
+
+      note for dex scroll
+      for mon icons I think I can make eevee work
+      what I need do is keep track of how many evos/ are printed
+      mon evos are printed for and how many max screen can read.
+
+      stop printing when I hit the max number
+      add a scroll arrow and while keeping track of
+      which method/evos I've printed
+      reload the screen and print the next set.
+
+      clear only the window where evo method is displayed
+      now for party menu callback since won't be able to display all at once
+      will need to add on to input
+      so down icon input can do the same thing
+      
+      it doesn't go into evo so just make it scroll by page itself
+      -from dex only scroll page when hit bottom of page
+
+      -when I set up day/night system and differing encounters by  day night
+      set up pokemon tower to have stronger pokemon at night
+      stronger and just stronger in higher level
+
+      -decided don't remove leaf green mapdata instead rename to night maps
+      that way should already have appropriate levels for most part
+      then just rename default map to convention FireRed_Day
+
       firered secret power into hidden grottos
       open on tree find new area grass etc.
       w rare pokemon idea courtesy of sacredalmigty
-    )
+    -started shifting enconters for above,
+    replaced tentacool w frillish south of lavender town for ghostly lore
+    make note would also like to put finneon and lumineon there in night time
+    would be ghostly lights in the water  since they glow from the sunlight
+    they absorb during the day at night
 
     in progress setup new fonts/ font narrowing
     for health box,
@@ -5699,7 +5756,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 */
 goto Storage_SystemCallbacks  //has how pc moves to summ screen and tracks index
 goto ADD_MOVE_CAT_ICONS //for move split etc.
-goto GROUPED_SPECIES_ENUMS //for planned new species set setup, enum must match order of arrays bottom of grouped_species_tables.h
+goto GROUPED_SPECIES_FILE //for planned new species set setup, enum must match order of arrays bottom of grouped_species_tables.h
 /*
     
     /*since gender form array only has 5 values

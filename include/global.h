@@ -480,41 +480,6 @@ typedef enum
 
 }MoveCat;
 
-#define GROUPED_SPECIES_ENUMS
-typedef enum
-{
-    UNFEZANT,       //PERCENT_FEMALE(50)
-    PYROAR,         //PERCENT_FEMALE(87.5)
-    MEOWSTIC,       //PERCENT_FEMALE(50)
-    INDEEDEE,       //PERCENT_FEMALE(50)
-    BASCULEGION,    //PERCENT_FEMALE(50)
-    OINKOLOGNE,     //PERCENT_FEMALE(50)
-    FRILLISH,       //PERCENT_FEMALE(50)
-    JELLICENT,      //PERCENT_FEMALE(50)
-}GenderForms;
-
-typedef enum
-{
-    EARLY_ROUTE_BIRDS,
-    ALCREMIE_FORMS,
-    VIVILLION_FORMS,
-}SpeciesGroups;
-
-typedef enum
-{
-    EARLY_ROUTE_BIRDS_END = 2,
-    ALCREMIE_FORMS_END = 63,
-    VIVILLION_FORMS_END = 20,
-}SpeciesGroupsTerminators; //use size of array
-
-/*global enums meant for
-new mon generation logic,
-to allow splitting a single species
-for json between multiple values
-
-Matches to global arrays in grouped_species_tables.h*/
-
-
 struct Time //want month seasons potentialy add here
 {
     /*0x00*/ s16 days;

@@ -81,6 +81,7 @@ EWRAM_DATA struct Pokemon gPlayerParty[PARTY_SIZE] = {};
 EWRAM_DATA struct SpriteTemplate gMultiuseSpriteTemplate = {0};
 static EWRAM_DATA struct OakSpeechNidoranFStruct *sOakSpeechNidoranResources = NULL;
 
+static u32 ReturnSizeofSpeciesGroup(u8 FormTableId); //use get size of grouped species table array for filtering
 //static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
 //static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
@@ -3033,12 +3034,70 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 u16 CheckSpeciesGroups(u16 species) 
 {
     u8 FormTableId;
+    u32 ListCount;
     switch (species)
     {
         case SPECIES_EARLY_RT_BIRDS:
         {
             FormTableId = EARLY_ROUTE_BIRDS;
-            return gSpeciesGroups[FormTableId][Random() % EARLY_ROUTE_BIRDS_END];
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_ALCREMIE:
+        {
+            FormTableId = ALCREMIE_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_VIVILLON:
+        {
+            FormTableId = VIVILLION_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_BASCULIN:
+        {
+            FormTableId = BASCULIN_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_SQUAWKABILLY:
+        {
+            FormTableId = SQUAWKABILLY_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_COSPLAY_PIKA:
+        {
+            FormTableId = COSPLAY_PIKA_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_PUMPKABOO:
+        {
+            FormTableId = PUMPKABOO_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_GOURGEIST:
+        {
+            FormTableId = GOURGEIST_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
+        }
+        break;
+        case SPECIES_TATSUGIRI:
+        {
+            FormTableId = TATSUGIRI_FORMS;
+            ListCount = ReturnSizeofSpeciesGroup(FormTableId);
+            return gSpeciesGroups[FormTableId][Random() % ListCount];
         }
         break;
         default:
@@ -3046,6 +3105,11 @@ u16 CheckSpeciesGroups(u16 species)
         break;
     } 
 }//something like this
+
+static u32 ReturnSizeofSpeciesGroup(u8 FormTableId)
+{
+    return ARRAY_COUNT(gSpeciesGroups[FormTableId]);
+}
 
 u16 CheckGenderForms(u16 species, bool8 Gender) 
 {
