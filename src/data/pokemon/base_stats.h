@@ -4879,6 +4879,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sLedybaTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(18, AVERAGE_EFFORT), 0, SPECIES_LEDIAN}), //Should hopefully blank these for now without issue    //also give brick break, so only it can setup screens
     },
+    //pallet town at night,
+    //game owner was bug catcher makes sense put bunch of bugs in hometown
 
     [SPECIES_LEDIAN] =
     {
@@ -12907,7 +12909,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sSkorupiLevelUpLearnset,
         .tmhmLearnset = sSkorupiTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(40, MEDIUM_EFFORT), 0, SPECIES_DRAPION}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, MEDIUM_EFFORT), 0, SPECIES_DRAPION}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_DRAPION] =
@@ -16051,7 +16053,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 
-    [SPECIES_BASCULIN] =
+    [SPECIES_BASCULIN_RED_STRIPED] =
     {
         .speciesName = _("Basculin"),
  
@@ -16076,7 +16078,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_2,
         .eggGroup2 = EGG_GROUP_WATER_2,
         .abilities = {ABILITY_RECKLESS, ABILITY_ADAPTABILITY},
-        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_ROCK_HEAD},
+        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20822,7 +20824,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sSkrelpLevelUpLearnset,
         .tmhmLearnset = sSkrelpTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(48, AVERAGE_EFFORT), 0, SPECIES_DRAGALGE}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0, SPECIES_DRAGALGE}), //Should hopefully blank these for now without issue
     },
     //vsonic put this encounterable somewhere
     //hmm think safari zone
@@ -22392,7 +22394,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sGrubbinLevelUpLearnset,
         .tmhmLearnset = sGrubbinTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, AVERAGE_EFFORT), 0, SPECIES_CHARJABUG}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, QUICK_EVO), 0, SPECIES_CHARJABUG}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_CHARJABUG] =
@@ -23075,7 +23077,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sMorelullLevelUpLearnset,
         .tmhmLearnset = sMorelullTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0, SPECIES_SHIINOTIC}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(27, AVERAGE_EFFORT), 0, SPECIES_SHIINOTIC}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_SHIINOTIC] =
@@ -25822,6 +25824,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sYamperTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_BOLTUND}), //Should hopefully blank these for now without issue
     },
+    //don't know if still have resource for but had idea of branch evo of this
+    //that's electric/fairy  idea was fairy charriet
+    //faithful servant/companian of the fae
+    //w chart changes would be advantageous as electric type would beat steel
+    //vsonic
 
     [SPECIES_BOLTUND] =
     {
@@ -27699,6 +27706,12 @@ const struct BaseStats gBaseStats[] =
     //think make safron fighting gym give kubfu
     //potentially secnod fight after pokemon league and beating sabrina?
     //actually make it after beating giovanni vsonic
+    //return after giovanna harder fights then leader gives you a lvl 40 kubfu
+    //hmm actually think will also have it reset flags for item behind leader
+    //but instead of hitmons you get choice between scroll of water and scroll of darkness
+    //as an option to get single strike before elite four
+    //vsonic
+
 
     [SPECIES_URSHIFU_SINGLE_STRIKE_STYLE] =
     {
@@ -31937,6 +31950,7 @@ const struct BaseStats gBaseStats[] =
         //.teachableLearnset = sWiglettTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_WUGTRIO}),
     },
+    //diglet in diglet cave put this in seafoam cave
     //considering replace gooey w unaware,
     //ability makes no sense with its stats
     //or change to sticky hold, same idea but more permanent
@@ -43110,7 +43124,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Basculin"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 92, 65, 98, 80, 55),
+         STATS(70, 92, 65, 108, 80, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 25,
         .expYield = 161,
@@ -43137,7 +43151,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Basculin"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(70, 92, 65, 98, 80, 55),
+         STATS(70, 92, 65, 108, 80, 55),
         MON_TYPES(TYPE_WATER, TYPE_WATER),
         .catchRate = 25,
         .expYield = 161,

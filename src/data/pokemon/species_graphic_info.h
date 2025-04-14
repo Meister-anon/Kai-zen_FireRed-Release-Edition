@@ -4797,7 +4797,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       .enemyMonElevation = 0,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Lilligant, 0xff, 0, 0xff, 0),
 }, //Lilligant,
-[SPECIES_BASCULIN] = 
+[SPECIES_BASCULIN_RED_STRIPED] = 
     {  
       FRONT_COORD(0x45, 13),
       BACK_COORD(0x86, 16),

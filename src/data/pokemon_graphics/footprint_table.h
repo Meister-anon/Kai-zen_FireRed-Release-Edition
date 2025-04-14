@@ -552,7 +552,7 @@
     [SPECIES_WHIMSICOTT] = gMonFootprint_None, //gMonFootprint_Whimsicott,
     [SPECIES_PETILIL] = gMonFootprint_None, //gMonFootprint_None,
     [SPECIES_LILLIGANT] = gMonFootprint_None, //gMonFootprint_Lilligant,
-    [SPECIES_BASCULIN] = gMonFootprint_None, //gMonFootprint_None,
+    [SPECIES_BASCULIN_RED_STRIPED] = gMonFootprint_None, //gMonFootprint_None,
     [SPECIES_SANDILE] = gMonFootprint_None, //gMonFootprint_Sandile,
     [SPECIES_KROKOROK] = gMonFootprint_None, //gMonFootprint_Krokorok,
     [SPECIES_KROOKODILE] = gMonFootprint_None, //gMonFootprint_Krookodile,

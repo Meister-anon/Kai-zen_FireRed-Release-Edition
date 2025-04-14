@@ -554,7 +554,7 @@
 #define SPECIES_WHIMSICOTT 547
 #define SPECIES_PETILIL 548
 #define SPECIES_LILLIGANT 549
-#define SPECIES_BASCULIN 550
+#define SPECIES_BASCULIN_RED_STRIPED 550
 #define SPECIES_SANDILE 551
 #define SPECIES_KROKOROK 552
 #define SPECIES_KROOKODILE 553
@@ -1626,8 +1626,12 @@
 #define SPECIES_DUDUNSPARCE     ALT_FORMS_START + 4
 #define SPECIES_VIVILLON        ALT_FORMS_START + 5
 #define SPECIES_ALCREMIE        ALT_FORMS_START + 6
+#define SPECIES_BASCULIN        ALT_FORMS_START + 7
+#define SPECIES_COSPLAY_PIKA    ALT_FORMS_START + 8   //distinct from actual cospaly species in case setup outfit change
+#define SPECIES_PUMPKABOO       ALT_FORMS_START + 9
+#define SPECIES_GOURGEIST       ALT_FORMS_START + 10
 
-#define ALT_FORMS_END           SPECIES_ALCREMIE 
+#define ALT_FORMS_END           SPECIES_GOURGEIST 
 //may add unown here depening on how setup, but rn it already works off personality to set
 
 #define GROUPED_SPECIES_START    ALT_FORMS_END
