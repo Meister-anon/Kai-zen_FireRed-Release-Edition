@@ -11576,7 +11576,9 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
         && gDisableStructs[battler].defeatistActivated) //overwrite usual switch preveention from status & traps
         || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
         || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)  //considering below - decidedhad already done research flying birds dont have shadow makes sense can escape shadow tag and normally
-        || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)))
+        || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
+        && !IsBattlerGrounded(battler)
+        ))
         return TRUE;
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
         return FALSE;
@@ -12275,7 +12277,8 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //smack down only set on floating mon that hit by by moves w flag dmg flying or 2x flying
     //sleep or paralysis set on floating species
     if (moveType == TYPE_GROUND
-    && gStatuses3[battlerDef] & STATUS3_SMACKED_DOWN
+    && (gStatuses3[battlerDef] & STATUS3_SMACKED_DOWN
+    || (gFieldStatuses & STATUS_FIELD_GRAVITY))
     && mod != UQ_4_12(1.55))
     {
         if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_FLYING) && IsFloatingSpecies(gBattleMons[battlerDef].species))
