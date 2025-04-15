@@ -7516,8 +7516,12 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
         gProtectStructs[battlerId].LightMetalElevated = TRUE;
         priority++;
     }
+    //is cool and fun but makes more sense 
+    //if its contact moves that get elevated
+    //well no there's arguments for each interpretation.
+    //will just keep as is
     else if (GetBattlerAbility(battlerId) == ABILITY_LONG_REACH
-        && !IsMoveMakingContact(move, battlerId)
+        && !(gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
         && GetBattleMoveDamageCategory(battlerId, move) == SPLIT_PHYSICAL)
     {
         gProtectStructs[battlerId].LongReachElevated = TRUE;

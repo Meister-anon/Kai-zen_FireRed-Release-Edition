@@ -18481,7 +18481,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_PHOTOSYNTHESIZE, ABILITY_SHEER_FORCE},
+        .abilities = {ABILITY_ROUGH_SKIN, ABILITY_SHEER_FORCE},
         .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_CHLOROPHYLL},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -18490,6 +18490,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDruddigonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //boring and I hate its design so decided to make a grass dragon
+    //since its wings look like leaves and it can't actually fly
+    //so instead it will now be a plant scultupre that came to life
 
     [SPECIES_GOLETT] =
     {
@@ -39343,6 +39346,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
     },
+    //with long reach it can operate as the only slow mon
+    //that doesn't require trick room to operate
 
     [SPECIES_MAROWAK_ALOLAN] =
     {

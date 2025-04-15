@@ -4072,6 +4072,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     4/14/2025 important
 
     )
+    note replace all if gbattlemovedamage == 0
+    damage = 1;
+
+    with a max check intead much cleaner
+    and won't have to worry about forgetting it if I get in habit of use
+    several mistakes were made that way that broke abilities etc.
 
     -started shifting enconters for above,
     replaced tentacool w frillish south of lavender town for ghostly lore
