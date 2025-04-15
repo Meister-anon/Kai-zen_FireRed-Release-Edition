@@ -20,6 +20,8 @@ CeruleanCity_Gym_Text_ExplainCascadeBadge:: @ 81922F7
     .string "anytime, even out of battle.\p"
     .string "You can SURF across calm waters to\n"
     .string "reach new areas.\p"
+    .string "If you hold the {B_BUTTON} you'll go\n"
+    .string "even faster!\p"
     .string "You can also have my favorite TM.$"
 
 CeruleanCity_Gym_Text_ReceivedTM03FromMisty:: @ 81923F1
