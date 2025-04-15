@@ -3162,7 +3162,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sMarowakLevelUpLearnset,
         .tmhmLearnset = sMarowakTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //cant give muslce magic as that was meant to be main of marowak
+    }, //cant give muslce magic as that was meant to be main of the mega
 
     [SPECIES_HITMONLEE] =
     {
@@ -3269,7 +3269,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_POISON_POINT, ABILITY_NEUTRALIZING_GAS},
-        .abilityHidden = {ABILITY_STENCH, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STENCH, ABILITY_AFTERMATH},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -3297,7 +3297,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_AMORPHOUS,
         .eggGroup2 = EGG_GROUP_AMORPHOUS,
         .abilities = {ABILITY_POISON_POINT, ABILITY_NEUTRALIZING_GAS},
-        .abilityHidden = {ABILITY_STENCH, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STENCH, ABILITY_AFTERMATH},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -3305,6 +3305,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sWeezingTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //reverted neutralizing gas change, gave other good synergy abilities
 
     [SPECIES_RHYHORN] =
     {
@@ -18469,7 +18470,7 @@ const struct BaseStats gBaseStats[] =
         60,
         90
         ),
-        MON_TYPES(TYPE_DRAGON, TYPE_DRAGON),
+        MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 170,
         //.evYield_Attack = 2,
@@ -18480,8 +18481,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_ROUGH_SKIN, ABILITY_SHEER_FORCE},
-        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_ROCK_HEAD},
+        .abilities = {ABILITY_PHOTOSYNTHESIZE, ABILITY_SHEER_FORCE},
+        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_CHLOROPHYLL},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,

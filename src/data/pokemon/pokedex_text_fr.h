@@ -3757,10 +3757,15 @@ const u8 gMienshaoPokedexText[] = _(
     "itself by biting off the fur on its arms.");
 
 const u8 gDruddigonPokedexText[] = _(
-    "It warms its body by absorbing sunlight\n"
+    /*"It warms its body by absorbing sunlight\n"
     "with its wings. When its body temperature\n"
     "falls, it can no longer move. It uses its\n"
-    "sharp claws to catch prey.");
+    "sharp claws to catch prey.");*/
+
+    "Long ago an artist haunted by visions of\n"
+    "a great dragon shaped a forest of 3,000 \n"
+    "trees in its likeness. On next morn as\n"
+    "if rising with the sun they came to life.");
 
 const u8 gGolettPokedexText[] = _(
     "These Pokémon are thought to have\n"

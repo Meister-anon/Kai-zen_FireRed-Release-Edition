@@ -1714,21 +1714,49 @@ static const struct LevelUpMove sExeggutorLevelUpLearnset[] = {
 
 static const struct LevelUpMove sCuboneLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_GROWL),
-    LEVEL_UP_MOVE(5, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE(9, MOVE_BONE_CLUB),
-    LEVEL_UP_MOVE(13, MOVE_HEADBUTT),
-    LEVEL_UP_MOVE(17, MOVE_LEER),
-    LEVEL_UP_MOVE(21, MOVE_FOCUS_ENERGY),
-    LEVEL_UP_MOVE(25, MOVE_BONEMERANG),
-    LEVEL_UP_MOVE(29, MOVE_RAGE),
-    LEVEL_UP_MOVE(33, MOVE_FALSE_SWIPE),
-    LEVEL_UP_MOVE(37, MOVE_THRASH),
+    LEVEL_UP_MOVE(3, MOVE_TAIL_WHIP),
+    LEVEL_UP_MOVE(7, MOVE_BONE_CLUB),
+    LEVEL_UP_MOVE(11, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE(13, MOVE_LEER),
+    LEVEL_UP_MOVE(15, MOVE_FOCUS_ENERGY),
+    LEVEL_UP_MOVE(16, MOVE_RETALIATE),
+    LEVEL_UP_MOVE(18, MOVE_BONEMERANG),
+    LEVEL_UP_MOVE(21, MOVE_RAGE),
+    LEVEL_UP_MOVE(24, MOVE_FALSE_SWIPE),
+    LEVEL_UP_MOVE(28, MOVE_STOMPING_TANTRUM),
+    LEVEL_UP_MOVE(29, MOVE_PAIN_SPLIT),    
+    LEVEL_UP_MOVE(30, MOVE_FLING),
+    LEVEL_UP_MOVE(32, MOVE_THRASH),
+    LEVEL_UP_MOVE(36, MOVE_STOMPING_TANTRUM),
+    LEVEL_UP_MOVE(38, MOVE_ENDEAVOR),
     LEVEL_UP_MOVE(41, MOVE_BONE_RUSH),
     LEVEL_UP_MOVE(45, MOVE_DOUBLE_EDGE),
     LEVEL_UP_END
 };
+//do something closer to gen 7 learnset
+//bonemerang at 21
+
+/*
+1	Growl	Normal	Status	—	100%	40
+3	Tail Whip	Normal	Status	—	100%	30
+7	Bone Club	Ground	Physical	65	85%	20
+11	Headbutt	Normal	Physical	70	100%	15
+13	Leer	Normal	Status	—	100%	30
+17	Focus Energy	Normal	Status	—	—%	30
+21	Bonemerang	Ground	Physical	50	90%	10
+23	Rage	Normal	Physical	20	100%	20
+27	False Swipe	Normal	Physical	40	100%	40
+31	Thrash	Normal	Physical	120	100%	10
+33	Fling	Dark	Physical	—	100%	10
+37	Stomping Tantrum	Ground	Physical	75	100%	10
+41	Endeavor	Normal	Physical	—	100%	5
+43	Double-Edge	Normal	Physical	120	100%	15
+47	Retaliate	Normal	Physical	70	100%	5
+51	Bone Rush	Ground	Physical	25	90%
+*/
 
 static const struct LevelUpMove sMarowakLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(0, MOVE_SKULL_BASH),
     LEVEL_UP_MOVE(1, MOVE_GROWL),
     LEVEL_UP_MOVE(1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE(1, MOVE_BONE_CLUB),

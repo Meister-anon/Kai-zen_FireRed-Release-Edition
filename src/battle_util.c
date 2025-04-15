@@ -11268,6 +11268,8 @@ bool32 IsNeutralizingGasBannedAbility(u32 ability)
 } //abilities excluded  from neutralizing gas, as they are intrinsic to the pokemon biology/unique to themselves/involves changing their body.
 
 //not used anymore, but still here if want to use default implementation //is not global as only used here.
+//changed mind decided to use, but still keep new effect
+//for immutable wind
 bool32 IsNeutralizingGasOnField(void)
 {
     u32 i;
@@ -11318,8 +11320,8 @@ bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability)
     if (gStatuses3[battler] & STATUS3_GASTRO_ACID)
         return FALSE;
 
-    return ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
-        || (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
+    return (/*(DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
+        || */(DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
 }
 
 bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability)
@@ -11337,7 +11339,8 @@ u32 GetBattlerAbility(u8 battlerId)  //Deokishishu in pret mentioned there is a 
 {
     if (gStatuses3[battlerId] & STATUS3_GASTRO_ACID) //only added this, because focusing abilities should work
         return ABILITY_NONE;
-    //if (IsNeutralizingGasOnField() && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
+    else if (IsNeutralizingGasOnField() && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
+        return ABILITY_NONE;
     /*else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
         return ABILITY_NONE;//I don't need to subtract 1 from Id because my function isn't doing anything with the id returned by the function
     else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battlerId), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(gBattleMons[battlerId].ability))
