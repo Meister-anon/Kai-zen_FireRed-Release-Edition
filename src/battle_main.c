@@ -5737,7 +5737,9 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed = (speed * 150) / 100; //should prob make grass specific text string, i.e x became revitalized  //vsonic important
         //put in moveendI guess moveend sport, just to display string vsonic
 
-    // paralysis drop
+    // paralysis drop - changing this, new gens do 50%
+    //and think I like keeping this weaker to make
+    //other speed control more viable
     if ((gBattleMons[battlerId].status1 & STATUS1_PARALYSIS)
         && (ability != ABILITY_QUICK_FEET
             && ability != ABILITY_TANGLED_FEET
@@ -5745,7 +5747,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
             && ability != ABILITY_RUN_AWAY
             )
         && IsBlackFogNotOnField())
-        speed /= 4;
+        speed /= 2;
 
     //trap effects  gBattleMons[battlerAtk].status4 & ITS_A_TRAP_STATUS4  potentially make all drop speed, on top of new effects //vsonic
     //ok decided roll these all together, but make exclusion for ghost and flying type

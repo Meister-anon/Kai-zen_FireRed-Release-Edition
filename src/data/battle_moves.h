@@ -7919,6 +7919,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
         .argument = TRUE, // Protects the whole side.
     },//make sure this is using correct effect and doesn't have decreasing odds each use
+    //check how works as meant to stop all priority moves - works
+    //sets sidestatus  on move not effect
 
     [MOVE_ALLY_SWITCH] =
     {
