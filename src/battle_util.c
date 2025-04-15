@@ -763,6 +763,7 @@ static u8 IsAttackerUsingDrainingMove(void)
     return FALSE;
 }
 
+//vsonic important
 u8 ShouldActivateBindingBand(void)
 {
     if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_BINDING_BAND
@@ -774,9 +775,8 @@ u8 ShouldActivateBindingBand(void)
         gBattleMoveDamage -= gStoredHp;
         gStoredHp = 0;
         
+
         
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
         //effect = ITEM_HP_CHANGE;
         BattleScriptPushCursor();
         //gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
@@ -1600,9 +1600,11 @@ u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera)
 //so those would be immune to each other, as the only issue of effect was for contact
 bool32 CanPoisonType(u8 battlerAttacker, u8 battlerTarget)  //somehow works...
 {
+
+
     return ((GetBattlerAbility(battlerAttacker) == ABILITY_CORROSION)
         || (GetBattlerAbility(battlerAttacker) == ABILITY_POISONED_LEGACY)
-        || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
+        || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL) ||  CalcTypeEffectivenessMultiplier(gCurrentMove, TYPE_POISON, battlerAttacker,battlerTarget, FALSE) == UQ_4_12(0.0)));
 }
 //again unsure on this as poison immunity for steel is entirely due to type chart?
 //think will just allow it, not doing so, would break pattern for other type based status immunities
@@ -2686,9 +2688,9 @@ u8 DoBattlerEndTurnEffects(void)
                      //ok looked into and think issue is using a special status, it sseems to get reset each turn
                     //meaning it never goes above 1
 
-                    //if (gBattleMoveDamage == 0)//this caps at 16 turns because the orginal & bit calculation == 0, then it adds 0x100 if it doesn't equal 0xF00 which is 1500
-                    //    gBattleMoveDamage = 1; // so it caps the turns by essentially counting from 0 to 15. so controlling/balancing the effect is as simple as lowering 0xF00!!!
-                    gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;//16; change to better visualize effet
+                    //this caps at 16 turns because the orginal & bit calculation == 0, then it adds 0x100 if it doesn't equal 0xF00 which is 1500
+                    // so it caps the turns by essentially counting from 0 to 15. so controlling/balancing the effect is as simple as lowering 0xF00!!!
+                    gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);//16; change to better visualize effet
                     if (STATUS3_ROOTED_TURN(turn) != STATUS3_ROOTED_TURN(6)) { // not 16 turns/ facepalm just realized how this works!1!
                         ++gDisableStructs[gActiveBattler].ingrainTurn;
                         //turn += 1; //seriously spitballin' here, nothing's broken atleast all the colors below are still right
@@ -2703,9 +2705,6 @@ u8 DoBattlerEndTurnEffects(void)
                         if (gStatuses3[gActiveBattler] & STATUS3_ROOTED || gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully that works. //should be a weakened effect
                             gBattleMoveDamage = (gBattleMoveDamage * 110) / 100; //can't do more than this as would get far too close to 50%
                     }
-
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
 
                     gBattleMoveDamage *= -1;
                     //gBattleMoveDamage = GetDrainedBigRootHp(gActiveBattler, gBattleMoveDamage);
@@ -2724,7 +2723,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && IsBlackFogNotOnField())
                 {
                     u8 turn = gDisableStructs[gActiveBattler].aquaringTurn;
-                    gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
+                    gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
                     
                     if (STATUS3_AQUARING_TURN(turn) != STATUS3_AQUARING_TURN(6)) //forgot how this works but lowered value since not rooted
                     {
@@ -2738,9 +2737,6 @@ u8 DoBattlerEndTurnEffects(void)
                         if (gStatuses3[gActiveBattler] & STATUS3_ROOTED || gStatuses3[gActiveBattler] & STATUS3_AQUA_RING) //hopefully that works. //should be a weakened effect
                             gBattleMoveDamage = (gBattleMoveDamage * 110) / 100; //can't do more than this as would get far too close to 50%
                     }
-
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
 
                     gBattleMoveDamage *= -1;
                     
@@ -2788,9 +2784,8 @@ u8 DoBattlerEndTurnEffects(void)
                     //its taking from, activebattler will eventually go away
                     //so see what should do for animarguments below
                     //gBattlerTarget = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER; // Notice gBattlerTarget is actually the HP receiver.
-                    gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;//heal leech target max hp
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);//heal leech target max hp
+
                     /*if (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST)) //need test  //had wrong target should be fixed now
                     {
                         //gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //check if correct, but should heal, and then take 1/16 max health of pokemon healed
@@ -2844,9 +2839,7 @@ u8 DoBattlerEndTurnEffects(void)
                     {
                         if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                         {
-                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_POISON_HEAL);
                             BattleScriptExecute(BattleScript_PoisonHealActivates);
@@ -2855,9 +2848,7 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else
                     {
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                         BattleScriptExecute(BattleScript_PoisonTurnDmg);
                         ++effect;
                     }
@@ -2878,9 +2869,7 @@ u8 DoBattlerEndTurnEffects(void)
                     {
                         if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                         {
-                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 6;
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 6,1);
                             gBattleMoveDamage *= -1;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_POISON_HEAL);
                             BattleScriptExecute(BattleScript_PoisonHealActivates);
@@ -2889,9 +2878,7 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                     else //changed setup for below, in advance of status change, as before it relied on toxic being theonly applied status
                     {
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
 
                         if (turn != 16) // not 16 turns - should this be 16 not 15?
                             ++gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)]; //isn't this an issue like toxic counter gets reset if switch out?-- ...yup and same for sleep and freeze..
@@ -2916,12 +2903,11 @@ u8 DoBattlerEndTurnEffects(void)
                     WONDER_GUARD_CHECK;
 
                     if (GetBattlerAbility(gActiveBattler) == ABILITY_HEATPROOF) {
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
                     }
                     else
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+
                     BattleScriptExecute(BattleScript_BurnTurnDmg);
                     ++effect;
                 }
@@ -2944,12 +2930,11 @@ u8 DoBattlerEndTurnEffects(void)
                         WONDER_GUARD_CHECK;
 
                         if (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_SNOW_GLOBE)
-                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                         else
-                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16; //changed to same as others, combined with hail will do  .186 kills in about 5 turns by itself
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1); //changed to same as others, combined with hail will do  .186 kills in about 5 turns by itself
                         
-                        if (gBattleMoveDamage == 0) //balanced by being a temporary status and needing the hail setup to have a good chance of being applied.
-                            gBattleMoveDamage = 1;
+                         //balanced by being a temporary status and needing the hail setup to have a good chance of being applied.
                         //separate to ensure doesn't block decrement
 
                         if (gDisableStructs[gActiveBattler].FrozenTurns) //timer starts at 3, will decrement giving 2 full turns of freeze
@@ -2971,9 +2956,7 @@ u8 DoBattlerEndTurnEffects(void)
                     // persist even after the affected Pokemon has been awakened by Shed Skin.
                     if (gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP)
                     {
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 4;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 4,1);
                         BattleScriptExecute(BattleScript_NightmareTurnDmg);
                         ++effect;
                     }
@@ -2991,9 +2974,7 @@ u8 DoBattlerEndTurnEffects(void)
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
 
-                    gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 4;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 4,1);
                     BattleScriptExecute(BattleScript_CurseTurnDmg);
                     ++effect;
                 }
@@ -3026,9 +3007,8 @@ u8 DoBattlerEndTurnEffects(void)
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_BIND);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                         
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 12; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
+
                     }
                     else  // broke free
                     {
@@ -3066,9 +3046,8 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_WRAP);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 12; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
+
                     }
                     else  // broke free
                     {
@@ -3102,9 +3081,8 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_CLAMP);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 12; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
+
                     }
                     else  // broke free
                     {
@@ -3140,10 +3118,7 @@ u8 DoBattlerEndTurnEffects(void)
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SWARM);
                         
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 12; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
-
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
 
                     }   //make sure new trap effects all have switch prevention still
                     else  // broke free
@@ -3178,9 +3153,8 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SNAP_TRAP);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 12; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
+
                     }
                     else  // broke free
                     {
@@ -3213,9 +3187,8 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_THUNDER_CAGE);
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1); ///8  keep 16 for now since buffing effects
+
                     }
                     else  // broke free
                     {
@@ -3259,9 +3232,8 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleScripting.animArg2 = moveId >> 8;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveId); //changed buffer for others but since this is individua can remain the same
                         gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 12; ///8  keep 16 for now since buffing effects
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 12,1); ///8  keep 16 for now since buffing effects
+
                     }
                     else  // broke free
                     {   //since first filter was a check for anything, I changed clear to a filter on everything, /thunder cage is also tossed in here
@@ -3529,9 +3501,7 @@ u8 DoBattlerEndTurnEffects(void)
                     if (gBattleMons[gBattlerAttacker].maxHP > gBattleMons[gBattlerAttacker].hp
                         && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                     {
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 5;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 5,1);
                         gBattleMoveDamage *= -1;
                         BattleScriptExecute(BattleScript_SleepHealing);
                         ++effect;
@@ -3567,9 +3537,7 @@ u8 DoBattlerEndTurnEffects(void)
                         MarkBattlerForControllerExec(gActiveBattler);
                         gEffectBattler = gActiveBattler;
                         //initial heal 50% then heal for a 3rd of that for next 3 turns, so does same amount
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 6;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 6,1);
                         gBattleMoveDamage *= -1;
                         BattleScriptExecute(BattleScript_EndturnRoost); //issue is endturn cant end with return
                         ++effect;
@@ -3584,9 +3552,7 @@ u8 DoBattlerEndTurnEffects(void)
                             BattleScriptExecute(BattlesScript_RoostEnds);
                         else
                         {
-                            gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 6;
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 6,1);
                             gBattleMoveDamage *= -1;
                             BattleScriptExecute(BattlesScript_RoostEndsHeal);
                         }                        
@@ -4325,9 +4291,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                 if (gBattleMons[gBattlerAttacker].maxHP > gBattleMons[gBattlerAttacker].hp
                     && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                 {
-                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 5;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 5,1);
                     gBattleMoveDamage *= -1;
                 }
                 gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
@@ -6905,9 +6869,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gSideTimers[battler].stealthRockAmount = 0;
                     if (!(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))    //health block check
                     {
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 4;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 4,1);
                         gBattleMoveDamage *= -1;
 
                         if (gBattleMons[battler].hp > gBattleMons[battler].maxHP)
@@ -6939,9 +6901,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     {
                         //gLastUsedAbility = ABILITY_RAIN_DISH; // why -_-  ?chcked emerald, and was correct this is unnecessary
                         BattleScriptPushCursorAndCallback(BattleScript_RainDishActivates);
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 12;    //could buff?  did buff wass 16
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1);    //could buff?  did buff wass 16
                         gBattleMoveDamage *= -1;
                         ++effect;
                     }
@@ -6965,9 +6925,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     {
                         //gLastUsedAbility = ABILITY_PHOTOSYNTHESIZE; 
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);  //can use same script //but have another from updates
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 12; //buffed all weather abilities now heal 1/12
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1); //buffed all weather abilities now heal 1/12
                         gBattleMoveDamage *= -1;
                         ++effect;
                     }
@@ -6980,9 +6938,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     {
                         //gLastUsedAbility = ABILITY_ICE_BODY; //without this line can use same block for multiple abilities
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);  //can use same script //but have another from updates
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 12;  //buffed all weather abilities now heal 1/12
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 12,1);  //buffed all weather abilities now heal 1/12
                         gBattleMoveDamage *= -1;
                         ++effect;
                     }
@@ -6993,20 +6949,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 8;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 8,1);
                         gBattleMoveDamage *= -1;
                         ++effect;
                     }
-                    /*else if (IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY))
-                    {
-                        BattleScriptPushCursorAndCallback(BattleScript_SolarPowerActivates);
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 8;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
-                        ++effect;
-                    } */ //removed in sun hp drop unnecessary, they already take extra fire dmg
                     break;
                 case ABILITY_COMATOSE:
                     if (gBattleMons[battler].maxHP > gBattleMons[battler].hp
@@ -7014,9 +6960,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);  //can use same script //but have another from updates
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 6; //substitute for not being able to use rest, but that in mind woudl be broken with substitute hmm
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 6,1); //substitute for not being able to use rest, but that in mind woudl be broken with substitute hmm
                         gBattleMoveDamage *= -1;
                         ++effect;
                     }
@@ -7102,9 +7046,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         
                         if (gBattleMons[battler].hp < gBattleMons[battler].maxHP)
                         {
-                            gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff - potentially drop to 1/5 since can retrigger with orbs?
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[battler].maxHP / 5,1); //orochimaru style buff - potentially drop to 1/5 since can retrigger with orbs?
                             gBattleMoveDamage *= -1;
                         }
 
@@ -7323,9 +7265,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     if (IsBattlerWeatherAffected(battler, WEATHER_SUN_ANY))
                     {
                         BattleScriptPushCursorAndCallback(BattleScript_SolarPowerActivates);
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 8;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 8,1);
                         ++effect;
                     }
                     break;
@@ -7337,9 +7277,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     {
                         if (gBattleMons[BATTLE_PARTNER(battler)].hp < gBattleMons[BATTLE_PARTNER(battler)].maxHP)
                         {
-                            gBattleMoveDamage = gBattleMons[BATTLE_PARTNER(battler)].maxHP / 4; //orochimaru style buff
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[BATTLE_PARTNER(battler)].maxHP / 4,1); //orochimaru style buff
                             gBattleMoveDamage *= -1;
                         }
                         BattleScriptPushCursorAndCallback(BattleScript_HealerActivates);
@@ -7692,9 +7630,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         else
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain_PPLoss;
 
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 4;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 4,1);
                         gBattleMoveDamage *= -1;
                     }
                 }
@@ -7755,9 +7691,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         else
                             gBattlescriptCurrInstr = BattleScript_MoveHPDrain_PPLoss;
 
-                        gBattleMoveDamage = gBattleMons[battler].maxHP / 4;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 4,1);
                         gBattleMoveDamage *= -1;
                     }
                     gLastHitByType[battler] = TYPE_FIRE;  //can do this because move gets canceled so it never sets this in this case anyway
@@ -7791,9 +7725,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && TARGET_TURN_DAMAGED
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker)))
                 {
-                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_RoughSkinActivates;
                     ++effect;
@@ -7806,9 +7738,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                     && TARGET_TURN_DAMAGED)
                 {
-                    gBattleMoveDamage = (gHpDealt * 2) / 3; //shift to 2/3rd rather than 1/3rd,  50% hp should be 1/3rd for enemy, wait its 1/3rd my health as damage
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max((gHpDealt * 2) / 3,1); //shift to 2/3rd rather than 1/3rd,  50% hp should be 1/3rd for enemy, wait its 1/3rd my health as damage
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_EmpathicCurseActivates; //vsonic test for balance
                     ++effect;
@@ -8382,9 +8312,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && gBattleMons[gBattlerTarget].hp == 0
                     && IsBattlerAlive(gBattlerAttacker))
                 {
-                    gBattleMoveDamage = gSpecialStatuses[gBattlerTarget].dmg;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gSpecialStatuses[gBattlerTarget].dmg,1);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_InnardsOutDmg;
                     ++effect;
@@ -8470,9 +8398,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gBattleMons[gBattlerTarget].species = SPECIES_CRAMORANT;
                         if (GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                         {
-                            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);
                         }
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_GulpMissileGorging;
@@ -8484,9 +8410,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gBattleMons[gBattlerTarget].species = SPECIES_CRAMORANT;
                         if (GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                         {
-                            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;
-                            if (gBattleMoveDamage == 0)
-                                gBattleMoveDamage = 1;
+                            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);
                         }
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_GulpMissileGulping;
@@ -9415,9 +9339,7 @@ static u8 HealConfuseBerry(u8 battlerId, u16 itemId, u8 flavorId, bool32 end2)  
     {
         PREPARE_FLAVOR_BUFFER(gBattleTextBuff1, flavorId);
 
-        gBattleMoveDamage = gBattleMons[battlerId].maxHP / GetBattlerHoldEffectParam(battlerId, itemId);
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / GetBattlerHoldEffectParam(battlerId, itemId),1);
         gBattleMoveDamage *= -1;
 
         if (GetBattlerAbility(battlerId) == ABILITY_RIPEN)
@@ -10039,9 +9961,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 }
                 else if (GetBattlerAbility(battlerId) != ABILITY_MAGIC_GUARD && !moveTurn)
                 {
-                    gBattleMoveDamage = gBattleMons[battlerId].maxHP / 8;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / 8,1);
                     BattleScriptExecute(BattleScript_ItemHurtEnd2);
                     effect = ITEM_HP_CHANGE;
                     RecordItemEffectBattle(battlerId, battlerHoldEffect);
@@ -10054,9 +9974,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 if (gBattleMons[battlerId].hp < gBattleMons[battlerId].maxHP && !moveTurn
                     && !(gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_HEAL_BLOCK))
                 {
-                    gBattleMoveDamage = gBattleMons[battlerId].maxHP / 16;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / 16,1);
                     gBattleMoveDamage *= -1;
                     BattleScriptExecute(BattleScript_ItemHealHP_End2);
                     effect = ITEM_HP_CHANGE;
@@ -10344,9 +10262,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 gLastUsedItem = atkItem;
                 gPotentialItemEffectBattler = gBattlerAttacker;
                 gBattleScripting.battler = gBattlerAttacker;
-                gBattleMoveDamage = (gSpecialStatuses[gBattlerTarget].dmg / atkHoldEffectParam) * -1;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = -1;
+                gBattleMoveDamage = max(gSpecialStatuses[gBattlerTarget].dmg / atkHoldEffectParam,1);
+                gBattleMoveDamage *= -1;
                 gSpecialStatuses[gBattlerTarget].dmg = 0;
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_ItemHealHP_Ret;
@@ -10359,9 +10276,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                 && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD
                 && gSpecialStatuses[gBattlerAttacker].damagedMons)
             {
-                gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 10;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 10,1);
                 effect = ITEM_HP_CHANGE;
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_ItemHurtRet;
@@ -10405,9 +10320,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     && IsBattlerAlive(gBattlerAttacker)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                 {
-                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 6;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 6,1);
                     effect = ITEM_HP_CHANGE;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
@@ -10429,12 +10342,9 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     //as this case already precludes target has desired hold effect
                     if (gStoredHp)
                     {
-                            gBattleMoveDamage = gStoredHp;
+                            gBattleMoveDamage = max(gStoredHp,1);
                             gStoredHp = 0;
                         
-                        
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
                         effect = ITEM_HP_CHANGE;
                         BattleScriptPushCursor();
                         //gBattlescriptCurrInstr = BattleScript_RockyHelmetActivates;
@@ -10507,9 +10417,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     && GetBattleMoveDamageCategory(gBattlerAttacker,gCurrentMove) == SPLIT_PHYSICAL
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)//used above instead of physical check since figured its based on what move actually is, not the damage it inlicts ex pystrike wouldn't trigger
                 {
-                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
+
                     if (GetBattlerAbility(battlerId) == ABILITY_RIPEN)
                         gBattleMoveDamage *= 2;
 
@@ -10529,9 +10438,8 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     && (GetBattleMoveDamageCategory(gBattlerAttacker,gCurrentMove) == SPLIT_SPECIAL)
                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
                 {
-                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
+
                     if (GetBattlerAbility(battlerId) == ABILITY_RIPEN)
                         gBattleMoveDamage *= 2;
 
@@ -10604,9 +10512,9 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
         case HOLD_EFFECT_STICKY_BARB:   // Not an orb per se, but similar effect, and needs to NOT activate with pickpocket
             if (battlerAbility != ABILITY_MAGIC_GUARD)
             {
-                gBattleMoveDamage = gBattleMons[battlerId].maxHP / 8;   //according to bulbapedia stickybarb is not excluded from pickpocket, <it just activates after the barb exchagne
-                if (gBattleMoveDamage == 0) //essentially taking it back.
-                    gBattleMoveDamage = 1;
+                //according to bulbapedia stickybarb is not excluded from pickpocket,
+                //it just activates after the barb exchagne essentially taking it back.
+                gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / 8,1);   
                 BattleScriptExecute(BattleScript_ItemHurtEnd2);
                 effect = ITEM_HP_CHANGE;
                 RecordItemEffectBattle(battlerId, battlerHoldEffect);
@@ -11584,8 +11492,8 @@ bool32 CanBattlerEscape(u32 battler) // no oppoising side ability check
         || (GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
         || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_GHOST) && gBattleMons[battler].species != SPECIES_SPIRITOMB)  //considering below - decidedhad already done research flying birds dont have shadow makes sense can escape shadow tag and normally
         || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battler].species)
-        && !IsBattlerGrounded(battler)
-        ))
+        && !IsBattlerGrounded(battler))
+        )
         return TRUE;
     else if (gBattleMons[battler].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_WRAPPED))
         return FALSE;

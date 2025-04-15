@@ -1474,10 +1474,8 @@ static void atk00_attackcanceler(void) //vsonic
             //lower healing than truant
             if (!(gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_HEAL_BLOCK))
             {
-            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = 1;
-            gBattleMoveDamage *= -1;
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
+                gBattleMoveDamage *= -1;
             }
             gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
             gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -3369,13 +3367,9 @@ static inline void ApplyRandomDmgMultiplier(void) //vsonic test works
     && GetBattlerAbility(gBattlerAttacker) != ABILITY_MULTI_TASK) //think shoudl do it, as this is ALWAYS called after critcalc
             PlayCry_Normal(species, 25); //its inline so I "think" that will work and play in the adjustnormaldamage script
     //added effect check to keep from triggering to frequently, as to become annoying
-    if (gBattleMoveDamage != 0)//extra thing need look into, moves like disarming voice already play cry, need make sure can't double play
-    {
-        gBattleMoveDamage *= randPercent;
-        gBattleMoveDamage /= 100;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
-    }
+    
+    gBattleMoveDamage = max((gBattleMoveDamage * randPercent) / 100 ,1);
+    
 }// vsonic IMPORTANT look into SoundTask_WaitForCry && SoundTask_PlayDoubleCry etc. in battle anims
 
 static void Unused_ApplyRandomDmgMultiplier(void)//garbage data for test
@@ -5381,9 +5375,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }//multistring > 4 would be a problem if I didn't split off the moves from the wrap effect
                 break;
             /*case MOVE_EFFECT_RECOIL_25: // 25% recoil   also struggle
-                gBattleMoveDamage = (gHpDealt) / 4;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;
+                gBattleMoveDamage = max((gHpDealt) / 4,1);
                 if (GetBattlerAbility(gEffectBattler) == ABILITY_PARENTAL_BOND)
                     gBattleMoveDamage *= 2;
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
@@ -5695,9 +5687,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_RECOIL_25:
             case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
             case MOVE_EFFECT_RECOIL_33: // Double Edge / removed below to use upgraded recoil setup
-                /*gBattleMoveDamage = gHpDealt / 3;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;*/
+                //gBattleMoveDamage = max(gHpDealt / 3,1);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
                 break;
@@ -5772,9 +5762,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     && GetBattlerAbility(BATTLE_PARTNER(gBattlerTarget)) != ABILITY_MAGIC_GUARD)
                 {
                     gBattleScripting.savedBattler = BATTLE_PARTNER(gBattlerTarget);
-                    gBattleMoveDamage = gBattleMons[BATTLE_PARTNER(gBattlerTarget)].hp / 16;
-                    if (gBattleMoveDamage == 0)
-                        gBattleMoveDamage = 1;
+                    gBattleMoveDamage = max(gBattleMons[BATTLE_PARTNER(gBattlerTarget)].hp / 16, 1);
+                    //think I want to buff this, treat like recoil, will setup splash damage effect
+                    //if the target resists divide damage by 2,
+                    //if they're immmune to set 0 and play other script to say doesn't effect them
+                    //think want splash to be 1/4 dmg
                     gBattlescriptCurrInstr = BattleScript_MoveEffectFlameBurst;
                 }
                 break;
@@ -6122,9 +6114,7 @@ static bool32 TryCheekPouch(u32 battlerId, u32 itemId)
         && gBattleStruct->ateBerry[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]]
         && !BATTLER_MAX_HP(battlerId))
     {
-        gBattleMoveDamage = gBattleMons[battlerId].maxHP / 3;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[battlerId].maxHP / 3,1);
         gBattleMoveDamage *= -1;
         gBattlerAbility = battlerId;
         BattleScriptPush(gBattlescriptCurrInstr + 2);
@@ -7918,9 +7908,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     
                     if (GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD) //dmg & spikes
                     {
-                        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 8,1);
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SPIKE_SHIELD);//move change mostly works except spikes are set on wrong side with bs commad
                         BattleScriptPushCursor(); //trysetspikes  need swap sides of argumen    //think done?, tested and worked in emerald
                         gBattlescriptCurrInstr = BattleScript_SpikyShieldEffect;
@@ -7939,14 +7927,12 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
                     if (!(gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE)) //use wonder guard effect logic to help here pretty much long as not super effective do counter damage
                     {
-                        gBattleMoveDamage = (gBattleMons[gBattlerTarget].defense / 2); //should be damgage is 1/2 target defense
-                        if (gBattleMoveDamage == 0)
-                            gBattleMoveDamage = 1;
+                        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].defense / 2,1); //should be damgage is 1/2 target defense
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SHIELD_BASH);
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_ShieldBash;//needs animation  //done -make better eventually
                         effect = 1;
-                    }
+                    }//vsonic double check balance on this
                     /*else if (gMoveResultFlags & MOVE_RESULT_SUPER_EFFECTIVE) //should do what i want
                     {
                         ++gBattleScripting.atk49_state;
@@ -10265,9 +10251,8 @@ static void atk52_switchineffects(void) //important, think can put ability reset
 
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
         spikesDmg = (5 - gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount) * 2;
-        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / (spikesDmg);
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / (spikesDmg),1);
+
         gBattleScripting.battler = gActiveBattler;
         BattleScriptPushCursor();
         if (gBattlescriptCurrInstr[1] == BS_TARGET)
@@ -10284,9 +10269,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         && IsBattlerGrounded(gActiveBattler))
     {
         u8 spikesDmg = (5 - gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount) * 2;
-        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / (spikesDmg);
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / (spikesDmg),1);
 
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
         SetDmgHazardsBattlescript(gActiveBattler, 0);
@@ -13157,9 +13140,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         }//vsonic important , need test terrain affect, may replace w isbattlerterrainaffected function
         else if (IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN)) //IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN)
         {
-            gBattleMoveDamage = gBattleMons[battler].maxHP / 16;
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = 1;
+            gBattleMoveDamage = max(gBattleMons[battler].maxHP / 16,1);
             gBattleMoveDamage *= -1;
 
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -13477,9 +13458,7 @@ static void atk76_various(void) //will need to add all these emerald various com
     case VARIOUS_TRY_HEAL_QUARTER_HP:
     {
         VARIOUS_ARGS(const u8 *failInstr);
-        gBattleMoveDamage = gBattleMons[battler].maxHP / 4;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 4,1);
         gBattleMoveDamage *= -1;
 
         if (gBattleMons[battler].hp == gBattleMons[battler].maxHP)
@@ -14308,12 +14287,10 @@ static void atk7B_tryhealportionhealth(void)
         gBattlerTarget = gBattlerAttacker;
         
     if (gCurrentMove != MOVE_PURIFY && gCurrentMove != MOVE_ROOST)
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 3;
+        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 3,1);
     else
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 2; //since purify is so specific that gets to keep half health heal /same for roost
+        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 2,1); //since purify is so specific that gets to keep half health heal /same for roost
 
-    if (gBattleMoveDamage == 0)
-        gBattleMoveDamage = 1;
     gBattleMoveDamage *= -1;
     if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
         gBattlescriptCurrInstr = failPtr;
@@ -14428,19 +14405,18 @@ static void atk80_manipulatedamage(void)
         switch (gBattleMoves[gCurrentMove].effect)
         {
             case EFFECT_50_RECOIL:   //head smash etc.
-                gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].maxHP / 10) + (gBattleMoveDamage / 10));
-                gBattleMoveDamage *= 8;
-                gBattleMoveDamage /= 3;
+                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 10,1) + max(gBattleMoveDamage / 10,1));
+                gBattleMoveDamage = max((gBattleMoveDamage * 8) / 3,1);
                 //gBattleMoveDamage /= 2;
             break;
             case EFFECT_RECOIL:
-                gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].maxHP / 10) + (gBattleMoveDamage / 10));
+                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 10,1) + max(gBattleMoveDamage / 10,1));
                 //gBattleMoveDamage /= 4; //w raichu min dmg should be 3
             break;
             case EFFECT_33_RECOIL_W_STATUS: //volt tackle etc.
             case EFFECT_DOUBLE_EDGE:
-                gBattleMoveDamage = ((gBattleMons[gBattlerAttacker].maxHP / 10) + (gBattleMoveDamage / 10));
-                gBattleMoveDamage += (gBattleMoveDamage / 2);
+                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 10,1) + max(gBattleMoveDamage / 10,1));
+                gBattleMoveDamage += max(gBattleMoveDamage / 2,1);
                 //gBattleMoveDamage /= 3; //double edge damag
             break;
         }
@@ -14472,23 +14448,16 @@ static void atk80_manipulatedamage(void)
        /* if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)
             gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 3;*/  //removed doesn't make sense even if helpful, plus gen4 removed it anyway
 
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
         break;  //only used for recoil miss, make define so can use name properly, oh I already did
     case RECOIL_MISS_DMG:
         if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT) //miss
-            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;    //dmg for immunity rolled into one command
-        
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);    //dmg for immunity rolled into one command
         break;
     case DOUBLE_DMG:
         gBattleMoveDamage *= 2;
         break;
     case DMG_1_8_TARGET_HP:
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 8;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 8,1);
         break;
     case DMG_FULL_ATTACKER_HP:
         gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP;
@@ -14500,10 +14469,10 @@ static void atk80_manipulatedamage(void)
         gBattleMoveDamage = GetDrainedBigRootHp(gBattlerAttacker, gBattleMoveDamage);
         break; //nope this uses the battle_util.c stuff actually, gbattlemovedamage argument ie heal amount, is set from sethpdrain bs command
     case DMG_1_2_ATTACKER_HP:
-        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
+        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 2,1);
         break;
     case DMG_RECOIL_FROM_IMMUNE:
-        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4; //think no longer need can just use top recoil effect
+        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1); //think no longer need can just use top recoil effect
         break;
     
     }
@@ -14663,9 +14632,7 @@ static void atk87_stockpiletohpheal(void)
     }
     else
     {
-        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / (1 << (3 - gDisableStructs[gBattlerAttacker].stockpileCounter));
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / (1 << (3 - gDisableStructs[gBattlerAttacker].stockpileCounter)),1);
         gBattleMoveDamage *= -1;
         gBattleScripting.animTurn = gDisableStructs[gBattlerAttacker].stockpileCounter;
         gDisableStructs[gBattlerAttacker].stockpileCounter = 0;
@@ -14688,19 +14655,18 @@ static void atk88_sethpdrain(void)
     //set gbattlemovedamage : normal hp drain dmg
     
     if (gBattleMoves[gCurrentMove].effect == EFFECT_ABSORB && argumentchance == 0)
-        gBattleMoveDamage = (gHpDealt / 2);
+        gBattleMoveDamage = max(gHpDealt / 2,1);
+
     else if (gBattleMoves[gCurrentMove].effect == EFFECT_ABSORB && argumentchance != 0) //issue seems to bne this part?
-        gBattleMoveDamage = ((gHpDealt * argumentchance) / 100);
+        gBattleMoveDamage = max((gHpDealt * argumentchance) / 100,1);
 
     
     if (IsBattlerTerrainAffected(gBattlerAttacker, STATUS_FIELD_MISTY_TERRAIN))
-        gBattleMoveDamage = (150 * gBattleMoveDamage) / 100; //may cut down //vsonic
+        gBattleMoveDamage = max((150 * gBattleMoveDamage) / 100,1); //may cut down //vsonic
 
-    if (gBattleMoveDamage == 0)
-        gBattleMoveDamage = 1; //think this is needed to not freeze?  yup //try removing, some hp issue 
     
     gBattlescriptCurrInstr = cmd->nextInstr;
-}
+}//vsonic
 
 static u16 ReverseStatChangeMoveEffect(u16 moveEffect)
 {
@@ -15573,9 +15539,7 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
 
 static void atk94_damagetohalftargethp(void) // super fang
 {
-    gBattleMoveDamage = gBattleMons[gBattlerTarget].hp / 2;
-    if (gBattleMoveDamage == 0)
-        gBattleMoveDamage = 1;
+    gBattleMoveDamage = max(gBattleMons[gBattlerTarget].hp / 2,1);
     ++gBattlescriptCurrInstr;
 }
 
@@ -15612,9 +15576,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_WIND_RIDER  //buff for wind rider, as sandstorm is wind move
              && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
-                gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 16,1);
             }
             else
             {
@@ -15631,9 +15593,7 @@ static void atk96_weatherdamage(void)
              && GetBattlerAbility(gBattlerAttacker) != ABILITY_GLACIAL_ICE
              && GetBaseFormSpecies(gBattleMons[gBattlerAttacker].species) != SPECIES_CASTFORM)
             {
-                gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 16,1);
             }
             else
             {
@@ -16157,9 +16117,8 @@ static void atk9C_setsubstitute(void)
     }
     else
     {
-        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4; // one bit value will only work for pokemon which max hp can go to 1020(which is more than possible in games)
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1); // one bit value will only work for pokemon which max hp can go to 1020(which is more than possible in games)
+
         gBattleMons[gBattlerAttacker].status2 |= STATUS2_SUBSTITUTE;
         gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_WRAPPED); //huh seting substitute clears from traps I guesss that makes sense
         gBattleMons[gBattlerAttacker].status4 &= ~ITS_A_TRAP_STATUS4; //hopefully works
@@ -16985,9 +16944,8 @@ static void atkAF_cursetarget(void)
         else
         {
             gBattleMons[gBattlerTarget].status2 |= STATUS2_CURSED;
-            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = 1;
+            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 2,1);
+
             gBattlescriptCurrInstr += 5;
         }
     }
@@ -17106,9 +17064,7 @@ static void atkB7_presentdamagecalculation(void) //setup logic to jump ptr if he
         }
         else //heal
         {
-            gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 12;
-            if (gBattleMoveDamage == 0)
-                gBattleMoveDamage = 1;
+            gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 12,1);
             gBattleMoveDamage *= -1;
 
             if (gBattleMons[gBattlerTarget].maxHP == gBattleMons[gBattlerTarget].hp)
@@ -17640,9 +17596,8 @@ static void atkBC_maxattackhalvehp(void) // belly drum
      && gBattleMons[gBattlerAttacker].hp > (gBattleMons[gBattlerAttacker].maxHP / 2))
     {
         gBattleMons[gBattlerAttacker].statStages[STAT_ATK] = 12;
-        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 2,1);
+
         gBattlescriptCurrInstr += 5;
     }
     else
@@ -17752,22 +17707,20 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
         {
             if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
                 //gBattleMoveDamage = 20 * GetNonDynamaxMaxHP(gBattlerAttacker) / 30;
-                gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
+                gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
             else
                 //gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 3;
-                gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
+                gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
         }
         else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
-            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
+            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
-            gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
+            gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
         else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField()) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
-            gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30; //it has low bst overall so just keep full boost here, cut solar beam boost
+            gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1); //it has low bst overall so just keep full boost here, cut solar beam boost
         else // not sunny weather
-            gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;
+            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);
 
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
         gBattleMoveDamage *= -1;
 
         gBattlescriptCurrInstr += 5;
@@ -18342,9 +18295,8 @@ static void atkD4_trywish(void)
         break;
     case 1: // heal effect
         PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattlerTarget, gWishFutureKnock.wishMonId[gBattlerTarget])
-        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 2;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 2,1);
+
         gBattleMoveDamage *= -1;
         if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
@@ -18743,9 +18695,9 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
             if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                 gBattlerTarget = BATTLE_OPPOSITE(BATTLE_PARTNER(gActiveBattler));
             
-            gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //potentially make 1/16th as its just meant to do chip damage & break bands and can retrigger?
-            if (gBattleMoveDamage == 0) //occurred to me only having smaller chip damage on this withuot the slow wouldn't make the ability useful considering you need to 
-                gBattleMoveDamage = 1; //pivot to make it useful so you'd be takeing two hits not just this one, think will put slow on switchout as well.
+            gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 16,1); //potentially make 1/16th as its just meant to do chip damage & break bands and can retrigger?
+             //occurred to me only having smaller chip damage on this withuot the slow wouldn't make the ability useful considering you need to 
+              //pivot to make it useful so you'd be takeing two hits not just this one, think will put slow on switchout as well.
             BattleScriptPush(gBattlescriptCurrInstr);
             gBattlescriptCurrInstr = BattleScript_AftermathOnSwitch; //think stat drop should work now? since i'm bs attacker used swapattackerwithtarget to change battlescript to target for speed drop then
             //SET_STATCHANGER(STAT_SPEED, 1, TRUE);
@@ -19895,16 +19847,15 @@ void BS_TryHealPulse(void)
     {
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MEGA_LAUNCHER && gBattleMoves[gCurrentMove].flags & FLAG_MEGA_LAUNCHER_BOOST)
             //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) * 75 / 100);
-            gBattleMoveDamage = -(75 * gBattleMons[gBattlerTarget].maxHP) / 100;
+            gBattleMoveDamage = max((75 * gBattleMons[gBattlerTarget].maxHP) / 100,1);
         else if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && gCurrentMove == MOVE_FLORAL_HEALING)
             //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) * 2 / 3);
-            gBattleMoveDamage = -(20 * gBattleMons[gBattlerTarget].maxHP) / 30;
+            gBattleMoveDamage = max((20 * gBattleMons[gBattlerTarget].maxHP) / 30,1);
         else
             //gBattleMoveDamage = -(GetNonDynamaxMaxHP(gBattlerTarget) / 3);
-            gBattleMoveDamage = -gBattleMons[gBattlerTarget].maxHP / 3;
+            gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 3,1);
 
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = -1;
+        gBattleMoveDamage *= -1;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
