@@ -6227,6 +6227,38 @@ static void atk19_tryfaintmon(void)
     {
         u8 battlerId;
 
+        //double check these see if I need them or if I have something
+        //that does already trigger exit on faint
+        if (gBattleMons[gActiveBattler].ability == ABILITY_NEUTRALIZING_GAS
+         && !(gAbsentBattlerFlags & (1u << gActiveBattler))
+         && !IsBattlerAlive(gActiveBattler))
+        {
+            gBattleMons[gActiveBattler].ability = ABILITY_NONE;
+            BattleScriptPush(gBattlescriptCurrInstr);
+            gBattlescriptCurrInstr = BattleScript_NeutralizingGasExits;
+            return;
+        }
+
+        else if (gBattleMons[gActiveBattler].ability == ABILITY_IMMUTABLE_WIND
+         && !(gAbsentBattlerFlags & (1u << gActiveBattler))
+         && !IsBattlerAlive(gActiveBattler))
+        {
+            gBattleMons[gActiveBattler].ability = ABILITY_NONE;
+            BattleScriptPush(gBattlescriptCurrInstr);
+            gBattlescriptCurrInstr = BattleScript_ImmutableWindExits;
+            return;
+        }
+
+        else if (gBattleMons[gActiveBattler].ability == ABILITY_STENCH
+         && !(gAbsentBattlerFlags & (1u << gActiveBattler))
+         && !IsBattlerAlive(gActiveBattler))
+        {
+            gBattleMons[gActiveBattler].ability = ABILITY_NONE;
+            BattleScriptPush(gBattlescriptCurrInstr);
+            gBattlescriptCurrInstr = BattleScript_StenchExits;
+            return;
+        }
+
         if (cmd->battler == BS_ATTACKER)
         {
             gActiveBattler = gBattlerAttacker;
