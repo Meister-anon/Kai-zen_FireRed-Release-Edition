@@ -3811,6 +3811,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -added new header fields for block surfing and fishing
     -added speed up for surfing hold b goes faster
 
+    add surf speed up change to misty text as she gives surf
+    -done
+
+    -adjusted ai statusing checks
+
     -Apply this change to roamers in addition to expanding roamer stuct to 3 value array
     If the player defeats a roaming Pokémon, it will reappear when the player next enters the Hall of Fame.
 

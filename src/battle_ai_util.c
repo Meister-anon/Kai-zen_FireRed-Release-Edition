@@ -3000,7 +3000,7 @@ bool32 CanKnockOffItem(u8 battler, u16 item)
     return TRUE;
 }
 
-// status checks
+// status checks - vsonic
 bool32 IsBattlerIncapacitated(u8 battler, u16 ability)
 {
     if ((gBattleMons[battler].status1 & STATUS1_FREEZE) 
@@ -3008,7 +3008,7 @@ bool32 IsBattlerIncapacitated(u8 battler, u16 ability)
         && !HasThawingMove(battler)) //replace with my thaw logic vsonic - done
         return TRUE;    // if battler has thawing move we assume they will definitely use it, and thus being frozen should be neglected
 
-    if (gBattleMons[battler].status1 & STATUS1_SLEEP)
+    if (gBattleMons[battler].status1 & STATUS1_SLEEP)//since sleep decrements at turn start shoul I set timer >1 here?
         return TRUE;
 
     if (gDisableStructs[battler].rechargeTimer || (ability == ABILITY_TRUANT && gDisableStructs[battler].truantCounter != 0))
@@ -3040,11 +3040,19 @@ bool32 AI_CanPutToSleep(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, 
     return TRUE;
 }
 
+//will do move immunity check in function that calls this
+//vsonic need test but hopefully works
 static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
 {
+    u8 moveType;
+    ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battlerAttacker);
+    GET_MOVE_TYPE(AI_THINKING_STRUCT->moveConsidered, moveType);
+    
+
     return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION)
             || (AI_DATA->abilities[battlerAttacker] == ABILITY_POISONED_LEGACY)
-            || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_ROCK)  || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
+            || !(DoesBattlerGetTypeBasedAffinity(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)
+            || (moveType == TYPE_POISON && AI_GetMoveEffectiveness(AI_THINKING_STRUCT->moveConsidered, battlerAttacker, battlerTarget) != AI_EFFECTIVENESS_x0)));
 }
 
 static bool32 AI_CanBePoisoned(u8 battlerAtk, u8 battlerDef) //vsonic tweak with setmoveeffect logic
@@ -3064,6 +3072,7 @@ static bool32 AI_CanBePoisoned(u8 battlerAtk, u8 battlerDef) //vsonic tweak with
     return TRUE;
 }
 
+//see if fix immunity canbepoisoned is problem no move arguemnt here
 bool32 ShouldPoisonSelf(u8 battler, u16 ability)
 {
     if (AI_CanBePoisoned(battler, battler) && (
@@ -3080,8 +3089,13 @@ bool32 ShouldPoisonSelf(u8 battler, u16 ability)
     return FALSE;
 }
 
+//put poison specific immunity here
+//locks in rock immunity as immune to poison damage
+//still need work out self poison - issue cant identify source move argument
+//ok found move, move value set is AI_THINKING_STRUCT->moveConsidered
 bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 partnerMove)
 {
+
     if (!AI_CanBePoisoned(battlerAtk, battlerDef)
       || AI_GetMoveEffectiveness(move, battlerAtk, battlerDef) == AI_EFFECTIVENESS_x0
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
@@ -3097,10 +3111,17 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
     return TRUE;
 }
 
+//check see if need setup for 2 typedmoves compare to emerald vsonic
+//why is there no freeze check?
 static bool32 AI_CanBeParalyzed(u8 battler, u16 ability) //vsonic updated for custom effect double check
 {
+    u8 moveType;
+    ReturnMoveType(AI_THINKING_STRUCT->moveConsidered, battler);
+    GET_MOVE_TYPE(AI_THINKING_STRUCT->moveConsidered, moveType);
+
     if (ability == ABILITY_LIMBER
-      || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_ELECTRIC) && (gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC || gBattleMoves[gCurrentMove].argument == TYPE_ELECTRIC))
+      || ability == ABILITY_COMATOSE
+      || (DoesBattlerGetTypeBasedAffinity(battler, TYPE_ELECTRIC) && moveType == TYPE_ELECTRIC)
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler))
         return FALSE;
@@ -3145,6 +3166,7 @@ bool32 AI_CanBeBurned(u8 battler, u16 ability)//VSONIC need add on to this
 {
     if (ability == ABILITY_WATER_VEIL
       || ability == ABILITY_WATER_BUBBLE
+      || ability == ABILITY_COMATOSE
       || DoesBattlerGetTypeBasedAffinity(battler, TYPE_FIRE)
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler)
