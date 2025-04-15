@@ -9544,6 +9544,7 @@ static const struct LevelUpMove sPansageLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sSimisageLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_GRASS_PLEDGE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_LICK),
     LEVEL_UP_MOVE( 1, MOVE_FURY_SWIPES),
@@ -9572,6 +9573,7 @@ static const struct LevelUpMove sPansearLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sSimisearLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_FIRE_PLEDGE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_LICK),
     LEVEL_UP_MOVE( 1, MOVE_FURY_SWIPES),
@@ -9600,6 +9602,7 @@ static const struct LevelUpMove sPanpourLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sSimipourLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_WATER_PLEDGE),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_LICK),
     LEVEL_UP_MOVE( 1, MOVE_FURY_SWIPES),

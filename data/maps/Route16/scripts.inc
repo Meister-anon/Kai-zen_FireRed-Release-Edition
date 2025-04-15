@@ -79,3 +79,7 @@ Route16_EventScript_CyclingRoadSign:: @ 81681AD
 Route16_EventScript_RouteSign:: @ 81681B6
 	msgbox Route16_Text_RouteSign, MSGBOX_SIGN
 	end
+
+Route16_EventScript_RouteFishingSign:: @ 81681B6
+	msgbox Route16_Text_NoFishingSign, MSGBOX_SIGN
+	end

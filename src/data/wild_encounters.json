@@ -5530,7 +5530,7 @@
               {
                 "min_level": 31,
                 "max_level": 31,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_SNEASEL"
               },
               {
                 "min_level": 28,
@@ -5550,7 +5550,7 @@
               {
                 "min_level": 24,
                 "max_level": 24,
-                "species": "SPECIES_ZUBAT"
+                "species": "SPECIES_FROSLASS"
               },
               {
                 "min_level": 26,
@@ -5570,7 +5570,7 @@
               {
                 "min_level": 26,
                 "max_level": 26,
-                "species": "SPECIES_ZUBAT"
+                "species": "SPECIES_FROSLASS"
               },
               {
                 "min_level": 35,
@@ -5580,7 +5580,7 @@
               {
                 "min_level": 30,
                 "max_level": 30,
-                "species": "SPECIES_GOLBAT"
+                "species": "SPECIES_DELIBIRD"
               }
             ]
           }
@@ -12380,7 +12380,7 @@
               {
                 "min_level": 34,
                 "max_level": 34,
-                "species": "SPECIES_PONYTA"
+                "species": "SPECIES_PANSEAR"
               },
               {
                 "min_level": 36,
@@ -12545,7 +12545,7 @@
               {
                 "min_level": 25,
                 "max_level": 35,
-                "species": "SPECIES_PSYDUCK"
+                "species": "SPECIES_KINGLER"
               }
             ]
           }
@@ -21768,7 +21768,7 @@
               {
                 "min_level": 11,
                 "max_level": 11,
-                "species": "SPECIES_PIDGEY"
+                "species": "SPECIES_PANPOUR"
               },
               {
                 "min_level": 12,
@@ -21788,7 +21788,7 @@
               {
                 "min_level": 13,
                 "max_level": 13,
-                "species": "SPECIES_PIDGEY"
+                "species": "SPECIES_PANPOUR"
               },
               {
                 "min_level": 14,
@@ -22963,7 +22963,7 @@
               {
                 "min_level": 15,
                 "max_level": 25,
-                "species": "SPECIES_HORSEA"
+                "species": "SPECIES_STARYU"
               },
               {
                 "min_level": 15,

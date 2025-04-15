@@ -74,6 +74,9 @@ Route16_Text_CyclingRoadSign:: @ 8186F7A
     .string "Enjoy the slope!\n"
     .string "CYCLING ROAD$"
 
+Route16_Text_NoFishingSign::
+    .string "No Fishing Allowed!$"
+
 Route16_Text_RouteSign:: @ 8186F98
     .string "ROUTE 16\n"
     .string "CELADON CITY - FUCHSIA CITY$"
