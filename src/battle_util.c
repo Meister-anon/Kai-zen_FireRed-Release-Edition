@@ -7095,7 +7095,11 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         if (gBattleMons[battler].status1 & STATUS1_FREEZE)
                             StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
                         gBattleMons[battler].status1 = 0;
+                        gDisableStructs[battler].FrozenTurns = 0;
+                        gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = 0;
+                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = 0;
                         gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);  // fix nightmare glitch
+                        
                         if (gBattleMons[battler].hp < gBattleMons[battler].maxHP)
                         {
                             gBattleMoveDamage = gBattleMons[battler].maxHP / 4; //orochimaru style buff - potentially drop to 1/5 since can retrigger with orbs?
