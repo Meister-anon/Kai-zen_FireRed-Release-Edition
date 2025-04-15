@@ -12864,10 +12864,13 @@ static void atk76_various(void) //will need to add all these emerald various com
 
         return;
     }
-    case VARIOUS_CURE_STATUS:
+    case VARIOUS_CURE_ALL_STATUS1:
     { 
         VARIOUS_ARGS();
         gBattleMons[battler].status1 = 0;
+        gDisableStructs[battler].FrozenTurns = 0;
+        gBattleStruct->ToxicTurnCounter[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = 0;
+        gBattleStruct->SleepTimer[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = 0;
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
         MarkBattlerForControllerExec(battler);
         break;

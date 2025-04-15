@@ -1805,7 +1805,7 @@
 	.endm
 
 	.macro curestatus battler:req
-	various \battler, VARIOUS_CURE_STATUS
+	various \battler, VARIOUS_CURE_ALL_STATUS1
 	.endm
 
 	.macro powertrick battler:req

@@ -149,7 +149,7 @@
 #define VARIOUS_JUMP_IF_TARGET_ALLY             59
 #define VARIOUS_TRY_SYNCHRONOISE                60
 #define VARIOUS_PSYCHO_SHIFT                    61
-#define VARIOUS_CURE_STATUS                     62
+#define VARIOUS_CURE_ALL_STATUS1                     62
 #define VARIOUS_POWER_TRICK                     63
 #define VARIOUS_AFTER_YOU                       64
 #define VARIOUS_BESTOW                          65
