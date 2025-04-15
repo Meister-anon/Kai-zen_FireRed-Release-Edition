@@ -4011,6 +4011,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     change rock smash no idea how works
     since to just do nothing for the most part so little reason to engage 
     with system.
+    -rock smash change now works
+    //gives item but still needs change all encounter tables
+    //think don't add alolan geodude just handle that w sand
 
     Instead change to have near guaranteed affect
     60/40  item/encounter ratio,

@@ -963,11 +963,14 @@ void SetRockSmashItemReward(void)
             break;
     }
 
-    CopyItemName(sRockSmashItems[j].itemId, gStringVar1);
-    LockForFieldEffect();
+    if (AddBagItem(sRockSmashItems[j].itemId, 1) == TRUE)
+    {
+        CopyItemName(sRockSmashItems[j].itemId, gStringVar1);
+        LockForFieldEffect();
 
-    ShowFieldMessage(gText_RockSmashFoundItem);
-    ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+        ShowFieldMessage(gText_RockSmashFoundItem);
+        ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
+    }
 }
 
 static bool8 CheckStandardWildEncounter(u32 encounter)
