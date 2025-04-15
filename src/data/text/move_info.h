@@ -917,7 +917,7 @@ const u8 gGRASSY_TERRAIN_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The ground turns to grass\nfor 5 turns. Restores HP.");
 
 const u8 gMISTY_TERRAIN_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Covers the ground with mist\nfor 5 turns. Blocks status.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Covers the ground with mist\nfor 5 turns.\nWeakens Dragon moves\nblocks statusing and\nboosts healing from\ndamaging moves.");
 
 const u8 gELECTRIFY_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Electrifies the foe, making\nits next move Electric-type.");
