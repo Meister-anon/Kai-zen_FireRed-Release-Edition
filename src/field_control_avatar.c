@@ -838,7 +838,7 @@ static void UpdatePickupCounter(void)
             s32 random = Random() % 101;
             for (j = 0; j < ARRAY_COUNT(sPickupItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
             {
-                if (sPickupItems[j].chance > random)
+                if (sPickupItems[j].chance >= random)
                     break;
             }
 
@@ -937,6 +937,37 @@ static bool8 UpdatePoisonStepCounter(void)
 void RestartWildEncounterImmunitySteps(void)
 {
     ResetEncounterRateModifiers();
+}
+
+static const struct PickupItem sRockSmashItems[] =
+{
+    { ITEM_EVERSTONE, 15 },
+    { ITEM_DEEP_SEA_TOOTH, 20 },
+    { ITEM_DEEP_SEA_SCALE, 25 },
+    { ITEM_SOFT_SAND, 30 },
+    { ITEM_HARD_STONE, 35 },
+    { ITEM_ALOLAN_SAND, 45 },
+    { ITEM_GALAR_SAND, 60 },
+    { ITEM_HISUIAN_SAND, 70 },
+    { ITEM_PALDEAN_SAND, 85 },
+    { ITEM_NUGGET, 95 },
+};
+
+void SetRockSmashItemReward(void)
+{
+    u32 j;
+    s32 random = Random() % 101;
+    for (j = 0; j < ARRAY_COUNT(sRockSmashItems); ++j) //minus 1 was specific for this array, as it wasn't made to go to last value, I changed it.
+    {
+        if (sRockSmashItems[j].chance >= random)
+            break;
+    }
+
+    CopyItemName(sRockSmashItems[j].itemId, gStringVar1);
+    LockForFieldEffect();
+
+    ShowFieldMessage(gText_RockSmashFoundItem);
+    ScriptContext1_SetupScript(EventScript_DelayedCancelMessageBox);
 }
 
 static bool8 CheckStandardWildEncounter(u32 encounter)

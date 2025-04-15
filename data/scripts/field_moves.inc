@@ -96,7 +96,10 @@ EventScript_UseRockSmash:: @ 81BE06F
 	releaseall
 	end
 
+@put a give item here similar to how I setup pickup
 EventScript_RockSmashNoEncounter:: @ 81BE08D
+	special SetRockSmashItemReward	@test hope works, copy of pickup logic
+	waitstate	@added just in case
 	releaseall
 	end
 

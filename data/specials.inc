@@ -166,7 +166,7 @@ gSpecials:: @ 815FD60
 	def_special StartOldManTutorialBattle
 	def_special ChangePokemonNickname
 	def_special ChoosePartyMon
-	def_special NullFieldSpecial  @ Berry Blender/Roulette specials
+	def_special SetRockSmashItemReward  @ Berry Blender/Roulette specials
 	def_special NullFieldSpecial
 	def_special NullFieldSpecial
 	def_special Script_IsFanClubMemberFanOfPlayer

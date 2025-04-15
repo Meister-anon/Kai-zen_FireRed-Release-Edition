@@ -3922,6 +3922,157 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       firered secret power into hidden grottos
       open on tree find new area grass etc.
       w rare pokemon idea courtesy of sacredalmigty
+
+      Idea from RennDogg vtuber get rid of Masterball's as they trivialize all 
+      legendary battles.
+      also remove the need to struggle not to kill them
+      instead treat like real boss battle you have to defeat them
+      and then they  will have a chance to join you mystery dungeon style
+      you accept they join you, you reject it they dissapear
+
+      until reset
+      all battles that have static sprites should be this way
+      roamers would be excepted them you have to trap and catch the hard way
+    )
+    4/11/2025
+
+    watched wolfey vid w toedscruel's ability mycelium might realized
+    there will always be times you want to turn an ability off
+    so will revert neutralizing gas change, (especially since it appears bugged)
+    but keep the genenie ability as is tho
+
+    NOTE**(
+    for better random odds/encoutens set up new random funtion
+    and ewram storage values to store several rounds of generated encouners
+    i.e 1-3 to store up to last 3 generated encounters in an area
+
+    random function should run and store  gerated species or maybe 
+    slot in encounter table that was last used either or
+    to one of the storage values,
+
+    and similar to starter function from there decide if the found vale is 
+    acceptable or decide to reroll
+
+    the amount of storage values that should be kept track of should
+    depend on the size the encounter list or maybe the number of unique species within
+
+    storage fields should be reset to 0 either after a certain 
+    amount of encounters (1 by 1 not all at once, a type of decay)
+    or after leaving an area i.e moving to another map
+    w a differring encounter table
+
+    whether should reroll based on found species /slot encounter
+    matching previous one should be dependot on odds
+    ex. If I rolled the 1% odds slot this time, but I also rolled it last time
+    its very rare so I wouldn't want to miss out on that luck,
+    and it would always be accepted.
+
+    think what can do is for odds below 10% can do different logic
+    if 5% can allow to repeat i.e if current matches  previous storage
+    at 4% can allow to repeat twice i.e if current matches 2 previous stored
+    and 1% can repeat 3 times can match all prevous stored encouers
+
+    
+    Initial idea was for the species groups but can expand and use for all 
+    encounters to make have better odds
+
+    for Groupd encounters would do a check for if json species
+    is greater than species count than I know I'm dealing with a grouped list
+
+    could prob do for both, and keep 3 for each
+    3 for normal encounters
+    &
+    3 for grouped encounters
+
+    would take ewram but would just require 6 u16 bytes so not too bad
+    especially for the benefit Id get out of it
+
+    Process
+    random generate if stored is 0 aka species none aka first encouter,
+    accept value and store species/encounter slot to first round generator
+
+    when would create next encounter check if matches first storage
+    if true check if its at encounter odds that it should be accepted regardless
+      if the odds aren't rare roll again excluding that stored species/slot
+        (actually could do all slots at once, since meant to be species_none by default
+        idk I'll work it out some ways make more sense to store slot some to store species 
+        identify if doing both is feasible and makes sense
+        but initial idea was do all timers while not a, b or c
+        where b and c are either 0 and never generated anyway, or are values to exclude)
+    
+    if it doesn't match first value accept value and store current generated species
+    to round 2 storage.
+
+    perhaps it would be better to make one for each encounter type?
+    that would quicky snowball tho,
+    to 18 values
+
+    idea=
+    change rock smash no idea how works
+    since to just do nothing for the most part so little reason to engage 
+    with system.
+
+    Instead change to have near guaranteed affect
+    60/40  item/encounter ratio,
+    items on break will be rock related so think of like mining
+    have chance to get valuable resources
+
+    since plan add volz gen 4 setup of mining minim game
+    unsure if should add evo stones to rocksmash rocks
+
+    other options would be black argonite to evolve scyther
+    float stone heavy stone iron ball etc. nugget
+    in HGSS items or ecounters were created from rock smash
+    items included heart scales, shards or fossils
+    all of which are useless in my game
+    except fossils but those are planned for receipt
+    in mining game
+    -done testing
+
+    also idea setup special for cut generate tree mon on attempt to cut
+
+    new idea generate trees in pokemon tower blocking exit after
+    fleeing ghost fight
+    make it a trevenant fight hopefully be a 2 v 1 fight
+    so don't need to boost level
+
+    pair with idea that mismagius is controlling ghosts at tower
+    fight posessed spirit leader guy in tower after team rocket
+    has several ghost mon a misdreavus and last mon is mismagius itself
+
+    actually no have it be a spirit medium not him, flash lights after beating
+    team rocket and they leave, here them scream.
+
+    flash lights again and then have her appear
+    Then have script of her slowly walking up
+
+    with spirit leader saying they're possessed
+    there's only one way to free them now
+    and he'll heal our mon
+    while they're still creepping up to us
+
+    come. quickly!! there's only one way to save them now
+    more flashing screaming and creeping
+    you have to Fight!
+    Scream while mismagius cry plays
+    it rushes at us and then battle starts
+
+    after battle return to his house leader explains she was possessed
+    drawing in ghost types and trapped
+    the spirit of cubone's mother there
+    and it believes the cubone could sense that.
+
+    have him give us cubone, and have it have the phantom touch ability
+
+
+
+    then can greatly increase variety of mon from rock smash
+    w group list of rock mons that can be mistacken for obstructions
+    ex. stonjourner alolan geode line
+    4/14/2025 important
+
+    )
+
     -started shifting enconters for above,
     replaced tentacool w frillish south of lavender town for ghostly lore
     make note would also like to put finneon and lumineon there in night time
