@@ -11308,8 +11308,10 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
             {
                     if (move == MOVE_TERA_BLAST && GET_BASE_SPECIES_ID(species) == SPECIES_TERAPAGOS)
                         return FALSE;
-                    //if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
-                    //    return FALSE;
+                    if (move == MOVE_ATTRACT && GetMonGender(mon) == MON_GENDERLESS)
+                        return FALSE;
+                    if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
+                        return FALSE;
                     return TRUE;
 
             }
