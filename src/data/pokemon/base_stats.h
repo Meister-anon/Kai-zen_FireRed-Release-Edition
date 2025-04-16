@@ -8471,6 +8471,8 @@ const struct BaseStats gBaseStats[] =
     },//thought need debuff atk but doesn't get much any good physical moves at all
     //give buff/debuff moves to suit wraith identity 
     //don't need debuff post wonderguard rework
+    //w ghost being buffed ironically made dispirit guard worse
+    //cuz it resists so many things lol
 
     [SPECIES_WHISMUR] =
     {
@@ -11920,6 +11922,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMothimTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //is this unique enough vsonic
 
     [SPECIES_COMBEE] =
     {
@@ -22186,7 +22189,7 @@ const struct BaseStats gBaseStats[] =
         35,
         75,
         30,
-        65,
+        75,
         30,
         30
         ),
@@ -22201,14 +22204,14 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_SKILL_LINK},
-        .abilityHidden = {ABILITY_PICKUP, ABILITY_SCRAPPY},
+        .abilities = {ABILITY_KEEN_EYE, ABILITY_SCRAPPY},
+        .abilityHidden = {ABILITY_PICKUP, ABILITY_SKILL_LINK},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sPikipekLevelUpLearnset,
         .tmhmLearnset = sPikipekTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(14, AVERAGE_EFFORT), 0, SPECIES_TRUMBEAK}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(21, AVERAGE_EFFORT), 0, SPECIES_TRUMBEAK}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_TRUMBEAK] =
@@ -22217,33 +22220,39 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        55,
-        85,
+        70,
+        75,
         50,
         75,
-        40,
+        85,
         50
         ),
         MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 120,
         .expYield = 124,
         //.evYield_Attack = 2,
-        //.itemRare = ITEM_SITRUS_BERRY,
+        //.itemCommon = ITEM_SITRUS_BERRY, //make this common not rare
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_SKILL_LINK},
-        .abilityHidden = {ABILITY_PICKUP, ABILITY_SCRAPPY},
+        .abilities = {ABILITY_CHEEK_POUCH, ABILITY_CACOPHONY},
+        .abilityHidden = {ABILITY_PICKUP, ABILITY_SKILL_LINK},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
         .levelUpLearnset = sTrumbeakLevelUpLearnset,
         .tmhmLearnset = sTrumbeakTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0, SPECIES_TOUCANNON}), //Should hopefully blank these for now without issue
-    },//to differentiate, based on dex give bullet seed and some sound moves
+    },//to differentiate, based on dex give bullet seed and some sound moves -done
+    //wait why did I make cacophony exclusively a partner ability
+    //when the user is the one most likely to have sound moves...
+    //ok gave 20% boost which when stack w joat would be stab
+    //keep eye on, since soud is true neutral could be too much
+    //think will drop back to 10% actually will be a 27% total boost
+    //cacophony is sound moves not sound type
 
     [SPECIES_TOUCANNON] =
     {
@@ -22269,8 +22278,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_SKILL_LINK},
-        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_SCRAPPY},
+        .abilities = {ABILITY_KEEN_EYE, ABILITY_SCRAPPY},
+        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_SKILL_LINK},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -22279,6 +22288,17 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //to differentiate based on dex give bullet seed, rock smash think flamethrower as well & sound move
     //fire fang/flame charge/ not flamethrower
+    //faceplam all sound attacks are special and this has no special
+    //sigh ok the mid evo and final design are VERY different
+    //this is a toucan w a flaming beak and that can fire things from its beak like a canon
+    //while the mid evo is a different type of bird that instead
+    //makes loud and varied cries and stores berries in its beak/cheek
+    //could give trumbeak new ability different stat spread and could work
+    //more special seedspitter bullet seed always full hits, maybe allows
+    //use of belch from the start since its always eating berriss?
+    //or put that on cheek pouch and give it that, cheek pouch is for storing berries
+    //no seedspitter already gets skill link 
+
 
     [SPECIES_YUNGOOS] =
     {
@@ -45867,7 +45887,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_NO_GUARD, ABILITY_ROCK_HEAD},//known for headbuts, doesn't learn headbut...
+        .abilities = {ABILITY_KEEN_EYE, ABILITY_ROCK_HEAD},//known for headbuts, doesn't learn headbut...
         .abilityHidden = {ABILITY_VITAL_SPIRIT, ABILITY_NONE}, //change evo move to headbutt   eventually learn move head smash
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -45876,6 +45896,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sLycanrocMidnightTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },  //give sucker punch /setup to also evolve with moon stone, make no guard first abiility, think buff keen eye
+    //replaced no guard, no good low acc moves to give
+    //need review tm access mdinight specifically loses moves other forms get
+    //and is given special dark moves -_-
+    //give obstruct vsonic
 
     [SPECIES_LYCANROC_DUSK] =
     {

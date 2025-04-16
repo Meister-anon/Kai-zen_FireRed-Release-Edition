@@ -474,6 +474,7 @@ BattleScript_EffectBelch::
 	attackcanceler
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE @made jankyu logic to set item as ateberry, even without consume but need remove above jump
 	jumpifateberry BS_ATTACKER, BattleScript_AteBerryBelch @if work should jump to atk if already ate berry, otherwise go to next command
+	jumpifability BS_ATTACKER, ABILITY_CHEEK_POUCH,	BattleScript_AteBerryBelch	@skip berry check attack
 	orword gHitMarker, HITMARKER_NO_ANIMATIONS
 	setbyte sBERRY_OVERRIDE, TRUE   @ override the requirements for eating berries
 	savetarget

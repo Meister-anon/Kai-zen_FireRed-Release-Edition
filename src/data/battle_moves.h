@@ -5636,7 +5636,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//with new change don't want to give this priority boost
+    //as move now does end turn healing, hmm or does it not heal on
+    //turn its used...ok yeah it doesn't end turn heal on that turn
 
     [MOVE_GRAVITY] =
     {
@@ -8862,7 +8864,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
     },
 
@@ -9846,7 +9848,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SOUND | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
         .split = SPLIT_SPECIAL,
         .argument = STATUS1_BURN,
     }, //like disarming voice can't do much with this with cacophony and I guess that's fine?
@@ -10212,7 +10214,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BEAK_BLAST] =
     {
-        .effect = EFFECT_SPLASH,    //Todo
+        .effect = EFFECT_SPLASH,    //Todo  vsonic
         .power = 100,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -10223,6 +10225,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_BALLISTIC,
         .split = SPLIT_PHYSICAL,
     },
+    //burns on contact and charge phase ignores attackcanceler
+    //attack cancel doesn't trigger until attack at negative priority
+    //charge is triggered at beginning of turn before all others attack
+    //think need EE do effects before turn start?
 
     [MOVE_CLANGING_SCALES] =
     {

@@ -4547,7 +4547,8 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
     //thinkm will remove the confusion exclusion, as idea is screen is put
     //between attacker and target its not something on the mon itself
     //so it wouldn't block me punching myself in the face
-    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR/* || gProtectStructs[battlerAtk].confusionSelfDmg*/)
+    if (IS_CRIT || GetBattlerAbility(battlerAtk) == ABILITY_INFILTRATOR || (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+    || !IsBlackFogNotOnField())
         return; //think should be fine would just mean do nothing to damage
 
     if (reflect || lightScreen || auroraVeil)
@@ -5286,6 +5287,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
+    case ABILITY_CACOPHONY:
+        if (gBattleMoves[move].flags & FLAG_SOUND)
+        {
+            gBattleMovePower = (gBattleMovePower * 120 / 100);
+
+        }//20% boost w normal type joat would give normal type effective stab w sound moves
+        break;//and only(mostly) normal mon get cacophony ex. whismur loudred etc.
     case ABILITY_SONAR:
         if (gBattleMoves[move].flags & FLAG_SOUND)
         {
@@ -5643,16 +5651,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }//fixed no longer using move result
     }//move animation similar to spike shield use protect effect think combine with harden
 
-    //sidestatus means target side status, checked from bs_commands.c damagecalc function
-    //this is sayign what happens to the attackers damage given said condition so use offesne multiplier
-    if (((sideStatus & SIDE_STATUS_AURORA_VEIL) && !IS_CRIT) //not a crit
-        && GetBattlerAbility(battlerIdAtk) != ABILITY_INFILTRATOR
-        && !(GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
-        && !gProtectStructs[battlerIdAtk].confusionSelfDmg
-        && IsBlackFogNotOnField())
-    {
-        OffensiveModifer(50);
-    } //end of general effects
 
     //can keep here but just need to use gbattlemovedamage //nvm that didn't seem to work either
     //using gbattlemovedmage didn't seem to change dmg, only fix I can think of is to reuse and just keep damage

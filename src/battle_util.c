@@ -1541,6 +1541,9 @@ static bool32 IsBelchPreventingMove(u32 battler, u32 move)
     {
         return FALSE;  //works
     }
+
+    if (GetBattlerAbility(battler) == ABILITY_CHEEK_POUCH)
+        return FALSE;
         
 
     return !(gBattleStruct->ateBerry[battler & BIT_SIDE] & gBitTable[gBattlerPartyIndexes[battler]]);
