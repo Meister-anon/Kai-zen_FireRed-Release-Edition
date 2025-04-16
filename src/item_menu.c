@@ -715,6 +715,7 @@ static void BagListMenuItemPrintFunc(u8 windowId, s32 itemId, u8 y)
     u16 bagItemQuantity;
     if (sBagMenuDisplay->itemOriginalLocation != 0xFF)
     {
+        //believe this is fine and refers to item slot? vsonic
         if (sBagMenuDisplay->itemOriginalLocation == (u8)itemId)
             bag_menu_print_cursor(y, 2);
         else
@@ -1807,6 +1808,8 @@ static void ReturnToBagMenuFromSubmenu_PCBox(void)
     GoToBagMenu(ITEMMENULOCATION_PCBOX, OPEN_BAG_LAST, Cb2_ReturnToPSS);
 }
 
+#define SellQuantity    data[2]
+
 static void Task_ItemContext_Sell(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -1829,21 +1832,23 @@ static void Task_ItemContext_Sell(u8 taskId)
     else
     {
         data[8] = 1;
-        if (data[2] == 1)
+        if (SellQuantity == 1)
         {
             BagPrintMoneyAmount();
             Task_PrintSaleConfirmationText(taskId);
         }
         else
         {
-            if (data[2] > 99)
-                data[2] = 99;
+            if (SellQuantity > 999)
+                SellQuantity = 999;
             CopyItemName(gSpecialVar_ItemId, gStringVar1);
             StringExpandPlaceholders(gStringVar4, gText_HowManyWouldYouLikeToSell);
             DisplayItemMessageInBag(taskId, GetDialogBoxFontId(), gStringVar4, Task_InitSaleQuantitySelectInterface);
         }
     }
 }
+
+#undef SellQuantity
 
 static void GoToTMCase_Sell(void)
 {
@@ -1860,10 +1865,11 @@ static void ReturnToBagMenuFromSubmenu_Sell(void)
     GoToBagMenu(ITEMMENULOCATION_SHOP, OPEN_BAG_LAST, CB2_ReturnToField);
 }
 
+//here data[8] is sale quantity
 static void Task_PrintSaleConfirmationText(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    ConvertIntToDecimalStringN(gStringVar3, itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * data[8], STR_CONV_MODE_LEFT_ALIGN, 6);
+    ConvertIntToDecimalStringN(gStringVar3, itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * data[8], STR_CONV_MODE_LEFT_ALIGN, 8);
     StringExpandPlaceholders(gStringVar4, gText_ICanPayThisMuch_WouldThatBeOkay);
     DisplayItemMessageInBag(taskId, GetDialogBoxFontId(), gStringVar4, Task_ShowSellYesNoMenu);
 }
@@ -1904,13 +1910,14 @@ static void UpdateSalePriceDisplay(s32 amount)
     PrintMoneyAmount(GetBagWindow(0), 56, 10, amount, 0);
 }
 
+#define quantity data[8]
 static void Task_SelectQuantityToSell(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (AdjustQuantityAccordingToDPadInput(&data[8], data[2]) == TRUE)
+    if (AdjustQuantityAccordingToDPadInput(&quantity, data[2]) == TRUE)
     {
-        UpdateQuantityToTossOrDeposit(data[8], 2);
-        UpdateSalePriceDisplay(itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * data[8]);
+        UpdateQuantityToTossOrDeposit(quantity, 3);
+        UpdateSalePriceDisplay(itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * quantity);
     }
     else if (JOY_NEW(A_BUTTON))
     {
@@ -1943,7 +1950,7 @@ static void Task_SellItem_Yes(u8 taskId)
     PutWindowTilemap(0);
     ScheduleBgCopyTilemapToVram(0);
     CopyItemName(gSpecialVar_ItemId, gStringVar1);
-    ConvertIntToDecimalStringN(gStringVar3, itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * data[8], STR_CONV_MODE_LEFT_ALIGN, 6);
+    ConvertIntToDecimalStringN(gStringVar3, itemid_get_market_price(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])) / 2 * quantity, STR_CONV_MODE_LEFT_ALIGN, 8);
     StringExpandPlaceholders(gStringVar4, gText_TurnedOverItemsWorthYen);
     DisplayItemMessageInBag(taskId, 2, gStringVar4, Task_FinalizeSaleToShop);
 }
@@ -1952,9 +1959,9 @@ static void Task_FinalizeSaleToShop(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
     PlaySE(SE_SHOP);
-    RemoveBagItem(gSpecialVar_ItemId, data[8]);
-    AddMoney(&gSaveBlock1Ptr->money, itemid_get_market_price(gSpecialVar_ItemId) / 2 * data[8]);
-    RecordItemPurchase(gSpecialVar_ItemId, data[8], 2);
+    RemoveBagItem(gSpecialVar_ItemId, quantity);
+    AddMoney(&gSaveBlock1Ptr->money, itemid_get_market_price(gSpecialVar_ItemId) / 2 * quantity);
+    RecordItemPurchase(gSpecialVar_ItemId, quantity, 2);
     DestroyListMenuTask(data[0], &gBagMenuState.cursorPos[gBagMenuState.pocket], &gBagMenuState.itemsAbove[gBagMenuState.pocket]);
     Pocket_CalculateNItemsAndMaxShowed(gBagMenuState.pocket);
     PocketCalculateInitialCursorPosAndItemsAbove(gBagMenuState.pocket);
@@ -1997,9 +2004,9 @@ static void Task_ItemContext_Deposit(u8 taskId)
 static void Task_SelectQuantityToDeposit(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (AdjustQuantityAccordingToDPadInput(&data[8], data[2]) == TRUE)
+    if (AdjustQuantityAccordingToDPadInput(&quantity, data[2]) == TRUE)
     {
-        UpdateQuantityToTossOrDeposit(data[8], 3);
+        UpdateQuantityToTossOrDeposit(quantity, 3);
     }
     else if (JOY_NEW(A_BUTTON))
     {
@@ -2027,11 +2034,11 @@ static void Task_SelectQuantityToDeposit(u8 taskId)
 static void Task_TryDoItemDeposit(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (AddPCItem(gSpecialVar_ItemId, data[8]) == TRUE)
+    if (AddPCItem(gSpecialVar_ItemId, quantity) == TRUE)
     {
         ItemUse_SetQuestLogEvent(28, 0, gSpecialVar_ItemId, 0xFFFF);
         CopyItemName(gSpecialVar_ItemId, gStringVar1);
-        ConvertIntToDecimalStringN(gStringVar2, data[8], STR_CONV_MODE_LEFT_ALIGN, 3);
+        ConvertIntToDecimalStringN(gStringVar2, quantity, STR_CONV_MODE_LEFT_ALIGN, 3);
         StringExpandPlaceholders(gStringVar4, gText_DepositedStrVar2StrVar1s);
         BagPrintTextOnWindow(ShowBagWindow(6, 3), 2, gStringVar4, 0, 2, 0, 0, 0, 1);
         gTasks[taskId].func = Task_WaitAB_RedrawAndReturnToBag;
@@ -2041,6 +2048,7 @@ static void Task_TryDoItemDeposit(u8 taskId)
         DisplayItemMessageInBag(taskId, 2, gText_NoRoomToStoreItems, Task_WaitAButtonAndCloseContextMenu);
     }
 }
+#undef quantity
 
 bool8 UseRegisteredKeyItemOnField(void)
 {

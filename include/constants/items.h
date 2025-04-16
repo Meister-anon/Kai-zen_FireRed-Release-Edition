@@ -310,7 +310,7 @@
 #define ITEM_STORAGE_KEY 285
 #define ITEM_ROOT_FOSSIL 286	//lileep
 #define ITEM_CLAW_FOSSIL 287	//anorith
-#define ITEM_DEVON_SCOPE 288
+#define ITEM_DEVON_SCOPE 288    //for some reason used as filter in shop menu?
 #define ITEM_TM01 289
 #define ITEM_TM02 290
 #define ITEM_TM03 291

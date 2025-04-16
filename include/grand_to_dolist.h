@@ -3897,6 +3897,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       that would bust my ui (unless can figure that out w font fitting)
       but would like to give about 150 safari balls overall
       -figure out right balance
+      -curr finish font fitting for bad items etc.
+      then can set to display 3 digits
+      would save me some space in bag i.e no extra wrapping should I hit 99
+      would effectively let me get more out of each item slot
+      ...oh I already changed bag items to store 3 digits and it even already fits
+      in default space
+
+      ok done finished adjusting all relevant spaces for 3 digits in item menu/shop
+      biggest issue was just adjusting money display but all working
 
       note for dex scroll
       for mon icons I think I can make eevee work

@@ -614,6 +614,8 @@ static void BuyMenuPrintPriceInList(u8 windowId, s32 item, u8 y)
 
     if (item != INDEX_CANCEL)
     {
+        //item price limit to 4 digits, helps names fit
+        //when do name font can increase vsonic
         ConvertIntToDecimalStringN(gStringVar1, itemid_get_market_price(item), 0, 4);
         x = 4 - StringLength(gStringVar1);
         loc = gStringVar4;
@@ -875,7 +877,7 @@ static void BuyMenuPrintItemQuantityAndPrice(u8 taskId)
     
     FillWindowPixelBuffer(3, PIXEL_FILL(1));
     PrintMoneyAmount(3, 0x36, 0xA, gShopData.itemPrice, TEXT_SKIP_DRAW);
-    ConvertIntToDecimalStringN(gStringVar1, tItemCount, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar1, tItemCount, STR_CONV_MODE_LEADING_ZEROS, 3);
     StringExpandPlaceholders(gStringVar4, gText_TimesStrVar1);
     BuyMenuPrint(3, 0, gStringVar4, 2, 0xA, 0, 0, 0, 1);
 }
@@ -933,10 +935,10 @@ static void Task_BuyHowManyDialogueInit(u8 taskId)
     BuyMenuPrintItemQuantityAndPrice(taskId);
     ScheduleBgCopyTilemapToVram(0);
     maxQuantity = GetMoney(&gSaveBlock1Ptr->money) / itemid_get_market_price(tItemId);
-    if (maxQuantity > 99)
-        gShopData.maxQuantity = 99;
+    if (maxQuantity > 999)
+        gShopData.maxQuantity = 999;
     else
-        gShopData.maxQuantity = (u8)maxQuantity;
+        gShopData.maxQuantity = maxQuantity;
     
     if (maxQuantity != 1)
         BuyQuantityAddScrollIndicatorArrows();
@@ -965,7 +967,7 @@ static void Task_BuyHowManyDialogueHandleInput(u8 taskId)
             ClearWindowTilemap(1);
             PutWindowTilemap(4);
             CopyItemName(tItemId, gStringVar1);
-            ConvertIntToDecimalStringN(gStringVar2, tItemCount, STR_CONV_MODE_LEFT_ALIGN, 2);
+            ConvertIntToDecimalStringN(gStringVar2, tItemCount, STR_CONV_MODE_LEFT_ALIGN, 3);
             ConvertIntToDecimalStringN(gStringVar3, gShopData.itemPrice, STR_CONV_MODE_LEFT_ALIGN, 8);
             BuyMenuDisplayMessage(taskId, gText_Var1AndYouWantedVar2, CreateBuyMenuConfirmPurchaseWindow);
         }

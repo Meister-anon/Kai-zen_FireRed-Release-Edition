@@ -86,21 +86,23 @@ void PrintMoneyAmountInMoneyBox(u8 windowId, int amount, u8 speed)
     AddTextPrinterParameterized(windowId, 0, gStringVar4, 64 - GetStringWidth(0, gStringVar4, 0), 0xC, speed, NULL);
 }
 
+//...somehow got text to fit
 void PrintMoneyAmount(u8 windowId, u8 x, u8 y, int amount, u8 speed)
 {
     u8 *txtPtr;
     s32 strLength;
+    u8 Maxdigits = 8; //default was 6, as maxmoney is 999999
 
-    ConvertIntToDecimalStringN(gStringVar1, amount, STR_CONV_MODE_LEFT_ALIGN, 6);
+    ConvertIntToDecimalStringN(gStringVar1, amount, STR_CONV_MODE_LEFT_ALIGN, Maxdigits);
 
-    strLength = 6 - StringLength(gStringVar1);
+    strLength = Maxdigits - StringLength(gStringVar1);
     txtPtr = gStringVar4;
 
     while (strLength-- != 0)
         *(txtPtr++) = 0;
 
     StringExpandPlaceholders(txtPtr, gText_PokedollarVar1);
-    AddTextPrinterParameterized(windowId, 0, gStringVar4, x, y, speed, NULL);
+    AddTextPrinterParameterized(windowId, 0, gStringVar4, x - (GetStringWidth(0, gStringVar4, 0) / 2), y, speed, NULL);
 }
 
 void PrintMoneyAmountInMoneyBoxWithBorder(u8 windowId, u16 tileStart, u8 pallete, int amount)
