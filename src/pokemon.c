@@ -30,12 +30,9 @@
 #include "party_menu.h"
 #include "field_specials.h"
 #include "field_weather.h"
-#include "constants/items.h"
 #include "constants/item_effects.h"
 #include "constants/form_change_types.h"
 #include "constants/pokemon.h"
-#include "constants/abilities.h"
-#include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/item_effects.h"
 #include "constants/trainer_classes.h"
@@ -11283,6 +11280,23 @@ bool8 IsSameSpeciesFamily(u16 sourceSpecies, u16 comparisonSpecies)
 
     
 }
+
+//moved here becasue putting in tm_list file broke it
+//and I couldn't fix
+static const u16 sUniversalMoves[] =
+{
+    MOVE_ATTRACT,
+    MOVE_BIDE,
+    MOVE_FRUSTRATION,
+    MOVE_HIDDEN_POWER,
+    MOVE_MIMIC,
+    MOVE_NATURAL_GIFT,
+    MOVE_RAGE,
+    MOVE_RETURN,
+    MOVE_SECRET_POWER,
+    MOVE_SUBSTITUTE,
+    MOVE_TERA_BLAST,
+};
 
 //says tm is item id
 u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)

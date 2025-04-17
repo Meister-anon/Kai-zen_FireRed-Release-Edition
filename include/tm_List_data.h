@@ -1,10 +1,14 @@
 //Recomendation, if you want to remove things from the tm or hm lists//
 //Delete them rather than commenting them out //
 
-
+//dont understand but seems to be directly tied to changing size of this array
+//if I remove substitute then add attract there's no issue?
+//idk whats happening may need to just move this back to pokemon.c
+//don't want to though would rather get this working
+/*
 static const u16 sUniversalMoves[] =
 {
-    //MOVE_ATTRACT, everything breaks because of this??
+    //MOVE_ATTRACT,// everything breaks because of this??
     MOVE_BIDE,
     MOVE_FRUSTRATION,
     MOVE_HIDDEN_POWER,
@@ -16,6 +20,7 @@ static const u16 sUniversalMoves[] =
     MOVE_SUBSTITUTE,
     MOVE_TERA_BLAST,
 };
+*/
 
 //Guide Notes//
 //** HM list MUST stay above TM list **//
