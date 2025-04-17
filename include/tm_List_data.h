@@ -4,7 +4,7 @@
 
 static const u16 sUniversalMoves[] =
 {
-    MOVE_ATTRACT,
+    //MOVE_ATTRACT, everything breaks because of this??
     MOVE_BIDE,
     MOVE_FRUSTRATION,
     MOVE_HIDDEN_POWER,
