@@ -11377,8 +11377,10 @@ u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace wit
             {
                     if (move == MOVE_TERA_BLAST && GET_BASE_SPECIES_ID(species) == SPECIES_TERAPAGOS)
                         return FALSE;
-                    //if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
-                    //    return FALSE;
+                    if (move == MOVE_ATTRACT && gBaseStats[species].genderRatio == MON_GENDERLESS)
+                        return FALSE;
+                    if (GET_BASE_SPECIES_ID(species) == SPECIES_PYUKUMUKU && (move == MOVE_HIDDEN_POWER || move == MOVE_RETURN || move == MOVE_FRUSTRATION))
+                        return FALSE;
                     return TRUE;
 
             }
