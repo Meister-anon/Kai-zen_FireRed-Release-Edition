@@ -28272,7 +28272,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Sprigatito)
         */
         .levelUpLearnset = sSprigatitoLevelUpLearnset,
-        //.teachableLearnset = sSprigatitoTeachableLearnset,
+        .tmhmLearnset = sSprigatitoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0,  SPECIES_FLORAGATO}),
     },
 
@@ -28334,7 +28334,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Floragato)
         */
         .levelUpLearnset = sFloragatoLevelUpLearnset,
-        //.teachableLearnset = sFloragatoTeachableLearnset,
+        .tmhmLearnset = sFloragatoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0,  SPECIES_MEOWSCARADA}),
     },
 
@@ -28396,7 +28396,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Meowscarada)
         */
         .levelUpLearnset = sMeowscaradaLevelUpLearnset,
-        //.teachableLearnset = sMeowscaradaTeachableLearnset,
+        .tmhmLearnset = sMeowscaradaTMHMLearnset,
     },
 //#endif //P_FAMILY_SPRIGATITO
 
@@ -28459,7 +28459,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Fuecoco)
         */
         .levelUpLearnset = sFuecocoLevelUpLearnset,
-        //.teachableLearnset = sFuecocoTeachableLearnset,
+        .tmhmLearnset = sFuecocoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0,  SPECIES_CROCALOR}),
     },
 
@@ -28521,7 +28521,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Crocalor)
         */
         .levelUpLearnset = sCrocalorLevelUpLearnset,
-        //.teachableLearnset = sCrocalorTeachableLearnset,
+        .tmhmLearnset = sCrocalorTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0,  SPECIES_SKELEDIRGE}),
     },
 
@@ -28583,7 +28583,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Skeledirge)
         */
         .levelUpLearnset = sSkeledirgeLevelUpLearnset,
-        //.teachableLearnset = sSkeledirgeTeachableLearnset,
+        .tmhmLearnset = sSkeledirgeTMHMLearnset,
     },
 //#endif //P_FAMILY_FUECOCO
 //from watching zenmodeyt video on starters and move choice
@@ -28660,7 +28660,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Quaxly)
         */
         .levelUpLearnset = sQuaxlyLevelUpLearnset,
-        //.teachableLearnset = sQuaxlyTeachableLearnset,
+        .tmhmLearnset = sQuaxlyTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(16, LOW_EFFORT), 0,  SPECIES_QUAXWELL}),
     },
 
@@ -28722,7 +28722,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Quaxwell)
         */
         .levelUpLearnset = sQuaxwellLevelUpLearnset,
-        //.teachableLearnset = sQuaxwellTeachableLearnset,
+        .tmhmLearnset = sQuaxwellTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(36, AVERAGE_EFFORT), 0,  SPECIES_QUAQUAVAL}),
     },
 
@@ -28784,7 +28784,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Quaquaval)
         */
         .levelUpLearnset = sQuaquavalLevelUpLearnset,
-        //.teachableLearnset = sQuaquavalTeachableLearnset,
+        .tmhmLearnset = sQuaquavalTMHMLearnset,
     },
 //#endif //P_FAMILY_QUAXLY
 
@@ -28847,7 +28847,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Lechonk)
         */
         .levelUpLearnset = sLechonkLevelUpLearnset,
-        //.teachableLearnset = sLechonkTeachableLearnset,
+        .tmhmLearnset = sLechonkTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_MALE, RELATIVE_EVO(18, AVERAGE_EFFORT), 0,  SPECIES_OINKOLOGNE_MALE},
                                 {EVO_LEVEL_FEMALE, RELATIVE_EVO(18, AVERAGE_EFFORT), 0,  SPECIES_OINKOLOGNE_FEMALE}),
     },
@@ -28909,7 +28909,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Oinkologne)
         */
         .levelUpLearnset = sOinkologneMaleLevelUpLearnset,
-        //.teachableLearnset = sOinkologneTeachableLearnset,
+        .tmhmLearnset = sOinkologneTMHMLearnset,
         //.formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
         
     },
@@ -28972,7 +28972,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Oinkologne)
         */
         .levelUpLearnset = sOinkologneFemaleLevelUpLearnset,
-        //.teachableLearnset = sOinkologneTeachableLearnset,
+        .tmhmLearnset = sOinkologneTMHMLearnset,
         //.formSpeciesIdTable = sOinkologneFormSpeciesIdTable,
         
     },
@@ -29037,7 +29037,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tarountula)
         */
         .levelUpLearnset = sTarountulaLevelUpLearnset,
-        //.teachableLearnset = sTarountulaTeachableLearnset,
+        .tmhmLearnset = sTarountulaTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(15, AVERAGE_EFFORT), 0,  SPECIES_SPIDOPS}),
     },
 
@@ -29099,8 +29099,12 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Spidops)
         */
         .levelUpLearnset = sSpidopsLevelUpLearnset,
-        //.teachableLearnset = sSpidopsTeachableLearnset,
+        .tmhmLearnset = sSpidopsTMHMLearnset,
     },
+    //good defense imo is less about it being sturdy and more about it being a strong technical fighter
+    //its the ability to avoid damage rather than ability to absorb damage
+    //think also want to give this obstruct, as idea is its a great utilit/support mon
+    //also give grass knot,  via tm
 //#endif //P_FAMILY_TAROUNTULA
 
 //#if p_fAMILY_NYMBLE
@@ -29162,7 +29166,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Nymble)
         */
         .levelUpLearnset = sNymbleLevelUpLearnset,
-        //.teachableLearnset = sNymbleTeachableLearnset,
+        .tmhmLearnset = sNymbleTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0,  SPECIES_LOKIX}),
     },
 
@@ -29224,7 +29228,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Lokix)
         */
         .levelUpLearnset = sLokixLevelUpLearnset,
-        //.teachableLearnset = sLokixTeachableLearnset,
+        .tmhmLearnset = sLokixTMHMLearnset,
     },
 //#endif //P_FAMILY_NYMBLE
 
@@ -29287,7 +29291,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Pawmi)
         */
         .levelUpLearnset = sPawmiLevelUpLearnset,
-        //.teachableLearnset = sPawmiTeachableLearnset,
+        .tmhmLearnset = sPawmiTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(18, LOW_EFFORT), 0,  SPECIES_PAWMO}),
     },
 
@@ -29349,7 +29353,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Pawmo)
         */
         .levelUpLearnset = sPawmoLevelUpLearnset,
-        //.teachableLearnset = sPawmoTeachableLearnset,
+        .tmhmLearnset = sPawmoTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0,  SPECIES_PAWMOT}),
     },
 
@@ -29411,7 +29415,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Pawmot)
         */
         .levelUpLearnset = sPawmotLevelUpLearnset,
-        //.teachableLearnset = sPawmotTeachableLearnset,
+        .tmhmLearnset = sPawmotTMHMLearnset,
     },
 //#endif //P_FAMILY_PAWMI
 
@@ -29474,7 +29478,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tandemaus)
         */
         .levelUpLearnset = sTandemausLevelUpLearnset,
-        //.teachableLearnset = sTandemausTeachableLearnset,
+        .tmhmLearnset = sTandemausTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_FAMILY_OF_FOUR, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_MAUSHOLD_FAMILY_OF_FOUR},
                                 {EVO_LEVEL_FAMILY_OF_THREE, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_MAUSHOLD_FAMILY_OF_THREE}),
     },
@@ -29537,7 +29541,7 @@ const struct BaseStats gBaseStats[] =
 
         */
         .levelUpLearnset = sMausholdLevelUpLearnset,
-        //.teachableLearnset = sMausholdTeachableLearnset,
+        .tmhmLearnset = sMausholdTMHMLearnset,
         //.formSpeciesIdTable = sMausholdFormSpeciesIdTable,
     },
     [SPECIES_MAUSHOLD_FAMILY_OF_FOUR] =
@@ -29595,7 +29599,7 @@ const struct BaseStats gBaseStats[] =
         .iconPalIndex = 1,
         */
         .levelUpLearnset = sMausholdLevelUpLearnset,
-        //.teachableLearnset = sMausholdTeachableLearnset,
+        .tmhmLearnset = sMausholdTMHMLearnset,
         //.formSpeciesIdTable = sMausholdFormSpeciesIdTable,
     },
 //#endif //P_FAMILY_TANDEMAUS
@@ -29659,7 +29663,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Fidough)
         */
         .levelUpLearnset = sFidoughLevelUpLearnset,
-        //.teachableLearnset = sFidoughTeachableLearnset,
+        .tmhmLearnset = sFidoughTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_DACHSBUN}),
     },
 
@@ -29721,7 +29725,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Dachsbun)
         */
         .levelUpLearnset = sDachsbunLevelUpLearnset,
-        //.teachableLearnset = sDachsbunTeachableLearnset,
+        .tmhmLearnset = sDachsbunTMHMLearnset,
     },
 //#endif //P_FAMILY_FIDOUGH
 
@@ -29784,7 +29788,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Smoliv)
         */
         .levelUpLearnset = sSmolivLevelUpLearnset,
-        //.teachableLearnset = sSmolivTeachableLearnset,
+        .tmhmLearnset = sSmolivTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_DOLLIV}),
     },
 
@@ -29846,7 +29850,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Dolliv)
         */
         .levelUpLearnset = sDollivLevelUpLearnset,
-        //.teachableLearnset = sDollivTeachableLearnset,
+        .tmhmLearnset = sDollivTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_ARBOLIVA}),
     },
 
@@ -29908,7 +29912,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Arboliva)
         */
         .levelUpLearnset = sArbolivaLevelUpLearnset,
-        //.teachableLearnset = sArbolivaTeachableLearnset,
+        .tmhmLearnset = sArbolivaTMHMLearnset,
     },
 //#endif //P_FAMILY_SMOLIV
 
@@ -29971,7 +29975,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Squawkabilly")
         */
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        .tmhmLearnset = sSquawkabillyTMHMLearnset,
         //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
@@ -30033,7 +30037,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Squawkabilly")
         */
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        .tmhmLearnset = sSquawkabillyTMHMLearnset,
         //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },//think give the peaceful squawks cloud nine,
     //while the more aggressive ones get punkrock?
@@ -30099,7 +30103,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Squawkabilly")
         */
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        .tmhmLearnset = sSquawkabillyTMHMLearnset,
         //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 
@@ -30161,7 +30165,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Squawkabilly")
         */
         .levelUpLearnset = sSquawkabillyLevelUpLearnset,
-        //.teachableLearnset = sSquawkabillyTeachableLearnset,
+        .tmhmLearnset = sSquawkabillyTMHMLearnset,
         //.formSpeciesIdTable = sSquawkabillyFormSpeciesIdTable,
     },
 //#endif //P_FAMILY_SQUAWKABILLY
@@ -30225,7 +30229,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Nacli)
         */
         .levelUpLearnset = sNacliLevelUpLearnset,
-        //.teachableLearnset = sNacliTeachableLearnset,
+        .tmhmLearnset = sNacliTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0,  SPECIES_NACLSTACK}),
     },
 
@@ -30287,7 +30291,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Naclstack)
         */
         .levelUpLearnset = sNaclstackLevelUpLearnset,
-        //.teachableLearnset = sNaclstackTeachableLearnset,
+        .tmhmLearnset = sNaclstackTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0,  SPECIES_GARGANACL}),
     },
 
@@ -30349,7 +30353,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Garganacl)
         */
         .levelUpLearnset = sGarganaclLevelUpLearnset,
-        //.teachableLearnset = sGarganaclTeachableLearnset,
+        .tmhmLearnset = sGarganaclTMHMLearnset,
     },
 //#endif //P_FAMILY_NACLI
 
@@ -30412,7 +30416,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Charcadet)
         */
         .levelUpLearnset = sCharcadetLevelUpLearnset,
-        //.teachableLearnset = sCharcadetTeachableLearnset,
+        .tmhmLearnset = sCharcadetTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_AUSPICIOUS_ARMOR*/, 0,  SPECIES_ARMAROUGE},
                                 {EVO_ITEM, 0/*ITEM_MALICIOUS_ARMOR*/, 0,  SPECIES_CERULEDGE}),
     },//vsonic
@@ -30475,7 +30479,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Armarouge)
         */
         .levelUpLearnset = sArmarougeLevelUpLearnset,
-        //.teachableLearnset = sArmarougeTeachableLearnset,
+        .tmhmLearnset = sArmarougeTMHMLearnset,
     },
 
     [SPECIES_CERULEDGE] =
@@ -30536,7 +30540,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Ceruledge)
         */
         .levelUpLearnset = sCeruledgeLevelUpLearnset,
-        //.teachableLearnset = sCeruledgeTeachableLearnset,
+        .tmhmLearnset = sCeruledgeTMHMLearnset,
     },
 //#endif //P_FAMILY_CHARCADET
 
@@ -30599,7 +30603,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tadbulb)
         */
         .levelUpLearnset = sTadbulbLevelUpLearnset,
-        //.teachableLearnset = sTadbulbTeachableLearnset,
+        .tmhmLearnset = sTadbulbTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, 0,  SPECIES_BELLIBOLT}),
     },
 
@@ -30661,7 +30665,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Bellibolt)
         */
         .levelUpLearnset = sBelliboltLevelUpLearnset,
-        //.teachableLearnset = sBelliboltTeachableLearnset,
+        .tmhmLearnset = sBelliboltTMHMLearnset,
     },
 //#endif //P_FAMILY_TADBULB
 
@@ -30724,7 +30728,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Wattrel)
         */
         .levelUpLearnset = sWattrelLevelUpLearnset,
-        //.teachableLearnset = sWattrelTeachableLearnset,
+        .tmhmLearnset = sWattrelTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0,  SPECIES_KILOWATTREL}),
     },
 
@@ -30786,7 +30790,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Kilowattrel)
         */
         .levelUpLearnset = sKilowattrelLevelUpLearnset,
-        //.teachableLearnset = sKilowattrelTeachableLearnset,
+        .tmhmLearnset = sKilowattrelTMHMLearnset,
     },
 //#endif //P_FAMILY_WATTREL
 
@@ -30849,7 +30853,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Maschiff)
         */
         .levelUpLearnset = sMaschiffLevelUpLearnset,
-        //.teachableLearnset = sMaschiffTeachableLearnset,
+        .tmhmLearnset = sMaschiffTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0,  SPECIES_MABOSSTIFF}),
     },
 
@@ -30911,7 +30915,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Mabosstiff)
         */
         .levelUpLearnset = sMabosstiffLevelUpLearnset,
-        //.teachableLearnset = sMabosstiffTeachableLearnset,
+        .tmhmLearnset = sMabosstiffTMHMLearnset,
     },
 //#endif //P_FAMILY_MASCHIFF
 
@@ -30974,7 +30978,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Shroodle)
         */
         .levelUpLearnset = sShroodleLevelUpLearnset,
-        //.teachableLearnset = sShroodleTeachableLearnset,
+        .tmhmLearnset = sShroodleTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(28, AVERAGE_EFFORT), 0,  SPECIES_GRAFAIAI}),
     },
 
@@ -31036,7 +31040,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Grafaiai)
         */
         .levelUpLearnset = sGrafaiaiLevelUpLearnset,
-        //.teachableLearnset = sGrafaiaiTeachableLearnset,
+        .tmhmLearnset = sGrafaiaiTMHMLearnset,
     },
 //#endif //P_FAMILY_SHROODLE
 
@@ -31099,7 +31103,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Bramblin)
         */
         .levelUpLearnset = sBramblinLevelUpLearnset,
-        //.teachableLearnset = sBramblinTeachableLearnset,
+        .tmhmLearnset = sBramblinTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, LOW_EFFORT), 0,  SPECIES_BRAMBLEGHAST}),
     },
 
@@ -31161,7 +31165,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Brambleghast)
         */
         .levelUpLearnset = sBrambleghastLevelUpLearnset,
-        //.teachableLearnset = sBrambleghastTeachableLearnset,
+        .tmhmLearnset = sBrambleghastTMHMLearnset,
     },
 //#endif //P_FAMILY_BRAMBLIN
 
@@ -31222,7 +31226,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Toedscool)
         */
         .levelUpLearnset = sToedscoolLevelUpLearnset,
-        //.teachableLearnset = sToedscoolTeachableLearnset,
+        .tmhmLearnset = sToedscoolTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0,  SPECIES_TOEDSCRUEL}),
     },
 
@@ -31284,7 +31288,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Toedscruel)
         */
         .levelUpLearnset = sToedscruelLevelUpLearnset,
-        //.teachableLearnset = sToedscruelTeachableLearnset,
+        .tmhmLearnset = sToedscruelTMHMLearnset,
     },
 //#endif //P_FAMILY_TOEDSCOOL
 
@@ -31347,7 +31351,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Klawf)
         */
         .levelUpLearnset = sKlawfLevelUpLearnset,
-        //.teachableLearnset = sKlawfTeachableLearnset,
+        .tmhmLearnset = sKlawfTMHMLearnset,
     },
 //#endif //P_FAMILY_KLAWF
 
@@ -31410,7 +31414,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Capsakid)
         */
         .levelUpLearnset = sCapsakidLevelUpLearnset,
-        //.teachableLearnset = sCapsakidTeachableLearnset,
+        .tmhmLearnset = sCapsakidTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_FIRE_STONE, 0,  SPECIES_SCOVILLAIN}),
     },
 
@@ -31472,7 +31476,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Scovillain)
         */
         .levelUpLearnset = sScovillainLevelUpLearnset,
-        //.teachableLearnset = sScovillainTeachableLearnset,
+        .tmhmLearnset = sScovillainTMHMLearnset,
     },
 //#endif //P_FAMILY_CAPSAKID
 
@@ -31535,7 +31539,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Rellor)
         */
         .levelUpLearnset = sRellorLevelUpLearnset,
-        //.teachableLearnset = sRellorTeachableLearnset,
+        .tmhmLearnset = sRellorTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(22, LOW_EFFORT), 0,  SPECIES_RABSCA}),
     },
 
@@ -31597,7 +31601,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Rabsca)
         */
         .levelUpLearnset = sRabscaLevelUpLearnset,
-        //.teachableLearnset = sRabscaTeachableLearnset,
+        .tmhmLearnset = sRabscaTMHMLearnset,
     },
 //#endif //P_FAMILY_RELLOR
 
@@ -31660,7 +31664,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Flittle)
         */
         .levelUpLearnset = sFlittleLevelUpLearnset,
-        //.teachableLearnset = sFlittleTeachableLearnset,
+        .tmhmLearnset = sFlittleTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_ESPATHRA}),
     },
 
@@ -31722,7 +31726,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Espathra)
         */
         .levelUpLearnset = sEspathraLevelUpLearnset,
-        //.teachableLearnset = sEspathraTeachableLearnset,
+        .tmhmLearnset = sEspathraTMHMLearnset,
     },
 //#endif //P_FAMILY_FLITTLE
 
@@ -31785,7 +31789,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tinkatink)
         */
         .levelUpLearnset = sTinkatinkLevelUpLearnset,
-        //.teachableLearnset = sTinkatinkTeachableLearnset,
+        .tmhmLearnset = sTinkatinkTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0,  SPECIES_TINKATUFF}),
     },
 
@@ -31847,7 +31851,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tinkatuff)
         */
         .levelUpLearnset = sTinkatuffLevelUpLearnset,
-        //.teachableLearnset = sTinkatuffTeachableLearnset,
+        .tmhmLearnset = sTinkatuffTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0,  SPECIES_TINKATON}),
     },
 
@@ -31909,7 +31913,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tinkaton)
         */
         .levelUpLearnset = sTinkatonLevelUpLearnset,
-        //.teachableLearnset = sTinkatonTeachableLearnset,
+        .tmhmLearnset = sTinkatonTMHMLearnset,
     },
 //#endif //P_FAMILY_TINKATINK
 
@@ -31971,7 +31975,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Wiglett)
         */
         .levelUpLearnset = sWiglettLevelUpLearnset,
-        //.teachableLearnset = sWiglettTeachableLearnset,
+        .tmhmLearnset = sWiglettTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0,  SPECIES_WUGTRIO}),
     },
     //diglet in diglet cave put this in seafoam cave
@@ -32053,7 +32057,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Wugtrio)
         */
         .levelUpLearnset = sWugtrioLevelUpLearnset,
-        //.teachableLearnset = sWugtrioTeachableLearnset,
+        .tmhmLearnset = sWugtrioTMHMLearnset,
     },
     //Im gonna have to do somethign here, no idea what, but damn its bad,
     //and rattled as ability makes no sense
@@ -32119,7 +32123,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Bombirdier)
         */
         .levelUpLearnset = sBombirdierLevelUpLearnset,
-        //.teachableLearnset = sBombirdierTeachableLearnset,
+        .tmhmLearnset = sBombirdierTMHMLearnset,
     },
 //#endif //P_FAMILY_BOMBIRDIER
 
@@ -32181,7 +32185,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Finizen)
         */
         .levelUpLearnset = sFinizenLevelUpLearnset,
-        //.teachableLearnset = sFinizenTeachableLearnset,
+        .tmhmLearnset = sFinizenTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0,  SPECIES_PALAFIN_ZERO}),
     },
 
@@ -32243,7 +32247,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Palafin")
         */
         .levelUpLearnset = sPalafinLevelUpLearnset,
-        //.teachableLearnset = sPalafinTeachableLearnset,
+        .tmhmLearnset = sPalafinTMHMLearnset,
         //.formSpeciesIdTable = sPalafinFormSpeciesIdTable,
         //.formChangeTable = sPalafinZeroFormChangeTable,
     },
@@ -32306,7 +32310,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Palafin")
         */
         .levelUpLearnset = sPalafinLevelUpLearnset,
-        //.teachableLearnset = sPalafinTeachableLearnset,
+        .tmhmLearnset = sPalafinTMHMLearnset,
         //.formSpeciesIdTable = sPalafinFormSpeciesIdTable,
         //.formChangeTable = sPalafinZeroFormChangeTable,
     },
@@ -32371,7 +32375,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Varoom)
         */
         .levelUpLearnset = sVaroomLevelUpLearnset,
-        //.teachableLearnset = sVaroomTeachableLearnset,
+        .tmhmLearnset = sVaroomTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(30, AVERAGE_EFFORT), 0,  SPECIES_REVAVROOM}),
     },
 
@@ -32433,7 +32437,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Revavroom)
         */
         .levelUpLearnset = sRevavroomLevelUpLearnset,
-        //.teachableLearnset = sRevavroomTeachableLearnset,
+        .tmhmLearnset = sRevavroomTMHMLearnset,
     },
 //#endif //P_FAMILY_VAROOM
 
@@ -32496,7 +32500,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Cyclizar)
         */
         .levelUpLearnset = sCyclizarLevelUpLearnset,
-        //.teachableLearnset = sCyclizarTeachableLearnset,
+        .tmhmLearnset = sCyclizarTMHMLearnset,
     },
 //#endif //P_FAMILY_CYCLIZAR
 
@@ -32559,7 +32563,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Orthworm)
         */
         .levelUpLearnset = sOrthwormLevelUpLearnset,
-        //.teachableLearnset = sOrthwormTeachableLearnset,
+        .tmhmLearnset = sOrthwormTMHMLearnset,
     },
 //#endif //P_FAMILY_ORTHWORM
 
@@ -32622,7 +32626,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Glimmet)
         */
         .levelUpLearnset = sGlimmetLevelUpLearnset,
-        //.teachableLearnset = sGlimmetTeachableLearnset,
+        .tmhmLearnset = sGlimmetTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_GLIMMORA}),
     },
 
@@ -32684,7 +32688,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Glimmora)
         */
         .levelUpLearnset = sGlimmoraLevelUpLearnset,
-        //.teachableLearnset = sGlimmoraTeachableLearnset,
+        .tmhmLearnset = sGlimmoraTMHMLearnset,
     },
 //#endif //P_FAMILY_GLIMMET
 
@@ -32747,7 +32751,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Greavard)
         */
         .levelUpLearnset = sGreavardLevelUpLearnset,
-        //.teachableLearnset = sGreavardTeachableLearnset,
+        .tmhmLearnset = sGreavardTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, 30, 0,  SPECIES_HOUNDSTONE}),
     },
 
@@ -32809,7 +32813,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Houndstone)
         */
         .levelUpLearnset = sHoundstoneLevelUpLearnset,
-        //.teachableLearnset = sHoundstoneTeachableLearnset,
+        .tmhmLearnset = sHoundstoneTMHMLearnset,
     },
 //#endif //P_FAMILY_GREAVARD
 
@@ -32872,7 +32876,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Flamigo)
         */
         .levelUpLearnset = sFlamigoLevelUpLearnset,
-        //.teachableLearnset = sFlamigoTeachableLearnset,
+        .tmhmLearnset = sFlamigoTMHMLearnset,
     },
 //#endif //P_FAMILY_FLAMIGO
 
@@ -32935,7 +32939,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Cetoddle)
         */
         .levelUpLearnset = sCetoddleLevelUpLearnset,
-        //.teachableLearnset = sCetoddleTeachableLearnset,
+        .tmhmLearnset = sCetoddleTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_ICE_STONE, 0,  SPECIES_CETITAN}),
     },
 
@@ -32997,7 +33001,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Cetitan)
         */
         .levelUpLearnset = sCetitanLevelUpLearnset,
-        //.teachableLearnset = sCetitanTeachableLearnset,
+        .tmhmLearnset = sCetitanTMHMLearnset,
     },
 //#endif //P_FAMILY_CETODDLE
 
@@ -33060,7 +33064,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Veluza)
         */
         .levelUpLearnset = sVeluzaLevelUpLearnset,
-        //.teachableLearnset = sVeluzaTeachableLearnset,
+        .tmhmLearnset = sVeluzaTMHMLearnset,
     },
 //#endif //P_FAMILY_VELUZA
 
@@ -33123,7 +33127,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Dondozo)
         */
         .levelUpLearnset = sDondozoLevelUpLearnset,
-        //.teachableLearnset = sDondozoTeachableLearnset,
+        .tmhmLearnset = sDondozoTMHMLearnset,
     },
 //#endif //P_FAMILY_DONDOZO
 
@@ -33186,7 +33190,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tatsugiri")
         */
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
-        //.teachableLearnset = sTatsugiriTeachableLearnset,
+        .tmhmLearnset = sTatsugiriTMHMLearnset,
         //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 
@@ -33247,7 +33251,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tatsugiri")
         */
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
-        //.teachableLearnset = sTatsugiriTeachableLearnset,
+        .tmhmLearnset = sTatsugiriTMHMLearnset,
         //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 
@@ -33308,7 +33312,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Tatsugiri")
         */
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
-        //.teachableLearnset = sTatsugiriTeachableLearnset,
+        .tmhmLearnset = sTatsugiriTMHMLearnset,
         //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
     },
 //#endif //P_FAMILY_TATSUGIRI
@@ -33368,7 +33372,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Annihilape)
        */
         .levelUpLearnset = sAnnihilapeLevelUpLearnset,
-        //.teachableLearnset = sAnnihilapeTeachableLearnset,
+        .tmhmLearnset = sAnnihilapeTMHMLearnset,
     },
     
 
@@ -33428,7 +33432,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Clodsire)
        */
         .levelUpLearnset = sClodsireLevelUpLearnset,
-        //.teachableLearnset = sClodsireTeachableLearnset,
+        .tmhmLearnset = sClodsireTMHMLearnset,
     },
 
     [SPECIES_FARIGIRAF] =
@@ -33487,7 +33491,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Farigiraf)
        */
         .levelUpLearnset = sFarigirafLevelUpLearnset,
-        //.teachableLearnset = sFarigirafTeachableLearnset,
+        .tmhmLearnset = sFarigirafTMHMLearnset,
     },
 
     [SPECIES_DUDUNSPARCE_TWO_SEGMENT] =
@@ -33546,7 +33550,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Dudunsparce")
        */
         .levelUpLearnset = sDudunsparceLevelUpLearnset,
-        //.teachableLearnset = sDudunsparceTeachableLearnset,
+        .tmhmLearnset = sDudunsparceTMHMLearnset,
       //  .formSpeciesIdTable = sDudunsparceFormSpeciesIdTable,
     },
 
@@ -33606,7 +33610,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Dudunsparce")
        */
         .levelUpLearnset = sDudunsparceLevelUpLearnset,
-        //.teachableLearnset = sDudunsparceTeachableLearnset,
+        .tmhmLearnset = sDudunsparceTMHMLearnset,
       //  .formSpeciesIdTable = sDudunsparceFormSpeciesIdTable,
     },
 
@@ -33666,7 +33670,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Kingambit)
        */
         .levelUpLearnset = sKingambitLevelUpLearnset,
-        //.teachableLearnset = sKingambitTeachableLearnset,
+        .tmhmLearnset = sKingambitTMHMLearnset,
     },
 //#if p_fAMILY_GREAT_TUSK
     [SPECIES_GREAT_TUSK] =
@@ -33728,7 +33732,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sGreatTuskLevelUpLearnset,
-        //.teachableLearnset = sGreatTuskTeachableLearnset,
+        .tmhmLearnset = sGreatTuskTMHMLearnset,
     },
 //#endif //P_FAMILY_GREAT_TUSK
 
@@ -33792,7 +33796,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sScreamTailLevelUpLearnset,
-        //.teachableLearnset = sScreamTailTeachableLearnset,
+        .tmhmLearnset = sScreamTailTMHMLearnset,
     },
 //#endif //P_FAMILY_SCREAM_TAIL
 
@@ -33856,7 +33860,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sBruteBonnetLevelUpLearnset,
-        //.teachableLearnset = sBruteBonnetTeachableLearnset,
+        .tmhmLearnset = sBruteBonnetTMHMLearnset,
     },
 //#endif //P_FAMILY_BRUTE_BONNET
 
@@ -33922,7 +33926,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sFlutterManeLevelUpLearnset,
-        //.teachableLearnset = sFlutterManeTeachableLearnset,
+        .tmhmLearnset = sFlutterManeTMHMLearnset,
     },
 //#endif //P_FAMILY_FLUTTER_MANE
 
@@ -33985,7 +33989,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sSlitherWingLevelUpLearnset,
-        //.teachableLearnset = sSlitherWingTeachableLearnset,
+        .tmhmLearnset = sSlitherWingTMHMLearnset,
     },
 //#endif //P_FAMILY_SLITHER_WING
 
@@ -34049,7 +34053,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sSandyShocksLevelUpLearnset,
-        //.teachableLearnset = sSandyShocksTeachableLearnset,
+        .tmhmLearnset = sSandyShocksTMHMLearnset,
     },
 //#endif //P_FAMILY_SANDY_SHOCKS
 
@@ -34113,7 +34117,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronTreadsLevelUpLearnset,
-        //.teachableLearnset = sIronTreadsTeachableLearnset,
+        .tmhmLearnset = sIronTreadsTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_TREADS
 
@@ -34177,7 +34181,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronBundleLevelUpLearnset,
-        //.teachableLearnset = sIronBundleTeachableLearnset,
+        .tmhmLearnset = sIronBundleTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_BUNDLE
 
@@ -34241,7 +34245,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronHandsLevelUpLearnset,
-        //.teachableLearnset = sIronHandsTeachableLearnset,
+        .tmhmLearnset = sIronHandsTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_HANDS
 
@@ -34305,7 +34309,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronJugulisLevelUpLearnset,
-        //.teachableLearnset = sIronJugulisTeachableLearnset,
+        .tmhmLearnset = sIronJugulisTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_JUGULIS
 
@@ -34369,7 +34373,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronMothLevelUpLearnset,
-        //.teachableLearnset = sIronMothTeachableLearnset,
+        .tmhmLearnset = sIronMothTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_MOTH
 
@@ -34433,7 +34437,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronThornsLevelUpLearnset,
-        //.teachableLearnset = sIronThornsTeachableLearnset,
+        .tmhmLearnset = sIronThornsTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_THORNS
 
@@ -34496,7 +34500,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Frigibax)
         */
         .levelUpLearnset = sFrigibaxLevelUpLearnset,
-        //.teachableLearnset = sFrigibaxTeachableLearnset,
+        .tmhmLearnset = sFrigibaxTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0,  SPECIES_ARCTIBAX}),
     },
 
@@ -34558,7 +34562,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Arctibax)
         */
         .levelUpLearnset = sArctibaxLevelUpLearnset,
-        //.teachableLearnset = sArctibaxTeachableLearnset,
+        .tmhmLearnset = sArctibaxTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(54, MEDIUM_EFFORT), 0,  SPECIES_BAXCALIBUR}),
     },
 
@@ -34620,7 +34624,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Baxcalibur)
         */
         .levelUpLearnset = sBaxcaliburLevelUpLearnset,
-        //.teachableLearnset = sBaxcaliburTeachableLearnset,
+        .tmhmLearnset = sBaxcaliburTMHMLearnset,
     },
 //#endif //P_FAMILY_FRIGIBAX
 
@@ -34683,7 +34687,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Gimmighoul")
         */
         .levelUpLearnset = sGimmighoulLevelUpLearnset,
-        //.teachableLearnset = sGimmighoulTeachableLearnset,
+        .tmhmLearnset = sGimmighoulTMHMLearnset,
         //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_HIGH_RICHES, 65000, FILL,  SPECIES_GHOLDENGO}),
     },//will make money based evolution I guess 70k poke, kinda griny but make gimmighoul better to use pre evo
@@ -34747,7 +34751,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Gimmighoul")
         */
         .levelUpLearnset = sGimmighoulLevelUpLearnset,
-        //.teachableLearnset = sGimmighoulTeachableLearnset,
+        .tmhmLearnset = sGimmighoulTMHMLearnset,
         //.formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_NONE, 0, 0,  SPECIES_GHOLDENGO}),
     }, //not gonna use this form
@@ -34810,7 +34814,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Gholdengo)
         */
         .levelUpLearnset = sGholdengoLevelUpLearnset,
-        //.teachableLearnset = sGholdengoTeachableLearnset,
+        .tmhmLearnset = sGholdengoTMHMLearnset,
     },
 //#endif //P_FAMILY_GIMMIGHOUL
 
@@ -34872,7 +34876,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sWoChienLevelUpLearnset,
-        //.teachableLearnset = sWoChienTeachableLearnset,
+        .tmhmLearnset = sWoChienTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_WO_CHIEN
@@ -34937,7 +34941,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sChienPaoLevelUpLearnset,
-        //.teachableLearnset = sChienPaoTeachableLearnset,
+        .tmhmLearnset = sChienPaoTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_CHIEN_PAO
@@ -35002,7 +35006,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sTingLuLevelUpLearnset,
-        //.teachableLearnset = sTingLuTeachableLearnset,
+        .tmhmLearnset = sTingLuTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_TING_LU
@@ -35067,7 +35071,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sChiYuLevelUpLearnset,
-        //.teachableLearnset = sChiYuTeachableLearnset,
+        .tmhmLearnset = sChiYuTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_CHI_YU
@@ -35132,7 +35136,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sRoaringMoonLevelUpLearnset,
-        //.teachableLearnset = sRoaringMoonTeachableLearnset,
+        .tmhmLearnset = sRoaringMoonTMHMLearnset,
     },
 //#endif //P_FAMILY_ROARING_MOON
 
@@ -35195,7 +35199,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronValiantLevelUpLearnset,
-        //.teachableLearnset = sIronValiantTeachableLearnset,
+        .tmhmLearnset = sIronValiantTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_VALIANT
 
@@ -35260,7 +35264,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sKoraidonLevelUpLearnset,
-        //.teachableLearnset = sKoraidonTeachableLearnset,
+        .tmhmLearnset = sKoraidonTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_KORAIDON
@@ -35326,7 +35330,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sMiraidonLevelUpLearnset,
-        //.teachableLearnset = sMiraidonTeachableLearnset,
+        .tmhmLearnset = sMiraidonTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_MIRAIDON
@@ -35393,7 +35397,7 @@ const struct BaseStats gBaseStats[] =
         FOOTPRINT(Tauros)
         .isPaldeanForm = TRUE,*/
         .levelUpLearnset = sTaurosPaldeanCombatBreedLevelUpLearnset,
-        //.teachableLearnset = sTaurosPaldeanCombatBreedTeachableLearnset,
+        .tmhmLearnset = sTaurosPaldeanCombatBreedTMHMLearnset,
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,
         .flags = F_PALDEAN_FORM,
     },
@@ -35454,9 +35458,10 @@ const struct BaseStats gBaseStats[] =
         FOOTPRINT(Tauros)
         .isPaldeanForm = TRUE,
         
-        .teachableLearnset = sTaurosPaldeanBlazeBreedTeachableLearnset,
+        
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,*/
         .levelUpLearnset = sTaurosPaldeanBlazeBreedLevelUpLearnset,
+        .tmhmLearnset = sTaurosPaldeanBlazeBreedTMHMLearnset,
         .flags = F_PALDEAN_FORM,
     },
 
@@ -35516,9 +35521,10 @@ const struct BaseStats gBaseStats[] =
         FOOTPRINT(Tauros)
         .isPaldeanForm = TRUE,
         
-        .teachableLearnset = sTaurosPaldeanAquaBreedTeachableLearnset,
+        
       //  .formSpeciesIdTable = sTaurosFormSpeciesIdTable,*/
         .levelUpLearnset = sTaurosPaldeanAquaBreedLevelUpLearnset,
+        .tmhmLearnset = sTaurosPaldeanAquaBreedTMHMLearnset,
         .flags = F_PALDEAN_FORM,
     },
 
@@ -35578,10 +35584,11 @@ const struct BaseStats gBaseStats[] =
         FOOTPRINT(Wooper)
         .isPaldeanForm = TRUE,
         
-        .teachableLearnset = sWooperPaldeanTeachableLearnset,
+        
       //  .formSpeciesIdTable = sWooperFormSpeciesIdTable,*/
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(20, LOW_EFFORT), 0, SPECIES_CLODSIRE}),
         .levelUpLearnset = sWooperPaldeanLevelUpLearnset,
+        .tmhmLearnset = sWooperPaldeanTMHMLearnset,
         .flags = F_PALDEAN_FORM,
     },
 
@@ -35644,7 +35651,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sWalkingWakeLevelUpLearnset,
-        //.teachableLearnset = sWalkingWakeTeachableLearnset,
+        .tmhmLearnset = sWalkingWakeTMHMLearnset,
     },
 //#endif //P_FAMILY_WALKING_WAKE
 
@@ -35707,7 +35714,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronLeavesLevelUpLearnset,
-        //.teachableLearnset = sIronLeavesTeachableLearnset,
+        .tmhmLearnset = sIronLeavesTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_LEAVES
 [SPECIES_DIPPLIN] =
@@ -35765,7 +35772,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Dipplin)
        */
         .levelUpLearnset = sDipplinLevelUpLearnset,
-        //.teachableLearnset = sDipplinTeachableLearnset,
+        .tmhmLearnset = sDipplinTMHMLearnset,
         .evolutions = EVOLUTION({EVO_MOVE, MOVE_DRAGON_CHEER, 0, SPECIES_HYDRAPPLE}),
     },
 
@@ -35828,7 +35835,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Poltchageist)
         */
         .levelUpLearnset = sPoltchageistLevelUpLearnset,
-        //.teachableLearnset = sPoltchageistTeachableLearnset,
+        .tmhmLearnset = sPoltchageistTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_UNREMARKABLE_TEACUP*/, 0,  SPECIES_SINISTCHA_UNREMARKABLE}),
     },//vsonic
 
@@ -35890,7 +35897,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Poltchageist)
         */
         .levelUpLearnset = sPoltchageistLevelUpLearnset,
-        //.teachableLearnset = sPoltchageistTeachableLearnset,
+        .tmhmLearnset = sPoltchageistTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, 0/*ITEM_MASTERPIECE_TEACUP*/, 0,  SPECIES_SINISTCHA_MASTERPIECE}),
     },//vsonic
 
@@ -35952,7 +35959,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Sinistcha)
         */
         .levelUpLearnset = sSinistchaLevelUpLearnset,
-        //.teachableLearnset = sSinistchaTeachableLearnset,
+        .tmhmLearnset = sSinistchaTMHMLearnset,
     },
     [SPECIES_SINISTCHA_MASTERPIECE] =
     {
@@ -36012,7 +36019,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Sinistcha)
         */
         .levelUpLearnset = sSinistchaLevelUpLearnset,
-        //.teachableLearnset = sSinistchaTeachableLearnset,
+        .tmhmLearnset = sSinistchaTMHMLearnset,
     },
 //#endif //P_FAMILY_POLTCHAGEIST
 
@@ -36076,7 +36083,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sOkidogiLevelUpLearnset,
-        //.teachableLearnset = sOkidogiTeachableLearnset,
+        .tmhmLearnset = sOkidogiTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_OKIDOGI
@@ -36148,7 +36155,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sMunkidoriLevelUpLearnset,
-        //.teachableLearnset = sMunkidoriTeachableLearnset,
+        .tmhmLearnset = sMunkidoriTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_MUNKIDORI
@@ -36213,7 +36220,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sFezandipitiLevelUpLearnset,
-        //.teachableLearnset = sFezandipitiTeachableLearnset,
+        .tmhmLearnset = sFezandipitiTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 //#endif //P_FAMILY_FEZANDIPITI
@@ -36269,7 +36276,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Ogerpon)                                                          \
         
         */.levelUpLearnset = sOgerponLevelUpLearnset,                                    \
-        /*.teachableLearnset = sOgerponTeachableLearnset, */                                \
+        .tmhmLearnset = sOgerponTMHMLearnset,                                 \
         /*.formSpeciesIdTable = sOgerponFormSpeciesIdTable,   */                            \
         /*.formChangeTable = sOgerponFormChangeTable,      */                               \
         .flags = FLAG_LEGENDARY_POKEMON,                                                       \
@@ -36343,7 +36350,7 @@ const struct BaseStats gBaseStats[] =
        */
         .levelUpLearnset = sUrsalunaBloodmoonLevelUpLearnset,
         .flags = F_PALDEAN_FORM, //adding back for now
-        //.teachableLearnset = sUrsalunaBloodmoonTeachableLearnset,
+        .tmhmLearnset = sUrsalunaBloodmoonTMHMLearnset,
       //  .formSpeciesIdTable = sUrsalunaFormSpeciesIdTable,
     },//thought about making an evo, think will give an item
     //to shift form one way, well doesn't need tobe one way.
@@ -36409,7 +36416,7 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Archaludon)
        */
         .levelUpLearnset = sArchaludonLevelUpLearnset,
-        //.teachableLearnset = sArchaludonTeachableLearnset,*/
+        .tmhmLearnset = sArchaludonTMHMLearnset,
     },
 
 //#endif //P_FAMILY_OGERPON
@@ -36470,8 +36477,9 @@ const struct BaseStats gBaseStats[] =
         //FOOTPRINT(Hydrapple)
        
         .levelUpLearnset = sHydrappleLevelUpLearnset,
-        .teachableLearnset = sHydrappleTeachableLearnset,*/
+        */
         .levelUpLearnset = sHydrappleLevelUpLearnset,
+        .tmhmLearnset = sHydrappleTMHMLearnset,
     },
 
 
@@ -36536,7 +36544,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sGougingFireLevelUpLearnset,
-        //.teachableLearnset = sGougingFireTeachableLearnset,
+        .tmhmLearnset = sGougingFireTMHMLearnset,
     },
 //#endif //P_FAMILY_GOUGING_FIRE
 
@@ -36600,7 +36608,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sRagingBoltLevelUpLearnset,
-        //.teachableLearnset = sRagingBoltTeachableLearnset,
+        .tmhmLearnset = sRagingBoltTMHMLearnset,
     },  //alt entei/rakou 100%  not using, actually I like the raikou one now..
 //#endif //P_FAMILY_RAGING_BOLT
 
@@ -36663,7 +36671,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronBoulderLevelUpLearnset,
-        //.teachableLearnset = sIronBoulderTeachableLearnset,
+        .tmhmLearnset = sIronBoulderTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_BOULDER
 
@@ -36727,7 +36735,7 @@ const struct BaseStats gBaseStats[] =
         .isParadoxForm = TRUE,
         */
         .levelUpLearnset = sIronCrownLevelUpLearnset,
-        //.teachableLearnset = sIronCrownTeachableLearnset,
+        .tmhmLearnset = sIronCrownTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_CROWN
 
@@ -36791,7 +36799,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sTerapagosLevelUpLearnset,
-        //.teachableLearnset = sTerapagosTeachableLearnset,
+        .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
         .flags = FLAG_LEGENDARY_POKEMON,
@@ -36857,7 +36865,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sTerapagosLevelUpLearnset,
-        //.teachableLearnset = sTerapagosTeachableLearnset,
+        .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
         .flags = FLAG_LEGENDARY_POKEMON,
@@ -36922,7 +36930,7 @@ const struct BaseStats gBaseStats[] =
         .isLegendary = TRUE,
         */
         .levelUpLearnset = sTerapagosLevelUpLearnset,
-        //.teachableLearnset = sTerapagosTeachableLearnset,
+        .tmhmLearnset = sTerapagosTMHMLearnset,
         //.formSpeciesIdTable = sTerapagosFormSpeciesIdTable,
         //.formChangeTable = sTerapagosFormChangeTable,
         .flags = FLAG_LEGENDARY_POKEMON,
@@ -36995,7 +37003,7 @@ const struct BaseStats gBaseStats[] =
         .isMythical = TRUE,
         */
         .levelUpLearnset = sPecharuntLevelUpLearnset,
-        //.teachableLearnset = sPecharuntTeachableLearnset,
+        .tmhmLearnset = sPecharuntTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
 ////#endif //P_FAMILY_PECHARUNT
