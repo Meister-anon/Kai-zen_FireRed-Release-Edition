@@ -3811,6 +3811,24 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -added new header fields for block surfing and fishing
     -added speed up for surfing hold b goes faster
 
+    sigh also something wrong with exit abilities
+    whenI switch out stench all other ability messages replay
+
+    sigh ok worse still it REACTIVATES switvh in abilities
+    so tihngs like anticipation that should be only turn one,
+    get reset as if cleasing from neutralizing gas. 
+
+    *faeplam I put switchinabilities command in stench
+    I'm such an idiot
+
+    ok that fixed it, still need to do a general check 
+    for other mon with same ability,
+    think can just do w an "is ability on field" command
+    -done should work, testing soon
+    still need side based setup for immuable wind
+    for the most part it should never be an issue
+    but better to account for the case than not
+    -belive was able to setup working fix
     add surf speed up change to misty text as she gives surf
     -done
 

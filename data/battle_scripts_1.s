@@ -9138,6 +9138,7 @@ sByteFour:
 
 @these two work
 BattleScript_NeutralizingGasExits::
+	jumpifabilityonField BS_ATTACKER, ABILITY_NEUTRALIZING_GAS, BattleScript_SkipNeutralizingGasClear
 	savetarget
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_NEUTRALIZINGGASOVER
@@ -9148,23 +9149,31 @@ BattleScript_NeutralizingGasExitsLoop:
 	addbyte gBattlerTarget, 1
 	jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_NeutralizingGasExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
 	restoretarget
+BattleScript_SkipNeutralizingGasClear:
 	return
 
 @need to see how this works in doubles, make sure nothing wrong here
+@I don't need a switchin loop as that would just reactivate
+@ohter abilities what I need is to loop all battlers
+@to ensure no one else has my ability and only THEN
+@play the clears message
 BattleScript_StenchExits::
+	jumpifabilityonField BS_ATTACKER, ABILITY_STENCH, BattleScript_SkipStenchClear
 	savetarget
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_STENCHENDS
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	setbyte gBattlerTarget, 0
+	@setbyte gBattlerTarget, 0
 BattleScript_StenchExitsLoop:
-	switchinabilities BS_TARGET
-	addbyte gBattlerTarget, 1
-	jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_StenchExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
+	@switchinabilities BS_TARGET
+	@addbyte gBattlerTarget, 1
+	@jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_StenchExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
 	restoretarget
+BattleScript_SkipStenchClear:
 	return
 
 BattleScript_ImmutableWindExits::
+	jumpifability BS_ATTACKER_PARTNER, ABILITY_IMMUTABLE_WIND, BattleScript_SkipImmutableWindClear
 	savetarget
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_IMMUTABLEWIND_ENDS
@@ -9175,6 +9184,7 @@ BattleScript_ImmutableWindExitsLoop:
 	addbyte gBattlerTarget, 1
 	jumpifbytenotequal gBattlerTarget, sByteFour, BattleScript_ImmutableWindExitsLoop	@ SOMEHOW, comparing to gBattlersCount is problematic.
 	restoretarget
+BattleScript_SkipImmutableWindClear:
 	return
 
 BattleScript_MagicianActivates::

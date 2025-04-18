@@ -159,6 +159,25 @@
 	jumpbasedonability \battler, \ability, FALSE, \jumpptr
 	.endm
 
+	.macro onfieldAbilityJump battler:req, ability:req, jumpCondition:req, jumpInstr:req
+	callnative BS_AbilityJumpBasedOnField
+	.byte \battler
+	.2byte \ability
+	.byte \jumpCondition
+	.4byte \jumpInstr
+	.endm
+
+	@base function uses isabilityonfieldExceptBattler to exclude battler set
+	@use for things like stench neutralzing gas etc. that should clear
+	@only if no other mon on field can continue effect
+	.macro jumpifabilityonField battler:req, ability:req, jumpptr:req
+	onfieldAbilityJump \battler, \ability, TRUE, \jumpptr
+	.endm
+
+	.macro jumpifabilitynotonField	battler:req, ability:req, jumpptr:req
+	onfieldAbilityJump \battler, \ability, FALSE, \jumpptr
+	.endm
+
 	@FIXED think needed to make 4byte instead of 2
 	.macro jumpifsideaffecting battler:req, sidestatus:req, jumpInstr:req
 	.byte 0x1f
