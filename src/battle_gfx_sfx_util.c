@@ -232,6 +232,8 @@ void InitAndLaunchChosenStatusAnimation(u8 StatusType, u32 status)
                 LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_CURSED);
             else if (status & STATUS2_NIGHTMARE)
                 LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_NIGHTMARE);
+            else if (status & STATUS2_INFESTATION)
+                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED);
             else if (status & STATUS2_WRAPPED)
                 LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_WRAPPED); // this animation doesn't actually exist
             else // no animation
@@ -240,11 +242,11 @@ void InitAndLaunchChosenStatusAnimation(u8 StatusType, u32 status)
         break;
         case status3:
         break;
-        case status4:
+        case status4://potentially remove entire category?
         {
-            if (status & STATUS4_INFESTATION)
-                LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED); //think for ionfested rather than reuse move animation do battler shake w exclamation point
-            else // no animation
+            //if (status & STATUS2_INFESTATION)
+            //    LaunchStatusAnimation(gActiveBattler, B_ANIM_STATUS_INFESTED); //think for ionfested rather than reuse move animation do battler shake w exclamation point
+            //else // no animation
                 gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].statusAnimActive = 0;
         }
         break;

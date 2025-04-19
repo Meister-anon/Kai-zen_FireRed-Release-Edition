@@ -1656,31 +1656,7 @@ s32 GetDrainedBigRootHp(u32 battler, s32 hp)
             hp = (hp * 130) / 100;
     }
 
-    //if (gBattlerTarget == (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER)) //specific logic to separate leech seed from normal drain effects
-    //specific logic to separate leech seed from normal drain effects
-    //already have dmg set in endurn function only need ghost logic here
-    //wait don'tneed not type, macro isnt setting anything its checking so if it doesn't find type it returns 0, so origial macro is fine...
-    //leech seed against ghost target isn't working
-    //also leech seed messing with messaging for ability escape prevention for some reason
-    //if (gStatuses3[gBattlerTarget] & STATUS3_LEECHSEED_BATTLER) 
-    //if (gBattlerTarget == (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER)) //ok THIS works not the other one, well teh filter works, ghost leech still not right
-   // if (gBattlerTarget == (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED))
-   // {
-       /*if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST) 
-        && (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED)
-        && (gBattlerTarget == (gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER))
-        && (!IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST))) //w leech seed logic target at this point is mon receiving hp
-        {
-            if ((hp / 2) < gBattleMons[battler].maxHP / 8)
-                ghostdmg = -(gBattleMons[battler].maxHP / 8); //potentially need new macro as ! just maakes it 0 which I think means type normal?
-
-            else if ((hp / 2) > gBattleMons[battler].maxHP / 8)
-                ghostdmg = -(hp / 2);
-
-                hp = ghostdmg; //message hurt by ghost energy
-        } *///it alsmost works I've got everything but leech seed hurting teh target if they aren't a ghost
-   // }//this cancels below, if need set not seeded as below - if below does everything what is thi seven doing? leech seed ghost isn't working either
-    //removed attempt do in endturn
+    
     
     //leech seed on a ghost type?
     //if leech seed and triggered in endturn
@@ -2783,32 +2759,10 @@ u8 DoBattlerEndTurnEffects(void)
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
 
-                    //ok THIS is the part I want to change, its clear active battler is the mon 
-                    //its taking from, activebattler will eventually go away
-                    //so see what should do for animarguments below
-                    //gBattlerTarget = gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER; // Notice gBattlerTarget is actually the HP receiver.
+                    
                     gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);//heal leech target max hp
 
-                    /*if (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GHOST)) //need test  //had wrong target should be fixed now
-                    {
-                        //gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP / 16; //check if correct, but should heal, and then take 1/16 max health of pokemon healed
-                         //take damage based on leech user max hp
-                        gBattleMoveDamage *= -1; //wouldnt work how I planned changed, just lose hp, making negatibve shold couter negative swap in bs
-                    } *///nothing I do here seems to fix the issue, moving to bigroot function as that's source of logic
                     
-                    /*if (IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_GHOST) 
-                    && (!IS_BATTLER_OF_TYPE(gStatuses3[gActiveBattler] & STATUS3_LEECHSEED_BATTLER, TYPE_GHOST))) //w leech seed logic target at this point is mon receiving hp
-                    {
-                        if ((gBattleMoveDamage / 2) < gBattleMons[gBattlerTarget].maxHP / 8)
-                            gBattleMoveDamage = (gBattleMons[gActiveBattler].maxHP / 8); //potentially need new macro as ! just maakes it 0 which I think means type normal?
-
-                        else if ((gBattleMoveDamage / 2) > gBattleMons[gBattlerTarget].maxHP / 8)
-                            gBattleMoveDamage = (gBattleMoveDamage / 2);
-
-                        gBattleMoveDamage *= -1;
-                    }*/ //somehow is affecting wrong battler, is healing the mon with seed status, oh this doesn't have ny effect on heal, instead it just
-                    //sets gbattlemovedamage to seeded hp, which is passed to bigroot command/function to be used for healing
-                    //so it is correct to setup the heal THERE not here
 
                     //without gactivebattler witll still use target adn attacker
                     //check above think activebattler already subbed in for attacker
@@ -3127,7 +3081,7 @@ u8 DoBattlerEndTurnEffects(void)
                     else  // broke free
                     {   //how did I not notice I didn't have the removal status here?
                         gBattleMons[gActiveBattler].status4 &= ~STATUS4_SWARM;
-                        gBattleMons[gActiveBattler].status4 &= ~STATUS4_INFESTATION;
+                        gBattleMons[gActiveBattler].status2 &= ~STATUS2_INFESTATION;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, MOVE_SWARM);
                         gBattlescriptCurrInstr = BattleScript_WrapEnds;
                     }
@@ -3513,7 +3467,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_INFESTATION:  // infested
-                if ((gBattleMons[gActiveBattler].status4 & STATUS4_INFESTATION) && gBattleMons[gActiveBattler].hp != 0
+                if ((gBattleMons[gActiveBattler].status2 & STATUS2_INFESTATION) && gBattleMons[gActiveBattler].hp != 0
                     && IsBlackFogNotOnField())
                 {
 

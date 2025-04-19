@@ -761,7 +761,7 @@ static const u32 sStatusFlagsForMoveEffects[NUM_MOVE_EFFECTS] =
     [MOVE_EFFECT_FREEZE] = STATUS1_FREEZE,
     [MOVE_EFFECT_PARALYSIS] = STATUS1_PARALYSIS,
     [MOVE_EFFECT_TOXIC] = STATUS1_TOXIC_POISON,
-    [MOVE_EFFECT_INFESTATION] = STATUS4_INFESTATION,
+    [MOVE_EFFECT_INFESTATION] = STATUS2_INFESTATION,
     [MOVE_EFFECT_CONFUSION] = STATUS2_CONFUSION,
     [MOVE_EFFECT_FLINCH] = STATUS2_FLINCHED,
     [MOVE_EFFECT_UPROAR] = STATUS2_UPROAR,
@@ -5035,14 +5035,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 break;
             case MOVE_EFFECT_INFESTATION:
             {
-                if (gBattleMons[gEffectBattler].status4 & STATUS4_INFESTATION) //not gonna be a problem for trap status as using dif status for each
+                if (gBattleMons[gEffectBattler].status2 & STATUS2_INFESTATION) //not gonna be a problem for trap status as using dif status for each
                 {                                           //and just put in each case, lan like magic gaurd check, check macro and do increment, with a one line paste
                     ++gBattlescriptCurrInstr;
                 }
                 else
                 {
 
-                gBattleMons[gEffectBattler].status4 |= STATUS4_INFESTATION;
+                gBattleMons[gEffectBattler].status2 |= STATUS2_INFESTATION;
                 
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
@@ -6445,6 +6445,44 @@ static void atk1E_jumpbasedonability(void)
             //gBattlescriptCurrInstr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
             RecordAbilityBattle(battlerId, gLastUsedAbility);
             gBattleScripting.battlerWithAbility = battlerId;
+        }
+        else
+        {
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+    }
+    else if (cmd->jumpCondition == FALSE) //jump if not has ability
+    {
+        if (!(hasAbility))
+        {
+
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+            //gBattlescriptCurrInstr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
+        }
+        else
+        {
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+    }
+}
+
+//ok works now issue not using getbattlerforbattlescript.
+//checked EE beleive I should be using that for all cases
+void BS_AbilityJumpBasedOnField(void)
+{
+    NATIVE_ARGS(u8 battler, u16 ability, u8 jumpCondition, const u8 *jumpInstr);
+    
+    u8 battler = GetBattlerForBattleScript(cmd->battler);
+    u32 hasAbility = IsAbilityOnFieldExcept(battler, cmd->ability);
+    if (cmd->jumpCondition == TRUE)// jump if has ability
+    {
+        if (hasAbility)
+        {
+            gLastUsedAbility = cmd->ability;
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+            //gBattlescriptCurrInstr = T2_READ_PTR(gBattlescriptCurrInstr + 4);
+            RecordAbilityBattle(cmd->battler, gLastUsedAbility);
+            gBattleScripting.battlerWithAbility = battler;
         }
         else
         {
@@ -19187,7 +19225,7 @@ static void atkEF_handleballthrow(void) //important changed
                 odds += (odds / 8);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_CURSED)
                 odds += (odds / 10);
-            if (gBattleMons[gBattlerTarget].status4 & STATUS4_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
+            if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
                 odds += (odds / 10); 
             if (gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
                 odds += (odds / 10);
@@ -20589,7 +20627,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
                 else    //just lasting longer seems a bit useless maybe make it a status1 so you can switch out and still trap enemy?
                     gDisableStructs[gEffectBattler].swarmTurns = ((Random() % 5) + 2);   //will do 2-6 turns
 
-                    gBattleMons[gActiveBattler].status4 |= STATUS4_INFESTATION; //wasn't planning to include status in this but think need it for animation to play properly
+                    gBattleMons[gActiveBattler].status2 |= STATUS2_INFESTATION; //wasn't planning to include status in this but think need it for animation to play properly
             }
                 break;*/
             case EFFECT_ACCURACY_DOWN:            

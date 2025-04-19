@@ -5866,7 +5866,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //anything below that does MORE damage than the base formula
 
         //trap effects & bug status def drop
-        if ((gBattleMons[battlerIdDef].status4 & STATUS4_INFESTATION) //this is bug status
+        if ((gBattleMons[battlerIdDef].status2 & STATUS2_INFESTATION) //this is bug status
             && IsBlackFogNotOnField()) //liked the idea of creating a bug status effect, change  move infestaion to swarm, atked by biting swarm!
             //then make infested/infestation the bug status, the extra effect of swarm would be setting the infestation status
         {

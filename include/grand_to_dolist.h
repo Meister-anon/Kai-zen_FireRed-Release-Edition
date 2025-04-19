@@ -3811,6 +3811,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -added new header fields for block surfing and fishing
     -added speed up for surfing hold b goes faster
 
+    BRO bug bite buged AGAIN!!!
+    ok appers to be uniquely bugbite as pluck which shsares same move effect
+    works perfectly fine all I can guess is something with move anim?
+    sigh ok found issue its specifically infestation whcih I believe I never setup right?
+    changed to status2 instead of status4 replaced now unused leechseedbattler constant
+    infestation now works,
+    set swarm itself to do defense lower based on timer
+    need add to baton pass I belive
+    -but for now swarm and infestation work properly
+    I will keep infestation set by moves off  timer
+    as a counter balance for bulky mon since damage is lower across board
+    
+
     sigh also something wrong with exit abilities
     whenI switch out stench all other ability messages replay
 

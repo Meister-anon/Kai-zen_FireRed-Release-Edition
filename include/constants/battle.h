@@ -170,7 +170,7 @@
 //so free space is at the bottom
 #define STATUS2_CONFUSION             (1 << 0)
 #define STATUS2_FREESPACE             (1 << 1)
-#define STATUS2_BLANK                 (1 << 2)
+#define STATUS2_INFESTATION           (1 << 2)
 //#define STATUS2_CONFUSION_TURN(num)   ((num) << 0)
 #define STATUS2_FLINCHED              (1 << 3)
 #define STATUS2_UPROAR                (1 << 4)
@@ -227,7 +227,8 @@
 
 // Seems like per-battler statuses. Not quite sure how to categorize these
 //#define STATUS3_SKY_DROPPED             0x1 // Target of Sky Drop
-#define STATUS3_LEECHSEED_BATTLER       (1 << 0 | 1 << 1) // The battler to receive HP from Leech Seed
+#define STATUS3_FREESPACE               (1 << 0)//REPLACED The battler to receive HP from Leech Seed
+#define STATUS3_PLACEHOLD               (1 << 1)
 #define STATUS3_LEECHSEED                (1 << 2) //is leech seeded status, doesn't store battler with status
 #define STATUS3_ALWAYS_HITS             (1 << 3 | 1 << 4)    // two bits
 #define STATUS3_ALWAYS_HITS_TURN(num)   (((num) << 3) & STATUS3_ALWAYS_HITS) // "Always Hits" is set as a 2 turn timer, i.e. next turn is the last turn when it's active
@@ -289,7 +290,6 @@
 #define STATUS4_SNAP_TRAP               (1 << 9)
 #define STATUS4_THUNDER_CAGE            (1 << 10)
 #define STATUS4_SALT_CURED              (1 << 11) //Doesn't prevent escape so don't treat as trap, mix of leech seed and stealth rock, 1/8th max hp, double status dmg against water and steel
-#define STATUS4_INFESTATION             (1 << 12)
 //removed replaced w timer
 //#define STATUS4_GROUNDED                (1 << 11)  //new status  set for move effect trench_run to more easily translate mon into grounded state, add status to groudned function
 

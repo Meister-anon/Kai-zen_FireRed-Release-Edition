@@ -8661,7 +8661,7 @@ BattleScript_MoveEffectConfusion::
 
 @change to match above when get status icon setup, plan kamen raider esque neon green icon with bug mask
 BattleScript_MoveEffectInfestation::
-	chosenstatusanimation BS_EFFECT_BATTLER, STATUS4, STATUS4_INFESTATION
+	chosenstatusanimation BS_EFFECT_BATTLER, STATUS2, STATUS2_INFESTATION
 	printstring STRINGID_INFESTATION
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return

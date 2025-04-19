@@ -3531,8 +3531,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .power = 120,
         .type = TYPE_BUG,
         .accuracy = 85,
-        .pp = 5,  //since I gave it flinch should lower pp to 5
-        .secondaryEffectChance = 20,
+        .pp = 10,  //since I gave it flinch should lower pp to 5
+        .secondaryEffectChance = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_ROCK_HEAD_BOOST,
@@ -3540,6 +3540,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .argument = MOVE_EFFECT_INFESTATION,
         .argumentEffectChance = 5,
     },
+    //most mon that get it are slow so can keep at 10pp
 
     [MOVE_DRAGON_BREATH] =
     {
@@ -7210,7 +7211,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 15,
-        .secondaryEffectChance = 30, //was 10
+        .secondaryEffectChance = 20, //was 10
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR,
@@ -11446,7 +11447,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argumentEffectChance = 10,
-    },//think argument defaults to 0, point is to add .argument = MOVE_EFFECT_INFESTATION,
+        .argument = MOVE_EFFECT_INFESTATION,
+    },//think argument defaults to 0, point is to add 
     //when I get it working w teh proper animation, and have all bug moves a 10% chance to infest
 
     [MOVE_BURNING_JEALOUSY] =
