@@ -7,7 +7,7 @@ EWRAM_DATA u8 gStringVar1[max(max(max(32, TRAINER_NAME_LENGTH + 1), POKEMON_NAME
 EWRAM_DATA u8 gStringVar2[20] = {};
 EWRAM_DATA u8 gStringVar3[20] = {};
 EWRAM_DATA u8 gStringVar4[1000] = {};
-EWRAM_DATA u8 gUnknownStringVar[16] = {0};
+EWRAM_DATA u8 gUnknownStringVar[22] = {0}; //idk what to make of this tried using it and it broke game?
 
 static const u8 sDigits[] = __("0123456789ABCDEF");
 

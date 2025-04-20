@@ -815,6 +815,28 @@ static void QuestLog_GetSpeciesName(u16 species, u8 *dest, u8 stringVarId)
     }
 }
 
+static const u8 *QuestLog_GetItemName(u8 *name, u16 itemId)
+{
+    s32 i;
+    for (i = 0; i < ITEM_NAME_LENGTH; i++)
+        {
+            if (itemId >= ITEMS_COUNT)
+                name[i] = gItems[SanitizeItemId(0)].name[i];
+            else
+                name[i] = gItems[SanitizeItemId(itemId)].name[i];
+
+            if (name[i] == EOS)
+                break;
+        }//changed to greater or equal as realized items count doesn't have anentry either
+
+    name[i] = EOS;
+
+    if (ShouldCapitalizeItems())
+        CapializeString(name);
+
+    return  name;
+}
+
 static u16 *BufferQuestLogData_SwitchedPartyOrder(u16 *a0, const u16 *eventData)
 {
     u16 *r2 = sub_8113DE0(QL_EVENT_SWITCHED_PARTY_ORDER, a0);
@@ -1985,7 +2007,7 @@ static const u16 *BufferQuestLogText_BoughtItem(const u16 *eventData)
     DynamicPlaceholderTextUtil_Reset();
     GetMapNameGeneric(gStringVar1, r7[0]);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
-    DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, ItemId_GetName(r4[0]));
+    DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, QuestLog_GetItemName(gStringVar3, r4[0]));
     if (r4[1] < 2)
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, gText_QuestLog_BoughtItem);
     else
@@ -2021,7 +2043,10 @@ static const u16 *BufferQuestLogText_SoldItem(const u16 *eventData)
     if (r7[1] == 0) {
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gSaveBlock2Ptr->playerName);
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gStringVar1);
-        DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, ItemId_GetName(r5[0]));
+        //ok THIS was the problem using the the unknownstringbuff was the problem
+        //used a diff buffer still failed so the problem may actually be elsewhere...
+        //unsure if this was issue but reset, closer to older version
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, QuestLog_GetItemName(gUnknownStringVar, r5[0]));
         if (r5[1] == 1)
             DynamicPlaceholderTextUtil_SetPlaceholderPtr(3, gText_QuestLog_JustOne);
         else
@@ -2036,7 +2061,7 @@ static const u16 *BufferQuestLogText_SoldItem(const u16 *eventData)
     else
     {
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
-        DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, ItemId_GetName(r5[0]));
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, QuestLog_GetItemName(gStringVar3, r5[0]));
         ConvertIntToDecimalStringN(gStringVar2, r6, STR_CONV_MODE_LEFT_ALIGN, 6);
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, gStringVar2);
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, gText_QuestLog_SoldItemsIncludingItem);
