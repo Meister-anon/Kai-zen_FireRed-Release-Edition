@@ -2091,7 +2091,7 @@ void MoveGetIdAndSlot(s32 battlerId, struct MoveContext *ctx, u32 *moveId, u32 *
         INVALID_IF(ctx->gimmick == GIMMICK_Z_MOVE && ItemId_GetSecondaryId(item) != gMovesInfo[*moveId].type
                    && GetSignatureZMove(*moveId, species, item) == MOVE_NONE
                    && *moveId != MOVE_PHOTON_GEYSER, // exception because test won't recognize Ultra Necrozma pre-Burst
-                   "Cannot turn %S into a Z-Move with %S", GetMoveName(ctx->move), ItemId_GetName(item));
+                   "Cannot turn %S into a Z-Move with %S", GetMoveName(ctx->move), gItems[SanitizeItemId(item)].name);
         INVALID_IF(ctx->gimmick != GIMMICK_MEGA && holdEffect == HOLD_EFFECT_MEGA_STONE, "Cannot use another gimmick while holding a Mega Stone");
         INVALID_IF(ctx->gimmick != GIMMICK_Z_MOVE && ctx->gimmick != GIMMICK_ULTRA_BURST && holdEffect == HOLD_EFFECT_Z_CRYSTAL, "Cannot use another gimmick while holding a Z-Crystal");
 
@@ -2391,13 +2391,13 @@ void UseItem(u32 sourceLine, struct BattlePokemon *battler, struct ItemContext c
     INVALID_IF(DATA.actionBattlers & (1 << battlerId), "Multiple battler actions");
     INVALID_IF(ctx.itemId >= ITEMS_COUNT, "Illegal item: %d", ctx.itemId);
     // Check party menu items.
-    INVALID_IF(requirePartyIndex && !ctx.explicitPartyIndex, "%S requires explicit party index", ItemId_GetName(ctx.itemId));
+    INVALID_IF(requirePartyIndex && !ctx.explicitPartyIndex, "%S requires explicit party index", gItems[SanitizeItemId((ctx.itemId))].name);
     INVALID_IF(requirePartyIndex && ctx.partyIndex >= ((battlerId & BIT_SIDE) == B_SIDE_PLAYER ? DATA.playerPartySize : DATA.opponentPartySize), \
                 "USE_ITEM to invalid party index");
     // Check move slot items.
     if (ItemId_GetType(ctx.itemId) == ITEM_USE_PARTY_MENU_MOVES)
     {
-        INVALID_IF(!ctx.explicitMove, "%S requires an explicit move", ItemId_GetName(ctx.itemId));
+        INVALID_IF(!ctx.explicitMove, "%S requires an explicit move", gItems[SanitizeItemId((ctx.itemId))].name);
         for (i = 0; i < MAX_MON_MOVES; i++)
         {
             if (GetMonData(CurrentMon(battlerId), MON_DATA_MOVE1 + i, NULL) == ctx.move)

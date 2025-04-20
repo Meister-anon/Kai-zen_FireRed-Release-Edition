@@ -316,7 +316,7 @@ static void atkC5_setsemiinvulnerablebit(void);
 static void atkC6_clearsemiinvulnerablebit(void);
 static void atkC7_setminimize(void);
 static void atkC8_sethail(void);
-static void atkC9_jumpifattackandspecialattackcannotfall(void);
+static void atkC9_trymemento(void);
 static void atkCA_setforcedtarget(void);
 static void atkCB_setcharge(void);
 static void atkCC_callterrainattack(void);
@@ -576,7 +576,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atkC6_clearsemiinvulnerablebit,
     atkC7_setminimize,
     atkC8_sethail,
-    atkC9_jumpifattackandspecialattackcannotfall,
+    atkC9_trymemento,
     atkCA_setforcedtarget,
     atkCB_setcharge,
     atkCC_callterrainattack,
@@ -6409,10 +6409,10 @@ static void atk1E_jumpbasedonability(void)
                 else
                     hasAbility = FALSE;
             }
-            else if (ability == ABILITY_STURDY)
+            else if (ability == ABILITY_STURDY) //can't figure to make more specific correctly so just leaving
             {
-                if (IsBattlerAlive(battlerId))
-                    hasAbility = TRUE;
+                if (IsBattlerAlive(battlerId))//mayu change to alive and above hp threshold? vsonic
+                    hasAbility = TRUE; //all ohko moves miss so if curr mvoe is effect ohko otherwise survives suicide moves if above quarter hp && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4
             }
             else
                 hasAbility = TRUE;
@@ -15550,12 +15550,6 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
                 gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
                 gLastUsedItem = gBattleMons[gBattlerTarget].item;
             }
-            else if (gSpecialStatuses[gBattlerTarget].sturdied)
-            {
-                gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
-                gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
-                gLastUsedAbility = ABILITY_STURDY;
-            }
             else
             {
                 gBattleMoveDamage = gBattleMons[gBattlerTarget].hp;
@@ -18095,16 +18089,33 @@ static void atkC7_setminimize(void)
     ++gBattlescriptCurrInstr;
 }
 
-static void atkC9_jumpifattackandspecialattackcannotfall(void) // memento
+//think rename? well no its just part of memento,
+//in case of sturdy believe need change effect to do switch out
+//if mon is somehow alive at end of move
+//take baton pass logic
+//hmm its weird this does hp drop but is also followed by setatkhptozero?
+//this does health bar drop but other function does hp update
+static void atkC9_trymemento(void) // memento
 {
-    if (gBattleMons[gBattlerTarget].statStages[STAT_ATK] == 0
-     && gBattleMons[gBattlerTarget].statStages[STAT_SPATK] == 0
-     && gBattleCommunication[6] != 1)
+    CMD_ARGS(const u8 *failInstr);
+    if ((gBattleCommunication[MISS_TYPE] == B_MSG_PROTECTED
+        || gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE
+        || IsBattlerProtected(gBattlerTarget, gCurrentMove)
+        || DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove)))
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        // Failed, target was protected.
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else if (gBattleMons[gBattlerTarget].statStages[STAT_ATK] == MIN_STAT_STAGE
+        && gBattleMons[gBattlerTarget].statStages[STAT_SPATK] == MIN_STAT_STAGE
+        && gBattleCommunication[MISS_TYPE] != B_MSG_PROTECTED)
+    {
+        // Failed, unprotected target already has minimum Attack and Special Attack.
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
+        // Success, drop user's HP bar
         gActiveBattler = gBattlerAttacker;
         if (CanSurviveInstantKOWithSturdy(gActiveBattler))
             gBattleMoveDamage = gBattleMons[gActiveBattler].hp - 1;
@@ -18112,7 +18123,7 @@ static void atkC9_jumpifattackandspecialattackcannotfall(void) // memento
             gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
         BtlController_EmitHealthBarUpdate(0, INSTANT_HP_BAR_DROP);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 

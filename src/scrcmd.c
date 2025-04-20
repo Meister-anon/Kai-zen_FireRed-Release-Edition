@@ -1758,6 +1758,7 @@ bool8 ScrCmd_bufferitemname(struct ScriptContext * ctx)
     //for now, just Cap it and exclude from cap string logic
     //checekd rn TM HM are already force capped,  so check later if
     //decide to put that into a Misc file
+    
     if (!IsTMHM(itemId))
         GetItemName(sScriptStringVars[stringVarIndex], itemId);
     else
@@ -1772,6 +1773,11 @@ const u8 gUnknown_83A72A2[] = _("ies");
 const u8 gUnknown_Cap83A72A0[] = _("S"); //decapped so can be capped in sync with item cap
 const u8 gUnknown_Cap83A72A2[] = _("IES");
 
+//has problems when try to apply copyitemname for this function
+//triggers memory corruption?
+//will keep as is, EE doesn't use fontid here
+//and I think the preprend would just cause issues
+//when used in a full string?
 bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
 {
     u8 stringVarIndex = ScriptReadByte(ctx);
@@ -1784,7 +1790,7 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
         GetItemName(sScriptStringVars[stringVarIndex], itemId);
     else
         GetTmHm_Name(sScriptStringVars[stringVarIndex], itemId);
-
+    
     //unsure if should change to back pokeball pouch as poke is written differently
     if (itemId == ITEM_POKE_BALL && quantity >= 2)
     {
@@ -1796,11 +1802,12 @@ bool8 ScrCmd_bufferitemnameplural(struct ScriptContext * ctx)
         StringAppend(sScriptStringVars[stringVarIndex], gStringVar3);
     }
     //do plan change this to berry pouch vsonic
-    else if (itemId >= ITEM_CHERI_BERRY && itemId < ITEM_ENIGMA_BERRY && quantity >= 2)
+    else if (GetPocketByItemId(itemId) == POCKET_BERRY_POUCH && quantity >= 2)
     {
         u16 strlength = StringLength(sScriptStringVars[stringVarIndex]);
         if (strlength != 0)
         {
+            //remove y, add ies
             u8 * endptr = sScriptStringVars[stringVarIndex] + strlength;
             endptr[-1] = EOS;
             if (ShouldCapitalizeItems())

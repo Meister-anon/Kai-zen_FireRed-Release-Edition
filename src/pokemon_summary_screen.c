@@ -174,7 +174,7 @@ struct PokemonSummaryScreenData
 
     struct PokeSummary
     {
-        u8 ALIGNED(4) speciesNameStrBuf[POKEMON_NAME_LENGTH];
+        u8 ALIGNED(4) speciesNameStrBuf[POKEMON_NAME_LENGTH + 1];
         u8 ALIGNED(4) nicknameStrBuf[POKEMON_NAME_LENGTH + 1]; //need raise these, issue was without increase it overflows next data field
         u8 ALIGNED(4) otNameStrBuf[12]; //^ fixed
         u8 ALIGNED(4) otNameStrBufs[2][12];
@@ -2488,7 +2488,7 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
 
     
      if (gMain.inBattle) //seems works - works in singles for some reason fails in doubles??
-        {
+    {
         
         //doesn't work in doubles - works in doubles now
         //mon on field does next to nothing its actually an alive check,
@@ -2513,12 +2513,12 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
             sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
             sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
         }
-        }
-        else
-        {
-            sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
-            sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
-        }
+    }
+    else
+    {
+        sMonSummaryScreen->monTypes[0] = gBaseStats[species].type1;
+        sMonSummaryScreen->monTypes[1] = gBaseStats[species].type2;
+    }
 
     if (StringCompare(gBaseStats[dexNum].speciesName, tempStr) == IDENTICAL) //if not nicknamed reassign tempStr to speciesname, making it update capitalization
         GetSpeciesName(tempStr, dexNum);
@@ -3124,14 +3124,14 @@ static void PokeSum_PrintRightPaneText(void)
 
 static void PrintInfoPage(void)
 {
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 46, 19, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.speciesNameStrBuf);
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], GetFontIdToFit(sMonSummaryScreen->summary.speciesNameStrBuf, FONT_NORMAL,0, 74), 46, 19, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.speciesNameStrBuf);
 
     if (!sMonSummaryScreen->isEgg)
     {
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47 + sMonSkillsPrinterXpos->unk00, 5, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.dexNumStrBuf);
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 49, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.otNameStrBuf);
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 64, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.unk306C);
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 79, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.itemNameStrBuf);
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], GetFontIdToFit(sMonSummaryScreen->summary.itemNameStrBuf, FONT_NORMAL,0, 74), 47, 79, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.itemNameStrBuf);
     }
     else
     {

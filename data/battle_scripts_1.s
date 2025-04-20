@@ -5884,7 +5884,7 @@ BattleScript_EffectMemento::
 	jumpifbyte CMP_EQUAL, gBattleCommunication + 6, 1, BattleScript_MementoNoReduceStats
 	attackstring
 	ppreduce
-	jumpifattackandspecialattackcannotfall BattleScript_ButItFailed
+	trymemento BattleScript_ButItFailed
 	setatkhptozero
 	attackanimation
 	waitanimation
@@ -5917,7 +5917,7 @@ BattleScript_MementoSubstituteInvulnerable::
 BattleScript_MementoNoReduceStats::
 	attackstring
 	ppreduce
-	jumpifattackandspecialattackcannotfall .+4
+	trymemento .+4
 	setatkhptozero
 	pause B_WAIT_TIME_LONG
 	effectivenesssound

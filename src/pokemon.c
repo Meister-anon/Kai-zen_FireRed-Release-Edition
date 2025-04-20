@@ -6578,6 +6578,7 @@ u8 GetGenderFromSpeciesAndPersonality(u16 species, u32 personality)
         return MON_MALE;
 }
 
+//check if gem type set works vsonic
 u8 GetBattlerHiddenPowerType(u8 battler)
 {
     

@@ -2239,6 +2239,7 @@ static const s8 sNarrowerFontIds[] =
 // If the narrowest font ID doesn't fit the text, we still return that
 // ID because clipping is better than crashing.
 //try setup again after font port vsonic IMPORTANT
+//if initial fontid doesn't fit then it looks for narrower version of font
 u32 GetFontIdToFit(const u8 *string, u32 fontId, u32 letterSpacing, u32 widthPx)
 {
     //ok the for isn't the problem the issue is getstringwidth??
