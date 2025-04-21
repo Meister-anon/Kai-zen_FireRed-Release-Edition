@@ -1192,10 +1192,10 @@ struct SaveBlock1
     /*0x062C*/ //u16 berryBlenderRecords[3]; // unused
     /*0x0632*/ //u8 field_632[6]; // unused? //believe these 2 for vs seeker so could remove later?
     /*0x0638*/ u16 trainerRematchStepCounter; //appears, doesn't need to be in struct? its alwaysu referred to by saveblockptr not the trainerrematch struct
-    /*0x063A*/ u8 ALIGNED(2) trainerRematches[100]; //think can safely remove
+    /*0x063A*/ u8 ALIGNED(2) trainerRematches[MAX_REMATCH_ENTRIES]; //think can safely remove
                u32 oakRanchStepCounter; //using for pc exp gain, set to 0 on new game, need have functino check for if mon in pc if yes increment w steps if no reset counter
     /*0x06A0*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
-    /*0x08E0*/ struct ObjectEventTemplate objectEventTemplates[64];
+    /*0x08E0*/ struct ObjectEventTemplate objectEventTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
     /*0x0EE0*/ u8 flags[NUM_FLAG_BYTES];
     /*0x1000*/ u16 vars[VARS_COUNT];
     /*0x1200*/ u32 gameStats[NUM_GAME_STATS];//don't know how much but can prob save some by removing some of these

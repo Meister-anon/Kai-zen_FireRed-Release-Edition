@@ -3981,10 +3981,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     )
     4/11/2025
 
+    identified more Bug notices, search below tag to find
+    //believe most of these are listed as such cuz they don't have a fix?
+    BUG:
+
     watched wolfey vid w toedscruel's ability mycelium might realized
     there will always be times you want to turn an ability off
     so will revert neutralizing gas change, (especially since it appears bugged)
     but keep the genenie ability as is tho
+
+    -edit actually...think I'll  revert that back, w status change can just use gastro acid
+    mycelium might would make it go last so partner status move would always go before it,
+    remove its ability then allowing it to go next as it would recalc turn order.
+    mycelium might is pretty much the only "bad" ability left you'd want to remove
+
+    hmm but then the question is, is neutralizing gas too strong to be on its own?
+    i.e too strong and too available to shut down only the opponents abilities?
+    well counter play does exist and only a rare few mon have this,
+    and you're still forcing yourself to take one of those mon on your team
+    over something else, so I think its fine
 
     NOTE**(
     for better random odds/encoutens set up new random funtion

@@ -87,6 +87,7 @@
 #define BAG_POKEBALLS_COUNT 13  //double check how many poke ball types i have
 #define BAG_TMHM_COUNT      NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES //168 rn //Value from NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES  also couunt from sTMHMMoves
 #define BAG_BERRIES_COUNT   23 
+#define MAX_REMATCH_ENTRIES 100
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 
 #define QUEST_LOG_SCENE_COUNT 2 //think this is flashbacks, cut from 4 to 2, to hopefully save space. plus everyone doesn't like the feature like I do.
