@@ -1306,10 +1306,11 @@ static bool8 ClockwiseWipe_Bottom(struct Task *task)
  * of WIN0 (see variables start and end), which will sometimes cause end
  * to be smaller than start. In this way, garbage data will be written to WIN0H. 
  */
+
+//applied fixes from EE
 static bool8 ClockwiseWipe_Left(struct Task *task)
 {
-    s16 end, start;
-    u16 win0H;
+    s16 end, start, temp;
     vu8 finished = FALSE;
 
     sTransitionData->vblankDma = FALSE;
@@ -1320,16 +1321,20 @@ static bool8 ClockwiseWipe_Left(struct Task *task)
         start = sTransitionData->tWipeCurrX;
         if (sTransitionData->tWipeEndY <= DISPLAY_HEIGHT / 2)
         {
-            start = DISPLAY_WIDTH / 2;
-            end = sTransitionData->tWipeCurrX;
+            /*start = DISPLAY_WIDTH / 2;
+            end = sTransitionData->tWipeCurrX;*/
+            start = DISPLAY_WIDTH / 2, end = sTransitionData->tWipeCurrX;
         }
-        win0H = WIN_RANGE2(start, end);
-        gScanlineEffectRegBuffers[0][sTransitionData->tWipeCurrY] = win0H;
+        temp = end | (start << 8);
+        gScanlineEffectRegBuffers[0][sTransitionData->tWipeCurrY] = temp;
         if (finished)
             break;
         finished = UpdateBlackWipe(sTransitionData->data, TRUE, TRUE);
     }
+    //talk w shinydragonH. this is a speed value
+    //decrement is how fast it clears - keep fr version
     sTransitionData->tWipeEndY -= 16;
+    //sTransitionData->tWipeEndY -= 8; //from EE
     if (sTransitionData->tWipeEndY <= 0)
     {
         sTransitionData->tWipeEndX = 0;
@@ -1338,7 +1343,7 @@ static bool8 ClockwiseWipe_Left(struct Task *task)
     else
     {
         while (sTransitionData->tWipeCurrY > sTransitionData->tWipeEndY)
-            gScanlineEffectRegBuffers[0][--sTransitionData->tWipeCurrY] = WIN_RANGE2(start, end);
+            gScanlineEffectRegBuffers[0][--sTransitionData->tWipeCurrY] = end | (start << 8);
     }
     sTransitionData->vblankDma++;
     return FALSE;
@@ -1347,22 +1352,22 @@ static bool8 ClockwiseWipe_Left(struct Task *task)
 static bool8 ClockwiseWipe_TopLeft(struct Task *task)
 {
     sTransitionData->vblankDma = FALSE;
-    InitBlackWipe(sTransitionData->data, 120, 80, sTransitionData->tWipeEndX, 0, 1, 1);
+    InitBlackWipe(sTransitionData->data, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, sTransitionData->tWipeEndX, 0, 1, 1);
     do
     {
-        s16 start = DISPLAY_WIDTH / 2;
-        s16 end = sTransitionData->tWipeCurrX;
-        if (sTransitionData->tWipeCurrX >= 120)
-        {
-            start = 0;
-            end = DISPLAY_WIDTH;
-        }
-        gScanlineEffectRegBuffers[0][sTransitionData->tWipeCurrY] = WIN_RANGE2(start, end);
+        s16 start, end;
+        start = DISPLAY_WIDTH / 2, end = sTransitionData->tWipeCurrX;
+        if (sTransitionData->tWipeCurrX >= DISPLAY_WIDTH / 2)
+            start = 0, end = DISPLAY_WIDTH;
+        gScanlineEffectRegBuffers[0][sTransitionData->tWipeCurrY] = end | (start << 8);
     }
     while (!UpdateBlackWipe(sTransitionData->data, TRUE, TRUE));
+    //speed value keep FR version
     sTransitionData->tWipeEndX += 32;
+    //sTransitionData->tWipeEndX += 16; //from EE
     if (sTransitionData->tWipeCurrX > DISPLAY_WIDTH / 2)
         task->tState++;
+
     sTransitionData->vblankDma++;
     return FALSE;
 }
