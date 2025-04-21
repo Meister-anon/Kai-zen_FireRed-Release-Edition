@@ -11188,14 +11188,14 @@ bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability)
         || (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
     */
 
-    /*if ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability)))
+    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
         return TRUE;
-    else*/
-    //ok no idea why so hard to get to work but works now
-    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS))
-        return (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability));
+
+    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability))
+        return TRUE;
+
     else
-        return (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability));
+        return FALSE;
 
 
 }
