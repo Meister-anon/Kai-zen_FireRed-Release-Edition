@@ -6672,7 +6672,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
     case DEX_ORDER_ATOZ: //look into making this load in sections?, think issue is would need to continuously retrigger this function?, not az but all national lists
     {
         
-        for (i = 0; i <= NELEMS(gPokedexOrder_Alphabetical); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
+        for (i = 0; i < NELEMS(gPokedexOrder_Alphabetical); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
             seen = DexScreen_GetSetPokedexFlag(gPokedexOrder_Alphabetical[i], FLAG_GET_SEEN, FALSE);
@@ -6852,7 +6852,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
     case DEX_ORDER_TYPE: //can't build automatically would need to loop entire species list MANY times, so would take forever
     { //now that I'm saving time I MAY be able to build with a function
         
-        for (i = 0; i <= NELEMS(gPokedexOrder_Type); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
+        for (i = 0; i < NELEMS(gPokedexOrder_Type); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
             seen = DexScreen_GetSetPokedexFlag(gPokedexOrder_Type[i], FLAG_GET_SEEN, FALSE);
@@ -7037,7 +7037,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
     case DEX_ORDER_LIGHTEST:
     {    
         
-        for (i = 0; i <= NELEMS(gPokedexOrder_Weight); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
+        for (i = 0; i < NELEMS(gPokedexOrder_Weight); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
             seen = DexScreen_GetSetPokedexFlag(gPokedexOrder_Weight[i], FLAG_GET_SEEN, FALSE);
@@ -7224,7 +7224,7 @@ static u16 DexScreen_CreateList_ReturnCount(u8 orderIdx, int selectedIndex)
     case DEX_ORDER_SMALLEST:
     {
         
-        for (i = 0; i <= NELEMS(gPokedexOrder_Height); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
+        for (i = 0; i < NELEMS(gPokedexOrder_Height); i++)  //for (i = 0; i < NUM_SPECIES - 1; i++)  replaced because gens error, with undefined values
         { //old setup - couldn't give up SUCCESS
 
             seen = DexScreen_GetSetPokedexFlag(gPokedexOrder_Height[i], FLAG_GET_SEEN, FALSE);

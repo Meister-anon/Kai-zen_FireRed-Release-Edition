@@ -14005,7 +14005,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Phione"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(88, 88, 88, 88, 88, 88),
+         STATS(85, 85, 85, 85, 85, 85),
         MON_TYPES(TYPE_WATER, TYPE_FAIRY),
         .catchRate = 30,
         .expYield = 216,
