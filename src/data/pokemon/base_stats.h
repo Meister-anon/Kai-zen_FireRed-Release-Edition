@@ -7004,6 +7004,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBlisseyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //may not need to make fairy?
+    //remember made fairy to make unique from blissey
+    //removed eviolite from chansey
 
     [SPECIES_RAIKOU] =
     {
