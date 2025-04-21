@@ -1179,7 +1179,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         txtPtr[1] = EOS;
 
         if (gPSSData->cursorMonItem != 0)
-            StringCopyPadded(gPSSData->displayMonItemName, ItemId_GetName(gPSSData->cursorMonItem), CHAR_SPACE, 8);
+            StringCopyPadded(gPSSData->displayMonItemName, ItemId_GetName(gPSSData->displayMonItemName, gPSSData->cursorMonItem), CHAR_SPACE, 8);
         else
             StringFill(gPSSData->displayMonItemName, CHAR_SPACE, 8);
     }

@@ -883,7 +883,8 @@ static const u16 *BufferQuestLogText_UsedItem(const u16 *eventData)
     case POCKET_ITEMS:
     case POCKET_POKE_BALLS:
     case POCKET_BERRY_POUCH:
-        StringCopy(gStringVar1, ItemId_GetName(r5[0]));
+        //StringCopy(gStringVar1, ItemId_GetName(r5[0]));
+        ItemId_GetName(gStringVar1, r5[0]);
         if (r5[0] == ITEM_ESCAPE_ROPE)
         {
             GetMapNameGeneric(gStringVar2, (u8)r5[2]);
@@ -900,7 +901,8 @@ static const u16 *BufferQuestLogText_UsedItem(const u16 *eventData)
         }
         break;
     case POCKET_KEY_ITEMS:
-        StringCopy(gStringVar1, ItemId_GetName(r5[0]));
+        //StringCopy(gStringVar1, ItemId_GetName(r5[0]));
+        ItemId_GetName(gStringVar1, r5[0]);
         StringExpandPlaceholders(gStringVar4, gText_QuestLog_UsedTheKeyItem);
         break;
     case POCKET_TM_CASE:
@@ -948,7 +950,8 @@ static const u16 *BufferQuestLogText_GaveHeldItemFromPartyMenu(const u16 *eventD
 {
     const u16 *r4 = sub_8113E88(QL_EVENT_GAVE_HELD_ITEM, eventData);
     QuestLog_GetSpeciesName(r4[1], gStringVar1, 0);
-    StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    //StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    ItemId_GetName(gStringVar2, r4[0]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_GaveMonHeldItem);
     r4 += 2;
     return r4;
@@ -963,7 +966,8 @@ static const u16 *BufferQuestLogText_GaveHeldItemFromBagMenu(const u16 *eventDat
 {
     const u16 *r4 = sub_8113E88(QL_EVENT_GAVE_HELD_ITEM_BAG, eventData);
     QuestLog_GetSpeciesName(r4[1], gStringVar1, 0);
-    StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    //StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    ItemId_GetName(gStringVar2, r4[0]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_GaveMonHeldItem2);
     r4 += 2;
     return r4;
@@ -979,7 +983,8 @@ static const u16 *BufferQuestLogText_GaveHeldItemFromPC(const u16 *eventData)
     const u16 *r4 = sub_8113E88(QL_EVENT_GAVE_HELD_ITEM_PC, eventData);
 
     QuestLog_GetSpeciesName(r4[1], gStringVar2, 0);
-    StringCopy(gStringVar1, ItemId_GetName(r4[0]));
+    //StringCopy(gStringVar1, ItemId_GetName(r4[0]));
+    ItemId_GetName(gStringVar1, r4[0]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_GaveMonHeldItemFromPC);
     r4 += 2;
     return r4;
@@ -995,7 +1000,8 @@ static const u16 *BufferQuestLogText_TookHeldItem(const u16 *eventData)
     const u16 *r4 = sub_8113E88(QL_EVENT_TOOK_HELD_ITEM, eventData);
 
     QuestLog_GetSpeciesName(r4[1], gStringVar1, 0);
-    StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    //StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    ItemId_GetName(gStringVar2, r4[0]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_TookHeldItemFromMon);
     r4 += 2;
     return r4;
@@ -1022,8 +1028,11 @@ static const u16 *BufferQuestLogText_SwappedHeldItem(const u16 *eventData)
 {
     const u16 *r4 = sub_8113E88(QL_EVENT_SWAPPED_HELD_ITEM, eventData);
     QuestLog_GetSpeciesName(r4[2], gStringVar1, 0);
-    StringCopy(gStringVar2, ItemId_GetName(r4[0])); // Item taken
-    StringCopy(gStringVar3, ItemId_GetName(r4[1])); // Item given
+    ItemId_GetName(gStringVar2, r4[0]);
+    //StringCopy(gStringVar2, ItemId_GetName(r4[0])); // Item taken
+    
+    //StringCopy(gStringVar3, ItemId_GetName(r4[1])); // Item given
+    ItemId_GetName(gStringVar3, r4[1]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_SwappedHeldItemsOnMon);
     r4 += 3;
     return r4;
@@ -1038,8 +1047,10 @@ static const u16 *BufferQuestLogText_SwappedHeldItemFromPC(const u16 *eventData)
 {
     const u16 *r4 = sub_8113E88(QL_EVENT_SWAPPED_HELD_ITEM_PC, eventData);
     QuestLog_GetSpeciesName(r4[2], gStringVar2, 0);
-    StringCopy(gStringVar3, ItemId_GetName(r4[0]));
-    StringCopy(gStringVar1, ItemId_GetName(r4[1]));
+    ItemId_GetName(gStringVar3, r4[0]);
+    //StringCopy(gStringVar3, ItemId_GetName(r4[0]));
+    //StringCopy(gStringVar1, ItemId_GetName(r4[1]));
+    ItemId_GetName(gStringVar1, r4[1]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_SwappedHeldItemFromPC);
     r4 += 3;
     return r4;
@@ -2084,7 +2095,8 @@ static const u16 *BufferQuestLogText_ObtainedItem(const u16 *eventData)
     const u16 *r4 = sub_8113E88(QL_EVENT_OBTAINED_ITEM, eventData);
     const u8 *r5 = (const u8 *)r4 + 2;
     GetMapNameGeneric(gStringVar1, r5[0]);
-    StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    //StringCopy(gStringVar2, ItemId_GetName(r4[0]));
+    ItemId_GetName(gStringVar2, r4[0]);
     StringExpandPlaceholders(gStringVar4, gText_QuestLog_ObtainedItemInLocation);
     return (const u16 *)(r5 + 2);
 }

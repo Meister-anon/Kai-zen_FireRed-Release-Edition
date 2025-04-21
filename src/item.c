@@ -7,6 +7,7 @@
 #include "load_save.h"
 #include "quest_log.h"
 #include "strings.h"
+#include "party_menu.h"
 #include "pokemon.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"
@@ -77,13 +78,15 @@ void CopyItemName(u16 itemId, u8 * dest)
     if (itemId == ITEM_ENIGMA_BERRY)
     {
         //StringCopy(dest, GetBerryInfo(ITEM_TO_BERRY(ITEM_ENIGMA_BERRY))->name);
-        GetItemName(dest, ITEM_ENIGMA_BERRY);
+        //GetItemName(dest, ITEM_ENIGMA_BERRY);
+        ItemId_GetName(dest, ITEM_ENIGMA_BERRY);
         StringAppend(dest, gUnknown_84162BD);
     }
     else
     {
-        GetItemName(dest, itemId);
+        //GetItemName(dest, itemId);//may replace with item name again?
         //StringCopy(dest, ItemId_GetName(itemId));
+        ItemId_GetName(dest, itemId);
     }
 }
 
@@ -687,6 +690,7 @@ void TrySetObtainedItemQuestLogEvent(u16 itemId)
      || itemId == ITEM_TEACHY_TV
      || itemId == ITEM_RAINBOW_PASS
      || itemId == ITEM_TEA
+     || itemId == ITEM_EXP_SHARE
   // || itemId == ITEM_POWDER_JAR
      || itemId == ITEM_RUBY
      || itemId == ITEM_SAPPHIRE
@@ -714,9 +718,9 @@ u16 SanitizeItemId(u16 itemId)
 //not sure if this works? for tms
 //this was the issue bad attmpt pass const value without memory allocation
 //need check if this works
-const u8 * ItemId_GetName(u16 itemId)
+const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId)
 {
-    u8 text[ITEM_NAME_LENGTH + 1];
+    /*u8 text[ITEM_NAME_LENGTH + 1];
     u8 * name = Alloc(sizeof(text));
     //GetItemName(name, itemId);
 
@@ -728,6 +732,101 @@ const u8 * ItemId_GetName(u16 itemId)
     return name;//gItems[SanitizeItemId(itemId)].name;
 
     free(name);
+    */
+
+    u32 i;
+
+    switch (IsTMHM(itemId))
+    {
+        case FALSE:
+        {
+            for (i = 0; i < ITEM_NAME_LENGTH; i++)
+            {
+                if (itemId >= ITEMS_COUNT)
+                    nameBuffer[i] = gItems[SanitizeItemId(0)].name[i];
+                else
+                    nameBuffer[i] = gItems[SanitizeItemId(itemId)].name[i];
+
+                if (nameBuffer[i] == EOS)
+                    break;
+            }//changed to greater or equal as realized items count doesn't have anentry either
+
+            nameBuffer[i] = EOS;
+            //end = nameBuffer;
+            //if should cap species
+            //does simple Char replacement, no buffers/placeholders necessary
+            //this way cap species char will never trigger, if works for scripts should be able to remove all and save space
+            
+            if (ShouldCapitalizeItems())
+                CapializeString(nameBuffer);
+
+            //item menu has more space than tm case ave font size is 6
+            //looks like most char item menu can fit is 16 or 17 if I need to show quantity
+            //17 x 6 is 102, so this while a guess may just be perfect
+            //ok width wasn't what I thought 104 is WAY too big, oh nvm it wasn't
+            //it was perfectly accurate I just didn't count
+            //ability capsule is about where I want length wise and is 15 characters
+            //6 x 15 is 90
+            //now just need setup this function for use in overworld debug
+            PrependFontIdToFit(&nameBuffer[0], &nameBuffer[i], FONT_NORMAL, 93);
+
+    }
+    break;
+    case TRUE:
+    {
+        u8 *end;
+        u32 TMHMValue;
+        u8 isHM = TRUE; //loop tmlist if found there set to false
+
+        
+        for (TMHMValue = 0; gTM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+        {
+            if (ItemIdToBattleMoveId(itemId) == gTM_Moves[TMHMValue])
+            {
+                isHM = FALSE;
+                break;
+            }    
+        }
+
+        if (isHM)
+        {
+            for (TMHMValue = 0; gHM_Moves[TMHMValue] != LIST_END; ++TMHMValue)
+            {
+                if (ItemIdToBattleMoveId(itemId) == gHM_Moves[TMHMValue])
+                    break;  
+            }
+        }
+
+        if (isHM)
+            StringCopy(gStringVar4, gText_HM_String);
+        else
+            StringCopy(gStringVar4, gText_TM_String);
+
+        
+        if (IsTMHM(itemId))
+        {
+            u8 value = TMHMValue + 1;
+            u8 digits = value < 100 ? 2 : 3;
+
+            if (isHM)
+            {
+                ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEADING_ZEROS, digits);
+                StringAppend(gStringVar4, gStringVar1);
+            }
+            else
+            {
+                ConvertIntToDecimalStringN(gStringVar1, TMHMValue + 1, STR_CONV_MODE_LEADING_ZEROS, digits);
+                StringAppend(gStringVar4, gStringVar1);
+            }
+
+            end = StringCopy(nameBuffer, gStringVar4);
+            PrependFontIdToFit(nameBuffer, end, FONT_NORMAL, 93);
+        } //far as can tell all this only displays tm number not name?
+    }
+    break;
+    }
+
+    return nameBuffer;
 } //based on pc itemfix don't know if free does anything but adding
 
 u16 itemid_get_Id(u16 itemId)

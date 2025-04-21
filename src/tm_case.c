@@ -864,6 +864,54 @@ static const u8 *TM_Case_AppendFontToFit(u8 *nameBuffer, u16 move)
     }
 }
 
+static u8 *PrependFontIdToFitFor_TMCase(u8 *start, u8 *end, u32 fontId, u32 width)
+{
+    u32 fitFontId = GetFontIdToFit(start, fontId, 0, width);
+
+    //because tm case has small font set
+    //and appends to that string i need to set normal
+    //to clear it even if its matching font size
+    //which is why thsi needs to be removed
+    //luckily will never overlap as font small isn't used for names
+    //if (fitFontId == fontId)
+    //    return end;
+
+    memmove(&start[3], &start[0], end - start);
+    start[0] = EXT_CTRL_CODE_BEGIN;
+    start[1] = EXT_CTRL_CODE_FONT;
+    start[2] = fitFontId;
+    end[3] = EOS;
+    return end + 3;
+}
+
+static const u8 *TM_Case_PrependFontToFit(u8 *nameBuffer, u16 move)
+{
+    s32 i;
+
+
+        // Hmm? FRLG has < while Ruby/Emerald has <=
+        for (i = 0; i < MOVE_NAME_LENGTH; i++)
+        {
+            if (move > MOVES_COUNT)
+                nameBuffer[i] = gMoveNames[0][i];
+            else
+                nameBuffer[i] = gMoveNames[move][i];
+
+            if (nameBuffer[i] == EOS)
+                break;
+        }
+
+    nameBuffer[i] = EOS;
+    
+   
+    if (ShouldCapitalizeMoves())
+        CapializeString(nameBuffer); 
+
+    // no matter what I do width is being read wrong somwhow
+    //so it always d
+    PrependFontIdToFitFor_TMCase(&nameBuffer[0], &nameBuffer[i], FONT_NORMAL, 88);
+}//why does this not work? it always comes out smaller??
+
 //fuck me the whole thing worked before it was all because 
 //I didn't realize I needed to update the listmenusring buff length allocation *FACEPALM
 //it had a static ewram value at top of string at 29, I didn't realize I had ran out of characters,
@@ -913,8 +961,7 @@ static void GetTMNumberAndMoveString(u8 * dest, u16 itemId)
     }
 
     StringAppend(gStringVar4, sText_SingleSpace);
-    //StringAppend(gStringVar4, gText_FontSizeNormal);//give up on prepend just make alt of this setup
-    StringAppend(gStringVar4, TM_Case_AppendFontToFit(gStringVar3,ItemIdToBattleMoveId(itemId))); //should return font placeholder to apennd,
+    TM_Case_PrependFontToFit(gStringVar3,ItemIdToBattleMoveId(itemId));
     StringAppend(gStringVar4, gStringVar3); //^ while also setting movestring to stringvar3 unsure if will work for berries too
     StringCopy(dest, gStringVar4);
 }
@@ -1380,8 +1427,8 @@ static void Task_SelectTMAction_FromSellMenu(u8 taskId)
         }
         else
         {
-            if (data[2] > 99)//quantity
-                data[2] = 99;
+            if (data[2] > 999)//quantity
+                data[2] = 999;
             CopyItemName(gSpecialVar_ItemId, gStringVar1);
             StringExpandPlaceholders(gStringVar4, gText_HowManyWouldYouLikeToSell);
             TMCase_PrintMessageWithFollowupTask(taskId, GetDialogBoxFontId(), gStringVar4, Task_InitQuantitySelectUI);

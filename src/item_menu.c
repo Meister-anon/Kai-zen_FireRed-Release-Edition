@@ -680,13 +680,16 @@ static void Bag_BuildListMenuTemplate(u8 pocket)
     gMultiuseListMenuTemplate.scrollMultiple = 0;
 }
 
+
+//oh this is itemid itself it doesn't actually go INTO the tmcase or berry pouch smh
+//but its still used in place to buffer item names from there so need tm logic
 static void BagListMenuGetItemNameColored(u8 *dest, u16 itemId)
 {
     if (itemId == ITEM_TM_CASE || itemId == ITEM_BERRY_POUCH)
         StringCopy(dest, sListItemTextColor_TmCase_BerryPouch);
     else
         StringCopy(dest, sListItemTextColor_RegularItem);
-    StringAppend(dest, ItemId_GetName(itemId));
+    StringAppend(dest, ItemId_GetName(gStringVar2, itemId));
 }
 
 static void BagListMenuMoveCursorFunc(s32 itemIndex, bool8 onInit, struct ListMenu *list)
@@ -1238,7 +1241,8 @@ static void BeginMovingItemInPocket(u8 taskId, s16 itemIndex)
     ListMenuSetTemplateField(data[0], 0x10, 1);
     data[1] = itemIndex;
     sBagMenuDisplay->itemOriginalLocation = itemIndex;
-    StringCopy(gStringVar1, ItemId_GetName(BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])));
+    //StringCopy(gStringVar1, ItemId_GetName(gStringVar1, BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1])));
+    ItemId_GetName(gStringVar1, BagGetItemIdByPocketPosition(gBagMenuState.pocket + 1, data[1]));
     StringExpandPlaceholders(gStringVar4, gOtherText_WhereShouldTheStrVar1BePlaced);
     FillWindowPixelBuffer(1, PIXEL_FILL(0));
     BagPrintTextOnWindow(1, 2, gStringVar4, 0, 3, 0, 0, 0, 0);

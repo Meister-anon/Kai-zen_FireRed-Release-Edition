@@ -1132,12 +1132,12 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
         AddTextPrinter(&printer, 0, NULL);
         break;
     case LIST_ITEM_HELD_ITEM:
-        PadString(ItemId_GetName(gBattleMons[data->battlerId].item), text);
+        PadString(ItemId_GetName(text, gBattleMons[data->battlerId].item), text);
         printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
         break;
     case LIST_ITEM_SECONDARY_ITEM:
-        PadString(ItemId_GetName(gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)]), text);
+        PadString(ItemId_GetName(text, gBattleStruct->SecondaryItemSlot[gBattlerPartyIndexes[data->battlerId]][GetBattlerSide(data->battlerId)]), text);
         printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
         break;

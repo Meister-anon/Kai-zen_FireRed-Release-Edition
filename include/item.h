@@ -60,7 +60,7 @@ u8 CountUsedPCItemSlots(void);
 bool8 CheckPCHasItem(u16 itemId, u16 count);
 bool8 AddPCItem(u16 itemId, u16 count);
 void SwapRegisteredBike(void);
-const u8 *ItemId_GetName(u16 itemId);
+const u8 *ItemId_GetName(u8 *nameBuffer, u16 itemId); //update pput prepend inside
 u16 ItemId_GetId(u16 itemId);   //added here, could use, but most use hold effect, no reason not to...
 u16 ItemId_GetPrice(u16 itemId);
 u8 ItemId_GetHoldEffect(u16 itemId);

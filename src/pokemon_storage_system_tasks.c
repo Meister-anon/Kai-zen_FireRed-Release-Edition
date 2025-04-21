@@ -2686,7 +2686,11 @@ static void PrintStorageActionText(u8 id)
         break;
     case PC_TEXT_FMT_ITEM_NAME:
         if (IsActiveItemMoving())
-            txtPtr = StringCopy(gPSSData->itemName, GetMovingItemName());
+        {
+            //txtPtr = StringCopy(gPSSData->itemName, GetMovingItemName());
+            ItemId_GetName(gPSSData->itemName, gPSSData->movingItem);
+            txtPtr = gPSSData->itemName;
+        }
         else
             txtPtr = StringCopy(gPSSData->itemName, gPSSData->displayMonItemName);
 

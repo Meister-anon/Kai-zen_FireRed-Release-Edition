@@ -1813,10 +1813,10 @@ static void BufferBagFullCantTakeItemMessage(u16 itemId)
         string = gStartMenuText_Bag;
         break;
     case POCKET_TM_CASE:
-        string = ItemId_GetName(ITEM_TM_CASE);
+        string = ItemId_GetName(gStringVar3, ITEM_TM_CASE);
         break;
     case POCKET_BERRY_POUCH:
-        string = ItemId_GetName(ITEM_BERRY_POUCH);
+        string = ItemId_GetName(gStringVar3, ITEM_BERRY_POUCH);
         break;
     }
     StringCopy(gStringVar1, string);

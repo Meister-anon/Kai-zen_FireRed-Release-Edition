@@ -819,9 +819,10 @@ bool8 IsActiveItemMoving(void)
     return FALSE;
 }
 
+//no longer used
 const u8 *GetMovingItemName(void)
 {
-    return ItemId_GetName(gPSSData->movingItem);
+    return NULL;//ItemId_GetName(gPSSData->movingItem);
 }
 
 u16 GetMovingItem(void)

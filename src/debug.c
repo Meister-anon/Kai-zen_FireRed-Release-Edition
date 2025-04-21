@@ -2306,7 +2306,11 @@ static void DebugAction_Give_Item(u8 taskId)
     // Display initial item
     StringCopy(gStringVar2, gText_DigitIndicator[0]);
     ConvertIntToDecimalStringN(gStringVar3, 1, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_ITEMS);
-    CopyItemName(1, gStringVar1);
+    //default function was copyitemname
+    //but after changes it no longer works
+    //and causes memory corruption?
+    //CopyItemName(1, gStringVar1);
+    ItemId_GetName(gStringVar1, 1);
     StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 15);
     StringExpandPlaceholders(gStringVar4, sDebugText_ItemID);
     AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
