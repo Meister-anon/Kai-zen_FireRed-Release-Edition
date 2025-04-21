@@ -4353,9 +4353,12 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     }
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS) //added yawn to baton pass effects with change to activation should work
     {
-        gBattleMons[gActiveBattler].status2 &= (STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_CURSED);
+        //believe need add status4 swarm to this, as well as certain disable structs? //vsonic
+        //hmm actually no, if can escape then I'm not trapped so it shouldn't transfer
+        gBattleMons[gActiveBattler].status2 &= (STATUS2_INFESTATION | STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED | STATUS2_CURSED);
         gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_YAWN | STATUS3_PERISH_SONG | STATUS3_ROOTED
                                        | STATUS3_GASTRO_ACID | STATUS3_TELEKINESIS | STATUS3_MAGNET_RISE | STATUS3_AQUA_RING | STATUS3_POWER_TRICK);
+        
         for (i = 0; i < gBattlersCount; ++i)
         {
             if (GetBattlerSide(gActiveBattler) != GetBattlerSide(i)

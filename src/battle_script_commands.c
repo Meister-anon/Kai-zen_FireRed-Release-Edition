@@ -107,7 +107,7 @@ static void HandleTerrainMove(u32 moveEffect);
 static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 TargetAbility, u16 TransformSpecies);
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId);
 //since its not static
-static bool8 IsBattlerProtected(u8 battlerId, u16 move);//gabe me compiler double definition error so made static
+static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move);//gabe me compiler double definition error so made static
 //static void ProtectBreak(void); add back later when I figure it out
 static u8 WeightBoostedDamageFormula(void); //new seismic toss boost
 static bool32 ChangeOrderTargetAfterAttacker(void);
@@ -1629,7 +1629,7 @@ static void atk00_attackcanceler(void) //vsonic
             
         }
     }
-    else if (IsBattlerProtected(gBattlerTarget, gCurrentMove)
+    else if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
         && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
         //&& ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
         && (CanTwoTurnMoveAttackThisTurn(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS) || !IsTwoTurnsMove(gCurrentMove))
@@ -1687,7 +1687,7 @@ static bool32 JumpIfMoveFailed(u8 adder, u16 move) //updated to emerald standard
 
 static void atk40_jumpifaffectedbyprotect(void)
 {
-    if (IsBattlerProtected(gBattlerTarget, gCurrentMove))
+    if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         JumpIfMoveFailed(5, 0);
@@ -1703,7 +1703,7 @@ static bool8 JumpIfMoveAffectedByProtect(u16 move)
 {
     bool8 affected = FALSE;
 
-    if (IsBattlerProtected(gBattlerTarget, gCurrentMove))
+    if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         JumpIfMoveFailed(7, move);
@@ -1713,35 +1713,35 @@ static bool8 JumpIfMoveAffectedByProtect(u16 move)
     return affected;
 }
 
-static bool8 IsBattlerProtected(u8 battlerId, u16 move)//IMPORTANT change to false if protectbreak condition met
+static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move)//IMPORTANT change to false if protectbreak condition met
 { //setprotectlike does the protection, then hre I can undo it when this gets checked in attack canceleror
     //make sure add check for if move is protect affected to all protectstructs listed below
 
-    if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
+    if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
         return FALSE;
-    else if (IsMoveMakingContact(move, gBattlerAttacker) && GetBattlerAbility(gBattlerAttacker) == ABILITY_UNSEEN_FIST
+    else if (IsMoveMakingContact(move, battlerAtk) && GetBattlerAbility(battlerAtk) == ABILITY_UNSEEN_FIST
     && gBattleMoves[gCurrentMove].power < 75)
         return FALSE;
-    else if ((gProtectStructs[battlerId].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
+    else if ((gProtectStructs[battlerDef].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
         return TRUE;
     else if (gBattleMoves[move].effect == MOVE_EFFECT_FEINT)
         return FALSE;
-    else if (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_WIDE_GUARD
-        && gBattleMoves[move].target & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))
+    else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_WIDE_GUARD
+        && GetBattlerMoveTargetType(battlerAtk, move) & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))
         return TRUE;
-    else if (gProtectStructs[battlerId].banefulBunkered)
+    else if (gProtectStructs[battlerDef].banefulBunkered)
         return TRUE;
-    else if (gProtectStructs[battlerId].spikyShielded)
+    else if (gProtectStructs[battlerDef].spikyShielded)
         return TRUE;
-    else if (gProtectStructs[battlerId].kingsShielded && gBattleMoves[move].power != 0)
+    else if (gProtectStructs[battlerDef].kingsShielded && gBattleMoves[move].power != 0)
         return TRUE;
-    else if (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_QUICK_GUARD
+    else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_QUICK_GUARD
         && GetChosenMovePriority(gBattlerAttacker) > 0)
         return TRUE;
-    else if (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_CRAFTY_SHIELD //user side moves shouldnt affect i.e aromatherapy also perish song bypasses vsonic
+    else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_CRAFTY_SHIELD //user side moves shouldnt affect i.e aromatherapy also perish song bypasses vsonic
         && IS_MOVE_STATUS(move))
         return TRUE;
-    else if (gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_MAT_BLOCK
+    else if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_MAT_BLOCK
         && !IS_MOVE_STATUS(move))
         return TRUE;
     
@@ -5771,7 +5771,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_FEINT:
-                if (IsBattlerProtected(gBattlerTarget, gCurrentMove))
+                if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
                 {
                     gProtectStructs[gBattlerTarget].protected = FALSE;
                     gSideStatuses[GetBattlerSide(gBattlerTarget)] &= ~SIDE_STATUS_WIDE_GUARD;
@@ -14245,10 +14245,19 @@ static void atk78_faintifabilitynotdamp(void) //explosion
 {
     if (!gBattleControllerExecFlags)
     {
-        for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount; ++gBattlerTarget)
+        //dumb replcae w ability on field check
+        /*for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount; ++gBattlerTarget)
             if (GetBattlerAbility(gBattlerTarget) == ABILITY_DAMP)
                 break;
-        if (gBattlerTarget == gBattlersCount)
+                */
+        if (IsAbilityOnField(ABILITY_DAMP))
+        //if (gBattlerTarget == gBattlersCount)
+        {
+            gLastUsedAbility = ABILITY_DAMP;
+            RecordAbilityBattle(gBattlerTarget, gBattleMons[gBattlerTarget].ability);
+            gBattlescriptCurrInstr = BattleScript_DampStopsExplosion;
+        }
+        else
         {
             gActiveBattler = gBattlerAttacker;
 
@@ -14264,16 +14273,14 @@ static void atk78_faintifabilitynotdamp(void) //explosion
             MarkBattlerForControllerExec(gActiveBattler);
             ++gBattlescriptCurrInstr;
 
+            //what does this do? - seems shifts gbattlerarget until is something
+            //that doesn't match gbattlerattacker
             for (gBattlerTarget = 0; gBattlerTarget < gBattlersCount; ++gBattlerTarget)
                 if (gBattlerTarget != gBattlerAttacker && !(gAbsentBattlerFlags & gBitTable[gBattlerTarget]))
                     break;
         }
-        else
-        {
-            gLastUsedAbility = ABILITY_DAMP;
-            RecordAbilityBattle(gBattlerTarget, gBattleMons[gBattlerTarget].ability);
-            gBattlescriptCurrInstr = BattleScript_DampStopsExplosion;
-        }
+        
+        
     }
 }
 
@@ -18100,7 +18107,7 @@ static void atkC9_trymemento(void) // memento
     CMD_ARGS(const u8 *failInstr);
     if ((gBattleCommunication[MISS_TYPE] == B_MSG_PROTECTED
         || gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE
-        || IsBattlerProtected(gBattlerTarget, gCurrentMove)
+        || IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
         || DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove)))
     {
         // Failed, target was protected.
