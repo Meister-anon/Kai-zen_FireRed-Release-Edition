@@ -1909,7 +1909,7 @@ static bool32 DoCreditsMonScene(void)
         {
             HideBg(2);
             ShowBg(1);
-            PlayCry_NormalNoDucking(GetCreditsMonSpecies(sCreditsMgr->whichMon), 0, 125, 10);
+            PlayCry_NormalNoDucking(GetCreditsMonSpecies(sCreditsMgr->whichMon), 0, CRY_VOLUME_RS, 10);
             sCreditsMgr->creditsMonTimer = 128;
             sCreditsMgr->subseqno++;
         }

@@ -571,7 +571,8 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     TYPE_ROCK, TYPE_ROCK, TYPE_MUL_NOT_EFFECTIVE,   //doesn't strictly make sense, but better for type defense
     TYPE_GHOST, TYPE_NORMAL, TYPE_MUL_NO_EFFECT,
     TYPE_GHOST, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //research ghost fairy thought to be same thing, difference ghosts are dead fae are considered alive, but at they were at one point both considered spirits
-    TYPE_GHOST, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE,          //removed ghost psychic effect as typically mediums and ghosts are mostly equal enemies,  psychis exorsise ghosts but ghosts also kill psychis
+    TYPE_GHOST, TYPE_DARK, TYPE_MUL_NOT_EFFECTIVE,          //removed ghost psychic effect as typically mediums and ghosts are mostly equal enemies,  psychis exorsise ghosts but ghosts also kill psychis, -put back for balance
+    TYPE_GHOST, TYPE_PSYCHIC, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_GHOST, TYPE_GHOST, TYPE_MUL_SUPER_EFFECTIVE,           
     TYPE_DRAGON, TYPE_DRAGON, TYPE_MUL_SUPER_EFFECTIVE, 
     TYPE_DRAGON, TYPE_ICE, TYPE_MUL_NOT_EFFECTIVE,  //Mostly done to keep num types, but also works for giving an extra reason to use ice type mon against dragons over just using an ice move
@@ -584,7 +585,7 @@ const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e number of ef
     //TYPE_DARK, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,   //change essentially makes ghost inverse of normal type effect wise, where most things are neutral and it has 1 weakness
     //TYPE_DARK, TYPE_POISON, TYPE_MUL_NOT_EFFECTIVE, //-similar to ghost logic, poison hides in darkness, is linked w dark intentions, actually think will reverse this make dark resist poison, will go more to make counter to fairy who is weak to poison
     TYPE_DARK, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,//removing gen 3 steel resist to dark, with dark changes realized ruins it offensively
-    TYPE_DARK, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
+    TYPE_DARK, TYPE_FAIRY, TYPE_MUL_SUPER_EFFECTIVE, //plus dosen't really make sense when you have cursed blades, and haunted blades exist, i.e dark and ghost affecting steel
     TYPE_STEEL, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,//NEW type relation for dark types, showed positively for offense capability and makes sense sneaky backstabbers bad guys take each other out often.
     TYPE_STEEL, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_STEEL, TYPE_ELECTRIC, TYPE_MUL_NOT_EFFECTIVE,
