@@ -353,7 +353,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_BUG] =        {______,   X(0.5),   X(0.5),   X(0.5),   ______,   ______,    ______,   ______,   ______,   ______,   X(0.5),    ______,   X(1.55),   ______,  X(1.55),   X(0.5),  ______,   X(1.55),  ______,  ______}, // bug
 
-    [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
+    [TYPE_GHOST] =      {X(0.0),   ______,   ______,   ______,   ______,   ______,    ______,   X(1.55),   ______,   ______,  ______,    ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),    ______}, // ghost
 
     [TYPE_STEEL] =      {______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(0.5),   ______,   X(0.5),    X(0.5),   ______,   X(0.5),  X(0.5),   X(1.55),   ______,   ______,   X(1.55),   ______}, // steel
 
@@ -373,7 +373,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_DRAGON] =     {______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,    X(0.0),   ______}, // dragon
 
-    [TYPE_DARK] =       {______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(0.5),   ______}, // dark
+    [TYPE_DARK] =       {______,   X(0.5),   ______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______,   ______,   ______,   ______,   X(1.55),   ______,   ______,   X(1.55),   X(1.55),   ______}, // dark
 
     [TYPE_FAIRY] =      {X(1.55),  ______,   ______,   X(0.5),   ______,   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.5),   ______,   X(0.0),   ______,   X(0.5),   ______,   X(1.55),   X(1.55),   ______,   ______}, // fairy
 
@@ -397,6 +397,44 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //thought of like psychic is the mysteries we comprehend and can control
 //while fairy are the mysteries that are alien and unknowable
 //and dark is cable of corrupting both
+
+//strength of dark is just in their desirable for resisting intimidate, its not any other effectivess
+//with more resistances and more weaknesses is dark really good without being able to hit
+//both psychic AND fairy?
+
+//meanwhile with fairy being weak creselia is 4x instead of neutral
+//which sounds crazy but w type changes it has much more resistance/bulk
+//plus its ability already weakens dark power bringing it more in line
+
+//I like idea of dark beating both, psychic and fairy are counterparts now
+//...but I somewhat reversed things w psychic resisting fiary its its own thing now
+//but it weaknes need to run fairy other htan dealing w dragons,
+//hence why resisting dark helps it...
+
+//other other hand things like guzzord are bad because both types weak to fairy
+//and also resisted/immne by fairy if dark can hit fairy for super
+//guzzlord wouldn't be bad
+
+//hard decision but think got it, made fairy weak to dark again,
+//but to couter balance and ensure its not a worse version of psychic
+//made psychic weak to ghost again to pair w fairies ghost resist
+
+//hmm fae have power of purification hence light vs dark thing
+//if ghosts are spirits should it make sense to give fairy
+//full ghost immunity?
+
+//since ghost has been reworked into this mostly defensive typing
+//that just hits most everything for neutral?
+
+//would draw in connection w fairy and normal types
+//as the only things immune to ghost?
+
+//yeah think that's fine, if ghosts are spirits using powers of curse/mal alignment
+//while fae are positivity/light and have powers of healing should make sense
+//they can ward that?
+
+//...I feel like I shouldn't make it an immunity tho?
+//yeah the entire point has been to NOT make fairy OP as all heck
 
 //consider remove flying resist for psychic think won't
 //hmm could make psychic resist steel?

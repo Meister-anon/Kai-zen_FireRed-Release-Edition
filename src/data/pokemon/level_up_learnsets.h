@@ -8017,6 +8017,7 @@ static const struct LevelUpMove sChatotLevelUpLearnset[] = {
 
 static const struct LevelUpMove sSpiritombLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_CURSE),
+    LEVEL_UP_MOVE( 1, MOVE_CHATTER), //gave as is a collection of whispering evil voices
     LEVEL_UP_MOVE( 1, MOVE_PURSUIT),
     LEVEL_UP_MOVE( 1, MOVE_CONFUSE_RAY),
     LEVEL_UP_MOVE( 1, MOVE_SPITE),
