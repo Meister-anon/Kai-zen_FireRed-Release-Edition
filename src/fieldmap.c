@@ -78,10 +78,10 @@ void InitMapFromSavedGame(void)
 static void InitMapLayoutData(struct MapHeader * mapHeader)
 {
     const struct MapLayout * mapLayout = mapHeader->mapLayout;
-    CpuFastFill(0x03FF03FF, gBackupMapData, sizeof(gBackupMapData));
+    CpuFastFill(MAPGRID_UNDEFINED, gBackupMapData, sizeof(gBackupMapData));
     VMap.map = gBackupMapData;
-    VMap.Xsize = mapLayout->width + 15;
-    VMap.Ysize = mapLayout->height + 14;
+    VMap.Xsize = mapLayout->width + MAP_OFFSET_W;
+    VMap.Ysize = mapLayout->height + MAP_OFFSET_H;
     AGB_ASSERT_EX(VMap.Xsize * VMap.Ysize <= VIRTUAL_MAP_SIZE, ABSPATH("fieldmap.c"), 158);
     map_copy_with_padding(mapLayout->map, mapLayout->width, mapLayout->height);
     mapheader_copy_mapdata_of_adjacent_maps(mapHeader);
