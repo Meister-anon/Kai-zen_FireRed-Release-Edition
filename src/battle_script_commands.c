@@ -6217,6 +6217,8 @@ static void atk1E_jumpbasedonability(void)
             {
                 if (IsBattlerAlive(battlerId))//mayu change to alive and above hp threshold? vsonic
                     hasAbility = TRUE; //all ohko moves miss so if curr mvoe is effect ohko otherwise survives suicide moves if above quarter hp && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4
+                else
+                    hasAbility = FALSE;
             }
             else
                 hasAbility = TRUE;
