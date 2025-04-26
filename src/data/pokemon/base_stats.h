@@ -13563,7 +13563,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 45,
         .expYield = 233,
         //.evYield_Attack = 3,
-        .genderRatio = MON_MALE,
+        .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = 10,
         .growthRate = GROWTH_SLOW,
@@ -13579,6 +13579,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGalladeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //since changed evo methods for line forgot to update this
 
     [SPECIES_PROBOPASS] =
     {
@@ -38593,7 +38594,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 45,
         .expYield = 278,
         //.evYield_Attack = 3,
-        .genderRatio = MON_MALE,
+        .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = 10,
         .growthRate = GROWTH_SLOW,
