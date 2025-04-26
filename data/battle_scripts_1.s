@@ -5881,7 +5881,7 @@ BattleScript_AlreadyFrozen::
 
 BattleScript_EffectMemento::
 	attackcanceler
-	jumpifbyte CMP_EQUAL, gBattleCommunication + 6, 1, BattleScript_MementoNoReduceStats
+	jumpifbyte CMP_EQUAL, cMISS_TYPE, B_MSG_PROTECTED, BattleScript_MementoTargetProtect
 	attackstring
 	ppreduce
 	trymemento BattleScript_ButItFailed
@@ -5905,8 +5905,9 @@ BattleScript_MementoSkipStatDown1::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_MementoSkipStatDown2::
-	jumpifability BS_ATTACKER ABILITY_STURDY, BattleScript_AttackerSturdiedMsg
 	tryfaintmon BS_ATTACKER, 0, NULL
+	@decide put after faint attempt as will only activate if alive
+	jumpifability BS_ATTACKER ABILITY_STURDY, BattleScript_AttakerSturdy_Memento
 	goto BattleScript_MoveEnd
 
 BattleScript_MementoSubstituteInvulnerable::
@@ -5914,17 +5915,25 @@ BattleScript_MementoSubstituteInvulnerable::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MementoSkipStatDown2
 
-BattleScript_MementoNoReduceStats::
+BattleScript_MementoTargetProtect::
 	attackstring
 	ppreduce
-	trymemento .+4
+	trymemento BattleScript_MementoTargetProtectEnd
+BattleScript_MementoTargetProtectEnd:
 	setatkhptozero
 	pause B_WAIT_TIME_LONG
-	effectivenesssound
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
+	@effectivenesssound
+	@resultmessage
+	@waitmessage B_WAIT_TIME_LONG
 	tryfaintmon BS_ATTACKER, 0, NULL
+	jumpifability BS_ATTACKER ABILITY_STURDY, BattleScript_AttakerSturdy_Memento
 	goto BattleScript_MoveEnd
+
+BattleScript_AttakerSturdy_Memento:
+	printstring STRINGID_ATTACKER_STURDY
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveSwitch
+	end
 
 BattleScript_EffectFacade::
 	jumpifstatus BS_ATTACKER, STATUS1_POISON | STATUS1_PARALYSIS | STATUS1_BURN | STATUS1_FREEZE | STATUS1_TOXIC_POISON, BattleScript_FacadeDoubleDmg

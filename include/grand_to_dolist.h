@@ -3811,6 +3811,136 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -added new header fields for block surfing and fishing
     -added speed up for surfing hold b goes faster
 
+    for evo store full list of possible evolutions
+    max cap number max evos i.e 16
+    add value view/display_limit which is max
+    methods that can be displayed on window
+    believe is about 6
+    will break into pages based on max view
+    use total evos as limit and way to keep track of which
+    are displayed i.e last method displayed ex method 10
+    a full page will bebased on max display view
+    so increment based on that
+    only print in increments (loop) of display limit
+    breaking if otherwise runs out of evos to display
+
+    if didn't hit limit of total methods display down arrow
+    to indicate able to "scroll" further don't knowhow to scroll
+    so instead what I'll do is go to different pages
+    clear everything and print next set of methods as I go
+
+    for summary screen calback will auto scroll page
+    as don't have functionality to view individual mon
+
+    for full dex callback will only scroll page when on 
+    max display limit and current icon isn't max evo method
+    annoying to setup/code but completely doable from what I understand
+    /VERY IMPORTANT 4/18/2025
+
+
+    note**(
+    change surge gym still do trash cans and the click stuff
+    but make it never actually turn the fence off, 
+    make it simpler so you just beat every trainer in the gym 
+    and it opens,
+    but don't tell people that so they'll just go around
+    forever trying to shortcut it lol
+
+    then change surge text the puzzle was the futility of war
+    and the solution is ptsd.
+
+    for move relearn store last relearned move and pp for mon
+    so can't do pp abusing if last relearned move is same as current
+    learning move  restore it w same pp  it had before 
+    instead of full pp
+
+    setup ev training items like exp share allow set basedon state
+    set train from party menu take to page actually can just do menu toggle
+    getting the ev train item will allow train option from menu
+    click train then select which stat or stats you want to train
+    more will become unlocked as you get more items
+
+    turning on training state will stil "equip" the held item
+    so you'll get the speed debuff when training but it won't 
+    cost you an item slot but if you put on the ultima brace
+    you can boost your ev gain by 2 or 4 and that will take an
+    item slot
+
+    putting field moves on 2nd page is great idea
+    allows for more things utility
+
+      consider escape rope as a key item 
+      would invalidate dig teleport field moves
+      but I guess good to not need them
+      but dont want to make too many things free
+      as ruins game economy know need to buy stuff
+      money won't have value
+
+      Idea institute chain streaks in my game
+      defeating or catching same mon only will add to streak
+      and increase shiny odds over time
+      but do better have better ivs at each level
+      think add 5 to ivs for every 10 in streak
+
+      way it works in unbreakable ties is end goal is a shiny
+      so when a shiny is generated streak ends whether you catch 
+      or kill it
+
+      which is fine since in my game all shinies have perfect ivs
+       but to make slightly less tedious add mechanic
+       of super streaks when a streak reaches 15 it becomes
+       a super streak and will not go away even if you 
+       defeat/catch other mon it will instead fade w time
+       12 hours set as time based mechanic
+
+       take note from UT fangame, but instead of pokemon name in corner
+       pop the icon up on the screen 
+       "icon"  X '# of streak to denote as a super streak
+       guess could just make font gold for more accessible friendliness
+       make base streak just static icon
+       think animate icon for super streak
+       have max of 3 streaks so I don't have buffering issue
+
+       Change milotic's shiny form make it black
+       feebas' line is being ugly and shabby and then becoming beautiful
+       shiny febas is black and purple and its awesome.
+
+       but its evolution is still cream/white
+       so you have both version ugly shabby pokemon 
+       where feebas is dark/brown  and evolves into something beautiful
+       by becoming white -_-
+
+       I'm mking the shiny a black version
+       shiny feebas base coloring eye lashes silvery grey
+       keep the purple aesthetics for the tail 
+       maybe purple orange or purple blue something
+
+    )
+    4/24/2025
+
+
+    should I buff mean look to work like traps?
+    dropping speed of target that's locked in?
+    its already got priority now so idk
+    -no don't buff meanlook
+
+    //identified bug,  
+    //seems neutralizing gas causes game to freeze...hmm well or infinite loop?
+    //ok maybe don't know what happened
+    trainer battle opponent swithed in stench koffing I one shot it
+    and chose to switch out
+    next came in neutralizing gas koffing and when My new mon came in after wawrds
+    game was frozen?
+    did the ability activate somehow before I had someone switch into the slot 
+    and it broke things?
+
+    --checked ee and there were just several conditions where neutralzing gas
+    froze things between switch or faint
+    because of things being activated at odd times?
+
+    so need test neutralizing gas coming in against a slow switch
+    ...somehhow
+
     BRO bug bite buged AGAIN!!!
     ok appers to be uniquely bugbite as pluck which shsares same move effect
     works perfectly fine all I can guess is something with move anim?
@@ -3822,7 +3952,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -but for now swarm and infestation work properly
     I will keep infestation set by moves off  timer
     as a counter balance for bulky mon since damage is lower across board
-    
+
 
     sigh also something wrong with exit abilities
     whenI switch out stench all other ability messages replay
@@ -3842,6 +3972,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for the most part it should never be an issue
     but better to account for the case than not
     -belive was able to setup working fix
+
+    checked EE believe I need to reaple all instances of
+    cmd->battler to get probper battler from battlescript
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+
     add surf speed up change to misty text as she gives surf
     -done
 
@@ -3938,6 +4074,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       ok done finished adjusting all relevant spaces for 3 digits in item menu/shop
       biggest issue was just adjusting money display but all working
 
+      can adjust safari now if I want, but need to finish font setup
+
       note for dex scroll
       for mon icons I think I can make eevee work
       what I need do is keep track of how many evos/ are printed
@@ -3978,6 +4116,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       until reset
       all battles that have static sprites should be this way
       roamers would be excepted them you have to trap and catch the hard way
+      pretty sure game has a sprite for all legendaries because of roamers
+      but idk if I have that in my game alreaady?
+      yeah I don't have it, that's object event gfx updates that I haven't added
     )
     4/11/2025
 
@@ -4071,9 +4212,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     change rock smash no idea how works
     since to just do nothing for the most part so little reason to engage 
     with system.
+
+    need test rock smash change also finish move delete relearn
+    and binding band gbattlemovedamage reworks etc.
+
     -rock smash change now works
     //gives item but still needs change all encounter tables
     //think don't add alolan geodude just handle that w sand
+    now player has reason to engage w rock smash rocks
+    still need check encounter odds as I want to give item 
+    more often than not.
+
+    now can add more rocks throughout game
+    //may even make rock smash puzzles
+    consider expand rock tunnel catacombs hidden room
+    for legandary terrakion perhaps
 
     Instead change to have near guaranteed affect
     60/40  item/encounter ratio,

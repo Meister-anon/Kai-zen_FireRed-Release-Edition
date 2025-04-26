@@ -56,9 +56,26 @@
 #define sMULTIPLAYER_ID gBattleScripting + 0x33
 #define sSPECIAL_TRAINER_BATTLE_TYPE gBattleScripting + 0x34    //wait aren't these limited to 32?
 
+//shifted from hexadecimal as not compatible w battle script for some reason
+// array entries for battle communication
+#define MULTIUSE_STATE          0
+#define CURSOR_POSITION         1
+#define TASK_ID                 1 // task Id and cursor position share the same field
+#define SPRITES_INIT_STATE1     1 // shares the Id as well
+#define SPRITES_INIT_STATE2     2
+#define MOVE_EFFECT_BYTE        3
+#define ACTIONS_CONFIRMED_COUNT 4
+#define MULTISTRING_CHOOSER     5
+#define MISS_TYPE               6
+#define MSG_DISPLAY             7
+#define BATTLE_COMMUNICATION_ENTRIES_COUNT  0x8
 
-#define cEFFECT_CHOOSER gBattleCommunication + 3        //figure what gBattleCommunication is and how works. vsonic
-#define cMULTISTRING_CHOOSER gBattleCommunication + 5
+//battle communication stuff
+#define cEFFECT_CHOOSER gBattleCommunication + MOVE_EFFECT_BYTE        //figure what gBattleCommunication is and how works. vsonic
+#define cMULTISTRING_CHOOSER gBattleCommunication + MULTISTRING_CHOOSER
+
+#define cMISS_TYPE           (gBattleCommunication + MISS_TYPE)
+
 
 //GetBattlerForBattleScript
 // Battle Script defines for getting the wanted battler
@@ -356,7 +373,6 @@
 #define BIT_ACC                     0x40
 #define BIT_EVASION                 0x80
 
-//battle communication stuff
-#define MISS_TYPE               6
+
 
 #endif // GUARD_CONSTANTS_BATTLE_SCRIPT_COMMANDS_H

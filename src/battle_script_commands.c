@@ -17908,6 +17908,11 @@ static void atkC7_setminimize(void)
 //take baton pass logic
 //hmm its weird this does hp drop but is also followed by setatkhptozero?
 //this does health bar drop but other function does hp update
+//still need update memeonto BS itself - think done
+//use of new script changes is breaking game
+//believe memory corruption as scritp is very basic
+//looks normal - missed condition in sturdy jump check etc. looks ok for most part
+//still to identify party menu issue w ub fix
 static void atkC9_trymemento(void) // memento
 {
     CMD_ARGS(const u8 *failInstr);

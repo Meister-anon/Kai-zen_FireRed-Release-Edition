@@ -2,6 +2,7 @@
 #define GUARD_BATTLE_SCRIPT_COMMANDS_H
 
 #include "global.h"
+#include "constants/battle_script_commands.h"
 
 
 #define STAT_CHANGE_WORKED      0
