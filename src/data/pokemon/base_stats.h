@@ -4477,7 +4477,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Mew"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(100, 100, 100, 127, 100, 160),
+         STATS(100, 100, 100, 126, 100, 154),
         MON_TYPES(TYPE_PSYCHIC, TYPE_PSYCHIC),
         .catchRate = 45,
         .expYield = 270,
@@ -4498,7 +4498,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMewTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },//buff to give realm of excellence as mewtwo is more offenseive whille mew was always about avoiding fights/damage
+    },//buff to give realm of excellence as mewtwo is more offenseive whille mew was always about avoiding fights/defense
+    //readjusted stats to be in line w mewtwo
 
     [SPECIES_CHIKORITA] =
     {
