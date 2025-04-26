@@ -408,11 +408,12 @@ void AI_TrySwitchOrUseItem(void)
     BtlController_EmitTwoReturnValues(1, B_ACTION_USE_MOVE, (gActiveBattler ^ BIT_SIDE) << 8);
 }
 
+//remove part of cleanup to make gtypeeffectiveness array static
 static void ModulateByTypeEffectiveness(u8 atkType, u8 defType1, u8 defType2, u8 *var)
 {
     s32 i = 0;
 
-    while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE)
+    /*while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE)
     {
         if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_FORESIGHT)
         {
@@ -429,7 +430,69 @@ static void ModulateByTypeEffectiveness(u8 atkType, u8 defType1, u8 defType2, u8
                 *var = (*var * TYPE_EFFECT_MULTIPLIER(i)) / 10;
         }
         i += 3;
+    }*/
+}
+
+static u32 GetBestMonTypeMatchup(struct Pokemon *party, int firstId, int lastId, u8 invalidMons, u32 battler, u32 opposingBattler)
+{
+    int i, bits = 0;
+
+    while (bits != 0x3F) // All mons were checked.
+    {
+        uq4_12_t bestResist = UQ_4_12(1.0);
+        int bestMonId = PARTY_SIZE;
+        // Find the mon whose type is the most suitable defensively.
+        for (i = firstId; i < lastId; i++)
+        {
+            if (!((1u << i) & invalidMons) && !((1u << i) & bits))
+            {
+                u16 species = GetMonData(&party[i], MON_DATA_SPECIES);
+                uq4_12_t typeEffectiveness = UQ_4_12(1.0);
+
+                u8 atkType1 = gBattleMons[opposingBattler].type1;
+                u8 atkType2 = gBattleMons[opposingBattler].type2;
+                u8 defType1 = gBaseStats[species].type1;
+                u8 defType2 = gBaseStats[species].type2;
+
+                typeEffectiveness = uq4_12_multiply(typeEffectiveness, (GetTypeModifier(atkType1, defType1)));
+                if (atkType2 != atkType1)
+                    typeEffectiveness = uq4_12_multiply(typeEffectiveness, (GetTypeModifier(atkType2, defType1)));
+                if (defType2 != defType1)
+                {
+                    typeEffectiveness = uq4_12_multiply(typeEffectiveness, (GetTypeModifier(atkType1, defType2)));
+                    if (atkType2 != atkType1)
+                        typeEffectiveness = uq4_12_multiply(typeEffectiveness, (GetTypeModifier(atkType2, defType2)));
+                }
+                if (typeEffectiveness < bestResist)
+                {
+                    bestResist = typeEffectiveness;
+                    bestMonId = i;
+                }
+            }
+        }
+
+        // Ok, we know the mon has the right typing but does it have at least one super effective move?
+        if (bestMonId != PARTY_SIZE)
+        {
+            for (i = 0; i < MAX_MON_MOVES; i++)
+            {
+                u32 move = GetMonData(&party[bestMonId], MON_DATA_MOVE1 + i);
+                if (move != MOVE_NONE && AI_GetMoveEffectiveness(move, battler, opposingBattler) >= UQ_4_12(2.0))
+                    break;
+            }
+
+            if (i != MAX_MON_MOVES)
+                return bestMonId; // Has both the typing and at least one super effective move.
+
+            bits |= (1u << bestMonId); // Sorry buddy, we want something better.
+        }
+        else
+        {
+            bits = 0x3F; // No viable mon to switch.
+        }
     }
+
+    return PARTY_SIZE;
 }
 
 u8 GetMostSuitableMonToSwitchInto(void)
@@ -439,8 +502,15 @@ u8 GetMostSuitableMonToSwitchInto(void)
     u8 bestMonId;
     u8 battlerIn1, battlerIn2;
     s32 i, j;
+    s32 firstId = 0;
+    s32 lastId = 0; // + 1
     u8 invalidMons;
     u16 move;
+    struct Pokemon *party;
+
+
+    
+
 
     if (*(gBattleStruct->monToSwitchIntoId + gActiveBattler) != PARTY_SIZE)
         return *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
@@ -462,7 +532,18 @@ u8 GetMostSuitableMonToSwitchInto(void)
         battlerIn1 = gActiveBattler;
         battlerIn2 = gActiveBattler;
     }
-    invalidMons = 0;
+
+    GetAIPartyIndexes(gActiveBattler, &firstId, &lastId);
+    party = GetBattlerParty(gActiveBattler);
+
+    //can slot GetBestMonTypeMatchup in here
+    //identical comments for this section
+    bestMonId = GetBestMonTypeMatchup(party, firstId, lastId, invalidMons, gActiveBattler, opposingBattler);
+        if (bestMonId != PARTY_SIZE)
+            return bestMonId;
+            
+
+    /*invalidMons = 0;
     while (invalidMons != 0x3F) // All mons are invalid.
     {
         bestDmg = 0;
@@ -513,7 +594,9 @@ u8 GetMostSuitableMonToSwitchInto(void)
         {
             invalidMons = 0x3F; // No viable mon to switch.
         }
-    }
+    }*/
+
+
     gDynamicBasePower = 0;
     gBattleStruct->dynamicMoveType = 0;
     gBattleScripting.dmgMultiplier = 1;

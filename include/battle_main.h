@@ -32,9 +32,9 @@ struct MultiBattlePokemonTx
 };
 
 // defines for the u8 array gTypeEffectiveness
-#define TYPE_EFFECT_ATK_TYPE(i)((gTypeEffectiveness[i + 0]))    //chart is broken into 3 fields per row, i reads the row, + value shifts the column, size of array is total number of fields, i.e num rows x columns
-#define TYPE_EFFECT_DEF_TYPE(i)((gTypeEffectiveness[i + 1]))    //chart is broken into 3 fields per row, i reads the row, + value shifts the column, size of array is total number of fields, i.e num rows x columns
-#define TYPE_EFFECT_MULTIPLIER(i)((gTypeEffectiveness[i + 2]))  //chart is broken into 3 fields per row, i reads the row, + value shifts the column, size of array is total number of fields, i.e num rows x columns
+//#define TYPE_EFFECT_ATK_TYPE(i)((gTypeEffectiveness[i + 0]))    //chart is broken into 3 fields per row, i reads the row, + value shifts the column, size of array is total number of fields, i.e num rows x columns
+//#define TYPE_EFFECT_DEF_TYPE(i)((gTypeEffectiveness[i + 1]))    //chart is broken into 3 fields per row, i reads the row, + value shifts the column, size of array is total number of fields, i.e num rows x columns
+//#define TYPE_EFFECT_MULTIPLIER(i)((gTypeEffectiveness[i + 2]))  //chart is broken into 3 fields per row, i reads the row, + value shifts the column, size of array is total number of fields, i.e num rows x columns
 
 // defines for the gTypeEffectiveness multipliers
 #define TYPE_MUL_NO_EFFECT          0
@@ -68,7 +68,7 @@ extern const u8 gStatusConditionString_ConfusionJpn[8];
 extern const u8 gStatusConditionString_LoveJpn[8];
 extern const u8 *const gStatusConditionStringsTable[7][2];
 extern const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES]; //type table port
-extern const u8 gTypeEffectiveness[426]; //normal type array
+//extern const u8 gTypeEffectiveness[423]; //normal type array
 extern const struct TrainerMoney gTrainerMoneyTable[];
 extern const struct TypePower gNaturalGiftTable[];
 
