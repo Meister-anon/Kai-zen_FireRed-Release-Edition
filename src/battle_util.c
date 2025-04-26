@@ -11184,19 +11184,8 @@ bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability)
     //this is hella wrong just didn't understand it at first,
     //way this works is to return the return value of the conditional
     //that doesn't work when I do or,as one can be true and one can be false
-    /*return ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
+    return ((DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
         || (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability)));
-    */
-
-    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_NEUTRALIZING_GAS) && !IsNeutralizingGasBannedAbility(ability))
-        return TRUE;
-
-    else if (DoesSideHaveAbility(BATTLE_OPPOSITE(battler), ABILITY_IMMUTABLE_WIND) && !IsNeutralizingGasBannedAbility(ability))
-        return TRUE;
-
-    else
-        return FALSE;
-
 
 }
 
