@@ -5194,8 +5194,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         /*else
             gBattleMovePower = (gBattleMovePower * 75 / 100);*/
             //MulModifier(&modifier, UQ_4_12(0.75));  removed above section cause don't want negative effects of rivalry.
-        }
-        break;
+        }//note w attraction change an ability that boosts damage against opposite gender would be good
+        break;//no idea what I could call said thing, would make it a 30% incrase to still have effect not just neutralize infatuation? maybe
     case ABILITY_SLOW_START:
         if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battlerIdAtk]][GetBattlerSide(battlerIdAtk)] != 0)
             OffensiveModifer(50);
@@ -5979,25 +5979,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //    damage /= 1; //target 0x8 is target both    
         //this removes the split damage from double target moves ...just remove the line you idiot
 
-    //could put multi task here
-    if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
-    && CanMultiTask(move) == TRUE)
-    {
+    
 
-        damage = max(damage / gMultiTask, 1);
-        //not sure why I used the other but seemed overperform?
-        //with debugger able to test damage and see its overperforming still
-        //dmg done is not same as power without multihit
-        //and does more dmg w more hits when it shouldn't
-        //possibly not my fault but actualy a factor of how power goes into
-        //dmg function, in that case would be better to put this logic
-        //on the end damage itself below?
-       
-    }//this seems to work/is more balanced
-
-        // moves always do at least 1 damage.
-        if (damage == 0)
-            damage = 1;
     } //end of physical effects
 
     /*if (type == TYPE_MYSTERY)
@@ -6168,7 +6151,19 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         //if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMoves[move].target == MOVE_TARGET_BOTH && CountAliveMonsInBattle(BATTLE_ALIVE_DEF_SIDE) == 2)
         //    damage /= 1; //special verision double battle damage change
+
     
+
+        
+    } //end of special effects
+
+
+    // moves always do at least 1 damage.
+    //simplified check put ouside phsys/spec 
+    //just run on end result
+    damage = max(damage, 1);
+
+    //since should apply to both realized should just put outside
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
     && CanMultiTask(move) == TRUE)
     {
@@ -6183,13 +6178,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //on the end damage itself below?
        
     }//this seems to work/is more balanced
-    
-        // moves always do at least 1 damage.
-        if (damage == 0)
-            damage = 1;
 
-        
-    } //end of special effects
+    //should be good idea infatuation status buff
+    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATED_WITH(battlerIdDef))
+        damage = max((damage * 80) / 100, 1);
 
     return damage + 2;
 }
