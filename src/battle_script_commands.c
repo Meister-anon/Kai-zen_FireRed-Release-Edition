@@ -9859,7 +9859,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
 
         
-        if (gBattleMons[battlerDef].status2 & STATUS2_INFATUATED_WITH(battlerAtk)) //need to figure out how to lower evasion to go along with these accuracy boosts.
+        if (gBattleMons[battlerDef].status2 & STATUS2_INFATUATION) //need to figure out how to lower evasion to go along with these accuracy boosts.
             calc = (calc * 140) / 100;
            // evasionStage = 3;
         if ((gBattleMons[battlerDef].status2 & STATUS2_CONFUSION) && defAbility != ABILITY_TANGLED_FEET) //thought instead of self attack, make confusion chance to change move target to random
@@ -13775,6 +13775,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
         {
             gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
+            gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_INFATUATION;  // STRINGID_TARGETGOTOVERINFATUATION
             StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
         }
@@ -15496,7 +15497,7 @@ static void atk97_tryinfatuating(void)
     else if (targetAbility == ABILITY_FEMME_FATALE) //add ABILITY_FEMME_FATALE in else if, special message femme fatalle prevents infatuation
     {
         if (GetGenderFromSpeciesAndPersonality(speciesAttacker, personalityAttacker) == GetGenderFromSpeciesAndPersonality(speciesTarget, personalityTarget)
-        /*&& attackerAbility != ABILITY_CUPIDS_ARROW*/)  //remember is ability effect done on switchin so separate from this command
+        )  //remember is ability effect done on switchin so separate from this command
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);   //jump to fail condition
         }
@@ -15522,7 +15523,8 @@ static void atk97_tryinfatuating(void)
         }
         else
         {
-            gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATED_WITH(gBattlerAttacker);//can make attract hit battle script idk if would be unbalanced ?
+            gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATION;
+            gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = gBattlerAttacker;
             gBattlescriptCurrInstr += 5;        //would just need to replace the move end and but it failed jumps, with jumps to the hit battlescript
         }
     }//vsonic come back to this
@@ -18596,12 +18598,17 @@ static void atkE2_switchoutabilities(void) //emerald has logic for switchin that
         {
             if (GetBattlerAbility(BATTLE_PARTNER(gActiveBattler)) != ABILITY_CUPIDS_ARROW)
             {
-                gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
-                gBattleMons[BATTLE_PARTNER(gBattlerTarget)].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
+                gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATION);
+                gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = BATTLE_ID_NONE;
+                gBattleMons[BATTLE_PARTNER(gBattlerTarget)].status2 &= ~(STATUS2_INFATUATION);
+                gBattleStruct->infatuatedwithBattleId[BATTLE_PARTNER(gBattlerTarget)] = BATTLE_ID_NONE;
             }
         }
         else
-            gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
+        {
+            gBattleMons[gBattlerTarget].status2 &= ~(STATUS2_INFATUATION);
+            gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = BATTLE_ID_NONE;
+        }
         break;//works how I want, even with faint
         }
         

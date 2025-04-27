@@ -1274,14 +1274,22 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
     case VAR_IN_LOVE:
         if (data->modifyArrows.currValue)
         {
+            //idk if this conditional is quite right, just for singles
             if (IsBattlerAlive(BATTLE_OPPOSITE(data->battlerId)))
-                gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATED_WITH(BATTLE_OPPOSITE(data->battlerId));
+            {    
+                gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
+                gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_OPPOSITE(data->battlerId);
+            }
             else
-                gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATED_WITH(BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId)));
+            {
+               gBattleMons[data->battlerId].status2 |= STATUS2_INFATUATION;
+               gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_PARTNER(BATTLE_OPPOSITE(data->battlerId));
+            }
         }
         else
         {
             gBattleMons[data->battlerId].status2 &= ~STATUS2_INFATUATION;
+            gBattleStruct->infatuatedwithBattleId[data->battlerId] = BATTLE_ID_NONE;
         }
         break;
     case VAR_SLEEP_TIMER:

@@ -42,7 +42,7 @@ static u16 GetInverseTypeMultiplier(u16 multiplier);
 static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveType, u8 battlerDef, u8 defType, u8 battlerAtk, bool32 recordAbilities);
 static inline uq4_12_t CalcTypeEffectivenessMultiplierInternal(u16 move, u8 moveType, u8 battlerAtk, u8 battlerDef, bool32 recordAbilities, uq4_12_t modifier);
 static void UpdateMoveResultFlags(u16 modifier); //only used for accuracycheck command
-static void infatuationchecks(u8 target);//cusotm effect used for cupidarrow
+static void infatuationchecks(u8 target, u8 attacker);//cusotm effect used for cupidarrow
 static u8 ItemEffectMoveEnd(u32 battlerId, u16 holdEffect);
 static u8 TrySetMicleBerry(u8 battlerId, u16 itemId, bool32 end2);
 static u8 ItemHealHp(u32 battlerId, u32 itemId, bool32 end2, bool32 percentHeal);
@@ -374,11 +374,11 @@ void PressurePPLoseOnUsingPerishSong(u8 attacker)
 //not sure it'll target correctly  so will make custom effect
 //realized wasn't right, need take target from targetting funciton to set correct battler here
 //if fails to infatuate should end script/effect
-static void infatuationchecks(u8 target)//cusotm effect used for cupidarrow
+static void infatuationchecks(u8 target, u8 attacker)//cusotm effect used for cupidarrow
 {
     u16 targetAbility = GetBattlerAbility(target);
 
-    if (targetAbility == ABILITY_OBLIVIOUS || targetAbility == ABILITY_FEMME_FATALE) //add femme fatalle
+    if (targetAbility == ABILITY_OBLIVIOUS)// || targetAbility == ABILITY_FEMME_FATALE) //add femme fatalle
     {
         gBattlescriptCurrInstr = BattleScript_AbilityPreventsMoodShift;
         gLastUsedAbility = targetAbility;
@@ -391,11 +391,17 @@ static void infatuationchecks(u8 target)//cusotm effect used for cupidarrow
     else
     {
 
-        gBattleMons[target].status2 |= STATUS2_INFATUATED_WITH(gBattlerAttacker);
-
+        gBattleMons[target].status2 |= STATUS2_INFATUATION;
+        gBattleStruct->infatuatedwithBattleId[target] = attacker;
     }//need test cupid arrow see if this fixes issue
 }//almost got it, issue is when I switch out, tracks to wrong battler
 //think  what I need is clear the status when I switch out luvdisc?
+//is this right? I have notes other places that say cupid's arrow
+//should bypass infatuation checks?
+//hence why I do have genderless checks on this
+//ok I think I'll remove femme fatale from this as its only used for cupid's arrow
+//and leave oblivious as the only fully immune to infatuation as a type of aroace thing
+//since the original was like slowpoke which has no inclinations whatsoever
 
 void MarkAllBattlersForControllerExec(void)
 {
@@ -4556,8 +4562,10 @@ u8 AtkCanceller_UnableToUseMove(void)
             {
                 if (IsBlackFogNotOnField()) {
 
-
-                    gBattleScripting.battler = CountTrailingZeroBits((gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION) >> 0x10);
+                    //hmm what is htis to identify the battle in love with?
+                    //yeah I think so, should be able to replace w battle check
+                    //gBattleScripting.battler = CountTrailingZeroBits((gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION) >> 0x10);
+                    gBattleScripting.battler = gBattleStruct->infatuatedwithBattleId[gBattlerAttacker];
                     if (Random() & 1) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
                         //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
                     {
@@ -4576,8 +4584,8 @@ u8 AtkCanceller_UnableToUseMove(void)
                 else if (!IsBlackFogNotOnField() //black fog on field
                     && (IsAbilityOnField(ABILITY_CUPIDS_ARROW))) //if cupid arrow infatuation continues even through black fog cant stop cupid
                 {
-                    gBattleScripting.battler = CountTrailingZeroBits((gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION) >> 0x10);
-
+                    //gBattleScripting.battler = CountTrailingZeroBits((gBattleMons[gBattlerAttacker].status2 & STATUS2_INFATUATION) >> 0x10);
+                    gBattleScripting.battler = gBattleStruct->infatuatedwithBattleId[gBattlerAttacker];
                     if (Random() & 1) //test if that worked, next step change so infatuation animation only plays if battler their infatuated with is on the field.
                         //well maybe not, if it reminds you each turn, even if not there, its a good reminder the status is still in effect.
                     {
@@ -6087,8 +6095,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 gBattlerTarget = target1; //select on target from enemy 
                                 gBattleScripting.battler = i;
                                 gLastUsedAbility = gBattleMons[i].ability;
-                                infatuationchecks(target1);
-                                infatuationchecks(target2);
+                                infatuationchecks(target1, gBattleScripting.battler);
+                                infatuationchecks(target2, gBattleScripting.battler);
                                     BattleScriptPushCursorAndCallback(BattleScript_CupidsArrowActivatesBoth);
                                 ++effect;
                             }
@@ -6098,7 +6106,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 gBattlerTarget = target1;
                                 gBattleScripting.battler = i;
                                 gLastUsedAbility = gBattleMons[i].ability;
-                                infatuationchecks(gBattlerTarget);
+                                infatuationchecks(gBattlerTarget, gBattleScripting.battler);
                                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattlerTarget, gBattlerPartyIndexes[gBattlerTarget])
                                     BattleScriptPushCursorAndCallback(BattleScript_CupidsArrowActivates);
                                 ++effect;
@@ -6109,7 +6117,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 gBattlerTarget = target2;
                                 gBattleScripting.battler = i;
                                 gLastUsedAbility = gBattleMons[i].ability;
-                                infatuationchecks(gBattlerTarget);
+                                infatuationchecks(gBattlerTarget, gBattleScripting.battler);
                                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattlerTarget, gBattlerPartyIndexes[gBattlerTarget])
                                     BattleScriptPushCursorAndCallback(BattleScript_CupidsArrowActivates);
                                 ++effect;
@@ -6124,7 +6132,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 gBattlerTarget = target1;
                                 gBattleScripting.battler = i;
                                 gLastUsedAbility = gBattleMons[i].ability;
-                                infatuationchecks(gBattlerTarget);
+                                infatuationchecks(gBattlerTarget, gBattleScripting.battler);
                                 PREPARE_MON_NICK_WITH_PREFIX_BUFFER(gBattleTextBuff1, gBattlerTarget, gBattlerPartyIndexes[gBattlerTarget])
                                     BattleScriptPushCursorAndCallback(BattleScript_CupidsArrowActivates);
                                 ++effect;
@@ -7903,7 +7911,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != MON_GENDERLESS
                     && GetGenderFromSpeciesAndPersonality(speciesDef, pidDef) != MON_GENDERLESS)
                 {
-                    gBattleMons[gBattlerAttacker].status2 |= STATUS2_INFATUATED_WITH(gBattlerTarget);
+                    gBattleMons[gBattlerAttacker].status2 |= STATUS2_INFATUATION;
+                    gBattleStruct->infatuatedwithBattleId[gBattlerAttacker] = gBattlerTarget;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_CuteCharmActivates;
                     ++effect;
@@ -8513,7 +8522,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && GetGenderFromSpeciesAndPersonality(speciesAtk, pidAtk) != MON_GENDERLESS
                     && GetGenderFromSpeciesAndPersonality(speciesDef, pidDef) != MON_GENDERLESS)
                 {
-                    gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATED_WITH(gBattlerAttacker);
+                    gBattleMons[gBattlerTarget].status2 |= STATUS2_INFATUATION;
+                    gBattleStruct->infatuatedwithBattleId[gBattlerTarget] = gBattlerAttacker;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_AttackerCuteCharmActivates;//need test
                     ++effect;
@@ -8793,7 +8803,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         effect = 1;
                     }
                     break;
-                case ABILITY_FEMME_FATALE:
+                //removed femme fatale from this not worry about specific check
+                //just leave femme fatale as imperfect infatuation protection
+                //resistance not immunity so works out
                 case ABILITY_OBLIVIOUS:
                     if (gBattleMons[battler].status2 & STATUS2_INFATUATION)
                     {
@@ -8824,6 +8836,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         break;
                     case 3: // get rid of infatuation
                         gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
+                        gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
                         break;
                     case 4: //clear all negatives
                     //cleanse effec, separated from other move end to hopefully fix glitch
@@ -8839,6 +8852,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         | STATUS3_MIRACLE_EYED);
 
                         gBattleStruct->seedSetterBattleId[battler] = BATTLE_ID_NONE;
+                        gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
 
                         /*gBattleMons[battler].status3 &= ~(STATUS3_LEECHSEED); //hope works right, should be remove leech seed if seeded
                         gBattleMons[battler].status3 &= ~(STATUS3_PERISH_SONG);
@@ -9492,6 +9506,7 @@ static bool32 GetMentalHerbEffect(u8 battlerId)
     if (gBattleMons[battlerId].status2 & STATUS2_INFATUATION)
     {
         gBattleMons[battlerId].status2 &= ~STATUS2_INFATUATION;
+        gBattleStruct->infatuatedwithBattleId[battlerId] = BATTLE_ID_NONE;
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_MENTALHERBCURE_INFATUATION;  // STRINGID_TARGETGOTOVERINFATUATION
         StringCopy(gBattleTextBuff1, gStatusConditionString_LoveJpn);
         ret = TRUE;

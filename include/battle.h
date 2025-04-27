@@ -773,6 +773,7 @@ struct BattleStruct //fill in unused fields when porting
     u8 wildVictorySong;//yeah decide move to pokemon struct but will use party size set true false to indicate which battler set effect
     u8 dynamicMoveType;//thinkbest I can do for wrappyby is move to battlepokemon struct so auto linked to targetmon, than can use maxbattlers to store a value for each battler, but auto default to 0xFF at battle start switch in
     u8 seedSetterBattleId[MAX_BATTLERS_COUNT]; //scrapped previous entry was wrappedby think can use store leechseed battler, instead of weird attacker swap logic?, if works gains +2 spaces in status3
+    u8 infatuatedwithBattleId[MAX_BATTLERS_COUNT];
     u8 sentInPokes;
     u8 battlerPreventingSwitchout;
     u8 moneyMultiplier;

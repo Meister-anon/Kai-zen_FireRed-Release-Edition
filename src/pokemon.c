@@ -6162,7 +6162,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //simplified check put ouside phsys/spec 
     //just run on end result
     damage = max(damage, 1);
-
+    
     //since should apply to both realized should just put outside
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
     && CanMultiTask(move) == TRUE)
@@ -6179,9 +6179,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
        
     }//this seems to work/is more balanced
 
+    //hmm ok don't know why this doesn't seem to work here
+    //results in min damage of 3 so have to put back
+    //that's not an error that's how the formula always worked...
+    //only does less on resist
     //should be good idea infatuation status buff
-    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATED_WITH(battlerIdDef))
-        damage = max((damage * 80) / 100, 1);
+    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION
+    && gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
+        damage = max((damage * 75) / 100, 1);
 
     return damage + 2;
 }
@@ -8262,6 +8267,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 && gMain.inBattle && battleMonId != 4 && (gBattleMons[battleMonId].status2 & STATUS2_INFATUATION))
             {
                 gBattleMons[battleMonId].status2 &= ~STATUS2_INFATUATION;
+                gBattleStruct->infatuatedwithBattleId[battleMonId] = BATTLE_ID_NONE;
                 retVal = FALSE;
             }
             if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)

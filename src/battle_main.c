@@ -4240,6 +4240,7 @@ static void BattleStartClearSetData(void)
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = BATTLE_ID_NONE;
         gBattleStruct->seedSetterBattleId[gActiveBattler] = BATTLE_ID_NONE;
+        gBattleStruct->infatuatedwithBattleId[gActiveBattler] = BATTLE_ID_NONE;
         gBattleStruct->overwrittenAbilities[i] = ABILITY_NONE;
         // Record HP of each battler
         gBattleStruct->hpBefore[i] = gBattleMons[i].hp;
@@ -4422,12 +4423,20 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
         gBattleStruct->seedSetterBattleId[gActiveBattler] = BATTLE_ID_NONE;
+        gBattleStruct->infatuatedwithBattleId[gActiveBattler] = BATTLE_ID_NONE;
     }
-    for (i = 0; i < gBattlersCount; ++i)// is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
-    {
-        if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
-            gBattleMons[i].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler)); //forgot I planned steup for suction cup and certain held item to make traps persist
 
+    // is this something that removes wrap, and infatuation if the mon that caused the effect is switched out? yes
+    //forgot I planned steup for suction cup and certain held item to make traps persist
+    for (i = 0; i < gBattlersCount; ++i)
+    {
+
+        if (gBattleMons[i].status2 & STATUS2_INFATUATION
+        && gBattleStruct->infatuatedwithBattleId[i] == gActiveBattler)
+        {
+            gBattleMons[i].status2 &= ~(STATUS2_INFATUATION);
+            gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+        }
         
         // was too annoying to track, just removed battler switch clearing for traps, may need other buff for suction cups
     }
@@ -4506,8 +4515,13 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
         //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
         if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
-        if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
-            gBattleMons[i].status2 &= ~(STATUS2_INFATUATED_WITH(gActiveBattler));
+        if (gBattleMons[i].status2 & STATUS2_INFATUATION
+        && gBattleStruct->infatuatedwithBattleId[i] == gActiveBattler)
+        {
+            gBattleMons[i].status2 &= ~(STATUS2_INFATUATION);
+            gBattleStruct->infatuatedwithBattleId[i] = BATTLE_ID_NONE;
+        }
+            
         
         //cleared trap timers too hard to track w rework
     }

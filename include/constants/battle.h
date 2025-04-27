@@ -189,9 +189,11 @@
 //#define STATUS2_WRAPPED_TURN(num)     ((num) << 13)	//left shift value is starting point of status wrapped
 #define STATUS2_POWDER                (1 << 14)
 #define STATUS2_FREE_SPACE            (1 << 15)
-#define STATUS2_INFATUATION           (1 << 16 | 1 << 17 | 1 << 18 | 1 << 19)  // 4 bits, one for every battler
-#define STATUS2_INFATUATED_WITH(battler) (gBitTable[battler] << 16)
-#define STATUS2_FOCUS_ENERGY          (1 << 20)
+#define STATUS2_INFATUATION           (1 << 16)  // 4 bits, one for every battler, hmm ok I think its because infatuated w is built off infatuation so needs to store for every possible battler target and user
+#define STATUS2_FREE_SPACE_1          (1 << 17)
+#define STATUS2_FREE_SPACE_2          (1 << 18)
+#define STATUS2_FREE_SPACE_3          (1 << 19)
+#define STATUS2_FOCUS_ENERGY          (1 << 20)//think can save 3 if I setup like I did leech seed -ok done
 #define STATUS2_TRANSFORMED           (1 << 21)
 #define STATUS2_PLACEHOLDER           (1 << 22) //removing recharge as a status, as all of its logic can be done w the timer...
 #define STATUS2_RAGE                  (1 << 23)
