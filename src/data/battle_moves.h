@@ -3330,13 +3330,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_BUG,
         .accuracy = 100, //for some reason started over-performing, changed mind, will doit in function instead
         .pp = 20,
-        .secondaryEffectChance = 5, //lowered since multihit
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        .argument = MOVE_EFFECT_INFESTATION,
-    }, //for some raeson dmg isn't increasing anymore
+    }, 
 
     [MOVE_STEEL_WING] =
     {

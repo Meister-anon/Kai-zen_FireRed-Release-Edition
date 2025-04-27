@@ -4154,8 +4154,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
 
         IncreaseConfusionScore(battlerAtk, battlerDef, move, &score);
         break;
-    case EFFECT_FURY_CUTTER:
-        if (!isDoubleBattle && AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_METRONOME)
+    case EFFECT_FURY_CUTTER: //changed as no longer repeat use effect, think do acc boost pref instead
+        if (!isDoubleBattle && (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_WIDE_LENS || AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_ZOOM_LENS))
             score += 3;
         break;
     case EFFECT_ATTRACT:

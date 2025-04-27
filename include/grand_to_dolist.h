@@ -3923,6 +3923,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     dropping speed of target that's locked in?
     its already got priority now so idk
     -no don't buff meanlook
+    rework fury cutter now works  off furycutter counter finish setup water shuriken properly
+    left to do is redo battle script for multihit effects for miss effects
+    removed counter clear in accuracy check so it can continue 
+    last thing to do is fix battle script so it can continue after printing miss
+    decrement hit and continue then print proper number of strings
 
     //identified bug,  
     //seems neutralizing gas causes game to freeze...hmm well or infinite loop?

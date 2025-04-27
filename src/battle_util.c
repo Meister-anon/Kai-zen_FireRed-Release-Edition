@@ -4761,16 +4761,6 @@ u8 AtkCanceller_UnableToUseMove(void)
             {
                 switch(gBattleMoves[gCurrentMove].effect)
                 {   
-                    case EFFECT_FURY_CUTTER:
-                    {
-
-                        gMultiTask = Random() % 6; //return a number between 0 & 4
-                        if (gMultiTask >= 4)
-                            gMultiTask = 4; // sets 4 hits 2 out of 6
-                        else if (gMultiTask <= 3)
-                            gMultiTask = 3; //sets 3 hit version 4 out of 6
-                        break;
-                    }
                     case EFFECT_PRESENT:
                     {
                         gMultiTask = Random() % 4; //return a number between 0 & 3
@@ -4805,7 +4795,10 @@ u8 AtkCanceller_UnableToUseMove(void)
                         break;
                     case EFFECT_TRIPLE_KICK: //triple kick, triple axel, & surging strikes
                         gMultiTask = 3; //not showing result message corrclty, if miss it just ends
-                        break;         
+                        break;  
+                    case EFFECT_FURY_CUTTER:
+                        gMultiTask = 5;
+                        break; 
                     default:
                     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
                         && CanMultiTask(gCurrentMove) == TRUE
@@ -4820,6 +4813,7 @@ u8 AtkCanceller_UnableToUseMove(void)
                         break;
                 }
 
+                //will need add loaded dice here eventually vsonic
                 if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_SKILL_LINK)
                     || (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK)) //will only affect multi hit & fury cutter /was just meant to be for things that were already multihit
                 {
@@ -4827,14 +4821,13 @@ u8 AtkCanceller_UnableToUseMove(void)
                         gMultiTask = 10;
 
                     else if (gBattleMoves[gCurrentMove].effect == EFFECT_MULTI_HIT
-                        //|| (gBattleMoves[gCurrentMove].effect == EFFECT_FURY_CUTTER)
                         || (gBattleMoves[gCurrentMove].effect == EFFECT_PRESENT) //to exclude from damagecalc multitask split need add these effects back to miultitask exclusion
                         ) //this will still work, it'll just stop the dmg from getting affected/cut
                         gMultiTask = 5;                
                 } //put this part at bottom of multihit
 
                 if (gCurrentMove == MOVE_WATER_SHURIKEN && gBattleMons[gBattlerAttacker].species == SPECIES_GRENINJA_ASH)
-                    gMultiTask = 3; //didn't catch this, in battle bond it always hits 3 times, //need to add water shuriken dmg increase as well
+                    gMultiTask = 3; //didn't catch this, in battle bond it always hits 3 times, //need to add water shuriken dmg increase as well - done
 
                 gMultiHitCounter = gMultiTask;
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)

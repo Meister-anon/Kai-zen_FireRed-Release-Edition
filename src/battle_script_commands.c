@@ -3364,7 +3364,7 @@ static void atk08_adjustnormaldamage2(void)
      if (!(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE)
      && (gBattleMoves[gCurrentMove].effect == EFFECT_FALSE_SWIPE || gProtectStructs[gBattlerTarget].endured || gSpecialStatuses[gBattlerTarget].focusBanded || gSpecialStatuses[gBattlerTarget].focusSashed || gSpecialStatuses[gBattlerTarget].sturdied)
      && gBattleMons[gBattlerTarget].hp <= gBattleMoveDamage
-     && (gMultiHitCounter == 0 || gMultiHitCounter == gMultiTask))
+     && (gMultiHitCounter == 0 || (gMultiHitCounter == gMultiTask && gMultiHitCounter != 0)))//check for error in logic here, w counters wanted not first hit and not non-multihit vsonic
     {
         gBattleMoveDamage = gBattleMons[gBattlerTarget].hp - 1;
         if (gProtectStructs[gBattlerTarget].endured)
@@ -9723,43 +9723,45 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         if (gCurrentMove == MOVE_FURY_CUTTER) { //still not quite right, doesn't display right message for things like wonderguard
 
             //Logic for altering animation used in battle_anim_effects_2
-            if (gDisableStructs[gBattlerAttacker].furyCutterCounter == gMultiTask)
-                gDisableStructs[gBattlerAttacker].furyCutterCounter = 0;
+            /*if (gDisableStructs[battlerAtk].furyCutterCounter == gMultiTask)
+                gDisableStructs[battlerAtk].furyCutterCounter = 0;
            
-            if (gDisableStructs[gBattlerAttacker].furyCutterCounter != gMultiTask)  //increment until reach 5
-               ++gDisableStructs[gBattlerAttacker].furyCutterCounter; //removing to test that it isn't incrementing twice. (it was)
-            
-            //acc drop effect
-            gDisableStructs[gBattlerAttacker].furyCutterAccDrop = moveAcc;
+            if (gDisableStructs[battlerAtk].furyCutterCounter != gMultiTask)  //increment until reach 5
+               ++gDisableStructs[battlerAtk].furyCutterCounter; //removing to test that it isn't incrementing twice. (it was)
+            */
 
-                for (i = 1; i <= (gMultiTask - gMultiHitCounter); ++i) { //triggers on second hit, so i = 1 - current num hits, i =3 on4th hit
+            //acc drop effect
+            gDisableStructs[battlerAtk].furyCutterAccDrop = moveAcc;
+
+                for (i = 0; i <= gDisableStructs[battlerAtk].furyCutterCounter; ++i) { //triggers on second hit, so i = 1 - current num hits, i =3 on4th hit
                     
                     if (i == 2) //should be 3rd hit
                     {
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop = 95; //set 3rd hit to 95, 4th hit remains the same, set main acc to 100, to ensure first 2 hits land
+                        gDisableStructs[battlerAtk].furyCutterAccDrop = 90; //set 3rd hit to 95, 4th hit remains the same, set main acc to 100, to ensure first 2 hits land
                     }
                     
-                    if (i == 3) //makes only trigger onlast 4th hit, to slightly lower chance of landing 4th hit if you rolled it
+                    //need to lower this much more
+                    if (i >= 3) //makes only trigger onlast 4th/5th hit, to slightly lower chance of landing 4th hit if you rolled it
                    {
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop -= (i - 1); 
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop *= 92; //so far is working to stop the move,
-                        gDisableStructs[gBattlerAttacker].furyCutterAccDrop /= 100;
-                   }  //makes 4th hit have 85 accuracy
+                        gDisableStructs[battlerAtk].furyCutterAccDrop -= (i * 2); //think this should be good
+                        gDisableStructs[battlerAtk].furyCutterAccDrop *= 92; //so far is working to stop the move,
+                        gDisableStructs[battlerAtk].furyCutterAccDrop /= 100;
+                   }  //makes 4th hit have 85 accuracy - lower now
                  //if (i == 3) 
                  //{/
-                 //   gDisableStructs[gBattlerAttacker].furyCutterAccDrop -= 16; //weighting for last 2 hits, only need to do for one i value as its all passed to next
+                 //   gDisableStructs[battlerAtk].furyCutterAccDrop -= 16; //weighting for last 2 hits, only need to do for one i value as its all passed to next
                  //}
-                    //gDisableStructs[gBattlerAttacker].furyCutterAccDrop *= 95; //so far is working to stop the move,
-                    //gDisableStructs[gBattlerAttacker].furyCutterAccDrop /= 100;  //may replace with just moveAcc  still don't know why not working
+                    //gDisableStructs[battlerAtk].furyCutterAccDrop *= 95; //so far is working to stop the move,
+                    //gDisableStructs[battlerAtk].furyCutterAccDrop /= 100;  //may replace with just moveAcc  still don't know why not working
                     
                 } //seems still overperforming potentially drop above 7 to a 8 or 9? or drop to third hit ni stead of 4th? by changing == 3 to ==2 ?  check later vsonic
 
-            moveAcc = gDisableStructs[gBattlerAttacker].furyCutterAccDrop;
+            moveAcc = gDisableStructs[battlerAtk].furyCutterAccDrop;
         } 
 
-        // check Thunder on sunny weather / need add hail blizzard buff?(IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_RAIN_ANY)
+        // check Thunder on sunny weather / need add hail blizzard buff?(IsBattlerWeatherAffected(battlerAtk, WEATHER_RAIN_ANY)
         //don't rememeber why I used effect thunder instead of gcurrentmove
-        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
+        if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SUN_ANY) && (gBattleMoves[move].effect == EFFECT_THUNDER || gBattleMoves[move].effect == EFFECT_HURRICANE))
             moveAcc = 65;   //make slightly more forgiving
         // Check Wonder Skin.
         if ((defAbility == ABILITY_WONDER_SKIN
@@ -9794,7 +9796,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //but it makes all accuracy drops more effective, cna treat like other games,
         //marginal gains being the main focus not strength of individual effects
         //add accuracy exclusion for moves that hit flying mon
-        if (IsBattlerGrounded(gBattlerAttacker)
+        if (IsBattlerGrounded(battlerAtk)
         && !IsBattlerGrounded(gBattlerTarget) //make function for below
         && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_FLYING)
         && atkAbility != ABILITY_KEEN_EYE
@@ -9809,37 +9811,37 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             calc = (calc * 130) / 100; // 1.3 compound eyes boost
 
         if (atkAbility == ABILITY_VICTORY_STAR
-        ||  GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
+        ||  GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
             calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
 
         //when I get around to it, safety goggles item should also go on these I thnk
         //hold effect already set but think will just setup like umbrella
         //done wrapped it into weather affected
         //added sixth sense as an ability not meant to relyon eyes
-        if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY) 
-        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ROCK)
-        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_STEEL)
-        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GROUND)
+        if (IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY) 
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
         && atkAbility != ABILITY_APOTHEOSCENT
         && atkAbility != ABILITY_WIND_RIDER    //addition since is wind move
-        && !DoesSideHaveAbility(gBattlerAttacker, ABILITY_CLOUD_NINE) //need test hope works
-        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+        && !DoesSideHaveAbility(battlerAtk, ABILITY_CLOUD_NINE) //need test hope works
+        && gBattleMons[battlerAtk].species != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
 
         //trap effect,
-        if (((gBattleMons[gBattlerAttacker].status4 & STATUS4_SAND_TOMB)
+        if (((gBattleMons[battlerAtk].status4 & STATUS4_SAND_TOMB)
         && IsBlackFogNotOnField())
-        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_ROCK)
-        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_STEEL)
-        && !DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GROUND)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_ROCK)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_STEEL)
+        && !DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_GROUND)
         && atkAbility != ABILITY_SAND_RUSH
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
         && atkAbility != ABILITY_APOTHEOSCENT
-        && gBattleMons[gBattlerAttacker].species != SPECIES_CASTFORM)
+        && gBattleMons[battlerAtk].species != SPECIES_CASTFORM)
         {
             calc = (calc * 80) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
             //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
@@ -9851,11 +9853,11 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //but again only for the duration of both effects
 
 
-        if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SANDSTORM_ANY))
+        if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY))
             calc = (calc * 80) / 100; // 1.2 sand veil loss
-        if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_HAIL_ANY))
+        if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(battlerAtk, WEATHER_HAIL_ANY))
             calc = (calc * 80) / 100; //
-        if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(gBattlerAttacker,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
+        if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(battlerAtk,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
             calc = (calc * 95) / 100; // 20% hustle loss   removed low accuracy effcts,  so changed to 5% accuracy drop
 
         
@@ -16986,6 +16988,8 @@ static void atkB3_rolloutdamagecalculation(void)
 
 }
 
+//wait its not in the script is this done elsewhere then??
+//ah yeah I replaced w the consolidated command variablepowerclac
 static void atkB5_furycuttercalc(void)
 {
     u32 i;
@@ -17154,6 +17158,13 @@ void BS_VariablePowerCalc(void)
             //gBattlescriptCurrInstr = cmd->nextInstr;
         
         }
+        case EFFECT_MULTI_HIT:
+        {
+            if (gCurrentMove == MOVE_WATER_SHURIKEN && gBattleMons[gBattlerAttacker].species == SPECIES_GRENINJA_ASH)
+            {
+                gDynamicBasePower = 20;
+            }
+        }
         break;
         case EFFECT_PSYWAVE:
         {
@@ -17193,8 +17204,10 @@ void BS_VariablePowerCalc(void)
             
             gDynamicBasePower = gBattleMoves[gCurrentMove].power; //it's working now.
 
-
-            for (i = 0; i < (gMultiTask - gMultiHitCounter); ++i) //...changed this and damage multiplier actually works -_-
+            //ok believe wcan replace all instance of this subtraction check
+            //with furycuttercount, that way both acc and dmg would reset
+            //on a miss
+            for (i = 0; i < gDisableStructs[gBattlerAttacker].furyCutterCounter; ++i) //...changed this and damage multiplier actually works -_-
             {                 
                 gDynamicBasePower += 10;  //rebalance, raise base power to 15, change to additive boost, higher scale on early hits slightly lower on end
                                                 //new rebalance
@@ -17205,7 +17218,9 @@ void BS_VariablePowerCalc(void)
             //++gBattlescriptCurrInstr; // if done right power should double and accuracy should drop off by a fourth each hti
 
             // had to move to accuracy function battlescript was below the accuracy check if done here
-
+            //this command is below acc check so if I get here hit is guaranteed success
+            //so increment here is fine
+            ++gDisableStructs[gBattlerAttacker].furyCutterCounter;
         }
         break;
         case EFFECT_SNOWBALL:

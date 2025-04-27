@@ -6827,6 +6827,8 @@ void RunBattleScriptCommands(void)
 
 
 //not exactly sure when this function triggers?
+//ahh believe is part of choose move process, so 
+//this is before selection or before the move is activated
 static void HandleAction_UseMove(void)
 {
     u32 i, side, moveType, argument;
@@ -6845,6 +6847,7 @@ static void HandleAction_UseMove(void)
     gBattleStruct->atkCancellerTracker = 0;
     gMoveResultFlags = 0;
     gMultiHitCounter = 0;
+    gDisableStructs[gBattlerAttacker].furyCutterCounter = 0; //added here so is always cleared before use
     gBattleCommunication[6] = 0;
     gBattleScripting.savedMoveEffect = 0;
     gCurrMovePos = gChosenMovePos = *(gBattleStruct->chosenMovePositions + gBattlerAttacker);
