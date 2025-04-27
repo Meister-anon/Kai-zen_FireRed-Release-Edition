@@ -4077,8 +4077,7 @@ static void Task_SlideSelectedSlotsOnscreen(u8 taskId)
         PutWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId].windowId);
         PutWindowTilemap(sPartyMenuBoxes[gPartyMenu.slotId2].windowId);
         ScheduleBgCopyTilemapToVram(0);
-        // BUG: memory leak - is this the fix or the cause? //checked EE thisis the fix...
-        //but setting this breaks my game...
+        // BUG: memory leak - is this the fix or the cause? //checked EE this is the fix...
         Free(sSlot1TilemapBuffer);
         Free(sSlot2TilemapBuffer);
         FinishTwoMonAction(taskId);

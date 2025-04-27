@@ -157,7 +157,6 @@ struct BoxPokemon
     u8 otGender:1;
     u8 metLevel:7;
     u8 metLocation;
-    u8 flagcheck;
 
     u8 friendship;
     u8 formflag;
@@ -185,13 +184,13 @@ struct BoxPokemon
     u32 hpEV:9; //FACEPALM I never adjusted these for the new cap!!! //max per stat 360
     u32 attackEV:9; //wich is bit 9
     u32 defenseEV:9;    
-    u32 pokeball:5;
+    u32 pokeball:5; //pokeball stored in? curr allows for 32 diff values 0-31, not sure of exact value stored to rn
 
     u32 speedEV:9;
     u32 spAttackEV:9;
     u32 spDefenseEV:9;
     u32 championRibbon:1; //hall of fame league champion ribbon
-    u32 effortRibbon:1;
+    u32 effortRibbon:1; //given for a pokmeon that maxed EVs, have already updated script commands, still need update field_specials commands for box access instead of just party
     u32 coolRibbon:3;    //these are 3 because multiple levels, so can't lower
 
     u8 beauty;
@@ -200,7 +199,7 @@ struct BoxPokemon
     u8 tough;
     
     u32 experience:21;
-    u32 lostLocation:8;
+    u32 lostLocation:8; //not yet implemented but meant to be for nuzlocke mode
     u32 beautyRibbon:3;
 
 };
