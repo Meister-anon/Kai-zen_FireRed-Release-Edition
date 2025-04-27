@@ -223,7 +223,12 @@
 //but bide doesn't (not unexpected since I changed it a good deal)
 //rage , escape prevention, and torment don't work, ok this seems to be issues w the debugger
 //surprisingly enough and not actually my macro
-#define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_FLINCHED | STATUS2_UPROAR | STATUS2_BIDE | STATUS2_LOCK_CONFUSE\
+//figure this out decide if use all escape prevention, well idea is movement is restricted
+//so yeah guess that tracks
+//think should remove flinch?
+//it activates typically after attacked,
+//and is removed on attack so it would never really be noticed
+#define PREOCCUPIED_STATUS (STATUS2_CONFUSION | STATUS2_UPROAR | STATUS2_BIDE | STATUS2_LOCK_CONFUSE\
 | STATUS2_MULTIPLETURNS | STATUS2_WRAPPED | STATUS2_INFATUATION | STATUS2_RAGE\
 | STATUS2_ESCAPE_PREVENTION | STATUS2_TORMENT)
 
