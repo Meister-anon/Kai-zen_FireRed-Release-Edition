@@ -19052,12 +19052,12 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        91,
-        90,
+        121,
+        85,
         129,
-        108,
+        103,
         90,
-        72
+        68
         ),
         MON_TYPES(TYPE_STEEL, TYPE_FIGHTING),
         .catchRate = 3,
@@ -19079,6 +19079,11 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },//needs better moves
+    //iron will pokemon, so gave more hp i.e will unbreakable more stamina
+    //decied give back speed drop atk some since 4x resist dark can more easily
+    //make use of beat up strat to boost atk
+    //oh wait steel doesn't resist dark anymore
+    //eh most of its best moves are special so will leave like this
 
     [SPECIES_TERRAKION] =
     {
@@ -19088,10 +19093,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         91,
         129,
-        90,
+        98,
         108,
         72,
-        90
+        98
         ),
         MON_TYPES(TYPE_ROCK, TYPE_FIGHTING),
         .catchRate = 3,
@@ -19365,7 +19370,7 @@ const struct BaseStats gBaseStats[] =
         90,
         108,
         129,
-        90
+        106
         ),
         MON_TYPES(TYPE_WATER, TYPE_FIGHTING),
         .catchRate = 3,
