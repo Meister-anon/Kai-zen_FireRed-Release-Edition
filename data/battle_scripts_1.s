@@ -3603,10 +3603,12 @@ BattleScript_MultiHitEndMessages:
 	addbyte sMULTIHIT_STRING + 4, 1
 	moveendto MOVE_END_NEXT_TARGET	@check if would trigger new grounding effect if so,  need add gmultihitcounter must equal 0  (it did added to logic)
 	jumpifbyte CMP_COMMON_BITS, gMoveResultFlags, MOVE_RESULT_FOE_ENDURED, BattleScript_MultiHitPrintStrings
+BattleScript_MultiHit_Decrement:
 	decrementmultihit BattleScript_MultiHitLoop
 	goto BattleScript_MultiHitPrintStrings
 
 @jump here if presentdamagecalc would return do heal
+@need test w new multi hit effect
 BattleScript_NewPresentHealMulti::
 	@jumpiffullhp BS_TARGET BattleScript_PresentFullHP
 	attackanimation
@@ -3617,7 +3619,7 @@ BattleScript_NewPresentHealMulti::
 	datahpupdate BS_TARGET
 	printstring STRINGID_PKMNREGAINEDHEALTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	goto BattleScript_MultiHitEndMessages
+	goto BattleScript_MultiHit_Decrement
 
 BattleScript_PresentFullHP::
 	pause B_WAIT_TIME_MED
@@ -3627,7 +3629,7 @@ BattleScript_PresentFullHP::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	call BattleScript_FlushMessageBox
 	pause B_WAIT_TIME_MED
-	goto BattleScript_MultiHitEndMessages
+	goto BattleScript_MultiHit_Decrement
 
 BattleScript_MultiHitNoMoreHits:: @@MAKE multihit miss script specifically for fury cutter to print miss & number hits
 	pause B_WAIT_TIME_SHORT						@instead want to make all multi hit work that way
@@ -3650,10 +3652,9 @@ BattleScript_MultiHitMiss::
 	effectivenesssound
 	resultmessage
 	waitmessage B_WAIT_TIME_UNIQUE
-	copyarray gBattleTextBuff1, sMULTIHIT_STRING, 6
-	printstring STRINGID_HITXTIMES
-	waitmessage B_WAIT_TIME_MED
-	goto BattleScript_MultiHitEnd
+	call BattleScript_FlushMessageBox
+	movevaluescleanup	@this was issue without this all hits after miss treated as miss, now works
+	goto BattleScript_MultiHit_Decrement
 
 @realized can put con1 and 2 new effect in one effect
 BattleScript_EffectConversion::

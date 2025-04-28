@@ -1919,7 +1919,7 @@ static void atk01_accuracycheck(void)
 
 
 
-        if (move == MOVE_NONE)
+        if (move == ACC_CURR_MOVE)
             move = gCurrentMove;
         GET_MOVE_TYPE(move, type);
         if (JumpIfMoveAffectedByProtect(move) || AccuracyCalcHelper(move))
@@ -1955,12 +1955,7 @@ static void atk01_accuracycheck(void)
                 gBattleCommunication[MISS_TYPE] = B_MSG_MISSED;
 
             gDisableStructs[gBattlerAttacker].furyCutterCounter = 0;  //reset if miss
-            gMultiHitCounter = 0; //if miss reset to 0, think this was reason, grouded stuff wasn't triggering, has check for counter being 0
-            //unsure if needed but keeping for now
-            //removed encountered new glitch of move not ending
-            //will change/remove this as don't want count/hits to stop just because missed
-            //double check is furycutt counter for dmg or just for the swing animation?
-            //I would want fury cutter dmg to reset if I miss
+
 
             /*
              if (gBattleMoves[gCurrentMove].effect == EFFECT_DRAGON_DARTS
@@ -2002,7 +1997,7 @@ static void atk01_accuracycheck(void)
         //to just have it there so it could calc type at anytime
         //without needing the typecalc bs command
         }
-        JumpIfMoveFailed(7, move);
+        JumpIfMoveFailed(7, move); //7 because command is 6 bytes long so need move 7 bytes to next script
     }
 }
 
