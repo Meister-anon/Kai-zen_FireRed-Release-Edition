@@ -6635,8 +6635,8 @@ const struct BaseStats gBaseStats[] =
     //readjust be more special oriented, can make mightyena the phsyical counterpart
     //think give poison affinity ability, sun moon entry says spews poison in its flames
     //and it gets smog
-    //would prevent from being poisoned and give poison healing w toxic orb/black sludge
-    //or hold toxic orb without being poisoned so can throw at oher people I guess?
+    //would prevent from being poisoned and give poison healing w black sludge
+    //or hold toxic orb without being poisoned so can fling at oher people I guess?
     //fill in gaps of strong special dark moves w poison moves
 
     [SPECIES_KINGDRA] =
@@ -10884,7 +10884,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_EROSION, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STURDY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -19121,29 +19121,29 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         91,
-        90,
-        72,
-        108,
-        90,
+        85,
+        68,
+        138,
+        85,
         129
         ),
         MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
         .catchRate = 3,
         .expYield = 261,
         //.evYield_SpDefense = 3,
-        .genderRatio = MON_GENDERLESS,
+        .genderRatio = MON_GENDERLESS, //also meant to be super fast but stat is average
         .eggCycles = 80,
         .friendship = 10,
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_JUSTIFIED, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = FALSE,
-        .floating = FALSE,
-        .levelUpLearnset = sVirizionLevelUpLearnset,
-        .tmhmLearnset = sVirizionTMHMLearnset,
+        .abilities = {ABILITY_SWIFT_JUSTICE, ABILITY_NONE}, //justified becasue trio known as swords of justice
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE}, //but ability doesn't really work for it
+        .bodyColor = BODY_COLOR_GREEN, //ok idea swift justice do something if moves faster than or is faster
+        .noFlip = FALSE, //it gets sysnthesis and with that buffed to a priority move it sould be ok to survive
+        .floating = FALSE,  //so I'll make the ability offensive rather than defensive?
+        .levelUpLearnset = sVirizionLevelUpLearnset,//opposite of stall boost damage if moves first
+        .tmhmLearnset = sVirizionTMHMLearnset,//stikes swiftly and decisively boost damage if strikes before target
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     },

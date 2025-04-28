@@ -5176,6 +5176,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
+    case ABILITY_SWIFT_JUSTICE: //boost damage if moving first, curious if works right for multi-target moves
+        if (GetBattlerTurnOrderNum(battlerIdAtk) < GetBattlerTurnOrderNum(battlerIdDef))
+        OffensiveModifer(130);
+        //gBattleMovePower = (gBattleMovePower * 130 / 100);
+        break;
     case ABILITY_SAND_FORCE:
         if ((moveType == TYPE_STEEL || moveType == TYPE_ROCK || moveType == TYPE_GROUND)
             && IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SANDSTORM_ANY)
