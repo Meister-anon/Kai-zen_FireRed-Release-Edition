@@ -6368,32 +6368,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     && gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
         damage = max((damage * 75) / 100, 1);
 
-    
-    //Last part of damage formula
-    damage += 2;
 
     //since should apply to both realized should just put outside.
     //yeah too strong putting back into power
     //actually just put damage within this
-    if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
-    && CanMultiTask(move) == TRUE)
-    {
+    
 
-        damage = max(damage / gMultiTask, 1);
-        //not sure why I used the other but seemed overperform?
-        //with debugger able to test damage and see its overperforming still
-        //dmg done is not same as power without multihit
-        //and does more dmg w more hits when it shouldn't
-        //possibly not my fault but actualy a factor of how power goes into
-        //dmg function, in that case would be better to put this logic
-        //on the end damage itself below?
-       
-    }//this seems to work/is more balanced
-    //weird somes it works sometimes its far weaker than it should be
-    //maybe I'm missing and not noticing?
-    //think it could be that, the hits are coming
-
-    return damage;
+    return damage + 2;
 }
 
 u8 CountAliveMonsInBattle(u8 caseId)

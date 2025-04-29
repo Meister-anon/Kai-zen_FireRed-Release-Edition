@@ -2225,6 +2225,7 @@ static void atk04_critcalc(void)    //working/works
     
     else
         gCritMultiplier = 1;
+
     if (!IsBlackFogNotOnField()
     || gCurrentMove == MOVE_SURGING_STRIKES
     || gCurrentMove == MOVE_WICKED_BLOW) //black fog on field no one can crit, and urshifu signature rebalance
@@ -2334,11 +2335,17 @@ static void atk05_damagecalc(void)
     //so even less chance of overflow
 
     //apply crit
-    gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier; // this makes it so gcritmultiplier value is how much crit is, so sniper shuold work
+    gBattleMoveDamage *= gCritMultiplier;// * gBattleScripting.dmgMultiplier; // this makes it so gcritmultiplier value is how much crit is, so sniper shuold work
     if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, gBattlerAttacker) == TYPE_ELECTRIC)//pretty sure no longer using dmgMultiplier?
         gBattleMoveDamage *= 2;
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10; 
+
+    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
+    && CanMultiTask(gCurrentMove) == TRUE)
+    {
+        gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
+    }//think this works better for trackin crits? makes start value higher so less likely to fall below 1
     
     ++gBattlescriptCurrInstr;
 }
@@ -2358,11 +2365,17 @@ s32 AI_CalcDmgFormula(u8 attacker, u8 defender) //made for ai .c update
                                             attacker,
                                             defender);
     //gMultiTask = 0;
-    gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier; //so dmgMultiplier isn't used so does it default to 0? vsonic checekd it defaults to 1 so not a problem
+    gBattleMoveDamage *= gCritMultiplier;// * gBattleScripting.dmgMultiplier; //so dmgMultiplier isn't used so does it default to 0? vsonic checekd it defaults to 1 so not a problem
     if (gStatuses3[attacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, attacker) == TYPE_ELECTRIC)  //but its actually something I can remove, just replace with gbattlemovedmg *=2 need do not rn
         gBattleMoveDamage *= 2;
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
+
+    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
+    && CanMultiTask(gCurrentMove) == TRUE)
+    {
+        gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
+    }
 
     return gBattleMoveDamage;
 }
@@ -2382,11 +2395,17 @@ void AI_CalcDmg(u8 attacker, u8 defender) //needed for ai script  , brought back
                                             attacker,
                                             defender);
     //gMultiTask = 0;
-    gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier;// * gBattleScripting.dmgMultiplier;
+    gBattleMoveDamage *= gCritMultiplier;// * gBattleScripting.dmgMultiplier;
     if (gStatuses3[attacker] & STATUS3_CHARGED_UP && GetMoveType(TYPE_ELECTRIC, attacker) == TYPE_ELECTRIC)
         gBattleMoveDamage *= 2;
     if (gProtectStructs[attacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
+
+    if (GetBattlerAbility(attacker) == ABILITY_MULTI_TASK
+    && CanMultiTask(gCurrentMove) == TRUE)
+    {
+        gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
+    }
     
 }
 
@@ -6918,7 +6937,6 @@ static void atk24_confirmlosingteam(void)
 static void MoveValuesCleanUp(void)
 {
     gMoveResultFlags = 0;
-    //gBattleScripting.dmgMultiplier = 1;
     gCritMultiplier = 1;
     gBattleScripting.moveEffect = 0;
     gBattleCommunication[6] = 0;
