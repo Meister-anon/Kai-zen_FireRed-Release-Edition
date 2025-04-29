@@ -7499,7 +7499,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_VENOSHOCK] =
     {
-        .effect = EFFECT_VENOSHOCK,
+        .effect = EFFECT_VENOSHOCK, //double damage if target poisoned
         .power = 65,
         .type = TYPE_POISON,
         .accuracy = 100,
@@ -11960,19 +11960,21 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BARB_BARRAGE] =
     {
-        .effect = EFFECT_POISON_HIT, // EFFECT_BARB_BARRAGE,
+        .effect = EFFECT_VENOSHOCK, // EFFECT_BARB_BARRAGE,
         .power = 60,
         .type = TYPE_POISON, //poison hit + hex well actually literally just poison hit
         .accuracy = 100,
         .pp = 15,
-        .secondaryEffectChance = 30,
+        .secondaryEffectChance = 50,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = MOVE_EFFECT_POISON,
         ////.zMovePower = 120,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //double damage if target poisoned, and set poison
 
     [MOVE_ESPER_WING] =
     {
@@ -12050,7 +12052,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_INFERNAL_PARADE] =
     {
-        .effect = EFFECT_BURN_HIT, // EFFECT_INFERNAL_PARADE,
+        .effect = EFFECT_HEX, // EFFECT_INFERNAL_PARADE,
         .power = 60,
         .type = TYPE_GHOST,
         .accuracy = 100,
@@ -12060,9 +12062,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_BURN,
         ////.zMovePower = 120,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //hex + burn chance
 
     [MOVE_CEASELESS_EDGE] =
     {

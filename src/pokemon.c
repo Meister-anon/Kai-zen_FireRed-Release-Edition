@@ -4608,6 +4608,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u8 StatMod_Stat; //offense stat that is used in stat mod for dmg calc
     //offense stat that should be used based on above movedamagecategory
     u32 Offensive_Stat;
+    u32 weight, hpFraction, speed_Value; 
 
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
@@ -4646,6 +4647,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     j = spatk_diff();  // since the values are a differnece  the lower stat will actually be the one with the greater value. so I should use greater than for these.
     // if equal I think I'll just toss up a 50/50 Random() % 2  setting each, like I did for forecast.
      //so this should boost attack,if atk is lower & split is physical
+    
     
     if (move == MOVE_HIDDEN_POWER) // also see about putting split condition for hidden power onto the function for getbattlesplit
     {
@@ -4729,20 +4731,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             usesDefStat = FALSE;
     }*/
 
-    if (gBattleMoves[move].effect == EFFECT_TRIPLE_KICK
-        && move != MOVE_SURGING_STRIKES    //could put in separate dmg bscommand, but if works for multitask this should also work
-        && move != MOVE_TRIPLE_DIVE)
-    {//only boosts damage if triple kick or triple axel
-
-        if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
-            gBattleMovePower *= 2;
-
-        if (gMultiHitCounter == 1)
-            gBattleMovePower *= 3;
-        /*else if (gCurrentMove == MOVE_SURGING_STRIKES)    handled in crit calc
-        */
-    }   //this has to go here, multitask worked below cause it was using gBattleMoveDamage
-
     //put water shuriken ash gren move power boost here
     //goes from 15bp to 20bp
     //need check if this is fine, idk if this would mess up other bonuses that effet move power?
@@ -4757,13 +4745,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //this should be fine
     if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
-        
+    
+       
 
-    if (gBattleMoves[move].effect == EFFECT_RETALITATE
-    && gSideTimers[atkSide].retaliateTimer == 1)
-    {
-        gBattleMovePower *= 2;
-    }
 
     //should work for whatever move I use
     if (gBattleStruct->pursuitTarget & (1u << battlerIdDef))
@@ -5015,52 +4999,257 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     }
 
     //MOVE / VARIOUS EFFECTS - realized never added terrain boost, should put here
-    if (gBattleMoves[move].effect == EFFECT_EXPLOSION) //keeps special explosion variants consistent, check if should  include mindblown
-        DefenseModifer(50);
-    if (gBattleMoves[move].effect == EFFECT_ASSURANCE
-        && (gProtectStructs[battlerIdDef].physicalDmg != 0 || gProtectStructs[battlerIdDef].specialDmg != 0 || gProtectStructs[battlerIdDef].confusionSelfDmg))
-        gBattleMovePower *= 2;
-    if (gBattleMoves[move].effect == EFFECT_KNOCK_OFF && gBattleMons[battlerIdDef].item != 0)
-        gBattleMovePower = (150 * gBattleMovePower) / 100;
-    if (gBattleMoves[move].effect == EFFECT_WAKE_UP_SLAP)
+    //MOVE EFFECTS
+    switch (gBattleMoves[move].effect)
     {
+        case EFFECT_TRIPLE_KICK:
+        {
+            if (move != MOVE_SURGING_STRIKES   
+            && move != MOVE_TRIPLE_DIVE)
+            {//only boosts damage if triple kick or triple axel
+
+            if (gMultiHitCounter == 2)//to shift triple kick effect from bs command adding 10 i.e fixed value back to a multiplier like in gen 2/origin.
+                gBattleMovePower *= 2;
+
+            if (gMultiHitCounter == 1)
+                gBattleMovePower *= 3;
+            
+            }
+        }
+        break;
+        case EFFECT_PLEDGE: //need set this up
+            //if (gBattleStruct->pledgeMove)
+            //    gBattleMovePower = 150;
+        break;
+        case EFFECT_FLING:
+            gBattleMovePower = GetFlingPowerFromItemId(gBattleMons[battlerIdAtk].item);
+        break;
+        case EFFECT_RETALITATE:
+        {
+            if (gSideTimers[atkSide].retaliateTimer == 1)
+                gBattleMovePower *= 2;
+        }
+        break;
+        case EFFECT_PAYBACK: //moves after target and target not just switched in does that mean it doesn't work on first turn of battle? yeah think it does will add on to just in case
+        if (GetBattlerTurnOrderNum(battlerIdAtk) > GetBattlerTurnOrderNum(battlerIdDef)
+            &&  gDisableStructs[battlerIdDef].isFirstTurn != 2) //this is fine becuase turnvaluescleanup decrements it before first turn of battle, so its only 2 at switch in
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_BOLT_BEAK:
+        if (GetBattlerTurnOrderNum(battlerIdAtk) < GetBattlerTurnOrderNum(battlerIdDef)
+            || gDisableStructs[battlerIdDef].isFirstTurn == 2)
+            gBattleMovePower *= 2;
+        break;
+    case EFFECT_ROUND:
+        for (i = 0; i < gBattlersCount; i++)
+        {
+            if (i != battlerIdAtk && IsBattlerAlive(i) && GetMoveEffect(gLastUsedMove) == EFFECT_ROUND)
+            {
+                gBattleMovePower *= 2;
+                break;
+            }
+        }
+        break;
+        case EFFECT_EXPLOSION: //keeps special explosion variants consistent
+            DefenseModifer(50);
+        break;
+        case EFFECT_FUSION_COMBO:
+        if (GetMoveEffect(gLastUsedMove) == EFFECT_FUSION_COMBO && move != gLastUsedMove)
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_ASSURANCE:
+        if (gProtectStructs[battlerIdDef].physicalDmg != 0 || gProtectStructs[battlerIdDef].specialDmg != 0 || gProtectStructs[battlerIdDef].confusionSelfDmg)
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_ACROBATICS:
+         //unsure if need add logic for empty secondary itemslot as usually moves over to normal held item when that's empty?
+         //not sure if the item slot swap happens before this or not? vsonic
+        if (gBattleMons[battlerIdAtk].item == ITEM_NONE
+            // Edge case, because removal of items happens after damage calculation.
+            || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk, FALSE) == HOLD_EFFECT_GEMS))
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_KNOCK_OFF:
+        if (gBattleMons[battlerIdDef].item != ITEM_NONE)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        break;
+        case EFFECT_WAKE_UP_SLAP:
         if (gBattleMons[battlerIdDef].status1 & STATUS1_SLEEP || GetBattlerAbility(battlerIdDef) == ABILITY_COMATOSE)
             gBattleMovePower *= 2;
-    }
-
-    if ((gBattleMoves[move].effect == EFFECT_VENOSHOCK
-    || move == MOVE_BARB_BARRAGE)
-    && defender->status1 & STATUS1_PSN_ANY && IsBlackFogNotOnField())
-        gBattleMovePower = (230 * gBattleMovePower) / 100;
-
-    else if ((gBattleMoves[move].effect == EFFECT_HEX
-    || gBattleMoves[move].effect == EFFECT_VENOSHOCK
-    || move == MOVE_BARB_BARRAGE
-    || move == MOVE_INFERNAL_PARADE)
-    && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
-        gBattleMovePower *= 2;
-
-    if (gBattleMoves[move].effect == EFFECT_SMELLINGSALT)
-    {
+        break;
+        case EFFECT_VENOSHOCK:
+        if (defender->status1 & STATUS1_PSN_ANY && IsBlackFogNotOnField())
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_HEX:
+        if (defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_SMELLINGSALTS:
         if (gBattleMons[battlerIdDef].status1 & STATUS1_PARALYSIS && IsBlackFogNotOnField())
             gBattleMovePower *= 2;
-    }
-
-    if (gBattleMoves[move].effect == EFFECT_BRINE
-    && defender->hp <= defender->maxHP / 2)
-        gBattleMovePower *= 2;
-
-    
-
-    if (gBattleMoves[move].effect == EFFECT_STOMPING_TANTRUM)
-    {
+        break;
+        case EFFECT_BRINE:
+        if (defender->hp <= defender->maxHP / 2)
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_STOMPING_TANTRUM:
         if (gBattleStruct->lastMoveFailed & gBitTable[battlerIdAtk])
             gBattleMovePower *= 2;
+        break;
+        case EFFECT_GRAV_APPLE:
+        if (gFieldStatuses & STATUS_FIELD_GRAVITY)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        break;
+        case EFFECT_TERRAIN_PULSE:
+        if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_TERRAIN_ANY))
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_EXPANDING_FORCE:
+        if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_PSYCHIC_TERRAIN))
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        break;
+        /*case EFFECT_RISING_VOLTAGE:
+        if (IsBattlerTerrainAffected(battlerIdDef, STATUS_FIELD_ELECTRIC_TERRAIN))
+            gBattleMovePower *= 2;
+        break;
+        case EFFECT_PSYBLADE:
+        if (gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
+            gBattleMovePower = (150 * gBattleMovePower) / 100;
+        break;
+        case EFFECT_RAGE_FIST:
+            gBattleMovePower += 50 * gBattleStruct->timesGotHit[GetBattlerSide(battlerIdAtk)][gBattlerPartyIndexes[battlerIdAtk]];
+            gBattleMovePower = (gBattleMovePower > 350) ? 350 : gBattleMovePower;
+        break;
+        case EFFECT_FICKLE_BEAM:
+            if (gBattleStruct->fickleBeamBoosted)
+                gBattleMovePower *= 2;
+        break;
+        case EFFECT_TERA_BLAST:
+            if (GetActiveGimmick(battlerIdAtk) == GIMMICK_TERA && GetBattlerTeraType(battlerIdAtk) == TYPE_STELLAR)
+                gBattleMovePower = 100;
+        break;
+        case EFFECT_LAST_RESPECTS:
+            gBattleMovePower += (gBattleMovePower * min(100, GetBattlerSideFaintCounter(battlerIdAtk)));
+        break;
+        */
+        case EFFECT_LOW_KICK:
+        weight = GetBattlerWeight(battlerIdDef);
+        for (i = 0; gWeightToDamageTable[i] != 0xFFFF; i += 2)
+        {
+            if (gWeightToDamageTable[i] > weight)
+                break;
+        }
+        if (gWeightToDamageTable[i] != 0xFFFF)
+            gBattleMovePower = gWeightToDamageTable[i + 1];
+        else
+            gBattleMovePower = 120;
+        break;
+        case EFFECT_HEAT_CRASH:
+        {
+            weight = GetBattlerWeight(battlerIdAtk) / GetBattlerWeight(battlerIdDef);
+            if (weight >= ARRAY_COUNT(gHeatCrashPowerTable))
+                gBattleMovePower = gHeatCrashPowerTable[ARRAY_COUNT(gHeatCrashPowerTable) - 1];
+            else
+                gBattleMovePower = gHeatCrashPowerTable[weight];
+            break;
+        }
+    case EFFECT_PUNISHMENT:
+        gBattleMovePower += (CountBattlerStatIncreases(battlerIdDef, FALSE) * 20);
+        if (gBattleMovePower > 200)
+            gBattleMovePower = 200;
+        break;
+    case EFFECT_STORED_POWER:
+        gBattleMovePower += (CountBattlerStatIncreases(battlerIdAtk, TRUE) * 20);
+        break;
+    case EFFECT_ELECTRO_BALL:
+        speed_Value = GetBattlerTotalSpeedStat(battlerIdAtk) / GetBattlerTotalSpeedStat(battlerIdDef);
+        if (speed_Value >= ARRAY_COUNT(gSpeedDiffPowerTable))
+            speed_Value = ARRAY_COUNT(gSpeedDiffPowerTable) - 1;
+        gBattleMovePower = gSpeedDiffPowerTable[speed_Value];
+        break;
+    case EFFECT_GYRO_BALL:
+        gBattleMovePower = ((25 * GetBattlerTotalSpeedStat(battlerIdDef)) / GetBattlerTotalSpeedStat(battlerIdAtk)) + 1;
+        if (gBattleMovePower > 150)
+            gBattleMovePower = 150;
+        break;
+    case EFFECT_TRUMP_CARD:
+    {
+        i = GetMoveSlot(gBattleMons[battlerIdAtk].moves, move);
+        if (i != MAX_MON_MOVES)
+        {
+            if (gBattleMons[battlerIdAtk].pp[i] >= ARRAY_COUNT(gTrumpCardPowerTable))
+                gBattleMovePower = gTrumpCardPowerTable[ARRAY_COUNT(gTrumpCardPowerTable) - 1];
+            else
+                gBattleMovePower = gTrumpCardPowerTable[gBattleMons[battlerIdAtk].pp[i]];
+        }
+        
     }
+    break;
+    case EFFECT_ECHOED_VOICE:
+        // gBattleStruct->sameMoveTurns incremented in ppreduce
+        if (gBattleStruct->sameMoveTurns[battlerIdAtk] != 0)
+        {
+            gBattleMovePower += (gBattleMovePower * gBattleStruct->sameMoveTurns[battlerIdAtk]);
+            if (gBattleMovePower > 200)
+                gBattleMovePower = 200;
+        }
+        break;
+    case EFFECT_SPIT_UP:
+        gBattleMovePower = 100 * gDisableStructs[battlerIdAtk].stockpileCounter;
+        break;
+    case EFFECT_RETURN:
+        gBattleMovePower = 10 * (gBattleMons[gBattlerAttacker].friendship) / 25; //new friendship change makes return initially weaker and scale up slower
+        break;
+        case EFFECT_FRUSTRATION:
+        gBattleMovePower = 10 * (255 - gBattleMons[gBattlerAttacker].friendship) / 25; //ironically it makes frustration actually viable in game,
+        break;
+        case EFFECT_FURY_CUTTER:
+        if (gCurrentMove == MOVE_FURY_CUTTER) //changing script to just use the multi-hit bs, need to add this to its loop though,
+        //so to ensure it doesn't trigger for other moves, made the entire thing contingent on move fury cutter, 
+        //will need to find & test other multi hit (try spearow fury attack,) to ensure I didn't break it.
+        {
+            
+            gBattleMovePower = gBattleMoves[gCurrentMove].power; //it's working now.
 
-    if (IsBattlerTerrainAffected(battlerIdAtk, STATUS_FIELD_PSYCHIC_TERRAIN)
-    && gBattleMoves[move].effect == EFFECT_EXPANDING_FORCE)
-        gBattleMovePower = (150 * gBattleMovePower) / 100;
+            //ok believe wcan replace all instance of this subtraction check
+            //with furycuttercount, that way both acc and dmg would reset
+            //on a miss
+            for (i = 0; i < gDisableStructs[gBattlerAttacker].furyCutterCounter; ++i) //...changed this and damage multiplier actually works -_-
+            {                 
+                gBattleMovePower += 10;  //rebalance, raise base power to 15, change to additive boost, higher scale on early hits slightly lower on end
+                                                //new rebalance
+                    //new note what this does is loop dmg multiplier to ensure dmg is boosted based on how high couter is
+                // berserker *= 3;  //change from 3 to 1, for large test, should reduce accuracy by 4 each hit if its working
+                    //berserker /= 4; 
+            }//dizzyegg confirms doing this way also works for establishing 3/4
+            //++gBattlescriptCurrInstr; // if done right power should double and accuracy should drop off by a fourth each hti
+
+            // had to move to accuracy function battlescript was below the accuracy check if done here
+            //this command is below acc check so if I get here hit is guaranteed success
+            //so increment here is fine
+            ++gDisableStructs[gBattlerAttacker].furyCutterCounter;
+        }
+        break;
+        case EFFECT_PSYWAVE:
+        {
+            gBattleMovePower = (Random() % 4) + 5; //0-3 total 5-8
+            gBattleMovePower *= 10; //50 - 80
+        }
+        break;
+        case EFFECT_SNOWBALL:
+        {
+            s32 snowball = Random() % 30;
+            if (snowball < 8) //pwr 45  65  80
+                gBattleMovePower = 45;
+            else if (snowball < 21)
+                gBattleMovePower = 65;
+            else
+                gBattleMovePower = 80;
+        }   
+        break;
+    }       
+
 
 
     //terrain
@@ -5313,7 +5502,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_TRANSISTOR:
         if (moveType == TYPE_ELECTRIC)
-            gBattleMovePower = (gBattleMovePower * 150 / 100);
+            gBattleMovePower = (gBattleMovePower * 130 / 100);
         //MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_STALL:

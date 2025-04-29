@@ -1153,17 +1153,6 @@ static const u16 sMovesForbiddenToCopy[] =
     METRONOME_FORBIDDEN_END
 };
 
-//raising the left numbers higher, will let you do more damage from higher percent hp
-static const u8 sFlailHpScaleToPowerTable[] =
-{
-    4, 200,
-    12, 150,
-    19, 100,
-    25, 80,
-    32, 40,
-    68, 20
-};
-
 //these two arrays relate only to multi_task, could probably do with just 1, but just some extra redundancy
 //ledian buff taking multi hit & fury cutt effect out of this to make like skill link
 //FOR MOVES that cant work with multitask setup, or would be broken
@@ -1238,16 +1227,6 @@ u16 GetNaturePowerMove(void)
 }
 
 
-static const u16 sWeightToDamageTable[] =
-{
-    50, 40,
-    200, 60,    //geodude is here
-    500, 75,
-    1000, 85,  //graveler is here
-    2400, 100,  //onix is here  //snorlax is double this
-    10000, 120,
-    0xFFFF, 0xFFFF
-};
 
 
 static const u8 sTerrainToType[] =
@@ -16091,13 +16070,13 @@ static u8 WeightBoostedDamageFormula(void)
     s32 i;
     u8 damage;
 
-    for (i = 0; sWeightToDamageTable[i] != 0xFFFF; i += 2) //go to next row, if not 0xffff
+    for (i = 0; gWeightToDamageTable[i] != 0xFFFF; i += 2) //go to next row, if not 0xffff
     {
-        if (sWeightToDamageTable[i] > GetBattlerWeight(gBattlerTarget)) //using this function over base species weight allows automize, float stone, heavy and light metal to have affect on dmg formula
+        if (gWeightToDamageTable[i] > GetBattlerWeight(gBattlerTarget)) //using this function over base species weight allows automize, float stone, heavy and light metal to have affect on dmg formula
             break;
     }
-    if (sWeightToDamageTable[i] != 0xFFFF) //will always break before reach ffff, max dmg 120
-        damage = sWeightToDamageTable[i + 1];
+    if (gWeightToDamageTable[i] != 0xFFFF) //will always break before reach ffff, max dmg 120
+        damage = gWeightToDamageTable[i + 1];
 
     return damage;
 }
@@ -16619,17 +16598,18 @@ static void atkAB_trysetdestinybondtohappen(void)
     ++gBattlescriptCurrInstr;
 }
 
+//only used in flail can move to pokemon .c
 static void atkAC_remaininghptopower(void) //changed from 48 to 64 since apparently gen 2-4 used 64 multiplier
 {
     s32 i;  //changed back since a lower multiplier gets you more damage at 64 50% health scales to 32 at 48 50% health scales ot 24
     s32 hpFraction = GetScaledHPFraction(gBattleMons[gBattlerAttacker].hp, gBattleMons[gBattlerAttacker].maxHP, 36);
 
-    for (i = 0; i < (s32)sizeof(sFlailHpScaleToPowerTable); i += 2)
+    for (i = 0; i < (s32)sizeof(gFlailHpScaleToPowerTable); i += 2)
     {
-        if (hpFraction <= sFlailHpScaleToPowerTable[i])
+        if (hpFraction <= gFlailHpScaleToPowerTable[i])
             break;
     }
-    gDynamicBasePower = sFlailHpScaleToPowerTable[i + 1];
+    gDynamicBasePower = gFlailHpScaleToPowerTable[i + 1];
     ++gBattlescriptCurrInstr;
 }
 
@@ -17097,11 +17077,15 @@ static void atkB9_magnitudedamagecalculation(void)
 //consolidate moves with varied power that dont require a jump here
 //will be return frustration magnitude, and snowball, since decide want to keep type on that
 //could also be rage & fury cutter it seems
+//change mind most can be put in calcbasedamage
+//will just keeps effects that are complex or require extra setup here
+//i.e magnitude because print string same for rage
+//and present oh present is already in its own place
 void BS_VariablePowerCalc(void) 
 {
     NATIVE_ARGS();
     s32 magnitude = Random() % 100;
-    s32 snowball = Random() % 30;
+    
     u8 rageCounter = gDisableStructs[gBattlerAttacker].rageCounter;
     u32 i;
 
@@ -17153,24 +17137,19 @@ void BS_VariablePowerCalc(void)
             //gBattlescriptCurrInstr = cmd->nextInstr;
         
         }
-        case EFFECT_MULTI_HIT:
-        {
-            if (gCurrentMove == MOVE_WATER_SHURIKEN && gBattleMons[gBattlerAttacker].species == SPECIES_GRENINJA_ASH)
-            {
-                gDynamicBasePower = 20;
-            }
-        }
-        break;
-        case EFFECT_PSYWAVE:
-        {
-            gDynamicBasePower = (Random() % 4) + 5; //0-3 total 5-8
-            gDynamicBasePower *= 10; //50 - 80
-        }
-        break;
+        break;        
         case EFFECT_RAGE:
         if (gCurrentMove == MOVE_RAGE)
         {
-
+            //this looked weird but works fine
+            //just means if I miss w rage...hmm unless it isn't?
+            //cuz of where its at move result doesn't affect foe
+            //can't be triggered (its before typecalc)
+            //may be intended I did intentionally make use of a missed script here
+            //oh saw note may be I just never finished setting up...?
+            //hmm I think I'll not add that, would add tier list of rage users
+            //which would again balance out to type chart rank
+            //without that its an equal opportunity move
             if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
             {
                 gDisableStructs[gBattlerAttacker].rageCounter = 0;
@@ -17185,49 +17164,7 @@ void BS_VariablePowerCalc(void)
             }
         }
         break;
-        case EFFECT_RETURN:
-        gDynamicBasePower = 10 * (gBattleMons[gBattlerAttacker].friendship) / 25; //new friendship change makes return initially weaker and scale up slower
-        break;
-        case EFFECT_FRUSTRATION:
-        gDynamicBasePower = 10 * (255 - gBattleMons[gBattlerAttacker].friendship) / 25; //ironically it makes frustration actually viable in game,
-        break;
-        case EFFECT_FURY_CUTTER:
-        if (gCurrentMove == MOVE_FURY_CUTTER) //changing script to just use the multi-hit bs, need to add this to its loop though,
-        //so to ensure it doesn't trigger for other moves, made the entire thing contingent on move fury cutter, 
-        //will need to find & test other multi hit (try spearow fury attack,) to ensure I didn't break it.
-        {
-            
-            gDynamicBasePower = gBattleMoves[gCurrentMove].power; //it's working now.
-
-            //ok believe wcan replace all instance of this subtraction check
-            //with furycuttercount, that way both acc and dmg would reset
-            //on a miss
-            for (i = 0; i < gDisableStructs[gBattlerAttacker].furyCutterCounter; ++i) //...changed this and damage multiplier actually works -_-
-            {                 
-                gDynamicBasePower += 10;  //rebalance, raise base power to 15, change to additive boost, higher scale on early hits slightly lower on end
-                                                //new rebalance
-                    //new note what this does is loop dmg multiplier to ensure dmg is boosted based on how high couter is
-                // berserker *= 3;  //change from 3 to 1, for large test, should reduce accuracy by 4 each hit if its working
-                    //berserker /= 4; 
-            }//dizzyegg confirms doing this way also works for establishing 3/4
-            //++gBattlescriptCurrInstr; // if done right power should double and accuracy should drop off by a fourth each hti
-
-            // had to move to accuracy function battlescript was below the accuracy check if done here
-            //this command is below acc check so if I get here hit is guaranteed success
-            //so increment here is fine
-            ++gDisableStructs[gBattlerAttacker].furyCutterCounter;
-        }
-        break;
-        case EFFECT_SNOWBALL:
-        {
-            if (snowball < 8) //pwr 45  65  80
-                gDynamicBasePower = 45;
-            else if (snowball < 21)
-                gDynamicBasePower = 65;
-            else
-                gDynamicBasePower = 80;
-        }   
-        break;
+        
     }
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
@@ -18254,6 +18191,7 @@ static void atkD7_setyawn(void)
     }
 }
 
+//for yawn change
 void BS_JumpandClearRage(void)
 {
      NATIVE_ARGS(const u8 *jumpInstr);
@@ -18383,19 +18321,20 @@ static void atkDC_trysetgrudge(void)
     } //   Also useful to use call or goto instead of jump if use call, should be able to return as I want. with "return;"
 }
 
+//no longer used done in pokemon.c as w emerlad
 static void atkDD_weightdamagecalculation(void)
 {
     s32 i;
 
-    for (i = 0; sWeightToDamageTable[i] != 0xFFFF; i += 2) //go to next row, if not 0xffff
+    for (i = 0; gWeightToDamageTable[i] != 0xFFFF; i += 2) //go to next row, if not 0xffff
     {
-        if (sWeightToDamageTable[i] > GetBattlerWeight(gBattlerTarget))
+        if (gWeightToDamageTable[i] > GetBattlerWeight(gBattlerTarget))
             break;  //tells it to stop loop, sets damage
     }
-    if (sWeightToDamageTable[i] != 0xFFFF)
-        gDynamicBasePower = sWeightToDamageTable[i + 1];
-    //else
-      //  gDynamicBasePower = 120;
+    if (gWeightToDamageTable[i] != 0xFFFF)
+        gDynamicBasePower = gWeightToDamageTable[i + 1];
+    else
+      gDynamicBasePower = 120;
     ++gBattlescriptCurrInstr;
 }
 

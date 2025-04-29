@@ -11530,6 +11530,35 @@ u32 GetBattlerWeight(u8 battlerId) //use ethis for calculating  seismic toss dam
     return weight;
 }
 
+u16 SanitizeMoveId(u16 move)
+{
+    if (move >= MOVES_COUNT)
+        return MOVE_NONE;
+    else
+        return move;
+}
+
+u16 GetMoveEffect(u16 move)
+{
+    return gBattleMoves[SanitizeMoveId(move)].effect;
+}
+
+u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc)
+{
+    u32 i;
+    u32 count = 0;
+
+    for (i = 0; i < NUM_BATTLE_STATS; i++)
+    {
+        if ((i == STAT_ACC || i == STAT_EVASION) && !countEvasionAcc)
+            continue;
+        if (gBattleMons[battler].statStages[i] > DEFAULT_STAT_STAGE) // Stat is increased.
+            count += gBattleMons[battler].statStages[i] - DEFAULT_STAT_STAGE;
+    }
+
+    return count;
+}
+
 static bool32 IsPartnerMonFromSameTrainer(u8 battlerId)
 {
     if (GetBattlerSide(battlerId) == B_SIDE_OPPONENT && gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) // replaced flag after ingamepartner
@@ -12552,6 +12581,20 @@ u32 GetBattleMoveDamageCategory(u32 battler, u16 move)
 //vs what offense stat it uses,
 //use this for offense,
 //use isphysicalmove for defense
+
+//dont need tm logic as disllowed holding of tms
+u32 GetFlingPowerFromItemId(u32 itemId)
+{
+    /*if (itemId >= ITEM_TM01 && itemId <= ITEM_HM08)
+    {
+        u32 power = GetMovePower(ItemIdToBattleMoveId(itemId));
+        if (power > 1)
+            return power;
+        return 10; // Status moves and moves with variable power always return 10 power.
+    }
+    else*/
+        return ItemId_GetFlingPower(itemId);
+}
 
 u32 GetBattleMoveSplit(u32 moveId)
 {

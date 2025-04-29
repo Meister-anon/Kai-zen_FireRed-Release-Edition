@@ -130,6 +130,7 @@ bool8 IsBattlerAlive(u8 battlerId);
 bool8 IsBlackFogNotOnField(void);
 u32 GetBattlerAbility(u8 battlerId);
 u32 GetBattlerWeight(u8 battlerId);
+u32 GetFlingPowerFromItemId(u32 itemId);
 //u16 GetPrimalReversionSpecies(u16 preEvoSpecies, u16 heldItemId);
 //u16 GetMegaEvolutionSpecies(u16 preEvoSpecies, u16 heldItemId);
 //u16 GetWishMegaEvolutionSpecies(u16 preEvoSpecies, u16 moveId1, u16 moveId2, u16 moveId3, u16 moveId4);
@@ -238,6 +239,7 @@ void CacophonyElevateMoveEffect(void);
 u8 GetMoveType(u8 moveType, u8 btlAttacker);
 void GetBattlerTypes(u32 battler, bool32 ignoreTera, u32 types[/*static*/ 3]); //according to mcgriffin static check should work w my compiler version but doesn't.. advised remove static for now
 u32 GetBattlerType(u32 battler, u32 typeIndex, bool32 ignoreTera);
+u32 CountBattlerStatIncreases(u32 battler, bool32 countEvasionAcc);
 bool32 IsMoldBreakerTypeAbilityActive(u32 battler, u32 ability);
 bool32 IsNeutralizingGasTypeAbilityActive(u32 battler, u32 ability); //attempt simplify getbattlerability logic
 
@@ -256,6 +258,8 @@ u32 IsTypeOnField(u32 battlerId, u8 type);
 s32 DoMoveDamageCalc(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, s32 fixedBasePower,
     bool32 isCrit, bool32 randomFactor, bool32 updateFlags, u16 typeEffectivenessModifier);
 
+u16 GetMoveEffect(u16 move);
+u16 SanitizeMoveId(u16 move);
 bool32 WeatherHasEffect(void); //meant to replace macro for Weather_has_effect
 
 enum {
@@ -270,6 +274,32 @@ enum {
 #define THAW_CONDITION(move) ((move == MOVE_SCALD) || (((gBattleMoves[move].type == TYPE_FIRE) || (gBattleMoves[move].argument == TYPE_FIRE)) && (gBattleMoves[move].power >= 60 || gDynamicBasePower >= 60)))
 
 #define HEALING_EFFECT ((EFFECT_RESTORE_HP || EFFECT_REST || EFFECT_MORNING_SUN || EFFECT_MOONLIGHT || EFFECT_SYNTHESIS || EFFECT_HEAL_PULSE || EFFECT_HEALING_WISH || EFFECT_ROOST || EFFECT_SWALLOW || EFFECT_WISH || EFFECT_SOFTBOILED || EFFECT_ABSORB))
+
+static const u8 gSpeedDiffPowerTable[] = {40, 60, 80, 120, 150};
+static const u8 gHeatCrashPowerTable[] = {40, 40, 60, 80, 100, 120};
+static const u8 gTrumpCardPowerTable[] = {200, 80, 60, 50, 40};
+
+//raising the left numbers higher, will let you do more damage from higher percent hp
+static const u8 gFlailHpScaleToPowerTable[] =
+{
+    4, 200,
+    12, 150,
+    19, 100,
+    25, 80,
+    32, 40,
+    68, 20
+};
+
+static const u16 gWeightToDamageTable[] =
+{
+    50, 40,
+    200, 60,    //geodude is here
+    500, 75,
+    1000, 85,  //graveler is here
+    2400, 100,  //onix is here  //snorlax is double this
+    10000, 120,
+    0xFFFF, 0xFFFF
+};
 
 // percent in UQ_4_12 format
 extern const uq4_12_t gPercentToModifier[101];

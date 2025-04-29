@@ -378,7 +378,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectCaptivate
 	.4byte BattleScript_EffectHit
 	.4byte BattleScript_EffectHammerArm
-	.4byte BattleScript_EffectFusionCombo
+	.4byte BattleScript_EffectHit					 @EFFECT_FUSION_COMBO
 	.4byte BattleScript_EffectHealBlock
 	.4byte BattleScript_EffectSpecialAttackUp3
 	.4byte BattleScript_EffectStrengthUpHit
@@ -446,7 +446,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
-BattleScript_EffectFusionCombo:
+@BattleScript_EffectFusionCombo:
 BattleScript_EffectTwoTypedMove:
 BattleScript_EffectBodyPress:
 BattleScript_EffectChangeTypeOnItem:
@@ -6302,9 +6302,10 @@ BattleScript_EffectSnatch::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
+@moved dmg calc to pokemon.c
 BattleScript_EffectLowKick::
 	attackcanceler
-	weightdamagecalculation
+	@weightdamagecalculation
 	jumpifability BS_ATTACKER, ABILITY_MULTI_TASK, BattleScript_MultiHitFromAtkString
 	attackstring
 	ppreduce
