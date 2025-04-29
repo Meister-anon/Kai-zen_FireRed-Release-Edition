@@ -960,13 +960,14 @@
 //New Tms - w diff setup no longer need to hard lock number to item id I guess
 #define ITEM_TM_FLASH_FREEZE 561
 #define ITEM_TM_TRAILBLAZE 562
-#define ITEM_N_A 563 
+#define ITEM_TM_FOCUS_BLAST 563
+#define ITEM_N_A 564 
 // keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error// keep this as last item value, needs be +1 last defined item value   emerald stuff needs to be a separate value, otherwise seems to make duplicate error
 #define ITEMS_COUNT ITEM_N_A +1
 #define ITEM_FIELD_ARROW ITEM_N_A//field arrow isn't defined as an item, it just end of item_menu_icons.c list
 // Emerald   BUT based on list from vanilla its actually ID was equal to items N_A, circumventing that equation.
 
-#define LAST_ITEM_INDEX ITEM_TM_FLASH_FREEZE
+#define LAST_ITEM_INDEX ITEM_TM_FOCUS_BLAST
 
 #define FIRST_BERRY_INDEX ITEM_CHERI_BERRY
 #define LAST_BERRY_INDEX ITEM_ENIGMA_BERRY
