@@ -8208,7 +8208,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 50,
         #endif
-        .effect = EFFECT_PLEDGE,
+        .effect = EFFECT_PLEDGE, //need finish setup effect for this vsonic
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 10,

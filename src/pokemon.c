@@ -5018,8 +5018,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         }
         break;
         case EFFECT_PLEDGE: //need set this up
-            //if (gBattleStruct->pledgeMove)
-            //    gBattleMovePower = 150;
+            if (gBattleStruct->pledgeMove)
+                gBattleMovePower = 150;
         break;
         case EFFECT_FLING:
             gBattleMovePower = GetFlingPowerFromItemId(gBattleMons[battlerIdAtk].item);
@@ -6357,7 +6357,24 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //just run on end result
     damage = max(damage, 1);
     
-    //since should apply to both realized should just put outside
+    
+
+    //hmm ok don't know why this doesn't seem to work here
+    //results in min damage of 3 so have to put back
+    //that's not an error that's how the formula always worked...
+    //only does less on resist
+    //should be good idea infatuation status buff
+    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION
+    && gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
+        damage = max((damage * 75) / 100, 1);
+
+    
+    //Last part of damage formula
+    damage += 2;
+
+    //since should apply to both realized should just put outside.
+    //yeah too strong putting back into power
+    //actually just put damage within this
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_MULTI_TASK
     && CanMultiTask(move) == TRUE)
     {
@@ -6372,17 +6389,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //on the end damage itself below?
        
     }//this seems to work/is more balanced
+    //weird somes it works sometimes its far weaker than it should be
+    //maybe I'm missing and not noticing?
+    //think it could be that, the hits are coming
 
-    //hmm ok don't know why this doesn't seem to work here
-    //results in min damage of 3 so have to put back
-    //that's not an error that's how the formula always worked...
-    //only does less on resist
-    //should be good idea infatuation status buff
-    if (gBattleMons[battlerIdAtk].status2 & STATUS2_INFATUATION
-    && gBattleStruct->infatuatedwithBattleId[battlerIdAtk] == battlerIdDef)
-        damage = max((damage * 75) / 100, 1);
-
-    return damage + 2;
+    return damage;
 }
 
 u8 CountAliveMonsInBattle(u8 caseId)

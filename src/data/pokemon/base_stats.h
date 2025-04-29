@@ -1180,7 +1180,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_POISON_POINT, ABILITY_RIVALRY},
+        .abilities = {ABILITY_POISON_POINT, ABILITY_LIGHTNING_ROD}, //potentially drop something for lightning rod?
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_COMPETITIVE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
@@ -37526,6 +37526,10 @@ const struct BaseStats gBaseStats[] =
     //hmm also need change ability,
     //with my type changes it almost has no weaknesses meaning even the buffed version
     //of the ability would almost never trigger
+
+    //but the main point is stopping fakeout...
+    //ok I think its bulky enough to survive fakeout double target
+    //given its stats
 
     //mostl boost sp atk, lower defense
     //this came out well, try to make this standard, +30 overall w respec
