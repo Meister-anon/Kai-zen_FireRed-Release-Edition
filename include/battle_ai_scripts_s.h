@@ -760,7 +760,7 @@ AI_CheckViability:: @ 81DA445
 	if_effect EFFECT_MEMENTO, AI_CV_SelfKO
 	if_effect EFFECT_FACADE, AI_CV_Facade
 	if_effect EFFECT_FOCUS_PUNCH, AI_CV_FocusPunch
-	if_effect EFFECT_SMELLINGSALT, AI_CV_SmellingSalt
+	if_effect EFFECT_SMELLINGSALTS, AI_CV_SmellingSalt
 	if_effect EFFECT_TRICK, AI_CV_Trick
 	if_effect EFFECT_ROLE_PLAY, AI_CV_ChangeSelfAbility
 	if_effect EFFECT_SUPERPOWER, AI_CV_Superpower

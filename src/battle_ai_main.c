@@ -4853,7 +4853,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score++;
         }
         break;
-    case EFFECT_SMELLINGSALT:
+    case EFFECT_SMELLINGSALTS:
         if (gBattleMons[battlerDef].status1 & STATUS1_PARALYSIS)
             score += 2;
         break;

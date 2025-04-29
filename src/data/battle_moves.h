@@ -4204,14 +4204,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .argument = MOVE_EFFECT_FLINCH,
     },
 
-    [MOVE_SMELLING_SALT] =
+    [MOVE_SMELLING_SALTS] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .power = 70,
         #else
             .power = 60,
         #endif
-        .effect = EFFECT_SMELLINGSALT,
+        .effect = EFFECT_SMELLINGSALTS,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 10,
