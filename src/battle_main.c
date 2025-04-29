@@ -6823,10 +6823,10 @@ static void HandleAction_UseMove(void)
         return;
     }
     gCritMultiplier = 1;
-    //gBattleScripting.dmgMultiplier = 1;
     gBattleStruct->atkCancellerTracker = 0;
     gMoveResultFlags = 0;
     gMultiHitCounter = 0;
+    gMultiTask = 0; //add ensure is being cleared damage is weird - this seemed to be the problem
     gDisableStructs[gBattlerAttacker].furyCutterCounter = 0; //added here so is always cleared before use
     gBattleCommunication[6] = 0;
     gBattleScripting.savedMoveEffect = 0;

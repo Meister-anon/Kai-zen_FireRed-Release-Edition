@@ -5027,6 +5027,9 @@ BattleScript_EffectThawHit::
 	setmoveeffect MOVE_EFFECT_BURN
 	goto BattleScript_EffectHit
 
+@does multitask work with this?
+@vsonic
+@nope need exclude from table
 BattleScript_EffectMagnitude::
 	attackcanceler
 	attackstring

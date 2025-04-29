@@ -1159,7 +1159,7 @@ static const u16 sMovesForbiddenToCopy[] =
 //rage added as effect can't work in setup - tired
 static const u16 sMultiTaskExcludedEffects[] =
 { 
-    //EFFECT_MAGNITUDE, //variable power  made function to account for
+    EFFECT_MAGNITUDE, //variable power  made function to account for - doesnt work
     EFFECT_ROLLOUT,
     EFFECT_SKY_ATTACK,
     EFFECT_SOLARBEAM,
@@ -1186,7 +1186,7 @@ static const u16 sMultiTaskExcludedEffects[] =
     EFFECT_UPROAR,
     EFFECT_RAMPAGE,
     EFFECT_OHKO, //no pokemon I'm giving this to normally learns a ohko move, so I may leave in for something potentially fun for the player.
-    //EFFECT_RAGE,  same as magnitude
+    EFFECT_RAGE,  //same as magnitude -requires specific script movement
     //EFFECT_TWO_TURNS_ATTACK // because I'm not using two turns attack??  doube check this
     MULTI_TASK_FORBIDDEN_END
 }; //had add multi hit effects back to this, it only affects dmg share from dmg calc macro
