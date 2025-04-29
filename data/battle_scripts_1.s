@@ -5046,7 +5046,7 @@ BattleScript_EffectBatonPass::
 	attackcanceler
 	attackstring
 	ppreduce
-	jumpifcantswitch BS_ATTACKER | ATK4F_DONT_CHECK_STATUSES, BattleScript_ButItFailed
+	jumpifcantswitch BS_ATTACKER | SWITCH_IGNORE_ESCAPE_PREVENTION, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
 	openpartyscreen BS_ATTACKER, BattleScript_ButItFailed

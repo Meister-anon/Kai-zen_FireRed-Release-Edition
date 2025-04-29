@@ -1169,6 +1169,7 @@ static const u16 sMultiTaskExcludedEffects[] =
     EFFECT_MULTI_HIT,
     EFFECT_FURY_CUTTER,
     EFFECT_DOUBLE_HIT,
+    EFFECT_DOUBLE_IRON_BASH,
     EFFECT_TRIPLE_KICK,
     EFFECT_SUPER_FANG,
     EFFECT_ENDEAVOR,
@@ -9257,25 +9258,22 @@ bool32 CanBattlerSwitch(u32 battlerId)
 #define OTHER_SWITCH_EFFECTS_1
 static void atk4F_jumpifcantswitch(void)
 {
-    s32 i;
-    s32 lastMonId;
-    struct Pokemon *party;
+    CMD_ARGS(u8 battler:7, u8 ignoreEscapePrevention:1, const u8 *jumpInstr);
 
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1] & ~(ATK4F_DONT_CHECK_STATUSES));
-    if (!(gBattlescriptCurrInstr[1] & ATK4F_DONT_CHECK_STATUSES)
-    && !CanBattlerEscape(gActiveBattler))
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    if (!cmd->ignoreEscapePrevention && !CanBattlerEscape(battler))
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     }
     else
     {
-        if (CanBattlerSwitch(gActiveBattler))
-            gBattlescriptCurrInstr += 6;//cmd->nextInstr;
+        if (CanBattlerSwitch(battler))
+            gBattlescriptCurrInstr = cmd->nextInstr;
         else
-           gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);//cmd->jumpInstr;
-    }  
+           gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
 
-}
+}//ok think this was off, switching this made the bug worse but think its more accurate?
 
 static void ChooseMonToSendOut(u8 slotId)
 {
@@ -12378,7 +12376,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         }
         else
         {
-            gStatuses4[gBattlerTarget] |= STATUS4_ELECTRIFIED;
+            gBattleMons[gBattlerTarget].status4 |= STATUS4_ELECTRIFIED;
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
         return;
@@ -13548,8 +13546,14 @@ static void atk76_various(void) //will need to add all these emerald various com
     }
     case VARIOUS_APPLY_PLASMA_FISTS:
     {
-        for (i = 0; i < gBattlersCount; i++)
-            gStatuses4[i] |= STATUS4_PLASMA_FISTS;
+        //EE replaced w ion deluge field effect but I made multi turn so 
+        //for default effect I just use timer value of 1
+        if (!(gFieldStatuses & STATUS_FIELD_ION_DELUGE))
+        {
+            gFieldStatuses |= STATUS_FIELD_ION_DELUGE;
+            
+        }  
+        gFieldTimers.IonDelugeTimer++;          
         break;
     }
     case VARIOUS_JUMP_IF_SPECIES:
@@ -20168,33 +20172,17 @@ void BS_setuserstatus3(void)
 //replacing w timer instead
 void BS_SetTrenchRun(void)
 {
-    NATIVE_ARGS(const u8 *ptr);
+    NATIVE_ARGS(const u8 *failInstr);
 
     if (gDisableStructs[gBattlerAttacker].trenchRunTimer)
     {
-        gBattlescriptCurrInstr = cmd->ptr;
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gDisableStructs[gBattlerAttacker].trenchRunTimer = 4; //4 turns if fast, 3 turns if slower
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
-}
-void BS_setuserstatus4(void)  //right now just usiong to set status groudned, for trenchrun
-{
-    u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
-
-    if (gStatuses4[gBattlerAttacker] & flags)
-    {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
-    }
-    else
-    {
-        gStatuses4[gBattlerAttacker] |= flags;
-
-        gBattlescriptCurrInstr += 9;
-    }
-
 }
 
 //cut and rock smash rework effect

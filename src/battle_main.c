@@ -196,7 +196,6 @@ EWRAM_DATA u8 gUnknown_2023DDC = 0;
 EWRAM_DATA u32 gSideStatuses[2] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[2] = {0};
 EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
-EWRAM_DATA u32 gStatuses4[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct DisableStruct gDisableStructs[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gPauseCounterBattle = 0;
 EWRAM_DATA u16 gPaydayMoney = 0;
@@ -1342,7 +1341,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
         }
 
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
-        || gStatuses4[battlerAtk] & STATUS4_ELECTRIFIED)
+        || gBattleMons[battlerAtk].status4 & STATUS4_ELECTRIFIED)
     {
         gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;   //need test if these work without this extra value
     }
@@ -1396,10 +1395,6 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
     else if (attackerAbility == ABILITY_WETIKO)//technically should put last, but I like the idea of it hitting everything except hidden power
     {
         gBattleStruct->dynamicMoveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
-    }
-    else if (gStatuses4[battlerAtk] & STATUS4_PLASMA_FISTS && moveType == TYPE_NORMAL)
-    {
-        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
     }
     else if (move == MOVE_AURA_WHEEL && gBattleMons[battlerAtk].species == SPECIES_MORPEKO_HANGRY)
     {
@@ -1526,7 +1521,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
         }
 
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)//add absolute zero, check if ability on field, like stench then do water chance to ice
-        || gStatuses4[battlerAtk] & STATUS4_ELECTRIFIED)
+        || gBattleMons[battlerAtk].status4 & STATUS4_ELECTRIFIED)
     {
         moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;   //need test if these work without this extra value
     }
@@ -1580,10 +1575,6 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
     else if (attackerAbility == ABILITY_WETIKO)
     {
         moveType = TYPE_ICE;// | F_DYNAMIC_TYPE_2;
-    }
-    else if (gStatuses4[battlerAtk] & STATUS4_PLASMA_FISTS && moveType == TYPE_NORMAL)
-    {
-        moveType = TYPE_ELECTRIC;// | F_DYNAMIC_TYPE_2;
     }
     else if (move == MOVE_AURA_WHEEL && gBattleMons[battlerAtk].species == SPECIES_MORPEKO_HANGRY)
     {
@@ -4199,7 +4190,6 @@ static void BattleStartClearSetData(void)
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
     {
         gStatuses3[i] = 0;
-        gStatuses4[i] = 0;
         gDisableStructs[i].isFirstTurn = 2; //beelieve is switching in? based on emerald comment    //vsonic
         gUnknown_2023DD4[i] = 0;
         gLastMoves[i] = MOVE_NONE;
@@ -4398,7 +4388,15 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         gBattleMons[gActiveBattler].status2 = 0;
         gBattleMons[gActiveBattler].status4 = 0;
         gStatuses3[gActiveBattler] = 0; //guess so but seems I misunderstood switch clear it clears data when they switch into battle not switching out
-        gStatuses4[gActiveBattler] = 0; // if don't clear could make status 4 traps permament so don't need to swap to status1
+        
+        //think should remove trap timers as well since mon switched out it can escape
+        //ex. ghost or flying 
+
+        //activebattler is mon switching, i is looping all battlers for effects
+        //that should be cleared when user switches out
+
+
+         // if don't clear could make status 4 traps permament so don't need to swap to status1
         //could just put if battler that set status was holding grip claw don't clear   
         //look to wrapped by logic for example, use that as battlerId and check hold effect vsonic
         //should be simple change to trappedby  and use for all traps
@@ -4489,7 +4487,10 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gBattleMons[gActiveBattler].status2 = 0;
     gBattleMons[gActiveBattler].status4 = 0;
     gStatuses3[gActiveBattler] = 0;
-    gStatuses4[gActiveBattler] = 0;
+
+    //activebattler is mon fainting, i is looping all battlers for effects
+    //that should be cleared when user faints
+
     for (i = 0; i < gBattlersCount; ++i) //trap etc removal on faint
     {
         //also exclude STATUS2_SWITCH_LOCKED from this, so effect persists
@@ -4727,7 +4728,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                 hpOnSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(gActiveBattler)];
                 *hpOnSwitchout = gBattleMons[gActiveBattler].hp;
                 for (i = 0; i < NUM_BATTLE_STATS; ++i)
-                    gBattleMons[gActiveBattler].statStages[i] = 6; //important, these two reset stat buffs, and clear status2 effects on switch
+                    gBattleMons[gActiveBattler].statStages[i] = DEFAULT_STAT_STAGE; //important, these two reset stat buffs, and clear status2 effects on switch
                 gBattleMons[gActiveBattler].status2 = 0; //or is it for batle start?
                 gBattleMons[gActiveBattler].status4 = 0;
             }

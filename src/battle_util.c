@@ -937,7 +937,6 @@ enum   //battler end turn
     //ENDTURN_INFESTATION,  //changed to non-damaging debuff status
     ENDTURN_THROAT_CHOP,
     ENDTURN_WONDER_GUARD, //kept here to exclude from other end turn damage for full timer duration
-    ENDTURN_PLASMA_FISTS,
     ENDTURN_BIDE,
     ENDTURN_ESCAPE_PREVENT, //named for simplicity, is switch lock effect
     ENDTURN_BATTLER_COUNT
@@ -3528,7 +3527,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_ELECTRIFY:
-                gStatuses4[gActiveBattler] &= ~STATUS4_ELECTRIFIED;
+                gBattleMons[gActiveBattler].status4 &= ~STATUS4_ELECTRIFIED;
                 ++gBattleStruct->turnEffectsTracker;
             case ENDTURN_POWDER:
                 gBattleMons[gActiveBattler].status2 &= ~STATUS2_POWDER;
@@ -3570,12 +3569,6 @@ u8 DoBattlerEndTurnEffects(void)
             }
             ++gBattleStruct->turnEffectsTracker;    
             break;
-            case ENDTURN_PLASMA_FISTS:
-                for (i = 0; i < gBattlersCount; i++)
-                    gStatuses4[i] &= ~STATUS4_PLASMA_FISTS;
-                //gStatuses4[gActiveBattler] &= ~STATUS4_PLASMA_FISTS; this line is emerald version...did I change how this works? can't think of why I would
-                ++gBattleStruct->turnEffectsTracker;
-                break;
             case ENDTURN_BIDE:
                 //logic for if I want bide to have no drawback, with this it shouldn't consume a turn on unleaesh if you received no damage
                 /*if (--gDisableStructs[gActiveBattler].bideTimer == 1 && gTakenDmg[gActiveBattler] == 0) //should display no energy string, then let select move

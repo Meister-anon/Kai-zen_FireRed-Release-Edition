@@ -298,8 +298,6 @@
 // Cmd_jumpifcantswitch
 #define SWITCH_IGNORE_ESCAPE_PREVENTION   (1 << 7)
 
-// atk4F, a flag used for the jumpifcantswitch command
-#define ATK4F_DONT_CHECK_STATUSES   0x80
 
 //equivalent of STAT_BUFF_ALLOW_PTR  just has different name
 //& STAT_BUFF_NOT_PROTECT_AFFECTED

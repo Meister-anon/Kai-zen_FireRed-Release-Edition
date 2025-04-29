@@ -516,10 +516,10 @@
 	.byte \dontclearsubstitutebit
 	.endm
 
-	.macro jumpifcantswitch battler:req, ptr:req
+	.macro jumpifcantswitch battler:req, jumpInstr:req
 	.byte 0x4f
 	.byte \battler
-	.4byte \ptr
+	.4byte \jumpInstr
 	.endm
 
 	.macro openpartyscreen param0:req, param1:req
@@ -1478,15 +1478,9 @@
 	.4byte \failInstr
 	.endm
 
-	.macro setuserstatus4 flags:req, ptr:req
-	callnative BS_setuserstatus4
-	.4byte \flags
-	.4byte \ptr
-	.endm
-
-	.macro setTrenchRun ptr:req
+	.macro setTrenchRun failInstr:req
 	callnative BS_SetTrenchRun
-	.4byte \ptr
+	.4byte \failInstr
 	.endm
 
 	.macro attackthisturn ptr:req
