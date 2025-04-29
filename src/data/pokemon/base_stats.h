@@ -25580,8 +25580,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_RUN_AWAY, ABILITY_UNBURDEN},
-        .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_PICKUP}, //replaced stakeout w pickpocket
+        .abilities = {ABILITY_PICKPOCKET, ABILITY_UNBURDEN},
+        .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_PICKUP}, //replaced stakeout w pickpocket
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -25618,8 +25618,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_RUN_AWAY, ABILITY_BANDIT_KING},
-        .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_MAGICIAN},
+        .abilities = {ABILITY_PICKPOCKET, ABILITY_BANDIT_KING},
+        .abilityHidden = {ABILITY_RUN_AWAY, ABILITY_MAGICIAN},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -25627,6 +25627,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sThievulTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //utility mon, will have to ev train and plan to make use of
+    //pickpocket will get more out of defenses, bandit king will block enemy item use
+    //and w magician combined w sucker punch and high speed
+    //would allow steal items before enemy can make use of them
 
     [SPECIES_GOSSIFLEUR] =
     {

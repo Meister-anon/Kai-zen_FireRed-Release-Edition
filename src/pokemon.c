@@ -5667,6 +5667,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_PICKPOCKET:
         if (IsMoveMakingContact(move, battlerIdAtk)) //small common sense damage reduction as most mon with this have shit defense,
         {
+            //on mon w low defense would b better to cut attacker offense
+            //DefenseModifer(133);
             OffensiveModifer(67);    //makes sense cuz of common pickpocket tacket of bump/run they prepare and intentionally take a hit
         }
         break;
