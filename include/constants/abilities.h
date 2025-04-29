@@ -38,7 +38,7 @@
 #define ABILITY_CHLOROPHYLL 34
 #define ABILITY_ILLUMINATE 35
 #define ABILITY_TRACE 36
-#define ABILITY_HUGE_POWER 37
+#define ABILITY_HUGE_POWER 37 //given mostly bunny mon as japanese "pun" related to bunnies or moon goddess
 #define ABILITY_POISON_POINT 38
 #define ABILITY_INNER_FOCUS 39
 #define ABILITY_MAGMA_ARMOR 40
@@ -75,7 +75,7 @@
 #define ABILITY_ARENA_TRAP 71
 #define ABILITY_VITAL_SPIRIT 72
 #define ABILITY_WHITE_SMOKE 73
-#define ABILITY_PURE_POWER 74
+#define ABILITY_PURE_POWER 74  //nother pun I believe japanese refers to yoga, and is separate ability since other is for rabbits so give pure power over huge power if decide to use boost
 #define ABILITY_SHELL_ARMOR 75
 #define ABILITY_CACOPHONY 76 //used made new effect
 #define ABILITY_AIR_LOCK 77

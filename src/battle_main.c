@@ -6196,7 +6196,7 @@ static void TurnValuesCleanUp(bool8 var0) //resets protect structs specific disb
     gBattleStruct->pursuitSwitchByMove = FALSE;
     gBattleStruct->pursuitStoredSwitch = 0;
 
-    //gBattleStruct->pledgeMove = FALSE; // combined pledge move may not have been used due to a canceller
+    gBattleStruct->pledgeMove = FALSE; // combined pledge move may not have been used due to a canceller
 }
 
 static void SpecialStatusesClear(void) //intimidatedmon is a special status so this function is what's resetting it outside of the faint condition
@@ -7386,6 +7386,8 @@ static void HandleAction_ActionFinished(void) //may be important for intimidate 
     gBattleScripting.multihitMoveEffect = 0;
     gBattleResources->battleScriptsStack->size = 0;
 
+    //adding the pledgemove thing here breaks game start...
+    //guess because not properly set up yet
     if (!afterYouActive/* && !gBattleStruct->pledgeMove*/)
     {
         // i starts at `gCurrentTurnActionNumber` because we don't want to recalculate turn order for mon that have already

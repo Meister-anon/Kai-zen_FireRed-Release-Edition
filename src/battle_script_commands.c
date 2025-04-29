@@ -8686,14 +8686,14 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         #endif*/
         
         //think will move this to move end clear bit effects
-    //so if lastused move 
-    //double check if that goes before or after
-    //my sandstorm damage, that is in endturn field effects
-    //vsonic test see if works as I want
-    if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP 
-    && gBattleMoves[gLastMoves[gBattlerAttacker]].type == TYPE_ELECTRIC
-    && gBattleMoves[gLastMoves[gBattlerAttacker]].split != SPLIT_STATUS)
-        gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
+        //so if lastused move 
+        //double check if that goes before or after
+        //my sandstorm damage, that is in endturn field effects
+        //vsonic test see if works as I want
+        if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP 
+        && gBattleMoves[gLastMoves[gBattlerAttacker]].type == TYPE_ELECTRIC
+        && gBattleMoves[gLastMoves[gBattlerAttacker]].split != SPLIT_STATUS)
+            gStatuses3[gBattlerAttacker] &= ~STATUS3_CHARGED_UP;
 
             gBattleStruct->targetsDone[gBattlerAttacker] = 0;
             gProtectStructs[gBattlerAttacker].usesBouncedMove = FALSE;
@@ -8705,6 +8705,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             gSpecialStatuses[gBattlerTarget].berryReduced = FALSE;
             gBattleScripting.moveEffect = 0;
             gBattleStruct->isAtkCancelerForCalledMove = FALSE;
+            if (gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
+                gBattleStruct->pledgeMove = FALSE;
             // clear attacker z move data
             /*//gBattleStruct->zmove.active = FALSE;
             //gBattleStruct->zmove.toBeUsed[gBattlerAttacker] = MOVE_NONE;
@@ -20117,24 +20119,6 @@ void BS_metalburstdamagecalculator(void) {
     }
 }
 
-void BS_setattackerstatus3(void) {
-    u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
-
-    if (gStatuses3[gBattlerAttacker] & flags)
-    {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
-    }
-    else
-    {
-        gStatuses3[gBattlerAttacker] |= flags;
-        if (flags & STATUS3_MAGNET_RISE)
-            gDisableStructs[gBattlerAttacker].magnetRiseTimer = 5;
-        if (flags & STATUS3_LASER_FOCUS)
-            gDisableStructs[gBattlerAttacker].laserFocusTimer = 2;
-        gBattlescriptCurrInstr += 9;
-    }
-}
-
 void BS_setiondeluge(void) //removed under_score in name seemed to prevent use
 { //since battlescript alrady sets field effect, just sets timer here
     NATIVE_ARGS();
@@ -20144,11 +20128,12 @@ void BS_setiondeluge(void) //removed under_score in name seemed to prevent use
 
 void BS_setuserstatus3(void)
 {
-    u32 flags = T1_READ_32(gBattlescriptCurrInstr + 1);
+    NATIVE_ARGS(u32 statusflag, const u8 *failInstr);
+    u32 flags = cmd->statusflag;
 
     if (gStatuses3[gBattlerAttacker] & flags)
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -20157,7 +20142,7 @@ void BS_setuserstatus3(void)
             gDisableStructs[gBattlerAttacker].magnetRiseTimer = 5;
         if (flags & STATUS3_LASER_FOCUS)
             gDisableStructs[gBattlerAttacker].laserFocusTimer = 2;
-        gBattlescriptCurrInstr += 9;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 
 }
@@ -20486,8 +20471,12 @@ void BS_getmoveeffect(void)//transfer move effects mostly for multihit but also 
     //wouldnt need to set certain as that could be handled by percent chance being 0    in setmoveeffectwithchance
     //having that woud simplify this, but also change how I use setmoveeffect for thebetter  //vsonic
 
-
-    switch (gBattleMoves[gCurrentMove].effect) //add on as needed, mostly just for multitask, as movevaluescleanup would remove move effect during loop
+    //add on as needed, mostly just for multitask, as movevaluescleanup would remove move effect during loop
+    //need to just add everything that exists to this
+    //hmm actually maybe dont invest in this
+    //and just wait till port bs refactor
+    //since additional effects are listed in move effect anyway
+    switch (gBattleMoves[gCurrentMove].effect) 
     {
         case EFFECT_POISON_HIT:
         gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
@@ -20509,6 +20498,9 @@ void BS_getmoveeffect(void)//transfer move effects mostly for multihit but also 
             break;
         case EFFECT_CONFUSE_HIT:
         gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
+            break;
+        case EFFECT_ACCURACY_DOWN_HIT:
+        gBattleScripting.moveEffect = MOVE_EFFECT_ACC_MINUS_1;
             break;
         case EFFECT_TWINEEDLE:
         gBattleScripting.moveEffect = MOVE_EFFECT_POISON;

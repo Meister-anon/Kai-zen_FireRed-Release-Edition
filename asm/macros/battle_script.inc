@@ -1468,20 +1468,14 @@
 	.4byte \ptr
 	.endm
 
-	.macro setattackerstatus3 flags:req, ptr:req
-	callnative BS_setattackerstatus3
-	.4byte \flags
-	.4byte \ptr
-	.endm
-
 	.macro setiondeluge
 	callnative BS_setiondeluge
 	.endm
 
-	.macro setuserstatus3 flags:req, ptr:req
+	.macro setuserstatus3 statusflag:req, failInstr:req
 	callnative BS_setuserstatus3
-	.4byte \flags
-	.4byte \ptr
+	.4byte \statusflag
+	.4byte \failInstr
 	.endm
 
 	.macro setuserstatus4 flags:req, ptr:req

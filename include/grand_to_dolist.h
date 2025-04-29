@@ -3923,6 +3923,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     dropping speed of target that's locked in?
     its already got priority now so idk
     -no don't buff meanlook
+    ...laser focus also unbelievabley borked smh
+    text and move animation plays oddly
+    then it sets aqua ring and fucking perish song but at 0
+    so you fucking die.  wonderful
+    -checked think issue is was call native but never set the
+    bs command function to use native args -_-  yup that was it
     rework fury cutter now works  off furycutter counter finish setup water shuriken properly
     left to do is redo battle script for multihit effects for miss effects
     removed counter clear in accuracy check so it can continue 
