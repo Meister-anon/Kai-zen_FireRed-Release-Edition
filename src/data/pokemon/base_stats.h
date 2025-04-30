@@ -48179,8 +48179,9 @@ const struct BaseStats gBaseStats[] =
         .floating = TRUE,
         .levelUpLearnset = sMarowakLevelUpLearnset,
         .tmhmLearnset = sMarowakTMHMLearnset,
-        .evolutions = NULL, //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, MEDIUM_EFFORT), 0,  SPECIES_BEINFAE}),, //Should hopefully blank these for now without issue
     },//good but relatively avearge not very strong physically
+    //idea is somewhat like larvesta evolves into something like psuedolegend/mythical
 
     [SPECIES_BEINFAE] =
     {
@@ -48209,8 +48210,8 @@ const struct BaseStats gBaseStats[] =
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
-        .levelUpLearnset = sMarowakLevelUpLearnset,
-        .tmhmLearnset = sMarowakTMHMLearnset,
+        .levelUpLearnset = sDiancieLevelUpLearnset,
+        .tmhmLearnset = sDiancieTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
 

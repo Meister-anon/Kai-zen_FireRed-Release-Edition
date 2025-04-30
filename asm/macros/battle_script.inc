@@ -760,9 +760,9 @@
 	.byte \mode
 	.endm
 
-	.macro trysetrest param0:req
+	.macro trysetrest failInstr:req
 	.byte 0x81
-	.4byte \param0
+	.4byte \failInstr
 	.endm
 
 	.macro jumpifnotfirstturn ptr:req

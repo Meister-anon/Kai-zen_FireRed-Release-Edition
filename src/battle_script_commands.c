@@ -14348,13 +14348,14 @@ static void atk80_manipulatedamage(void)
 
 static void atk81_trysetrest(void) //would be useful to track if sleep was set with rest, with my new changes, hmm could make status3 rest? or status4 set it here and remove when sleep turns end if it is on
 {
-    const u8 *failJump = T1_READ_PTR(gBattlescriptCurrInstr + 1); //keep onback burner test rest first 
+    CMD_ARGS(const u8 *failInstr);
+    //keep onback burner test rest first 
     
     gActiveBattler = gBattlerTarget = gBattlerAttacker;
     gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP * (-1);
     if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
     {
-        gBattlescriptCurrInstr = failJump;
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
@@ -14366,7 +14367,7 @@ static void atk81_trysetrest(void) //would be useful to track if sleep was set w
         gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = 3; //sleep turns rest is fixed
         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
         MarkBattlerForControllerExec(gActiveBattler);
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 

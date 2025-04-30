@@ -13058,6 +13058,8 @@ bool32 CanBeBurned(u8 battlerId)
         || gBattleMons[battlerId].status1 & STATUS1_ANY
         || ability == ABILITY_WATER_VEIL
         || ability == ABILITY_WATER_BUBBLE
+        || ability == ABILITY_BONE_ARMOR
+        || ability == ABILITY_ENAMEL
         || ability == ABILITY_COMATOSE
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN))
