@@ -4474,12 +4474,13 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
-        .floating = FALSE, //makes sense to float, but not, for more difference between this and mew, plus its already op
+        .floating = TRUE, //makes sense to float, but not, for more difference between this and mew, plus its already op
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
-    },
+    },//ok so mewtwo is apparently worst legendary thanks to power creep
+    //so I guess making float is fine?
 
     [SPECIES_MEW] =
     {
@@ -37537,7 +37538,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = FALSE, //for difference say this form only doesn't float all psychic power focused within is body it'd just jump instead
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
