@@ -3441,6 +3441,15 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sKangaskhanTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //if drop power up punch from mega form give metal claw
+    //but honestly I'll more likely just do what I already do w multitask
+    //and just have certain effects excluded - since nerfing base form just to nerf
+    //the mega is dumb, surely it already has some effects excluded
+    //ex can't imagine attacting twice for each hit of a multi hit?
+    //hmm not as many attack up hits as I thought,
+    //only need to exclude power up punch, is only guaranteed boost one.
+    //subtitute moves would be metal claw, meteor mash, or going to ancient power
+    //think meteor mash too strong
 
     [SPECIES_HORSEA] =
     {
@@ -6165,6 +6174,8 @@ const struct BaseStats gBaseStats[] =
     //its not bulky enough to actually be useful in that way
     //so while defeatist has some utility now, its still not good here
     //replace w original ability of light metal which has been buffed
+    //give first impressions also realized there's still not a common bug priority move
+    //ok made skitter smack bug prio move. vsonic
 
     [SPECIES_SHUCKLE] =
     {
@@ -11241,6 +11252,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTorterraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     }, //give shell smash new gen 9 move changes
+    //honestly I don't think anything besides addition of a mega can make this 
+    //worthwhile over grotle while eviolite exists
+    //hmm actually no w my type changes think ground is giving a good deal of things here
+    //electric immunity where electric is no longe resisted
+    //resisteance to flying and now resist fire as well
+    //huh ok looks like I made torterra good already lol
 
     [SPECIES_CHIMCHAR] =
     {
@@ -39148,7 +39165,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_PICKUP, ABILITY_TECHNICIAN},
-        .abilityHidden = {ABILITY_RATTLED, ABILITY_STALL},
+        .abilityHidden = {ABILITY_RATTLED, ABILITY_DARK_DEAL},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -39156,7 +39173,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMeowthAlolanTMHMLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, FILL, 0, SPECIES_PERSIAN_ALOLAN}), //Should hopefully blank these for now without issue
         .flags = F_ALOLAN_FORM,
-    },
+    },//why did I give this stall?
+    //replaced stall, is now more akin to alt of base line w super luck
 
     [SPECIES_PERSIAN_ALOLAN] =
     {
@@ -39183,7 +39201,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_FUR_COAT, ABILITY_TECHNICIAN},
-        .abilityHidden = {ABILITY_RATTLED, ABILITY_STALL},
+        .abilityHidden = {ABILITY_RATTLED, ABILITY_DARK_DEAL},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -48066,7 +48084,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 45, //can't remember why made rock but will keep for sake of having some weaknesses
         .expYield = 281,
         .genderRatio = PERCENT_FEMALE(12.5),
-        .eggCycles = 20,
+        .eggCycles = 20, //w recent change being rock is actually pretty good as makes immune to poison
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_MONSTER,
@@ -48082,6 +48100,7 @@ const struct BaseStats gBaseStats[] =
         .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },//Biome Pokemon
     //think dont give water moves, just plan hidden power water?
+    //that or could use weather ball
 
     [SPECIES_MAROWAK_MEGA] =
     {
@@ -48182,6 +48201,9 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, MEDIUM_EFFORT), 0,  SPECIES_BEINFAE}),, //Should hopefully blank these for now without issue
     },//good but relatively avearge not very strong physically
     //idea is somewhat like larvesta evolves into something like psuedolegend/mythical
+    //think all black eyes a satchel made from persons tooth actually a tooth since mon is small
+    //tooth fairy pokemon -vsonic
+
 
     [SPECIES_BEINFAE] =
     {
@@ -48223,8 +48245,8 @@ const struct BaseStats gBaseStats[] =
         STATS(
         170,  //hp betweeen snorlax and chansey
         15,
-        25,
         60,
+        25,
         50,
         210
         ),

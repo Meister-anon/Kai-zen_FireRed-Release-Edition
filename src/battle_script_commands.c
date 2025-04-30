@@ -112,6 +112,7 @@ static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move);//gabe m
 static u8 WeightBoostedDamageFormula(void); //new seismic toss boost
 static bool32 ChangeOrderTargetAfterAttacker(void);
 static bool32 TrySetTargetToNextPursuiter(u32 battlerDef);
+static bool8 IsParentalBondBannedEffect(move);
 
 static void SpriteCB_MonIconOnLvlUpBox(struct Sprite *sprite);
 
@@ -1626,7 +1627,7 @@ static void atk00_attackcanceler(void) //vsonic
         if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_1ST_HIT)
         {
             gSpecialStatuses[gBattlerAttacker].parentalBondState = PARENTAL_BOND_OFF; // No second hit if first hit was blocked
-            gSpecialStatuses[gBattlerAttacker].multiHitOn = 0;
+            gSpecialStatuses[gBattlerAttacker].multiHitOn = FALSE;
             gMultiHitCounter = 0;
         }
 
@@ -2342,10 +2343,16 @@ static void atk05_damagecalc(void)
     if (gProtectStructs[gBattlerAttacker].helpingHand)
         gBattleMoveDamage = gBattleMoveDamage * 15 / 10; 
 
+    //ability just needs a bit of help in early game,
+    //once you get to the point you can consistantly do min 10 damage
+    //there's no issues
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_MULTI_TASK
     && CanMultiTask(gCurrentMove) == TRUE)
     {
-        gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
+        if (gMultiTask > 2)
+            gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 1);
+        else
+            gBattleMoveDamage = max(gBattleMoveDamage / gMultiTask, 2); //so don't do 1 dmg, at min do 2 4, since typically min dmg from formula is 3
     }//think this works better for trackin crits? makes start value higher so less likely to fall below 1
     
     ++gBattlescriptCurrInstr;
@@ -4256,9 +4263,25 @@ static const u16 sFinalStrikeOnlyEffects[] =
     EFFECT_HIT_SWITCH_TARGET,
 };
 
+//EE removed sForbiddenMoves instead handled 
+//as part of move info bytes added for if move is blocked by effect
+//since I can also list efects that block them  can cut down on num
+//need to use in move info overall good system
+//on the other hand most of these things can just have their effect listed to ban them
+//or I can specifically list the move here
+//look into if expanded batle_moves wold require more ewram
+//if not than the space waste isnt a big deal since only 
+//a small amount of moves would be set,
+//it is easier to have it defined in move data
 bool8 IsMoveAffectedByParentalBond(u16 move, u8 battlerId)
 {
+    //also seems EE was able to get parental bond to work fine w 
+    //multi turn effects so I can probably revise my multitask setup
+    //to be more effecient
     if (gBattleMoves[move].split != SPLIT_STATUS
+        && (move != MOVE_NONE && move != MOVE_UNAVAILABLE && move != MOVE_STRUGGLE && move != MOVE_POWER_UP_PUNCH)
+        //&& !IsMoveParentalBondBanned(move)
+        && !IsParentalBondBannedEffect(move)
         && !(sForbiddenMoves[move] & FORBIDDEN_PARENTAL_BOND))
     {
         if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
@@ -4282,6 +4305,26 @@ bool8 IsMoveAffectedByParentalBond(u16 move, u8 battlerId)
         return TRUE;
     }
     return FALSE;
+}
+
+//good for now but not everything I think?
+static bool8 IsParentalBondBannedEffect(move)
+{
+    if (GetMoveEffect(move) == EFFECT_MULTI_HIT
+    || GetMoveEffect(move) == EFFECT_FURY_CUTTER
+    || GetMoveEffect(move) == EFFECT_DOUBLE_HIT
+    || GetMoveEffect(move) == EFFECT_DOUBLE_IRON_BASH
+    || GetMoveEffect(move) == EFFECT_TRIPLE_KICK
+    || GetMoveEffect(move) == EFFECT_OHKO
+    || GetMoveEffect(move) == EFFECT_EXPLOSION
+    || GetMoveEffect(move) == EFFECT_ENDEAVOR
+    || GetMoveEffect(move) == EFFECT_COUNTER
+    || GetMoveEffect(move) == EFFECT_MIRROR_COAT
+    )
+        return TRUE;
+    
+    return FALSE;
+
 }
 
 static bool8 IsFinalStrikeEffect(u16 move)
@@ -6967,6 +7010,7 @@ static void atk25_movevaluescleanup(void)
     gBattlescriptCurrInstr += 1;
 }
 
+//nvm now no longer used since updated pursuit
 static void atk26_setmultihit(void) //for now still used, for pursuit dmg
 {
     gMultiHitCounter = gBattlescriptCurrInstr[1];

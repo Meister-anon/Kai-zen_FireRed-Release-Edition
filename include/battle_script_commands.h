@@ -49,7 +49,7 @@ bool8 DoesTargetAbilityBlockCrit(u8 Targetbattler);
 bool32 TryKnockOffBattleScript(u32 loseitembattler, u32 EffectUser, u16 moveEffect);
 u8 CanMoveHitSwitchingTarget(u16 move);
 u8 IsExemptFromPursuit(u32 battler); //for blocking effect without needing separate battlescript
-
+bool8 IsMoveAffectedByParentalBond(u16 move, u8 battlerId);
 //EE function for recalc stats this used in place of transform logic for recalcs outside of transform and ditto
 void RecalcBattlerStats(u32 battler, struct Pokemon *mon);
 void CopyMonLevelAndBaseStatsToBattleMon(u32 battler, struct Pokemon *mon);

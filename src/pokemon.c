@@ -5596,11 +5596,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 attack = (150 * attack) / 100;
             }
             break;
-        case ABILITY_DARK_DEAL:
-            if (gBattleMoves[move].power > 80) //what this means is I get it on all the slash moves, may potentially drop back to 75 bp cutoff
-                gBattleMovePower /= 2;//think need put this at end so it factors in everything
-            break; //hmm actually maybe I should change this from move power, to check base move power, yeah think like that better, have to use weaker moves to get the benefit
-        }//vsonic
+        
+        }
     }
 
     // target's abilities
@@ -5810,6 +5807,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             gBattleMovePower = (gBattleMovePower * 125 / 100);
            // MulModifier(&modifier, UQ_4_12(1.25));
     }//dont know why I had this commented out...
+
+    //moved this hear to take account of everything
+    if (IsBattlerAlive(BATTLE_PARTNER(battlerIdAtk)))
+    {
+       if (GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_DARK_DEAL)
+            if (gBattleMovePower > 80) //what this means is I get it on all the slash moves, may potentially drop back to 75 bp cutoff
+                gBattleMovePower /= 2;
+    }
 
 
     if (IsAbilityOnField(ABILITY_VESSEL_OF_RUIN) && GetBattlerAbility(battlerIdAtk) != ABILITY_VESSEL_OF_RUIN)
@@ -6377,6 +6382,13 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     
 
     return damage + 2;
+}
+
+void ApplyMovePowerModifiers(u8 battlerAtk, u16 move, u16 power)
+{
+    if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_DARK_DEAL)
+        if (power > 80)
+            power /= 2;
 }
 
 u8 CountAliveMonsInBattle(u8 caseId)

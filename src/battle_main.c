@@ -7465,6 +7465,10 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     u8 moveType = ReturnMoveType(move, battlerId);
 
     priority = gBattleMoves[move].priority;
+
+    //just for nuisance rn, doesn't affect damage
+    //just accounts for things that happen later in damage calc
+    ApplyMovePowerModifiers(battlerId,move,power);
  
     //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
     if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
@@ -7501,6 +7505,12 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     {
         priority++;
     }
+
+    //made this before did status priority rework
+    //so think should drop this down 1,
+    //includes damaging moves too
+    //and only on comfee so not a big deal
+    //+3 is just meant to get around fakeout anyway
     else if (GetBattlerAbility(battlerId) == ABILITY_TRIAGE)
     {
         switch (gBattleMoves[move].effect)
@@ -7524,7 +7534,11 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
             break;
         }
     }
+
     //sets priority still need setup pass healing  to partner, also add partner mon is alive
+    //when heal pass is setup, rest would be the only way to have this mon heal itself
+    //with sleep change. also sitrus berry seems potentially best item?
+    //oh right, leftoveres exists lol vsonic
     else if ((GetBattlerAbility(battlerId) == ABILITY_OMNIPOTENT_AIDE) && CAN_ABILITY_ABSORB(battlerId) && IsBattlerAlive(BATTLE_PARTNER(battlerId)))
     {
         switch (gBattleMoves[move].effect)
@@ -7563,6 +7577,12 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     //gbattlemovepower stores either base power or gdynamicbasepower and is augmented in calbasedamage 
     //function in pokemon.c
     //huh didn't reallize I never fixed this-fixed now
+    //need way to get effective power in battle
+    //nuisance synergizes well with dark deal,
+    //but since this is in attack canceler and power shift is handled
+    //in damage calc I don't have a way to live update this
+    //so would need something like what EE has for
+    //calcing power modifiers think, vsonic    
     else if (GetBattlerAbility(battlerId) == ABILITY_NUISANCE
         && (power > 1 && power <= 65) //added dynamic for moves like hidden power
         && gBattleMoves[move].split != SPLIT_STATUS) //change to balance out, so not just prankster plus, given status change

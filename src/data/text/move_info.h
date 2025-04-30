@@ -1377,7 +1377,7 @@ const u8 gTERRAIN_PULSE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Type and power changes\ndepending on the terrain.");
 
 const u8 gSKITTER_SMACK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("User skitters behind\nthe foe to attack.\nLowers foe's Sp. Atk.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("User skitters behind\nthe foe to attack.\nLowers foe's Sp. Atk.\nAlso strikes first.");
 
 const u8 gBURNING_JEALOUSY_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Foes that have\nstats upped during\nthe turn get burned.");

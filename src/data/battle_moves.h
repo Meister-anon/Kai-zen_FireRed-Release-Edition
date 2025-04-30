@@ -4543,6 +4543,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .split = SPLIT_STATUS,
     }, //seals opponent move if shared by user
+    //thought about raising to plus 2 priority but since you want slower mon 
+    //to operate in trick room a fast mon with imprison should still counter them
+    
 
     [MOVE_REFRESH] =
     {
@@ -4914,7 +4917,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_WEATHER_BALL] =
     {
         .effect = EFFECT_HIT,//EFFECT_WEATHER_BALL, //can just use effect hit now
-        .power = 50,
+        .power = 55,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 10,
@@ -4924,6 +4927,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
     },
+    //think fine to buff this up to 60, almost no one gets it
+    //plus the required setup, mostly just for mega pidgeot buff
+    //oh no they gave a lot more mon weather ball o.0
 
     [MOVE_AROMATHERAPY] =
     {
@@ -6185,17 +6191,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SUCKER_PUNCH] =
     {
 
-        .power = 75,    //LOWEred power by 5 to counter pp increase, making it harder to stall out, test and consider
+        .power = 70,    //LOWEred power by 5 to counter pp increase, making it harder to stall out, test and consider
         .effect = EFFECT_SUCKER_PUNCH,
         .type = TYPE_DARK,
         .accuracy = 100,
-        .pp = 10,
+        .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
-    },
+    },//remove pp increase on things like megsa
+    //pp stalling is the only way to stay alive
+    //as I saw playing unbreakable ties
+    //appliedlate gen power drop
 
     [MOVE_TOXIC_SPIKES] =
     {
@@ -11393,7 +11402,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_GRASSY_GLIDE] =
     {
-        .effect = EFFECT_GRASSY_GLIDE,   //TODO //effect is getting +1 priority on grass terrain
+        .effect = EFFECT_GRASSY_GLIDE,
         .power = 65,    //already done
         .type = TYPE_GRASS,
         .accuracy = 100,
@@ -11436,19 +11445,24 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SKITTER_SMACK] =
     {
         .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
-        .power = 80,
+        .power = 55, //base game is 70, may make my version 50?
         .type = TYPE_BUG,
-        .accuracy = 100,
+        .accuracy = 100,//hmm w stab at 60 is base while 55 is just shy of 75 that seems better?
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argumentEffectChance = 10,
         .argument = MOVE_EFFECT_INFESTATION,
     },//think argument defaults to 0, point is to add 
     //when I get it working w teh proper animation, and have all bug moves a 10% chance to infest
+    //think will rework this to priority move,
+    //also works w what I want for bug, to be not super oppressive but very annoying
+    //giving to scyther as way of handling psychic types, also has good bug move to use now
+    //note need test how fury cutter plays with technician ok in same function so now
+    //would trigger for early hits not for later hits seems fine
 
     [MOVE_BURNING_JEALOUSY] =
     {
@@ -13524,7 +13538,7 @@ use wonder gaurd logic to determine its super effective
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
     },//GRASS types will be immune to this status condition, potentially make its own effect, then can do grass status exclusion with bs command
     //think give to mostly grass/poison types

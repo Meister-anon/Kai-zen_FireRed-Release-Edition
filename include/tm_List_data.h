@@ -240,6 +240,11 @@ static const u16 gTM_Moves[] =
 //add flash freeze  ice will o wisp and give to lunatone
 //add obstruct? or keep that in learnsets sparingly?
 //venoshock
+//power up punch need add
+//add or may just give to mon I want in learnset
+//yeah think I want punch just in learnset
+//instead want ancient power as tm, simpler
+//for breeding mon that evolve via ancient power
 
 //consider rename this file to item_List_data
 //for adding berry data to this
