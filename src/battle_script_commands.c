@@ -112,7 +112,7 @@ static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move);//gabe m
 static u8 WeightBoostedDamageFormula(void); //new seismic toss boost
 static bool32 ChangeOrderTargetAfterAttacker(void);
 static bool32 TrySetTargetToNextPursuiter(u32 battlerDef);
-static bool8 IsParentalBondBannedEffect(move);
+static bool8 IsParentalBondBannedEffect(u16 move);
 
 static void SpriteCB_MonIconOnLvlUpBox(struct Sprite *sprite);
 
@@ -4308,7 +4308,7 @@ bool8 IsMoveAffectedByParentalBond(u16 move, u8 battlerId)
 }
 
 //good for now but not everything I think?
-static bool8 IsParentalBondBannedEffect(move)
+static bool8 IsParentalBondBannedEffect(u16 move)
 {
     if (GetMoveEffect(move) == EFFECT_MULTI_HIT
     || GetMoveEffect(move) == EFFECT_FURY_CUTTER
