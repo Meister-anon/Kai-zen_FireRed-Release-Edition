@@ -37234,11 +37234,11 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_NO_GUARD, ABILITY_NO_GUARD},
+        .abilities = {ABILITY_DELTA_STREAM, ABILITY_DELTA_STREAM},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_BROWN,
-       .noFlip = FALSE,
-        .floating = TRUE,
+        .bodyColor = BODY_COLOR_BROWN,//no gaurd is actually kinda awful on this...
+       .noFlip = FALSE, //flying types are meant to be more evasive and accuracy has been buffed
+        .floating = TRUE, //ok better idea ultimate flyer, give it mega ray's ability
         .levelUpLearnset = sPidgeotLevelUpLearnset,
         .tmhmLearnset = sPidgeotTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
@@ -37516,16 +37516,17 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_WEIGHTED_GI, ABILITY_WEIGHTED_GI},
+        .abilities = {ABILITY_INNER_FOCUS, ABILITY_INNER_FOCUS},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
-       .noFlip = FALSE,
+        .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sMewtwoLevelUpLearnset,
         .tmhmLearnset = sMewtwoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
-    },
+    },//weighted gi is cool, giving inner focus would prob be better for meta/competitive
+    //since its against ubers
     //give more moves, mostly needs fighting moves/
     //hmm also need change ability,
     //with my type changes it almost has no weaknesses meaning even the buffed version
@@ -37560,7 +37561,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_INSOMNIA, ABILITY_INSOMNIA},
+        .abilities = {ABILITY_EARLY_BIRD, ABILITY_EARLY_BIRD},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
        .noFlip = FALSE,
@@ -37570,6 +37571,9 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },
+    //Maybe instead of insomnia give early bird and with the buff have it be another 
+    //case of ironically beign better than full blocking status
+    //give rest and use that to heal rather than recover to also get stat buff on wake?
 
     [SPECIES_AMPHAROS_MEGA] =
     {
@@ -37596,14 +37600,17 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_MOLD_BREAKER, ABILITY_MOLD_BREAKER},
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_YELLOW,
+        .bodyColor = BODY_COLOR_YELLOW,//should I give this fluffy instead?
        .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = FALSE, //think may change to fluffy w/o something like levitate dont think does anything for this mon
         .levelUpLearnset = sAmpharosLevelUpLearnset,
         .tmhmLearnset = sAmpharosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },
+    //seems mold breaker would get through redirection via lightning rod,
+    //so may be good to keep with addition of more redirection effects
+    //but could still just have a support move be used on said mon to turn it off
 
     [SPECIES_STEELIX_MEGA] =
     {
@@ -38487,8 +38494,8 @@ const struct BaseStats gBaseStats[] =
         108,
         155,
         135,
-        82, //potentially keep speed at 92, 
-        55,
+        97, 
+        40,
         115
         ),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
@@ -38502,7 +38509,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SAND_RUSH, ABILITY_SAND_RUSH},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},//other option is sharpness boosted dragon claw
         .bodyColor = BODY_COLOR_BLUE,//changed to sand rush from sand force
        .noFlip = FALSE,
         .floating = FALSE,
@@ -38649,9 +38656,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_FAIRY,
-        .abilities = {ABILITY_HEALER, ABILITY_HEALER},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_WHITE,
+        .abilities = {ABILITY_AURA_OF_LIGHT, ABILITY_AURA_OF_LIGHT}, //maybe give ABILITY_AURA_OF_LIGHT
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE}, //empathic curse would also be cool if I could swing it
+        .bodyColor = BODY_COLOR_WHITE, //intent being a benefit of it staying on the field and hanging aroud
        .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sAudinoLevelUpLearnset,
