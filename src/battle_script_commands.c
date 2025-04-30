@@ -4940,6 +4940,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 //will change to only cover bind and wrap //put new status effects in util.c copy this function for each new wrap effect
                 //else //need figure out skip logic,  for above, cant use status wrapped
                 {
+                    bool8 SetTrap = FALSE;
                      //put at top then set Trap Duration then into switch case based on wrappedmove to set individual timers and status 
                      //removed wrappedmove as its used for other things like move buffer will use for environment only as that one keeps  original 
                      //setup where it will pull move from wrapped move set here
@@ -4977,7 +4978,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;       //since added multiple statuses and timers make bool  true/valse set below for if trapped
                     else                                //same as how sturdied focus sashed etc. set battler trapped  when set timers, then clear when clear status
                     {                                   //replace its a trap status with that as well if used
-
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
 
 
@@ -5066,6 +5067,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
 
                         gDisableStructs[gEffectBattler].wrapTurns = TrapDuration;
@@ -5077,6 +5079,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
 
                         gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
@@ -5088,6 +5091,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
 
                         gDisableStructs[gEffectBattler].environmentTrapTurns = TrapDuration;
@@ -5110,6 +5114,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         TrapDuration = ((Random() % 2) + 4);  //magma stormshould be  4-5
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
 
@@ -5122,6 +5127,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
                         gDisableStructs[gEffectBattler].clampTurns = TrapDuration;
                         gBattleMons[gEffectBattler].status4 |= STATUS4_CLAMP;
@@ -5132,6 +5138,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
                         gDisableStructs[gEffectBattler].swarmTurns = TrapDuration;
                         gBattleMons[gEffectBattler].status4 |= STATUS4_SWARM;
@@ -5142,6 +5149,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
                         gDisableStructs[gEffectBattler].snaptrapTurns = 5; //since supposed to be 4-5 turns - done effect lasts 4 turns
                         gBattleMons[gEffectBattler].status4 |= STATUS4_SNAP_TRAP;
@@ -5152,6 +5160,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         ++gBattlescriptCurrInstr;
                     else
                     {
+                        SetTrap = TRUE;
                         TrapDuration = ((Random() % 2) + 3); //change thunder cage is supposed tobe diff timer 3-4 turns
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
                         gDisableStructs[gEffectBattler].thundercageTurns = TrapDuration;
@@ -5161,15 +5170,21 @@ void SetMoveEffect(bool32 primary, u32 certain)
 
                     } //end of switch case for moves
 
-                    BattleScriptPush(gBattlescriptCurrInstr + 1);//below set based on move effect so will need to change move effect within switch case
-                    gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect]; //just for displaying battle message for specific wrap move, so dont need change moveeffect
-                    for (gBattleCommunication[MULTISTRING_CHOOSER] = 0; ; ++gBattleCommunication[MULTISTRING_CHOOSER]) //think this just loops till find current move?
+                    //think issue was was still trigging bs
+                    //even when I skipped the trap stuff cuz I didn't block this section?
+                    //perfect that fixed it
+                    if (SetTrap)
                     {
-                        if (gBattleCommunication[MULTISTRING_CHOOSER] > NUM_TRAPPING_MOVES - 1)
-                            break;
-                        if (gTrappingMoves[gBattleCommunication[MULTISTRING_CHOOSER]] == gCurrentMove)
-                            break;                  //what I mean by that is, I could keep all traps in effect wrap, and use wrap turns, but then set a different status for each move at the bottom after checking which move was used to trap
-                    }//believe this is only for reading from the trapstring table can prob remove for other trap effects
+                        BattleScriptPush(gBattlescriptCurrInstr + 1);//below set based on move effect so will need to change move effect within switch case
+                        gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect]; //just for displaying battle message for specific wrap move, so dont need change moveeffect
+                        for (gBattleCommunication[MULTISTRING_CHOOSER] = 0; ; ++gBattleCommunication[MULTISTRING_CHOOSER]) //think this just loops till find current move?
+                        {
+                            if (gBattleCommunication[MULTISTRING_CHOOSER] > NUM_TRAPPING_MOVES - 1)
+                                break;
+                            if (gTrappingMoves[gBattleCommunication[MULTISTRING_CHOOSER]] == gCurrentMove)
+                                break;                  //what I mean by that is, I could keep all traps in effect wrap, and use wrap turns, but then set a different status for each move at the bottom after checking which move was used to trap
+                        }//believe this is only for reading from the trapstring table can prob remove for other trap effects
+                    }
                 }//multistring > 4 would be a problem if I didn't split off the moves from the wrap effect
                 break;
             /*case MOVE_EFFECT_RECOIL_25: // 25% recoil   also struggle

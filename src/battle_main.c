@@ -4391,6 +4391,13 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
         
         //think should remove trap timers as well since mon switched out it can escape
         //ex. ghost or flying 
+        gDisableStructs[gActiveBattler].environmentTrapTurns = 0;
+        gDisableStructs[gActiveBattler].wrapTurns = 0;
+        gDisableStructs[gActiveBattler].bindTurns = 0;
+        gDisableStructs[gActiveBattler].clampTurns = 0;
+        gDisableStructs[gActiveBattler].swarmTurns = 0;
+        gDisableStructs[gActiveBattler].snaptrapTurns = 0;
+        gDisableStructs[gActiveBattler].thundercageTurns = 0;
 
         //activebattler is mon switching, i is looping all battlers for effects
         //that should be cleared when user switches out
@@ -4505,7 +4512,16 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
             
         
         //cleared trap timers too hard to track w rework
+        //actually should still clear timers but just dont link it
+        //to the setter dying, but the trapped mon...
     }
+    gDisableStructs[gActiveBattler].environmentTrapTurns = 0;
+    gDisableStructs[gActiveBattler].wrapTurns = 0;
+    gDisableStructs[gActiveBattler].bindTurns = 0;
+    gDisableStructs[gActiveBattler].clampTurns = 0;
+    gDisableStructs[gActiveBattler].swarmTurns = 0;
+    gDisableStructs[gActiveBattler].snaptrapTurns = 0;
+    gDisableStructs[gActiveBattler].thundercageTurns = 0;
 
     gActionSelectionCursor[gActiveBattler] = 0;
     gMoveSelectionCursor[gActiveBattler] = 0;

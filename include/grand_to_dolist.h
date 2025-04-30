@@ -3929,6 +3929,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     so you fucking die.  wonderful
     -checked think issue is was call native but never set the
     bs command function to use native args -_-  yup that was it
+
+    another issue fire spin hit by vine whip
+    suddenly triggered ingrain smh
+    thoughgt this was FIXED???
+    using trap effect when trap is already in effect is the issue
+    happens with double use of fire spin, as well as double use of wrap
+    -doesn't appear to happen for individual timers/traps
+    i.e mixing fire spin & wrap did not trigger effect
+    -hmm see problem for some reason re triggers trap set scripts
+    -fixed had blocked the direct status setting but didn't block
+    the battle script push at end is now in its own block and doesnt retrigger
+    unless trap should be set
+    
     rework fury cutter now works  off furycutter counter finish setup water shuriken properly
     left to do is redo battle script for multihit effects for miss effects
     removed counter clear in accuracy check so it can continue 
