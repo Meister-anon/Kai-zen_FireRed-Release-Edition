@@ -3707,18 +3707,46 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     for (j = 0; j < FIELD_MOVE_TELEPORT; ++j) //need do pointer logic to check sPartyMenuInternal->actions, to make sure its not more than 9 entries for this
     {
 
-        //should prevent learnable hms from showing in  list until you have the badge to use them(working)
-        if (CanSpeciesLearnTMHMmove(species, sFieldMoves[j]) && ShouldDisplayHMFieldMove(j)
-            && sPartyMenuInternal->numActions <= 5) 
-            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
-            //break;since I'm trying to check all didn't actually need the break, plus I only have 1 loop not 2
+        switch (sFieldMoves[j])
+        {
+            case MOVE_FLY:
+            {
+                //should prevent learnable hms from showing in  list until you have the badge to use them(working)
+                if (ShouldDisplayHMFieldMove(j)
+                && (CanSpeciesLearnTMHMmove(species, sFieldMoves[j]) || IsFloatingSpecies(species) || IsMonType(&mons[slotId], TYPE_FLYING))
+                && sPartyMenuInternal->numActions <= 5) 
+                    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
+            }
+            break;
+            default:
+            {
+                //should prevent learnable hms from showing in  list until you have the badge to use them(working)
+                if (CanSpeciesLearnTMHMmove(species, sFieldMoves[j]) && ShouldDisplayHMFieldMove(j)
+                && sPartyMenuInternal->numActions <= 5) 
+                    AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
+            }
+            break;
+        }
 
+    
     }//because it was reading item list, & hm 5 did not equal field move 5, had to reorder field move list to match hm item order
     
     //still need to setup way to check list to prevent adding things that are already there
     //instead made setup that doesn't have overlap, well things like this honey gather are the only issue w potential overlap now
     if (ability == ABILITY_HONEY_GATHER) 
-        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_SWEET_SCENT + MENU_FIELD_MOVES);
+    {
+        for (i = 0; i < MAX_MON_MOVES; ++i)
+        {
+            if (GetMonData(&mons[slotId], i + MON_DATA_MOVE1) == sFieldMoves[FIELD_MOVE_SWEET_SCENT])
+                break;                
+        }
+
+        //if mon doesn't know sweet scene set field move via ability
+        if (i == MAX_MON_MOVES)
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_SWEET_SCENT + MENU_FIELD_MOVES);
+            
+    }
+        
 
     if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SWITCH);

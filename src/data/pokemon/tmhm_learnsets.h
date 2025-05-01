@@ -12,6 +12,18 @@
 //emerald expansion changed how these are handled, more akin to levelup learnset, which removes the bit array limit allowing for many more learned moves
 //so will port that
 
+//actually rather than adding fly to a bunch of movesets that don't need it
+//can just upate conditions for fieldmove fly
+//to being able to learn it, or be floatingspecies or flying type?
+//*facepalm
+
+//ok changed setup believe that should work now
+//still plan to go over list and add fly to more mon
+//as in process saw there are several that should learn it but don't?
+//pidgey zubat golbat etc.  while crobat gets it instead
+//hmm perhaps idea is rather than just flying, you need to be
+//a certain proficiency of flyer to execute a flying attack?
+
 //replace moves below only ported for the array names, 
 //what I need do is copy normal tm list replace move names here,
 //then remove bitwise stuff, and replace tm_#_name with the item value for the tm
@@ -1141,6 +1153,7 @@ MOVE_ATTRACT,
 MOVE_THIEF,
 MOVE_STEEL_WING,
 MOVE_SNATCH,
+MOVE_FLY,
     TMHM_LEARNSET_END
 };
 
@@ -1301,6 +1314,7 @@ MOVE_REST,
 MOVE_ATTRACT,
 MOVE_THIEF,
 MOVE_SKILL_SWAP,
+MOVE_FLY,
 MOVE_FLASH,
     TMHM_LEARNSET_END
 };
@@ -8021,7 +8035,6 @@ MOVE_FACADE,
 MOVE_SECRET_POWER,
 MOVE_REST,
 MOVE_SKILL_SWAP,
-MOVE_FLY,
 MOVE_STRENGTH,
 MOVE_FLASH,
 MOVE_ROCK_SMASH,
@@ -12668,7 +12681,6 @@ static const u16 sMagnezoneTMHMLearnset[] = {
 MOVE_DOUBLE_TEAM,
 MOVE_FACADE,
 MOVE_FLASH,
-MOVE_FLY,
 MOVE_FRUSTRATION,
 MOVE_HIDDEN_POWER,
 MOVE_HYPER_BEAM,

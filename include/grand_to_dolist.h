@@ -3923,6 +3923,37 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     dropping speed of target that's locked in?
     its already got priority now so idk
     -no don't buff meanlook
+    can't remember if I've alraedy done it but plan was
+    a small indicator for if a mon is floating
+    idea is they shouldn't have the shadow circle underneath them
+    //hopefully its simple enough to do a toggle check for floating species
+    //and just set a value so the circle goes away
+
+    ok it is that simple SetBattlerShadowSpriteCallback
+    can just set a single value in that function
+    issue is it uses floating mon/elevation not 0 for the shadow
+    and elevation 0 for no shadow
+    ok doesn't quite make sense but think will do shadow for floating
+    no shadow for grounded
+    waiting a bit on feedback from anthroyd's hack server for final decision
+    or inputs belive would need to adjust good deal of mon after the fact
+    //
+    the elevated mon like geodude and electrode that use shadow currenlty
+    think would need to lower them a bit to make look right
+    thankfully I have debug elevation in party menu to check that
+
+    idk which to use will need talk to people about it
+    -ok think I will leave as is,
+    withot indicator 90% of sprites look best where they are
+    will eventually get to adjusting ones that need it,
+    but won't do for floating status, prefer it that way
+    and also people can turn on type effectiveness check
+    if they don't want to learn mechanic
+    or to help them learn the change
+    same as wel learned who was flying and who had levitate
+    since for the most part its all of those same mon
+    wtih few exception
+
     NOTE**(
       For previous idea of giving mon choice of ability
       will require new field in boxmon so not lost when boxed.

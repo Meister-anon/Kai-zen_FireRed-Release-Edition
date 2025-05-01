@@ -1520,7 +1520,7 @@ const struct BaseStats gBaseStats[] =
         .floating = FALSE,
         .levelUpLearnset = sParasLevelUpLearnset, //sParasLevelUpLearnset
         .tmhmLearnset = sParasTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, LOW_EFFORT), 0, SPECIES_PARASECT}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0, SPECIES_PARASECT}), //Should hopefully blank these for now without issue
     },//can put evolution adn that builds but learnset doesn't don't get why
 
     //moveset special case, mostly bug, then physical ghost moves, grass moves only special
@@ -8489,6 +8489,8 @@ const struct BaseStats gBaseStats[] =
     //don't need debuff post wonderguard rework
     //w ghost being buffed ironically made dispirit guard worse
     //cuz it resists so many things lol
+    //it levitates but it doesn't move should I remove it?
+    //well its wings never move it can still move on its own
 
     [SPECIES_WHISMUR] =
     {
@@ -12445,7 +12447,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_SOUNDPROOF, ABILITY_UNCHAINED_MELODY},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
-        .floating = FALSE, //walks around hopping
+        .floating = TRUE, //walks around hopping - had levitate
         .levelUpLearnset = sChinglingLevelUpLearnset,
         .tmhmLearnset = sChinglingTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue

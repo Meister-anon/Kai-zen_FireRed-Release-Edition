@@ -686,7 +686,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x54, 10),
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Geodude, 1),
-      .enemyMonElevation = 16,
+      .enemyMonElevation = 4,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Geodude, 0xff, 0, 0xff, 0),
 }, //Geodude,
 [SPECIES_GRAVELER] = 
@@ -894,7 +894,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x44, 10),
       BACK_COORD(0x55, 0x0e),
       PIC_DATA_ICON_INDEX(Voltorb, 0),
-      .enemyMonElevation = 10,
+      .enemyMonElevation = 1,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Voltorb, 0xff, 0, 0xff, 0),
 }, //Voltorb,
 [SPECIES_ELECTRODE] = 
@@ -902,7 +902,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x55, 6),
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Electrode, 0),
-      .enemyMonElevation = 12,
+      .enemyMonElevation = 1,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Electrode, 0xff, 0, 0xff, 0),
 }, //Electrode,
 [SPECIES_EXEGGCUTE] = 
@@ -1286,7 +1286,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x87, 0),
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Dragonite, 2),
-      .enemyMonElevation = 2,
+      .enemyMonElevation = 7,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Dragonite, 0xff, 0, 0xff, 0),
 }, //Dragonite,
 [SPECIES_MEWTWO] = 
@@ -1422,7 +1422,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x67, 6),
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Ledian, 0),
-      .enemyMonElevation = 8,
+      .enemyMonElevation = 11,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Ledian, 0xff, 0, 0xff, 0),
 }, //Ledian,
 [SPECIES_SPINARAK] = 
@@ -1446,7 +1446,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x88, 6),
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Crobat, 2),
-      .enemyMonElevation = 6,
+      .enemyMonElevation = 10,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Crobat, 0xff, 0, 0xff, 0),
 }, //Crobat,
 [SPECIES_CHINCHOU] = 
@@ -1502,7 +1502,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x46, 8),
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Togetic, 2),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 6,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Togetic, 0xff, 0, 0xff, 0),
 }, //Togetic,
 [SPECIES_NATU] = 
@@ -1590,7 +1590,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x66, 14),
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Hoppip, 1),
-      .enemyMonElevation = 11,
+      .enemyMonElevation = 13,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Hoppip, 0xff, 0, 0xff, 0),
 }, //Hoppip,
 [SPECIES_SKIPLOOM] = 
@@ -1606,7 +1606,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x77, 9),
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Jumpluff, 2),
-      .enemyMonElevation = 9,
+      .enemyMonElevation = 18,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Jumpluff, 0xff, 0, 0xff, 0),
 }, //Jumpluff,
 [SPECIES_AIPOM] = 
@@ -1902,7 +1902,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x88, 5),
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Mantine, 2),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 8,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Mantine, 0xff, 0, 0xff, 0),
 }, //Mantine,
 [SPECIES_SKARMORY] = 
@@ -2102,7 +2102,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x55, 12),
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Celebi, 1),
-      .enemyMonElevation = 15,
+      .enemyMonElevation = 7,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Celebi, 0xff, 0, 0xff, 0),
 }, //Celebi,
     
@@ -9499,7 +9499,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x54, 10),
       BACK_COORD(0x66, 13),
       PIC_DATA_ICON_INDEX(GeodudeAlolan, 2),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 4,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Geodude, 0xff, 0, 0xff, 0),
 }, //GeodudeAlolan,
 [SPECIES_GRAVELER_ALOLAN] = 
@@ -9723,7 +9723,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x65, 0),
       BACK_COORD(0x76, 10),
       PIC_DATA_ICON_INDEX(VoltorbHisuian, 0),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 1, //sprite is oddly high see if can adjust?
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Voltorb, 0xff, 0, 0xff, 0),
 }, //VoltorbHisuian,
 [SPECIES_ELECTRODE_HISUIAN] = 
@@ -9731,7 +9731,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       FRONT_COORD(0x77, 0),
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(ElectrodeHisuian, 3),
-      .enemyMonElevation = 0,
+      .enemyMonElevation = 1, //is just better contrast w shadow
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Electrode, 0xff, 0, 0xff, 0),
 }, //ElectrodeHisuian,
 [SPECIES_TYPHLOSION_HISUIAN] = 
