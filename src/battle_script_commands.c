@@ -20072,6 +20072,7 @@ bool32 IsTelekinesisBannedSpecies(u16 species)
 
 //extra effect only trigger if has an argument
 //no idea why didn't think to do that in the first place
+//keep an eye on this
 void BS_setargumenteffectwithchance(void) //different effect for in hit, where actually setting effect
 {
     NATIVE_ARGS();
@@ -20082,6 +20083,7 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
     {
         gBattleScripting.moveEffect = gBattleMoves[gCurrentMove].argument; //potentially need make argument field for bs. as well vsonic
         atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect
+        BattleScriptPush(cmd->nextInstr);//ok doing this properly makes bs work without breaking/skipping
     }   
     else 
         gBattlescriptCurrInstr = cmd->nextInstr;

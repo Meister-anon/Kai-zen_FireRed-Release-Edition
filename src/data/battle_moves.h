@@ -4264,7 +4264,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+        .argument = MOVE_EFFECT_SP_DEF_PLUS_1,
+    },//see if this works attempt do same effect from unbreakable ties
 
     [MOVE_TAUNT] =
     {
@@ -4545,7 +4546,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     }, //seals opponent move if shared by user
     //thought about raising to plus 2 priority but since you want slower mon 
     //to operate in trick room a fast mon with imprison should still counter them
-    
+
 
     [MOVE_REFRESH] =
     {

@@ -3582,6 +3582,7 @@ static const struct LevelUpMove sDunsparceLevelUpLearnset[] = {
 static const struct LevelUpMove sGligarLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_POISON_STING),    
     LEVEL_UP_MOVE( 4, MOVE_HARDEN),
+    LEVEL_UP_MOVE( 5, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 7, MOVE_SAND_ATTACK),
     LEVEL_UP_MOVE(10, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(13, MOVE_QUICK_ATTACK),
