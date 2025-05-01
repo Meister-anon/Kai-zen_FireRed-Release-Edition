@@ -3923,6 +3923,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     dropping speed of target that's locked in?
     its already got priority now so idk
     -no don't buff meanlook
+    NOTE**(
+      For previous idea of giving mon choice of ability
+      will require new field in boxmon so not lost when boxed.
+      idk what to call it right now but u16 stores ability
+      that will override abilityNum ability in getbattlerability
+      and in battle data transfer
+
+      think what will do is also add field to base stat
+      abilityLearnset or CompatibleAbilities
+      AbilitycompatabilityList something
+      will be array of abilities it can "learn"
+      Task menu will allow player to selet from this list
+
+      Again doesn't remove base ability it has
+      just gives more options for fully custom
+      (and take pressure off me since I often can't choose which ability to give)
+      vsonic
+    )
+    5/1/2025
     ...laser focus also unbelievabley borked smh
     text and move animation plays oddly
     then it sets aqua ring and fucking perish song but at 0
