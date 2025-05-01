@@ -28,6 +28,8 @@ https://github.com/pret/pokeemerald/compare/master...ghoulslash:pokeemerald:fog
 New OW Sprites for Mom Object shared by Josh/ShinyDragonHunter
 believe sourced from rom hack project palladium
 
+move effcts inspired by fangame Pokemon Unbreakable Ties
+
 idea have credits listeed but think
 also edit Celadon gamefreak office to have the credits as well
 can have a model for each person (default for most not unique models)

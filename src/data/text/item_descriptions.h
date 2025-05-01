@@ -490,6 +490,7 @@ extern const u8 gMoveDescription_WeatherBall[];
 extern const u8 gFLAME_CHARGE_Description[];
 extern const u8 gTrailBlaze_Description[];
 extern const u8 gFOCUS_BLAST_Description[];
+extern const u8 gMoveDescription_PsychoBoost[];
 extern const u8 gDUAL_WINGBEAT_Description[];
 extern const u8 gMoveDescription_KnockOff[];
 extern const u8 gMoveDescription_BeatUp[];

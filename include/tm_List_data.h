@@ -97,6 +97,7 @@ static const u16 gTM_Moves[] =
     MOVE_SKILL_SWAP,
     MOVE_SNATCH,
     MOVE_OVERHEAT,
+    MOVE_PSYCHO_BOOST,
     MOVE_WILD_CHARGE,
     MOVE_ROOST,
     MOVE_TELEPORT,
@@ -246,6 +247,10 @@ static const u16 gTM_Moves[] =
 //instead want ancient power as tm, simpler
 //for breeding mon that evolve via ancient power
 
+//also toss in psycho boost, but be sparing with destribution
+//release deoxys signature move as Psychic type Close Combat
+//power excused because not 100 acc
+
 //consider rename this file to item_List_data
 //for adding berry data to this
 //long as keep above tm hm stuff should have no effect
@@ -322,6 +327,7 @@ static const u16 gTMHM_List[] = {
     ITEM_TM48,
     ITEM_TM49,
     ITEM_TM50,
+    ITEM_TM_PSYCHO_BOOST,
     ITEM_TM51,
     ITEM_TM52,
     ITEM_TM53,

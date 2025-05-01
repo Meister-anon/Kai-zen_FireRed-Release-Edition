@@ -19079,7 +19079,7 @@ const struct BaseStats gBaseStats[] =
         90,
         68
         ),
-        MON_TYPES(TYPE_STEEL, TYPE_FIGHTING),
+        MON_TYPES(TYPE_STEEL, TYPE_FIGHTING), //this might still be bad psychic will destroy thsi now...
         .catchRate = 3,
         .expYield = 261,
         //.evYield_Defense = 3,
@@ -36128,7 +36128,7 @@ const struct BaseStats gBaseStats[] =
     //over max power,
     //banefull fling/toss scoops vile poison and toss at enemy before fleeing?
     //has somewhat low chance to inflict toxic?
-    //maybe Vile instead of baneful in name, Vile Toss?
+    //maybe Vile instead of baneful in name, Vile Toss?  Fetid Throw/Toss/Barrage
     //scoops a horrid substance coated in poison to fling at enemy before fleeing
     [SPECIES_MUNKIDORI] =
     {
@@ -36143,21 +36143,21 @@ const struct BaseStats gBaseStats[] =
               130,
               90
        ),
-        MON_TYPES(TYPE_POISON, TYPE_PSYCHIC),
-        .catchRate = 3,
+        MON_TYPES(TYPE_POISON, TYPE_PSYCHIC),//is better offensively and defensively w my changes, may have a niche now?
+        .catchRate = 3, //terra existing still makes it hard since anyone can get a move of any type w terra blast
         .expYield = 278,
        // .evYield_SpAttack = 3,
         .genderRatio = MON_MALE,
         .eggCycles = 120,
-        .friendship = FRIENDSHIP_LEGENDARY,
-        .growthRate = GROWTH_SLOW,
+        .friendship = FRIENDSHIP_LEGENDARY,//could give contrary psycho boost? since it doesn't really have bulk
+        .growthRate = GROWTH_SLOW, //to passively setup w nasty plot? - rn its deoxys exclusive could release it as psychic close combat since its not 100% acc like CC?
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_TOXIC_CHAIN, ABILITY_NONE },
-        .abilityHidden = {ABILITY_FRISK, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_BLACK,
-        .noFlip = FALSE,
-        .floating = FALSE,
-        /*.speciesName = _("Munkidori"),
+        .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_CONTRARY},//even w my buffs frisk is uselss on this
+        .bodyColor = BODY_COLOR_BLACK, //toxic chain does the same thing better
+        .noFlip = FALSE, //maybe drop frisk for pickpocket? still kinda fits and gives more staying power? won't do anything against earthquake but...
+        .floating = FALSE, //hmm think i'll do both psycho boost is a move you'd only use w contrary for most part
+        /*.speciesName = _("Munkidori"), pickpocket would give another niche to be potentially more supporty
         .cryId = CRY_MUNKIDORI,
         .natDexNum = NATIONAL_DEX_MUNKIDORI,
         .categoryName = _("Retainer"),
