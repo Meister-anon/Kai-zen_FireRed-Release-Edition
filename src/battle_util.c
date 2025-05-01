@@ -12038,13 +12038,6 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     uq4_12_t mod = GetTypeModifier(moveType, defType);
 
 
-    //chage attempt setup origin giratina as only mon
-    //that can resist arceus' judgment vsonic
-    if (move == MOVE_JUDGMENT && GetBattlerAbility(battlerDef) == ABILITY_INVERSE_WORLD)
-        mod = gTypeEffectivenessTable[moveType][defType];
-
-    
-
     if (mod == UQ_4_12(0.0) && GetBattlerHoldEffect(battlerDef, TRUE) == HOLD_EFFECT_RING_TARGET)//why would anyone want this? -its for swapping to target
     {
         mod = UQ_4_12(1.0); //origin giratina may be able to use?

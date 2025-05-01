@@ -2548,26 +2548,49 @@ static void atk06_typecalc(void) //ok checks type think sets effectiveness, but 
         return;
     }
 
+    //pretty sure need add to other type calc?
     if (gBattleMons[gBattlerAttacker].species == SPECIES_ARCEUS && gCurrentMove == MOVE_JUDGMENT)
     {
         //set here tobe arceus only effect
         u32 i;
         bool8 foundType = 0;
+        uq4_12_t modifier1,modifier2,modifier3;
+        uq4_12_t typeEffectiveness = UQ_4_12(1.0);
+        uq4_12_t FinalEffectiveness = UQ_4_12(1.0);
 
         for (i = 0; i < NUMBER_OF_MON_TYPES; i++)//realized problem I'm attempting to set typep before I've selecteed a target...rage works as its based on the attacker type which is alwayss known/constant
         {
+            modifier1 = modifier2 = modifier3 = UQ_4_12(1.0);
+            modifier1 = uq4_12_multiply(modifier1, gTypeEffectivenessTable[i][type1]);
+            modifier2 = uq4_12_multiply(modifier2,gTypeEffectivenessTable[i][type2]);
+            modifier3 = uq4_12_multiply(modifier3,gTypeEffectivenessTable[i][type3]);
+            
+            typeEffectiveness = uq4_12_multiply(modifier1,modifier2);
+            FinalEffectiveness = uq4_12_multiply(typeEffectiveness,modifier3);
             //ok checked this, it can recognize uq 1.55 but when I multiply its something else?
             //tested w uq 8_8 and it does match up at == 1.55 at least
             //in type effectiveness option it also proves it recognizes == 0.775 ???
             //ok setup debug option to just show type effectiveness so I can see what's happening
-            if (CalcTypeEffectivenessMultiplier(gCurrentMove, i, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
+            if (GetBattlerAbility(gBattlerTarget) == ABILITY_INVERSE_WORLD)
             {
-                gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
-                //SetJudgmentTypeString(i);
-                foundType = TRUE;
-                break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
-            }//and since this is a loop it encounters the ground loop, before it gets to rock so I need to do a switch case
+                if (FinalEffectiveness >= UQ_4_12(1.55))
+                {
+                    gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below                    foundType = TRUE;
+                    foundType = TRUE;
+                    break; 
+                }//to get around reading inverse world logic which is in typecalc directly read table instead
+            }
+            else
+            {
+                if (CalcTypeEffectivenessMultiplier(gCurrentMove, i, gBattlerAttacker, gBattlerTarget, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
+                {
+                    gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
+                    foundType = TRUE;
+                    break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
+                }//and since this is a loop it encounters the ground loop, before it gets to rock so I need to do a switch case
             //but i need a way to get the type I need
+            }
+            
         }
 
 
@@ -2882,10 +2905,64 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     u8 moveType,argument;
     u8 type1 = gBattleMons[defender].type1, type2 = gBattleMons[defender].type2, type3 = gBattleMons[defender].type3;
     u16 effect = gBattleMoves[gCurrentMove].effect;
-    u16 multiplier;
+    uq4_12_t multiplier;
 
-    if (move == MOVE_STRUGGLE || move ==  MOVE_BIDE)
+    //something wrong missing using other conditional breaks game
+    //huh ok seems issues was multiplier variable had u16 type instead of uq4_12_t
+    //changing that fixed it?
+    if (move == MOVE_STRUGGLE || move == MOVE_BIDE || move == MOVE_COUNTER || move == MOVE_MIRROR_COAT || move == MOVE_METAL_BURST)
         return 0;
+
+    //hopefully this is fine? vsonic
+    if (gBattleMons[attacker].species == SPECIES_ARCEUS && move == MOVE_JUDGMENT)
+    {
+        //set here tobe arceus only effect
+        u32 i;
+        bool8 foundType = 0;
+        uq4_12_t modifier1,modifier2,modifier3;
+        uq4_12_t typeEffectiveness = UQ_4_12(1.0);
+        uq4_12_t FinalEffectiveness = UQ_4_12(1.0);
+
+        for (i = 0; i < NUMBER_OF_MON_TYPES; i++)//realized problem I'm attempting to set typep before I've selecteed a target...rage works as its based on the attacker type which is alwayss known/constant
+        {
+            modifier1 = modifier2 = modifier3 = UQ_4_12(1.0);
+            modifier1 = uq4_12_multiply(modifier1, gTypeEffectivenessTable[i][type1]);
+            modifier2 = uq4_12_multiply(modifier2,gTypeEffectivenessTable[i][type2]);
+            modifier3 = uq4_12_multiply(modifier3,gTypeEffectivenessTable[i][type3]);
+            
+            typeEffectiveness = uq4_12_multiply(modifier1,modifier2);
+            FinalEffectiveness = uq4_12_multiply(typeEffectiveness,modifier3);
+            //ok checked this, it can recognize uq 1.55 but when I multiply its something else?
+            //tested w uq 8_8 and it does match up at == 1.55 at least
+            //in type effectiveness option it also proves it recognizes == 0.775 ???
+            //ok setup debug option to just show type effectiveness so I can see what's happening
+            if (GetBattlerAbility(defender) == ABILITY_INVERSE_WORLD)
+            {
+                if (FinalEffectiveness >= UQ_4_12(1.55))
+                {
+                    gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below                    foundType = TRUE;
+                    foundType = TRUE;
+                    break; 
+                }//to get around reading inverse world logic which is in typecalc directly read table instead
+            }
+            else
+            {
+                if (CalcTypeEffectivenessMultiplier(move, i, attacker, defender, FALSE) >= UQ_4_12(1.55)) //issue was ground check wasn't included in update result flag check
+                {
+                    gBattleStruct->dynamicMoveType = i; //set dynamic type, which assigns to movetype in getmovetype below
+                    foundType = TRUE;
+                    break; //ok found issue, its not wrong grounded logic, its that calctypeeff, sets it to miss and play floating string
+                }//and since this is a loop it encounters the ground loop, before it gets to rock so I need to do a switch case
+            //but i need a way to get the type I need
+            }
+            
+        }
+
+
+        if (!(foundType)) //IDK What's happening right now, - put result brackets around ground check now fixed
+            gBattleStruct->dynamicMoveType = TYPE_MYSTERY;  //
+        
+    }
     argument = gBattleMoves[move].argument;
     GET_MOVE_TYPE(move,moveType);
     //GET_MOVE_TYPE(gCurrentMove,argument);
