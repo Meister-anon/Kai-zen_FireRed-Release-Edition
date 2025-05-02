@@ -129,12 +129,12 @@ ViridianCity_Text_CatchMonsForEasierBattles:: @ 817E1E7
     .string "The more you have, the easier it\n"
     .string "is to battle.$"
 
-ViridianCity_Text_MovesLimitedByPP:: @ 817E24D
+ViridianCity_Text_MonInfoFromSummary:: @ 817E24D
     .string "TRAINER TIPS\p"
-    .string "The battle moves of POKéMON are\n"
-    .string "limited by their POWER POINTS, PP.\p"
-    .string "To replenish PP, rest your tired\n"
-    .string "POKéMON at a POKéMON CENTER.$"
+    .string "You can access some POKéDEX data\n"
+    .string "from the party while on the go.\p"
+    .string "Just press START while on the\n"
+    .string "POKéMON's Summary Page.$"
 
 ViridianCity_Text_GymSign:: @ 817E2DB
     .string "VIRIDIAN CITY POKéMON GYM$"

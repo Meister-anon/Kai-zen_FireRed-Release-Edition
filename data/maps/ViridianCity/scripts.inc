@@ -69,8 +69,9 @@ ViridianCity_EventScript_TrainerTips1:: @ 816599D
 	msgbox ViridianCity_Text_CatchMonsForEasierBattles, MSGBOX_SIGN
 	end
 
+@change this to pokedex data
 ViridianCity_EventScript_TrainerTips2:: @ 81659A6
-	msgbox ViridianCity_Text_MovesLimitedByPP, MSGBOX_SIGN
+	msgbox ViridianCity_Text_MonInfoFromSummary, MSGBOX_SIGN
 	end
 
 ViridianCity_EventScript_GymSign:: @ 81659AF
