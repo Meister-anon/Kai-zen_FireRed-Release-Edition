@@ -5652,15 +5652,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
        // if (type == TYPE_WATER)
             //gBattleMoveDamage = 0;
         break;
-    //case ABILITY_WATER_ABSORB:
-    /*case ABILITY_STORM_DRAIN:
-        if (type == TYPE_WATER)
-            //gBattleMoveDamage = 0;//actually dry skin prooves I don't need these //gBattleMoveDamage = 0; values, it defaults to a bs that stops attack
-        break;
-    case ABILITY_JEWEL_METABOLISM:
-        if (type == TYPE_ROCK)
-            //gBattleMoveDamage = 0;
-        break;*/ //unsure if this will work, previous ability absorb worked by cancel move in atk canceler, then resetting battlemovedmg and using other script need test
     case ABILITY_PICKPOCKET:
         if (IsMoveMakingContact(move, battlerIdAtk)) //small common sense damage reduction as most mon with this have shit defense,
         {

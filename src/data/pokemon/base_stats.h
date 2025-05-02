@@ -686,8 +686,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_TANGLED_FEET},
-        .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_EARLY_BIRD},
+        .abilities = {ABILITY_KEEN_EYE, ABILITY_STEADFAST},
+        .abilityHidden = {ABILITY_TANGLED_FEET, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -712,8 +712,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
-        .abilities = {ABILITY_KEEN_EYE, ABILITY_AVIATOR},
-        .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_EARLY_BIRD},
+        .abilities = {ABILITY_KEEN_EYE, ABILITY_STEADFAST},
+        .abilityHidden = {ABILITY_TANGLED_FEET, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -739,7 +739,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FLYING,
         .eggGroup2 = EGG_GROUP_FLYING,
         .abilities = {ABILITY_KEEN_EYE, ABILITY_AVIATOR},
-        .abilityHidden = {ABILITY_BIG_PECKS, ABILITY_EARLY_BIRD},
+        .abilityHidden = {ABILITY_TANGLED_FEET, ABILITY_EARLY_BIRD},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -752,6 +752,10 @@ const struct BaseStats gBaseStats[] =
     //gave that scrappy took tangled feet and gave back here
     //toucanon has more normal moves this has mostly flyign moves not normal
     //decided want to keep early bird, tangled feet really doesn't make much sense
+    //hmm ok think I'd drop big pecks off this and replace w tangled feet
+    //for doubles strats etc. and to help distinguise the birds
+    //big pecks on this would be cool, but need that on fearow line
+    //to give that some use, and this is mixed anyway so I'm fine without it
 
     [SPECIES_RATTATA] =
     {

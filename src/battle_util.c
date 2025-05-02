@@ -12539,10 +12539,16 @@ u32 GetBattleMoveDamageCategory(u32 battler, u16 move)
     spAttack = spAttack * gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][0];
     spAttack = spAttack / gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][1];
 
-    if (spAttack >= attack && GetBattlerAbility(battler) != ABILITY_MUSCLE_MAGIC)
+    /*if (spAttack >= attack && GetBattlerAbility(battler) != ABILITY_MUSCLE_MAGIC)
         statBasedSplit = SPLIT_SPECIAL;
     else
+        statBasedSplit = SPLIT_PHYSICAL;*/
+
+    //think this condition is better
+    if (spAttack < attack || GetBattlerAbility(battler) == ABILITY_MUSCLE_MAGIC)
         statBasedSplit = SPLIT_PHYSICAL;
+    else
+        statBasedSplit = SPLIT_SPECIAL;
 
     switch (gBattleMoves[move].effect)
     {

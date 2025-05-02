@@ -1574,7 +1574,7 @@ static u8 HandleInput_InParty(void)
             }
             break;
         }
-        else if (JOY_NEW(START_BUTTON))
+        else if ((JOY_NEW(START_BUTTON)) && FlagGet(FLAG_SYS_UPDATED_PC))
         {
             u8 value = GetBoxMonData(&gPlayerParty[sCursorPosition].box, MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
             //testing - works
