@@ -18853,15 +18853,16 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_GLUTTONY, ABILITY_FLASH_FIRE},
-        .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_MOODY},
-        .bodyColor = BODY_COLOR_RED,
+        .abilities = {ABILITY_GLUTTONY, ABILITY_FLAME_BODY},
+        .abilityHidden = {ABILITY_WHITE_SMOKE, ABILITY_FLASH_FIRE},//swap it up give flame body think swap 
+        .bodyColor = BODY_COLOR_RED,    //can literally set tongue on fire
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sHeatmorLevelUpLearnset,
         .tmhmLearnset = sHeatmorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //according JPR main issues is moves and availability, as was a extremely late mon in region
 
     [SPECIES_DURANT] =
     {
