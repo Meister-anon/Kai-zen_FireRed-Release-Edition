@@ -18843,8 +18843,8 @@ const struct BaseStats gBaseStats[] =
         105,
         66
         ),
-        MON_TYPES(TYPE_FIRE, TYPE_FIRE),
-        .catchRate = 90,
+        MON_TYPES(TYPE_FIRE, TYPE_NORMAL), //Best I can come up w for abuff for this
+        .catchRate = 90, //fire resist fairy so its already coverd damage buff at the cost of just a fighting weakness
         .expYield = 169,
         //.evYield_SpAttack = 2,
         .genderRatio = PERCENT_FEMALE(50),
