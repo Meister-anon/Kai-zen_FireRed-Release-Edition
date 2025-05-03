@@ -1383,7 +1383,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HIT,
         .power = 55,
         .type = TYPE_ROCK,
-        .accuracy = 90,
+        .accuracy = 100,
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -6507,7 +6507,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_POWER_GEM] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 80,
+            .power = 95,
         #else
             .power = 70,
         #endif
@@ -6521,6 +6521,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_SPECIAL,
     },
+    //turned into psychic
+    //maybe should make base 95? doesn't have other effect
+    //and is pretty much only accessible special rock move
+    //yeah same as previous note for lack of better options
+    //the strength of one thing is the strength of everything
+    //so this needs to be ACTUALLY good
 
     [MOVE_DRAIN_PUNCH] =
     {
@@ -7047,7 +7053,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HIT,
         .power = 100,
         .type = TYPE_ROCK,
-        .accuracy = 80,
+        .accuracy = 95,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -7055,6 +7061,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
     },
+    //there are very few rock moves
+    //should I increase accuracy of this?
+    //because of scarceness not really room
+    //to have a move be bad just to make it an alternative
+    //niche option to another move,
+    //it just makes the entire move category bad.
+    //ok other comparable moves are base 95 acc so yeah -_-
 
     [MOVE_CAPTIVATE] =
     {
@@ -7264,7 +7277,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_50_RECOIL,
         .power = 150,
         .type = TYPE_ROCK,
-        .accuracy = 90,
+        .accuracy = 95,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -7273,6 +7286,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
     },//consider raising accuracy vsonic double edge has triple pp and is 100% accurate
     //did boost acc from 85 to 90
+    //think will go to 95 has heavy recoil and half the pp of most double edge likes
+    //oh sorry a THIRD the pp 0.o  with just 30 more bp
 
     [MOVE_DOUBLE_HIT] =
     {
@@ -7449,6 +7464,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
         .argument = TRUE, // Protects the whole side.
     },
+    //vsonic potentialy add to more rock types
 
     [MOVE_GUARD_SPLIT] =
     {
@@ -11375,6 +11391,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //effect will continue until it executes even if flinches or otherwise
     //incapacitated i.e sleep freeze etc.
     //idk if all charge moves work that way but they should
+    //wait this is literally just electro shot ex without rain effect
+    //why is this not setup?
+    //old setup/not updated from EE
+    //need move effect bs update
 
     [MOVE_SHELL_SIDE_ARM] =
     {
@@ -11815,7 +11835,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_HIT_SET_ENTRY_HAZARD, // EFFECT_STONE_AXE,  //is done in emerald can take
         .power = 65,
         .type = TYPE_ROCK,
-        .accuracy = 90,
+        .accuracy = 95,
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
@@ -11826,6 +11846,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         ////.zMovePower = 120,
         ////.zMoveEffect = Z_EFFECT_NONE,
     }, //need test
+    //low power no reason to have such low acc
+    //especially when stealth rocks don't stack
+    //acc not being perfect is best balance willing to do with this
 
     [MOVE_SPRINGTIDE_STORM] =
     {

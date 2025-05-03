@@ -3992,6 +3992,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     Remember need to go over modern mon, and retool their abilities
     i.e gen 7-9 I think, believe maybe just gen 9 I believe I went
     the older gens already?
+
+    Looking at mewtwo x plan for held items that can't be removed
+    and are only there for form change to not count as held items
+    for moves that boost dmg done if not holding an item,
+    to counter balance they still count for things like knock off
+    even if can't remove the item
+
     )
     5/3/2025
 
@@ -4006,6 +4013,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     on party mon from pc they still turn off exp
     didn't set progression blockers correctly in all places
     -fixed
+
+    -fix alolan raichu face for front sprite
+    looks weird af -ok done, was easy
+    issue was just mouth was too close to nose smh
+
+    check inverse world see if right
     thoughts considering how floating will effect ground type
     my type changes made it better defensively
     but its worse offensively because of floating

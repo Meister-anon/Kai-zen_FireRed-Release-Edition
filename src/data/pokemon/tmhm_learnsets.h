@@ -4071,6 +4071,10 @@ MOVE_DIVE,
 static const u16 sMewtwoTMHMLearnset[] = {
 MOVE_FOCUS_PUNCH,
 MOVE_WATER_PULSE,
+MOVE_DRAIN_PUNCH,
+MOVE_COMET_PUNCH,
+MOVE_ACROBATICS, //setup effect to still boost damage if held item is mega stone
+MOVE_BEAT_UP, //additions for mewtwo x
 MOVE_CALM_MIND,
 MOVE_TOXIC,
 MOVE_HAIL,
@@ -4078,11 +4082,15 @@ MOVE_BULK_UP,
 MOVE_HIDDEN_POWER,
 MOVE_SUNNY_DAY,
 MOVE_TAUNT,
+MOVE_GLARE,
+MOVE_MUD_SPORT,
+MOVE_WATER_SPORT,
 MOVE_ICE_BEAM,
 MOVE_BLIZZARD,
 MOVE_HYPER_BEAM,
 MOVE_LIGHT_SCREEN,
 MOVE_PROTECT,
+MOVE_GRAVITY,
 MOVE_RAIN_DANCE,
 MOVE_SAFEGUARD,
 MOVE_FRUSTRATION,
@@ -4115,6 +4123,7 @@ MOVE_FLASH,
 MOVE_ROCK_SMASH,
     TMHM_LEARNSET_END
 };
+//added more support moves since so fast
 
 // Instead of reading this array for Mew, it checks for exceptions in CanLearnTeachableMove instead.
 static const u16 sMewTMHMLearnset[] = {

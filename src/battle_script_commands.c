@@ -8824,8 +8824,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                         MoveValuesCleanUp();
                         BattleScriptPush(gBattleScriptsForBattleEffects[gBattleMoves[gCurrentMove].effect]);
                         gBattlescriptCurrInstr = BattleScript_FlushMessageBox;
-                        return;
-                    }
+                        return;//think the push is to reapply effects well jump to battlescript for effect?
+                    }//well its not repeating the entire script, the animation would reply if it was that
                 }
 
                 gHitMarker |= HITMARKER_NO_ATTACKSTRING;

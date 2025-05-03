@@ -5066,7 +5066,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
          //not sure if the item slot swap happens before this or not? vsonic
         if (gBattleMons[battlerIdAtk].item == ITEM_NONE
             // Edge case, because removal of items happens after damage calculation.
-            || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk, FALSE) == HOLD_EFFECT_GEMS))
+            || (gSpecialStatuses[battlerIdAtk].gemBoost && GetBattlerHoldEffect(battlerIdAtk, FALSE) == HOLD_EFFECT_GEMS)
+            || GetPocketByItemId(gBattleMons[battlerIdAtk].item) == POCKET_KEY_ITEMS) //held items just for transformation/balance ex. megastones primal orbs
             gBattleMovePower *= 2;
         break;
         case EFFECT_KNOCK_OFF:
