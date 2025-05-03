@@ -3904,6 +3904,19 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     else {
         printerTemplate.fontId = sTextOnWindowsInfo_Normal[windowId].fontId;
     }
+
+    if (B_WIN_MOVE_NAME_1 <= windowId && windowId <= B_WIN_MOVE_NAME_4)
+    {
+        // We cannot check the actual width of the window because
+        // B_WIN_MOVE_NAME_1 and B_WIN_MOVE_NAME_3 are 16 wide for
+        // Z-move details.
+        /*if (gBattleStruct->zmove.viewing && windowId == B_WIN_MOVE_NAME_1)
+            printerTemplate.fontId = GetFontIdToFit(text, printerTemplate.fontId, printerTemplate.letterSpacing, 16 * TILE_WIDTH);
+        else*/
+        //i'm not using z moves so should be able to get actual width here
+        printerTemplate.fontId = GetFontIdToFit(text, printerTemplate.fontId, printerTemplate.letterSpacing, sStandardBattleWindowTemplates[windowId].width * TILE_WIDTH);
+    }
+
     switch (windowId)
     {
     case B_WIN_VS_PLAYER:
