@@ -353,7 +353,9 @@ extern u8 gUnknownStringVar[]; //new buffer seems fine? haven't printed yet but 
 
 
 //move description version
-#define COMPOUND_MOVE_STRING(str) (const u8[MOVE_DESCRIPTION_LENGTH + 1]) _(str)
+//_Description can hold 5 line breaks (so 6 lines total)
+//at approx 19 chars per line// so 114 max ( + 5 for line break escape chars)
+#define COMPOUND_MOVE_STRING(str) (const u8[MOVE_DESCRIPTION_LENGTH + 5]) _(str)
 
 //replacement version so can use compound string logic w my ability stuff and keep my limiter
 #define COMPOUND_ABILITY_STRING(str) (const u8[ABILITY_DESCRIPTION_LENGTH + 1]) _(str)

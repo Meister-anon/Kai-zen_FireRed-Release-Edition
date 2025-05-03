@@ -903,6 +903,7 @@
 #define MOVE_CONVERSION_Z 869 //don't forget adjust battle_anim_scritpts
 #define MOVE_SOLAR_FLARE 870 //idea solrock magmar, fire based electro web
 //#define MOVES_COUNT_GEN8 757
+#define MOVE_MUDSLIDE 871 //new special groud move for gigalith line
 
 //#define MOVES_COUNT MOVES_COUNT_GEN8
 
@@ -910,7 +911,7 @@
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_SOLAR_FLARE
+#define LAST_MOVE_INDEX     MOVE_MUDSLIDE
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 

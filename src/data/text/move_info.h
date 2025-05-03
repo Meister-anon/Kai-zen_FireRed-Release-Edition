@@ -237,7 +237,7 @@ const u8 gMoveDescription_VitalThrow[MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the
 const u8 gMoveDescription_MorningSun[MOVE_DESCRIPTION_LENGTH + 5] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
 const u8 gMoveDescription_Synthesis[MOVE_DESCRIPTION_LENGTH + 5] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
 const u8 gMoveDescription_Moonlight[MOVE_DESCRIPTION_LENGTH + 5] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
-const u8 gMoveDescription_HiddenPower[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nvaries in type and\nintensity depending\non the user.\nSplit is based on\nlowest attack stat.");
+const u8 gMoveDescription_HiddenPower[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nvaries in type and\nintensity depending\non the user.\nSplit is based on\nhighest attack stat.");
 const u8 gMoveDescription_CrossChop[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\ndouble chops.\nIt has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_Twister[MOVE_DESCRIPTION_LENGTH + 5] = _("A vicious twister\nattacks the foe.\nIt may make the\nfoe flinch.");
 const u8 gMoveDescription_RainDance[MOVE_DESCRIPTION_LENGTH + 5] = _("A heavy rain falls\nfor five turns,\npowering up WATER-\ntype moves.");
@@ -276,7 +276,7 @@ const u8 gMoveDescription_RolePlay[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mi
 const u8 gMoveDescription_Wish[MOVE_DESCRIPTION_LENGTH + 5] = _("A self-healing move\nthat restores half\nthe full HP on the\nnext turn.");
 const u8 gMoveDescription_Assist[MOVE_DESCRIPTION_LENGTH + 5] = _("The user randomly\npicks and uses a\nmove of an allied\nPOKéMON.");
 const u8 gMoveDescription_Ingrain[MOVE_DESCRIPTION_LENGTH + 5] = _("The user lays roots\nthat restore HP on\nevery turn.\nIt can't switch out.");
-const u8 gMoveDescription_Superpower[MOVE_DESCRIPTION_LENGTH + 5] = _("A powerful attack,\nmade with no\nregard for Defense.\nBut it also lowers\nthe user's\nDEFENSE stats.");
+const u8 gMoveDescription_Superpower[MOVE_DESCRIPTION_LENGTH + 5] = _("A powerful attack,\nmade with no\nregard for Defense.\nAlso hurts the user\na little bit."); //\nBut it also lowers\nthe user's\nDEFENSE stats.");
 const u8 gMoveDescription_MagicCoat[MOVE_DESCRIPTION_LENGTH + 5] = _("Reflects back the\nfoe's LEECH SEED\nand any status-\naffecting move.");
 const u8 gMoveDescription_Recycle[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that\nrecycles a used\nitem for use once\nmore.");
 const u8 gMoveDescription_Revenge[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack move that\ngains in intensity if\nthe target has hurt\nthe user.");
@@ -2358,9 +2358,13 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_SPIN_DASH] = gMoveDescription_Spindash,
     [MOVE_ARCTIC_RAKE] = COMPOUND_MOVE_STRING("Todo."),
     [MOVE_CONVERSION_Z ] = gMoveDescription_ConversionZ,
+    [MOVE_SOLAR_FLARE] = COMPOUND_MOVE_STRING("Saps enemy strength\nwith a wave of heat\nand lowers speed.\nMay also cause\ntargets to flinch."),
+    [MOVE_MUDSLIDE] = COMPOUND_MOVE_STRING("Swamps the enemy\nside with a raging\nmudslide.\nMay also lower the\nfoes' speed."),
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
+//overflow on move descriptions etc. breaks start screen but is annoying cuz can't
+//put limits on line break
 
 
     //for implementing lower case move names
@@ -3242,6 +3246,8 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_SPIN_DASH] = _("Spin Dash"),
     [MOVE_ARCTIC_RAKE] = _("Arctic Rake"),
     [MOVE_CONVERSION_Z] = _("Conversion Z"),
+    [MOVE_SOLAR_FLARE] =_("Solar Flare"),
+    [MOVE_MUDSLIDE] = _("Mudslide"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

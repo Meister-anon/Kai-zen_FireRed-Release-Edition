@@ -251,6 +251,8 @@ static const u16 gTM_Moves[] =
 //release deoxys signature move as Psychic type Close Combat
 //power excused because not 100 acc
 
+//add earth power 
+
 //consider rename this file to item_List_data
 //for adding berry data to this
 //long as keep above tm hm stuff should have no effect

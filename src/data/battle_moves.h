@@ -887,7 +887,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HYDRO_PUMP] =
     {
-
         .power = 120,
         .effect = EFFECT_HIT,
         .type = TYPE_WATER,
@@ -902,8 +901,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SURF] =
     {
-
-
         .power = 95,
         .target = MOVE_TARGET_BOTH,
         .effect = EFFECT_HIT,
@@ -2128,9 +2125,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
-    .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_LETHAL_LEGS_BOOST,
+    .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_LETHAL_LEGS_BOOST,
     .split = SPLIT_PHYSICAL,
 },
+//since is jumping kick game hit in air, and since is resisted by flying and risks recoil
+//made 2x
 
 [MOVE_GLARE] =
 {
@@ -3214,12 +3213,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 },
 
 [MOVE_ENDURE] =
-{   //prefer keeping at priority 3
-    /*#if B_UPDATED_MOVE_DATA >= GEN_5
+{   //prefer keeping at priority 3 hmm point of making +4 is to survive fake out.. ok i'll do it
+    #if B_UPDATED_MOVE_DATA >= GEN_5
         .priority = 4,
-    #else*/
+    #else
         .priority = 3,
-        //#endif
+    #endif
         .effect = EFFECT_ENDURE,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -4392,6 +4391,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
     },
+    //could reset back, but only reason to keep as is
+    //would be contrary strats which only spinda could do
+    //nd I want more recoil moves to show off the effect rebalance
+    //think may increase to medium recoil effect? think this is low recoil?
 
     [MOVE_MAGIC_COAT] =
     {
@@ -6960,7 +6963,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
     }, //add to tangela learnset
 
@@ -11367,7 +11370,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-    },
+    },//similar to skull bash but boosts sp atk
+    //and seems it has effect that once charge starts
+    //effect will continue until it executes even if flinches or otherwise
+    //incapacitated i.e sleep freeze etc.
+    //idk if all charge moves work that way but they should
 
     [MOVE_SHELL_SIDE_ARM] =
     {
@@ -13798,7 +13805,25 @@ use wonder gaurd logic to determine its super effective
     //flinch chance is low but as it hits both
     //still a good idea to lower
     //idea is flinch from heat not brightness
-    //still to do add animation
+    //still to do add animation for now using superpower
+    //signature for solrock, 
+
+    [MOVE_MUDSLIDE] =
+    {
+        .effect = EFFECT_SPEED_DOWN_HIT,
+        .power = 95,        
+        .type = TYPE_GROUND,
+        .accuracy = 90,
+        .pp = 15,
+        .secondaryEffectChance = 20,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .split = SPLIT_SPECIAL,
+    },
+    //think I need drop this to acc 90
+    //otherwise not much reason to use earth power
+    //mix of heat wave and surf
 
 
 

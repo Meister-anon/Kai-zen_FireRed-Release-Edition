@@ -15201,10 +15201,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         55,
-        75,
+        35,
         85,
         15,
-        25,
+        75,
         40
         ),
         MON_TYPES(TYPE_ROCK, TYPE_ROCK),
@@ -15220,14 +15220,16 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_WEAK_ARMOR},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_FLUORESCENCE},//can absorb sunlight as energy :) finally a PHOTOSYNTHESIZE user
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sRoggenrolaLevelUpLearnset,
         .tmhmLearnset = sRoggenrolaTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(25, AVERAGE_EFFORT), 0, SPECIES_BOLDORE}), //Should hopefully blank these for now without issue
-    },
+    },//I like eliete redux change of making this a bulky special line, instead of physical
+    //more intersting and unique as a special rock type as well
+    //w dex entry and honestly general physical construction of the mon itself it makes sense to be special over physical
 
     [SPECIES_BOLDORE] =
     {
@@ -15236,10 +15238,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         70,
-        105,
+        60,
         105,
         20,
-        50,
+        105,
         55
         ),
         MON_TYPES(TYPE_ROCK, TYPE_ROCK),
@@ -15256,7 +15258,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_WEAK_ARMOR},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_FLUORESCENCE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15272,10 +15274,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         85,
-        135,
+        70,
         130,
         25,
-        60,
+        135,
         80        
         ),
         MON_TYPES(TYPE_ROCK, TYPE_ROCK),
@@ -15291,7 +15293,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_SAND_STREAM},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_FLUORESCENCE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -15299,6 +15301,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGigalithTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //hmm actually ABILITY_FLUORESCENCE would be kinda cool here?
+    //gave flourescence save ABILITY_PHOTOSYNTHESIZE for learned ability
+    //we strength can still mae use of attack eventually
 
     [SPECIES_WOOBAT] =
     {

@@ -3987,6 +3987,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     for some reason set tail wind, then it just froze the game
     when used again.*facepalm
     -fixed the argument effect chance bs was still wrong smh
+
+    NOTE**(
+    Remember need to go over modern mon, and retool their abilities
+    i.e gen 7-9 I think, believe maybe just gen 9 I believe I went
+    the older gens already?
+    )
+    5/3/2025
     ...laser focus also unbelievabley borked smh
     text and move animation plays oddly
     then it sets aqua ring and fucking perish song but at 0
@@ -10865,7 +10872,7 @@ as well as the effect of increasing trap duration
 * I think splitting it up and giving it an effect outside of sun, would help improve it without having to do anything crazy. hmm
 * so essentially grass type clear body, with extra effects for sun, that are debatable from a practical side..   ok I like this. - DONE
 * 
-* fix acelgor sprite change lips
+* fix acelgor sprite change lips - nvm it looks fine actually
 * fix delibird learnset oh already done
 *
 *   forgot need change castform ability logic, 

@@ -931,6 +931,8 @@ gBattleAnims_Moves::
 	.4byte Move_SPIN_DASH
 	.4byte Move_ARCTIC_RAKE
 	.4byte Move_CONVERSION_Z
+	.4byte Move_SOLAR_FLARE	@putting w superpower for now, also need check emerald version unsure if anim is weird
+	.4byte Move_MUDSLIDE
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -4372,6 +4374,7 @@ Move_ASSIST:: @ 81CBAD2
 	playsewithpan SE_M_SCRATCH, 0
 	end
 
+Move_SOLAR_FLARE::
 Move_SUPERPOWER:: @ 81CBB43
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
 	loadspritegfx ANIM_TAG_METEOR
@@ -9360,6 +9363,7 @@ ArmThrustLeft:: @ 81D2F14
 	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 2, -8, 0, 1, 2
 	goto ArmThrustContinue
 
+Move_MUDSLIDE::
 Move_MUDDY_WATER:: @ 81D2F28
 	panse_1B SE_M_WHIRLPOOL, 192, SOUND_PAN_TARGET, 2, 0
 	createvisualtask AnimTask_CreateSurfWave, 2, 1
