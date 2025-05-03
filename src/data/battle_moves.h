@@ -13807,6 +13807,11 @@ use wonder gaurd logic to determine its super effective
     //idea is flinch from heat not brightness
     //still to do add animation for now using superpower
     //signature for solrock, 
+    //later rework animation combine superpower charge effect
+    //w heatwave animation
+    //maybe charge glow with fire spin going around it 
+    //then heatwave and do enemy knock back?
+    //vsonic
 
     [MOVE_MUDSLIDE] =
     {

@@ -3994,6 +3994,42 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     the older gens already?
     )
     5/3/2025
+
+    Also finished setup for planned freze effect/frostbite 
+    increasign chance of being frozen again.
+
+    may remove increased freeze odds, and just keep
+    ability to be refrozen after defrosting
+    -yeah removed increased freeze odds
+
+    -pc change not right yet, when press start
+    on party mon from pc they still turn off exp
+    didn't set progression blockers correctly in all places
+    -fixed
+    thoughts considering how floating will effect ground type
+    my type changes made it better defensively
+    but its worse offensively because of floating
+    but it doesnt have a true immunity, only issue is 
+    a degree of mon will require it to invest a second move to remove immunity
+    or keep a move just for that
+
+    what are other types that have immunity?
+    Electric(ground), Poison(steel), Psychic(dark), Normal(ghost),
+    Fighting(ghost), Dragon(fairy), |New Additions   Fairy(grass), Poison(rock)
+
+    hmm ok for the most part the immunities exist because they make sense
+    regardless of how good/bad the type itself is.
+
+    excepting Dragon and Psychics case, as they came later on,
+    those immunities were added to balance out the types strength
+
+    The types that have the immunity are still good regardless
+    but ground is different its not a type based immunity
+    but its also not a true immunity as it can be overcome
+    think I just need to create a certain balancing point
+    num of effects that can remove it for ground moves to work
+    must have good balance in general to not lose benefit of flying bonus
+
     ...laser focus also unbelievabley borked smh
     text and move animation plays oddly
     then it sets aqua ring and fucking perish song but at 0

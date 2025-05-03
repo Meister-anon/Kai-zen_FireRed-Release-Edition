@@ -7088,6 +7088,18 @@ const struct BaseStats gBaseStats[] =
     //"Raikou is able to fly by creating storm clouds"  HUHHH!! IT WAS MEANT TO BE!!
     //perfect and it suits most of my flying logic,
     //that mon can fly but not be floating becuase its not able to do so swiftly/readily.
+
+    //w flying I get bug grass resist, but since I'm grounded I don't get fighting resist (or elec weakness)
+    //and I still get an ice weakness, hm should I remove ice weakness when grounded?
+    //birds can't handle cold but he's not a bird,
+    //on the other hand elec already cant do much to ice so he wouldn't
+    //be paired against it?
+    
+    //or should I make floating? kinda really don't want to..
+    //idk leave for now
+    //oh brain was drained not getting the flying floating thing just means
+    //its teh same w fighting as it already was
+    //and I can equip an air balloon to get the flying  benefits
    
 
     [SPECIES_ENTEI] =
