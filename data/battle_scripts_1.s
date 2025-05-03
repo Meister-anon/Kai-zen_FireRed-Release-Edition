@@ -781,6 +781,10 @@ BattleScript_FlingWhiteHerb:
 	swapattackerwithtarget
 	goto BattleScript_FlingEnd
 
+@checked freezes regardless of setting move effect
+@so prob is in effect hit, most likely arguement?
+@yeah problem is what I did with argument scripts which I don't get
+@cuz it fixed the other problem? was still bad code fixed now
 BattleScript_EffectBugBite:
 	setmoveeffect MOVE_EFFECT_BUG_BITE | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit

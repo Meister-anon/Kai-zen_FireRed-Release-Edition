@@ -1717,6 +1717,7 @@ const u16 sTypeExceptions[] = {
     SPECIES_ROCKRUFF,
     SPECIES_GLIGAR,
     SPECIES_PONYTA,
+    SPECIES_STUFFUL,
     SPECIES_TEPIG
 };
 

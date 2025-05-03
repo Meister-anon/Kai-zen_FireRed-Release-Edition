@@ -4804,8 +4804,10 @@ void SetMoveEffect(bool32 primary, u32 certain)
             }
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_FREEZE)
             {
-                gDisableStructs[gEffectBattler].FrozenTurns = 3;    //means 2 turns of freeze
+                
+                if (gDisableStructs[gEffectBattler].FrozenTurns == 0 && !(gBattleMons[gEffectBattler].status1 & STATUS1_FREEZE))
                 gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                gDisableStructs[gEffectBattler].FrozenTurns = 3;    //means 2 turns of freeze
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
 
                 if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
@@ -4960,7 +4962,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 else
                 {
 
-                gBattleMons[gEffectBattler].status2 |= STATUS2_INFESTATION;
+                    gBattleMons[gEffectBattler].status2 |= STATUS2_INFESTATION;
                 
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
@@ -5786,21 +5788,24 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_INCINERATE:
-                if ((gBattleMons[gEffectBattler].item >= FIRST_BERRY_INDEX && gBattleMons[gEffectBattler].item <= LAST_BERRY_INDEX)
+                if ((ItemId_GetPocket(gBattleMons[gEffectBattler].item) == POCKET_BERRY_POUCH)
                     || (GetBattlerHoldEffect(gEffectBattler, FALSE) == HOLD_EFFECT_GEMS)
                     )
                 {
                     
                     TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 }
+                else
+                    gBattlescriptCurrInstr++;
                 break;
             case MOVE_EFFECT_BUG_BITE:
-                if (ItemId_GetPocket(gBattleMons[gEffectBattler].item) == POCKET_BERRY_POUCH
-                    && battlerAbility != ABILITY_STICKY_HOLD)
+                if (ItemId_GetPocket(gBattleMons[gEffectBattler].item) == POCKET_BERRY_POUCH)
                 {
                     
                     TryKnockOffBattleScript(gEffectBattler, gBattlerAttacker, gBattleScripting.moveEffect);
                 } //vsonic potentially, can emulate to make my vers belch work, where consumes users berry if held
+                else
+                    gBattlescriptCurrInstr++;
                 break;//nvm forgot move effects go at end of move
             case MOVE_EFFECT_RELIC_SONG:
                 if (GetBattlerAbility(gBattlerAttacker) != ABILITY_SHEER_FORCE && !(gBattleMons[gBattlerAttacker].status2 & STATUS2_TRANSFORMED))
@@ -5907,10 +5912,13 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
         && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE) //think this is better?
         percentChance = (percentChance * 150) / 100; //= gBattleMoves[gCurrentMove].secondaryEffectChance * 2;  //its good, happened 2 out of 5 hits. decided to make it 1/16 dmg
     
-    //freeze boost, for later counter effect for ice toxic orb 
-    if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE
+    //freeze boost, for later counter effect for ice toxic orb
+    //setup ability to refreeze think increasing freeze odds is 
+    //too much tho
+    /*if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE
      && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
         percentChance = (percentChance * 150) / 100;
+    */
       
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE) //way if else-if works,they are paired and only the one that is true will be executed
         percentChance *= 2;                                         //if I need to execute multiple, than use multiple ifs instead  vsonic
@@ -20073,24 +20081,135 @@ bool32 IsTelekinesisBannedSpecies(u16 species)
 //extra effect only trigger if has an argument
 //no idea why didn't think to do that in the first place
 //keep an eye on this
+//ok screw it i'm just gonna copy all logic from setmoveeffectwithchance
+//yup that fixed everything smh
 void BS_setargumenteffectwithchance(void) //different effect for in hit, where actually setting effect
 {
     NATIVE_ARGS();
+    u32 argumentChance;
+    u8 atkHoldEffectParam = GetBattlerHoldEffectParam(gBattlerAttacker, gBattleMons[gBattlerAttacker].item); //for kings rock
+
     //if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
     if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE                
         && gBattleMoves[gCurrentMove].effect != EFFECT_LOSETYPE_HIT
         && gBattleMoves[gCurrentMove].argument)
     {
         gBattleScripting.moveEffect = gBattleMoves[gCurrentMove].argument; //potentially need make argument field for bs. as well vsonic
-        atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect
-        BattleScriptPush(cmd->nextInstr);//ok doing this properly makes bs work without breaking/skipping
-    }   
-    else 
+        //atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect
+        //BattleScriptPush(cmd->nextInstr);//ok doing this properly makes bs work without breaking/skipping
+        //gBattlescriptCurrInstr = cmd->nextInstr;
+    } 
+
+    
+    if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
+    {
+
+        if (gBattleMoves[gCurrentMove].argumentEffectChance == 0)   //to ensure arguments already set work, so dont need to add argumentchance to every move
+            argumentChance = gBattleMoves[gCurrentMove].secondaryEffectChance;  //but keeps from using the percentChance 0 makes certain effect for arguments
+        else                                                                //not a major issue if can just keep important/main effects to effect not argument, 
+            argumentChance = gBattleMoves[gCurrentMove].argumentEffectChance;   //just make sure argument never has effect that would need to be set certain (just use 100 if need to)
+    }
+    //THIS IS WHY IT WAS CONFUSING battlescripting.moveEffect AREN'T moveeffects they are just "effects"
+    //MOVE EFFECT is a completely different thing that is actually being set by this function  not battlescripting.moveEffect!!!!
+    //wrong again it IS moveeffect the EFFECT goes to battlescript which assings a move effect and is stored in scripting.moveEffect to read here
+
+    //cacophony boost
+    if (ShouldCacophonyBoostEffectChance(gCurrentMove))
+        argumentChance *= 2;
+
+    //hail based freeze boost, -lowered given new mechanic
+    if ((gBattleWeather & WEATHER_HAIL_ANY)
+        && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE) //think this is better?
+        argumentChance = (argumentChance * 150) / 100; //= gBattleMoves[gCurrentMove].secondaryEffectChance * 2;  //its good, happened 2 out of 5 hits. decided to make it 1/16 dmg
+    
+    //freeze boost, for later counter effect for ice toxic orb
+    //I never set his up...did I? 
+    //setup ability to refreeze think increasing freeze odds is 
+    //too much tho
+    /*if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE
+     && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
+        argumentChance = (argumentChance * 150) / 100;
+    */
+      
+    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE) //way if else-if works,they are paired and only the one that is true will be executed
+        argumentChance *= 2;                                         //if I need to execute multiple, than use multiple ifs instead  vsonic
+    
+    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FRISK && IsMoveMakingContact(gCurrentMove, gBattlerAttacker)) //
+        argumentChance = (argumentChance * 150) / 100;
+
+    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_DARK_DEAL) //is excluded
+        argumentChance = (argumentChance * 150) / 100;
+
+    else if (GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_DARK_DEAL) //hopefully stacks
+        argumentChance *= 2; //ok now the order is right
+
+    if (gBattleScripting.moveEffect == MOVE_EFFECT_FLINCH
+        && GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_FLINCH) //kings rock, make it link with move effect chance
+        argumentChance = (argumentChance * (atkHoldEffectParam + 100)) / 100; //ex (20 * 110) = 2200  / 100 = 22  w this serene grace applies once not twice for kings rock
+
+        
+
+
+    if (argumentChance == 0) //seems to have issue when using certain on no effect moves so preventing that here
+        gBattleScripting.moveEffect |= MOVE_EFFECT_CERTAIN;  //ok I don't know difference but this works without issue 
+        //SetMoveEffect(0, MOVE_EFFECT_CERTAIN); 
+        //think this was issue for effects always procing, not proper exclusions/checks on this
+        //added them above, testing
+
+    
+    //tested confirmed change works
+    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_POISONED_LEGACY
+        && (gBattleMons[gBattlerAttacker].hp <= (gBattleMons[gBattlerAttacker].maxHP / 2))) //make sure effects only activate when in a pinch
+    {
+        if (gBattleScripting.moveEffect == MOVE_EFFECT_POISON || gBattleScripting.moveEffect == MOVE_EFFECT_TOXIC)
+            gBattleScripting.moveEffect |= MOVE_EFFECT_CERTAIN;  //gauranteed poison
+    }
+
+    //trap effects
+    if ((gBattleMons[gBattlerTarget].status4 == STATUS4_FIRE_SPIN)
+        /*&& ((gBattleMoves[gCurrentMove].effect == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].effect == EFFECT_SCALD)
+        || (gBattleMoves[gCurrentMove].argument == EFFECT_BURN_HIT || gBattleMoves[gCurrentMove].argument == EFFECT_SCALD))*/
+        && gBattleScripting.moveEffect == MOVE_EFFECT_BURN)
+    {
+        argumentChance *= 6; //so 60% odds average and guaranteed with sun set
+
+        if (gBattleWeather & WEATHER_SUN_ANY)
+        {
+            argumentChance *= 2;
+        } //should make burn guaranteed if also have sun set
+        //and yes this is what i had in mind, over sun boosting burn odds globally
+           
+    }
+    //gBattleScripting.moveEffect = (MOVE_EFFECT_CONFUSION | MOVE_EFFECT_CERTAIN);
+
+    if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
+    {
+        gBattleScripting.moveEffect = MOVE_EFFECT_NOTHING_0;
+    } //attempt extra protection for sheer force 
+
+    if (gBattleScripting.moveEffect & MOVE_EFFECT_CERTAIN    //believe is like weather, just means its aplying that affect? so this makes it certain
+     && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+    {
+        gBattleScripting.moveEffect &= ~(MOVE_EFFECT_CERTAIN);
+        SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+    }
+    else if (Random() % 100 <= argumentChance    //random % here, is a chance to fail, higher percent chance less chance to fail, if random higher than moveefect chance doesn't set
+          && gBattleScripting.moveEffect         //believe just means and has move effect?  i.e moveeffect not 0
+          && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))   //didn't miss && enemy isn't immune
+    {
+        if (argumentChance >= 100)
+            SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+        else
+            SetMoveEffect(0, 0);
+    }
+    else //doesn't have move effect  /need double check and make sure two_typed_moves aren't passing type from arguemnt to moveEffect 
+    {                                               //argumenttomoveeffect was taking them but I added conditional to exclude it
         gBattlescriptCurrInstr = cmd->nextInstr;
-    //attempt remove this see what happens,
-    //if its causing a skip,
-    //the function it calls should have all logic needed to move script forward?
-}//HAH that was literally it, I was skipping too far forward
+    }
+    gBattleScripting.moveEffect = 0;
+    gBattleScripting.multihitMoveEffect = 0;  
+
+}
 
 //will use this replace arguemtn logic move effect set function later
 /*void BS_setadditionaleffects(void)

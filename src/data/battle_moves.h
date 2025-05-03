@@ -9568,10 +9568,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 30,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 1,
+        .priority = 2,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//think make this a plus 2 to preserve effect?
 
     [MOVE_NUZZLE] =
     {

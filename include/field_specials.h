@@ -5,7 +5,7 @@
 
 u8 GetLeadMonIndex(void);
 //extern const u8 gTypeNames[][TYPE_NAME_LENGTH + 1];
-extern const u16 sTypeExceptions[18]; //update this value when adding to the array
+extern const u16 sTypeExceptions[19]; //update this value when adding to the array
 s32 CountDigits(s32 number);
 void TV_PrintIntToStringVar(u8 varidx, s32 number);
 u16 GetStarterSpecies(void);

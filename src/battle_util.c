@@ -13101,7 +13101,8 @@ bool32 CanBeFrozen(u8 battlerId)
         || ability == ABILITY_FLAME_BODY
         || ability == ABILITY_RISING_PHOENIX
         || ability == ABILITY_COMATOSE
-        || gBattleMons[battlerId].status1 & STATUS1_ANY
+        || gDisableStructs[battlerId].FrozenTurns != 0
+        || ((gBattleMons[battlerId].status1) && gBattleMons[battlerId].status1 != STATUS1_FREEZE)
         || IsAbilityStatusProtected(battlerId)
         || IsBattlerTerrainAffected(battlerId, STATUS_FIELD_MISTY_TERRAIN))
         return FALSE;

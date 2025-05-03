@@ -3973,6 +3973,20 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       vsonic
     )
     5/1/2025
+
+    not sure what's happening now,
+    but something in I assume ability effecct is triggering
+    misty terrain at battle start?
+    nvm its just triggering random terrain...
+    -not ability effect battle3 controller?
+    happens even with old man battle for weedle
+    -made clean and it seems fine now?
+    
+
+    KILL ME NOW bug bite is bugged AGAIN!!!
+    for some reason set tail wind, then it just froze the game
+    when used again.*facepalm
+    -fixed the argument effect chance bs was still wrong smh
     ...laser focus also unbelievabley borked smh
     text and move animation plays oddly
     then it sets aqua ring and fucking perish song but at 0
