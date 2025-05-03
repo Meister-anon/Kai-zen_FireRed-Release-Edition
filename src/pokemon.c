@@ -4568,7 +4568,7 @@ void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCate
 //nvm there are some abilities/effects that are specifically meant to be defense stat boosters
 #define OffensiveModifer(value)                                 \
 {                                                               \
-    if (usesDefStat){ attack = max((value * attack) / 100, 1); }        \
+    if (MoveDamageCategory == SPLIT_PHYSICAL){ attack = max((value * attack) / 100, 1); }        \
     else {spAttack = max((value * spAttack) / 100, 1);}                 \
 }
 #define DefenseModifer(value)                                   \
@@ -4814,6 +4814,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             spDefense = (110 * spDefense) / 100;
     }
 
+    //oh these are the type based damage item boosters
+    //not gems
     for (i = 0; i < NELEMS(sHoldEffectToType); i++)
     {
         if (attackerHoldEffect == sHoldEffectToType[i][0]
@@ -4924,7 +4926,17 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             //if (updateFlags)      //not sure what this does, it may change move result flag & sound effect to match?
                 gSpecialStatuses[battlerIdDef].berryReduced = TRUE;
         }
-    }
+    }//defensivemodifier is fine since usesdefstat is for defense stat affected
+    //but believe should swap offensivemodifer to just use dmagecategory?
+    //but also is there a reason to not just use gbattlemovepower?
+    //ah yeah attack stat can very more so potentially larger affec hmm
+    //but the damage function is a straight multiplier between the 2,
+    //so there would be no difference between a proportional shift of either
+    //yeah there's no difference. so changes to def stat are only ones that matter i think?
+    //seems right, so could use battlemovepower for everything but require extra filters
+    //for if physial or special (realistically just movedamagecategory)
+    //but because larger may be easier to do percentage shifts on stats
+    //rather htan move bp?
 
 
     
@@ -5264,7 +5276,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     {   
         if (move == MOVE_MISTY_EXPLOSION)    
             gBattleMovePower = (150 * gBattleMovePower) / 100;
-        else if (!usesDefStat)
+        if (MoveDamageCategory == SPLIT_SPECIAL)
             gBattleMovePower = (115 * gBattleMovePower) / 100;//15% move power increase for special moves
     }
         //modifier = uq4_12_multiply(modifier, UQ_4_12(0.5));

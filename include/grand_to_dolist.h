@@ -3999,6 +3999,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     to counter balance they still count for things like knock off
     even if can't remove the item
 
+    also go over calculatebasedamage funciton and cleanup uses
+    of usesdefstat  and MoveDamageCategory   make sure everything is where it should be
+    as the latter is for the offense type of the move and
+    the former is for what def stat its hitting
+
+    need check use of offensivemodifier and defensivemodifier macros as well
+    -done, shifted offensive macro defense one was fine
     )
     5/3/2025
 
