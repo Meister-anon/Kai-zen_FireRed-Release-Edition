@@ -358,203 +358,203 @@ const u8 gMoveDescription_PsychoBoost[MOVE_DESCRIPTION_LENGTH + 5] = _("An inten
 /*
 //NEW values    -   rules for reading space, 19 chars per line,  5 line breaks. read number letters per word, n # of words, then add number of spaces which is n - 1
 const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Rests on the ground\nrestoring the user's\nhealth by half.\nThen heals a small\namount each turn\nuntil end of effect.");
-const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounds floating\nPKMN.\nMoves that involve\nflying can’t be used.");
+const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounding POKéMON\that float.\nAlso blocks moves\nthat involve flying.");
 const u8 gMoveDescription_MiracleEye[MOVE_DESCRIPTION_LENGTH + 5] = _("Makes GHOSTS and\nevasive foes easier\nto hit.");
 const u8 gMoveDescription_WakeupSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("Doubles dmg against\nsleeping foes, but\nalso awakens them.");
 const u8 gMoveDescription_HammerArm[MOVE_DESCRIPTION_LENGTH + 5] = _("Swings down with\na heavy fist\nthat lowers Speed.");
-const u8 gMoveDescription_GyroBall[MOVE_DESCRIPTION_LENGTH + 5] = _("A high-speed spin\nthat does more damage\nto faster foes.");
+const u8 gMoveDescription_GyroBall[MOVE_DESCRIPTION_LENGTH + 5] = _("A high-speed spin\nthat does more\ndamage the slower\nthe user is than\nthe target.");
 const u8 gMoveDescription_HealingWish[MOVE_DESCRIPTION_LENGTH + 5] = _("The user faints\nto heal up the\nnext battler.");
-const u8 gMoveDescription_Brine[MOVE_DESCRIPTION_LENGTH + 5] = _("Deals double damage\nto foes at or below\nhalf HP.");
-const u8 gMoveDescription_NaturalGift[MOVE_DESCRIPTION_LENGTH + 5] = _("The effectiveness\nand damage varies\nwith the held Berry.");
+const u8 gMoveDescription_Brine[MOVE_DESCRIPTION_LENGTH + 5] = _("Doubles in damage\nagainst foes at or\nbelow half HP.");
+const u8 gMoveDescription_NaturalGift[MOVE_DESCRIPTION_LENGTH + 5] = _("The effectiveness\nand damage varies\nby the held Berry.");
 const u8 gMoveDescription_Feint[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nhits foes using\nmoves like Protect.");
 const u8 gMoveDescription_Pluck[MOVE_DESCRIPTION_LENGTH + 5] = _("Eats the foe's\nheld Berry,\ngaining its effect.");
 const u8 gMoveDescription_Tailwind[MOVE_DESCRIPTION_LENGTH + 5] = _("Whips up a\nturbulent gale\nbehind the user.\nRaises party Speed.");
 const u8 gMoveDescription_Acupressure[MOVE_DESCRIPTION_LENGTH + 5] = _("The user sharply\nraises a\nrandom stat.");
 const u8 gMoveDescription_MetalBurst[MOVE_DESCRIPTION_LENGTH + 5] = _("After taking a hit\nretaliates with\ngreater power.");
-const u8 gMoveDescription_U_turn[MOVE_DESCRIPTION_LENGTH + 5] = _("Does damage then\nswitches out the user.");
+const u8 gMoveDescription_U_turn[MOVE_DESCRIPTION_LENGTH + 5] = _("Does damage then\nswitches out\nthe user.");
 const u8 gMoveDescription_CloseCombat[MOVE_DESCRIPTION_LENGTH + 5] = _("The user risks\nit all to\ndeliver a strong\nattack from within\nthe foe's guard\nbut lowers defense.");
 const u8 gMoveDescription_Payback[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\ngains power if\nthe user moves\nafter the target.");
-const u8 gMoveDescription_Assurance[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\ndoubles power if\nthe target has\nalready taken damage.");
-const u8 gMoveDescription_Embargo[MOVE_DESCRIPTION_LENGTH + 5] = _("Blocks the foes from\nusing any items.");
+const u8 gMoveDescription_Assurance[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\ndoubles power if\nthe target has\nalready taken dmg.");
+const u8 gMoveDescription_Embargo[MOVE_DESCRIPTION_LENGTH + 5] = _("Blocks foes team\nfrom using any items\nfor 5 turns.");
 const u8 gMoveDescription_Fling[MOVE_DESCRIPTION_LENGTH + 5] = _("The effectiveness\nand damage varies\nwith the held item.");
-const u8 gMoveDescription_PsychoShift[MOVE_DESCRIPTION_LENGTH + 5] = _("Transfers status\nonto the foe.");
-const u8 gMoveDescription_TrumpCard[MOVE_DESCRIPTION_LENGTH + 5] = _("The less PP the\nmove has the\nmore damage it does.");
+const u8 gMoveDescription_PsychoShift[MOVE_DESCRIPTION_LENGTH + 5] = _("Cures the user\nof any primary\nstatus effects.\nThen transfers them\nonto the foe.");
+const u8 gMoveDescription_TrumpCard[MOVE_DESCRIPTION_LENGTH + 5] = _("The moves scales\nin power the lower\nremaining PP is\nafter the move\nhas been used.");
 const u8 gMoveDescription_HealBlock[MOVE_DESCRIPTION_LENGTH + 5] = _("Prevents foes from\nrecovering HP.\nFor five turns.");
-const u8 gMoveDescription_WringOut[MOVE_DESCRIPTION_LENGTH + 5] = _("The higher the\nfoe's HP the more\ndamage caused.");
+const u8 gMoveDescription_WringOut[MOVE_DESCRIPTION_LENGTH + 5] = _("The move scales\nin power the higher\npercentage of HP\nthe target has left.");
 const u8 gMoveDescription_PowerTrick[MOVE_DESCRIPTION_LENGTH + 5] = _("The user swaps\nits Attack and\nDefense stats.");
 const u8 gMoveDescription_Gastro_Acid[MOVE_DESCRIPTION_LENGTH + 5] = _("Stomach acid\nsuppresses the\nfoe's ability.");
-const u8 gMoveDescription_LuckyChant[MOVE_DESCRIPTION_LENGTH + 5] = _("Prevents foes from\nlanding critical hits.");
-const u8 gMoveDescription_Me_First[MOVE_DESCRIPTION_LENGTH + 5] = _("Executes the foe's\nattack with\ngreater power.");
+const u8 gMoveDescription_LuckyChant[MOVE_DESCRIPTION_LENGTH + 5] = _("Prevents foes team\nfrom landing any\ncritical hits\nfor 5 turns.");
+const u8 gMoveDescription_Me_First[MOVE_DESCRIPTION_LENGTH + 5] = _("Copies the foe's\nselected attack\nand uses it before\they can act with\nincreased power.");
 const u8 gMoveDescription_Copycat[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mimics\nthe last move\nused by a foe.");
 const u8 gMoveDescription_Power_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nAttack and\nSp. Atk with\nthe foe.");
 const u8 gMoveDescription_Guard_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nDefense and\nSp. Def with\nthe foe.");
 const u8 gMoveDescription_Punishment[MOVE_DESCRIPTION_LENGTH + 5] = _("Does more damage if the\nfoe has powered up.");
 const u8 gMoveDescription_LastResort[MOVE_DESCRIPTION_LENGTH + 5] = _("Can only be used\nif every other move\nby the user has\nalready been used.");
 const u8 gMoveDescription_WorrySeed[MOVE_DESCRIPTION_LENGTH + 5] = _("Plants a seed\non the foe\ngiving it Insomnia.");
-const u8 gMoveDescription_SuckerPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes first if the foe\nis preparing an attack.");
-const u8 gMoveDescription_BackStab[MOVE_DESCRIPTION_LENGTH + 5] = _("Sneakily strikes at\nthe foe's weak point\nwhen least expected.\nIt always hits first.\nIt has a high\ncritical-hit ratio.");
+const u8 gMoveDescription_SuckerPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes first if the\nfoe is preparing\nan attack.");
+const u8 gMoveDescription_BackStab[MOVE_DESCRIPTION_LENGTH + 5] = _("Sneakily strikes at\nthe foe's weak point\nwhen least expected\nIt always hits first\nand has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_HoldBack[MOVE_DESCRIPTION_LENGTH + 5] = _("A restrained attack\nto make foe lower\ntheir guard. Always\nleaves the foe with\nat least 1 HP.\nMay lower defense.");
 const u8 gTOXIC_SPIKES_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sets spikes that poison a\nfoe switching in.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sets spikes that\npoison a foe\nswitching in.\nUsing again will\nbadly poison.");
 
 const u8 gHEART_SWAP_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps any stat changes\nwith the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps any stat\nchanges with those\nof the foe.");
 
 const u8 gAQUA_RING_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Forms a veil of water\nthat restores HP.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Forms a veil of\nhealing water\nthat restores HP.");
 
 const u8 gMAGNET_RISE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user levitates with\nelectromagnetism.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Electromagnetism\ncauses the user\nto levitate");
 
 const u8 gFLARE_BLITZ_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A charge that may burn the\nfoe. Also hurts the user.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A fierce and fiery\ncharge that hurts\nthe user and\nmay burn the foe.");
 
 const u8 gFORCE_PALM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A shock wave attack that\nmay paralyze the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A shock wave attack\nthat may paralyze\nthe foe.");
 
 const u8 gAURA_SPHERE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with an aura blast\nthat cannot be evaded.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with an aura\nblast that cannot\nbe evaded.");
 
 const u8 gROCK_POLISH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Polishes the body to\nsharply raise Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Polishes the body\nsharply raising\nthe users Speed.");
 
 const u8 gPOISON_JAB_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A stabbing attack that\nmay poison the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A stabbing attack\nthat may poison\nthe foe.");
 
 const u8 gDARK_PULSE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a horrible\naura.\nMay cause flinching.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nhorrible corrupted\naura.\nMay cause flinching."); //check
 
 const u8 gNIGHT_SLASH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user slashes the\ntarget the instant\nit lowers its guard.\nIt has a high\ncritical-hit ratio.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user slashes\nthe instant the foe\nlowers its guard.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gAQUA_TAIL_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user swings its tail\nlike a wave to attack.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user swings\nits tail like\na crashing wave\nto attack.");
 
 const u8 gSEED_BOMB_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A barrage of hard seeds\nis fired at the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A barrage of hard\nseeds is fired\nat the foe.");
 
 const u8 gAIR_SLASH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a blade of\nair.\nMay cause flinching.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nblade of compressed\nair.\nMay cause flinching."); //vsonic check
 
 const u8 gX_SCISSOR_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Slashes at the foe\nwith crossed\nscythes, claws, etc.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gBUG_BUZZ_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A damaging sound wave that\nmay lower Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("User makes a rumpus\nattacking the\nfoe with a\ndamaging sound wave\nthat may lower\nSp. Def."); //vsonic
 
 const u8 gDRAGON_PULSE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Generates a shock wave\nto damage the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Damages the foe\nwith a pulse of\ndraconic aura.");
 
 const u8 gDRAGON_RUSH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Tackles the foe with menace.\nMay cause flinching.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A menacing tackle.\nThat may make\nthe foe flinch.");
 
 const u8 gPOWER_GEM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with rays\nof light that sparkle\nlike diamonds.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with rays\nof light sparkling\nlike diamonds.");
 
 const u8 gVACUUM_WAVE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Whirls its fists to send\na wave that strikes first.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Whirls its fists\nto send a wave\nof vacuum force\nthat strikes foes\nfirst.");
 
 const u8 gFOCUS_BLAST_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks at full power.\nMay lower Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A full power\nattack that may\nlower the foe's\nSp. Def.");
 
 const u8 gENERGY_BALL_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Draws power from\nnature to attack.\nMay lower Sp. Def.");
 
 const u8 gBRAVE_BIRD_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A low altitude charge that\nalso hurts the user.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A low altitude charge\nthat also hurts\nthe user.");
 
 const u8 gEARTH_POWER_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the ground erupt with\npower.\nMay lower Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the ground\nerupt with power.\nMay lower Sp. Def.");
 
 const u8 gSWITCHEROO_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps items with the foe\nfaster than the eye can see.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps items with\nthe foe faster\nthan eyes can see.\nFails if user\nor target not\nholding an item.");
 
 const u8 gNASTY_PLOT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Thinks bad thoughts to\nsharply boost Sp. Atk.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Thinks bad thoughts\nsharply boosting\nthe user's Sp. Atk.");
 
 const u8 gBULLET_PUNCH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Punches as fast as a bul-\nlet.\nIt always hits first.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Punches as fast as\na bullet.\nIt always hits first.");
 
 const u8 gICE_SHARD_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls a chunk of ice that\nalways strike first.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls a sharp chunk\nof ice that\nalways strike first.");
 
 const u8 gSHADOW_CLAW_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes with\na sinister claw\nwreathed in shadow.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gTHUNDER_FANG_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinching or\nleave the foe paralyzed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinch or\nleave the foe\nparalyzed.");
 
 const u8 gICE_FANG_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinching or\nleave the foe frozen.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinch or\nleave the foe\nfrozen.");
 
 const u8 gFIRE_FANG_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinching or\nleave the foe with\na burn.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinch or\nleave the foe with\na burn.");
 
 const u8 gSHADOW_SNEAK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Extends the user's shadow\nto strike first.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Extends the user's\nshadow to attack.\nAlways strikes first.");
 
 const u8 gMUD_BOMB_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Throws a blob of mud to\ndamage and cut accuracy.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Throws a blob\nof thick mud to\ndamage the foe\nand cut accuracy.");
 
 const u8 gPSYCHO_CUT_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Tears into the\ntarget with psychic\nblades.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gZEN_HEADBUTT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hits with a strong head-\nbutt.\nMay cause flinching.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hits with a strong\nhead-butt.\nMay cause flinching.");
 
 const u8 gMIRROR_SHOT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Emits a flash of energy to\ndamage and cut accuracy.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Emits a flash of\nenergy from\na polished body.\nMay also lower the\nfoe's accuracy.");
 
 const u8 gFLASH_CANNON_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Releases a blast of light\nthat may lower Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Releases a blast\nof light that\nmay lower Sp. Def.");
 
 const u8 gMoveDescription_RockClimb 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A charging attack that may\nconfuse the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A charging attack\nthat may confuse\nthe foe.");
 
 const u8 gDEFOG_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Removes obstacles and\nlowers evasion.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Removes obstacles\nand lowers evasion.");
 
 const u8 gTRICK_ROOM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slower POKéMON get to\nmove first for 5 turns.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slower POKéMON get\nto move first\nfor 5 turns.");
 
 const u8 gDRACO_METEOR_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Casts comets onto the foe.\nHarshly lowers the Sp. Atk.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Enforces Dragons\ndominion over the\nskies to cast comets\ndown onto the foe.\nHarshly lowers the\nfoe's Sp. Atk."); //vsonic check
 
 const u8 gDISCHARGE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\neverything around it\nby letting loose\na flare of electricity.\nThis may also\ncause paralysis.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\neverything around it\nby letting loose a\nflare of electricity.\nThis may also\ncause paralysis.");
 
 const u8 gPOWER_WHIP_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Violently lashes the foe\nwith vines or tentacles.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Violently lashes the\nfoe with vines\nor tentacles.");
 
 const u8 gCROSS_POISON_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Poison tipped slash\nthat may leave a\nfoe poisoned.\nHigh critical-hit ratio.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Poison tipped slash\nthat may leave a\nfoe poisoned.\nHigh critical-hit.");
 
 const u8 gGUNK_SHOT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Shoots filthy garbage at\nthe foe.\nMay also poison.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Shoots filthy trash\nat the foe.\nMay also poison.");
 
 const u8 gIRON_HEAD_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slams the foe with a hard\nhead.\nMay cause flinching.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slams the foe with\na steel-hard head.\nMay cause flinching.");
 
 const u8 gMAGNET_BOMB_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Launches a magnet that\nstrikes without fail.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Launches a magnet\nat the foe that\nlocks-on to strike\nwithout fail.");
 
 const u8 gSTONE_EDGE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Stabs the foe with\nsharp-spiked stones.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gCAPTIVATE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the opposite\ngender sharply reduce\nits Sp. Atk.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the opposite\ngender sharply\nreduce its Sp. Atk."); //vsonic check
 
 const u8 gSTEALTH_ROCK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sets floating stones that\nhurt a foe switching in.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sets floating stones that\nhurt foes who are\nswitching in.\nDamage varies by\ntype effectiveness."); //vsonic
 
 const u8 gGRASS_KNOT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A snare attack that does\nmore damage to heavier\nfoes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A snare attack that\ndoes more damage\nto heavier foes.");
 
 const u8 gCHATTER_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a sound wave\nthat causes confusion.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with sound\nwaves to cause\nconfusion.");
 
 const u8 gJUDGMENT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The type varies with the\nkind of Plate held.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The Omnipotent One\njudges all.\nStrike of varying\ntype that always\nfinds the foe's\nweakness.");//vsonic check
 
 const u8 gCHARGE_BEAM_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Fires a beam of ionized\nelectricity.\nMay raise Sp. Atk.");
@@ -1031,7 +1031,7 @@ const u8 gLAVA_PLUME_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user torches\neverything around\nit in an inferno of\nscarlet flames.\nThis may also leave\nfoes with a burn.");
 
 const u8 gLEAF_STORM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Whips up a storm of leaves.\nHarshly lowers the Sp. Atk.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Whips up a storm\nof leaves.\nHarshly lowers the\nuser's Sp. Atk.");
 
 const u8 gSHORE_UP_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Restores the user's HP.\nMore HP in a sandstorm.");
@@ -1471,7 +1471,7 @@ const u8 gMoveDescription_Snowball[MOVE_DESCRIPTION_LENGTH + 5] = _("The user th
 const u8 gMoveDescription_Spindash[MOVE_DESCRIPTION_LENGTH + 5] = _("..");
 
 const u8 gMoveDescription_Avalanche[MOVE_DESCRIPTION_LENGTH + 5] = _("A crushing attack\nthat grows stronger\nif the user has\ntaken damage.");
-const u8 gMoveDescription_BugBite[MOVE_DESCRIPTION_LENGTH + 5] = _("A biting attack.\nIf the foe is\nholding a Berry,\nthe user eats it\nand gains its effect.");
+const u8 gMoveDescription_BugBite[MOVE_DESCRIPTION_LENGTH + 5] = _("A biting attack.\nIf the foe is\nholding a Berry,\nthe user eats it\nand gains its effect");
 const u8 gMoveDescription_VoltSwitch[MOVE_DESCRIPTION_LENGTH + 5] = _("The user charges up\nthen tackles the foe\nswitching out\nas they pass.");
     //_Description can hold 5 line breaks (so 6 lines total) given current space post expansion!  at approx 19 chars per line// so 114 max ( + 5 for escape chars)
 
