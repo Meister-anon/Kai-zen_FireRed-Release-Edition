@@ -4735,6 +4735,12 @@ BattleScript_StealthRockActivates::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+BattleScript_SpikesActivates::
+	trysetspikes BattleScript_MoveEnd
+	printfromtable gDmgHazardsStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 @for stone axe, similar to my set for spiky shield but reversed
 @potentially take to clean up my setup?  - vsonic still to add for stone axe
 BattleScript_EffectHitSetEntryHazard::

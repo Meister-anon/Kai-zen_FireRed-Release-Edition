@@ -413,7 +413,8 @@
 #define ABILITY_TORCHSOUL 381 //fire affinity ability, embroar
 #define ABILITY_GRUNGE 382  //poison affinity / can't be poisoned should also give poison boost? or should I go more creative give all moves chance to poison?
 #define ABILITY_SWIFT_JUSTICE 383 //virizion new ability boost damage if move first
+#define ABILITY_TOOLS_OF_THE_TRADE 384 //FATE reference //new ability for spidops combine insomnia stakeout analytic and guts/defiant but weaker effects for all if only sleeps one turn could boost defense and get heal? if heal doesn't work just block sleep altogether
 
-#define ABILITIES_COUNT ABILITY_SWIFT_JUSTICE + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_TOOLS_OF_THE_TRADE + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

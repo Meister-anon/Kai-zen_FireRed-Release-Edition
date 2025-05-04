@@ -85,7 +85,8 @@
 #define MOVE_EFFECT_LOSE_TYPE			0x4D    //burn up etc.
 #define MOVE_EFFECT_ROUND				0x4E
 #define MOVE_EFFECT_STEALTH_ROCK        0x4F   //for stone axe
-#define MOVE_EFFECT_SWITCH_LOCKED       0x50 //need do stuff
+#define MOVE_EFFECT_SPIKES              0x50
+#define MOVE_EFFECT_SWITCH_LOCKED       0x51 //need do stuff
 
 
 #define NUM_MOVE_EFFECTS                MOVE_EFFECT_SWITCH_LOCKED + 1	//ok think i got this right, battlescript are assigned based on battle_move_effects.h file

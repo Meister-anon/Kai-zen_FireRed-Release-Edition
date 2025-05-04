@@ -4462,7 +4462,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
         ++gBattlescriptCurrInstr;
         return;
     case MOVE_EFFECT_STEALTH_ROCK:  //test
-    //case MOVE_EFFECT_SPIKES:
+    case MOVE_EFFECT_SPIKES:
     case MOVE_EFFECT_PAYDAY:
     case MOVE_EFFECT_STEAL_ITEM:
     case MOVE_EFFECT_BUG_BITE:
@@ -5859,6 +5859,18 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_POINTEDSTONESFLOAT;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_StealthRockActivates;
+                }
+                break;
+            case MOVE_EFFECT_SPIKES:
+                if (gSideTimers[GetBattlerSide(gEffectBattler)].spikesAmount < 3)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SPIKESSCATTERED;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+
+                    /*if (gBattleStruct->isSkyBattle)
+                        gBattlescriptCurrInstr++;
+                    else*/
+                        gBattlescriptCurrInstr = BattleScript_SpikesActivates;
                 }
                 break;
             }

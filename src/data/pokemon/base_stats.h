@@ -18853,12 +18853,12 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        85,
+        95,
         97,
-        66,
+        76,
         65,
         105,
-        66
+        76
         ),
         MON_TYPES(TYPE_FIRE, TYPE_NORMAL), //Best I can come up w for abuff for this
         .catchRate = 90, //fire resist fairy so its already coverd damage buff at the cost of just a fighting weakness
@@ -18880,6 +18880,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //according JPR main issues is moves and availability, as was a extremely late mon in region
+    //added stat change from Wooper
 
     [SPECIES_DURANT] =
     {
@@ -23870,8 +23871,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_SHELL_ARMOR, ABILITY_ROCK_HEAD},
-        .abilityHidden = {ABILITY_ANGER_POINT, ABILITY_NONE},
+        .abilities = {ABILITY_SHELL_ARMOR, ABILITY_STURDY}, //rock head is dumb no recoil or headbutt moves
+        .abilityHidden = {ABILITY_ANGER_POINT, ABILITY_SOLID_ROCK},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -23879,6 +23880,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sTurtonatorTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //main theme is explosions anger point would boost its atk letting it explode even stronger
+    //giving sturdy would let it explode and potentially survive, combine that will shell beal to heal from the explosion
+    //and you've got a dangerous recurring bomb
+    //gave it solid rock idea from wooper yt but what is this thing even weak too? just ground/rock?
 
     [SPECIES_TOGEDEMARU] =
     {
@@ -29058,7 +29063,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_INSOMNIA, ABILITY_NONE},
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_ANALYTIC},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -29119,19 +29124,19 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_ERRATIC,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
-        .abilities = { ABILITY_INSOMNIA, ABILITY_NONE },
-        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_ANALYTIC},
+        .abilities = { ABILITY_TOOLS_OF_THE_TRADE, ABILITY_NONE }, //gave arena trap from wooper
+        .abilityHidden = {ABILITY_ARENA_TRAP, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN, //with atk buff & status move change can keep speed low 
         .noFlip = FALSE, //keep benefit of analytic also becuase has good support move pool
-        .floating = FALSE,
-        /*.speciesName = _("Spidops"),
-        .cryId = CRY_SPIDOPS,
-        .natDexNum = NATIONAL_DEX_SPIDOPS,
-        .categoryName = _("Trap"),
-        .height = 10,
-        .weight = 165,
-        .description = COMPOUND_STRING(
-            "It clings to branches and ceilings\n"
+        .floating = FALSE, //tools of the trade....hmmm is a trapper/setup that moves stealthily Fate reference
+        /*.speciesName = _("Spidops"),//better when already in against mon coming in
+        .cryId = CRY_SPIDOPS, //maybe do somehting crazy roll all together w weaker effects for one super utility ability just like tool of trade?
+        .natDexNum = NATIONAL_DEX_SPIDOPS, //can't be put to sleep focuses harder and boosts a stat when someone tries to impair it?
+        .categoryName = _("Trap"),//similar to guts but for defense and would boost on attempt to sleep even if can't be put to sleep
+        .height = 10,           //combining effects together would still allow it to get use even in trick room
+        .weight = 165,  //raise defense when attempt to lower a stat Boost all defenses by half guts if statuses or attempt to status
+        .description = COMPOUND_STRING(     //arena trap will be hidden secondary since not compatible with stakeout
+            "It clings to branches and ceilings\n" and will replace stakeout on evo
             "using its threads and moves without\n"
             "a sound. It takes out its prey\n"
             "before the prey even notices it."),

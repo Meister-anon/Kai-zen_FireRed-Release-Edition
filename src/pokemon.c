@@ -4969,6 +4969,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         OffensiveModifer(200);
     if (GetBattlerAbility(battlerIdAtk) == ABILITY_GUTS && attacker->status1 & STATUS1_ANY && IsBlackFogNotOnField())
         attack = (150 * attack) / 100;
+    if (GetBattlerAbility(battlerIdDef) == ABILITY_TOOLS_OF_THE_TRADE && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
+    {
+        defense = (125 * defense) / 100;
+        spDefense = (125 * spDefense) / 100;
+    }   
     if (GetBattlerAbility(battlerIdDef) == ABILITY_MARVEL_SCALE && defender->status1 & STATUS1_ANY && IsBlackFogNotOnField())
         defense = (150 * defense) / 100;
     if (moveType == TYPE_ELECTRIC && (sideStatus & SIDE_STATUS_MUDSPORT)) //sidestatus means target side status, checked from bs_commands.c damagecalc function
@@ -5414,6 +5419,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_ANALYTIC:
         if (GetBattlerTurnOrderNum(battlerIdAtk) == gBattlersCount - 1 && move != MOVE_FUTURE_SIGHT && move != MOVE_DOOM_DESIRE)
             gBattleMovePower = (gBattleMovePower * 130 / 100);
+        //MulModifier(&modifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_TOOLS_OF_THE_TRADE:
+        if (GetBattlerTurnOrderNum(battlerIdAtk) == gBattlersCount - 1 && move != MOVE_FUTURE_SIGHT && move != MOVE_DOOM_DESIRE)
+            gBattleMovePower = (gBattleMovePower * 120 / 100);
+
+        if (gDisableStructs[battlerIdDef].isFirstTurn == 2) // just switched in
+            OffensiveModifer(150);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TOUGH_CLAWS:
@@ -6157,7 +6170,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     
         //other damage factors
 
-        if ((attacker->status1 & STATUS1_BURN) && IsBlackFogNotOnField() && GetBattlerAbility(battlerIdAtk) != ABILITY_GUTS) //nvm don't need is physical because its already in the bracket for that ^
+        if ((attacker->status1 & STATUS1_BURN) && IsBlackFogNotOnField() 
+        && GetBattlerAbility(battlerIdAtk) != ABILITY_GUTS //nvm don't need is physical because its already in the bracket for that ^
+        && GetBattlerAbility(battlerIdAtk) != ABILITY_TOOLS_OF_THE_TRADE)
         {
             if (GetBattlerAbility(battlerIdAtk) == ABILITY_HEATPROOF) //halves effects from burn & heat/fire  //so burn atk cut is less
                 damage = (damage * 3) / 4;

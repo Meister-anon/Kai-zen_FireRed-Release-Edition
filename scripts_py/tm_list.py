@@ -74,7 +74,7 @@ for line in lines:
             tm_Array.append(line)
             
         #print(line)
-    
+
 
 
 infile.close()

@@ -11842,7 +11842,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        .argument = MOVE_EFFECT_STEALTH_ROCK
+        .argument = MOVE_EFFECT_STEALTH_ROCK,
         ////.zMovePower = 120,
         ////.zMoveEffect = Z_EFFECT_NONE,
     }, //need test
@@ -12115,7 +12115,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CEASELESS_EDGE] =
     {
-        .effect = EFFECT_HIT, // EFFECT_CEASELESS_EDGE,
+        .effect = EFFECT_HIT_SET_ENTRY_HAZARD, // EFFECT_CEASELESS_EDGE,
         .power = 65,
         .type = TYPE_DARK,
         .accuracy = 90,
@@ -12125,9 +12125,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .argument = MOVE_EFFECT_SPIKES,
         ////.zMovePower = 120,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //sets spikes
 
     [MOVE_BLEAKWIND_STORM] =
     {

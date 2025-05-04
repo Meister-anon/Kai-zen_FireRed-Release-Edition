@@ -1089,6 +1089,7 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
     else if ((stringId == STRINGID_DEFENDERSSTATFELL || stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_TIGER_MOM_ACTIVATES || stringId == STRINGID_DARKTYPE_INTIMIDATE_RESIST)
         && ((targetAbility == ABILITY_DEFIANT && CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))
             || (targetAbility == ABILITY_COMPETITIVE && CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
+            || (targetAbility == ABILITY_TOOLS_OF_THE_TRADE && CompareStat(gBattlerTarget, STAT_DEF, MAX_STAT_STAGE, CMP_LESS_THAN))
             || (targetAbility == ABILITY_USURPER && (CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
                 || CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))))
         && gSpecialStatuses[gBattlerTarget].changedStatsBattlerId != BATTLE_PARTNER(gBattlerTarget)
@@ -1108,6 +1109,8 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
             SET_STATCHANGER(STAT_ATK, 2, FALSE);
             SET_STATCHANGER2(gBattleScripting.savedStatChanger, STAT_SPATK, 2, FALSE);
         }
+        else if (targetAbility == ABILITY_TOOLS_OF_THE_TRADE)
+            SET_STATCHANGER(STAT_DEF, 1, FALSE);
     }
 
 
@@ -3460,6 +3463,11 @@ u8 DoBattlerEndTurnEffects(void)
             case ENDTURN_SLEEP:
                 if (gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP && gDisableStructs[gActiveBattler].sleepCounter)    //if works right should heal every 2 turns
                 {
+                    //attempt get sleep heal and only sleep 1 turn, if doesnt' work
+                    //may replace w full sleep immunity or keep as is for balance
+                    if (GetBattlerAbility(gActiveBattler) == ABILITY_TOOLS_OF_THE_TRADE)
+                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = 1;
+
                     if (gBattleMons[gBattlerAttacker].maxHP > gBattleMons[gBattlerAttacker].hp
                         && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                     {
