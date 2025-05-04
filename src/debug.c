@@ -232,6 +232,10 @@ struct DebugMenuListData
 static EWRAM_DATA struct DebugMonData *sDebugMonData = NULL;
 static EWRAM_DATA struct DebugMenuListData *sDebugMenuListData = NULL;
 EWRAM_DATA bool8 gIsDebugPC = FALSE;
+//brought in no idea what for
+static EWRAM_DATA struct DebugBattleData *sDebugBattleData = NULL;
+EWRAM_DATA bool8 gIsDebugBattle = FALSE;
+EWRAM_DATA u64 gDebugAIFlags = 0;// this shit is gonna crunch my ram fuck
 
 // *******************************
 // Define functions

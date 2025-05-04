@@ -27,7 +27,7 @@ struct RecordedBattleSave
     u8 frontierBrainSymbol;
     u8 battleScene:1;
     u8 textSpeed:3;
-    u32 AI_scripts;
+    u64 AI_scripts;
     u8 recordMixFriendName[PLAYER_NAME_LENGTH + 1];
     u8 recordMixFriendClass;
     u8 apprenticeId;
