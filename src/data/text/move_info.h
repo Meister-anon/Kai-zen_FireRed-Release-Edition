@@ -355,7 +355,7 @@ const u8 gMoveDescription_ShockWave[MOVE_DESCRIPTION_LENGTH + 5] = _("A rapid jo
 const u8 gMoveDescription_WaterPulse[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack with a\npulsing blast of\nwater. It may also\nconfuse the foe.");
 const u8 gMoveDescription_DoomDesire[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that attacks\nthe foe with a\nblast of light two\nturns after use.");
 const u8 gMoveDescription_PsychoBoost[MOVE_DESCRIPTION_LENGTH + 5] = _("An intense attack\nthat also sharply\nreduces the user's\nSP. ATK stat.");
-
+/*
 //NEW values    -   rules for reading space, 19 chars per line,  5 line breaks. read number letters per word, n # of words, then add number of spaces which is n - 1
 const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Rests on the ground\nrestoring the user's\nhealth by half.\nThen heals a small\namount each turn\nuntil end of effect.");
 const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounds floating\nPKMN.\nMoves that involve\nflying can’t be used.");
@@ -1438,7 +1438,7 @@ const u8 gASTRAL_BARRAGE_Description
 
 const u8 gEERIE_SPELL_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with psychic\npower.\nFoe's last move has\na varying amount\nof PP cut.");
-
+*/
 const u8 gMoveDescription_Cocoon 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The PKMN wraps\nitself in silk etc.\nRaising its Defense\nand Sp Defense.\nBut harshly lowers\nspeed.");
 
@@ -1602,7 +1602,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_MIRROR_MOVE  ] = gMoveDescription_MirrorMove,
     [MOVE_SELF_DESTRUCT] = gMoveDescription_SelfDestruct,
     [MOVE_EGG_BOMB     ] = gMoveDescription_EggBomb,
-    [MOVE_AURORA_VEIL  ] = gAURORA_VEIL_Description,
+  //  [MOVE_AURORA_VEIL  ] = gAURORA_VEIL_Description,
     [MOVE_SMOG         ] = gMoveDescription_Smog,
     [MOVE_SLUDGE       ] = gMoveDescription_Sludge,
     [MOVE_BONE_CLUB    ] = gMoveDescription_BoneClub,
@@ -1835,7 +1835,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_WATER_PULSE  ] = gMoveDescription_WaterPulse,
     [MOVE_DOOM_DESIRE  ] = gMoveDescription_DoomDesire,
     [MOVE_PSYCHO_BOOST ] = gMoveDescription_PsychoBoost,
-
+/*
     [ MOVE_ROOST ] = gMoveDescription_Roost,
     [ MOVE_GRAVITY ] = gMoveDescription_Gravity,
     [ MOVE_MIRACLE_EYE ] = gMoveDescription_MiracleEye,
@@ -2335,7 +2335,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_PSYCHIC_NOISE] = COMPOUND_MOVE_STRING("The user attacks\nwith unpleasant\nsound waves.\nFor two turns, the\nfoe is prevented\nfrom recovering HP."),
     [MOVE_UPPER_HAND] = COMPOUND_MOVE_STRING("If the target is\npreparing to use\na priority move\nthe user strikes first,\nmaking the target flinch."),
     [MOVE_MALIGNANT_CHAIN] = COMPOUND_MOVE_STRING("Entraps the foe\nby wrapping them\nin a toxic,\ncorrosive chain.\nMay also leave the\ntarget badly poisoned."),
-
+*/
     [ MOVE_COCOON ] = gMoveDescription_Cocoon,
     [ MOVE_MONOTYPE ] = gMoveDescription_Monotype,
     [ MOVE_FLASH_FREEZE ] = gMoveDescription_FlashFreeze,
@@ -2350,7 +2350,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_FINAL_FLIGHT] = gMoveDescription_FinalFlight,
     [MOVE_PLASMA_RAILGUN] = gMoveDescription_PlasmaRailgun,
     [MOVE_BOLTBEAM] = gMoveDescription_Boltbeam,
-    [MOVE_BACK_STAB] = gMoveDescription_BackStab,
+    //[MOVE_BACK_STAB] = gMoveDescription_BackStab,
     [MOVE_POUNCE] = gMoveDescription_Pounce,
     [MOVE_CHEAP_SHOT] = gMoveDescription_CheapShot,
     [MOVE_SNOWBALL] = gMoveDescription_Snowball,
