@@ -9962,6 +9962,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         ||  GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_VICTORY_STAR) //nvm acc calc is trash boosting to equal speed boost
             calc = (calc * 120) / 100; // 1.1 victory star boost / seems small but is enough for effective acc
 
+        if (atkAbility == ABILITY_KEEN_EYE)
+            calc = (calc * 115) / 100;
+
         //when I get around to it, safety goggles item should also go on these I thnk
         //hold effect already set but think will just setup like umbrella
         //done wrapped it into weather affected
