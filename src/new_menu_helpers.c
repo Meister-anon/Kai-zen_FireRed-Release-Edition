@@ -24,6 +24,8 @@ static const u16 gUnknown_841EF48[] = INCBIN_U16("graphics/unknown/unk_841EF48.4
 const u16 gMenuMessageWindow_Gfx[] = INCBIN_U16("graphics/text_window/unk_841F1C8.4bpp");
 const u16 gStandardMenuPalette[] = INCBIN_U16("graphics/tm_case/unk_841F408.gbapal");
 
+static u32 GetPlayerBattleTextSpeed(void);
+
 static const u8 sTextSpeedFrameDelays[] = { 8, 4, 1 };  //slow medium fast
 
 static const struct WindowTemplate sStandardTextBox_WindowTemplates[] = 
@@ -730,12 +732,37 @@ u32 GetPlayerTextSpeed(void)
     return gSaveBlock2Ptr->optionsTextSpeed;
 }
 
+//only seems to be used in one place
+//and only the delay not this function directly so this 
+//can be static
+static u32 GetPlayerBattleTextSpeed(void)
+{
+    if (gTextFlags.forceMidTextSpeed) //only used in auto scroll macro used in cableclub
+        return OPTIONS_TEXT_SPEED_MID;
+    return gSaveBlock2Ptr->optionsBattleTextSpeed;
+}
+
 u8 GetPlayerTextSpeedDelay(void)
 {
     u32 speed;
     if (gSaveBlock2Ptr->optionsTextSpeed > OPTIONS_TEXT_SPEED_HYPER)
         gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
     speed = GetPlayerTextSpeed();
+    if (speed > OPTIONS_TEXT_SPEED_FAST) //not sure how this works out since above changes it to mid?
+        return sTextSpeedFrameDelays[OPTIONS_TEXT_SPEED_FAST];         //there is a noted dif in speed between methods even with this so idk.
+    
+    return sTextSpeedFrameDelays[speed];
+}
+
+//game breaking was due to memory issue
+//caused by all the move strings I added from emerald
+//but didn't adjust to fit in the fr move description box *facepalm
+u8 GetPlayerBattleTextSpeedDelay(void)
+{
+    u32 speed;
+    if (gSaveBlock2Ptr->optionsBattleTextSpeed > OPTIONS_TEXT_SPEED_HYPER)
+        gSaveBlock2Ptr->optionsBattleTextSpeed = OPTIONS_TEXT_SPEED_MID;
+    speed = GetPlayerBattleTextSpeed();
     if (speed > OPTIONS_TEXT_SPEED_FAST) //not sure how this works out since above changes it to mid?
         return sTextSpeedFrameDelays[OPTIONS_TEXT_SPEED_FAST];         //there is a noted dif in speed between methods even with this so idk.
     

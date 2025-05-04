@@ -627,7 +627,7 @@ struct SaveBlock2
     /*0x011*/ u8 playTimeSeconds;
     /*0x012*/ u8 playTimeVBlanks;
     /*0x013*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
-    /*0x014*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST]
+    /*0x014*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST/FASTER/HYPER]
               u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
     /*0x15*/  u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
               u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
@@ -636,7 +636,8 @@ struct SaveBlock2
               u16 padding:2; //moved battle speedup as increased speed options
               u16 optionsEventSpeedup:1;
               u16 optionsNuzlockeMode:1;
-              u16 NewPlaceholder:12;
+              u16 NewPlaceholder:9;
+              u16 optionsBattleTextSpeed:3; //reaized practically necessary w speed up, can speed up battle but lower battle text speed so can read better
               u16 optionsBattleSpeed:3; //for pokabbie setup navie battle speed up should be 6 options for 1-6x at bit 3 has enough options for x8
               u16 optionsDisplayTypeEffect:1;//could increase speed further? (did using 8x) all safety buffers are already in place, can just lower text speed to balance as needed
     /*0x018*/ struct Pokedex pokedex; //may need new size value fo rthis?

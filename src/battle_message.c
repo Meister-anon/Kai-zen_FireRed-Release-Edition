@@ -3965,9 +3965,9 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     if (windowId == B_WIN_MSG || windowId == B_WIN_OAK_OLD_MAN)
     {
         if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-            speed = 1;
+            speed = OPTIONS_TEXT_SPEED_FASTER; //1 is text speed mid, link batles are ungodly slow so think will shift this
         else
-            speed = GetPlayerTextSpeedDelay();
+            speed = GetPlayerBattleTextSpeedDelay(); //if this is only speed variable think will make function specific for this
         gTextFlags.canABSpeedUpPrint = TRUE;
     }
     else

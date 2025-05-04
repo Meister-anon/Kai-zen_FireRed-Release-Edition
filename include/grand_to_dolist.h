@@ -3923,6 +3923,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     dropping speed of target that's locked in?
     its already got priority now so idk
     -no don't buff meanlook
+    May have finally identified main source of memory corruption within my project
+    all those move strings I added in from EE that overflowed the fr text windows
+    because they were made for different dimmensions are the problem *facepalm
+    need to go through and fix all those strings now for game to compile properly
+
+    Plan do that on diff branch for now will commit the fix so it works
+    after it works merge those changes/commits over to main branch
+
     can't remember if I've alraedy done it but plan was
     a small indicator for if a mon is floating
     idea is they shouldn't have the shadow circle underneath them

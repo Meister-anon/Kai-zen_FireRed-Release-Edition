@@ -46,6 +46,7 @@ void DisplayYesNoMenuDefaultYes(void);
 void DisplayYesNoMenuDefaultNo(void);
 u32 GetPlayerTextSpeed(void);
 u8 GetPlayerTextSpeedDelay(void);
+u8 GetPlayerBattleTextSpeedDelay(void);
 u8 CreateStartMenuWindow(u8 height);
 u8 GetStartMenuWindowId(void);
 void RemoveStartMenuWindow(void);

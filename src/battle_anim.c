@@ -2536,12 +2536,7 @@ static void ScriptCmd_createvisualtaskontargets(void)
     }
 }
 
-/*
-if (GetPlayerTextSpeed() > OPTIONS_TEXT_SPEED_FAST)
-    {
-        sAnimFramesToWait = max(sAnimFramesToWait / 4, 1);
-        //thinking ctx is the important value here not pause counter...
-    }*/
+
 
 //tried it but believe I can't adjust delays here
 //as it rather than making move flow more smoothly

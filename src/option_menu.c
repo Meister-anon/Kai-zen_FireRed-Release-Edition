@@ -54,6 +54,7 @@ enum TextOptions //I have space to add battle speed up option here, could just c
 enum MiscOptions
 {   MISC_MENUITEM_EVENT_SPEEDUP,
     MISC_MENUITEM_BATTLE_SPEED,
+    MISC_MENUITEM_BATTLE_TEXT_SPEED,
     MISC_MENUITEM_DISPLAY_EFFECTIVENESS,
     MISC_MENUITEM_NUZLOCKE_MODE,
 
@@ -243,6 +244,7 @@ static const u16 sMiscOptionsMenuItemCounts[MISC_MENUITEM_COUNT] =
 {
     [MISC_MENUITEM_EVENT_SPEEDUP]     = 2, //_OFF - ON
     [MISC_MENUITEM_BATTLE_SPEED]     = 8, //1x - 8x  - moved to bit 3 decided might as well use max
+    [MISC_MENUITEM_BATTLE_TEXT_SPEED]  = 5,
     [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = 2, //_OFF - ON
     [MISC_MENUITEM_NUZLOCKE_MODE]   = 2, //_OFF - ON
 
@@ -279,6 +281,7 @@ static const u8 *const sMiscOptionMenuItemsNames[MISC_MENUITEM_COUNT] =
 {
     [MISC_MENUITEM_EVENT_SPEEDUP]     = gText_EventSpeedup,
     [MISC_MENUITEM_BATTLE_SPEED]      = gText_BattleSpeed,
+    [MISC_MENUITEM_BATTLE_TEXT_SPEED] = gText_BattleTextSpeed,
     [MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gText_DisplayTypeEffect,
     [MISC_MENUITEM_NUZLOCKE_MODE]     = gText_NuzlockeMode,
     [MISC_MENUITEM_CANCEL]            = gText_OptionMenuCancel,
@@ -399,6 +402,7 @@ void CB2_OptionsMenuFromStartMenu(void)
     
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_EVENT_SPEEDUP] = gSaveBlock2Ptr->optionsEventSpeedup;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_SPEED] = gSaveBlock2Ptr->optionsBattleSpeed;
+    sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_TEXT_SPEED] = gSaveBlock2Ptr->optionsBattleTextSpeed;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS] = gSaveBlock2Ptr->optionsDisplayTypeEffect;
     sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE] = gSaveBlock2Ptr->optionsNuzlockeMode;
     
@@ -984,6 +988,9 @@ static void BufferOptionMenuString(u8 selection)
                 case MISC_MENUITEM_BATTLE_SPEED:                    
                     AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sBattleSpeedOptions[sOptionMenuPtr->MiscOptions[selection]]); 
                 break;
+                case MISC_MENUITEM_BATTLE_TEXT_SPEED:
+                    AddTextPrinterParameterized3(1, 2, x, y, dst, -1, sTextSpeedOptions[sOptionMenuPtr->MiscOptions[selection]]);
+                break;
             }
             break;
     }
@@ -1026,6 +1033,7 @@ static void CloseAndSaveOptionMenu(u8 taskId) //vsonic this is where values are 
         case MISC_OPTIONS:
         gSaveBlock2Ptr->optionsEventSpeedup = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_EVENT_SPEEDUP];
         gSaveBlock2Ptr->optionsBattleSpeed = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_SPEED];
+        gSaveBlock2Ptr->optionsBattleTextSpeed = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_BATTLE_TEXT_SPEED];
         gSaveBlock2Ptr->optionsDisplayTypeEffect = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_DISPLAY_EFFECTIVENESS];
         gSaveBlock2Ptr->optionsNuzlockeMode = sOptionMenuPtr->MiscOptions[MISC_MENUITEM_NUZLOCKE_MODE];
         SetMainCallback2(CB2_OptionsMenuFromStartMenu);
