@@ -4032,6 +4032,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -fix alolan raichu face for front sprite
     looks weird af -ok done, was easy
     issue was just mouth was too close to nose smh
+
+    //ALolan mon seem have wrong abilities in some cases as well
+    need go over all those and adjust
+    5/5/2025
+
     NOTE**(
     new MAJOR IMPORTANT idea
     use pyscript to check string limts to avoid memory issues from string lines being longer than bounds.

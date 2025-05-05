@@ -8258,13 +8258,13 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(70, 60, 62, 90, 100, 102),
-        MON_TYPES(TYPE_BUG, TYPE_FLYING),
-        .catchRate = 75,
+        MON_TYPES(TYPE_BUG, TYPE_FLYING), //translusent rainbow like wings to make unique over being, no nvm I changed others bug flying isn't super common anymore
+        .catchRate = 75,        //and bug now resists electricity so covers flying weakness, quad ice jus makes sense so nothing to do with that
         .expYield = 200,
         //.evYield_SpAttack = 1,
         //.evYield_SpDefense = 1,
         //.itemRare = ITEM_SILVER_POWDER,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(50), //is around watery areas but doesn't line rain so give a few water moves but not rain dance
         .eggCycles = 15,
          .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -20877,15 +20877,15 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_POISON_POINT, ABILITY_POISON_TOUCH},
-        .abilityHidden = {ABILITY_ADAPTABILITY, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_BROWN,
+        .abilities = {ABILITY_POISON_POINT, ABILITY_CORROSION},//STALL Because hides and wates pioson point nd poison touch aren't really good
+        .abilityHidden = {ABILITY_ADAPTABILITY, ABILITY_STALL},//should get corrosion ok remove poison touch isn't a physical attacker anyway
+        .bodyColor = BODY_COLOR_BROWN, //poison touch is only really potentially good for flip turn poisons on exit? but it learns toxic so..
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sSkrelpLevelUpLearnset,
         .tmhmLearnset = sSkrelpTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(38, AVERAGE_EFFORT), 0, SPECIES_DRAGALGE}), //Should hopefully blank these for now without issue
-    },
+    },//slow not a good swimmer, so swift swim only on evo
     //vsonic put this encounterable somewhere
     //hmm think safari zone
 
@@ -20912,8 +20912,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_POISON_POINT, ABILITY_POISON_TOUCH},
-        .abilityHidden = {ABILITY_ADAPTABILITY, ABILITY_NONE},
+        .abilities = {ABILITY_SWIFT_SWIM, ABILITY_CORROSION},
+        .abilityHidden = {ABILITY_ADAPTABILITY, ABILITY_PHOTOSYNTHESIZE},//think will give sun healing so can run on either ran or sun now that gave swift swim
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -20921,6 +20921,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDragalgeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    // but absorbs sunlight naturally to generate dragon energy
+    //think safe to give flourescence but another option is the sun healing ability
+    //since it doesn't really use water, so could put on a sun team?
 
     [SPECIES_CLAUNCHER] =
     {
@@ -21335,7 +21338,7 @@ const struct BaseStats gBaseStats[] =
         55,
         75
         ),
-        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 60,
         //.evYield_SpDefense = 1,
@@ -21348,8 +21351,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_SAP_SIPPER, ABILITY_HYDRATION},
-        .abilityHidden = {ABILITY_GOOEY, ABILITY_NONE},
+        .abilities = {ABILITY_SAP_SIPPER, ABILITY_DRY_SKIN},
+        .abilityHidden = {ABILITY_GOOEY, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21372,7 +21375,7 @@ const struct BaseStats gBaseStats[] =
         83,
         113
         ),
-        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 158,
         //.evYield_SpDefense = 2,
@@ -21386,13 +21389,13 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_SAP_SIPPER, ABILITY_HYDRATION},
-        .abilityHidden = {ABILITY_GOOEY, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PURPLE,
+        .abilityHidden = {ABILITY_GOOEY, ABILITY_APOTHEOSCENT}, //ideally would like to give grunge or poison touch/point research figure what ability I can spare
+        .bodyColor = BODY_COLOR_PURPLE,//vsonic //can't drop
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sSliggooLevelUpLearnset,
         .tmhmLearnset = sSliggooTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL_RAIN, RELATIVE_EVO(50, AVERAGE_EFFORT), 0, SPECIES_GOODRA}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL_RAIN, RELATIVE_EVO(50, MEDIUM_EFFORT), 0, SPECIES_GOODRA}), //Should hopefully blank these for now without issue
     },
 
     [SPECIES_GOODRA] =
@@ -21408,7 +21411,7 @@ const struct BaseStats gBaseStats[] =
         110,
         150
         ),
-        MON_TYPES(TYPE_POISON, TYPE_DRAGON),
+        MON_TYPES(TYPE_WATER, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = 270,
         //.evYield_SpDefense = 3,
@@ -21418,15 +21421,17 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_DRAGON,
-        .abilities = {ABILITY_SAP_SIPPER, ABILITY_HYDRATION},
-        .abilityHidden = {ABILITY_GOOEY, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PURPLE,
-        .noFlip = FALSE,
+        .abilities = {ABILITY_SAP_SIPPER, ABILITY_HYDRATION}, //give thick fat directly referenced in pokedex entry and covers ice
+        .abilityHidden = {ABILITY_GOOEY, ABILITY_THICK_FAT}, //ok wish I could fit grunge on this but can't remove other abilities so this is best I can do
+        .bodyColor = BODY_COLOR_PURPLE, //hmm but with terra grunge would be better
+        .noFlip = FALSE, //talked with chief about it, he said go for defense so sticking with thick fat
         .floating = FALSE,
         .levelUpLearnset = sGoodraLevelUpLearnset,
         .tmhmLearnset = sGoodraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //hmm will do like woop and shift back to water over poison since otherwise 
+    //it replaces dragalge
 
     [SPECIES_KLEFKI] =
     {
@@ -27053,7 +27058,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        65,
+        75,
         100,
         100,
         75,
@@ -27072,8 +27077,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FAIRY,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_BATTLE_ARMOR, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DEFIANT, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_YELLOW,
+        .abilityHidden = {ABILITY_DEFIANT, ABILITY_MULTI_TASK}, //look into if skill link is viable option idea from wooper
+        .bodyColor = BODY_COLOR_YELLOW,//only really useful for rock blast multi task is prob better
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sFalinksLevelUpLearnset,
@@ -40575,8 +40580,8 @@ const struct BaseStats gBaseStats[] =
             .growthRate = GROWTH_SLOW,
             .eggGroup1 = EGG_GROUP_DRAGON,
             .eggGroup2 = EGG_GROUP_DRAGON,
-            .abilities = {ABILITY_SAP_SIPPER, ABILITY_OVERCOAT},
-            .abilityHidden = {ABILITY_GOOEY, ABILITY_NONE},
+            .abilities = {ABILITY_SAP_SIPPER, ABILITY_SHELL_ARMOR},
+            .abilityHidden = {ABILITY_GOOEY, ABILITY_APOTHEOSCENT},
             .bodyColor = BODY_COLOR_PURPLE,
             .noFlip = FALSE,
         .floating = FALSE,
@@ -40609,8 +40614,8 @@ const struct BaseStats gBaseStats[] =
             .growthRate = GROWTH_SLOW,
             .eggGroup1 = EGG_GROUP_DRAGON,
             .eggGroup2 = EGG_GROUP_DRAGON,
-            .abilities = {ABILITY_SAP_SIPPER, ABILITY_OVERCOAT},
-            .abilityHidden = {ABILITY_GOOEY, ABILITY_NONE},
+            .abilities = {ABILITY_SAP_SIPPER, ABILITY_SHELL_ARMOR},
+            .abilityHidden = {ABILITY_GOOEY, ABILITY_THICK_FAT},
             .bodyColor = BODY_COLOR_PURPLE,
             .noFlip = FALSE,
         .floating = FALSE,
@@ -40619,6 +40624,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = F_HISUIAN_FORM,
         },
+        //note need go over pla mon abilities are also off double check stats as well
 
     [SPECIES_AVALUGG_HISUIAN] =
     {
