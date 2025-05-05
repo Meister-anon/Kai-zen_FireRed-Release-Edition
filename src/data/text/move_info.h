@@ -2240,10 +2240,11 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [ MOVE_ASTRAL_BARRAGE ] = gASTRAL_BARRAGE_Description,
     [ MOVE_EERIE_SPELL ] = gEERIE_SPELL_Description,
 
+    //Need to fix PLA Moves descriptions don't match effects
     [MOVE_DIRE_CLAW] = COMPOUND_MOVE_STRING("High critical hit chance. May\nparalyze, poison or drowse."),
     [MOVE_PSYSHIELD_BASH] = COMPOUND_MOVE_STRING("Hits a foe with psychic\nenergy. May raise Defense."),
     [MOVE_POWER_SHIFT] = COMPOUND_MOVE_STRING("The user swaps its offensive\nand defensive stats."),
-    [MOVE_STONE_AXE] = COMPOUND_MOVE_STRING("High critical hit ratio. Sets\nSplinters that hurt the foe."),
+    [MOVE_STONE_AXE] = COMPOUND_MOVE_STRING("High critical hit ratio. Sets\nSplinters that hurt the foe."),//adjust description does'nt use crit
     [MOVE_SPRINGTIDE_STORM] = COMPOUND_MOVE_STRING("Wraps a foe in fierce winds.\nVaries with the user's form."),
     [MOVE_MYSTICAL_POWER] = COMPOUND_MOVE_STRING("Increases the user's best\noffense or defense stat."), //change effect to just boost one
     [MOVE_RAGING_FURY] = COMPOUND_MOVE_STRING("The user rampages around spewing flames\nfor two to three turns.\nThen becomes confused."),
@@ -2258,7 +2259,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_SHELTER] = COMPOUND_MOVE_STRING("The user makes its skin as hard as an iron shield,\nsharply boosting its Defense stat."),
     [MOVE_TRIPLE_ARROWS] = COMPOUND_MOVE_STRING("High crit. may lower Defense\nThe user focuses to raise its\ncritical-hit ratio.\nThen kicks, and fires three arrows."),
     [MOVE_INFERNAL_PARADE] = COMPOUND_MOVE_STRING("Does double damage if the\nfoe has an ailment.\nIt may also Burn."),
-    [MOVE_CEASELESS_EDGE] = COMPOUND_MOVE_STRING("High critical hit ratio. Sets\nsplinters that hurt the foe."),
+    [MOVE_CEASELESS_EDGE] = COMPOUND_MOVE_STRING("High critical hit ratio. Sets\nsplinters that hurt the foe."), //adjus description doesn't use cri
     [MOVE_BLEAKWIND_STORM] = COMPOUND_MOVE_STRING("The user attacks with\nsavagely cold winds.\nMay Freeze the foe."),
     [MOVE_WILDBOLT_STORM] = COMPOUND_MOVE_STRING("Hits with a brutal tempest.\nMay inflict paralysis."),
     [MOVE_SANDSEAR_STORM] = COMPOUND_MOVE_STRING("Hits with brutally hot sand.\nMay inflict a burn."),
