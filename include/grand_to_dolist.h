@@ -4032,6 +4032,43 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -fix alolan raichu face for front sprite
     looks weird af -ok done, was easy
     issue was just mouth was too close to nose smh
+    NOTE**(
+    new MAJOR IMPORTANT idea
+    use pyscript to check string limts to avoid memory issues from string lines being longer than bounds.
+    I can make hard limit to catch total string length for all strings
+    make py script to read line start to \n end line
+    for most cases that's \n to next \n
+    for dex entry page that's  open quote ' " '  to \n can just use '\' as only slashes in page are those
+
+    plan read each file with strings I want to check and return lines that exceed each files
+    specific line space think what want to do is return file name : line number\n
+    in terminal will need to read multiple files with separate line break spacing/requirements
+    append foud values to global array that will be printed in terminal at end of compile
+
+    if find nothing print No string alingment errors found.
+    can run at end unlike tm list file which needed be done first as other values relied on it
+    I only need to do this for multi line fields
+
+    so i'm thinking move descritions  ability descriptions item descriptions
+    and pokedex text entries
+
+    dex entry //max line length is 42
+    move description max line length is 19- actually 20 works better
+    ability descriptions max line length is about 41
+
+    would need open and read file
+    somehow search for instances of the start string character
+    which would be ("  or \n
+
+    dex entry is onlyu difference as formatting dif
+    so start char shold just be open quote  end should be \
+
+    would need to use that to define block to read
+    and return the number of specific alpha numeric characters and spaces within that block
+    and store the line and file name to global array if it exceeds bounds
+    used python book review realize won't need make global array to hold info for all found values
+    can just print them since the point is to read from terminal not modulate that data in anyway
+
 
     check inverse world see if right
     thoughts considering how floating will effect ground type

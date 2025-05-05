@@ -25,6 +25,88 @@
 #for just that file, but otherwise should be able to mostly copy paste once I get one file done
 #just changing the line limit values
 
+#ok to get correct value need subtract start from endpoint - 1
+#ok whether I start on " or / I should do plus 1 for start point to properly get the length of between values
+#actually no I do start point + 1 on "  endpoint can stay what it is when im' on \
+#that way startpoint is actually the letter I'm trying to read and endpoint is where it ends
+#if I'm on \ then I set my start point to index + 2  so i get passed the \n to the actual read letter
+
+
+'''
+Now next thing I need to do is figure how I'm going to integrate this into the make file.
+plan was to do moves abilities and the pokedex entry text in one script
+but I think that could cause issues with readability in the compiler
+ok I'll do it later but
+idea I came up with is to setup a state check.
+only progress to the next stage of description strings
+if on run it found no string bounds issues.
+that way it'll create a workflow of building until you fix strings to find all the issues.
+'''
+
+
 #dexLine_Limit 42
 #movesLine_Limit 19
 #abilityLine_Limit 41
+
+#/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h
+#/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/abilities.h
+#/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/pokedex_text_fr.h
+import re
+
+#global consants
+dexLine_Limit = 42
+movesLine_Limit = 20
+abilityLine_Limit = 41
+Phase1_Complete = False #move description check
+Phase2_Complete = False #ability description check
+
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/text/move_info.h', 'r')
+lines = infile.readlines()
+#index = 0
+lineId = 0
+startPoint = 0
+EndPoint = 0
+character = 0
+Num_errors = 0
+FoundLineError = False
+filename = 'move_info.h :'
+for line in lines:
+    #FoundLineError = False
+    lineId += 1
+    index = 0 #I'm STUPID it didn't work cuz I forgot to reset index for each line
+    #put line break here
+    if re.compile(r'//END OF MOVE DESCRIPTIONS').search(line):
+        break
+    #realixe use while isntead of for so can have string value and letter character
+    while index < len(line):
+        character = line[index]
+        if character == '"' :
+            startPoint = index + 1            
+            #print(startPoint, lineId)
+            #print(line)
+            #print(character)
+        #think may need do somthing to adjust this right?
+        if character == '\\':
+            EndPoint = index
+            if EndPoint - startPoint > movesLine_Limit:
+                FoundLineError = True
+            elif index + 2 < len(line): #extra protection
+                startPoint = index + 2
+        #index += 1
+
+        if FoundLineError == True:
+            #print file name line error occurs and w added index
+            #meant to show approx where in the line the error is
+            print(filename, lineId, index)
+            FoundLineError = False
+            Num_errors += 1
+            break        
+        else:            
+            #print(EndPoint, lineId)
+            #print(line)
+            index += 1
+#character search complete
+if Num_errors == 0:
+    Phase1_Complete = True
+    print("No Move Description Erros")
+infile.close()
