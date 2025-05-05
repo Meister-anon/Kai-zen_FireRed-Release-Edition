@@ -358,7 +358,7 @@ const u8 gMoveDescription_PsychoBoost[MOVE_DESCRIPTION_LENGTH + 5] = _("An inten
 /*
 //NEW values    -   rules for reading space, 19 chars per line,  5 line breaks. read number letters per word, n # of words, then add number of spaces which is n - 1
 const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Rests on the ground\nrestoring the user's\nhealth by half.\nThen heals a small\namount each turn\nuntil end of effect.");
-const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounding POKéMON\that float.\nAlso blocks moves\nthat involve flying.");
+const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounding POKéMON\nthat float.\nAlso blocks moves\nthat involve flying.");
 const u8 gMoveDescription_MiracleEye[MOVE_DESCRIPTION_LENGTH + 5] = _("Makes GHOSTS and\nevasive foes easier\nto hit.");
 const u8 gMoveDescription_WakeupSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("Doubles dmg against\nsleeping foes, but\nalso awakens them.");
 const u8 gMoveDescription_HammerArm[MOVE_DESCRIPTION_LENGTH + 5] = _("Swings down with\na heavy fist\nthat lowers Speed.");
@@ -384,7 +384,7 @@ const u8 gMoveDescription_WringOut[MOVE_DESCRIPTION_LENGTH + 5] = _("The move sc
 const u8 gMoveDescription_PowerTrick[MOVE_DESCRIPTION_LENGTH + 5] = _("The user swaps\nits Attack and\nDefense stats.");
 const u8 gMoveDescription_Gastro_Acid[MOVE_DESCRIPTION_LENGTH + 5] = _("Stomach acid\nsuppresses the\nfoe's ability.");
 const u8 gMoveDescription_LuckyChant[MOVE_DESCRIPTION_LENGTH + 5] = _("Prevents foes team\nfrom landing any\ncritical hits\nfor 5 turns.");
-const u8 gMoveDescription_Me_First[MOVE_DESCRIPTION_LENGTH + 5] = _("Copies the foe's\nselected attack\nand uses it before\they can act with\nincreased power.");
+const u8 gMoveDescription_Me_First[MOVE_DESCRIPTION_LENGTH + 5] = _("Copies the foe's\nselected attack\nand uses it before\nthey can act with\nincreased power.");
 const u8 gMoveDescription_Copycat[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mimics\nthe last move\nused by a foe.");
 const u8 gMoveDescription_Power_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nAttack and\nSp. Atk with\nthe foe.");
 const u8 gMoveDescription_Guard_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nDefense and\nSp. Def with\nthe foe.");
@@ -2365,6 +2365,9 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
 //from bulbapedia, then just a matter of adjusting for spacing
 //overflow on move descriptions etc. breaks start screen but is annoying cuz can't
 //put limits on line break
+
+
+//END OF MOVE DESCRIPTIONS
 
 
     //for implementing lower case move names
