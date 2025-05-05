@@ -4074,6 +4074,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     used python book review realize won't need make global array to hold info for all found values
     can just print them since the point is to read from terminal not modulate that data in anyway
 
+    id from talkin Ruby save type space on evs by returning field to u8
+    but just change math to divide by 2 instead of divide by 4,
+    that way per stat ev should still be able to fit within a u8
+    and that's all that matters as total evs is an agregate and not stored
+    on the mon itself belive should even work with my expanded cap
+
+    yup checked MAX_PER_STAT_EVS is 360 divde that by  2 and I'm at 180 safely within u8
+
+    note change how roaming mon appear/tracked on map,
+    have to go to pokedex page going to the map alone doesn't work
+    so change it so can register map to open it and show currently available roaming positions on map
+    do same for when view map from fly
+    )
 
     check inverse world see if right
     thoughts considering how floating will effect ground type
