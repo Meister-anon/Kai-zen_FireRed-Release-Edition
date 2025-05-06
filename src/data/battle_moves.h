@@ -1899,7 +1899,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//should I set this back to prio 0?
+    //I feel like I should it requires hail/snow setting
+    //but multiple mon can do so with snowarning
+    //this being prio allows veil to be able tobe setup
+    //if a pair has the move effects required between them
+    //aighgt think I'll leave it
+    //default only about a quarter of mon that get this move
+    //have snow warning
 
     [MOVE_SMOG] =
     {

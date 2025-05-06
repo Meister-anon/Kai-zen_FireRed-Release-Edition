@@ -21425,13 +21425,16 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_GOOEY, ABILITY_THICK_FAT}, //ok wish I could fit grunge on this but can't remove other abilities so this is best I can do
         .bodyColor = BODY_COLOR_PURPLE, //hmm but with terra grunge would be better
         .noFlip = FALSE, //talked with chief about it, he said go for defense so sticking with thick fat
-        .floating = FALSE,
+        .floating = FALSE, //but grung poison immunity woudl be good, as well as giving it more offens
         .levelUpLearnset = sGoodraLevelUpLearnset,
         .tmhmLearnset = sGoodraTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
     //hmm will do like woop and shift back to water over poison since otherwise 
     //it replaces dragalge
+    //alright I REALLY want grunge on this,
+    //think will make that a taught ability then
+    //goomy isnt' toxic so only give grunge to sliggo and goodra
 
     [SPECIES_KLEFKI] =
     {
