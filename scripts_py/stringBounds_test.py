@@ -178,3 +178,57 @@ if Phase1_Complete == True:
         Phase2_Complete = True
         print("No Ability Description Errors")
 infile.close()
+
+
+
+
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/pokedex_text.h', 'r')
+lines = infile.readlines()
+#index = 0
+lineId = 0
+startPoint = 0
+EndPoint = 0
+character = 0
+Num_errors = 0
+FoundLineError = False
+filename = 'pokedex_text.h :'
+if Phase1_Complete == True and Phase2_Complete == True:
+    for line in lines:
+        #FoundLineError = False
+        lineId += 1
+        index = 0 #I'm STUPID it didn't work cuz I forgot to reset index for each line
+
+        #realixe use while isntead of for so can have string value and letter character
+        while index < len(line):
+            character = line[index]
+            if character == '"' :
+                startPoint = index + 1            
+                #print(startPoint, lineId)
+                #print(line)
+                #print(character)
+            #think may need do somthing to adjust this right?
+            if character == '\\' or character == ')':
+                if character == '\\':
+                    EndPoint = index
+                elif character == ')':
+                    EndPoint = index - 1
+                if EndPoint - startPoint > dexLine_Limit:
+                    FoundLineError = True
+            #index += 1
+
+            if FoundLineError == True:
+                #print file name line error occurs and w added index
+                #meant to show approx where in the line the error is
+                print(filename, lineId, index)
+                FoundLineError = False
+                Num_errors += 1
+                break        
+            else:            
+                #print(EndPoint, lineId)
+                #print(line)
+                index += 1
+    #character search complete
+    if Num_errors == 0:
+        #Phase2_Complete = True
+        print("No Pokedex Entry Errors")
+infile.close()
