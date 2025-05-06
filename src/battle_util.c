@@ -7174,7 +7174,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 {
                     if (--gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] == 0) //so would need single use ability timer field, then pull relevant timer based on ability rn would only be slowstart and wonderguard)
                     {
+                        
                         BattleScriptExecute(BattleScript_SlowStartEnds);
+                        //status cleanse
+                        gBattleMons[gActiveBattler].status1 = 0;
+                        gBattleMons[battler].status2 &= ~(STATUS2_CONFUSION);
+                        gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE);
+                        gBattleMons[battler].status2 &= ~(STATUS2_INFATUATION);
+                        gBattleStruct->infatuatedwithBattleId[battler] = BATTLE_ID_NONE;
                         ++effect;
                     }
                 }
