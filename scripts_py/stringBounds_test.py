@@ -80,12 +80,20 @@ for line in lines:
     #realixe use while isntead of for so can have string value and letter character
     while index < len(line):
         character = line[index]
-        if character == '"' :
-            startPoint = index + 1            
+        #ok tested it can read a quote but I'm not getin it to read the parenthesi right at all somehwo?
+        #aight got it now
+        if character == '(' :
+            startPoint = index + 2            
             #print(startPoint, lineId)
             #print(line)
+            #if lineId == 2333:
+            #    print(character, index)
+            #    print(line)
             #print(character)
         #think may need do somthing to adjust this right?
+        #not quite right doesn't properly catch things in the last line ending in parenthesis
+        #ok quote is before end parenthesis think is retriggering first condition which was a quote
+        #resetting the startpoint, so swapped it open paren instead
         if character == '\\' or character == ')':
             if character == '\\':
                 EndPoint = index
@@ -137,8 +145,8 @@ if Phase1_Complete == True:
         #realixe use while isntead of for so can have string value and letter character
         while index < len(line):
             character = line[index]
-            if character == '"' :
-                startPoint = index + 1            
+            if character == '(' :
+                startPoint = index + 2            
                 #print(startPoint, lineId)
                 #print(line)
                 #print(character)
