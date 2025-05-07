@@ -4088,6 +4088,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     do same for when view map from fly
     )
 
+    attempt revert final gambit effect
+
     check inverse world see if right
     thoughts considering how floating will effect ground type
     my type changes made it better defensively

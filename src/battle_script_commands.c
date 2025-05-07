@@ -182,7 +182,7 @@ static void atk3E_end2(void);
 static void atk3F_end3(void);
 static void atk40_jumpifaffectedbyprotect(void);
 static void atk41_call(void);
-static void atk42_missinghealthtoDmg(void);    //replaced was jumpiftype2
+static void atk42_currenthealthtoDmg(void);    //replaced was jumpiftype2
 static void atk43_jumpifabilitypresent(void);
 static void atk44_endselectionscript(void);
 static void atk45_playanimation(void);
@@ -442,7 +442,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     atk3F_end3,
     atk40_jumpifaffectedbyprotect,
     atk41_call,
-    atk42_missinghealthtoDmg,
+    atk42_currenthealthtoDmg,
     atk43_jumpifabilitypresent,
     atk44_endselectionscript,
     atk45_playanimation,
@@ -7582,13 +7582,13 @@ static void atk41_call(void)
     gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
 }
 
-static void atk42_missinghealthtoDmg(void) //replaced was no longer needed, was jumpiftype2 to use put before damagecalc
+static void atk42_currenthealthtoDmg(void) //replaced was no longer needed, was jumpiftype2 to use put before damagecalc
 {
     if (gBattleMoves[gCurrentMove].effect == EFFECT_FINAL_GAMBIT)   //decided to use move power for this, can use move damage for else if/others
     { 
-        gBattleMovePower = (gBattleMons[gBattlerAttacker].maxHP - gBattleMons[gBattlerAttacker].hp);
-        gBattleMovePower = (gBattleMovePower * 120) /100;   //since not using movedamage, and faint as result give extra boost
-            ++gBattlescriptCurrInstr;
+        gBattleMoveDamage = gBattleMons[gBattlerAttacker].hp;
+        //gBattleMovePower = (gBattleMovePower * 120) /100;   //since not using movedamage, and faint as result give extra boost
+        ++gBattlescriptCurrInstr;
     }
     else
         ++gBattlescriptCurrInstr;

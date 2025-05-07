@@ -415,7 +415,7 @@
 	.4byte \ptr
 	.endm
 
-	.macro missinghealthtoDmg	@was jumpiftype2 replaced using for custom final gambit effect
+	.macro currenthealthtoDmg	@was jumpiftype2 replaced using for custom final gambit effect
 	.byte 0x42
 	.endm
 

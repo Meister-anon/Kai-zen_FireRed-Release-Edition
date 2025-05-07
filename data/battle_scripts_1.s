@@ -1617,10 +1617,10 @@ BattleScript_EffectFinalGambit:		@CHANGED effect to do dmg based on missing heal
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
-	missinghealthtoDmg
 	critcalc
-	damagecalc
 	typecalc
+	bichalfword gMoveResultFlags, MOVE_RESULT_NOT_VERY_EFFECTIVE | MOVE_RESULT_SUPER_EFFECTIVE
+	currenthealthtoDmg
 	adjustnormaldamage
 	pause B_WAIT_TIME_CLEAR_BUFF
 	attackanimation
@@ -1632,13 +1632,13 @@ BattleScript_EffectFinalGambit:		@CHANGED effect to do dmg based on missing heal
 	datahpupdate BS_TARGET
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_TARGET, FALSE, NULL
+	jumpifmovehadnoeffect BattleScript_MoveEnd
 	setatkhptozero
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
 	setmoveeffectwithchance
-	tryfaintmon BS_ATTACKER, FALSE, NULL
-	tryfaintmon BS_TARGET, FALSE, NULL
-	jumpifmovehadnoeffect BattleScript_MoveEnd
+	tryfaintmon BS_ATTACKER, FALSE, NULL	
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectHitSwitchTarget:
