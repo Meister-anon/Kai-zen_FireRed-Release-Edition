@@ -3970,8 +3970,8 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(65, 75, 55, 85, 85, 75),
         MON_TYPES(TYPE_NORMAL),   //change up eevee stats as its evo is more of a form change than a growth imo so stats are average but actually mid game viable
-        .catchRate = 45,
-        .expYield = 65,
+        .catchRate = 45,//eviolite on this and adaptability/joat can make this usable on its own intead of evolving as well, will have all type moves
+        .expYield = 65, //think wanna give extreme speed if plan to use this then
         //.evYield_SpDefense = 1,
         //.itemCommon = ITEM_EVIOLITE
         ////.itemRare = ITEM_EVERSTONE, put eviolite here make farmable spawn /will be this and everstone
@@ -10362,7 +10362,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(75, 63, 49, 75, 95, 90),
-        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY),
+        MON_TYPES(TYPE_PSYCHIC, TYPE_FAIRY), //only weak to bug dark
         .catchRate = 45,
         .expYield = 159,
         //.evYield_SpAttack = 1,
@@ -11375,8 +11375,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DEFIANT, ABILITY_COMPETITIVE},
+        .abilities = {ABILITY_TORRENT, ABILITY_SWIFT_SWIM},
+        .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11391,7 +11391,7 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(76, 66, 68, 50, 81, 76),
-        MON_TYPES(TYPE_WATER, TYPE_STEEL),
+        MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = 142,
         //.evYield_SpAttack = 2,
@@ -11401,8 +11401,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DEFIANT, ABILITY_COMPETITIVE},
+        .abilities = {ABILITY_TORRENT, ABILITY_SWIFT_SWIM},
+        .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11415,6 +11415,7 @@ const struct BaseStats gBaseStats[] =
     //secondary groud type, which now no longer even does that
     //thought about changing to fairy, would fix type relation
     //but not really do much for this mon? not much positive
+    //take legends arceus dex entry
 
     [SPECIES_EMPOLEON] =
     {
@@ -11432,8 +11433,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_TORRENT, ABILITY_NONE},
-        .abilityHidden = {ABILITY_DEFIANT, ABILITY_COMPETITIVE},
+        .abilities = {ABILITY_TORRENT, ABILITY_SWIFT_SWIM},
+        .abilityHidden = {ABILITY_COMPETITIVE, ABILITY_LIGHTNING_ROD}, //trident on its face and water mon have gotten lightning rod from horn-likes i.e goldeen
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11441,6 +11442,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sEmpoleonTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //WITH steel offering new weaknesses there's an reason to use eviolite prinplup instead
+    //tossing lightning rod as an option allows this to play differently and have a separate niche
 
     [SPECIES_STARLY] =
     {

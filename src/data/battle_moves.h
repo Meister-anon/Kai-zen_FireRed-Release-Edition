@@ -1593,10 +1593,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 10,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
+        .priority = 1,
         .flags = FLAG_PROTECT_AFFECTED,
         .split = SPLIT_STATUS,
-    },
+    },//keep effect of lasting til end of battle not modern effect to last only until switch
 
     [MOVE_SCREECH] =
     {
@@ -6117,7 +6117,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .pp = 20,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_DEPENDS,
-        .priority = 0,//must go first
+        .priority = 1,//must go first
         .flags = 0,
         .split = SPLIT_STATUS,
     },
@@ -8307,6 +8307,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     }, //hm so is this guaranteed both?if so its VERY good now, yup looks like it
     //put this exclusively in pre evo bug learnset not full evo
     //ex caterpie, not kakuna and butterfree
+    //hmm unsure when or why but i made this physical when base game has it as special
+    //90% bugs are physical so its fine imo, may lower power even further
+    //since effect is so good, honestly is prob best bug move,
+    //the only thing keeping it from being broken is that it isn't a status move
     //vsonic
 
     [MOVE_BULLDOZE] =
