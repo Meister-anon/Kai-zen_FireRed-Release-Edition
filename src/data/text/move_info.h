@@ -2,7 +2,7 @@
 const u8 gMoveDescription_Pound[MOVE_DESCRIPTION_LENGTH + 5] = _("A physical attack\ndelivered with a\nlong tail or a\nforeleg, etc.");
 const u8 gMoveDescription_KarateChop[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is attacked\nwith a sharp chop.\nIt has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_DoubleSlap[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is slapped\nrepeatedly, back\nand forth, two to\nfive times.");
-const u8 gMoveDescription_CometPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\na flurry of punches\nthat strike two to\nfive times.\nFast as a burning comet.");
+const u8 gMoveDescription_CometPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\na flurry of punches\nthat strike two to\nfive times.\nFast as a burning\ncomet.");
 const u8 gMoveDescription_MegaPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is slugged\nby a punch thrown\nwith muscle-packed\npower.");
 const u8 gMoveDescription_PayDay[MOVE_DESCRIPTION_LENGTH + 5] = _("Numerous coins are\nhurled at the foe.\nMoney is earned\nafter battle.");
 const u8 gMoveDescription_FirePunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is punched\nwith a fiery fist.\nIt may leave the\nfoe with a burn.");
@@ -13,7 +13,7 @@ const u8 gMoveDescription_ViceGrip[MOVE_DESCRIPTION_LENGTH + 5] = _("Huge, impre
 const u8 gMoveDescription_Guillotine[MOVE_DESCRIPTION_LENGTH + 5] = _("A vicious tearing\nattack with pincers.\nMay OHKO foe if\nSuper effective or\nthey don't resist.");
 const u8 gMoveDescription_RazorWind[MOVE_DESCRIPTION_LENGTH + 5] = _("Blades of wind hit\nthe foe.\nIt has a high\ncritical-hit ratio.\nAlso deals flying\ndamage.");
 const u8 gMoveDescription_SwordsDance[MOVE_DESCRIPTION_LENGTH + 5] = _("A frenetic dance of\nfighting. It sharply\nraises the ATTACK\nstat.");
-const u8 gMoveDescription_Cut[MOVE_DESCRIPTION_LENGTH + 5] = _("A practiced cutting\nattack. That deals\nincreased dmg to\ngrass types. It can\nbe used to cut down\nthin trees and grass.");
+const u8 gMoveDescription_Cut[MOVE_DESCRIPTION_LENGTH + 5] = _("A practiced cutting\nattack. That deals\nincreased dmg to\ngrass types. It can\nbe used to cut down\nthin trees and grass");
 const u8 gMoveDescription_Gust[MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes the foe\nwith a gust of wind\nwhipped up by\nwings.");
 const u8 gMoveDescription_WingAttack[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is struck\nwith large, imposing\nwings spread wide.");
 const u8 gMoveDescription_Whirlwind[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends.");
@@ -134,9 +134,9 @@ const u8 gMoveDescription_SpikeCannon[MOVE_DESCRIPTION_LENGTH + 5] = _("Sharp sp
 const u8 gMoveDescription_Constrict[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is attacked\nwith long tentacles\nor vines. It may\nlower SPEED.");
 const u8 gMoveDescription_Amnesia[MOVE_DESCRIPTION_LENGTH + 5] = _("Forgets about\nsomething and\nsharply raises\nSP. DEF.");
 const u8 gMoveDescription_Kinesis[MOVE_DESCRIPTION_LENGTH + 5] = _("The user distracts\nthe foe by bending\na spoon. It may\nlower accuracy.");
-const u8 gMoveDescription_SoftBoiled[MOVE_DESCRIPTION_LENGTH + 5] = _("Heals the user by\nup to a third its full\nHP. It can be used\nto heal an ally.");
+const u8 gMoveDescription_SoftBoiled[MOVE_DESCRIPTION_LENGTH + 5] = _("Heals the user by\nup to a third its\nfull HP.\nOutside of battle\nIt can be used\nto heal an ally.");
 const u8 gMoveDescription_HiJumpKick[MOVE_DESCRIPTION_LENGTH + 5] = _("A strong jumping\nknee kick. If it\nmisses, the user is\nhurt.");
-const u8 gMoveDescription_Glare[MOVE_DESCRIPTION_LENGTH + 5] = _("The user intimidates\nthe foe with a leer\nshocking the foe into\nparalysis.");
+const u8 gMoveDescription_Glare[MOVE_DESCRIPTION_LENGTH + 5] = _("The user intimidates\nthe foe with a leer\nshocking the foe\ninto paralysis.");
 const u8 gMoveDescription_DreamEater[MOVE_DESCRIPTION_LENGTH + 5] = _("Absorbs half the\ndamage it inflicted\non a sleeping foe\nto restore HP.");
 const u8 gMoveDescription_PoisonGas[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is sprayed\nwith a cloud of\ntoxic gas that may\npoison the foe.");
 const u8 gMoveDescription_Barrage[MOVE_DESCRIPTION_LENGTH + 5] = _("Round objects are\nhurled at the foe\nto strike two to\nfive times.\nMay lower Defense.");
@@ -147,7 +147,7 @@ const u8 gMoveDescription_Transform[MOVE_DESCRIPTION_LENGTH + 5] = _("The user t
 const u8 gMoveDescription_Bubble[MOVE_DESCRIPTION_LENGTH + 5] = _("A spray of bubbles\nhits the foe.\nIt may lower the\nfoe's SPEED stat.");
 const u8 gMoveDescription_DizzyPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\na rhythmic punch\nthat may leave it\nconfused.");
 const u8 gMoveDescription_Spore[MOVE_DESCRIPTION_LENGTH + 5] = _("The user scatters\nbursts of fine\nspores that induce\nsleep.");
-const u8 gMoveDescription_Flash[MOVE_DESCRIPTION_LENGTH + 5] = _("A blast of light\nthat cuts the foe's\naccuracy.\nMay make the\nfoe flinch.\nIt illuminates caves.");
+const u8 gMoveDescription_Flash[MOVE_DESCRIPTION_LENGTH + 5] = _("A blast of light\nthat cuts the foe's\naccuracy.\nMay make the\nfoe flinch.\nIt illuminates caves");
 const u8 gMoveDescription_Psywave[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is attacked\nwith an odd, hot\nenergy wave that\nignores resistances\nand varies in power");
 const u8 gMoveDescription_Splash[MOVE_DESCRIPTION_LENGTH + 5] = _("The user just flops\nand splashes around\nwithout having any\neffect.");
 const u8 gMoveDescription_AcidArmor[MOVE_DESCRIPTION_LENGTH + 5] = _("The user alters its\ncells to liquefy\nitself and sharply\nraise DEFENSE.");
@@ -208,7 +208,6 @@ const u8 gMoveDescription_Charm[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is cha
 const u8 gMoveDescription_Rollout[MOVE_DESCRIPTION_LENGTH + 5] = _("A 5-turn rolling\nattack that becomes\nstronger each time\nit hits.");
 const u8 gMoveDescription_FalseSwipe[MOVE_DESCRIPTION_LENGTH + 5] = _("A restrained attack\nthat always leaves\nthe foe with at\nleast 1 HP.");
 const u8 gMoveDescription_Swagger[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that makes\nthe foe confused,\nbut also sharply\nraises its ATTACK.");
-const u8 gMoveDescription_MilkDrink[MOVE_DESCRIPTION_LENGTH + 5] = _("Heals the user by\nup to a third its full\nHP. It can be used\nto heal an ally.");
 const u8 gMoveDescription_Spark[MOVE_DESCRIPTION_LENGTH + 5] = _("An electrically\ncharged tackle that\nmay also paralyze\nthe foe.");
 const u8 gMoveDescription_FuryCutter[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\ngrows stronger on\neach successive\nhit.");
 const u8 gMoveDescription_SteelWing[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is hit with\nwings of steel.\nIt may also raise\nthe user's DEFENSE.");
@@ -229,7 +228,7 @@ const u8 gMoveDescription_DragonBreath[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe
 const u8 gMoveDescription_BatonPass[MOVE_DESCRIPTION_LENGTH + 5] = _("The user switches\nout, passing along\nany stat changes\nto the new battler.");
 const u8 gMoveDescription_Encore[MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the foe use\nthe move it last\nused repeatedly for\ntwo to six turns.");
 const u8 gMoveDescription_Pursuit[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack move that\nworks especially\nwell on a foe that\nis switching out.");
-const u8 gMoveDescription_RapidSpin[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nfrees the user from\nSEED and TRAP effects,\nand raises SPEED.");
+const u8 gMoveDescription_RapidSpin[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nfrees the user from\nLEECH SEED and TRAPS\nand raises SPEED.");
 const u8 gMoveDescription_SweetScent[MOVE_DESCRIPTION_LENGTH + 5] = _("Allures the foe to\nreduce evasiveness.\nIt also attracts\nwild POKéMON.");
 const u8 gMoveDescription_IronTail[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack with a\nsteel-hard tail.\nIt may lower the\nfoe's DEFENSE stat.");
 const u8 gMoveDescription_MetalClaw[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is attacked\nwith steel claws.\nIt may also raise\nthe user's ATTACK.");
@@ -279,10 +278,10 @@ const u8 gMoveDescription_Ingrain[MOVE_DESCRIPTION_LENGTH + 5] = _("The user lay
 const u8 gMoveDescription_Superpower[MOVE_DESCRIPTION_LENGTH + 5] = _("A powerful attack,\nmade with no\nregard for Defense.\nAlso hurts the user\na little bit."); //\nBut it also lowers\nthe user's\nDEFENSE stats.");
 const u8 gMoveDescription_MagicCoat[MOVE_DESCRIPTION_LENGTH + 5] = _("Reflects back the\nfoe's LEECH SEED\nand any status-\naffecting move.");
 const u8 gMoveDescription_Recycle[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that\nrecycles a used\nitem for use once\nmore.");
-const u8 gMoveDescription_Revenge[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack move that\ngains in intensity if\nthe target has hurt\nthe user.");
+const u8 gMoveDescription_Revenge[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack move that\ngains intensity if\nthe target has hurt\nthe user.");
 const u8 gMoveDescription_BrickBreak[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that also\nbreaks any barrier\nlike LIGHT SCREEN\nand REFLECT\nor MAGIC COAT."); //addition to bring attention to changed magic coat
 const u8 gMoveDescription_Yawn[MOVE_DESCRIPTION_LENGTH + 5] = _("A huge yawn lulls\nthe foe into falling\nasleep at the end\nof the turn.");
-const u8 gMoveDescription_KnockOff[MOVE_DESCRIPTION_LENGTH + 5] = _("Knocks down the\nfoe's held item to\nprevent its use\nduring the battle.\nDoes more damage\nif foe has a held item.");
+const u8 gMoveDescription_KnockOff[MOVE_DESCRIPTION_LENGTH + 5] = _("Knocks down the\nfoe's held item to\nprevent its use\nduring the battle.\nDoes more damage\nif foe has an item.");
 const u8 gMoveDescription_Endeavor[MOVE_DESCRIPTION_LENGTH + 5] = _("Gains power the\nfewer HP the user\nhas compared with\nthe foe.");
 const u8 gMoveDescription_Eruption[MOVE_DESCRIPTION_LENGTH + 5] = _("The higher the\nuser's HP, the more\npowerful this\nattack becomes.");
 const u8 gMoveDescription_SkillSwap[MOVE_DESCRIPTION_LENGTH + 5] = _("The user employs\nits psychic power\nto swap abilities\nwith the foe.");
@@ -355,7 +354,7 @@ const u8 gMoveDescription_ShockWave[MOVE_DESCRIPTION_LENGTH + 5] = _("A rapid jo
 const u8 gMoveDescription_WaterPulse[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack with a\npulsing blast of\nwater. It may also\nconfuse the foe.");
 const u8 gMoveDescription_DoomDesire[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that attacks\nthe foe with a\nblast of light two\nturns after use.");
 const u8 gMoveDescription_PsychoBoost[MOVE_DESCRIPTION_LENGTH + 5] = _("An intense attack\nthat also sharply\nreduces the user's\nSP. ATK stat.");
-/*
+
 //NEW values    -   rules for reading space, 19 chars per line,  5 line breaks. read number letters per word, n # of words, then add number of spaces which is n - 1
 const u8 gMoveDescription_Roost[MOVE_DESCRIPTION_LENGTH + 5] = _("Rests on the ground\nrestoring the user's\nhealth by half.\nThen heals a small\namount each turn\nuntil end of effect.");
 const u8 gMoveDescription_Gravity[MOVE_DESCRIPTION_LENGTH + 5] = _("Gravity intensifies\ngrounding POKéMON\nthat float.\nAlso blocks moves\nthat involve flying.");
@@ -388,7 +387,7 @@ const u8 gMoveDescription_Me_First[MOVE_DESCRIPTION_LENGTH + 5] = _("Copies the 
 const u8 gMoveDescription_Copycat[MOVE_DESCRIPTION_LENGTH + 5] = _("The user mimics\nthe last move\nused by a foe.");
 const u8 gMoveDescription_Power_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nAttack and\nSp. Atk with\nthe foe.");
 const u8 gMoveDescription_Guard_Swap[MOVE_DESCRIPTION_LENGTH + 5] = _("Swaps changes to\nDefense and\nSp. Def with\nthe foe.");
-const u8 gMoveDescription_Punishment[MOVE_DESCRIPTION_LENGTH + 5] = _("Does more damage if the\nfoe has powered up.");
+const u8 gMoveDescription_Punishment[MOVE_DESCRIPTION_LENGTH + 5] = _("Gains power for each\nstat the foe raised.");
 const u8 gMoveDescription_LastResort[MOVE_DESCRIPTION_LENGTH + 5] = _("Can only be used\nif every other move\nby the user has\nalready been used.");
 const u8 gMoveDescription_WorrySeed[MOVE_DESCRIPTION_LENGTH + 5] = _("Plants a seed\non the foe\ngiving it Insomnia.");
 const u8 gMoveDescription_SuckerPunch[MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes first if the\nfoe is preparing\nan attack.");
@@ -461,7 +460,7 @@ const u8 gENERGY_BALL_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Draws power from\nnature to attack.\nMay lower Sp. Def.");
 
 const u8 gBRAVE_BIRD_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A low altitude charge\nthat also hurts\nthe user.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A low altitude\ncharge that also\nhurts the user.");
 
 const u8 gEARTH_POWER_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the ground\nerupt with power.\nMay lower Sp. Def.");
@@ -473,7 +472,7 @@ const u8 gNASTY_PLOT_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Thinks bad thoughts\nsharply boosting\nthe user's Sp. Atk.");
 
 const u8 gBULLET_PUNCH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Punches as fast as\na bullet.\nIt always hits first.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Punches as fast as\na bullet.\nIt always hits first");
 
 const u8 gICE_SHARD_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls a sharp chunk\nof ice that\nalways strike first.");
@@ -491,7 +490,7 @@ const u8 gFIRE_FANG_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("May cause flinch or\nleave the foe with\na burn.");
 
 const u8 gSHADOW_SNEAK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Extends the user's\nshadow to attack.\nAlways strikes first.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Extends the user's\nshadow to attack.\nAlways hits first.");
 
 const u8 gMUD_BOMB_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Throws a blob\nof thick mud to\ndamage the foe\nand cut accuracy.");
@@ -521,7 +520,7 @@ const u8 gDRACO_METEOR_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Enforces Dragons\ndominion over the\nskies to cast comets\ndown onto the foe.\nHarshly lowers the\nfoe's Sp. Atk."); //vsonic check
 
 const u8 gDISCHARGE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\neverything around it\nby letting loose a\nflare of electricity.\nThis may also\ncause paralysis.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\neverything around it\nby letting loose an\nelectric surge.\nThis may also\ncause paralysis.");
 
 const u8 gPOWER_WHIP_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Violently lashes the\nfoe with vines\nor tentacles.");
@@ -545,7 +544,7 @@ const u8 gCAPTIVATE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the opposite\ngender sharply\nreduce its Sp. Atk."); //vsonic check
 
 const u8 gSTEALTH_ROCK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sets floating stones that\nhurt foes who are\nswitching in.\nDamage varies by\ntype effectiveness."); //vsonic
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sets floating stones\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."); //vsonic
 
 const u8 gGRASS_KNOT_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A snare attack that\ndoes more damage\nto heavier foes.");
@@ -557,144 +556,144 @@ const u8 gJUDGMENT_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The Omnipotent One\njudges all.\nStrike of varying\ntype that always\nfinds the foe's\nweakness.");//vsonic check
 
 const u8 gCHARGE_BEAM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Fires a beam of ionized\nelectricity.\nMay raise Sp. Atk.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Fires a beam of\nionized electricity.\nMay raise Sp. Atk.");
 
 const u8 gWOOD_HAMMER_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slams the body into a foe\nThe user gets hurt too.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user slams\nits rugged body into\nthe foe to attack.\nThe user also takse\nserious damage.");
 
 const u8 gAQUA_JET_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes first by dashing\nat the foe at a high speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user lunges at\nthe foe at a speed\nthat makes it\nalmost invisible.\nIt is sure to\nstrike first.");
 
 const u8 gATTACK_ORDER_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Underlings pummel\nthe foe at the\nbehest of the Queen.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gDEFEND_ORDER_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Raises Defense and Sp. Def\nwith a living shield.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Raises Defense and\nSp. Def with an\nliving shield.");
 
 const u8 gHEAL_ORDER_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user's underlings show\nup to heal a third of\nits max HP.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("It's underlings\nshow up to heal\na third of\nits max HP.");
 
 const u8 gHEAD_SMASH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A life-risking headbutt that\nseriously hurts the user.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A life-risking\nheadbutt that\nalso seriously hurts\nthe user.");
 
 const u8 gDOUBLE_HIT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slams the foe with a tail\netc. Strikes twice.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Slams the foe with\na tail or etc.\nStrikes twice.");
 
 const u8 gROAR_OF_TIME_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Powerful, but leaves the\nuser immobile the next turn.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Powerful, but leaves\nthe user immobile\nthe next turn.");
 
 const u8 gSPACIAL_REND_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Distorts space to\nslash the foe.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gMAGMA_STORM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe in a vortex\nof fire for 2 to 4 turns.\nAlways burns foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe in\na vortex of fire\nfor 2 to 4 turns.\nAlways burns foe.");
 
 const u8 gDARK_VOID_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Drags the foe into total\ndarkness, inducing Sleep.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Drags foe into total\ndarkness, inducing\na deep Sleep.");
 
 const u8 gSEED_FLARE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Generates a shock wave that\nsharply reduces Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user generates\na shock wave from\nwithin its body.\nIt may harshly lower\nthe target's Sp. Def");
 
 const u8 gOMINOUS_WIND_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A repulsive attack that\nmay raise all stats.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A repulsive attack\nthat may raise\nall stats.");
 
 const u8 gSHADOW_FORCE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Vanishes on the first turn\nthen strikes the next turn.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Vanishes first turn\nthen strikes on\nthe next turn.");
 
 const u8 gHONE_CLAWS_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Sharpens its claws\nto raise Attack\nand Accuracy.");
 
 const u8 gWIDE_GUARD_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Evades wide-ranging attacks\nfor one turn.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Evades move that\nattack multiple\ntargets for one turn");
 
 const u8 gGUARD_SPLIT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Averages changes to Defense\nand Sp. Def with the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Averages changes to\nDefense and Sp. Def\nwith the foe.");
 
 const u8 gPOWER_SPLIT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Averages changes to Attack\nand Sp. Atk with the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Averages changes to\nAttack and Sp. Atk\nwith the foe.");
 
 const u8 gWONDER_ROOM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Defense and Sp. Def stats\nare swapped for 5 turns.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Defense and Sp. Def\nstats are swapped\nfor 5 turns.");
 
 const u8 gPSYSHOCK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a psychic wave\nthat does physical damage.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\npsychic wave\nthat does physical\ndamage.");
 
 const u8 gVENOSHOCK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage if the\nfoe has an ailment.\nDeals extra damage\nto poisoned targets.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage\nif the foe has\nan ailment.\nDeals extra damage\nto poisoned targets.");
 
 const u8 gAUTOTOMIZE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sheds additional weight to\nsharply boost Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sheds weight to\nsharply boost Speed.");
 
 const u8 gRAGE_POWDER_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Scatters powder to make\nfoes attack only the user.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Scatters powder that\nforces foes to\ntarget only the user");
 
 const u8 gTELEKINESIS_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the foe float. It is\neasier to hit for 3 turns.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the foe float\nand easier to\nhit for 3 turns.");
 
 const u8 gMAGIC_ROOM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hold items lose their\neffects for 5 turns.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hold items lose\ntheir effects for\n5 turns.");
 
 const u8 gSMACK_DOWN_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Throws a rock to knock the\nfoe down to the ground.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Throws a rock to\nknock the foe down\nto the ground.");
 
 const u8 gSTORM_THROW_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("This attack always\nresults in a critical hit.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user strikes\nthe target with\na fierce blow.\nThis attack always\nresults in a\ncritical hit.");
 
 const u8 gFLAME_BURST_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A bursting flame that does\ndamage to all foes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A bursting flamen\nthat does damage\nto all foes.");
 
 const u8 gSLUDGE_WAVE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Swamps the foe with a wave\nof sludge\nMay also poison.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Swamps the area with\na wave of sludge\nMay also poison.");
 
 const u8 gQUIVER_DANCE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Dances to raise Sp. Atk\nSp. Def and Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Dances to raisen\nSp. Atk, Sp. Def\nand Speed.");
 
 const u8 gHEAVY_SLAM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does more damage if the\nuser outweighs the foe.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The user slams its\nbody into the foe.\nThe heavier the user\nis than the target,\nthe greater the\nmove's power.");
 
 const u8 gSYNCHRONOISE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("An odd shock wave that only\ndamages same-type foes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("An odd shock wave\nthat only damages\nsame-type foes.");
 
 const u8 gELECTRO_BALL_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls an orb that does\nmore damage to\nslower foes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage to\nslower foes.");
 
 const u8 gSOAK_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sprays water at the foe\nmaking it Water-type.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sprays an odd stream\nof water at the foe\nchanging it into\na Water-Type.");
 
 const u8 gFLAME_CHARGE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks in a cloak of\nflames. Raises Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks in a cloak\nof flames.\nRaises Speed.");
 
-const u8 gTrailBlaze_Description[MOVE_DESCRIPTION_LENGTH + 5]  = _("The user attacks suddenly\nas if leaping out\nfrom tall grass.\nThe user's nimble\nfootwork boosts its\nSpeed stat.");
+const u8 gTrailBlaze_Description[MOVE_DESCRIPTION_LENGTH + 5]  = _("A sudden attack\nas if leaping out\nfrom tall grass.\nThe user's nimble\nfootwork boosts its\nSpeed stat.");
 
 const u8 gCOIL_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Coils up to raise Attack,\nDefense and Accuracy.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Coils up to raise\nthe user's Attack,\nDefense and Accuracy");
 
 const u8 gLOW_SWEEP_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks the foe's legs\nlowering its Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("An attack to\nthe foe's legs\nlowering its Speed.");
 
 const u8 gACID_SPRAY_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sprays a hide-melting\nacid.\nSharply reduces Sp. Def.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sprays hide-melting\nacid at the target.\nSharply reducing the\nfoe's Sp. Def.");
 
 const u8 gFOUL_PLAY_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("The higher the foe's Attack\nthe more damage caused.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Turns the foe's\nstrength against it.\nThe higher the foe's\nAttack, the greater\nthe move's power.");
 
 const u8 gSIMPLE_BEAM_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A beam that changes the\nfoe's ability to Simple.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A beam that changes\nthe foe's ability\nto Simple.");
 
 const u8 gENTRAINMENT_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the foe mimic the\nuser, gaining its ability.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Makes the foe mimic\nthe user, gaining\nits ability.");
 
 const u8 gAFTER_YOU_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Helps out the foe, letting\nit move next.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Helps out the target\nletting it move next");
 
 const u8 gROUND_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("A song that inflicts damage.\nOthers can join in too.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("The recurring song.\nIf others use it\nin the same turn\nthey will act next\nwith greater power.");
 
 const u8 gECHOED_VOICE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does more damage every turn\nit is used.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Does more damage\neach turn it is\nused in succession.");
 
 const u8 gCHIP_AWAY_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes through the foe's\nstat changes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("A reliable attack\nthat ignores changes\nto the foe's defense\nor evasion\nstat stages.");
 
 const u8 gCLEAR_SMOG_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with white haze that\neliminates all stat changes.");
@@ -1438,7 +1437,7 @@ const u8 gASTRAL_BARRAGE_Description
 
 const u8 gEERIE_SPELL_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with psychic\npower.\nFoe's last move has\na varying amount\nof PP cut.");
-*/
+
 const u8 gMoveDescription_Cocoon 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The PKMN wraps\nitself in silk etc.\nRaising its Defense\nand Sp Defense.\nBut harshly lowers\nspeed.");
 
@@ -1688,7 +1687,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_ROLLOUT      ] = gMoveDescription_Rollout,
     [MOVE_FALSE_SWIPE  ] = gMoveDescription_FalseSwipe,
     [MOVE_SWAGGER      ] = gMoveDescription_Swagger,
-    [MOVE_MILK_DRINK   ] = gMoveDescription_MilkDrink,
+    [MOVE_MILK_DRINK   ] = gMoveDescription_SoftBoiled,
     [MOVE_SPARK        ] = gMoveDescription_Spark,
     [MOVE_FURY_CUTTER  ] = gMoveDescription_FuryCutter,
     [MOVE_STEEL_WING   ] = gMoveDescription_SteelWing,
@@ -1835,7 +1834,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_WATER_PULSE  ] = gMoveDescription_WaterPulse,
     [MOVE_DOOM_DESIRE  ] = gMoveDescription_DoomDesire,
     [MOVE_PSYCHO_BOOST ] = gMoveDescription_PsychoBoost,
-/*
+
     [ MOVE_ROOST ] = gMoveDescription_Roost,
     [ MOVE_GRAVITY ] = gMoveDescription_Gravity,
     [ MOVE_MIRACLE_EYE ] = gMoveDescription_MiracleEye,
@@ -2265,6 +2264,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_SANDSEAR_STORM] = COMPOUND_MOVE_STRING("Hits with brutally hot sand.\nMay inflict a burn."),
     [MOVE_LUNAR_BLESSING] = COMPOUND_MOVE_STRING("The user receives\na blessing from\nthe crescent moon.\nRestores HP and cures\nailments for itself and\nan ally."),
     [MOVE_TAKE_HEART] = COMPOUND_MOVE_STRING("The user lifts its spirits,\ncuring its own ailments\nand boosting its Sp. Atk\nand Sp. Def stats."),
+    //End of PLA Effects
 
     [MOVE_TERA_BLAST] = COMPOUND_MOVE_STRING("When Terastallized, it\nunleashes its Tera energy.\nDamage type is based on\nthe user's highest\noffense stat."),
     [MOVE_SILK_TRAP] = COMPOUND_MOVE_STRING("The user spins a silken trap, to protect itself and lowers the Speed of any attacker that makes contact."),
@@ -2321,22 +2321,22 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_MATCHA_GOTCHA] = COMPOUND_MOVE_STRING("The user fires a\nblast of mixed tea.\nHP is restored by up\nto half the damage\ndealt. This may also\nburn the target"),
     [MOVE_SYRUP_BOMB] = COMPOUND_MOVE_STRING("A sticky explosion\nof candy syrup,\nwhich coats the target\nand drops foe's speed\neach turn for three\nturns."),
     [MOVE_IVY_CUDGEL] = COMPOUND_MOVE_STRING("High critical hit chance.\nStrikes the foe with\nan ivy-wrapped cudgel.\nType changes based on\nthe mask worn."),
-    [MOVE_ELECTRO_SHOT] = COMPOUND_MOVE_STRING("Charges electricity,\nboosting its Sp. Atk,\nthen fires a\nhigh-voltage shot on\nthe next turn.\nNo charge in rain."),
-    [MOVE_TERA_STARSTORM] = COMPOUND_MOVE_STRING("The user bombards and\neliminates the foe\nwith crystal energy.\nDamages opposing side\nwhen in Stellar Form."),
+    [MOVE_ELECTRO_SHOT] = COMPOUND_MOVE_STRING("Charges electricity,\nboosting Sp. Atk,\nthen fires a\nhigh-voltage shot on\nthe next turn.\nNo charge in rain."),
+    [MOVE_TERA_STARSTORM] = COMPOUND_MOVE_STRING("The user bombards\nand eliminates foes\nwith crystal energy.\nDamages entire side\nwhen in Stellar Form"),
     [MOVE_FICKLE_BEAM] = COMPOUND_MOVE_STRING("The user fires a\nbeam of light.\nSometimes all the\nuser's heads shoot\nbeams in unison,\ndoubling the power."),
     [MOVE_BURNING_BULWARK] = COMPOUND_MOVE_STRING("The user’s intensely\nhot fur protects it\nfrom attacks and\nburns any attacker\nthat makes direct\ncontact with it."),
-    [MOVE_THUNDERCLAP] = COMPOUND_MOVE_STRING("The user attacks first\nin a jolt of electricity.\nThis move fails if the\ntarget is not readying\nan attack."),
-    [MOVE_MIGHTY_CLEAVE] = COMPOUND_MOVE_STRING("Cleaves the target\nwith a beam of light.\nThis move hits even\nif the target protects\nitself."),
-    [MOVE_TACHYON_CUTTER] = COMPOUND_MOVE_STRING("The user attacks by\nlaunching particle\nblades at the target\ntwice in a row.\nThis attack never misses."),
-    [MOVE_HARD_PRESS] = COMPOUND_MOVE_STRING("The target is crushed\nwith a sharp appendage.\nPower increases the\ngreater the target's\nremaining HP."),
-    [MOVE_DRAGON_CHEER] = COMPOUND_MOVE_STRING("The user raises\nits allies’ morale\nwith a draconic cry.\nIncreasing their crit rate, especially Dragon types."),
-    [MOVE_ALLURING_VOICE] = COMPOUND_MOVE_STRING("Attacks the target\nwith an angelic voice.\nThis also confuses\nthe target if its\nstats were boosted\nduring the turn."),
-    [MOVE_TEMPER_FLARE] = COMPOUND_MOVE_STRING("An attack spurred\nby desperation. This\nmove's power is\ndoubled if the user's\nprevious move failed."),
-    [MOVE_SUPERCELL_SLAM] = COMPOUND_MOVE_STRING("The POKéMON\nelectrifies its body\nand drops onto\nthe target.If this move misses,\nthe user takes\ndamage instead."),
+    [MOVE_THUNDERCLAP] = COMPOUND_MOVE_STRING("A hypersonic jolt\nof electricity.\nThis move fails if\nthe target is not\nreadying an attack."),
+    [MOVE_MIGHTY_CLEAVE] = COMPOUND_MOVE_STRING("Cleaves the foe with\na beam of light.\nThis move hits even\nif the target\nprotects itself."),
+    [MOVE_TACHYON_CUTTER] = COMPOUND_MOVE_STRING("The user attacks by\nlaunching particle\nblades at the target\ntwice in a row.\nIt never misses."),
+    [MOVE_HARD_PRESS] = COMPOUND_MOVE_STRING("The foe is crushed\nunder the user.\nPower increases the\ngreater the target's\nremaining HP."),
+    [MOVE_DRAGON_CHEER] = COMPOUND_MOVE_STRING("The user raises\nits allies’ morale\nwith a draconic cry.\nIncreasing crit rate\nespecially DRAGONS."),
+    [MOVE_ALLURING_VOICE] = COMPOUND_MOVE_STRING("Attacks the foe with\nan angelic voice.\nThis also confuses\nthe target if its\nstats were boosted\nduring the turn."),
+    [MOVE_TEMPER_FLARE] = COMPOUND_MOVE_STRING("An attack spurred\nby desperation.\nMove's power is\ndoubled if the last\nused move failed."),
+    [MOVE_SUPERCELL_SLAM] = COMPOUND_MOVE_STRING("The POKéMON\nelectrifies its body\nand drops onto\nthe target.\nHurts the user\non miss."),
     [MOVE_PSYCHIC_NOISE] = COMPOUND_MOVE_STRING("The user attacks\nwith unpleasant\nsound waves.\nFor two turns, the\nfoe is prevented\nfrom recovering HP."),
-    [MOVE_UPPER_HAND] = COMPOUND_MOVE_STRING("If the target is\npreparing to use\na priority move\nthe user strikes first,\nmaking the target flinch."),
-    [MOVE_MALIGNANT_CHAIN] = COMPOUND_MOVE_STRING("Entraps the foe\nby wrapping them\nin a toxic,\ncorrosive chain.\nMay also leave the\ntarget badly poisoned."),
-*/
+    [MOVE_UPPER_HAND] = COMPOUND_MOVE_STRING("If the target is\npreparing to use\na priority move\nstrikes first, and\nmakes foe flinch."),
+    [MOVE_MALIGNANT_CHAIN] = COMPOUND_MOVE_STRING("Entraps the foe\nby wrapping them\nin a toxic,\ncorrosive chain.\nMay also leave the\nfoe badly poisoned."),
+
     [ MOVE_COCOON ] = gMoveDescription_Cocoon,
     [ MOVE_MONOTYPE ] = gMoveDescription_Monotype,
     [ MOVE_FLASH_FREEZE ] = gMoveDescription_FlashFreeze,
