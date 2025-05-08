@@ -9186,14 +9186,19 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
     s32 i;
     u8 *monData;
     u16 species,applied_species;
+    struct Pokemon *party;
 
-    
 
     if (!gBattleControllerExecFlags)
     {
         gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
         oldData = gBattleMons[gActiveBattler];
         monData = (u8 *)(&gBattleMons[gActiveBattler]);
+
+        if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+            party = gPlayerParty;
+        else
+            party = gEnemyParty;
 
         for (i = 0; i < sizeof(struct BattlePokemon); ++i)
         {
@@ -9221,7 +9226,7 @@ static void atk4D_switchindataupdate(void)  //important, think can use THIS to m
         gBattleMons[gActiveBattler].type1 = gBaseStats[applied_species].type1;
         gBattleMons[gActiveBattler].type2 = gBaseStats[applied_species].type2;
         gBattleMons[gActiveBattler].type3 = TYPE_MYSTERY;
-        gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(applied_species, gBattleMons[gActiveBattler].abilityNum);
+        gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(applied_species, gBattleMons[gActiveBattler].abilityNum, &party[gBattlerPartyIndexes[gActiveBattler]]);
         // check knocked off item
         i = GetBattlerSide(gActiveBattler);
         if (gWishFutureKnock.knockedOffMons[i] & gBitTable[gBattlerPartyIndexes[gActiveBattler]])
@@ -12089,7 +12094,7 @@ static void atk76_various(void) //will need to add all these emerald various com
             if (species != SPECIES_NONE
              && species != SPECIES_EGG
              && status & AILMENT_FNT
-             && GetAbilityBySpecies(species, abilityNum) != ABILITY_SOUNDPROOF)
+             && GetAbilityBySpecies(species, abilityNum, &gPlayerParty[i]) != ABILITY_SOUNDPROOF)
                 monToCheck |= (1 << i);
         }
         if (monToCheck)
@@ -12110,8 +12115,8 @@ static void atk76_various(void) //will need to add all these emerald various com
             if (species != SPECIES_NONE
              && species != SPECIES_EGG
              && status & AILMENT_FNT
-             && GetAbilityBySpecies(species, abilityNum) != ABILITY_SOUNDPROOF)
-                monToCheck |= (1 << i);
+             && GetAbilityBySpecies(species, abilityNum, &gEnemyParty[i]) != ABILITY_SOUNDPROOF) //has mon argument from above 
+                monToCheck |= (1 << i);//but enemy party will never use it, plan is just set what ability they should have from trainerparty
         }
         if (monToCheck)
         {
@@ -16054,8 +16059,8 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                 //works sets moves correctly
             else if (original_ability == ABILITY_INVERSION) //not using transform, ability is inversion
             {
-                targetAbility = GetAbilityBySpecies(found_species, Random() % 4);
-                TransformSpecies = found_species;
+                targetAbility = GetAbilityBySpecies(found_species, Random() % 4, &gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker]]); //has mon argument but since never want to use taught ability here
+                TransformSpecies = found_species; //think will make use gbattlertarget or read enemy side which should always be 0
             }
 
         if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT) //use this instead taken from mega logic
@@ -16911,7 +16916,7 @@ static void atkAE_healpartystatus(void)
                       && !(gAbsentBattlerFlags & gBitTable[gActiveBattler]))
                     ability = GetBattlerAbility(gActiveBattler);
                 else
-                    ability = GetAbilityBySpecies(species, abilityNum);
+                    ability = GetAbilityBySpecies(species, abilityNum, &party[i]);
                 if (ability != ABILITY_SOUNDPROOF)
                     toHeal |= (1 << i);
             }

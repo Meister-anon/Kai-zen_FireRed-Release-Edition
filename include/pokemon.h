@@ -132,18 +132,21 @@ struct BoxPokemon
     u32 otId;
     u8 nickname[POKEMON_NAME_LENGTH];
     u8 language:3; // 7 languages
-    u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out
+    u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd
     
-    u8 otName[OT_NAME_LENGTH];
+    u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
     u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
     u8 hasSpecies:1;    //MON_DATA_SANITY_IS_BAD_EGG and all mentions of bad egg can be removed
     u8 isEgg:1;
     u8 boxHp:1; //realized only need value 0 & 1
-    u8 metGame:4;    
+    u8 metGame:4;    //byte 29?
     
+    //byte 30? so even again - ok perfect so should be able to add u16 below this to not add extra padding
     u8 NoBoxExp:1; //true false is all I need for this
-    u8 padding:7; //would like add extra u16 for allowing any ability for post game fun in trade battles would turn off and use normal abilities, not sure have save space for it
-    u8 HiddenPowerType; //20 types need bit 5 to store //may just set its own byte to keep padd space
+    u8 UseTaughtAbility:1; //true false
+    u8 padding:1; //would like add extra u16 for allowing any ability for post game fun in trade battles would turn off and use normal abilities, not sure have save space for it
+    u8 HiddenPowerType:5; //20 types need bit 5 to store //may just set its own byte to keep padd space //need add new u16 removnig pad to save space
+    u8 cool; //put to fix odd/even //think read that wrong, putting there broke it so now toss on end, no it was right
 
     u32 species:11;
     u32 heldItem:10; //looks like both of these will be bit 10
@@ -153,6 +156,7 @@ struct BoxPokemon
     u32 smartRibbon:3;
     u32 toughRibbon:3;
 
+    u16 LearnedAbilityId; //ok removed 1 byte to add 2 bytes so should be same space, hm actually it may be smaller if I removed extra padding from putting even value on an odd byte?
     u8 ppBonuses;
     u8 otGender:1;
     u8 metLevel:7;
@@ -162,7 +166,6 @@ struct BoxPokemon
     u8 formflag;
     u8 hatched:1;  //new thing to replace met level 0 in daycare - need test to make sure doesn't mess w evoLevel
     u8 evoLevel:7;
-    u8 cool;
 
     u32 hpIV:5;
     u32 attackIV:5;
@@ -192,15 +195,16 @@ struct BoxPokemon
     u32 championRibbon:1; //hall of fame league champion ribbon
     u32 effortRibbon:1; //given for a pokmeon that maxed EVs, have already updated script commands, still need update field_specials commands for box access instead of just party
     u32 coolRibbon:3;    //these are 3 because multiple levels, so can't lower
+    
+    u32 experience:21;
+    u32 lostLocation:8; //not yet implemented but meant to be for nuzlocke mode
+    u32 beautyRibbon:3;
 
     u8 beauty;
     u8 cute;
     u8 smart;
     u8 tough;
     
-    u32 experience:21;
-    u32 lostLocation:8; //not yet implemented but meant to be for nuzlocke mode
-    u32 beautyRibbon:3;
 
 };
 //wil use bit fields to cut down on substruct stuff on rec
@@ -369,6 +373,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
             u8 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
             u8 buffer:7; //since has space could potentially put byte here for cosmetic form or somehting, space is already being used anyway
  /* 0x1E */ u8 flags;   //use for gender diff & form change, when creating mon plan check for flag and divert to what should be based on form species, //also used for making beast ball work, etc.
+            const struct AbilityLearnset *abilityLearnset;
             const struct LevelUpMove *levelUpLearnset; //replace leveluplearnset pointers file, below replace tmhmlearnset pointers file
             const u16 *tmhmLearnset; //these are just names, in struct will be .name
             const struct Evolution *evolutions;
@@ -468,6 +473,17 @@ struct LevelUpMove
 };//An address must be an integer number of bytes, but that is not necessarily the case for a bitfield, so it is illegal to attempt to get their address
 //theoretically can make a calcuation that would generate bit fields given a constant i.e max level 100
 //would save space but also potentially make things less flexible?
+
+//think can use level_up_learnsets as template 
+//use pyton to generate new abilityLearnsets file
+//just copy cerain data to new array
+//lines w static const struct, LEVEL_UP_END & }; w new line characte
+//if line is }; new line  add that to list but also append extra new line character
+//to add space before next value
+struct AbilityLearnset
+{
+    u16 Teachable_Ability;
+};
 
 enum
 {
@@ -680,8 +696,6 @@ extern const u8 gStatStageRatios[][2];
 extern struct SpriteTemplate gMultiuseSpriteTemplate;
 extern struct PokemonStorage* gPokemonStoragePtr;
 extern const u32 gExperienceTables[][MAX_LEVEL + 1];
-extern const struct LevelUpMove *const gLevelUpLearnsets[];
-extern const u16 *const gTMHMLearnsets[];   //for adjusted new setup of tmhms, setup like levelup learnset
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
 extern const struct SpriteTemplate gSpriteTemplates_Battlers[];
@@ -726,7 +740,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 void TryToSetBattleFormChangeMoves(struct Pokemon *mon, u16 method);
 bool32 TryFormChange(u32 monId, u32 side, u16 method);
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
-u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg);
+u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg);//still works same just adjusted for getablilitybyspecies change
 bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
 bool8 DoesSpeciesHaveCosmeticForms(u16 species);
 
@@ -763,8 +777,10 @@ u8 GiveMonToPlayer(struct Pokemon *mon);
 u8 CalculatePlayerPartyCount(void);
 u8 CalculateEnemyPartyCount(void);
 u8 GetMonsStateToDoubles(void);
-u16 GetAbilityBySpecies(u16 species, bool8 abilityNum);
+u16 GetAbilityBySpecies(u16 species, bool8 abilityNum, struct Pokemon *mon); //change for taught abilities
 u16 GetMonAbility(struct Pokemon *mon);
+u32 ShouldUseTaughtAbility(struct Pokemon *mon);
+void ResetLearnedAbilityValues(struct Pokemon *mon);
 bool32 IsMonType(struct Pokemon *mon, u8 type); //uses get mondata species to check mon type from base stats, not battle type,  used for field poison
 u8 GetSecretBaseTrainerPicIndex(void); //remove this later
 u8 GetSecretBaseTrainerNameIndex(void); //remove this later
@@ -812,6 +828,7 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm); //change to u16 for both, late
 u32 CanSpeciesLearnTMHMmove(u16 species, u16 move); //use this for move id, use CanMonLearnTMHM for item id based check
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves);
 u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves); //keep track of this for rotom forms 
+u8 GetListOfTeachableAbilities(u16 species, u16 *abilityList);
 u8 GetNumberOfRelearnableMoves(struct Pokemon *mon);//this too
 u16 GetSpeciesPreEvolution(u16 species, u32 TargetLoop); //ported for pre evo checks
 bool8 IsMonPastEvolutionLevel(struct Pokemon *mon, u32 i);// new port for simplify level evo checks
@@ -870,6 +887,7 @@ bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating eff
 void ApplyScreenModifier(u32 battlerAtk, u32 battlerDef, u16 move, u8 DamageCategory, s32 damage);
 void ApplyMovePowerModifiers(u8 battlerAtk, u16 move, u16 power);
 
+const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
 const u16 *GetSpeciesTeachableLearnset(u16 species);
 const struct Evolution *GetSpeciesEvolutions(u16 species);

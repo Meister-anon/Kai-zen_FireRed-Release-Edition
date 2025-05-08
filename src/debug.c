@@ -1626,6 +1626,58 @@ static void DebugAction_Util_CheckROMSpace(u8 taskId)
     LockPlayerFieldControls();
     ScriptContext1_SetupScript(Debug_CheckROMSpace);
 }
+static u16 Debug_GetAbilityBySpecies(u16 species, u8 abilityNum) 
+{
+
+    u8 i;
+
+    switch (abilityNum)
+    {
+    case 0:
+        gLastUsedAbility = gBaseStats[species].abilities[ABILITY_SLOT_1];
+        break;
+    case 1:
+        gLastUsedAbility = gBaseStats[species].abilities[ABILITY_SLOT_2];
+        break;
+    case 2:
+        gLastUsedAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_1];
+        break;
+    case 3:
+        gLastUsedAbility = gBaseStats[species].abilityHidden[HIDDEN_ABILITY_SLOT_2];
+        break;
+    }
+
+    if (abilityNum < NUM_NORMAL_ABILITY_SLOTS) // if abilityNum is empty normal ability, look for other normal abilities
+    {
+        for (i = 0; i < NUM_NORMAL_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
+        {
+            gLastUsedAbility = gBaseStats[species].abilities[i];
+        }
+    }
+
+    else if (abilityNum >= ABILITYNUM_HIDDEN_ABILITY_START) // if abilityNum is empty hidden ability, look for other hidden abilities
+    {
+        for (i = 0; i < NUM_HIDDEN_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
+        {
+            gLastUsedAbility = gBaseStats[species].abilityHidden[i];
+        }
+    }
+
+    if (gLastUsedAbility == ABILITY_NONE) // if failed to find hidden ability to set, set normal ability
+    {
+        for (i = 0; i < NUM_NORMAL_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
+        {
+            gLastUsedAbility = gBaseStats[species].abilities[i];
+        }
+    }
+
+    //if mondata taught ability not 0 assign nvm replace w function check for should display taught ability
+    //will be value  ability_none, or state is false.  for evo just do reset to 0
+    //hmm actually to avoid confusion do both make function that does so
+    //turn off taught ability or resettaughtabilitystate
+
+        return gLastUsedAbility;
+}
 
 static const u8 sWeatherNames[22][24] = {
     [WEATHER_NONE]               = _("NONE"),
@@ -2835,7 +2887,7 @@ static void DebugAction_Give_Pokemon_SelectNature(u8 taskId)
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
         StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
-        abilityId = GetAbilityBySpecies(sDebugMonData->species, 0);
+        abilityId = Debug_GetAbilityBySpecies(sDebugMonData->species, 0);
         StringCopy(gStringVar1, gAbilityNames[abilityId]);
         StringExpandPlaceholders(gStringVar4, sDebugText_PokemonAbility);
         AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
@@ -2873,11 +2925,11 @@ static void DebugAction_Give_Pokemon_SelectAbility(u8 taskId)
                 gTasks[taskId].tInput = 0;
         }
 
-        while (GetAbilityBySpecies(sDebugMonData->species, gTasks[taskId].tInput - i) == ABILITY_NONE && gTasks[taskId].tInput - i < NUM_ABILITY_SLOTS)
+        while (Debug_GetAbilityBySpecies(sDebugMonData->species, gTasks[taskId].tInput - i) == ABILITY_NONE && gTasks[taskId].tInput - i < NUM_ABILITY_SLOTS)
         {
             i++;
         }
-        abilityId = GetAbilityBySpecies(sDebugMonData->species, gTasks[taskId].tInput - i);
+        abilityId = Debug_GetAbilityBySpecies(sDebugMonData->species, gTasks[taskId].tInput - i);
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
         StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
@@ -3224,11 +3276,11 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     }
 
     //Ability
-    if (abilityNum == 0xFF || GetAbilityBySpecies(species, abilityNum) == 0)
+    if (abilityNum == 0xFF || Debug_GetAbilityBySpecies(species, abilityNum) == 0)
     {
         do {
             abilityNum = Random() % 4;  // includes hidden abilities
-        } while (GetAbilityBySpecies(species, abilityNum) == 0);
+        } while (Debug_GetAbilityBySpecies(species, abilityNum) == 0);
     }
 
     SetMonData(&mon, MON_DATA_ABILITY_NUM, &abilityNum);

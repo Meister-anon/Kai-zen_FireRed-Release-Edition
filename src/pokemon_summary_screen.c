@@ -1541,6 +1541,17 @@ static void Task_InputHandler_Info(u8 taskId)
                 PlaySE(SE_SELECT);
                 sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu
             }
+            #else
+            else if (JOY_NEW(SELECT_BUTTON) && !gMain.inBattle) //toggle taught ability on/off //vsonic important
+            {
+                //base setup done but think put specifically on info page
+                //and still need setup reload page to properly display changed slotted ability
+                bool8 AbilityState = GetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, NULL) ? FALSE : TRUE;
+                SetMonData(&gPlayerParty[sLastViewedMonIndex], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState);
+                sMonSummaryScreen->savedCallback = CB2_Debug_Pokemon;
+                PlaySE(SE_SELECT);
+                sMonSummaryScreen->state3270 = PSS_STATE3270_4; // close menu -won't use close menu in effect
+            }
         #endif
             else if (JOY_NEW(START_BUTTON) && sMonSummaryScreen->savedCallback != Cb2_ReturnToPSS)
             {

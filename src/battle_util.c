@@ -12462,8 +12462,11 @@ bool32 TryBattleFormChange(u8 battlerId, u16 method)
     targetSpecies = GetBattleFormChangeTargetSpecies(battlerId, method);
     if (targetSpecies == SPECIES_NONE)
         targetSpecies = GetFormChangeTargetSpecies(&party[monId], method, 0);
+    
+    //form change
     if (targetSpecies != SPECIES_NONE)
     {
+        bool8 AbilityState = FALSE;
         // Saves the original species on the first form change for the player.
         if (gBattleStruct->changedSpecies[side][monId] == SPECIES_NONE)
             gBattleStruct->changedSpecies[side][monId] = gBattleMons[battlerId].species;
@@ -12484,9 +12487,16 @@ bool32 TryBattleFormChange(u8 battlerId, u16 method)
             GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_SET_CAUGHT);
         }
         gBattleMons[battlerId].species = targetSpecies;
+        //ok think this should work
+        if (method == FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM
+        || method == FORM_CHANGE_BATTLE_MEGA_EVOLUTION_MOVE
+        || method == FORM_CHANGE_BATTLE_ULTRA_BURST //to transform to ultra necrozma may just make mega item? vsonic ultra burst not mega evolution is different thing
+        || method == FORM_CHANGE_BATTLE_PRIMAL_REVERSION)
+            SetMonData(&party[monId], MON_DATA_USE_TAUGHT_ABILITY, &AbilityState); //for resetting on mega evo
         RecalcBattlerStats(battlerId, &party[monId]);
         return TRUE;
     }
+    //revert form change
     else if (gBattleStruct->changedSpecies[side][monId] != SPECIES_NONE)
     {
         bool8 restoreSpecies = FALSE;

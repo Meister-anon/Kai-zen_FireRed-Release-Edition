@@ -2462,6 +2462,7 @@ static const s8 sNatureStatTable[][5] =
 #include "data/pokemon/experience_tables.h"
 //#include "data/pokemon/base_stats.h"
 #include "data/pokemon/level_up_learnsets.h"
+#include "data/pokemon/learned_abilities.h"
 
 #include "constants/region_map_sections.h"  //added this include because doc couldn't find map_sec names for evolution
 #include "constants/map_groups.h" // used to find specific map evolution
@@ -7145,6 +7146,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_SANITY_IS_EGG:
         retVal = boxMon->isEgg;
         break;
+    case MON_DATA_USE_TAUGHT_ABILITY:
+        retVal = boxMon->UseTaughtAbility;
+        break;
     case MON_DATA_OT_NAME:
     {
         retVal = 0;
@@ -7170,6 +7174,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_SPECIES:
         retVal = boxMon->species;
+        break;
+    case MON_DATA_LEARNED_ABILITY_ID:
+        retVal = boxMon->LearnedAbilityId;
         break;
     case MON_DATA_HELD_ITEM:
         retVal = boxMon->heldItem;
@@ -7558,6 +7565,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_SANITY_IS_EGG:
         SET8(boxMon->isEgg);
         break;
+    case MON_DATA_USE_TAUGHT_ABILITY:
+        SET8(boxMon->UseTaughtAbility);
+        break;
     case MON_DATA_OT_NAME:
     {
         s32 i;
@@ -7583,6 +7593,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             boxMon->hasSpecies = 0;
         break;
     }
+    case MON_DATA_LEARNED_ABILITY_ID:
+        SET16(boxMon->LearnedAbilityId);
+        break;
     case MON_DATA_HELD_ITEM:
         SET16(boxMon->heldItem);
         break;
@@ -7939,10 +7952,18 @@ u8 GetMonsStateToDoubles(void)
 
 //abilitynum assigned by createboxmon this function translates that number into ability slot selection logic
 //had to assign s8 to compile to get around always true error becuase of constant values
-u16 GetAbilityBySpecies(u16 species, u8 abilityNum) 
+//this is used to set mon data to battlemon data if I change here
+//won't need to update any other function for teachable abilities logic
+//potential issue with what would happen on evolution if abilities list should change
+//since way it would work is read ability from array then set that to field
+//so unless I add a function to evo to reset ability (which I will/should)
+//it would just keep the same set ability since the field itself wouldn't change
+//hmm think simplest thing for me is to just turn it off when I evolve, i.e set back to 0
+u16 GetAbilityBySpecies(u16 species, u8 abilityNum, struct Pokemon *mon) 
 {
 
     u8 i;
+    u16 LearnedAbility = GetMonData(mon, MON_DATA_LEARNED_ABILITY_ID, NULL);
 
     switch (abilityNum)
     {
@@ -7984,6 +8005,13 @@ u16 GetAbilityBySpecies(u16 species, u8 abilityNum)
         }
     }
 
+    //if mondata taught ability not 0 assign nvm replace w function check for should display taught ability
+    //will be value  ability_none, or state is false.  for evo just do reset to 0
+    //hmm actually to avoid confusion do both make function that does so
+    //turn off taught ability or resettaughtabilitystate
+    if (ShouldUseTaughtAbility(mon))
+        gLastUsedAbility = LearnedAbility;
+
         return gLastUsedAbility;
 } //so 4 ability optionns total, would like to set hidden ability chance like shiny odds, just much better odds, then have gauranteed hidden ability with dexnav
 
@@ -7993,8 +8021,31 @@ u16 GetMonAbility(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
     u8 abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
-    return GetAbilityBySpecies(species, abilityNum);
+    return GetAbilityBySpecies(species, abilityNum, mon);
 }
+
+u32 ShouldUseTaughtAbility(struct Pokemon *mon)
+{
+    u16 LearnedAbility = GetMonData(mon, MON_DATA_LEARNED_ABILITY_ID, NULL);
+
+    if (LearnedAbility != ABILITY_NONE && GetMonData(mon, MON_DATA_USE_TAUGHT_ABILITY, NULL) == TRUE)
+        return TRUE;
+    return FALSE;
+}
+
+//only set on evolution
+//for the most part list abilities should be the same between evo
+//but just in case - put in evo functions
+//ah just realized need to turn off ability state for mega evolutions as well
+void ResetLearnedAbilityValues(struct Pokemon *mon)
+{
+    u16 abilityId = ABILITY_NONE;
+    u8 StateValue = FALSE;
+
+    SetMonData(mon, MON_DATA_LEARNED_ABILITY_ID, &abilityId);
+    SetMonData(mon, MON_DATA_USE_TAUGHT_ABILITY, &StateValue);
+}
+
 
 bool32 IsMonType(struct Pokemon *mon, u8 type)
 {
@@ -8322,7 +8373,7 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->type1 = gBaseStats[dst->species].type1;
     dst->type2 = gBaseStats[dst->species].type2;
     dst->type3 = TYPE_MYSTERY;
-    dst->ability = GetAbilityBySpecies(dst->species, dst->abilityNum);
+    dst->ability = GetAbilityBySpecies(dst->species, dst->abilityNum, src); //has mon access from above tho still this funciton isn't used
     GetMonData(src, MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(dst->nickname, nickname);
     GetMonData(src, MON_DATA_OT_NAME, dst->otName);
@@ -8374,7 +8425,7 @@ static void CopyPlayerPartyMonToBattleData(u8 battlerId, u8 partyIndex) //functi
     gBattleMons[battlerId].otId = GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_ID, NULL);
     gBattleMons[battlerId].type1 = gBaseStats[gBattleMons[battlerId].species].type1;
     gBattleMons[battlerId].type2 = gBaseStats[gBattleMons[battlerId].species].type2;
-    gBattleMons[battlerId].ability = GetAbilityBySpecies(gBattleMons[battlerId].species, gBattleMons[battlerId].abilityNum);
+    gBattleMons[battlerId].ability = GetAbilityBySpecies(gBattleMons[battlerId].species, gBattleMons[battlerId].abilityNum, &gPlayerParty[partyIndex]); //has mon access from sabove
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gBattleMons[battlerId].nickname, nickname);
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_NAME, gBattleMons[battlerId].otName);
@@ -10943,6 +10994,14 @@ const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species)
     return learnset;
 }
 
+const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species)
+{
+    const struct AbilityLearnset *learnset = gBaseStats[SanitizeSpeciesId(species)].abilityLearnset;
+    if (learnset == NULL)
+        return gBaseStats[SPECIES_BULBASAUR].abilityLearnset;
+    return learnset;
+}
+
 //tm learnset my version doesn't include tutor moves
 const u16 *GetSpeciesTeachableLearnset(u16 species)
 {
@@ -11866,6 +11925,18 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
     return numMoves;
 }
 
+u8 GetListOfTeachableAbilities(u16 species, u16 *abilityList)
+{
+    u8 numAbilities = 0;
+    const struct AbilityLearnset *learnset = GetSpeciesTeachableAbilities(species);
+    int i;
+
+    for (i = 0; learnset[i].Teachable_Ability != ABILITY_SET_END; i++)//find what this 20 is
+        abilityList[numAbilities++] = learnset[i].Teachable_Ability;
+
+    return numAbilities;
+}
+
 u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
 {
     u8 numMoves = 0;
@@ -12659,10 +12730,11 @@ u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg)
 }
 
 // Returns SPECIES_NONE if no form change is possible
-u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg)
+u16 GetFormChangeTargetSpeciesBoxMon(struct Pokemon *mon, u16 method, u32 arg)
 {
     u32 i, j;
     u16 targetSpecies = SPECIES_NONE;
+    struct BoxPokemon *boxMon = &mon->box;
     u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES, NULL);
     const struct FormChange *formChanges = gFormChangeTablePointers[species];
     u16 heldItem;
@@ -12671,7 +12743,7 @@ u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 
     if (formChanges != NULL)
     {
         heldItem = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM, NULL);
-        ability = GetAbilityBySpecies(species, GetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, NULL));
+        ability = GetAbilityBySpecies(species, GetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, NULL), mon);//uses boxmon instad of pokemon, but will still reach same data as I'm adding boxmon fields
 
         for (i = 0; formChanges[i].method != FORM_CHANGE_TERMINATOR; i++)
         {

@@ -102,8 +102,10 @@
 #define MON_DATA_STATUS_SET_STATE    95   
 #define MON_DATA_BLOCK_BOX_EXP_GAIN 96 //joke but boxmon value to block pc exp gain, decide also use for daycare, since daycare will set for move learn/egg move
 #define MON_DATA_HIDDEN_POWER_TYPE 97
-#define TYPE_DEFINES
+#define MON_DATA_USE_TAUGHT_ABILITY 98
+#define MON_DATA_LEARNED_ABILITY_ID 99
 
+#define TYPE_DEFINES
 // Pokemon types	type order found in list_menu.c    actually is in graphics_file_rules.mk 
 //list menu is the location of the icons on the graphic
 #define TYPE_NORMAL   0x00

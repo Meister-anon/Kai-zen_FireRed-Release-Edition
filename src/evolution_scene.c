@@ -820,6 +820,7 @@ static void Task_EvolutionScene(u8 taskId)
             }
 
             IncrementGameStat(GAME_STAT_EVOLVED_POKEMON);
+            ResetLearnedAbilityValues(mon);
         }
         break;
     case 15: // check if it wants to learn a new move
@@ -1197,7 +1198,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             gTasks[taskId].tState++;
         }
         break;
-    case 12:
+    case 12: //post evo stuff
         if (IsCryFinished())
         {
             StringExpandPlaceholders(gStringVar4, gText_CongratsPkmnEvolved);
@@ -1224,6 +1225,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             }
 
             IncrementGameStat(GAME_STAT_EVOLVED_POKEMON);
+            ResetLearnedAbilityValues(mon);
         }
         break;
     case 13: //to edit here

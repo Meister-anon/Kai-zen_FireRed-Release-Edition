@@ -3682,7 +3682,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     u32 itemId;
     u16 species = GetMonData(&mons[slotId], MON_DATA_SPECIES_OR_EGG);
     u8 abilityNum = GetMonData(&mons[slotId], MON_DATA_ABILITY_NUM);
-    u16 ability = GetAbilityBySpecies(species, abilityNum);
+    u16 ability = GetAbilityBySpecies(species, abilityNum, mons); //has acess to mon above
     u8 *listsize = sPartyMenuInternal->actions;
             
 
@@ -5476,13 +5476,18 @@ static void Task_ClosePartyMenuAfterText(u8 taskId)
 
 #define ABILITY_CAPSULE_DATA   //
 
+//new note making teachable abilities to overwrite abilitynum set ability
+//abilitycapsule will set abilityNum, if I use this and change ability logic is 
+//person wants to use that over what they have, so should turn off state of teachable ability
+//ok so I need 2 boxmon values 1 u16 for the abiity itself and one bit 2 boolean for a state check
+//applying a capsule should reset the state check to off USE_TAUGHT_ABILITY true false
 void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now, also ftw you can defnie text anywhere FP,
 {
     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability to {STR_VAR_2}?");
     static const u8 doneText[] = _("{STR_VAR_1}'s ability became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
     s16* data = gTasks[taskId].data;    //vsonic imporant this is how can define text without having to go to messages
     u8 abilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM);
-    u16 ability = GetAbilityBySpecies(tSpecies, abilityNum);  
+    u16 ability = GetAbilityBySpecies(tSpecies, abilityNum, &gPlayerParty[tMonId]);  //has access to mon above
 
     switch (tState)//change how works, let it change current ability to any other abilities it has 
     {//make opena dialgoue displaying species abilities in order of slots and print to a box if not equal current ability
@@ -5508,7 +5513,7 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
         if (StringCompare(gBaseStats[GetMonData(&gPlayerParty[tMonId],MON_DATA_SPECIES)].speciesName, gStringVar1) == IDENTICAL) /*if not nicknamed reassign tempStr to speciesname, making it update capitalization*/\
         GetSpeciesName(gStringVar1, GetMonData(&gPlayerParty[tMonId],MON_DATA_SPECIES));
 
-        StringCopy(gStringVar2, gAbilityNames[GetAbilityBySpecies(tSpecies, tAbilityNum)]);
+        StringCopy(gStringVar2, gAbilityNames[GetAbilityBySpecies(tSpecies, tAbilityNum, &gPlayerParty[tMonId])]); //sme as top can get from above
         StringExpandPlaceholders(gStringVar4, askText);
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gStringVar4, 1);
@@ -5553,10 +5558,15 @@ void Task_AbilityCapsule(u8 taskId) //important seemed easy enough so ported now
             tState++;
         break;
     case 5:
-        SetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, &tAbilityNum);
+    {
+        u8 StateValue = FALSE;
+        SetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, &tAbilityNum);         
+        SetMonData(&gPlayerParty[tMonId], MON_DATA_USE_TAUGHT_ABILITY, &StateValue);
+        //will also need reset taught abilitystate here so abilitycapsule can actually take effect - done
         RemoveBagItem(gSpecialVar_ItemId, 1);
         gTasks[taskId].func = Task_ClosePartyMenu;
         break;
+    }
     }
 }
 
