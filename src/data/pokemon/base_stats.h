@@ -2888,7 +2888,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_ROCK_HEAD, ABILITY_SOLID_ROCK},
-        .abilityHidden = {ABILITY_WEAK_ARMOR, ABILITY_STURDY}, //facepalm can't believe didn't think to give solid rock
+        .abilityHidden = {ABILITY_NO_GUARD, ABILITY_STURDY}, //facepalm can't believe didn't think to give solid rock
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -2898,6 +2898,22 @@ const struct BaseStats gBaseStats[] =
     },
     //w sturdy buffs think give this flail
     //eviolite solid rock is gonna go dummy o.0
+    //doesnt need weak armor already fastest rock type
+    //but liked woop idea of giving no guard
+    //since most rock moves are shit and its fast enough to act first
+    //and has high enough defense to for the most part be fine, plus its massive
+    //makes sense tobe hard to miss this thing
+    //could give no guard to this and nosepass line since both have compass
+    //buffed rock move acc but go over list think some still aren't as good.
+    //if acc is still low-ish no guard would make this the most iconic
+    //AND the "best" rock type/user of rock moves
+    //kept  most rock acc buffs dropped head smash back to 90
+    //w acc buff on ability can hold an item to otherwise augment effect
+    //can have perfectly accurate rock blast
+    //rock hyper beams will get perf accuracy
+    //also have option to run eviolite
+    //eviolite solid rock w mud sport would be disgusting
+    //but honestly prob just enough to offset its low offense
 
     [SPECIES_DROWZEE] =
     {
@@ -8686,14 +8702,15 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_DRY_SKIN},
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NO_GUARD}, //decide make dry skin learnable ability instead
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
         .levelUpLearnset = sNosepassLevelUpLearnset,
         .tmhmLearnset = sNosepassTMHMLearnset,
         .evolutions = EVOLUTION({EVO_SPECIFIC_TYPE_IN_PARTY, TYPE_ELECTRIC, 0, SPECIES_PROBOPASS},
-            {EVO_MAPSEC, MAPSEC_POWER_PLANT, 0, SPECIES_PROBOPASS}), //Should hopefully blank these for now without issue
+            {EVO_MAPSEC, MAPSEC_POWER_PLANT, 0, SPECIES_PROBOPASS},
+            {EVO_ITEM, ITEM_THUNDER_STONE, 0, SPECIES_PROBOPASS}), //Should hopefully blank these for now without issue
     },//change evo to work with certain type in party, either electric type or electric & steel stype [DONE]
 
     [SPECIES_SKITTY] =
@@ -11609,7 +11626,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Kricketune"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(77, 104, 51, 87, 55, 51),
+         STATS(77, 104, 87, 81, 45, 61),
         MON_TYPES(TYPE_BUG, TYPE_BUG),
         .catchRate = 45,
         .expYield = 158,
@@ -13639,7 +13656,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_DRY_SKIN},
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NO_GUARD},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -13647,6 +13664,12 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sProbopassTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //ok will replace dry skin put that as learnable ability instead
+    //ooh no guard on this is gonna be SEXY!!! o.0
+    //perfect acc metal sound and access to thunder 
+    //and w status move going first you're not avoiding that 
+    //or taking this thing out first
+    //and could even boost it further pairing with a cacophony mon
 
     [SPECIES_DUSKNOIR] =
     {
@@ -18534,7 +18557,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_ROUGH_SKIN, ABILITY_SHEER_FORCE},
-        .abilityHidden = {ABILITY_MOLD_BREAKER, ABILITY_CHLOROPHYLL},
+        .abilityHidden = {ABILITY_ROCK_HEAD, ABILITY_CHLOROPHYLL},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -18545,6 +18568,11 @@ const struct BaseStats gBaseStats[] =
     //boring and I hate its design so decided to make a grass dragon
     //since its wings look like leaves and it can't actually fly
     //so instead it will now be a plant scultupre that came to life
+    //still miss not giving rock head
+    //add on as teachable ability add headbutt and recoil moves to learnset
+    //or maube drop mold breaker and put THAT on teachable set? its not 
+    //doing much especially w levitate gon //yeah I'll go for that
+    //ABILITY_MOLD_BREAKER will be teachable ability
 
     [SPECIES_GOLETT] =
     {
