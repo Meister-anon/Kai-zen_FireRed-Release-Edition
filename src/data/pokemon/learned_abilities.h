@@ -3878,7 +3878,7 @@ static const struct AbilityLearnset sFloetteEternalFlowerAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
-static const struct AbilityLearnset sMeowstic_FemaleAbilityLearnset[] = {
+static const struct AbilityLearnset sMeowsticFemaleAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
@@ -4419,6 +4419,22 @@ static const struct AbilityLearnset sTerapagosAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPecharuntAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sCefireonAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sFaedentinAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sBeinfaeAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sFraeyjtaAbilityLearnset[] = {
     ABILITY_SET_END
 };
 

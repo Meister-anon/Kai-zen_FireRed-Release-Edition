@@ -25331,7 +25331,7 @@ MOVE_TOXIC,
     TMHM_LEARNSET_END
 };
 
-static const u16 sMeowstic_FemaleTMHMLearnset[] = {
+static const u16 sMeowsticFemaleTMHMLearnset[] = {
 MOVE_ATTRACT,
 MOVE_CALM_MIND,
 MOVE_CUT,

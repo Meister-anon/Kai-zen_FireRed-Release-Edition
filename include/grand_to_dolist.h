@@ -4086,7 +4086,58 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     have to go to pokedex page going to the map alone doesn't work
     so change it so can register map to open it and show currently available roaming positions on map
     do same for when view map from fly
-    )
+      Set teachable ability list arrays w python  add teachableabilities/abilitylearnset to basestats
+      think will use Key item to decide toggle  it on /off,  it doesn't replace actual ability
+      but instead overwrites the check for base stat ability and pushes the learned ability
+      stored to boxmon field
+
+      //teachable abilities logic
+      //potential issue with what would happen on evolution if abilities list should change
+      //since way it would work is read ability from array then set that to field
+      //so unless I add a function to evo to reset ability (which I will/should)
+      //it would just keep the same set ability since the field itself wouldn't change
+      //hmm think simplest thing for me is to just turn it off when I evolve, i.e set back to 0
+
+      //new note making teachable abilities to overwrite abilitynum set ability
+      //abilitycapsule will set abilityNum, if I use this and change ability logic is 
+      //person wants to use that over what they have, so should turn off state of teachable ability
+      //ok so I need 2 boxmon values 1 u16 for the abiity itself and one bit 2 boolean for a state check
+      //applying a capsule should reset the state check to off USE_TAUGHT_ABILITY true false
+
+      plan put ability tutor in same place as elemental hyper beam tutor
+      but setup like move delete/relearn but how will I do state check?
+      hmm ok maybe do it so press select on info page from party menu will toggle it?
+      will need to reload the ability field to change display.
+
+      rn that button is reserved for debugging in-battle graphics
+
+      will also need to be able to toggle on off known ability/taught ability
+      from party and box think use pSS new function inBox check and add that logic
+      to toggle so can have custom logic for in part vs in pc
+      think that may also be what I need for the dex callback? vsonic
+
+      hmm actually this is kinda too good to just be free?
+      I want it to have some limitation because good deal of the options will just be OP
+      stuff that for the most part (or until ng+) no other npc will have access to.
+      
+
+      ok change ability tutor, he does let you teach mon via pc, but change up lore
+      so its not him teaching you how to do it yourself but you're buying his service
+      where he teaches your mon via the pc.
+
+      It'll cost to unlock it, and then cost each time you use it to set an ability
+      someting like 700 since i want there to be an economy
+      and a reason to refight trainers.
+
+      Also when you buy service from him first time, so can tutor from pc
+      will need have him give a key item ability manual/ability tutor manual
+      because no space in ui to really remind player that hey, you can swap between
+      taught ability and default ability by pressing start at any time
+      Just use item description to provide info and do nothing else
+      same as uhh exp items now work
+
+      then can use flag for key item or having key item in bag
+      as state check for adding the ability tutor features
 
     attempt revert final gambit effect
 
