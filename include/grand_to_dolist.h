@@ -10261,7 +10261,7 @@ goto BEAT_UP_LOGIC //bs commands file need adjust to work correctly for party ba
 goto AI_TYPE_DMG_PRECALC //battle_ai_switch_items seems to be for ai to read type chart and adjust calculated dmg? but theres also ai logic in bs commands?
 
 goto BASESTATS_TO_BATTLEMONS_CONVERSION //battle_script_commands.c place where basestats types are transferred to battlemons struct for battle, done on switchin
-goto POKEMON_TO_BATTLEMON  //pokemon.c other stuff relevant blah blah
+goto POKEMON_TO_BATTLEMON  //pokemon.c other stuff relevant blah blah only used for item effect actual function is @ //BATTLE_START_VALUES
 
 goto DEPOSIT_TO_PCLOGIC //in pokemon.c covers box position, and how it reads space in the box
 goto OTHER_BOX_LOGIC    //deals with moving mon and moving item logic

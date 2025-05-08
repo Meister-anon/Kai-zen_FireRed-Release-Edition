@@ -8020,6 +8020,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_STATUS,
     },
     //give blastoise heal pulse
+    //heal pulse is meant to have long rage,
+    //should be able to target anyone even in a triple battle
 
     [MOVE_HEX] =
     {
