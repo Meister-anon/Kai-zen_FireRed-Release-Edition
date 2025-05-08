@@ -9028,11 +9028,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 100,
         .pp = 20,
         .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_BOTH,
+        .target = MOVE_TARGET_FOES_AND_ALLY,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
     },//heliolisk signature potentially spread around
+    //too good to not have drawback
+    //with more types resisting electric is ironically easier to use
 
     [MOVE_FORESTS_CURSE] =
     {
