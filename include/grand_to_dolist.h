@@ -4139,6 +4139,18 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       then can use flag for key item or having key item in bag
       as state check for adding the ability tutor features
 
+    -decided scrap multi-status idea
+    like what I have now w the poison and freeze changes
+    while multi status is "cool" in a practical setting
+    it'd just detroy the game.
+
+    a on parayzed and burnd wold just be dead
+
+    toxic and freeze would be disgusting
+    and etc. so that can't exist in main game
+    in a twisted survival hard mode meme game
+    sure, but not in the formal game
+
     attempt revert final gambit effect
 
     check inverse world see if right

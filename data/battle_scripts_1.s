@@ -9299,6 +9299,7 @@ BattleScript_IntimidateFailChecks:
 	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_FEMME_FATALE, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_TROJAN_SWORD, BattleScript_IntimidateAbilityFail
 	jumpifability BS_SCRIPTING, ABILITY_INTIMIDATE, BattleScipt_Intimidate_AttackDropExclusions
 	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScipt_TigerMom_DefenseDropExclusions	@jump for tigermom to skip atk specific stat drop exclusions
 	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_IntimidateInReverse

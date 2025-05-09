@@ -36797,6 +36797,7 @@ const struct BaseStats gBaseStats[] =
 //#endif //P_FAMILY_WALKING_WAKE
 
 //#if p_fAMILY_IRON_LEAVES - vsonic do something with this
+//...what the hell do I do with this???
     [SPECIES_IRON_LEAVES] =
     {
         .speciesName = _("Iron Leaves"),
@@ -36810,17 +36811,17 @@ const struct BaseStats gBaseStats[] =
               70,
               108
        ),
-        MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),
-        .catchRate = 5,
+        MON_TYPES(TYPE_GRASS, TYPE_PSYCHIC),//they made it psychic still gets mostly fighting moves
+        .catchRate = 5,//cut its special and its strongest physical psy move is bp 80, unless on E.terrain or has sharpness ability smh
         .expYield = 295,
        // .evYield_Attack = 3,
-        .genderRatio = MON_GENDERLESS,
+        .genderRatio = MON_GENDERLESS, //only idea I have is dropping quark drive and giving new sharpness that also blocks intimidate *facepalm
         .eggCycles = 50,
         .friendship = FRIENDSHIP_LEGENDARY,
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TROJAN_SWORD, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -36859,6 +36860,9 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sIronLeavesTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_LEAVES
+//ok found falseswipegaming vid and virizion iron leaves
+//area "bad" but essentially low tier pub stompers
+
 [SPECIES_DIPPLIN] =
     {
         .speciesName = _("Dipplin"),
@@ -37847,8 +37851,8 @@ const struct BaseStats gBaseStats[] =
               122,
               108
        ),
-        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
-        .catchRate = 10,
+        MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC), //w psychic def buffs ironically this should be fine now
+        .catchRate = 10,    //has much better moves than iron leaves
         .expYield = 295,
        // .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,
