@@ -1,35 +1,69 @@
 import re
 
-
+'''
 infile = open('/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon_graphics/front_pic_coordinates.h', 'r')
 lines = infile.readlines()
 reg = re.compile(r'\[SPECIES_(\w+?)\]')
 species = None
-#new_lines = []
+new_lines = []
 mon = []
 size = []
 Yset = []
 for line in lines:
     if m := reg.match(line):
-        mon.append(reg)
+        #mon.append(reg)
         species = m.group(1).replace('_', ' ').title().replace(' ', '')
     if species:
+        if re.compile(r'.abilityLearnset = NULL').search(line):
         #for x in exceptions:
         #    if species == x[0]:
         #        species = x[1]
-        #line = line.replace('CircledQuestionMark', species)
-        size.append(r'\.size = (\w)')
-        Yset.append(r'\.y_offset = (\w)')
+            line = line.replace(r'NULL', 's'+species+'AbilityLearnset')
+            print(line)
+        #size.append(r'\.size = (\w)')
+        #Yset.append(r'\.y_offset = (\w)')
         #line = line.replace(r'//FRONT_PIC\(Arceus\w+?\)', 'FRONT_PIC\(Arceus\)')
-    #new_lines.append(line)
+    new_lines.append(line)
 infile.close()
 
 outfile = open('/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon_graphics/front_pic_coordinates.h', 'w')
 outfile.writelines(new_lines)
 outfile.close()
+'''
 
 
 
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/base_stats.h', 'r')
+lines = infile.readlines()
+reg = re.compile(r'\[SPECIES_(\w+?)\]')
+species = None
+new_lines = []
+mon = []
+size = []
+Yset = []
+for line in lines:
+    if m := reg.search(line):
+        #mon.append(reg)
+        species = m.group(1).replace('_', ' ').title().replace(' ', '')
+    if species:
+        if re.compile(r'.abilityLearnset = NULL').search(line):
+        #for x in exceptions:
+        #    if species == x[0]:
+        #        species = x[1]
+            line = line.replace(r'NULL', 's'+species+'AbilityLearnset')
+            #print(line)
+        #size.append(r'\.size = (\w)')
+        #Yset.append(r'\.y_offset = (\w)')
+        #line = line.replace(r'//FRONT_PIC\(Arceus\w+?\)', 'FRONT_PIC\(Arceus\)')
+    new_lines.append(line)
+infile.close()
+
+outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/base_stats.h', 'w')
+outfile.writelines(new_lines)
+outfile.close()
+
+
+'''
 #should be open species graphics file and setup operations
 with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/base_stats.h", "r") as f:
     data = f.read()
@@ -58,3 +92,4 @@ for mon in re.findall(r'SPECIES_+(.*)]', data):
 
 with open("/usr/decomp/Kai-zen_Firered-ReleaseEdition/src/data/pokemon/base_stats.h", "w") as f:
     f.write(data)
+'''
