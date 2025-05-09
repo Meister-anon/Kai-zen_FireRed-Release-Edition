@@ -10990,7 +10990,7 @@ const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species)
 {
     const struct LevelUpMove *learnset = gBaseStats[SanitizeSpeciesId(species)].levelUpLearnset;
     if (learnset == NULL)
-        return gBaseStats[SPECIES_BULBASAUR].levelUpLearnset;
+        return gBaseStats[SPECIES_NONE].levelUpLearnset;
     return learnset;
 }
 
@@ -10998,7 +10998,7 @@ const struct AbilityLearnset *GetSpeciesTeachableAbilities(u16 species)
 {
     const struct AbilityLearnset *learnset = gBaseStats[SanitizeSpeciesId(species)].abilityLearnset;
     if (learnset == NULL)
-        return gBaseStats[SPECIES_BULBASAUR].abilityLearnset;
+        return gBaseStats[SPECIES_NONE].abilityLearnset;
     return learnset;
 }
 
@@ -11025,7 +11025,7 @@ const u16 *GetSpeciesTeachableLearnset(u16 species)
 
 
     if (learnset == NULL)
-        return gBaseStats[SPECIES_BULBASAUR].tmhmLearnset;
+        return gBaseStats[SPECIES_NONE].tmhmLearnset;
     return learnset;
 }
 

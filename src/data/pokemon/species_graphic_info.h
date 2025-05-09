@@ -1376,7 +1376,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PIC_DATA_ICON_INDEX(Feraligator, 2),
       .enemyMonElevation = 0,
       .cryData = CRY_INFO(0x20, 60, 0, 0, (struct WaveData *) Cry_Feraligator, 0xff, 0, 0xff, 0),
-}, //Feraligatr,
+}, //Feraligator,
 [SPECIES_SENTRET] = 
     {  
       FRONT_COORD(0x47, 2),

@@ -972,7 +972,7 @@ const u8 gCroconawPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "tips are forked back like fishhooks,\n"
     "they become irremovably embedded.");
 
-const u8 gFeraligatrPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
+const u8 gFeraligatorPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It opens its huge mouth to intimidate\n"
     "enemies. In battle, it runs using its thick\n"
     "and powerful hind legs to charge the\n"

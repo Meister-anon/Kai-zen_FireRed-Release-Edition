@@ -12,6 +12,10 @@
 
 //also need remember to fix stone evo learnsets
 
+static const struct LevelUpMove sSpeciesNoneLevelUpLearnset[] = {
+    LEVEL_UP_END
+};
+
 static const struct LevelUpMove sBulbasaurLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_GROWL),
@@ -2749,7 +2753,7 @@ static const struct LevelUpMove sCroconawLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sFeraligatrLevelUpLearnset[] = {
+static const struct LevelUpMove sFeraligatorLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_AGILITY),
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
@@ -26510,7 +26514,7 @@ static const struct LevelUpMove sCroconawLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sFeraligatrLevelUpLearnset[] = {
+static const struct LevelUpMove sFeraligatorLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_AGILITY),
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_LEER),

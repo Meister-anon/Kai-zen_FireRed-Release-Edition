@@ -67,6 +67,10 @@ entries back to numerical*/
 //this should also mean you can learn moves  outside your type normally
 //but I think the biggest variety should be in teachable things?
 
+static const u16 sSpeciesNoneTMHMLearnset[] = {
+    TMHM_LEARNSET_END
+};
+
 static const u16 sBulbasaurTMHMLearnset[] = {
 MOVE_TOXIC,
 MOVE_BULLET_SEED,
@@ -4384,7 +4388,7 @@ MOVE_DIVE,
     TMHM_LEARNSET_END
 };
 
-static const u16 sFeraligatrTMHMLearnset[] = {
+static const u16 sFeraligatorTMHMLearnset[] = {
 MOVE_FOCUS_PUNCH,
 MOVE_DRAGON_CLAW,
 MOVE_WATER_PULSE,

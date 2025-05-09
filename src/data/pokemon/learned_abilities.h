@@ -1,6 +1,8 @@
 #define ABILITY_SET_END       0xFFFF
 
-
+static const struct AbilityLearnset sSpeciesNoneAbilityLearnset[] = {
+    ABILITY_SET_END
+};
 
 static const struct AbilityLearnset sBulbasaurAbilityLearnset[] = {
     ABILITY_SET_END
@@ -638,7 +640,7 @@ static const struct AbilityLearnset sCroconawAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
-static const struct AbilityLearnset sFeraligatrAbilityLearnset[] = {
+static const struct AbilityLearnset sFeraligatorAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
@@ -3839,6 +3841,46 @@ static const struct AbilityLearnset sAvaluggHisuianAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDecidueyeHisuianAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sPikachuRockStarAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sPikachuBelleAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sPikachuPopStarAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sPikachuPhDAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sPikachuLibreAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sRotomHeatAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sRotomWashAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sRotomFrostAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sRotomFanAbilityLearnset[] = {
+    ABILITY_SET_END
+};
+
+static const struct AbilityLearnset sRotomMowAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
