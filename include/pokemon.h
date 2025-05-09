@@ -641,6 +641,41 @@ struct FormChange {
     u16 param3; //new adition from emerald logic
 }; //may change based on how I use forms
 
+struct FormDataStorage {
+    u16 move1;
+    u16 move2;
+    u16 move3;
+    u16 move4;
+
+    u8 ppBonus1;    
+    u8 ppBonus2;    
+    u8 ppBonus3;    
+    u8 ppBonus4;
+
+};
+
+//put buffer in ewram would prefer to dynamically allocate
+//memory but I'm bad with that
+//plan is to get it working as is,
+//then attempt make dynamic
+#define MAX_FORM_DATA_STORED 2
+
+//meant to store move info for mon swaping between forms,
+//ex base moves w pp bonus for base form and set moves for alt form
+//so can keep assigned moves between forms,
+//resets when goes in box
+//need assignn memory think will make ewram value?
+//putting in battle main set from overworld
+//but will be accessed in battle so fine
+//form variable will be directly set by function accessing array/value
+//will have task to check if can change form, 
+//loop party for single use form i.e mega/primal reversion
+//depending on what forms the mon in question has
+//if mon has a mega loop party check if mega/primal species is in party
+//note mon revert on enter pc
+//after that works can have unique learnsets for forms
+extern struct FormDataStorage gFormSwapMoveBuffer[PARTY_SIZE][MAX_FORM_DATA_STORED];
+
 //replaces front_pic_table back_pic_table front_pic_coordinates back_pic_coordinates pokemon_icon.c arrays palette_table  & shiny_palette_table
 struct SpeciesGraphicInfo 
 {

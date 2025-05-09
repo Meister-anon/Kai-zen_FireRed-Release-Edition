@@ -4139,6 +4139,60 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       then can use flag for key item or having key item in bag
       as state check for adding the ability tutor features
 
+      I want a continuous cycle of training battling catching and releasing mon
+      *in that case don't make it possible to change ivs just have to catch better mon*
+    
+      mega/alt form change from party
+
+      had idea make transform in party, permanent mega evolution
+      if mon is holding mega item and can mega evolve add field to party menu list
+      when in party and click on option loop party
+      if a mega mon already exists (check species flag)
+      SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
+      itll say only one mega allowed in party and ask if want to replace
+      stored form change data? if yes will zero structs out store cur mon moves
+      and then transform mon species so you can set form data
+      if no it'll just stop
+      
+      from EE all mon mega primal gmax already have icons
+      so megas and new megas can be distinguished within party
+      NOW by allowin gon to stay in mega form permanently or transform 
+      mid battle to fool ai I can give mega mon their own learnset
+      all I need do since only 1 mon can mega within party
+      all I need is a dedicated struct to store the mons moves and pp bonuses
+      to reapply when I revert the mega evo from party
+      don't need store megas moves as giving it a learnset I can just use
+      relearner to get a viable set, and tms are infinite so no worries there
+      if is already in "mega form" party menu option will say "Revert" instead
+      with that don't need to add extra crap that doesn't make sense
+      to a pokemon's learnset just because it changes type
+      hmm actually doing that would solve issues with rotom forms as well.
+      ok make 1 struct for rotom form and one for mega form
+
+      ok realized that would just make it preferable to only always be in the mega form
+      since youd still be stuck with bad moves if you transformed mid battle
+      in that case make it a 2 mon struct store base form move data
+      and when I revert store mega move data to mega portion of struct
+
+      only zero out both if I attempt to formchange/mega evolve another
+      mon in party
+
+      decide to move delete and relearn in party
+      and pc
+
+      multiple types of form change
+      not just mega ex rotom forms
+      so rather than 2 need more
+      max would be 2 for each party member
+
+      formchangedata[partyslot][2byte mondata] 0 = baseform, 1 = altform
+      store moves w pp bonus pass zero to alt form for pp bonus
+    )
+    5/8/2025 VERY IMPORTANT NOTE
+
+    -note still missin most gen 9 abilities
+    forgot hadn't setup sharpness
+
     -decided scrap multi-status idea
     like what I have now w the poison and freeze changes
     while multi status is "cool" in a practical setting

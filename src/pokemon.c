@@ -4497,6 +4497,7 @@ u16 GetIndividualBaseStatValue(u16 species, u8 statIndex)
     }
 }
 
+//limit 465 bst
 bool8 CanEvioliteActivate(u8 target)
 {
     u16 species = gBattleMons[target].species;
