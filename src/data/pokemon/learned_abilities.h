@@ -1,3 +1,10 @@
+//logic for file abilities wanted to add
+//but couldn't fit or rationalize
+//as well as fun broken things that
+//can't otherwise logic to add
+//in an official setting ability tutor
+//would have list of abilities that are banned on a character
+//think not every mon should get extra abilities?
 #define ABILITY_SET_END       0xFFFF
 
 static const struct AbilityLearnset sSpeciesNoneAbilityLearnset[] = {
@@ -5,38 +12,58 @@ static const struct AbilityLearnset sSpeciesNoneAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBulbasaurAbilityLearnset[] = {
+    ABILITY_GRASS_PELT,
+    ABILITY_GRASSY_SURGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sIvysaurAbilityLearnset[] = {
+    ABILITY_GRASS_PELT,
+    ABILITY_GRASSY_SURGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sVenusaurAbilityLearnset[] = {
+    ABILITY_THICK_FAT,
+    ABILITY_GRASS_PELT,
+    ABILITY_GRASSY_SURGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sCharmanderAbilityLearnset[] = {
+    ABILITY_SUN_DISK,
+    ABILITY_TOUGH_CLAWS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sCharmeleonAbilityLearnset[] = {
+    ABILITY_SUN_DISK,
+    ABILITY_TOUGH_CLAWS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sCharizardAbilityLearnset[] = {
+    ABILITY_SUN_DISK,
+    ABILITY_TOUGH_CLAWS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSquirtleAbilityLearnset[] = {
+    ABILITY_SQUALL,
+    ABILITY_SWIFT_SWIM,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sWartortleAbilityLearnset[] = {
+    ABILITY_SQUALL,
+    ABILITY_SWIFT_SWIM,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sBlastoiseAbilityLearnset[] = {
+    ABILITY_SQUALL,
+    ABILITY_SWIFT_SWIM,
+    ABILITY_LIGHT_METAL,
     ABILITY_SET_END
 }; 
 
@@ -381,6 +408,8 @@ static const struct AbilityLearnset sGengarAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sOnixAbilityLearnset[] = {
+    ABILITY_SIROCCO,
+    ABILITY_WEAK_ARMOR,
     ABILITY_SET_END
 };
 
@@ -552,23 +581,29 @@ static const struct AbilityLearnset sPorygonAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
+//protosynthesis for all fossils or early fossils
 static const struct AbilityLearnset sOmanyteAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sOmastarAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sKabutoAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sKabutopsAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sAerodactylAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
@@ -753,14 +788,22 @@ static const struct AbilityLearnset sHoppipAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSkiploomAbilityLearnset[] = {
+    ABILITY_WIND_RIDER,
+    ABILITY_LEAF_GUARD,
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sJumpluffAbilityLearnset[] = {
+    ABILITY_WIND_RIDER,
+    ABILITY_LEAF_GUARD,
+    ABILITY_CHLOROPHYLL,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sAipomAbilityLearnset[] = {
+    ABILITY_PICKPOCKET,    
+    ABILITY_KLUTZ,
     ABILITY_SET_END
 };
 
@@ -833,6 +876,9 @@ static const struct AbilityLearnset sGligarAbilityLearnset[] = {
 }; //update this add more moves
 
 static const struct AbilityLearnset sSteelixAbilityLearnset[] = {
+    ABILITY_CLEAR_BODY,
+    ABILITY_SAND_FORCE,
+    ABILITY_SIROCCO,
     ABILITY_SET_END
 };
 
@@ -1249,10 +1295,12 @@ static const struct AbilityLearnset sHariyamaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sElectrikeAbilityLearnset[] = {
+    ABILITY_OVERCHARGE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sManectricAbilityLearnset[] = {
+    ABILITY_OVERCHARGE,
     ABILITY_SET_END
 };
 
@@ -1453,18 +1501,22 @@ static const struct AbilityLearnset sIllumiseAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLileepAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sCradilyAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sAnorithAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sArmaldoAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
@@ -1633,18 +1685,22 @@ static const struct AbilityLearnset sRoseradeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sCranidosAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sRampardosAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sShieldonAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sBastiodonAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
@@ -1697,14 +1753,21 @@ static const struct AbilityLearnset sGastrodonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sAmbipomAbilityLearnset[] = {
+    ABILITY_PICKUP,
+    ABILITY_RUN_AWAY,
+    ABILITY_PICKPOCKET,    
+    ABILITY_KLUTZ,
+    ABILITY_MAGICIAN,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sDrifloonAbilityLearnset[] = {
+    ABILITY_STORM_BREAK,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sDrifblimAbilityLearnset[] = {
+    ABILITY_STORM_BREAK,
     ABILITY_SET_END
 };
 
@@ -2229,6 +2292,8 @@ static const struct AbilityLearnset sDarmanitanAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMaractusAbilityLearnset[] = {
+    ABILITY_DESERT_DWELLER,
+    ABILITY_TOUGH_SPINES,
     ABILITY_SET_END
 };
 
@@ -2261,18 +2326,22 @@ static const struct AbilityLearnset sCofagrigusAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTirtougaAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sCarracostaAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sArchenAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sArcheopsAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
@@ -2789,18 +2858,26 @@ static const struct AbilityLearnset sHelioliskAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTyruntAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sTyrantrumAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
+//this is an ice age mon so think shouldn't get protosynthesis or ?
+//doesnt have to be sun could hold booster energy so yeah will use
+//unsure if will give regiice ability glacial ice or nahh?
 static const struct AbilityLearnset sAmauraAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sAurorusAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
+    ABILITY_GLACIAL_ICE,
     ABILITY_SET_END
 };
 
@@ -3525,18 +3602,22 @@ static const struct AbilityLearnset sCopperajahAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sDracozoltAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sArctozoltAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sDracovishAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sArctovishAbilityLearnset[] = {
+    ABILITY_PROTOSYNTHESIS,
     ABILITY_SET_END
 };
 
