@@ -14420,18 +14420,29 @@ static void atk80_manipulatedamage(void)
 
         switch (gBattleMoves[gCurrentMove].effect)
         {
+            //this one may be too strong
+            //since realized recoil was meant for high hp mon
+            //but now i'm basing damage on max hp
+            //and think this formula does more dmg
+            //than base formula
+            //defualt:
+            //200 max 100 dmg recoil 50  1/4th max
+            //mod: 200 max 100 dmg recoil (20 + 10) * 2.67 = 80... bout 25% hp
+            //ok decide drop hp component down to 15 divisor
+            //and may cap this one at 2x will be more forgiving on hp a bit
+            //
             case EFFECT_50_RECOIL:   //head smash etc.
-                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 10,1) + max(gBattleMoveDamage / 10,1));
-                gBattleMoveDamage = max((gBattleMoveDamage * 8) / 3,1);
+                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
+                gBattleMoveDamage *= 2;// max((gBattleMoveDamage * 8) / 3,1);//2 2/3  2.67
                 //gBattleMoveDamage /= 2;
             break;
             case EFFECT_RECOIL:
-                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 10,1) + max(gBattleMoveDamage / 10,1));
+                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 //gBattleMoveDamage /= 4; //w raichu min dmg should be 3
             break;
             case EFFECT_33_RECOIL_W_STATUS: //volt tackle etc.
             case EFFECT_DOUBLE_EDGE:
-                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 10,1) + max(gBattleMoveDamage / 10,1));
+                gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage += max(gBattleMoveDamage / 2,1);
                 //gBattleMoveDamage /= 3; //double edge damag
             break;
