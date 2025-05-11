@@ -13431,7 +13431,7 @@ bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
 bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
 
-    if (!(gProtectStructs[battler].activatedPoisonHealing))
+    if (!gProtectStructs[battler].activatedPoisonHealing)
     {
         if ((GetBattlerAbility(battler) == ABILITY_POISON_HEAL) && gBattleMons[battler].hp != 0
             && (gBattleMons[battler].status1 & STATUS1_POISON || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON))
@@ -13444,6 +13444,8 @@ bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 fu
         {
             return TRUE;
         }
+        else
+            return FALSE;
     }
     else
         return FALSE;
