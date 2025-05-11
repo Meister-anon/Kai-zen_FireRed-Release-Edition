@@ -524,13 +524,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-        //.argument = MOVE_EFFECT_INFESTATION,
-    },//appears health box doesn't proplery update status if set via argument?
-    //no idea why
-    //ok so it sets the status without properly doin the whole burn script...
-    //very strange I need to proplery identify what is happening,
-    //and that explains why my other logic isn't working my argument logic
-    //was off and skipped the whole script for doin move effect
+    },
 
     [MOVE_BODY_SLAM] =
     {
@@ -11879,7 +11873,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .accuracy = 80,
         .pp = 5,
         .secondaryEffectChance = 30,
-        .target = MOVE_TARGET_SELECTED,
+        .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
@@ -12015,6 +12009,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         ////.zMovePower = 180,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //note gets iron fist boost cuz name is sumo term, rush forward while thrusting fists/open palms forwward to attack
     //not overheat effect, supposed to lower def & sp def
     //oh I made it overheat to make it a recoil move, hmmm
     //I had reworked recoil so may do that instead?
@@ -12147,6 +12142,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
     //sets spikes
+    //lower acc than stone axe because not dark, and effect stacks
 
     [MOVE_BLEAKWIND_STORM] =
     {
@@ -12161,7 +12157,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_FLYING, //is balanced w my freeze changes
         .accuracy = 85,
         .secondaryEffectChance = 30,
-        .target = MOVE_TARGET_SELECTED,
+        .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
@@ -12186,7 +12182,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_ELECTRIC,
         .accuracy = 80,
         .secondaryEffectChance = 20,
-        .target = MOVE_TARGET_SELECTED,
+        .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
@@ -12207,7 +12203,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_GROUND,
         .accuracy = 80,
         .secondaryEffectChance = 20,
-        .target = MOVE_TARGET_SELECTED,
+        .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
@@ -12326,7 +12322,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 10,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -12337,7 +12333,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_ORDER_UP] =
     {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_ORDER_UP
+        .effect = EFFECT_SPLASH,    //Todo // EFFECT_ORDER_UP  //boost certain stat based on form of tatsugiri it targets
         .power = 80,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -12350,6 +12346,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE
     },
+    //I never saw anyone use anything but the attack boosting tatsugiri
+    //maybe should adjust stat gain its speed stat is so low base 35 
+    //there no reason to use that one, would need use bout 4 times before could see speed gains
+    //otherwise best to just use trick room,
+    //and defense sees diminisning returns with gains and its sp def is low so people could just attack that
+    //solution boost speed 2 stages per use
+    //potentially do same for defense? 
+    //attack is preferred for obvious reason its physical attacker,
+    //so can always get benefit of atk boost
+    //defense boost is diminishing and people can just bypass
+    //it by using special move
+    //its already very dominant so I'm worried about buffing defense?
+    //nvm missed that the tatsugiri already boosts all dodonzo's stats by 2 stages
+    //dont think anything I can do at this point
 
     [MOVE_JET_PUNCH] =
     {
@@ -12600,7 +12610,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 10,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_SOUND,
@@ -12616,7 +12626,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 10,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DANCE,
@@ -12664,6 +12674,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
+    //payday and sp atk drop
 
     [MOVE_RUINATION] =
     {
@@ -12809,7 +12820,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_BUG,
         .accuracy = 100,
         .pp = 20,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
@@ -12826,7 +12837,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_GRASS,
         .accuracy = 100,
         .pp = 20,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
@@ -12842,7 +12853,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 20,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
@@ -12907,7 +12918,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_FIRE,
         .accuracy = 100,
         .pp = 5,
-        .secondaryEffectChance = 100,
+        .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -13696,6 +13707,7 @@ use wonder gaurd logic to determine its super effective
         .split = SPLIT_SPECIAL,
         .argument = TYPE_ELECTRIC,
     },
+    //two typed attack w chance to freeze
 
     [MOVE_BACK_STAB] =
     {
@@ -13797,12 +13809,13 @@ use wonder gaurd logic to determine its super effective
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_GROUND_DMG_FLOATING,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },//uses rollout animation
     //why didn't I make this damage in air?
     //hmm I guess because it requries a launching pad?
+    //sonic use it to hit aerial targets all the time, changing this
 
     [MOVE_ARCTIC_RAKE] =
     {
@@ -13819,6 +13832,7 @@ use wonder gaurd logic to determine its super effective
         .argument = TYPE_DARK,
     }, //alt slash wnat use shadow claw animation, two claws one white one black slashing enemy
     //think get move at 35 or so?
+    //think was mostly for sneasal
 
     
     [MOVE_CONVERSION_Z] =

@@ -1544,10 +1544,6 @@ static const struct AbilityLearnset sDeoxysAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
-static const struct AbilityLearnset sDeoxysAbilityLearnset[] = {
-    ABILITY_SET_END
-};
-
 static const struct AbilityLearnset sChimechoAbilityLearnset[] = {
     ABILITY_SET_END
 };
@@ -3627,10 +3623,6 @@ static const struct AbilityLearnset sSneaslerAbilityLearnset[] = {
 static const struct AbilityLearnset sOverqwilAbilityLearnset[] = {
     ABILITY_SET_END
 };
-
-static const struct AbilityLearnset sCefireonAbilityLearnset[] = {
-    ABILITY_SET_END
-};//add ghost moves night shade early  shadow ball etc. later
 
 static const struct AbilityLearnset sRattataAlolanAbilityLearnset[] = {
     ABILITY_SET_END
