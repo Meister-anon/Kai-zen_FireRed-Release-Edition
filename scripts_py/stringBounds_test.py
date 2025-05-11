@@ -54,7 +54,7 @@ that way it'll create a workflow of building until you fix strings to find all t
 import re
 
 #global consants
-dexLine_Limit = 42
+dexLine_Limit = 42 #while this is a limit some entries fit correctly with it, but won't increase to eliminate warnings
 movesLine_Limit = 20
 abilityLine_Limit = 42
 Phase1_Complete = False #move description check

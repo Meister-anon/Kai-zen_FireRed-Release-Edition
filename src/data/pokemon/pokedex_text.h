@@ -205,7 +205,7 @@ const u8 gNidoqueenPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gNidoranMPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "The male Nidoran has developed muscles\n"
-    "that freely move its ears in any direction.\n"
+    "to freely move its ears in any direction.\n"
     "Even the slightest sound does not escape\n"
     "this Pokémon's notice.");
 
@@ -271,9 +271,9 @@ const u8 gGolbatPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gOddishPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "This Pokémon grows by absorbing moonlight.\n"
-    "During the daytime, it buries itself in the\n"
-    "ground, leaving only its leaves exposed\n"
-    "to avoid detection by its enemies.");
+    "During the daytime, it buries itself in\n"
+    "the ground, leaving only its leaves\n"
+    "exposed to avoid detection by its enemies.");
 
 const u8 gGloomPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A horribly noxious honey drools from its\n"
@@ -422,8 +422,8 @@ const u8 gMachokePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gMachampPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It is impossible to defend against punches\n"
     "and chops doled out by its four arms.\n"
-    "Its fighting spirit flares up when it faces\n"
-    "a tough opponent.");
+    "Its fighting spirit flares up when it\n"
+    "faces a tough opponent.");
 
 const u8 gBellsproutPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A Bellsprout's thin and flexible body lets\n"
@@ -548,8 +548,8 @@ const u8 gGrimerPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gMukPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It prefers warm and humid habitats.\n"
     "In the summertime, the toxic substances\n"
-    "in its body intensify, making Muk reek like\n"
-    "putrid kitchen garbage.");
+    "in its body intensify, making Muk reek\n"
+    "like putrid kitchen garbage.");
 
 const u8 gShellderPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "At night, it burrows into the seafloor\n"
@@ -650,9 +650,9 @@ const u8 gMarowakPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gHitmonleePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Its legs freely stretch and contract.\n"
-    "Using these springlike limbs, it bowls over\n"
-    "foes with devastating kicks. After battle,\n"
-    "it rubs down its tired legs.");
+    "Using these springlike limbs,\n"
+    "it bowls over foes with devastating kicks.\n"
+    "After battle, it rubs down its tired legs.");
 
 const u8 gHitmonchanPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A Hitmonchan is said to possess the\n"
@@ -769,10 +769,10 @@ const u8 gElectabuzzPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Electabuzz in place of lightning rods.");
 
 const u8 gMagmarPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "In battle, it blows out intense flames from\n"
-    "all over its body to intimidate its foe.\n"
-    "These fiery bursts create heat waves that\n"
-    "ignite grass and trees in the area.");
+    "In battle, it blows out intense flames\n"
+    "from all over its body to intimidate foe.\n"
+    "These fiery bursts create heat waves\n"
+    "that ignite grass and trees in the area.");
 
 const u8 gPinsirPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Their pincers are strong enough to\n"
@@ -885,8 +885,8 @@ const u8 gArticunoPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gZapdosPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Zapdos is a legendary bird Pokémon that\n"
     "has the ability to control electricity.\n"
-    "It usually lives in thunderclouds. It gains\n"
-    "power if stricken by lightning bolts.");
+    "It is said to appear from thunderclouds.\n"
+    "while dropping enormous lightning bolts.");
 
 const u8 gMoltresPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Moltres is a legendary bird Pokémon that\n"
@@ -897,12 +897,12 @@ const u8 gMoltresPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gDratiniPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A Dratini continually molts and sloughs\n"
     "off its old skin. It does so because the\n"
-    "life energy within its body steadily builds\n"
-    "to reach uncontrollable levels.");
+    "life energy within its body steadily\n"
+    "builds to reach uncontrollable levels.");
 
 const u8 gDragonairPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "Dragonair can store enormous energy within.\n"
-    "It is said to be able to fly and even alter\n"
+    "Dragonair can store vast energy within.\n"
+    "It's said to be able to fly and even alter\n"
     "the weather around it by loosing energy\n"
     "from the crystals on its neck and tail.");
 
@@ -974,9 +974,9 @@ const u8 gCroconawPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gFeraligatorPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It opens its huge mouth to intimidate\n"
-    "enemies. In battle, it runs using its thick\n"
-    "and powerful hind legs to charge the\n"
-    "foe with incredible speed.");
+    "enemies. In battle, it runs using its\n"
+    "thick and powerful hind legs to charge\n"
+    "the foe with incredible speed.");
 
 const u8 gSentretPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "They take turns standing guard when it\n"
@@ -1039,15 +1039,15 @@ const u8 gChinchouPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "sunlight's reach.");
 
 const u8 gLanturnPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
+    "This Pokémon illuminates the\n"
+    "inky darkness of the deep seas.\n"
     "The light-emitting orbs on its back are\n"
-    "very bright. They are formed from parts\n"
-    "of its dorsal fin. This Pokémon illuminates\n"
-    "the inky darkness of deep seas.");
+    "formed from parts of its dorsal fin.");
 
 const u8 gPichuPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It is still inept at retaining electricity.\n"
     "When it is startled, it discharges power\n"
-    "accidentally. It gets better at holding\n"
+    "accidentally. It gets better at storing\n"
     "power as it grows older.");
 
 const u8 gCleffaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -1203,8 +1203,8 @@ const u8 gUmbreonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gMurkrowPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Murkrow were feared as the alleged\n"
     "bearers of ill fortune. It shows strong\n"
-    "interest in anything that sparkles. It will\n"
-    "even try to steal rings from women.");
+    "interest in anything that sparkles.\n"
+    "It'll even try to steal rings from women.");
 
 const u8 gSlowkingPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It undertakes research every day to\n"
@@ -1321,10 +1321,10 @@ const u8 gUrsaringPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "its forest collecting food every day.");
 
 const u8 gSlugmaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "It is a species of Pokémon that lives in\n"
-    "volcanic areas. If its body cools, its skin\n"
-    "hardens and immobilizes it. To avoid that,\n"
-    "it sleeps near magma.");
+    "This species lives in volcanic areas.\n"
+    "If its body cools, its skin hardens\n"
+    "immobilizing it.\n"
+    "To avoid that, it sleeps near magma.");
 
 const u8 gMagcargoPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "The shell on its back is made of hardened\n"
@@ -1443,13 +1443,8 @@ const u8 gHitmontopPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gSmoochumPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It actively runs about, but falls often.\n"
     "Whenever it falls, it will check its\n"
-    "reflection on a lake's surface to make\n"
+    "reflection however it can to make\n"
     "sure its face hasn't become dirty.");
-    
-    /*"It uses its lips to examine objects it sees\n"
-    "for the first time. It's very active but\n"
-    "falls often. Then checks its reflection\n"
-    "to be sure its face hasn't become dirty.");*/
 
 
 const u8 gElekidPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -1577,10 +1572,10 @@ const u8 gMudkipPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "in soil at the water's edge.");
 
 const u8 gMarshtompPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "Its toughened hind legs enable it to stand\n"
-    "upright. Because it weakens if its skin\n"
-    "dries out, it replenishes fluids by playing\n"
-    "in mud.");
+    "Its toughened hind legs enable\n"
+    "it to stand upright.\n"
+    "Because it weakens if its skin dries out,\n"
+    "it replenishes fluids by playing in mud.");
 
 const u8 gSwampertPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "If it senses the approach of a storm and\n"
@@ -1608,7 +1603,7 @@ const u8 gZigzagoonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gLinoonePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It is exceedingly fast if it only has to\n"
-    "run in a straight line. When it spots pond-\n"
+    "run in straight lines. When it spots pond-\n"
     "dwelling prey underwater, it quickly leaps\n"
     "in and catches it with its sharp claws.");
 
@@ -1631,7 +1626,7 @@ const u8 gBeautiflyPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It attacks ferociously when angered.");
 
 const u8 gCascoonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "To avoid detection by its enemies, it hides\n"
+    "To avoid detection by enemies, it hides\n"
     "motionlessly beneath large leaves and in\n"
     "the gaps of branches. It also attaches\n"
     "dead leaves to its body for camouflage.");
@@ -1686,9 +1681,9 @@ const u8 gNincadaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gNinjaskPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Because it darts about vigorously at high\n"
-    "speed, it is very difficult to see. Hearing\n"
-    "its distinctive cries for too long induces\n"
-    "a headache.");
+    "speed, it is very difficult to see.\n"
+    "Hearing its distinctive cries for too long\n"
+    "induces a headache.");
 
 const u8 gShedinjaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A peculiar wraith-like Pokémon that floats\n"
@@ -1746,7 +1741,7 @@ const u8 gSurskitPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gMasquerainPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It intimidates foes with the large eyelike\n"
-    "patterns on its antennae. This Pokémon flaps\n"
+    "pattern on its antennae. The Pokémon flaps\n"
     "its four wings to fly in any direction,\n"
     "but it cant fly if its wings get wet.");   
 
@@ -1875,8 +1870,8 @@ const u8 gTrapinchPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gVibravaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It looses ultrasonic waves by rubbing its\n"
     "wings together. Since a Vibrava's wings\n"
-    "are still in the process of growing, it can\n"
-    "only fly short distances.");
+    "are still in the process of growing,\n"
+    "it can only fly short distances.");
 
 const u8 gFlygonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "The flapping of its wings sounds like\n"
@@ -1903,10 +1898,10 @@ const u8 gElectrikePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "blazes with violent showers of sparks.");
 
 const u8 gManectricPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "Because lightning falls in their vicinities,\n"
-    "Manectric were thought to have been born\n"
-    "from lightning. In battle, they create\n"
-    "thunderclouds.");
+    "Because lightning falls in their\n"
+    "vicinities, Manectric were thought\n"
+    "to have been born from lightning.\n"
+    "In battle, they create thunderclouds.");
 
 const u8 gNumelPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Numel stores boiling magma in the hump\n"
@@ -1940,15 +1935,15 @@ const u8 gWalreinPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gCacneaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Cacnea live in deserts with virtually no\n"
-    "rainfall. It battles by swinging its thick,\n"
-    "spiked arms. Once a year, a yellow flower\n"
-    "blooms.");
+    "rainfall. It battles by swinging \n"
+    "its thick, spiked arms. Once a year,\n"
+    "a yellow flower blooms on its head.");
 
 const u8 gCacturnePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "After spending thousands of years in\n"
-    "harsh deserts, its blood transformed into\n"
-    "the same substances as sand. It is\n"
-    "nocturnal, so it hunts at night.");
+    "harsh deserts, its blood transformed\n"
+    "into the same substances as sand.\n"
+    "It is nocturnal, so it hunts at night.");
 
 const u8 gSnoruntPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "They tend to move about in groups of\n"
@@ -2060,9 +2055,9 @@ const u8 gRoseliaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gSlakothPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It sleeps virtually all day and night.\n"
-    "It doesn't change its nest its entire life,\n"
-    "but it sometimes travels great distances\n"
-    "by drifting along in rivers.");
+    "It doesn't change its nest its entire\n"
+    "life, but it sometimes travels great\n"
+    "distances by drifting along in rivers.");
 
 const u8 gVigorothPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It can't keep still because its blood\n"
@@ -2073,8 +2068,8 @@ const u8 gVigorothPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gSlakingPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Hordes of Slaking gather around trees\n"
     "when fruits come into season. They wait\n"
-    "around patiently for ripened fruits to fall\n"
-    "out of the trees.");
+    "around patiently for ripened fruits to\n"
+    "fall out of the trees.");
 
 const u8 gGulpinPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "This Pokémon's stomach fluid can even\n"
@@ -2161,10 +2156,10 @@ const u8 gSeviperPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "a horrible poison.");
 
 const u8 gZangoosePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "When it battles, it stands on its hind legs\n"
-    "and attacks with its sharply clawed\n"
-    "forelegs. Its fur bristles if it encounters\n"
-    "any Seviper.");
+    "When it battles, it stands on its\n"
+    "hind legs and attacks with its sharply\n"
+    "clawed forelegs. Its fur bristles if\n"
+    "it encounters any Seviper.");
 
 const u8 gRelicanthPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A Pokémon that was once believed to have\n"
@@ -2720,8 +2715,8 @@ const u8 gRioluPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "aura waves.");
 
 const u8 gLucarioPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "It understands human speech.\n"
-    "It is said that no foe can remain invisible\n"
+    "It understands human speech. It is said\n"
+    "that no foe can remain invisible\n"
     "to Lucario, since it can detect Auras.\n"
     "Even foes it could not otherwise see.");
 
@@ -2823,9 +2818,9 @@ const u8 gRhyperiorPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gTangrowthPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It ensnares prey by extending arms made\n"
-    "of vines. Even if one of its arms is eaten,\n"
-    "it's fine. The Pokémon regenerates quickly\n"
-    "and will go right back to normal.");
+    "of vines. Even if one of its arms is\n"
+    "eaten, it's fine. The Pokémon regenerates\n"
+    "quickly and will go right back to normal.");
 
 const u8 gElectivirePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "When it gets excited, it thumps its chest.\n"
@@ -3481,8 +3476,8 @@ const u8 gCinccinoPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gGothitaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "They intently observe both Trainers and\n"
     "Pokémon. Apparently, Gothita are looking\n"
-    "at something that only they can see. Their\n"
-    "ribbonlike feelers increase their power.");
+    "at something only they can see. Their\n"
+    "ribbon-like feelers increase their power.");
 
 const u8 gGothoritaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Starlight is the source of their power.\n"
@@ -3493,7 +3488,7 @@ const u8 gGothoritaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gGothitellePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "Starry skies thousands of light-years\n"
     "away are visible in the space distorted by\n"
-    "their intense psychic power. When it learns\n"
+    "its intense psychic power. When it learns\n"
     "its Trainer's life span, it cries in sadness.");
 
 const u8 gSolosisPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -3529,7 +3524,7 @@ const u8 gSwannaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gVanillitePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "The temperature of their breath is -58ºF.\n"
     "They create snow crystals and make snow\n"
-    "fall in the areas around them. Vanillite is\n"
+    "fall in areas around them. Vanillite is\n"
     "treasured by households in warm regions.");
 
 const u8 gVanillishPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -3757,7 +3752,7 @@ const u8 gMienfooPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gMienshaoPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "They use the long fur on their arms as\n"
     "a whip to strike their opponents. But\n"
-    "when facing a tough opponent it will lighten\n"
+    "if facing a tough opponent it will lighten\n"
     "itself by biting off the fur on its arms.");
 
 const u8 gDruddigonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -3995,8 +3990,8 @@ const u8 gFrogadierPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 
 const u8 gGreninjaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It appears and vanishes with a ninja's\n"
-    "grace. It toys with its enemies using swift\n"
-    "movements, while slicing them with\n"
+    "grace. It toys with its enemies using\n"
+    "swift movements, while slicing them with\n"
     "throwing stars made of compressed water.");
 
 const u8 gBunnelbyPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -4246,14 +4241,14 @@ const u8 gAurorusPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "or encase them in ice.");
 
 const u8 gSylveonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "Its ribbonlike feelers give off an aura\n"
-    "that weakens hostility in its prey, causing\n"
-    "them to let down their guard. A moment\n"
-    "later, it pounces.");
+    "Its ribbon-like feelers give off an aura\n"
+    "that weakens hostility in its prey,\n"
+    "causing them to let down their guard.\n"
+    "A moment later, it pounces.");
 
 const u8 gHawluchaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "With its wings, it controls its position in\n"
-    "the air. Its proficient fighting skills\n"
+    "With its wings, it controls its position\n"
+    "in the air. Its proficient fighting skills\n"
     "enable it to keep up with big bruisers\n"
     "like Machamp and Hariyama.");
 
@@ -4368,9 +4363,9 @@ const u8 gDianciePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It creates diamonds between its hands.");
 
 const u8 gHoopaPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "In its true form, it possess a huge amount\n"
-    "of power. When its powers are sealed away\n"
-    "it is transformed into a much smaller form.\n"
+    "In its true form, it possess tremendous\n"
+    "power. When its powers are sealed away it\n"
+    "is transformed into a much smaller form.\n"
     "It teleports things to a secret place.");
 
 const u8 gVolcanionPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
@@ -4412,14 +4407,14 @@ const u8 gTorracatPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
 const u8 gIncineroarPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "This Pokémon has a violent, selfish\n"
     "disposition. If it's not in the mood to\n"
-    "listen, it will ignore its Trainer's orders\n"
-    "with complete nonchalance.");
+    "listen, it will ignore its Trainer's\n"
+    "orders with complete nonchalance.");
 
 const u8 gPopplioPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "This Pokémon snorts body fluids from\n"
     "its nose, blowing balloons to smash into\n"
-    "its foes. It practices diligently so it can\n"
-    "learn to make big bubbles.");
+    "its foes. It practices diligently so it\n"
+    "can learn to make big bubbles.");
 
 const u8 gBrionnePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "It cares deeply for its companions.\n"
@@ -4452,11 +4447,12 @@ const u8 gToucannonPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "pulverize boulders.");
 
 const u8 gYungoosPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "It will bite anything with its sharp fangs.\n"
-    "It wanders around in a never-ending\n"
+    "It will bite anything with its sharp\n"
+    "fangs. It wanders around in a never-ending\n"
     "search for food. At dusk, it collapses\n"
     "and falls asleep on the spot.");
 
+//test replace ... w \.
 const u8 gGumshoosPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "When it finds a trace of its prey, it\n"
     "patiently stakes out the location...\n"
@@ -4904,10 +4900,10 @@ const u8 gMelmetalPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "life after 3,000 years.");
 
 const u8 gGrookeyPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "When it uses its special stick to strike up\n"
-    "a beat, the sound waves produced carry\n"
-    "revitalizing energy to the plants and\n"
-    "flowers in the area.");
+    "When it uses its special stick to\n"
+    "strike up a beat, the sound waves\n"
+    "produced carry revitalizing energy to\n"
+    "the plants and flowers in the area.");
 
 const u8 gThwackeyPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "The faster a Thwackey can beat out\n"
@@ -5081,12 +5077,12 @@ const u8 gApplinPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "apple and nothing more.");
 
 const u8 gFlapplePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "It ate a sour apple, and that induced its\n"
-    "evolution. In its cheeks, it stores an acid\n"
-    "capable of causing chemical burns.");
+    "Eating a sour apple caused it to evolve.\n"
+    "In its cheeks, it stores an acid capable\n"
+    "of causing severe chemical burns.");
 
 const u8 gAppletunPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "Eating a sweet apple caused its evolution.\n"
+    "Eating a sweet apple caused it to evolve.\n"
     "A nectarous scent wafts from its body,\n"
     "luring in the bug Pokémon it preys on.");
 
