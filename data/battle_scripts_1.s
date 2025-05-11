@@ -443,8 +443,11 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit				      @ EFFECT_SHELL_TRAP @think still todo? check later
 	.4byte BattleScript_EffectHitSwitchBind			  @EFFECT_SWITCH_BIND @spirit shackle buff, temp escape prevention doesn't require user stay in
 	.4byte BattleScript_EffectNettleWhip			  @EFFECT_NETTLE_WHIP
+	.4byte BattleScript_EffectHighestStatUpHit		  @EFFECT_HIGHEST_STAT_UP_HIT
 	.4byte BattleScript_Effect_SetTargetAbility		  @EFFECT_SET_TARGET_ABILITY
+	.4byte BattleScript_EffectHit					  @EFFECT_BEHEMOTH_ATTACK
 
+BattleScript_EffectHighestStatUpHit:
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
 @BattleScript_EffectFusionCombo:

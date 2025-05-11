@@ -373,7 +373,7 @@
 #define EFFECT_LASH_OUT 362
 #define EFFECT_GRASSY_GLIDE 363
 #define EFFECT_REMOVE_TERRAIN 364
-#define EFFECT_DYNAMAX_DOUBLE_DMG 365
+#define EFFECT_DYNAMAX_DOUBLE_DMG 365 //not using made new effect will make distinct 
 #define EFFECT_DECORATE 366
 #define EFFECT_SNIPE_SHOT 367
 #define EFFECT_STUFF_CHEEKS 368
@@ -425,7 +425,9 @@
 #define EFFECT_SHELL_TRAP 412
 #define EFFECT_SWITCH_BIND 413 //spirit shackle buff, temp escape prevention doesn't require user stay in
 #define EFFECT_NETTLE_WHIP 414 //BURN HIT grass types are immune to effect, like power moves
-#define EFFECT_SET_TARGET_ABILITY 415 //effect for lake fairy signature move from Legends Arceus
+#define EFFECT_HIGHEST_STAT_UP_HIT 415 //effect for lake fairy signature move from Legends Arceus
+#define EFFECT_SET_TARGET_ABILITY 416
+#define EFFECT_BEHEMOTH_ATTACK 417 //new weight based boost for behemoth bash and blade
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

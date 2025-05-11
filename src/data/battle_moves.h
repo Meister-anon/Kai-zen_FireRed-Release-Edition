@@ -10843,7 +10843,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DYNAMAX_CANNON] =
     {
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,
+        .effect = EFFECT_BEHEMOTH_ATTACK,
         .power = 100,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -11120,7 +11120,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BEHEMOTH_BLADE] =
     {
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,   //TODO: 2x damage if dynamaxed? meh...
+        .effect = EFFECT_BEHEMOTH_ATTACK,   //TODO: 2x damage if dynamaxed? meh...
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,
@@ -11130,11 +11130,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+    },//if add an extra effect could add power boost based on weight
+    //setup, remmeber to rename later, behemoth burst effect or something
+    //40% power boost
 
     [MOVE_BEHEMOTH_BASH] =
     {
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,   //TODO: 2x damage if dynamaxed? meh...
+        .effect = EFFECT_BEHEMOTH_ATTACK,   //TODO: 2x damage if dynamaxed? meh...
         .power = 100,
         .type = TYPE_STEEL,
         .accuracy = 100,

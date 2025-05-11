@@ -522,7 +522,6 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBlastoiseTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
-    //rain dish doesn't really make sense, I'd kinda wanta swap it for swift swim?
 
     [SPECIES_CATERPIE] =
     {
@@ -10057,7 +10056,7 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Zangoose"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(73, 125, 60, 105, 55, 60),
+         STATS(73, 125, 60, 115, 55, 60),
         MON_TYPES(TYPE_NORMAL, TYPE_DARK), //WOULD now be 4x  to fighting and fairy, but its fast enough to overcome that idea from Lockstin & Gnoggin
         .catchRate = 90,
         .expYield = 160,
@@ -10099,8 +10098,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Seviper"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(73, 85, 70, 70, 95, 85),
-        MON_TYPES(TYPE_POISON, TYPE_NORMAL),
+         STATS(73, 85, 95, 70, 85, 80),
+        MON_TYPES(TYPE_NORMAL, TYPE_POISON),
         .catchRate = 90,
         .expYield = 160,
         //.evYield_Attack = 1,
@@ -10417,6 +10416,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCradilyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //think it was ray rizzo that got idea from but like idea of 
+    //giving all fossil mon ABILITY_PROTOSYNTHESIS,
+    //as they were actually from ancient times, where sun was strong
+    //world was hotter, and they are all physical attackers
 
     [SPECIES_ANORITH] =
     {
@@ -39204,11 +39207,11 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(
-        70,
+        110,
         130,
-        210,
-        50,
-        20,
+        195,
+        40,
+        5,
         140
         ),
         MON_TYPES(TYPE_STEEL, TYPE_STEEL),
@@ -39232,9 +39235,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sAggronTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
-    },
+    },//potentially drop hp to 100 if too strong
 
     //w pure power worry bout bringingbase changes so just incrase hp instead
+    //new idea mega is focused on offense to bring out attack over defense so drop def
     [SPECIES_MEDICHAM_MEGA] =
     {
         .speciesName = _("Medicham"),
@@ -39242,11 +39246,11 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
+        90,
         80,
-        150,
         100,
         80,
-        150
+        80
         ),
         MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 90,

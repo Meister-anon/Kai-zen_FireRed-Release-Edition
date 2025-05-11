@@ -647,12 +647,12 @@ struct FormDataStorage {
     u16 move3;
     u16 move4;
 
-    u8 ppBonus1;    
-    u8 ppBonus2;    
-    u8 ppBonus3;    
-    u8 ppBonus4;
+    u8 ppBonuses;    
+    u8 abilityNum; //if give megas hidden ability then I need to store abilityNum so that reverts correctly too
 
-};
+};//wondering if i need pp fields as well here? unsure how pp decrement/storage works rn
+//base game uses ppbonus in single u8 so 
+//guess I don't need a field for each move?
 
 //put buffer in ewram would prefer to dynamically allocate
 //memory but I'm bad with that

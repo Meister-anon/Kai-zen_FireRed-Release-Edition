@@ -5174,6 +5174,21 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
                 gBattleMovePower = gHeatCrashPowerTable[weight];
             break;
         }
+        case EFFECT_BEHEMOTH_ATTACK:
+        {
+            weight = GetBattlerWeight(battlerIdDef);//
+
+            //is just below onix
+            if (weight >= 2000)
+                gBattleMovePower = (140 * gBattleMovePower) / 100;
+        }
+        break; 
+        case EFFECT_DYNAMAX_DOUBLE_DMG:
+        {
+
+
+        }
+        break;
     case EFFECT_PUNISHMENT:
         gBattleMovePower += (CountBattlerStatIncreases(battlerIdDef, FALSE) * 20);
         if (gBattleMovePower > 200)
@@ -12735,7 +12750,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId)
 
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg)
 {
-    return GetFormChangeTargetSpeciesBoxMon(&mon->box, method, arg);
+    return GetFormChangeTargetSpeciesBoxMon(mon, method, arg);
 }
 
 // Returns SPECIES_NONE if no form change is possible

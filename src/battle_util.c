@@ -6921,6 +6921,17 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         ++effect;
                     }
                     break;
+                case ABILITY_WATER_ABSORB:
+                    if (IsBattlerWeatherAffected(battler, WEATHER_RAIN_ANY)
+                        && gBattleMons[battler].maxHP > gBattleMons[battler].hp
+                        && !(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))
+                    {
+                        BattleScriptPushCursorAndCallback(BattleScript_EndTurnAbilityHpHeal);
+                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 16,1);
+                        gBattleMoveDamage *= -1;
+                        ++effect;
+                    }
+                    break;
                 case ABILITY_COMATOSE:
                     if (gBattleMons[battler].maxHP > gBattleMons[battler].hp
                         && gDisableStructs[battler].sleepCounter
@@ -12219,7 +12230,11 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //move specific effects
 
     //may adjust this don't wan to make worsethandefault
-    if (mod < UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_BRICK_BREAK) //let brick break hit all mon
+    //will link directly to move so can reuse effect for 
+    //raging bull
+    //doing this was much better as psychic fangs shared effect
+    //but wasn't supposed to hit everything
+    if (mod < UQ_4_12(0.5) && move == MOVE_BRICK_BREAK) //let brick break hit all mon
         mod = UQ_4_12(0.5);
 
     if (mod == UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_PSYWAVE)
