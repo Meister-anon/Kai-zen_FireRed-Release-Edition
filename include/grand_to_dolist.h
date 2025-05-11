@@ -4198,6 +4198,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -done buffed hp and gave a couple support moves 
     and better abilities
 
+    need test poison heal end turn rework make sure works without issue
+    -tested works 
+
     -decided scrap multi-status idea
     like what I have now w the poison and freeze changes
     while multi status is "cool" in a practical setting
