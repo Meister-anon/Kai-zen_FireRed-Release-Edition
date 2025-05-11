@@ -56,7 +56,7 @@ import re
 #global consants
 dexLine_Limit = 42
 movesLine_Limit = 20
-abilityLine_Limit = 41
+abilityLine_Limit = 42
 Phase1_Complete = False #move description check
 Phase2_Complete = False #ability description check
 
