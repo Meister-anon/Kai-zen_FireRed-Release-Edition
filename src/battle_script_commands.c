@@ -5926,11 +5926,13 @@ static void atk15_setmoveeffectwithchance(void) //occurs to me that fairy moves 
     
     //freeze boost, for later counter effect for ice toxic orb
     //setup ability to refreeze think increasing freeze odds is 
-    //too much tho
-    /*if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE
+    //too much tho - decided to use just on item snow globe
+    //so it actually has a resasonable draw back to offset being
+    //objectively more accessible than flame orb/toxic orb
+    if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_SNOW_GLOBE
      && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
-        percentChance = (percentChance * 150) / 100;
-    */
+        percentChance = (percentChance * 125) / 100;
+    
       
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE) //way if else-if works,they are paired and only the one that is true will be executed
         percentChance *= 2;                                         //if I need to execute multiple, than use multiple ifs instead  vsonic
@@ -12597,6 +12599,8 @@ static void atk76_various(void) //will need to add all these emerald various com
         // Change stats.
         else if (cmd->case_ == 1)
         {
+            //do I need do hp here as well or is that already in?
+            //looks like hp is already taken care of
             RecalcBattlerStats(battler, mon);
         }
         /*

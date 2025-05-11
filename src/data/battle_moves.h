@@ -12627,7 +12627,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_RAGING_BULL] =
     {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_RAGING_BULL
+        .effect = EFFECT_BRICK_BREAK,    //Todo // EFFECT_RAGING_BULL //is effectively just brick break? but doesn't break through immunity
         .power = 90,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -12641,6 +12641,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_NONE,
         // Uncallable by Metronome (to be implemented)
     },
+    //change type based on tauros form,
+    //since I changed tauros form may need change move type of first form
+    //decide will keep fighitng type for base form
+    //decided make dark type
+    //most mon set screns are psychic/fairy I think so dark would hit better?
+    //dark has more resistances I think, but overall no immunities at least
 
     [MOVE_MAKE_IT_RAIN] =
     {

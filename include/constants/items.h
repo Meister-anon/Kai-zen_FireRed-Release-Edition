@@ -827,7 +827,7 @@
 #define ITEM_LIFE_ORB 283
 #define ITEM_TOXIC_ORB 284
 #define ITEM_FLAME_ORB 285
-#define ITEM_SNOW_GLOBE 285  //set freeze status freeze dmg is 1/16 plan balance make freeze damage 1/8 when holding this
+#define ITEM_SNOW_GLOBE 285  //set freeze status freeze dmg is 1/16 plan balance make freeze damage 1/8 when holding this also balanced by being frozen re-freeze odds hmm actually put that on item itself
 #define ITEM_STICKY_BARB 286
 #define ITEM_IRON_BALL 288
 #define ITEM_LAGGING_TAIL 289

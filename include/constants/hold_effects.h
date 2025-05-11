@@ -168,17 +168,12 @@
 //custom hold effects
 #define HOLD_EFFECT_SOUND_POWER     184   //call deci bell (I think)
 #define HOLD_EFFECT_SNOW_GLOBE      185   //ice orb,
-//new idea split off of snow globe, item that works differently based on type if ice type boosts some defense stat a good deal,
+//new idea split off of snow globe, item that works differently based on type if ice type, boosts some defense stat a good deal,
 //if not...then it freezes the holder :)  check if canbefrozen, is not already frozen, then freeze solid 
 //negative effect/debuff should only activate at end of turn, think like shut in freezer, took time to freeze solid
 //also small counter effect so cant just fast trick and make target unable to attack
 #define HOLD_EFFECT_ICE_BOX      186   
 
-/*#define HOLD_EFFECT_ALOLAN_SAND     184
-#define HOLD_EFFECT_GALAR_SAND      185
-#define HOLD_EFFECT_HISUIAN_SAND    186
-#define HOLD_EFFECT_CEFERIA_SAND    187*/   
-//don't need these realized only need distinct hold effects, for effects that are used in-battle
 
 // Terrain seed params
 #define HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN  0

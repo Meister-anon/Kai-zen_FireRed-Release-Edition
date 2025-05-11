@@ -1325,6 +1325,16 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
             gBattleStruct->dynamicMoveType = TYPE_NORMAL;
     }
 
+    else if (move == MOVE_RAGING_BULL)
+    {
+        if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_COMBAT_BREED)
+            gBattleStruct->dynamicMoveType = TYPE_DARK;
+        else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_BLAZE_BREED)
+            gBattleStruct->dynamicMoveType = TYPE_FIRE;
+        else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_AQUA_BREED)
+            gBattleStruct->dynamicMoveType = TYPE_WATER;
+    }
+
     attackerAbility = GetBattlerAbility(battlerAtk);
     GET_MOVE_TYPE(move, moveType);
 
@@ -1506,6 +1516,16 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
             moveType = TYPE_FLYING;
         else
             moveType = TYPE_NORMAL;
+    }
+
+    else if (move == MOVE_RAGING_BULL)
+    {
+        if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_COMBAT_BREED)
+            moveType = TYPE_DARK;
+        else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_BLAZE_BREED)
+            moveType = TYPE_FIRE;
+        else if (gBattleMons[battlerAtk].species == SPECIES_TAUROS_PALDEAN_AQUA_BREED)
+            moveType = TYPE_WATER;
     }
 
     attackerAbility = GetBattlerAbility(battlerAtk);
