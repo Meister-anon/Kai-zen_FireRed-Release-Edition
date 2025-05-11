@@ -5088,12 +5088,12 @@ static u8 DexScreen_DrawMonDexPage(bool8 justRegistered) //should be able to uss
 
     // Species stats -need change these print functions, dexno cat, height & weight
     FillWindowPixelBuffer(sPokedexScreenData->windowIds[1], PIXEL_FILL(0));
-    DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, SpeciesVal, 0, 1);
+    DexScreen_PrintMonDexNo(sPokedexScreenData->windowIds[1], FONT_SMALL, SpeciesVal, 0, 4);
     //print name
     if (SpeciesVal <= 999)
-    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 1, 0);
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 28, 4, 0);
     else
-    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 32, 1, 0); //for 4 digit num, num fits perfect
+    DexScreen_AddTextPrinterParameterized(sPokedexScreenData->windowIds[1], FONT_NORMAL, gStringVar1, 32, 4, 0); //for 4 digit num, num fits perfect
 
     DexScreen_PrintMonCategory(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 16);
     DexScreen_PrintMonHeight(sPokedexScreenData->windowIds[1], SpeciesVal, 0, 28);
