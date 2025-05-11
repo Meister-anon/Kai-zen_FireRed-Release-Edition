@@ -4739,9 +4739,12 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
 {
     u8 *ptr;
     s32 i;
+    u8 side = GetBattlerSide(gActiveBattler);
+    struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
 
     if (!gBattleControllerExecFlags)
     {
+
         for (gActiveBattler = 0; gActiveBattler < gBattlersCount; ++gActiveBattler)
         {
             if ((gBattleTypeFlags & BATTLE_TYPE_SAFARI)
@@ -4761,7 +4764,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                 gBattleMons[gActiveBattler].type1 = gBaseStats[gBattleMons[gActiveBattler].species].type1;
                 gBattleMons[gActiveBattler].type2 = gBaseStats[gBattleMons[gActiveBattler].species].type2;
                 gBattleMons[gActiveBattler].type3 = TYPE_MYSTERY;
-                gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(gBattleMons[gActiveBattler].species, gBattleMons[gActiveBattler].abilityNum);
+                gBattleMons[gActiveBattler].ability = GetAbilityBySpecies(gBattleMons[gActiveBattler].species, gBattleMons[gActiveBattler].abilityNum, &party[gBattlerPartyIndexes[gActiveBattler]]);
                 hpOnSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(gActiveBattler)];
                 *hpOnSwitchout = gBattleMons[gActiveBattler].hp;
                 for (i = 0; i < NUM_BATTLE_STATS; ++i)
