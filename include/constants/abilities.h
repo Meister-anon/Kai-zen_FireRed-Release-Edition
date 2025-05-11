@@ -415,7 +415,9 @@
 #define ABILITY_SWIFT_JUSTICE 383 //virizion new ability boost damage if move first
 #define ABILITY_TOOLS_OF_THE_TRADE 384 //FATE reference //new ability for spidops combine insomnia stakeout analytic and guts/defiant but weaker effects for all if only sleeps one turn could boost defense and get heal? if heal doesn't work just block sleep altogether
 #define ABILITY_TROJAN_SWORD 385  //idea for buff iron leaves, block intimidate and gives sharpness
+#define ABILITY_HEAT_TRANCE 386 //SCOVILLAIN capsakid buff burn healing since is fire type still not great as requires holding flame orb guess can fing it if I don't need it?
+#define ABILITY_DESERT_DWELLER 387 //new cacturne line ability heat proof + thick fat
 
-#define ABILITIES_COUNT ABILITY_TOOLS_OF_THE_TRADE + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_DESERT_DWELLER + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

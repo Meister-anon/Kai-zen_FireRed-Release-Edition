@@ -13870,6 +13870,47 @@ use wonder gaurd logic to determine its super effective
     //otherwise not much reason to use earth power
     //mix of heat wave and surf
 
+    [MOVE_SPICE_TRADE] =
+    {
+        .effect = EFFECT_SET_TARGET_ABILITY, //new effect change target ability 
+        .power = 0,
+        .type = TYPE_FIRE, //similar to move entrainmet will default to that animation temp
+        .accuracy = 0,
+        .pp = 10,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 1,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_STATUS,
+        .argument = ABILITY_HEAT_TRANCE,
+    },
+    /*
+        @make imperfect acc as very strong
+        @and idea is sharing spicy food target may not like it
+        @hmm ok if I make this a categorical effect
+        @it'll have 90 acc but as scovillain exclussive make perf acc
+        @dont want to run into flying type acc debuff when I'm tryign to use it smh
+        @think would also make 0 priority for categorical effect
+    */
+
+    [MOVE_PEPPER_POPPER] =
+    {
+        .effect = EFFECT_SPEED_UP_2, //new effect change target ability 
+        .power = 0,
+        .type = TYPE_FIRE, //unsure if should be type grass or fire
+        .accuracy = 0, //capsakid not fire yet so guess keep as grass move? hmm nah make fire
+        .pp = 20,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .flags = FLAG_SNATCH_AFFECTED,
+        .split = SPLIT_STATUS,
+    },
+    //temp animation accupressure
+    //capsakid can learn this
+    //ah forgot this was meant to be new evo learn move
+    //since the move it does learn is next to useless in solo play
+
 
 
 

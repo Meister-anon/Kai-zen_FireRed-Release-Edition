@@ -1555,6 +1555,11 @@
 	.byte \battler
 	.endm
 
+	.macro setTargetAbility failInstr:req
+	callnative BS_TrySetAbility
+	.4byte \failInstr
+	.endm
+
 	@.macro CheckPassSecondaryItem battler:req
 	@callnative BS_checksecondaryItemslot
 	@.byte \battler

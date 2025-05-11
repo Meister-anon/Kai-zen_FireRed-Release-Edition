@@ -443,6 +443,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit				      @ EFFECT_SHELL_TRAP @think still todo? check later
 	.4byte BattleScript_EffectHitSwitchBind			  @EFFECT_SWITCH_BIND @spirit shackle buff, temp escape prevention doesn't require user stay in
 	.4byte BattleScript_EffectNettleWhip			  @EFFECT_NETTLE_WHIP
+	.4byte BattleScript_Effect_SetTargetAbility		  @EFFECT_SET_TARGET_ABILITY
 
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
@@ -1102,6 +1103,19 @@ BattleScript_MoveEffectFeint::
 BattleScript_EffectFeint:
 	setmoveeffect MOVE_EFFECT_FEINT
 	goto BattleScript_EffectHit
+
+
+BattleScript_Effect_SetTargetAbility:
+	attackcanceler
+	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	setTargetAbility BattleScript_ButItFailed	@ability set to stringbuff1
+	attackanimation
+	waitanimation
+	printstring STRINGID_CHANGE_ABILITY_TO
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
 
 BattleScript_EffectThirdType:
 	attackcanceler
@@ -8103,6 +8117,15 @@ BattleScript_DoTurnDmgEnd:
 
 BattleScript_PoisonHealActivates::
 	printstring STRINGID_POISONHEALHPUP
+	waitmessage B_WAIT_TIME_LONG
+	statusanimation BS_ATTACKER
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	end2
+
+BattleScript_HeatTranceHealActivates::
+	printstring STRINGID_HEAT_TRANCE_HPUP
 	waitmessage B_WAIT_TIME_LONG
 	statusanimation BS_ATTACKER
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE

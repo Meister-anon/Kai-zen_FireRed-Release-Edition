@@ -5652,6 +5652,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_DAMP:
     case ABILITY_WATER_BUBBLE:
     case ABILITY_HEATPROOF: //heatproff was previously 1/4th cut broke back down to 2
+    case ABILITY_HEAT_TRANCE:
     case ABILITY_BONE_ARMOR:
     case ABILITY_ENAMEL:
         if (moveType == TYPE_FIRE)
@@ -6179,9 +6180,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         if ((attacker->status1 & STATUS1_BURN) && IsBlackFogNotOnField() 
         && GetBattlerAbility(battlerIdAtk) != ABILITY_GUTS //nvm don't need is physical because its already in the bracket for that ^
+        && GetBattlerAbility(battlerIdAtk) != ABILITY_HEAT_TRANCE
         && GetBattlerAbility(battlerIdAtk) != ABILITY_TOOLS_OF_THE_TRADE)
         {
-            if (GetBattlerAbility(battlerIdAtk) == ABILITY_HEATPROOF) //halves effects from burn & heat/fire  //so burn atk cut is less
+            if (GetBattlerAbility(battlerIdAtk) == ABILITY_HEATPROOF //halves effects from burn & heat/fire  //so burn atk cut is less
+            || GetBattlerAbility(battlerIdAtk) == ABILITY_DESERT_DWELLER)
                 damage = (damage * 3) / 4;
             else
                 damage /= 2;

@@ -904,6 +904,8 @@
 #define MOVE_SOLAR_FLARE 870 //idea solrock magmar, fire based electro web
 //#define MOVES_COUNT_GEN8 757
 #define MOVE_MUDSLIDE 871 //new special groud move for gigalith line
+#define MOVE_SPICE_TRADE 872 //scovillain new signature move change target ability to ABILITY_HEAT_TRANCE
+#define MOVE_PEPPER_POPPER 873 //scovillain signature boost speed 1 or 2 stages
 
 //#define MOVES_COUNT MOVES_COUNT_GEN8
 
@@ -911,7 +913,7 @@
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_MUDSLIDE
+#define LAST_MOVE_INDEX     MOVE_PEPPER_POPPER
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 

@@ -4192,6 +4192,11 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     -note still missin most gen 9 abilities
     forgot hadn't setup sharpness
+    working on buff scovillain gave better support moves
+    think will adjust stats as well as I want it to be an offensive
+    support mon. think just give the grass type hp buffs?
+    -done buffed hp and gave a couple support moves 
+    and better abilities
 
     -decided scrap multi-status idea
     like what I have now w the poison and freeze changes

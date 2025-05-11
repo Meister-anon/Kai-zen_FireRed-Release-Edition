@@ -2793,25 +2793,26 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;//ghost drain works need to find proper graphic though/plus do same for if draining poison top
                 break;//pretty sure it uses the water bubble graphic
             case ENDTURN_POISON:  // poison
-                if ((gBattleMons[gActiveBattler].status1 & STATUS1_POISON) && gBattleMons[gActiveBattler].hp != 0
+                if (gBattleMons[gActiveBattler].hp != 0
                     && GetBattlerAbility(gActiveBattler) != ABILITY_TOXIC_BOOST
-                    && IsBlackFogNotOnField())
+                    && IsBlackFogNotOnField()) //realize poison heal would never trigger w orb as wouldn't be poisoned
                 {
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
 
-                    if (TryActivateBattlePoisonHeal())
+                    if (TryActivateBattlePoisonHeal(gActiveBattler))
                     {
                         if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                             gBattleMoveDamage *= -1;
+                            gProtectStructs[gActiveBattler].activatedPoisonHealing = TRUE;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_POISON_HEAL);
                             BattleScriptExecute(BattleScript_PoisonHealActivates);
                             ++effect;
                         }
                     }
-                    else
+                    else if (gBattleMons[gActiveBattler].status1 & STATUS1_POISON)
                     {
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
                         BattleScriptExecute(BattleScript_PoisonTurnDmg);
@@ -2821,7 +2822,7 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_BAD_POISON:  // toxic poison
-                if ((gBattleMons[gActiveBattler].status1 & STATUS1_TOXIC_POISON) && gBattleMons[gActiveBattler].hp != 0
+                if (gBattleMons[gActiveBattler].hp != 0
                     && GetBattlerAbility(gActiveBattler) != ABILITY_TOXIC_BOOST
                     && IsBlackFogNotOnField()) //works as I want, black fog here should also prevent toxic increment so it effectively pauses the dmg boost as well
                 {
@@ -2830,18 +2831,19 @@ u8 DoBattlerEndTurnEffects(void)
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
 
-                    if (TryActivateBattlePoisonHeal())
+                    if (TryActivateBattlePoisonHeal(gActiveBattler))
                     {
                         if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
                         {
                             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 6,1);
                             gBattleMoveDamage *= -1;
+                            gProtectStructs[gActiveBattler].activatedPoisonHealing = TRUE;
                             RecordAbilityBattle(gBattlerAttacker, ABILITY_POISON_HEAL);
                             BattleScriptExecute(BattleScript_PoisonHealActivates);
                             ++effect;
                         }
                     }
-                    else //changed setup for below, in advance of status change, as before it relied on toxic being theonly applied status
+                    else if (gBattleMons[gActiveBattler].status1 & STATUS1_TOXIC_POISON) //changed setup for below, in advance of status change, as before it relied on toxic being theonly applied status
                     {
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
 
@@ -2860,21 +2862,36 @@ u8 DoBattlerEndTurnEffects(void)
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_BURN:  // burn
-                if ((gBattleMons[gActiveBattler].status1 & STATUS1_BURN) && gBattleMons[gActiveBattler].hp != 0
+                if (gBattleMons[gActiveBattler].hp != 0
                     && GetBattlerAbility(gActiveBattler) != ABILITY_FLARE_BOOST
-                    && IsBlackFogNotOnField())
+                    && IsBlackFogNotOnField()) //realize poison heal would never trigger w orb as wouldn't be poisoned
                 {
                     MAGIC_GUARD_CHECK;
                     WONDER_GUARD_CHECK;
 
-                    if (GetBattlerAbility(gActiveBattler) == ABILITY_HEATPROOF) {
-                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
+                    if (TryActivateHeatTrance(gActiveBattler))
+                    {
+                        if (!BATTLER_MAX_HP(gActiveBattler) && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))
+                        {
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                            gBattleMoveDamage *= -1;
+                            RecordAbilityBattle(gBattlerAttacker, ABILITY_HEAT_TRANCE);
+                            BattleScriptExecute(BattleScript_HeatTranceHealActivates); //make its own strings
+                            ++effect;
+                        }
                     }
-                    else
-                        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                    else if (gBattleMons[gActiveBattler].status1 & STATUS1_BURN)
+                    {
+                        if (GetBattlerAbility(gActiveBattler) == ABILITY_HEATPROOF
+                        || GetBattlerAbility(gActiveBattler) == ABILITY_DESERT_DWELLER) {
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 16,1);
+                        }
+                        else
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
 
-                    BattleScriptExecute(BattleScript_BurnTurnDmg);
-                    ++effect;
+                        BattleScriptExecute(BattleScript_BurnTurnDmg);
+                        ++effect;
+                    }
                 }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
@@ -12176,7 +12193,8 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //decide change thick fat to change effectiveness
     //so clear the moves aren't effecting it much
     if ((moveType == TYPE_FIRE || moveType == TYPE_ICE)
-    && GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT)
+    && (GetBattlerAbility(battlerDef) == ABILITY_THICK_FAT
+    || GetBattlerAbility(battlerDef) == ABILITY_DESERT_DWELLER))
         mod = uq4_12_divide(mod, UQ_4_12(2.0));
 
     //should be fine smack down only works on floating mon
@@ -13395,17 +13413,41 @@ bool8 IscurrentMonOnFieldAtPos(struct Pokemon *mon, u8 position)
 //as it'll just return false for position player left
 
 
-bool32 TryActivateBattlePoisonHeal(void)  //change mind better to do 2 functions, rather than do 2 different effects with one.
+bool32 TryActivateBattlePoisonHeal(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
 {
 
+    if (!(gProtectStructs[battler].activatedPoisonHealing))
+    {
+        if ((GetBattlerAbility(battler) == ABILITY_POISON_HEAL) && gBattleMons[battler].hp != 0
+            && (gBattleMons[battler].status1 & STATUS1_POISON || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON))
+        {
+            return TRUE;
+        }
+        else if ((GetBattlerAbility(battler) == ABILITY_POISON_HEAL) && gBattleMons[battler].hp != 0
+            && DoesBattlerGetTypeBasedAffinity(battler, TYPE_POISON) 
+            && ((GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE) || (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TOXIC_ORB)))
+        {
+            return TRUE;
+        }
+    }
+    else
+        return FALSE;
 
-    if ((GetBattlerAbility(gActiveBattler) == ABILITY_POISON_HEAL) && gBattleMons[gActiveBattler].hp != 0
-        && (gBattleMons[gActiveBattler].status1 & STATUS1_POISON || gBattleMons[gActiveBattler].status1 & STATUS1_TOXIC_POISON))
+    
+}
+
+//fire type poison healing mostly for capsakid/scovillain
+bool32 TryActivateHeatTrance(u32 battler)  //change mind better to do 2 functions, rather than do 2 different effects with one.
+{
+
+    if ((GetBattlerAbility(battler) == ABILITY_HEAT_TRANCE) && gBattleMons[battler].hp != 0
+        && (gBattleMons[battler].status1 & STATUS1_BURN))
     {
         return TRUE;
     }
-    else if ((GetBattlerAbility(gActiveBattler) == ABILITY_POISON_HEAL) && gBattleMons[gActiveBattler].hp != 0
-        && DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_POISON) && (GetBattlerHoldEffect(gActiveBattler, TRUE) == HOLD_EFFECT_BLACK_SLUDGE))
+    else if ((GetBattlerAbility(battler) == ABILITY_HEAT_TRANCE) && gBattleMons[battler].hp != 0
+        && DoesBattlerGetTypeBasedAffinity(battler, TYPE_FIRE) 
+        && (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_FLAME_ORB))
     {
         return TRUE;
     }

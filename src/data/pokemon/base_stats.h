@@ -9952,8 +9952,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_SAND_VEIL, ABILITY_TOUGH_SPINES},
-        .abilityHidden = {ABILITY_WATER_ABSORB, ABILITY_HEATPROOF},
+        .abilities = {ABILITY_TOUGH_SPINES, ABILITY_WATER_ABSORB},
+        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_DESERT_DWELLER},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9983,8 +9983,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_GRASS,
         .eggGroup2 = EGG_GROUP_HUMAN_LIKE,
-        .abilities = {ABILITY_SAND_VEIL, ABILITY_TOUGH_SPINES},
-        .abilityHidden = {ABILITY_WATER_ABSORB, ABILITY_HEATPROOF},
+        .abilities = {ABILITY_TOUGH_SPINES, ABILITY_WATER_ABSORB}, //decide make water absorb heal in rain, at old rain dish value
+        .abilityHidden = {ABILITY_SAND_VEIL, ABILITY_DESERT_DWELLER},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9993,6 +9993,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCacturneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //bit cliche but remove heatproof and give new ability desert dweller
+    //which is heatproof plus thick fat  lives in desert used to both extrme hot and cold
 
     [SPECIES_SWABLU] =
     {
@@ -32435,7 +32437,7 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              60,
+              75,
               62,
               40,
               50,
@@ -32451,8 +32453,8 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_GRASS),
-        .abilities = { ABILITY_CHLOROPHYLL, ABILITY_INSOMNIA  },
-        .abilityHidden = {ABILITY_KLUTZ, ABILITY_NONE},
+        .abilities = { ABILITY_HEAT_TRANCE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SUN_DISK, ABILITY_OBLIVIOUS},//luvs sun, so sun disk can make sense
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32491,6 +32493,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCapsakidTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_FIRE_STONE, 0,  SPECIES_SCOVILLAIN}),
     },
+    //gave sun disk as bathes in sunlight to generate spice energy
+    //ah its name is based off capscaicin lol nice
 
     [SPECIES_SCOVILLAIN] =
     {
@@ -32498,7 +32502,7 @@ const struct BaseStats gBaseStats[] =
 
             //hp, atk, def, spd, spatk, spdef
         STATS(
-              75,
+              92,
               108,
               65,
               75,
@@ -32514,10 +32518,10 @@ const struct BaseStats gBaseStats[] =
         .friendship = FRIENDSHIP_STANDARD,
         .growthRate = GROWTH_MEDIUM_FAST,
         MON_EGG_GROUPS(EGG_GROUP_GRASS),
-        .abilities = { ABILITY_CHLOROPHYLL, ABILITY_INSOMNIA  },
-        .abilityHidden = {ABILITY_MOODY, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GREEN, //abilities are kind of lacking?
-        .noFlip = FALSE,
+        .abilities = { ABILITY_HEAT_TRANCE, ABILITY_NONE },
+        .abilityHidden = {ABILITY_SUN_DISK, ABILITY_ANGER_POINT}, //anger point green head rampages and gives intimidate protection
+        .bodyColor = BODY_COLOR_GREEN, //abilities are kind of lacking? //will prob drop moody to teachable list same for insomnia, it sucks
+        .noFlip = FALSE,    //even moody kinda sucks cuz it doesn't really have an abundance of good stats you can afford to drop
         .floating = FALSE,
         /*.speciesName = _("Scovillain"),
         .cryId = CRY_SCOVILLAIN,
@@ -32554,6 +32558,26 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sScovillainTMHMLearnset,
     },
 //#endif //P_FAMILY_CAPSAKID
+    //give signature ability same as toxic heal but for burn
+    //the capscacin high thing? //actually maybe just make the ability pepper popper?
+    //give it a support move that works for itself?
+    //and speed is average so can't even trick room it
+    //ok yeah give support move eat spice pepper energizes itself
+    //boosts speed 2 stages?
+    //picante
+    //Spice Euphoria?  tried to look into bl2 krieg skills for 
+    //name ideas Spice Trance Heat Trance?
+    //yeah Heat Trance seems aight
+    //ok give ANOTHER support move themed around sharing spicfy food
+    //allows passing abilit heat trance to ally/target
+    //turn scovillain into dmg dealing support mon
+    //oooh spice trade!!!
+    //can operate like neutralizing gas, can get around tricky 
+    //abilities like wonderguard or remove bad abilities
+    //from partner pokemon
+
+    //ABILITY_HEAT_TRANCE alone is still bad since relies on burn
+    //think need passive effect maybe have reduce fire damage as well
 
 //#if p_fAMILY_RELLOR
     [SPECIES_RELLOR] =

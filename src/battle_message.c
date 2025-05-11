@@ -645,6 +645,7 @@ static const u8 sText_PsychicTerrainEnds[] = _("The weirdness disappeared\nfrom 
 static const u8 sText_GrassyTerrainEnds[] = _("The grass disappeared\nfrom the battlefield.");
 static const u8 sText_TargetsStatWasMaxedOut[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY} maxed\nits {B_BUFF1}!");
 static const u8 sText_PoisonHealHpUp[] = _("The poison restored {B_ATK_NAME_WITH_PREFIX}'s\nHP a little!");
+static const u8 sText_HeatTranceHpUp[] = _("The burn restored {B_ATK_NAME_WITH_PREFIX}'s\nHP a little!");
 static const u8 sText_BadDreamsDmg[] = _("{B_DEF_NAME_WITH_PREFIX} is tormented\nby {B_ATK_ABILITY}!");
 static const u8 sText_MoldBreakerEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} breaks the mold!");
 static const u8 sText_TeravoltEnters[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} is radiating \na bursting aura!");
@@ -1559,6 +1560,8 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_SWITCH_LOCK_ENDS - BATTLESTRINGS_TABLE_START]                    = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is no longer bound!"),
     [STRINGID_BEINGHITCHARGEDPKMNWITHPOWER - BATTLESTRINGS_TABLE_START]   = COMPOUND_STRING("Being hit by {B_CURRENT_MOVE}\ncharged {B_DEF_NAME_WITH_PREFIX} with power!"),
     [STRINGID_REFLECT_INTIMIDATE - BATTLESTRINGS_TABLE_START]                    = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY} sent\nthe effect back to {B_ATK_NAME_WITH_PREFIX}!"),
+    [STRINGID_CHANGE_ABILITY_TO - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX}'s abiity changed\nto {B_BUFF1}!"),
+    [STRINGID_HEAT_TRANCE_HPUP - BATTLESTRINGS_TABLE_START]              = sText_HeatTranceHpUp,
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,

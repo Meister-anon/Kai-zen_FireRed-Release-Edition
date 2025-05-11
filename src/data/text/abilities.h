@@ -708,6 +708,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SWIFT_JUSTICE] = COMPOUND_ABILITY_STRING("Stikes swiftly and decisively.\nBoosts damage if attacks before target."),
     [ABILITY_TOOLS_OF_THE_TRADE] = COMPOUND_ABILITY_STRING("Boosts dmg to switching or faster foes.\nUps DEF if statused or stat drops"), //still missing sleep clause, had to remove burn logic but guts also doesn't include that in description
     [ABILITY_TROJAN_SWORD] = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
+    [ABILITY_HEAT_TRANCE] = COMPOUND_ABILITY_STRING("Elated by all things spicy and hot.\nHeals if burned, cuts fire damage taken."),
+    [ABILITY_DESERT_DWELLER] = COMPOUND_ABILITY_STRING("Adapted to the extremes of the desert.\nLessens effect of Heat Cold and burn."),
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1118,4 +1120,6 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_SWIFT_JUSTICE] = _("Swift Justice"),
     [ABILITY_TOOLS_OF_THE_TRADE] = _("Tools of the Trade"),
     [ABILITY_TROJAN_SWORD] = _("Trojan Sword"),
+    [ABILITY_HEAT_TRANCE] = _("Heat Trance"),
+    [ABILITY_DESERT_DWELLER] = _("Desert Dweller"),
 };//can have comma

@@ -14079,6 +14079,22 @@ void BS_TryQuash(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//for move spice trade
+//set battler ability based on argument
+void BS_TrySetAbility(void)
+{
+    NATIVE_ARGS(const u8* failInstr);
+    if (gBattleMons[gBattlerTarget].ability == gBattleMoves[gCurrentMove].argument)
+    {
+        gBattlescriptCurrInstr = cmd->failInstr;
+    }
+    else
+    {
+        gBattleMons[gBattlerTarget].ability = gBattleMoves[gCurrentMove].argument;
+        PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gBattleMoves[gCurrentMove].argument);
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
 
 //think I put this in attack canceler?
 void BS_TryActivateTimeControl(void)

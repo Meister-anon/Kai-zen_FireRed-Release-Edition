@@ -4145,10 +4145,18 @@ static const struct AbilityLearnset sKlawfAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sCapsakidAbilityLearnset[] = {
+    ABILITY_INSOMNIA,
+    ABILITY_KLUTZ,
+    ABILITY_CHLOROPHYLL,
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sScovillainAbilityLearnset[] = {
+    ABILITY_INSOMNIA,
+    ABILITY_MOODY,
+    ABILITY_CHLOROPHYLL,
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 

@@ -933,6 +933,8 @@ gBattleAnims_Moves::
 	.4byte Move_CONVERSION_Z
 	.4byte Move_SOLAR_FLARE	@putting w superpower for now, also need check emerald version unsure if anim is weird
 	.4byte Move_MUDSLIDE
+	.4byte Move_SPICE_TRADE
+	.4byte Move_PEPPER_POPPER
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -11063,6 +11065,7 @@ Move_TAILWIND:
 	delay 1
 	end
 
+Move_PEPPER_POPPER:
 Move_ACUPRESSURE:
 	loadspritegfx ANIM_TAG_ACUPRESSURE
 	loadspritegfx ANIM_TAG_SPARK_2
@@ -15127,6 +15130,7 @@ SimpleBeamWithRings:
 	delay 0x2
 	return
 
+Move_SPICE_TRADE:
 Move_ENTRAINMENT:
 	createvisualtask AnimTask_TeeterDanceMovement, 5
 	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
