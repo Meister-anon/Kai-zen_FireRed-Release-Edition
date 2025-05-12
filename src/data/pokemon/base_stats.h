@@ -22017,8 +22017,8 @@ const struct BaseStats gBaseStats[] =
          STATS(
         67,
         58,
-        57,
-        101,
+        67,
+        106,
         81,
         67
         ),
@@ -22033,7 +22033,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FAIRY,
         .abilities = {ABILITY_CHEEK_POUCH, ABILITY_PICKUP},
-        .abilityHidden = {ABILITY_PLUS, ABILITY_NONE},
+        .abilityHidden = {ABILITY_PLUS, ABILITY_STATIC}, //chang from woop, but with my static change can paralyze w volt switch
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -37808,7 +37808,7 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sRagingBoltAbilityLearnset,
         .levelUpLearnset = sRagingBoltLevelUpLearnset,
         .tmhmLearnset = sRagingBoltTMHMLearnset,
-    },  //alt entei/rakou 100%  not using, actually I like the raikou one now..
+    },
 //#endif //P_FAMILY_RAGING_BOLT
 
 //#if p_fAMILY_IRON_BOULDER
