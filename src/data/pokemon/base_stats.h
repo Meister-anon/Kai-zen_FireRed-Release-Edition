@@ -684,7 +684,7 @@ const struct BaseStats gBaseStats[] =
         .noFlip = FALSE,
         .floating = TRUE,
         .abilityLearnset = sBeedrillAbilityLearnset,
-        .levelUpLearnset = sBeedrillLevelUpLearnset,
+        .levelUpLearnset = sBeedrillLevelUpLearnset, //give mega beedrill hyper drill, unsure if give to base form //vsonic
         .tmhmLearnset = sBeedrillTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//decide put merciless on hidden slot keeping all poison related moves in hidden slots
@@ -3920,6 +3920,16 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sMagmarTMHMLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_MAGMARIZER, 0, SPECIES_MAGMORTAR}), //Should hopefully blank these for now without issue
     },
+    //since these two no longer get eviolite guess
+    //I should actually buff them?
+    //base on anime magmar should in some way be able
+    //to compete with charizard
+    //don't think I can buff as magmortar etc. isn't
+    //actually that much higher stat wise
+    //its just 495 up to 540
+    //ok can't buff, they are faaster at least than their
+    //evo counterparts perhaps can just make up the gap
+    //with the increased ev limit?
 
     [SPECIES_PINSIR] =
     {
@@ -5645,6 +5655,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sSudowoodoTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//make revisions to add grass moves to lvl up and tm learnsets   thinkin ingrain & bullet seed
+    //rattled works on dark ghost and bug moves
+    //like for this cuz sudowoodo thinks its a tree
+    //and grass type are weak to bug
+    //hmm that works for bonsly but if i make this
+    //actually a grass type...
 
     [SPECIES_POLITOED] =
     {

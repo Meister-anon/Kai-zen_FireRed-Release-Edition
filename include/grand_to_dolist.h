@@ -4201,6 +4201,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     need test poison heal end turn rework make sure works without issue
     -tested works 
 
+    but something odd is happening when do damaage to faint
+    not triggering faintmon target properly
+    seems to just do with effect hit???
+
+    maybe that unfinished battle script change I added.?
+    -fixed issue was lacking condition in arguemntwithchance
+    for moves without argument
+
     -decided scrap multi-status idea
     like what I have now w the poison and freeze changes
     while multi status is "cool" in a practical setting

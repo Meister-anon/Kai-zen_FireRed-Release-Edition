@@ -428,6 +428,7 @@
 #define EFFECT_HIGHEST_STAT_UP_HIT 415 //effect for lake fairy signature move from Legends Arceus
 #define EFFECT_SET_TARGET_ABILITY 416
 #define EFFECT_BEHEMOTH_ATTACK 417 //new weight based boost for behemoth bash and blade
+#define EFFECT_SPICY_EXTRACT 418
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

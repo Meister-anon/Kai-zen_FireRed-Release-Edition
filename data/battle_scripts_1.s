@@ -446,6 +446,9 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHighestStatUpHit		  @EFFECT_HIGHEST_STAT_UP_HIT
 	.4byte BattleScript_Effect_SetTargetAbility		  @EFFECT_SET_TARGET_ABILITY
 	.4byte BattleScript_EffectHit					  @EFFECT_BEHEMOTH_ATTACK
+	.4byte BattleScript_EffectSpicyExtract			  @EFFECT_SPICY_EXTRACT
+	
+
 
 BattleScript_EffectHighestStatUpHit:
 BattleScript_EffectAlwaysCrit:
@@ -1106,6 +1109,44 @@ BattleScript_MoveEffectFeint::
 BattleScript_EffectFeint:
 	setmoveeffect MOVE_EFFECT_FEINT
 	goto BattleScript_EffectHit
+
+BattleScript_EffectSpicyExtract::
+	attackcanceler
+	jumpifsubstituteblocks BattleScript_ButItFailed
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	jumpifstat BS_TARGET, CMP_LESS_THAN, STAT_ATK, MAX_STAT_STAGE BattleScript_SpicyExtract_CheckShouldSkipAttackAnim
+	jumpifstat BS_TARGET, CMP_GREATER_THAN, STAT_DEF, MIN_STAT_STAGE, BattleScript_SpicyExtract_CheckShouldSkipAttackAnim
+	goto BattleScript_ButItFailed
+BattleScript_SpicyExtract_CheckShouldSkipAttackAnim:
+	jumpifbyte CMP_NOT_EQUAL, gBattleCommunication, 0, BattleScript_SpicyExtract_RaiseAtk
+	attackstring
+	ppreduce
+	bicword gHitMarker, HITMARKER_NO_ATTACKSTRING | HITMARKER_NO_PPDEDUCT
+	goto BattleScript_SpicyExtract_SkipAttackAnim
+BattleScript_SpicyExtract_RaiseAtk:
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+BattleScript_SpicyExtract_SkipAttackAnim:
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_TARGET, BIT_ATK, STAT_CHANGE_STAT_BY_TWO
+	setstatchanger STAT_ATK, 2, FALSE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_EffectSpicyExtractDefenseDown
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_EffectSpicyExtractDefenseDown
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_EffectSpicyExtractDefenseDown:
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_TARGET, BIT_DEF, STAT_CHANGE_NEGATIVE | STAT_CHANGE_STAT_BY_TWO
+	setstatchanger STAT_DEF, 2, TRUE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_EffectSpicyExtract_End
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_EffectSpicyExtract_End
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_EffectSpicyExtract_End:
+	goto BattleScript_MoveEnd
+
 
 
 BattleScript_Effect_SetTargetAbility:

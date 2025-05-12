@@ -12380,7 +12380,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SPICY_EXTRACT] =
     {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_SPICY_EXTRACT
+        .effect = EFFECT_SPICY_EXTRACT,  //atk up 2 def down 2, so a doubles support move
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 0, // Supposedly never misses? needs a double check?
@@ -12394,6 +12394,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMoveEffect = Z_EFFECT_NONE,
         // The datamine master sheet mentions uncopiable by Metronome but that sounds odd? not yet implemented
     },
+    //should make scovillian amazing but it never gets used
+    //it can't stick around,
 
     [MOVE_SPIN_OUT] =
     {
@@ -12948,10 +12950,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .effect = EFFECT_SPLASH,    //Todo // EFFECT_GIGATON_HAMMER
         .power = 160,
-        .type = TYPE_STEEL,
+        .type = TYPE_STEEL, //self torment cant use move twice in a row normally
         .accuracy = 100,
         .pp = 5,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 0, //well similar to torment,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED,
@@ -12959,6 +12961,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         //.zMovePower = 200,
         //.zMoveEffect = Z_EFFECT_NONE,
     },
+    //move cant be used in succession, but not a recharge move.
+    //(seems game freak realized how useless they were)
+    //instad user isn't allowed to select move, similar to taunt etc.
+    //so would need to set last used move is hammer add to locked
+    //the seletion block can be bypassed by instruct and sleep talk successfully
+    //but if done so via encore or choice items, the pokemon will instead struggle
+    //summary don't think need special effect for this
+    //eh guess can do as a new catgory of move
+    //vsonic
 
     [MOVE_COMEUPPANCE] =
     {
