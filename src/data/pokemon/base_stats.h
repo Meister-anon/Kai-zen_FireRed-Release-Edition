@@ -3415,7 +3415,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sKoffingTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(35, AVERAGE_EFFORT), 0, SPECIES_WEEZING},
                                 {EVO_LEVEL_FORM, RELATIVE_EVO(35, AVERAGE_EFFORT), F_GALARIAN_FORM, SPECIES_WEEZING_GALARIAN}), //Should hopefully blank these for now without issue
-    },//vsonic need figre how do these alt forms with identical evo values like pikachu
+    },
 
     [SPECIES_WEEZING] =
     {
@@ -6417,7 +6417,7 @@ const struct BaseStats gBaseStats[] =
     //so while defeatist has some utility now, its still not good here
     //replace w original ability of light metal which has been buffed
     //give first impressions also realized there's still not a common bug priority move
-    //ok made skitter smack bug prio move. vsonic
+    //ok made skitter smack bug prio move.
 
     [SPECIES_SHUCKLE] =
     {
@@ -6840,7 +6840,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSkarmoryLevelUpLearnset,
         .tmhmLearnset = sSkarmoryTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
-    }, //give better steel moves smart strike etc. vsonic
+    }, //give better steel moves smart strike etc.
     //and w changes to type think I want to toss lightning rod on this
     //ok think I'm dropping keen eye, its ok, but for the most part it being
     //steel already keeps it safe from evasion drops for the most part, well sandstorm
@@ -7170,7 +7170,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sSmoochumLevelUpLearnset,
         .tmhmLearnset = sSmoochumTMHMLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(24, AVERAGE_EFFORT), 0, SPECIES_JYNX}), //Should hopefully blank these for now without issue    //thematically but  its defense is too low, gave it a little more def, and jynx line more hp overall,...may not need I kinda made ice defenses op...
-    },//need rewrite dex for this, use bulbapedia info,  dex entries for this thing are kinda cursed... vsonic
+    },
 
     [SPECIES_ELEKID] =
     {
@@ -7327,7 +7327,7 @@ const struct BaseStats gBaseStats[] =
 
     //do same for flash fire motor drive & sap sipper
     //counter balance by making it only work for partner if mon with ability isn't statused
-    //vsonic -did
+
     //OK so changed type for each of other dogs...
     //what if...it has a cape of clouds what if I made this a flying type...
     //and what if I gave it wind rider
@@ -34833,10 +34833,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SLOW_START, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PURPLE,
-        .noFlip = FALSE,
-        .floating = FALSE,
+        .noFlip = FALSE,//not do gorilla tactics one of its virtues is move variety think will do odd move
+        .floating = FALSE, //give slow start has high dmg moves and high attack but this will be used defensively and to let it  get use in trick room
         /*.speciesName = _("Great Tusk"),
         .cryId = CRY_GREAT_TUSK,
         .natDexNum = NATIONAL_DEX_GREAT_TUSK,
@@ -34873,6 +34873,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGreatTuskTMHMLearnset,
     },
 //#endif //P_FAMILY_GREAT_TUSK
+//needs S/V tms to be good, endeavor ice spinner body slam heavy slam etc
+//vsonic
 
 //#if p_fAMILY_SCREAM_TAIL
     [SPECIES_SCREAM_TAIL] =
@@ -34898,8 +34900,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PINK,
+        .abilityHidden = {ABILITY_CACOPHONY, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_PINK, //yeah pretty much perfect for cacophony
         .noFlip = FALSE,
         .floating = FALSE,
         /*.speciesName = _("ScreamTail"),
@@ -34963,7 +34965,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_STAKEOUT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -35030,10 +35032,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TELEPATHY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
-        .floating = TRUE,
+        .floating = TRUE,//support ability, already too good otherwise
         /*.speciesName = _("FluttrMane"),
         .cryId = CRY_FLUTTER_MANE,
         .natDexNum = NATIONAL_DEX_FLUTTER_MANE,
@@ -35095,10 +35097,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = FALSE,///think just copy effect already used adn give sheer force
         /*.speciesName = _("SlithrWing"),
         .cryId = CRY_SLITHER_WING,
         .natDexNum = NATIONAL_DEX_SLITHER_WING,
@@ -35159,7 +35161,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SIROCCO, ABILITY_NONE},//think just give siroco?
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -35224,8 +35226,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_GRAY,
+        .abilityHidden = {ABILITY_STEELY_SPIRIT, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_GRAY,//decide also give support ability
         .noFlip = FALSE,
         .floating = FALSE,
         /*.speciesName = _("IronTreads"),
@@ -35289,9 +35291,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_RED,
-        .noFlip = FALSE,
+        .abilityHidden = {ABILITY_BATTERY, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_RED,//crazy idea but decide give battery, a support ability intstead of something directly for itself
+        .noFlip = FALSE, //since overall its speed and stats are very solid
         .floating = FALSE,
         /*.speciesName = _("IronBundle"),
         .cryId = CRY_IRON_BUNDLE,
@@ -35354,7 +35356,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DEFIANT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -35394,6 +35396,15 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sIronHandsTMHMLearnset,
     },
 //#endif //P_FAMILY_IRON_HANDS
+//biggest issues were intimidate incineroar,
+//raging bolt doing its job and not being bothered by intimidate
+//and it effectively doesn't have an ability without a terrain setter
+//so simplest solution is an ability to solve its issues
+//making fighting type galvanize seems good,but doesn't help ice engagement
+//so instead defiant would solve all its problems
+//and not require running clear amulet,
+//but clear amulet could still beuseful
+//just to get even more atk boost out of intimidate rather than a plus 1
 
 //#if p_fAMILY_IRON_JUGULIS
     [SPECIES_IRON_JUGULIS] =
@@ -35419,8 +35430,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_BLUE,
+        .abilityHidden = {ABILITY_NORMALIZE, ABILITY_NONE},//ok decided on normalize as an odd touch, as both types don't hit that many types for super damage and have a good deal of resistance
+        .bodyColor = BODY_COLOR_BLUE, //thought about giving dread wing, but is already dark flying seems too similar to moltres
         .noFlip = FALSE,
         .floating = TRUE,
         /*.speciesName = _("IronJuguls"),
@@ -35484,7 +35495,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -35549,10 +35560,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN,
-        .noFlip = FALSE,
-        .floating = FALSE,
+        .noFlip = FALSE,//goal is to give this a separate niche to tyranitar
+        .floating = FALSE, //
         /*.speciesName = _("IronThorns"),
         .cryId = CRY_IRON_THORNS,
         .natDexNum = NATIONAL_DEX_IRON_THORNS,
@@ -36259,9 +36270,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_AURA_BREAK, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
-        .noFlip = FALSE,
+        .noFlip = FALSE, //very good, gave defensive ability 
         .floating = TRUE,
         /*.speciesName = _("RoarngMoon"),
         .cryId = CRY_ROARING_MOON,
@@ -36324,10 +36335,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_WHITE,
-        .noFlip = FALSE,
-        .floating = FALSE,
+        .abilityHidden = {ABILITY_FAIRY_MIST, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_WHITE,//don't really want to just make custom HA for the paradox's but if its that bad I guess? //yeah think will do that, also give secret power, will replace play rough it doesn't get
+        .noFlip = FALSE, //never used for reason I don't get
+        .floating = FALSE,//considering misty surge or pixelate my version of mist terrain is good for healing w drain punch
         /*.speciesName = _("IronVliant"),
         .cryId = CRY_IRON_VALIANT,
         .natDexNum = NATIONAL_DEX_IRON_VALIANT,
@@ -36783,10 +36794,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_MULTISCALE, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = FALSE,//decided go defensive
         /*.speciesName = _("WalkngWake"),
         .cryId = CRY_WALKING_WAKE,
         .natDexNum = NATIONAL_DEX_WALKING_WAKE,
@@ -37694,10 +37705,10 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_DROUGHT, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
-        .noFlip = FALSE,
-        .floating = FALSE,
+        .noFlip = FALSE, //as its a paradox can allow it having drought too
+        .floating = FALSE,//think will give drought? let it work as setup for paradox team
         /*.speciesName = _("GouginFire"),
         .cryId = CRY_GOUGING_FIRE,
         .natDexNum = NATIONAL_DEX_GOUGING_FIRE,
@@ -37759,7 +37770,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_PROTOSYNTHESIS, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_LONG_REACH, ABILITY_NONE},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -37824,9 +37835,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_BULLETPROOF, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
-        .noFlip = FALSE,
+        .noFlip = FALSE,//bullet proof sturdy, stamina
         .floating = FALSE,
         /*.speciesName = _("IronBouldr"),
         .cryId = CRY_IRON_BOULDER,
@@ -37888,7 +37899,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED),
         .abilities = { ABILITY_QUARK_DRIVE, ABILITY_NONE },
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHARPNESS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -47380,7 +47391,7 @@ const struct BaseStats gBaseStats[] =
     //replaced no guard, no good low acc moves to give
     //need review tm access mdinight specifically loses moves other forms get
     //and is given special dark moves -_-
-    //give obstruct vsonic
+    //give obstruct
 
     [SPECIES_LYCANROC_DUSK] =
     {

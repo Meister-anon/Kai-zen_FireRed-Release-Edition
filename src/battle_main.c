@@ -1365,7 +1365,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
              && move != MOVE_WEATHER_BALL    //as effects are never reused, i.e only for those specific moves
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
-             && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))
+             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
                  || (attackerAbility == ABILITY_GALVANIZE && (ateType = TYPE_ELECTRIC))
@@ -1379,7 +1379,7 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
              && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
-             && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
+             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         gBattleStruct->dynamicMoveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
         gBattleStruct->ateBoost[battlerAtk] = 1;
@@ -1555,7 +1555,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
              && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
-             && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))
+             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))
                  || (attackerAbility == ABILITY_REFRIGERATE && (ateType = TYPE_ICE))
                  || (attackerAbility == ABILITY_AERILATE && (ateType = TYPE_FLYING))
                  || ((attackerAbility == ABILITY_GALVANIZE) && (ateType = TYPE_ELECTRIC))
@@ -1569,7 +1569,7 @@ u8 ReturnMoveType(u16 move, u8 battlerAtk)
              && move != MOVE_WEATHER_BALL
              && gBattleMoves[move].effect != EFFECT_CHANGE_TYPE_ON_ITEM
              && gBattleMoves[move].effect != EFFECT_NATURAL_GIFT
-             && ((attackerAbility == ABILITY_PIXILATE && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
+             && (((attackerAbility == ABILITY_PIXILATE || attackerAbility == ABILITY_FAIRY_MIST) && (ateType = TYPE_FAIRY))))//Think leave just for fairy? fairy for sound kinda makes sense to me, think they sing?
     {
         moveType = ateType;// | F_DYNAMIC_TYPE_2; //above should do type change already, dmg boosts are already in pokemon.c
 

@@ -710,6 +710,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_TROJAN_SWORD] = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
     [ABILITY_HEAT_TRANCE] = COMPOUND_ABILITY_STRING("Elated by all things spicy and hot.\nHeals if burned, cuts fire damage taken."),
     [ABILITY_DESERT_DWELLER] = COMPOUND_ABILITY_STRING("Adapted to the extremes of the desert.\nLessens effect of Heat Cold and burn."),
+    [ABILITY_FAIRY_MIST] = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle.")
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1122,4 +1123,5 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_TROJAN_SWORD] = _("Trojan Sword"),
     [ABILITY_HEAT_TRANCE] = _("Heat Trance"),
     [ABILITY_DESERT_DWELLER] = _("Desert Dweller"),
+    [ABILITY_FAIRY_MIST] = _("Fairy Mist"),
 };//can have comma
