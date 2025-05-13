@@ -939,6 +939,9 @@ enum   //battler end turn
     ENDTURN_WONDER_GUARD, //kept here to exclude from other end turn damage for full timer duration
     ENDTURN_BIDE,
     ENDTURN_ESCAPE_PREVENT, //named for simplicity, is switch lock effect
+    ENDTURN_SPIKES_ABSORB,
+    ENDTURN_TOXICSPIKES_ABSORB,
+    ENDTURN_STEALTH_ROCK_ABSORB,
     ENDTURN_BATTLER_COUNT
 };
 
@@ -3612,6 +3615,103 @@ u8 DoBattlerEndTurnEffects(void)
                     ++effect;
                 }//ends turn  //may need to swap this to target, depending on who's turn this plays at?
                 ////from GriffinR, --timer meaens decreminet timer if timer != 0
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_SPIKES_ABSORB:
+                if ((gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES)
+                    && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
+                    && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
+                    && IsBattlerGrounded(gActiveBattler))
+                {
+                    if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_GROUND)) // Absorb the spikes.
+                    {
+                        gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_SPIKES;
+                        gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount = 0;
+                        gBattleScripting.battler = gActiveBattler;
+                        BattleScriptExecute(BattleScript_SpikesAbsorbed_Endturn);
+                        ++effect;
+                    }
+
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_TOXICSPIKES_ABSORB:
+                if ((gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_TOXIC_SPIKES)
+                    && IsBattlerGrounded(gActiveBattler))
+                {
+                    if (GetBattlerAbility(gActiveBattler) == ABILITY_POISON_HEAL)
+                    {
+                        gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
+                        gSideTimers[GetBattlerSide(gActiveBattler)].toxicSpikesAmount = 0;
+                        gBattleScripting.battler = gActiveBattler;
+                        
+                        //if can heal
+                        if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
+                        && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+                        {
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                            gBattleMoveDamage *= -1;
+
+                            
+                            StringCopy(gStringVar2, COMPOUND_STRING("Toxic Spikes"));
+                            BattleScriptExecute(BattleScript_HazardAbsorbAbilityHeal_Endturn);
+                            ++effect;
+                        }
+                        else //can't heal use normal absorb script
+                        {
+                            BattleScriptExecute(BattleScript_ToxicSpikesAbsorbed_Endturn);
+                            ++effect;
+                        }
+                        
+                    }
+                    else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_POISON)) // Absorb the toxic spikes.
+                    {
+                        gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
+                        gSideTimers[GetBattlerSide(gActiveBattler)].toxicSpikesAmount = 0;
+                        gBattleScripting.battler = gActiveBattler;
+                        BattleScriptExecute(BattleScript_ToxicSpikesAbsorbed_Endturn);
+                        ++effect;
+                    }
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_STEALTH_ROCK_ABSORB:
+                if ((gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK)
+                    && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
+                    && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
+                    && IsBlackFogNotOnField())
+                {
+                    if (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION
+                    || GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
+                    {
+                        gSideStatuses[gActiveBattler] &= ~(SIDE_STATUS_STEALTH_ROCK);  //absorb stealth rock
+                        gBattleScripting.battler = gActiveBattler;
+                        
+                        //if can heal
+                        if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
+                        && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+                        {
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                            gBattleMoveDamage *= -1;
+
+                            StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                            BattleScriptExecute(BattleScript_HazardAbsorbAbilityHeal_Endturn);
+                            ++effect;
+                        }
+                        else //can't heal use normal absorb script
+                        {
+                            BattleScriptExecute(BattleScript_StealthRockAbsorb_Endturn);
+                            ++effect;
+                        }
+                    }
+                    else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_ROCK)) // Absorb the stealth rock.
+                    {
+                        gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
+                        gBattleScripting.battler = gActiveBattler;
+                        BattleScriptExecute(BattleScript_StealthRockAbsorb_Endturn);
+                        ++effect;
+                    }
+                }
                 ++gBattleStruct->turnEffectsTracker;
                 break;
             case ENDTURN_BATTLER_COUNT:  // done
@@ -6828,25 +6928,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gDisableStructs[battler].defeatistActivated = 1;
                         ++effect;
                     }
-                }
-                break;
-            case ABILITY_EROSION:
-                if (gSideStatuses[battler] & SIDE_STATUS_STEALTH_ROCK)
-                {
-                    gSideStatuses[battler] &= ~(SIDE_STATUS_STEALTH_ROCK);  //absorb stealth rock
-                    gSideTimers[battler].stealthRockAmount = 0;
-                    if (!(gSideStatuses[GET_BATTLER_SIDE(battler)] & SIDE_STATUS_HEAL_BLOCK))    //health block check
-                    {
-                        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 4,1);
-                        gBattleMoveDamage *= -1;
-
-                        if (gBattleMons[battler].hp > gBattleMons[battler].maxHP)
-                            gBattleMons[battler].hp = gBattleMons[battler].maxHP;
-                    }
-
-                    BattleScriptPushCursorAndCallback(BattleScript_StealthRockAbsorb);
-                    gBattleScripting.battler = battler;
-                    ++effect;
                 }
                 break;
             case ABILITY_ECOSYSTEM:

@@ -690,7 +690,7 @@ static const u8 sText_MoxieAtkRise[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABIL
 static const u8 sText_MagicBounceActivates[] = _("The {B_DEF_NAME_WITH_PREFIX} bounced the\n{B_ATK_NAME_WITH_PREFIX} back!");
 static const u8 sText_ProteanTypeChange[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY} transformed\nit into the {B_BUFF1} type!");
 static const u8 sText_SymbiosisItemPass[] = _("{B_ATK_NAME_WITH_PREFIX} passed its {B_LAST_ITEM}\nto {B_SCR_ACTIVE_NAME_WITH_PREFIX} through {B_ATK_ABILITY}!");
-static const u8 sText_StealthRockAbsorbed[] = _("Pointed stones disappeared\nfrom around {B_ATK_TEAM2} team's feet!");
+static const u8 sText_StealthRockAbsorbed[] = _("Pointed stones disappeared\nfrom around {B_ATK_TEAM2}'s team!");
 static const u8 sText_StealthRockDmg[] = _("Pointed stones dug into\n{B_SCR_ACTIVE_NAME_WITH_PREFIX}!");
 static const u8 sText_ToxicSpikesAbsorbed[] = _("The poison spikes disappeared\nfrom around {B_ATK_TEAM2} team's feet!");
 static const u8 sText_ToxicSpikesPoisoned[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} was poisoned!");
@@ -1562,6 +1562,8 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_REFLECT_INTIMIDATE - BATTLESTRINGS_TABLE_START]                    = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY} sent\nthe effect back to {B_ATK_NAME_WITH_PREFIX}!"),
     [STRINGID_CHANGE_ABILITY_TO - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX}'s abiity changed\nto {B_BUFF1}!"),
     [STRINGID_HEAT_TRANCE_HPUP - BATTLESTRINGS_TABLE_START]              = sText_HeatTranceHpUp,
+    [STIRNGID_SPIKESABSORBED - BATTLESTRINGS_TABLE_START]               = COMPOUND_STRING("The pointed spikes around {B_ATK_TEAM2}'s team\nsunk into the ground!"),
+    [STRINGID_CONSUMED_HAZARD - BATTLESTRINGS_TABLE_START]              = COMPOUND_STRING("{B_SCR_ACTIVE_NAME_WITH_PREFIX} consumed the {STR_VAR_2}\nthanks to {B_SCR_ACTIVE_ABILITY}!"),
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,
@@ -2064,7 +2066,7 @@ const u16 gDmgHazardsStringIds[] =
     [B_MSG_PKMNHURTBYSPIKES]   = STRINGID_PKMNHURTBYSPIKES,
     [B_MSG_STEALTHROCKDMG]     = STRINGID_STEALTHROCKDMG,
     [B_MSG_POINTEDSTONESFLOAT] = STRINGID_POINTEDSTONESFLOAT,
-    [B_MSG_SPIKESSCATTERED]    = STRINGID_SPIKESSCATTERED
+    [B_MSG_SPIKESSCATTERED]    = STRINGID_SPIKESSCATTERED,
 };
 
 const u8 gText_PkmnIsEvolving[] = _("What?\n{STR_VAR_1} is evolving!");

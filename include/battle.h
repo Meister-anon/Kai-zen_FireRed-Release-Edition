@@ -461,7 +461,7 @@ struct SideTimer    //effects below persist regardless of mon
     /*0x0A*/ 
     u8 spikesAmount:2; //3 effective layers
     u8 toxicSpikesAmount:2; //2 effective layers
-    u8 stealthRockAmount:2; //1 effective layers
+    u8 padding1:2; //1 effective layers    //...why is this here?? vsonic -replace w padding value
     u8 stickyWebAmount:2; //2 effective layers - ability or move to set stickyweb //bleive was my own change,
     u8 stickyWebBattlerSide; // Used for Court Change
     
@@ -474,7 +474,7 @@ struct SideTimer    //effects below persist regardless of mon
     u32 waterSportTimer:3;  //forgot to remove these earlier, since I'm using gen 3 effects for them
     u32 retaliateTimer:3;  
     u32 MagicTimer:3;
-    u32 padding1:4;
+    u32 padding2:4;
 
     u8 auroraVeilBattlerId;    
     u8 tailwindBattlerId;    

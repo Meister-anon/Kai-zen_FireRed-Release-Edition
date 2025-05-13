@@ -2496,6 +2496,71 @@ BattleScript_ToxicSpikesAbsorbed::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+BattleScript_ToxicSpikesAbsorbed_Endturn::
+	printstring STRINGID_TOXICSPIKESABSORBED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
+BattleScript_SpikesAbsorbed::
+	printstring STIRNGID_SPIKESABSORBED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
+BattleScript_SpikesAbsorbed_Endturn::
+	printstring STIRNGID_SPIKESABSORBED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
+@use case currently doesnt exist
+@but added anyway
+@oh I'm stupid all the scipts are identical
+BattleScript_HazardAbsorbAbilityHeal::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_SCRIPTING
+	datahpupdate BS_SCRIPTING
+	return
+
+BattleScript_HazardAbsorbAbilityHeal_Endturn::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_SCRIPTING
+	datahpupdate BS_SCRIPTING
+	end2
+
+BattleScript_StealthRockAbsorb::
+	printstring STRINGID_STEALTHROCKABROSBED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
+BattleScript_StealthRockAbsorb_Endturn::
+	printstring STRINGID_STEALTHROCKABROSBED
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	end2
+
+BattleScript_StealhRockHealAbsorb::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_SCRIPTING
+	datahpupdate BS_SCRIPTING
+	return
+
+BattleScript_StealhRockHealAbsorb_Endturn::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_SCRIPTING
+	datahpupdate BS_SCRIPTING
+	end2
+
+
 BattleScript_ToxicSpikesPoisoned::
 	printstring STRINGID_TOXICSPIKESPOISONED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -4787,6 +4852,7 @@ BattleScript_ProtectLikeAtkString::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
+@for moves that set hazards
 BattleScript_StealthRockActivates::
 	setstealthrock BattleScript_MoveEnd
 	printfromtable gDmgHazardsStringIds
@@ -4799,10 +4865,7 @@ BattleScript_SpikesActivates::
 	waitmessage B_WAIT_TIME_LONG
 	return
 
-@for stone axe, similar to my set for spiky shield but reversed
-@potentially take to clean up my setup?  - vsonic still to add for stone axe
 BattleScript_EffectHitSetEntryHazard::
-	@argumenttomoveeffect		@pretty sure w new argument command in hit, don't need this, only need if doesnt go to hit
 	goto BattleScript_EffectHit
 
 BattleScript_EffectSpikes::

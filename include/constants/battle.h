@@ -362,15 +362,15 @@
 #define SIDE_STATUS_SAFEGUARD				(1 << 5)
 #define SIDE_STATUS_FREE_SPACE  			(1 << 6)	//black fog shuold prevnt same as block burn/etc. dmg
 #define SIDE_STATUS_MIST					(1 << 8)	//blocked by black fog
-#define SIDE_STATUS_SPIKES_DAMAGED			(1 << 9)
+#define SIDE_STATUS_SPIKES_TRIGGERED		(1 << 9)    //not actually damage is just a check for if effect has triggered for condition progression
 #define SIDE_STATUS_TAILWIND                (1 << 10)	//unsure could have tail wind use do defog affect, remove mist & black fog
 #define SIDE_STATUS_AURORA_VEIL             (1 << 11)
 #define SIDE_STATUS_LUCKY_CHANT             (1 << 12)
 #define SIDE_STATUS_TOXIC_SPIKES            (1 << 13)
 #define SIDE_STATUS_STEALTH_ROCK            (1 << 14) //also prevented from dmg when black fog up
-#define SIDE_STATUS_STEALTH_ROCK_DAMAGED    (1 << 15)
-#define SIDE_STATUS_TOXIC_SPIKES_DAMAGED    (1 << 16)
-#define SIDE_STATUS_STICKY_WEB_DAMAGED      (1 << 17)
+#define SIDE_STATUS_STEALTH_ROCK_TRIGGERED  (1 << 15)
+#define SIDE_STATUS_TOXIC_SPIKES_TRIGGERED  (1 << 16)
+#define SIDE_STATUS_STICKY_WEB_TRIGGERED    (1 << 17)
 #define SIDE_STATUS_QUICK_GUARD             (1 << 18)
 #define SIDE_STATUS_WIDE_GUARD              (1 << 19)
 #define SIDE_STATUS_CRAFTY_SHIELD           (1 << 20)

@@ -5353,7 +5353,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags = 0;
                 
                 if (mirrorArmorReflected)
-                    flags |= (STAT_CHANGE_BS_PTR * !affectsUser);
+                    flags |= (STAT_CHANGE_ALLOW_PTR * !affectsUser);
                 else
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
@@ -5372,7 +5372,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 } 
 
                 /*if (mirrorArmorReflected && !affectsUser)
-                    flags |= STAT_CHANGE_BS_PTR;
+                    flags |= STAT_CHANGE_ALLOW_PTR;
                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_1 + 1,
                                     flags | STAT_CHANGE_UPDATE_MOVE_EFFECT, 
@@ -5435,7 +5435,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     flags = 0;
                 
                 if (mirrorArmorReflected)
-                    flags |= (STAT_CHANGE_BS_PTR * !affectsUser);
+                    flags |= (STAT_CHANGE_ALLOW_PTR * !affectsUser);
                 else
                     flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
 
@@ -5462,7 +5462,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                
                 //if (mirrorArmorReflected && !affectsUser)
-                //    flags |= STAT_CHANGE_BS_PTR;
+                //    flags |= STAT_CHANGE_ALLOW_PTR;
 
                 /*if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_2 + 1,
@@ -6161,7 +6161,7 @@ static void atk19_tryfaintmon(void)
             BS_ptr = cmd->ptr;
             BattleScriptPop();
             gBattlescriptCurrInstr = BS_ptr;
-            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_DAMAGED | SIDE_STATUS_TOXIC_SPIKES_DAMAGED | SIDE_STATUS_STEALTH_ROCK_DAMAGED | SIDE_STATUS_STICKY_WEB_DAMAGED);
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_TRIGGERED | SIDE_STATUS_TOXIC_SPIKES_TRIGGERED | SIDE_STATUS_STEALTH_ROCK_TRIGGERED | SIDE_STATUS_STICKY_WEB_TRIGGERED);
         }
         else //think jump to another instruction
         {
@@ -10244,58 +10244,114 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         gBattlescriptCurrInstr = BattleScript_SwitchInAbilityMsgRet;
     }
      
-    //base fire red spike/hazard logic
-    /*if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
-     && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES)
-     && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_FLYING)
-     && gBattleMons[gActiveBattler].ability != ABILITY_LEVITATE
-     && !IsBattlerGrounded(gActiveBattler)) //if grounded works can remove flying and levitate check
-    {
-        u8 spikesDmg; //I have no idea what this function is doing other than setting spike damage
 
-        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
-        spikesDmg = (5 - gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount) * 2;
-        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / (spikesDmg),1);
-
-        gBattleScripting.battler = gActiveBattler;
-        BattleScriptPushCursor();
-        if (gBattlescriptCurrInstr[1] == BS_TARGET)
-            gBattlescriptCurrInstr = BattleScript_SpikesOnTarget;
-        else if (gBattlescriptCurrInstr[1] == BS_ATTACKER)
-            gBattlescriptCurrInstr = BattleScript_SpikesOnAttacker;
-        else
-            gBattlescriptCurrInstr = BattleScript_SpikesOnFaintedBattler;//spike logic and damamge formula
-    }*/
-    if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_DAMAGED)
+    if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES)
         && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
         && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
         && IsBattlerGrounded(gActiveBattler))
     {
         u8 spikesDmg = (5 - gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount) * 2;
-        gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / (spikesDmg),1);
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_TRIGGERED;
 
-        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_SPIKES_DAMAGED;
-        SetDmgHazardsBattlescript(gActiveBattler, 0);
+        if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_GROUND)) // Absorb the spikes.
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_SPIKES;
+            gSideTimers[GetBattlerSide(gActiveBattler)].spikesAmount = 0;
+            gBattleScripting.battler = gActiveBattler;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_SpikesAbsorbed;
+        }
+        else
+        {
+        
+            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / (spikesDmg),1);
+
+            if (gBattleMoveDamage != 0)
+                SetDmgHazardsBattlescript(gActiveBattler, 0);
+        }
     }
-    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK_DAMAGED)
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK)
         && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
         && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
         && IsBlackFogNotOnField())
     {
-        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STEALTH_ROCK_DAMAGED;
-        gBattleMoveDamage = GetStealthHazardDamage(gBattleMoves[MOVE_STEALTH_ROCK].type, gActiveBattler);
-        //also defined in ai upgrade, do something later vsonic
-        if (gBattleMoveDamage != 0)
-            SetDmgHazardsBattlescript(gActiveBattler, 1);
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STEALTH_ROCK_TRIGGERED;
+        
+        if (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION
+        || GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
+            gBattleScripting.battler = gActiveBattler;
+
+            if (!(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
+            && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+            {
+                gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                gBattleMoveDamage *= -1;
+
+                //this should be separate script
+                //that does hp update
+                BattleScriptPushCursor();
+                StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityHeal;
+            }
+            else
+            {
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_StealthRockAbsorb;
+            }            
+            
+        }
+        
+        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_ROCK)) // Absorb the stealth rock.
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
+            gBattleScripting.battler = gActiveBattler;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_StealthRockAbsorb;
+        }
+        else
+        {
+            gBattleMoveDamage = GetStealthHazardDamage(gBattleMoves[MOVE_STEALTH_ROCK].type, gActiveBattler);
+            //also defined in ai upgrade, do something later vsonic
+            if (gBattleMoveDamage != 0)
+                SetDmgHazardsBattlescript(gActiveBattler, 1);
+        }
     }
-    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_TOXIC_SPIKES_DAMAGED)
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_TOXIC_SPIKES_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_TOXIC_SPIKES)
         && IsBattlerGrounded(gActiveBattler))
     {
-        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_TOXIC_SPIKES_DAMAGED;
-        if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_POISON)) // Absorb the toxic spikes.
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_TOXIC_SPIKES_TRIGGERED;
+        
+        if (GetBattlerAbility(gActiveBattler) == ABILITY_POISON_HEAL)
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
+            gSideTimers[GetBattlerSide(gActiveBattler)].toxicSpikesAmount = 0;
+            gBattleScripting.battler = gActiveBattler;
+            
+            //if can heal
+            if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
+                && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+            {
+                gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                gBattleMoveDamage *= -1;
+
+                
+                BattleScriptPushCursor();
+                StringCopy(gStringVar2, COMPOUND_STRING("Toxic Spikes"));
+                gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityHeal;
+            }
+            else //can't heal use normal absorb script
+            {
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_ToxicSpikesAbsorbed;
+            }
+            
+        }     
+        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_POISON)) // Absorb the toxic spikes.
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_TOXIC_SPIKES;
             gSideTimers[GetBattlerSide(gActiveBattler)].toxicSpikesAmount = 0;
@@ -10328,12 +10384,12 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             }
         }
     }
-    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB_DAMAGED)
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB)
         && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
         && IsBattlerGrounded(gActiveBattler))
     {
-        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STICKY_WEB_DAMAGED;
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STICKY_WEB_TRIGGERED;
         gBattleScripting.battler = gActiveBattler;
         SET_STATCHANGER(STAT_SPEED, 2, TRUE);
         BattleScriptPushCursor();
@@ -10347,7 +10403,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         if (!AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gActiveBattler, 0, 0, 0)
          && !ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, gActiveBattler, FALSE))
         {
-            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_DAMAGED);
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_TRIGGERED | SIDE_STATUS_TOXIC_SPIKES_TRIGGERED | SIDE_STATUS_STEALTH_ROCK_TRIGGERED | SIDE_STATUS_STICKY_WEB_TRIGGERED);
 
             for (i = 0; i < gBattlersCount; ++i)
             {
@@ -11675,9 +11731,22 @@ static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
             DEFOG_CLEAR(SIDE_STATUS_MAGIC_COAT, MagicTimer, BattleScript_SideStatusWoreOffReturn, MOVE_MAGIC_COAT); //HOPE WORKS
         }
         DEFOG_CLEAR(SIDE_STATUS_SPIKES, spikesAmount, BattleScript_SpikesFree, 0);
-        DEFOG_CLEAR(SIDE_STATUS_STEALTH_ROCK, stealthRockAmount, BattleScript_StealthRockFree, 0);
         DEFOG_CLEAR(SIDE_STATUS_TOXIC_SPIKES, toxicSpikesAmount, BattleScript_ToxicSpikesFree, 0);
         DEFOG_CLEAR(SIDE_STATUS_STICKY_WEB, stickyWebAmount, BattleScript_StickyWebFree, 0);
+
+
+        if (gSideStatuses[i] & SIDE_STATUS_STEALTH_ROCK)                             
+        {                                                       
+            if (clear)                                          
+            {                                                   
+
+                gSideStatuses[i] &= ~(SIDE_STATUS_STEALTH_ROCK);                     
+                BattleScriptPushCursor();                       
+                gBattlescriptCurrInstr = BattleScript_StealthRockFree;          
+            }                                                   
+            return TRUE;                                        
+        }
+        
     }
 
     return FALSE;
@@ -14848,7 +14917,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             && !(gActiveBattler == gBattlerTarget && GetBattlerAbility(gBattlerAttacker) == ABILITY_INFILTRATOR)
             && !(GetBattlerAbility(BATTLE_PARTNER(gBattlerAttacker)) == ABILITY_CACOPHONY && gBattleMoves[gCurrentMove].flags & FLAG_SOUND))
         {
-            if (flags == STAT_CHANGE_BS_PTR)
+            if (flags == STAT_CHANGE_ALLOW_PTR)
             {
                 if (gSpecialStatuses[gActiveBattler].statLowered)
                 {
@@ -14877,7 +14946,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
                   || activeBattlerAbility == ABILITY_LIQUID_METAL)
             && (!affectsUser || mirrorArmored) && !certain && gCurrentMove != MOVE_CURSE)
         {
-            if (flags == STAT_CHANGE_BS_PTR)
+            if (flags == STAT_CHANGE_ALLOW_PTR)
             {
                 if (gSpecialStatuses[gActiveBattler].statLowered)
                 {
@@ -14898,7 +14967,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         }
         else if ((IsFlowerVeilProtected(gActiveBattler)) && !certain) //thinnk this will work?
         {
-            if (flags == STAT_CHANGE_BS_PTR)
+            if (flags == STAT_CHANGE_ALLOW_PTR)
             {
               
                     BattleScriptPush(BS_ptr);
@@ -14919,7 +14988,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             || activeBattlerAbility == ABILITY_AVIATOR)
             && !certain && statId == STAT_SPEED)
         {
-            if (flags == STAT_CHANGE_BS_PTR)
+            if (flags == STAT_CHANGE_ALLOW_PTR)
             {
                 BattleScriptPush(BS_ptr);
                 gBattleScripting.battler = gActiveBattler;
@@ -14938,7 +15007,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         || (activeBattlerAbility == ABILITY_BIG_PECKS && statId == STAT_ATK)
         || (activeBattlerAbility == ABILITY_BIG_PECKS && statId == STAT_DEF)))
         {
-        if (flags == STAT_CHANGE_BS_PTR)
+        if (flags == STAT_CHANGE_ALLOW_PTR)
         {
             BattleScriptPush(BS_ptr);
             gBattleScripting.battler = gActiveBattler;
@@ -14952,7 +15021,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
 
         else if (activeBattlerAbility == ABILITY_MIRROR_ARMOR && !affectsUser && !mirrorArmored && gBattlerAttacker != gBattlerTarget && gActiveBattler == gBattlerTarget)
         {
-            if (flags == STAT_CHANGE_BS_PTR)
+            if (flags == STAT_CHANGE_ALLOW_PTR)
             {
                 SET_STATCHANGER(statId, GET_STAT_BUFF_VALUE(statValue) | STAT_BUFF_NEGATIVE, TRUE);
                 BattleScriptPush(BS_ptr);
@@ -14968,7 +15037,7 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
         }
         else if (activeBattlerAbility == ABILITY_EMPATH && !affectsUser && !mirrorArmored && gBattlerAttacker != gBattlerTarget && gActiveBattler == gBattlerTarget)
         {
-            if (flags == STAT_CHANGE_BS_PTR) //think not necessary other than being able to set a return at end/outside base logic
+            if (flags == STAT_CHANGE_ALLOW_PTR) //think not necessary other than being able to set a return at end/outside base logic
             {
                 SET_STATCHANGER(statId, GET_STAT_BUFF_VALUE(statValue) | STAT_BUFF_NEGATIVE, TRUE);
                 //SET_STATCHANGER2(gBattleScripting.savedStatChanger, statId, GET_STAT_BUFF_VALUE(statValue) | STAT_BUFF_NEGATIVE, TRUE);
@@ -15118,9 +15187,9 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
     if (gBattleMons[gActiveBattler].statStages[statId] > MAX_STAT_STAGE)
         gBattleMons[gActiveBattler].statStages[statId] = MAX_STAT_STAGE;
 
-    /*if (gBattleCommunication[MULTISTRING_CHOOSER] == B_MSG_STAT_WONT_INCREASE && flags & STAT_CHANGE_BS_PTR)
+    /*if (gBattleCommunication[MULTISTRING_CHOOSER] == B_MSG_STAT_WONT_INCREASE && flags & STAT_CHANGE_ALLOW_PTR)
         gMoveResultFlags |= MOVE_RESULT_MISSED;*/ //according to GriffinR this is why animation change didn't work
-    if (gBattleCommunication[MULTISTRING_CHOOSER] == B_MSG_STAT_WONT_INCREASE && !(flags & STAT_CHANGE_BS_PTR)) //I have no memory of why I changed this...
+    if (gBattleCommunication[MULTISTRING_CHOOSER] == B_MSG_STAT_WONT_INCREASE && !(flags & STAT_CHANGE_ALLOW_PTR)) //I have no memory of why I changed this...
         return STAT_CHANGE_DIDNT_WORK;
         
     return STAT_CHANGE_WORKED;  //this looks to be the issue, I forgot to put this back...
@@ -17688,7 +17757,6 @@ static void atkBE_rapidspinfree(void) //need fix this clear isn't right
     else if (gSideStatuses[atkSide] & SIDE_STATUS_STEALTH_ROCK)
     {
         gSideStatuses[atkSide] &= ~SIDE_STATUS_STEALTH_ROCK;
-        gSideTimers[atkSide].stealthRockAmount = 0;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_StealthRockFree;
     }
@@ -19998,7 +20066,6 @@ void BS_setstealthrock(void) { //check where rest of spikes handled
     else
     {
         gSideStatuses[targetSide] |= SIDE_STATUS_STEALTH_ROCK;
-        gSideTimers[targetSide].stealthRockAmount = 1;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }

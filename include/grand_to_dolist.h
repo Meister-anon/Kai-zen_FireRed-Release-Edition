@@ -4192,6 +4192,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     -note still missin most gen 9 abilities
     forgot hadn't setup sharpness
+    go ahead and setup end turn spike absorb
+    poison abrosb toxic spikes
+    spikes is a grond move can buff groud types to let them absorb spikes?
+    and then make rocks absorb stealh rock?
+    seems good, all relativey underpower types so good buffs
+    -got working and type based healing abilities get small 
+    heal from absorbing trap effect
     working on buff scovillain gave better support moves
     think will adjust stats as well as I want it to be an offensive
     support mon. think just give the grass type hp buffs?

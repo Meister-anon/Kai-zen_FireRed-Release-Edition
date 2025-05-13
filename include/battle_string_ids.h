@@ -827,8 +827,10 @@
 #define STRINGID_DARKTYPE_INTIMIDATE_RESIST 699
 #define STRINGID_CHANGE_ABILITY_TO 700
 #define STRINGID_HEAT_TRANCE_HPUP 701 //scovillain ability
+#define STIRNGID_SPIKESABSORBED 702
+#define STRINGID_CONSUMED_HAZARD 703 //requires use of stin copy to set name of hazard to stringvar2 in each script
 
-#define BATTLESTRINGS_COUNT     STRINGID_HEAT_TRANCE_HPUP
+#define BATTLESTRINGS_COUNT     STRINGID_CONSUMED_HAZARD
 
 
 #define STRINGID_TRAINER2CLASS BATTLESTRINGS_COUNT + 1 // cutoff point. was able to confirm this does properly define
