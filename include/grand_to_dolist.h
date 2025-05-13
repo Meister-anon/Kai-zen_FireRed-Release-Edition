@@ -4202,6 +4202,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also ended up adding gmax move from copperajah
     as additional trap steel surge, steel type stealth rocks
 
+    consider troll player replace magikarp salesman
+    have him say he's selling magikarp but actually
+    give players a SPECIES_FINNEON
+
+    is double troll since goal is to show off
+    mon changes and adjust balance so,
+    can't so easily steam roll w early gyarados
+    -done
+
+
     working on buff scovillain gave better support moves
     think will adjust stats as well as I want it to be an offensive
     support mon. think just give the grass type hp buffs?

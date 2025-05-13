@@ -49,6 +49,9 @@ Route4_PokemonCenter_1F_Text_ShouldStoreMonsUsingPC:: @ 819DCDB
     .string "In that case, you should just\n"
     .string "store some using any PC.$"
 
+Route4_PokemonCenter_1F_Text_SalesmanFinalRemark:: @ 819DA9A
+    .string "MAN: \.Heh. Another sucker.$"
+
 Route4_PokemonCenter_1F_Text_ItsANewspaper:: @ 819DD54
     .string "It's a newspaper.$"
 
