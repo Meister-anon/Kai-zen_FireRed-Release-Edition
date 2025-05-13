@@ -2396,10 +2396,10 @@
 
 	setstatchanger \stat, \amount, \mode
 	.if \affectsUser == FALSE
-		statbuffchange STAT_CHANGE_BS_PTR, \script
+		statbuffchange STAT_CHANGE_ALLOW_PTR, \script
 	.else
 	.if \affectsUser == TRUE
-		statbuffchange STAT_CHANGE_BS_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+		statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
 	.endif
 	.endif
 	setgraphicalstatchangevalues

@@ -303,7 +303,7 @@
 //& STAT_BUFF_NOT_PROTECT_AFFECTED
 
 // statchange defines
-#define STAT_CHANGE_BS_PTR                  (1 << 0) // If set, allow use of jumpptr. Set in every use of statbuffchange		//equivalent stat_change_allow_ptr
+#define STAT_CHANGE_ALLOW_PTR                  (1 << 0) // If set, allow use of jumpptr. Set in every use of statbuffchange		//equivalent stat_change_allow_ptr
 #define STAT_CHANGE_MIRROR_ARMOR			(1 << 1)	// Stat change redirection caused by Mirror Armor ability.
 #define STAT_CHANGE_NOT_PROTECT_AFFECTED    (1 << 5)
 #define STAT_CHANGE_UPDATE_MOVE_EFFECT		(1 << 6)	//still don't know what does
