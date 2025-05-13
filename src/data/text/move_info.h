@@ -622,7 +622,7 @@ const u8 gVENOSHOCK_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Does double damage\nif the foe has\nan ailment.\nDeals extra damage\nto poisoned targets.");
 
 const u8 gAUTOTOMIZE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sheds weight to\nsharply boost Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Sheds weight to\nsharply boost its\nSpeed.");
 
 const u8 gRAGE_POWDER_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Scatters powder that\nforces foes to\ntarget only the user");
