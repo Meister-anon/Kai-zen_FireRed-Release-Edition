@@ -134,7 +134,7 @@
 #define OPTIONS_SOUND_MONO    0
 #define OPTIONS_SOUND_STEREO  1
 
-#define OPTIONS_BATTLE_STYLE_SHIFT  0 //need to remove opponent pokemon alert from shift.  DONE!
+#define OPTIONS_BATTLE_STYLE_SHIFT  0 //shift 2.0 blind mode
 #define OPTIONS_BATTLE_STYLE_SET    1
 
 #define POCKET_ITEMS        1

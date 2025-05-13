@@ -224,7 +224,7 @@ static const u16 sGameOptionMenuItemCounts[GAME_MENUITEM_COUNT] =
     [GAME_MENUITEM_BATTLESCENE]      = 2, 
     [GAME_MENUITEM_BATTLESTYLE]      = 2, 
     [GAME_MENUITEM_SOUND]            = 2, 
-    [GAME_MENUITEM_BUTTONMODE]       = 3, 
+    [GAME_MENUITEM_BUTTONMODE]       = 2, //removed button mode L=A broke battle move info feature
     [GAME_MENUITEM_FRAMETYPE]        = 10, 
     [GAME_MENUITEM_CANCEL]           = 0
 };//num menu options for each category on/off is 2
@@ -341,7 +341,7 @@ static const u8 *const sButtonTypeOptions[] =
 {
     gText_ButtonTypeHelp,
 	gText_ButtonTypeLR,
-	gText_ButtonTypeLEqualsA
+	//gText_ButtonTypeLEqualsA
 };
 
 static const u8 sOptionMenuPickSwitchCancelTextColor[] = {TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GREY};

@@ -11657,6 +11657,19 @@ u32 CanMonLearnTMHM(struct Pokemon *mon, u16 tm)
                 return TRUE;
             }
         }
+        else
+        {
+            u16 j;
+            const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+
+
+            for (j = 0; j < MAX_LEVEL_UP_MOVES && learnset[j].move != LEVEL_UP_END; j++)
+            {
+                if (learnset[j].move == move)
+                    return TRUE;
+            }
+            
+        }
 
         for (i = 0; teachableLearnset[i] != TMHM_LEARNSET_END; i++)
         {
@@ -11725,6 +11738,19 @@ u32 CanSpeciesLearnTMHMmove(u16 species, u16 move) //for this belive replace wit
             default:
                 return TRUE;
             }
+        }
+        else
+        {
+            u16 j;
+            const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+
+
+            for (j = 0; j < MAX_LEVEL_UP_MOVES && learnset[j].move != LEVEL_UP_END; j++)
+            {
+                if (learnset[j].move == move)
+                    return TRUE;
+            }
+            
         }
 
         for (i = 0; teachableLearnset[i] != TMHM_LEARNSET_END; i++)

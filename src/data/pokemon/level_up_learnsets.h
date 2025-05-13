@@ -8,7 +8,12 @@
 //for evos
 
 //for mon I made starters need to readjust their learnset scaling/arc
-//to better match starters
+//to better match starters - done
+
+//will need to go over file again
+//presently updated up to gen8 
+//need add gen9 changes and include
+//form learnsets
 
 //also need remember to fix stone evo learnsets
 
@@ -3954,7 +3959,8 @@ static const struct LevelUpMove sHoundourLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_LEER),
     LEVEL_UP_MOVE(1, MOVE_ODOR_SLEUTH),    
     LEVEL_UP_MOVE(4, MOVE_SMOG),
-    LEVEL_UP_MOVE(5, MOVE_HOWL),
+    LEVEL_UP_MOVE(5, MOVE_TACKLE),
+    LEVEL_UP_MOVE(6, MOVE_HOWL),
     LEVEL_UP_MOVE(7, MOVE_EMBER),
     LEVEL_UP_MOVE(9, MOVE_BITE),
     LEVEL_UP_MOVE(10, MOVE_ROAR),

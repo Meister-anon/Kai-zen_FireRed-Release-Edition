@@ -3462,7 +3462,7 @@ just because I saw the form*/
 #define F_PALDEAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
 #define SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
 #define FLAG_LEGENDARY_POKEMON (1 << 6)  //replaced //consolidate w megga?
-#define F_HAS_COSMETIC_FORMS (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical mon
+#define F_HAS_COSMETIC_FORMS (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical stat/ability mon cant use for mon that evolve need check but think can setup for mon that evolve into cosmetic forms that don't evolve again maushold basculegion etc.
 //would need add exclusions for cosplay pikachu and its forms, 
 //if do this will need make gender ratio but will just keep that as is, still 
 //saves a good deal of space

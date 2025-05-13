@@ -4211,6 +4211,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     can't so easily steam roll w early gyarados
     -done
 
+    
+    also can't remember if I already did but would like set
+    so if mon can learn a move by level up that is also a tm
+    it auto shows it as learnable by tm
+    -done taken from EE for some reason they only implemented that
+    for universal moves?
 
     working on buff scovillain gave better support moves
     think will adjust stats as well as I want it to be an offensive

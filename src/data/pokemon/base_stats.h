@@ -34336,6 +34336,7 @@ const struct BaseStats gBaseStats[] =
         .levelUpLearnset = sTatsugiriLevelUpLearnset,
         .tmhmLearnset = sTatsugiriTMHMLearnset,
         //.formSpeciesIdTable = sTatsugiriFormSpeciesIdTable,
+        .flags = F_HAS_COSMETIC_FORMS,
     },
 
     [SPECIES_TATSUGIRI_DROOPY] =

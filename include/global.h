@@ -626,7 +626,7 @@ struct SaveBlock2
     /*0x010*/ u8 playTimeMinutes;
     /*0x011*/ u8 playTimeSeconds;
     /*0x012*/ u8 playTimeVBlanks;
-    /*0x013*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
+    /*0x013*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]  //removed L_EQUALS_A unnecessary on emulator and breaks move info callback
     /*0x014*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST/FASTER/HYPER]
               u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
     /*0x15*/  u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
