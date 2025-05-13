@@ -370,7 +370,7 @@
 #define SIDE_STATUS_STEALTH_ROCK            (1 << 14) //also prevented from dmg when black fog up
 #define SIDE_STATUS_STEALTH_ROCK_TRIGGERED  (1 << 15)
 #define SIDE_STATUS_TOXIC_SPIKES_TRIGGERED  (1 << 16)
-#define SIDE_STATUS_STICKY_WEB_TRIGGERED    (1 << 17)
+#define SIDE_STATUS_STICKY_WEB_TRIGGERED    (1 << 17) //can take all these triggered stuff out into disabled structs instead...
 #define SIDE_STATUS_QUICK_GUARD             (1 << 18)
 #define SIDE_STATUS_WIDE_GUARD              (1 << 19)
 #define SIDE_STATUS_CRAFTY_SHIELD           (1 << 20)
@@ -380,8 +380,10 @@
 #define SIDE_STATUS_MUDSPORT				(1 << 24)
 #define SIDE_STATUS_WATERSPORT				(1 << 25)
 #define SIDE_STATUS_MAGIC_COAT				(1 << 26)	//for magic coat buff make 3 turn, similar in effect to a screen, but 3 instead of 5 turns as it nullifies
+#define SIDE_STATUS_STEEL_SURGE             (1 << 27)  //Was copperajah gmax move will make normal status is steel stealth rock
+#define SIDE_STATUS_STEEL_SURGE_TRIGGERED   (1 << 28)
 
-#define SIDE_STATUS_HAZARDS_ANY    (SIDE_STATUS_SPIKES | SIDE_STATUS_STICKY_WEB | SIDE_STATUS_TOXIC_SPIKES | SIDE_STATUS_STEALTH_ROCK)
+#define SIDE_STATUS_HAZARDS_ANY    (SIDE_STATUS_SPIKES | SIDE_STATUS_STICKY_WEB | SIDE_STATUS_TOXIC_SPIKES | SIDE_STATUS_STEALTH_ROCK | SIDE_STATUS_STEEL_SURGE)
 #define SIDE_STATUS_SCREEN_ANY     (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_AURORA_VEIL)
 
 // Field affecting statuses.

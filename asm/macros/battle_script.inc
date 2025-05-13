@@ -1407,6 +1407,11 @@
 	.4byte \ptr
 	.endm
 
+	.macro setsteelsurge ptr:req
+	callnative BS_setsteelsurge
+	.4byte \ptr
+	.endm
+
 	.macro typebasedjump2 battler:req, type:req, case:req, ptr:req
 	callnative BS_typebasedjump2
 	.byte \battler

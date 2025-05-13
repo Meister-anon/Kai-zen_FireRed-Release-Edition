@@ -13945,6 +13945,27 @@ use wonder gaurd logic to determine its super effective
     //since the move it does learn is next to useless in solo play
 
 
-
+    [MOVE_STEEL_SURGE] =
+    {
+        #if B_UPDATED_MOVE_DATA >= GEN_5
+            .flags = FLAG_MAGIC_COAT_AFFECTED,
+        #else
+            .flags = 0,
+        #endif
+        .effect = EFFECT_STEEL_SURGE,
+        .power = 0,
+        .type = TYPE_STEEL,
+        .accuracy = 0,
+        .pp = 20,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_OPPONENTS_FIELD,
+        .priority = 1,
+        .split = SPLIT_STATUS,
+    },
+    //turned g max move into regualr move
+    //still give to copperajah
+    //and good counter balance for fairy/ice
+    //copperajah signature but give to more mon
+    //rn just uses spikes anim, 
 
 };

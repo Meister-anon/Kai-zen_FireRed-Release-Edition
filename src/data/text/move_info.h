@@ -2365,6 +2365,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_MUDSLIDE] = COMPOUND_MOVE_STRING("Swamps the enemy\nside with a raging\nmudslide.\nMay also lower the\nfoes' speed."),
     [MOVE_SPICE_TRADE] = COMPOUND_MOVE_STRING("The user shares\nan irresistibly\nspicy pepper with\nthe target.\nChanging its abilty\nto Heat Trance."),
     [MOVE_PEPPER_POPPER] = COMPOUND_MOVE_STRING("User supercharges\nitself by releasing\ncapsaicin into its\nsystem.\nSharply boosting\nits SPEED."),
+    [MOVE_STEEL_SURGE] = COMPOUND_MOVE_STRING("Sets Steel lances\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."),
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
@@ -3258,6 +3259,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_MUDSLIDE] = _("Mudslide"),
     [MOVE_SPICE_TRADE] = _("Spice Trade"),
     [MOVE_PEPPER_POPPER] = _("Pepper Popper"),
+    [MOVE_STEEL_SURGE] = _("Steel Surge"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

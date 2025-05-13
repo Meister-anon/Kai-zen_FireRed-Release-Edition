@@ -447,6 +447,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_Effect_SetTargetAbility		  @EFFECT_SET_TARGET_ABILITY
 	.4byte BattleScript_EffectHit					  @EFFECT_BEHEMOTH_ATTACK
 	.4byte BattleScript_EffectSpicyExtract			  @EFFECT_SPICY_EXTRACT
+	.4byte BattleScript_EffectSteelSurge			  @EFFECT_STEEL_SURGE
 	
 
 
@@ -2453,6 +2454,17 @@ BattleScript_EffectStealthRock:
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
+BattleScript_EffectSteelSurge:
+	attackcanceler
+	attackstring
+	ppreduce
+	setsteelsurge BattleScript_ButItFailed
+	attackanimation
+	waitanimation
+	printstring STRINGID_POINTEDSTEELSURROUNDS
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
+
 BattleScript_EffectStickyWeb:
 	attackcanceler
 	attackstring
@@ -2542,22 +2554,14 @@ BattleScript_StealthRockAbsorb_Endturn::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
-BattleScript_StealhRockHealAbsorb::
-	printstring STRINGID_CONSUMED_HAZARD
+BattleScript_SteelSpearsAbsorbed::
+	printstring STRINGID_STEELSURGE_ABSORBED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	statusanimation BS_SCRIPTING
-	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
-	healthbarupdate BS_SCRIPTING
-	datahpupdate BS_SCRIPTING
 	return
 
-BattleScript_StealhRockHealAbsorb_Endturn::
-	printstring STRINGID_CONSUMED_HAZARD
+BattleScript_SteelSpearsAbsorbed_Endturn::
+	printstring STRINGID_STEELSURGE_ABSORBED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	statusanimation BS_SCRIPTING
-	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
-	healthbarupdate BS_SCRIPTING
-	datahpupdate BS_SCRIPTING
 	end2
 
 
@@ -4858,6 +4862,13 @@ BattleScript_StealthRockActivates::
 	printfromtable gDmgHazardsStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
+
+BattleScript_SteelSurgeActivates::
+	setsteelsurge BattleScript_MoveEnd
+	printfromtable gDmgHazardsStringIds
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
 
 BattleScript_SpikesActivates::
 	trysetspikes BattleScript_MoveEnd
@@ -7779,6 +7790,11 @@ BattleScript_StickyWebFree::
 
 BattleScript_StealthRockFree::
 	printstring STRINGID_PKMNBLEWAWAYSTEALTHROCK
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	return
+
+BattleScript_SteelSurgeFree::
+	printstring STRINGID_PKMNBLEWAWAYSTEELSURGE
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 

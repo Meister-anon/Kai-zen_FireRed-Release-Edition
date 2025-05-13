@@ -942,6 +942,7 @@ enum   //battler end turn
     ENDTURN_SPIKES_ABSORB,
     ENDTURN_TOXICSPIKES_ABSORB,
     ENDTURN_STEALTH_ROCK_ABSORB,
+    ENDTURN_STEEL_SURGE_ABSORB,
     ENDTURN_BATTLER_COUNT
 };
 
@@ -3709,6 +3710,44 @@ u8 DoBattlerEndTurnEffects(void)
                         gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
                         gBattleScripting.battler = gActiveBattler;
                         BattleScriptExecute(BattleScript_StealthRockAbsorb_Endturn);
+                        ++effect;
+                    }
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
+            case ENDTURN_STEEL_SURGE_ABSORB:
+                if ((gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE)
+                    && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
+                    && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
+                    && IsBlackFogNotOnField())
+                {
+                    if (GetBattlerAbility(gActiveBattler) == ABILITY_LIQUID_METAL)
+                    {
+                        gSideStatuses[gActiveBattler] &= ~(SIDE_STATUS_STEEL_SURGE);  //absorb stealth rock
+                        gBattleScripting.battler = gActiveBattler;
+                        
+                        //if can heal
+                        if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
+                        && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+                        {
+                            gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                            gBattleMoveDamage *= -1;
+
+                            StringCopy(gStringVar2, COMPOUND_STRING("Steel Surge"));
+                            BattleScriptExecute(BattleScript_HazardAbsorbAbilityHeal_Endturn);
+                            ++effect;
+                        }
+                        else //can't heal use normal absorb script
+                        {
+                            BattleScriptExecute(BattleScript_SteelSpearsAbsorbed_Endturn);
+                            ++effect;
+                        }
+                    }
+                    else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_STEEL)) // Absorb the stealth rock.
+                    {
+                        gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEEL_SURGE;
+                        gBattleScripting.battler = gActiveBattler;
+                        BattleScriptExecute(BattleScript_SteelSpearsAbsorbed_Endturn);
                         ++effect;
                     }
                 }

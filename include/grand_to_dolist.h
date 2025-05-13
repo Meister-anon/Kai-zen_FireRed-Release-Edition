@@ -4199,6 +4199,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     seems good, all relativey underpower types so good buffs
     -got working and type based healing abilities get small 
     heal from absorbing trap effect
+    also ended up adding gmax move from copperajah
+    as additional trap steel surge, steel type stealth rocks
+
     working on buff scovillain gave better support moves
     think will adjust stats as well as I want it to be an offensive
     support mon. think just give the grass type hp buffs?

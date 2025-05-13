@@ -935,6 +935,7 @@ gBattleAnims_Moves::
 	.4byte Move_MUDSLIDE
 	.4byte Move_SPICE_TRADE
 	.4byte Move_PEPPER_POPPER
+	.4byte Move_STEEL_SURGE
 	.4byte Move_COUNT @ cannot be reached, because last move is Eerie Spell  important check move order moves.h
 
 gBattleAnims_StatusConditions::
@@ -6856,6 +6857,7 @@ Move_BONE_RUSH:: @ 81CF4B8
 	blendoff
 	end
 
+Move_STEEL_SURGE::
 Move_SPIKES:: @ 81CF503
 	loadspritegfx ANIM_TAG_SPIKES
 	monbg ANIM_DEF_PARTNER

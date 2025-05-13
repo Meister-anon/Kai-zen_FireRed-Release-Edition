@@ -4462,6 +4462,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
         ++gBattlescriptCurrInstr;
         return;
     case MOVE_EFFECT_STEALTH_ROCK:  //test
+    case MOVE_EFFECT_STEEL_SURGE:
     case MOVE_EFFECT_SPIKES:
     case MOVE_EFFECT_PAYDAY:
     case MOVE_EFFECT_STEAL_ITEM:
@@ -5861,6 +5862,14 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_StealthRockActivates;
                 }
                 break;
+            case MOVE_EFFECT_STEEL_SURGE:
+                if (!(gSideStatuses[GetBattlerSide(gEffectBattler)] & SIDE_STATUS_STEEL_SURGE))
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STEEL_SPEARS;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_SteelSurgeActivates;
+                }
+                break;
             case MOVE_EFFECT_SPIKES:
                 if (gSideTimers[GetBattlerSide(gEffectBattler)].spikesAmount < 3)
                 {
@@ -6161,7 +6170,7 @@ static void atk19_tryfaintmon(void)
             BS_ptr = cmd->ptr;
             BattleScriptPop();
             gBattlescriptCurrInstr = BS_ptr;
-            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_TRIGGERED | SIDE_STATUS_TOXIC_SPIKES_TRIGGERED | SIDE_STATUS_STEALTH_ROCK_TRIGGERED | SIDE_STATUS_STICKY_WEB_TRIGGERED);
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_TRIGGERED | SIDE_STATUS_TOXIC_SPIKES_TRIGGERED | SIDE_STATUS_STEALTH_ROCK_TRIGGERED | SIDE_STATUS_STICKY_WEB_TRIGGERED | SIDE_STATUS_STEEL_SURGE_TRIGGERED);
         }
         else //think jump to another instruction
         {
@@ -10268,7 +10277,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / (spikesDmg),1);
 
             if (gBattleMoveDamage != 0)
-                SetDmgHazardsBattlescript(gActiveBattler, 0);
+                SetDmgHazardsBattlescript(gActiveBattler, B_MSG_PKMNHURTBYSPIKES);
         }
     }
     else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEALTH_ROCK_TRIGGERED)
@@ -10317,7 +10326,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gBattleMoveDamage = GetStealthHazardDamage(gBattleMoves[MOVE_STEALTH_ROCK].type, gActiveBattler);
             //also defined in ai upgrade, do something later vsonic
             if (gBattleMoveDamage != 0)
-                SetDmgHazardsBattlescript(gActiveBattler, 1);
+                SetDmgHazardsBattlescript(gActiveBattler, B_MSG_STEALTHROCKDMG);
         }
     }
     else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_TOXIC_SPIKES_TRIGGERED)
@@ -10384,6 +10393,54 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             }
         }
     }
+    else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE_TRIGGERED)
+        && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE)
+        && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
+        && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
+        && IsBlackFogNotOnField())
+    {
+        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STEEL_SURGE_TRIGGERED;
+        
+        if (GetBattlerAbility(gActiveBattler) == ABILITY_LIQUID_METAL)
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEEL_SURGE;
+            gBattleScripting.battler = gActiveBattler;
+
+            if (!(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK)
+            && gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP)    //health block check
+            {
+                gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1);
+                gBattleMoveDamage *= -1;
+
+                //this should be separate script
+                //that does hp update
+                BattleScriptPushCursor();
+                StringCopy(gStringVar2, COMPOUND_STRING("Steel Surge"));
+                gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityHeal;
+            }
+            else
+            {
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_SteelSpearsAbsorbed;
+            }            
+            
+        }
+        
+        else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_STEEL)) // Absorb the stealth rock.
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEEL_SURGE;
+            gBattleScripting.battler = gActiveBattler;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_SteelSpearsAbsorbed;
+        }
+        else
+        {
+            gBattleMoveDamage = GetStealthHazardDamage(gBattleMoves[MOVE_STEEL_SURGE].type, gActiveBattler);
+            //also defined in ai upgrade, do something later vsonic
+            if (gBattleMoveDamage != 0)
+                SetDmgHazardsBattlescript(gActiveBattler, B_MSG_SHARPSTEELDMG);
+        }
+    }
     else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB)
         && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
@@ -10403,7 +10460,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         if (!AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gActiveBattler, 0, 0, 0)
          && !ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, gActiveBattler, FALSE))
         {
-            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_TRIGGERED | SIDE_STATUS_TOXIC_SPIKES_TRIGGERED | SIDE_STATUS_STEALTH_ROCK_TRIGGERED | SIDE_STATUS_STICKY_WEB_TRIGGERED);
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~(SIDE_STATUS_SPIKES_TRIGGERED | SIDE_STATUS_TOXIC_SPIKES_TRIGGERED | SIDE_STATUS_STEALTH_ROCK_TRIGGERED | SIDE_STATUS_STICKY_WEB_TRIGGERED | SIDE_STATUS_STEEL_SURGE_TRIGGERED);
 
             for (i = 0; i < gBattlersCount; ++i)
             {
@@ -11743,6 +11800,18 @@ static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
                 gSideStatuses[i] &= ~(SIDE_STATUS_STEALTH_ROCK);                     
                 BattleScriptPushCursor();                       
                 gBattlescriptCurrInstr = BattleScript_StealthRockFree;          
+            }                                                   
+            return TRUE;                                        
+        }
+
+        if (gSideStatuses[i] & SIDE_STATUS_STEEL_SURGE)                             
+        {                                                       
+            if (clear)                                          
+            {                                                   
+
+                gSideStatuses[i] &= ~(SIDE_STATUS_STEEL_SURGE);                     
+                BattleScriptPushCursor();                       
+                gBattlescriptCurrInstr = BattleScript_SteelSurgeFree;          
             }                                                   
             return TRUE;                                        
         }
@@ -17760,13 +17829,12 @@ static void atkBE_rapidspinfree(void) //need fix this clear isn't right
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_StealthRockFree;
     }
-    /*else if (gSideStatuses[atkSide] & SIDE_STATUS_STEELSURGE)
+    else if (gSideStatuses[atkSide] & SIDE_STATUS_STEEL_SURGE)
     {
-        gSideStatuses[atkSide] &= ~SIDE_STATUS_STEELSURGE;
-        gSideTimers[atkSide].steelsurgeAmount = 0;
+        gSideStatuses[atkSide] &= ~SIDE_STATUS_STEEL_SURGE;
         BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_SteelsurgeFree;
-    }*/
+        gBattlescriptCurrInstr = BattleScript_SteelSurgeFree;
+    } //ok this is a gmax move so not adding gmax steel surge //chagne midnwill add btu again it doesnt stack so doesn't need amount value -_-
     else
     {
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -20066,6 +20134,20 @@ void BS_setstealthrock(void) { //check where rest of spikes handled
     else
     {
         gSideStatuses[targetSide] |= SIDE_STATUS_STEALTH_ROCK;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+void BS_setsteelsurge(void) {
+    NATIVE_ARGS(const u8 *ptr);
+    u8 targetSide = GetBattlerSide(gBattlerTarget);
+    if (gSideStatuses[targetSide] & SIDE_STATUS_STEEL_SURGE)
+    {
+        gBattlescriptCurrInstr = cmd->ptr;
+    }
+    else
+    {
+        gSideStatuses[targetSide] |= SIDE_STATUS_STEEL_SURGE;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
