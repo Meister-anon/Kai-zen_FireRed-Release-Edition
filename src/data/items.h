@@ -5816,7 +5816,7 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  MOVE_OVERHEAT,
     },
-    /*
+    
     //tm expansion
     [ITEM_TM51] =
     {
@@ -7804,7 +7804,7 @@ const struct Item gItems[] =
       .fieldUseFunc = NULL,
       .battleUseFunc = NULL,
       .secondaryId =  MOVE_CELEBRATE,
-    }, //+100  */
+    }, //+100  
     [ITEM_HM01] =
     {
       .name = _("HM01"),
@@ -9721,7 +9721,7 @@ const struct Item gItems[] =
       .secondaryId =  MOVE_FLASH_FREEZE,
       //"moveId" "FocusPunch"
     },
-    /*
+    
     [ITEM_TM_TRAILBLAZE] =
     {
       .name = _("TM Trailblaze"),
@@ -9757,7 +9757,7 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  MOVE_FOCUS_BLAST,
       //"moveId" "FocusPunch"
-    },*/
+    },
     [ITEM_TM_PSYCHO_BOOST] =
     {
       .name = _("TM Psycho Boost"),
