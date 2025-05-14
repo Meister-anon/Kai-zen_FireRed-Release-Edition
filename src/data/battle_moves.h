@@ -12646,7 +12646,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_RAGING_BULL] =
     {
-        .effect = EFFECT_BRICK_BREAK,    //Todo // EFFECT_RAGING_BULL //is effectively just brick break? but doesn't break through immunity
+        .effect = EFFECT_RAGING_BULL,    //works - brick break without immunity break, and breaks through protect but still takes touch effects
         .power = 90,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -12666,6 +12666,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //decided make dark type
     //most mon set screns are psychic/fairy I think so dark would hit better?
     //dark has more resistances I think, but overall no immunities at least
+    //Should I make this break protect? should trigger effects
+    //of contact based protects but still hit target
+    //so an effect that is weaker than unseen fist
+    //which competely bypasses protect
+    //this would run through it instead
 
     [MOVE_MAKE_IT_RAIN] =
     {

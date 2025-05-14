@@ -1610,6 +1610,12 @@ static void atk00_attackcanceler(void) //vsonic
             
         }
     }
+    else if (gCurrentMove == MOVE_RAGING_BULL) //think this'll do it?
+    {
+        if (IsMoveMakingContact(gCurrentMove, gBattlerAttacker))
+            gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
     else if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
         && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
         //&& ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
@@ -1701,7 +1707,9 @@ static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move)//IMPORTA
     if (GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_CACOPHONY && gBattleMoves[move].flags & FLAG_SOUND)
         return FALSE;
     else if (IsMoveMakingContact(move, battlerAtk) && GetBattlerAbility(battlerAtk) == ABILITY_UNSEEN_FIST
-    && gBattleMoves[gCurrentMove].power < 75)
+    && gBattleMoves[move].power < 75)
+        return FALSE;
+    else if (move == MOVE_RAGING_BULL)
         return FALSE;
     else if ((gProtectStructs[battlerDef].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
         return TRUE;
@@ -7886,6 +7894,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
 
     s32 i;
     bool32 effect = FALSE;
+    u32 moveEffect = GetMoveEffect(gCurrentMove);
     u8 moveType = 0;
     u8 holdEffectAtk = 0;
     u16 *choicedMoveAtk = NULL;
@@ -7904,6 +7913,9 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
     choicedMoveAtk = &gBattleStruct->choicedMove[gBattlerAttacker];
     GET_MOVE_TYPE(gCurrentMove, moveType);
+
+
+
     do //comb function, and check for any custom effecst
     {// otherwise safe to completely replace with emerald function
         //will require transfrerring bs_commands.h constants file move end values as well. 
@@ -20867,7 +20879,22 @@ void BS_call_if(void) //comparing to jumpifholdeffect
                     return; //addding returns to this seem to make scritp read correctly?
                 }                    
                 break;//removes screens from start, still need to setup script with screens, need understand how wall animation worked in default script
-                
+            
+            case EFFECT_RAGING_BULL:
+            {
+                if (TryRemoveScreens(gBattlerAttacker)) //replace with function check for screens / adapted screen cleaner logic, rather than make from scratch
+                {
+                    gBattlescriptCurrInstr = BattleScript_BrickBreakWithScreens;//may be able to do something similar to fury cutter where anim effects used a stored value to change animation?
+                    return;
+                } 
+                else
+                {
+                    gBattlescriptCurrInstr = BattleScript_BrickBreakNoScreens;
+                    return; //addding returns to this seem to make scritp read correctly?
+                }                    
+                    
+            }//think shouldn't remove protect bad for meta its good enough to just have it crash through
+            break;//removes screens from start, still need to setup script with screens, need understand how wall animation worked in default script
             /*case EFFECT_SWARM:  //think dn't need this set elsewhere
             if (!(gDisableStructs[gEffectBattler].swarmTurns)) //for trap status
             {

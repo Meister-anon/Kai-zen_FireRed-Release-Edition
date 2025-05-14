@@ -4689,6 +4689,17 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (gBattleMoves[predictedMove].effect == EFFECT_PROTECT)
             score += 3;
         break;
+    case EFFECT_RAGING_BULL: //brick break + feint
+        if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_REFLECT)
+            score++;
+        if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_LIGHTSCREEN)
+            score++;
+        if (gSideStatuses[GetBattlerSide(battlerDef)] & SIDE_STATUS_AURORA_VEIL)
+            score++;
+        if (gBattleMoves[predictedMove].effect == EFFECT_PROTECT)
+            score += 3;
+        break;
+    
     case EFFECT_EMBARGO:
         if (AI_DATA->holdEffects[battlerDef] != HOLD_EFFECT_NONE)
             score++;

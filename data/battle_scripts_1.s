@@ -209,7 +209,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectMagicCoat
 	.4byte BattleScript_EffectRecycle
 	.4byte BattleScript_EffectRevenge
-	.4byte BattleScript_EffectBrickBreak
+	.4byte BattleScript_EffectBrickBreak			@ EFFECT_BRICK_BREAK
 	.4byte BattleScript_EffectYawn
 	.4byte BattleScript_EffectKnockOff
 	.4byte BattleScript_EffectEndeavor
@@ -448,6 +448,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit					  @EFFECT_BEHEMOTH_ATTACK
 	.4byte BattleScript_EffectSpicyExtract			  @EFFECT_SPICY_EXTRACT
 	.4byte BattleScript_EffectSteelSurge			  @EFFECT_STEEL_SURGE
+	.4byte BattleScript_EffectRagingBull			  @ EFFECT_RAGING_BULL
 	
 
 
@@ -6260,6 +6261,10 @@ BattleScript_EffectRevenge::
 
 BattleScript_EffectBrickBreak::
 	call_if	EFFECT_BRICK_BREAK	@seems like this isn't working its not doing typecalc
+	
+
+BattleScript_EffectRagingBull::
+	call_if EFFECT_RAGING_BULL
 
 @still working on this vsonic
 BattleScript_BrickBreakWithScreens::

@@ -12938,7 +12938,8 @@ bool32 TryRemoveScreens(u8 battler)
             removed = TRUE;
         }
     }
-    else if (gBattleMoves[gCurrentMove].effect == EFFECT_BRICK_BREAK) //attempt using for brick break
+    else if (gBattleMoves[gCurrentMove].effect == EFFECT_BRICK_BREAK
+    || gBattleMoves[gCurrentMove].effect == EFFECT_RAGING_BULL) //attempt using for brick break
     {
          // try to remove from battler opponent's side
         if (gSideStatuses[enemySide] & (SIDE_STATUS_REFLECT | SIDE_STATUS_LIGHTSCREEN | SIDE_STATUS_SAFEGUARD | SIDE_STATUS_AURORA_VEIL | SIDE_STATUS_MAGIC_COAT))
