@@ -4567,6 +4567,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gProtectStructs[gActiveBattler].usedImprisonedMove = FALSE;
     gProtectStructs[gActiveBattler].loveImmobility = FALSE;
     gProtectStructs[gActiveBattler].obstructed = FALSE;
+    gProtectStructs[gActiveBattler].silkTrapped = FALSE;
     gProtectStructs[gActiveBattler].usedDisabledMove = FALSE;
     gProtectStructs[gActiveBattler].usedTauntedMove = FALSE;
     gProtectStructs[gActiveBattler].flag2Unknown = FALSE;

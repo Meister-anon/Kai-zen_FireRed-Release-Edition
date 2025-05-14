@@ -1720,6 +1720,8 @@ static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move)//IMPORTA
         return TRUE;
     else if (gProtectStructs[battlerDef].banefulBunkered)
         return TRUE;
+    else if ((gProtectStructs[battlerDef].obstructed || gProtectStructs[battlerDef].silkTrapped) && !IS_MOVE_STATUS(move))
+        return TRUE;
     else if (gProtectStructs[battlerDef].spikyShielded)
         return TRUE;
     else if (gProtectStructs[battlerDef].kingsShielded && gBattleMoves[move].power != 0)
@@ -5731,7 +5733,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gProtectStructs[gBattlerTarget].kingsShielded = FALSE;
                     gProtectStructs[gBattlerTarget].banefulBunkered = FALSE;
                     gProtectStructs[gBattlerTarget].obstructed = FALSE;
-                    //gProtectStructs[gBattlerTarget].silkTrapped = FALSE;
+                    gProtectStructs[gBattlerTarget].silkTrapped = FALSE;
                     BattleScriptPush(gBattlescriptCurrInstr + 1);
                     if (gCurrentMove == MOVE_HYPERSPACE_FURY)
                         gBattlescriptCurrInstr = BattleScript_HyperspaceFuryRemoveProtect;  //WORK OUT and try to use for protect break plan
@@ -7980,7 +7982,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gBattlescriptCurrInstr = BattleScript_BanefulBunkerEffect;
                     effect = 1;
                 }
-                else if (gProtectStructs[gBattlerTarget].obstructed && gCurrentMove != MOVE_SUCKER_PUNCH)
+                else if (gProtectStructs[gBattlerTarget].obstructed && moveEffect != EFFECT_SUCKER_PUNCH && gCurrentMove != MOVE_UPPER_HAND)
                 {
                     gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
                     i = gBattlerAttacker;
@@ -14333,6 +14335,11 @@ static void atk77_setprotectlike(void)
             else if (gCurrentMove == MOVE_BANEFUL_BUNKER)
             {
                 gProtectStructs[gBattlerAttacker].banefulBunkered = TRUE;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECTED_ITSELF;
+            }
+            else if (gCurrentMove == MOVE_SILK_TRAP)
+            {
+                gProtectStructs[gBattlerAttacker].silkTrapped = TRUE;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_PROTECTED_ITSELF;
             }
             else if (gCurrentMove == MOVE_OBSTRUCT)
