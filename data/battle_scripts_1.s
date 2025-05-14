@@ -6266,6 +6266,38 @@ BattleScript_EffectBrickBreak::
 BattleScript_EffectRagingBull::
 	call_if EFFECT_RAGING_BULL
 
+BattleScript_RagingBullBreaksThrough::
+	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	critcalc
+	damagecalc
+	typecalc	@with change to typecalc can use normal effect and just change modifier
+	adjustnormaldamage
+	pause B_WAIT_TIME_CLEAR_BUFF
+	jumpifbyte CMP_EQUAL, sB_ANIM_TURN, 0, BattleScript_ProtectBreakAnim
+BattleScript_ProtectBreakAnim::
+	attackanimation
+	waitanimation
+	jumpifbyte CMP_LESS_THAN, sB_ANIM_TURN, 2, BattleScript_ProtectBreakDoHit
+	printstring STRINGID_RAGINGBULL_BREAKSTHROUGH @change here
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+BattleScript_ProtectBreakDoHit::	
+	effectivenesssound
+	hitanimation BS_TARGET
+	waitstate
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	critmessage
+	waitmessage B_WAIT_TIME_LONG
+	resultmessage
+	waitmessage B_WAIT_TIME_LONG
+	setmoveeffectwithchance
+	setargumentwithchance	@added for psychic fangs to add flinch effect, should do nothing for normal brickbreak
+	tryfaintmon BS_TARGET, 0, NULL
+	goto BattleScript_MoveEnd
+
 @still working on this vsonic
 BattleScript_BrickBreakWithScreens::
 	attackcanceler

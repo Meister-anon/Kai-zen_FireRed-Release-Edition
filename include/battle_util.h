@@ -231,6 +231,8 @@ bool8 CanActivateExpShare(void);
 bool8 CanActivateExpNull(void);
 //condition for using Exp items
 
+bool8 IsBattlerUnderProtectEffect(u8 battler);
+
 //cacophony based functions - also affects perish song, bypasses walls and protection
 //and sets sleep and confusion effects to max duration on status set
 bool8 ShouldCacophonyBoostAccuracy(u16 move);

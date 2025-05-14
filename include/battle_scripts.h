@@ -30,6 +30,7 @@ extern const u8 BattleScript_JabocaRowapBerryActivates[];
 extern const u8 BattleScript_BattleBondActivatesOnMoveEndAttacker[];
 extern const u8 BattleScript_BrickBreakWithScreens[];
 extern const u8 BattleScript_BrickBreakNoScreens[];
+extern const u8 BattleScript_RagingBullBreaksThrough[];
 extern const u8 BattleScript_MoveEnd[];
 extern const u8 BattleScript_MakeMoveMissed[];
 extern const u8 BattleScript_PrintMoveMissed[];

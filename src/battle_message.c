@@ -1569,6 +1569,8 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_POINTEDSTEELSURROUNDS - BATTLESTRINGS_TABLE_START]            = COMPOUND_STRING("Pointed steel spears\nsurround {B_DEF_TEAM2}'s team!"),
     [STRINGID_STEELSURGE_ABSORBED - BATTLESTRINGS_TABLE_START]          = COMPOUND_STRING("The steel spears disappeared\nfrom around {B_ATK_TEAM2}'s team!"),
     [STRINGID_SHARPSTEELDMG - BATTLESTRINGS_TABLE_START]                = COMPOUND_STRING("The sharp steel bit into {B_SCR_ACTIVE_NAME_WITH_PREFIX}!"),
+    [STRINGID_RAGINGBULL_BREAKSTHROUGH - BATTLESTRINGS_TABLE_START]     = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} broke through the foe's defenses!"),
+
 
     [STRINGID_TRAINER2CLASS - BATTLESTRINGS_TABLE_START]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME - BATTLESTRINGS_TABLE_START]                  = sText_Trainer2Name,

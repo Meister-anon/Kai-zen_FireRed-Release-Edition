@@ -12274,7 +12274,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SILK_TRAP] =
     {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_PROTECT with extra checks
+        .effect = EFFECT_PROTECT,    //Todo // EFFECT_PROTECT with extra checks
         .power = 0,
         .type = TYPE_BUG,
         .accuracy = 0,

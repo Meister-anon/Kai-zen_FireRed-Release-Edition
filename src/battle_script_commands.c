@@ -107,7 +107,7 @@ static void HandleTerrainMove(u32 moveEffect);
 static void TransformRecalcBattlerStats(u32 battler, struct Pokemon *mon, u16 TargetAbility, u16 TransformSpecies);
 static void SetDmgHazardsBattlescript(u8 battlerId, u8 multistringId);
 //since its not static
-static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move);//gabe me compiler double definition error so made static
+static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move);//gabe me compiler double definition error so made static
 //static void ProtectBreak(void); add back later when I figure it out
 static u8 WeightBoostedDamageFormula(void); //new seismic toss boost
 static bool32 ChangeOrderTargetAfterAttacker(void);
@@ -1616,7 +1616,7 @@ static void atk00_attackcanceler(void) //vsonic
             gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
-    else if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
+    else if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove)
         && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
         //&& ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
         && (CanTwoTurnMoveAttackThisTurn(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS) || !IsTwoTurnsMove(gCurrentMove))
@@ -1674,7 +1674,7 @@ static bool32 JumpIfMoveFailed(u8 adder, u16 move) //updated to emerald standard
 
 static void atk40_jumpifaffectedbyprotect(void)
 {
-    if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
+    if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         JumpIfMoveFailed(5, 0);
@@ -1690,7 +1690,7 @@ static bool8 JumpIfMoveAffectedByProtect(u16 move)
 {
     bool8 affected = FALSE;
 
-    if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
+    if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
         JumpIfMoveFailed(7, move);
@@ -1700,7 +1700,7 @@ static bool8 JumpIfMoveAffectedByProtect(u16 move)
     return affected;
 }
 
-static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move)//IMPORTANT change to false if protectbreak condition met
+static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move)//IMPORTANT change to false if protectbreak condition met
 { //setprotectlike does the protection, then hre I can undo it when this gets checked in attack canceleror
     //make sure add check for if move is protect affected to all protectstructs listed below
 
@@ -1738,6 +1738,32 @@ static bool8 IsBattlerProtected(u8 battlerAtk, u8 battlerDef, u16 move)//IMPORTA
     
     else
         return FALSE;
+}
+
+bool8 IsBattlerUnderProtectEffect(u8 battler)
+{
+    if (gProtectStructs[battler].protected)
+        return TRUE;
+    else if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_WIDE_GUARD)
+        return TRUE;
+    else if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_QUICK_GUARD)
+        return TRUE;
+    else if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_CRAFTY_SHIELD)
+        return TRUE;
+    else if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_MAT_BLOCK)
+        return TRUE;
+    else if (gProtectStructs[battler].spikyShielded)
+        return TRUE;
+    else if (gProtectStructs[battler].kingsShielded)
+        return TRUE;
+    else if (gProtectStructs[battler].banefulBunkered)
+        return TRUE;
+    else if (gProtectStructs[battler].obstructed)
+        return TRUE;
+    else if (gProtectStructs[battler].silkTrapped)
+        return TRUE;
+
+    return FALSE;
 }
 
 
@@ -5722,7 +5748,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_FEINT:
-                if (IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove))
+                if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove))
                 {
                     gProtectStructs[gBattlerTarget].protected = FALSE;
                     gSideStatuses[GetBattlerSide(gBattlerTarget)] &= ~SIDE_STATUS_WIDE_GUARD;
@@ -18247,7 +18273,7 @@ static void atkC9_trymemento(void) // memento
     CMD_ARGS(const u8 *failInstr);
     if ((gBattleCommunication[MISS_TYPE] == B_MSG_PROTECTED
         || gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE
-        || IsBattlerProtected(gBattlerAttacker, gBattlerTarget, gCurrentMove)
+        || IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove)
         || DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove)))
     {
         // Failed, target was protected.
@@ -20894,6 +20920,13 @@ void BS_call_if(void) //comparing to jumpifholdeffect
                     gBattlescriptCurrInstr = BattleScript_BrickBreakWithScreens;//may be able to do something similar to fury cutter where anim effects used a stored value to change animation?
                     return;
                 } 
+                else if (IsBattlerUnderProtectEffect(gBattlerTarget))
+                {
+                    gBattlescriptCurrInstr = BattleScript_RagingBullBreaksThrough;//may be able to do something similar to fury cutter where anim effects used a stored value to change animation?
+                    return;
+                }//think this should work just do same as above but with crash through protect stirng
+                //actually this would work but not perfectly,best to instead check status of having used protect
+                //as if attacks first when mon used protect last turn it would trigger wrongly
                 else
                 {
                     gBattlescriptCurrInstr = BattleScript_BrickBreakNoScreens;

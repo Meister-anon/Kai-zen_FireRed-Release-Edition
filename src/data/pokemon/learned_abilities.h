@@ -2939,10 +2939,12 @@ static const struct AbilityLearnset sAvaluggAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sNoibatAbilityLearnset[] = {
+    ABILITY_CACOPHONY,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sNoivernAbilityLearnset[] = {
+    ABILITY_CACOPHONY,
     ABILITY_SET_END
 };
 
