@@ -2321,7 +2321,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 //talked w chief making negative priority does nothing for the problem,
 //just make it hard/impossible for faster mon to use the move,
 //when the issue is just amoongus, who's so bulky it just doesn't have to worry,
-//so best thing I can do is just and I do mean just, to lower its accuracy
+//so best thing I can do is just, and I do mean just, to lower its accuracy
 //at most lower to 90
 
 [MOVE_FLASH] =
