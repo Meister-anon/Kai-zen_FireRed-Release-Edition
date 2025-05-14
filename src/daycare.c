@@ -2795,6 +2795,7 @@ static void Task_EggHatch(u8 taskID)
     }
 }
 
+#define EGG_HATCH_LOGIC //for script look at Debug_HatchAnEgg make work for box
 static void CB2_EggHatch_0(void)
 {
     switch (gMain.state)

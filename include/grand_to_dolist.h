@@ -4221,6 +4221,29 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and also setup for display in pc, only thing left for setup
     is eggs getting closer to hatch while in pc, 
 
+    will need put counter for pc and tell it to stop
+    when it should otherwise hatch as would cause rollover if continued
+    make new message for it, then just take it out and put in party to hatch
+    hmm while that is more convenient than the current setup
+    could I do something better than that?
+    if you have a good deal of eggs woud still require taking out of party
+    5 at a time and replacing your party hmm
+    ok BEST case would be a hatch dialogue from within pc
+
+    ok eggs in party no need change anything
+    but for pc system set task to hatch egg
+    hmm debug menu already has an option
+    for hatchin eggs with that
+
+    ok here's what I'll do fuck the egg cycle bs
+    if an egg is in the pc I can insta hatch
+    from menu option.
+
+    think I won't add this to party menu just for
+    player choice. 
+    */
+   goto EGG_HATCH_LOGIC //
+   /*
     working on buff scovillain gave better support moves
     think will adjust stats as well as I want it to be an offensive
     support mon. think just give the grass type hp buffs?
