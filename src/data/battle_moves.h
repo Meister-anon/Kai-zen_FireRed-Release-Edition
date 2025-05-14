@@ -12055,24 +12055,31 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BITTER_MALICE] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_9
-            .power = 75,
-        #else
-            .power = 60,
-        #endif
+
+        .power = 60,
         .effect = EFFECT_ATTACK_DOWN_HIT, //freeze hit plus hex
         .type = TYPE_GHOST, //while would be cool to have ghost freeze move
         .accuracy = 100, //think thematicaly (based on move description)
-        .pp = 15,       //prefer this as atk and sp atk drop
+        .pp = 10,       //prefer this as atk and sp atk drop
         .secondaryEffectChance = 0,  //make other move for ghost freeze
         .target = MOVE_TARGET_SELECTED, //for that use shadow ball background with creeping ice crystals from bottom up
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_FREEZE,
+        .argumentEffectChance = 30,
         ////.zMovePower = 120,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },//vsonic - make bitter malilce its own effect atk/spatkdown hit
     //use BattleScript_EffectNobleRoar  as template
+    //ok change mind what i'll do is keep power at 60
+    //pp at 10  do atk & sp atk drop, but also add frostbite chance
+    //as doesn't make sense to freeze solid, 
+    //make atk sp atk down hit and add freeze chanace
+    //then in setmove effect think in freeze set will need
+    //check curr move and set timer to 0
+    //and accomodate for re-freeze so doesn't trigger that
+    //done - w freeze chance added decided do just atk down
 
     [MOVE_SHELTER] =
     {

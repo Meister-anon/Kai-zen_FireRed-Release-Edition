@@ -4807,8 +4807,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
             {
                 
                 if (gDisableStructs[gEffectBattler].FrozenTurns == 0 && !(gBattleMons[gEffectBattler].status1 & STATUS1_FREEZE))
-                gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
-                gDisableStructs[gEffectBattler].FrozenTurns = 3;    //means 2 turns of freeze
+                    gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
+                
+                //setup since plan move can't freeze solid can only
+                //chill to be frozen //message is lacking tho
+                //would still say frozen solid, could change to only say frozen? -
+                if (gCurrentMove != MOVE_BITTER_MALICE)
+                    gDisableStructs[gEffectBattler].FrozenTurns = 3;    //means 2 turns of freeze
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
 
                 if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
