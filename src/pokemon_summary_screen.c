@@ -2536,8 +2536,7 @@ static void BufferMonInfo(void) // seems to be PSS_PAGE_INFO or data for it
     //else
     //    GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_NICKNAME, tempStr); //this part is reason info box doesn't update name, its using nickname not speciesnamestr
     
-    StringCopyN_Multibyte(sMonSummaryScreen->summary.nicknameStrBuf, tempStr, POKEMON_NAME_LENGTH); //test if placeholder removal worked
-    StringGet_Nickname(sMonSummaryScreen->summary.nicknameStrBuf); //appears to be working!!
+    StringCopy(sMonSummaryScreen->summary.nicknameStrBuf, tempStr);
 
     gender = GetMonGender(&sMonSummaryScreen->currentMon);
     dexNum = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES_OR_EGG);
@@ -3108,7 +3107,13 @@ static void PrintMonLevelNickOnWindow2(const u8 * str)
         if (sMonSummaryScreen->curPageIndex == PSS_PAGE_MOVES_INFO) //change to move name over move info
             AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], FONT_NORMAL, 4, 0, sLevelNickTextColors[1], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.nicknameStrBuf);
     }   //can use sLevelNickTextColors  3 & 2 for the types that get buffed/debuffed by nature
-
+    else
+    {
+        GetSpeciesName(sMonSummaryScreen->summary.speciesNameStrBuf, GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES, NULL));
+        
+        if (sMonSummaryScreen->curPageIndex != PSS_PAGE_MOVES_INFO)
+            AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], FONT_NORMAL, 35, 2, sLevelNickTextColors[1], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.speciesNameStrBuf);
+    }//I think the font will already adjust?
     PutWindowTilemap(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK]);
 }
 

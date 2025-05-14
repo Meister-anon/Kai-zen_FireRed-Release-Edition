@@ -1112,9 +1112,16 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         if (sanityIsBagEgg)
             StringCopyPadded(gPSSData->displayMonNameText, gPSSData->cursorMonNick, CHAR_SPACE, 5);
         else
-            StringCopyPadded(gPSSData->displayMonNameText, gText_EggNickname, CHAR_SPACE, 8);
+        {
 
-        StringFill(gPSSData->displayMonSpeciesName, CHAR_SPACE, 8);
+            txtPtr = gPSSData->displayMonNameText;
+            *(txtPtr)++ = CHAR_SLASH;
+            GetSpeciesName(gStringVar1,GetBoxMonData(pokemon, MON_DATA_SPECIES));
+            StringCopy(txtPtr++, gStringVar1);
+
+
+            StringCopyPadded(gPSSData->displayMonSpeciesName, gText_EggNickname, CHAR_SPACE, 8);
+        }
         StringFill(gPSSData->displayMonGenderLvlText, CHAR_SPACE, 8);
         StringFill(gPSSData->displayMonItemName, CHAR_SPACE, 8);
     }

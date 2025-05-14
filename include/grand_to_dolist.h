@@ -4217,6 +4217,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     it auto shows it as learnable by tm
     -done taken from EE for some reason they only implemented that
     for universal moves?
+    -was able to get summ screen to display species for eggs
+    and also setup for display in pc, only thing left for setup
+    is eggs getting closer to hatch while in pc, 
 
     working on buff scovillain gave better support moves
     think will adjust stats as well as I want it to be an offensive
