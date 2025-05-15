@@ -20935,20 +20935,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
                     
             }//think shouldn't remove protect bad for meta its good enough to just have it crash through
             break;//removes screens from start, still need to setup script with screens, need understand how wall animation worked in default script
-            /*case EFFECT_SWARM:  //think dn't need this set elsewhere
-            if (!(gDisableStructs[gEffectBattler].swarmTurns)) //for trap status
-            {
-                if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_GRIP_CLAW
-                    || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SUCTION_CUPS))   //BUFF for suction cups - need work on better define setup this vsonic
-                {
-                    gDisableStructs[gEffectBattler].swarmTurns = 7;
-                }   //and check util.c so both status4 & status1 gets cleared when timer hits 0
-                else    //just lasting longer seems a bit useless maybe make it a status1 so you can switch out and still trap enemy?
-                    gDisableStructs[gEffectBattler].swarmTurns = ((Random() % 5) + 2);   //will do 2-6 turns
 
-                    gBattleMons[gActiveBattler].status2 |= STATUS2_INFESTATION; //wasn't planning to include status in this but think need it for animation to play properly
-            }
-                break;*/
             case EFFECT_ACCURACY_DOWN:            
                 if ((DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GROUND) 
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
