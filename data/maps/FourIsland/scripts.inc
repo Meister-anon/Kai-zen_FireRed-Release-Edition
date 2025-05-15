@@ -17,7 +17,7 @@ FourIsland_EventScript_ShowRival:: @ 8167CCD
 	clearflag FLAG_HIDE_FOUR_ISLAND_RIVAL
 	return
 
-@rather than needing a trigger can't I just make a separate special for this
+@rather than needing a trigger can''t I just make a separate special for this
 @since everything is a function? vsonic IMPORTANT
 FourIsland_EventScript_TrySetDayCareManPos:: @ 8167CD1
 	goto_if_unset FLAG_PENDING_DAYCARE_EGG, FourIsland_EventScript_EndSetDayCareManPos

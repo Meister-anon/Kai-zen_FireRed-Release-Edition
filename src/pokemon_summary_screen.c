@@ -3088,6 +3088,7 @@ static void PokeSum_PrintControlsString(const u8 * str)
 #define SUMM_MAIN_WINDOW
 static void PrintMonLevelNickOnWindow2(const u8 * str)
 {
+    u8 shouldHideEggSpecies = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HIDE_EGG_SPECIES, NULL);
     FillWindowPixelBuffer(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], 0);
 
     if (!sMonSummaryScreen->isEgg)  //is not an egg
@@ -3107,7 +3108,7 @@ static void PrintMonLevelNickOnWindow2(const u8 * str)
         if (sMonSummaryScreen->curPageIndex == PSS_PAGE_MOVES_INFO) //change to move name over move info
             AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_LVL_NICK], FONT_NORMAL, 4, 0, sLevelNickTextColors[1], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.nicknameStrBuf);
     }   //can use sLevelNickTextColors  3 & 2 for the types that get buffed/debuffed by nature
-    else
+    else if (!shouldHideEggSpecies)
     {
         GetSpeciesName(sMonSummaryScreen->summary.speciesNameStrBuf, GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES, NULL));
         
@@ -3612,8 +3613,6 @@ static void PokeSum_PrintTrainerMemo_Mon_HeldByOT(void) // seems to relate to or
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, levelStr);
 
     metLocation = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MET_LOCATION);
-    lostLocation = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_LOST_LOCATION);
-
     if (lostLocation)
     {
         if (MapSecIsInKantoOrSevii(lostLocation) == TRUE)

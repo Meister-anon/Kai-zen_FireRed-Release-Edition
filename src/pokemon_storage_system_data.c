@@ -1113,14 +1113,25 @@ static void SetCursorMonData(void *pokemon, u8 mode)
             StringCopyPadded(gPSSData->displayMonNameText, gPSSData->cursorMonNick, CHAR_SPACE, 5);
         else
         {
+            u8 shouldHideEggSpecies = GetBoxMonData(pokemon, MON_DATA_HIDE_EGG_SPECIES);
+            
+            if (shouldHideEggSpecies)
+            {
+                StringCopyPadded(gPSSData->displayMonNameText, gText_EggNickname, CHAR_SPACE, 8);
+                StringFill(gPSSData->displayMonSpeciesName, CHAR_SPACE, 8);
 
-            txtPtr = gPSSData->displayMonNameText;
-            *(txtPtr)++ = CHAR_SLASH;
-            GetSpeciesName(gStringVar1,GetBoxMonData(pokemon, MON_DATA_SPECIES));
-            StringCopy(txtPtr++, gStringVar1);
+            }
+            else
+            {
+                txtPtr = gPSSData->displayMonNameText;
+                *(txtPtr)++ = CHAR_SLASH;
+                GetSpeciesName(gStringVar1,GetBoxMonData(pokemon, MON_DATA_SPECIES));
+                StringCopy(txtPtr++, gStringVar1);
 
+                StringCopyPadded(gPSSData->displayMonSpeciesName, gText_EggNickname, CHAR_SPACE, 8);
+            }
 
-            StringCopyPadded(gPSSData->displayMonSpeciesName, gText_EggNickname, CHAR_SPACE, 8);
+            
         }
         StringFill(gPSSData->displayMonGenderLvlText, CHAR_SPACE, 8);
         StringFill(gPSSData->displayMonItemName, CHAR_SPACE, 8);

@@ -104,6 +104,7 @@
 #define MON_DATA_HIDDEN_POWER_TYPE 97
 #define MON_DATA_USE_TAUGHT_ABILITY 98
 #define MON_DATA_LEARNED_ABILITY_ID 99
+#define MON_DATA_HIDE_EGG_SPECIES 100 //for option to not display egg species for special eggs received outside daycare
 
 #define TYPE_DEFINES
 // Pokemon types	type order found in list_menu.c    actually is in graphics_file_rules.mk 

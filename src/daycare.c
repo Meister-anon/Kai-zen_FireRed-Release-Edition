@@ -1473,8 +1473,6 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
 }
 
 //triggered when at daycare picking up egg
-//vsonic important attempt set egg species name here 
-//gText_EggNickname
 static void _GiveEggFromDaycare(struct DayCare *daycare)
 {
     struct Pokemon egg;
@@ -1504,6 +1502,9 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
 }
 
 //think this specific for r/s/e receiving egg event from lavaridge town
+//also used for give egg not received from daycare
+//can't remove hotsprings stuff no idea what it is
+//done put in function that calls this
 void CreateEgg(struct Pokemon *mon, u16 species, bool8 setHotSpringsLocation) 
 {
     u8 metLevel,hatched;

@@ -920,10 +920,21 @@
 	.byte 0
 	.endm
 
-	.macro giveegg species:req
+	.macro giveegg_base species:req, isSecretegg:req
 	.byte 0x7a
 	.2byte \species
+	.byte \isSecretegg
 	.endm
+
+	.macro giveegg species:req
+	giveegg_base \species, FALSE
+	.endm
+
+	.macro givesecretegg species:req
+	giveegg_base \species, TRUE
+	.endm
+
+
 
 	.macro setmonmove byte1:req, byte2:req, word:req
 	.byte 0x7b

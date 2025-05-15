@@ -144,7 +144,7 @@ struct BoxPokemon
     //byte 30? so even again - ok perfect so should be able to add u16 below this to not add extra padding
     u8 NoBoxExp:1; //true false is all I need for this
     u8 UseTaughtAbility:1; //true false
-    u8 padding:1; //would like add extra u16 for allowing any ability for post game fun in trade battles would turn off and use normal abilities, not sure have save space for it
+    u8 hideEggSpecies:1; //use for hide egg species, for certain gift eggs you wnt to be a surprise pretty much just restore default logic but just for this add argument to function shouldhideeggspecies and read that to set boxmon value within function put true/false in macros think giveegg givesecretegg
     u8 HiddenPowerType:5; //20 types need bit 5 to store //may just set its own byte to keep padd space //need add new u16 removnig pad to save space
     u8 cool; //put to fix odd/even //think read that wrong, putting there broke it so now toss on end, no it was right
 

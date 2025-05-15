@@ -1986,8 +1986,9 @@ bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poiso
 bool8 ScrCmd_giveegg(struct ScriptContext * ctx)
 {
     u16 species = VarGet(ScriptReadHalfword(ctx));
+    u8 isSecretEgg = ScriptReadByte(ctx); //whether should hide egg species
 
-    gSpecialVar_Result = ScriptGiveEgg(species);
+    gSpecialVar_Result = ScriptGiveEgg(species, isSecretEgg);
     return FALSE;
 }
 

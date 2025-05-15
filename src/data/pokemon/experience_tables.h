@@ -17,6 +17,7 @@
 
 const u32 gExperienceTables[][MAX_LEVEL + 1] =
 {
+    [GROWTH_MEDIUM_FAST] =
     { // Medium Fast
         0, // 0
         1, // 1
@@ -120,6 +121,7 @@ const u32 gExperienceTables[][MAX_LEVEL + 1] =
         EXP_MEDIUM_FAST(99),
         EXP_MEDIUM_FAST(100),
     },
+    [GROWTH_ERRATIC] =
     { // Erratic
         0, // 0
         1, // 1
@@ -223,6 +225,7 @@ const u32 gExperienceTables[][MAX_LEVEL + 1] =
         EXP_ERRATIC(99),
         EXP_ERRATIC(100),
     },
+    [GROWTH_FLUCTUATING] =
     { // Fluctuating
         0, // 0
         1, // 1
@@ -326,6 +329,7 @@ const u32 gExperienceTables[][MAX_LEVEL + 1] =
         EXP_FLUCTUATING(99),
         EXP_FLUCTUATING(100),
     },
+    [GROWTH_MEDIUM_SLOW] =
     { // Medium Slow
         0, // 0
         1, // 1
@@ -429,6 +433,7 @@ const u32 gExperienceTables[][MAX_LEVEL + 1] =
         EXP_MEDIUM_SLOW(99),
         EXP_MEDIUM_SLOW(100),
     },
+    [GROWTH_FAST] =
     { // Fast
         0, // 0
         1, // 1
@@ -532,6 +537,7 @@ const u32 gExperienceTables[][MAX_LEVEL + 1] =
         EXP_FAST(99),
         EXP_FAST(100),
     },
+    [GROWTH_SLOW] =
     { // Slow
         0, // 0
         1, // 1

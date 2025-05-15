@@ -255,12 +255,12 @@
 #define ITEM_0E8 232
 #define ITEM_0E9 233
 //Power Items
-#define ITEM_POWER_WEIGHT 234	
-#define ITEM_POWER_BRACER 235		
-#define ITEM_POWER_BELT 236		
-#define ITEM_POWER_LENS 237		
-#define ITEM_POWER_BAND 238	
-#define ITEM_POWER_ANKLET 239
+#define ITEM_POWER_WEIGHT 234	//hp
+#define ITEM_POWER_BRACER 235	//atk	
+#define ITEM_POWER_BELT 236		//def
+#define ITEM_POWER_LENS 237		//sp.atk
+#define ITEM_POWER_BAND 238	    //sp.def
+#define ITEM_POWER_ANKLET 239   //speed
 //Fossils
 #define ITEM_SAIL_FOSSIL 240		//amaura
 #define ITEM_JAW_FOSSIL 241			//tyrunt

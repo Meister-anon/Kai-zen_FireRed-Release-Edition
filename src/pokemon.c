@@ -7171,6 +7171,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_SANITY_IS_EGG:
         retVal = boxMon->isEgg;
         break;
+    case MON_DATA_HIDE_EGG_SPECIES:
+        retVal = boxMon->hideEggSpecies;
+        break;
     case MON_DATA_USE_TAUGHT_ABILITY:
         retVal = boxMon->UseTaughtAbility;
         break;
@@ -7589,6 +7592,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     case MON_DATA_SANITY_IS_EGG:
         SET8(boxMon->isEgg);
+        break;
+    case MON_DATA_HIDE_EGG_SPECIES:
+        SET8(boxMon->hideEggSpecies);
         break;
     case MON_DATA_USE_TAUGHT_ABILITY:
         SET8(boxMon->UseTaughtAbility);
