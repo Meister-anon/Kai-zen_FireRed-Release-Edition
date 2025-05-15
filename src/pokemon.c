@@ -2843,6 +2843,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 formflag = FALSE;
     u8 evoLevel = 0;  //default 0, not set until evolves
 
+    u8 nature;
     u32 shiny = (Random() % SHINY_ODDS) == 100 ? TRUE : FALSE;
 
     //if (abilityodds < 0) { abilityodds = 0; }//prevent negative values, why did I add this?? I explicitly need it to be  negative to be able to set hidden ability 1
@@ -2860,6 +2861,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
     
+    nature = SetNature(boxMon);
+    SetBoxMonData(boxMon, MON_DATA_NATURE, &nature);
+
     
     //Determine original trainer ID
     if (otIdType == OT_ID_RANDOM_NO_SHINY) //Pokemon cannot be shiny
@@ -2902,7 +2906,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_FRIENDSHIP, &gBaseStats[species].friendship);
     value = GetCurrentRegionMapSectionId();
     SetBoxMonData(boxMon, MON_DATA_MET_LOCATION, &value);
-    SetBoxMonData(boxMon, MON_DATA_LOST_LOCATION, &setZero);
     SetBoxMonData(boxMon, MON_DATA_MET_LEVEL, &level);
     SetBoxMonData(boxMon,MON_DATA_EVO_LEVEL, &evoLevel);
     SetBoxMonData(boxMon, MON_DATA_HATCHED, &hatched);
@@ -3202,6 +3205,7 @@ u8 ReturnAltFormGenderRatio(u16 species)
     }
 }
 
+//main function for generating wild mon
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature)
 {
     u32 personality;
@@ -3210,11 +3214,7 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     u16 Speciesreturn;
 
 
-    do
-    {
-        personality = Random32();
-    }
-    while (nature != GetNatureFromPersonality(personality));    //keep generating random values until a mon with the requested nature is made
+    personality = Random32();
 
     //potential worry is this would also change the guy that gives magikarp
     //by mt moon but honestly that would be even better lol
@@ -3236,6 +3236,11 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     //so logic tracks
 
     CreateMon(mon, Speciesreturn, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
+    //still does odds to set nature by now
+    //doesn't shift personality to fit nature
+    //so specific nature are now no longer restricted
+    //to certain personalitys & ivs
+    SetMonData(mon, MON_DATA_NATURE, &nature);
 }
 
 void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter)
@@ -3251,8 +3256,7 @@ void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level,
             personality = Random32();
             actualLetter = ((((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 0x3)) % 28);
         }
-        while (nature != GetNatureFromPersonality(personality)
-            || gender != GetGenderFromSpeciesAndPersonality(species, personality)
+        while (gender != GetGenderFromSpeciesAndPersonality(species, personality)
             || actualLetter != unownLetter - 1);
     }
     else
@@ -3261,11 +3265,11 @@ void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level,
         {
             personality = Random32();
         }
-        while (nature != GetNatureFromPersonality(personality)
-            || gender != GetGenderFromSpeciesAndPersonality(species, personality));
+        while (gender != GetGenderFromSpeciesAndPersonality(species, personality));
     }
 
     CreateMon(mon, species, level, fixedIV, 1, personality, OT_ID_PLAYER_ID, 0);
+    SetMonData(mon, MON_DATA_NATURE, &nature);
 }
 
 // Used to create the Old Man's Weedle?
@@ -7284,8 +7288,8 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_MET_LOCATION:
         retVal = boxMon->metLocation;
         break;
-    case MON_DATA_LOST_LOCATION:
-        retVal = boxMon->lostLocation;
+    case MON_DATA_NATURE:
+        retVal = boxMon->nature;
        break;
     case MON_DATA_HATCHED:
         retVal = boxMon->hatched; //needed move to save substruct space, all substructs must be 12 bytes
@@ -7705,11 +7709,11 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_MET_LOCATION:
         SET8(boxMon->metLocation);
         break;
-  case MON_DATA_LOST_LOCATION:  // plan to use this for pokemon death, will return the val of the map at the time the function determines the pokemon is dead.
+  case MON_DATA_NATURE:  // plan to use this for pokemon death, will return the val of the map at the time the function determines the pokemon is dead.
     {
-        //SET8(boxMon->lostLocation); //this may be right
-        u8 lostLocation = *data;
-        boxMon->lostLocation = lostLocation;
+        //put personality %25 in function calling this
+        //in initial createmon so not running that every time set is called
+        SET8(boxMon->nature);
         break;
     }  //not really needed I guess? met location is apparently only practical use is boosting friendship and no one even knows that, it'd be cool to have though
     case MON_DATA_MET_LEVEL:
@@ -9598,11 +9602,18 @@ const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId)
     return gDisplayedStringBattle;
 }
 
-u8 GetNature(struct Pokemon *mon)
+
+u8 SetNature(struct BoxPokemon *mon)
 {
-    return GetMonData(mon, MON_DATA_PERSONALITY, 0) % 25;
+    return GetBoxMonData(mon, MON_DATA_PERSONALITY, 0) % 25;
 }
 
+u8 GetNature(struct Pokemon *mon)
+{
+    return GetMonData(mon, MON_DATA_NATURE, NULL);
+}
+
+//potentially replace all use of this
 u8 GetNatureFromPersonality(u32 personality)
 {
     return personality % 25;
@@ -12211,15 +12222,9 @@ bool8 IsPokeSpriteNotFlipped(u16 species)
 }
 
 #define BERRY_TO_NATURE_RELATION
-static s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor)
+s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor)
 {
     u8 nature = GetNature(mon);
-    return gBerryFlavorCompatibilityTable[nature * 5 + flavor];
-}
-
-s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor)
-{
-    u8 nature = GetNatureFromPersonality(personality);
     return gBerryFlavorCompatibilityTable[nature * 5 + flavor];
 }
 

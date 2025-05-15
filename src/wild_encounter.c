@@ -297,7 +297,7 @@ static void GenerateWildMon(u16 species, u8 level, u8 slot)
     ZeroEnemyPartyMons();
     if (species != SPECIES_UNOWN)
     {
-        CreateMonWithNature(&gEnemyParty[0], species, level, 32, Random() % 25);
+        CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, Random() % 25);
     }
     else
     {

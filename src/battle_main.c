@@ -4688,8 +4688,6 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
     {
         u8 boxHP = 0;
-        //u8 map = GetCurrentRegionMapSectionId();
-        //SetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_LOST_LOCATION, &map);
         SetMonData(party, MON_DATA_BOX_HP, &boxHP);
     }    //this works here
 }

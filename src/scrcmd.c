@@ -1976,9 +1976,7 @@ bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poiso
             SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
 
         }
-        
-        //SetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_LOST_LOCATION, &map);
-        
+                
     }
     return TRUE;
 }

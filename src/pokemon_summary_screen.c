@@ -3202,7 +3202,7 @@ static const u8* GetNatureStatColor(u16 *string)
     //in comparison say if string == atkString as an example (I think?)
     u8 nature;
 
-    nature = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_PERSONALITY, NULL) % 25;
+    nature = GetNature(&sMonSummaryScreen->currentMon);
 
 
 

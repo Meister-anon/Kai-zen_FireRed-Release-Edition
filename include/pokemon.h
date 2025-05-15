@@ -196,9 +196,10 @@ struct BoxPokemon
     u32 effortRibbon:1; //given for a pokmeon that maxed EVs, have already updated script commands, still need update field_specials commands for box access instead of just party
     u32 coolRibbon:3;    //these are 3 because multiple levels, so can't lower
     
-    u32 experience:21;
-    u32 lostLocation:8; //not yet implemented but meant to be for nuzlocke mode
-    u32 beautyRibbon:3;
+    u32 experience:21; //there are 31 natures? either way need bit 5
+    u32 nature:5;
+    u32 padding:3;
+    u32 beautyRibbon:3; //running short on ewram; while cool think may scrap lostlocation so can set nature //when I do nature task think need run calcmonstat to readjust
 
     u8 beauty;
     u8 cute;
@@ -835,6 +836,7 @@ bool8 PokemonItemUseNoEffect(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mo
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 const u8 *Battle_PrintStatBoosterEffectMessage(u16 itemId);
 u8 GetNature(struct Pokemon *mon);
+u8 SetNature(struct BoxPokemon *mon);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem);
 u16 NationalPokedexNumToSpecies(u16 nationalNum);
 u16 SpeciesToNationalPokedexNum(u16 species);
@@ -887,7 +889,7 @@ const u32 *GetMonSpritePalOfSpecies(struct Pokemon *mon, u16 species); //use mon
 //replaced previous
 const u32 *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
 bool8 IsPokeSpriteNotFlipped(u16 species);
-s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor);
+s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);//replaces below
 bool8 IsTradedMon(struct Pokemon *mon);
 bool8 IsOtherTrainer(u32 otId, u8 *otName);
 void MonRestorePP(struct Pokemon *mon);

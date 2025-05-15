@@ -4217,6 +4217,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     it auto shows it as learnable by tm
     -done taken from EE for some reason they only implemented that
     for universal moves?
+
+    note mints don't directly shift nature becuase 
+    there is no nature field its instead dictated by personality
+    would require 5 bits to make a nature field
+    //plan do that stil use personality to set initial nature
+    -done direct nature set done and adjust mint script for changes
+    still not currenlty using mints etc.
+
     -was able to get summ screen to display species for eggs
     and also setup for display in pc, only thing left for setup
     is eggs getting closer to hatch while in pc, 

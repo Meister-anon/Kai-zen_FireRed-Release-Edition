@@ -505,6 +505,12 @@ void FieldUseFunc_AbilityCapsule(u8 taskId)
     DoSetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_Mint(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_Mint;
+    SetUpItemUseCallback(taskId);
+}
+
 static void Task_InitTMCaseFromField(u8 taskId)
 {
     if (!gPaletteFade.active)

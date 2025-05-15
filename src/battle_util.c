@@ -9447,6 +9447,9 @@ static u8 ItemHealHp(u32 battlerId, u32 itemId, bool32 end2, bool32 percentHeal)
 
 static u8 HealConfuseBerry(u8 battlerId, u16 itemId, u8 flavorId, bool32 end2)  //consider putting back to u32 it does something for efficiency?
 {
+    u32 side = GetBattlerSide(battlerId);
+    struct Pokemon *party = (side == B_SIDE_PLAYER) ? gPlayerParty : gEnemyParty;
+    
     if (HasEnoughHpToEatBerry(battlerId, 2, itemId))
     {
         PREPARE_FLAVOR_BUFFER(gBattleTextBuff1, flavorId);
@@ -9462,7 +9465,7 @@ static u8 HealConfuseBerry(u8 battlerId, u16 itemId, u8 flavorId, bool32 end2)  
         gBattleScripting.battler = battlerId;
         if (end2)
         {
-            if (GetFlavorRelationByPersonality(gBattleMons[battlerId].personality, flavorId) < 0)
+            if (GetMonFlavorRelation(&party[gBattlerPartyIndexes[battlerId]], flavorId) < 0)
                 BattleScriptExecute(BattleScript_BerryConfuseHealEnd2);
             else
                 BattleScriptExecute(BattleScript_ItemHealHP_RemoveItem);
@@ -9470,7 +9473,7 @@ static u8 HealConfuseBerry(u8 battlerId, u16 itemId, u8 flavorId, bool32 end2)  
         else
         {
             BattleScriptPushCursor();
-            if (GetFlavorRelationByPersonality(gBattleMons[battlerId].personality, flavorId) < 0)
+            if (GetMonFlavorRelation(&party[gBattlerPartyIndexes[battlerId]], flavorId) < 0)
                 gBattlescriptCurrInstr = BattleScript_BerryConfuseHealRet;  //added
             else
                 gBattlescriptCurrInstr = BattleScript_ItemHealHP_RemoveItemRet; //added

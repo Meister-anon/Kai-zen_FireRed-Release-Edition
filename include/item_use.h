@@ -15,6 +15,7 @@ void FieldUseFunc_PokeFlute(u8 taskId);
 void FieldUseFunc_PokeBallEtc(u8 taskId);
 void FieldUseFunc_Medicine(u8 taskId);
 void FieldUseFunc_AbilityCapsule(u8 taskId);
+void ItemUseOutOfBattle_Mint(u8 taskId);
 void FieldUseFunc_Ether(u8 taskId);
 void FieldUseFunc_PpUp(u8 taskId);
 void FieldUseFunc_RareCandy(u8 taskId);
