@@ -8872,13 +8872,13 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 
                         if (moveId)
                         {
-                        gDisableStructs[gBattlerTarget].inthralled = TRUE;
-                        PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveId)
-                        gDisableStructs[gBattlerTarget].inthralledMove = gBattleMons[gBattlerTarget].moves[moveSlot];
-                        gDisableStructs[gBattlerTarget].inthrallTimer = 3;  //made effect consistent believe decrement at end turn so actual turn is n - 1
-                        BattleScriptPushCursor();
-                        gBattlescriptCurrInstr = BattleScript_InthrallActivates;
-                        ++effect;
+                            gDisableStructs[gBattlerTarget].inthralled = TRUE;
+                            PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveId)
+                            gDisableStructs[gBattlerTarget].inthralledMove = gBattleMons[gBattlerTarget].moves[moveSlot];
+                            gDisableStructs[gBattlerTarget].inthrallTimer = 3;  //made effect consistent believe decrement at end turn so actual turn is n - 1
+                            BattleScriptPushCursor();
+                            gBattlescriptCurrInstr = BattleScript_InthrallActivates;
+                            ++effect;
                         }
                         
                     }                    
