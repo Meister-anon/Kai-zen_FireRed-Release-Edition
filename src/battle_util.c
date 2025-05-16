@@ -8767,20 +8767,19 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     u32 j, moveSlot;
                     u8 power = 0; //...wait I don't need to store power, I just need the move.. wait yes I do its to keep a constant throughout the loop
                     u8 MovePower;
-                    u16 moveId;
+                    u16 moveId = MOVE_NONE;
 
                     u8 moveType;
                     GET_MOVE_TYPE(gCurrentMove, moveType);
 
-                    gDisableStructs[gBattlerTarget].inthralled = TRUE; //put function logic below
-
+                    
                     // Put all moves
                     if (IsBattlerAlive(gBattlerTarget) && GetBattlerSide(gBattlerTarget) != GetBattlerSide(gBattlerAttacker))  //battler is me, i is opponent
                     {
                         for (j = 0; j < MAX_MON_MOVES; j++)
                         {
                             if (gBattleMons[gBattlerTarget].moves[j] == MOVE_NONE)
-                                continue;
+                                break; //sohuldn't this break instead of continue, if no move is there..
 
                             switch (gBattleMoves[gBattleMons[gBattlerTarget].moves[j]].effect)    //add more conditions for move effect for smarter move choice
                             {//i.e for archetypes mon with highest stat being speed, or defense etc. high speed mon worrying about paralysis etc.
@@ -8792,7 +8791,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 else
                                     MovePower = 0;
 
-                                if (MovePower > power)
+                                if (MovePower > power || power == 0)
                                 {
                                     power = MovePower;
                                     moveId = gBattleMons[gBattlerTarget].moves[j]; //w this can store move to seal
@@ -8806,7 +8805,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 else
                                     MovePower = 0;
                                     
-                                if (MovePower > power)
+                                if (MovePower > power || power == 0)
                                 {
                                     power = MovePower;
                                     moveId = gBattleMons[gBattlerTarget].moves[j]; //w this can store move to seal
@@ -8819,7 +8818,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                             case EFFECT_METAL_BURST:
                                 MovePower = 120;
 
-                                if (MovePower > power)
+                                if (MovePower > power || power == 0)
                                 {
                                     power = MovePower;
                                     moveId = gBattleMons[gBattlerTarget].moves[j]; //w this can store move to seal
@@ -8836,7 +8835,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 else
                                     MovePower = 40;
 
-                                if (MovePower > power)
+                                if (MovePower > power || power == 0)
                                 {
                                     power = MovePower;
                                     moveId = gBattleMons[gBattlerTarget].moves[j]; //w this can store move to seal
@@ -8851,7 +8850,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 else
                                     MovePower = gBattleMoves[gBattleMons[gBattlerTarget].moves[j]].power; //default to actual move power, final thing need setup type check, to alter power
                                 
-                                if (MovePower > power)
+                                if (MovePower > power || power == 0)
                                 {
                                     power = MovePower;
                                     moveId = gBattleMons[gBattlerTarget].moves[j]; //w this can store move to seal
@@ -8861,12 +8860,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                                 break;
                             }
                         }
+
+                        if (moveId)
+                        {
+                        gDisableStructs[gBattlerTarget].inthralled = TRUE;
                         PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveId)
                         gDisableStructs[gBattlerTarget].inthralledMove = gBattleMons[gBattlerTarget].moves[moveSlot];
                         gDisableStructs[gBattlerTarget].inthrallTimer = 3;  //made effect consistent believe decrement at end turn so actual turn is n - 1
                         BattleScriptPushCursor();
                         gBattlescriptCurrInstr = BattleScript_InthrallActivates;
                         ++effect;
+                        }
+                        
                     }                    
                 } //never made a messagge for this...
                 break;
