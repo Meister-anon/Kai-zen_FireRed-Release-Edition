@@ -9172,7 +9172,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = 0,
         .split = SPLIT_STATUS,
-    },//boost defense of all gass types
+    },//boost defense of all grass types
 
     [MOVE_GRASSY_TERRAIN] =
     {

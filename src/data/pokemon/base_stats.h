@@ -3501,6 +3501,12 @@ const struct BaseStats gBaseStats[] =
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_PROTECTOR, 0, SPECIES_RHYPERIOR}), //Should hopefully blank these for now without issue
     }, //give head charge & headlong rush
     //removed reckless as only recoil moves were takedown and double edge
+    //no longer gets eviolite could drop speed and sp atk 20
+    //to give access?
+    //ok remember where I'm at w my buffs here its effecitvely
+    //wher sp def was w eviolite before (buffed rock mon sp def long while back)
+    //ah think this was actually an intentional change
+    //to make rhyperior itself worth using
 
     [SPECIES_CHANSEY] =
     {
@@ -10431,7 +10437,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sCradilyTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
-    //think it was ray rizzo that got idea from but like idea of 
+    //GOT idea from ray rizzo but like idea of 
     //giving all fossil mon ABILITY_PROTOSYNTHESIS,
     //as they were actually from ancient times, where sun was strong
     //world was hotter, and they are all physical attackers
@@ -22057,6 +22063,8 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sDedenneTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//potentially give recycle to go w pickup/cheek pouch? vsonic
+    //stat changes from woop, also give changes where it gets moves
+    //draining kiss and parabolic charge may also give volt switch if it doesn't get it already
 
     [SPECIES_CARBINK] =
     {

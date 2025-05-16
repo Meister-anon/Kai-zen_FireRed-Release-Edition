@@ -3346,6 +3346,10 @@ void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src)
     s32 i;
     u8 value;
 
+    //may need adjust and add nature set as personality 
+    //was most likely specifically tuned to return a specific nature
+    //actually know should be perfectly fine since I didn't change initial nature set condition
+    //still does personality %25
     CreateMon(mon, src->species, src->level, 0, 1, src->personality, 1, src->otId);
 
     for (i = 0; i < 4; i++)
