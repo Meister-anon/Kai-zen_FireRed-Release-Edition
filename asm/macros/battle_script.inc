@@ -1412,6 +1412,10 @@
 	.4byte \ptr
 	.endm
 
+	.macro raiseAttackerhigheststat
+	callnative BS_BoostAttackerHighestStat
+	.endm
+
 	.macro typebasedjump2 battler:req, type:req, case:req, ptr:req
 	callnative BS_typebasedjump2
 	.byte \battler

@@ -12060,6 +12060,31 @@ u32 GetHighestStatId(u32 battlerId)
     return highestId;
 }
 
+void BS_BoostAttackerHighestStat(void)
+{
+    NATIVE_ARGS();
+
+    switch(GetHighestStatId(gBattlerAttacker))
+    {
+        case STAT_ATK:
+        gBattleScripting.moveEffect = MOVE_EFFECT_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER;
+        break;
+        case STAT_DEF:
+        gBattleScripting.moveEffect = MOVE_EFFECT_DEF_PLUS_1 | MOVE_EFFECT_AFFECTS_USER;
+        break;
+        case STAT_SPEED:
+        gBattleScripting.moveEffect = MOVE_EFFECT_SPD_PLUS_1 | MOVE_EFFECT_AFFECTS_USER;
+        break;
+        case STAT_SPATK:
+        gBattleScripting.moveEffect = MOVE_EFFECT_SP_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER;
+        break;
+        case STAT_SPDEF:
+        gBattleScripting.moveEffect = MOVE_EFFECT_SP_DEF_PLUS_1 | MOVE_EFFECT_AFFECTS_USER;
+        break;
+    }
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 // Return True if the order was changed, and false if the order was not changed(for example because the target would move after the attacker anyway).
 static bool32 ChangeOrderTargetAfterAttacker(void)
 {

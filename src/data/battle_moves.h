@@ -11883,7 +11883,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_MYSTICAL_POWER] =
     {
-        .effect = EFFECT_SPECIAL_ATTACK_UP_HIT,
+        .effect = EFFECT_HIGHEST_STAT_UP_HIT,
         .power = 70,
         .type = TYPE_PSYCHIC,
         .accuracy = 90,
@@ -11896,6 +11896,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         ////.zMovePower = 140,
         ////.zMoveEffect = Z_EFFECT_NONE,
     },
+    //changing from sp atk up hit
+    //May change, signature of lake spirits LA affect was boost offense stats or defense stats whichever was higher
+    //think what can do is change to boost highest base stat? other than hp, hopefully different stat for each fairy
+    //ok use highest battle stat not base stat,
+    //since mespirit and azelf have tied base stats
+    //uxie will always boost sp def pretty much
+    //vsonic unsure if should work w snatch?
+
 
     [MOVE_RAGING_FURY] =
     {

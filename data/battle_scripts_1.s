@@ -452,7 +452,6 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	
 
 
-BattleScript_EffectHighestStatUpHit:
 BattleScript_EffectAlwaysCrit:
 BattleScript_EffectFellStinger:
 @BattleScript_EffectFusionCombo:
@@ -6257,6 +6256,10 @@ BattleScript_EffectRecycle::
 
 BattleScript_EffectRevenge::
 	@doubledamagedealtifdamaged	@moved to hit, done w call_if
+	goto BattleScript_EffectHit
+
+BattleScript_EffectHighestStatUpHit::
+	raiseAttackerhigheststat
 	goto BattleScript_EffectHit
 
 BattleScript_EffectBrickBreak::
