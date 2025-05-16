@@ -4949,6 +4949,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderGiovanni[] = 
         .lvl = 45,
         .species = SPECIES_RHYHORN,
         .moves = {MOVE_TAKE_DOWN, MOVE_ROCK_BLAST, MOVE_SCARY_FACE, MOVE_EARTHQUAKE},
+        .abilityNum = HIDDEN_ABILITY_1,
     },
     {
         .iv = 31,
@@ -4972,12 +4973,15 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderGiovanni[] = 
         .iv = 31,
         .lvl = 50,
         .species = SPECIES_RHYDON,
-        .moves = {MOVE_TAKE_DOWN, MOVE_ROCK_BLAST, MOVE_SCARY_FACE, MOVE_EARTHQUAKE},
+        //.moves = {MOVE_TAKE_DOWN, MOVE_ROCK_BLAST, MOVE_SCARY_FACE, MOVE_EARTHQUAKE},
+        .moves = {MOVE_FLAMETHROWER, MOVE_ROCK_BLAST, MOVE_SCARY_FACE, MOVE_EARTHQUAKE},
+        .abilityNum = HIDDEN_ABILITY_2,
     },
     {
         .iv = 31,
         .lvl = 50,
         .species = SPECIES_PERSIAN,
+        .abilityNum = HIDDEN_ABILITY_2,
         //.moves = {MOVE_TAKE_DOWN, MOVE_ROCK_BLAST, MOVE_SCARY_FACE, MOVE_EARTHQUAKE},
     }, //make sure to use abilitynum to give super luck
 };

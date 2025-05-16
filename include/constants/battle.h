@@ -95,8 +95,8 @@
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
 #define IS_BATTLE_TYPE_GHOST_WITH_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && (flags) & BATTLE_TYPE_GHOST_UNVEILED)
 
-#define RIVAL_BATTLE_HEAL_AFTER  1
-#define RIVAL_BATTLE_TUTORIAL    3
+#define RIVAL_BATTLE_HEAL_AFTER  1  //continue after loss rn doesn't go to gbattletypeflags value mathes doubles it just goes to unique sRivalBattleFlags
+#define RIVAL_BATTLE_TUTORIAL    3  
 
 #define WILD_DOUBLE_BATTLE ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER))))
 #define BATTLE_TWO_VS_ONE_OPPONENT ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gTrainerBattleOpponent_B == 0xFFFF))

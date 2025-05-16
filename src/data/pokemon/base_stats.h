@@ -3582,7 +3582,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_MONSTER,
         .abilities = {ABILITY_EARLY_BIRD, ABILITY_SCRAPPY},
         .safariZoneFleeRate = 125,
-        .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_PARENTAL_BOND},
+        .abilityHidden = {ABILITY_INNER_FOCUS, ABILITY_BATTLE_MATRON},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -49795,7 +49795,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
         .abilities = {ABILITY_OMNIPOTENT_AIDE, ABILITY_NONE}, //make ability that passes on any healing received to battle partner, potentially also makes healing effect priority?
         //#ifdef BATTLE_ENGINE
-        .abilityHidden = {ABILITY_DISPIRIT_GUARD, ABILITY_NONE}, //not able to heal this mon, ok just make it so recovery moves don't work on it, otherwise would be horribly annoying
+        .abilityHidden = {ABILITY_DISPIRIT_GUARD, ABILITY_MISTY_SURGE}, //not able to heal this mon, ok just make it so recovery moves don't work on it, otherwise would be horribly annoying
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE, //think will leave as a now right now, its more earthbound since its a guardian of the graveyard

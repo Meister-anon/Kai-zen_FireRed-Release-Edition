@@ -482,6 +482,8 @@ static const struct AbilityLearnset sRhydonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sChanseyAbilityLearnset[] = {
+    ABILITY_BATTLE_MATRON,
+    ABILITY_PARENTAL_BOND,
     ABILITY_SET_END
 };
 
@@ -1015,6 +1017,8 @@ static const struct AbilityLearnset sMiltankAbilityLearnset[] = {
 };//want to do more with but not sure what like the moves are pretty good but 
 
 static const struct AbilityLearnset sBlisseyAbilityLearnset[] = {
+    ABILITY_BATTLE_MATRON,
+    ABILITY_PARENTAL_BOND,
     ABILITY_SET_END
 };
 
