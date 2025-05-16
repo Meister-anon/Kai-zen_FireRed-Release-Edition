@@ -2523,9 +2523,21 @@ BattleScript_SpikesAbsorbed_Endturn::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end2
 
-@use case currently doesnt exist
-@but added anyway
-@oh I'm stupid all the scipts are identical
+BattleScript_HazardAbsorbAbility::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	return
+
+BattleScript_HazardAbsorbAbility_Endturn::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	end2
+
+
 BattleScript_HazardAbsorbAbilityHeal::
 	printstring STRINGID_CONSUMED_HAZARD
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -2542,6 +2554,34 @@ BattleScript_HazardAbsorbAbilityHeal_Endturn::
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
 	healthbarupdate BS_SCRIPTING
 	datahpupdate BS_SCRIPTING
+	end2
+
+BattleScript_HazardAbsorbAbilityStatBoost::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_HazardAbsorbStatDone
+	setgraphicalstatchangevalues
+	playanimation BS_SCRIPTING, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	waitanimation
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+BattleScript_HazardAbsorbStatDone:
+	return
+
+BattleScript_HazardAbsorbAbilityStatBoost_Endturn::
+	printstring STRINGID_CONSUMED_HAZARD
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	statusanimation BS_SCRIPTING
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_HazardAbsorbStatDone_Endturn
+	setgraphicalstatchangevalues
+	playanimation BS_SCRIPTING, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	waitanimation
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+BattleScript_HazardAbsorbStatDone_Endturn:
 	end2
 
 BattleScript_StealthRockAbsorb::

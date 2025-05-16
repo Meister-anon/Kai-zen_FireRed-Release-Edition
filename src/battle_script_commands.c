@@ -10333,8 +10333,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
     {
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STEALTH_ROCK_TRIGGERED;
         
-        if (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION
-        || GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
+        if (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION)
         {
             gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
             gBattleScripting.battler = gActiveBattler;
@@ -10354,10 +10353,21 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             else
             {
                 BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_StealthRockAbsorb;
+                StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbility;
             }            
             
-        }
+        }//realized jewel metabolism is a stat boost ability not a healing one
+        
+        else if  (GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
+        {
+            StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+            SET_STATCHANGER(STAT_DEF, 1, FALSE); //stat chnger break it?
+            gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
+            gBattleScripting.battler = gActiveBattler;
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_HazardAbsorbAbilityStatBoost;
+        }//need do stat change too //think need specfic one for heal no heal and also stat boost smh
         
         else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_ROCK)) // Absorb the stealth rock.
         {

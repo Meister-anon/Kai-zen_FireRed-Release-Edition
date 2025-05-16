@@ -3682,8 +3682,7 @@ u8 DoBattlerEndTurnEffects(void)
                     && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
                     && IsBlackFogNotOnField())
                 {
-                    if (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION
-                    || GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
+                    if (GetBattlerAbility(gActiveBattler) == ABILITY_EROSION)
                     {
                         gSideStatuses[gActiveBattler] &= ~(SIDE_STATUS_STEALTH_ROCK);  //absorb stealth rock
                         gBattleScripting.battler = gActiveBattler;
@@ -3701,9 +3700,19 @@ u8 DoBattlerEndTurnEffects(void)
                         }
                         else //can't heal use normal absorb script
                         {
-                            BattleScriptExecute(BattleScript_StealthRockAbsorb_Endturn);
+                            StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                            BattleScriptExecute(BattleScript_HazardAbsorbAbility_Endturn);
                             ++effect;
                         }
+                    }
+                    else if  (GetBattlerAbility(gActiveBattler) == ABILITY_JEWEL_METABOLISM)
+                    {
+                        StringCopy(gStringVar2, COMPOUND_STRING("Stealth Rock"));
+                        SET_STATCHANGER(STAT_DEF, 1, FALSE);
+                        gSideStatuses[GetBattlerSide(gActiveBattler)] &= ~SIDE_STATUS_STEALTH_ROCK;
+                        gBattleScripting.battler = gActiveBattler;
+                        BattleScriptExecute(BattleScript_HazardAbsorbAbilityStatBoost_Endturn);
+                        ++effect; //*facepalm game broke because I forgot to add effect here
                     }
                     else if (DoesBattlerGetTypeBasedAffinity(gActiveBattler, TYPE_ROCK)) // Absorb the stealth rock.
                     {
