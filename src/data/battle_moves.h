@@ -2472,14 +2472,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .effect = EFFECT_FLINCH_HIT,
     .power = 75,
     .type = TYPE_ROCK,
-    .accuracy = 95,
+    .accuracy = 90,
     .pp = 10,
-    .secondaryEffectChance = 25,
+    .secondaryEffectChance = 30,
     .target = MOVE_TARGET_BOTH,
     .priority = 0,
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
     .split = SPLIT_PHYSICAL,
-},
+},//may set back to 90, and 30 w onix buffs makes onix best rock slide user
+//a significant buff for it... yeah think I will
+//effect is good enough that the accuracy  isn't strange
 
 [MOVE_HYPER_FANG] =
 {
