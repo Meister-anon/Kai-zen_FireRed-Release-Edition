@@ -896,7 +896,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SURF] =
     {
         .power = 95,
-        .target = MOVE_TARGET_BOTH,
+        .target = MOVE_TARGET_FOES_AND_ALLY,
         .effect = EFFECT_HIT,
         .type = TYPE_WATER,
         .accuracy = 100,
@@ -905,7 +905,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERWATER,
         .split = SPLIT_SPECIAL,
-    },
+    },//revert for balance
+    //realize otherwise everyone just clicks surf
 
     [MOVE_ICE_BEAM] =
     {
@@ -13916,7 +13917,7 @@ use wonder gaurd logic to determine its super effective
         .accuracy = 90,
         .pp = 15,
         .secondaryEffectChance = 20,
-        .target = MOVE_TARGET_BOTH,
+        .target = MOVE_TARGET_FOES_AND_ALLY, //same debuff as surf but much  more manageable as can just avoid by floating
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_SPECIAL,

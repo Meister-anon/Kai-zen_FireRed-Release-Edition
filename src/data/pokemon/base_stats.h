@@ -796,7 +796,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_RUN_AWAY, ABILITY_PICKUP},
-        .abilityHidden = {ABILITY_HUSTLE, ABILITY_STRONG_JAW},
+        .abilityHidden = {ABILITY_HUSTLE, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_PURPLE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -21441,8 +21441,10 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sSwirlixAbilityLearnset,
         .levelUpLearnset = sSwirlixLevelUpLearnset,
         .tmhmLearnset = sSwirlixTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_WHIPPED_DREAM, 0, SPECIES_SLURPUFF}), //Should hopefully blank these for now without issue
+        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(26, AVERAGE_EFFORT), 0, SPECIES_SLURPUFF}), //Should hopefully blank these for now without issue
     },
+    //think just change to level evo, evo isn't even good/strong
+    //done removed need for whipped dream
 
     [SPECIES_SLURPUFF] =
     {
