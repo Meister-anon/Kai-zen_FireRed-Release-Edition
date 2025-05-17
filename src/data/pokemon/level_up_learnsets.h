@@ -8370,60 +8370,80 @@ static const struct LevelUpMove sCarnivineLevelUpLearnset[] = {
 
 static const struct LevelUpMove sFinneonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_WATER_SPOUT),
+    LEVEL_UP_MOVE( 1, MOVE_AURORA_BEAM),
+    LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),    
     LEVEL_UP_MOVE( 1, MOVE_ATTRACT),
     LEVEL_UP_MOVE( 1, MOVE_SOAK),
-    LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),
-    LEVEL_UP_MOVE( 1, MOVE_POUND),
-    LEVEL_UP_MOVE( 6, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE( 1, MOVE_SYNTHESIS),
+    LEVEL_UP_MOVE( 5, MOVE_WATER_GUN),
     LEVEL_UP_MOVE(10, MOVE_ATTRACT),
     LEVEL_UP_MOVE(13, MOVE_RAIN_DANCE),
-    LEVEL_UP_MOVE(14, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(14, MOVE_WATER_PULSE),
     LEVEL_UP_MOVE(17, MOVE_GUST),
     LEVEL_UP_MOVE(18, MOVE_WATER_SPORT),
-    LEVEL_UP_MOVE(20, MOVE_SYNTHESIS),
-    LEVEL_UP_MOVE(22, MOVE_WATER_PULSE),
-    LEVEL_UP_MOVE(26, MOVE_CAPTIVATE),
-    LEVEL_UP_MOVE(29, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(20, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(22, MOVE_SOLAR_BEAM),//solarbeam? yeah base stat -sun so low should be fine
+    LEVEL_UP_MOVE(25, MOVE_CAPTIVATE),
+    LEVEL_UP_MOVE(28, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(30, MOVE_BOUNCE),
     LEVEL_UP_MOVE(33, MOVE_AQUA_RING),
     LEVEL_UP_MOVE(38, MOVE_WHIRLPOOL),
     LEVEL_UP_MOVE(40, MOVE_LIFE_DEW),
     LEVEL_UP_MOVE(42, MOVE_U_TURN),
-    LEVEL_UP_MOVE(45, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(45, MOVE_TWISTER),
     LEVEL_UP_MOVE(49, MOVE_SILVER_WIND),
     LEVEL_UP_MOVE(54, MOVE_WATER_PLEDGE),
     LEVEL_UP_END
 };
 //decided give water spout instead of hydro pump
+//ok to make player want to use since I'm replacing lvl 5 magikarp
+//need some way of getting benefit of ability, since ability is what makes it good
+//think move synthesis down to 5
+//swap sunny day to 20?
+//with a focus sash this SHOULD be able to function as a pretty good support mon
+//could enable fire or grass mon since water sport boosts grass speed now
+//gust looks weird but is a good support move since it knocks down floating mon,
+//then I could just bounce to dodge an earthquake while healing the entire way
+//w aqua ring/leftovers or something
+//damn its actually good support for fire grass AND ground
+//think I'll bring bounce down then
 
 static const struct LevelUpMove sLumineonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_WATER_SPOUT),
     LEVEL_UP_MOVE( 1, MOVE_HELPING_HAND),
+    LEVEL_UP_MOVE( 1, MOVE_AURORA_BEAM),
     LEVEL_UP_MOVE( 1, MOVE_SOAK),
+    LEVEL_UP_MOVE( 1, MOVE_SYNTHESIS),
     LEVEL_UP_MOVE( 1, MOVE_GUST),
-    LEVEL_UP_MOVE( 1, MOVE_POUND),
     LEVEL_UP_MOVE( 1, MOVE_WATER_GUN),
     LEVEL_UP_MOVE( 1, MOVE_ATTRACT),
     LEVEL_UP_MOVE( 6, MOVE_WATER_GUN),
     LEVEL_UP_MOVE(10, MOVE_ATTRACT),
     LEVEL_UP_MOVE(13, MOVE_RAIN_DANCE),
-    LEVEL_UP_MOVE(14, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(14, MOVE_WATER_PULSE),
     LEVEL_UP_MOVE(17, MOVE_GUST),
     LEVEL_UP_MOVE(18, MOVE_WATER_SPORT),
-    LEVEL_UP_MOVE(20, MOVE_SYNTHESIS),
-    LEVEL_UP_MOVE(22, MOVE_WATER_PULSE),
-    LEVEL_UP_MOVE(26, MOVE_CAPTIVATE),
-    LEVEL_UP_MOVE(29, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(20, MOVE_SUNNY_DAY),
+    LEVEL_UP_MOVE(22, MOVE_SOLAR_BEAM),    
+    LEVEL_UP_MOVE(25, MOVE_CAPTIVATE),
+    LEVEL_UP_MOVE(28, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(30, MOVE_BOUNCE),
     LEVEL_UP_MOVE(35, MOVE_AQUA_RING),
     LEVEL_UP_MOVE(42, MOVE_WHIRLPOOL),
     LEVEL_UP_MOVE(44, MOVE_LIFE_DEW),
     LEVEL_UP_MOVE(48, MOVE_U_TURN),
-    LEVEL_UP_MOVE(53, MOVE_BOUNCE),
+    LEVEL_UP_MOVE(53, MOVE_TWISTER),
     LEVEL_UP_MOVE(59, MOVE_SILVER_WIND),
     LEVEL_UP_MOVE(66, MOVE_WATER_PLEDGE),
     LEVEL_UP_END
 };
 //aqua ring w full power synthesis is gonna be disgusting
 //but its not THAT bulky so potentially ok
+//hmm actually think I should swap place of au...
+//oh wait I forgot about the sun ice damage cut
+//OK adjusted ice cut to 50, w boost should still be viable
+//now I can swap place of twister and aurora beam
+//doubles comp twister would be an upgrade for gust
 
 static const struct LevelUpMove sMantykeLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),

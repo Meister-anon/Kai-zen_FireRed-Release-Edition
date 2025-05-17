@@ -328,6 +328,7 @@ static const struct AbilityLearnset sGeodudeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGravelerAbilityLearnset[] = {
+    ABILITY_DRY_SKIN,
     ABILITY_SET_END
 };
 
@@ -3761,6 +3762,7 @@ static const struct AbilityLearnset sGeodudeAlolanAbilityLearnset[] = {
 };//MOVE_WILD_CHARGE , MOVE_VOLT_TACKLE , MOVE_BOLT_STRIKE
 
 static const struct AbilityLearnset sGravelerAlolanAbilityLearnset[] = {
+    ABILITY_DRY_SKIN,
     ABILITY_SET_END
 };
 

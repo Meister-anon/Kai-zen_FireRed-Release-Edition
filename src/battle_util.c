@@ -3858,7 +3858,7 @@ bool8 HandleWishPerishSongOnTurnEnd(void)
                     if (CanSurviveInstantKOWithSturdy(gActiveBattler))
                     {
                         gBattleMoveDamage = (gBattleMons[gActiveBattler].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
-                        gSpecialStatuses[gActiveBattler].sturdyhungon = TRUE;
+                        gDisableStructs[gActiveBattler].sturdyhungon = TRUE;
                         gBattlescriptCurrInstr = BattleScript_PerishSongSturdied; //need test should call sturdymessage
                     }
                     else
@@ -13360,12 +13360,16 @@ bool32 CanTeleport(u8 battlerId)
 //may be a few more suicide moves I'll have to add to this
 //only reason have to add healing wish is user fainting is part of effect
 //tied in so much that move script opens party menu to force switch
+//fixed effect now works one time per on field so requires
+//healing and switching out and back in to reset
+//making it abusable but not completely free
+//believe still need setup gbattlemovedamage change to fully work
 bool8 CanSurviveInstantKOWithSturdy(u8 battler)
 {
     if (GetBattlerAbility(battler) == ABILITY_STURDY
     && gBattleMons[battler].hp >= (gBattleMons[battler].maxHP / 4)
     && gBattleMoves[gCurrentMove].effect != EFFECT_HEALING_WISH
-    && !gSpecialStatuses[battler].sturdyhungon)
+    && !gDisableStructs[battler].sturdyhungon)
     {
         return TRUE;
     }

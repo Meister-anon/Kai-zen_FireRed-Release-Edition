@@ -5573,7 +5573,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_GORILLA_TACTICS:
         OffensiveModifer(150);
         break;
-    case ABILITY_FLUORESCENCE:
+    case ABILITY_FLUORESCENCE: //if cloud nine blocks sun based fire boost makes sense to block this too
         if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) && GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
             spAttack = (175 * spAttack) / 100;
     case ABILITY_FLOWER_GIFT:   //flower gift is supposd to be what makes cherrim transform along w sunlight
@@ -5932,9 +5932,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             }
         }
 
+        //black fog check has already been added to weatheraffected funcion directly
         if ((GetBattlerAbility(battlerIdAtk) == ABILITY_FLUORESCENCE   
         || DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))     
-        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY) && IsBlackFogNotOnField()
+        && !IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY)// && IsBlackFogNotOnField()
         && gBattleMoves[move].effect == EFFECT_SOLARBEAM)
         {
             OffensiveModifer(100);
@@ -5948,56 +5949,49 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         
 
         // sunny
-        if (gBattleWeather & WEATHER_SUN_ANY)
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_SUN_ANY))
         {
-            if (defenderHoldEffect == HOLD_EFFECT_UTILITY_UMBRELLA)
-            {}
-            else
+
+            switch (moveType)
             {
-                switch (moveType)
-                {
-                case TYPE_FIRE:
-                if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
-                    OffensiveModifer(150);
-                    break;
-                case TYPE_WATER:
-                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                    OffensiveModifer(50);
-                    break;
-                case TYPE_ICE:
-                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                    OffensiveModifer(33);
-                    //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
-                    break;//reverted sunflora to grass normal but still good
-                }
+            case TYPE_FIRE:
+            if (GetBattlerAbility(battlerIdDef) != ABILITY_CLOUD_NINE)
+                OffensiveModifer(150);
+                break;
+            case TYPE_WATER:
+            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                OffensiveModifer(50);
+                break;
+            case TYPE_ICE:
+            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                OffensiveModifer(50);
+                //66% dmg cut  this is a grass type buff, especially so for sunflora who is now grass/fire
+                break;//reverted sunflora to grass normal but still good
             }
         }
 
         // hail
-        if (gBattleWeather & WEATHER_HAIL_ANY)
+        if (IsBattlerWeatherAffected(battlerIdAtk, WEATHER_HAIL_ANY))
         {
-            if (defenderHoldEffect == HOLD_EFFECT_SAFETY_GOGGLES)
-            {}
-            else
-            {
-                switch (moveType)
-                {
-                case TYPE_FIRE:
-                if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
-                && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
-                    OffensiveModifer(33);
-                    //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
-                    break;  //changed to 66% cut,  so for mon weak to fire they take slightly less than neutral dmg
 
-                //case TYPE_ICE:
-                //  damage = (damage * 125) / 100;  //fixed now is 25% damage increase rather than 50 since hail also does damage
-                //  break;
-                } //since I made hail a defensive boost, I may remove dmg boost, 
-            }
+            switch (moveType)
+            {
+            case TYPE_FIRE:
+            if (GetBattlerAbility(battlerIdAtk) != ABILITY_FORECAST
+            && !DoesSideHaveAbility(battlerIdAtk, ABILITY_CLOUD_NINE))
+                OffensiveModifer(50);
+                //33% damage cut, so less of a cut than in rain, edit- actually fires are harder to start in cold so makes sense to have higher drop than rain
+                break;  //changed to 66% cut,  so for mon weak to fire they take slightly less than neutral dmg
+
+            //case TYPE_ICE:
+            //  damage = (damage * 125) / 100;  //fixed now is 25% damage increase rather than 50 since hail also does damage
+            //  break;
+            } //since I made hail a defensive boost, I may remove dmg boost, 
         }// !important slight ice buff, mostly gives glaile options on sandstorm or hail. so here in hail ice types would take 2/3 fire damage
     }//it makes sense to add hail ice type damage buff. would also make late game  ice routes more punishing
+    //the FUCK was I thinking this is insanely over powered???  even blizzard would only be a base 40 power move?
 
     /*In order for a fire to start, your tinderand firewood must reach a combustible temperature.
     Fires in the summer, even after a summer rain, can be easier to start

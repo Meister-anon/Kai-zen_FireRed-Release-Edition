@@ -284,7 +284,8 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     //u8 SwitchBinding:4; //timer rn just for spirit shackle escape prevent effect timer set tmier to 4 so 3 full turns of bind ...this is 2^bit not bit is max value *facepalm
     u8 SwitchBinding:2;
     u8 ConfusionTurns:3; //if correct above should be 3 turns
-    u8 buffer:2; //forget what htis is for I guess free space?
+    u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.
+    u8 buffer:1; //forget what htis is for I guess free space?
     u8 rechargeTimer:1; //would use 1, just need change decrement condition
     u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
     u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?
@@ -394,7 +395,7 @@ struct SpecialStatus
     u8 focusBanded : 1;
     u8 focusSashed : 1;
     u8 sturdied : 1;
-    u8 sturdyhungon:1; //new one time use  for sturdy avoiding exploion moves death    
+    u8 freespace:1;
     u8 berryReduced : 1;
     u8 instructedChosenTarget : 3;
 

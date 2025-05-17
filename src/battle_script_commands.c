@@ -6296,7 +6296,7 @@ static void atk19_tryfaintmon(void)
                 if (CanSurviveInstantKOWithSturdy(battlerId))
                 {
                     gBattleMoveDamage = (gBattleMons[battlerId].hp - 1);//hopefully limits explosion to once per battle for mon whenever special status are cleared in main
-                    gSpecialStatuses[battlerId].sturdyhungon = TRUE;
+                    gDisableStructs[battlerId].sturdyhungon = TRUE;
                     gBattlescriptCurrInstr = BattleScript_DestinyBondSturdied; //need test should call sturdymessage
                 }
                 else
@@ -7634,6 +7634,10 @@ static void atk41_call(void)
     gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
 }
 
+//vsonic IMPORTANT final gambit sturdy interaction doesn't work
+//because gbattlemovedamage is used and its used on target
+//if I had the update to split movedamage between battler 
+//I could set the attacker damage to be - 1
 static void atk42_currenthealthtoDmg(void) //replaced was no longer needed, was jumpiftype2 to use put before damagecalc
 {
     if (gBattleMoves[gCurrentMove].effect == EFFECT_FINAL_GAMBIT)   //decided to use move power for this, can use move damage for else if/others
@@ -14507,7 +14511,7 @@ static void atk79_setatkhptozero(void)//explosion wish healing moves etc.
         if (CanSurviveInstantKOWithSturdy(gActiveBattler))
         {
             gBattleMons[gActiveBattler].hp = 1;
-            gSpecialStatuses[gActiveBattler].sturdyhungon = TRUE;
+            gDisableStructs[gActiveBattler].sturdyhungon = TRUE;
         }
         else
             gBattleMons[gActiveBattler].hp = 0;
