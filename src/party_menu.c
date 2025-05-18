@@ -9,6 +9,7 @@
 #include "berry_pouch.h"
 #include "bike.h"
 #include "data.h"
+#include "daycare.h"
 #include "decompress.h"
 #include "easy_chat.h"
 #include "event_data.h"
@@ -153,6 +154,8 @@ static void CursorCB_Summary(u8 taskId);
 static void CursorCB_Switch(u8 taskId);
 static void CursorCB_Cancel1(u8 taskId);
 static void CursorCB_Item(u8 taskId);
+static void CursorCB_Hatch(u8 taskId);
+static void CursorCB_BeginHatch(u8 taskId);
 static void CursorCB_Give(u8 taskId);
 static void CursorCB_TakeItem(u8 taskId);
 static void CursorCB_Mail(u8 taskId);
@@ -2752,6 +2755,9 @@ void DisplayPartyMenuStdMessage(u32 stringId)
         case PARTY_MSG_DO_WHAT_WITH_MON:
             *windowPtr = AddWindow(&sDoWhatWithMonMsgWindowTemplate);
             break;
+        case PARTY_MSG_HATCH_THIS_EGG:
+            *windowPtr = AddWindow(&sHatchThisEggMsgWindowTemplate);
+            break;
         case PARTY_MSG_DO_WHAT_WITH_ITEM:
             *windowPtr = AddWindow(&sDoWhatWithItemMsgWindowTemplate);
             break;
@@ -2818,6 +2824,8 @@ static const u8* ReturnCursorIdText(u8 i)
             return gText_Switch2;
         case MENU_CANCEL1:
             return gFameCheckerText_Cancel;
+        case MENU_HATCH:
+            return COMPOUND_STRING("HATCH");
         case MENU_ITEM:
             return gText_Item;
         case MENU_GIVE:
@@ -2848,6 +2856,8 @@ static const u8* ReturnCursorIdText(u8 i)
             return gText_Trade4;
         case MENU_TRADE2:
             return gText_Trade4;
+        case MENU_YES_HATCH:
+            return COMPOUND_STRING("YES");
         case (MENU_FIELD_MOVES + FIELD_MOVE_CUT):
             GetMoveName(gStringVar4, MOVE_CUT);
                 return gStringVar4;
@@ -2911,6 +2921,9 @@ static u8 DisplaySelectionWindow(u8 windowType)
         break;
     case SELECTWINDOW_MAIL:
         window = sMailReadTakeWindowTemplate;
+        break;
+    case SELECTWINDOW_HATCH:
+        window = sEggHatchYesNoWindowTemplate;
         break;
     default: // SELECTWINDOW_MOVES
         window = sMoveSelectWindowTemplate;
@@ -3755,6 +3768,8 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     //else
     if (species != SPECIES_NONE && species != SPECIES_EGG)
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_ITEM);
+    else if (species == SPECIES_EGG)
+        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_HATCH);
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_CANCEL1);
 }
 
@@ -3765,10 +3780,7 @@ static u8 GetPartyMenuActionsType(struct Pokemon *mon)
     switch (gPartyMenu.menuType)
     {
     case PARTY_MENU_TYPE_FIELD:
-        if (GetMonData(mon, MON_DATA_IS_EGG))
-            actionType = ACTIONS_SWITCH;
-        else
-            actionType = ACTIONS_NONE; // actions populated by SetPartyMonFieldSelectionActions
+        actionType = ACTIONS_NONE; // actions populated by SetPartyMonFieldSelectionActions
         break;
     case PARTY_MENU_TYPE_IN_BATTLE:
         actionType = GetPartyMenuActionsTypeInBattle(mon);
@@ -4215,6 +4227,18 @@ static void CursorCB_Cancel1(u8 taskId)
     gTasks[taskId].func = Task_HandleChooseMonInput;
 }
 
+static void CursorCB_Hatch(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    SetPartyMonSelectionActions(gPlayerParty, gPartyMenu.slotId, ACTIONS_HATCH);
+    DisplaySelectionWindow(SELECTWINDOW_HATCH); //creates window for selection options i.e give/take/cancel
+    DisplayPartyMenuStdMessage(PARTY_MSG_HATCH_THIS_EGG);//want yes no inpupt box
+    gTasks[taskId].data[0] = 0xFF;
+    gTasks[taskId].func = Task_HandleSelectionMenuInput;
+}
+
 static void CursorCB_Item(u8 taskId)
 {
     PlaySE(SE_SELECT);
@@ -4232,6 +4256,23 @@ static void CursorCB_Give(u8 taskId)
     PlaySE(SE_SELECT);
     sPartyMenuInternal->exitCallback = CB2_SelectBagItemToGive;
     Task_ClosePartyMenu(taskId);
+}
+
+//works but couldn't figure use of exitCallback
+static void CursorCB_BeginHatch(u8 taskId)
+{
+    PlaySE(SE_SELECT);
+    
+    gSpecialVar_0x8004 = gPartyMenu.slotId;
+    EggHatch_InParty();
+}
+
+//using this instead
+void CB2_ReturnToPartyMenuSelectedMon(void)
+{
+    gPaletteFade.bufferTransferDisabled = TRUE;
+    Overworld_PlaySpecialMapMusic(); //return map music to normal
+    InitPartyMenu(gPartyMenu.menuType, KEEP_PARTY_LAYOUT, gPartyMenu.action, TRUE, PARTY_MSG_DO_WHAT_WITH_MON, Task_TryCreateSelectionWindow, gPartyMenu.exitCallback);
 }
 
 void CB2_SelectBagItemToGive(void)

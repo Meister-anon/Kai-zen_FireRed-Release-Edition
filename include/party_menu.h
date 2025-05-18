@@ -105,5 +105,6 @@ void ChoosePartyMonByMenuType(u8 menuType);
 void LoadPartyMenuAilmentGfx(void);
 
 u8 ShouldDisplayHMFieldMove(u8 fieldMove);// for listing badge requirement for hm
+void CB2_ReturnToPartyMenuSelectedMon(void);
 
 #endif // GUARD_PARTY_MENU_H

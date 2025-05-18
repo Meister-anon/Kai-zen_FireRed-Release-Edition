@@ -76,6 +76,12 @@ static void EggHatchPrintMessage(u8 windowId, u8* string, u8 x, u8 y, u8 speed);
 static void CreateRandomEggShardSprite(void);
 static void CreateEggShardSprite(u8 x, u8 y, s16 data1, s16 data2, s16 data3, u8 spriteAnimIndex);
 
+//new menu based egg hatching funcs
+static void Task_EggHatch_InParty(u8 taskID);
+static void CB2_EggHatch_InParty_Phase_0(void);
+static void CB2_EggHatch_InParty_Phase_1(void);
+static void EggHatchSetMonNickname_InParty(void);
+
 // IWRAM bss
 static struct EggHatchData *sEggHatchData;
 
@@ -2907,8 +2913,9 @@ static void Task_EggHatchPlayBGM(u8 taskID)
         DestroyTask(taskID);
         // UB: task is destroyed, yet the value is incremented
     }
-    gTasks[taskID].data[0]++;
-}
+    else
+        gTasks[taskID].data[0]++;
+}//no fix in EE guess this should be fine?
 
 static void CB2_EggHatch_1(void)
 {
@@ -3012,6 +3019,236 @@ static void CB2_EggHatch_1(void)
             UnsetBgTilemapBuffer(1);
             Free(sEggHatchData);
             SetMainCallback2(CB2_ReturnToField);
+            HelpSystem_Enable();
+        }
+        break;
+    }
+
+    RunTasks();
+    RunTextPrinters();
+    AnimateSprites();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+}
+
+void EggHatch_InParty(void) //source of special egg hatch
+{
+    LockPlayerFieldControls();
+    CreateTask(Task_EggHatch_InParty, 10);
+    BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, 0);
+    HelpSystem_Disable();
+}
+
+static void Task_EggHatch_InParty(u8 taskID)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        SetMainCallback2(CB2_EggHatch_InParty_Phase_0);
+        gFieldCallback = FieldCB_ContinueScriptHandleMusic;
+        DestroyTask(taskID);
+    }
+}
+
+
+static void CB2_EggHatch_InParty_Phase_0(void)
+{
+    switch (gMain.state)
+    {
+    case 0:
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+
+        sEggHatchData = Alloc(sizeof(struct EggHatchData));
+        AllocateMonSpritesGfx();
+        sEggHatchData->eggPartyID = gSpecialVar_0x8004;
+        sEggHatchData->eggShardVelocityID = 0;
+
+        SetVBlankCallback(VBlankCB_EggHatch);
+        gSpecialVar_0x8005 = GetCurrentMapMusic();
+
+        ResetTempTileDataBuffers();
+        ResetBgsAndClearDma3BusyFlags(0);
+        InitBgsFromTemplates(0, sBgTemplates_EggHatch, NELEMS(sBgTemplates_EggHatch));
+
+        ChangeBgX(1, 0, 0);
+        ChangeBgY(1, 0, 0);
+        ChangeBgX(0, 0, 0);
+        ChangeBgY(0, 0, 0);
+
+        SetBgAttribute(1, 7, 2);
+        SetBgTilemapBuffer(1, Alloc(0x1000));
+        SetBgTilemapBuffer(0, Alloc(0x2000));
+
+        DeactivateAllTextPrinters();
+        ResetPaletteFade();
+        FreeAllSpritePalettes();
+        ResetSpriteData();
+        ResetTasks();
+        ScanlineEffect_Stop();
+        m4aSoundVSyncOn();
+        gMain.state++;
+        break;
+    case 1:
+        InitWindows(sWinTemplates_EggHatch);
+        sEggHatchData->windowId = 0;
+        gMain.state++;
+        break;
+    case 2:
+        DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
+        CopyToBgTilemapBuffer(0, gBattleInterface_Textbox_Tilemap, 0, 0);
+        LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
+        gMain.state++;
+        break;
+    case 3:
+        LoadSpriteSheet(&sEggHatch_Sheet);
+        LoadSpriteSheet(&sEggShards_Sheet);
+        LoadSpritePalette(&sEgg_SpritePalette);
+        gMain.state++;
+        break;
+    case 4:
+        CopyBgTilemapBufferToVram(0);
+        AddHatchedMonToParty(sEggHatchData->eggPartyID);
+        gMain.state++;
+        break;
+    case 5:
+        EggHatchCreateMonSprite(0, 0, sEggHatchData->eggPartyID, &sEggHatchData->species);
+        gMain.state++;
+        break;
+    case 6:
+        sEggHatchData->pokeSpriteID = EggHatchCreateMonSprite(0, 1, sEggHatchData->eggPartyID, &sEggHatchData->species);
+        gMain.state++;
+        break;
+    case 7:
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
+        LoadPalette(gTradeGba2_Pal, 0x10, 0xA0);
+        LoadBgTiles(1, gTradeGba_Gfx, 0x1420, 0);
+        CopyToBgTilemapBuffer(1, gUnknown_826601C, 0x1000, 0);
+        CopyBgTilemapBufferToVram(1);
+        gMain.state++;
+        break;
+    case 8:
+        SetMainCallback2(CB2_EggHatch_InParty_Phase_1);
+        sEggHatchData->CB2_state = 0;
+        break;
+    }
+    RunTasks();
+    RunTextPrinters();
+    AnimateSprites();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+}
+
+static void EggHatchSetMonNickname_InParty(void)
+{
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar3);
+    FreeMonSpritesGfx();
+    Free(sEggHatchData);
+    HelpSystem_Enable();
+    SetMainCallback2(CB2_ReturnToPartyMenuSelectedMon);
+}
+
+static void CB2_EggHatch_InParty_Phase_1(void)
+{
+    u16 species;
+    u8 gender;
+    u32 personality;
+
+    switch (sEggHatchData->CB2_state)
+    {
+    case 0:
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, RGB_BLACK);
+        sEggHatchData->eggSpriteID = CreateSprite(&sSpriteTemplate_EggHatch, 120, 75, 5);
+        ShowBg(0);
+        ShowBg(1);
+        sEggHatchData->CB2_state++;
+        CreateTask(Task_EggHatchPlayBGM, 5);
+        break;
+    case 1:
+        if (!gPaletteFade.active)
+        {
+            FillWindowPixelBuffer(sEggHatchData->windowId, 0x00);
+            sEggHatchData->CB2_PalCounter = 0;
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 2:
+        if (++sEggHatchData->CB2_PalCounter > 30)
+        {
+            sEggHatchData->CB2_state++;
+            gSprites[sEggHatchData->eggSpriteID].callback = SpriteCB_Egg_0;
+        }
+        break;
+    case 3:
+        if (gSprites[sEggHatchData->eggSpriteID].callback == SpriteCallbackDummy)
+        {
+           PlayCry_Normal(sEggHatchData->species, 0);
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 4:
+        if (IsCryFinished())
+        {
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 5:
+        DayCare_GetMonNickname(&gPlayerParty[sEggHatchData->eggPartyID], gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_HatchedFromEgg);
+        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 3, 0xFF);
+        PlayFanfare(MUS_EVOLVED);
+        sEggHatchData->CB2_state++;
+        PutWindowTilemap(sEggHatchData->windowId);
+        CopyWindowToVram(sEggHatchData->windowId, COPYWIN_BOTH);
+        break;
+    case 6:
+        if (IsFanfareTaskInactive())
+            sEggHatchData->CB2_state++;
+        break;
+    case 7:
+        if (IsFanfareTaskInactive())
+            sEggHatchData->CB2_state++;
+        break;
+    case 8:
+        DayCare_GetMonNickname(&gPlayerParty[sEggHatchData->eggPartyID], gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_NickHatchPrompt);
+        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 2, 1);
+        sEggHatchData->CB2_state++;
+        break;
+    case 9:
+        if (!IsTextPrinterActive(sEggHatchData->windowId))
+        {
+            LoadUserWindowBorderGfx(sEggHatchData->windowId, 0x140, 0xE0);
+            CreateYesNoMenu(&sYesNoWinTemplate, 3, 0, 2, 0x140, 0xE, 0);
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 10:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            DayCare_GetMonNickname(&gPlayerParty[sEggHatchData->eggPartyID], gStringVar3);
+            species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_SPECIES);
+            gender = GetMonGender(&gPlayerParty[sEggHatchData->eggPartyID]);
+            personality = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_PERSONALITY, 0);
+            DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar3, species, gender, personality, EggHatchSetMonNickname_InParty);
+            break;
+        case 1:
+        case -1:
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 11:
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, RGB_BLACK);
+        sEggHatchData->CB2_state++;
+        break;
+    case 12:
+        if (!gPaletteFade.active)
+        {
+            RemoveWindow(sEggHatchData->windowId);
+            UnsetBgTilemapBuffer(0);
+            UnsetBgTilemapBuffer(1);
+            Free(sEggHatchData);
+            SetMainCallback2(CB2_ReturnToPartyMenuSelectedMon);
             HelpSystem_Enable();
         }
         break;

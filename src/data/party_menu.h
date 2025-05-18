@@ -599,6 +599,17 @@ static const struct WindowTemplate sDoWhatWithMonMsgWindowTemplate =
     .baseBlock = 0x279,
 };
 
+static const struct WindowTemplate sHatchThisEggMsgWindowTemplate =
+{
+    .bg = 2,
+    .tilemapLeft = 1,
+    .tilemapTop = 17,
+    .width = 19,
+    .height = 2,
+    .paletteNum = 15,
+    .baseBlock = 0x299,
+};
+
 static const struct WindowTemplate sDoWhatWithItemMsgWindowTemplate =
 {
     .bg = 2,
@@ -650,6 +661,25 @@ static const struct WindowTemplate sMailReadTakeWindowTemplate =
     .tilemapTop = 13,
     .width = 10,
     .height = 6,
+    .paletteNum = 14,
+    .baseBlock = 0x373,
+};
+
+//2 pix per entry so divide height by 2 for max options
+//think increase tilemapTop by 2 for each removed option?
+//to lower back to bottom
+//basing on dif moveselect & item/mail
+//tested is correct vsonic important
+//another way of thinking is hieght and tilempatop 
+//are inversly linked when one goes down other goes up
+
+static const struct WindowTemplate sEggHatchYesNoWindowTemplate =
+{
+    .bg = 2,
+    .tilemapLeft = 22,
+    .tilemapTop = 15,
+    .width = 7,
+    .height = 4,
     .paletteNum = 14,
     .baseBlock = 0x373,
 };
@@ -830,6 +860,7 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_DO_WHAT_WITH_MON]       = gText_DoWhatWithPokemon,
     [PARTY_MSG_RESTORE_WHICH_MOVE]     = gText_RestoreWhichMove,
     [PARTY_MSG_BOOST_PP_WHICH_MOVE]    = gText_BoostPp,
+    [PARTY_MSG_HATCH_THIS_EGG]         = COMPOUND_STRING("Hatch this Egg?"),
     [PARTY_MSG_DO_WHAT_WITH_ITEM]      = gText_DoWhatWithItem,
     [PARTY_MSG_DO_WHAT_WITH_MAIL]      = gText_DoWhatWithMail,
 };
@@ -1320,6 +1351,7 @@ enum
     MENU_SWITCH,
     MENU_CANCEL1,
     MENU_ITEM,
+    MENU_HATCH,
     MENU_GIVE,
     MENU_TAKE_ITEM,
     MENU_MAIL,
@@ -1334,9 +1366,13 @@ enum
     MENU_REGISTER,
     MENU_TRADE1,
     MENU_TRADE2,
+    MENU_YES_HATCH,
     MENU_FIELD_MOVES,
 };
-
+//menu item and now hatch
+//aren't part of default menu
+//defautl is just summary switch and cancel
+//those 2 get appended based on my species arguement
 static struct
 {
     const u8 Id; //const poiter again giving issues think what can do is make value nto pointer
@@ -1348,6 +1384,7 @@ static struct
     [MENU_SWITCH] = {MENU_SWITCH, CursorCB_Switch},
     [MENU_CANCEL1] = {MENU_CANCEL1, CursorCB_Cancel1},
     [MENU_ITEM] = {MENU_ITEM, CursorCB_Item},
+    [MENU_HATCH] = {MENU_HATCH, CursorCB_Hatch},
     [MENU_GIVE] = {MENU_GIVE, CursorCB_Give},
     [MENU_TAKE_ITEM] = {MENU_TAKE_ITEM, CursorCB_TakeItem},
     [MENU_MAIL] = {MENU_MAIL, CursorCB_Mail},
@@ -1362,6 +1399,7 @@ static struct
     [MENU_REGISTER] = {MENU_REGISTER, CursorCB_Register},
     [MENU_TRADE1] = {MENU_TRADE1, CursorCB_Trade1},
     [MENU_TRADE2] = {MENU_TRADE2, CursorCB_Trade2},
+    [MENU_YES_HATCH] = {MENU_YES_HATCH, CursorCB_BeginHatch},
     [MENU_FIELD_MOVES + FIELD_MOVE_CUT] = {(MENU_FIELD_MOVES + FIELD_MOVE_CUT), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_FLY] = {(MENU_FIELD_MOVES + FIELD_MOVE_FLY), CursorCB_FieldMove},
     [MENU_FIELD_MOVES + FIELD_MOVE_SURF] = {(MENU_FIELD_MOVES + FIELD_MOVE_SURF), CursorCB_FieldMove},
@@ -1393,6 +1431,7 @@ static const u8 sPartyMenuAction_StoreSummaryCancel[] = {MENU_STORE, MENU_SUMMAR
 static const u8 sPartyMenuAction_GiveTakeItemCancel[] = {MENU_GIVE, MENU_TAKE_ITEM, MENU_CANCEL2};
 static const u8 sPartyMenuAction_ReadTakeMailCancel[] = {MENU_READ, MENU_TAKE_MAIL, MENU_CANCEL2};
 static const u8 sPartyMenuAction_RegisterSummaryCancel[] = {MENU_REGISTER, MENU_SUMMARY, MENU_CANCEL1};
+static const u8 sPartyMenuAction_ConfirmHatchYesNo[] = {MENU_YES_HATCH, MENU_CANCEL1};
 static const u8 sPartyMenuAction_TradeSummaryCancel1[] = {MENU_TRADE1, MENU_SUMMARY, MENU_CANCEL1};
 static const u8 sPartyMenuAction_TradeSummaryCancel2[] = {MENU_TRADE2, MENU_SUMMARY, MENU_CANCEL1};
 //think I need to only remove mail, because other options have other places they could be used besides union room
@@ -1409,6 +1448,7 @@ enum
     ACTIONS_STORE,
     ACTIONS_SUMMARY_ONLY,
     ACTIONS_ITEM,
+    ACTIONS_HATCH,
     ACTIONS_MAIL,
     ACTIONS_REGISTER,
     ACTIONS_TRADE,
@@ -1426,6 +1466,7 @@ static const u8 *const sPartyMenuActions[] =
     [ACTIONS_STORE]         = sPartyMenuAction_StoreSummaryCancel,
     [ACTIONS_SUMMARY_ONLY]  = sPartyMenuAction_SummaryCancel,
     [ACTIONS_ITEM]          = sPartyMenuAction_GiveTakeItemCancel,
+    [ACTIONS_HATCH]         = sPartyMenuAction_ConfirmHatchYesNo,
     [ACTIONS_MAIL]          = sPartyMenuAction_ReadTakeMailCancel,
     [ACTIONS_REGISTER]      = sPartyMenuAction_RegisterSummaryCancel,
     [ACTIONS_TRADE]         = sPartyMenuAction_TradeSummaryCancel1,
@@ -1443,6 +1484,7 @@ static const u8 sPartyMenuActionCounts[] =
     [ACTIONS_STORE]         = NELEMS(sPartyMenuAction_StoreSummaryCancel),
     [ACTIONS_SUMMARY_ONLY]  = NELEMS(sPartyMenuAction_SummaryCancel),
     [ACTIONS_ITEM]          = NELEMS(sPartyMenuAction_GiveTakeItemCancel),
+    [ACTIONS_HATCH]         = NELEMS(sPartyMenuAction_ConfirmHatchYesNo),
     [ACTIONS_MAIL]          = NELEMS(sPartyMenuAction_ReadTakeMailCancel),
     [ACTIONS_REGISTER]      = NELEMS(sPartyMenuAction_RegisterSummaryCancel),
     [ACTIONS_TRADE]         = NELEMS(sPartyMenuAction_TradeSummaryCancel1),

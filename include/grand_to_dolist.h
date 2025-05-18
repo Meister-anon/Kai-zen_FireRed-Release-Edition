@@ -4202,6 +4202,29 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     also ended up adding gmax move from copperajah
     as additional trap steel surge, steel type stealth rocks
 
+    right ok thought about adding egg incubator but decided nah
+    already have box exp and idea something is taken care of 
+    at oak ranch not sitting in pc so just setup eggs showing
+    their species name and then have egg count go down while in the pc
+
+    but not hatch it should just stop at 1 step until hatch
+    hm or just get to 0 but not trigger hatch script unless in party
+    so  egg goes in pc you check it and change message so it'll say
+    "i think the egg is ready to hatch!!"
+
+    Then just put in party take a step and it'll trigger hatching
+    lost note bute decided to just immediate hatch egg from pc
+    and do it normally from party hmm
+    actually no I can create a hatch option
+    in party as well, it'd just be up to the player
+    where they want to use it or not
+    can put in place of the give option for eggs
+    since doesn't do anything anyway
+
+    -setup egg via menu for party
+    everything works realized need separate tasks/functinos
+    for pc and party just no other way can see to do it
+
     consider troll player replace magikarp salesman
     have him say he's selling magikarp but actually
     give players a SPECIES_FINNEON

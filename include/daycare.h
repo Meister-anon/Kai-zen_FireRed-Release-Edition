@@ -42,4 +42,7 @@ u8 GetEggStepsToSubtract(void);
 u16 sub_80722E0(void);
 bool8 ShouldEggHatch(void);
 
+//new functinons for party and box hatching
+void EggHatch_InParty(void);
+
 #endif // GUARD_DAYCARE_H
