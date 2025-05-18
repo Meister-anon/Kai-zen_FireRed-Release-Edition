@@ -5787,7 +5787,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     // item effects
     if ((holdEffect == HOLD_EFFECT_MACHO_BRACE 
     || holdEffect == HOLD_EFFECT_ULTIMA_BRACE 
-    || holdEffect ==  HOLD_EFFECT_POWERITEM)
+    || holdEffect ==  HOLD_EFFECT_POWER_ITEM)
     && (ability != ABILITY_TANGLED_FEET
     && ability != ABILITY_AVIATOR
     && ability != ABILITY_RUN_AWAY

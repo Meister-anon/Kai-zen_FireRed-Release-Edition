@@ -10767,12 +10767,12 @@ void MonGainEVs(struct Pokemon *mon) // since this function doesn't use exp, it 
         multiplier *= 2;
     if (holdEffect == HOLD_EFFECT_ULTIMA_BRACE)
         multiplier *= 5;
-    if (holdEffect == HOLD_EFFECT_POWERITEM)
+    if (holdEffect == HOLD_EFFECT_POWER_ITEM)
         multiplier *= 2;
     
     //if holdeffect is a power item, i for switch case equals helditem secondary item  ItemId_GetSecondaryId
 
-    if (holdEffect == (HOLD_EFFECT_POWERITEM))    //should be ev gain separate from macho brace loop, so I can safely increase a single stat 
+    if (holdEffect == (HOLD_EFFECT_POWER_ITEM))    //should be ev gain separate from macho brace loop, so I can safely increase a single stat 
     {
         i = ItemId_GetSecondaryId(heldItem);    //held item guaranteed to be, one of power items, this filters specific one, also used as discriminator for which ev to raise
 

@@ -161,7 +161,7 @@
 #define HOLD_EFFECT_POWER_LENS			180
 #define HOLD_EFFECT_POWER_BAND			181
 //vsonic
-#define HOLD_EFFECT_POWERITEM 182   // since stat reaise is based on secondary id, pretty sure can just use this and remoe all other power item hold effects
+#define HOLD_EFFECT_BLANK 182   // since stat reaise is based on secondary id, pretty sure can just use this and remoe all other power item hold effects
 
 #define HOLD_EFFECT_CURE_ATTRACT		183
 
