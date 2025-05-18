@@ -7596,13 +7596,13 @@ const struct BaseStats gBaseStats[] =
  
            //hp, atk, def, spd, spatk, spdef
          STATS(120, 35, 110, 110, 130, 120),
-        MON_TYPES(TYPE_GRASS, TYPE_FAIRY),
+        MON_TYPES(TYPE_GRASS, TYPE_FAIRY), //...why the fuck did I make this fairy???
         .catchRate = 45,
         .expYield = 270,
         //.evYield_HP = 3,
         //.itemCommon = ITEM_LUM_BERRY,
         //.itemRare = ITEM_LUM_BERRY,
-        .genderRatio = MON_GENDERLESS,
+        .genderRatio = MON_GENDERLESS, //hmm it has unique powers but doesn't "talk" so I guess fairy works...
         .eggCycles = 120,
         .friendship = FRIENDSHIP_FRIENDLY,
         .growthRate = GROWTH_MEDIUM_SLOW,
@@ -7618,6 +7618,18 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
         .flags = FLAG_LEGENDARY_POKEMON,
     }, //Can make fairy type now that dual weakness is not so punishing
+    //well fairy is immune to dragon,  grass is immune to fairy
+    //w type changes its actually better as grass psychic
+    //idk if I'll make this grass psychic or grass fairy
+    //psychic resists fairy steel and poison as well as flying
+    //which would greatly improve its survivability
+    //while grass already gave it fairy immunity so psychic wouldn't help w that
+    //but fairy is just giving dragon immunity
+    //being a fairy mon w psychic movess helps it cover the weakness
+    //since psy now beats both psychic AND steel,
+    //but idk it still feels like it'd be better as a psychic type
+    //w fairy moves?
+
 
     [SPECIES_TREECKO] =
     {

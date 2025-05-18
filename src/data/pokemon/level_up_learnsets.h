@@ -4445,17 +4445,36 @@ static const struct LevelUpMove sHoOhLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sCelebiLevelUpLearnset[] = {
-    LEVEL_UP_MOVE(1, MOVE_LEECH_SEED),
-    LEVEL_UP_MOVE(1, MOVE_CONFUSION),
-    LEVEL_UP_MOVE(1, MOVE_RECOVER),
-    LEVEL_UP_MOVE(1, MOVE_HEAL_BELL),
-    LEVEL_UP_MOVE(10, MOVE_SAFEGUARD),
-    LEVEL_UP_MOVE(20, MOVE_ANCIENT_POWER),
-    LEVEL_UP_MOVE(30, MOVE_FUTURE_SIGHT),
-    LEVEL_UP_MOVE(40, MOVE_BATON_PASS),
-    LEVEL_UP_MOVE(50, MOVE_PERISH_SONG),
+    LEVEL_UP_MOVE( 1, MOVE_BATON_PASS),
+    LEVEL_UP_MOVE( 1, MOVE_BABY_DOLL_EYES),
+    LEVEL_UP_MOVE( 1, MOVE_FLOWER_SHIELD),
+    LEVEL_UP_MOVE( 1, MOVE_DISARMING_VOICE),
+    LEVEL_UP_MOVE( 1, MOVE_HOLD_BACK),  //seemed good idea for peace loving mon
+    LEVEL_UP_MOVE( 1, MOVE_GRASS_PLEDGE),
+    LEVEL_UP_MOVE( 1, MOVE_FAIRY_WIND),
+    LEVEL_UP_MOVE( 1, MOVE_EXTRASENSORY),
+    LEVEL_UP_MOVE( 1, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE( 1, MOVE_HEAL_BELL),
+    LEVEL_UP_MOVE( 5, MOVE_SAFEGUARD),
+    LEVEL_UP_MOVE(10, MOVE_MAGICAL_LEAF),
+    LEVEL_UP_MOVE(20, MOVE_DAZZLING_GLEAM),
+    LEVEL_UP_MOVE(30, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(35, MOVE_PSYCHIC),
+    LEVEL_UP_MOVE(40, MOVE_LIFE_DEW),
+    LEVEL_UP_MOVE(50, MOVE_LEECH_SEED),
+    LEVEL_UP_MOVE(60, MOVE_RECOVER),
+    LEVEL_UP_MOVE(70, MOVE_FUTURE_SIGHT),
+    LEVEL_UP_MOVE(75, MOVE_SEED_FLARE),
+    LEVEL_UP_MOVE(80, MOVE_HEALING_WISH),
+    LEVEL_UP_MOVE(85, MOVE_PSYCHO_BOOST),
+    LEVEL_UP_MOVE(90, MOVE_LEAF_STORM),
+    LEVEL_UP_MOVE(100, MOVE_PERISH_SONG),
     LEVEL_UP_END
 };
+//idk why its moves are so shit -ok much better
+//give it psycho boost I made it a fairy type instead of psychic
+//but give more psychic moves
+//since its all about healing and growth don't thhink drain moves suit it
 
 static const struct LevelUpMove sTreeckoLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_POUND),
