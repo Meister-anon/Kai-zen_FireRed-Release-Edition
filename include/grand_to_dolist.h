@@ -4241,6 +4241,21 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -done taken from EE for some reason they only implemented that
     for universal moves?
 
+    NOTE**(
+    
+    nother idea from youtuber Rigamarolled  like I thought pokemon 
+    linking flying type so much to birds
+    causes problems for the type
+
+    ex. all the flying mon that AREN'T birds just don't get access to a good 
+    swawth of the moves ex. brave bird, dual wing beat
+    wing attack drill peck etc.
+
+    wind is all about precision in most mediums its cutting and sharp
+    so makes sense for flying to have most crit based effects?
+    and sharpness boosted effects
+    )
+
     note mints don't directly shift nature becuase 
     there is no nature field its instead dictated by personality
     would require 5 bits to make a nature field

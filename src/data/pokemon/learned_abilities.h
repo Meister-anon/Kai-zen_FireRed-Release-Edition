@@ -639,10 +639,12 @@ static const struct AbilityLearnset sDragoniteAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMewtwoAbilityLearnset[] = {
+    ABILITY_NEUROFORCE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sMewAbilityLearnset[] = {
+    ABILITY_TELEPATHY,
     ABILITY_SET_END
 };
 

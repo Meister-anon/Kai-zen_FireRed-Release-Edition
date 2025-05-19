@@ -2220,20 +2220,39 @@ static const struct LevelUpMove sMagikarpLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sGyaradosLevelUpLearnset[] = {
-    LEVEL_UP_MOVE(0, MOVE_RAGE),    //not sure how lvl 0 moves work with wilds
-    LEVEL_UP_MOVE(1, MOVE_THRASH),
-    LEVEL_UP_MOVE(20, MOVE_BITE),
-    LEVEL_UP_MOVE(25, MOVE_DRAGON_RAGE),
-    LEVEL_UP_MOVE(30, MOVE_LEER),
-    LEVEL_UP_MOVE(35, MOVE_TWISTER),
+    LEVEL_UP_MOVE( 0, MOVE_RAGE),    //not sure how lvl 0 moves work with wilds
+    LEVEL_UP_MOVE( 0, MOVE_DRAGON_RAGE),
+    LEVEL_UP_MOVE( 1, MOVE_BOUNCE),
+    LEVEL_UP_MOVE( 1, MOVE_FLOATY_FALL),
+    LEVEL_UP_MOVE( 1, MOVE_BITE),
+    LEVEL_UP_MOVE( 1, MOVE_FLAIL),
+    LEVEL_UP_MOVE( 1, MOVE_SPLASH),
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_LEER),
+    LEVEL_UP_MOVE( 1, MOVE_TWISTER),
+    LEVEL_UP_MOVE( 4, MOVE_WHIRLPOOL),
+    LEVEL_UP_MOVE( 8, MOVE_ICE_FANG),
+    LEVEL_UP_MOVE(12, MOVE_BRINE),
+    LEVEL_UP_MOVE(16, MOVE_SCARY_FACE),
+    LEVEL_UP_MOVE(21, MOVE_WATERFALL),
+    LEVEL_UP_MOVE(24, MOVE_BITE),
+    LEVEL_UP_MOVE(28, MOVE_RAIN_DANCE),
+    LEVEL_UP_MOVE(32, MOVE_AQUA_TAIL),
+    LEVEL_UP_MOVE(34, MOVE_CRUNCH),
+    LEVEL_UP_MOVE(36, MOVE_DRAGON_DANCE),
     LEVEL_UP_MOVE(40, MOVE_HYDRO_PUMP),
-    LEVEL_UP_MOVE(45, MOVE_RAIN_DANCE),
-    LEVEL_UP_MOVE(50, MOVE_DRAGON_DANCE),
-    LEVEL_UP_MOVE(55, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(44, MOVE_HURRICANE),
+    LEVEL_UP_MOVE(48, MOVE_THRASH),
+    LEVEL_UP_MOVE(52, MOVE_HYPER_BEAM),
     LEVEL_UP_END
 };
 //give power whip run n bun reference
 //wait...tail slap would be amazing??
+//MOVE_FLOATY_FALL  as alt for bounce
+//doesn't learn bounce, its actually just a tm 
+//from sword sheield
+//think will add them both as tms but for now toss
+//here as lvl 1 moves
 
 static const struct LevelUpMove sLaprasLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_WATER_GUN),

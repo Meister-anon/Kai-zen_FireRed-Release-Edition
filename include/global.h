@@ -770,7 +770,7 @@ struct DewfordTrend
     u16 gainingTrendiness:1;
     u16 rand;
     u16 words[2];
-}; /*size = 0x8*/
+};*/ /*size = 0x8*/
 
 struct MailStruct
 {

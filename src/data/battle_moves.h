@@ -8566,7 +8566,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_PSYSTRIKE] =
     {
         .effect = EFFECT_PSYSHOCK,
-        .power = 100,
+        .power = 120,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 10,
@@ -8575,7 +8575,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
-    },
+    },//mewtwo signature
 
     [MOVE_TAIL_SLAP] =
     {
