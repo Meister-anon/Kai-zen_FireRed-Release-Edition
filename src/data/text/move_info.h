@@ -15,9 +15,9 @@ const u8 gMoveDescription_RazorWind[MOVE_DESCRIPTION_LENGTH + 5] = _("Blades of 
 const u8 gMoveDescription_SwordsDance[MOVE_DESCRIPTION_LENGTH + 5] = _("A frenetic dance of\nfighting. It sharply\nraises the ATTACK\nstat.");
 const u8 gMoveDescription_Cut[MOVE_DESCRIPTION_LENGTH + 5] = _("A practiced cutting\nattack. That deals\nincreased dmg to\ngrass types. It can\nbe used to cut down\nthin trees and grass");
 const u8 gMoveDescription_Gust[MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes the foe\nwith a gust of wind\nwhipped up by\nwings.");
-const u8 gMoveDescription_WingAttack[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is struck\nwith large, imposing\nwings spread wide.");
+const u8 gMoveDescription_WingAttack[MOVE_DESCRIPTION_LENGTH + 5] = _("A sharp hit struck\nwith large, imposing\nwings spread wide.\nIt has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_Whirlwind[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends.");
-const u8 gMoveDescription_Fly[MOVE_DESCRIPTION_LENGTH + 5] = _("A 2-turn move that\nhits on the 2nd\nturn. Use it to fly\nto any known town.");
+const u8 gMoveDescription_Fly[MOVE_DESCRIPTION_LENGTH + 5] = _("A 2-turn move that\nhits on the 2nd\nturn. It has a high\ncritical-hit ratio.\nUse it to fly\nto any known town.");
 const u8 gMoveDescription_Bind[MOVE_DESCRIPTION_LENGTH + 5] = _("A long body or\ntentacles are used\nto bind the foe for\ntwo to four turns.\nLocks foe to last\nmove during trap.");
 const u8 gMoveDescription_Slam[MOVE_DESCRIPTION_LENGTH + 5] = _("The attacker uses\nan appendage to\nslam the target\nhard.\nIt may make the\nfoe flinch.");
 const u8 gMoveDescription_VineWhip[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is struck\nwith slender, whip-\nlike vines.");
@@ -63,7 +63,7 @@ const u8 gMoveDescription_BubbleBeam[MOVE_DESCRIPTION_LENGTH + 5] = _("A spray o
 const u8 gMoveDescription_AuroraBeam[MOVE_DESCRIPTION_LENGTH + 5] = _("A rainbow-colored\nattack beam.\nIt may lower the\nfoe's ATTACK stat.");
 const u8 gMoveDescription_HyperBeam[MOVE_DESCRIPTION_LENGTH + 5] = _("A severely damaging\nattack that makes\nthe user rest on\nthe next turn.");
 const u8 gMoveDescription_Peck[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is jabbed\nwith a sharply\npointed beak or\nhorn.");
-const u8 gMoveDescription_DrillPeck[MOVE_DESCRIPTION_LENGTH + 5] = _("A corkscrewing\nattack with the\nsharp beak acting\nas a drill.");
+const u8 gMoveDescription_DrillPeck[MOVE_DESCRIPTION_LENGTH + 5] = _("A corkscrewing\nattack with the\nsharp beak acting\nas a drill.\nIt has a high\ncritical-hit ratio.");
 const u8 gMoveDescription_Submission[MOVE_DESCRIPTION_LENGTH + 5] = _("A reckless, full-\nbody throw attack\nthat also hurts the\nuser a little.");
 const u8 gMoveDescription_LowKick[MOVE_DESCRIPTION_LENGTH + 5] = _("A low, tripping kick\nthat inflicts more\ndamage on heavier\nfoes.");
 const u8 gMoveDescription_Counter[MOVE_DESCRIPTION_LENGTH + 5] = _("A retaliation move\nthat counters any\nphysical hit with\ndouble the damage.");
@@ -421,7 +421,7 @@ const u8 gPOISON_JAB_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A stabbing attack\nthat may poison\nthe foe.");
 
 const u8 gDARK_PULSE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nhorrible corrupted\naura.\nMay cause flinching."); //check
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nhorrible corrupted\naura.\nMay cause flinching.");
 
 const u8 gNIGHT_SLASH_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user slashes\nthe instant the foe\nlowers its guard.\nIt has a high\ncritical-hit ratio.");
@@ -433,13 +433,13 @@ const u8 gSEED_BOMB_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A barrage of hard\nseeds is fired\nat the foe.");
 
 const u8 gAIR_SLASH_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nblade of compressed\nair.\nMay cause flinching."); //vsonic check
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks with a\nsharpened blade of\ncompressed air.\nIt has a high\ncritical-hit ratio.\nMay cause flinching.");
 
 const u8 gX_SCISSOR_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Slashes at the foe\nwith crossed\nscythes, claws, etc.\nIt has a high\ncritical-hit ratio.");
 
 const u8 gBUG_BUZZ_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("User makes a rumpus\nattacking the\nfoe with a\ndamaging sound wave\nthat may lower\nSp. Def."); //vsonic
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("User makes a rumpus\nattacking the\nfoe with a\ndamaging sound wave\nthat may lower\nSp. Def.");
 
 const u8 gDRAGON_PULSE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Damages the foe\nwith a pulse of\ndraconic aura.");
@@ -805,7 +805,7 @@ const u8 gTAIL_SLAP_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Strikes the foe\nwith its tail\n2 to 5 times.");
 
 const u8 gHURRICANE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe\nin a fierce wind.\nMay cause confusion.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe in\na fierce wind that\nswirls and cuts.\nNever misses if\nused in rain.\nMay cause confusion.");
 
 const u8 gHEAD_CHARGE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("A head-first charge\nusing guard hair.\nIt hurts the\nuser a little.");
@@ -1461,7 +1461,7 @@ const u8 gMoveDescription_Nettle_Whip[MOVE_DESCRIPTION_LENGTH + 5] = _("Attacks 
 const u8 gMoveDescription_SonicBoom[MOVE_DESCRIPTION_LENGTH + 5] = _("The target is struck\nby high-force winds,\nas the user\naccelerates passed\nthe sound barrier.\nRaises Speed.");
 const u8 gMoveDescription_OverMaxPower[MOVE_DESCRIPTION_LENGTH + 5] = _("Releases all mental\nlimits to unleash\nunknown levels of\npower. After using\nthis, the user loses\nits PSYCHIC type.");
 const u8 gMoveDescription_Shimon[MOVE_DESCRIPTION_LENGTH + 5] = _("Unlock the gates\nof life and death.\nAfter using this\nmove, the user loses\nits FIGHTING type.");
-const u8 gMoveDescription_FinalFlight[MOVE_DESCRIPTION_LENGTH + 5] = _("A life-risking\nacrobatic maneuver.\nAfter using this\nmove, the user loses\nits FLYING type.");
+const u8 gMoveDescription_FinalFlight[MOVE_DESCRIPTION_LENGTH + 5] = _("A life-risking\nacrobatic maneuver.\nAfter using this\nmove, the user loses\nits FLYING type.\nHigh Crit chance.");
 const u8 gMoveDescription_PlasmaRailgun[MOVE_DESCRIPTION_LENGTH + 5] = _("Forces out all Elec.\npower in one blast.\nAfter using this\nmove, the user loses\nits ELECTRIC type.");
 const u8 gMoveDescription_Boltbeam[MOVE_DESCRIPTION_LENGTH + 5] = _("The ultimate fusion\nof Ice and Electric.\nUser fires a cold\nbeam of energy\nthat may freeze foe.");
 const u8 gMoveDescription_Pounce[MOVE_DESCRIPTION_LENGTH + 5] = _("User springs onto\nthe foe.\nBoosting its SPEED.");

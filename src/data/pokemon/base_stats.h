@@ -8815,7 +8815,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SPEED_BOOST, ABILITY_NONE},
+        .abilities = {ABILITY_SPEED_BOOST, ABILITY_SHARPNESS}, //give sharpness as ninja
         .abilityHidden = {ABILITY_INFILTRATOR, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -12270,7 +12270,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_MOLD_BREAKER, ABILITY_NONE},
+        .abilities = {ABILITY_MOLD_BREAKER, ABILITY_ROCK_HEAD},
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_BULLETPROOF},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -12297,7 +12297,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroup1 = EGG_GROUP_MONSTER,
         .eggGroup2 = EGG_GROUP_MONSTER,
-        .abilities = {ABILITY_MOLD_BREAKER, ABILITY_NONE},
+        .abilities = {ABILITY_MOLD_BREAKER, ABILITY_ROCK_HEAD},
         .abilityHidden = {ABILITY_SHEER_FORCE, ABILITY_BULLETPROOF},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
@@ -12307,6 +12307,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRampardosTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //could give rock head and make it rock normal?
+    //pretty sure that combo doesn't exist
+    //hmm want to make rock after changes but only thing
+    //rock like about it is its head
 
     [SPECIES_SHIELDON] =
     {
@@ -13997,6 +14001,8 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },//give dragon rage, dragon breath outrage  dragon pulse draco meteor  //potentially rage
     //vsonic
+    //thought remove frisk but has some potential use in playthrough
+    //instead add to laerned list
 
     [SPECIES_LEAFEON] =
     {
@@ -38647,7 +38653,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
         .abilities = {ABILITY_AERILATE, ABILITY_AERILATE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHARPNESS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = TRUE,
@@ -39601,7 +39607,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_DRAGON,
         .eggGroup2 = EGG_GROUP_DRAGON,
         .abilities = {ABILITY_AERILATE, ABILITY_AERILATE},
-        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHARPNESS, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = TRUE,

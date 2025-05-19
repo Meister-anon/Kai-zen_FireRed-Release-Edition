@@ -196,6 +196,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FLYING,
     },
+    //think will give to more flying types
 
     [MOVE_SWORDS_DANCE] =
     {
@@ -243,7 +244,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE,
         .split = SPLIT_SPECIAL,
-    },
+    }, //blunt wind damage
 
     [MOVE_WING_ATTACK] =
     {
@@ -255,9 +256,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //turn into precision attack
 
     [MOVE_WHIRLWIND] =
     {
@@ -295,9 +297,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
     },
+    //if take time to aim decide to add high crit
 
     [MOVE_BIND] =
     {
@@ -1020,9 +1023,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
     },
+    //drill enemy weak spot
 
     [MOVE_SUBMISSION] =
     {
@@ -2239,13 +2243,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
 
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
-    .effect = EFFECT_SKY_ATTACK,
-    .power = 140,
+    .effect = EFFECT_SKY_ATTACK, //wait rather than a charge move why don't I make it a literal flying attack?
+    .power = 140,   //could make this the upgrade to fly and be an actually good semi-invulnerable move
     .type = TYPE_FLYING,
     .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
     .pp = 10,
     .secondaryEffectChance = 30,
-    .target = MOVE_TARGET_SELECTED,
+    .target = MOVE_TARGET_SELECTED,//could do took to the air then end turn effect glowing w energy strnig?
     .priority = 0,
     .split = SPLIT_PHYSICAL,
     .argument = MOVE_EFFECT_FLINCH,
@@ -4984,6 +4988,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //unique point is it can't miss/100% accurate
+    //hmm actually think will make this special aerial ace
+    //nah aerial ace needs its own niche
 
     [MOVE_OVERHEAT] =
     {
@@ -5278,6 +5285,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //potentially make this speed up hit nah already made flying speed boost 
+    //just need to give it more spread
 
     [MOVE_ICICLE_SPEAR] =
     {
@@ -5390,7 +5399,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_SEMI_INVULNERABLE,
         .power = 85,
         .type = TYPE_FLYING,
-        .accuracy = 85,
+        .accuracy = 90,
         .pp = 5,
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
@@ -5399,6 +5408,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
         .argument = MOVE_EFFECT_PARALYSIS,
     },
+    //buffed acc so can work as alt option to floaty fall
+    //make both into tms
 
     [MOVE_MUD_SHOT] =
     {
@@ -5819,6 +5830,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //sharpness/crit doesn't make sense overall it alrady does all it needs to.
 
     [MOVE_TAILWIND] =
     {
@@ -6422,7 +6434,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .pp = 15,
-            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
+            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         #elif B_UPDATED_MOVE_DATA == GEN_5
             .pp = 20,
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
@@ -6605,6 +6617,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
     },
+    //think leave crit off this, just let recoil rework be the buff
 
     [MOVE_EARTH_POWER] =
     {
@@ -8602,9 +8615,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //may change to more literal translation 
+    //'Windstorm' cutting wind attack
+    //rn is pretty much best flying move, which honestly I think it should be
+    //its just very inaccurate
+    //oh hurricane does make sense it has a rain based component
+    //w that in mind dropped crit, but keep sharpness boost
 
     [MOVE_HEAD_CHARGE] =
     {
@@ -10630,13 +10649,19 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_FLINCH_HIT,
         .power = 90,
         .type = TYPE_FLYING,
-        .accuracy = 95,
+        .accuracy = 90,
         .pp = 15,
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .split = SPLIT_PHYSICAL,
     },
+    //hmm unique pika exclusive but think I may actualy give this 
+    //to gyarados as solid physical move outside of bounce
+    //already lowered effect odds to balance but if its meant to compare w bounce
+    //may need to lower further to 15%?
+    //yeah that seems good, most flinch effects outside unique things are 15% i.e all fangs
+    //hmm actually nvm bite is 25%
 
     [MOVE_PIKA_PAPOW] =
     {
@@ -11617,6 +11642,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //kinda want to buff but its fine, being double  hit is its own good point
 
     [MOVE_SCORCHING_SANDS] =
     {
@@ -13701,12 +13727,13 @@ use wonder gaurd logic to determine its super effective
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_FLYING,
     },//Check flying type average stats, see if need to make this physical
     //idea is user pushes themselves to the limit, and gives everything they have to perform an acrobatic feat  /vsonic
     //let pidgeot get but think this should be a tutor move?
+    //decide give crit as exemplary of flying
 
     [MOVE_PLASMA_RAILGUN] =
     {

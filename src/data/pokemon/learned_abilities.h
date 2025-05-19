@@ -525,6 +525,7 @@ static const struct AbilityLearnset sMrMimeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sScytherAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -541,6 +542,8 @@ static const struct AbilityLearnset sMagmarAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sPinsirAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
+    ABILITY_GUTS,
     ABILITY_SET_END
 };
 
@@ -821,8 +824,10 @@ static const struct AbilityLearnset sSunfloraAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sYanmaAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
+    ABILITY_CACOPHONY,
     ABILITY_SET_END
-};
+};//sound waves created by wing beats
 
 static const struct AbilityLearnset sWooperAbilityLearnset[] = {
     ABILITY_SET_END
@@ -877,8 +882,9 @@ static const struct AbilityLearnset sDunsparceAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGligarAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
-}; //update this add more moves
+};
 
 static const struct AbilityLearnset sSteelixAbilityLearnset[] = {
     ABILITY_CLEAR_BODY,
@@ -900,6 +906,7 @@ static const struct AbilityLearnset sQwilfishAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sScizorAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -933,7 +940,7 @@ static const struct AbilityLearnset sMagcargoAbilityLearnset[] = {
 
 static const struct AbilityLearnset sSwinubAbilityLearnset[] = {
     ABILITY_SET_END
-};//ice shard ice fang, update moves
+};
 
 static const struct AbilityLearnset sPiloswineAbilityLearnset[] = {
     ABILITY_SET_END
@@ -941,7 +948,7 @@ static const struct AbilityLearnset sPiloswineAbilityLearnset[] = {
 
 static const struct AbilityLearnset sCorsolaAbilityLearnset[] = {
     ABILITY_SET_END
-};//give mud sport
+};
 
 static const struct AbilityLearnset sRemoraidAbilityLearnset[] = {
     ABILITY_SET_END
@@ -953,13 +960,14 @@ static const struct AbilityLearnset sOctilleryAbilityLearnset[] = {
 
 static const struct AbilityLearnset sDelibirdAbilityLearnset[] = {
     ABILITY_SET_END
-};//give extreme speed and add a few stronger special ice moves ice beam, blizzard etc.
+};
 
 static const struct AbilityLearnset sMantineAbilityLearnset[] = {
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSkarmoryAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -977,7 +985,7 @@ static const struct AbilityLearnset sKingdraAbilityLearnset[] = {
 
 static const struct AbilityLearnset sPhanpyAbilityLearnset[] = {
     ABILITY_SET_END
-};//needs more moves
+};
 
 static const struct AbilityLearnset sDonphanAbilityLearnset[] = {
     ABILITY_SET_END
@@ -1203,6 +1211,7 @@ static const struct AbilityLearnset sSurskitAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sMasquerainAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -1549,6 +1558,7 @@ static const struct AbilityLearnset sShelgonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSalamenceAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -1771,11 +1781,13 @@ static const struct AbilityLearnset sAmbipomAbilityLearnset[] = {
 
 static const struct AbilityLearnset sDrifloonAbilityLearnset[] = {
     ABILITY_STORM_BREAK,
+    ABILITY_WIND_RIDER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sDrifblimAbilityLearnset[] = {
     ABILITY_STORM_BREAK,
+    ABILITY_WIND_RIDER,
     ABILITY_SET_END
 };
 
@@ -1948,6 +1960,8 @@ static const struct AbilityLearnset sTogekissAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sYanmegaAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
+    ABILITY_CACOPHONY,
     ABILITY_SET_END
 };
 
@@ -1960,6 +1974,7 @@ static const struct AbilityLearnset sGlaceonAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGliscorAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -2594,6 +2609,7 @@ static const struct AbilityLearnset sRuffletAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBraviaryAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
@@ -3961,6 +3977,7 @@ static const struct AbilityLearnset sRotomFrostAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sRotomFanAbilityLearnset[] = {
+    ABILITY_SHARPNESS,
     ABILITY_SET_END
 };
 
