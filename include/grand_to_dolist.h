@@ -4281,8 +4281,71 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     it auto shows it as learnable by tm
     -done taken from EE for some reason they only implemented that
     for universal moves?
+    testing new lake elf move works but uxie inthrall ability
+    isn't working right, displays when not taking damage?
+    rattata used aurora veil move failed triggered
+    text
+
+    sealed ---  move
+
+    -oh it works when I hit them with a move
+    but all its moves had failed so it didn't seal anything?
+    or was it because they attacked first?
+    -fixed inthrall
 
     NOTE**(
+    save space remove unique mega cries intead use base cry with alteration
+    magical-ice-winged-otter resource pr shared by surskitty
+    he just uses cry high pitched
+    to make more unique think I will use high pitch reverse cry
+    and also incrase volume of cry
+
+    big reason to use this is with addition of gigantimax forms as megas
+    this way their cries are all uniform
+
+    Things I need to add to trainer school:
+    -mention of type changes.
+    -added affects that affect catch odds ex traps, non-primary status. attract/confusion etc.
+    -new mechanics floating mon - maybe affinity abilities gives efects of type but doesn't affect type relationship
+    -new status infestation
+    -new type based effects ex bugs immune to confusion
+    would be annoying to make but some sort of manual would be nice
+
+    for ground type balance
+    saw video youtuber Rigamarolled 
+    mentioned approx 15% of pokemon are ungrounded
+    tested my effects and of non-repeat forms but including megas
+    I have approx 250 ungrounded mon
+    and as of gen 9 there's approx 1k mon?
+    so its upgraded from 15% to approx 25%
+    possibly harsh but not too too bad
+
+    nother idea from him set sticky web to stack and resist removal
+    my idea(s)  at 2 layers of sticky web on attempt to remove
+    traps battle on field instead, since most removals are using a spin effect
+    so idea they get tangled.
+
+    2nd idea webs aren't just on ground they are meant to catch things that fly
+    so make sticky web or 2nd layer of sticky web also hit floating mon
+
+    hmm ok think what I'd do is make 2nd layer trap incoming mon set escape prevention
+    and also effect floating mon
+    -vsonic important
+    would need end turn/move end clear for sticky web since would need remove
+    escape prevention on clear
+    -think stopping removal is bad idea and with effects I want to add would need counterplay
+
+    noticed I already had set stickyweb amount field to be able to stack
+    apparenlty I had planned to buff long ago
+    thought it over and catching flying and floating mon DOES make sense
+    when they're on field they're not flying high in the air, only when in flying move they are.
+    change will require reworking escape trap logic again
+    setup specific case logic for each trap effect
+    well no I can just set stickyWebAmount == 2 as its own effect so flying mon can't get out
+
+    will make sticky web only affect capable of locking in flying mon
+    gives separation from ghost type and the effect requires good degree of setup
+    as requires two turns so overall very good/balanced
     
     nother idea from youtuber Rigamarolled  like I thought pokemon 
     linking flying type so much to birds

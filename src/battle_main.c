@@ -4450,7 +4450,7 @@ void SwitchInClearSetData(void) //handles what gets reset on switchout
     gActionSelectionCursor[gActiveBattler] = 0;
     gMoveSelectionCursor[gActiveBattler] = 0;
 
-    memset(&gDisableStructs[gActiveBattler], 0, sizeof(struct DisableStruct));
+    memset(&gDisableStructs[gActiveBattler], 0, sizeof(struct DisableStruct)); //clear disable struct
     
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS)
     {
@@ -4548,7 +4548,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     gActionSelectionCursor[gActiveBattler] = 0;
     gMoveSelectionCursor[gActiveBattler] = 0;
     ptr = (u8 *)&gDisableStructs[gActiveBattler];
-    for (i = 0; i < sizeof(struct DisableStruct); ++i)
+    for (i = 0; i < sizeof(struct DisableStruct); ++i) //should be clear entire disable struct?
         ptr[i] = 0;
     gProtectStructs[gActiveBattler].protected = FALSE;
     gProtectStructs[gActiveBattler].endured = FALSE;

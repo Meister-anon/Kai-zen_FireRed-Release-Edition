@@ -868,7 +868,7 @@ const u8 gROTOTILLER_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Tilling the soil the\nuser makes it easier\nfor plants to grow.\nRaising the offense\nof Grass Pokémon.");
 
 const u8 gSTICKY_WEB_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Weaves a sticky net\nthat slows foes\nswitching in.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Weaves a sticky net\nto slow on switch-in\nBoost effect if used\nagain. Traps foes\non the field and\ncathes floating PKMN");
 
 const u8 gFELL_STINGER_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("If it knocks out a\nfoe the user's\nAttack stat is\nraised.");

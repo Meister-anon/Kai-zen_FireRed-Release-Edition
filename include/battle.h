@@ -285,7 +285,7 @@ struct DisableStruct    //reset only on switch and faint, -defeatist needs to be
     u8 SwitchBinding:2;
     u8 ConfusionTurns:3; //if correct above should be 3 turns
     u8 sturdyhungon:1; //to surivive full hp ko effect one time /destiny bond, explosion, perish song, final gambit etc.
-    u8 buffer:1; //forget what htis is for I guess free space?
+    u8 trappedinStickyweb:1; //needed trigger for mon trapped in sticky web and can't switch
     u8 rechargeTimer:1; //would use 1, just need change decrement condition
     u8 uproarTurns:2;   //2-5 turns //updated effect is 3 turns
     u8 rampageMoveTurns:2; //for replace lock confuse turns, is how long rampge move last, should be 2-3 turns?

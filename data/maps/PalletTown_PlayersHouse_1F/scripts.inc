@@ -166,6 +166,7 @@ PalletTown_PlayersHouse_1F_EventScript_ReceiveExpNull::
 	goto_if_questlog EventScript_ReleaseEnd
 	special QuestLog_CutRecording	
 	msgbox PalletTown_PlayersHouse_1F_Text_ReceiveExpShare
+	waitfanfare
 	msgbox PalletTown_PlayersHouse_1F_Text_EndingResponse
 	return
 

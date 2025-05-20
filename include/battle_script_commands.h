@@ -23,6 +23,7 @@ bool32 CanBattlerSwitch(u32 battlerId);
 void HandleBattleWindow(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, u8 flags);
 u8 GetBattlerTurnOrderNum(u8 battlerId);
 void BufferMoveToLearnIntoBattleTextBuff2(void);
+void HazardClearNoMessage(u32 battler);
 bool32 DoesSubstituteBlockMove(u8 battlerAtk, u8 battlerDef, u32 move);
 bool32 DoesDisguiseBlockMove(u8 battlerAtk, u8 battlerDef, u32 move);
 bool32 NoAliveMonsForEitherParty(void);

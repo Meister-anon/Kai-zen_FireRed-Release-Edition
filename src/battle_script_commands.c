@@ -9329,6 +9329,9 @@ static void atk4E_switchinanim(void)
     }
 }
 
+//not factoring escape prevention
+//this is just having enough pokemon to switch
+//or the option to engage with the mechanic of switching
 bool32 CanBattlerSwitch(u32 battlerId)
 {
     s32 i, lastMonId, battlerIn1, battlerIn2;
@@ -10504,14 +10507,30 @@ static void atk52_switchineffects(void) //important, think can put ability reset
     }
     else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STICKY_WEB)
-        && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
-        && IsBattlerGrounded(gActiveBattler))
+        && IsBattlerAffectedByHazards(gActiveBattler, FALSE))
     {
-        gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STICKY_WEB_TRIGGERED;
-        gBattleScripting.battler = gActiveBattler;
-        SET_STATCHANGER(STAT_SPEED, 2, TRUE);
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_StickyWebOnSwitchIn;
+        if (gSideTimers[GetBattlerSide(gActiveBattler)].stickyWebAmount < 2)
+        {
+            if (IsBattlerGrounded(gActiveBattler))
+            {
+                gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STICKY_WEB_TRIGGERED;
+                gBattleScripting.battler = gActiveBattler;
+                SET_STATCHANGER(STAT_SPEED, 1, TRUE);
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_StickyWebOnSwitchIn;
+            }
+
+        }
+        else
+        {
+            gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STICKY_WEB_TRIGGERED;
+            gDisableStructs[gActiveBattler].trappedinStickyweb = TRUE;
+            gBattleScripting.battler = gActiveBattler;
+            SET_STATCHANGER(STAT_SPEED, 2, TRUE);
+            BattleScriptPushCursor();
+            gBattlescriptCurrInstr = BattleScript_StickyWebOnSwitchIn;
+        }
+        
     }
     //end of hazard
     else
@@ -11831,6 +11850,16 @@ static void atk75_useitemonopponent(void)
 static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
 {
     s32 i;
+    
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (gDisableStructs[i].trappedinStickyweb)
+        {
+            gDisableStructs[i].trappedinStickyweb = FALSE;
+        }
+        
+    }
+    
     for (i = 0; i < 2; i++)
     {
         struct SideTimer *sideTimer = &gSideTimers[i];
@@ -11880,6 +11909,47 @@ static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
     }
 
     return FALSE;
+}
+
+
+#define HAZARD_CLEAR(status, structField)\
+{                                                           \
+    if (*sideStatuses & status)                             \
+    {                                                       \
+            *sideStatuses &= ~(status);                     \
+            sideTimer->structField = 0;                     \
+    }                                                       \
+}
+
+//for moltres pheonix ability
+//want clear hazards on side as well
+void HazardClearNoMessage(u32 battler)
+{
+    s32 i;
+    u8 side = GetBattlerSide(battler);
+    struct SideTimer *sideTimer = &gSideTimers[side];
+    u32 *sideStatuses = &gSideStatuses[side];
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (GetBattlerSide(i) == side)
+        {
+            if (gDisableStructs[i].trappedinStickyweb)
+            {
+                gDisableStructs[i].trappedinStickyweb = FALSE;
+            }
+        }
+    }
+
+        
+
+    HAZARD_CLEAR(SIDE_STATUS_SPIKES, spikesAmount);
+    HAZARD_CLEAR(SIDE_STATUS_TOXIC_SPIKES, toxicSpikesAmount);
+    HAZARD_CLEAR(SIDE_STATUS_STICKY_WEB, stickyWebAmount);
+
+    HAZARD_CLEAR(SIDE_STATUS_STEALTH_ROCK, spikesAmount);
+    HAZARD_CLEAR(SIDE_STATUS_STEEL_SURGE, spikesAmount);
+
 }
 
 u32 IsFlowerVeilProtected(u32 battler) //prvent stat drop & status change for user & ally
@@ -14031,7 +14101,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         // For Mirror Armor:"If the Pok�mon with this Ability is affected by Sticky Web, the effect is reflected back to the Pok�mon which set it up.
         //  If Pok�mon which set up Sticky Web is not on the field, no Pok�mon have their Speed lowered."
         gBattlerAttacker = gBattlerTarget;  // Initialize 'fail' condition
-        SET_STATCHANGER(STAT_SPEED, 2, TRUE);
+        SET_STATCHANGER(STAT_SPEED, gSideTimers[GetBattlerSide(battler)].stickyWebAmount, TRUE);
         if (gBattleStruct->stickyWebUser != 0xFF)
             gBattlerAttacker = gBattleStruct->stickyWebUser;
         break;
@@ -17911,6 +17981,8 @@ static void atkBE_rapidspinfree(void) //need fix this clear isn't right
     {
         gSideStatuses[atkSide] &= ~SIDE_STATUS_STICKY_WEB;
         gSideTimers[atkSide].stickyWebAmount = 0;
+        gDisableStructs[gBattlerAttacker].trappedinStickyweb = FALSE;
+        gDisableStructs[BATTLE_PARTNER(gBattlerAttacker)].trappedinStickyweb = FALSE;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_StickyWebFree;
     }
@@ -19459,7 +19531,8 @@ static void atkEF_handleballthrow(void) //important changed
                 odds += (odds / 10);
             if (gBattleMons[gBattlerTarget].status2 & STATUS2_INFESTATION)    //add ifs for status 2 to stack on top of status 1 liek here //include recharge, infatuation, nightmare, curse, & escape prevention & wrap etc
                 odds += (odds / 10); 
-            if (gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+            if ((gBattleMons[gBattlerTarget].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_SWITCH_LOCKED))
+            || gDisableStructs[gBattlerTarget].trappedinStickyweb)
                 odds += (odds / 10);
             if (gDisableStructs[gBattlerTarget].rechargeTimer)
                 odds += (odds / 4);
@@ -20076,14 +20149,15 @@ void BS_setstickyweb(void)
 {
     NATIVE_ARGS(const u8 *ptr);
     u8 targetSide = GetBattlerSide(gBattlerTarget);
-    if (gSideStatuses[targetSide] & SIDE_STATUS_STICKY_WEB)
+    if (gSideTimers[targetSide].stickyWebAmount >= 2)
     {
         gBattlescriptCurrInstr = cmd->ptr;
     }
     else
     {
-        gSideStatuses[targetSide] |= SIDE_STATUS_STICKY_WEB;
-        gSideTimers[targetSide].stickyWebAmount = 1;
+        if (!(gSideStatuses[targetSide] & SIDE_STATUS_STICKY_WEB))
+            gSideStatuses[targetSide] |= SIDE_STATUS_STICKY_WEB;
+        gSideTimers[targetSide].stickyWebAmount++;
         gBattleStruct->stickyWebUser = gBattlerAttacker;    // For Mirror Armor
         gBattlescriptCurrInstr = cmd->nextInstr;
     }

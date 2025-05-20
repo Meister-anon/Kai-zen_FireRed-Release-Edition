@@ -4771,6 +4771,9 @@ BattleScript_EffectMeanLook::
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC
 	jumpifstatus2 BS_TARGET, STATUS2_ESCAPE_PREVENTION, BattleScript_ButItFailed
 	jumpifsubstituteblocks BattleScript_ButItFailed
+	jumpifspecies BS_TARGET, SPECIES_SPIRITOMB, BattleScript_MeanLook_Succeeds
+	jumpiftype BS_TARGET, TYPE_GHOST, BattleScript_ButItFailed
+BattleScript_MeanLook_Succeeds::
 	attackanimation
 	waitanimation
 	setmoveeffect MOVE_EFFECT_PREVENT_ESCAPE

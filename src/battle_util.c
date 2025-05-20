@@ -1097,10 +1097,10 @@ void PrepareStringBattle(u16 stringId, u8 battler) //see if should change defian
             || (targetAbility == ABILITY_USURPER && (CompareStat(gBattlerTarget, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN)
                 || CompareStat(gBattlerTarget, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))))
         && gSpecialStatuses[gBattlerTarget].changedStatsBattlerId != BATTLE_PARTNER(gBattlerTarget)
-        && ((gSpecialStatuses[gBattlerTarget].changedStatsBattlerId != gBattlerTarget) || gBattleScripting.stickyWebStatDrop == 1)
-        && !(gBattleScripting.stickyWebStatDrop == 1 && gSideTimers[targetSide].stickyWebBattlerSide == targetSide)) // Sticky Web must have been set by the foe
+        && ((gSpecialStatuses[gBattlerTarget].changedStatsBattlerId != gBattlerTarget) || gBattleScripting.stickyWebStatDrop == TRUE)
+        && !(gBattleScripting.stickyWebStatDrop == TRUE && gSideTimers[targetSide].stickyWebBattlerSide == targetSide)) // Sticky Web must have been set by the foe
     {
-        gBattleScripting.stickyWebStatDrop = 0;
+        gBattleScripting.stickyWebStatDrop = FALSE;
         gBattlerAbility = gBattlerTarget;
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_AbilityRaisesDefenderStat;
@@ -9005,6 +9005,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     case 4: //clear all negatives
                     //cleanse effec, separated from other move end to hopefully fix glitch
                     {
+                        //think want this to also blow away hazards? is just moltres phoenix ability
+                        HazardClearNoMessage(battler);
                         gBattleMons[battler].status1 = 0; 
                         //need test this, think need be more specific to not remove beneficial status
                         gBattleMons[battler].status2 &= ~(STATUS2_NIGHTMARE | STATUS2_CONFUSION | STATUS2_WRAPPED | STATUS2_INFATUATION
