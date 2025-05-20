@@ -8517,7 +8517,7 @@ const struct Item gItems[] =
       .name = _("Choice Scarf"),
       .itemId = ITEM_CHOICE_SCARF,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_CHOICE_SCARF,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_EV_SHACKLES,
 //      "description":  gItemDescription_ITEM_NONE
@@ -8534,7 +8534,7 @@ const struct Item gItems[] =
       .name = _("Choice Specs"),
       .itemId = ITEM_CHOICE_SPECS,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_CHOICE_SPECS,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_EV_SHACKLES,
 //      "description":  gItemDescription_ITEM_NONE
@@ -8551,7 +8551,7 @@ const struct Item gItems[] =
       .name = _("Focus Sash"),
       .itemId = ITEM_FOCUS_SASH,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_FOCUS_SASH,
       .holdEffectParam =  0,
      .description = gItemDescription_ITEM_EV_SHACKLES,
 //      "description":  gItemDescription_ITEM_NONE
@@ -8568,8 +8568,8 @@ const struct Item gItems[] =
       .name = _("Wide Lens"),
       .itemId = ITEM_WIDE_LENS,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
-      .holdEffectParam =  0,
+      .holdEffect = HOLD_EFFECT_WIDE_LENS,
+      .holdEffectParam =  10,
      .description = gItemDescription_ITEM_EV_SHACKLES,
 //      "description":  gItemDescription_ITEM_NONE
       .importance = 0,
@@ -8585,8 +8585,8 @@ const struct Item gItems[] =
       .name = _("Zoom Lens"),
       .itemId = ITEM_ZOOM_LENS,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
-      .holdEffectParam =  0,
+      .holdEffect = HOLD_EFFECT_ZOOM_LENS,
+      .holdEffectParam =  20,
      .description = gItemDescription_ITEM_EV_SHACKLES,
 //      "description":  gItemDescription_ITEM_NONE
       .importance = 0,

@@ -4311,6 +4311,56 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     -new type based effects ex bugs immune to confusion
     would be annoying to make but some sort of manual would be nice
 
+    New idea addition of forbidden isle, similar to cerulean cave is post game place
+    where strong mon are but this place is different its specifically an island with ALL mega mon
+    you can fight megas and encounter double mega wild battles
+    stipulation is mega mon can't be caught, too wild etc. will never go in pokeball
+
+    think idea either make new sevii island or it be a place you reach by surfing,
+    hmm think get on ship instead of walk off you surf out?
+
+    captain says too dangerous to go closer "this is as far a I go, you'll have to go the rest of the way yourself"
+    "I'll be here when you want to leave"
+
+    megas in water then on land more places to encounter them
+    no fishing as too strong to be fished
+
+    A completely wild "continent" island no trainers
+    hmmm actually maybe put N here?  wild place only pokemon
+    could be silent person to fight Alt dimension not the N we know from B/W
+    He'd have a full team of megas or at least more than 1 mega mon
+
+    maybe do some cool shit where just for his fight, if you have megas in your party
+    they all transform and you can have a team of megas
+
+    Player can find mega stones but not get a mega ring
+    until become champion?
+
+    instead of nat dex oak can give player mega ring on return 
+    to the lab
+
+    Maybe oak will tell player about forbidden island
+    but say they can't go until they are proven to be ready
+    tell them to test mega power and come back
+    
+    think make a player statstic NUM_MEGA_EVOLVED_POKEMON
+    either a measure of how many pokemon have mega evolved
+    or how many times player has used a mega in battle
+
+    think latter and make target value 30
+    will require increment new stastic on mega evolution
+    and check on switch in will be field usedMegaEvo
+    and that at end of battle will increment game statistic
+
+    unlocks the forbidden isle only after finding every mega stone
+    defeating league and mewtwo
+    and using mega in at least 30 battles
+
+    consider should make mega stones hidden items
+    found only on those subtle dark patches
+
+    would need check tilesets  but think can work?
+
     for ground type balance
     saw video youtuber Rigamarolled 
     mentioned approx 15% of pokemon are ungrounded

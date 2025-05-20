@@ -8140,7 +8140,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             break;
         case MOVE_END_CHOICE_MOVE: // update choice band move
             if (gHitMarker & HITMARKER_OBEYS //need updat ai file prob replace with emerald expansion ai files
-             && (holdEffectAtk == HOLD_EFFECT_CHOICE_BAND || GetBattlerAbility(gBattlerAttacker) == ABILITY_GORILLA_TACTICS)
+             && (HOLD_EFFECT_CHOICE(holdEffectAtk) || GetBattlerAbility(gBattlerAttacker) == ABILITY_GORILLA_TACTICS)
              && gChosenMove != MOVE_STRUGGLE 
              && (*choicedMoveAtk == 0 || *choicedMoveAtk == 0xFFFF))
             {

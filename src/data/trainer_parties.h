@@ -6554,7 +6554,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderBlaine[] = {
     },
 };
 
-static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderSabrina[] = {
+static const struct TrainerMonItemCustomMoves sTrainerMons_LeaderSabrina[] = {
     {
         .iv = 27,
         .lvl = 38,
@@ -6565,7 +6565,7 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderSabrina[] = {
         .iv = 27,
         .lvl = 37,
         .species = SPECIES_MR_MIME,
-        .moves = {MOVE_BARRIER, MOVE_PSYBEAM, MOVE_BATON_PASS, MOVE_CALM_MIND},
+        .moves = {MOVE_BARRIER, MOVE_PSYWAVE, MOVE_BATON_PASS, MOVE_CALM_MIND},
     },
     {
         .iv = 27,
@@ -6576,8 +6576,9 @@ static const struct TrainerMonNoItemCustomMoves sTrainerMons_LeaderSabrina[] = {
     {
         .iv = 31,
         .lvl = 43,
+        .heldItem = ITEM_WIDE_LENS,
         .species = SPECIES_ALAKAZAM,
-        .moves = {MOVE_PSYCHIC, MOVE_RECOVER, MOVE_FUTURE_SIGHT, MOVE_CALM_MIND},
+        .moves = {MOVE_FOCUS_BLAST, MOVE_RECOVER, MOVE_FUTURE_SIGHT, MOVE_CALM_MIND},
     },
 };
 
