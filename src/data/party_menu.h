@@ -860,10 +860,13 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_DO_WHAT_WITH_MON]       = gText_DoWhatWithPokemon,
     [PARTY_MSG_RESTORE_WHICH_MOVE]     = gText_RestoreWhichMove,
     [PARTY_MSG_BOOST_PP_WHICH_MOVE]    = gText_BoostPp,
-    [PARTY_MSG_HATCH_THIS_EGG]         = COMPOUND_STRING("Hatch this Egg?"),
     [PARTY_MSG_DO_WHAT_WITH_ITEM]      = gText_DoWhatWithItem,
     [PARTY_MSG_DO_WHAT_WITH_MAIL]      = gText_DoWhatWithMail,
+    [PARTY_MSG_HATCH_THIS_EGG]         = COMPOUND_STRING("Hatch this Egg?"),
 };
+//think compound string here may be the issue?
+//nope maybe it was the table order vs string order instead?
+//*faecpalm yeah that was it, it worked off order in this array not just string order
 
 static const u8 *const sDescriptionStringTable[] =
 {
