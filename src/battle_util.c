@@ -3728,7 +3728,8 @@ u8 DoBattlerEndTurnEffects(void)
                 if ((gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE)
                     && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
                     && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
-                    && IsBlackFogNotOnField())
+                    && IsBlackFogNotOnField()
+                    && IsBattlerGrounded(gActiveBattler))
                 {
                     if (GetBattlerAbility(gActiveBattler) == ABILITY_LIQUID_METAL)
                     {

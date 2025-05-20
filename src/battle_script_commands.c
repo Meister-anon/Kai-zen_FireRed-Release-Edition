@@ -10461,7 +10461,8 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE)
         && IsBattlerAffectedByHazards(gActiveBattler, FALSE)
         && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
-        && IsBlackFogNotOnField())
+        && IsBlackFogNotOnField()
+        && IsBattlerGrounded(gActiveBattler)) //balance adjust so steel not taking rock niche
     {
         gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STEEL_SURGE_TRIGGERED;
         
