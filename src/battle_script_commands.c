@@ -4861,7 +4861,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
             } //moved here for clarity
             else if (sStatusFlagsForMoveEffects[gBattleScripting.moveEffect] == STATUS1_POISON)
             {
-                if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON)//now i understand the note,
+                //hmm decided think will limit this to poison types specifically
+                //as otherwise does same effect of over distribution of toxic
+                if (gBattleMons[gEffectBattler].status1 & STATUS1_POISON /*&& DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_POISON)*/)//now i understand the note,
                 {   //the two lins are removing the status even though, the prior logic ensured that no status was set, ironically necessary for my changes
                     // It's redundant, because at this point we know the status1 value is 0.
                     //gBattleMons[gEffectBattler].status1 &= ~(STATUS1_TOXIC_POISON); //^not my notes

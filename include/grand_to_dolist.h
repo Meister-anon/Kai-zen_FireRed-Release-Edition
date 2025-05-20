@@ -4257,6 +4257,24 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     and it'll buff ursaluna...
 
+    Also decided shift poison worsening effect potentially to just poison types?
+    prevent same issue of over proliferation of toxic
+    and to attempt make people actually use poison types
+
+    think won't do,?? idk  few mon get poison moves and poison
+    is worst status effect overall doens't really do anything
+    so being able to eventually threaten toxic is good for the status
+    I don't need it to be directly tied to poison types as 
+    I'm more focused on trying to buff the status effect
+    can just keep an eye on how many poisoning moves
+    are spread to non poison types
+    also its balanced by essentially being the MOST immune blocked type
+    rock poison and steel are all immune to poison
+    as well as several abilities that block poison damage
+    in immunity, toxic boost, and poison heal
+
+    so I think it SHOULD be fine
+
     
     also can't remember if I already did but would like set
     so if mon can learn a move by level up that is also a tm
