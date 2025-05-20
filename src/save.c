@@ -203,7 +203,6 @@ static u8 HandleWriteSector(u16 sectorId, const struct SaveSectorLocation *locat
     for (i = 0; i < size; i++)
         gSaveDataBufferPtr->data[i] = data[i];
 
-    gSaveDataBufferPtr->checksum = CalculateChecksum(data, size);
     return TryWriteSector(sectorNum, gSaveDataBufferPtr->data);
 }
 
@@ -220,7 +219,6 @@ static u8 HandleWriteSectorNBytes(u8 sectorId, u8 *data, u16 size)
     for (i = 0; i < size; i++)
         sector->data[i] = data[i];
 
-    sector->id = CalculateChecksum(data, size); // though this appears to be incorrect, it might be some sector checksum instead of a whole save checksum and only appears to be relevent to HOF data, if used.
     return TryWriteSector(sectorId, sector->data);
 }
 
@@ -323,8 +321,6 @@ static u8 HandleReplaceSector(u16 sectorId, const struct SaveSectorLocation *loc
     gSaveDataBufferPtr->counter = gSaveCounter;
     for (i = 0; i < size; i++)
         gSaveDataBufferPtr->data[i] = data[i];
-
-    gSaveDataBufferPtr->checksum = CalculateChecksum(data, size);
 
     // erase old save data
     EraseFlashSector(sectorNum);
@@ -441,7 +437,6 @@ static u8 TryLoadSaveSlot(u16 sectorId, const struct SaveSectorLocation *locatio
 static u8 CopySaveSlotData(u16 sectorId, const struct SaveSectorLocation *locations)
 {
     u16 i;
-    u16 checksum;
     //u16 sector = NUM_SECTORS_PER_SLOT * (gSaveCounter % NUM_SAVE_SLOTS);
     u16 id;
 
@@ -452,8 +447,7 @@ static u8 CopySaveSlotData(u16 sectorId, const struct SaveSectorLocation *locati
         if (id == 0)
             gLastWrittenSector = i;
 
-        checksum = CalculateChecksum(gSaveDataBufferPtr->data, locations[id].size);
-        if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE && gSaveDataBufferPtr->checksum == checksum)
+        if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE)
         {
             u16 j;
             for (j = 0; j < locations[id].size; j++)
@@ -467,7 +461,6 @@ static u8 CopySaveSlotData(u16 sectorId, const struct SaveSectorLocation *locati
 static u8 GetSaveValidStatus(const struct SaveSectorLocation *locations)
 {
     u16 i;
-    u16 checksum;
     u32 saveSlotCounter = 0;
     u32 validSectorFlags = 0;
     bool8 signatureValid = FALSE;
@@ -479,12 +472,8 @@ static u8 GetSaveValidStatus(const struct SaveSectorLocation *locations)
         if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE)
         {
             signatureValid = TRUE;
-            checksum = CalculateChecksum(gSaveDataBufferPtr->data, locations[gSaveDataBufferPtr->id].size);
-            if (gSaveDataBufferPtr->checksum == checksum)
-            {
-                saveSlotCounter = gSaveDataBufferPtr->counter;
-                validSectorFlags |= 1 << gSaveDataBufferPtr->id;
-            }
+            saveSlotCounter = gSaveDataBufferPtr->counter;
+            validSectorFlags |= 1 << gSaveDataBufferPtr->id;
         }
     }
 
@@ -510,17 +499,10 @@ static u8 TryLoadSaveSector(u8 sectorId, u8 *data, u16 size)
     ReadFlashSector(sectorId, sector);
     if (sector->signature == SECTOR_SIGNATURE)
     {
-        u16 checksum = CalculateChecksum(sector->data, size);
-        if (sector->id == checksum)
-        {
-            for (i = 0; i < size; i++)
-                data[i] = sector->data[i];
+        for (i = 0; i < size; i++)
+            data[i] = sector->data[i];
 
-            return SAVE_STATUS_OK;
-        }
-        else
-            return SAVE_STATUS_INVALID;
-
+        return SAVE_STATUS_OK;
     }
     else
         return SAVE_STATUS_EMPTY;

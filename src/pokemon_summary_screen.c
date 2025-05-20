@@ -1223,6 +1223,7 @@ void ShowPokemonSummaryScreen(struct Pokemon * party, u8 cursorPos, u8 lastIdx, 
     SetMainCallback2(CB2_SetUpPSS);
 }
 
+//not used
 void ShowPokemonSummaryScreenGoToPC(struct Pokemon * party, u8 cursorPos, u8 lastIdx, MainCallback savedCallback, u8 mode)
 {
     sMonSummaryScreen = AllocZeroed(sizeof(struct PokemonSummaryScreenData));

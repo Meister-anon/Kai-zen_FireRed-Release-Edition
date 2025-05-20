@@ -52,6 +52,22 @@ u16 WaitForFlashWrite_Common(u8 phase, u8 *addr, u8 lastData)
 {
     u16 result = 0;
     u8 status;
+    u32 isMGBA;
+
+    /*
+    emulators write immediately to save, 
+    whereas the actual GBA has to wait
+    while the writes are happenening
+    so it just ignores the wait on emulators
+    and speeds up saving a bunch
+    */
+    #define REG_DEBUG_ENABLE ((vu16*) (0x4FFF780))
+    *REG_DEBUG_ENABLE = 0xC0DE;
+    isMGBA = (*REG_DEBUG_ENABLE) == 0x1DEA;
+    
+    
+    if(isMGBA)
+        return result;
 
     StartFlashTimer(phase);
 

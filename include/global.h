@@ -537,6 +537,13 @@ struct BerryCrush
 };*/
 
 #define PLAYER_NAME_LENGTH   7
+//plan increase by just 2 to 9, wanted more but this is biggest marginal gain for space
+//damn ok something INSANE is here increasing by 2 masively increased ewram consumption even given
+//the removals I just did
+//curr 256657  with increase 260531
+//before removals 259025
+//ok look around need figure why this consumes so much ewram
+
 /*
 #define LINK_B_RECORDS_COUNT 5
 
@@ -596,7 +603,8 @@ struct BattleTowerData // Leftover from R/S
     /*0x03E4, 0x0494*/ u8 firstMonNickname[POKEMON_NAME_LENGTH]; // nickname of the first pokemon in the player's battle tower party
     /*0x03F0, 0x04A0*/ struct BattleTowerEReaderTrainer ereaderTrainer;
     /*0x04AC, 0x055C*/ u8 battleTowerLevelType:1; // 0 = level 50; 1 = level 100
-    /*0x04AC, 0x055C*/ u8 unk_554:1;
+    /*0x04AC, 0x055C*/ u8 unk_554:1; //stores 1 or specialvar 8005 //...bitfield not used properly wasting 6 bits
+    /*0x04AC, 0x055C*/ u8 bit_remainder:6;
     /*0x04AD, 0x055D*/ u8 battleOutcome;
     /*0x04AE, 0x055E*/ u8 var_4AE[2];
     /*0x04B0, 0x0560*/ u16 curChallengeBattleNum[2]; // 1-based index of battle in the current challenge. (challenges consist of 7 battles)
@@ -610,9 +618,13 @@ struct BattleTowerData // Leftover from R/S
     /*0x04CA, 0x057A*/ u16 bestBattleTowerWinStreak;
     /*0x04CC, 0x057C*/ u16 currentWinStreaks[2];
     /*0x04D0, 0x0580*/ u8 lastStreakLevelType; // 0 = level 50, 1 = level 100.  level type of the last streak. Used by tv to report the level mode.
-    /*0x04D1, 0x0581*/ u8 filler_4D1[0x317];
+    /*0x04D1, 0x0581*/ u8 filler_4D1;//[0x317];
 }; /* size = 0x7E8 */
+/* new size = 4D2 */ 
+//added 1 byte filler as next value is a u16 better on even value
 //keep this see if can add to FR
+//also goes into saveblock2 try remove filler tos ave more space
+//even tho apparently completely unused in fr?
 
 //u16 values need to be on even bytes or they add extra padding
 //C rule learned from Mggriffin
@@ -629,14 +641,14 @@ struct SaveBlock2
     /*0x013*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]  //removed L_EQUALS_A unnecessary on emulator and breaks move info callback
     /*0x014*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST/FASTER/HYPER]
               u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
-    /*0x15*/  u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
+              u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
               u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
               u16 optionsBattleSceneOff:1; // whether battle animations are disabled
               u16 regionMapZoom:1; // whether the map is zoomed in - u16 speread bit field over 2 bytes 3 5 = 8,then 4 1s
               u16 padding:2; //moved battle speedup as increased speed options
               u16 optionsEventSpeedup:1;
               u16 optionsNuzlockeMode:1;
-              u16 NewPlaceholder:9;
+    /*0x016*/ u16 NewPlaceholder:9;
               u16 optionsBattleTextSpeed:3; //reaized practically necessary w speed up, can speed up battle but lower battle text speed so can read better
               u16 optionsBattleSpeed:3; //for pokabbie setup navie battle speed up should be 6 options for 1-6x at bit 3 has enough options for x8
               u16 optionsDisplayTypeEffect:1;//could increase speed further? (did using 8x) all safety buffers are already in place, can just lower text speed to balance as needed
@@ -647,15 +659,17 @@ struct SaveBlock2
     /*0x0A8*/ //u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD - not needed, plus needed space for mon data
     /*0x0AC*/ u8 unkFlag1; // Set TRUE, never read
     /*0x0AD*/ u8 unkFlag2; // Set FALSE, never read
-    /*0x0B0*/ struct BattleTowerData battleTower;
+    /*0x0B0*/ struct BattleTowerData battleTower; //new size -0x316
     /*0x898*/ u16 mapView[0x100];
     /*0xA98*/ //struct LinkBattleRecords linkBattleRecords;
     /*0xAF0*/ //struct BerryCrush berryCrush;
     /*0xB00*/ //struct PokemonJumpResults pokeJump;
     /*0xB10*/ //struct BerryPickingResults berryPick;
-    /*0xB20*/ u8 filler_B20[0x400];
+    /*0xB20*/ //u8 filler_B20[0x400]; //think can remove this for space?
     /*0xF20*/ u32 encryptionKey;
 }; // size: 0xF24
+//new size  0xF24 - 0x716 = 0x80E
+//nice nearly cut it in half
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 
@@ -728,23 +742,30 @@ struct Roamer
     /*0x13*/ bool8 active;
     /*0x14*/ u8 filler[0x8];
 };
+//when I get around to it
+//this will use value of 3
+//setup like johto to have 3 roamers
+//rather than a single one based on starter choice
+//but then again being able to start new game+,
+//and pick a diff starter to get the other lengendaries is cool
+//but...that doesn't work for my hack where starters aren't locked
 
 struct RivalParty
 {
     /*0x00*/ u32 ivs;
     /*0x04*/ u32 personality;
-    /*0x08*/ u16 species;
-    /*0x0A*/ u16 hp;
-    /*0x0C*/ u8 level;
-    /*0x0D*/ u8 status;
-    /*0x0E*/ u8 cool;
-    /*0x0F*/ u8 beauty;
-    /*0x10*/ u8 cute;
-    /*0x11*/ u8 smart;
-    /*0x12*/ u8 tough;
-    /*0x13*/ bool8 active;
-    /*0x14*/ u8 filler[0x8];
+    /*0x08*/ u8 RivalStarterAbilityNum;
 };//value I added to eventually store rival party data so is consistant all game
+//since i'm not caatching rival mon I most likely 
+//don't need all these fields,that just aren't read for battle
+//I only need ivs personality species and abilityNum
+//also I'm still undecided if I"ll do foro entir eparty
+//or just his starter.
+//Would be much easier for just starter as I can already
+//easily track that (and already do track it) in trainer parties
+//wouldn't even need species argument for that
+//yeah think will just do rival starter stays consistent all playthrough
+
 
 struct RamScriptData
 {
@@ -1202,7 +1223,7 @@ struct SaveBlock1
     /*0x0EE0*/ u8 flags[NUM_FLAG_BYTES];
     /*0x1000*/ u16 vars[VARS_COUNT];
     /*0x1200*/ u32 gameStats[NUM_GAME_STATS];//don't know how much but can prob save some by removing some of these
-    /*0x1300*/ struct QuestLog questLog[QUEST_LOG_SCENE_COUNT];
+    /*0x1300*/ struct QuestLog questLog[QUEST_LOG_SCENE_COUNT]; //w change to 2 instad of 4 scenes cut in half from 0x19A0 to 0xCD0
     /*0x2CA0*/ u16 easyChatProfile[EASY_CHAT_BATTLE_WORDS_COUNT];
     /*0x2CAC*/ u16 easyChatBattleStart[EASY_CHAT_BATTLE_WORDS_COUNT];
     /*0x2CB8*/ u16 easyChatBattleWon[EASY_CHAT_BATTLE_WORDS_COUNT];
@@ -1216,10 +1237,10 @@ struct SaveBlock1
     /*0x30A7*/ struct ExternalEventData externalEventData; //can remove external events would like make some way of giving within game
     /*0x30BB*/ struct ExternalEventFlags externalEventFlags;
     /*0x30D0*/ struct Roamer roamer; //remove other stuff then make copy of this but 6 array for rival mon data
-               struct RivalParty rivalTeamData[PARTY_SIZE];
+               struct RivalParty rivalStarterData;
     /*0x30EC*/ struct EnigmaBerry enigmaBerry;
-    /*0x3120*/ struct MEventBuffers mysteryEventBuffers;
-    /*0x348C*/ u8 filler_348C[400]; //assume this is to hold mystery event data?
+    /*0x3120*/ struct MEventBuffers mysteryEventBuffers; //removed below value in struct hope wasn't overflow protection.. vsonic
+    /*0x348C*/ //u8 unused_348C[400]; //assume this is to hold mystery event data? nope pret shows this as unused
     /*0x361C*/ struct RamScript ramScript;
     /*0x3A08*/ u8 filler3A08[16];
     /*0x3A18*/ u8 seen2[DEX_FLAGS_NO];
@@ -1232,7 +1253,17 @@ struct SaveBlock1
     /*0x3D24*/ u8 filler3D24[0x10];
     /*0x3D34*/ u32 towerChallengeId;
      /*0x3D38*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];  //not battle tower its trainer tower, look into if usbale if not remove  vsonic
-}; // size: 0x3D68
+}; // size: 0x3D68 - sub 400 remove unsued value
+//record size 0x3BD8 - need recalc for changes/removals for actual size
+//sub 0xCD0 for quest log shrink
+//adjusted size 0x2F08
+//unfortunately tm and item expansion will shoot size back up
+//saveblock 1 holds nearly 4x the data as saveblock2 I wonder if ther's any
+//merit to attempting to balance the load?
+
+//ah ok compared w default and saveblock1 is literally 4x the size of block 2
+//I have more space in both with my saveblock expansion
+//but still don't know if it makes sense to split some off
 
 struct MapPosition
 {

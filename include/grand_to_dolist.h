@@ -4279,6 +4279,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and sharpness boosted effects
     )
 
+    Setup Fast saving from Archie,
+    didn't take auto save feature
+    but resource skips checksum checks to speed up hardware and emulator save speed
+    and for emulator changes to save immediately skipping the hardware specific wait time
+    5/19/2025  - need edit start screen message slighly
+
     note mints don't directly shift nature becuase 
     there is no nature field its instead dictated by personality
     would require 5 bits to make a nature field

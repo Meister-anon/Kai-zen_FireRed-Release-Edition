@@ -9,13 +9,16 @@
 //Pokabbie's native battle speed up
 
 youtube mentions:
-Pchal, WolfeyVGC  ZenmodeYT JPR Woop aka PokemonWoop
+Pchal, WolfeyVGC  ZenmodeYT JPR Woop aka PokemonWoop Rigamarole SacredAlmighty
 
 
 //Show Type Effectiveness In Battle w Option Menu Toggle
 // by devolov  & PokemonCrazy
 -Couldn't direclty translate to FireRed so took inspiration from
 my version is coded pretty much entirely differently
+
+fast saving - Archie and inspired by Mgriffin
+https://github.com/TeamAquasHideout/pokeemerald/tree/fast_saving
 
 added ChooseBoxMon special by Artrios
 https://github.com/rh-hideout/pokeemerald-expansion/pull/5428/files
