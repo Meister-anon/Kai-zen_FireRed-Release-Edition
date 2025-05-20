@@ -4234,6 +4234,29 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     can't so easily steam roll w early gyarados
     -done
 
+    Note since removed hitting steel for super (on top of other changes)
+    think groud needs a little something else to make it more viable
+    idea make it resist fighting type
+
+    fighting is one of main attack types
+    and gives more separation from rock,
+
+    fighting excels at doing good burst/piercing damage
+    meant to break shatter or piece sturdy things
+
+    but ground is fluid can absorb hits
+    and also trap things that dig into deeply
+    so think being able to absorb hits is good trait
+    and argument or ground resisting fighting
+
+    good paralels resits flying which fighting is weak too
+    resists fighting which rock and steel are weak too
+
+    change will mostly help rock types ironically since gen 1 
+    most rocks were also ground
+
+    and it'll buff ursaluna...
+
     
     also can't remember if I already did but would like set
     so if mon can learn a move by level up that is also a tm

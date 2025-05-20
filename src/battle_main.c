@@ -341,7 +341,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
     //Attack Type
     [TYPE_NORMAL] =    {______,    ______,   ______,   ______,   ______,   X(0.5),   ______,   X(0.0),   X(0.5),   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______,   ______}, // normal
 
-    [TYPE_FIGHTING] =   {X(1.55),  ______,   X(0.5),   X(0.5),   ______,   X(1.55),   X(0.5),   X(0.0),   X(1.55),  ______,    ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,  X(1.55),   X(0.5),   ______}, // fight
+    [TYPE_FIGHTING] =   {X(1.55),  ______,   X(0.5),   X(0.5),   X(0.5),   X(1.55),   X(0.5),   X(0.0),   X(1.55),  ______,    ______,   ______,   ______,   ______,   X(0.5),   X(1.55),   ______,  X(1.55),   X(0.5),   ______}, // fight
 
     [TYPE_FLYING] =     {______,   X(1.55),   ______,   ______,   X(0.5),   X(0.5),   X(1.55),   ______,   X(0.5),   ______,  ______,   ______,   X(1.55),   X(0.5),   X(0.5),   X(0.5),   ______,   ______,   ______,   ______}, // flying
 
@@ -450,7 +450,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 // 00 is ×0.0 TYPE_MUL_NO_EFFECT
 
 //each line adds 3 because there are 3 arguments in each line, atk type, def type, & effectiveness  /so SUBTRACT 3 for any lines kept but commented out
-//DON'T FORGET every time I change below, need to update in the .h / also need to update table above, so ai, and other pre-damage type calcs are accurate
+//DON'T FORGET every time I change below, also need to update table above, so ai, and other pre-damage type calcs are accurate
 #define TYPE_CHART
 
 //I kind of like the idea of giving poison dark resistance,
@@ -519,6 +519,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_FIGHTING, TYPE_PSYCHIC, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FIGHTING, TYPE_BUG, TYPE_MUL_NOT_EFFECTIVE,    //dont understand this other than some super sentai stuff but I'm keeping it
     TYPE_FIGHTING, TYPE_FAIRY, TYPE_MUL_NOT_EFFECTIVE,  //technically not true physical attacks are strong aginst fae because of their fragile bodies but keeping
+    TYPE_FIGHTING, TYPE_GROUND, TYPE_MUL_NOT_EFFECTIVE, //ground rebalance idea ground absorbs hits groud can be tough or loose ex punching sand or mud doesn't do anything
     TYPE_FIGHTING, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIGHTING, TYPE_DARK, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIGHTING, TYPE_STEEL, TYPE_MUL_SUPER_EFFECTIVE,
