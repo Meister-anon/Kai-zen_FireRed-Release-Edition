@@ -5051,7 +5051,7 @@ const struct Trainer gTrainers[] = {
         .battleType = SINGLES,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
         .partySize = NELEMS(sTrainerMons_LeaderSabrina),
-        .party = {.NoItemCustomMoves = sTrainerMons_LeaderSabrina}
+        .party = {.ItemCustomMoves = sTrainerMons_LeaderSabrina}
     },
     [TRAINER_GENTLEMAN_THOMAS] = {
         .partyFlags = 0,
