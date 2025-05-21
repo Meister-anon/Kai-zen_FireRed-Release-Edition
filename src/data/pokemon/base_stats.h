@@ -2987,7 +2987,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_ROCK_HEAD, ABILITY_SOLID_ROCK},
-        .abilityHidden = {ABILITY_NO_GUARD, ABILITY_STURDY}, //facepalm can't believe didn't think to give solid rock
+        .abilityHidden = {ABILITY_COMPASS, ABILITY_STURDY}, //facepalm can't believe didn't think to give solid rock
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -9042,7 +9042,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NO_GUARD}, //decide make dry skin learnable ability instead
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_COMPASS}, //decide make dry skin learnable ability instead
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -14187,7 +14187,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
         .abilities = {ABILITY_STURDY, ABILITY_MAGNET_PULL},
-        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_NO_GUARD},
+        .abilityHidden = {ABILITY_SAND_FORCE, ABILITY_COMPASS},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -19278,7 +19278,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_IRON_FIST, ABILITY_NO_GUARD},
+        .abilities = {ABILITY_IRON_FIST, ABILITY_COMPASS},
         .abilityHidden = {ABILITY_STURDY, ABILITY_JUSTIFIED},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -19315,7 +19315,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_MINERAL,
         .eggGroup2 = EGG_GROUP_MINERAL,
-        .abilities = {ABILITY_IRON_FIST, ABILITY_NO_GUARD},
+        .abilities = {ABILITY_IRON_FIST, ABILITY_COMPASS},
         .abilityHidden = {ABILITY_STURDY, ABILITY_JUSTIFIED},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -21589,7 +21589,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_3,
         .eggGroup2 = EGG_GROUP_WATER_3,
-        .abilities = {ABILITY_TOUGH_CLAWS, ABILITY_SNIPER},
+        .abilities = {ABILITY_HANDS_OF_FATE, ABILITY_TOUGH_CLAWS},
         .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_APOTHEOSCENT},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -21623,7 +21623,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_WATER_3,
         .eggGroup2 = EGG_GROUP_WATER_3,
-        .abilities = {ABILITY_TOUGH_CLAWS, ABILITY_SNIPER},
+        .abilities = {ABILITY_HANDS_OF_FATE, ABILITY_TOUGH_CLAWS},
         .abilityHidden = {ABILITY_PICKPOCKET, ABILITY_APOTHEOSCENT},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
@@ -21633,6 +21633,20 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sBarbaracleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //from Lockstin & Gnoggin vid found barbaracle has a LOAD of lore
+    //based on barnacle barbarian binnacle (ship compas) 
+    //and mesopatmain amulet hamsa meant to ward against the evil eye
+    //a sort of protection again bad luck/doom/tragedy
+    //the specific hamsa design comes from the berbers (given name)
+    //an ancient north african peoples
+    //since its a protective ward could give it
+    //nacli's ability?  ABILITY_PURIFYING_SALT
+    //or make clone that does same thing - Hand of Fate lol Digimon ref
+    //since binacle is a compass could also give nogaurd
+    //think rather than noguard make compass an ability
+    //that's a clone of it just so name can make sense
+    //ok will make purifying salt clone for this as new main, remove sniper
+    //to learnable abilities and toss compass/no guard in there as well
 
     [SPECIES_SKRELP] =
     {

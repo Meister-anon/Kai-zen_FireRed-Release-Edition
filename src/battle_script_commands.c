@@ -1770,6 +1770,10 @@ bool8 IsBattlerUnderProtectEffect(u8 battler)
 
 static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accuracy ignore  //done
 {   //in emerald these are else ifs, rather than if, think will change to that so it checks through all instead of just 1st true
+    
+    u16 atkAbility = GetBattlerAbility(gBattlerAttacker);
+    u16 defAbility = GetBattlerAbility(gBattlerTarget);
+    
     if (gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
     {
         JumpIfMoveFailed(7, move);
@@ -1819,18 +1823,18 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     gHitMarker &= ~HITMARKER_IGNORE_UNDERWATER;*/
 
     // If the attacker has the ability No Guard and they aren't targeting a Pokemon involved in a Sky Drop with the move Sky Drop, move hits.
-    else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_NO_GUARD && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
+    else if (DoesBattlerHaveSureHitAbility(gBattlerAttacker) && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
     {
         if (!JumpIfMoveFailed(7, move))
-            RecordAbilityBattle(gBattlerAttacker, ABILITY_NO_GUARD);
+            RecordAbilityBattle(gBattlerAttacker, atkAbility);
         return TRUE;
     }
 
     // If the target has the ability No Guard and they aren't involved in a Sky Drop or the current move isn't Sky Drop, move hits.
-    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_NO_GUARD && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
+    else if (DoesBattlerHaveSureHitAbility(gBattlerTarget) && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
     {
         if (!JumpIfMoveFailed(7, move))
-            RecordAbilityBattle(gBattlerTarget, ABILITY_NO_GUARD);
+            RecordAbilityBattle(gBattlerTarget, defAbility);
         return TRUE;
     }
 
@@ -15774,6 +15778,7 @@ static void atk92_setlightscreen(void)
 static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
 {
     u8 holdEffect, param;
+    u16 attackerAbility = GetBattlerAbility(gBattlerAttacker);
     u16 targetAbility = GetBattlerAbility(gBattlerTarget);
 
     if (gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY)
@@ -15814,8 +15819,8 @@ static void atk93_tryKO(void) //EFFECT_OHKO   ohko moves
         //would be too much
         if ((((gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS)
                 && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
-                || GetBattlerAbility(gBattlerAttacker) == ABILITY_NO_GUARD
-                || targetAbility == ABILITY_NO_GUARD)
+                || DoesBattlerHaveSureHitAbility(gBattlerAttacker)
+                || DoesBattlerHaveSureHitAbility(gBattlerTarget))
                 && !(gMoveResultFlags & MOVE_RESULT_NOT_VERY_EFFECTIVE))
         {
             if (gBattleMons[gBattlerAttacker].level >= (gBattleMons[gBattlerTarget].level - 3))

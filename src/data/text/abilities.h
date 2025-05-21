@@ -200,7 +200,7 @@ static const u8 sLiquidVoiceDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Mak
 static const u8 sTriageDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Healing moves get a priority boost.");
 static const u8 sGalvanizeDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Normal moves turn Electric.");
 static const u8 sSurgeSurferDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Faster on electricity.");
-static const u8 sSchoolingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Forms a school when strong.");
+static const u8 sSchoolingDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Forms together to become stronger.\nIf lvl. 20+ and above a quarter Max HP");
 static const u8 sDisguiseDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Decoy protects it once.");
 static const u8 sBattleBondDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Changes form after a KO.");
 static const u8 sPowerConstructDescription[ABILITY_DESCRIPTION_LENGTH + 1] = _("Cells aid it when weakened.");
@@ -592,7 +592,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_SEED_SOWER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_THERMAL_EXCHANGE] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_ANGER_SHELL] = COMPOUND_ABILITY_STRING("Spreads with contact."),
-    [ABILITY_PURIFYING_SALT] = COMPOUND_ABILITY_STRING("Spreads with contact."),
+    [ABILITY_PURIFYING_SALT] = COMPOUND_ABILITY_STRING("The Pokémon's pure salt protects it.\nReduces Ghost damage and blocks status."),
     [ABILITY_WELL_BAKED_BODY] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_WIND_RIDER] = COMPOUND_ABILITY_STRING("Spreads with contact."),
     [ABILITY_GUARD_DOG] = COMPOUND_ABILITY_STRING("Spreads with contact."),
@@ -710,7 +710,11 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
     [ABILITY_TROJAN_SWORD] = COMPOUND_ABILITY_STRING("Blocks Intimdiate and\nboosts sharp attacks."),
     [ABILITY_HEAT_TRANCE] = COMPOUND_ABILITY_STRING("Elated by all things spicy and hot.\nHeals if burned, cuts fire damage taken."),
     [ABILITY_DESERT_DWELLER] = COMPOUND_ABILITY_STRING("Adapted to the extremes of the desert.\nLessens effect of Heat Cold and burn."),
-    [ABILITY_FAIRY_MIST] = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle.")
+    [ABILITY_FAIRY_MIST] = COMPOUND_ABILITY_STRING("Normal and Sound moves become Fairy.\nSets Misty Terrain upon entering battle."),
+    [ABILITY_COMPASS] = COMPOUND_ABILITY_STRING("Locks-on and moves unerringly to foe.\nAll moves used by and aginst will land."),
+    [ABILITY_HANDS_OF_FATE] = COMPOUND_ABILITY_STRING("Protected from shadowy forces and traps.\nReduces Ghost damage and blocks status."), //done and set purifying stalt to almost forgot trap effect but immune to mean look shadow tag, and siwtch binding i.e spirit shackle
+
+
 };//last value can have comma
   //FOREWARN should work how I want,for ai make ability check to not use fakeout if have said ability,still need setup reactivation
   ///on advice from ShadowdragonHUnter aka Josh  setup Compound String for abilities
@@ -1124,4 +1128,8 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
     [ABILITY_HEAT_TRANCE] = _("Heat Trance"),
     [ABILITY_DESERT_DWELLER] = _("Desert Dweller"),
     [ABILITY_FAIRY_MIST] = _("Fairy Mist"),
+    [ABILITY_COMPASS] = _("Compass"),
+    [ABILITY_HANDS_OF_FATE] = _("Hands of Fate"),
+
+
 };//can have comma

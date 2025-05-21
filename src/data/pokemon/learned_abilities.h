@@ -2850,10 +2850,14 @@ static const struct AbilityLearnset sMalamarAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBinacleAbilityLearnset[] = {
+    ABILITY_SNIPER,
+    ABILITY_COMPASS,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sBarbaracleAbilityLearnset[] = {
+    ABILITY_SNIPER,
+    ABILITY_COMPASS,
     ABILITY_SET_END
 };
 

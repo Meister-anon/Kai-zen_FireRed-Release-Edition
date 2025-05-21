@@ -4527,7 +4527,7 @@ bool8 IsMegaSpecies(u16 species)
 {
     if (gBaseStats[species].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
         return TRUE;
-        
+
     return FALSE;
 }
 
@@ -5794,6 +5794,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_FLOWER_GIFT:
         if (IsBattlerWeatherAffected(battlerIdDef, WEATHER_SUN_ANY) && GetBattlerAbility(battlerIdAtk) != ABILITY_CLOUD_NINE)
             spDefense = (150 * spDefense) / 100;
+        break;
+    case ABILITY_HANDS_OF_FATE:
+    case ABILITY_PURIFYING_SALT:
+        if (moveType == TYPE_GHOST)
+            OffensiveModifer(50);
         break;
     case ABILITY_PUNK_ROCK:
         if (gBattleMoves[move].flags & FLAG_SOUND)

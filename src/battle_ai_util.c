@@ -153,6 +153,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_NATURAL_CURE] = 7,
     [ABILITY_NEUROFORCE] = 6,
     [ABILITY_NO_GUARD] = 8,
+    [ABILITY_COMPASS] = 8,
     [ABILITY_NORMALIZE] = -1,
     [ABILITY_OBLIVIOUS] = 2,
     [ABILITY_OVERCOAT] = 5,
@@ -1595,6 +1596,9 @@ bool32 IsMoveEncouragedToHit(u8 battlerAtk, u8 battlerDef, u16 move)
 
     if (AI_DATA->abilities[battlerDef] == ABILITY_NO_GUARD || AI_DATA->abilities[battlerAtk] == ABILITY_NO_GUARD)
         return TRUE;
+    
+    if (AI_DATA->abilities[battlerDef] == ABILITY_COMPASS || AI_DATA->abilities[battlerAtk] == ABILITY_COMPASS)
+        return TRUE;
 
 
     if (gBattleMoves[move].effect == EFFECT_TOXIC && DoesBattlerGetTypeBasedAffinity(battlerAtk, TYPE_POISON))
@@ -1639,7 +1643,7 @@ bool32 ShouldTryOHKO(u8 battlerAtk, u8 battlerDef, u16 atkAbility, u16 defAbilit
 
     if ((((gStatuses3[battlerDef] & STATUS3_ALWAYS_HITS)
         && gDisableStructs[battlerDef].battlerWithSureHit == battlerAtk)
-        || atkAbility == ABILITY_NO_GUARD || defAbility == ABILITY_NO_GUARD)
+        || DoesBattlerHaveSureHitAbility(battlerAtk) || DoesBattlerHaveSureHitAbility(battlerDef))
         && gBattleMons[battlerAtk].level >= (gBattleMons[battlerDef].level - 7))
     {
         return TRUE;

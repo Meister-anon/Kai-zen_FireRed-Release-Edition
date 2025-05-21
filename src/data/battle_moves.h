@@ -9859,7 +9859,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     {
         .effect = EFFECT_SWITCH_BIND, //changed from escape prevention now applier of effect doesn't have to stay in
         .power = 80,
-        .type = TYPE_GHOST,
+        .type = TYPE_GHOST, //don't give effect to otehr move, if do and not ghost/dark will need adjust script for hand of fate check
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 0,

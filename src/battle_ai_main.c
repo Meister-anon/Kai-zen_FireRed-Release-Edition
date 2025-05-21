@@ -1937,6 +1937,8 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             if (gStatuses3[battlerDef] & STATUS3_ALWAYS_HITS
               || AI_DATA->abilities[battlerAtk] == ABILITY_NO_GUARD
               || AI_DATA->abilities[battlerDef] == ABILITY_NO_GUARD
+              || AI_DATA->abilities[battlerAtk] == ABILITY_COMPASS
+              || AI_DATA->abilities[battlerDef] == ABILITY_COMPASS
               || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, AI_DATA->partnerMove))
                 score -= 10;
             break;
@@ -3458,7 +3460,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             score -= 2;
         if (gBattleMons[battlerAtk].statStages[STAT_ACC] < DEFAULT_STAT_STAGE)
             score++;
-        if (gBattleMons[battlerDef].statStages[STAT_EVASION] < 7 || AI_DATA->abilities[battlerAtk] == ABILITY_NO_GUARD)
+        if (gBattleMons[battlerDef].statStages[STAT_EVASION] < 7 || AI_DATA->abilities[battlerAtk] == ABILITY_NO_GUARD
+        || AI_DATA->abilities[battlerAtk] == ABILITY_COMPASS)
             score -= 2;
         break;
 	case EFFECT_BIDE:

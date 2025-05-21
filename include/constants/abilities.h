@@ -418,7 +418,9 @@
 #define ABILITY_HEAT_TRANCE 386 //SCOVILLAIN capsakid buff burn healing since is fire type still not great as requires holding flame orb guess can fing it if I don't need it?
 #define ABILITY_DESERT_DWELLER 387 //new cacturne line ability heat proof + thick fat
 #define ABILITY_FAIRY_MIST 388 //for iron valiant combine misty surge w pixilate
+#define ABILITY_COMPASS 389 //no guard clone for onix nosepass binacle as designed around compasses
+#define ABILITY_HANDS_OF_FATE 390 //purifying salt clone for binacle as designed around hamsa protective ward against the evil eye, think also give specific immunity to shadow tag mean look and decidueye move
 
-#define ABILITIES_COUNT ABILITY_FAIRY_MIST + 1 //   ability count is last ability number + 1 since we have to count ability 0
+#define ABILITIES_COUNT ABILITY_HANDS_OF_FATE + 1 //   ability count is last ability number + 1 since we have to count ability 0
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

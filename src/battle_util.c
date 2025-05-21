@@ -11446,6 +11446,15 @@ u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability) // use for intimidate on
     return IsAbilityOnSide(BATTLE_OPPOSITE(battlerId), ability);
 }
 
+bool8 DoesBattlerHaveSureHitAbility(u8 battlerId)
+{
+    if (GetBattlerAbility(battlerId) == ABILITY_NO_GUARD
+    || GetBattlerAbility(battlerId) == ABILITY_COMPASS)
+        return TRUE;
+    
+    return FALSE;
+}
+
 u32 IsTypeOnField(u32 battlerId, u8 type)
 {
     u8 side;
@@ -11612,11 +11621,12 @@ u32 IsAbilityPreventingEscape(u32 battlerId) //ported for ai, equivalent logic i
     else if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_FLYING) && !IsFlyingTypeSpeciesUnableToFly(gBattleMons[battlerId].species))
         return FALSE; //flying away would work for all but magnet pull,
 
-    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)))
+    if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)) && GetBattlerAbility(battlerId) != ABILITY_HANDS_OF_FATE)
         return id;
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_ARENA_TRAP)) && IsBattlerGrounded(battlerId))
         return id;
     
+    return 0; //has to return 0 and not id as id is still being set by conditions even if can't return
 
 }
 

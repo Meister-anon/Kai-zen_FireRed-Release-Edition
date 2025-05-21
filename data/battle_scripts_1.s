@@ -4761,6 +4761,7 @@ BattleScript_EffectHitPreventEscape:
 
 @will have to do with move effect otherwise would activate even if miss
 BattleScript_EffectHitSwitchBind:
+	jumpifability BS_TARGET, ABILITY_HANDS_OF_FATE, BattleScript_EffectHit
 	setmoveeffect MOVE_EFFECT_SWITCH_LOCKED
 	goto BattleScript_EffectHit
 
@@ -4773,6 +4774,7 @@ BattleScript_EffectMeanLook::
 	jumpifsubstituteblocks BattleScript_ButItFailed
 	jumpifspecies BS_TARGET, SPECIES_SPIRITOMB, BattleScript_MeanLook_Succeeds
 	jumpiftype BS_TARGET, TYPE_GHOST, BattleScript_ButItFailed
+	jumpifability BS_TARGET, ABILITY_HANDS_OF_FATE, BattleScript_ButItFailed
 BattleScript_MeanLook_Succeeds::
 	attackanimation
 	waitanimation
