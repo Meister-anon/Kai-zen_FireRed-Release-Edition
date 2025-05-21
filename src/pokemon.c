@@ -4523,6 +4523,14 @@ bool8 CanEvioliteActivate(u8 target)
         return FALSE;//chansey is 475
 }
 
+bool8 IsMegaSpecies(u16 species)
+{
+    if (gBaseStats[species].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
+        return TRUE;
+        
+    return FALSE;
+}
+
 //put in calc function as terniary condition to set usesdefstat at start
 //thought about adding and not split status to muscle magic, but it doesn't matter
 //in damagecalc this is now just used for what defense stat its run against

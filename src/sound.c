@@ -394,73 +394,165 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     pitch = 15360;
     chorus = 0;
 
-    switch (mode)
+    //just make an entirely separate switch case for mega cries
+    //then can just shift values and not need make bunch of new defines
+    if (IsMegaSpecies(species))
     {
-    case CRY_MODE_NORMAL:
-        break;
-    case CRY_MODE_DOUBLES:
-        length = 20;
-        release = 225;
-        break;
-    case CRY_MODE_ENCOUNTER:
-        release = 225;
-        pitch = 15600;
-        chorus = 20;
-        volume = 90;
-        break;
-    case CRY_MODE_HIGH_PITCH:
-        length = 50;
-        release = 200;
-        pitch = 15800;
-        chorus = 20;
-        volume = 90;
-        break;
-    case CRY_MODE_ECHO_START:
-        length = 25;
-        reverse = TRUE;
-        release = 100;
-        pitch = 15600;
-        chorus = 192;
-        volume = 90;
-        break;
-    case CRY_MODE_FAINT:
-        release = 200;
-        pitch = 14440;
-        break;
-    case CRY_MODE_ECHO_END: // _08072044
-        release = 220;
-        pitch = 15555;
-        chorus = 192;
-        volume = 90; // FR/LG changed this from 70 to 90
-        break;
-    case CRY_MODE_ROAR_1:
-        length = 10;
-        release = 100;
-        pitch = 14848;
-        break;
-    case CRY_MODE_ROAR_2:
-        length = 60;
-        release = 225;
-        pitch = 15616;
-        break;
-    case CRY_MODE_GROWL_1:
-        length = 15;
-        reverse = TRUE;
-        release = 125;
-        pitch = 15200;
-        break;
-    case CRY_MODE_GROWL_2:
-        length = 100;
-        release = 225;
-        pitch = 15200;
-        break;
-    case CRY_MODE_WEAK_DOUBLES:
-        length = 20;
-        release = 225;
-        // fallthrough
-    case CRY_MODE_WEAK:
-        pitch = 15000;
-        break;
+        //uses alt effects to distort cry
+        switch (mode)
+        {
+        case CRY_MODE_NORMAL:
+            length = 90;
+            pitch = 14957;
+            reverse = TRUE;
+            chorus = 20;
+            volume = 125;
+            break;
+        case CRY_MODE_DOUBLES:
+            length = 25;
+            release = 225;
+            pitch = 14957;
+            reverse = TRUE;
+            chorus = 20;
+            volume = 125;
+            break;
+        case CRY_MODE_ENCOUNTER:
+            release = 225;
+            pitch = 15197;
+            reverse = TRUE;
+            chorus = 20;
+            volume = 100;
+            break;
+        case CRY_MODE_HIGH_PITCH:
+            length = 55;
+            release = 200;
+            pitch = 15397;
+            reverse = TRUE;
+            chorus = 20;
+            volume = 100;
+            break;
+        case CRY_MODE_ECHO_START:
+            length = 30;
+            release = 100;
+            pitch = 15197;
+            chorus = 192;
+            volume = 100;
+            break;
+        case CRY_MODE_FAINT:
+            release = 200;
+            reverse = TRUE;
+            pitch = 14540;
+            break;
+        case CRY_MODE_ECHO_END: // _08072044
+            release = 220;
+            reverse = TRUE;
+            pitch = 15152;
+            chorus = 192;
+            volume = 100; // FR/LG changed this from 70 to 90
+            break;
+        case CRY_MODE_ROAR_1:
+            length = 10;
+            release = 100;
+            reverse = TRUE;
+            pitch = 14848;
+            break;
+        case CRY_MODE_ROAR_2:
+            length = 60;
+            release = 225;
+            reverse = TRUE;
+            pitch = 15213;
+            break;
+        case CRY_MODE_GROWL_1:
+            length = 15;
+            release = 125;
+            pitch = 14797;
+            break;
+        case CRY_MODE_GROWL_2:
+            length = 100;
+            release = 225;
+            reverse = TRUE;
+            pitch = 14797;
+            break;
+        case CRY_MODE_WEAK_DOUBLES:
+            length = 25;
+            release = 225;
+            // fallthrough
+        case CRY_MODE_WEAK:
+            pitch = 14597;
+            reverse = TRUE;
+            break;
+        }
+    }
+    else
+    {
+        switch (mode)
+        {
+        case CRY_MODE_NORMAL:
+            break;
+        case CRY_MODE_DOUBLES:
+            length = 20;
+            release = 225;
+            break;
+        case CRY_MODE_ENCOUNTER:
+            release = 225;
+            pitch = 15600;
+            chorus = 20;
+            volume = 90;
+            break;
+        case CRY_MODE_HIGH_PITCH:
+            length = 50;
+            release = 200;
+            pitch = 15800;
+            chorus = 20;
+            volume = 90;
+            break;
+        case CRY_MODE_ECHO_START:
+            length = 25;
+            reverse = TRUE;
+            release = 100;
+            pitch = 15600;
+            chorus = 192;
+            volume = 90;
+            break;
+        case CRY_MODE_FAINT:
+            release = 200;
+            pitch = 14440;
+            break;
+        case CRY_MODE_ECHO_END: // _08072044
+            release = 220;
+            pitch = 15555;
+            chorus = 192;
+            volume = 90; // FR/LG changed this from 70 to 90
+            break;
+        case CRY_MODE_ROAR_1:
+            length = 10;
+            release = 100;
+            pitch = 14848;
+            break;
+        case CRY_MODE_ROAR_2:
+            length = 60;
+            release = 225;
+            pitch = 15616;
+            break;
+        case CRY_MODE_GROWL_1:
+            length = 15;
+            reverse = TRUE;
+            release = 125;
+            pitch = 15200;
+            break;
+        case CRY_MODE_GROWL_2:
+            length = 100;
+            release = 225;
+            pitch = 15200;
+            break;
+        case CRY_MODE_WEAK_DOUBLES:
+            length = 20;
+            release = 225;
+            // fallthrough
+        case CRY_MODE_WEAK:
+            pitch = 15000;
+            break;
+        }
     }
 
     SetPokemonCryVolume(volume);

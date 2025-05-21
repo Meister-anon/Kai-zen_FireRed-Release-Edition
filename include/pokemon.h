@@ -919,6 +919,7 @@ u16 GetBaseStatTotal(u16 species);
 u16 GetIndividualBaseStatValue(u16 species, u8 statIndex); //pull base stat for selected stat //mostly used for settin up new ev caps logic
 u16 GetGlobalStatTotal(struct Pokemon *mon); //takes stats from evs + bst //for use as limiter
 bool8 CanEvioliteActivate(u8 target);
+bool8 IsMegaSpecies(u16 species); //mostly use for cry alter
 s16 atk_diff(void);
 s16 spatk_diff(void); //put here, used for hidden power change split
 bool8 IsPhysicalMove(u32 attackerId, u16 move); //new function consolidating effects for if move is physical or not
