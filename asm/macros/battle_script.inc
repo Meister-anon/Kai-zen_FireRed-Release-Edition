@@ -1558,6 +1558,13 @@
 	callnative BS_TrySymbiosis
 	.endm
 
+	.macro jumpifbattlerAbilityblocksStatus battler:req, ptr:req
+	callnative BS_JumpIfBattlerAbilityStatusProtected
+	.byte \battler
+	.4byte \ptr
+	.endm
+
+	@put added bs commands above this
 	@ returns B_SIDE_x to gBattleCommunication[0]
 	.macro getbattlerside battler:req
 	callnative BS_GetBattlerSide
@@ -1938,11 +1945,6 @@
 
 	.macro tryfriskmsg battler:req
 	various \battler, VARIOUS_TRY_FRISK
-	.endm
-
-	.macro jumpifshieldsdown battler:req, ptr:req
-	various \battler, VARIOUS_JUMP_IF_SHIELDS_DOWN_PROTECTED
-	.4byte \ptr
 	.endm
 
 	@both not used

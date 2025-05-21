@@ -432,7 +432,7 @@ extern const u8 BattleScript_FriskActivates[];
 extern const u8 BattleScript_ForgotAndLearnedNewMove[];
 extern const u8 BattleScript_ImposterActivates[];
 extern const u8 BattleScript_InversionActivates[];
-extern const u8 BattleScript_LeafGuardProtects[];
+extern const u8 BattleScript_AbilityProtectsDoesntAffect[];
 extern const u8 BattleScript_LeafGuardProtectsRet[];
 extern const u8 BattleScript_AromaVeilProtects[];
 extern const u8 BattleScript_AromaVeilProtectsRet[];

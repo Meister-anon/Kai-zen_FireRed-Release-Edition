@@ -665,19 +665,19 @@ static const u8 sText_SnowWarningHail[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {
 //predits a dust storm /harsh
 //predicts a heatwave / blazing
 //predicts torrential rain / string messages for forecast one long weather i.e curr and next weather same / holding weather item
-static const u8 sText_ForecastBlizzard[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\na chilling Blizzard!");
-static const u8 sText_ForecastDuststorm[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\na harsh Dust Storm!");
-static const u8 sText_ForecastHeatwave[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\na blazing Heatwave!");
-static const u8 sText_ForecastTorrentialrain[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\nTorrential Rain!");
+static const u8 sText_ForecastBlizzard[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\na chilling Blizzard!{PAUSE 90}");
+static const u8 sText_ForecastDuststorm[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\na harsh Dust Storm!{PAUSE 90}");
+static const u8 sText_ForecastHeatwave[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\na blazing Heatwave!{PAUSE 90}");
+static const u8 sText_ForecastTorrentialrain[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\nTorrential Rain!{PAUSE 90}");
 //otherwise use gMoveWeatherChangeStringIds 
 //below is for second weather effect
-static const u8 sText_ForecastSandstorm[] = _("The Forecast came true!\nA sandstorm brewed!"); 
-static const u8 sText_ForecastHail[] = _("The Forecast came true!\nIt started to hail!"); 
-static const u8 sText_ForecastRain[] = _("The Forecast came true!\nIt started to rain!");
-static const u8 sText_ForecastSunny[] = _("The Forecast came true!\nThe sunlight got bright!");
+static const u8 sText_ForecastSandstorm[] = _("The Forecast came true!\nA sandstorm brewed!{PAUSE 26}"); 
+static const u8 sText_ForecastHail[] = _("The Forecast came true!\nIt started to hail!{PAUSE 26}"); 
+static const u8 sText_ForecastRain[] = _("The Forecast came true!\nIt started to rain!{PAUSE 26}");
+static const u8 sText_ForecastSunny[] = _("The Forecast came true!\nThe sunlight got bright!{PAUSE 26}");
 //simplify just buffer in words for weather can do with switch cases
 //for two diff weather effects from forecast
-static const u8 sText_ForecastPrediction[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\n{B_BUFF1} and {B_BUFF2}!");
+static const u8 sText_ForecastPrediction[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY} predicted\n{B_BUFF1} and {B_BUFF2}!{PAUSE 120}");
 static const u8 sText_Rain[] = _("rain");
 static const u8 sText_Sun[] = _("sun");
 static const u8 sText_Sand[] = _("sand");

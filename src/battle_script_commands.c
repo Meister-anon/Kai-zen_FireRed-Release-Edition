@@ -10053,7 +10053,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_APOTHEOSCENT
         && atkAbility != ABILITY_WIND_RIDER    //addition since is wind move
         && !DoesSideHaveAbility(battlerAtk, ABILITY_CLOUD_NINE) //need test hope works
-        && gBattleMons[battlerAtk].species != SPECIES_CASTFORM)
+        && GetBaseFormSpecies(gBattleMons[battlerAtk].species) != SPECIES_CASTFORM)
             calc = (calc * 90) / 100; // new 10% sandstorm loss (extra effect given since hail got extra stuff) changed to 5%, changed back given mudsport changes
 
         //trap effect,
@@ -10066,7 +10066,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_SAND_VEIL
         && atkAbility != ABILITY_SAND_FORCE
         && atkAbility != ABILITY_APOTHEOSCENT
-        && gBattleMons[battlerAtk].species != SPECIES_CASTFORM)
+        && GetBaseFormSpecies(gBattleMons[battlerAtk].species) != SPECIES_CASTFORM) //change tobe base form as can't remember if changes species on weather
         {
             calc = (calc * 80) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
             //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
@@ -10436,7 +10436,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             BattleScriptPushCursor();
             gBattlescriptCurrInstr = BattleScript_ToxicSpikesAbsorbed;
         }
-        else if (IsBattlerAffectedByHazards(gActiveBattler, TRUE))
+        else if (IsBattlerAffectedByHazards(gActiveBattler, TRUE)) 
         {
             if (!(gBattleMons[gActiveBattler].status1 & STATUS1_ANY)
                 && !IS_BATTLER_OF_TYPE(gActiveBattler, TYPE_STEEL) //is immunity to toxic spikes poisoning
@@ -10444,7 +10444,8 @@ static void atk52_switchineffects(void) //important, think can put ability reset
                 && GetBattlerAbility(gActiveBattler) != ABILITY_IMMUNITY
                 && GetBattlerAbility(gActiveBattler) != ABILITY_COMATOSE
                 && !IsAbilityOnSide(gActiveBattler, ABILITY_PASTEL_VEIL)
-                && !IsAbilityOnSide(gActiveBattler, ABILITY_SHAMAN_CURE)                
+                && !IsAbilityOnSide(gActiveBattler, ABILITY_SHAMAN_CURE)   
+                && !IsAbilityStatusProtected(gActiveBattler)             
                 && !(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SAFEGUARD)
                 && !(gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN))
             {
@@ -10459,7 +10460,8 @@ static void atk52_switchineffects(void) //important, think can put ability reset
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_ToxicSpikesPoisoned;
             }
-        }
+        }//realized can't use canbepoisoned function because of corrosion override logic
+        //of course could jsut make specfiic function that ignores corrosion checks but eh
     }
     else if (!(gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE_TRIGGERED)
         && (gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_STEEL_SURGE)
@@ -11978,14 +11980,33 @@ u32 IsLeafGuardProtected(u32 battler)
 bool32 IsShieldsDownProtected(u32 battler)
 {
     return (gBattleMons[battler].ability == ABILITY_SHIELDS_DOWN
-        && gBattleMons[battler].species == SPECIES_MINIOR);
+            && GetFormIdFromFormSpeciesId(gBattleMons[battler].species) < GetFormIdFromFormSpeciesId(SPECIES_MINIOR_CORE_RED)); // Minior is not in core form
 }
 
 u32 IsAbilityStatusProtected(u32 battler)
 {
     return IsFlowerVeilProtected(battler)
         || IsLeafGuardProtected(battler)
-        || IsShieldsDownProtected(battler);
+        || IsShieldsDownProtected(battler)
+        || GetBattlerAbility(battler) == ABILITY_PURIFYING_SALT
+        || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE;
+}
+
+//exclusive to ability protecting just self
+//is fine to use as is under leafguard check
+//but can actually replace leafguard as does same thing
+//replaced jumpifshieldsdown
+void BS_JumpIfBattlerAbilityStatusProtected(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+    u8 battler = GetBattlerForBattleScript(cmd->battler);
+    if (IsShieldsDownProtected(battler)
+    || GetBattlerAbility(battler) == ABILITY_PURIFYING_SALT
+    || GetBattlerAbility(battler) == ABILITY_HANDS_OF_FATE
+    || IsLeafGuardProtected(battler))    
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 bool32 CanUseLastResort(u8 battlerId)
@@ -13292,15 +13313,6 @@ static void atk76_various(void) //will need to add all these emerald various com
     {
         VARIOUS_ARGS(const u8 *jumpInstr);
         if (!IsBattlerAlive(battler))
-            gBattlescriptCurrInstr = cmd->jumpInstr;
-        else
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        return;
-    }
-    case VARIOUS_JUMP_IF_SHIELDS_DOWN_PROTECTED:
-    {
-        VARIOUS_ARGS(const u8 *jumpInstr);
-        if (IsShieldsDownProtected(battler))
             gBattlescriptCurrInstr = cmd->jumpInstr;
         else
             gBattlescriptCurrInstr = cmd->nextInstr;
@@ -19561,6 +19573,7 @@ static void atkEF_handleballthrow(void) //important changed
                 && gBattleResults.playerMonWasDamaged == TRUE) // mon caught  //successful capture
             {
                 BtlController_EmitBallThrowAnim(0, BALL_3_SHAKES_SUCCESS);
+                //think may need remove this when setup double catch
                 TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE);
                 MarkBattlerForControllerExec(gActiveBattler);
                 gBattlescriptCurrInstr = BattleScript_ExpOnCatch;
