@@ -3875,7 +3875,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       but dont want to make too many things free
       as ruins game economy know need to buy stuff
       money won't have value
+      -scrapped
 
+      identified cry stuff
+      reverse cry is the one that's breaking
+      and its not used for fainiting like I thought,
+      which is why I assumed nothing was wrong with the reverse
+
+      with help from Josh was able to get working
+      hardcoded cry tonedata type logic to cry table
+      all works now
+
+
+      IMPORTANT
       Idea institute chain streaks in my game
       defeating or catching same mon only will add to streak
       and increase shiny odds over time

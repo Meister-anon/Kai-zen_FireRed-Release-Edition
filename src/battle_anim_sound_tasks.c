@@ -201,18 +201,24 @@ static void SoundTask_PlayDoubleCry_Step(u8 taskId)
     {
         ++gTasks[taskId].data[9];
     }
-    else if (gTasks[taskId].data[0] == DOUBLE_CRY_GROWL)
+    else
     {
-        if (!IsCryPlaying())
+        if (gTasks[taskId].data[0] == DOUBLE_CRY_GROWL)
         {
-            PlayCry_ByMode(species, pan, CRY_MODE_GROWL_2);
-            DestroyAnimVisualTask(taskId);
+            if (!IsCryPlaying())
+            {
+                PlayCry_ByMode(species, pan, CRY_MODE_GROWL_2);
+                DestroyAnimVisualTask(taskId);
+            }
         }
-    }
-    else if (!IsCryPlaying()) // DOUBLE_CRY_ROAR
-    {
-        PlayCry_ByMode(species, pan, CRY_MODE_ROAR_2);
-        DestroyAnimVisualTask(taskId);
+        else // DOUBLE_CRY_ROAR
+        {
+            if (!IsCryPlaying())
+            {
+                PlayCry_ByMode(species, pan, CRY_MODE_ROAR_2);
+                DestroyAnimVisualTask(taskId);
+            }
+        }
     }
 }
 

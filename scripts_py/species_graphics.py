@@ -67,7 +67,7 @@ exceptions = [ # the following exceptions are hardcoded to streamline the proces
     ["AlcremieRibbonRainbowSwirl", "AlcremieRibbon"]
 ]
 """
-
+'''
 #MasterDict = {}
 SizeDict = {}
 YOffsetDict = {}
@@ -105,7 +105,7 @@ YOffsetDict = dict(zip(speciesList, Yoff)) # should build dictionaries for use i
 #print(Yoff) #tested and all three print correctly
 #print(len(Yoff))    #for some reaosn Yoff is printing less, though in file they are all equal at 1288???
 sourcefile.close()
-
+'''
 
 
 """
@@ -159,7 +159,7 @@ sourcefile.close()
     #new_lines.append(line)
 
 
-
+'''
 infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/species_graphic_info.h', 'r')
 lines = infile.readlines()
 regex = re.compile(r'\[(\w+)\]')
@@ -212,7 +212,7 @@ infile.close()#think group is reg stuff reg are broken into groups
 outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/species_graphic_info.h', 'w')
 outfile.writelines(new_lines)
 outfile.close()
-
+'''
 #if that is correct than I might be able to use that to store 2 values
 #say match group1 for mon size  and group2 for the yoffset?
 
@@ -288,6 +288,21 @@ for front/back coord last value is species egg, preceded by frilish female
 even better since I'm using the species constant rather than actual species  name won't have to worry about exclusions/duplicates
 """
 
-#outfile = open('/usr/decomp/Kai-zen_Firered-Release-Edition/src/data/pokemon/species_graphic_info.h', 'w')
-#outfile.writelines(new_lines)
-#outfile.close()
+infile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/species_graphic_info.h', 'r')
+lines = infile.readlines()
+new_lines = []
+for line in lines:
+    if re.compile(r'.cryData').search(line):
+        new_lines.append(line)
+    
+    line = line.replace(r'cryData', 'cryData_Reverse')
+    if re.compile(r'.cryData_Reverse').search(line):
+        line = line.replace(r'CRY_INFO', 'CRY_INFO_REVERSE')
+    new_lines.append(line)
+#infile.writelines(new_lines)
+#print(new_lines)
+infile.close()#think group is reg stuff reg are broken into groups
+
+outfile = open('/usr/decomp/Kai-zen_FireRed-Release-Edition/src/data/pokemon/species_graphic_info.h', 'w')
+outfile.writelines(new_lines)
+outfile.close()

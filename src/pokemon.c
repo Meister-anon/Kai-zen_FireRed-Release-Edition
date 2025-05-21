@@ -9113,11 +9113,19 @@ static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask,
 }
 
 
-struct ToneData *GetCryIdBySpecies(u16 species)
+struct ToneData *GetCryIdBySpecies(u16 species, bool8 reverse)
 {
-    if (gSpeciesGraphics[species].cryData == NULL) //HOPEFULLY works, believeset 
-        return gSpeciesGraphics[SPECIES_NONE].cryData; //can possibly just use CRY_NONE, but in case...hope should be just silent
-    return gSpeciesGraphics[species].cryData;
+    if (!(reverse))
+    {
+        if (gSpeciesGraphics[species].cryData == NULL)
+            return gSpeciesGraphics[SPECIES_NONE].cryData;
+    }
+    else
+    {
+        if (gSpeciesGraphics[species].cryData_Reverse == NULL)
+            return gSpeciesGraphics[SPECIES_NONE].cryData_Reverse;
+        return gSpeciesGraphics[species].cryData_Reverse;
+    }
 }
 
 

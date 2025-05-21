@@ -385,6 +385,9 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     //found note from josh mentioning length is important for crydata
     //and found difference used for length value in EE
     //thuoght this mattered but not seeing any meaningful change here
+    //EE - comment v
+    // Set default values
+    // May be overridden depending on mode.
     length = species > SPECIES_DEOXYS ? 210 : 140;
     reverse = FALSE;
     release = 0;
@@ -473,7 +476,7 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     //species -1 because species data starts at 1, cry tables start at 0
     //species--;
     //cryID = GetCryIdBySpecies(species); //almost works, just need figurehow to d
-    gMPlay_PokemonCry = SetPokemonCryTone(reverse, species, GetCryIdBySpecies(species)); //hopefully does what need
+    gMPlay_PokemonCry = SetPokemonCryTone(GetCryIdBySpecies(species, reverse)); //hopefully does what need
 
     //from spherical ice post
     //and comparison realize cry/cry2 macros
