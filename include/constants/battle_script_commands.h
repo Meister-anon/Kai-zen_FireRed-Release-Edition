@@ -197,7 +197,7 @@
 #define VARIOUS_TRY_ACTIVATE_RECEIVER           90
 #define VARIOUS_TRY_ACTIVATE_BEAST_BOOST        91
 #define VARIOUS_TRY_FRISK                       92
-#define VARIOUS_JUMP_IF_SHIELDS_DOWN_PROTECTED  93
+//#define VARIOUS_JUMP_IF_SHIELDS_DOWN_PROTECTED  93    //unused  vsonic
 #define VARIOUS_TRY_FAIRY_LOCK                  94
 #define VARIOUS_JUMP_IF_NO_ALLY                 95
 #define VARIOUS_POISON_TYPE_IMMUNITY            96
