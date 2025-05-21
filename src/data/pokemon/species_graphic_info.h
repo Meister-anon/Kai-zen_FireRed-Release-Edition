@@ -69,10 +69,10 @@
 add value to .type if true
 */
 
-#define CRY_INFO(...) (struct ToneData[]) { 0x20, __VA_ARGS__}
-#define CRY_INFO_REVERSE(...) (struct ToneData[]) { 0x30, __VA_ARGS__}
-#define CRY_INFO_UNCOMP(...) (struct ToneData[]) { 0x0, __VA_ARGS__}
-#define CRY_INFO_REVERSE_UNCOMP(...) (struct ToneData[]) { 0x10, __VA_ARGS__}
+#define CRY_INFO(...) (struct ToneData[]) { 0x20, 60, 0, 0, (struct WaveData *) __VA_ARGS__, 0xff, 0, 0xff, 0}
+#define CRY_INFO_REVERSE(...) (struct ToneData[]) { 0x30, 60, 0, 0, (struct WaveData *) __VA_ARGS__, 0xff, 0, 0xff, 0}
+#define CRY_INFO_UNCOMP(...) (struct ToneData[]) { 0x0, 60, 0, 0, (struct WaveData *) __VA_ARGS__, 0xff, 0, 0xff, 0}
+#define CRY_INFO_REVERSE_UNCOMP(...) (struct ToneData[]) { 0x10, 60, 0, 0, (struct WaveData *) __VA_ARGS__, 0xff, 0, 0xff, 0}
 
 //looked at EE setup don't need 0x800 part?
 //in that case can prob consolidate most fields
@@ -122,17 +122,17 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 0x10),
       PIC_DATA_ICON_INDEX(Bulbasaur, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bulbasaur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bulbasaur, 0xff, 0, 0xff, 0),
-}, //Bulbasaur, //works LETS GOOOO //least does for normal cry, need check for reverse etc.
+      .cryData = CRY_INFO(Cry_Bulbasaur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bulbasaur),
+}, //Bulbasaur,
 [SPECIES_IVYSAUR] = 
     {  
       FRONT_COORD(0x56, 9),
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Ivysaur, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ivysaur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ivysaur, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ivysaur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ivysaur),
 }, //Ivysaur,
 [SPECIES_VENUSAUR] = 
     {  
@@ -140,8 +140,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Venusaur, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Venusaur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Venusaur, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Venusaur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Venusaur),
 }, //Venusaur,
 [SPECIES_CHARMANDER] = 
     {  
@@ -149,8 +149,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Charmander, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Charmander, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Charmander, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Charmander),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Charmander),
 }, //Charmander,
 [SPECIES_CHARMELEON] = 
     {  
@@ -158,8 +158,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Charmeleon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Charmeleon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Charmeleon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Charmeleon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Charmeleon),
 }, //Charmeleon,
 [SPECIES_CHARIZARD] = 
     {  
@@ -167,8 +167,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Charizard, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Charizard, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Charizard, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Charizard),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Charizard),
 }, //Charizard,
 [SPECIES_SQUIRTLE] = 
     {  
@@ -176,8 +176,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0f),
       PIC_DATA_ICON_INDEX(Squirtle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Squirtle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Squirtle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Squirtle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Squirtle),
 }, //Squirtle,
 [SPECIES_WARTORTLE] = 
     {  
@@ -185,8 +185,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Wartortle, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wartortle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wartortle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wartortle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wartortle),
 }, //Wartortle,
 [SPECIES_BLASTOISE] = 
     {  
@@ -194,8 +194,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Blastoise, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Blastoise, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Blastoise, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Blastoise),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Blastoise),
 }, //Blastoise,
 [SPECIES_CATERPIE] = 
     {  
@@ -203,8 +203,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 0x0f),
       PIC_DATA_ICON_INDEX(Caterpie, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Caterpie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Caterpie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Caterpie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Caterpie),
 }, //Caterpie,
 [SPECIES_METAPOD] = 
     {  
@@ -212,8 +212,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Metapod, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Metapod, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Metapod, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Metapod),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Metapod),
 }, //Metapod,
 [SPECIES_BUTTERFREE] = 
     {  
@@ -221,8 +221,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Butterfree, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Butterfree, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Butterfree, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Butterfree),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Butterfree),
 }, //Butterfree,
 [SPECIES_WEEDLE] = 
     {  
@@ -230,8 +230,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x0b),
       PIC_DATA_ICON_INDEX(Weedle, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Weedle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Weedle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Weedle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Weedle),
 }, //Weedle,
 [SPECIES_KAKUNA] = 
     {  
@@ -239,8 +239,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x46, 0x0a),
       PIC_DATA_ICON_INDEX(Kakuna, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kakuna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kakuna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kakuna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kakuna),
 }, //Kakuna,
 [SPECIES_BEEDRILL] = 
     {  
@@ -248,8 +248,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Beedrill, 2),
       .enemyMonElevation = 9,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Beedrill, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Beedrill, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Beedrill),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Beedrill),
 }, //Beedrill,
 [SPECIES_PIDGEY] = 
     {  
@@ -257,8 +257,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Pidgey, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pidgey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pidgey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pidgey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pidgey),
 }, //Pidgey,
 [SPECIES_PIDGEOTTO] = 
     {  
@@ -266,8 +266,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0c),
       PIC_DATA_ICON_INDEX(Pidgeotto, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pidgeotto, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pidgeotto, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pidgeotto),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pidgeotto),
 }, //Pidgeotto,
 [SPECIES_PIDGEOT] = 
     {  
@@ -275,8 +275,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Pidgeot, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pidgeot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pidgeot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pidgeot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pidgeot),
 }, //Pidgeot,
 [SPECIES_RATTATA] = 
     {  
@@ -284,8 +284,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0d),
       PIC_DATA_ICON_INDEX(Rattata, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rattata, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rattata, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rattata),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rattata),
 }, //Rattata,
 [SPECIES_RATICATE] = 
     {  
@@ -293,8 +293,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0d),
       PIC_DATA_ICON_INDEX(Raticate, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Raticate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Raticate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Raticate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Raticate),
 }, //Raticate,
 [SPECIES_SPEAROW] = 
     {  
@@ -302,8 +302,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Spearow, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spearow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spearow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spearow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spearow),
 }, //Spearow,
 [SPECIES_FEAROW] = 
     {  
@@ -311,8 +311,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Fearow, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fearow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fearow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fearow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fearow),
 }, //Fearow,
 [SPECIES_EKANS] = 
     {  
@@ -320,8 +320,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Ekans, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ekans, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ekans, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ekans),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ekans),
 }, //Ekans,
 [SPECIES_ARBOK] = 
     {  
@@ -329,8 +329,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Arbok, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arbok, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arbok, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arbok),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arbok),
 }, //Arbok,
 [SPECIES_PIKACHU] = 
     {  
@@ -338,8 +338,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Pikachu, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //Pikachu,
 [SPECIES_RAICHU] = 
     {  
@@ -347,8 +347,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Raichu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Raichu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Raichu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Raichu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Raichu),
 }, //Raichu,
 [SPECIES_SANDSHREW] = 
     {  
@@ -356,8 +356,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Sandshrew, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandshrew, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandshrew, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandshrew),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandshrew),
 }, //Sandshrew,
 [SPECIES_SANDSLASH] = 
     {  
@@ -365,8 +365,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Sandslash, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandslash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandslash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandslash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandslash),
 }, //Sandslash,
 [SPECIES_NIDORAN_F] = 
     {  
@@ -374,8 +374,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 0x0c),
       PIC_DATA_ICON_INDEX(NidoranF, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_NidoranF, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_NidoranF, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_NidoranF),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_NidoranF),
 }, //NidoranF,
 [SPECIES_NIDORINA] = 
     {  
@@ -383,8 +383,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Nidorina, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nidorina, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nidorina, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nidorina),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nidorina),
 }, //Nidorina,
 [SPECIES_NIDOQUEEN] = 
     {  
@@ -392,8 +392,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x06),
       PIC_DATA_ICON_INDEX(Nidoqueen, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nidoqueen, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nidoqueen, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nidoqueen),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nidoqueen),
 }, //Nidoqueen,
 [SPECIES_NIDORAN_M] = 
     {  
@@ -401,8 +401,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x08),
       PIC_DATA_ICON_INDEX(NidoranM, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_NidoranM, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_NidoranM, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_NidoranM),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_NidoranM),
 }, //NidoranM,
 [SPECIES_NIDORINO] = 
     {  
@@ -410,8 +410,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Nidorino, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nidorino, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nidorino, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nidorino),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nidorino),
 }, //Nidorino,
 [SPECIES_NIDOKING] = 
     {  
@@ -419,8 +419,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Nidoking, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nidoking, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nidoking, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nidoking),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nidoking),
 }, //Nidoking,
 [SPECIES_CLEFAIRY] = 
     {  
@@ -428,8 +428,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Clefairy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clefairy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clefairy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clefairy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clefairy),
 }, //Clefairy,
 [SPECIES_CLEFABLE] = 
     {  
@@ -437,8 +437,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Clefable, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clefable, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clefable, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clefable),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clefable),
 }, //Clefable,
 [SPECIES_VULPIX] = 
     {  
@@ -446,8 +446,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Vulpix, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vulpix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vulpix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vulpix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vulpix),
 }, //Vulpix,
 [SPECIES_NINETALES] = 
     {  
@@ -455,8 +455,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Ninetales, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ninetales, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ninetales, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ninetales),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ninetales),
 }, //Ninetales,
 [SPECIES_JIGGLYPUFF] = 
     {  
@@ -464,8 +464,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Jigglypuff, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jigglypuff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jigglypuff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jigglypuff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jigglypuff),
 }, //Jigglypuff,
 [SPECIES_WIGGLYTUFF] = 
     {  
@@ -473,8 +473,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Wigglytuff, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wigglytuff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wigglytuff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wigglytuff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wigglytuff),
 }, //Wigglytuff,
 [SPECIES_ZUBAT] = 
     {  
@@ -482,8 +482,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Zubat, 2),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zubat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zubat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zubat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zubat),
 }, //Zubat,
 [SPECIES_GOLBAT] = 
     {  
@@ -491,8 +491,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Golbat, 2),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golbat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golbat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golbat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golbat),
 }, //Golbat,
 [SPECIES_ODDISH] = 
     {  
@@ -500,8 +500,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Oddish, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Oddish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Oddish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Oddish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Oddish),
 }, //Oddish,
 [SPECIES_GLOOM] = 
     {  
@@ -509,8 +509,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Gloom, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gloom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gloom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gloom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gloom),
 }, //Gloom,
 [SPECIES_VILEPLUME] = 
     {  
@@ -518,8 +518,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Vileplume, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vileplume, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vileplume, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vileplume),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vileplume),
 }, //Vileplume,
 [SPECIES_PARAS] = 
     {  
@@ -527,8 +527,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x63, 0x14),
       PIC_DATA_ICON_INDEX(Paras, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Paras, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Paras, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Paras),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Paras),
 }, //Paras,
 [SPECIES_PARASECT] = 
     {  
@@ -536,8 +536,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Parasect, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Parasect, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Parasect, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Parasect),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Parasect),
 }, //Parasect,
 [SPECIES_VENONAT] = 
     {  
@@ -545,8 +545,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x06),
       PIC_DATA_ICON_INDEX(Venonat, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Venonat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Venonat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Venonat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Venonat),
 }, //Venonat,
 [SPECIES_VENOMOTH] = 
     {  
@@ -554,8 +554,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Venomoth, 2),
       .enemyMonElevation = 11,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Venomoth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Venomoth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Venomoth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Venomoth),
 }, //Venomoth,
 [SPECIES_DIGLETT] = 
     {  
@@ -563,8 +563,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 0x10),
       PIC_DATA_ICON_INDEX(Diglett, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Diglett, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Diglett, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Diglett),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Diglett),
 }, //Diglett,
 [SPECIES_DUGTRIO] = 
     {  
@@ -572,8 +572,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Dugtrio, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dugtrio, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dugtrio, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dugtrio),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dugtrio),
 }, //Dugtrio,
 [SPECIES_MEOWTH] = 
     {  
@@ -581,8 +581,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Meowth, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meowth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meowth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meowth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meowth),
 }, //Meowth,
 [SPECIES_PERSIAN] = 
     {  
@@ -590,8 +590,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Persian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Persian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Persian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Persian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Persian),
 }, //Persian,
 [SPECIES_PSYDUCK] = 
     {  
@@ -599,8 +599,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x07),
       PIC_DATA_ICON_INDEX(Psyduck, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Psyduck, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Psyduck, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Psyduck),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Psyduck),
 }, //Psyduck,
 [SPECIES_GOLDUCK] = 
     {  
@@ -608,8 +608,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Golduck, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golduck, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golduck, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golduck),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golduck),
 }, //Golduck,
 [SPECIES_MANKEY] = 
     {  
@@ -617,8 +617,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Mankey, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mankey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mankey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mankey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mankey),
 }, //Mankey,
 [SPECIES_PRIMEAPE] = 
     {  
@@ -626,8 +626,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Primeape, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Primeape, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Primeape, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Primeape),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Primeape),
 }, //Primeape,
 [SPECIES_GROWLITHE] = 
     {  
@@ -635,8 +635,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Growlithe, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Growlithe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Growlithe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Growlithe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Growlithe),
 }, //Growlithe,
 [SPECIES_ARCANINE] = 
     {  
@@ -644,8 +644,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Arcanine, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arcanine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arcanine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arcanine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arcanine),
 }, //Arcanine,
 [SPECIES_POLIWAG] = 
     {  
@@ -653,8 +653,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x74, 0x10),
       PIC_DATA_ICON_INDEX(Poliwag, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poliwag, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poliwag, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poliwag),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poliwag),
 }, //Poliwag,
 [SPECIES_POLIWHIRL] = 
     {  
@@ -662,8 +662,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Poliwhirl, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poliwhirl, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poliwhirl, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poliwhirl),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poliwhirl),
 }, //Poliwhirl,
 [SPECIES_POLIWRATH] = 
     {  
@@ -671,8 +671,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Poliwrath, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poliwrath, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poliwrath, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poliwrath),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poliwrath),
 }, //Poliwrath,
 [SPECIES_ABRA] = 
     {  
@@ -680,8 +680,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 0x0c),
       PIC_DATA_ICON_INDEX(Abra, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Abra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Abra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Abra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Abra),
 }, //Abra,
 [SPECIES_KADABRA] = 
     {  
@@ -689,8 +689,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Kadabra, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kadabra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kadabra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kadabra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kadabra),
 }, //Kadabra,
 [SPECIES_ALAKAZAM] = 
     {  
@@ -698,8 +698,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Alakazam, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alakazam, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alakazam, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alakazam),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alakazam),
 }, //Alakazam,
 [SPECIES_MACHOP] = 
     {  
@@ -707,8 +707,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Machop, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Machop, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Machop, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Machop),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Machop),
 }, //Machop,
 [SPECIES_MACHOKE] = 
     {  
@@ -716,8 +716,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Machoke, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Machoke, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Machoke, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Machoke),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Machoke),
 }, //Machoke,
 [SPECIES_MACHAMP] = 
     {  
@@ -725,8 +725,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x04),
       PIC_DATA_ICON_INDEX(Machamp, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Machamp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Machamp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Machamp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Machamp),
 }, //Machamp,
 [SPECIES_BELLSPROUT] = 
     {  
@@ -734,8 +734,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Bellsprout, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bellsprout, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bellsprout, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bellsprout),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bellsprout),
 }, //Bellsprout,
 [SPECIES_WEEPINBELL] = 
     {  
@@ -743,8 +743,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Weepinbell, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Weepinbell, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Weepinbell, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Weepinbell),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Weepinbell),
 }, //Weepinbell,
 [SPECIES_VICTREEBEL] = 
     {  
@@ -752,8 +752,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Victreebel, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Victreebel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Victreebel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Victreebel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Victreebel),
 }, //Victreebel,
 [SPECIES_TENTACOOL] = 
     {  
@@ -761,8 +761,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x0a),
       PIC_DATA_ICON_INDEX(Tentacool, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tentacool, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tentacool, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tentacool),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tentacool),
 }, //Tentacool,
 [SPECIES_TENTACRUEL] = 
     {  
@@ -770,8 +770,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0b),
       PIC_DATA_ICON_INDEX(Tentacruel, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tentacruel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tentacruel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tentacruel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tentacruel),
 }, //Tentacruel,
 [SPECIES_GEODUDE] = 
     {  
@@ -779,8 +779,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Geodude, 1),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Geodude, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Geodude, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Geodude),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Geodude),
 }, //Geodude,
 [SPECIES_GRAVELER] = 
     {  
@@ -788,8 +788,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0c),
       PIC_DATA_ICON_INDEX(Graveler, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Graveler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Graveler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Graveler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Graveler),
 }, //Graveler,
 [SPECIES_GOLEM] = 
     {  
@@ -797,8 +797,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x10),
       PIC_DATA_ICON_INDEX(Golem, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golem),
 }, //Golem,
 [SPECIES_PONYTA] = 
     {  
@@ -806,8 +806,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Ponyta, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ponyta, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ponyta, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ponyta),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ponyta),
 }, //Ponyta,
 [SPECIES_RAPIDASH] = 
     {  
@@ -815,8 +815,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Rapidash, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rapidash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rapidash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rapidash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rapidash),
 }, //Rapidash,
 [SPECIES_SLOWPOKE] = 
     {  
@@ -824,8 +824,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Slowpoke, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slowpoke, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slowpoke, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slowpoke),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slowpoke),
 }, //Slowpoke,
 [SPECIES_SLOWBRO] = 
     {  
@@ -833,8 +833,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Slowbro, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slowbro, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slowbro, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slowbro),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slowbro),
 }, //Slowbro,
 [SPECIES_MAGNEMITE] = 
     {  
@@ -842,8 +842,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x43, 0x14),
       PIC_DATA_ICON_INDEX(Magnemite, 0),
       .enemyMonElevation = 16,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magnemite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magnemite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magnemite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magnemite),
 }, //Magnemite,
 [SPECIES_MAGNETON] = 
     {  
@@ -851,8 +851,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Magneton, 0),
       .enemyMonElevation = 11,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magneton, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magneton, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magneton),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magneton),
 }, //Magneton,
 [SPECIES_FARFETCHD] = 
     {  
@@ -860,8 +860,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Farfetchd, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Farfetchd, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Farfetchd, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Farfetchd),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Farfetchd),
 }, //Farfetchd,
 [SPECIES_DODUO] = 
     {  
@@ -869,8 +869,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Doduo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Doduo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Doduo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Doduo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Doduo),
 }, //Doduo,
 [SPECIES_DODRIO] = 
     {  
@@ -878,8 +878,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Dodrio, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dodrio, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dodrio, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dodrio),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dodrio),
 }, //Dodrio,
 [SPECIES_SEEL] = 
     {  
@@ -887,8 +887,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Seel, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Seel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Seel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Seel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Seel),
 }, //Seel,
 [SPECIES_DEWGONG] = 
     {  
@@ -896,8 +896,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Dewgong, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dewgong, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dewgong, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dewgong),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dewgong),
 }, //Dewgong,
 [SPECIES_GRIMER] = 
     {  
@@ -905,8 +905,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0d),
       PIC_DATA_ICON_INDEX(Grimer, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grimer, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grimer, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grimer),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grimer),
 }, //Grimer,
 [SPECIES_MUK] = 
     {  
@@ -914,8 +914,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Muk, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Muk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Muk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Muk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Muk),
 }, //Muk,
 [SPECIES_SHELLDER] = 
     {  
@@ -923,8 +923,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Shellder, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shellder, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shellder, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shellder),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shellder),
 }, //Shellder,
 [SPECIES_CLOYSTER] = 
     {  
@@ -932,8 +932,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Cloyster, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cloyster, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cloyster, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cloyster),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cloyster),
 }, //Cloyster,
 [SPECIES_GASTLY] = 
     {  
@@ -941,8 +941,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Gastly, 2),
       .enemyMonElevation = 5,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gastly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gastly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gastly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gastly),
 }, //Gastly,
 [SPECIES_HAUNTER] = 
     {  
@@ -950,8 +950,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Haunter, 2),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Haunter, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Haunter, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Haunter),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Haunter),
 }, //Haunter,
 [SPECIES_GENGAR] = 
     {  
@@ -959,8 +959,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Gengar, 2),
       .enemyMonElevation = 1,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gengar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gengar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gengar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gengar),
 }, //Gengar,
 [SPECIES_ONIX] = 
     {  
@@ -968,8 +968,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x00),
       PIC_DATA_ICON_INDEX(Onix, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Onix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Onix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Onix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Onix),
 }, //Onix,
 [SPECIES_DROWZEE] = 
     {  
@@ -977,8 +977,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Drowzee, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drowzee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drowzee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drowzee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drowzee),
 }, //Drowzee,
 [SPECIES_HYPNO] = 
     {  
@@ -986,8 +986,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Hypno, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hypno, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hypno, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hypno),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hypno),
 }, //Hypno,
 [SPECIES_KRABBY] = 
     {  
@@ -995,8 +995,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Krabby, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Krabby, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Krabby, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Krabby),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Krabby),
 }, //Krabby,
 [SPECIES_KINGLER] = 
     {  
@@ -1004,8 +1004,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Kingler, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kingler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kingler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kingler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kingler),
 }, //Kingler,
 [SPECIES_VOLTORB] = 
     {  
@@ -1013,8 +1013,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 0x0e),
       PIC_DATA_ICON_INDEX(Voltorb, 0),
       .enemyMonElevation = 1,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Voltorb, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Voltorb, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Voltorb),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Voltorb),
 }, //Voltorb,
 [SPECIES_ELECTRODE] = 
     {  
@@ -1022,8 +1022,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Electrode, 0),
       .enemyMonElevation = 1,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Electrode, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Electrode, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Electrode),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Electrode),
 }, //Electrode,
 [SPECIES_EXEGGCUTE] = 
     {  
@@ -1031,8 +1031,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Exeggcute, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Exeggcute, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Exeggcute, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Exeggcute),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Exeggcute),
 }, //Exeggcute,
 [SPECIES_EXEGGUTOR] = 
     {  
@@ -1040,8 +1040,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Exeggutor, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Exeggutor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Exeggutor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Exeggutor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Exeggutor),
 }, //Exeggutor,
 [SPECIES_CUBONE] = 
     {  
@@ -1049,8 +1049,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Cubone, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cubone, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cubone, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cubone),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cubone),
 }, //Cubone,
 [SPECIES_MAROWAK] = 
     {  
@@ -1058,8 +1058,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Marowak, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Marowak, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Marowak, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Marowak),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Marowak),
 }, //Marowak,
 [SPECIES_HITMONLEE] = 
     {  
@@ -1067,8 +1067,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Hitmonlee, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hitmonlee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hitmonlee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hitmonlee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hitmonlee),
 }, //Hitmonlee,
 [SPECIES_HITMONCHAN] = 
     {  
@@ -1076,8 +1076,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Hitmonchan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hitmonchan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hitmonchan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hitmonchan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hitmonchan),
 }, //Hitmonchan,
 [SPECIES_LICKITUNG] = 
     {  
@@ -1085,8 +1085,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Lickitung, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lickitung, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lickitung, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lickitung),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lickitung),
 }, //Lickitung,
 [SPECIES_KOFFING] = 
     {  
@@ -1094,8 +1094,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Koffing, 2),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Koffing, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Koffing, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Koffing),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Koffing),
 }, //Koffing,
 [SPECIES_WEEZING] = 
     {  
@@ -1103,8 +1103,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0c),
       PIC_DATA_ICON_INDEX(Weezing, 2),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Weezing, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Weezing, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Weezing),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Weezing),
 }, //Weezing,
 [SPECIES_RHYHORN] = 
     {  
@@ -1112,8 +1112,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0c),
       PIC_DATA_ICON_INDEX(Rhyhorn, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rhyhorn, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rhyhorn, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rhyhorn),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rhyhorn),
 }, //Rhyhorn,
 [SPECIES_RHYDON] = 
     {  
@@ -1121,8 +1121,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Rhydon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rhydon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rhydon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rhydon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rhydon),
 }, //Rhydon,
 [SPECIES_CHANSEY] = 
     {  
@@ -1130,8 +1130,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Chansey, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chansey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chansey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chansey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chansey),
 }, //Chansey,
 [SPECIES_TANGELA] = 
     {  
@@ -1139,8 +1139,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Tangela, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tangela, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tangela, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tangela),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tangela),
 }, //Tangela,
 [SPECIES_KANGASKHAN] = 
     {  
@@ -1148,8 +1148,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Kangaskhan, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kangaskhan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kangaskhan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kangaskhan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kangaskhan),
 }, //Kangaskhan,
 [SPECIES_HORSEA] = 
     {  
@@ -1157,8 +1157,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Horsea, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Horsea, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Horsea, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Horsea),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Horsea),
 }, //Horsea,
 [SPECIES_SEADRA] = 
     {  
@@ -1166,8 +1166,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Seadra, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Seadra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Seadra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Seadra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Seadra),
 }, //Seadra,
 [SPECIES_GOLDEEN] = 
     {  
@@ -1175,8 +1175,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Goldeen, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Goldeen, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Goldeen, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Goldeen),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Goldeen),
 }, //Goldeen,
 [SPECIES_SEAKING] = 
     {  
@@ -1184,8 +1184,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Seaking, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Seaking, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Seaking, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Seaking),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Seaking),
 }, //Seaking,
 [SPECIES_STARYU] = 
     {  
@@ -1193,8 +1193,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0d),
       PIC_DATA_ICON_INDEX(Staryu, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Staryu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Staryu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Staryu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Staryu),
 }, //Staryu,
 [SPECIES_STARMIE] = 
     {  
@@ -1202,8 +1202,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Starmie, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Starmie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Starmie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Starmie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Starmie),
 }, //Starmie,
 [SPECIES_MR_MIME] = 
     {  
@@ -1211,8 +1211,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(MrMime, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MrMime, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MrMime, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MrMime),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MrMime),
 }, //MrMime,
 [SPECIES_SCYTHER] = 
     {  
@@ -1220,8 +1220,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Scyther, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scyther, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scyther, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scyther),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scyther),
 }, //Scyther,
 [SPECIES_JYNX] = 
     {  
@@ -1229,8 +1229,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Jynx, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jynx, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jynx, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jynx),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jynx),
 }, //Jynx,
 [SPECIES_ELECTABUZZ] = 
     {  
@@ -1238,8 +1238,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Electabuzz, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Electabuzz, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Electabuzz, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Electabuzz),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Electabuzz),
 }, //Electabuzz,
 [SPECIES_MAGMAR] = 
     {  
@@ -1247,8 +1247,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Magmar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magmar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magmar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magmar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magmar),
 }, //Magmar,
 [SPECIES_PINSIR] = 
     {  
@@ -1256,8 +1256,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Pinsir, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pinsir, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pinsir, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pinsir),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pinsir),
 }, //Pinsir,
 [SPECIES_TAUROS] = 
     {  
@@ -1265,8 +1265,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Tauros, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tauros),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tauros),
 }, //Tauros,
 [SPECIES_MAGIKARP] = 
     {  
@@ -1274,8 +1274,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Magikarp, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magikarp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magikarp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magikarp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magikarp),
 }, //Magikarp,
 [SPECIES_GYARADOS] = 
     {  
@@ -1283,8 +1283,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Gyarados, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gyarados, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gyarados, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gyarados),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gyarados),
 }, //Gyarados,
 [SPECIES_LAPRAS] = 
     {  
@@ -1292,8 +1292,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Lapras, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lapras, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lapras, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lapras),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lapras),
 }, //Lapras,
 [SPECIES_DITTO] = 
     {  
@@ -1301,8 +1301,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 0x11),
       PIC_DATA_ICON_INDEX(Ditto, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ditto, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ditto, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ditto),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ditto),
 }, //Ditto,
 [SPECIES_EEVEE] = 
     {  
@@ -1310,8 +1310,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Eevee, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Eevee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Eevee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Eevee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Eevee),
 }, //Eevee,
 [SPECIES_VAPOREON] = 
     {  
@@ -1319,8 +1319,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Vaporeon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vaporeon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vaporeon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vaporeon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vaporeon),
 }, //Vaporeon,
 [SPECIES_JOLTEON] = 
     {  
@@ -1328,8 +1328,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Jolteon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jolteon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jolteon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jolteon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jolteon),
 }, //Jolteon,
 [SPECIES_FLAREON] = 
     {  
@@ -1337,8 +1337,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x05),
       PIC_DATA_ICON_INDEX(Flareon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flareon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flareon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flareon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flareon),
 }, //Flareon,
 [SPECIES_PORYGON] = 
     {  
@@ -1346,8 +1346,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Porygon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Porygon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Porygon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Porygon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Porygon),
 }, //Porygon,
 [SPECIES_OMANYTE] = 
     {  
@@ -1355,8 +1355,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Omanyte, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Omanyte, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Omanyte, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Omanyte),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Omanyte),
 }, //Omanyte,
 [SPECIES_OMASTAR] = 
     {  
@@ -1364,8 +1364,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Omastar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Omastar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Omastar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Omastar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Omastar),
 }, //Omastar,
 [SPECIES_KABUTO] = 
     {  
@@ -1373,8 +1373,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Kabuto, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kabuto, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kabuto, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kabuto),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kabuto),
 }, //Kabuto,
 [SPECIES_KABUTOPS] = 
     {  
@@ -1382,8 +1382,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Kabutops, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kabutops, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kabutops, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kabutops),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kabutops),
 }, //Kabutops,
 [SPECIES_AERODACTYL] = 
     {  
@@ -1391,8 +1391,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Aerodactyl, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aerodactyl, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aerodactyl, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aerodactyl),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aerodactyl),
 }, //Aerodactyl,
 [SPECIES_SNORLAX] = 
     {  
@@ -1400,8 +1400,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0b),
       PIC_DATA_ICON_INDEX(Snorlax, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Snorlax, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Snorlax, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Snorlax),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Snorlax),
 }, //Snorlax,
 [SPECIES_ARTICUNO] = 
     {  
@@ -1409,8 +1409,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Articuno, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Articuno, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Articuno, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Articuno),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Articuno),
 }, //Articuno,
 [SPECIES_ZAPDOS] = 
     {  
@@ -1418,8 +1418,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Zapdos, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zapdos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zapdos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zapdos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zapdos),
 }, //Zapdos,
 [SPECIES_MOLTRES] = 
     {  
@@ -1427,8 +1427,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Moltres, 0),
       .enemyMonElevation = 5,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Moltres, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Moltres, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Moltres),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Moltres),
 }, //Moltres,
 [SPECIES_DRATINI] = 
     {  
@@ -1436,8 +1436,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Dratini, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dratini, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dratini, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dratini),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dratini),
 }, //Dratini,
 [SPECIES_DRAGONAIR] = 
     {  
@@ -1445,8 +1445,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x00),
       PIC_DATA_ICON_INDEX(Dragonair, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dragonair, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dragonair, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dragonair),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dragonair),
 }, //Dragonair,
 [SPECIES_DRAGONITE] = 
     {  
@@ -1454,8 +1454,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Dragonite, 2),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dragonite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dragonite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dragonite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dragonite),
 }, //Dragonite,
 [SPECIES_MEWTWO] = 
     {  
@@ -1463,8 +1463,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x01),
       PIC_DATA_ICON_INDEX(Mewtwo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mewtwo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mewtwo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mewtwo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mewtwo),
 }, //Mewtwo,
 [SPECIES_MEW] = 
     {  
@@ -1472,8 +1472,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Mew, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mew, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mew, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mew),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mew),
 }, //Mew,
 [SPECIES_CHIKORITA] = 
     {  
@@ -1481,8 +1481,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x0a),
       PIC_DATA_ICON_INDEX(Chikorita, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chikorita, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chikorita, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chikorita),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chikorita),
 }, //Chikorita,
 [SPECIES_BAYLEEF] = 
     {  
@@ -1490,8 +1490,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Bayleef, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bayleef, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bayleef, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bayleef),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bayleef),
 }, //Bayleef,
 [SPECIES_MEGANIUM] = 
     {  
@@ -1499,8 +1499,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x00),
       PIC_DATA_ICON_INDEX(Meganium, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meganium, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meganium, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meganium),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meganium),
 }, //Meganium,
 [SPECIES_CYNDAQUIL] = 
     {  
@@ -1508,8 +1508,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Cyndaquil, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cyndaquil, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cyndaquil, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cyndaquil),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cyndaquil),
 }, //Cyndaquil,
 [SPECIES_QUILAVA] = 
     {  
@@ -1517,8 +1517,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Quilava, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Quilava, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Quilava, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Quilava),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Quilava),
 }, //Quilava,
 [SPECIES_TYPHLOSION] = 
     {  
@@ -1526,8 +1526,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Typhlosion, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Typhlosion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Typhlosion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Typhlosion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Typhlosion),
 }, //Typhlosion,
 [SPECIES_TOTODILE] = 
     {  
@@ -1535,8 +1535,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Totodile, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Totodile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Totodile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Totodile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Totodile),
 }, //Totodile,
 [SPECIES_CROCONAW] = 
     {  
@@ -1544,8 +1544,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x07),
       PIC_DATA_ICON_INDEX(Croconaw, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Croconaw, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Croconaw, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Croconaw),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Croconaw),
 }, //Croconaw,
 [SPECIES_FERALIGATOR] = 
     {  
@@ -1553,8 +1553,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Feraligator, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Feraligator, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Feraligator, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Feraligator),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Feraligator),
 }, //Feraligator,
 [SPECIES_SENTRET] = 
     {  
@@ -1562,8 +1562,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x05),
       PIC_DATA_ICON_INDEX(Sentret, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sentret, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sentret, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sentret),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sentret),
 }, //Sentret,
 [SPECIES_FURRET] = 
     {  
@@ -1571,8 +1571,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Furret, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furret, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furret, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furret),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furret),
 }, //Furret,
 [SPECIES_HOOTHOOT] = 
     {  
@@ -1580,8 +1580,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Hoothoot, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hoothoot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hoothoot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hoothoot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hoothoot),
 }, //Hoothoot,
 [SPECIES_NOCTOWL] = 
     {  
@@ -1589,8 +1589,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0x03),
       PIC_DATA_ICON_INDEX(Noctowl, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Noctowl, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Noctowl, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Noctowl),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Noctowl),
 }, //Noctowl,
 [SPECIES_LEDYBA] = 
     {  
@@ -1598,8 +1598,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Ledyba, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ledyba, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ledyba, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ledyba),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ledyba),
 }, //Ledyba,
 [SPECIES_LEDIAN] = 
     {  
@@ -1607,8 +1607,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Ledian, 0),
       .enemyMonElevation = 11,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ledian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ledian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ledian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ledian),
 }, //Ledian,
 [SPECIES_SPINARAK] = 
     {  
@@ -1616,8 +1616,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x73, 0x15),
       PIC_DATA_ICON_INDEX(Spinarak, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spinarak, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spinarak, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spinarak),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spinarak),
 }, //Spinarak,
 [SPECIES_ARIADOS] = 
     {  
@@ -1625,8 +1625,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0b),
       PIC_DATA_ICON_INDEX(Ariados, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ariados, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ariados, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ariados),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ariados),
 }, //Ariados,
 [SPECIES_CROBAT] = 
     {  
@@ -1634,8 +1634,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Crobat, 2),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Crobat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Crobat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Crobat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Crobat),
 }, //Crobat,
 [SPECIES_CHINCHOU] = 
     {  
@@ -1643,8 +1643,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Chinchou, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chinchou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chinchou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chinchou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chinchou),
 }, //Chinchou,
 [SPECIES_LANTURN] = 
     {  
@@ -1652,8 +1652,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Lanturn, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lanturn, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lanturn, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lanturn),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lanturn),
 }, //Lanturn,
 [SPECIES_PICHU] = 
     {  
@@ -1661,8 +1661,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Pichu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pichu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pichu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pichu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pichu),
 }, //Pichu,
 [SPECIES_CLEFFA] = 
     {  
@@ -1670,8 +1670,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0f),
       PIC_DATA_ICON_INDEX(Cleffa, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cleffa, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cleffa, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cleffa),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cleffa),
 }, //Cleffa,
 [SPECIES_IGGLYBUFF] = 
     {  
@@ -1679,8 +1679,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Igglybuff, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Igglybuff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Igglybuff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Igglybuff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Igglybuff),
 }, //Igglybuff,
 [SPECIES_TOGEPI] = 
     {  
@@ -1688,8 +1688,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 0x10),
       PIC_DATA_ICON_INDEX(Togepi, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Togepi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Togepi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Togepi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Togepi),
 }, //Togepi,
 [SPECIES_TOGETIC] = 
     {  
@@ -1697,8 +1697,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Togetic, 2),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Togetic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Togetic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Togetic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Togetic),
 }, //Togetic,
 [SPECIES_NATU] = 
     {  
@@ -1706,8 +1706,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 0x11),
       PIC_DATA_ICON_INDEX(Natu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Natu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Natu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Natu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Natu),
 }, //Natu,
 [SPECIES_XATU] = 
     {  
@@ -1715,8 +1715,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x08),
       PIC_DATA_ICON_INDEX(Xatu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Xatu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Xatu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Xatu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Xatu),
 }, //Xatu,
 [SPECIES_MAREEP] = 
     {  
@@ -1724,8 +1724,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Mareep, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mareep, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mareep, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mareep),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mareep),
 }, //Mareep,
 [SPECIES_FLAAFFY] = 
     {  
@@ -1733,8 +1733,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Flaaffy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flaaffy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flaaffy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flaaffy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flaaffy),
 }, //Flaaffy,
 [SPECIES_AMPHAROS] = 
     {  
@@ -1742,8 +1742,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Ampharos, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ampharos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ampharos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ampharos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ampharos),
 }, //Ampharos,
 [SPECIES_BELLOSSOM] = 
     {  
@@ -1751,8 +1751,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Bellossom, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bellossom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bellossom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bellossom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bellossom),
 }, //Bellossom,
 [SPECIES_MARILL] = 
     {  
@@ -1760,8 +1760,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0c),
       PIC_DATA_ICON_INDEX(Marill, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Marill, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Marill, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Marill),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Marill),
 }, //Marill,
 [SPECIES_AZUMARILL] = 
     {  
@@ -1769,8 +1769,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Azumarill, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Azumarill, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Azumarill, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Azumarill),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Azumarill),
 }, //Azumarill,
 [SPECIES_SUDOWOODO] = 
     {  
@@ -1778,8 +1778,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Sudowoodo, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sudowoodo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sudowoodo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sudowoodo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sudowoodo),
 }, //Sudowoodo,
 [SPECIES_POLITOED] = 
     {  
@@ -1787,8 +1787,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Politoed, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Politoed, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Politoed, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Politoed),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Politoed),
 }, //Politoed,
 [SPECIES_HOPPIP] = 
     {  
@@ -1796,8 +1796,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Hoppip, 1),
       .enemyMonElevation = 13,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hoppip, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hoppip, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hoppip),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hoppip),
 }, //Hoppip,
 [SPECIES_SKIPLOOM] = 
     {  
@@ -1805,8 +1805,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0d),
       PIC_DATA_ICON_INDEX(Skiploom, 1),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skiploom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skiploom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skiploom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skiploom),
 }, //Skiploom,
 [SPECIES_JUMPLUFF] = 
     {  
@@ -1814,8 +1814,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Jumpluff, 2),
       .enemyMonElevation = 18,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jumpluff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jumpluff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jumpluff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jumpluff),
 }, //Jumpluff,
 [SPECIES_AIPOM] = 
     {  
@@ -1823,8 +1823,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Aipom, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aipom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aipom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aipom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aipom),
 }, //Aipom,
 [SPECIES_SUNKERN] = 
     {  
@@ -1832,8 +1832,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x0a),
       PIC_DATA_ICON_INDEX(Sunkern, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sunkern, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sunkern, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sunkern),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sunkern),
 }, //Sunkern,
 [SPECIES_SUNFLORA] = 
     {  
@@ -1841,8 +1841,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Sunflora, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sunflora, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sunflora, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sunflora),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sunflora),
 }, //Sunflora,
 [SPECIES_YANMA] = 
     {  
@@ -1850,8 +1850,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Yanma, 1),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yanma, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yanma, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yanma),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yanma),
 }, //Yanma,
 [SPECIES_WOOPER] = 
     {  
@@ -1859,8 +1859,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0f),
       PIC_DATA_ICON_INDEX(Wooper, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wooper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wooper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wooper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wooper),
 }, //Wooper,
 [SPECIES_QUAGSIRE] = 
     {  
@@ -1868,8 +1868,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x08),
       PIC_DATA_ICON_INDEX(Quagsire, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Quagsire, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Quagsire, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Quagsire),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Quagsire),
 }, //Quagsire,
 [SPECIES_ESPEON] = 
     {  
@@ -1877,8 +1877,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Espeon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Espeon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Espeon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Espeon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Espeon),
 }, //Espeon,
 [SPECIES_UMBREON] = 
     {  
@@ -1886,8 +1886,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Umbreon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Umbreon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Umbreon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Umbreon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Umbreon),
 }, //Umbreon,
 [SPECIES_MURKROW] = 
     {  
@@ -1895,8 +1895,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x09),
       PIC_DATA_ICON_INDEX(Murkrow, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Murkrow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Murkrow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Murkrow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Murkrow),
 }, //Murkrow,
 [SPECIES_SLOWKING] = 
     {  
@@ -1904,8 +1904,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Slowking, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slowking, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slowking, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slowking),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slowking),
 }, //Slowking,
 [SPECIES_MISDREAVUS] = 
     {  
@@ -1913,8 +1913,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Misdreavus, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Misdreavus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Misdreavus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Misdreavus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Misdreavus),
 }, //Misdreavus,
 [SPECIES_UNOWN] = 
     {  
@@ -1922,8 +1922,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x36, 0x08),
       PIC_DATA_ICON_INDEX(Unown, 0),
       .enemyMonElevation = 14,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //Unown,
 [SPECIES_WOBBUFFET] = 
     {  
@@ -1931,8 +1931,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0c),
       PIC_DATA_ICON_INDEX(Wobbuffet, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wobbuffet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wobbuffet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wobbuffet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wobbuffet),
 }, //Wobbuffet,
 [SPECIES_GIRAFARIG] = 
     {  
@@ -1940,8 +1940,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Girafarig, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Girafarig, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Girafarig, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Girafarig),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Girafarig),
 }, //Girafarig,
 [SPECIES_PINECO] = 
     {  
@@ -1949,8 +1949,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0f),
       PIC_DATA_ICON_INDEX(Pineco, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pineco, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pineco, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pineco),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pineco),
 }, //Pineco,
 [SPECIES_FORRETRESS] = 
     {  
@@ -1958,8 +1958,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x10),
       PIC_DATA_ICON_INDEX(Forretress, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Forretress, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Forretress, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Forretress),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Forretress),
 }, //Forretress,
 [SPECIES_DUNSPARCE] = 
     {  
@@ -1967,8 +1967,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0f),
       PIC_DATA_ICON_INDEX(Dunsparce, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dunsparce, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dunsparce, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dunsparce),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dunsparce),
 }, //Dunsparce,
 [SPECIES_GLIGAR] = 
     {  
@@ -1976,8 +1976,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Gligar, 2),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gligar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gligar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gligar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gligar),
 }, //Gligar,
 [SPECIES_STEELIX] = 
     {  
@@ -1985,8 +1985,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Steelix, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Steelix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Steelix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Steelix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Steelix),
 }, //Steelix,
 [SPECIES_SNUBBULL] = 
     {  
@@ -1994,8 +1994,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Snubbull, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Snubbull, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Snubbull, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Snubbull),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Snubbull),
 }, //Snubbull,
 [SPECIES_GRANBULL] = 
     {  
@@ -2003,8 +2003,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Granbull, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Granbull, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Granbull, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Granbull),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Granbull),
 }, //Granbull,
 [SPECIES_QWILFISH] = 
     {  
@@ -2012,8 +2012,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Qwilfish, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Qwilfish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Qwilfish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Qwilfish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Qwilfish),
 }, //Qwilfish,
 [SPECIES_SCIZOR] = 
     {  
@@ -2021,8 +2021,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Scizor, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scizor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scizor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scizor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scizor),
 }, //Scizor,
 [SPECIES_SHUCKLE] = 
     {  
@@ -2030,8 +2030,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x0b),
       PIC_DATA_ICON_INDEX(Shuckle, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shuckle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shuckle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shuckle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shuckle),
 }, //Shuckle,
 [SPECIES_HERACROSS] = 
     {  
@@ -2039,8 +2039,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Heracross, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Heracross, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Heracross, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Heracross),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Heracross),
 }, //Heracross,
 [SPECIES_SNEASEL] = 
     {  
@@ -2048,8 +2048,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Sneasel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sneasel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sneasel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sneasel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sneasel),
 }, //Sneasel,
 [SPECIES_TEDDIURSA] = 
     {  
@@ -2057,8 +2057,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Teddiursa, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Teddiursa, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Teddiursa, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Teddiursa),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Teddiursa),
 }, //Teddiursa,
 [SPECIES_URSARING] = 
     {  
@@ -2066,8 +2066,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Ursaring, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ursaring, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ursaring, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ursaring),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ursaring),
 }, //Ursaring,
 [SPECIES_SLUGMA] = 
     {  
@@ -2075,8 +2075,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Slugma, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slugma, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slugma, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slugma),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slugma),
 }, //Slugma,
 [SPECIES_MAGCARGO] = 
     {  
@@ -2084,8 +2084,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Magcargo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magcargo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magcargo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magcargo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magcargo),
 }, //Magcargo,
 [SPECIES_SWINUB] = 
     {  
@@ -2093,8 +2093,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x63, 0x15),
       PIC_DATA_ICON_INDEX(Swinub, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swinub, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swinub, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swinub),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swinub),
 }, //Swinub,
 [SPECIES_PILOSWINE] = 
     {  
@@ -2102,8 +2102,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0d),
       PIC_DATA_ICON_INDEX(Piloswine, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Piloswine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Piloswine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Piloswine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Piloswine),
 }, //Piloswine,
 [SPECIES_CORSOLA] = 
     {  
@@ -2111,8 +2111,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Corsola, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Corsola, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Corsola, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Corsola),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Corsola),
 }, //Corsola,
 [SPECIES_REMORAID] = 
     {  
@@ -2120,8 +2120,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0d),
       PIC_DATA_ICON_INDEX(Remoraid, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Remoraid, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Remoraid, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Remoraid),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Remoraid),
 }, //Remoraid,
 [SPECIES_OCTILLERY] = 
     {  
@@ -2129,8 +2129,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Octillery, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Octillery, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Octillery, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Octillery),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Octillery),
 }, //Octillery,
 [SPECIES_DELIBIRD] = 
     {  
@@ -2138,8 +2138,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x06),
       PIC_DATA_ICON_INDEX(Delibird, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Delibird, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Delibird, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Delibird),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Delibird),
 }, //Delibird,
 [SPECIES_MANTINE] = 
     {  
@@ -2147,8 +2147,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Mantine, 2),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mantine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mantine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mantine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mantine),
 }, //Mantine,
 [SPECIES_SKARMORY] = 
     {  
@@ -2156,8 +2156,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Skarmory, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skarmory, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skarmory, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skarmory),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skarmory),
 }, //Skarmory,
 [SPECIES_HOUNDOUR] = 
     {  
@@ -2165,8 +2165,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 0x0c),
       PIC_DATA_ICON_INDEX(Houndour, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Houndour, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Houndour, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Houndour),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Houndour),
 }, //Houndour,
 [SPECIES_HOUNDOOM] = 
     {  
@@ -2174,8 +2174,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Houndoom, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Houndoom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Houndoom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Houndoom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Houndoom),
 }, //Houndoom,
 [SPECIES_KINGDRA] = 
     {  
@@ -2183,8 +2183,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Kingdra, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kingdra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kingdra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kingdra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kingdra),
 }, //Kingdra,
 [SPECIES_PHANPY] = 
     {  
@@ -2192,8 +2192,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0e),
       PIC_DATA_ICON_INDEX(Phanpy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Phanpy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Phanpy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Phanpy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Phanpy),
 }, //Phanpy,
 [SPECIES_DONPHAN] = 
     {  
@@ -2201,8 +2201,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Donphan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Donphan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Donphan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Donphan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Donphan),
 }, //Donphan,
 [SPECIES_PORYGON2] = 
     {  
@@ -2210,8 +2210,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Porygon2, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Porygon2, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Porygon2, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Porygon2),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Porygon2),
 }, //Porygon2,
 [SPECIES_STANTLER] = 
     {  
@@ -2219,8 +2219,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x03),
       PIC_DATA_ICON_INDEX(Stantler, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stantler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stantler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stantler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stantler),
 }, //Stantler,
 [SPECIES_SMEARGLE] = 
     {  
@@ -2228,8 +2228,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Smeargle, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Smeargle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Smeargle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Smeargle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Smeargle),
 }, //Smeargle,
 [SPECIES_TYROGUE] = 
     {  
@@ -2237,8 +2237,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Tyrogue, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tyrogue, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tyrogue, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tyrogue),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tyrogue),
 }, //Tyrogue,
 [SPECIES_HITMONTOP] = 
     {  
@@ -2246,8 +2246,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Hitmontop, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hitmontop, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hitmontop, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hitmontop),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hitmontop),
 }, //Hitmontop,
 [SPECIES_SMOOCHUM] = 
     {  
@@ -2255,8 +2255,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x09),
       PIC_DATA_ICON_INDEX(Smoochum, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Smoochum, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Smoochum, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Smoochum),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Smoochum),
 }, //Smoochum,
 [SPECIES_ELEKID] = 
     {  
@@ -2264,8 +2264,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Elekid, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Elekid, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Elekid, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Elekid),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Elekid),
 }, //Elekid,
 [SPECIES_MAGBY] = 
     {  
@@ -2273,8 +2273,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Magby, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magby, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magby, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magby),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magby),
 }, //Magby,
 [SPECIES_MILTANK] = 
     {  
@@ -2282,8 +2282,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Miltank, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Miltank, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Miltank, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Miltank),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Miltank),
 }, //Miltank,
 [SPECIES_BLISSEY] = 
     {  
@@ -2291,8 +2291,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Blissey, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Blissey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Blissey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Blissey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Blissey),
 }, //Blissey,
 [SPECIES_RAIKOU] = 
     {  
@@ -2300,8 +2300,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Raikou, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Raikou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Raikou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Raikou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Raikou),
 }, //Raikou,
 [SPECIES_ENTEI] = 
     {  
@@ -2309,8 +2309,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Entei, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Entei, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Entei, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Entei),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Entei),
 }, //Entei,
 [SPECIES_SUICUNE] = 
     {  
@@ -2318,8 +2318,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Suicune, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Suicune, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Suicune, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Suicune),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Suicune),
 }, //Suicune,
 [SPECIES_LARVITAR] = 
     {  
@@ -2327,8 +2327,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Larvitar, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Larvitar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Larvitar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Larvitar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Larvitar),
 }, //Larvitar,
 [SPECIES_PUPITAR] = 
     {  
@@ -2336,8 +2336,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x05),
       PIC_DATA_ICON_INDEX(Pupitar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pupitar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pupitar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pupitar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pupitar),
 }, //Pupitar,
 [SPECIES_TYRANITAR] = 
     {  
@@ -2345,8 +2345,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Tyranitar, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tyranitar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tyranitar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tyranitar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tyranitar),
 }, //Tyranitar,
 [SPECIES_LUGIA] = 
     {  
@@ -2354,8 +2354,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Lugia, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lugia, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lugia, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lugia),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lugia),
 }, //Lugia,
 [SPECIES_HO_OH] = 
     {  
@@ -2363,8 +2363,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(HoOh, 1),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_HoOh, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_HoOh, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_HoOh),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_HoOh),
 }, //HoOh,
 [SPECIES_CELEBI] = 
     {  
@@ -2372,8 +2372,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Celebi, 1),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Celebi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Celebi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Celebi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Celebi),
 }, //Celebi,
     
 [SPECIES_TREECKO] = 
@@ -2382,8 +2382,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Treecko, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Treecko, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Treecko, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Treecko),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Treecko),
 }, //Treecko,
 [SPECIES_GROVYLE] = 
     {  
@@ -2391,8 +2391,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Grovyle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grovyle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grovyle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grovyle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grovyle),
 }, //Grovyle,
 [SPECIES_SCEPTILE] = 
     {  
@@ -2400,8 +2400,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Sceptile, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sceptile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sceptile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sceptile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sceptile),
 }, //Sceptile,
 [SPECIES_TORCHIC] = 
     {  
@@ -2409,8 +2409,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x05),
       PIC_DATA_ICON_INDEX(Torchic, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Torchic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Torchic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Torchic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Torchic),
 }, //Torchic,
 [SPECIES_COMBUSKEN] = 
     {  
@@ -2418,8 +2418,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Combusken, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Combusken, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Combusken, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Combusken),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Combusken),
 }, //Combusken,
 [SPECIES_BLAZIKEN] = 
     {  
@@ -2427,8 +2427,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Blaziken, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Blaziken, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Blaziken, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Blaziken),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Blaziken),
 }, //Blaziken,
 [SPECIES_MUDKIP] = 
     {  
@@ -2436,8 +2436,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Mudkip, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mudkip, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mudkip, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mudkip),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mudkip),
 }, //Mudkip,
 [SPECIES_MARSHTOMP] = 
     {  
@@ -2445,8 +2445,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Marshtomp, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Marshtomp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Marshtomp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Marshtomp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Marshtomp),
 }, //Marshtomp,
 [SPECIES_SWAMPERT] = 
     {  
@@ -2454,8 +2454,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Swampert, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swampert, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swampert, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swampert),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swampert),
 }, //Swampert,
 [SPECIES_POOCHYENA] = 
     {  
@@ -2463,8 +2463,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x09),
       PIC_DATA_ICON_INDEX(Poochyena, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poochyena, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poochyena, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poochyena),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poochyena),
 }, //Poochyena,
 [SPECIES_MIGHTYENA] = 
     {  
@@ -2472,8 +2472,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Mightyena, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mightyena, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mightyena, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mightyena),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mightyena),
 }, //Mightyena,
 [SPECIES_ZIGZAGOON] = 
     {  
@@ -2481,8 +2481,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Zigzagoon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zigzagoon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zigzagoon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zigzagoon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zigzagoon),
 }, //Zigzagoon,
 [SPECIES_LINOONE] = 
     {  
@@ -2490,8 +2490,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0f),
       PIC_DATA_ICON_INDEX(Linoone, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Linoone, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Linoone, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Linoone),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Linoone),
 }, //Linoone,
 [SPECIES_WURMPLE] = 
     {  
@@ -2499,8 +2499,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Wurmple, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wurmple, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wurmple, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wurmple),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wurmple),
 }, //Wurmple,
 [SPECIES_SILCOON] = 
     {  
@@ -2508,8 +2508,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x15),
       PIC_DATA_ICON_INDEX(Silcoon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silcoon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silcoon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silcoon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silcoon),
 }, //Silcoon,
 [SPECIES_BEAUTIFLY] = 
     {  
@@ -2517,8 +2517,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Beautifly, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Beautifly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Beautifly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Beautifly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Beautifly),
 }, //Beautifly,
 [SPECIES_CASCOON] = 
     {  
@@ -2526,8 +2526,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x73, 0x14),
       PIC_DATA_ICON_INDEX(Cascoon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cascoon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cascoon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cascoon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cascoon),
 }, //Cascoon,
 [SPECIES_DUSTOX] = 
     {  
@@ -2535,8 +2535,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x14),
       PIC_DATA_ICON_INDEX(Dustox, 1),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dustox, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dustox, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dustox),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dustox),
 }, //Dustox,
 [SPECIES_LOTAD] = 
     {  
@@ -2544,8 +2544,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0f),
       PIC_DATA_ICON_INDEX(Lotad, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lotad, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lotad, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lotad),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lotad),
 }, //Lotad,
 [SPECIES_LOMBRE] = 
     {  
@@ -2553,8 +2553,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Lombre, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lombre, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lombre, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lombre),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lombre),
 }, //Lombre,
 [SPECIES_LUDICOLO] = 
     {  
@@ -2562,8 +2562,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Ludicolo, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ludicolo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ludicolo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ludicolo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ludicolo),
 }, //Ludicolo,
 [SPECIES_SEEDOT] = 
     {  
@@ -2571,8 +2571,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Seedot, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Seedot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Seedot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Seedot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Seedot),
 }, //Seedot,
 [SPECIES_NUZLEAF] = 
     {  
@@ -2580,8 +2580,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Nuzleaf, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nuzleaf, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nuzleaf, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nuzleaf),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nuzleaf),
 }, //Nuzleaf,
 [SPECIES_SHIFTRY] = 
     {  
@@ -2589,8 +2589,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Shiftry, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shiftry, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shiftry, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shiftry),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shiftry),
 }, //Shiftry,
 [SPECIES_NINCADA] = 
     {  
@@ -2598,8 +2598,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x14),
       PIC_DATA_ICON_INDEX(Nincada, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nincada, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nincada, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nincada),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nincada),
 }, //Nincada,
 [SPECIES_NINJASK] = 
     {  
@@ -2607,8 +2607,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Ninjask, 1),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ninjask, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ninjask, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ninjask),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ninjask),
 }, //Ninjask,
 [SPECIES_SHEDINJA] = 
     {  
@@ -2616,8 +2616,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x06),
       PIC_DATA_ICON_INDEX(Shedinja, 1),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shedinja, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shedinja, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shedinja),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shedinja),
 }, //Shedinja,
 [SPECIES_TAILLOW] = 
     {  
@@ -2625,8 +2625,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 0x11),
       PIC_DATA_ICON_INDEX(Taillow, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Taillow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Taillow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Taillow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Taillow),
 }, //Taillow,
 [SPECIES_SWELLOW] = 
     {  
@@ -2634,8 +2634,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Swellow, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swellow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swellow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swellow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swellow),
 }, //Swellow,
 [SPECIES_SHROOMISH] = 
     {  
@@ -2643,8 +2643,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Shroomish, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shroomish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shroomish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shroomish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shroomish),
 }, //Shroomish,
 [SPECIES_BRELOOM] = 
     {  
@@ -2652,8 +2652,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Breloom, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Breloom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Breloom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Breloom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Breloom),
 }, //Breloom,
 [SPECIES_SPINDA] = 
     {  
@@ -2661,8 +2661,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Spinda, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spinda, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spinda, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spinda),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spinda),
 }, //Spinda,
 [SPECIES_WINGULL] = 
     {  
@@ -2670,8 +2670,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Wingull, 0),
       .enemyMonElevation = 16,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wingull, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wingull, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wingull),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wingull),
 }, //Wingull,
 [SPECIES_PELIPPER] = 
     {  
@@ -2679,8 +2679,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Pelipper, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pelipper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pelipper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pelipper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pelipper),
 }, //Pelipper,
 [SPECIES_SURSKIT] = 
     {  
@@ -2688,8 +2688,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0b),
       PIC_DATA_ICON_INDEX(Surskit, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Surskit, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Surskit, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Surskit),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Surskit),
 }, //Surskit,
 [SPECIES_MASQUERAIN] = 
     {  
@@ -2697,8 +2697,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x00),
       PIC_DATA_ICON_INDEX(Masquerain, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Masquerain, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Masquerain, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Masquerain),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Masquerain),
 }, //Masquerain,
 [SPECIES_WAILMER] = 
     {  
@@ -2706,8 +2706,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x15),
       PIC_DATA_ICON_INDEX(Wailmer, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wailmer, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wailmer, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wailmer),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wailmer),
 }, //Wailmer,
 [SPECIES_WAILORD] = 
     {  
@@ -2715,8 +2715,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x16),
       PIC_DATA_ICON_INDEX(Wailord, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wailord, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wailord, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wailord),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wailord),
 }, //Wailord,
 [SPECIES_SKITTY] = 
     {  
@@ -2724,8 +2724,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Skitty, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skitty, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skitty, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skitty),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skitty),
 }, //Skitty,
 [SPECIES_DELCATTY] = 
     {  
@@ -2733,8 +2733,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Delcatty, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Delcatty, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Delcatty, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Delcatty),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Delcatty),
 }, //Delcatty,
 [SPECIES_KECLEON] = 
     {  
@@ -2742,8 +2742,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Kecleon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kecleon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kecleon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kecleon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kecleon),
 }, //Kecleon,
 [SPECIES_BALTOY] = 
     {  
@@ -2751,8 +2751,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Baltoy, 1),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Baltoy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Baltoy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Baltoy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Baltoy),
 }, //Baltoy,
 [SPECIES_CLAYDOL] = 
     {  
@@ -2760,8 +2760,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Claydol, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Claydol, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Claydol, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Claydol),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Claydol),
 }, //Claydol,
 [SPECIES_NOSEPASS] = 
     {  
@@ -2769,8 +2769,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0c),
       PIC_DATA_ICON_INDEX(Nosepass, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nosepass, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nosepass, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nosepass),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nosepass),
 }, //Nosepass,
 [SPECIES_TORKOAL] = 
     {  
@@ -2778,8 +2778,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Torkoal, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Torkoal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Torkoal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Torkoal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Torkoal),
 }, //Torkoal,
 [SPECIES_SABLEYE] = 
     {  
@@ -2787,8 +2787,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x08),
       PIC_DATA_ICON_INDEX(Sableye, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sableye, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sableye, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sableye),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sableye),
 }, //Sableye,
 [SPECIES_BARBOACH] = 
     {  
@@ -2796,8 +2796,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Barboach, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Barboach, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Barboach, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Barboach),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Barboach),
 }, //Barboach,
 [SPECIES_WHISCASH] = 
     {  
@@ -2805,8 +2805,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Whiscash, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Whiscash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Whiscash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Whiscash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Whiscash),
 }, //Whiscash,
 [SPECIES_LUVDISC] = 
     {  
@@ -2814,8 +2814,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x46, 0x0a),
       PIC_DATA_ICON_INDEX(Luvdisc, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Luvdisc, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Luvdisc, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Luvdisc),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Luvdisc),
 }, //Luvdisc,
 [SPECIES_CORPHISH] = 
     {  
@@ -2823,8 +2823,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Corphish, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Corphish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Corphish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Corphish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Corphish),
 }, //Corphish,
 [SPECIES_CRAWDAUNT] = 
     {  
@@ -2832,8 +2832,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Crawdaunt, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Crawdaunt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Crawdaunt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Crawdaunt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Crawdaunt),
 }, //Crawdaunt,
 [SPECIES_FEEBAS] = 
     {  
@@ -2841,8 +2841,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x07),
       PIC_DATA_ICON_INDEX(Feebas, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Feebas, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Feebas, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Feebas),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Feebas),
 }, //Feebas,
 [SPECIES_MILOTIC] = 
     {  
@@ -2850,8 +2850,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0x02),
       PIC_DATA_ICON_INDEX(Milotic, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Milotic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Milotic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Milotic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Milotic),
 }, //Milotic,
 [SPECIES_CARVANHA] = 
     {  
@@ -2859,8 +2859,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Carvanha, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Carvanha, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Carvanha, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Carvanha),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Carvanha),
 }, //Carvanha,
 [SPECIES_SHARPEDO] = 
     {  
@@ -2868,8 +2868,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x02),
       PIC_DATA_ICON_INDEX(Sharpedo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sharpedo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sharpedo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sharpedo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sharpedo),
 }, //Sharpedo,
 [SPECIES_TRAPINCH] = 
     {  
@@ -2877,8 +2877,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 0x0e),
       PIC_DATA_ICON_INDEX(Trapinch, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Trapinch, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Trapinch, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Trapinch),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Trapinch),
 }, //Trapinch,
 [SPECIES_VIBRAVA] = 
     {  
@@ -2886,8 +2886,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x74, 0x11),
       PIC_DATA_ICON_INDEX(Vibrava, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vibrava, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vibrava, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vibrava),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vibrava),
 }, //Vibrava,
 [SPECIES_FLYGON] = 
     {  
@@ -2895,8 +2895,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x02),
       PIC_DATA_ICON_INDEX(Flygon, 1),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flygon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flygon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flygon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flygon),
 }, //Flygon,
 [SPECIES_MAKUHITA] = 
     {  
@@ -2904,8 +2904,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Makuhita, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Makuhita, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Makuhita, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Makuhita),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Makuhita),
 }, //Makuhita,
 [SPECIES_HARIYAMA] = 
     {  
@@ -2913,8 +2913,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Hariyama, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hariyama, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hariyama, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hariyama),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hariyama),
 }, //Hariyama,
 [SPECIES_ELECTRIKE] = 
     {  
@@ -2922,8 +2922,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x10),
       PIC_DATA_ICON_INDEX(Electrike, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Electrike, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Electrike, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Electrike),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Electrike),
 }, //Electrike,
 [SPECIES_MANECTRIC] = 
     {  
@@ -2931,8 +2931,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Manectric, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Manectric, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Manectric, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Manectric),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Manectric),
 }, //Manectric,
 [SPECIES_NUMEL] = 
     {  
@@ -2940,8 +2940,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0b),
       PIC_DATA_ICON_INDEX(Numel, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Numel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Numel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Numel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Numel),
 }, //Numel,
 [SPECIES_CAMERUPT] = 
     {  
@@ -2949,8 +2949,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x13),
       PIC_DATA_ICON_INDEX(Camerupt, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Camerupt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Camerupt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Camerupt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Camerupt),
 }, //Camerupt,
 [SPECIES_SPHEAL] = 
     {  
@@ -2958,8 +2958,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 0x12),
       PIC_DATA_ICON_INDEX(Spheal, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spheal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spheal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spheal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spheal),
 }, //Spheal,
 [SPECIES_SEALEO] = 
     {  
@@ -2967,8 +2967,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Sealeo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sealeo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sealeo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sealeo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sealeo),
 }, //Sealeo,
 [SPECIES_WALREIN] = 
     {  
@@ -2976,8 +2976,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Walrein, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Walrein, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Walrein, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Walrein),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Walrein),
 }, //Walrein,
 [SPECIES_CACNEA] = 
     {  
@@ -2985,8 +2985,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0f),
       PIC_DATA_ICON_INDEX(Cacnea, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cacnea, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cacnea, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cacnea),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cacnea),
 }, //Cacnea,
 [SPECIES_CACTURNE] = 
     {  
@@ -2994,8 +2994,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Cacturne, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cacturne, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cacturne, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cacturne),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cacturne),
 }, //Cacturne,
 [SPECIES_SNORUNT] = 
     {  
@@ -3003,8 +3003,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0a),
       PIC_DATA_ICON_INDEX(Snorunt, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Snorunt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Snorunt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Snorunt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Snorunt),
 }, //Snorunt,
 [SPECIES_GLALIE] = 
     {  
@@ -3012,8 +3012,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0c),
       PIC_DATA_ICON_INDEX(Glalie, 0),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Glalie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Glalie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Glalie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Glalie),
 }, //Glalie,
 [SPECIES_LUNATONE] = 
     {  
@@ -3021,8 +3021,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Lunatone, 1),
       .enemyMonElevation = 13,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lunatone, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lunatone, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lunatone),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lunatone),
 }, //Lunatone,
 [SPECIES_SOLROCK] = 
     {  
@@ -3030,8 +3030,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Solrock, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Solrock, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Solrock, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Solrock),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Solrock),
 }, //Solrock,
 [SPECIES_AZURILL] = 
     {  
@@ -3039,8 +3039,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Azurill, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Azurill, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Azurill, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Azurill),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Azurill),
 }, //Azurill,
 [SPECIES_SPOINK] = 
     {  
@@ -3048,8 +3048,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 0x0b),
       PIC_DATA_ICON_INDEX(Spoink, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spoink, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spoink, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spoink),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spoink),
 }, //Spoink,
 [SPECIES_GRUMPIG] = 
     {  
@@ -3057,8 +3057,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Grumpig, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grumpig, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grumpig, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grumpig),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grumpig),
 }, //Grumpig,
 [SPECIES_PLUSLE] = 
     {  
@@ -3066,8 +3066,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x08),
       PIC_DATA_ICON_INDEX(Plusle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Plusle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Plusle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Plusle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Plusle),
 }, //Plusle,
 [SPECIES_MINUN] = 
     {  
@@ -3075,8 +3075,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x08),
       PIC_DATA_ICON_INDEX(Minun, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minun, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minun, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minun),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minun),
 }, //Minun,
 [SPECIES_MAWILE] = 
     {  
@@ -3084,8 +3084,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x04),
       PIC_DATA_ICON_INDEX(Mawile, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mawile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mawile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mawile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mawile),
 }, //Mawile,
 [SPECIES_MEDITITE] = 
     {  
@@ -3093,8 +3093,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x0b),
       PIC_DATA_ICON_INDEX(Meditite, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meditite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meditite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meditite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meditite),
 }, //Meditite,
 [SPECIES_MEDICHAM] = 
     {  
@@ -3102,8 +3102,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0x03),
       PIC_DATA_ICON_INDEX(Medicham, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Medicham, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Medicham, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Medicham),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Medicham),
 }, //Medicham,
 [SPECIES_SWABLU] = 
     {  
@@ -3111,8 +3111,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Swablu, 0),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swablu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swablu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swablu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swablu),
 }, //Swablu,
 [SPECIES_ALTARIA] = 
     {  
@@ -3120,8 +3120,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x06),
       PIC_DATA_ICON_INDEX(Altaria, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Altaria, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Altaria, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Altaria),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Altaria),
 }, //Altaria,
 [SPECIES_WYNAUT] = 
     {  
@@ -3129,8 +3129,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x07),
       PIC_DATA_ICON_INDEX(Wynaut, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wynaut, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wynaut, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wynaut),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wynaut),
 }, //Wynaut,
 [SPECIES_DUSKULL] = 
     {  
@@ -3138,8 +3138,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Duskull, 0),
       .enemyMonElevation = 9,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Duskull, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Duskull, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Duskull),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Duskull),
 }, //Duskull,
 [SPECIES_DUSCLOPS] = 
     {  
@@ -3147,8 +3147,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Dusclops, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dusclops, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dusclops, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dusclops),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dusclops),
 }, //Dusclops,
 [SPECIES_ROSELIA] = 
     {  
@@ -3156,8 +3156,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Roselia, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Roselia, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Roselia, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Roselia),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Roselia),
 }, //Roselia,
 [SPECIES_SLAKOTH] = 
     {  
@@ -3165,8 +3165,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0f),
       PIC_DATA_ICON_INDEX(Slakoth, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slakoth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slakoth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slakoth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slakoth),
 }, //Slakoth,
 [SPECIES_VIGOROTH] = 
     {  
@@ -3174,8 +3174,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Vigoroth, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vigoroth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vigoroth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vigoroth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vigoroth),
 }, //Vigoroth,
 [SPECIES_SLAKING] = 
     {  
@@ -3183,8 +3183,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x08),
       PIC_DATA_ICON_INDEX(Slaking, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slaking, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slaking, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slaking),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slaking),
 }, //Slaking,
 [SPECIES_GULPIN] = 
     {  
@@ -3192,8 +3192,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0b),
       PIC_DATA_ICON_INDEX(Gulpin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gulpin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gulpin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gulpin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gulpin),
 }, //Gulpin,
 [SPECIES_SWALOT] = 
     {  
@@ -3201,8 +3201,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x06),
       PIC_DATA_ICON_INDEX(Swalot, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swalot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swalot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swalot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swalot),
 }, //Swalot,
 [SPECIES_TROPIUS] = 
     {  
@@ -3210,8 +3210,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Tropius, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tropius, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tropius, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tropius),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tropius),
 }, //Tropius,
 [SPECIES_WHISMUR] = 
     {  
@@ -3219,8 +3219,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Whismur, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Whismur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Whismur, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Whismur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Whismur),
 }, //Whismur,
 [SPECIES_LOUDRED] = 
     {  
@@ -3228,8 +3228,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Loudred, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Loudred, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Loudred, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Loudred),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Loudred),
 }, //Loudred,
 [SPECIES_EXPLOUD] = 
     {  
@@ -3237,8 +3237,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Exploud, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Exploud, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Exploud, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Exploud),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Exploud),
 }, //Exploud,
 [SPECIES_CLAMPERL] = 
     {  
@@ -3246,8 +3246,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Clamperl, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clamperl, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clamperl, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clamperl),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clamperl),
 }, //Clamperl,
 [SPECIES_HUNTAIL] = 
     {  
@@ -3255,8 +3255,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0x02),
       PIC_DATA_ICON_INDEX(Huntail, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Huntail, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Huntail, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Huntail),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Huntail),
 }, //Huntail,
 [SPECIES_GOREBYSS] = 
     {  
@@ -3264,8 +3264,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Gorebyss, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gorebyss, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gorebyss, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gorebyss),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gorebyss),
 }, //Gorebyss,
 [SPECIES_ABSOL] = 
     {  
@@ -3273,8 +3273,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x03),
       PIC_DATA_ICON_INDEX(Absol, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Absol, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Absol, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Absol),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Absol),
 }, //Absol,
 [SPECIES_SHUPPET] = 
     {  
@@ -3282,8 +3282,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x06),
       PIC_DATA_ICON_INDEX(Shuppet, 0),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shuppet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shuppet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shuppet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shuppet),
 }, //Shuppet,
 [SPECIES_BANETTE] = 
     {  
@@ -3291,8 +3291,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 0x0c),
       PIC_DATA_ICON_INDEX(Banette, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Banette, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Banette, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Banette),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Banette),
 }, //Banette,
 [SPECIES_SEVIPER] = 
     {  
@@ -3300,8 +3300,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Seviper, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Seviper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Seviper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Seviper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Seviper),
 }, //Seviper,
 [SPECIES_ZANGOOSE] = 
     {  
@@ -3309,8 +3309,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x01),
       PIC_DATA_ICON_INDEX(Zangoose, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zangoose, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zangoose, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zangoose),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zangoose),
 }, //Zangoose,
 [SPECIES_RELICANTH] = 
     {  
@@ -3318,8 +3318,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Relicanth, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Relicanth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Relicanth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Relicanth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Relicanth),
 }, //Relicanth,
 [SPECIES_ARON] = 
     {  
@@ -3327,8 +3327,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 0x11),
       PIC_DATA_ICON_INDEX(Aron, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aron, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aron, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aron),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aron),
 }, //Aron,
 [SPECIES_LAIRON] = 
     {  
@@ -3336,8 +3336,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x11),
       PIC_DATA_ICON_INDEX(Lairon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lairon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lairon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lairon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lairon),
 }, //Lairon,
 [SPECIES_AGGRON] = 
     {  
@@ -3345,8 +3345,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Aggron, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aggron, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aggron, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aggron),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aggron),
 }, //Aggron,
 [SPECIES_CASTFORM] = 
     {  
@@ -3354,8 +3354,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x45, 0x0d),
       PIC_DATA_ICON_INDEX(Castform, 0),
       .enemyMonElevation = 16,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Castform),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Castform),
 }, //Castform,
 [SPECIES_VOLBEAT] = 
     {  
@@ -3363,8 +3363,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 0x08),
       PIC_DATA_ICON_INDEX(Volbeat, 0),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Volbeat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Volbeat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Volbeat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Volbeat),
 }, //Volbeat,
 [SPECIES_ILLUMISE] = 
     {  
@@ -3372,8 +3372,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 0x06),
       PIC_DATA_ICON_INDEX(Illumise, 2),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Illumise, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Illumise, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Illumise),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Illumise),
 }, //Illumise,
 [SPECIES_LILEEP] = 
     {  
@@ -3381,8 +3381,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x09),
       PIC_DATA_ICON_INDEX(Lileep, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lileep, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lileep, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lileep),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lileep),
 }, //Lileep,
 [SPECIES_CRADILY] = 
     {  
@@ -3390,8 +3390,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Cradily, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cradily, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cradily, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cradily),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cradily),
 }, //Cradily,
 [SPECIES_ANORITH] = 
     {  
@@ -3399,8 +3399,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x17),
       PIC_DATA_ICON_INDEX(Anorith, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Anorith, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Anorith, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Anorith),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Anorith),
 }, //Anorith,
 [SPECIES_ARMALDO] = 
     {  
@@ -3408,8 +3408,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x05),
       PIC_DATA_ICON_INDEX(Armaldo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Armaldo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Armaldo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Armaldo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Armaldo),
 }, //Armaldo,
 [SPECIES_RALTS] = 
     {  
@@ -3417,8 +3417,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x45, 0x0d),
       PIC_DATA_ICON_INDEX(Ralts, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ralts, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ralts, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ralts),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ralts),
 }, //Ralts,
 [SPECIES_KIRLIA] = 
     {  
@@ -3426,8 +3426,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 0x06),
       PIC_DATA_ICON_INDEX(Kirlia, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kirlia, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kirlia, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kirlia),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kirlia),
 }, //Kirlia,
 [SPECIES_GARDEVOIR] = 
     {  
@@ -3435,8 +3435,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x04),
       PIC_DATA_ICON_INDEX(Gardevoir, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gardevoir, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gardevoir, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gardevoir),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gardevoir),
 }, //Gardevoir,
 [SPECIES_BAGON] = 
     {  
@@ -3444,8 +3444,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x08),
       PIC_DATA_ICON_INDEX(Bagon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bagon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bagon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bagon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bagon),
 }, //Bagon,
 [SPECIES_SHELGON] = 
     {  
@@ -3453,8 +3453,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0d),
       PIC_DATA_ICON_INDEX(Shelgon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shelgon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shelgon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shelgon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shelgon),
 }, //Shelgon,
 [SPECIES_SALAMENCE] = 
     {  
@@ -3462,8 +3462,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 0x06),
       PIC_DATA_ICON_INDEX(Salamence, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Salamence, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Salamence, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Salamence),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Salamence),
 }, //Salamence,
 [SPECIES_BELDUM] = 
     {  
@@ -3471,8 +3471,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 0x0a),
       PIC_DATA_ICON_INDEX(Beldum, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Beldum, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Beldum, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Beldum),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Beldum),
 }, //Beldum,
 [SPECIES_METANG] = 
     {  
@@ -3480,8 +3480,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x10),
       PIC_DATA_ICON_INDEX(Metang, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Metang, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Metang, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Metang),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Metang),
 }, //Metang,
 [SPECIES_METAGROSS] = 
     {  
@@ -3489,8 +3489,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 0x14),
       PIC_DATA_ICON_INDEX(Metagross, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Metagross, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Metagross, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Metagross),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Metagross),
 }, //Metagross,
 [SPECIES_REGIROCK] = 
     {  
@@ -3498,8 +3498,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 0x0a),
       PIC_DATA_ICON_INDEX(Regirock, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Regirock, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Regirock, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Regirock),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Regirock),
 }, //Regirock,
 [SPECIES_REGICE] = 
     {  
@@ -3507,8 +3507,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Regice, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Regice, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Regice, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Regice),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Regice),
 }, //Regice,
 [SPECIES_REGISTEEL] = 
     {  
@@ -3516,8 +3516,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 0x0e),
       PIC_DATA_ICON_INDEX(Registeel, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Registeel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Registeel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Registeel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Registeel),
 }, //Registeel,
 [SPECIES_KYOGRE] = 
     {  
@@ -3525,8 +3525,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 0x13),
       PIC_DATA_ICON_INDEX(Kyogre, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kyogre, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kyogre, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kyogre),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kyogre),
 }, //Kyogre,
 [SPECIES_GROUDON] = 
     {  
@@ -3534,8 +3534,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Groudon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Groudon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Groudon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Groudon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Groudon),
 }, //Groudon,
 [SPECIES_RAYQUAZA] = 
     {  
@@ -3543,8 +3543,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0x00),
       PIC_DATA_ICON_INDEX(Rayquaza, 1),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rayquaza, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rayquaza, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rayquaza),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rayquaza),
 }, //Rayquaza,
 [SPECIES_LATIAS] = 
     {  
@@ -3552,8 +3552,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x02),
       PIC_DATA_ICON_INDEX(Latias, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Latias, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Latias, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Latias),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Latias),
 }, //Latias,
 [SPECIES_LATIOS] = 
     {  
@@ -3561,8 +3561,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0x03),
       PIC_DATA_ICON_INDEX(Latios, 2),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Latios, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Latios, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Latios),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Latios),
 }, //Latios,
 [SPECIES_JIRACHI] = 
     {  
@@ -3570,8 +3570,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x05),
       PIC_DATA_ICON_INDEX(Jirachi, 0),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jirachi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jirachi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jirachi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jirachi),
 }, //Jirachi,
 [SPECIES_DEOXYS] = 
     {  
@@ -3579,8 +3579,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0x07),
       PIC_DATA_ICON_INDEX(Deoxys, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deoxys),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deoxys),
 }, //Deoxys,
 [SPECIES_CHIMECHO] = 
     {  
@@ -3588,8 +3588,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x47, 0x07),
       PIC_DATA_ICON_INDEX(Chimecho, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chimecho, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chimecho, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chimecho),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chimecho),
 }, //Chimecho,
 [SPECIES_EGG] = 
     {  
@@ -3611,8 +3611,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownB, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownB,
 [SPECIES_UNOWN_C] = 
     {  
@@ -3623,8 +3623,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownC, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownC,
 [SPECIES_UNOWN_D] = 
     {  
@@ -3635,8 +3635,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownD, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownD,
 [SPECIES_UNOWN_E] = 
     {  
@@ -3647,8 +3647,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownE, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownE,
 [SPECIES_UNOWN_F] = 
     {  
@@ -3659,8 +3659,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownF, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownF,
 [SPECIES_UNOWN_G] = 
     {  
@@ -3671,8 +3671,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownG, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownG,
 [SPECIES_UNOWN_H] = 
     {  
@@ -3683,8 +3683,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownH, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownH,
 [SPECIES_UNOWN_I] = 
     {  
@@ -3695,8 +3695,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownI, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownI,
 [SPECIES_UNOWN_J] = 
     {  
@@ -3707,8 +3707,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownJ, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownJ,
 [SPECIES_UNOWN_K] = 
     {  
@@ -3719,8 +3719,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownK, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownK,
 [SPECIES_UNOWN_L] = 
     {  
@@ -3731,8 +3731,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownL, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownL,
 [SPECIES_UNOWN_M] = 
     {  
@@ -3743,8 +3743,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownM, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownM,
 [SPECIES_UNOWN_N] = 
     {  
@@ -3755,8 +3755,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownN, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownN,
 [SPECIES_UNOWN_O] = 
     {  
@@ -3767,8 +3767,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownO, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownO,
 [SPECIES_UNOWN_P] = 
     {  
@@ -3779,8 +3779,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownP, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownP,
 [SPECIES_UNOWN_Q] = 
     {  
@@ -3791,8 +3791,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownQ, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownQ,
 [SPECIES_UNOWN_R] = 
     {  
@@ -3803,8 +3803,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownR, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownR,
 [SPECIES_UNOWN_S] = 
     {  
@@ -3815,8 +3815,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownS, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownS,
 [SPECIES_UNOWN_T] = 
     {  
@@ -3827,8 +3827,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownT, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownT,
 [SPECIES_UNOWN_U] = 
     {  
@@ -3839,8 +3839,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownU, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownU,
 [SPECIES_UNOWN_V] = 
     {  
@@ -3851,8 +3851,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownV, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownV,
 [SPECIES_UNOWN_W] = 
     {  
@@ -3863,8 +3863,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownW, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownW,
 [SPECIES_UNOWN_X] = 
     {  
@@ -3875,8 +3875,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownX, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownX,
 [SPECIES_UNOWN_Y] = 
     {  
@@ -3887,8 +3887,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownY, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownY,
 [SPECIES_UNOWN_Z] = 
     {  
@@ -3899,8 +3899,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownZ, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownZ,
 [SPECIES_UNOWN_EMARK] = 
     {  
@@ -3911,8 +3911,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownExclamationMark, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownExclamationMark,
 [SPECIES_UNOWN_QMARK] = 
     {  
@@ -3923,8 +3923,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Unown),
       ICON(UnownQuestionMark, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unown),
 }, //UnownQuestionMark, //ok I see now part of problem, this doeesn't have a comma and others are misaligned.
 [SPECIES_TURTWIG] = 
     {  
@@ -3932,8 +3932,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 6),
       PIC_DATA_ICON_INDEX(Turtwig, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Turtwig, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Turtwig, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Turtwig),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Turtwig),
 }, //Turtwig,
 [SPECIES_GROTLE] = 
     {  
@@ -3941,8 +3941,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Grotle, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grotle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grotle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grotle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grotle),
 }, //Grotle,
 [SPECIES_TORTERRA] = 
     {  
@@ -3950,8 +3950,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Torterra, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Torterra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Torterra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Torterra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Torterra),
 }, //Torterra,
 [SPECIES_CHIMCHAR] = 
     {  
@@ -3959,8 +3959,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Chimchar, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chimchar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chimchar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chimchar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chimchar),
 }, //Chimchar,
 [SPECIES_MONFERNO] = 
     {  
@@ -3968,8 +3968,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Monferno, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Monferno, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Monferno, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Monferno),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Monferno),
 }, //Monferno,
 [SPECIES_INFERNAPE] = 
     {  
@@ -3977,8 +3977,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Infernape, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Infernape, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Infernape, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Infernape),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Infernape),
 }, //Infernape,
 [SPECIES_PIPLUP] = 
     {  
@@ -3986,8 +3986,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 10),
       PIC_DATA_ICON_INDEX(Piplup, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Piplup, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Piplup, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Piplup),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Piplup),
 }, //Piplup,
 [SPECIES_PRINPLUP] = 
     {  
@@ -3995,8 +3995,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 7),
       PIC_DATA_ICON_INDEX(Prinplup, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Prinplup, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Prinplup, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Prinplup),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Prinplup),
 }, //Prinplup,
 [SPECIES_EMPOLEON] = 
     {  
@@ -4004,8 +4004,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Empoleon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Empoleon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Empoleon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Empoleon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Empoleon),
 }, //Empoleon,
 [SPECIES_STARLY] = 
     {  
@@ -4013,8 +4013,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(Starly, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Starly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Starly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Starly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Starly),
 }, //Starly,
 [SPECIES_STARAVIA] = 
     {  
@@ -4022,8 +4022,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Staravia, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Staravia, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Staravia, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Staravia),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Staravia),
 }, //Staravia,
 [SPECIES_STARAPTOR] = 
     {  
@@ -4031,8 +4031,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Staraptor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Staraptor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Staraptor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Staraptor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Staraptor),
 }, //Staraptor,
 [SPECIES_BIDOOF] = 
     {  
@@ -4040,8 +4040,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Bidoof, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bidoof, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bidoof, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bidoof),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bidoof),
 }, //Bidoof,
 [SPECIES_BIBAREL] = 
     {  
@@ -4049,8 +4049,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Bibarel, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bibarel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bibarel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bibarel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bibarel),
 }, //Bibarel,
 [SPECIES_KRICKETOT] = 
     {  
@@ -4058,8 +4058,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 6),
       PIC_DATA_ICON_INDEX(Kricketot, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kricketot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kricketot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kricketot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kricketot),
 }, //Kricketot,
 [SPECIES_KRICKETUNE] = 
     {  
@@ -4067,8 +4067,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(Kricketune, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kricketune, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kricketune, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kricketune),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kricketune),
 }, //Kricketune,
 [SPECIES_SHINX] = 
     {  
@@ -4076,8 +4076,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Shinx, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shinx, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shinx, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shinx),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shinx),
 }, //Shinx,
 [SPECIES_LUXIO] = 
     {  
@@ -4085,8 +4085,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Luxio, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Luxio, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Luxio, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Luxio),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Luxio),
 }, //Luxio,
 [SPECIES_LUXRAY] = 
     {  
@@ -4094,8 +4094,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Luxray, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Luxray, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Luxray, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Luxray),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Luxray),
 }, //Luxray,
 [SPECIES_BUDEW] = 
     {  
@@ -4103,8 +4103,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 11),
       PIC_DATA_ICON_INDEX(Budew, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Budew, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Budew, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Budew),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Budew),
 }, //Budew,
 [SPECIES_ROSERADE] = 
     {  
@@ -4112,8 +4112,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Roserade, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Roserade, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Roserade, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Roserade),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Roserade),
 }, //Roserade,
 [SPECIES_CRANIDOS] = 
     {  
@@ -4121,8 +4121,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Cranidos, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cranidos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cranidos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cranidos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cranidos),
 }, //Cranidos,
 [SPECIES_RAMPARDOS] = 
     {  
@@ -4130,8 +4130,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Rampardos, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rampardos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rampardos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rampardos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rampardos),
 }, //Rampardos,
 [SPECIES_SHIELDON] = 
     {  
@@ -4139,8 +4139,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(Shieldon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shieldon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shieldon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shieldon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shieldon),
 }, //Shieldon,
 [SPECIES_BASTIODON] = 
     {  
@@ -4148,8 +4148,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Bastiodon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bastiodon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bastiodon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bastiodon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bastiodon),
 }, //Bastiodon,
 [SPECIES_BURMY] = 
     {  
@@ -4157,8 +4157,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 6),
       PIC_DATA_ICON_INDEX(Burmy, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Burmy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Burmy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Burmy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Burmy),
 }, //Burmy,
 [SPECIES_WORMADAM] = 
     {  
@@ -4166,8 +4166,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(Wormadam, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wormadam, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wormadam, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wormadam),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wormadam),
 }, //Wormadam,
 [SPECIES_MOTHIM] = 
     {  
@@ -4175,8 +4175,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Mothim, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mothim, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mothim, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mothim),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mothim),
 }, //Mothim,
 [SPECIES_COMBEE] = 
     {  
@@ -4184,8 +4184,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 22),
       PIC_DATA_ICON_INDEX(Combee, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Combee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Combee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Combee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Combee),
 }, //Combee,
 [SPECIES_VESPIQUEN] = 
     {  
@@ -4193,8 +4193,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Vespiquen, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vespiquen, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vespiquen, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vespiquen),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vespiquen),
 }, //Vespiquen,
 [SPECIES_PACHIRISU] = 
     {  
@@ -4202,8 +4202,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Pachirisu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pachirisu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pachirisu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pachirisu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pachirisu),
 }, //Pachirisu,
 [SPECIES_BUIZEL] = 
     {  
@@ -4211,8 +4211,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Buizel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Buizel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Buizel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Buizel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Buizel),
 }, //Buizel,
 [SPECIES_FLOATZEL] = 
     {  
@@ -4220,8 +4220,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Floatzel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floatzel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floatzel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floatzel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floatzel),
 }, //Floatzel,
 [SPECIES_CHERUBI] = 
     {  
@@ -4229,8 +4229,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 13),
       PIC_DATA_ICON_INDEX(Cherubi, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cherubi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cherubi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cherubi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cherubi),
 }, //Cherubi,
 [SPECIES_CHERRIM] = 
     {  
@@ -4238,8 +4238,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 9),
       PIC_DATA_ICON_INDEX(Cherrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cherrim, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cherrim, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cherrim),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cherrim),
 }, //Cherrim,
 [SPECIES_SHELLOS] = 
     {  
@@ -4247,8 +4247,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 8),
       PIC_DATA_ICON_INDEX(Shellos, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shellos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shellos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shellos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shellos),
 }, //Shellos,
 [SPECIES_GASTRODON] = 
     {  
@@ -4256,8 +4256,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(Gastrodon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gastrodon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gastrodon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gastrodon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gastrodon),
 }, //Gastrodon,
 [SPECIES_AMBIPOM] = 
     {  
@@ -4265,8 +4265,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Ambipom, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ambipom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ambipom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ambipom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ambipom),
 }, //Ambipom,
 [SPECIES_DRIFLOON] = 
     {  
@@ -4274,8 +4274,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x58, 0),
       PIC_DATA_ICON_INDEX(Drifloon, 2),
       .enemyMonElevation = 5,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drifloon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drifloon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drifloon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drifloon),
 }, //Drifloon,
 [SPECIES_DRIFBLIM] = 
     {  
@@ -4283,8 +4283,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Drifblim, 2),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drifblim, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drifblim, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drifblim),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drifblim),
 }, //Drifblim,
 [SPECIES_BUNEARY] = 
     {  
@@ -4292,8 +4292,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Buneary, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Buneary, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Buneary, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Buneary),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Buneary),
 }, //Buneary,
 [SPECIES_LOPUNNY] = 
     {  
@@ -4301,8 +4301,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Lopunny, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lopunny, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lopunny, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lopunny),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lopunny),
 }, //Lopunny,
 [SPECIES_MISMAGIUS] = 
     {  
@@ -4310,8 +4310,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(Mismagius, 2),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mismagius, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mismagius, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mismagius),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mismagius),
 }, //Mismagius,
 [SPECIES_HONCHKROW] = 
     {  
@@ -4319,8 +4319,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Honchkrow, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Honchkrow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Honchkrow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Honchkrow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Honchkrow),
 }, //Honchkrow,
 [SPECIES_GLAMEOW] = 
     {  
@@ -4328,8 +4328,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Glameow, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Glameow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Glameow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Glameow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Glameow),
 }, //Glameow,
 [SPECIES_PURUGLY] = 
     {  
@@ -4337,8 +4337,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Purugly, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Purugly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Purugly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Purugly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Purugly),
 }, //Purugly,
 [SPECIES_CHINGLING] = 
     {  
@@ -4346,8 +4346,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 13),
       PIC_DATA_ICON_INDEX(Chingling, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chingling, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chingling, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chingling),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chingling),
 }, //Chingling,
 [SPECIES_STUNKY] = 
     {  
@@ -4355,8 +4355,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Stunky, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stunky, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stunky, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stunky),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stunky),
 }, //Stunky,
 [SPECIES_SKUNTANK] = 
     {  
@@ -4364,8 +4364,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Skuntank, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skuntank, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skuntank, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skuntank),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skuntank),
 }, //Skuntank,
 [SPECIES_BRONZOR] = 
     {  
@@ -4373,8 +4373,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 9),
       PIC_DATA_ICON_INDEX(Bronzor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bronzor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bronzor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bronzor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bronzor),
 }, //Bronzor,
 [SPECIES_BRONZONG] = 
     {  
@@ -4382,8 +4382,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Bronzong, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bronzong, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bronzong, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bronzong),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bronzong),
 }, //Bronzong,
 [SPECIES_BONSLY] = 
     {  
@@ -4391,8 +4391,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x58, 6),
       PIC_DATA_ICON_INDEX(Bonsly, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bonsly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bonsly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bonsly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bonsly),
 }, //Bonsly,
 [SPECIES_MIME_JR] = 
     {  
@@ -4400,8 +4400,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(MimeJr, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MimeJr, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MimeJr, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MimeJr),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MimeJr),
 }, //MimeJr,
 [SPECIES_HAPPINY] = 
     {  
@@ -4409,8 +4409,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 9),
       PIC_DATA_ICON_INDEX(Happiny, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Happiny, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Happiny, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Happiny),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Happiny),
 }, //Happiny,
 [SPECIES_CHATOT] = 
     {  
@@ -4418,8 +4418,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 9),
       PIC_DATA_ICON_INDEX(Chatot, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chatot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chatot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chatot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chatot),
 }, //Chatot,
 [SPECIES_SPIRITOMB] = 
     {  
@@ -4427,8 +4427,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Spiritomb, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spiritomb, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spiritomb, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spiritomb),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spiritomb),
 }, //Spiritomb,
 [SPECIES_GIBLE] = 
     {  
@@ -4436,8 +4436,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Gible, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gible, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gible, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gible),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gible),
 }, //Gible,
 [SPECIES_GABITE] = 
     {  
@@ -4445,8 +4445,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Gabite, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gabite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gabite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gabite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gabite),
 }, //Gabite,
 [SPECIES_GARCHOMP] = 
     {  
@@ -4454,8 +4454,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Garchomp, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Garchomp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Garchomp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Garchomp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Garchomp),
 }, //Garchomp,
 [SPECIES_MUNCHLAX] = 
     {  
@@ -4463,8 +4463,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 7),
       PIC_DATA_ICON_INDEX(Munchlax, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Munchlax, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Munchlax, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Munchlax),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Munchlax),
 }, //Munchlax,
 [SPECIES_RIOLU] = 
     {  
@@ -4472,8 +4472,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Riolu, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Riolu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Riolu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Riolu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Riolu),
 }, //Riolu,
 [SPECIES_LUCARIO] = 
     {  
@@ -4481,8 +4481,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Lucario, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lucario, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lucario, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lucario),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lucario),
 }, //Lucario,
 [SPECIES_HIPPOPOTAS] = 
     {  
@@ -4490,8 +4490,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 14),
       PIC_DATA_ICON_INDEX(Hippopotas, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hippopotas, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hippopotas, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hippopotas),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hippopotas),
 }, //Hippopotas,
 [SPECIES_HIPPOWDON] = 
     {  
@@ -4499,8 +4499,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Hippowdon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hippowdon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hippowdon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hippowdon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hippowdon),
 }, //Hippowdon,
 [SPECIES_SKORUPI] = 
     {  
@@ -4508,8 +4508,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Skorupi, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skorupi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skorupi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skorupi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skorupi),
 }, //Skorupi,
 [SPECIES_DRAPION] = 
     {  
@@ -4517,8 +4517,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Drapion, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drapion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drapion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drapion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drapion),
 }, //Drapion,
 [SPECIES_CROAGUNK] = 
     {  
@@ -4526,8 +4526,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Croagunk, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Croagunk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Croagunk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Croagunk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Croagunk),
 }, //Croagunk,
 [SPECIES_TOXICROAK] = 
     {  
@@ -4535,8 +4535,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Toxicroak, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Toxicroak, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Toxicroak, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Toxicroak),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Toxicroak),
 }, //Toxicroak,
 [SPECIES_CARNIVINE] = 
     {  
@@ -4544,8 +4544,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Carnivine, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Carnivine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Carnivine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Carnivine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Carnivine),
 }, //Carnivine,
 [SPECIES_FINNEON] = 
     {  
@@ -4553,8 +4553,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 13),
       PIC_DATA_ICON_INDEX(Finneon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Finneon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Finneon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Finneon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Finneon),
 }, //Finneon,
 [SPECIES_LUMINEON] = 
     {  
@@ -4562,8 +4562,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0),
       PIC_DATA_ICON_INDEX(Lumineon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lumineon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lumineon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lumineon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lumineon),
 }, //Lumineon,
 [SPECIES_MANTYKE] = 
     {  
@@ -4571,8 +4571,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Mantyke, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mantyke, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mantyke, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mantyke),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mantyke),
 }, //Mantyke,
 [SPECIES_SNOVER] = 
     {  
@@ -4580,8 +4580,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Snover, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Snover, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Snover, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Snover),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Snover),
 }, //Snover,
 [SPECIES_ABOMASNOW] = 
     {  
@@ -4589,8 +4589,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Abomasnow, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Abomasnow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Abomasnow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Abomasnow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Abomasnow),
 }, //Abomasnow,
 [SPECIES_WEAVILE] = 
     {  
@@ -4598,8 +4598,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Weavile, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Weavile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Weavile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Weavile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Weavile),
 }, //Weavile,
 [SPECIES_MAGNEZONE] = 
     {  
@@ -4607,8 +4607,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Magnezone, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magnezone, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magnezone, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magnezone),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magnezone),
 }, //Magnezone,
 [SPECIES_LICKILICKY] = 
     {  
@@ -4616,8 +4616,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Lickilicky, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lickilicky, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lickilicky, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lickilicky),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lickilicky),
 }, //Lickilicky,
 [SPECIES_RHYPERIOR] = 
     {  
@@ -4625,8 +4625,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Rhyperior, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rhyperior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rhyperior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rhyperior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rhyperior),
 }, //Rhyperior,
 [SPECIES_TANGROWTH] = 
     {  
@@ -4634,8 +4634,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Tangrowth, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tangrowth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tangrowth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tangrowth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tangrowth),
 }, //Tangrowth,
 [SPECIES_ELECTIVIRE] = 
     {  
@@ -4643,8 +4643,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Electivire, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Electivire, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Electivire, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Electivire),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Electivire),
 }, //Electivire,
 [SPECIES_MAGMORTAR] = 
     {  
@@ -4652,8 +4652,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Magmortar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magmortar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magmortar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magmortar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magmortar),
 }, //Magmortar,
 [SPECIES_TOGEKISS] = 
     {  
@@ -4661,8 +4661,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Togekiss, 2),
       .enemyMonElevation = 14,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Togekiss, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Togekiss, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Togekiss),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Togekiss),
 }, //Togekiss,
 [SPECIES_YANMEGA] = 
     {  
@@ -4670,8 +4670,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Yanmega, 1),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yanmega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yanmega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yanmega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yanmega),
 }, //Yanmega,
 [SPECIES_LEAFEON] = 
     {  
@@ -4679,8 +4679,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(Leafeon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Leafeon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Leafeon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Leafeon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Leafeon),
 }, //Leafeon,
 [SPECIES_GLACEON] = 
     {  
@@ -4688,8 +4688,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 6),
       PIC_DATA_ICON_INDEX(Glaceon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Glaceon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Glaceon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Glaceon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Glaceon),
 }, //Glaceon,
 [SPECIES_GLISCOR] = 
     {  
@@ -4697,8 +4697,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Gliscor, 2),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gliscor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gliscor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gliscor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gliscor),
 }, //Gliscor,
 [SPECIES_MAMOSWINE] = 
     {  
@@ -4706,8 +4706,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Mamoswine, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mamoswine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mamoswine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mamoswine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mamoswine),
 }, //Mamoswine,
 [SPECIES_PORYGON_Z] = 
     {  
@@ -4715,8 +4715,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(PorygonZ, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_PorygonZ, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_PorygonZ, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_PorygonZ),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_PorygonZ),
 }, //Porygon_Z,
 [SPECIES_GALLADE] = 
     {  
@@ -4724,8 +4724,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Gallade, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gallade, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gallade, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gallade),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gallade),
 }, //Gallade,
 [SPECIES_PROBOPASS] = 
     {  
@@ -4733,8 +4733,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Probopass, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Probopass, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Probopass, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Probopass),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Probopass),
 }, //Probopass,
 [SPECIES_DUSKNOIR] = 
     {  
@@ -4742,8 +4742,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Dusknoir, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dusknoir, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dusknoir, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dusknoir),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dusknoir),
 }, //Dusknoir,
 [SPECIES_FROSLASS] = 
     {  
@@ -4751,8 +4751,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Froslass, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Froslass, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Froslass, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Froslass),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Froslass),
 }, //Froslass,
 [SPECIES_ROTOM] = 
     {  
@@ -4760,8 +4760,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 5),
       PIC_DATA_ICON_INDEX(Rotom, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rotom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rotom),
 }, //Rotom,
 [SPECIES_UXIE] = 
     {  
@@ -4769,8 +4769,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(Uxie, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Uxie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Uxie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Uxie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Uxie),
 }, //Uxie,
 [SPECIES_MESPRIT] = 
     {  
@@ -4778,8 +4778,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Mesprit, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mesprit, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mesprit, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mesprit),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mesprit),
 }, //Mesprit,
 [SPECIES_AZELF] = 
     {  
@@ -4787,8 +4787,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Azelf, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Azelf, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Azelf, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Azelf),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Azelf),
 }, //Azelf,
 [SPECIES_DIALGA] = 
     {  
@@ -4796,8 +4796,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Dialga, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dialga, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dialga, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dialga),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dialga),
 }, //Dialga,
 [SPECIES_PALKIA] = 
     {  
@@ -4805,8 +4805,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Palkia, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Palkia, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Palkia, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Palkia),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Palkia),
 }, //Palkia,
 [SPECIES_HEATRAN] = 
     {  
@@ -4814,8 +4814,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Heatran, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Heatran, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Heatran, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Heatran),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Heatran),
 }, //Heatran,
 [SPECIES_REGIGIGAS] = 
     {  
@@ -4823,8 +4823,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Regigigas, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Regigigas, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Regigigas, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Regigigas),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Regigigas),
 }, //Regigigas,
 [SPECIES_GIRATINA] = 
     {  
@@ -4832,8 +4832,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Giratina, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Giratina, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Giratina, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Giratina),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Giratina),
 }, //Giratina,
 [SPECIES_CRESSELIA] = 
     {  
@@ -4841,8 +4841,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0),
       PIC_DATA_ICON_INDEX(Cresselia, 0),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cresselia, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cresselia, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cresselia),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cresselia),
 }, //Cresselia,
 [SPECIES_PHIONE] = 
     {  
@@ -4850,8 +4850,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Phione, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Phione, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Phione, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Phione),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Phione),
 }, //Phione,
 [SPECIES_MANAPHY] = 
     {  
@@ -4859,8 +4859,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 10),
       PIC_DATA_ICON_INDEX(Manaphy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Manaphy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Manaphy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Manaphy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Manaphy),
 }, //Manaphy,
 [SPECIES_DARKRAI] = 
     {  
@@ -4868,8 +4868,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Darkrai, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darkrai, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darkrai, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darkrai),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darkrai),
 }, //Darkrai,
 [SPECIES_SHAYMIN_LAND] = 
     {  
@@ -4877,8 +4877,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 15),
       PIC_DATA_ICON_INDEX(Shaymin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ShayminLand, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ShayminLand, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ShayminLand),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ShayminLand),
 }, //Shaymin,
 [SPECIES_ARCEUS] = 
     {  
@@ -4886,8 +4886,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_VICTINI] = 
     {  
@@ -4895,8 +4895,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x58, 7),
       PIC_DATA_ICON_INDEX(Victini, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Victini, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Victini, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Victini),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Victini),
 }, //Victini,
 [SPECIES_SNIVY] = 
     {  
@@ -4904,8 +4904,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(Snivy, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Snivy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Snivy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Snivy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Snivy),
 }, //Snivy,
 [SPECIES_SERVINE] = 
     {  
@@ -4913,8 +4913,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 5),
       PIC_DATA_ICON_INDEX(Servine, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Servine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Servine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Servine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Servine),
 }, //Servine,
 [SPECIES_SERPERIOR] = 
     {  
@@ -4922,8 +4922,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Serperior, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Serperior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Serperior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Serperior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Serperior),
 }, //Serperior,
 [SPECIES_TEPIG] = 
     {  
@@ -4931,8 +4931,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(Tepig, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tepig, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tepig, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tepig),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tepig),
 }, //Tepig,
 [SPECIES_PIGNITE] = 
     {  
@@ -4940,8 +4940,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Pignite, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pignite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pignite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pignite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pignite),
 }, //Pignite,
 [SPECIES_EMBOAR] = 
     {  
@@ -4949,8 +4949,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Emboar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Emboar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Emboar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Emboar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Emboar),
 }, //Emboar,
 [SPECIES_OSHAWOTT] = 
     {  
@@ -4958,8 +4958,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 14),
       PIC_DATA_ICON_INDEX(Oshawott, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Oshawott, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Oshawott, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Oshawott),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Oshawott),
 }, //Oshawott,
 [SPECIES_DEWOTT] = 
     {  
@@ -4967,8 +4967,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 5),
       PIC_DATA_ICON_INDEX(Dewott, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dewott, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dewott, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dewott),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dewott),
 }, //Dewott,
 [SPECIES_SAMUROTT] = 
     {  
@@ -4976,8 +4976,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Samurott, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Samurott, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Samurott, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Samurott),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Samurott),
 }, //Samurott,
 [SPECIES_PATRAT] = 
     {  
@@ -4985,8 +4985,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Patrat, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Patrat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Patrat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Patrat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Patrat),
 }, //Patrat,
 [SPECIES_WATCHOG] = 
     {  
@@ -4994,8 +4994,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(Watchog, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Watchog, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Watchog, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Watchog),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Watchog),
 }, //Watchog,
 [SPECIES_LILLIPUP] = 
     {  
@@ -5003,8 +5003,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 12),
       PIC_DATA_ICON_INDEX(Lillipup, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lillipup, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lillipup, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lillipup),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lillipup),
 }, //Lillipup,
 [SPECIES_HERDIER] = 
     {  
@@ -5012,8 +5012,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 10),
       PIC_DATA_ICON_INDEX(Herdier, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Herdier, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Herdier, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Herdier),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Herdier),
 }, //Herdier,
 [SPECIES_STOUTLAND] = 
     {  
@@ -5021,8 +5021,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Stoutland, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stoutland, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stoutland, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stoutland),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stoutland),
 }, //Stoutland,
 [SPECIES_PURRLOIN] = 
     {  
@@ -5030,8 +5030,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Purrloin, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Purrloin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Purrloin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Purrloin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Purrloin),
 }, //Purrloin,
 [SPECIES_LIEPARD] = 
     {  
@@ -5039,8 +5039,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Liepard, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Liepard, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Liepard, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Liepard),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Liepard),
 }, //Liepard,
 [SPECIES_PANSAGE] = 
     {  
@@ -5048,8 +5048,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 9),
       PIC_DATA_ICON_INDEX(Pansage, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pansage, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pansage, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pansage),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pansage),
 }, //Pansage,
 [SPECIES_SIMISAGE] = 
     {  
@@ -5057,8 +5057,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 6),
       PIC_DATA_ICON_INDEX(Simisage, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Simisage, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Simisage, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Simisage),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Simisage),
 }, //Simisage,
 [SPECIES_PANSEAR] = 
     {  
@@ -5066,8 +5066,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 10),
       PIC_DATA_ICON_INDEX(Pansear, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pansear, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pansear, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pansear),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pansear),
 }, //Pansear,
 [SPECIES_SIMISEAR] = 
     {  
@@ -5075,8 +5075,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Simisear, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Simisear, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Simisear, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Simisear),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Simisear),
 }, //Simisear,
 [SPECIES_PANPOUR] = 
     {  
@@ -5084,8 +5084,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 9),
       PIC_DATA_ICON_INDEX(Panpour, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Panpour, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Panpour, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Panpour),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Panpour),
 }, //Panpour,
 [SPECIES_SIMIPOUR] = 
     {  
@@ -5093,8 +5093,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Simipour, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Simipour, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Simipour, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Simipour),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Simipour),
 }, //Simipour,
 [SPECIES_MUNNA] = 
     {  
@@ -5102,8 +5102,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 16),
       PIC_DATA_ICON_INDEX(Munna, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Munna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Munna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Munna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Munna),
 }, //Munna,
 [SPECIES_MUSHARNA] = 
     {  
@@ -5111,8 +5111,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Musharna, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Musharna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Musharna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Musharna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Musharna),
 }, //Musharna,
 [SPECIES_PIDOVE] = 
     {  
@@ -5120,8 +5120,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 13),
       PIC_DATA_ICON_INDEX(Pidove, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pidove, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pidove, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pidove),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pidove),
 }, //Pidove,
 [SPECIES_TRANQUILL] = 
     {  
@@ -5129,8 +5129,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Tranquill, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tranquill, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tranquill, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tranquill),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tranquill),
 }, //Tranquill,
 [SPECIES_UNFEZANT_MALE] = 
     {  
@@ -5138,8 +5138,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(UnfezantMale, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unfezant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unfezant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unfezant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unfezant),
 }, //Unfezant,
 [SPECIES_BLITZLE] = 
     {  
@@ -5147,8 +5147,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Blitzle, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Blitzle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Blitzle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Blitzle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Blitzle),
 }, //Blitzle,
 [SPECIES_ZEBSTRIKA] = 
     {  
@@ -5156,8 +5156,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Zebstrika, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zebstrika, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zebstrika, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zebstrika),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zebstrika),
 }, //Zebstrika,
 [SPECIES_ROGGENROLA] = 
     {  
@@ -5165,8 +5165,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 13),
       PIC_DATA_ICON_INDEX(Roggenrola, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Roggenrola, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Roggenrola, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Roggenrola),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Roggenrola),
 }, //Roggenrola,
 [SPECIES_BOLDORE] = 
     {  
@@ -5174,8 +5174,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 16),
       PIC_DATA_ICON_INDEX(Boldore, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Boldore, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Boldore, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Boldore),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Boldore),
 }, //Boldore,
 [SPECIES_GIGALITH] = 
     {  
@@ -5183,8 +5183,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(Gigalith, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gigalith, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gigalith, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gigalith),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gigalith),
 }, //Gigalith,
 [SPECIES_WOOBAT] = 
     {  
@@ -5192,8 +5192,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 16),
       PIC_DATA_ICON_INDEX(Woobat, 0),
       .enemyMonElevation = 19,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Woobat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Woobat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Woobat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Woobat),
 }, //Woobat,
 [SPECIES_SWOOBAT] = 
     {  
@@ -5201,8 +5201,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Swoobat, 0),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swoobat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swoobat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swoobat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swoobat),
 }, //Swoobat,
 [SPECIES_DRILBUR] = 
     {  
@@ -5210,8 +5210,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Drilbur, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drilbur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drilbur, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drilbur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drilbur),
 }, //Drilbur,
 [SPECIES_EXCADRILL] = 
     {  
@@ -5219,8 +5219,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Excadrill, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Excadrill, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Excadrill, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Excadrill),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Excadrill),
 }, //Excadrill,
 [SPECIES_AUDINO] = 
     {  
@@ -5228,8 +5228,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 9),
       PIC_DATA_ICON_INDEX(Audino, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Audino, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Audino, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Audino),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Audino),
 }, //Audino,
 [SPECIES_TIMBURR] = 
     {  
@@ -5237,8 +5237,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 15),
       PIC_DATA_ICON_INDEX(Timburr, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Timburr, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Timburr, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Timburr),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Timburr),
 }, //Timburr,
 [SPECIES_GURDURR] = 
     {  
@@ -5246,8 +5246,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Gurdurr, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gurdurr, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gurdurr, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gurdurr),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gurdurr),
 }, //Gurdurr,
 [SPECIES_CONKELDURR] = 
     {  
@@ -5255,8 +5255,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 13),
       PIC_DATA_ICON_INDEX(Conkeldurr, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Conkeldurr, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Conkeldurr, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Conkeldurr),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Conkeldurr),
 }, //Conkeldurr,
 [SPECIES_TYMPOLE] = 
     {  
@@ -5264,8 +5264,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 17),
       PIC_DATA_ICON_INDEX(Tympole, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tympole, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tympole, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tympole),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tympole),
 }, //Tympole,
 [SPECIES_PALPITOAD] = 
     {  
@@ -5273,8 +5273,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 12),
       PIC_DATA_ICON_INDEX(Palpitoad, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Palpitoad, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Palpitoad, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Palpitoad),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Palpitoad),
 }, //Palpitoad,
 [SPECIES_SEISMITOAD] = 
     {  
@@ -5282,8 +5282,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Seismitoad, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Seismitoad, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Seismitoad, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Seismitoad),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Seismitoad),
 }, //Seismitoad,
 [SPECIES_THROH] = 
     {  
@@ -5291,8 +5291,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Throh, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Throh, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Throh, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Throh),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Throh),
 }, //Throh,
 [SPECIES_SAWK] = 
     {  
@@ -5300,8 +5300,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Sawk, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sawk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sawk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sawk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sawk),
 }, //Sawk,
 [SPECIES_SEWADDLE] = 
     {  
@@ -5309,8 +5309,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 13),
       PIC_DATA_ICON_INDEX(Sewaddle, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sewaddle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sewaddle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sewaddle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sewaddle),
 }, //Sewaddle,
 [SPECIES_SWADLOON] = 
     {  
@@ -5318,8 +5318,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 10),
       PIC_DATA_ICON_INDEX(Swadloon, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swadloon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swadloon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swadloon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swadloon),
 }, //Swadloon,
 [SPECIES_LEAVANNY] = 
     {  
@@ -5327,8 +5327,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0),
       PIC_DATA_ICON_INDEX(Leavanny, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Leavanny, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Leavanny, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Leavanny),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Leavanny),
 }, //Leavanny,
 [SPECIES_VENIPEDE] = 
     {  
@@ -5336,8 +5336,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 14),
       PIC_DATA_ICON_INDEX(Venipede, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Venipede, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Venipede, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Venipede),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Venipede),
 }, //Venipede,
 [SPECIES_WHIRLIPEDE] = 
     {  
@@ -5345,8 +5345,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 15),
       PIC_DATA_ICON_INDEX(Whirlipede, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Whirlipede, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Whirlipede, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Whirlipede),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Whirlipede),
 }, //Whirlipede,
 [SPECIES_SCOLIPEDE] = 
     {  
@@ -5354,8 +5354,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Scolipede, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scolipede, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scolipede, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scolipede),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scolipede),
 }, //Scolipede,
 [SPECIES_COTTONEE] = 
     {  
@@ -5363,8 +5363,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 18),
       PIC_DATA_ICON_INDEX(Cottonee, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cottonee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cottonee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cottonee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cottonee),
 }, //Cottonee,
 [SPECIES_WHIMSICOTT] = 
     {  
@@ -5372,8 +5372,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Whimsicott, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Whimsicott, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Whimsicott, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Whimsicott),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Whimsicott),
 }, //Whimsicott,
 [SPECIES_PETILIL] = 
     {  
@@ -5381,8 +5381,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 9),
       PIC_DATA_ICON_INDEX(Petilil, 1),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Petilil, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Petilil, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Petilil),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Petilil),
 }, //Petilil,
 [SPECIES_LILLIGANT] = 
     {  
@@ -5390,8 +5390,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Lilligant, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lilligant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lilligant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lilligant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lilligant),
 }, //Lilligant,
 [SPECIES_BASCULIN_RED_STRIPED] = 
     {  
@@ -5399,8 +5399,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 16),
       PIC_DATA_ICON_INDEX(Basculin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Basculin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Basculin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Basculin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Basculin),
 }, //Basculin,
 [SPECIES_SANDILE] = 
     {  
@@ -5408,8 +5408,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 18),
       PIC_DATA_ICON_INDEX(Sandile, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandile),
 }, //Sandile,
 [SPECIES_KROKOROK] = 
     {  
@@ -5417,8 +5417,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(Krokorok, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Krokorok, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Krokorok, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Krokorok),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Krokorok),
 }, //Krokorok,
 [SPECIES_KROOKODILE] = 
     {  
@@ -5426,8 +5426,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Krookodile, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Krookodile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Krookodile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Krookodile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Krookodile),
 }, //Krookodile,
 [SPECIES_DARUMAKA] = 
     {  
@@ -5435,8 +5435,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 12),
       PIC_DATA_ICON_INDEX(Darumaka, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darumaka, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darumaka, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darumaka),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darumaka),
 }, //Darumaka,
 [SPECIES_DARMANITAN] = 
     {  
@@ -5444,8 +5444,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Darmanitan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darmanitan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darmanitan),
 }, //Darmanitan,
 [SPECIES_MARACTUS] = 
     {  
@@ -5453,8 +5453,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Maractus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Maractus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Maractus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Maractus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Maractus),
 }, //Maractus,
 [SPECIES_DWEBBLE] = 
     {  
@@ -5462,8 +5462,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x74, 17),
       PIC_DATA_ICON_INDEX(Dwebble, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dwebble, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dwebble, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dwebble),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dwebble),
 }, //Dwebble,
 [SPECIES_CRUSTLE] = 
     {  
@@ -5471,8 +5471,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(Crustle, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Crustle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Crustle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Crustle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Crustle),
 }, //Crustle,
 [SPECIES_SCRAGGY] = 
     {  
@@ -5480,8 +5480,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 7),
       PIC_DATA_ICON_INDEX(Scraggy, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scraggy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scraggy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scraggy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scraggy),
 }, //Scraggy,
 [SPECIES_SCRAFTY] = 
     {  
@@ -5489,8 +5489,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 5),
       PIC_DATA_ICON_INDEX(Scrafty, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scrafty, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scrafty, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scrafty),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scrafty),
 }, //Scrafty,
 [SPECIES_SIGILYPH] = 
     {  
@@ -5498,8 +5498,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Sigilyph, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sigilyph, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sigilyph, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sigilyph),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sigilyph),
 }, //Sigilyph,
 [SPECIES_YAMASK] = 
     {  
@@ -5507,8 +5507,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 14),
       PIC_DATA_ICON_INDEX(Yamask, 0),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yamask, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yamask, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yamask),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yamask),
 }, //Yamask,
 [SPECIES_COFAGRIGUS] = 
     {  
@@ -5516,8 +5516,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Cofagrigus, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cofagrigus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cofagrigus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cofagrigus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cofagrigus),
 }, //Cofagrigus,
 [SPECIES_TIRTOUGA] = 
     {  
@@ -5525,8 +5525,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 16),
       PIC_DATA_ICON_INDEX(Tirtouga, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tirtouga, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tirtouga, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tirtouga),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tirtouga),
 }, //Tirtouga,
 [SPECIES_CARRACOSTA] = 
     {  
@@ -5534,8 +5534,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Carracosta, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Carracosta, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Carracosta, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Carracosta),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Carracosta),
 }, //Carracosta,
 [SPECIES_ARCHEN] = 
     {  
@@ -5543,8 +5543,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 16),
       PIC_DATA_ICON_INDEX(Archen, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Archen, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Archen, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Archen),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Archen),
 }, //Archen,
 [SPECIES_ARCHEOPS] = 
     {  
@@ -5552,8 +5552,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Archeops, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Archeops, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Archeops, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Archeops),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Archeops),
 }, //Archeops,
 [SPECIES_TRUBBISH] = 
     {  
@@ -5561,8 +5561,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 13),
       PIC_DATA_ICON_INDEX(Trubbish, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Trubbish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Trubbish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Trubbish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Trubbish),
 }, //Trubbish,
 [SPECIES_GARBODOR] = 
     {  
@@ -5570,8 +5570,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Garbodor, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Garbodor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Garbodor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Garbodor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Garbodor),
 }, //Garbodor,
 [SPECIES_ZORUA] = 
     {  
@@ -5579,8 +5579,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Zorua, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zorua, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zorua, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zorua),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zorua),
 }, //Zorua,
 [SPECIES_ZOROARK] = 
     {  
@@ -5588,8 +5588,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 10),
       PIC_DATA_ICON_INDEX(Zoroark, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zoroark, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zoroark, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zoroark),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zoroark),
 }, //Zoroark,
 [SPECIES_MINCCINO] = 
     {  
@@ -5597,8 +5597,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Minccino, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minccino, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minccino, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minccino),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minccino),
 }, //Minccino,
 [SPECIES_CINCCINO] = 
     {  
@@ -5606,8 +5606,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Cinccino, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cinccino, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cinccino, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cinccino),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cinccino),
 }, //Cinccino,
 [SPECIES_GOTHITA] = 
     {  
@@ -5615,8 +5615,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 10),
       PIC_DATA_ICON_INDEX(Gothita, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gothita, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gothita, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gothita),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gothita),
 }, //Gothita,
 [SPECIES_GOTHORITA] = 
     {  
@@ -5624,8 +5624,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Gothorita, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gothorita, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gothorita, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gothorita),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gothorita),
 }, //Gothorita,
 [SPECIES_GOTHITELLE] = 
     {  
@@ -5633,8 +5633,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Gothitelle, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gothitelle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gothitelle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gothitelle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gothitelle),
 }, //Gothitelle,
 [SPECIES_SOLOSIS] = 
     {  
@@ -5642,8 +5642,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 19),
       PIC_DATA_ICON_INDEX(Solosis, 1),
       .enemyMonElevation = 14,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Solosis, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Solosis, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Solosis),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Solosis),
 }, //Solosis,
 [SPECIES_DUOSION] = 
     {  
@@ -5651,8 +5651,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 13),
       PIC_DATA_ICON_INDEX(Duosion, 1),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Duosion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Duosion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Duosion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Duosion),
 }, //Duosion,
 [SPECIES_REUNICLUS] = 
     {  
@@ -5660,8 +5660,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 13),
       PIC_DATA_ICON_INDEX(Reuniclus, 1),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Reuniclus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Reuniclus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Reuniclus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Reuniclus),
 }, //Reuniclus,
 [SPECIES_DUCKLETT] = 
     {  
@@ -5669,8 +5669,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 10),
       PIC_DATA_ICON_INDEX(Ducklett, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ducklett, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ducklett, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ducklett),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ducklett),
 }, //Ducklett,
 [SPECIES_SWANNA] = 
     {  
@@ -5678,8 +5678,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Swanna, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swanna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swanna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swanna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swanna),
 }, //Swanna,
 [SPECIES_VANILLITE] = 
     {  
@@ -5687,8 +5687,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 9),
       PIC_DATA_ICON_INDEX(Vanillite, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vanillite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vanillite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vanillite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vanillite),
 }, //Vanillite,
 [SPECIES_VANILLISH] = 
     {  
@@ -5696,8 +5696,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 4),
       PIC_DATA_ICON_INDEX(Vanillish, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vanillish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vanillish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vanillish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vanillish),
 }, //Vanillish,
 [SPECIES_VANILLUXE] = 
     {  
@@ -5705,8 +5705,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Vanilluxe, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vanilluxe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vanilluxe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vanilluxe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vanilluxe),
 }, //Vanilluxe,
 [SPECIES_DEERLING] = 
     {  
@@ -5714,8 +5714,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 9),
       PIC_DATA_ICON_INDEX(Deerling, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deerling),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deerling),
 }, //Deerling,
 [SPECIES_SAWSBUCK] = 
     {  
@@ -5723,8 +5723,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 5),
       PIC_DATA_ICON_INDEX(Sawsbuck, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sawsbuck),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sawsbuck),
 }, //Sawsbuck,
 [SPECIES_EMOLGA] = 
     {  
@@ -5732,8 +5732,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 16),
       PIC_DATA_ICON_INDEX(Emolga, 2),
       .enemyMonElevation = 19,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Emolga, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Emolga, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Emolga),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Emolga),
 }, //Emolga,
 [SPECIES_KARRABLAST] = 
     {  
@@ -5741,8 +5741,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 14),
       PIC_DATA_ICON_INDEX(Karrablast, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Karrablast, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Karrablast, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Karrablast),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Karrablast),
 }, //Karrablast,
 [SPECIES_ESCAVALIER] = 
     {  
@@ -5750,8 +5750,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(Escavalier, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Escavalier, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Escavalier, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Escavalier),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Escavalier),
 }, //Escavalier,
 [SPECIES_FOONGUS] = 
     {  
@@ -5759,8 +5759,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 13),
       PIC_DATA_ICON_INDEX(Foongus, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Foongus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Foongus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Foongus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Foongus),
 }, //Foongus,
 [SPECIES_AMOONGUSS] = 
     {  
@@ -5768,8 +5768,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 12),
       PIC_DATA_ICON_INDEX(Amoonguss, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Amoonguss, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Amoonguss, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Amoonguss),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Amoonguss),
 }, //Amoonguss,
 [SPECIES_FRILLISH_MALE] = 
     {  
@@ -5777,8 +5777,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 7),
       PIC_DATA_ICON_INDEX(FrillishMale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Frillish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Frillish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Frillish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Frillish),
 }, //Frillish,
 [SPECIES_JELLICENT_MALE] = 
     {  
@@ -5786,8 +5786,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(JellicentMale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jellicent, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jellicent, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jellicent),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jellicent),
 }, //Jellicent,
 [SPECIES_ALOMOMOLA] = 
     {  
@@ -5795,8 +5795,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(Alomomola, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alomomola, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alomomola, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alomomola),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alomomola),
 }, //Alomomola,
 [SPECIES_JOLTIK] = 
     {  
@@ -5804,8 +5804,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 19),
       PIC_DATA_ICON_INDEX(Joltik, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Joltik, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Joltik, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Joltik),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Joltik),
 }, //Joltik,
 [SPECIES_GALVANTULA] = 
     {  
@@ -5813,8 +5813,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 18),
       PIC_DATA_ICON_INDEX(Galvantula, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Galvantula, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Galvantula, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Galvantula),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Galvantula),
 }, //Galvantula,
 [SPECIES_FERROSEED] = 
     {  
@@ -5822,8 +5822,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 15),
       PIC_DATA_ICON_INDEX(Ferroseed, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ferroseed, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ferroseed, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ferroseed),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ferroseed),
 }, //Ferroseed,
 [SPECIES_FERROTHORN] = 
     {  
@@ -5831,8 +5831,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 14),
       PIC_DATA_ICON_INDEX(Ferrothorn, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ferrothorn, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ferrothorn, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ferrothorn),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ferrothorn),
 }, //Ferrothorn,
 [SPECIES_KLINK] = 
     {  
@@ -5840,8 +5840,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 17),
       PIC_DATA_ICON_INDEX(Klink, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Klink, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Klink, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Klink),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Klink),
 }, //Klink,
 [SPECIES_KLANG] = 
     {  
@@ -5849,8 +5849,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Klang, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Klang, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Klang, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Klang),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Klang),
 }, //Klang,
 [SPECIES_KLINKLANG] = 
     {  
@@ -5858,8 +5858,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Klinklang, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Klinklang, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Klinklang, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Klinklang),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Klinklang),
 }, //Klinklang,
 [SPECIES_TYNAMO] = 
     {  
@@ -5867,8 +5867,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 21),
       PIC_DATA_ICON_INDEX(Tynamo, 0),
       .enemyMonElevation = 16,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tynamo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tynamo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tynamo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tynamo),
 }, //Tynamo,
 [SPECIES_EELEKTRIK] = 
     {  
@@ -5876,8 +5876,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 4),
       PIC_DATA_ICON_INDEX(Eelektrik, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Eelektrik, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Eelektrik, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Eelektrik),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Eelektrik),
 }, //Eelektrik,
 [SPECIES_EELEKTROSS] = 
     {  
@@ -5885,8 +5885,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Eelektross, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Eelektross, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Eelektross, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Eelektross),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Eelektross),
 }, //Eelektross,
 [SPECIES_ELGYEM] = 
     {  
@@ -5894,8 +5894,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 10),
       PIC_DATA_ICON_INDEX(Elgyem, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Elgyem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Elgyem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Elgyem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Elgyem),
 }, //Elgyem,
 [SPECIES_BEHEEYEM] = 
     {  
@@ -5903,8 +5903,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Beheeyem, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Beheeyem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Beheeyem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Beheeyem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Beheeyem),
 }, //Beheeyem,
 [SPECIES_LITWICK] = 
     {  
@@ -5912,8 +5912,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 14),
       PIC_DATA_ICON_INDEX(Litwick, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Litwick, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Litwick, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Litwick),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Litwick),
 }, //Litwick,
 [SPECIES_LAMPENT] = 
     {  
@@ -5921,8 +5921,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 12),
       PIC_DATA_ICON_INDEX(Lampent, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lampent, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lampent, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lampent),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lampent),
 }, //Lampent,
 [SPECIES_CHANDELURE] = 
     {  
@@ -5930,8 +5930,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Chandelure, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chandelure, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chandelure, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chandelure),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chandelure),
 }, //Chandelure,
 [SPECIES_AXEW] = 
     {  
@@ -5939,8 +5939,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(Axew, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Axew, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Axew, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Axew),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Axew),
 }, //Axew,
 [SPECIES_FRAXURE] = 
     {  
@@ -5948,8 +5948,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 13),
       PIC_DATA_ICON_INDEX(Fraxure, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fraxure, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fraxure, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fraxure),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fraxure),
 }, //Fraxure,
 [SPECIES_HAXORUS] = 
     {  
@@ -5957,8 +5957,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Haxorus, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Haxorus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Haxorus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Haxorus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Haxorus),
 }, //Haxorus,
 [SPECIES_CUBCHOO] = 
     {  
@@ -5966,8 +5966,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 12),
       PIC_DATA_ICON_INDEX(Cubchoo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cubchoo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cubchoo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cubchoo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cubchoo),
 }, //Cubchoo,
 [SPECIES_BEARTIC] = 
     {  
@@ -5975,8 +5975,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Beartic, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Beartic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Beartic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Beartic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Beartic),
 }, //Beartic,
 [SPECIES_CRYOGONAL] = 
     {  
@@ -5984,8 +5984,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 4),
       PIC_DATA_ICON_INDEX(Cryogonal, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cryogonal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cryogonal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cryogonal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cryogonal),
 }, //Cryogonal,
 [SPECIES_SHELMET] = 
     {  
@@ -5993,8 +5993,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 19),
       PIC_DATA_ICON_INDEX(Shelmet, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shelmet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shelmet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shelmet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shelmet),
 }, //Shelmet,
 [SPECIES_ACCELGOR] = 
     {  
@@ -6002,8 +6002,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Accelgor, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Accelgor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Accelgor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Accelgor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Accelgor),
 }, //Accelgor,
 [SPECIES_STUNFISK] = 
     {  
@@ -6011,8 +6011,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 22),
       PIC_DATA_ICON_INDEX(Stunfisk, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stunfisk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stunfisk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stunfisk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stunfisk),
 }, //Stunfisk,
 [SPECIES_MIENFOO] = 
     {  
@@ -6020,8 +6020,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(Mienfoo, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mienfoo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mienfoo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mienfoo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mienfoo),
 }, //Mienfoo,
 [SPECIES_MIENSHAO] = 
     {  
@@ -6029,8 +6029,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Mienshao, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mienshao, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mienshao, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mienshao),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mienshao),
 }, //Mienshao,
 [SPECIES_DRUDDIGON] = 
     {  
@@ -6038,8 +6038,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Druddigon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Druddigon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Druddigon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Druddigon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Druddigon),
 }, //Druddigon,
 [SPECIES_GOLETT] = 
     {  
@@ -6047,8 +6047,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Golett, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golett, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golett, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golett),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golett),
 }, //Golett,
 [SPECIES_GOLURK] = 
     {  
@@ -6056,8 +6056,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Golurk, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golurk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golurk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golurk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golurk),
 }, //Golurk,
 [SPECIES_PAWNIARD] = 
     {  
@@ -6065,8 +6065,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Pawniard, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pawniard, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pawniard, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pawniard),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pawniard),
 }, //Pawniard,
 [SPECIES_BISHARP] = 
     {  
@@ -6074,8 +6074,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Bisharp, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bisharp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bisharp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bisharp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bisharp),
 }, //Bisharp,
 [SPECIES_BOUFFALANT] = 
     {  
@@ -6083,8 +6083,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Bouffalant, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bouffalant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bouffalant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bouffalant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bouffalant),
 }, //Bouffalant,
 [SPECIES_RUFFLET] = 
     {  
@@ -6092,8 +6092,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 9),
       PIC_DATA_ICON_INDEX(Rufflet, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rufflet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rufflet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rufflet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rufflet),
 }, //Rufflet,
 [SPECIES_BRAVIARY] = 
     {  
@@ -6101,8 +6101,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Braviary, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Braviary, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Braviary, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Braviary),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Braviary),
 }, //Braviary,
 [SPECIES_VULLABY] = 
     {  
@@ -6110,8 +6110,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 14),
       PIC_DATA_ICON_INDEX(Vullaby, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vullaby, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vullaby, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vullaby),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vullaby),
 }, //Vullaby,
 [SPECIES_MANDIBUZZ] = 
     {  
@@ -6119,8 +6119,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Mandibuzz, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mandibuzz, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mandibuzz, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mandibuzz),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mandibuzz),
 }, //Mandibuzz,
 [SPECIES_HEATMOR] = 
     {  
@@ -6128,8 +6128,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 21),
       PIC_DATA_ICON_INDEX(Heatmor, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Heatmor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Heatmor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Heatmor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Heatmor),
 }, //Heatmor,
 [SPECIES_DURANT] = 
     {  
@@ -6137,8 +6137,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 17),
       PIC_DATA_ICON_INDEX(Durant, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Durant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Durant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Durant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Durant),
 }, //Durant,
 [SPECIES_DEINO] = 
     {  
@@ -6146,8 +6146,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 14),
       PIC_DATA_ICON_INDEX(Deino, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deino, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deino, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deino),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deino),
 }, //Deino,
 [SPECIES_ZWEILOUS] = 
     {  
@@ -6155,8 +6155,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(Zweilous, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zweilous, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zweilous, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zweilous),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zweilous),
 }, //Zweilous,
 [SPECIES_HYDREIGON] = 
     {  
@@ -6164,8 +6164,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 11),
       PIC_DATA_ICON_INDEX(Hydreigon, 2),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hydreigon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hydreigon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hydreigon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hydreigon),
 }, //Hydreigon,
 [SPECIES_LARVESTA] = 
     {  
@@ -6173,8 +6173,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 12),
       PIC_DATA_ICON_INDEX(Larvesta, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Larvesta, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Larvesta, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Larvesta),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Larvesta),
 }, //Larvesta,
 [SPECIES_VOLCARONA] = 
     {  
@@ -6182,8 +6182,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Volcarona, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Volcarona, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Volcarona, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Volcarona),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Volcarona),
 }, //Volcarona,
 [SPECIES_COBALION] = 
     {  
@@ -6191,8 +6191,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 6),
       PIC_DATA_ICON_INDEX(Cobalion, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cobalion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cobalion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cobalion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cobalion),
 }, //Cobalion,
 [SPECIES_TERRAKION] = 
     {  
@@ -6200,8 +6200,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Terrakion, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Terrakion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Terrakion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Terrakion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Terrakion),
 }, //Terrakion,
 [SPECIES_VIRIZION] = 
     {  
@@ -6209,8 +6209,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Virizion, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Virizion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Virizion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Virizion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Virizion),
 }, //Virizion,
 [SPECIES_TORNADUS_INCARNATE] = 
     {  
@@ -6218,8 +6218,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Tornadus, 1),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TornadusIncarnate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TornadusIncarnate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TornadusIncarnate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TornadusIncarnate),
 }, //Tornadus,
 [SPECIES_THUNDURUS_INCARNATE] = 
     {  
@@ -6227,8 +6227,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Thundurus, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ThundurusIncarnate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ThundurusIncarnate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ThundurusIncarnate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ThundurusIncarnate),
 }, //Thundurus,
 [SPECIES_RESHIRAM] = 
     {  
@@ -6236,8 +6236,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Reshiram, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Reshiram, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Reshiram, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Reshiram),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Reshiram),
 }, //Reshiram,
 [SPECIES_ZEKROM] = 
     {  
@@ -6245,8 +6245,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Zekrom, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zekrom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zekrom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zekrom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zekrom),
 }, //Zekrom,
 [SPECIES_LANDORUS_INCARNATE] = 
     {  
@@ -6254,8 +6254,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Landorus, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LandorusIncarnate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LandorusIncarnate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LandorusIncarnate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LandorusIncarnate),
 }, //Landorus,
 [SPECIES_KYUREM] = 
     {  
@@ -6263,8 +6263,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Kyurem, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kyurem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kyurem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kyurem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kyurem),
 }, //Kyurem,
 [SPECIES_KELDEO] = 
     {  
@@ -6272,8 +6272,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 4),
       PIC_DATA_ICON_INDEX(Keldeo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Keldeo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Keldeo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Keldeo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Keldeo),
 }, //Keldeo,
 [SPECIES_MELOETTA] = 
     {  
@@ -6281,8 +6281,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 7),
       PIC_DATA_ICON_INDEX(Meloetta, 4),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meloetta, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meloetta, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meloetta),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meloetta),
 }, //Meloetta,
 [SPECIES_GENESECT] = 
     {  
@@ -6290,8 +6290,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Genesect, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Genesect),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Genesect),
 }, //Genesect,
 [SPECIES_CHESPIN] = 
     {  
@@ -6299,8 +6299,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 6),
       PIC_DATA_ICON_INDEX(Chespin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chespin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chespin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chespin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chespin),
 }, //Chespin,
 [SPECIES_QUILLADIN] = 
     {  
@@ -6308,8 +6308,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Quilladin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Quilladin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Quilladin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Quilladin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Quilladin),
 }, //Quilladin,
 [SPECIES_CHESNAUGHT] = 
     {  
@@ -6317,8 +6317,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 10),
       PIC_DATA_ICON_INDEX(Chesnaught, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chesnaught, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chesnaught, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chesnaught),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chesnaught),
 }, //Chesnaught,
 [SPECIES_FENNEKIN] = 
     {  
@@ -6326,8 +6326,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(Fennekin, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fennekin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fennekin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fennekin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fennekin),
 }, //Fennekin,
 [SPECIES_BRAIXEN] = 
     {  
@@ -6335,8 +6335,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 10),
       PIC_DATA_ICON_INDEX(Braixen, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Braixen, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Braixen, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Braixen),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Braixen),
 }, //Braixen,
 [SPECIES_DELPHOX] = 
     {  
@@ -6344,8 +6344,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Delphox, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Delphox, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Delphox, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Delphox),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Delphox),
 }, //Delphox,
 [SPECIES_FROAKIE] = 
     {  
@@ -6353,8 +6353,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Froakie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Froakie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Froakie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Froakie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Froakie),
 }, //Froakie,
 [SPECIES_FROGADIER] = 
     {  
@@ -6362,8 +6362,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Frogadier, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Frogadier, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Frogadier, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Frogadier),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Frogadier),
 }, //Frogadier,
 [SPECIES_GRENINJA] = 
     {  
@@ -6371,8 +6371,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Greninja, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Greninja, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Greninja, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Greninja),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Greninja),
 }, //Greninja,
 [SPECIES_BUNNELBY] = 
     {  
@@ -6380,8 +6380,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(Bunnelby, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bunnelby, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bunnelby, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bunnelby),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bunnelby),
 }, //Bunnelby,
 [SPECIES_DIGGERSBY] = 
     {  
@@ -6389,8 +6389,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Diggersby, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Diggersby, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Diggersby, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Diggersby),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Diggersby),
 }, //Diggersby,
 [SPECIES_FLETCHLING] = 
     {  
@@ -6398,8 +6398,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 14),
       PIC_DATA_ICON_INDEX(Fletchling, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fletchling, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fletchling, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fletchling),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fletchling),
 }, //Fletchling,
 [SPECIES_FLETCHINDER] = 
     {  
@@ -6407,8 +6407,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Fletchinder, 2),
       .enemyMonElevation = 9,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fletchinder, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fletchinder, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fletchinder),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fletchinder),
 }, //Fletchinder,
 [SPECIES_TALONFLAME] = 
     {  
@@ -6416,8 +6416,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Talonflame, 2),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Talonflame, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Talonflame, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Talonflame),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Talonflame),
 }, //Talonflame,
 [SPECIES_SCATTERBUG] = 
     {  
@@ -6425,8 +6425,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 12),
       PIC_DATA_ICON_INDEX(Scatterbug, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scatterbug, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scatterbug, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scatterbug),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scatterbug),
 }, //Scatterbug,
 [SPECIES_SPEWPA] = 
     {  
@@ -6434,8 +6434,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 12),
       PIC_DATA_ICON_INDEX(Spewpa, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spewpa, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spewpa, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spewpa),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spewpa),
 }, //Spewpa,
 [SPECIES_VIVILLON_SNOW] = 
     {  
@@ -6443,8 +6443,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonSnow, 0),
       .enemyMonElevation = 9,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //Vivillon,
 [SPECIES_LITLEO] = 
     {  
@@ -6452,8 +6452,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Litleo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Litleo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Litleo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Litleo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Litleo),
 }, //Litleo,
 [SPECIES_PYROAR_MALE] = 
     {  
@@ -6461,8 +6461,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(PyroarMale, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pyroar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pyroar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pyroar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pyroar),
 }, //Pyroar,
 [SPECIES_FLABEBE] = 
     {  
@@ -6470,8 +6470,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Flabebe, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flabebe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flabebe),
 }, //Flabebe,
 [SPECIES_FLOETTE] = 
     {  
@@ -6479,8 +6479,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Floette, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floette),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floette),
 }, //Floette,
 [SPECIES_FLORGES] = 
     {  
@@ -6488,8 +6488,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Florges, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Florges),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Florges),
 }, //Florges,
 [SPECIES_SKIDDO] = 
     {  
@@ -6497,8 +6497,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(Skiddo, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skiddo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skiddo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skiddo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skiddo),
 }, //Skiddo,
 [SPECIES_GOGOAT] = 
     {  
@@ -6506,8 +6506,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(Gogoat, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gogoat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gogoat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gogoat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gogoat),
 }, //Gogoat,
 [SPECIES_PANCHAM] = 
     {  
@@ -6515,8 +6515,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 9),
       PIC_DATA_ICON_INDEX(Pancham, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pancham, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pancham, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pancham),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pancham),
 }, //Pancham,
 [SPECIES_PANGORO] = 
     {  
@@ -6524,8 +6524,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Pangoro, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pangoro, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pangoro, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pangoro),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pangoro),
 }, //Pangoro,
 [SPECIES_FURFROU] = 
     {  
@@ -6533,8 +6533,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0),
       PIC_DATA_ICON_INDEX(Furfrou, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //Furfrou,
 [SPECIES_ESPURR] = 
     {  
@@ -6542,8 +6542,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Espurr, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Espurr, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Espurr, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Espurr),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Espurr),
 }, //Espurr,
 [SPECIES_MEOWSTIC_MALE] = 
     {  
@@ -6551,8 +6551,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(MeowsticMale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meowstic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meowstic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meowstic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meowstic),
 }, //Meowstic,
 [SPECIES_HONEDGE] = 
     {  
@@ -6560,8 +6560,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 4),
       PIC_DATA_ICON_INDEX(Honedge, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Honedge, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Honedge, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Honedge),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Honedge),
 }, //Honedge,
 [SPECIES_DOUBLADE] = 
     {  
@@ -6569,8 +6569,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Doublade, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Doublade, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Doublade, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Doublade),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Doublade),
 }, //Doublade,
 [SPECIES_AEGISLASH] = 
     {  
@@ -6578,8 +6578,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Aegislash, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aegislash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aegislash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aegislash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aegislash),
 }, //Aegislash,
 [SPECIES_SPRITZEE] = 
     {  
@@ -6587,8 +6587,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(Spritzee, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spritzee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spritzee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spritzee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spritzee),
 }, //Spritzee,
 [SPECIES_AROMATISSE] = 
     {  
@@ -6596,8 +6596,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Aromatisse, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aromatisse, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aromatisse, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aromatisse),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aromatisse),
 }, //Aromatisse,
 [SPECIES_SWIRLIX] = 
     {  
@@ -6605,8 +6605,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 12),
       PIC_DATA_ICON_INDEX(Swirlix, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Swirlix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Swirlix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Swirlix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Swirlix),
 }, //Swirlix,
 [SPECIES_SLURPUFF] = 
     {  
@@ -6614,8 +6614,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Slurpuff, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slurpuff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slurpuff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slurpuff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slurpuff),
 }, //Slurpuff,
 [SPECIES_INKAY] = 
     {  
@@ -6623,8 +6623,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 9),
       PIC_DATA_ICON_INDEX(Inkay, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Inkay, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Inkay, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Inkay),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Inkay),
 }, //Inkay,
 [SPECIES_MALAMAR] = 
     {  
@@ -6632,8 +6632,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Malamar, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Malamar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Malamar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Malamar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Malamar),
 }, //Malamar,
 [SPECIES_BINACLE] = 
     {  
@@ -6641,8 +6641,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Binacle, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Binacle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Binacle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Binacle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Binacle),
 }, //Binacle,
 [SPECIES_BARBARACLE] = 
     {  
@@ -6650,8 +6650,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Barbaracle, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Barbaracle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Barbaracle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Barbaracle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Barbaracle),
 }, //Barbaracle,
 [SPECIES_SKRELP] = 
     {  
@@ -6659,8 +6659,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Skrelp, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skrelp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skrelp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skrelp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skrelp),
 }, //Skrelp,
 [SPECIES_DRAGALGE] = 
     {  
@@ -6668,8 +6668,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Dragalge, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dragalge, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dragalge, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dragalge),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dragalge),
 }, //Dragalge,
 [SPECIES_CLAUNCHER] = 
     {  
@@ -6677,8 +6677,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Clauncher, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clauncher, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clauncher, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clauncher),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clauncher),
 }, //Clauncher,
 [SPECIES_CLAWITZER] = 
     {  
@@ -6686,8 +6686,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Clawitzer, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clawitzer, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clawitzer, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clawitzer),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clawitzer),
 }, //Clawitzer,
 [SPECIES_HELIOPTILE] = 
     {  
@@ -6695,8 +6695,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Helioptile, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Helioptile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Helioptile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Helioptile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Helioptile),
 }, //Helioptile,
 [SPECIES_HELIOLISK] = 
     {  
@@ -6704,8 +6704,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(Heliolisk, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Heliolisk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Heliolisk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Heliolisk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Heliolisk),
 }, //Heliolisk,
 [SPECIES_TYRUNT] = 
     {  
@@ -6713,8 +6713,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Tyrunt, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tyrunt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tyrunt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tyrunt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tyrunt),
 }, //Tyrunt,
 [SPECIES_TYRANTRUM] = 
     {  
@@ -6722,8 +6722,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 11),
       PIC_DATA_ICON_INDEX(Tyrantrum, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tyrantrum, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tyrantrum, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tyrantrum),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tyrantrum),
 }, //Tyrantrum,
 [SPECIES_AMAURA] = 
     {  
@@ -6731,8 +6731,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x58, 3),
       PIC_DATA_ICON_INDEX(Amaura, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Amaura, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Amaura, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Amaura),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Amaura),
 }, //Amaura,
 [SPECIES_AURORUS] = 
     {  
@@ -6740,8 +6740,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Aurorus, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aurorus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aurorus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aurorus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aurorus),
 }, //Aurorus,
 [SPECIES_SYLVEON] = 
     {  
@@ -6749,8 +6749,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Sylveon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sylveon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sylveon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sylveon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sylveon),
 }, //Sylveon,
 [SPECIES_HAWLUCHA] = 
     {  
@@ -6758,8 +6758,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Hawlucha, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hawlucha, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hawlucha, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hawlucha),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hawlucha),
 }, //Hawlucha,
 [SPECIES_DEDENNE] = 
     {  
@@ -6767,8 +6767,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 12),
       PIC_DATA_ICON_INDEX(Dedenne, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dedenne, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dedenne, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dedenne),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dedenne),
 }, //Dedenne,
 [SPECIES_CARBINK] = 
     {  
@@ -6776,8 +6776,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Carbink, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Carbink, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Carbink, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Carbink),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Carbink),
 }, //Carbink,
 [SPECIES_GOOMY] = 
     {  
@@ -6785,8 +6785,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 9),
       PIC_DATA_ICON_INDEX(Goomy, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Goomy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Goomy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Goomy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Goomy),
 }, //Goomy,
 [SPECIES_SLIGGOO] = 
     {  
@@ -6794,8 +6794,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(Sliggoo, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sliggoo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sliggoo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sliggoo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sliggoo),
 }, //Sliggoo,
 [SPECIES_GOODRA] = 
     {  
@@ -6803,8 +6803,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Goodra, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Goodra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Goodra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Goodra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Goodra),
 }, //Goodra,
 [SPECIES_KLEFKI] = 
     {  
@@ -6812,8 +6812,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 8),
       PIC_DATA_ICON_INDEX(Klefki, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO_UNCOMP(60, 0, 0, (struct WaveData *) Cry_Klefki, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE_UNCOMP(60, 0, 0, (struct WaveData *) Cry_Klefki, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO_UNCOMP(Cry_Klefki),
+      .cryData_Reverse = CRY_INFO_REVERSE_UNCOMP(Cry_Klefki),
 }, //Klefki,
 [SPECIES_PHANTUMP] = 
     {  
@@ -6821,8 +6821,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(Phantump, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Phantump, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Phantump, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Phantump),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Phantump),
 }, //Phantump,
 [SPECIES_TREVENANT] = 
     {  
@@ -6830,8 +6830,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Trevenant, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Trevenant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Trevenant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Trevenant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Trevenant),
 }, //Trevenant,
 [SPECIES_PUMPKABOO_AVERAGE_SIZE] = 
     {  
@@ -6842,8 +6842,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pumpkaboo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pumpkaboo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pumpkaboo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pumpkaboo),
 }, //Pumpkaboo,
 [SPECIES_GOURGEIST_AVERAGE_SIZE] = 
     {  
@@ -6854,8 +6854,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Gourgeist),
       ICON(Gourgeist, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gourgeist, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gourgeist, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gourgeist),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gourgeist),
 }, //Gourgeist,
 [SPECIES_BERGMITE] = 
     {  
@@ -6863,8 +6863,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 13),
       PIC_DATA_ICON_INDEX(Bergmite, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bergmite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bergmite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bergmite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bergmite),
 }, //Bergmite,
 [SPECIES_AVALUGG] = 
     {  
@@ -6872,8 +6872,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 12),
       PIC_DATA_ICON_INDEX(Avalugg, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Avalugg, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Avalugg, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Avalugg),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Avalugg),
 }, //Avalugg,
 [SPECIES_NOIBAT] = 
     {  
@@ -6881,8 +6881,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 7),
       PIC_DATA_ICON_INDEX(Noibat, 2),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Noibat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Noibat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Noibat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Noibat),
 }, //Noibat,
 [SPECIES_NOIVERN] = 
     {  
@@ -6890,8 +6890,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Noivern, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Noivern, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Noivern, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Noivern),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Noivern),
 }, //Noivern,
 [SPECIES_XERNEAS] = 
     {  
@@ -6899,8 +6899,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Xerneas, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Xerneas, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Xerneas, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Xerneas),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Xerneas),
 }, //Xerneas,
 [SPECIES_YVELTAL] = 
     {  
@@ -6908,8 +6908,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Yveltal, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yveltal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yveltal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yveltal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yveltal),
 }, //Yveltal,
 [SPECIES_ZYGARDE_10] = 
     {  
@@ -6917,8 +6917,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 9),
       PIC_DATA_ICON_INDEX(Zygarde10, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zygarde10, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zygarde10, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zygarde10),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zygarde10),
 }, //Zygarde,
 [SPECIES_DIANCIE] = 
     {  
@@ -6926,8 +6926,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Diancie, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Diancie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Diancie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Diancie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Diancie),
 }, //Diancie,
 [SPECIES_HOOPA] = 
     {  
@@ -6935,8 +6935,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Hoopa, 0),
       .enemyMonElevation = 13,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_HoopaConfined, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_HoopaConfined, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_HoopaConfined),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_HoopaConfined),
 }, //Hoopa,
 [SPECIES_VOLCANION] = 
     {  
@@ -6944,8 +6944,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Volcanion, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Volcanion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Volcanion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Volcanion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Volcanion),
 }, //Volcanion,
 [SPECIES_ROWLET] = 
     {  
@@ -6953,8 +6953,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 15),
       PIC_DATA_ICON_INDEX(Rowlet, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rowlet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rowlet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rowlet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rowlet),
 }, //Rowlet,
 [SPECIES_DARTRIX] = 
     {  
@@ -6962,8 +6962,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 4),
       PIC_DATA_ICON_INDEX(Dartrix, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dartrix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dartrix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dartrix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dartrix),
 }, //Dartrix,
 [SPECIES_DECIDUEYE] = 
     {  
@@ -6971,8 +6971,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(Decidueye, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Decidueye, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Decidueye, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Decidueye),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Decidueye),
 }, //Decidueye,
 [SPECIES_LITTEN] = 
     {  
@@ -6980,8 +6980,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Litten, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Litten, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Litten, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Litten),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Litten),
 }, //Litten,
 [SPECIES_TORRACAT] = 
     {  
@@ -6989,8 +6989,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Torracat, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Torracat, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Torracat, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Torracat),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Torracat),
 }, //Torracat,
 [SPECIES_INCINEROAR] = 
     {  
@@ -6998,8 +6998,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Incineroar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Incineroar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Incineroar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Incineroar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Incineroar),
 }, //Incineroar,
 [SPECIES_POPPLIO] = 
     {  
@@ -7007,8 +7007,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 11),
       PIC_DATA_ICON_INDEX(Popplio, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Popplio, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Popplio, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Popplio),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Popplio),
 }, //Popplio,
 [SPECIES_BRIONNE] = 
     {  
@@ -7016,8 +7016,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 9),
       PIC_DATA_ICON_INDEX(Brionne, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Brionne, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Brionne, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Brionne),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Brionne),
 }, //Brionne,
 [SPECIES_PRIMARINA] = 
     {  
@@ -7025,8 +7025,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Primarina, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Primarina, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Primarina, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Primarina),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Primarina),
 }, //Primarina,
 [SPECIES_PIKIPEK] = 
     {  
@@ -7034,8 +7034,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 8),
       PIC_DATA_ICON_INDEX(Pikipek, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikipek, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikipek, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikipek),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikipek),
 }, //Pikipek,
 [SPECIES_TRUMBEAK] = 
     {  
@@ -7043,8 +7043,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Trumbeak, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Trumbeak, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Trumbeak, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Trumbeak),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Trumbeak),
 }, //Trumbeak,
 [SPECIES_TOUCANNON] = 
     {  
@@ -7052,8 +7052,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Toucannon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Toucannon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Toucannon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Toucannon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Toucannon),
 }, //Toucannon,
 [SPECIES_YUNGOOS] = 
     {  
@@ -7061,8 +7061,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 14),
       PIC_DATA_ICON_INDEX(Yungoos, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yungoos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yungoos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yungoos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yungoos),
 }, //Yungoos,
 [SPECIES_GUMSHOOS] = 
     {  
@@ -7070,8 +7070,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 7),
       PIC_DATA_ICON_INDEX(Gumshoos, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gumshoos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gumshoos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gumshoos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gumshoos),
 }, //Gumshoos,
 [SPECIES_GRUBBIN] = 
     {  
@@ -7079,8 +7079,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 16),
       PIC_DATA_ICON_INDEX(Grubbin, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grubbin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grubbin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grubbin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grubbin),
 }, //Grubbin,
 [SPECIES_CHARJABUG] = 
     {  
@@ -7088,8 +7088,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 15),
       PIC_DATA_ICON_INDEX(Charjabug, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Charjabug, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Charjabug, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Charjabug),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Charjabug),
 }, //Charjabug,
 [SPECIES_VIKAVOLT] = 
     {  
@@ -7097,8 +7097,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Vikavolt, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vikavolt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vikavolt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vikavolt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vikavolt),
 }, //Vikavolt,
 [SPECIES_CRABRAWLER] = 
     {  
@@ -7106,8 +7106,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Crabrawler, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Crabrawler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Crabrawler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Crabrawler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Crabrawler),
 }, //Crabrawler,
 [SPECIES_CRABOMINABLE] = 
     {  
@@ -7115,8 +7115,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Crabominable, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Crabominable, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Crabominable, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Crabominable),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Crabominable),
 }, //Crabominable,
 [SPECIES_ORICORIO_BAILE] = 
     {  
@@ -7124,8 +7124,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(OricorioBaile, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_OricorioBaile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_OricorioBaile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_OricorioBaile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_OricorioBaile),
 }, //Oricorio_Baile,
 [SPECIES_CUTIEFLY] = 
     {  
@@ -7133,8 +7133,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 15),
       PIC_DATA_ICON_INDEX(Cutiefly, 2),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cutiefly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cutiefly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cutiefly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cutiefly),
 }, //Cutiefly,
 [SPECIES_RIBOMBEE] = 
     {  
@@ -7142,8 +7142,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(Ribombee, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ribombee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ribombee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ribombee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ribombee),
 }, //Ribombee,
 [SPECIES_ROCKRUFF] = 
     {  
@@ -7151,8 +7151,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Rockruff, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rockruff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rockruff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rockruff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rockruff),
 }, //Rockruff,
 [SPECIES_LYCANROC_MIDDAY] = 
     {  
@@ -7160,8 +7160,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(LycanrocMidday, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LycanrocMidday, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LycanrocMidday, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LycanrocMidday),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LycanrocMidday),
 }, //Lycanroc,
 [SPECIES_WISHIWASHI_SOLO] = 
     {  
@@ -7169,8 +7169,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x74, 18),
       PIC_DATA_ICON_INDEX(Wishiwashi, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_WishiwashiSolo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_WishiwashiSolo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_WishiwashiSolo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_WishiwashiSolo),
 }, //Wishiwashi,
 [SPECIES_MAREANIE] = 
     {  
@@ -7178,8 +7178,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 15),
       PIC_DATA_ICON_INDEX(Mareanie, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mareanie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mareanie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mareanie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mareanie),
 }, //Mareanie,
 [SPECIES_TOXAPEX] = 
     {  
@@ -7187,8 +7187,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Toxapex, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Toxapex, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Toxapex, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Toxapex),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Toxapex),
 }, //Toxapex,
 [SPECIES_MUDBRAY] = 
     {  
@@ -7196,8 +7196,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Mudbray, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mudbray, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mudbray, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mudbray),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mudbray),
 }, //Mudbray,
 [SPECIES_MUDSDALE] = 
     {  
@@ -7205,8 +7205,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Mudsdale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mudsdale, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mudsdale, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mudsdale),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mudsdale),
 }, //Mudsdale,
 [SPECIES_DEWPIDER] = 
     {  
@@ -7214,8 +7214,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 8),
       PIC_DATA_ICON_INDEX(Dewpider, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dewpider, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dewpider, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dewpider),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dewpider),
 }, //Dewpider,
 [SPECIES_ARAQUANID] = 
     {  
@@ -7223,8 +7223,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 12),
       PIC_DATA_ICON_INDEX(Araquanid, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Araquanid, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Araquanid, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Araquanid),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Araquanid),
 }, //Araquanid,
 [SPECIES_FOMANTIS] = 
     {  
@@ -7232,8 +7232,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 5),
       PIC_DATA_ICON_INDEX(Fomantis, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fomantis, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fomantis, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fomantis),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fomantis),
 }, //Fomantis,
 [SPECIES_LURANTIS] = 
     {  
@@ -7241,8 +7241,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 1),
       PIC_DATA_ICON_INDEX(Lurantis, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lurantis, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lurantis, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lurantis),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lurantis),
 }, //Lurantis,
 [SPECIES_MORELULL] = 
     {  
@@ -7250,8 +7250,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 9),
       PIC_DATA_ICON_INDEX(Morelull, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Morelull, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Morelull, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Morelull),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Morelull),
 }, //Morelull,
 [SPECIES_SHIINOTIC] = 
     {  
@@ -7259,8 +7259,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Shiinotic, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shiinotic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shiinotic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shiinotic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shiinotic),
 }, //Shiinotic,
 [SPECIES_SALANDIT] = 
     {  
@@ -7268,8 +7268,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 12),
       PIC_DATA_ICON_INDEX(Salandit, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Salandit, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Salandit, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Salandit),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Salandit),
 }, //Salandit,
 [SPECIES_SALAZZLE] = 
     {  
@@ -7277,8 +7277,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 3),
       PIC_DATA_ICON_INDEX(Salazzle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Salazzle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Salazzle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Salazzle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Salazzle),
 }, //Salazzle,
 [SPECIES_STUFFUL] = 
     {  
@@ -7286,8 +7286,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 12),
       PIC_DATA_ICON_INDEX(Stufful, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stufful, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stufful, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stufful),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stufful),
 }, //Stufful,
 [SPECIES_BEWEAR] = 
     {  
@@ -7295,8 +7295,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Bewear, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bewear, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bewear, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bewear),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bewear),
 }, //Bewear,
 [SPECIES_BOUNSWEET] = 
     {  
@@ -7304,8 +7304,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 14),
       PIC_DATA_ICON_INDEX(Bounsweet, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bounsweet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bounsweet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bounsweet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bounsweet),
 }, //Bounsweet,
 [SPECIES_STEENEE] = 
     {  
@@ -7313,8 +7313,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 8),
       PIC_DATA_ICON_INDEX(Steenee, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Steenee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Steenee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Steenee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Steenee),
 }, //Steenee,
 [SPECIES_TSAREENA] = 
     {  
@@ -7322,8 +7322,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Tsareena, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tsareena, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tsareena, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tsareena),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tsareena),
 }, //Tsareena,
 [SPECIES_COMFEY] = 
     {  
@@ -7331,8 +7331,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 11),
       PIC_DATA_ICON_INDEX(Comfey, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Comfey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Comfey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Comfey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Comfey),
 }, //Comfey,
 [SPECIES_ORANGURU] = 
     {  
@@ -7340,8 +7340,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 12),
       PIC_DATA_ICON_INDEX(Oranguru, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Oranguru, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Oranguru, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Oranguru),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Oranguru),
 }, //Oranguru,
 [SPECIES_PASSIMIAN] = 
     {  
@@ -7349,8 +7349,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Passimian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Passimian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Passimian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Passimian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Passimian),
 }, //Passimian,
 [SPECIES_WIMPOD] = 
     {  
@@ -7358,8 +7358,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Wimpod, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wimpod, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wimpod, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wimpod),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wimpod),
 }, //Wimpod,
 [SPECIES_GOLISOPOD] = 
     {  
@@ -7367,8 +7367,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Golisopod, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golisopod, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golisopod, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golisopod),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golisopod),
 }, //Golisopod,
 [SPECIES_SANDYGAST] = 
     {  
@@ -7376,8 +7376,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 11),
       PIC_DATA_ICON_INDEX(Sandygast, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandygast, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandygast, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandygast),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandygast),
 }, //Sandygast,
 [SPECIES_PALOSSAND] = 
     {  
@@ -7385,8 +7385,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Palossand, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Palossand, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Palossand, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Palossand),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Palossand),
 }, //Palossand,
 [SPECIES_PYUKUMUKU] = 
     {  
@@ -7394,8 +7394,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 16),
       PIC_DATA_ICON_INDEX(Pyukumuku, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pyukumuku, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pyukumuku, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pyukumuku),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pyukumuku),
 }, //Pyukumuku,
 [SPECIES_TYPE_NULL] = 
     {  
@@ -7403,8 +7403,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 1),
       PIC_DATA_ICON_INDEX(TypeNull, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TypeNull, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TypeNull, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TypeNull),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TypeNull),
 }, //TypeNull,
 [SPECIES_SILVALLY] = 
     {  
@@ -7412,8 +7412,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0),
       PIC_DATA_ICON_INDEX(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_MINIOR] = 
     {  
@@ -7421,8 +7421,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 17,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_KOMALA] = 
     {  
@@ -7430,8 +7430,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Komala, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Komala, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Komala, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Komala),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Komala),
 }, //Komala,
 [SPECIES_TURTONATOR] = 
     {  
@@ -7439,8 +7439,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(Turtonator, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Turtonator, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Turtonator, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Turtonator),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Turtonator),
 }, //Turtonator,
 [SPECIES_TOGEDEMARU] = 
     {  
@@ -7448,8 +7448,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 13),
       PIC_DATA_ICON_INDEX(Togedemaru, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Togedemaru, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Togedemaru, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Togedemaru),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Togedemaru),
 }, //Togedemaru,
 [SPECIES_MIMIKYU] = 
     {  
@@ -7457,8 +7457,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(Mimikyu, 3),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mimikyu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mimikyu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mimikyu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mimikyu),
 }, //Mimikyu,
 [SPECIES_BRUXISH] = 
     {  
@@ -7466,8 +7466,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 14),
       PIC_DATA_ICON_INDEX(Bruxish, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bruxish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bruxish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bruxish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bruxish),
 }, //Bruxish,
 [SPECIES_DRAMPA] = 
     {  
@@ -7475,8 +7475,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Drampa, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drampa, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drampa, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drampa),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drampa),
 }, //Drampa,
 [SPECIES_DHELMISE] = 
     {  
@@ -7484,8 +7484,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Dhelmise, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dhelmise, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dhelmise, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dhelmise),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dhelmise),
 }, //Dhelmise,
 [SPECIES_JANGMO_O] = 
     {  
@@ -7493,8 +7493,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 7),
       PIC_DATA_ICON_INDEX(JangmoO, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_JangmoO, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_JangmoO, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_JangmoO),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_JangmoO),
 }, //Jangmoo,
 [SPECIES_HAKAMO_O] = 
     {  
@@ -7502,8 +7502,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 5),
       PIC_DATA_ICON_INDEX(HakamoO, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_HakamoO, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_HakamoO, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_HakamoO),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_HakamoO),
 }, //Hakamoo,
 [SPECIES_KOMMO_O] = 
     {  
@@ -7511,8 +7511,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(KommoO, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_KommoO, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_KommoO, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_KommoO),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_KommoO),
 }, //Kommoo,
 [SPECIES_TAPU_KOKO] = 
     {  
@@ -7520,8 +7520,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(TapuKoko, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TapuKoko, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TapuKoko, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TapuKoko),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TapuKoko),
 }, //TapuKoko,
 [SPECIES_TAPU_LELE] = 
     {  
@@ -7529,8 +7529,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(TapuLele, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TapuLele, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TapuLele, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TapuLele),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TapuLele),
 }, //TapuLele,
 [SPECIES_TAPU_BULU] = 
     {  
@@ -7538,8 +7538,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(TapuBulu, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TapuBulu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TapuBulu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TapuBulu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TapuBulu),
 }, //TapuBulu,
 [SPECIES_TAPU_FINI] = 
     {  
@@ -7547,8 +7547,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(TapuFini, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TapuFini, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TapuFini, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TapuFini),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TapuFini),
 }, //TapuFini,
 [SPECIES_COSMOG] = 
     {  
@@ -7556,8 +7556,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Cosmog, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cosmog, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cosmog, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cosmog),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cosmog),
 }, //Cosmog,
 [SPECIES_COSMOEM] = 
     {  
@@ -7565,8 +7565,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 17),
       PIC_DATA_ICON_INDEX(Cosmoem, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cosmoem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cosmoem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cosmoem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cosmoem),
 }, //Cosmoem,
 [SPECIES_SOLGALEO] = 
     {  
@@ -7574,8 +7574,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Solgaleo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Solgaleo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Solgaleo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Solgaleo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Solgaleo),
 }, //Solgaleo,
 [SPECIES_LUNALA] = 
     {  
@@ -7583,8 +7583,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Lunala, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lunala, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lunala, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lunala),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lunala),
 }, //Lunala,
 [SPECIES_NIHILEGO] = 
     {  
@@ -7592,8 +7592,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Nihilego, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nihilego, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nihilego, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nihilego),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nihilego),
 }, //Nihilego,
 [SPECIES_BUZZWOLE] = 
     {  
@@ -7601,8 +7601,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 14),
       PIC_DATA_ICON_INDEX(Buzzwole, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Buzzwole, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Buzzwole, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Buzzwole),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Buzzwole),
 }, //Buzzwole,
 [SPECIES_PHEROMOSA] = 
     {  
@@ -7610,8 +7610,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Pheromosa, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pheromosa, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pheromosa, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pheromosa),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pheromosa),
 }, //Pheromosa,
 [SPECIES_XURKITREE] = 
     {  
@@ -7619,8 +7619,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Xurkitree, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Xurkitree, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Xurkitree, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Xurkitree),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Xurkitree),
 }, //Xurkitree,
 [SPECIES_CELESTEELA] = 
     {  
@@ -7628,8 +7628,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Celesteela, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Celesteela, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Celesteela, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Celesteela),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Celesteela),
 }, //Celesteela,
 [SPECIES_KARTANA] = 
     {  
@@ -7637,8 +7637,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Kartana, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kartana, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kartana, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kartana),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kartana),
 }, //Kartana,
 [SPECIES_GUZZLORD] = 
     {  
@@ -7646,8 +7646,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 10),
       PIC_DATA_ICON_INDEX(Guzzlord, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Guzzlord, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Guzzlord, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Guzzlord),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Guzzlord),
 }, //Guzzlord,
 [SPECIES_NECROZMA] = 
     {  
@@ -7655,8 +7655,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Necrozma, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Necrozma, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Necrozma, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Necrozma),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Necrozma),
 }, //Necrozma,
 [SPECIES_MAGEARNA] = 
     {  
@@ -7664,8 +7664,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Magearna, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magearna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magearna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magearna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magearna),
 }, //Magearna,
 [SPECIES_MARSHADOW] = 
     {  
@@ -7673,8 +7673,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 6),
       PIC_DATA_ICON_INDEX(Marshadow, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Marshadow, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Marshadow, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Marshadow),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Marshadow),
 }, //Marshadow,
 [SPECIES_POIPOLE] = 
     {  
@@ -7682,8 +7682,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 6),
       PIC_DATA_ICON_INDEX(Poipole, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poipole, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poipole, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poipole),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poipole),
 }, //Poipole,
 [SPECIES_NAGANADEL] = 
     {  
@@ -7691,8 +7691,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Naganadel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Naganadel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Naganadel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Naganadel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Naganadel),
 }, //Naganadel,
 [SPECIES_STAKATAKA] = 
     {  
@@ -7700,8 +7700,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 12),
       PIC_DATA_ICON_INDEX(Stakataka, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stakataka, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stakataka, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stakataka),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stakataka),
 }, //Stakataka,
 [SPECIES_BLACEPHALON] = 
     {  
@@ -7709,8 +7709,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Blacephalon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Blacephalon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Blacephalon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Blacephalon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Blacephalon),
 }, //Blacephalon,
 [SPECIES_ZERAORA] = 
     {  
@@ -7718,8 +7718,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 11),
       PIC_DATA_ICON_INDEX(Zeraora, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zeraora, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zeraora, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zeraora),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zeraora),
 }, //Zeraora,
 [SPECIES_MELTAN] = 
     {  
@@ -7727,8 +7727,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 12),
       PIC_DATA_ICON_INDEX(Meltan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meltan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meltan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meltan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meltan),
 }, //Meltan,
 [SPECIES_MELMETAL] = 
     {  
@@ -7736,8 +7736,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Melmetal, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Melmetal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Melmetal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Melmetal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Melmetal),
 }, //Melmetal,
 [SPECIES_GROOKEY] = 
     {  
@@ -7745,8 +7745,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(Grookey, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grookey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grookey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grookey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grookey),
 }, //Grookey,
 [SPECIES_THWACKEY] = 
     {  
@@ -7754,8 +7754,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 5),
       PIC_DATA_ICON_INDEX(Thwackey, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Thwackey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Thwackey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Thwackey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Thwackey),
 }, //Thwackey,
 [SPECIES_RILLABOOM] = 
     {  
@@ -7763,8 +7763,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Rillaboom, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rillaboom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rillaboom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rillaboom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rillaboom),
 }, //Rillaboom,
 [SPECIES_SCORBUNNY] = 
     {  
@@ -7772,8 +7772,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 4),
       PIC_DATA_ICON_INDEX(Scorbunny, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scorbunny, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scorbunny, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scorbunny),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scorbunny),
 }, //Scorbunny,
 [SPECIES_RABOOT] = 
     {  
@@ -7781,8 +7781,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 6),
       PIC_DATA_ICON_INDEX(Raboot, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Raboot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Raboot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Raboot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Raboot),
 }, //Raboot,
 [SPECIES_CINDERACE] = 
     {  
@@ -7790,8 +7790,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 4),
       PIC_DATA_ICON_INDEX(Cinderace, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cinderace, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cinderace, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cinderace),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cinderace),
 }, //Cinderace,
 [SPECIES_SOBBLE] = 
     {  
@@ -7799,8 +7799,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 8),
       PIC_DATA_ICON_INDEX(Sobble, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sobble, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sobble, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sobble),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sobble),
 }, //Sobble,
 [SPECIES_DRIZZILE] = 
     {  
@@ -7808,8 +7808,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Drizzile, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drizzile, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drizzile, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drizzile),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drizzile),
 }, //Drizzile,
 [SPECIES_INTELEON] = 
     {  
@@ -7817,8 +7817,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Inteleon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Inteleon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Inteleon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Inteleon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Inteleon),
 }, //Inteleon,
 [SPECIES_SKWOVET] = 
     {  
@@ -7826,8 +7826,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Skwovet, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skwovet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skwovet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skwovet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skwovet),
 }, //Skwovet,
 [SPECIES_GREEDENT] = 
     {  
@@ -7835,8 +7835,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Greedent, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Greedent, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Greedent, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Greedent),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Greedent),
 }, //Greedent,
 [SPECIES_ROOKIDEE] = 
     {  
@@ -7844,8 +7844,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 17),
       PIC_DATA_ICON_INDEX(Rookidee, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rookidee, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rookidee, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rookidee),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rookidee),
 }, //Rookidee,
 [SPECIES_CORVISQUIRE] = 
     {  
@@ -7853,8 +7853,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Corvisquire, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Corvisquire, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Corvisquire, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Corvisquire),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Corvisquire),
 }, //Corvisquire,
 [SPECIES_CORVIKNIGHT] = 
     {  
@@ -7862,8 +7862,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Corviknight, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Corviknight, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Corviknight, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Corviknight),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Corviknight),
 }, //Corviknight,
 [SPECIES_BLIPBUG] = 
     {  
@@ -7871,8 +7871,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 7),
       PIC_DATA_ICON_INDEX(Blipbug, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Blipbug, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Blipbug, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Blipbug),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Blipbug),
 }, //Blipbug,
 [SPECIES_DOTTLER] = 
     {  
@@ -7880,8 +7880,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x74, 17),
       PIC_DATA_ICON_INDEX(Dottler, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dottler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dottler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dottler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dottler),
 }, //Dottler,
 [SPECIES_ORBEETLE] = 
     {  
@@ -7889,8 +7889,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Orbeetle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Orbeetle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Orbeetle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Orbeetle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Orbeetle),
 }, //Orbeetle,
 [SPECIES_NICKIT] = 
     {  
@@ -7898,8 +7898,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Nickit, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nickit, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nickit, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nickit),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nickit),
 }, //Nickit,
 [SPECIES_THIEVUL] = 
     {  
@@ -7907,8 +7907,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(Thievul, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Thievul, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Thievul, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Thievul),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Thievul),
 }, //Thievul,
 [SPECIES_GOSSIFLEUR] = 
     {  
@@ -7916,8 +7916,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 15),
       PIC_DATA_ICON_INDEX(Gossifleur, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gossifleur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gossifleur, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gossifleur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gossifleur),
 }, //Gossifleur,
 [SPECIES_ELDEGOSS] = 
     {  
@@ -7925,8 +7925,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 15),
       PIC_DATA_ICON_INDEX(Eldegoss, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Eldegoss, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Eldegoss, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Eldegoss),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Eldegoss),
 }, //Eldegoss,
 [SPECIES_WOOLOO] = 
     {  
@@ -7934,8 +7934,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x74, 18),
       PIC_DATA_ICON_INDEX(Wooloo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wooloo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wooloo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wooloo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wooloo),
 }, //Wooloo,
 [SPECIES_DUBWOOL] = 
     {  
@@ -7943,8 +7943,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Dubwool, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dubwool, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dubwool, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dubwool),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dubwool),
 }, //Dubwool,
 [SPECIES_CHEWTLE] = 
     {  
@@ -7952,8 +7952,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 8),
       PIC_DATA_ICON_INDEX(Chewtle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Chewtle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Chewtle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Chewtle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Chewtle),
 }, //Chewtle,
 [SPECIES_DREDNAW] = 
     {  
@@ -7961,8 +7961,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 18),
       PIC_DATA_ICON_INDEX(Drednaw, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drednaw, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drednaw, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drednaw),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drednaw),
 }, //Drednaw,
 [SPECIES_YAMPER] = 
     {  
@@ -7970,8 +7970,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 13),
       PIC_DATA_ICON_INDEX(Yamper, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yamper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yamper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yamper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yamper),
 }, //Yamper,
 [SPECIES_BOLTUND] = 
     {  
@@ -7979,8 +7979,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Boltund, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Boltund, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Boltund, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Boltund),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Boltund),
 }, //Boltund,
 [SPECIES_ROLYCOLY] = 
     {  
@@ -7988,8 +7988,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 17),
       PIC_DATA_ICON_INDEX(Rolycoly, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rolycoly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rolycoly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rolycoly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rolycoly),
 }, //Rolycoly,
 [SPECIES_CARKOL] = 
     {  
@@ -7997,8 +7997,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Carkol, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Carkol, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Carkol, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Carkol),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Carkol),
 }, //Carkol,
 [SPECIES_COALOSSAL] = 
     {  
@@ -8006,8 +8006,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Coalossal, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Coalossal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Coalossal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Coalossal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Coalossal),
 }, //Coalossal,
 [SPECIES_APPLIN] = 
     {  
@@ -8015,8 +8015,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x56, 15),
       PIC_DATA_ICON_INDEX(Applin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Applin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Applin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Applin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Applin),
 }, //Applin,
 [SPECIES_FLAPPLE] = 
     {  
@@ -8024,8 +8024,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(Flapple, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flapple, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flapple, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flapple),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flapple),
 }, //Flapple,
 [SPECIES_APPLETUN] = 
     {  
@@ -8033,8 +8033,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 11),
       PIC_DATA_ICON_INDEX(Appletun, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Appletun, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Appletun, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Appletun),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Appletun),
 }, //Appletun,
 [SPECIES_SILICOBRA] = 
     {  
@@ -8042,8 +8042,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 10),
       PIC_DATA_ICON_INDEX(Silicobra, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silicobra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silicobra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silicobra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silicobra),
 }, //Silicobra,
 [SPECIES_SANDACONDA] = 
     {  
@@ -8051,8 +8051,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Sandaconda, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandaconda, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandaconda, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandaconda),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandaconda),
 }, //Sandaconda,
 [SPECIES_CRAMORANT] = 
     {  
@@ -8060,8 +8060,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 1),
       PIC_DATA_ICON_INDEX(Cramorant, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cramorant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cramorant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cramorant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cramorant),
 }, //Cramorant,
 [SPECIES_ARROKUDA] = 
     {  
@@ -8069,8 +8069,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 15),
       PIC_DATA_ICON_INDEX(Arrokuda, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arrokuda, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arrokuda, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arrokuda),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arrokuda),
 }, //Arrokuda,
 [SPECIES_BARRASKEWDA] = 
     {  
@@ -8078,8 +8078,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Barraskewda, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Barraskewda, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Barraskewda, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Barraskewda),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Barraskewda),
 }, //Barraskewda,
 [SPECIES_TOXEL] = 
     {  
@@ -8087,8 +8087,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(Toxel, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Toxel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Toxel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Toxel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Toxel),
 }, //Toxel,
 [SPECIES_TOXTRICITY_AMPED] = 
     {  
@@ -8096,8 +8096,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 0),
       PIC_DATA_ICON_INDEX(Toxtricity, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ToxtricityAmped, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ToxtricityAmped, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ToxtricityAmped),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ToxtricityAmped),
 }, //Toxtricity,
 [SPECIES_SIZZLIPEDE] = 
     {  
@@ -8105,8 +8105,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 16),
       PIC_DATA_ICON_INDEX(Sizzlipede, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sizzlipede, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sizzlipede, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sizzlipede),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sizzlipede),
 }, //Sizzlipede,
 [SPECIES_CENTISKORCH] = 
     {  
@@ -8114,8 +8114,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(Centiskorch, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Centiskorch, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Centiskorch, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Centiskorch),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Centiskorch),
 }, //Centiskorch,
 [SPECIES_CLOBBOPUS] = 
     {  
@@ -8123,8 +8123,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 14),
       PIC_DATA_ICON_INDEX(Clobbopus, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clobbopus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clobbopus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clobbopus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clobbopus),
 }, //Clobbopus,
 [SPECIES_GRAPPLOCT] = 
     {  
@@ -8132,8 +8132,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 5),
       PIC_DATA_ICON_INDEX(Grapploct, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grapploct, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grapploct, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grapploct),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grapploct),
 }, //Grapploct,
 [SPECIES_SINISTEA] = 
     {  
@@ -8141,8 +8141,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 16),
       PIC_DATA_ICON_INDEX(Sinistea, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sinistea, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sinistea, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sinistea),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sinistea),
 }, //Sinistea,
 [SPECIES_POLTEAGEIST] = 
     {  
@@ -8150,8 +8150,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(Polteageist, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Polteageist, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Polteageist, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Polteageist),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Polteageist),
 }, //Polteageist,
 [SPECIES_HATENNA] = 
     {  
@@ -8159,8 +8159,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 12),
       PIC_DATA_ICON_INDEX(Hatenna, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hatenna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hatenna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hatenna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hatenna),
 }, //Hatenna,
 [SPECIES_HATTREM] = 
     {  
@@ -8168,8 +8168,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(Hattrem, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hattrem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hattrem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hattrem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hattrem),
 }, //Hattrem,
 [SPECIES_HATTERENE] = 
     {  
@@ -8177,8 +8177,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(Hatterene, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hatterene, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hatterene, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hatterene),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hatterene),
 }, //Hatterene,
 [SPECIES_IMPIDIMP] = 
     {  
@@ -8186,8 +8186,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 13),
       PIC_DATA_ICON_INDEX(Impidimp, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Impidimp, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Impidimp, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Impidimp),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Impidimp),
 }, //Impidimp,
 [SPECIES_MORGREM] = 
     {  
@@ -8195,8 +8195,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(Morgrem, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Morgrem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Morgrem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Morgrem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Morgrem),
 }, //Morgrem,
 [SPECIES_GRIMMSNARL] = 
     {  
@@ -8204,8 +8204,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(Grimmsnarl, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grimmsnarl, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grimmsnarl, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grimmsnarl),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grimmsnarl),
 }, //Grimmsnarl,
 [SPECIES_OBSTAGOON] = 
     {  
@@ -8213,8 +8213,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Obstagoon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Obstagoon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Obstagoon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Obstagoon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Obstagoon),
 }, //Obstagoon,
 [SPECIES_PERRSERKER] = 
     {  
@@ -8222,8 +8222,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Perrserker, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Perrserker, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Perrserker, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Perrserker),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Perrserker),
 }, //Perrserker,
 [SPECIES_CURSOLA] = 
     {  
@@ -8231,8 +8231,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Cursola, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cursola, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cursola, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cursola),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cursola),
 }, //Cursola,
 [SPECIES_SIRFETCHD] = 
     {  
@@ -8240,8 +8240,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(Sirfetchd, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sirfetchd, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sirfetchd, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sirfetchd),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sirfetchd),
 }, //Sirfetchd,
 [SPECIES_MR_RIME] = 
     {  
@@ -8249,8 +8249,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(MrRime, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MrRime, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MrRime, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MrRime),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MrRime),
 }, //MrRime,
 [SPECIES_RUNERIGUS] = 
     {  
@@ -8258,8 +8258,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(Runerigus, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Runerigus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Runerigus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Runerigus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Runerigus),
 }, //Runerigus,
 [SPECIES_MILCERY] = 
     {  
@@ -8267,8 +8267,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 16),
       PIC_DATA_ICON_INDEX(Milcery, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Milcery, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Milcery, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Milcery),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Milcery),
 }, //Milcery,
 [SPECIES_ALCREMIE_STRAWBERRY_VANILLA_CREAM] = 
     {  
@@ -8280,8 +8280,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 [SPECIES_FALINKS] = 
     {  
@@ -8289,8 +8289,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 15),
       PIC_DATA_ICON_INDEX(Falinks, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Falinks, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Falinks, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Falinks),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Falinks),
 }, //Falinks,
 [SPECIES_PINCURCHIN] = 
     {  
@@ -8298,8 +8298,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 13),
       PIC_DATA_ICON_INDEX(Pincurchin, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pincurchin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pincurchin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pincurchin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pincurchin),
 }, //Pincurchin,
 [SPECIES_SNOM] = 
     {  
@@ -8307,8 +8307,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x64, 17),
       PIC_DATA_ICON_INDEX(Snom, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Snom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Snom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Snom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Snom),
 }, //Snom,
 [SPECIES_FROSMOTH] = 
     {  
@@ -8316,8 +8316,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Frosmoth, 0),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Frosmoth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Frosmoth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Frosmoth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Frosmoth),
 }, //Frosmoth,
 [SPECIES_STONJOURNER] = 
     {  
@@ -8325,8 +8325,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Stonjourner, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stonjourner, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stonjourner, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stonjourner),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stonjourner),
 }, //Stonjourner,
 [SPECIES_EISCUE_ICE_FACE] = 
     {  
@@ -8334,8 +8334,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(Eiscue, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EiscueIceFace, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EiscueIceFace, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EiscueIceFace),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EiscueIceFace),
 }, //Eiscue,
 [SPECIES_INDEEDEE_MALE] = 
     {  
@@ -8343,8 +8343,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(IndeedeeMale, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IndeedeeMale, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IndeedeeMale, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IndeedeeMale),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IndeedeeMale),
 }, //Indeedee,
 [SPECIES_MORPEKO_FULL_BELLY] = 
     {  
@@ -8352,8 +8352,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(Morpeko, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MorpekoFullBelly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MorpekoFullBelly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MorpekoFullBelly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MorpekoFullBelly),
 }, //Morpeko,
 [SPECIES_CUFANT] = 
     {  
@@ -8361,8 +8361,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Cufant, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cufant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cufant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cufant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cufant),
 }, //Cufant,
 [SPECIES_COPPERAJAH] = 
     {  
@@ -8370,8 +8370,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 16),
       PIC_DATA_ICON_INDEX(Copperajah, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Copperajah, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Copperajah, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Copperajah),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Copperajah),
 }, //Copperajah,
 [SPECIES_DRACOZOLT] = 
     {  
@@ -8379,8 +8379,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(Dracozolt, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dracozolt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dracozolt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dracozolt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dracozolt),
 }, //Dracozolt,
 [SPECIES_ARCTOZOLT] = 
     {  
@@ -8388,8 +8388,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(Arctozolt, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arctozolt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arctozolt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arctozolt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arctozolt),
 }, //Arctozolt,
 [SPECIES_DRACOVISH] = 
     {  
@@ -8397,8 +8397,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Dracovish, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dracovish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dracovish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dracovish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dracovish),
 }, //Dracovish,
 [SPECIES_ARCTOVISH] = 
     {  
@@ -8406,8 +8406,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Arctovish, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arctovish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arctovish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arctovish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arctovish),
 }, //Arctovish,
 [SPECIES_DURALUDON] = 
     {  
@@ -8415,8 +8415,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Duraludon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Duraludon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Duraludon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Duraludon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Duraludon),
 }, //Duraludon,
 [SPECIES_DREEPY] = 
     {  
@@ -8424,8 +8424,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 15),
       PIC_DATA_ICON_INDEX(Dreepy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dreepy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dreepy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dreepy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dreepy),
 }, //Dreepy,
 [SPECIES_DRAKLOAK] = 
     {  
@@ -8433,8 +8433,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(Drakloak, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Drakloak, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Drakloak, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Drakloak),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Drakloak),
 }, //Drakloak,
 [SPECIES_DRAGAPULT] = 
     {  
@@ -8442,8 +8442,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(Dragapult, 0),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dragapult, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dragapult, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dragapult),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dragapult),
 }, //Dragapult,
 [SPECIES_ZACIAN] = 
     {  
@@ -8451,8 +8451,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(Zacian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ZacianHeroOfManyBattles, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ZacianHeroOfManyBattles, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ZacianHeroOfManyBattles),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ZacianHeroOfManyBattles),
 }, //Zacian,
 [SPECIES_ZAMAZENTA] = 
     {  
@@ -8460,8 +8460,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Zamazenta, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ZamazentaHeroOfManyBattles, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ZamazentaHeroOfManyBattles, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ZamazentaHeroOfManyBattles),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ZamazentaHeroOfManyBattles),
 }, //Zamazenta,
 [SPECIES_ETERNATUS] = 
     {  
@@ -8469,8 +8469,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Eternatus, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Eternatus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Eternatus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Eternatus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Eternatus),
 }, //Eternatus,
 [SPECIES_KUBFU] = 
     {  
@@ -8478,8 +8478,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(Kubfu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kubfu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kubfu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kubfu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kubfu),
 }, //Kubfu,
 [SPECIES_URSHIFU_SINGLE_STRIKE_STYLE] = 
     {  
@@ -8490,8 +8490,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(UrshifuSingleStrikeStyle),
       ICON(Urshifu, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_UrshifuSingleStrikeStyle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_UrshifuSingleStrikeStyle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_UrshifuSingleStrikeStyle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_UrshifuSingleStrikeStyle),
 }, //Urshifu,
 [SPECIES_ZARUDE] = 
     {  
@@ -8499,8 +8499,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(Zarude, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zarude, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zarude, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zarude),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zarude),
 }, //Zarude,
 [SPECIES_REGIELEKI] = 
     {  
@@ -8508,8 +8508,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 11),
       PIC_DATA_ICON_INDEX(Regieleki, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Regieleki, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Regieleki, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Regieleki),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Regieleki),
 }, //Regieleki,
 [SPECIES_REGIDRAGO] = 
     {  
@@ -8517,8 +8517,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(Regidrago, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Regidrago, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Regidrago, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Regidrago),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Regidrago),
 }, //Regidrago,
 [SPECIES_GLASTRIER] = 
     {  
@@ -8526,8 +8526,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 5),
       PIC_DATA_ICON_INDEX(Glastrier, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Glastrier, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Glastrier, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Glastrier),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Glastrier),
 }, //Glastrier,
 [SPECIES_SPECTRIER] = 
     {  
@@ -8535,8 +8535,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 5),
       PIC_DATA_ICON_INDEX(Spectrier, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spectrier, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spectrier, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spectrier),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spectrier),
 }, //Spectrier,
 [SPECIES_CALYREX] = 
     {  
@@ -8544,8 +8544,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 10),
       PIC_DATA_ICON_INDEX(Calyrex, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Calyrex, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Calyrex, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Calyrex),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Calyrex),
 }, //Calyrex,
 [SPECIES_WYRDEER] = 
     {  
@@ -8553,8 +8553,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 5),
       PIC_DATA_ICON_INDEX(Wyrdeer, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wyrdeer, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wyrdeer, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wyrdeer),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wyrdeer),
 }, //Wyrdeer,
 [SPECIES_KLEAVOR] = 
     {  
@@ -8562,8 +8562,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 5),
       PIC_DATA_ICON_INDEX(Kleavor, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kleavor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kleavor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kleavor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kleavor),
 }, //Kleavor,
 [SPECIES_URSALUNA] = 
     {  
@@ -8571,8 +8571,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 14),
       PIC_DATA_ICON_INDEX(Ursaluna, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ursaluna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ursaluna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ursaluna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ursaluna),
 }, //Ursaluna,
 [SPECIES_BASCULEGION_MALE] = 
     {  
@@ -8580,8 +8580,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x72, 1),
       PIC_DATA_ICON_INDEX(BasculegionMale, 4),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Basculegion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Basculegion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Basculegion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Basculegion),
 }, //Basculegion,
 [SPECIES_SNEASLER] = 
     {  
@@ -8589,8 +8589,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 1),
       PIC_DATA_ICON_INDEX(Sneasler, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sneasler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sneasler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sneasler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sneasler),
 }, //Sneasler,
 [SPECIES_OVERQWIL] = 
     {  
@@ -8598,8 +8598,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x62, 12),
       PIC_DATA_ICON_INDEX(Overqwil, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Overqwil, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Overqwil, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Overqwil),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Overqwil),
 }, //Overqwil,
 [SPECIES_ENAMORUS_INCARNATE] = 
     {  
@@ -8607,8 +8607,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 1),
       PIC_DATA_ICON_INDEX(Enamorus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EnamorusIncarnate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EnamorusIncarnate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EnamorusIncarnate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EnamorusIncarnate),
 }, //Enamorus,
     [SPECIES_CEFIREON] = 
     {  
@@ -8616,8 +8616,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PIC_DATA_ICON_INDEX(CircledQuestionMark,0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EnamorusIncarnate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EnamorusIncarnate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EnamorusIncarnate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EnamorusIncarnate),
 }, //Enamorus,
     [SPECIES_FRAEYJTA] = 
     {  
@@ -8625,8 +8625,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,0),
       PIC_DATA_ICON_INDEX(CircledQuestionMark,0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EnamorusIncarnate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EnamorusIncarnate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EnamorusIncarnate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EnamorusIncarnate),
 }, //Enamorus,
 [SPECIES_SPRIGATITO] =
     {
@@ -8634,8 +8634,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Sprigatito, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sprigatito, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sprigatito, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sprigatito),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sprigatito),
 },
 
 [SPECIES_FLORAGATO] =
@@ -8644,8 +8644,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Floragato, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floragato, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floragato, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floragato),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floragato),
 },
 
 [SPECIES_MEOWSCARADA] =
@@ -8654,8 +8654,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Meowscarada, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meowscarada, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meowscarada, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meowscarada),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meowscarada),
 },
 
 [SPECIES_FUECOCO] =
@@ -8664,8 +8664,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Fuecoco, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fuecoco, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fuecoco, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fuecoco),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fuecoco),
 },
 
 [SPECIES_CROCALOR] =
@@ -8674,8 +8674,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Crocalor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Crocalor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Crocalor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Crocalor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Crocalor),
 },
 
 [SPECIES_SKELEDIRGE] =
@@ -8684,8 +8684,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Skeledirge, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Skeledirge, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Skeledirge, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Skeledirge),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Skeledirge),
 },
 
 [SPECIES_QUAXLY] =
@@ -8694,8 +8694,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Quaxly, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Quaxly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Quaxly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Quaxly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Quaxly),
 },
 
 [SPECIES_QUAXWELL] =
@@ -8704,8 +8704,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Quaxwell, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Quaxwell, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Quaxwell, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Quaxwell),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Quaxwell),
 },
 
 [SPECIES_QUAQUAVAL] =
@@ -8714,8 +8714,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Quaquaval, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Quaquaval, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Quaquaval, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Quaquaval),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Quaquaval),
 },
 
 [SPECIES_LECHONK] =
@@ -8724,8 +8724,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Lechonk, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lechonk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lechonk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lechonk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lechonk),
 },
 
 [SPECIES_OINKOLOGNE_MALE] =
@@ -8734,8 +8734,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(OinkologneMale, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_OinkologneMale, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_OinkologneMale, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_OinkologneMale),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_OinkologneMale),
 },
 
 [SPECIES_OINKOLOGNE_FEMALE] =
@@ -8744,8 +8744,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(OinkologneFemale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_OinkologneFemale, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_OinkologneFemale, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_OinkologneFemale),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_OinkologneFemale),
 },
 
 [SPECIES_TAROUNTULA] =
@@ -8754,8 +8754,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Tarountula, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tarountula, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tarountula, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tarountula),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tarountula),
 },
 
 [SPECIES_SPIDOPS] =
@@ -8764,8 +8764,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Spidops, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Spidops, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Spidops, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Spidops),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Spidops),
 },
 
 [SPECIES_NYMBLE] =
@@ -8774,8 +8774,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(Nymble, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nymble, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nymble, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nymble),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nymble),
 },
 
 [SPECIES_LOKIX] =
@@ -8784,8 +8784,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Lokix, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lokix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lokix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lokix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lokix),
 },
 
 [SPECIES_PAWMI] =
@@ -8794,8 +8794,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Pawmi, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pawmi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pawmi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pawmi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pawmi),
 },
 
 [SPECIES_PAWMO] =
@@ -8804,8 +8804,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Pawmo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pawmo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pawmo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pawmo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pawmo),
 },
 
 [SPECIES_PAWMOT] =
@@ -8814,8 +8814,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Pawmot, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pawmot, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pawmot, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pawmot),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pawmot),
 },
 
 [SPECIES_TANDEMAUS] =
@@ -8824,8 +8824,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 15),
       PIC_DATA_ICON_INDEX(Tandemaus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tandemaus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tandemaus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tandemaus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tandemaus),
 },
 
 [SPECIES_MAUSHOLD_FAMILY_OF_THREE] =
@@ -8837,8 +8837,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(MausholdFamilyOfThree, 0),
       PALETTES(Maushold),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MausholdFamilyOfThree, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MausholdFamilyOfThree, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MausholdFamilyOfThree),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MausholdFamilyOfThree),
 },
 [SPECIES_MAUSHOLD_FAMILY_OF_FOUR] =
     {
@@ -8849,8 +8849,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(MausholdFamilyOfFour, 0),
       PALETTES(Maushold),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MausholdFamilyOfFour, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MausholdFamilyOfFour, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MausholdFamilyOfFour),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MausholdFamilyOfFour),
 },
 
 [SPECIES_FIDOUGH] =
@@ -8859,8 +8859,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 12),
       PIC_DATA_ICON_INDEX(Fidough, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fidough, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fidough, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fidough),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fidough),
 },
 
 [SPECIES_DACHSBUN] =
@@ -8869,8 +8869,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Dachsbun, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dachsbun, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dachsbun, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dachsbun),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dachsbun),
 },
 
 [SPECIES_SMOLIV] =
@@ -8879,8 +8879,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(Smoliv, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Smoliv, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Smoliv, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Smoliv),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Smoliv),
 },
 
 [SPECIES_DOLLIV] =
@@ -8889,8 +8889,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Dolliv, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dolliv, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dolliv, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dolliv),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dolliv),
 },
 
 [SPECIES_ARBOLIVA] =
@@ -8899,8 +8899,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Arboliva, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arboliva, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arboliva, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arboliva),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arboliva),
 },
 
 [SPECIES_SQUAWKABILLY_GREEN_PLUMAGE] =
@@ -8912,8 +8912,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(SquawkabillyGreenPlumage, 1),
       PALETTES(SquawkabillyGreenPlumage),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Squawkabilly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Squawkabilly),
 },
 
 [SPECIES_SQUAWKABILLY_BLUE_PLUMAGE] =
@@ -8925,8 +8925,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(SquawkabillyBluePlumage, 0),
       PALETTES(SquawkabillyBluePlumage),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Squawkabilly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Squawkabilly),
 },
 
 [SPECIES_SQUAWKABILLY_YELLOW_PLUMAGE] =
@@ -8938,8 +8938,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(SquawkabillyYellowPlumage, 1),
       PALETTES(SquawkabillyYellowPlumage),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Squawkabilly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Squawkabilly),
 },
 
 [SPECIES_SQUAWKABILLY_WHITE_PLUMAGE] =
@@ -8951,8 +8951,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(SquawkabillyWhitePlumage, 0),
       PALETTES(SquawkabillyWhitePlumage),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Squawkabilly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Squawkabilly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Squawkabilly),
 },
 
 [SPECIES_NACLI] =
@@ -8961,8 +8961,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(Nacli, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Nacli, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Nacli, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Nacli),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Nacli),
 },
 
 [SPECIES_NACLSTACK] =
@@ -8971,8 +8971,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Naclstack, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Naclstack, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Naclstack, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Naclstack),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Naclstack),
 },
 
 [SPECIES_GARGANACL] =
@@ -8981,8 +8981,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Garganacl, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Garganacl, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Garganacl, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Garganacl),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Garganacl),
 },
 
 [SPECIES_CHARCADET] =
@@ -8991,8 +8991,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(Charcadet, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Charcadet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Charcadet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Charcadet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Charcadet),
 },//vsonic
 
 [SPECIES_ARMAROUGE] =
@@ -9001,8 +9001,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Armarouge, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Armarouge, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Armarouge, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Armarouge),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Armarouge),
 },
 
 [SPECIES_CERULEDGE] =
@@ -9011,8 +9011,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Ceruledge, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ceruledge, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ceruledge, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ceruledge),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ceruledge),
 },
 
 [SPECIES_TADBULB] =
@@ -9021,8 +9021,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Tadbulb, 0),
       .enemyMonElevation = 12,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tadbulb, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tadbulb, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tadbulb),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tadbulb),
 },
 
 [SPECIES_BELLIBOLT] =
@@ -9031,8 +9031,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(Bellibolt, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bellibolt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bellibolt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bellibolt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bellibolt),
 },
 
 [SPECIES_WATTREL] =
@@ -9041,8 +9041,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(Wattrel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wattrel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wattrel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wattrel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wattrel),
 },
 
 [SPECIES_KILOWATTREL] =
@@ -9051,8 +9051,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Kilowattrel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kilowattrel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kilowattrel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kilowattrel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kilowattrel),
 },
 
 [SPECIES_MASCHIFF] =
@@ -9061,8 +9061,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(Maschiff, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Maschiff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Maschiff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Maschiff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Maschiff),
 },
 
 [SPECIES_MABOSSTIFF] =
@@ -9071,8 +9071,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(Mabosstiff, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mabosstiff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mabosstiff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mabosstiff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mabosstiff),
 },
 
 [SPECIES_SHROODLE] =
@@ -9081,8 +9081,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 16),
       PIC_DATA_ICON_INDEX(Shroodle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shroodle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shroodle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shroodle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shroodle),
 },
 
 [SPECIES_GRAFAIAI] =
@@ -9091,8 +9091,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 12),
       PIC_DATA_ICON_INDEX(Grafaiai, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grafaiai, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grafaiai, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grafaiai),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grafaiai),
 },
 
 [SPECIES_BRAMBLIN] =
@@ -9101,8 +9101,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(Bramblin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bramblin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bramblin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bramblin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bramblin),
 },
 
 [SPECIES_BRAMBLEGHAST] =
@@ -9111,8 +9111,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Brambleghast, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Brambleghast, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Brambleghast, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Brambleghast),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Brambleghast),
 },
 
 [SPECIES_TOEDSCOOL] =
@@ -9121,8 +9121,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Toedscool, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Toedscool, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Toedscool, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Toedscool),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Toedscool),
 },
 
 [SPECIES_TOEDSCRUEL] =
@@ -9131,8 +9131,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Toedscruel, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Toedscruel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Toedscruel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Toedscruel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Toedscruel),
 },
 
 [SPECIES_KLAWF] =
@@ -9141,8 +9141,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 20),
       PIC_DATA_ICON_INDEX(Klawf, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Klawf, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Klawf, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Klawf),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Klawf),
 },
 
 [SPECIES_CAPSAKID] =
@@ -9151,8 +9151,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 12),
       PIC_DATA_ICON_INDEX(Capsakid, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Capsakid, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Capsakid, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Capsakid),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Capsakid),
 },
 
 [SPECIES_SCOVILLAIN] =
@@ -9161,8 +9161,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(Scovillain, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Scovillain, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Scovillain, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Scovillain),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Scovillain),
 },
 
 [SPECIES_RELLOR] =
@@ -9171,8 +9171,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Rellor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rellor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rellor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rellor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rellor),
 },
 
 [SPECIES_RABSCA] =
@@ -9181,8 +9181,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Rabsca, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rabsca, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rabsca, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rabsca),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rabsca),
 },
 
 [SPECIES_FLITTLE] =
@@ -9191,8 +9191,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Flittle, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flittle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flittle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flittle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flittle),
 },
 
 [SPECIES_ESPATHRA] =
@@ -9201,8 +9201,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Espathra, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Espathra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Espathra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Espathra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Espathra),
 },
 
 [SPECIES_TINKATINK] =
@@ -9211,8 +9211,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Tinkatink, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tinkatink, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tinkatink, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tinkatink),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tinkatink),
 },
 
 [SPECIES_TINKATUFF] =
@@ -9221,8 +9221,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Tinkatuff, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tinkatuff, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tinkatuff, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tinkatuff),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tinkatuff),
 },
 
 [SPECIES_TINKATON] =
@@ -9231,8 +9231,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Tinkaton, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tinkaton, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tinkaton, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tinkaton),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tinkaton),
 },
 
 [SPECIES_WIGLETT] =
@@ -9241,8 +9241,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(Wiglett, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wiglett, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wiglett, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wiglett),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wiglett),
 },
 
 [SPECIES_WUGTRIO] =
@@ -9251,8 +9251,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Wugtrio, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wugtrio, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wugtrio, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wugtrio),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wugtrio),
 },
 
 [SPECIES_BOMBIRDIER] =
@@ -9261,8 +9261,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Bombirdier, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Bombirdier, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Bombirdier, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Bombirdier),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Bombirdier),
 },
 
 [SPECIES_FINIZEN] =
@@ -9271,8 +9271,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 15),
       PIC_DATA_ICON_INDEX(Finizen, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Finizen, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Finizen, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Finizen),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Finizen),
 },
 
 [SPECIES_PALAFIN_ZERO] =
@@ -9281,8 +9281,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 15),
       PIC_DATA_ICON_INDEX(PalafinZero, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_PalafinZero, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_PalafinZero, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_PalafinZero),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_PalafinZero),
 },
 
 [SPECIES_PALAFIN_HERO] =
@@ -9291,8 +9291,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(PalafinHero, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_PalafinHero, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_PalafinHero, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_PalafinHero),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_PalafinHero),
 },
 
 [SPECIES_VAROOM] =
@@ -9301,8 +9301,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(Varoom, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Varoom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Varoom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Varoom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Varoom),
 },
 
 [SPECIES_REVAVROOM] =
@@ -9311,8 +9311,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 16),
       PIC_DATA_ICON_INDEX(Revavroom, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Revavroom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Revavroom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Revavroom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Revavroom),
 },
 
 [SPECIES_CYCLIZAR] =
@@ -9321,8 +9321,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(Cyclizar, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cyclizar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cyclizar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cyclizar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cyclizar),
 },
 
 [SPECIES_ORTHWORM] =
@@ -9331,8 +9331,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Orthworm, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Orthworm, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Orthworm, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Orthworm),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Orthworm),
 },
 
 [SPECIES_GLIMMET] =
@@ -9341,8 +9341,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(Glimmet, 0),
       .enemyMonElevation = 11,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Glimmet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Glimmet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Glimmet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Glimmet),
 },
 
 [SPECIES_GLIMMORA] =
@@ -9351,8 +9351,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Glimmora, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Glimmora, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Glimmora, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Glimmora),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Glimmora),
 },
 
 [SPECIES_GREAVARD] =
@@ -9361,8 +9361,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Greavard, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Greavard, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Greavard, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Greavard),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Greavard),
 },
 
 [SPECIES_HOUNDSTONE] =
@@ -9371,8 +9371,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Houndstone, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Houndstone, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Houndstone, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Houndstone),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Houndstone),
 },
 
 [SPECIES_FLAMIGO] =
@@ -9381,8 +9381,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(Flamigo, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flamigo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flamigo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flamigo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flamigo),
 },
 
 [SPECIES_CETODDLE] =
@@ -9391,8 +9391,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 16),
       PIC_DATA_ICON_INDEX(Cetoddle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cetoddle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cetoddle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cetoddle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cetoddle),
 },
 
 [SPECIES_CETITAN] =
@@ -9401,8 +9401,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(Cetitan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cetitan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cetitan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cetitan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cetitan),
 },
 
 [SPECIES_VELUZA] =
@@ -9411,8 +9411,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(Veluza, 1),
       .enemyMonElevation = 5,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Veluza, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Veluza, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Veluza),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Veluza),
 },
 
 [SPECIES_DONDOZO] =
@@ -9421,8 +9421,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Dondozo, 0),
       .enemyMonElevation = 1,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dondozo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dondozo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dondozo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dondozo),
 },
 
 [SPECIES_TATSUGIRI_CURLY] =
@@ -9431,8 +9431,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 17),
       PIC_DATA_ICON_INDEX(TatsugiriCurly, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TatsugiriCurly, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TatsugiriCurly, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TatsugiriCurly),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TatsugiriCurly),
 },
 
 [SPECIES_TATSUGIRI_DROOPY] =
@@ -9441,8 +9441,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 17),
       PIC_DATA_ICON_INDEX(TatsugiriDroopy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TatsugiriDroopy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TatsugiriDroopy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TatsugiriDroopy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TatsugiriDroopy),
 },
 
 [SPECIES_TATSUGIRI_STRETCHY] =
@@ -9451,8 +9451,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 17),
       PIC_DATA_ICON_INDEX(TatsugiriStretchy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TatsugiriStretchy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TatsugiriStretchy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TatsugiriStretchy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TatsugiriStretchy),
 },
 [SPECIES_ANNIHILAPE] =
     {
@@ -9460,8 +9460,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Annihilape, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Annihilape, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Annihilape, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Annihilape),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Annihilape),
 },
     
 
@@ -9471,8 +9471,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 15),
       PIC_DATA_ICON_INDEX(Clodsire, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Clodsire, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Clodsire, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Clodsire),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Clodsire),
 },
 
 [SPECIES_FARIGIRAF] =
@@ -9481,8 +9481,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Farigiraf, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Farigiraf, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Farigiraf, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Farigiraf),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Farigiraf),
 },
 
 [SPECIES_DUDUNSPARCE_TWO_SEGMENT] =
@@ -9494,8 +9494,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(Dudunsparce, 0),
       PALETTES(Dudunsparce),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dudunsparce, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dudunsparce, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dudunsparce),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dudunsparce),
 },
 
 [SPECIES_DUDUNSPARCE_THREE_SEGMENT] =
@@ -9507,8 +9507,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(Dudunsparce, 0),
       PALETTES(Dudunsparce),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dudunsparce, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dudunsparce, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dudunsparce),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dudunsparce),
 },
 
 [SPECIES_KINGAMBIT] =
@@ -9517,8 +9517,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Kingambit, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Kingambit, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Kingambit, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Kingambit),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Kingambit),
 },
 [SPECIES_GREAT_TUSK] =
     {
@@ -9526,8 +9526,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(GreatTusk, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GreatTusk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GreatTusk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GreatTusk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GreatTusk),
 },
 
 [SPECIES_SCREAM_TAIL] =
@@ -9536,8 +9536,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(ScreamTail, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ScreamTail, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ScreamTail, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ScreamTail),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ScreamTail),
 },
 
 [SPECIES_BRUTE_BONNET] =
@@ -9546,8 +9546,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(BruteBonnet, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_BruteBonnet, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_BruteBonnet, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_BruteBonnet),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_BruteBonnet),
 },
 
 [SPECIES_FLUTTER_MANE] =
@@ -9556,8 +9556,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(FlutterMane, 2),
       .enemyMonElevation = 18,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_FlutterMane, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_FlutterMane, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_FlutterMane),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_FlutterMane),
 },
 
 [SPECIES_SLITHER_WING] =
@@ -9566,8 +9566,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(SlitherWing, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SlitherWing, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SlitherWing, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SlitherWing),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SlitherWing),
 },
 
 [SPECIES_SANDY_SHOCKS] =
@@ -9576,8 +9576,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(SandyShocks, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SandyShocks, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SandyShocks, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SandyShocks),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SandyShocks),
 },
 
 [SPECIES_IRON_TREADS] =
@@ -9586,8 +9586,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(IronTreads, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronTreads, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronTreads, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronTreads),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronTreads),
 },
 
 [SPECIES_IRON_BUNDLE] =
@@ -9596,8 +9596,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(IronBundle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronBundle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronBundle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronBundle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronBundle),
 },
 
 [SPECIES_IRON_HANDS] =
@@ -9606,8 +9606,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(IronHands, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronHands, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronHands, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronHands),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronHands),
 },
 
 [SPECIES_IRON_JUGULIS] =
@@ -9616,8 +9616,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11), //back sprite not great
       PIC_DATA_ICON_INDEX(IronJugulis, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronJugulis, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronJugulis, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronJugulis),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronJugulis),
 },//vsonic
 
 [SPECIES_IRON_MOTH] =
@@ -9626,8 +9626,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(IronMoth, 3),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronMoth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronMoth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronMoth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronMoth),
 },
 
 [SPECIES_IRON_THORNS] =
@@ -9636,8 +9636,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(IronThorns,1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronThorns, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronThorns, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronThorns),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronThorns),
 },
 
 [SPECIES_FRIGIBAX] =
@@ -9646,8 +9646,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 11),
       PIC_DATA_ICON_INDEX(Frigibax, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Frigibax, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Frigibax, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Frigibax),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Frigibax),
 },
 
 [SPECIES_ARCTIBAX] =
@@ -9656,8 +9656,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(Arctibax, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arctibax, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arctibax, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arctibax),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arctibax),
 },
 
 [SPECIES_BAXCALIBUR] =
@@ -9666,8 +9666,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Baxcalibur, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Baxcalibur, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Baxcalibur, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Baxcalibur),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Baxcalibur),
 },
 
 [SPECIES_GIMMIGHOUL_CHEST] =
@@ -9676,8 +9676,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 16),
       PIC_DATA_ICON_INDEX(GimmighoulChest, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gimmighoul, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gimmighoul, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gimmighoul),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gimmighoul),
 },//will make money based evolution I guess 70k poke, kinda griny but make gimmighoul better to use pre evo
     //and counter is you can evolve it at any level - brought down because u16 param
 
@@ -9687,8 +9687,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(GimmighoulRoaming, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gimmighoul, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gimmighoul, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gimmighoul),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gimmighoul),
 }, //not gonna use this form
 
 [SPECIES_GHOLDENGO] =
@@ -9697,8 +9697,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(Gholdengo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gholdengo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gholdengo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gholdengo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gholdengo),
 },
 
 [SPECIES_WO_CHIEN] =
@@ -9707,8 +9707,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(WoChien, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_WoChien, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_WoChien, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_WoChien),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_WoChien),
 },
 
 [SPECIES_CHIEN_PAO] =
@@ -9717,8 +9717,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(ChienPao, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ChienPao, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ChienPao, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ChienPao),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ChienPao),
 },
 
 [SPECIES_TING_LU] =
@@ -9727,8 +9727,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(TingLu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TingLu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TingLu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TingLu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TingLu),
 },
 
 [SPECIES_CHI_YU] =
@@ -9737,8 +9737,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 14),
       PIC_DATA_ICON_INDEX(ChiYu, 0),
       .enemyMonElevation = 15,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ChiYu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ChiYu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ChiYu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ChiYu),
 },
 
 [SPECIES_ROARING_MOON] =
@@ -9747,8 +9747,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 10),
       PIC_DATA_ICON_INDEX(RoaringMoon, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_RoaringMoon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_RoaringMoon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_RoaringMoon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_RoaringMoon),
 },
 
 [SPECIES_IRON_VALIANT] =
@@ -9757,8 +9757,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(IronValiant, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronValiant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronValiant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronValiant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronValiant),
 },
 
 [SPECIES_KORAIDON] =
@@ -9767,8 +9767,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Koraidon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Koraidon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Koraidon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Koraidon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Koraidon),
 },
 
 [SPECIES_MIRAIDON] =
@@ -9777,8 +9777,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Miraidon, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Miraidon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Miraidon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Miraidon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Miraidon),
 },
 
 [SPECIES_TAUROS_PALDEAN_COMBAT_BREED] =
@@ -9787,8 +9787,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(TaurosPaldeanCombatBreed, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tauros),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tauros),
 },
 
 [SPECIES_TAUROS_PALDEAN_BLAZE_BREED] =
@@ -9797,8 +9797,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(TaurosPaldeanBlazeBreed, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tauros),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tauros),
 },
 
 [SPECIES_TAUROS_PALDEAN_AQUA_BREED] =
@@ -9807,8 +9807,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(TaurosPaldeanAquaBreed, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Tauros, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Tauros),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Tauros),
 },
 
 [SPECIES_WOOPER_PALDEAN] =
@@ -9817,8 +9817,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 12),
       PIC_DATA_ICON_INDEX(WooperPaldean, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wooper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wooper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wooper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wooper),
 },
 
 [SPECIES_WALKING_WAKE] =
@@ -9827,8 +9827,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(WalkingWake, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_WalkingWake, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_WalkingWake, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_WalkingWake),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_WalkingWake),
 },
 
 [SPECIES_IRON_LEAVES] =
@@ -9837,8 +9837,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 8),
       PIC_DATA_ICON_INDEX(IronLeaves, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronLeaves, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronLeaves, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronLeaves),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronLeaves),
 },
 [SPECIES_DIPPLIN] =
     {
@@ -9846,8 +9846,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(Dipplin, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dipplin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dipplin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dipplin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dipplin),
 },
 
 [SPECIES_POLTCHAGEIST_COUNTERFEIT] =
@@ -9856,8 +9856,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Poltchageist, 1),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poltchageist, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poltchageist, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poltchageist),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poltchageist),
 },//vsonic
 
 [SPECIES_POLTCHAGEIST_ARTISAN] =
@@ -9866,8 +9866,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Poltchageist, 1),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Poltchageist, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Poltchageist, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Poltchageist),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Poltchageist),
 },//vsonic
 
 [SPECIES_SINISTCHA_UNREMARKABLE] =
@@ -9876,8 +9876,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13), //sprites came out bad? especially back
       PIC_DATA_ICON_INDEX(Sinistcha, 1), //low res
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sinistcha, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sinistcha, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sinistcha),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sinistcha),
 },
 [SPECIES_SINISTCHA_MASTERPIECE] =
     {
@@ -9885,8 +9885,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13),
       PIC_DATA_ICON_INDEX(Sinistcha, 1),
       .enemyMonElevation = 10,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sinistcha, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sinistcha, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sinistcha),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sinistcha),
 },
 
 [SPECIES_OKIDOGI] =
@@ -9895,8 +9895,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 13), //back looks better w/o tail, check model may remove
       PIC_DATA_ICON_INDEX(Okidogi, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Okidogi, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Okidogi, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Okidogi),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Okidogi),
 },
 
 [SPECIES_MUNKIDORI] =
@@ -9905,8 +9905,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3), //maybe 2?
       PIC_DATA_ICON_INDEX(Munkidori, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Munkidori, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Munkidori, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Munkidori),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Munkidori),
 },
 
 [SPECIES_FEZANDIPITI] =
@@ -9915,8 +9915,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Fezandipiti, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Fezandipiti, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Fezandipiti, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Fezandipiti),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Fezandipiti),
 },
 
 [SPECIES_OGERPON_TEAL_MASK] = 
@@ -9925,8 +9925,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponTealMask, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_OGERPON_WELLSPRING_MASK] = 
     {  
@@ -9934,8 +9934,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponWellspringMask, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_OGERPON_HEARTHFLAME_MASK] = 
     {  
@@ -9943,8 +9943,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponHearthflameMask, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_OGERPON_CORNERSTONE_MASK] = 
     {  
@@ -9952,8 +9952,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponCornerstoneMask, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },//need grahpics for tera forms
 [SPECIES_OGERPON_TEAL_MASK_TERA] = 
     {  
@@ -9961,8 +9961,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponTealMask, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_OGERPON_WELLSPRING_MASK_TERA] = 
     {  
@@ -9970,8 +9970,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponWellspringMask, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = 
     {  
@@ -9979,8 +9979,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponHearthflameMask, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = 
     {  
@@ -9988,8 +9988,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,16),
       PIC_DATA_ICON_INDEX(OgerponCornerstoneMask, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ogerpon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ogerpon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ogerpon),
 },
 [SPECIES_URSALUNA_BLOODMOON] =
     {
@@ -9997,8 +9997,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(UrsalunaBloodmoon, 2), //icon is off, think source is problem
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ursaluna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ursaluna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ursaluna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ursaluna),
 },//vsonic
 
 [SPECIES_ARCHALUDON] =
@@ -10007,8 +10007,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(Archaludon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Archaludon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Archaludon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Archaludon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Archaludon),
 },
 
 //missing archaludon and hydrapple flapple evo
@@ -10018,8 +10018,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Hydrapple, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Hydrapple, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Hydrapple, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Hydrapple),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Hydrapple),
 },
 
 
@@ -10030,8 +10030,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 6),
       PIC_DATA_ICON_INDEX(GougingFire, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GougingFire, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GougingFire, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GougingFire),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GougingFire),
 },
 
 [SPECIES_RAGING_BOLT] =
@@ -10040,8 +10040,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(RagingBolt, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_RagingBolt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_RagingBolt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_RagingBolt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_RagingBolt),
 },
 
 [SPECIES_IRON_BOULDER] =
@@ -10050,8 +10050,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 12),
       PIC_DATA_ICON_INDEX(IronBoulder, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronBoulder, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronBoulder, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronBoulder),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronBoulder),
 },
 
 [SPECIES_IRON_CROWN] =
@@ -10060,8 +10060,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 2),
       PIC_DATA_ICON_INDEX(IronCrown, 3),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IronCrown, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IronCrown, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IronCrown),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IronCrown),
 },
 
 [SPECIES_TERAPAGOS_NORMAL] =
@@ -10070,8 +10070,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(Terapagos, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Terapagos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Terapagos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Terapagos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Terapagos),
 },
 
 [SPECIES_TERAPAGOS_TERASTAL] =
@@ -10080,8 +10080,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(TerapagosTerastal, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Terapagos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Terapagos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Terapagos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Terapagos),
 },
 
 [SPECIES_TERAPAGOS_STELLAR] =
@@ -10093,8 +10093,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ICON(TerapagosStellar, 0),
       PALETTES(TerapagosTerastal),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Terapagos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Terapagos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Terapagos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Terapagos),
 },
 
 [SPECIES_PECHARUNT] =
@@ -10103,8 +10103,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 5),
       PIC_DATA_ICON_INDEX(Pecharunt, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pecharunt, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pecharunt, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pecharunt),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pecharunt),
 },
 [SPECIES_VENUSAUR_MEGA] = 
     {  
@@ -10112,8 +10112,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 10),
       PIC_DATA_ICON_INDEX(VenusaurMega, 4),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_VenusaurMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_VenusaurMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_VenusaurMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_VenusaurMega),
 }, //VenusaurMega,
 [SPECIES_CHARIZARD_MEGA_X] = 
     {  
@@ -10121,8 +10121,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 2),
       PIC_DATA_ICON_INDEX(CharizardMegaX, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_CharizardMegaX, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_CharizardMegaX, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_CharizardMegaX),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_CharizardMegaX),
 }, //CharizardMegaX,
 [SPECIES_CHARIZARD_MEGA_Y] = 
     {  
@@ -10130,8 +10130,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(CharizardMegaY, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_CharizardMegaY, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_CharizardMegaY, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_CharizardMegaY),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_CharizardMegaY),
 }, //CharizardMegaY,
 [SPECIES_BLASTOISE_MEGA] = 
     {  
@@ -10139,8 +10139,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(BlastoiseMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_BlastoiseMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_BlastoiseMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_BlastoiseMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_BlastoiseMega),
 }, //BlastoiseMega,
 [SPECIES_BEEDRILL_MEGA] = 
     {  
@@ -10148,8 +10148,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 5),
       PIC_DATA_ICON_INDEX(BeedrillMega, 2),
       .enemyMonElevation = 5,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_BeedrillMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_BeedrillMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_BeedrillMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_BeedrillMega),
 }, //BeedrillMega,
 [SPECIES_PIDGEOT_MEGA] = 
     {  
@@ -10157,8 +10157,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 7),
       PIC_DATA_ICON_INDEX(PidgeotMega, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_PidgeotMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_PidgeotMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_PidgeotMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_PidgeotMega),
 }, //PidgeotMega,
 [SPECIES_ALAKAZAM_MEGA] = 
     {  
@@ -10166,8 +10166,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(AlakazamMega, 2),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AlakazamMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AlakazamMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AlakazamMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AlakazamMega),
 }, //AlakazamMega,
 [SPECIES_SLOWBRO_MEGA] = 
     {  
@@ -10175,8 +10175,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 9),
       PIC_DATA_ICON_INDEX(SlowbroMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slowbro, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slowbro, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slowbro),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slowbro),
 }, //SlowbroMega,
 [SPECIES_GENGAR_MEGA] = 
     {  
@@ -10184,8 +10184,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(GengarMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GengarMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GengarMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GengarMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GengarMega),
 }, //GengarMega,
 [SPECIES_KANGASKHAN_MEGA] = 
     {  
@@ -10193,8 +10193,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 6),
       PIC_DATA_ICON_INDEX(KangaskhanMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_KangaskhanMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_KangaskhanMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_KangaskhanMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_KangaskhanMega),
 }, //KangaskhanMega,
 [SPECIES_PINSIR_MEGA] = 
     {  
@@ -10202,8 +10202,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 7),
       PIC_DATA_ICON_INDEX(PinsirMega, 2),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_PinsirMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_PinsirMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_PinsirMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_PinsirMega),
 }, //PinsirMega,
 [SPECIES_GYARADOS_MEGA] = 
     {  
@@ -10211,8 +10211,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 3),
       PIC_DATA_ICON_INDEX(GyaradosMega, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GyaradosMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GyaradosMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GyaradosMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GyaradosMega),
 }, //GyaradosMega,
 [SPECIES_AERODACTYL_MEGA] = 
     {  
@@ -10220,8 +10220,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 8),
       PIC_DATA_ICON_INDEX(AerodactylMega, 2),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AerodactylMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AerodactylMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AerodactylMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AerodactylMega),
 }, //AerodactylMega,
 [SPECIES_MEWTWO_MEGA_X] = 
     {  
@@ -10229,8 +10229,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(MewtwoMegaX, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MewtwoMegaX, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MewtwoMegaX, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MewtwoMegaX),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MewtwoMegaX),
 }, //MewtwoMegaX,
 [SPECIES_MEWTWO_MEGA_Y] = 
     {  
@@ -10238,8 +10238,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 2),
       PIC_DATA_ICON_INDEX(MewtwoMegaY, 2),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MewtwoMegaY, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MewtwoMegaY, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MewtwoMegaY),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MewtwoMegaY),
 }, //MewtwoMegaY,
 [SPECIES_AMPHAROS_MEGA] = 
     {  
@@ -10247,8 +10247,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(AmpharosMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AmpharosMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AmpharosMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AmpharosMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AmpharosMega),
 }, //AmpharosMega,
 [SPECIES_STEELIX_MEGA] = 
     {  
@@ -10256,8 +10256,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(SteelixMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SteelixMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SteelixMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SteelixMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SteelixMega),
 }, //SteelixMega,
 [SPECIES_SCIZOR_MEGA] = 
     {  
@@ -10265,8 +10265,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 4),
       PIC_DATA_ICON_INDEX(ScizorMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ScizorMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ScizorMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ScizorMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ScizorMega),
 }, //ScizorMega,
 [SPECIES_HERACROSS_MEGA] = 
     {  
@@ -10274,8 +10274,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(HeracrossMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_HeracrossMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_HeracrossMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_HeracrossMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_HeracrossMega),
 }, //HeracrossMega,
 [SPECIES_HOUNDOOM_MEGA] = 
     {  
@@ -10283,8 +10283,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(HoundoomMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_HoundoomMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_HoundoomMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_HoundoomMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_HoundoomMega),
 }, //HoundoomMega,
 [SPECIES_TYRANITAR_MEGA] = 
     {  
@@ -10292,8 +10292,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(TyranitarMega, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TyranitarMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TyranitarMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TyranitarMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TyranitarMega),
 }, //TyranitarMega,
 [SPECIES_SCEPTILE_MEGA] = 
     {  
@@ -10301,8 +10301,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 3),
       PIC_DATA_ICON_INDEX(SceptileMega, 4),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SceptileMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SceptileMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SceptileMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SceptileMega),
 }, //SceptileMega,
 [SPECIES_BLAZIKEN_MEGA] = 
     {  
@@ -10310,8 +10310,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(BlazikenMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_BlazikenMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_BlazikenMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_BlazikenMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_BlazikenMega),
 }, //BlazikenMega,
 [SPECIES_SWAMPERT_MEGA] = 
     {  
@@ -10319,8 +10319,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 6),
       PIC_DATA_ICON_INDEX(SwampertMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SwampertMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SwampertMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SwampertMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SwampertMega),
 }, //SwampertMega,
 [SPECIES_GARDEVOIR_MEGA] = 
     {  
@@ -10328,8 +10328,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 6),
       PIC_DATA_ICON_INDEX(GardevoirMega, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GardevoirMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GardevoirMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GardevoirMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GardevoirMega),
 }, //GardevoirMega,
 [SPECIES_SABLEYE_MEGA] = 
     {  
@@ -10337,8 +10337,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 13),
       PIC_DATA_ICON_INDEX(SableyeMega, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SableyeMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SableyeMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SableyeMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SableyeMega),
 }, //SableyeMega,
 [SPECIES_MAWILE_MEGA] = 
     {  
@@ -10346,8 +10346,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 6),
       PIC_DATA_ICON_INDEX(MawileMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MawileMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MawileMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MawileMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MawileMega),
 }, //MawileMega,
 [SPECIES_AGGRON_MEGA] = 
     {  
@@ -10355,8 +10355,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 7),
       PIC_DATA_ICON_INDEX(AggronMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AggronMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AggronMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AggronMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AggronMega),
 }, //AggronMega,
 [SPECIES_MEDICHAM_MEGA] = 
     {  
@@ -10364,8 +10364,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 2),
       PIC_DATA_ICON_INDEX(MedichamMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MedichamMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MedichamMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MedichamMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MedichamMega),
 }, //MedichamMega,
 [SPECIES_MANECTRIC_MEGA] = 
     {  
@@ -10373,8 +10373,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(ManectricMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ManectricMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ManectricMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ManectricMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ManectricMega),
 }, //ManectricMega,
 [SPECIES_SHARPEDO_MEGA] = 
     {  
@@ -10382,8 +10382,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 3),
       PIC_DATA_ICON_INDEX(SharpedoMega, 0),
       .enemyMonElevation = 1,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SharpedoMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SharpedoMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SharpedoMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SharpedoMega),
 }, //SharpedoMega,
 [SPECIES_CAMERUPT_MEGA] = 
     {  
@@ -10391,8 +10391,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 9),
       PIC_DATA_ICON_INDEX(CameruptMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_CameruptMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_CameruptMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_CameruptMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_CameruptMega),
 }, //CameruptMega,
 [SPECIES_ALTARIA_MEGA] = 
     {  
@@ -10400,8 +10400,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 10),
       PIC_DATA_ICON_INDEX(AltariaMega, 0),
       .enemyMonElevation = 6,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AltariaMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AltariaMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AltariaMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AltariaMega),
 }, //AltariaMega,
 [SPECIES_BANETTE_MEGA] = 
     {  
@@ -10409,8 +10409,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(BanetteMega, 0),
       .enemyMonElevation = 5,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_BanetteMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_BanetteMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_BanetteMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_BanetteMega),
 }, //BanetteMega,
 [SPECIES_ABSOL_MEGA] = 
     {  
@@ -10418,8 +10418,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(AbsolMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AbsolMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AbsolMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AbsolMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AbsolMega),
 }, //AbsolMega,
 [SPECIES_GLALIE_MEGA] = 
     {  
@@ -10427,8 +10427,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 10),
       PIC_DATA_ICON_INDEX(GlalieMega, 0),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GlalieMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GlalieMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GlalieMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GlalieMega),
 }, //GlalieMega,
 [SPECIES_SALAMENCE_MEGA] = 
     {  
@@ -10436,8 +10436,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 3),
       PIC_DATA_ICON_INDEX(SalamenceMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SalamenceMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SalamenceMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SalamenceMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SalamenceMega),
 }, //SalamenceMega,
 [SPECIES_METAGROSS_MEGA] = 
     {  
@@ -10445,8 +10445,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 6), //back sprite bad check for updated versionin EE
       PIC_DATA_ICON_INDEX(MetagrossMega, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MetagrossMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MetagrossMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MetagrossMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MetagrossMega),
 }, //MetagrossMega, //vsonic
 [SPECIES_LATIAS_MEGA] = 
     {  
@@ -10454,8 +10454,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(LatiasMega, 2),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LatiasMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LatiasMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LatiasMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LatiasMega),
 }, //LatiasMega,
 [SPECIES_LATIOS_MEGA] = 
     {  
@@ -10463,8 +10463,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(LatiosMega, 2),
       .enemyMonElevation = 8,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LatiosMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LatiosMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LatiosMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LatiosMega),
 }, //LatiosMega,
 [SPECIES_LOPUNNY_MEGA] = 
     {  
@@ -10472,8 +10472,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 4),
       PIC_DATA_ICON_INDEX(LopunnyMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LopunnyMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LopunnyMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LopunnyMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LopunnyMega),
 }, //LopunnyMega,
 [SPECIES_GARCHOMP_MEGA] = 
     {  
@@ -10481,8 +10481,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 4),
       PIC_DATA_ICON_INDEX(GarchompMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GarchompMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GarchompMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GarchompMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GarchompMega),
 }, //GarchompMega,
 [SPECIES_LUCARIO_MEGA] = 
     {  
@@ -10490,8 +10490,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(LucarioMega, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LucarioMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LucarioMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LucarioMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LucarioMega),
 }, //LucarioMega,
 [SPECIES_ABOMASNOW_MEGA] = 
     {  
@@ -10499,8 +10499,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(AbomasnowMega, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AbomasnowMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AbomasnowMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AbomasnowMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AbomasnowMega),
 }, //AbomasnowMega,
 [SPECIES_GALLADE_MEGA] = 
     {  
@@ -10508,8 +10508,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 3),
       PIC_DATA_ICON_INDEX(GalladeMega, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GalladeMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GalladeMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GalladeMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GalladeMega),
 }, //GalladeMega,
 [SPECIES_AUDINO_MEGA] = 
     {  
@@ -10517,8 +10517,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 0),
       PIC_DATA_ICON_INDEX(AudinoMega, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_AudinoMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_AudinoMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_AudinoMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_AudinoMega),
 }, //AudinoMega,
 [SPECIES_DIANCIE_MEGA] = 
     {  
@@ -10526,8 +10526,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 6),
       PIC_DATA_ICON_INDEX(DiancieMega, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_DiancieMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_DiancieMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_DiancieMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_DiancieMega),
 }, //DiancieMega,
 [SPECIES_RAYQUAZA_MEGA] = 
     {  
@@ -10535,8 +10535,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0, 1),
       PIC_DATA_ICON_INDEX(RayquazaMega, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_RayquazaMega, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_RayquazaMega, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_RayquazaMega),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_RayquazaMega),
 }, //RayquazaMega,
 [SPECIES_KYOGRE_PRIMAL] = 
     {  
@@ -10544,8 +10544,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 18),
       PIC_DATA_ICON_INDEX(KyogrePrimal, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_KyogrePrimal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_KyogrePrimal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_KyogrePrimal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_KyogrePrimal),
 }, //KyogrePrimal,
 [SPECIES_GROUDON_PRIMAL] = 
     {  
@@ -10553,8 +10553,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(GroudonPrimal, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GroudonPrimal, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GroudonPrimal, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GroudonPrimal),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GroudonPrimal),
 }, //GroudonPrimal,
 [SPECIES_RATTATA_ALOLAN] = 
     {  
@@ -10562,8 +10562,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 7),
       PIC_DATA_ICON_INDEX(RattataAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rattata, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rattata, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rattata),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rattata),
 }, //RattataAlolan,
 [SPECIES_RATICATE_ALOLAN] = 
     {  
@@ -10571,8 +10571,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 10),
       PIC_DATA_ICON_INDEX(RaticateAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Raticate, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Raticate, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Raticate),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Raticate),
 }, //RaticateAlolan,
 [SPECIES_RAICHU_ALOLAN] = 
     {  
@@ -10580,8 +10580,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 6),
       PIC_DATA_ICON_INDEX(RaichuAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Raichu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Raichu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Raichu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Raichu),
 }, //RaichuAlolan,
 [SPECIES_SANDSHREW_ALOLAN] = 
     {  
@@ -10589,8 +10589,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 13),
       PIC_DATA_ICON_INDEX(SandshrewAlolan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandshrew, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandshrew, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandshrew),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandshrew),
 }, //SandshrewAlolan,
 [SPECIES_SANDSLASH_ALOLAN] = 
     {  
@@ -10598,8 +10598,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 18),//11, 6, 18
       PIC_DATA_ICON_INDEX(SandslashAlolan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sandslash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sandslash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sandslash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sandslash),
 }, //SandslashAlolan,
 [SPECIES_VULPIX_ALOLAN] = 
     {  
@@ -10607,8 +10607,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(VulpixAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vulpix, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vulpix, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vulpix),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vulpix),
 }, //VulpixAlolan,
 [SPECIES_NINETALES_ALOLAN] = 
     {  
@@ -10616,8 +10616,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 5),
       PIC_DATA_ICON_INDEX(NinetalesAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ninetales, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ninetales, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ninetales),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ninetales),
 }, //NinetalesAlolan,
 [SPECIES_DIGLETT_ALOLAN] = 
     {  
@@ -10625,8 +10625,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x54, 14),
       PIC_DATA_ICON_INDEX(DiglettAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Diglett, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Diglett, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Diglett),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Diglett),
 }, //DiglettAlolan,
 [SPECIES_DUGTRIO_ALOLAN] = 
     {  
@@ -10634,8 +10634,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 17),
       PIC_DATA_ICON_INDEX(DugtrioAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Dugtrio, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Dugtrio, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Dugtrio),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Dugtrio),
 }, //DugtrioAlolan,
 [SPECIES_MEOWTH_ALOLAN] = 
     {  
@@ -10643,8 +10643,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 7),
       PIC_DATA_ICON_INDEX(MeowthAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meowth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meowth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meowth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meowth),
 }, //MeowthAlolan,
 [SPECIES_PERSIAN_ALOLAN] = 
     {  
@@ -10652,8 +10652,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(PersianAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Persian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Persian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Persian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Persian),
 }, //PersianAlolan,
 [SPECIES_GEODUDE_ALOLAN] = 
     {  
@@ -10661,8 +10661,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 13),
       PIC_DATA_ICON_INDEX(GeodudeAlolan, 2),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Geodude, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Geodude, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Geodude),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Geodude),
 }, //GeodudeAlolan,
 [SPECIES_GRAVELER_ALOLAN] = 
     {  
@@ -10670,8 +10670,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 10),
       PIC_DATA_ICON_INDEX(GravelerAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Graveler, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Graveler, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Graveler),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Graveler),
 }, //GravelerAlolan,
 [SPECIES_GOLEM_ALOLAN] = 
     {  
@@ -10679,8 +10679,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x84, 13),
       PIC_DATA_ICON_INDEX(GolemAlolan, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Golem, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Golem, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Golem),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Golem),
 }, //GolemAlolan,
 [SPECIES_GRIMER_ALOLAN] = 
     {  
@@ -10688,8 +10688,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(GrimerAlolan, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Grimer, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Grimer, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Grimer),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Grimer),
 }, //GrimerAlolan,
 [SPECIES_MUK_ALOLAN] = 
     {  
@@ -10697,8 +10697,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(MukAlolan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Muk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Muk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Muk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Muk),
 }, //MukAlolan,
 [SPECIES_EXEGGUTOR_ALOLAN] = 
     {  
@@ -10706,8 +10706,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(ExeggutorAlolan, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Exeggutor, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Exeggutor, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Exeggutor),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Exeggutor),
 }, //ExeggutorAlolan,
 [SPECIES_MAROWAK_ALOLAN] = 
     {  
@@ -10715,8 +10715,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 8),
       PIC_DATA_ICON_INDEX(MarowakAlolan, 4),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Marowak, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Marowak, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Marowak),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Marowak),
 }, //MarowakAlolan,
 [SPECIES_MEOWTH_GALARIAN] = 
     {  
@@ -10724,8 +10724,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(MeowthGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meowth, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meowth, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meowth),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meowth),
 }, //MeowthGalarian,
 [SPECIES_PONYTA_GALARIAN] = 
     {  
@@ -10733,8 +10733,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PonytaGalarian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Ponyta, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Ponyta, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Ponyta),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Ponyta),
 }, //PonytaGalarian,
 [SPECIES_RAPIDASH_GALARIAN] = 
     {  
@@ -10742,8 +10742,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(RapidashGalarian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rapidash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rapidash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rapidash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rapidash),
 }, //RapidashGalarian,
 [SPECIES_SLOWPOKE_GALARIAN] = 
     {  
@@ -10751,8 +10751,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(SlowpokeGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_SlowpokeGalarian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_SlowpokeGalarian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_SlowpokeGalarian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_SlowpokeGalarian),
 }, //SlowpokeGalarian,
 [SPECIES_SLOWBRO_GALARIAN] = 
     {  
@@ -10760,8 +10760,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 9),
       PIC_DATA_ICON_INDEX(SlowbroGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slowbro, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slowbro, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slowbro),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slowbro),
 }, //SlowbroGalarian,
 [SPECIES_FARFETCHD_GALARIAN] = 
     {  
@@ -10769,8 +10769,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(FarfetchdGalarian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Farfetchd, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Farfetchd, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Farfetchd),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Farfetchd),
 }, //FarfetchdGalarian,
 [SPECIES_WEEZING_GALARIAN] = 
     {  
@@ -10778,8 +10778,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(WeezingGalarian, 1),
       .enemyMonElevation = 3,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Weezing, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Weezing, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Weezing),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Weezing),
 }, //WeezingGalarian,
 [SPECIES_MR_MIME_GALARIAN] = 
     {  
@@ -10787,8 +10787,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 8),
       PIC_DATA_ICON_INDEX(MrMimeGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MrMime, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MrMime, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MrMime),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MrMime),
 }, //MrMimeGalarian,
 [SPECIES_ARTICUNO_GALARIAN] = 
     {  
@@ -10796,8 +10796,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(ArticunoGalarian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Articuno, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Articuno, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Articuno),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Articuno),
 }, //ArticunoGalarian,
 [SPECIES_ZAPDOS_GALARIAN] = 
     {  
@@ -10805,8 +10805,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 9),
       PIC_DATA_ICON_INDEX(ZapdosGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zapdos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zapdos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zapdos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zapdos),
 }, //ZapdosGalarian,
 [SPECIES_MOLTRES_GALARIAN] = 
     {  
@@ -10814,8 +10814,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 5),
       PIC_DATA_ICON_INDEX(MoltresGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Moltres, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Moltres, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Moltres),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Moltres),
 }, //MoltresGalarian,
 [SPECIES_SLOWKING_GALARIAN] = 
     {  
@@ -10823,8 +10823,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(SlowkingGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Slowking, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Slowking, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Slowking),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Slowking),
 }, //SlowkingGalarian,
 [SPECIES_CORSOLA_GALARIAN] = 
     {  
@@ -10832,8 +10832,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(CorsolaGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Corsola, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Corsola, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Corsola),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Corsola),
 }, //CorsolaGalarian,
 [SPECIES_ZIGZAGOON_GALARIAN] = 
     {  
@@ -10841,8 +10841,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 12),
       PIC_DATA_ICON_INDEX(ZigzagoonGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zigzagoon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zigzagoon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zigzagoon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zigzagoon),
 }, //ZigzagoonGalarian,
 [SPECIES_LINOONE_GALARIAN] = 
     {  
@@ -10850,8 +10850,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 13),
       PIC_DATA_ICON_INDEX(LinooneGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Linoone, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Linoone, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Linoone),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Linoone),
 }, //LinooneGalarian,
 [SPECIES_DARUMAKA_GALARIAN] = 
     {  
@@ -10859,8 +10859,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 11),
       PIC_DATA_ICON_INDEX(DarumakaGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darumaka, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darumaka, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darumaka),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darumaka),
 }, //DarumakaGalarian,
 [SPECIES_DARMANITAN_GALARIAN] = 
     {  
@@ -10868,8 +10868,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(DarmanitanGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darmanitan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darmanitan),
 }, //DarmanitanGalarian,
 [SPECIES_YAMASK_GALARIAN] = 
     {  
@@ -10877,8 +10877,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 13),
       PIC_DATA_ICON_INDEX(YamaskGalarian, 2),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Yamask, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Yamask, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Yamask),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Yamask),
 }, //YamaskGalarian,
 [SPECIES_STUNFISK_GALARIAN] = 
     {  
@@ -10886,8 +10886,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x83, 23),
       PIC_DATA_ICON_INDEX(StunfiskGalarian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Stunfisk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Stunfisk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Stunfisk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Stunfisk),
 }, //StunfiskGalarian,
 [SPECIES_GROWLITHE_HISUIAN] = 
     {  
@@ -10895,8 +10895,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 8),
       PIC_DATA_ICON_INDEX(GrowlitheHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Growlithe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Growlithe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Growlithe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Growlithe),
 }, //GrowlitheHisuian,
 [SPECIES_ARCANINE_HISUIAN] = 
     {  
@@ -10904,8 +10904,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 3),
       PIC_DATA_ICON_INDEX(ArcanineHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arcanine, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arcanine, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arcanine),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arcanine),
 }, //ArcanineHisuian,
 [SPECIES_VOLTORB_HISUIAN] = 
     {  
@@ -10913,8 +10913,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x76, 10),
       PIC_DATA_ICON_INDEX(VoltorbHisuian, 0),
       .enemyMonElevation = 1, //sprite is oddly high see if can adjust?
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Voltorb, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Voltorb, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Voltorb),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Voltorb),
 }, //VoltorbHisuian,
 [SPECIES_ELECTRODE_HISUIAN] = 
     {  
@@ -10922,8 +10922,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(ElectrodeHisuian, 3),
       .enemyMonElevation = 1, //is just better contrast w shadow
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Electrode, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Electrode, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Electrode),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Electrode),
 }, //ElectrodeHisuian,
 [SPECIES_TYPHLOSION_HISUIAN] = 
     {  
@@ -10931,8 +10931,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 2),
       PIC_DATA_ICON_INDEX(TyphlosionHisuian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Typhlosion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Typhlosion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Typhlosion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Typhlosion),
 }, //TyphlosionHisuian,
 [SPECIES_QWILFISH_HISUIAN] = 
     {  
@@ -10940,8 +10940,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 6),
       PIC_DATA_ICON_INDEX(QwilfishHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Qwilfish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Qwilfish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Qwilfish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Qwilfish),
 }, //QwilfishHisuian,
 [SPECIES_SNEASEL_HISUIAN] = 
     {  
@@ -10949,8 +10949,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 3),
       PIC_DATA_ICON_INDEX(SneaselHisuian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sneasel, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sneasel, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sneasel),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sneasel),
 }, //SneaselHisuian,
 [SPECIES_SAMUROTT_HISUIAN] = 
     {  
@@ -10958,8 +10958,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 8),
       PIC_DATA_ICON_INDEX(SamurottHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Samurott, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Samurott, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Samurott),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Samurott),
 }, //SamurottHisuian,
 [SPECIES_LILLIGANT_HISUIAN] = 
     {  
@@ -10967,8 +10967,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(LilligantHisuian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Lilligant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Lilligant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Lilligant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Lilligant),
 }, //LilligantHisuian,
 [SPECIES_ZORUA_HISUIAN] = 
     {  
@@ -10976,8 +10976,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 1),
       PIC_DATA_ICON_INDEX(ZoruaHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zorua, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zorua, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zorua),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zorua),
 }, //ZoruaHisuian,
 [SPECIES_ZOROARK_HISUIAN] = 
     {  
@@ -10985,8 +10985,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0),
       PIC_DATA_ICON_INDEX(ZoroarkHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zoroark, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zoroark, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zoroark),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zoroark),
 }, //ZoroarkHisuian,
 [SPECIES_BRAVIARY_HISUIAN] = 
     {  
@@ -10994,8 +10994,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(BraviaryHisuian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Braviary, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Braviary, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Braviary),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Braviary),
 }, //BraviaryHisuian,
 [SPECIES_SLIGGOO_HISUIAN] = 
     {  
@@ -11003,8 +11003,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x55, 1),
       PIC_DATA_ICON_INDEX(SliggooHisuian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sliggoo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sliggoo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sliggoo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sliggoo),
 }, //SliggooHisuian,
 [SPECIES_GOODRA_HISUIAN] = 
     {  
@@ -11012,8 +11012,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0),
       PIC_DATA_ICON_INDEX(GoodraHisuian, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Goodra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Goodra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Goodra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Goodra),
 }, //GoodraHisuian,
 [SPECIES_AVALUGG_HISUIAN] = 
     {  
@@ -11021,8 +11021,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 16),
       PIC_DATA_ICON_INDEX(AvaluggHisuian, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Avalugg, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Avalugg, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Avalugg),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Avalugg),
 }, //AvaluggHisuian,
 [SPECIES_DECIDUEYE_HISUIAN] = 
     {  
@@ -11030,8 +11030,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 0),
       PIC_DATA_ICON_INDEX(DecidueyeHisuian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Decidueye, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Decidueye, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Decidueye),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Decidueye),
 }, //DecidueyeHisuian,
 [SPECIES_PIKACHU_COSPLAY] = 
     {  
@@ -11039,8 +11039,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuCosplay, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuCosplay,
 [SPECIES_PIKACHU_ROCK_STAR] = 
     {  
@@ -11048,8 +11048,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuRockStar, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuRockStar,
 [SPECIES_PIKACHU_BELLE] = 
     {  
@@ -11057,8 +11057,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuBelle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuBelle,
 [SPECIES_PIKACHU_POP_STAR] = 
     {  
@@ -11066,8 +11066,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuPopStar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuPopStar,
 [SPECIES_PIKACHU_PH_D] = 
     {  
@@ -11075,8 +11075,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuPhD, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuPhD,
 [SPECIES_PIKACHU_LIBRE] = 
     {  
@@ -11084,8 +11084,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuLibre, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuLibre,
 [SPECIES_PIKACHU_ORIGINAL_CAP] = 
     {  
@@ -11093,8 +11093,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuOriginalCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuOriginalCap,
 [SPECIES_PIKACHU_HOENN_CAP] = 
     {  
@@ -11102,8 +11102,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuHoennCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuHoennCap,
 [SPECIES_PIKACHU_SINNOH_CAP] = 
     {  
@@ -11111,8 +11111,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuSinnohCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuSinnohCap,
 [SPECIES_PIKACHU_UNOVA_CAP] = 
     {  
@@ -11120,8 +11120,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuUnovaCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuUnovaCap,
 [SPECIES_PIKACHU_KALOS_CAP] = 
     {  
@@ -11129,8 +11129,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuKalosCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuKalosCap,
 [SPECIES_PIKACHU_ALOLA_CAP] = 
     {  
@@ -11138,8 +11138,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuAlolaCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuAlolaCap,
 [SPECIES_PIKACHU_PARTNER_CAP] = 
     {  
@@ -11147,8 +11147,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4), //vsonic palett off for this one
       PIC_DATA_ICON_INDEX(PikachuPartnerCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuPartnerCap,
 [SPECIES_PIKACHU_WORLD_CAP] = 
     {  
@@ -11156,8 +11156,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(PikachuWorldCap, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pikachu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pikachu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pikachu),
 }, //PikachuWorldCap,
 [SPECIES_PICHU_SPIKY_EARED] = 
     {  
@@ -11165,8 +11165,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(PichuSpikyEared, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pichu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pichu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pichu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pichu),
 }, //PichuSpikyEared,
 [SPECIES_CASTFORM_SUNNY] = 
     {  
@@ -11174,8 +11174,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x48, 0),
       PIC_DATA_ICON_INDEX(CastformSunny, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Castform),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Castform),
 }, //CastformSunny,
 [SPECIES_CASTFORM_RAINY] = 
     {  
@@ -11183,8 +11183,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x48, 0),
       PIC_DATA_ICON_INDEX(CastformRainy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Castform),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Castform),
 }, //CastformRainy,
 [SPECIES_CASTFORM_SNOWY] = 
     {  
@@ -11192,8 +11192,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x48, 0),
       PIC_DATA_ICON_INDEX(CastformSnowy, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Castform, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Castform),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Castform),
 }, //CastformSnowy,
 [SPECIES_DEOXYS_ATTACK] = 
     {  
@@ -11201,8 +11201,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 2),
       PIC_DATA_ICON_INDEX(DeoxysAttack,0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deoxys),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deoxys),
 }, //DeoxysAttack,
 [SPECIES_DEOXYS_DEFENSE] = 
     {  
@@ -11210,8 +11210,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 9),
       PIC_DATA_ICON_INDEX(DeoxysDefense,0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deoxys),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deoxys),
 }, //DeoxysDefense,
 [SPECIES_DEOXYS_SPEED] = 
     {  
@@ -11219,8 +11219,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 1),
       PIC_DATA_ICON_INDEX(DeoxysSpeed,0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deoxys, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deoxys),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deoxys),
 }, //DeoxysSpeed,
 [SPECIES_BURMY_SANDY_CLOAK] = 
     {  
@@ -11228,8 +11228,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 6),
       PIC_DATA_ICON_INDEX(BurmySandyCloak, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Burmy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Burmy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Burmy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Burmy),
 }, //BurmySandyCloak,
 [SPECIES_BURMY_TRASH_CLOAK] = 
     {  
@@ -11237,8 +11237,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 1),
       PIC_DATA_ICON_INDEX(BurmyTrashCloak, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Burmy, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Burmy, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Burmy),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Burmy),
 }, //BurmyTrashCloak,
 [SPECIES_WORMADAM_SANDY_CLOAK] = 
     {  
@@ -11246,8 +11246,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(WormadamSandyCloak, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wormadam, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wormadam, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wormadam),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wormadam),
 }, //WormadamSandyCloak,
 [SPECIES_WORMADAM_TRASH_CLOAK] = 
     {  
@@ -11255,8 +11255,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(WormadamTrashCloak, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Wormadam, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Wormadam, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Wormadam),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Wormadam),
 }, //WormadamTrashCloak,
 [SPECIES_CHERRIM_SUNSHINE] = 
     {  
@@ -11264,8 +11264,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 9),
       PIC_DATA_ICON_INDEX(CherrimSunshine, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cherrim, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cherrim, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cherrim),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cherrim),
 }, //CherrimSunshine,
 [SPECIES_SHELLOS_EAST_SEA] = 
     {  
@@ -11273,8 +11273,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 8),
       PIC_DATA_ICON_INDEX(ShellosEastSea, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Shellos, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Shellos, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Shellos),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Shellos),
 }, //ShellosEastSea,
 [SPECIES_GASTRODON_EAST_SEA] = 
     {  
@@ -11282,8 +11282,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 3),
       PIC_DATA_ICON_INDEX(GastrodonEastSea, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gastrodon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gastrodon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gastrodon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gastrodon),
 }, //GastrodonEastSea,
 [SPECIES_ROTOM_HEAT] = 
     {  
@@ -11291,8 +11291,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 12),
       PIC_DATA_ICON_INDEX(RotomHeat, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rotom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rotom),
 }, //RotomHeat,
 [SPECIES_ROTOM_WASH] = 
     {  
@@ -11300,8 +11300,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 11),
       PIC_DATA_ICON_INDEX(RotomWash, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rotom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rotom),
 }, //RotomWash,
 [SPECIES_ROTOM_FROST] = 
     {  
@@ -11309,8 +11309,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 8),
       PIC_DATA_ICON_INDEX(RotomFrost, 5),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rotom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rotom),
 }, //RotomFrost,
 [SPECIES_ROTOM_FAN] = 
     {  
@@ -11318,8 +11318,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 8),
       PIC_DATA_ICON_INDEX(RotomFan, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rotom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rotom),
 }, //RotomFan,
 [SPECIES_ROTOM_MOW] = 
     {  
@@ -11327,8 +11327,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 11),
       PIC_DATA_ICON_INDEX(RotomMow, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Rotom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Rotom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Rotom),
 }, //RotomMow,
 [SPECIES_GIRATINA_ORIGIN] = 
     {  
@@ -11336,8 +11336,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 5),
       PIC_DATA_ICON_INDEX(GiratinaOrigin, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Giratina, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Giratina, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Giratina),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Giratina),
 }, //GiratinaOrigin,
 [SPECIES_SHAYMIN_SKY] = 
     {  
@@ -11345,8 +11345,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x65, 2),
       PIC_DATA_ICON_INDEX(ShayminSky, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ShayminSky, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ShayminSky, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ShayminSky),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ShayminSky),
 }, //ShayminSky,
 [SPECIES_ARCEUS_FIGHTING] = 
     {  
@@ -11357,8 +11357,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusFighting),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_FLYING] = 
     {  
@@ -11369,8 +11369,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusFlying),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_POISON] = 
     {  
@@ -11381,8 +11381,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusPoison),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_GROUND] = 
     {  
@@ -11393,8 +11393,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusGround),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_ROCK] = 
     {  
@@ -11405,8 +11405,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusRock),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_BUG] = 
     {  
@@ -11417,8 +11417,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusBug),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_GHOST] = 
     {  
@@ -11429,8 +11429,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusGhost),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_STEEL] = 
     {  
@@ -11441,8 +11441,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusSteel),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_FIRE] = 
     {  
@@ -11453,8 +11453,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusFire),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_WATER] = 
     {  
@@ -11465,8 +11465,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusWater),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_GRASS] = 
     {  
@@ -11477,8 +11477,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusGrass),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_ELECTRIC] = 
     {  
@@ -11489,8 +11489,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusElectric),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_PSYCHIC] = 
     {  
@@ -11501,8 +11501,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusPsychic),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_ICE] = 
     {  
@@ -11513,8 +11513,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusIce),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_DRAGON] = 
     {  
@@ -11525,8 +11525,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusDragon),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_DARK] = 
     {  
@@ -11537,8 +11537,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusDark),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_ARCEUS_FAIRY] = 
     {  
@@ -11549,8 +11549,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(ArceusFairy),
       ICON(Arceus, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Arceus, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Arceus),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Arceus),
 }, //Arceus,
 [SPECIES_BASCULIN_BLUE_STRIPED] = 
     {  
@@ -11558,8 +11558,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 16),
       PIC_DATA_ICON_INDEX(BasculinBlueStriped, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Basculin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Basculin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Basculin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Basculin),
 }, //BasculinBlueStriped,
 [SPECIES_BASCULIN_WHITE_STRIPED] = 
     {  
@@ -11567,8 +11567,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 16),
       PIC_DATA_ICON_INDEX(BasculinWhiteStriped, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Basculin, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Basculin, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Basculin),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Basculin),
 }, //BasculinWhiteStriped,
 [SPECIES_DARMANITAN_ZEN_MODE] = 
     {  
@@ -11576,8 +11576,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 18),
       PIC_DATA_ICON_INDEX(DarmanitanZenMode, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darmanitan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darmanitan),
 }, //DarmanitanZenMode,
 [SPECIES_DARMANITAN_ZEN_MODE_GALARIAN] = 
     {  
@@ -11585,8 +11585,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(DarmanitanZenModeGalarian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Darmanitan, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Darmanitan),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Darmanitan),
 }, //DarmanitanZenModeGalarian,
 [SPECIES_DEERLING_SUMMER] = 
     {  
@@ -11597,8 +11597,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(DeerlingSummer),
       ICON(DeerlingSummer, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deerling),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deerling),
 }, //DeerlingSummer,
 [SPECIES_DEERLING_AUTUMN] = 
     {  
@@ -11609,8 +11609,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(DeerlingAutumn),
       ICON(DeerlingAutumn, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deerling),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deerling),
 }, //DeerlingAutumn,
 [SPECIES_DEERLING_WINTER] = 
     {  
@@ -11621,8 +11621,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(DeerlingWinter),
       ICON(DeerlingWinter, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Deerling, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Deerling),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Deerling),
 }, //DeerlingWinter,
 [SPECIES_SAWSBUCK_SUMMER] = 
     {  
@@ -11630,8 +11630,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 5),
       PIC_DATA_ICON_INDEX(SawsbuckSummer, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sawsbuck),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sawsbuck),
 }, //SawsbuckSummer,
 [SPECIES_SAWSBUCK_AUTUMN] = 
     {  
@@ -11639,8 +11639,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 5),
       PIC_DATA_ICON_INDEX(SawsbuckAutumn, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sawsbuck),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sawsbuck),
 }, //SawsbuckAutumn,
 [SPECIES_SAWSBUCK_WINTER] = 
     {  
@@ -11648,8 +11648,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 5),
       PIC_DATA_ICON_INDEX(SawsbuckWinter, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sawsbuck, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Sawsbuck),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sawsbuck),
 }, //SawsbuckWinter,
 [SPECIES_TORNADUS_THERIAN] = 
     {  
@@ -11657,8 +11657,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 3),
       PIC_DATA_ICON_INDEX(TornadusTherian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_TornadusTherian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_TornadusTherian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_TornadusTherian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_TornadusTherian),
 }, //TornadusTherian,
 [SPECIES_THUNDURUS_THERIAN] = 
     {  
@@ -11666,8 +11666,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 7),
       PIC_DATA_ICON_INDEX(ThundurusTherian, 0),
       .enemyMonElevation = 7,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ThundurusTherian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ThundurusTherian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ThundurusTherian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ThundurusTherian),
 }, //ThundurusTherian,
 [SPECIES_LANDORUS_THERIAN] = 
     {  
@@ -11675,8 +11675,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 7),
       PIC_DATA_ICON_INDEX(LandorusTherian, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LandorusTherian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LandorusTherian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LandorusTherian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LandorusTherian),
 }, //LandorusTherian,
 [SPECIES_ENAMORUS_THERIAN] = 
     {  
@@ -11684,8 +11684,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 7),
       PIC_DATA_ICON_INDEX(EnamorusTherian, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EnamorusTherian, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EnamorusTherian, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EnamorusTherian),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EnamorusTherian),
 }, //EnamorusTherian,
 [SPECIES_KYUREM_WHITE] = 
     {  
@@ -11693,8 +11693,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 3),
       PIC_DATA_ICON_INDEX(KyuremWhite, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_KyuremWhite, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_KyuremWhite, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_KyuremWhite),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_KyuremWhite),
 }, //KyuremWhite,
 [SPECIES_KYUREM_BLACK] = 
     {  
@@ -11702,8 +11702,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 3),
       PIC_DATA_ICON_INDEX(KyuremBlack, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_KyuremBlack, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_KyuremBlack, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_KyuremBlack),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_KyuremBlack),
 }, //KyuremBlack,
 [SPECIES_KELDEO_RESOLUTE] = 
     {  
@@ -11711,8 +11711,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 4),
       PIC_DATA_ICON_INDEX(KeldeoResolute, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Keldeo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Keldeo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Keldeo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Keldeo),
 }, //KeldeoResolute,
 [SPECIES_MELOETTA_PIROUETTE] = 
     {  
@@ -11720,8 +11720,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 8),
       PIC_DATA_ICON_INDEX(MeloettaPirouette, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meloetta, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meloetta, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meloetta),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meloetta),
 }, //MeloettaPirouette,
 [SPECIES_GENESECT_DOUSE_DRIVE] = 
     {  
@@ -11732,8 +11732,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(GenesectDouseDrive),
       ICON(Genesect, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Genesect),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Genesect),
 }, //Genesect,
 [SPECIES_GENESECT_SHOCK_DRIVE] = 
     {  
@@ -11744,8 +11744,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(GenesectShockDrive),
       ICON(Genesect, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Genesect),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Genesect),
 }, //Genesect,
 [SPECIES_GENESECT_BURN_DRIVE] = 
     {  
@@ -11756,8 +11756,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(GenesectBurnDrive),
       ICON(Genesect, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Genesect),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Genesect),
 }, //Genesect,
 [SPECIES_GENESECT_CHILL_DRIVE] = 
     {  
@@ -11768,8 +11768,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(GenesectChillDrive),
       ICON(Genesect, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Genesect, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Genesect),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Genesect),
 }, //Genesect,
 [SPECIES_GRENINJA_ASH] = 
     {  
@@ -11777,8 +11777,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 11),
       PIC_DATA_ICON_INDEX(GreninjaAsh, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Greninja, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Greninja, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Greninja),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Greninja),
 }, //GreninjaAsh,
 [SPECIES_VIVILLON_POLAR] = 
     {  
@@ -11786,8 +11786,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonPolar, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonPolar,
 [SPECIES_VIVILLON_TUNDRA] = 
     {  
@@ -11795,8 +11795,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonTundra, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonTundra,
 [SPECIES_VIVILLON_CONTINENTAL] = 
     {  
@@ -11804,8 +11804,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonContinental, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonContinental,
 [SPECIES_VIVILLON_GARDEN] = 
     {  
@@ -11813,8 +11813,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonGarden, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonGarden,
 [SPECIES_VIVILLON_ELEGANT] = 
     {  
@@ -11822,8 +11822,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonElegant, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonElegant,
 [SPECIES_VIVILLON_MEADOW] = 
     {  
@@ -11831,8 +11831,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonMeadow, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonMeadow,
 [SPECIES_VIVILLON_MODERN] = 
     {  
@@ -11840,8 +11840,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonModern, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonModern,
 [SPECIES_VIVILLON_MARINE] = 
     {  
@@ -11849,8 +11849,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonMarine, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonMarine,
 [SPECIES_VIVILLON_ARCHIPELAGO] = 
     {  
@@ -11858,8 +11858,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonArchipelago, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonArchipelago,
 [SPECIES_VIVILLON_HIGH_PLAINS] = 
     {  
@@ -11867,8 +11867,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonHighPlains, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonHighPlains,
 [SPECIES_VIVILLON_SANDSTORM] = 
     {  
@@ -11876,8 +11876,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonSandstorm, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonSandstorm,
 [SPECIES_VIVILLON_RIVER] = 
     {  
@@ -11885,8 +11885,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonRiver, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonRiver,
 [SPECIES_VIVILLON_MONSOON] = 
     {  
@@ -11894,8 +11894,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonMonsoon, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonMonsoon,
 [SPECIES_VIVILLON_SAVANNA] = 
     {  
@@ -11903,8 +11903,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonSavanna, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonSavanna,
 [SPECIES_VIVILLON_SUN] = 
     {  
@@ -11912,8 +11912,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonSun, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonSun,
 [SPECIES_VIVILLON_OCEAN] = 
     {  
@@ -11921,8 +11921,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonOcean, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonOcean,
 [SPECIES_VIVILLON_JUNGLE] = 
     {  
@@ -11930,8 +11930,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonJungle, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonJungle,
 [SPECIES_VIVILLON_FANCY] = 
     {  
@@ -11939,8 +11939,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonFancy, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonFancy,
 [SPECIES_VIVILLON_POKE_BALL] = 
     {  
@@ -11948,8 +11948,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(VivillonPokeBall, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Vivillon, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Vivillon),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Vivillon),
 }, //VivillonPokeBall,
 [SPECIES_UNFEZANT_FEMALE] = 
     {  
@@ -11957,8 +11957,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(UnfezantFemale, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Unfezant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Unfezant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Unfezant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Unfezant),
 }, //Unfezant_Female
 [SPECIES_PYROAR_FEMALE] = 
     {  
@@ -11966,8 +11966,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88,3),
       PIC_DATA_ICON_INDEX(PyroarFemale, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pyroar, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pyroar, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pyroar),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pyroar),
 }, //Pyroar_Female,
 [SPECIES_FLABEBE_YELLOW_FLOWER] = 
     {  
@@ -11978,8 +11978,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlabebeYellowFlower),
       ICON(FlabebeYellowFlower, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flabebe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flabebe),
 }, //FlabebeYellowFlower,
 [SPECIES_FLABEBE_ORANGE_FLOWER] = 
     {  
@@ -11990,8 +11990,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlabebeOrangeFlower),
       ICON(FlabebeOrangeFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flabebe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flabebe),
 }, //FlabebeOrangeFlower,
 [SPECIES_FLABEBE_BLUE_FLOWER] = 
     {  
@@ -12002,8 +12002,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlabebeBlueFlower),
       ICON(FlabebeBlueFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flabebe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flabebe),
 }, //FlabebeBlueFlower,
 [SPECIES_FLABEBE_WHITE_FLOWER] = 
     {  
@@ -12014,8 +12014,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlabebeWhiteFlower),
       ICON(FlabebeWhiteFlower, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Flabebe, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Flabebe),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Flabebe),
 }, //FlabebeWhiteFlower,
 [SPECIES_FLOETTE_YELLOW_FLOWER] = 
     {  
@@ -12026,8 +12026,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FloetteYellowFlower),
       ICON(FloetteYellowFlower, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floette),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floette),
 }, //FloetteYellowFlower,
 [SPECIES_FLOETTE_ORANGE_FLOWER] = 
     {  
@@ -12038,8 +12038,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FloetteOrangeFlower),
       ICON(FloetteOrangeFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floette),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floette),
 }, //FloetteOrangeFlower,
 [SPECIES_FLOETTE_BLUE_FLOWER] = 
     {  
@@ -12050,8 +12050,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FloetteBlueFlower),
       ICON(FloetteBlueFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floette),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floette),
 }, //FloetteBlueFlower,
 [SPECIES_FLOETTE_WHITE_FLOWER] = 
     {  
@@ -12062,8 +12062,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FloetteWhiteFlower),
       ICON(FloetteWhiteFlower, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Floette, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Floette),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Floette),
 }, //FloetteWhiteFlower,
 [SPECIES_FLOETTE_ETERNAL_FLOWER] = 
     {  
@@ -12074,8 +12074,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FloetteEternalFlower),
       ICON(FloetteEternalFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_FloetteEternalFlower, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_FloetteEternalFlower, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_FloetteEternalFlower),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_FloetteEternalFlower),
 }, //FloetteEternalFlower,
 [SPECIES_FLORGES_YELLOW_FLOWER] = 
     {  
@@ -12086,8 +12086,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlorgesYellowFlower),
       ICON(FlorgesYellowFlower, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Florges),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Florges),
 }, //FlorgesYellowFlower,
 [SPECIES_FLORGES_ORANGE_FLOWER] = 
     {  
@@ -12098,8 +12098,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlorgesOrangeFlower),
       ICON(FlorgesOrangeFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Florges),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Florges),
 }, //FlorgesOrangeFlower,
 [SPECIES_FLORGES_BLUE_FLOWER] = 
     {  
@@ -12110,8 +12110,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlorgesBlueFlower),
       ICON(FlorgesBlueFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Florges),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Florges),
 }, //FlorgesBlueFlower,
 [SPECIES_FLORGES_WHITE_FLOWER] = 
     {  
@@ -12122,8 +12122,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(FlorgesWhiteFlower),
       ICON(FlorgesWhiteFlower, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Florges, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Florges),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Florges),
 }, //FlorgesWhiteFlower,
 [SPECIES_FURFROU_HEART_TRIM] = 
     {  
@@ -12131,8 +12131,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouHeartTrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouHeartTrim,
 [SPECIES_FURFROU_STAR_TRIM] = 
     {  
@@ -12140,8 +12140,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouStarTrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouStarTrim,
 [SPECIES_FURFROU_DIAMOND_TRIM] = 
     {  
@@ -12149,8 +12149,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouDiamondTrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouDiamondTrim,
 [SPECIES_FURFROU_DEBUTANTE_TRIM] = 
     {  
@@ -12158,8 +12158,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouDebutanteTrim, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouDebutanteTrim,
 [SPECIES_FURFROU_MATRON_TRIM] = 
     {  
@@ -12167,8 +12167,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouMatronTrim, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouMatronTrim,
 [SPECIES_FURFROU_DANDY_TRIM] = 
     {  
@@ -12176,8 +12176,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouDandyTrim, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouDandyTrim,
 [SPECIES_FURFROU_LA_REINE_TRIM] = 
     {  
@@ -12185,8 +12185,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouLaReineTrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouLaReineTrim,
 [SPECIES_FURFROU_KABUKI_TRIM] = 
     {  
@@ -12194,8 +12194,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouKabukiTrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouKabukiTrim,
 [SPECIES_FURFROU_PHARAOH_TRIM] = 
     {  
@@ -12203,8 +12203,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x78, 2),
       PIC_DATA_ICON_INDEX(FurfrouPharaohTrim, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Furfrou, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Furfrou),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Furfrou),
 }, //FurfrouPharaohTrim,
 [SPECIES_MEOWSTIC_FEMALE] = 
     {  
@@ -12212,8 +12212,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 9),
       PIC_DATA_ICON_INDEX(MeowsticFemale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Meowstic, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Meowstic, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Meowstic),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Meowstic),
 }, //Meowstic_Female,
 [SPECIES_AEGISLASH_BLADE] = 
     {  
@@ -12221,8 +12221,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 9),
       PIC_DATA_ICON_INDEX(AegislashBlade, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Aegislash, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Aegislash, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Aegislash),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Aegislash),
 }, //AegislashBlade,
 [SPECIES_PUMPKABOO_SMALL] = 
     {  
@@ -12233,8 +12233,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pumpkaboo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pumpkaboo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pumpkaboo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pumpkaboo),
 }, //Pumpkaboo,
 [SPECIES_PUMPKABOO_LARGE] = 
     {  
@@ -12245,8 +12245,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Pumpkaboo, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Pumpkaboo, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Pumpkaboo),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Pumpkaboo),
 }, //Pumpkaboo,
 [SPECIES_PUMPKABOO_SUPER] = 
     {  
@@ -12257,8 +12257,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Pumpkaboo),
       ICON(Pumpkaboo, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_PumpkabooSuper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_PumpkabooSuper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_PumpkabooSuper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_PumpkabooSuper),
 }, //Pumpkaboo,
 [SPECIES_GOURGEIST_SMALL] = 
     {  
@@ -12269,8 +12269,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Gourgeist),
       ICON(Gourgeist, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gourgeist, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gourgeist, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gourgeist),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gourgeist),
 }, //Gourgeist,
 [SPECIES_GOURGEIST_LARGE] = 
     {  
@@ -12281,8 +12281,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Gourgeist),
       ICON(Gourgeist, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Gourgeist, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Gourgeist, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Gourgeist),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Gourgeist),
 }, //Gourgeist,
 [SPECIES_GOURGEIST_SUPER] = 
     {  
@@ -12293,8 +12293,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(Gourgeist),
       ICON(Gourgeist, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_GourgeistSuper, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_GourgeistSuper, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_GourgeistSuper),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_GourgeistSuper),
 }, //Gourgeist,
 [SPECIES_XERNEAS_ACTIVE] = 
     {  
@@ -12302,8 +12302,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(XerneasActive, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Xerneas, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Xerneas, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Xerneas),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Xerneas),
 }, //XerneasActive,
 [SPECIES_ZYGARDE_50] = 
     {  
@@ -12311,8 +12311,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(Zygarde50, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zygarde50, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zygarde50, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zygarde50),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zygarde50),
 }, //Zygarde,
 [SPECIES_ZYGARDE_COMPLETE] = 
     {  
@@ -12320,8 +12320,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(ZygardeComplete, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ZygardeComplete, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ZygardeComplete, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ZygardeComplete),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ZygardeComplete),
 }, //ZygardeComplete,
 [SPECIES_HOOPA_UNBOUND] = 
     {  
@@ -12329,8 +12329,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 4),
       PIC_DATA_ICON_INDEX(HoopaUnbound, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_HoopaUnbound, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_HoopaUnbound, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_HoopaUnbound),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_HoopaUnbound),
 }, //HoopaUnbound,
 [SPECIES_ORICORIO_POM_POM] = 
     {  
@@ -12338,8 +12338,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(OricorioPomPom, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_OricorioPomPom, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_OricorioPomPom, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_OricorioPomPom),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_OricorioPomPom),
 }, //OricorioPomPom,
 [SPECIES_ORICORIO_PAU] = 
     {  
@@ -12347,8 +12347,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(OricorioPau, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_OricorioPau, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_OricorioPau, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_OricorioPau),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_OricorioPau),
 }, //OricorioPau,
 [SPECIES_ORICORIO_SENSU] = 
     {  
@@ -12356,8 +12356,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 0),
       PIC_DATA_ICON_INDEX(OricorioSensu, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_OricorioSensu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_OricorioSensu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_OricorioSensu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_OricorioSensu),
 }, //OricorioSensu,
 [SPECIES_LYCANROC_MIDNIGHT] = 
     {  
@@ -12365,8 +12365,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(LycanrocMidnight, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LycanrocMidnight, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LycanrocMidnight, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LycanrocMidnight),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LycanrocMidnight),
 }, //LycanrocMidnight,
 [SPECIES_LYCANROC_DUSK] = 
     {  
@@ -12374,8 +12374,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 7),
       PIC_DATA_ICON_INDEX(LycanrocDusk, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_LycanrocDusk, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_LycanrocDusk, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_LycanrocDusk),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_LycanrocDusk),
 }, //LycanrocDusk,
 [SPECIES_WISHIWASHI_SCHOOL] = 
     {  
@@ -12383,8 +12383,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x66, 8),
       PIC_DATA_ICON_INDEX(WishiwashiSchool, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_WishiwashiSchool, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_WishiwashiSchool, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_WishiwashiSchool),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_WishiwashiSchool),
 }, //WishiwashiSchool,
 [SPECIES_SILVALLY_FIGHTING] = 
     {  
@@ -12395,8 +12395,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyFighting),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_FLYING] = 
     {  
@@ -12407,8 +12407,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyFlying),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_POISON] = 
     {  
@@ -12419,8 +12419,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyPoison),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_GROUND] = 
     {  
@@ -12431,8 +12431,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyGround),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_ROCK] = 
     {  
@@ -12443,8 +12443,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyRock),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_BUG] = 
     {  
@@ -12455,8 +12455,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyBug),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_GHOST] = 
     {  
@@ -12467,8 +12467,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyGhost),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_STEEL] = 
     {  
@@ -12479,8 +12479,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallySteel),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_FIRE] = 
     {  
@@ -12491,8 +12491,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyFire),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_WATER] = 
     {  
@@ -12503,8 +12503,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyWater),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_GRASS] = 
     {  
@@ -12515,8 +12515,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyGrass),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_ELECTRIC] = 
     {  
@@ -12527,8 +12527,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyElectric),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_PSYCHIC] = 
     {  
@@ -12539,8 +12539,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyPsychic),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_ICE] = 
     {  
@@ -12551,8 +12551,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyIce),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_DRAGON] = 
     {  
@@ -12563,8 +12563,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyDragon),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_DARK] = 
     {  
@@ -12575,8 +12575,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyDark),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_SILVALLY_FAIRY] = 
     {  
@@ -12587,8 +12587,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(SilvallyFairy),
       ICON(Silvally, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Silvally, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Silvally),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Silvally),
 }, //Silvally,
 [SPECIES_MINIOR_METEOR_ORANGE] = 
     {  
@@ -12596,8 +12596,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_MINIOR_METEOR_YELLOW] = 
     {  
@@ -12605,8 +12605,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_MINIOR_METEOR_GREEN] = 
     {  
@@ -12614,8 +12614,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_MINIOR_METEOR_BLUE] = 
     {  
@@ -12623,8 +12623,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_MINIOR_METEOR_INDIGO] = 
     {  
@@ -12632,8 +12632,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_MINIOR_METEOR_VIOLET] = 
     {  
@@ -12641,8 +12641,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x75, 14),
       PIC_DATA_ICON_INDEX(MiniorMeteor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //Minior,
 [SPECIES_MINIOR_CORE_RED] = 
     {  
@@ -12654,8 +12654,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreRed, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreRed,
 [SPECIES_MINIOR_CORE_ORANGE] = 
     {  
@@ -12667,8 +12667,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreOrange, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreOrange,
 [SPECIES_MINIOR_CORE_YELLOW] = 
     {  
@@ -12680,8 +12680,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreYellow, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreYellow,
 [SPECIES_MINIOR_CORE_GREEN] = 
     {  
@@ -12693,8 +12693,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreGreen, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreGreen,
 [SPECIES_MINIOR_CORE_BLUE] = 
     {  
@@ -12706,8 +12706,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreBlue, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreBlue,
 [SPECIES_MINIOR_CORE_INDIGO] = 
     {  
@@ -12719,8 +12719,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreIndigo, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreIndigo,
 [SPECIES_MINIOR_CORE_VIOLET] = 
     {  
@@ -12732,8 +12732,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(MiniorCore),
       ICON(MiniorCoreViolet, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Minior, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Minior),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Minior),
 }, //MiniorCoreViolet,
 [SPECIES_MIMIKYU_BUSTED] = 
     {  
@@ -12741,8 +12741,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x77, 15),
       PIC_DATA_ICON_INDEX(MimikyuBusted, 3),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Mimikyu, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Mimikyu, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Mimikyu),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Mimikyu),
 }, //MimikyuBusted,
 [SPECIES_NECROZMA_DUSK_MANE] = 
     {  
@@ -12750,8 +12750,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(NecrozmaDuskMane, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_NecrozmaDuskMane, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_NecrozmaDuskMane, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_NecrozmaDuskMane),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_NecrozmaDuskMane),
 }, //NecrozmaDuskMane,
 [SPECIES_NECROZMA_DAWN_WINGS] = 
     {  
@@ -12759,8 +12759,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(NecrozmaDawnWings, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_NecrozmaDawnWings, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_NecrozmaDawnWings, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_NecrozmaDawnWings),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_NecrozmaDawnWings),
 }, //NecrozmaDawnWings,
 [SPECIES_NECROZMA_ULTRA] = 
     {  
@@ -12768,8 +12768,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 4),
       PIC_DATA_ICON_INDEX(NecrozmaUltra, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_NecrozmaUltra, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_NecrozmaUltra, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_NecrozmaUltra),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_NecrozmaUltra),
 }, //NecrozmaUltra,
 [SPECIES_MAGEARNA_ORIGINAL_COLOR] = 
     {  
@@ -12777,8 +12777,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 4),
       PIC_DATA_ICON_INDEX(MagearnaOriginalColor, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Magearna, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Magearna, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Magearna),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Magearna),
 }, //MagearnaOriginalColor,
 [SPECIES_CRAMORANT_GULPING] = 
     {  
@@ -12786,8 +12786,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(CramorantGulping, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cramorant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cramorant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cramorant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cramorant),
 }, //Cramorant_Gulping,
 [SPECIES_CRAMORANT_GORGING] = 
     {  
@@ -12795,8 +12795,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 1),
       PIC_DATA_ICON_INDEX(CramorantGorging, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Cramorant, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Cramorant, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Cramorant),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Cramorant),
 }, //Cramorant_Gorging,
 [SPECIES_TOXTRICITY_LOW_KEY] = 
     {  
@@ -12804,8 +12804,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x68, 0),
       PIC_DATA_ICON_INDEX(ToxtricityLowKey, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ToxtricityLowKey, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ToxtricityLowKey, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ToxtricityLowKey),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ToxtricityLowKey),
 }, //Toxtricity_Low_key,
 [SPECIES_SINISTEA_ANTIQUE]  =
 {
@@ -12813,8 +12813,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
   BACK_COORD(0x64, 16),
   PIC_DATA_ICON_INDEX(Sinistea, 0),
   .enemyMonElevation = 0,
-  .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Sinistea, 0xff, 0, 0xff, 0),
-  .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Sinistea, 0xff, 0, 0xff, 0),
+  .cryData = CRY_INFO(Cry_Sinistea),
+  .cryData_Reverse = CRY_INFO_REVERSE(Cry_Sinistea),
 },
 [SPECIES_POLTEAGEIST_ANTIQUE]  =
 {
@@ -12822,8 +12822,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
   BACK_COORD(0x85, 13),
   PIC_DATA_ICON_INDEX(Polteageist, 0),
   .enemyMonElevation = 0,
-  .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Polteageist, 0xff, 0, 0xff, 0),
-  .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Polteageist, 0xff, 0, 0xff, 0),
+  .cryData = CRY_INFO(Cry_Polteageist),
+  .cryData_Reverse = CRY_INFO_REVERSE(Cry_Polteageist),
 },
     //Alcremie forms
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_CREAM] = 
@@ -12836,8 +12836,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_MATCHA_CREAM] = 
@@ -12850,8 +12850,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_MINT_CREAM] = 
@@ -12864,8 +12864,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 3),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_LEMON_CREAM] = 
@@ -12878,8 +12878,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_SALTED_CREAM] = 
@@ -12892,8 +12892,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_RUBY_SWIRL] = 
@@ -12906,8 +12906,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_CARAMEL_SWIRL] = 
@@ -12920,8 +12920,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STRAWBERRY_RAINBOW_SWIRL] = 
@@ -12934,8 +12934,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStrawberry),
       ICON(Alcremie, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_VANILLA_CREAM] = 
@@ -12948,8 +12948,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_RUBY_CREAM] = 
@@ -12962,8 +12962,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_MATCHA_CREAM] = 
@@ -12976,8 +12976,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_MINT_CREAM] = 
@@ -12990,8 +12990,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_LEMON_CREAM] = 
@@ -13004,8 +13004,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_SALTED_CREAM] = 
@@ -13018,8 +13018,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_RUBY_SWIRL] = 
@@ -13032,8 +13032,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_CARAMEL_SWIRL] = 
@@ -13046,8 +13046,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_BLUEBERRY_RAINBOW_SWIRL] = 
@@ -13060,8 +13060,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieBlueberry),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_VANILLA_CREAM] = 
@@ -13074,8 +13074,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_RUBY_CREAM] = 
@@ -13088,8 +13088,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_MATCHA_CREAM] = 
@@ -13102,8 +13102,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_MINT_CREAM] = 
@@ -13116,8 +13116,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_LEMON_CREAM] = 
@@ -13130,8 +13130,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_SALTED_CREAM] = 
@@ -13144,8 +13144,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_RUBY_SWIRL] = 
@@ -13158,8 +13158,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_CARAMEL_SWIRL] = 
@@ -13172,8 +13172,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_LOVE_RAINBOW_SWIRL] = 
@@ -13186,8 +13186,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieLove),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_VANILLA_CREAM] = 
@@ -13200,8 +13200,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_RUBY_CREAM] = 
@@ -13214,8 +13214,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_MATCHA_CREAM] = 
@@ -13228,8 +13228,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_MINT_CREAM] = 
@@ -13242,8 +13242,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_LEMON_CREAM] = 
@@ -13256,8 +13256,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_SALTED_CREAM] = 
@@ -13270,8 +13270,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_RUBY_SWIRL] = 
@@ -13284,8 +13284,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_CARAMEL_SWIRL] = 
@@ -13298,8 +13298,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_STAR_RAINBOW_SWIRL] = 
@@ -13312,8 +13312,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieStar),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_VANILLA_CREAM] = 
@@ -13326,8 +13326,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_RUBY_CREAM] = 
@@ -13340,8 +13340,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_MATCHA_CREAM] = 
@@ -13354,8 +13354,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_MINT_CREAM] = 
@@ -13368,8 +13368,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_LEMON_CREAM] = 
@@ -13382,8 +13382,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_SALTED_CREAM] = 
@@ -13396,8 +13396,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_RUBY_SWIRL] = 
@@ -13410,8 +13410,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_CARAMEL_SWIRL] = 
@@ -13424,8 +13424,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_CLOVER_RAINBOW_SWIRL] = 
@@ -13438,8 +13438,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieClover),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_VANILLA_CREAM] = 
@@ -13452,8 +13452,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_RUBY_CREAM] = 
@@ -13466,8 +13466,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_MATCHA_CREAM] = 
@@ -13480,8 +13480,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_MINT_CREAM] = 
@@ -13494,8 +13494,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_LEMON_CREAM] = 
@@ -13508,8 +13508,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_SALTED_CREAM] = 
@@ -13522,8 +13522,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_RUBY_SWIRL] = 
@@ -13536,8 +13536,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_CARAMEL_SWIRL] = 
@@ -13550,8 +13550,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_FLOWER_RAINBOW_SWIRL] = 
@@ -13564,8 +13564,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieFlower),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_VANILLA_CREAM] = 
@@ -13578,8 +13578,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_RUBY_CREAM] = 
@@ -13592,8 +13592,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_MATCHA_CREAM] = 
@@ -13606,8 +13606,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_MINT_CREAM] = 
@@ -13620,8 +13620,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_LEMON_CREAM] = 
@@ -13634,8 +13634,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_SALTED_CREAM] = 
@@ -13648,8 +13648,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_RUBY_SWIRL] = 
@@ -13662,8 +13662,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_CARAMEL_SWIRL] = 
@@ -13676,8 +13676,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       SHINYPAL(AlcremieRibbon),
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
 [SPECIES_ALCREMIE_RIBBON_RAINBOW_SWIRL] = 
@@ -13691,8 +13691,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       ////PIC_DATA_ICON_INDEX(AlcremieRibbon,0), //gMonIcon_Alcremie
       ICON(Alcremie, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Alcremie, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Alcremie),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Alcremie),
 }, //AlcremieStrawberry,
 
     
@@ -13703,8 +13703,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x58, 0),
       PIC_DATA_ICON_INDEX(EiscueNoiceFace, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EiscueNoiceFace, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EiscueNoiceFace, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EiscueNoiceFace),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EiscueNoiceFace),
 }, //Eiscue_noice_face,
 [SPECIES_INDEEDEE_FEMALE] = 
     {  
@@ -13712,8 +13712,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(IndeedeeFemale, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_IndeedeeFemale, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_IndeedeeFemale, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_IndeedeeFemale),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_IndeedeeFemale),
 }, //Indeedee_Female,
 [SPECIES_MORPEKO_HANGRY] = 
     {  
@@ -13721,8 +13721,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x67, 8),
       PIC_DATA_ICON_INDEX(MorpekoHangry, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_MorpekoHangry, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_MorpekoHangry, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_MorpekoHangry),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_MorpekoHangry),
 }, //Morpeko_Hangry,
 [SPECIES_ZACIAN_CROWNED_SWORD] = 
     {  
@@ -13730,8 +13730,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 6),
       PIC_DATA_ICON_INDEX(ZacianCrownedSword, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ZacianCrownedSword, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ZacianCrownedSword, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ZacianCrownedSword),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ZacianCrownedSword),
 }, //Zacian_Crowned_Sword,
 [SPECIES_ZAMAZENTA_CROWNED_SHIELD] = 
     {  
@@ -13739,8 +13739,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 3),
       PIC_DATA_ICON_INDEX(ZamazentaCrownedShield, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_ZamazentaCrownedShield, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_ZamazentaCrownedShield, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_ZamazentaCrownedShield),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_ZamazentaCrownedShield),
 }, //Zamazenta_Crowned_Shield,
 [SPECIES_ETERNATUS_ETERNAMAX] = 
     {  
@@ -13748,8 +13748,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x85, 11),
       PIC_DATA_ICON_INDEX(EternatusEternamax, 0),
       .enemyMonElevation = 4,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_EternatusEternamax, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_EternatusEternamax, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_EternatusEternamax),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_EternatusEternamax),
 }, //Eternatus_Eternamax,
 [SPECIES_URSHIFU_RAPID_STRIKE_STYLE] = 
     {  
@@ -13760,8 +13760,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       PALETTES(UrshifuRapidStrikeStyle),
       ICON(Urshifu, 2),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_UrshifuRapidStrikeStyle, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_UrshifuRapidStrikeStyle, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_UrshifuRapidStrikeStyle),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_UrshifuRapidStrikeStyle),
 }, //Urshifu_Rapid, //think last value needs no comma, nope doesn't matter but using comma is better in case you plan to add more
 [SPECIES_ZARUDE_DADA] = 
     {  
@@ -13769,8 +13769,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 5),
       PIC_DATA_ICON_INDEX(ZarudeDada, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Zarude, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Zarude, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Zarude),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Zarude),
 }, //Zarude_Dada,
 [SPECIES_CALYREX_ICE_RIDER] = 
     {  
@@ -13778,8 +13778,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x88, 7),
       PIC_DATA_ICON_INDEX(CalyrexIceRider, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_CalyrexIceRider, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_CalyrexIceRider, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_CalyrexIceRider),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_CalyrexIceRider),
 }, //Calyrex_Ice_Rider,
 [SPECIES_CALYREX_SHADOW_RIDER] = 
     {  
@@ -13787,8 +13787,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x87, 7),
       PIC_DATA_ICON_INDEX(CalyrexShadowRider, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_CalyrexShadowRider, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_CalyrexShadowRider, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_CalyrexShadowRider),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_CalyrexShadowRider),
 }, //Calyrex_Shadow_Rider,
 [SPECIES_BASCULEGION_FEMALE] = 
     {  
@@ -13796,8 +13796,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x72, 1),
       PIC_DATA_ICON_INDEX(BasculegionFemale, 0),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Basculegion, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Basculegion, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Basculegion),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Basculegion),
 }, //Basculegion_Female,
 [SPECIES_FRILLISH_FEMALE] = 
     {  
@@ -13805,8 +13805,8 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x57, 7),
       PIC_DATA_ICON_INDEX(FrillishFemale, 1),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Frillish, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Frillish, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Frillish),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Frillish),
 }, //Basculegion_Female,
 [SPECIES_JELLICENT_FEMALE] = 
     {  
@@ -13814,7 +13814,7 @@ const struct SpeciesGraphicInfo gSpeciesGraphics[] =
       BACK_COORD(0x86, 10),
       PIC_DATA_ICON_INDEX(JellicentFemale, 4),
       .enemyMonElevation = 0,
-      .cryData = CRY_INFO(60, 0, 0, (struct WaveData *) Cry_Jellicent, 0xff, 0, 0xff, 0),
-      .cryData_Reverse = CRY_INFO_REVERSE(60, 0, 0, (struct WaveData *) Cry_Jellicent, 0xff, 0, 0xff, 0),
+      .cryData = CRY_INFO(Cry_Jellicent),
+      .cryData_Reverse = CRY_INFO_REVERSE(Cry_Jellicent),
 }, //Basculegion_Female,
 };

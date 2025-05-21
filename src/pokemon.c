@@ -9115,16 +9115,17 @@ static bool8 HealStatusConditions(struct Pokemon *mon, u32 unused, u32 healMask,
 
 struct ToneData *GetCryIdBySpecies(u16 species, bool8 reverse)
 {
-    if (!(reverse))
-    {
-        if (gSpeciesGraphics[species].cryData == NULL)
-            return gSpeciesGraphics[SPECIES_NONE].cryData;
-    }
-    else
+    if (reverse)
     {
         if (gSpeciesGraphics[species].cryData_Reverse == NULL)
             return gSpeciesGraphics[SPECIES_NONE].cryData_Reverse;
-        return gSpeciesGraphics[species].cryData_Reverse;
+        return gSpeciesGraphics[species].cryData_Reverse;        
+    }
+    else
+    {
+        if (gSpeciesGraphics[species].cryData == NULL)
+            return gSpeciesGraphics[SPECIES_NONE].cryData;
+        return gSpeciesGraphics[species].cryData;   
     }
 }
 
