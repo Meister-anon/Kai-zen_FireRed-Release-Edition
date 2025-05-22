@@ -1031,20 +1031,24 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SUBMISSION] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .pp = 20,
+            .pp = 15,
         #else
             .pp = 25,
         #endif
-        .effect = EFFECT_RECOIL,
+        .effect = EFFECT_SUBMISSION, //should break walls & protect
         .power = 80,
         .type = TYPE_FIGHTING,
-        .accuracy = 95,
+        .accuracy = 90,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_RECKLESS_BOOST,
         .split = SPLIT_PHYSICAL,
     },
+    //was at some point strongest fighting move, think will change to ultimate fighting technique
+    //does recoil but breaks through protect essentially same effect as raging bull
+    //recoil works off effect only? so don't think can do raging bull & recoil?
+    //done just needed its own effect
 
     [MOVE_LOW_KICK] =
     {

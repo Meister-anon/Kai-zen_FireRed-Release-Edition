@@ -14754,7 +14754,10 @@ static void atk80_manipulatedamage(void)
             //so target hp was already 0 if I fainted them, therefore assigning dmg to 0 making recoil just 1
             //should be fine now, think I had set it to target hp...
 
-        switch (gBattleMoves[gCurrentMove].effect)
+        //
+        //gBattleScripting.moveEffect
+        switch (gBattleMoves[gCurrentMove].effect) //if I change this to use move effect would woork
+        //switch (gBattleScripting.moveEffect)
         {
             //this one may be too strong
             //since realized recoil was meant for high hp mon
@@ -14767,22 +14770,34 @@ static void atk80_manipulatedamage(void)
             //ok decide drop hp component down to 15 divisor
             //and may cap this one at 2x will be more forgiving on hp a bit
             //
+            //at low levels on a mon w average hp
+            //is effectively approx 1/5th damage seems good
             case EFFECT_50_RECOIL:   //head smash etc.
+            //case MOVE_EFFECT_HEAVY_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage *= 2;// max((gBattleMoveDamage * 8) / 3,1);//2 2/3  2.67
                 //gBattleMoveDamage /= 2;
             break;
             case EFFECT_RECOIL:
+            //case MOVE_EFFECT_RECOIL_25:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
+                gBattleMoveDamage += max(gBattleMoveDamage / 4,1);
                 //gBattleMoveDamage /= 4; //w raichu min dmg should be 3
             break;
+            case EFFECT_SUBMISSION:
             case EFFECT_33_RECOIL_W_STATUS: //volt tackle etc.
             case EFFECT_DOUBLE_EDGE:
+            //case MOVE_EFFECT_RECOIL_33:
+            //case MOVE_EFFECT_MED_RECOIL_W_STATUS:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
-                gBattleMoveDamage += max(gBattleMoveDamage / 2,1);
+                gBattleMoveDamage += max((gBattleMoveDamage * 2) / 3,1);
                 //gBattleMoveDamage /= 3; //double edge damag
             break;
-        }
+        }//its doing massive damage when it shouldn't be? idk what's happening
+        //something is seriously wrong, I'm taking exact damage?
+        //uses 25% recoil w takedown did 10 damage and hp fell by 10
+        //YEAH NO matter what effect I pick I'm taking exact hp damage???
+        //smh ok long as I use effect and not move effect it works
 
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_PARENTAL_BOND)
             gBattleMoveDamage *= 2;
@@ -21046,7 +21061,7 @@ void BS_call_if(void) //comparing to jumpifholdeffect
                     return; //addding returns to this seem to make scritp read correctly?
                 }                    
                 break;//removes screens from start, still need to setup script with screens, need understand how wall animation worked in default script
-            
+            case EFFECT_SUBMISSION:
             case EFFECT_RAGING_BULL:
             {
                 if (TryRemoveScreens(gBattlerAttacker)) //replace with function check for screens / adapted screen cleaner logic, rather than make from scratch

@@ -431,6 +431,7 @@
 #define EFFECT_SPICY_EXTRACT 418
 #define EFFECT_STEEL_SURGE 419
 #define EFFECT_RAGING_BULL 420 //think got working but would like setup a message, crashed through protect? think can do with call_if in bs_commands
+#define EFFECT_SUBMISSION 421 //same as raging bull separated for new submission effect
 
 /*MOVE_FIRE_SPIN, //increases burn chance //serenge grace is effect *2 by requires no setup, I think I can get away w * 3 here actually do more to near guarantee 50-60%
 MOVE_CLAMP,     //no extra wrap effect,  but give flich chance on hit //changed mind you're staying clamped on them, so for duration statused target has chance to flinch when attacking

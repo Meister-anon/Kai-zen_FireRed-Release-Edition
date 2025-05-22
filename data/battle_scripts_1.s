@@ -449,7 +449,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectSpicyExtract			  @EFFECT_SPICY_EXTRACT
 	.4byte BattleScript_EffectSteelSurge			  @EFFECT_STEEL_SURGE
 	.4byte BattleScript_EffectRagingBull			  @ EFFECT_RAGING_BULL
-	
+	.4byte BattleScript_EffectSubmission			  @EFFECT_SUBMISSION
 
 
 BattleScript_EffectAlwaysCrit:
@@ -6306,6 +6306,10 @@ BattleScript_EffectRevenge::
 BattleScript_EffectHighestStatUpHit::
 	raiseAttackerhigheststat
 	goto BattleScript_EffectHit
+
+BattleScript_EffectSubmission::
+	setmoveeffect MOVE_EFFECT_RECOIL_33 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	call_if EFFECT_SUBMISSION
 
 BattleScript_EffectBrickBreak::
 	call_if	EFFECT_BRICK_BREAK	@seems like this isn't working its not doing typecalc

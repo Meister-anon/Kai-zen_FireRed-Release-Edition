@@ -12969,6 +12969,7 @@ bool32 TryRemoveScreens(u8 battler)
         }
     }
     else if (gBattleMoves[gCurrentMove].effect == EFFECT_BRICK_BREAK
+    || gBattleMoves[gCurrentMove].effect == EFFECT_SUBMISSION
     || gBattleMoves[gCurrentMove].effect == EFFECT_RAGING_BULL) //attempt using for brick break
     {
          // try to remove from battler opponent's side
