@@ -4098,6 +4098,19 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     have to go to pokedex page going to the map alone doesn't work
     so change it so can register map to open it and show currently available roaming positions on map
     do same for when view map from fly
+
+    give much more rock types acell rock in learnset give them a priority move long as they have some way of moving/increasing speed
+    //even graveler can speed up by like rolling down hill yeah don't think any rock mon should be blocked from getting it?
+    
+      come up with more rock moves,  idea arna trap as a status move lasts certrin amount of turns
+
+    NOTE
+      the scripts for raging bull don't currently work
+      far as the print unique string for protect and walls
+      well doesn't work for brick break first so overall not working
+
+      -redid submission, now useful, also redid recoil effects
+
       Set teachable ability list arrays w python  add teachableabilities/abilitylearnset to basestats
       think will use Key item to decide toggle  it on /off,  it doesn't replace actual ability
       but instead overwrites the check for base stat ability and pushes the learned ability
