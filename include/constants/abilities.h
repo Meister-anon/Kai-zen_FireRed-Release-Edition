@@ -121,7 +121,7 @@
 #define ABILITY_ICE_BODY 116
 #define ABILITY_SOLID_ROCK 117
 #define ABILITY_SNOW_WARNING 118
-#define ABILITY_HONEY_GATHER 119
+#define ABILITY_HONEY_GATHER 119 //add woot change idea that holding honey will act like leftovers
 #define ABILITY_FRISK 120
 #define ABILITY_RECKLESS 121
 #define ABILITY_MULTITYPE 122

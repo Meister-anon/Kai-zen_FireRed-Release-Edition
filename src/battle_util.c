@@ -10087,6 +10087,10 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)   //updated
                     BattleScriptExecute(BattleScript_WhiteHerbEnd2);
                 }
                 break;
+            case HOLD_EFFECT_HONEY:
+                if (GetBattlerAbility(battlerId) == ABILITY_HONEY_GATHER)
+                    goto LEFTOVERS;
+                break;
             case HOLD_EFFECT_BLACK_SLUDGE:
                 if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_POISON))
                 {

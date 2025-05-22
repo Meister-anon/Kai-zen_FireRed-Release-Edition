@@ -3387,14 +3387,14 @@ const struct Item gItems[] =
       .battleUseFunc = NULL,
       .secondaryId =  0
     },
-    [ITEM_C7] =
+    [ITEM_HONEY] =
     {
-      .name = _("????????"),
-      .itemId = ITEM_NONE,
+      .name = _("Honey"),
+      .itemId = ITEM_HONEY,
       .price =  0,
-      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffect = HOLD_EFFECT_HONEY,
       .holdEffectParam =  0,
-     .description = gItemDescription_ITEM_NONE,
+     .description = COMPOUND_STRING("A sweet treat beloved by\npeople and POKéMON!"),
 //      "description":  gItemDescription_ITEM_NONE
       .importance = 0,
       .exitsBagOnUse = 0,

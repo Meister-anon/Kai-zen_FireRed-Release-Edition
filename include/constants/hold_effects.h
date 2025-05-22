@@ -173,6 +173,7 @@
 //negative effect/debuff should only activate at end of turn, think like shut in freezer, took time to freeze solid
 //also small counter effect so cant just fast trick and make target unable to attack
 #define HOLD_EFFECT_ICE_BOX      186   
+#define HOLD_EFFECT_HONEY    187
 
 
 // Terrain seed params

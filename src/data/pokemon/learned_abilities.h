@@ -88,6 +88,7 @@ static const struct AbilityLearnset sKakunaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBeedrillAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
@@ -911,10 +912,12 @@ static const struct AbilityLearnset sScizorAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sShuckleAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sHeracrossAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
@@ -927,6 +930,7 @@ static const struct AbilityLearnset sTeddiursaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sUrsaringAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
@@ -1739,6 +1743,7 @@ static const struct AbilityLearnset sCombeeAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sVespiquenAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
@@ -3720,6 +3725,7 @@ static const struct AbilityLearnset sKleavorAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sUrsalunaAbilityLearnset[] = {
+    ABILITY_HONEY_GATHER,
     ABILITY_SET_END
 };
 
