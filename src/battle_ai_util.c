@@ -741,6 +741,9 @@ static bool32 AI_GetIfCrit(u32 move, u8 battlerAtk, u8 battlerDef)
     return isCrit;
 }
 
+//out of date compared to EE dmg calc
+//check how that works to see what I need/want
+//don't want super smart ai that cheats vsonic important
 s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness, bool32 considerZPower)
 {
     s32 dmg, moveType, critMultiplier, normalDmg;

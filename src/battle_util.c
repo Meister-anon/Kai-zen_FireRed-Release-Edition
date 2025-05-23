@@ -10844,7 +10844,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget) //maybe this is actually setting who ge
     if (gBattleMoves[move].effect == EFFECT_TWO_TYPED_MOVE)
         moveArgument = argument;
 
-    if (setTarget != NO_TARGET_OVERRIDE)
+    if (setTarget != NO_TARGET_OVERRIDE)//i have no idea what this is doing...vsonic
         targetType = setTarget - 1;
     else
         targetType = GetBattlerMoveTargetType(gBattlerAttacker, move);

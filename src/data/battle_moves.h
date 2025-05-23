@@ -1,3 +1,27 @@
+//EE uses .battleAnimScript = gBattleAnimMove_Struggle,
+//instead I want to set pointer table
+//mine will be .battleAnimScriptId
+//I'l just set a move id to the field
+//and it'll be the move animation I want the move to use
+//simple if I want to make simple placeholder effects ex copy slash
+//I'll make a function to get move animation
+//and i'll use the animId with the pointer table to direct to the anim
+//rn animations all use same name just in Lowercase for move
+//ex. MOVE_NONE  anim is Move_NONE
+//shouldn't be too hard to use python to make a file for the table
+//just take argument from moves constant file
+//moveId is moves as is,  move anims will
+//split moveid apart after MOVE use title command on it 
+//to make it Move  then just put it back together
+//and add that to move anim array
+//after its all printed then I just need to do a control h
+//to rename all the moveanim to the new emerald naming convention
+//simply replace Move w gBattleAnimMove
+//then in this file just loop it take move id in brackets
+// and add it on at bottom of file
+//so replace line },  w .battleAnimScriptId = MOVE_ID  \n},
+//pretty much
+
 const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
     [MOVE_NONE] =
@@ -437,6 +461,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .split = SPLIT_PHYSICAL,
     },
+    //think move isn't bad but barely any mon get it
+    //machop only by breeding,
+    //hitmonlee and hitmontop, who historically are slow
+    //and marshadow, the only mon that can actually use it well...
 
     [MOVE_SAND_ATTACK] =
     {

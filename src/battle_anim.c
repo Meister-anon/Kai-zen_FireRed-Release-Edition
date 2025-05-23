@@ -2111,8 +2111,17 @@ void DoMoveAnim(u16 move)
 {
     gBattleAnimAttacker = gBattlerAttacker;
     gBattleAnimTarget = gBattlerTarget;
+    // Make sure the anim target of moves hitting everyone is at the opposite side.
+    /*if (GetBattlerMoveTargetType(gBattlerAttacker, move) & MOVE_TARGET_FOES_AND_ALLY && IsDoubleBattle())
+    {
+        while (IsBattlerAlly(gBattleAnimAttacker, gBattleAnimTarget))
+        {
+            if (++gBattleAnimTarget >= MAX_BATTLERS_COUNT)
+                gBattleAnimTarget = 0;
+        }
+    }*/
     LaunchBattleAnimation(gBattleAnims_Moves, move, TRUE);
-}
+}//vsonic
 
 void LaunchBattleAnimation(const u8 *const animsTable[], u16 tableId, bool8 isMoveAnim)
 {

@@ -305,6 +305,7 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
     return FALSE;
 }
 
+//vsonic check this
 bool32 ShouldSwitch(void)
 {
     u8 battlerIn1, battlerIn2;
@@ -316,7 +317,7 @@ bool32 ShouldSwitch(void)
      || (gStatuses3[gActiveBattler] & STATUS3_ROOTED)
      || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_SHADOW_TAG, 0, 0)
      || AbilityBattleEffects(ABILITYEFFECT_CHECK_OTHER_SIDE, gActiveBattler, ABILITY_ARENA_TRAP, 0, 0))
-        return FALSE; // misses the flying or levitate check
+        return FALSE; // misses the flying or levitate check /and hands of fate for shadow tag
     if (AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_MAGNET_PULL, 0, 0))
         if ((gBattleMons[gActiveBattler].type1 == TYPE_STEEL) || (gBattleMons[gActiveBattler].type2 == TYPE_STEEL))
             return FALSE;
