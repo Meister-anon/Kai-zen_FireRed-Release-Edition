@@ -12415,7 +12415,9 @@ static inline void MulByTypeEffectiveness(uq4_12_t *modifier, u16 move, u8 moveT
     //raging bull
     //doing this was much better as psychic fangs shared effect
     //but wasn't supposed to hit everything
-    if (mod < UQ_4_12(0.5) && move == MOVE_BRICK_BREAK) //let brick break hit all mon
+    //realized this si dumb, issue is immunity not resist,
+    //and quad resist would be changed
+    if (mod == UQ_4_12(0.0) && move == MOVE_BRICK_BREAK) //let brick break hit all mon
         mod = UQ_4_12(0.5);
 
     if (mod == UQ_4_12(0.5) && gBattleMoves[move].effect == EFFECT_PSYWAVE)

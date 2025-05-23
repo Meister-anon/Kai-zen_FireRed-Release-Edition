@@ -1044,7 +1044,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DRILL_PECK] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_BRICK_BREAK,
         .power = 80,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -1055,6 +1055,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT,
         .split = SPLIT_PHYSICAL,
     },
+    //saw comment on rigamarolled vid I like make drill peck break screens
     //drill enemy weak spot
 
     [MOVE_SUBMISSION] =
@@ -6480,14 +6481,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_DMG_IN_AIR,
         .split = SPLIT_PHYSICAL,
     },
 
     [MOVE_AIR_SLASH] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .pp = 15,
+            .pp = 10,
             .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         #elif B_UPDATED_MOVE_DATA == GEN_5
             .pp = 20,
