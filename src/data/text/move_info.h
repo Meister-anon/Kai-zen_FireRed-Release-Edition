@@ -139,7 +139,7 @@ const u8 gMoveDescription_HiJumpKick[MOVE_DESCRIPTION_LENGTH + 5] = _("A strong 
 const u8 gMoveDescription_Glare[MOVE_DESCRIPTION_LENGTH + 5] = _("The user intimidates\nthe foe with a leer\nshocking the foe\ninto paralysis.");
 const u8 gMoveDescription_DreamEater[MOVE_DESCRIPTION_LENGTH + 5] = _("Absorbs half the\ndamage it inflicted\non a sleeping foe\nto restore HP.");
 const u8 gMoveDescription_PoisonGas[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is sprayed\nwith a cloud of\ntoxic gas that may\npoison them.");
-const u8 gMoveDescription_Barrage[MOVE_DESCRIPTION_LENGTH + 5] = _("Round objects are\nhurled at the foe\nto strike two to\nfive times.\nMay lower Defense.");
+const u8 gMoveDescription_Barrage[MOVE_DESCRIPTION_LENGTH + 5] = _("A Multi-hit attack\nwhere Round objects\nare hurled at foes.\nDoes physical damage\nusing highest ATK.\nMay lower Defense.");
 const u8 gMoveDescription_LeechLife[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that\nabsorbs all the\ndamage it inflicted\nto restore HP.");
 const u8 gMoveDescription_LovelyKiss[MOVE_DESCRIPTION_LENGTH + 5] = _("The user forces a\nkiss on the foe\nwith a scary face\nthat induces sleep.");
 const u8 gMoveDescription_SkyAttack[MOVE_DESCRIPTION_LENGTH + 5] = _("The user flies high\nto charge energy\nthe 1st turn, then\nattacks in the 2nd\nwith heightend crit.\nThe foe may flinch.");
@@ -655,7 +655,7 @@ const u8 gSYNCHRONOISE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("An odd shock wave\nthat only damages\nsame-type foes.");
 
 const u8 gELECTRO_BALL_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage to\nslower foes.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Hurls an orb\nof electricity at\nthe foe that does\nmore damage the\nslower the foe is\nthan the user.");
 
 const u8 gSOAK_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Sprays an odd stream\nof water at the foe\nchanging it into\na Water-Type.");

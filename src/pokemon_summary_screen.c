@@ -3447,24 +3447,26 @@ static void PokeSum_PrintMoveName(u8 i)
     //tried a negative number onfirmed can go below zero to move text left, also confirm the x y values are only for text need to move window itslef some how
     //I think it may be a matter of changing windowIds,  think window ID has a fixed coordinate?
 
-    if (i == 0)
+    //mostly just adding just in case but space available was already meant
+    //to be enough to fully fit any length of possible move
+    if (i == 0) 
     {
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], FONT_NORMAL, 1, GetOtherMovePpPinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], GetFontIdToFit(sMonSummaryScreen->summary.moveNameStrBufs[i], FONT_NORMAL, 0, WindowWidthPx(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3])), 1, GetOtherMovePpPinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
     }
     if (i == 1)
     {
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], FONT_NORMAL, 1, GetOtherMovePpPinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], GetFontIdToFit(sMonSummaryScreen->summary.moveNameStrBufs[i], FONT_NORMAL, 0, WindowWidthPx(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3])), 1, GetOtherMovePpPinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
     }
     if (i == 2)
     {
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], FONT_NORMAL, 1, GetOtherMovePpPinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], GetFontIdToFit(sMonSummaryScreen->summary.moveNameStrBufs[i], FONT_NORMAL, 0, WindowWidthPx(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3])), 1, GetOtherMovePpPinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
     }
     if (i == 3)
     {
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], FONT_NORMAL, 1, GetMovePpPrinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
+        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], GetFontIdToFit(sMonSummaryScreen->summary.moveNameStrBufs[i], FONT_NORMAL, 0, WindowWidthPx(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3])), 1, GetMovePpPrinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
     }
     if (i == 4)
-    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], FONT_NORMAL, 1, GetMovePpPrinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
+    AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3], GetFontIdToFit(sMonSummaryScreen->summary.moveNameStrBufs[i], FONT_NORMAL, 0, WindowWidthPx(sMonSummaryScreen->windowIds[POKESUM_WIN_MOVES_3])), 1, GetMovePpPrinterYpos(i), sPrintMoveTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.moveNameStrBufs[i]);
 
 
     if (sMonSummaryScreen->moveIds[i] == 0 || (curPP == maxPP))//
