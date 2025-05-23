@@ -2049,7 +2049,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .effect = EFFECT_MULTI_HIT,
     .power = 20,
     .type = TYPE_ROCK,
-    .accuracy = 95,
+    .accuracy = 100, //was buffed is only 100 acc multi move
     .pp = 15,
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
@@ -2202,9 +2202,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
     .effect = EFFECT_MULTI_HIT,
     .power = 15,
-    .type = TYPE_NORMAL,
-    .accuracy = 95,
-    .pp = 20,
+    .type = TYPE_NORMAL, //idea is uses psychic energy to pick up and throw
+    .accuracy = 95, //objects at the enemy with force
+    .pp = 20,   //ok think what can do is make into psyshock hits defense but uses special
     .secondaryEffectChance = 0,
     .target = MOVE_TARGET_SELECTED,
     .priority = 0,
@@ -2213,6 +2213,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .argument = MOVE_EFFECT_DEF_MINUS_1,
     .argumentEffectChance = 15,
 }, //exegcuttor line siganture , test may make 100 acc,  balance acc w effect chance
+//could be normal cuz just objects
+//could be psychic cuz covered in psychic energy
+//ok decided will leave normal as leaves room open for 
+//making multi type from the other abilities
+//i.e galvanize aerialate pixilate refrigerate
+//decide change was exeggcute signature so they would use psychic ability to throw stuff
+//will make this use highest offense stat
+//but still hit defense as throwing objects
 
 [MOVE_LEECH_LIFE] =
 {
@@ -5602,6 +5610,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //but doubling damage effectively turns this into explosion,
     //and logically you wouldn't hit all 5, yeah this shoul just be hit in air
     //put 2x back to make diff to spike cannon on top of lower acc
+    //on the otehr hand nothing ever uses fly...
+    //hmm if I made sky attack an in the air charge move maybe 
+    //it'd see more use...
 
     [MOVE_SHOCK_WAVE] =
     {

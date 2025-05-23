@@ -12766,25 +12766,31 @@ bool32 DoBattlersShareType(u32 battler1, u32 battler2)
 // Photon Geyser, Light That Burns the Sky, Tera Blast, now also hidden power
 //my version is to do everything through damage function rather than
 //through battle script
-u32 GetBattleMoveDamageCategory(u32 battler, u16 move)
+u32 GetBattleMoveDamageCategory(u32 attackerId, u16 move)
 {
-    u32 attack = gBattleMons[battler].attack;
-    u32 spAttack = gBattleMons[battler].spAttack;
+    u32 attack = gBattleMons[attackerId].attack;
+    u32 spAttack = gBattleMons[attackerId].spAttack;
+
+    u32 defense = gBattleMons[gBattlerTarget].defense;
+    u32 spDefense = gBattleMons[gBattlerTarget].spDefense;
     u32 statBasedSplit;
 
-    attack = attack * gStatStageRatios[gBattleMons[battler].statStages[STAT_ATK]][0];
-    attack = attack / gStatStageRatios[gBattleMons[battler].statStages[STAT_ATK]][1];
+    attack = attack * gStatStageRatios[gBattleMons[attackerId].statStages[STAT_ATK]][0];
+    attack = attack / gStatStageRatios[gBattleMons[attackerId].statStages[STAT_ATK]][1];
 
-    spAttack = spAttack * gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][0];
-    spAttack = spAttack / gStatStageRatios[gBattleMons[battler].statStages[STAT_SPATK]][1];
+    spAttack = spAttack * gStatStageRatios[gBattleMons[attackerId].statStages[STAT_SPATK]][0];
+    spAttack = spAttack / gStatStageRatios[gBattleMons[attackerId].statStages[STAT_SPATK]][1];
 
-    /*if (spAttack >= attack && GetBattlerAbility(battler) != ABILITY_MUSCLE_MAGIC)
-        statBasedSplit = SPLIT_SPECIAL;
-    else
-        statBasedSplit = SPLIT_PHYSICAL;*/
+    defense = defense * gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_DEF]][0];
+    defense = defense / gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_DEF]][1];
+
+    spDefense = spDefense * gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][0];
+    spDefense = spDefense / gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][1];
 
     //think this condition is better
-    if (spAttack < attack || GetBattlerAbility(battler) == ABILITY_MUSCLE_MAGIC)
+    if (spAttack < attack || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC
+    || (spAttack == attack && GetBattlerMoveTargetType(gBattlerAttacker, move) == MOVE_TARGET_SELECTED
+    && defense < spDefense))
         statBasedSplit = SPLIT_PHYSICAL;
     else
         statBasedSplit = SPLIT_SPECIAL;
@@ -12799,11 +12805,19 @@ u32 GetBattleMoveDamageCategory(u32 battler, u16 move)
         if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_TERA && gBattleMons[gBattlerAttacker].species == SPECIES_TERAPAGOS_STELLAR)
             gBattleStruct->swapDamageCategory = (statBasedSplit != GetBattleMoveSplit(move));
         break;*/
+    //target both will need diff logic
     case EFFECT_PHOTON_GEYSER:
+        if (spAttack == attack)
+            return gBattleStruct->swapDamageCategory = (Random() % 2); //should return 0 or 1 which matches physical or special
+    //break;
     //case EFFECT_TERA_BLAST:
     case EFFECT_HIDDEN_POWER:
     case EFFECT_TRI_ATTACK:
         gBattleStruct->swapDamageCategory = (statBasedSplit != GetBattleMoveSplit(move));
+        break;
+    default: //more custom logic
+        if (move == MOVE_BARRAGE)
+            gBattleStruct->swapDamageCategory = (statBasedSplit != GetBattleMoveSplit(move));
         break;
     }
 

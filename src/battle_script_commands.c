@@ -8958,6 +8958,8 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             gBattleStruct->isAtkCancelerForCalledMove = FALSE;
             if (gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
                 gBattleStruct->pledgeMove = FALSE;
+
+            gBattleStruct->swapDamageCategory = FALSE; //realized needed clear this to prevent reuse
             // clear attacker z move data
             /*//gBattleStruct->zmove.active = FALSE;
             //gBattleStruct->zmove.toBeUsed[gBattlerAttacker] = MOVE_NONE;

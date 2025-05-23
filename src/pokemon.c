@@ -4536,14 +4536,32 @@ bool8 IsMegaSpecies(u16 species)
 //in damagecalc this is now just used for what defense stat its run against
 //if I need the offense stat of a move
 //than I should instead use GetBattleMoveDamageCategory now
+//this now sets if move is used on physical defense stat
 bool8 IsPhysicalMove(u32 attackerId, u16 move)
 {
+    u32 attack = gBattleMons[attackerId].attack;
+    u32 spAttack = gBattleMons[attackerId].spAttack;
+
+    u32 defense = gBattleMons[gBattlerTarget].defense;
+    u32 spDefense = gBattleMons[gBattlerTarget].spDefense;
+
+    attack = attack * gStatStageRatios[gBattleMons[attackerId].statStages[STAT_ATK]][0];
+    attack = attack / gStatStageRatios[gBattleMons[attackerId].statStages[STAT_ATK]][1];
+
+    spAttack = spAttack * gStatStageRatios[gBattleMons[attackerId].statStages[STAT_SPATK]][0];
+    spAttack = spAttack / gStatStageRatios[gBattleMons[attackerId].statStages[STAT_SPATK]][1];
+
+    defense = defense * gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_DEF]][0];
+    defense = defense / gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_DEF]][1];
+
+    spDefense = spDefense * gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][0];
+    spDefense = spDefense / gStatStageRatios[gBattleMons[gBattlerTarget].statStages[STAT_SPDEF]][1];
+
     if (gBattleMoves[move].effect == EFFECT_PSYSHOCK 
     || GetBattlerAbility(attackerId) == ABILITY_MUSCLE_MAGIC     
-    || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack > gBattleMons[attackerId].spAttack)
-    || (move == MOVE_HIDDEN_POWER && gBattleMons[attackerId].attack == gBattleMons[attackerId].spAttack
-    &&  gBattleMons[gBattlerTarget].defense < gBattleMons[gBattlerTarget].spDefense) //works cuz hp is single target
-    || (move == MOVE_TRI_ATTACK && gBattleMons[attackerId].attack > gBattleMons[attackerId].spAttack)
+    || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack > spAttack)
+    || ((move == MOVE_HIDDEN_POWER || move == MOVE_TRI_ATTACK) && attack == spAttack && defense < spDefense) //works cuz hp is single target
+    || move == MOVE_BARRAGE
     || IS_MOVE_PHYSICAL(move))
         return TRUE;
 

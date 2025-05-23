@@ -7625,9 +7625,18 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     //if its contact moves that get elevated
     //well no there's arguments for each interpretation.
     //will just keep as is
+    //sigh now undecided if should use
+    //GetBattleMoveDamageCategory  or IsPhysicalMove for this
+    //Former being offense stat used, latter being defense stat it affects
+    //ability was originally for decidueye who is known for firing arrows
+    //but not much difference between that and using mind to throw objects
+    //most effets would stay the same only difference is 
+    //it'd include things that swap category like psyshock
+    //ok I think long as it hits physically its fine smh
+
     else if (GetBattlerAbility(battlerId) == ABILITY_LONG_REACH
         && !(gBattleMoves[move].flags & FLAG_MAKES_CONTACT)
-        && GetBattleMoveDamageCategory(battlerId, move) == SPLIT_PHYSICAL)
+        && IsPhysicalMove(battlerId, move) == SPLIT_PHYSICAL)
     {
         gProtectStructs[battlerId].LongReachElevated = TRUE;
         priority++;
