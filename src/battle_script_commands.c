@@ -1838,15 +1838,32 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
         return TRUE;
     }
 
-    if ((gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE)//i beleve this is the replacement for the hitmarker values for semi invul, just need to add flags to omve data
-        || (!(gBattleMoves[move].flags & FLAG_DMG_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
-        || (!(gBattleMoves[move].flags & FLAG_DMG_2X_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
-        || (!(gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND) && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
-        || (!(gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER) && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
+    //not working is uspposed ot hit in air but move w flag doesn't work
+    //works now but didn't cancel move //need CancelMultiTurnMoves(gBattlerAttacker); 
+    //for that I think, also of note realized its not normal
+    //for getting hit in semi invul to cancel the effect
+    //that's something I'll have to add
+    //dig and dive are relatively safe from interuption
+    //as would hit your own teammate as well
+    //effect is mostly for balancing sky attack anyway
+    if (gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE)//i beleve this is the replacement for the hitmarker values for semi invul, just need to add flags to omve data 
     {
-        gMoveResultFlags |= MOVE_RESULT_MISSED;
-        JumpIfMoveFailed(7, move);
-        return TRUE;
+        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE))
+        || (gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND))
+        || (gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER)))
+        {
+            gBattleMons[gBattlerTarget].status2 |= STATUS2_TWOTURN_INTERRUPT; //seems to work perfectly
+            return FALSE;
+        }            //think need put this in attack canceler?
+        else
+        {
+            gMoveResultFlags |= MOVE_RESULT_MISSED;
+            JumpIfMoveFailed(7, move);
+            return TRUE;
+        }      
+
+
+        
     }
 
     if (move == MOVE_SHEER_COLD && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_ICE))
@@ -1942,6 +1959,7 @@ static void atk01_accuracycheck(void)
 
         if (move == ACC_CURR_MOVE)
             move = gCurrentMove;
+
         GET_MOVE_TYPE(move, type);
         if (JumpIfMoveAffectedByProtect(move) || AccuracyCalcHelper(move))
             return;
@@ -8309,6 +8327,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 //with above specifically excludes non floating species with air balloon from triggering air balloon
                 //vsonic important
 
+                //believe this for floating mon
                 else if ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR)
                 || (gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
                 {
@@ -8316,7 +8335,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
                     effect = TRUE;
                     BattleScriptPush(gBattlescriptCurrInstr);
-                    gBattlescriptCurrInstr = BattleScript_MoveEffectSmackDown; //just a battle message
+                    gBattlescriptCurrInstr = BattleScript_GroundFloatingTarget; //just a battle message
                 }//for some reason seems doesn't always work?,idk what's going on with this thing...
                 
 
@@ -8843,15 +8862,6 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         break;
         }
         case MOVE_END_TWOTURN_MOVES:
-            if (gCurrentMove == MOVE_SKY_ATTACK)
-            {
-                if (!(gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS)) //if not status which should only be on 2nd turn of move
-                {
-                    SET_STATCHANGER(STAT_EVASION, 2, TRUE);
-                    BattleScriptPushCursor();
-                    gBattlescriptCurrInstr = BattleScript_SkyattackMoveEndStatDrop; //should work but need test
-                }
-            }
             ++gBattleScripting.atk49_state;  
             break;
         case MOVE_END_NEXT_TARGET: // For moves hitting two opposing Pokemon.
@@ -17054,7 +17064,6 @@ static bool8 IsTwoTurnsMove(u16 move) //prob need to add on to this
 {
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
      || gBattleMoves[move].effect == EFFECT_GEOMANCY
-     || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
      || gBattleMoves[move].effect == EFFECT_SOLARBEAM
      || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK)
         return TRUE;
@@ -18370,6 +18379,9 @@ static void atkC5_setsemiinvulnerablebit(void)  //thsi command is why move effec
     case MOVE_FLY:
     case MOVE_BOUNCE:
     case MOVE_SKY_DROP:
+    case MOVE_SKY_ATTACK:
+        if (gCurrentMove == MOVE_SKY_ATTACK)
+            gBattleMons[gBattlerAttacker].status2 |= STATUS2_SKY_ATTACK;
         gStatuses3[gBattlerAttacker] |= STATUS3_ON_AIR;
         gStatuses3[gBattlerAttacker] &= ~(STATUS3_SMACKED_DOWN); //remove grounding by flying/taking to the air //don't forget moves w hit in air flag have priority aginst in air targetgs
         gBattleResources->flags->flags[gBattlerAttacker] &= ~(RESOURCE_FLAG_ROOST); //end roost
@@ -18402,6 +18414,59 @@ static void atkC7_setminimize(void)
         gStatuses3[gBattlerAttacker] |= STATUS3_MINIMIZED;
     ++gBattlescriptCurrInstr;
 }
+
+void BS_SetChargeturnMoveStringforTwoTurnMoves(void)
+{
+    NATIVE_ARGS();
+
+    gBattleScripting.twoTurnsMoveStringId = GetMoveTwoTurnAttackStringId(gCurrentMove);
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+//get charging turn attack string
+//need update along with gFirstTurnOfTwoStringIds table
+u8 GetMoveTwoTurnAttackStringId(u16 move)
+{
+    switch(move)
+    {
+        case MOVE_SOLAR_BEAM:
+            return B_MSG_TURN1_SOLAR_BEAM;
+        case MOVE_SKULL_BASH:
+            return B_MSG_TURN1_SKULL_BASH;
+        case MOVE_FLY:
+        case MOVE_SKY_ATTACK:
+            return B_MSG_TURN1_FLY;
+        case MOVE_DIG:
+            return B_MSG_TURN1_DIG;
+        case MOVE_DIVE:
+            return B_MSG_TURN1_DIVE;
+        case MOVE_BOUNCE:
+            return B_MSG_TURN1_BOUNCE;
+        case MOVE_PHANTOM_FORCE:
+            return B_MSG_TURN1_PHANTOM_FORCE;
+        case MOVE_GEOMANCY:
+            return B_MSG_TURN1_GEOMANCY;
+        case MOVE_SKY_DROP:
+            return B_MSG_TURN1_SKY_DROP;
+        case MOVE_METEOR_BEAM:
+            return B_MSG_TURN1_METEOR_BEAM;
+    }
+}
+/*
+[B_MSG_TURN1_RAZOR_WIND]    = STRINGID_PKMNWHIPPEDWHIRLWIND,     // MOVE_RAZOR_WIND
+    [B_MSG_TURN1_SOLAR_BEAM]    = STRINGID_PKMNTOOKSUNLIGHT,         // MOVE_SOLAR_BEAM
+    [B_MSG_TURN1_SKULL_BASH]    = STRINGID_PKMNLOWEREDHEAD,          // MOVE_SKULL_BASH
+    //[B_MSG_TURN1_SKY_ATTACK]    = STRINGID_PKMNISGLOWING,           // MOVE_SKY_ATTACK   moving to end turn effect
+    [B_MSG_TURN1_FLY]           = STRINGID_PKMNFLEWHIGH,             // MOVE_FLY    use for sky attack too
+    [B_MSG_TURN1_DIG]           = STRINGID_PKMNDUGHOLE,              // MOVE_DIG
+    [B_MSG_TURN1_DIVE]          = STRINGID_PKMNHIDUNDERWATER,        // MOVE_DIVE
+    [B_MSG_TURN1_BOUNCE]        = STRINGID_PKMNSPRANGUP,             // MOVE_BOUNCE
+    [B_MSG_TURN1_PHANTOM_FORCE] = STRINGID_VANISHEDINSTANTLY,        // MOVE_PHANTOM_FORCE
+    [B_MSG_TURN1_GEOMANCY]      = STRINGID_PKNMABSORBINGPOWER,       // MOVE_GEOMANCY
+    [B_MSG_TURN1_FREEZE_SHOCK]  = STRINGID_CLOAKEDINAFREEZINGLIGHT,  // MOVE_FREEZE_SHOCK
+    [B_MSG_TURN1_SKY_DROP]      = STRINGID_PKMNTOOKTARGETHIGH,       // MOVE_SKY_DROP
+    [B_MSG_TURN1_METEOR_BEAM]   = STRINGID_METEORBEAMCHARGING,       // MOVE_METEOR_BEAM
+*/
 
 //think rename? well no its just part of memento,
 //in case of sturdy believe need change effect to do switch out

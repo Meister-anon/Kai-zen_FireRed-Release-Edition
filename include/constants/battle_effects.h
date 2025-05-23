@@ -132,7 +132,7 @@
 #define EFFECT_PURSUIT 128
 #define EFFECT_RAPID_SPIN 129
 #define EFFECT_SONIC_SCREECH 130
-#define EFFECT_TWO_TURNS_ATTACK 131
+#define EFFECT_TWO_TURNS_ATTACK 131 //eventually replace all EFFECT_SEMI_INVULNERABLE nvm doen't replace just goes to same script
 #define EFFECT_MORNING_SUN 132
 #define EFFECT_SYNTHESIS 133
 #define EFFECT_MOONLIGHT 134

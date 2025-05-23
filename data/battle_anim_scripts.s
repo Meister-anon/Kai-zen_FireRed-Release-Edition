@@ -3612,7 +3612,9 @@ Move_BARRAGE:: @ 81CACD3
 	end
 
 Move_SKY_ATTACK:: @ 81CAD1B
-	choosetwoturnanim SkyAttackSetUp, SkyAttackUnleash
+	loadspritegfx ANIM_TAG_ROUND_SHADOW
+	loadspritegfx ANIM_TAG_IMPACT
+	choosetwoturnanim FlySetUp, SkyAttackUnleash
 SkyAttackEnd:: @ 81CAD24
 	end
 

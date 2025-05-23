@@ -4317,6 +4317,16 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     but all its moves had failed so it didn't seal anything?
     or was it because they attacked first?
     -fixed inthrall
+    also found charge/two turn effects aren't modernized 
+    should work w power herb but arent yet
+    nvm they were all working I just had them setup differently than EE
+    but should still all work, setup sky attack as upgraded fly
+    is now semi invulnerable made unique status for it
+    should now trigger glowing string in end turn
+
+    Redid semi invulnerable effects fixed some missed things
+    setup move cancel effect from hitting in semi invulnerable
+    reworked sky attack into semi invulnerable move
 
     NOTE**(
     save space remove unique mega cries intead use base cry with alteration

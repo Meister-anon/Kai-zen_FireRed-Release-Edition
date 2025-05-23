@@ -1564,6 +1564,10 @@
 	.4byte \ptr
 	.endm
 
+	.macro setchargeturnattackstring
+	callnative BS_SetChargeturnMoveStringforTwoTurnMoves
+	.endm
+
 	@put added bs commands above this
 	@ returns B_SIDE_x to gBattleCommunication[0]
 	.macro getbattlerside battler:req

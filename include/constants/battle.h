@@ -182,7 +182,7 @@
 #define STATUS2_SWITCH_LOCKED         (1 << 9)// new status for spirit shackle, escape prevention on a timer, not locked to battler
 //#define STATUS2_BIDE_TURN(num)        (((num) << 8) & STATUS2_BIDE)
 #define STATUS2_LOCK_CONFUSE          (1 << 10) // e.g. Thrash
-#define STATUS2_UNUSED                (1 << 11)
+#define STATUS2_SKY_ATTACK            (1 << 11)
 //#define STATUS2_LOCK_CONFUSE_TURN(num)((num) << 10) //this isn't the confusion effect this is how many turns outrage/thrash/petal dance lasts which should be 2-3 turns
 #define STATUS2_MULTIPLETURNS         (1 << 12) //wrapped is wrap & bide  / separting just wrap, think plan put wrap into status4 so all traps together
 #define STATUS2_WRAPPED               (1 << 13)	//make individual wrapped for each, but all use same wrap turn counter / cant usesame counter and multi trap so this will just be wrap
@@ -195,7 +195,7 @@
 #define STATUS2_FREE_SPACE_3          (1 << 19)
 #define STATUS2_FOCUS_ENERGY          (1 << 20)//think can save 3 if I setup like I did leech seed -ok done
 #define STATUS2_TRANSFORMED           (1 << 21)
-#define STATUS2_PLACEHOLDER           (1 << 22) //removing recharge as a status, as all of its logic can be done w the timer...
+#define STATUS2_TWOTURN_INTERRUPT        (1 << 22) //INTERUPTS semi invulnerable moves   removing recharge as a status, as all of its logic can be done w the timer...
 #define STATUS2_RAGE                  (1 << 23)
 #define STATUS2_SUBSTITUTE            (1 << 24)
 #define STATUS2_DESTINY_BOND          (1 << 25)

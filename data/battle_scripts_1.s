@@ -178,7 +178,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectThunder
 	.4byte BattleScript_EffectTeleport
 	.4byte BattleScript_EffectBeatUp
-	.4byte BattleScript_EffectSemiInvulnerable
+	.4byte BattleScript_EffectTwoTurnsAttack				@EFFECT_SEMI_INVULNERABLE
 	.4byte BattleScript_EffectDefenseCurl
 	.4byte BattleScript_EffectSoftboiled
 	.4byte BattleScript_EffectFakeOut
@@ -658,8 +658,6 @@ BattleScript_EffectSkyDrop:
 
 BattleScript_SkyDropWork:
 	setskydrop
-	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SKY_DROP
-	setsemiinvulnerablebit
 	call BattleScriptFirstChargingTurn
 	goto BattleScript_MoveEnd
 BattleScript_SkyDropTurn2:
@@ -1577,10 +1575,7 @@ BattleScript_EffectSmackDown:
 	setmoveeffect MOVE_EFFECT_SMACK_DOWN
 	goto BattleScript_EffectHit
 
-BattleScript_MoveEffectSmackDown::
-	printstring STRINGID_FELLSTRAIGHTDOWN
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	return
+
 
 BattleScript_EffectHitEnemyHealAlly:
 	jumpiftargetally BattleScript_EffectHealPulse
@@ -3014,12 +3009,17 @@ BattleScript_End_HitRet:
 BattleScript_GroundFlyingEnemywithoutGravity::
 	printstring STRINGID_CRASHEDTOTHEGROUND
 	waitmessage B_WAIT_TIME_SHORT	
-	return
+	goto BattleScript_MoveEnd
 
 BattleScript_GroundFlyingEnemywithStatus::
 	printstring STRINGID_STATUSGROUNDED
 	waitmessage B_WAIT_TIME_SHORT	
-	return
+	goto BattleScript_MoveEnd
+	
+BattleScript_GroundFloatingTarget::
+	printstring STRINGID_FELLSTRAIGHTDOWN
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
 
 BattleScript_EffectNaturalGift:
 	attackcanceler
@@ -4010,11 +4010,16 @@ BattleScript_EffectRazorWind::
 @think all still use this
 BattleScript_TwoTurnMovesSecondTurn::
 	attackcanceler
-	setmoveeffect MOVE_EFFECT_CHARGING
-	setbyte sB_ANIM_TURN, 1
-	clearstatusfromeffect BS_ATTACKER	@clears STATUS2_MULTIPLETURNS, so can use as moveend filter for sky attack
+	call BattleScript_TwoTurnMovesSecondTurnRet
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
-	goto BattleScript_HitFromAccCheck	@nah think because this goes to hit, rather than ending, can just use the command in hit
+	goto BattleScript_HitFromAccCheck
+
+BattleScript_TwoTurnMovesSecondTurnRet:
+	setbyte sB_ANIM_TURN, 1
+	@setbyte sB_ANIM_TARGETS_HIT, 0
+	clearstatusfromeffect BS_ATTACKER
+	clearsemiinvulnerablebit @ only for moves with EFFECT_SEMI_INVULNERABLE/EFFECT_SKY_DROP
+	return
 
 BattleScriptFirstChargingTurn::
 	attackcanceler
@@ -4022,9 +4027,11 @@ BattleScriptFirstChargingTurn::
 	ppreduce
 	attackanimation
 	waitanimation
+	setsemiinvulnerablebit @ only for moves with EFFECT_SEMI_INVULNERABLE/EFFECT_SKY_DROP
 	orword gHitMarker, HITMARKER_CHARGING
 	setmoveeffect MOVE_EFFECT_CHARGING | MOVE_EFFECT_AFFECTS_USER
 	seteffectprimary
+	setchargeturnattackstring
 	copybyte cMULTISTRING_CHOOSER, sTWOTURN_STRINGID
 	printfromtable gFirstTurnOfTwoStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
@@ -5516,7 +5523,6 @@ BattleScript_EffectMirrorCoat::
 BattleScript_EffectSkullBash::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
-	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SKULL_BASH
 	call BattleScriptFirstChargingTurn
 	setstatchanger STAT_DEF, 1, FALSE
 	statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SkullBashEnd
@@ -5531,18 +5537,18 @@ BattleScript_SkullBashEnd::
 	call BattleScript_PowerHerbActivation
 	goto BattleScript_TwoTurnMovesSecondTurn
 
+@no longer using done in two turns attack
 BattleScript_EffectSkyAttack::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
-	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SKY_ATTACK
 	call BattleScriptFirstChargingTurn
 	@setstatchanger STAT_EVASION, 2, FALSE  @ give evasion boost on charging turn, since go into sky and give off bright light
 	@statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, BattleScript_SkyAttackEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_SkyAttackEnd
-	setgraphicalstatchangevalues
-	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	@setgraphicalstatchangevalues
+	@playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	@printfromtable gStatUpStringIds
+	@waitmessage B_WAIT_TIME_LONG
 BattleScript_SkyAttackEnd::
 	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
 	jumpifnotholdeffect BS_ATTACKER, HOLD_EFFECT_POWER_HERB, BattleScript_MoveEnd
@@ -5622,6 +5628,9 @@ BattleScript_EffectGust::
 BattleScript_EffectFlinchMinimizeHit::
 	goto BattleScript_FlinchEffect
 
+@replace all other charge effects w 
+@effect_twoturnsattack
+@can toss in time control and attacksthisturn logic
 BattleScript_EffectSolarbeam::
 	@jumpifabilitypresent ABILITY_CLOUD_NINE, BattleScript_SolarbeamDecideTurn
 	jumpifabilitypresent ABILITY_AIR_LOCK, BattleScript_SolarbeamDecideTurn
@@ -5631,7 +5640,6 @@ BattleScript_SolarbeamDecideTurn::
 	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
-	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SOLAR_BEAM
 	call BattleScriptFirstChargingTurn
 	goto BattleScript_MoveEnd
 
@@ -5721,7 +5729,6 @@ BattleScript_BeatUpEnd::
 BattleScript_EffectTwoTurnsAttack::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
-	setbyte sTWOTURN_STRINGID, 0x0
 BattleScript_EffectTwoTurnsAttackContinue:
 	call BattleScriptFirstChargingTurn
 	tryTimecontrol BattleScript_TwoTurnMovesSecondTurn
@@ -5734,7 +5741,6 @@ BattleScript_EffectTwoTurnsAttackContinue:
 BattleScript_EffectGeomancy:
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_GeomancySecondTurn
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_GeomancySecondTurn
-	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_GEOMANCY
 	call BattleScriptFirstChargingTurn
 	tryTimecontrol BattleScript_GeomancySecondTurn
 	jumpifnotholdeffect BS_ATTACKER, HOLD_EFFECT_POWER_HERB, BattleScript_MoveEnd
@@ -5781,6 +5787,10 @@ BattleScript_PowerHerbActivation:
 	removeitem BS_ATTACKER
 	return
 
+@ahh I hadn't set these up right
+@they don't trigger powerherb as it was too modern
+@and hadn't setup timecontrol either
+@replaced all below with BattleScript_EffectTwoTurnsAttack  - still checking if move stsrings work
 BattleScript_EffectSemiInvulnerable::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_SecondTurnSemiInvulnerable
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_SecondTurnSemiInvulnerable
@@ -7416,6 +7426,11 @@ BattleScript_LeechSeedHealBlock::
 	setword gBattleMoveDamage, 0
 	goto BattleScript_LeechSeedTurnPrintAndUpdateHp
 
+BattleScript_SkyAttackGlowing::
+	printstring STRINGID_PKMNISGLOWING
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_MoveEnd
+
 BattleScript_BideStoringEnergy::
 	printstring STRINGID_PKMNSTORINGENERGY
 	waitmessage B_WAIT_TIME_LONG
@@ -8448,6 +8463,9 @@ BattleScript_PowderMoveNoEffectWaitMsg:
 BattleScript_MoveUsedFlinched::
 	printstring STRINGID_PKMNFLINCHED
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
+
+BattleScript_MoveUsedInterrupted::
 	goto BattleScript_MoveEnd
 
 BattleScript_PrintUproarOverTurns::

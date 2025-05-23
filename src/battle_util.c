@@ -943,7 +943,8 @@ enum   //battler end turn
     ENDTURN_TOXICSPIKES_ABSORB,
     ENDTURN_STEALTH_ROCK_ABSORB,
     ENDTURN_STEEL_SURGE_ABSORB,
-    ENDTURN_BATTLER_COUNT
+    ENDTURN_SKY_ATTACK, //herald of destruction keep very last effect
+    ENDTURN_BATTLER_COUNT //think is value cleanup as well?
 };
 
 enum
@@ -964,8 +965,8 @@ void CancelMultiTurnMoves(u8 battler)
     gBattleMons[battler].status2 &= ~(STATUS2_LOCK_CONFUSE);
     gBattleMons[battler].status2 &= ~(STATUS2_UPROAR);
     gBattleMons[battler].status2 &= ~(STATUS2_BIDE);
+    gBattleMons[battler].status2 &= ~(STATUS2_SKY_ATTACK);
     gStatuses3[battler] &= ~(STATUS3_SEMI_INVULNERABLE); //this will reemove on air status & fly
-
     // Clear battler's semi-invulnerable bits if they are not held by Sky Drop.
     if (!(gStatuses3[battler] & STATUS3_SKY_DROPPED))
         gStatuses3[battler] &= ~(STATUS3_SEMI_INVULNERABLE);
@@ -2658,6 +2659,7 @@ u8 DoBattlerEndTurnEffects(void)
     while (gBattleStruct->turnEffectsBattlerId < gBattlersCount && gBattleStruct->turnEffectsTracker <= ENDTURN_BATTLER_COUNT)
     {
         gActiveBattler = gBattlerAttacker = gBattlerByTurnOrder[gBattleStruct->turnEffectsBattlerId];
+        gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_TWOTURN_INTERRUPT); //seems to work clears effect
         if (gAbsentBattlerFlags & gBitTable[gActiveBattler])
         {
             ++gBattleStruct->turnEffectsBattlerId;
@@ -3618,6 +3620,17 @@ u8 DoBattlerEndTurnEffects(void)
                 ////from GriffinR, --timer meaens decreminet timer if timer != 0
                 ++gBattleStruct->turnEffectsTracker;
                 break;
+            case ENDTURN_SKY_ATTACK:
+                if (gBattleMons[gActiveBattler].status2 & STATUS2_SKY_ATTACK)
+                {
+                    gBattleMons[gActiveBattler].status2 &= ~STATUS2_SKY_ATTACK;
+                    MarkBattlerForControllerExec(gActiveBattler);
+                    gEffectBattler = gActiveBattler;
+                    BattleScriptExecute(BattleScript_SkyAttackGlowing);//hopefully don't need to change battlescript
+                    ++effect;
+                }
+                ++gBattleStruct->turnEffectsTracker;
+                break;
             case ENDTURN_SPIKES_ABSORB:
                 if ((gSideStatuses[GetBattlerSide(gActiveBattler)] & SIDE_STATUS_SPIKES)
                     && GetBattlerAbility(gActiveBattler) != ABILITY_MAGIC_GUARD
@@ -4167,6 +4180,7 @@ enum
     CANCELLER_RECHARGE,
     CANCELLER_BLACK_FOG,
     CANCELLER_FLINCH,
+    CANCELLER_TWO_TURNS_INTERRUPT,
     CANCELLER_DISABLED,
     CANCELLER_INTHRALLED,
     CANCELLER_GRAVITY,
@@ -4507,6 +4521,18 @@ u8 AtkCanceller_UnableToUseMove(void)
                 }                         
                 effect = 1; //think doesn't work as would go to move end
                 
+            }
+            ++gBattleStruct->atkCancellerTracker; 
+            break;
+            //works for stopping two turn effect when interupt user is faster 
+            //but prevents next attack from going through
+            //fixed by clearing status in end turn
+        case CANCELLER_TWO_TURNS_INTERRUPT: 
+            if (gBattleMons[gBattlerAttacker].status2 & STATUS2_TWOTURN_INTERRUPT)
+            {
+                gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_TWOTURN_INTERRUPT);
+                gBattlescriptCurrInstr = BattleScript_MoveUsedInterrupted; //don't understand why but thiis fixed it, needed to go to move end
+                effect = 1;
             }
             ++gBattleStruct->atkCancellerTracker; 
             break;

@@ -286,13 +286,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_FLY] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_4
-            .power = 90,
+            .power = 80,
         #else
             .power = 70,
         #endif
         .effect = EFFECT_SEMI_INVULNERABLE,
         .type = TYPE_FLYING,
-        .accuracy = 95,
+        .accuracy = 100,
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -301,6 +301,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
     },
     //if take time to aim decide to add high crit
+    //with other effects can make bp 80 to be on line with other effects
 
     [MOVE_BIND] =
     {
@@ -2247,7 +2248,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
 
     .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_SHEER_FORCE_BOOST,
-    .effect = EFFECT_SKY_ATTACK, //wait rather than a charge move why don't I make it a literal flying attack?
+    .effect = EFFECT_SEMI_INVULNERABLE, //wait rather than a charge move why don't I make it a literal flying attack?
     .power = 140,   //could make this the upgrade to fly and be an actually good semi-invulnerable move
     .type = TYPE_FLYING,
     .accuracy = 100, //raised accuracy cant have charge a turn and still miss smh
@@ -2266,6 +2267,16 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 //review revise remove evasion boost as flying types now already get that
 //instead leave it up to strategizing i.e force target follow me stuff like that
 //to ensure can survive to do damage - done removed stat boost
+//decided will change to 2 turn into teh air semi invulnerable move
+//double benefit will remove knocked down status when takes to the air
+//gives reason for moves that do damage in air
+//the semi invul moves and the effects that can hit them in that state
+//almost never come up
+//ok need make end turn effect so can display charging message
+//ah see power her also works on invul moves like dig dive fly
+//cool than changing to semi invlunerable it wouldn't lose
+//power herb option
+//all done just need end turn strign now done fixed
 
 [MOVE_TRANSFORM] =
 {
