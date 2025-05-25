@@ -10596,62 +10596,7 @@ static void atk52_switchineffects(void) //important, think can put ability reset
         break;
     }*/
 
-    //start of extra code, 1st attempt at reactivating switch in abilities,  think just delete at start over  in battle_util.c as new abilityeffect
-    //believe the switch case and will put the id of the battle on variable i
-    /*for (i = 0; i < gBattlersCount; ++i)
-    {//will need to put "gBattleScripting.battler = i - 1;" in top of every switch case
-        //syntax was wrong before made an adjustment so hopefully this works/or at least copmiles
-        
-        if (IsAbilityOnOpposingSide(gActiveBattler, gBattleMons[i].ability)) {
 
-            switch (gBattleMons[i].ability) //I don't understand what a switch is actually doing apparently
-            {
-            case ABILITY_INTIMIDATE:
-                //gBattleScripting.battler = i - 1;
-                gActiveBattler = i - 1; //should set current script "target" to mon with ability found from switch case
-                //gLastUsedAbility = gBattleMons[gActiveBattler].ability;  other part of intimidate activation already does this
-                BattleScriptPushCursor(); //I may need to set intimidatedMon to 0
-                gBattlescriptCurrInstr = BattleScript_IntimidateActivates;
-                gActiveBattler = j; //should reset activebattler back to original target for post switch actions
-                break;
-            case ABILITY_ANTICIPATION:
-                gActiveBattler = i - 1;
-                gLastUsedAbility = gBattleMons[gActiveBattler].ability;
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_ReactivateIntimidate;
-                gActiveBattler = j;
-                break;
-            case ABILITY_FRISK:
-                gActiveBattler = i - 1;
-                gLastUsedAbility = gBattleMons[gActiveBattler].ability;
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_ReactivateIntimidate;
-                gActiveBattler = j;
-                break;
-            case ABILITY_FOREWARN:
-                gActiveBattler = i - 1;
-                gLastUsedAbility = gBattleMons[gActiveBattler].ability;
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_ReactivateIntimidate;
-                gActiveBattler = j;
-                break;
-            case ABILITY_TRACE:
-                gActiveBattler = i - 1;
-                gLastUsedAbility = gBattleMons[gActiveBattler].ability;
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_ReactivateIntimidate;
-                gActiveBattler = j;
-                break;
-            case ABILITY_SYNCHRONIZE:
-                gActiveBattler = i - 1;
-                gLastUsedAbility = gBattleMons[gActiveBattler].ability;
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_ReactivateIntimidate;
-                gActiveBattler = j;
-                break;
-            }
-        }
-    } */   
 }
 
 //check clean repo if trainer slide in is at right position

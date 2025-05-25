@@ -6435,6 +6435,15 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     ++effect;                    
                 }
                 break;
+                case ABILITY_SUPERSWEET_SYRUP:
+                if (!gSpecialStatuses[battler].switchInAbilityDone)
+                {
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SUPERSWEET_SYRUP; 
+                    gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+                    BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
+                    ++effect;                    
+                }
+                break;
                 /*case ABILITY_UNNERVE: //this isn't fully setup, but effect shuold be enemy side can't eat berries if my ability is intake
                     if (!gSpecialStatuses[battler].switchInAbilityDone)
                     {
