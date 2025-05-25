@@ -6829,7 +6829,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     BattleScriptPushCursorAndCallback(BattleScript_AttackerFormChangeEnd3);
                     ++effect;
                 }
-                break;
+                break;//actually I kinda like putting these on a timer
+                //rather than one turn but is very unique so idk keep as is I guess
             case ABILITY_INTREPID_SWORD:
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {

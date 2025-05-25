@@ -13663,7 +13663,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECTION_MOVE,
         .split = SPLIT_PHYSICAL,
     }, //vsonic when stable test new moves if work can then add new post gen3 learnsets in
-
+    //decide want to give to chespin line as well
     /*so I'm thinking of putting it up to 70% since it's mostly as a scout like you said,
 and if the move is preparing to block their body with a shield before hand.
 the dr should be higher, and its to keep them from being taken out of the fight

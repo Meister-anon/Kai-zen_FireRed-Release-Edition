@@ -370,7 +370,7 @@ struct BaseStats  // had to adjust struct order to match paste value from base_s
  /* 0x16 */ u16 abilities[2]; //[partysize] is 6 values, so this is ability 1 and ability 2, doesn't include hidden //this means 2 states, 0 & 1
  /* 0x1B */ u16 abilityHidden[2]; //need to make sure ability num can be 2, then set that as hidden ability
  /* 0x1D */ u8 bodyColor : 7; //what are bodyColor and noFLip fields are they necesary?
-            u8 noFlip : 1;
+            u8 noFlip : 1;  //represents if sprite is flipped in summary screen and trade screen, normal is the pc sprite
             u8 floating : 1; //put here cuz easier to quick replace in file. replacement for use of gFloatingSpecies array, logic flynig and non flyign mon that can fly/float or who's natural state is floating, (replace levitate) mon has to display ability to do more than just hover slightly over ground
             u8 buffer:7; //since has space could potentially put byte here for cosmetic form or somehting, space is already being used anyway
  /* 0x1E */ u8 flags;   //use for gender diff & form change, when creating mon plan check for flag and divert to what should be based on form species, //also used for making beast ball work, etc.

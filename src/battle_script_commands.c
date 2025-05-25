@@ -20736,64 +20736,80 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
 */
 
 void BS_settelekinesis(void) {
-
+    NATIVE_ARGS(const u8* failInstr);
     if (gStatuses3[gBattlerTarget] & (STATUS3_SMACKED_DOWN)
         && !IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
     {
         gStatuses3[gBattlerTarget] &= ~(STATUS3_SMACKED_DOWN);
         gStatuses3[gBattlerTarget] |= STATUS3_TELEKINESIS;
         gDisableStructs[gBattlerTarget].telekinesisTimer = 3;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 
     if (gStatuses3[gBattlerTarget] & (STATUS3_TELEKINESIS | STATUS3_ROOTED)
         || gFieldStatuses & STATUS_FIELD_GRAVITY
         || IsTelekinesisBannedSpecies(gBattleMons[gBattlerTarget].species))
     {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
     {
         gStatuses3[gBattlerTarget] |= STATUS3_TELEKINESIS;
         gDisableStructs[gBattlerTarget].telekinesisTimer = 3;
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+static u16 *GetBattlerStat(struct BattlePokemon *battler, u32 stat)
+{
+    switch (stat)
+    {
+    case STAT_ATK:   return &battler->attack;
+    case STAT_DEF:   return &battler->defense;
+    case STAT_SPATK: return &battler->spAttack;
+    case STAT_SPDEF: return &battler->spDefense;
+    default:         return NULL;
     }
 }
 
 void BS_swapstatstages(void) {
-    u8 statId = T1_READ_8(gBattlescriptCurrInstr + 1);
+    NATIVE_ARGS(u8 statVal);
+    u8 statId = cmd->statVal;
     s8 atkStatStage = gBattleMons[gBattlerAttacker].statStages[statId];
     s8 defStatStage = gBattleMons[gBattlerTarget].statStages[statId];
 
     gBattleMons[gBattlerAttacker].statStages[statId] = defStatStage;
     gBattleMons[gBattlerTarget].statStages[statId] = atkStatStage;
 
-    gBattlescriptCurrInstr += 2;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+//doe sthis make sense?
+//looks right but is just a copy 
+//just less clean way of writing emerald logic
+//-replaced
 void BS_averagestats(void) {
-    u8 statId = T1_READ_8(gBattlescriptCurrInstr + 1);
-    u16 atkStat = *(u16*)((&gBattleMons[gBattlerAttacker].attack) + (statId - 1));
-    u16 defStat = *(u16*)((&gBattleMons[gBattlerTarget].attack) + (statId - 1));
-    u16 average = (atkStat + defStat) / 2;
-
-    *(u16*)((&gBattleMons[gBattlerAttacker].attack) + (statId - 1)) = average;
-    *(u16*)((&gBattleMons[gBattlerTarget].attack) + (statId - 1)) = average;
-
-    gBattlescriptCurrInstr += 2;
+    NATIVE_ARGS(u8 stat);
+    u16 *stat1 = GetBattlerStat(&gBattleMons[gBattlerAttacker], cmd->stat);
+    u16 *stat2 = GetBattlerStat(&gBattleMons[gBattlerTarget], cmd->stat);
+    u16 avg = (*stat1 + *stat2) / 2;
+    *stat1 = *stat2 = avg;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_jumpifoppositegenders(void) {
+    NATIVE_ARGS(const u8* jumpInstr);
     u32 atkGender = GetGenderFromSpeciesAndPersonality(gBattleMons[gBattlerAttacker].species, gBattleMons[gBattlerAttacker].personality);
     u32 defGender = GetGenderFromSpeciesAndPersonality(gBattleMons[gBattlerTarget].species, gBattleMons[gBattlerTarget].personality);
 
     if ((atkGender == MON_MALE && defGender == MON_FEMALE) || (atkGender == MON_FEMALE && defGender == MON_MALE))
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->jumpInstr;
     else
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_trygetbaddreamstarget(void) {
+    NATIVE_ARGS(const u8* failInstr);
     u8 badDreamsMonSide = GetBattlerSide(gBattlerAttacker);
     for (; gBattlerTarget < gBattlersCount; gBattlerTarget++)
     {
@@ -20805,9 +20821,9 @@ void BS_trygetbaddreamstarget(void) {
     }
 
     if (gBattlerTarget >= gBattlersCount)
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     else
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_tryworryseed(void) {
@@ -20830,6 +20846,7 @@ void BS_tryworryseed(void) {
 }
 
 void BS_metalburstdamagecalculator(void) {
+    NATIVE_ARGS(const u8* failInstr);
     u8 sideAttacker = GetBattlerSide(gBattlerAttacker);
     u8 sideTarget = 0; //vsonic need double check if this is what should be
 
@@ -20844,7 +20861,7 @@ void BS_metalburstdamagecalculator(void) {
         else
             gBattlerTarget = gProtectStructs[gBattlerAttacker].physicalBattlerId;
 
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (gProtectStructs[gBattlerAttacker].specialDmg
         && sideAttacker != (sideTarget = GetBattlerSide(gProtectStructs[gBattlerAttacker].specialBattlerId))
@@ -20857,12 +20874,12 @@ void BS_metalburstdamagecalculator(void) {
         else
             gBattlerTarget = gProtectStructs[gBattlerAttacker].specialBattlerId;
 
-        gBattlescriptCurrInstr += 5;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
         gSpecialStatuses[gBattlerAttacker].ppNotAffectedByPressure = 1;
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = cmd->failInstr;
     }
 }
 

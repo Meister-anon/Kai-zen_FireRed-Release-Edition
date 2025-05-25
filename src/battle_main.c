@@ -5764,8 +5764,18 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     ||  partnerability == ABILITY_VICTORY_STAR) //gave speed buff rather than crit or dmg, sinc acc & speed are biggest factors for victory usually
         speed = (speed * 120) / 100;    //extra synergy with wo chien
 
+    //maybe 2 much, watching wolfey vid realize speed control great 
+    //but is also a variable factor and breaks use in trick room
+    //not better/worse per se but more shifting the niche
+    //which directly affects certain existing strategies
+    //if you perish trap you specfically want to be the slowest
+    //as that is what determines death order?
+    //i could "nerf" shadow tag to not effect speed?
+    //hmm or lower the speed drop to just 80% or 85%
+    //would make it a marginal effect, one to be used with other factors
+    //to get the most use out of, but still being useful in its own right
     if (IsAbilityPreventingEscape(battlerId)) //realize this need be an if, to always trigger
-        speed = (speed * 67) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop
+        speed = (speed * 80) / 100; //buff for all of category, magnet pull, arena trap, shadow tag  /equivalent to 1 stage drop
     
     //gen 9 //-protosynthesis requires gen9 item Booster Energy to be complete accurate
     else if (ability == ABILITY_PROTOSYNTHESIS && IsBattlerWeatherAffected(battlerId, WEATHER_SUN_ANY) && highestStat == STAT_SPEED)
@@ -5799,6 +5809,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     else if (holdEffect == HOLD_EFFECT_IRON_BALL) //MADE float stone counterpart to iron ball
         speed /= 2;
     //note with affinity change need to pay close attention to interaction could be broken on wrong mon
+    //...float stone onix is probably the fastest mon in the game?
     else if (DoesBattlerGetTypeBasedAffinity(battlerId, TYPE_ROCK) && holdEffect == HOLD_EFFECT_FLOAT_STONE)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF)

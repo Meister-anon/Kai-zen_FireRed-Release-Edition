@@ -4434,6 +4434,7 @@ static const struct AbilityLearnset sIronBundleAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sIronHandsAbilityLearnset[] = {
+    ABILITY_WEIGHTED_GI,
     ABILITY_SET_END
 };
 

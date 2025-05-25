@@ -3180,6 +3180,7 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sElectrodeTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //dex entry says feeds on electricity volt absorb fits
 
     [SPECIES_EXEGGCUTE] =
     {
@@ -7333,7 +7334,7 @@ const struct BaseStats gBaseStats[] =
         .abilities = {ABILITY_VOLT_ABSORB, ABILITY_GALVANIZE},
         .abilityHidden = {ABILITY_WIND_RIDER, ABILITY_ELECTRIC_SURGE},
         .bodyColor = BODY_COLOR_YELLOW,
-        .noFlip = FALSE,
+        .noFlip = TRUE,
         .floating = FALSE,
         .abilityLearnset = sRaikouAbilityLearnset,
         .levelUpLearnset = sRaikouLevelUpLearnset,
@@ -37473,6 +37474,17 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sFezandipitiTMHMLearnset,
         .flags = FLAG_LEGENDARY_POKEMON,
     },
+    //vsonic
+    //god these stats suck horribly
+    //for BOTH of its types,
+    //both are mostly special, fairy only even has 2 physical moves
+    //and atk is its only servicible offense stat
+    //and because its a bird it barely has any of the traits
+    //that would let it use the physical poison moves either
+    //*FACEPALM it gets cross poison and sludge bomb ONLY oh my god
+    //best I can come up with is dropping power of MOVE_SPIRIT_BREAK
+    //just so it can trigger technician can't imagine many others use that move
+    //hmm ok I'd have to add them but it gets some physical poison moves vai tm in gen9
 //#endif //P_FAMILY_FEZANDIPITI
 
 //#if p_fAMILY_OGERPON
