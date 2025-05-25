@@ -1044,6 +1044,7 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 battler;
     u8 animTurn;
     u8 animTargetsHit;
+    u8 statChangeId; //new for dynamic stat set, this stat id will be passed to statchanger
     u8 statChanger;
     bool8 statAnimPlayed;
     u8 atk23_getexpState;

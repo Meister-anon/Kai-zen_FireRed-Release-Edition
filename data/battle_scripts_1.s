@@ -9511,10 +9511,10 @@ BattleScript_IntimidateActivatesEnd3::
 	call BattleScript_DoIntimidateActivationAnim	
 	end3
 
-@does nothing now, but put here to compile from use in battle_script_commands
-@may skip doing this intimidate as is, is already massively defining apparenty
-BattleScript_ReactivateIntimidate::
-	end3
+
+@think can clean up below to make general stat drop category ability?
+@rather than directly set stat w setstatchanger
+@can make getstatchange command and just set stage and up/down in script
 
 BattleScript_DoIntimidateActivationAnim::
 	@pause B_WAIT_TIME_SHORT @ is the reason its so long?  ...yup
@@ -9522,7 +9522,9 @@ BattleScript_DoIntimidateActivationAnim::
 BattleScript_IntimidateActivates::
 	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
 	setbyte gBattlerTarget, 0
-	setstatchanger STAT_ATK, 1, TRUE
+	@setstatchanger STAT_ATK, 1, TRUE
+	getstatchangeIdfromability
+	setstatchangerviaAbility 1, TRUE
 		@Think Ill cut this down by making a new command to do ability check, and fail jump that way can do all checks in 1 line.
 		@specific stat abilities like hypercutter would need to be kept out, to still do tiger mom, so make it general stat drop/intimidate exclusions not stat specific stuff.
 BattleScript_IntimidateActivationAnimLoop::
@@ -10104,15 +10106,18 @@ BattleScript_TargetsStatWasMaxedOut::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+@since affects user potentially swap for 
+@modifybattlerstatstage macro
 BattleScript_BattlerAbilityStatRaiseOnSwitchIn::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN, NULL
-	setgraphicalstatchangevalues
-	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	waitanimation
-	printstring STRINGID_BATTLERABILITYRAISEDSTAT
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	modifystatstageviaAbility BS_ATTACKER, INCREASE, 1, NULL, TRUE, ANIM_ON, STRINGID_BATTLERABILITYRAISEDSTAT
+	@statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN, NULL
+	@setgraphicalstatchangevalues
+	@playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	@waitanimation
+	@printstring STRINGID_BATTLERABILITYRAISEDSTAT
+	@waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 
 @for new zacian zamazenta ability effect need test

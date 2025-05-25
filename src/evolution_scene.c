@@ -906,7 +906,7 @@ static void Task_EvolutionScene(u8 taskId)
         {
             BufferMoveToLearnIntoBattleTextBuff2();
             PlayFanfare(MUS_LEVEL_UP);
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNLEARNEDMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNLEARNEDMOVE]);
             BattlePutTextOnWindow(gDisplayedStringBattle, 0);
 
 
@@ -927,7 +927,7 @@ static void Task_EvolutionScene(u8 taskId)
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
                 BufferMoveToLearnIntoBattleTextBuff2();
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE1 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE1]);
                 BattlePutTextOnWindow(gDisplayedStringBattle, 0);
                 gTasks[taskId].tLearnMoveState++;
             }
@@ -935,7 +935,7 @@ static void Task_EvolutionScene(u8 taskId)
         case 1:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE2 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE2]);
                 BattlePutTextOnWindow(gDisplayedStringBattle, 0);
                 gTasks[taskId].tLearnMoveState++;
             }
@@ -944,7 +944,7 @@ static void Task_EvolutionScene(u8 taskId)
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
                 BufferMoveToLearnIntoBattleTextBuff2(); //needed add this cuz I jump here rather than to learnmove 1 I think?,used for confirm forget move task
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE3 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE3]);
                 BattlePutTextOnWindow(gDisplayedStringBattle, 0);
                 gTasks[taskId].tData7 = 5;
                 gTasks[taskId].tData8 = 10;
@@ -1028,14 +1028,14 @@ static void Task_EvolutionScene(u8 taskId)
             }
             break;
         case 7:
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF]);
             BattlePutTextOnWindow(gDisplayedStringBattle, 0);
             gTasks[taskId].tLearnMoveState++;
             break;
         case 8:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNFORGOTMOVE - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNFORGOTMOVE]);
                 BattlePutTextOnWindow(gDisplayedStringBattle, 0);
                 gTasks[taskId].tLearnMoveState++;
             }
@@ -1043,7 +1043,7 @@ static void Task_EvolutionScene(u8 taskId)
         case 9:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_ANDELLIPSIS - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_ANDELLIPSIS]);
                 BattlePutTextOnWindow(gDisplayedStringBattle, 0);
                 RemoveMonPPBonus(mon, moveLearning);
                 SetMonMoveSlot(mon, gMoveToLearn, moveLearning); //I think this line isn't  working? it works after task closes, but while its up, moves don't change
@@ -1055,14 +1055,14 @@ static void Task_EvolutionScene(u8 taskId)
             }
             break;
         case 10: //confirm stop learning move
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_STOPLEARNINGMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_STOPLEARNINGMOVE]);
             BattlePutTextOnWindow(gDisplayedStringBattle, 0);
             gTasks[taskId].tData7 = 11; //yes
             gTasks[taskId].tData8 = 0; //no
             gTasks[taskId].tLearnMoveState = 3; //what is this and is it necessary? //because pretty sure the 2 above are case jumps, yes goes to case directly below
             break; //ok I think I set 3 here so it generates a yes no box, but I can change the 0 to a 2 if I want for faster turn around on confirmation? or not
         case 11:
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_DIDNOTLEARNMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_DIDNOTLEARNMOVE]);
             BattlePutTextOnWindow(gDisplayedStringBattle, 0);
             gTasks[taskId].tState = 15;
             break;
@@ -1071,7 +1071,7 @@ static void Task_EvolutionScene(u8 taskId)
                 gTasks[taskId].tLearnMoveState = 5;
             break;
         case 13: //confirm forget  
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_CONFIRMFORGETMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_CONFIRMFORGETMOVE]);
             BattlePutTextOnWindow(gDisplayedStringBattle, 0);
             gTasks[taskId].tData7 = 7; //yes
             gTasks[taskId].tData8 = 2; //no
@@ -1296,7 +1296,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
         {
             BufferMoveToLearnIntoBattleTextBuff2();
             PlayFanfare(MUS_LEVEL_UP);
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNLEARNEDMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNLEARNEDMOVE]);
             DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
             gTasks[taskId].tLearnsFirstMove = 0x40; // re-used as a counter
             gTasks[taskId].tState++;
@@ -1313,7 +1313,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
                 BufferMoveToLearnIntoBattleTextBuff2();
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE1 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE1]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState++;
             }
@@ -1321,7 +1321,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
         case 1:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE2 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE2]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState++;
             }
@@ -1329,7 +1329,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
         case 2:
             if (!IsTextPrinterActive(0) && !IsSEPlaying()) //start loop here
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE3 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_TRYTOLEARNMOVE3]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tData7 = 5; //yes  goes to summary screen
                 gTasks[taskId].tData8 = 9; //no  //goes to stop learning move
@@ -1350,7 +1350,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             {
             case 0:
                 sEvoCursorPos = 0;
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING3 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING3]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState = gTasks[taskId].tData7;
                 if (gTasks[taskId].tLearnMoveState == 5)
@@ -1359,7 +1359,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
             case 1:
             case -1:
                 sEvoCursorPos = 1;
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING3 - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_EMPTYSTRING3]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState = gTasks[taskId].tData8;
                 break;//I guess these create empty strings for the yes no values to fill?
@@ -1396,7 +1396,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
 
                         PREPARE_MOVE_BUFFER(gBattleTextBuff2, move)
 
-                        BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF - BATTLESTRINGS_ID_ADDER]);
+                        BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_123POOF]);
                         DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                         gTasks[taskId].tLearnMoveState++;
                 }
@@ -1405,7 +1405,7 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
         case 7:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNFORGOTMOVE - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_PKMNFORGOTMOVE]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tLearnMoveState++;
             }
@@ -1413,20 +1413,20 @@ static void Task_TradeEvolutionScene(u8 taskId) //don't need to hcange this ther
         case 8:
             if (!IsTextPrinterActive(0) && !IsSEPlaying())
             {
-                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_ANDELLIPSIS - BATTLESTRINGS_ID_ADDER]);
+                BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_ANDELLIPSIS]);
                 DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
                 gTasks[taskId].tState = 18;
             }
             break;
         case 9:
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_STOPLEARNINGMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_STOPLEARNINGMOVE]);
             DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
             gTasks[taskId].tData7 = 10;
             gTasks[taskId].tData8 = 0;
             gTasks[taskId].tLearnMoveState = 3;
             break;
         case 10:
-            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_DIDNOTLEARNMOVE - BATTLESTRINGS_ID_ADDER]);
+            BattleStringExpandPlaceholdersToDisplayedString(gBattleStringsTable[STRINGID_DIDNOTLEARNMOVE]);
             DrawTextOnTradeWindow(0, gDisplayedStringBattle, 1);
             gTasks[taskId].tState = 13;
             break;

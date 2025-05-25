@@ -1568,7 +1568,11 @@
 	callnative BS_SetChargeturnMoveStringforTwoTurnMoves
 	.endm
 
-	@put added bs commands above this
+	.macro getstatchangeIdfromability
+	callnative BS_GetStatChangeIdFromAbility
+	.endm
+
+	@^put added bs commands above this^
 	@ returns B_SIDE_x to gBattleCommunication[0]
 	.macro getbattlerside battler:req
 	callnative BS_GetBattlerSide
@@ -2212,6 +2216,17 @@
 	setbyte sSTATCHANGER \stat | \stages << 3 | \down << 7
 	.endm
 
+	@for some reason still does nothing
+	@only takes initial assign value for stat
+	@not whatever copybyte does
+	@cry it WORKS
+	@paired script use after
+	@getstatchangeIdfromability command
+	.macro setstatchangerviaAbility stages:req, down:req
+	copybyte sSTATCHANGER, sSTATCHANGEID 
+	addbyte sSTATCHANGER \stages << 3 | \down << 7
+	.endm
+
 	.macro setmoveeffect effect:req
 	sethword sMOVE_EFFECT \effect
 	sethword sSAVED_MOVE_EFFECT \effect
@@ -2433,6 +2448,48 @@
 		.endif
 	.endif
 	waitmessage B_WAIT_TIME_LONG
+	.endm
+
+	@.ifb   if blank believe, means no value for argument
+	@.ifnb  if not blank,  if a value is set for argument
+	@hmm but script can also be NULL as seen in individual commands
+	@script argument is necessary as otherwise cant move and will freeze/get stuck
+	.macro modifystatstageviaAbility battler:req, mode:req, amount:req, script:req, affectsUser:req, animation:req, customString
+
+	@ \mode parameters
+	INCREASE = FALSE
+	DECREASE = TRUE
+
+	@ \animation parameters
+	ANIM_OFF = FALSE
+	ANIM_ON = TRUE
+
+	getstatchangeIdfromability
+	setstatchangerviaAbility \amount, \mode
+	.if \affectsUser == FALSE
+		statbuffchange STAT_CHANGE_ALLOW_PTR, \script
+	.else
+	.if \affectsUser == TRUE
+		statbuffchange STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_AFFECTS_USER, \script
+	.endif
+	.endif
+	setgraphicalstatchangevalues
+	.if \animation == TRUE
+		playanimation \battler, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+		waitanimation
+	.endif
+	.ifnb \customString
+		printstring \customString
+	.else
+		.if \mode == DECREASE
+			printfromtable gStatDownStringIds
+		.else
+		.if \mode == INCREASE
+			printfromtable gStatUpStringIds
+		.endif
+		.endif
+	.endif
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	.endm
 
 @ Will jump to script pointer if the specified battler has or has not fainted.

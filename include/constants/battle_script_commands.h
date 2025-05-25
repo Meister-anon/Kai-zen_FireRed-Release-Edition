@@ -28,33 +28,34 @@
 #define sBATTLER gBattleScripting + 0x1C				//u8 battler; 1 byte 0x1c
 #define sB_ANIM_TURN gBattleScripting + 0x1D			//u8 animTurn; 1 byte 0x1d
 #define sB_ANIM_TARGETS_HIT gBattleScripting + 0x1E		//u8 animTargetsHit; 1 byte 0x1e
-#define sSTATCHANGER gBattleScripting + 0x1F			//u8 statChanger; 1 byte 0x1f
-#define sSTAT_ANIM_PLAYED gBattleScripting + 0x20		//bool8 statAnimPlayed; 1 byte 0x20
-#define sGIVEEXP_STATE gBattleScripting + 0x21			//u8 atk23_getexpState; 1 byte 0x21
-#define sBATTLE_STYLE gBattleScripting + 0x22			//u8 battleStyle; 1 byte 0x22   //switch or set
-#define sLVLBOX_STATE gBattleScripting + 0x23			//u8 atk6C_drawlvlupboxState; 1 byte 0x23
-#define sLEARNMOVE_STATE gBattleScripting + 0x24		//u8 learnMoveState; 1 byte 0x24
-#define sPURSUIT_DOUBLE_DAMAGE gBattleScripting + 0x25	//u8 field_25_pursuitDoublesAttacker; 1 byte 0x25    //unsure of use  maybe i changed but does'nt seem used
-#define sRESHOW_MAIN_STATE gBattleScripting + 0x26		//u8 reshowMainState; 1 byte 0x26
-#define sRESHOW_HELPER_STATE gBattleScripting + 0x27	//u8 reshowHelperState; 1 byte 0x27
-#define sSAVED_STAT_CHANGER gBattleScripting + 0x28		//u8 savedStatChanger; 1 byte 0x28	for moody
+#define sSTATCHANGEID gBattleScripting + 0x1F           //statChangeId new value for dynamic stat set, this stat id will be passed to statchanger stat argument
+#define sSTATCHANGER gBattleScripting + 0x20			//u8 statChanger; 1 byte 0x1f
+#define sSTAT_ANIM_PLAYED gBattleScripting + 0x21		//bool8 statAnimPlayed; 1 byte 0x20
+#define sGIVEEXP_STATE gBattleScripting + 0x22			//u8 atk23_getexpState; 1 byte 0x21
+#define sBATTLE_STYLE gBattleScripting + 0x23			//u8 battleStyle; 1 byte 0x22   //switch or set
+#define sLVLBOX_STATE gBattleScripting + 0x24			//u8 atk6C_drawlvlupboxState; 1 byte 0x23
+#define sLEARNMOVE_STATE gBattleScripting + 0x25		//u8 learnMoveState; 1 byte 0x24
+#define sPURSUIT_DOUBLE_DAMAGE gBattleScripting + 0x26	//u8 field_25_pursuitDoublesAttacker; 1 byte 0x25    //unsure of use  maybe i changed but does'nt seem used
+#define sRESHOW_MAIN_STATE gBattleScripting + 0x27		//u8 reshowMainState; 1 byte 0x26
+#define sRESHOW_HELPER_STATE gBattleScripting + 0x28	//u8 reshowHelperState; 1 byte 0x27
+#define sSAVED_STAT_CHANGER gBattleScripting + 0x29		//u8 savedStatChanger; 1 byte 0x28	for moody
 
-#define sSAVED_BATTLER (gBattleScripting + 0x29)		//u8 savedBattler; 1 byte 0x29
+#define sSAVED_BATTLER (gBattleScripting + 0x2A)		//u8 savedBattler; 1 byte 0x29
 //#define sILLUSION_NICK_HACK gBattleScripting + 0x25	//need add this eventually
 //
 //#define sFIXED_ABILITY_POPUP         (gBattleScripting + 0x26) // fixedPopup
 //#define sABILITY_OVERWRITE           (gBattleScripting + 0x27) // abilityPopupOverwrite
 
 
-#define sSWITCH_CASE (gBattleScripting + 0x2A)			//u8 switchCase; 1 byte 0x2a    // switchCase  used for red card special swith condition	//FORCED SWITCH?
-#define sBERRY_OVERRIDE	(gBattleScripting + 0x2B)		//u8 overrideBerryRequirements; 1 byte 0x2b  // overrideBerryRequirements  //ok this seems to just mean don't consume berry???  
-#define sSTICKY_WEB_STAT_DROP (gBattleScripting + 0x2C) //u8 stickyWebStatDrop; 1 byte 0x2c  // overrideBerryRequirements
-#define sSAVED_DMG gBattleScripting + 0x2D				//s32 savedDmg; 4 byte 0x2d 0x2e 0x2f 0x30
+#define sSWITCH_CASE (gBattleScripting + 0x2B)			//u8 switchCase; 1 byte 0x2a    // switchCase  used for red card special swith condition	//FORCED SWITCH?
+#define sBERRY_OVERRIDE	(gBattleScripting + 0x2C)		//u8 overrideBerryRequirements; 1 byte 0x2b  // overrideBerryRequirements  //ok this seems to just mean don't consume berry???  
+#define sSTICKY_WEB_STAT_DROP (gBattleScripting + 0x2D) //u8 stickyWebStatDrop; 1 byte 0x2c  // overrideBerryRequirements
+#define sSAVED_DMG gBattleScripting + 0x2E				//s32 savedDmg; 4 byte 0x2d 0x2e 0x2f 0x30
 //#define sMON_CAUGHT     (gBattleScripting + 0x33) // monCaught NOT NEEDED, only used in emerald for succesful captures to incremennt game stat capture
-#define sLVLUP_HP gBattleScripting + 0x31				//u8 field_23;	1 byte 0x31		//nothing in struct below this think all used values must go above here
-#define sWINDOWS_TYPE gBattleScripting + 0x32
-#define sMULTIPLAYER_ID gBattleScripting + 0x33
-#define sSPECIAL_TRAINER_BATTLE_TYPE gBattleScripting + 0x34    //wait aren't these limited to 32?
+#define sLVLUP_HP gBattleScripting + 0x32				//u8 field_23;	1 byte 0x31		//nothing in struct below this think all used values must go above here
+#define sWINDOWS_TYPE gBattleScripting + 0x33
+#define sMULTIPLAYER_ID gBattleScripting + 0x34
+#define sSPECIAL_TRAINER_BATTLE_TYPE gBattleScripting + 0x35    //wait aren't these limited to 32?
 
 //shifted from hexadecimal as not compatible w battle script for some reason
 // array entries for battle communication

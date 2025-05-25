@@ -6827,7 +6827,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gBattlerAttacker = battler;
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     gDisableStructs[battler].hasSwitchinActivated = TRUE;
-                    SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                    //SET_STATCHANGER(STAT_ATK, 1, FALSE);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                     ++effect;
                 }
@@ -6838,7 +6838,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     gBattlerAttacker = battler; //fixed statset this was what was mising
                     gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                     gDisableStructs[battler].hasSwitchinActivated = TRUE;
-                    SET_STATCHANGER(STAT_DEF, 1, FALSE);
+                    //SET_STATCHANGER(STAT_DEF, 1, FALSE);
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                     ++effect;
                 } //vsonic importnat rework these two into turn switch only effects, -done
@@ -6852,7 +6852,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gBattleScripting.savedBattler = gBattlerAttacker;
                 gBattlerAttacker = battler;
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                //SET_STATCHANGER(STAT_ATK, 1, FALSE);
                 BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                 effect++;
             }
@@ -6945,7 +6945,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     }
                 }
             break;
-            case ABILITY_SPECTRE:
+            case ABILITY_SPECTRE: //think will change to 2 turns nahh
                 if (!gSpecialStatuses[battler].switchInAbilityDone)
                 {
                     if (gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] == FALSE) //set in end turn when timer ends, not reset on faint
@@ -6953,7 +6953,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                         gBattleStruct->usedSingleUseAbility[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = TRUE;    
                         gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)] = GetAbilityTimer(gLastUsedAbility);
                         gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                        SET_STATCHANGER(STAT_EVASION, 1, FALSE);
+                        //SET_STATCHANGER(STAT_EVASION, 1, FALSE);
                         BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                         ++effect;
                     }
@@ -6961,7 +6961,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     else if (gBattleStruct->SingleUseAbilityTimers[gBattlerPartyIndexes[battler]][GetBattlerSide(battler)])
                     {
                         gSpecialStatuses[battler].switchInAbilityDone = TRUE;
-                        SET_STATCHANGER(STAT_EVASION, 1, FALSE);
+                        //SET_STATCHANGER(STAT_EVASION, 1, FALSE);
                         BattleScriptPushCursorAndCallback(BattleScript_BattlerAbilityStatRaiseOnSwitchIn);
                         ++effect;
                     }
@@ -6972,7 +6972,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 if (gBattleMons[battler].hp < (gBattleMons[battler].maxHP / 2))
                 {
                     
-                    if (gDisableStructs[battler].defeatistActivated != 1) //done so doesn't  reactivate while on field if heal and hp falls again
+                    if (gDisableStructs[battler].defeatistActivated != TRUE) //done so doesn't  reactivate while on field if heal and hp falls again
                     {
 
                         if (gBattleMons[battler].statStages[STAT_ATK] > 0)

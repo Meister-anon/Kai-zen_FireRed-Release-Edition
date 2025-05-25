@@ -19042,6 +19042,49 @@ static void atkE0_trysetsnatch(void) // snatch
     }
 }
 
+//for switch in ability stat changes
+//will use to pass to sStatChanger
+//to simplify scripts instead of requiring
+//new script for each stat change
+//doesn't need to do for zacian zamazenta or eon pokemon abilities
+//think will anyway in case can use w modifybattlerstatstage
+//since those are self affecting could be useful
+//ok there's two wyas to do this
+//either have id set and stat change all in one function
+//removing setstatchanger from script
+//or do in paired script
+//where this sets id to be used by following function
+//latter would allow slotting into EE modifybattlerstatstasge function
+//think prefer that
+//also can modify setstatchanger to not require taking an argument
+//if its left blank have it just auto fill stat field
+//with sSTATCHANGEID
+//sigh took forever but it works and at this point i don't even know if its worth it
+void BS_GetStatChangeIdFromAbility(void)
+{
+    NATIVE_ARGS();
+    u16 ability = GetBattlerAbility(gBattlerAttacker);
+
+    switch (ability)
+    {
+        case ABILITY_WIND_RIDER:
+        case ABILITY_INTREPID_SWORD:
+        case ABILITY_INTIMIDATE:
+            gBattleScripting.statChangeId = STAT_ATK;
+            break;
+        case ABILITY_DAUNTLESS_SHIELD:
+        case ABILITY_TIGER_MOM:
+            gBattleScripting.statChangeId = STAT_DEF;
+            break;
+        case ABILITY_SPECTRE:
+        case ABILITY_SUPERSWEET_SYRUP:
+            gBattleScripting.statChangeId = STAT_EVASION;
+            break;
+    }
+    
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 //setting up new copy ability think can just use all same values?
 static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it ot target based on the case id abilityeffect in the util.c
 //ABILITYEFFECT_INTIMIDATE2 is the one  for switchin  so changing the targetting for just that should make it work how I want
