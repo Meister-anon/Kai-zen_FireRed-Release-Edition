@@ -471,6 +471,7 @@ extern const u8 BattleScript_GravityEnds[];
 extern const u8 BattleScript_GroundFlyingEnemywithoutGravity[];
 extern const u8 BattleScript_GroundFlyingEnemywithStatus[];
 extern const u8 BattleScript_GroundFloatingTarget[];
+extern const u8 BattleScript_ForceTargetToSurface[];
 extern const u8 BattleScript_EffectMircleEye[];
 extern const u8 BattleScript_EffectTailwind[];
 extern const u8 BattleScript_TailwindEnds[];

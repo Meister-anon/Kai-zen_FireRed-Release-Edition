@@ -1429,9 +1429,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_EARTHQUAKE] =
     {
-        .effect = EFFECT_EARTHQUAKE,
+        .effect = EFFECT_HIT,
         .power = 100,
-        .type = TYPE_GROUND,
+        .type = TYPE_GROUND, //issue was the battlescript for earthquake outdated using unique bs when it shoud just go to hit, like surf smh
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 0,
@@ -3823,7 +3823,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_TWISTER] =
     {
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_IN_AIR | FLAG_WIND_MOVE,
-        .effect = EFFECT_TWISTER, //smack down effect done with flag check, twister sets flinch
+        .effect = EFFECT_HIT, //smack down effect done with flag check, twister sets flinch
         .power = 55,
         .type = TYPE_DRAGON,
         .accuracy = 100,
@@ -3832,6 +3832,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .split = SPLIT_SPECIAL,
+        .argument = MOVE_EFFECT_FLINCH
     },
 
     [MOVE_RAIN_DANCE] =
@@ -5297,7 +5298,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_UNDERGROUND | FLAG_DMG_2X_UNDERWATER,
         .split = SPLIT_SPECIAL,
         .argument = TYPE_GROUND,
     },//think want to make into two typed move, make custom effect so can set accuracy drop in bs would drop power to compensate
@@ -8382,7 +8383,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BULLDOZE] =
     {
-        .effect = EFFECT_BULLDOZE,
+        .effect = EFFECT_HIT,
         .power = 60,
         .type = TYPE_GROUND,
         .accuracy = 100,
@@ -8390,9 +8391,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
+        .argument = MOVE_EFFECT_SPD_MINUS_1,
     },
+    //gave underground boost but otherwise change targetting to make it more accessible version of earthquake
 
     [MOVE_FROST_BREATH] =
     {

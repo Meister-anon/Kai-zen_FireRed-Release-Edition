@@ -7506,9 +7506,15 @@ s8 GetMovePriority(u8 battlerId, u16 move) //ported from emerald the EXACT thing
     ApplyMovePowerModifiers(battlerId,move,power);
  
     //if gBattleMoves[move].flags == FLAG_DMG_2X_IN_AIR & target is STATUS3_ON_AIR increment priority (gStatuses3[battler] & STATUS3_SKY_DROPPED)
-    if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
-    || (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
-    || (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
+    //why in the world did I change this hmm ok yeah makes sense at first glance,
+    //but not every wind move hits in air, is this a good idea to do?
+    //think won't do this, moves are already rare, and not thought of as good
+    //making them even harder to use isn't such a good idea
+    //w buffed fly/sky attack may be passable to do for wind moves
+    //since its a sub category and makes sense becuase air manipulation
+    //and not so bad since is mostly flying moves against flying types
+    if ((gBattleMoves[move].flags == FLAG_WIND_MOVE && gBattleMoves[move].flags == FLAG_DAMAGE_AIRBORNE && !IS_MOVE_STATUS(move) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR) //done because flying mon are fast, and most mon with this move are slow, so would never land otherwise
+    )
     {
         priority++;
     }//that's good, just need to figure how to set grounded if by 2x flag move while in air - done in bs command

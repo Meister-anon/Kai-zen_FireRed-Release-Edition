@@ -331,28 +331,28 @@
 #define MOVE_END_ATTACKER_VISIBLE                  12
 #define MOVE_END_TARGET_VISIBLE                    13
 #define MOVE_END_GROUND_TARGET                     14 //put here so cancel sky drop stuff = swap put before 14 so can filter for air balloon held item
-#define MOVE_END_ITEM_EFFECTS_TARGET			   15
-#define MOVE_END_MOVE_EFFECTS2					   16     //extra stuff from setmoveffect that has to be set later 
-#define MOVE_END_ITEM_EFFECTS_ALL                  17
-#define MOVE_END_KINGSROCK						   18  //item effect need to be bfore kingsrock for things like rocky helm I guess
-#define MOVE_END_SUBSTITUTE                        19 
-#define MOVE_END_TWOTURN_MOVES                      34 //for now using to remove evasion boost from sky attack STATUS2_MULTIPLETURNS keep this as filter only triger if status not present
+#define MOVE_END_SEMI_INVULNERABLE_INTERRUPT       15   //used for dig and dive to give string for effect same as effect for fly
+#define MOVE_END_ITEM_EFFECTS_TARGET			   16
+#define MOVE_END_MOVE_EFFECTS2					   17     //extra stuff from setmoveffect that has to be set later 
+#define MOVE_END_ITEM_EFFECTS_ALL                  18
+#define MOVE_END_KINGSROCK						   19  //item effect need to be bfore kingsrock for things like rocky helm I guess
+#define MOVE_END_SUBSTITUTE                        20 
 //only triger if curr move is a two turn move i guess
-#define MOVE_END_SKY_DROP_CONFUSE				   20
-#define MOVE_END_UPDATE_LAST_MOVES                 21
-#define MOVE_END_MIRROR_MOVE                       22
+#define MOVE_END_SKY_DROP_CONFUSE				   21
+#define MOVE_END_UPDATE_LAST_MOVES                 22
+#define MOVE_END_MIRROR_MOVE                       23
 
-#define MOVE_END_MULTIHIT_MOVE					   23   //added don't need, except for dragon darts but coudl potentially setup in bs maybe rename for parental bond instead?
-#define MOVE_END_MAGICIAN                          24    // Occurs after final multi-hit strike, and after other items/abilities would activate
-#define MOVE_END_EJECT_BUTTON                      25
-#define MOVE_END_RED_CARD                          26
-#define MOVE_END_EJECT_PACK                        27
-#define MOVE_END_LIFEORB_SHELLBELL                 28    // Includes shell bell, throat spray, etc
-#define MOVE_END_PICKPOCKET                        29
-#define MOVE_END_DANCER							   30
-#define MOVE_END_EMERGENCY_EXIT					   31
-#define MOVE_END_SYMBIOSIS						   32
-#define MOVE_END_INFATUATION                       33  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE
+#define MOVE_END_MULTIHIT_MOVE					   24   //added don't need, except for dragon darts but coudl potentially setup in bs maybe rename for parental bond instead?
+#define MOVE_END_MAGICIAN                          25    // Occurs after final multi-hit strike, and after other items/abilities would activate
+#define MOVE_END_EJECT_BUTTON                      26
+#define MOVE_END_RED_CARD                          27
+#define MOVE_END_EJECT_PACK                        28
+#define MOVE_END_LIFEORB_SHELLBELL                 29    // Includes shell bell, throat spray, etc
+#define MOVE_END_PICKPOCKET                        30
+#define MOVE_END_DANCER							   31
+#define MOVE_END_EMERGENCY_EXIT					   32
+#define MOVE_END_SYMBIOSIS						   33
+#define MOVE_END_INFATUATION                       34  //to setup for attract hit effect, just need set STRINGID_PKMNFELLINLOVE
 #define MOVE_END_NEXT_TARGET                       35 //was last value before count, in base firered
 #define MOVE_END_CLEAR_BITS						   36
 #define MOVE_END_PURSUIT_NEXT_ACTION               37

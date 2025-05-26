@@ -1846,9 +1846,15 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
     //dig and dive are relatively safe from interuption
     //as would hit your own teammate as well
     //effect is mostly for balancing sky attack anyway
+    //for air effects that's handled in end turn/moveend crashtoground
+    //think just make script for each semi invulnerable status
+    //hmm actually think I just need one,
+    //can use target name was forced to (the) surface! for both land and water
+    //may setup later but for now for simplicity not including sky drop in this effect
+    //vsonic important  if change later check paired value in MOVE_END_GROUND_TARGET
     if (gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE)//i beleve this is the replacement for the hitmarker values for semi invul, just need to add flags to omve data 
     {
-        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE))
+        if ((gStatuses3[gBattlerTarget] & STATUS3_ON_AIR && (gBattleMoves[move].flags & FLAG_DAMAGE_AIRBORNE) && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))
         || (gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERGROUND))
         || (gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER && (gBattleMoves[move].flags & FLAG_DMG_2X_UNDERWATER)))
         {
@@ -5115,7 +5121,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_CHARGING:
                 gBattleMons[gEffectBattler].status2 |= STATUS2_MULTIPLETURNS;
                 gLockedMoves[gEffectBattler] = gCurrentMove;
-                gProtectStructs[gEffectBattler].chargingTurn = 1;
+                gProtectStructs[gEffectBattler].chargingTurn = TRUE;
                 ++gBattlescriptCurrInstr;
                 break;//v IMPORTANT v       //think I'll put traj extra effects in the pokemon.c "damage" formula since it handles concurrent stuff
             case MOVE_EFFECT_WRAP:  //make envionment trap status4 define update other trap moveeffcts below than add end turn effects in util.c
@@ -6214,6 +6220,8 @@ static void atk18_clearstatusfromeffect(void)
     {
         gBattleMons[gActiveBattler].status2 &= (~sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]);
         gBattleMons[gActiveBattler].status4 &= (~sStatusFlagsForMoveEffects[gBattleScripting.moveEffect]);
+        if (gBattleScripting.moveEffect == MOVE_EFFECT_CHARGING)
+            gProtectStructs[gActiveBattler].chargingTurn = FALSE;
     }
     gBattleScripting.moveEffect = 0;
     gBattleScripting.multihitMoveEffect = 0;
@@ -8304,11 +8312,10 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
             && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
             {           //result no effect didn't work so replace w target must take dmg
                 //double checked and EE uses them together for some reason
-                if (((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
-                || ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR))   //using fly
+                if (((gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) && gStatuses3[gBattlerTarget] & STATUS3_ON_AIR)
+                && (!(gStatuses3[gBattlerTarget] & STATUS3_SKY_DROPPED)))   //using fly/sky attack, airborne specifically not sky drop, too complicated to work with
                 {
                     CancelMultiTurnMoves(gBattlerTarget); //just for fly /skydrop
-                    gSprites[gBattlerSpriteIds[gBattlerTarget]].invisible = FALSE;
                     //gStatuses3[gActiveBattler] &= ~(STATUS3_ON_AIR); // doesn't need this part handled in cancelmultiturn
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
@@ -8328,8 +8335,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 //vsonic important
 
                 //believe this for floating mon
-                else if ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_IN_AIR)
-                || (gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_IN_AIR)) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
+                else if (gBattleMoves[gCurrentMove].flags & FLAG_DAMAGE_AIRBORNE) //redid thnik tryign bitwise stuff was why this at times failed to set grounding
                 {
                     gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
                     gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR);
@@ -8366,6 +8372,28 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
 
             } //vsonic need test
             ++gBattleScripting.atk49_state;
+            break;
+        case MOVE_END_SEMI_INVULNERABLE_INTERRUPT:
+        {
+            if (IsBattlerAlive(gBattlerTarget) //not working at all for some reason
+            //&& gMultiHitCounter == 0  //removing this line seemed to fix issue of not dispalying, didn't need as should only trigger if 0/move complete
+            && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+            && TARGET_TURN_DAMAGED)// !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)) //should make sure doesn't trigger till end of multihit
+            {           //result no effect didn't work so replace w target must take dmg
+                //double checked and EE uses them together for some reason
+                if (((gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_UNDERGROUND) && gStatuses3[gBattlerTarget] & STATUS3_UNDERGROUND)
+                || ((gBattleMoves[gCurrentMove].flags & FLAG_DMG_2X_UNDERWATER) && gStatuses3[gBattlerTarget] & STATUS3_UNDERWATER))
+                {
+                    CancelMultiTurnMoves(gBattlerTarget);
+                    effect = TRUE;
+                    BattleScriptPush(gBattlescriptCurrInstr);
+                    gBattlescriptCurrInstr = BattleScript_ForceTargetToSurface;
+
+                }//for some reason problem is directly with string itself...
+
+            }
+        }
+        ++gBattleScripting.atk49_state;
             break;
         case MOVE_END_SKY_DROP_CONFUSE: // If a Pokemon was released from Sky Drop and was in LOCK_CONFUSE, go to "confused due to fatigue" scripts and clear Sky Drop data.
             for (i = 0; i < gBattlersCount; i++)
@@ -8861,9 +8889,6 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
         ++gBattleScripting.atk49_state;
         break;
         }
-        case MOVE_END_TWOTURN_MOVES:
-            ++gBattleScripting.atk49_state;  
-            break;
         case MOVE_END_NEXT_TARGET: // For moves hitting two opposing Pokemon.
         {
             u16 moveTarget = GetBattlerMoveTargetType(gBattlerAttacker, gCurrentMove);

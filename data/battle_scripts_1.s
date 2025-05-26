@@ -169,8 +169,8 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectPsychUp
 	.4byte BattleScript_EffectMirrorCoat
 	.4byte BattleScript_EffectSkullBash
-	.4byte BattleScript_EffectTwister
-	.4byte BattleScript_EffectEarthquake
+	.4byte BattleScript_EffectHit						@EFFECT_TWISTER
+	.4byte BattleScript_EffectHit							@EFFECT_EARTHQUAKE  no longer used
 	.4byte BattleScript_EffectFutureSight
 	.4byte BattleScript_EffectGust
 	.4byte BattleScript_EffectFlinchMinimizeHit
@@ -258,7 +258,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectHit                     @ EFFECT_BRINE
 	.4byte BattleScript_EffectHit                     @ EFFECT_VENOSHOCK
 	.4byte BattleScript_EffectHit                     @ EFFECT_RETALIATE
-	.4byte BattleScript_EffectBulldoze                @ EFFECT_BULLDOZE
+	.4byte BattleScript_EffectHit		              @ EFFECT_BULLDOZE
 	.4byte BattleScript_EffectHit                     @ EFFECT_FOUL_PLAY
 	.4byte BattleScript_EffectHit                     @ EFFECT_PSYSHOCK
 	.4byte BattleScript_EffectRoost                   @ EFFECT_ROOST
@@ -662,9 +662,8 @@ BattleScript_SkyDropWork:
 	goto BattleScript_MoveEnd
 BattleScript_SkyDropTurn2:
 	attackcanceler
-	setmoveeffect MOVE_EFFECT_CHARGING
 	setbyte sB_ANIM_TURN, 0x1
-	clearstatusfromeffect BS_ATTACKER
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
 	argumenttomoveeffect
 	clearsemiinvulnerablebit
@@ -692,8 +691,7 @@ BattleScript_SkyDropFlyingConfuseLock:
 	setmoveeffect MOVE_EFFECT_CONFUSION
 	seteffectprimary
 BattleScript_SkyDropFlyingAlreadyConfused:
-	setmoveeffect MOVE_EFFECT_THRASH
-	clearstatusfromeffect BS_TARGET
+	clearstatusfromeffect BS_TARGET, MOVE_EFFECT_THRASH
 	jumpifstatus2 BS_TARGET, STATUS2_CONFUSION, BattleScript_MoveEnd
 	setbyte BS_ATTACKER, BS_TARGET
 	goto BattleScript_ThrashConfuses
@@ -3021,6 +3019,12 @@ BattleScript_GroundFloatingTarget::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
+BattleScript_ForceTargetToSurface::
+	printstring STRINGID_FORCEDTOSURFACE
+	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	goto BattleScript_MoveEnd
+
+
 BattleScript_EffectNaturalGift:
 	attackcanceler
 	attackstring
@@ -4008,6 +4012,13 @@ BattleScript_EffectRazorWind::
 @check if things stil use this with removal of two turn effect, 
 @still ahve skyu attack skull bash but they go different places I tihnk?
 @think all still use this
+@...the entire problem was not having
+@move effect charging here, which EE doesnt use??
+@well its only used in first turn not 2nd turn
+@found issue the clearstatuseffect command is different
+@to avoid having to put both commands together
+@EE put setmoveeffect inside it as an argument 
+@thats why I don't see move_effec_charging set anywhere
 BattleScript_TwoTurnMovesSecondTurn::
 	attackcanceler
 	call BattleScript_TwoTurnMovesSecondTurnRet
@@ -4016,8 +4027,8 @@ BattleScript_TwoTurnMovesSecondTurn::
 
 BattleScript_TwoTurnMovesSecondTurnRet:
 	setbyte sB_ANIM_TURN, 1
-	@setbyte sB_ANIM_TARGETS_HIT, 0
-	clearstatusfromeffect BS_ATTACKER
+	setbyte sB_ANIM_TARGETS_HIT, 0
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	clearsemiinvulnerablebit @ only for moves with EFFECT_SEMI_INVULNERABLE/EFFECT_SKY_DROP
 	return
 
@@ -4399,8 +4410,7 @@ BattleScript_EffectRage::
 	
 
 BattleScript_RageMiss::
-	setmoveeffect MOVE_EFFECT_RAGE
-	clearstatusfromeffect BS_ATTACKER @couter cleared w move end custom message setup done in move end
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_RAGE @couter cleared w move end custom message setup done in move end
 	goto BattleScript_MoveMissedPause
 
 BattleScript_EffectMimic::
@@ -5555,60 +5565,9 @@ BattleScript_SkyAttackEnd::
 	call BattleScript_PowerHerbActivation
 	goto BattleScript_TwoTurnMovesSecondTurn
 
-BattleScript_EffectTwister::
 BattleScript_FlinchEffect::
 	setmoveeffect MOVE_EFFECT_FLINCH
 	goto BattleScript_EffectHit
-
-BattleScript_EffectBulldoze:
-	setmoveeffect MOVE_EFFECT_SPD_MINUS_1
-BattleScript_EffectEarthquake::
-	attackcanceler
-	attackstring
-	ppreduce
-	selectfirstvalidtarget
-BattleScript_HitsAllWithUndergroundBonusLoop::
-	movevaluescleanup
-	@jumpifnostatus3 BS_TARGET, STATUS3_UNDERGROUND, BattleScript_HitsAllNoUndergroundBonus
-	@orword gHitMarker, HITMARKER_IGNORE_UNDERGROUND
-	@setbyte sDMG_MULTIPLIER, 2
-	@goto BattleScript_DoHitAllWithUndergroundBonus
-BattleScript_HitsAllNoUndergroundBonus::
-	@bicword gHitMarker, HITMARKER_IGNORE_UNDERGROUND
-	@setbyte sDMG_MULTIPLIER, 1
-BattleScript_DoHitAllWithUndergroundBonus::
-	@accuracycheck BattleScript_HitAllWithUndergroundBonusMissed, ACC_CURR_MOVE		@late gen suer hit
-	critcalc
-	damagecalc
-	typecalc
-	adjustnormaldamage
-	pause B_WAIT_TIME_CLEAR_BUFF
-	attackanimation
-	waitanimation
-	effectivenesssound
-	hitanimation BS_TARGET
-	waitstate
-	healthbarupdate BS_TARGET
-	datahpupdate BS_TARGET
-	critmessage
-	waitmessage B_WAIT_TIME_LONG
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	flushtextbox
-	tryfaintmon BS_TARGET, 0, NULL
-	moveendto MOVE_END_NEXT_TARGET
-	jumpifnexttargetvalid BattleScript_HitsAllWithUndergroundBonusLoop
-	end
-
-BattleScript_HitAllWithUndergroundBonusMissed::
-	pause B_WAIT_TIME_SHORT
-	typecalc
-	effectivenesssound
-	resultmessage
-	waitmessage B_WAIT_TIME_LONG
-	moveendto MOVE_END_NEXT_TARGET
-	jumpifnexttargetvalid BattleScript_HitsAllWithUndergroundBonusLoop
-	end
 
 BattleScript_EffectFutureSight::
 	attackcanceler
@@ -5643,13 +5602,6 @@ BattleScript_SolarbeamDecideTurn::
 	call BattleScriptFirstChargingTurn
 	goto BattleScript_MoveEnd
 
-@think no longer used?
-BattleScript_SolarbeamOnFirstTurn::
-	orword gHitMarker, HITMARKER_CHARGING
-	setmoveeffect MOVE_EFFECT_CHARGING | MOVE_EFFECT_AFFECTS_USER
-	seteffectprimary
-	ppreduce
-	goto BattleScript_TwoTurnMovesSecondTurn
 
 BattleScript_EffectThunder::
 	setmoveeffect MOVE_EFFECT_PARALYSIS
@@ -5747,9 +5699,8 @@ BattleScript_EffectGeomancy:
 	call BattleScript_PowerHerbActivation
 BattleScript_GeomancySecondTurn:
 	attackcanceler
-	setmoveeffect MOVE_EFFECT_CHARGING
 	setbyte sB_ANIM_TURN, 1
-	clearstatusfromeffect BS_ATTACKER
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
 	attackstring
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, MAX_STAT_STAGE, BattleScript_GeomancyDoMoveAnim
@@ -5833,9 +5784,8 @@ BattleScript_SideStatusWoreOffReturn::   @ replaced as needed with normal time 0
 
 BattleScript_SecondTurnSemiInvulnerable::
 	attackcanceler
-	setmoveeffect MOVE_EFFECT_CHARGING
 	setbyte sB_ANIM_TURN, 1
-	clearstatusfromeffect BS_ATTACKER
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	orword gHitMarker, HITMARKER_NO_PPDEDUCT
 	@jumpifnotmove MOVE_BOUNCE, BattleScript_SemiInvulnerableTryHit
 	@setmoveeffect MOVE_EFFECT_PARALYSIS  w argument change dont need this
@@ -7438,8 +7388,7 @@ BattleScript_BideStoringEnergy::
 
 BattleScript_BideAttack::
 	attackcanceler
-	setmoveeffect MOVE_EFFECT_CHARGING
-	clearstatusfromeffect BS_ATTACKER
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	printstring STRINGID_PKMNUNLEASHEDENERGY
 	waitmessage B_WAIT_TIME_LONG
 	accuracycheck BattleScript_MoveMissed, ACC_CURR_MOVE
@@ -7462,8 +7411,7 @@ BattleScript_BideAttack::
 
 BattleScript_BideNoEnergyToAttack::
 	attackcanceler
-	setmoveeffect MOVE_EFFECT_CHARGING
-	clearstatusfromeffect BS_ATTACKER
+	clearstatusfromeffect BS_ATTACKER, MOVE_EFFECT_CHARGING
 	printstring STRINGID_PKMNUNLEASHEDENERGY
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_ButItFailed

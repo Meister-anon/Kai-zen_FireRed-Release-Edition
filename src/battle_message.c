@@ -1571,6 +1571,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_SHARPSTEELDMG]                = COMPOUND_STRING("The sharp steel bit into {B_SCR_ACTIVE_NAME_WITH_PREFIX}!"),
     [STRINGID_RAGINGBULL_BREAKSTHROUGH]     = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} broke through the foe's defenses!"),
     [STRINGID_SUPERSWEETAROMAWAFTS]                 = COMPOUND_STRING("A supersweet aroma is wafting from\nthe syrup covering {B_ATK_NAME_WITH_PREFIX}!"),
+    [STRINGID_FORCEDTOSURFACE]              = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was forced\nto surface!{PAUSE 36}"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
@@ -2572,7 +2573,7 @@ void BufferStringBattle(u16 stringId)
         }
         break;
     default: // load a string from the table
-        if (stringId >= BATTLESTRINGS_COUNT)
+        if (stringId > BATTLESTRINGS_COUNT)
         {
             gDisplayedStringBattle[0] = EOS;
             return;

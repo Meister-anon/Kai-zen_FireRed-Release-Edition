@@ -917,7 +917,7 @@ enum   //battler end turn
     ENDTURN_OCTOLOCK,
     ENDTURN_UPROAR,
     ENDTURN_THRASH,
-    ENDTURN_FLINCH,
+    ENDTURN_RESET, //flinch etc. for values that need end turn reset
     ENDTURN_DISABLE,
     ENDTURN_INTHRALL,
     ENDTURN_ENCORE,
@@ -966,7 +966,6 @@ void CancelMultiTurnMoves(u8 battler)
     gBattleMons[battler].status2 &= ~(STATUS2_UPROAR);
     gBattleMons[battler].status2 &= ~(STATUS2_BIDE);
     gBattleMons[battler].status2 &= ~(STATUS2_SKY_ATTACK);
-    gStatuses3[battler] &= ~(STATUS3_SEMI_INVULNERABLE); //this will reemove on air status & fly
     // Clear battler's semi-invulnerable bits if they are not held by Sky Drop.
     if (!(gStatuses3[battler] & STATUS3_SKY_DROPPED))
         gStatuses3[battler] &= ~(STATUS3_SEMI_INVULNERABLE);
@@ -2659,7 +2658,6 @@ u8 DoBattlerEndTurnEffects(void)
     while (gBattleStruct->turnEffectsBattlerId < gBattlersCount && gBattleStruct->turnEffectsTracker <= ENDTURN_BATTLER_COUNT)
     {
         gActiveBattler = gBattlerAttacker = gBattlerByTurnOrder[gBattleStruct->turnEffectsBattlerId];
-        gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_TWOTURN_INTERRUPT); //seems to work clears effect
         if (gAbsentBattlerFlags & gBitTable[gActiveBattler])
         {
             ++gBattleStruct->turnEffectsBattlerId;
@@ -3353,8 +3351,16 @@ u8 DoBattlerEndTurnEffects(void)
             }
             ++gBattleStruct->turnEffectsTracker;
             break;
-            case ENDTURN_FLINCH:  // reset flinch   - remove flinch in end turn easy cleanse
+            case ENDTURN_RESET:  // reset flinch   - remove flinch in end turn easy cleanse
             gBattleMons[gActiveBattler].status2 &= ~STATUS2_FLINCHED;
+            //think use to clearsemiinvulnerablebit  cancelmultiturnmove
+            //for new category of semi invulnerable move
+            //goes semi invul to avoid damage but attacks if they were targetted
+            //not 100% sure how I'd setup mix of sucker punch and protect move
+            //setup consecutve use fail chance like protect
+            //may rename status effect idk maybe reset semiinvulnerable?
+            if (gBattleMons[gActiveBattler].status2 & STATUS2_TWOTURN_INTERRUPT)
+                gBattleMons[gActiveBattler].status2 &= ~(STATUS2_TWOTURN_INTERRUPT); //seems to work clears effect
             ++gBattleStruct->turnEffectsTracker;
             break;
             case ENDTURN_DISABLE:  // disable
@@ -5208,6 +5214,11 @@ bool8 IsBattlerGrounded(u8 battlerId)
     if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_IRON_BALL)
         grounded = TRUE;   
 
+    //while makes sense they never "fixed" this so I guess
+    //that's an intentional oversight for fun/unique options
+    //but then again is better for ground type to work,
+    //and not working flies in face of water version of effect
+    //that works as expected this doesn't
     if (gStatuses3[battlerId] & STATUS3_UNDERGROUND)
         grounded = TRUE;
     
