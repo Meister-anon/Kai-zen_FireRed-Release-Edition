@@ -147,8 +147,8 @@
 #define EFFECT_PSYCH_UP 143
 #define EFFECT_MIRROR_COAT 144
 #define EFFECT_SKULL_BASH 145
-#define EFFECT_TWISTER 146
-#define EFFECT_EARTHQUAKE 147
+#define EFFECT_TWISTER 146      //...also no longer used really need get along w bs refactor
+#define EFFECT_EARTHQUAKE 147   //no longer used vsonic
 #define EFFECT_FUTURE_SIGHT 148
 #define EFFECT_GUST 149
 #define EFFECT_FLINCH_MINIMIZE_HIT 150  // STOMP ASTONISH EXTRASENSORY NEEDLE_ARM
@@ -242,7 +242,7 @@
 #define EFFECT_BRINE 231
 #define EFFECT_VENOSHOCK 232
 #define EFFECT_RETALITATE 233
-#define EFFECT_BULLDOZE 234
+#define EFFECT_BULLDOZE 234     //no longer used, is just hit
 #define EFFECT_FOUL_PLAY 235
 #define EFFECT_PSYSHOCK 236
 #define EFFECT_ROOST 237

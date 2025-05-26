@@ -907,13 +907,16 @@
 #define MOVE_SPICE_TRADE 872 //scovillain new signature move change target ability to ABILITY_HEAT_TRANCE
 #define MOVE_PEPPER_POPPER 873 //scovillain signature boost speed 1 or 2 stages
 #define MOVE_STEEL_SURGE 874
+#define MOVE_DIRT_NAP 875
+#define MOVE_WATERY_GRAVE 876 //if too edgey alt name MOVE_SEAFLOOR_RESPITE /make watery grave water variant skydrop give to that anchor psuedo legend/
+#define MOVE_SEAFLOOR_RESPITE 877 //new idea make its own thing
 //#define MOVES_COUNT MOVES_COUNT_GEN8
 
 //for completion new moves have to be defined in:  move_descriptions.inc,  move_names.h, & battle_anim_scripts.s
 // also need actual move data in battle_moves.h
 //* consolidated move name & move description files into move_info.h
 
-#define LAST_MOVE_INDEX     MOVE_STEEL_SURGE
+#define LAST_MOVE_INDEX     MOVE_SEAFLOOR_RESPITE
 
 #define MOVES_COUNT_GEN8 (LAST_MOVE_INDEX + 1) //changed so define auto updates
 

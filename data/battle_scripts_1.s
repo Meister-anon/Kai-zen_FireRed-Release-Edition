@@ -5239,12 +5239,11 @@ BattleScript_EffectMagnitude::
 	attackstring
 	ppreduce
 	selectfirstvalidtarget
-	@magnitudedamagecalculation
 	variablepowercalc
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_MAGNITUDESTRENGTH
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	goto BattleScript_HitsAllWithUndergroundBonusLoop
+	goto BattleScript_HitFromCritCalc
 
 BattleScript_EffectBatonPass::
 	attackcanceler

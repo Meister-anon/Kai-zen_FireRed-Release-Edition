@@ -87,7 +87,7 @@ const u8 gMoveDescription_Thunderbolt[MOVE_DESCRIPTION_LENGTH + 5] = _("A strong
 const u8 gMoveDescription_ThunderWave[MOVE_DESCRIPTION_LENGTH + 5] = _("A weak electric\nshock that is sure\nto cause paralysis\nif it hits.");
 const u8 gMoveDescription_Thunder[MOVE_DESCRIPTION_LENGTH + 5] = _("A brutal lightning\nattack that may\nalso leave the foe\nparalyzed.");
 const u8 gMoveDescription_RockThrow[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is attacked\nwith a shower of\nsmall, easily\nthrown rocks.");
-const u8 gMoveDescription_Earthquake[MOVE_DESCRIPTION_LENGTH + 5] = _("An earthquake that\nstrikes all POKéMON\non the opposite\nfield to the user.");
+const u8 gMoveDescription_Earthquake[MOVE_DESCRIPTION_LENGTH + 5] = _("An earthquake that\nstrikes all POKéMON\non the field.\nDeals double damage\nto those underground");
 const u8 gMoveDescription_Fissure[MOVE_DESCRIPTION_LENGTH + 5] = _("The foe is dropped\ninto a fissure.\nMay OHKO foe if\nSuper effective or\nthey don't resist.");
 const u8 gMoveDescription_Dig[MOVE_DESCRIPTION_LENGTH + 5] = _("An attack that hits\non the 2nd turn.\nCan also be used\nto exit dungeons.");
 const u8 gMoveDescription_Toxic[MOVE_DESCRIPTION_LENGTH + 5] = _("A move that badly\npoisons the foe.\nIts poison damage\nworsens every turn.");
@@ -765,7 +765,7 @@ const u8 gSTRUGGLE_BUG_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("the user attacks\nthe foe desperately.\nLowers Sp. Atk\nand Infests foe.");
 
 const u8 gBULLDOZE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Stomps down on\nthe ground.\nLowers Speed.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Stomps down on\nthe ground.\nLowers Speed.\nDeals double damage\nto foes underground.");
 
 const u8 gWORK_UP_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user rouses its\nfighting spirit.\nUps offense stats.");
@@ -2366,6 +2366,9 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT] = {
     [MOVE_SPICE_TRADE] = COMPOUND_MOVE_STRING("The user shares\nan irresistibly\nspicy pepper with\nthe target.\nChanging its abilty\nto Heat Trance."),
     [MOVE_PEPPER_POPPER] = COMPOUND_MOVE_STRING("User supercharges\nitself by releasing\ncapsaicin into its\nsystem.\nSharply boosting\nits SPEED."),
     [MOVE_STEEL_SURGE] = COMPOUND_MOVE_STRING("Sets Steel lances\nthat hurt foes who\nare switching in.\nDamage varies by\ntype effectiveness."),
+    [MOVE_DIRT_NAP] = COMPOUND_MOVE_STRING("Todo"),
+    [MOVE_WATERY_GRAVE] = COMPOUND_MOVE_STRING("Todo"),
+    [MOVE_SEAFLOOR_RESPITE] = COMPOUND_MOVE_STRING("Todo"),
 };//last value can have comma
 //with using compound string realized can paste descriptions directly
 //from bulbapedia, then just a matter of adjusting for spacing
@@ -3260,6 +3263,9 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_SPICE_TRADE] = _("Spice Trade"),
     [MOVE_PEPPER_POPPER] = _("Pepper Popper"),
     [MOVE_STEEL_SURGE] = _("Steel Surge"),
+    [MOVE_DIRT_NAP] = _("Dirt Nap"),
+    [MOVE_WATERY_GRAVE] = _("Watery Grave"),
+    [MOVE_SEAFLOOR_RESPITE] = _("Seafloor Respite"),
 };//don't need remove comma from last value for this file, port of emerald
 
 //remember to remove comma from last entry //longest name is 17 chars

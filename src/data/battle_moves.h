@@ -5027,18 +5027,18 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_AIR_CUTTER] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .power = 60,
+            .power = 55,
         #else
             .power = 55,
         #endif
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_HIT, //think drop back to 55
         .type = TYPE_FLYING,
         .accuracy = 100,
         .pp = 25,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_HIGH_CRIT | FLAG_DMG_IN_AIR | FLAG_WIND_MOVE | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
     //unique point is it can't miss/100% accurate
