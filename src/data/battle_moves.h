@@ -3568,6 +3568,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
     },
+    //w script changes unsureright sript, need change branch
+    //and go back to check this and earthquake
+    //mostly check animations
 
     [MOVE_DYNAMIC_PUNCH] =
     {
@@ -5044,6 +5047,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //unique point is it can't miss/100% accurate
     //hmm actually think will make this special aerial ace
     //nah aerial ace needs its own niche
+    //may drop to 50 compare to disarming voice
 
     [MOVE_OVERHEAT] =
     {
@@ -9840,6 +9844,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_PHYSICAL,
     },//Groudon Unique ability,  made flg dmg in air as in show move is shown to blast up from the ocean floor,
     //high into the air... and other games describe it as being able to hit far away targets
+    //want make standard clone of this move
+    //move rising ridge, controls ground to rip shards/peaks of groud from the earth
+    //to attak the foe, think may make just hit floating not flying? buff acc make 95 or something?
+    //single target
+    //vsonic important
 
     [MOVE_DRAGON_ASCENT] =
     {
@@ -14075,5 +14084,57 @@ use wonder gaurd logic to determine its super effective
     //and good counter balance for fairy/ice
     //copperajah signature but give to more mon
     //rn just uses spikes anim, 
+
+    [MOVE_DIRT_NAP] =
+    {
+        .effect = EFFECT_HIT,
+        .power = 55,
+        .type = TYPE_GROUND,
+        .accuracy = 100,
+        .pp = 15,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_DEPENDS,
+        .priority = 0,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_PHYSICAL,
+    },
+    //dirt nap and respite 
+    //meant to be new category move effect
+    //something between protect and sucker punch
+    //but using semi invulnerable status to hide 
+    //may make flying variant, soar
+    //point is to have more ways of taking advantage of
+    //2x dmg underground/underwater with only 1 move apeice
+    //theres no real reason/means of taking advantage of it
+
+    [MOVE_WATERY_GRAVE] =
+    {
+        .effect = EFFECT_SKY_DROP, // Needs a custom move effect
+        .power = 60,
+        .type = TYPE_WATER,
+        .accuracy = 100,
+        .pp = 10,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_PHYSICAL,
+    },//give to SPECIES_DHELMISE
+    //idea drags targetted foe underwater
+
+    [MOVE_SEAFLOOR_RESPITE] =
+    {
+        .effect = EFFECT_HIT,
+        .power = 55,
+        .type = TYPE_WATER,
+        .accuracy = 100,
+        .pp = 15,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_DEPENDS,
+        .priority = 0,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_PHYSICAL,
+    },
+    
 
 };

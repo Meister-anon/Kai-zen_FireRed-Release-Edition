@@ -106,7 +106,7 @@ static const struct AbilityLearnset sPidgeotAbilityLearnset[] = {
 
 static const struct AbilityLearnset sRattataAbilityLearnset[] = {
     ABILITY_SET_END
-};//think this is just for test? can give to alolan version
+};
 
 static const struct AbilityLearnset sRaticateAbilityLearnset[] = {
     ABILITY_SET_END
@@ -114,7 +114,7 @@ static const struct AbilityLearnset sRaticateAbilityLearnset[] = {
 
 static const struct AbilityLearnset sSpearowAbilityLearnset[] = {
     ABILITY_SET_END
-}; //made normal add more dif type moves //give rivenge, makes sense for their line
+}; 
 
 static const struct AbilityLearnset sFearowAbilityLearnset[] = {
     ABILITY_SET_END
@@ -122,7 +122,7 @@ static const struct AbilityLearnset sFearowAbilityLearnset[] = {
 
 static const struct AbilityLearnset sEkansAbilityLearnset[] = {
     ABILITY_SET_END
-};//needs better poison moves, and better moves in general
+};
 
 static const struct AbilityLearnset sArbokAbilityLearnset[] = {
     ABILITY_SET_END
@@ -138,7 +138,7 @@ static const struct AbilityLearnset sRaichuAbilityLearnset[] = {
 
 static const struct AbilityLearnset sSandshrewAbilityLearnset[] = {
     ABILITY_SET_END
-};//needs more physical moves early think drop down poison sting
+};
 
 static const struct AbilityLearnset sSandslashAbilityLearnset[] = {
     ABILITY_SET_END
@@ -201,20 +201,24 @@ static const struct AbilityLearnset sGolbatAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sOddishAbilityLearnset[] = {
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGloomAbilityLearnset[] = {
+    ABILITY_PHOTOSYNTHESIZE,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sVileplumeAbilityLearnset[] = {
+    ABILITY_PHOTOSYNTHESIZE,
+    ABILITY_TOXIC_CHAIN, //think this may be fine?
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sParasAbilityLearnset[] = {
     ABILITY_SET_END
-}; //ingrain at 6 was for test make sure to move higher later, prob 26
+};
 
 static const struct AbilityLearnset sParasectAbilityLearnset[] = {
     ABILITY_SET_END
@@ -467,7 +471,7 @@ static const struct AbilityLearnset sHitmonchanAbilityLearnset[] = {
 
 static const struct AbilityLearnset sLickitungAbilityLearnset[] = {
     ABILITY_SET_END
-};// !important remember to adjust this
+};
 
 static const struct AbilityLearnset sKoffingAbilityLearnset[] = {
     ABILITY_SET_END
@@ -775,6 +779,7 @@ static const struct AbilityLearnset sAmpharosAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBellossomAbilityLearnset[] = {
+    ABILITY_SUN_DISK,
     ABILITY_SET_END
 };
 
@@ -4179,7 +4184,7 @@ static const struct AbilityLearnset sArbolivaAbilityLearnset[] = {
 
 static const struct AbilityLearnset sSquawkabillyAbilityLearnset[] = {
     ABILITY_SET_END
-};//rework learnset to add sound moves
+};
 
 static const struct AbilityLearnset sNacliAbilityLearnset[] = {
     ABILITY_SET_END
@@ -4303,7 +4308,7 @@ static const struct AbilityLearnset sTinkatonAbilityLearnset[] = {
 
 static const struct AbilityLearnset sWiglettAbilityLearnset[] = {
     ABILITY_SET_END
-};//SWAPPED dig to dive put dig in tm instead
+};
 
 static const struct AbilityLearnset sWugtrioAbilityLearnset[] = {
     ABILITY_SET_END

@@ -393,7 +393,7 @@
 #define STATUS_FIELD_GRAVITY            (1 << 3)
 //#define STATUS_FIELD_MUDSPORT           0x8  will try to keep these 2 in status3 because they didn't use a timer I can put them here and have them not use a timer as well.
 //#define STATUS_FIELD_WATERSPORT         0x10
-#define STATUS_FIELD_SCORCHED_TERRAIN   (1 << 4)	//make red version or new tile with scorched cracked earth appearane
+#define STATUS_FIELD_SCORCHED_TERRAIN   (1 << 4)	//make red version or new tile with scorched cracked earth appearane //learned about effect of pledge combos think want these to be those make this the scorch terrain
 #define STATUS_FIELD_FLOODED_TERRAIN    (1 << 5)	//can use surf tile/ or edit a blue puddle into normal graphic
 #define STATUS_FIELD_OCEAN_TERRAIN      (1 << 6)	//for when surfing on ocean/deeper water /grass terrain & scorched terrain wouldn't work
 #define STATUS_FIELD_GRASSY_TERRAIN     (1 << 7)	//longer grass
@@ -407,6 +407,7 @@
 #define STATUS_FIELD_BLACK_FOG          (1 << 15)	//HAZE -3 full turns so timer is 4
 //#define STATUS_FIELD_MUDSPORT			(1 << 15) gonna put these in side status instead
 //#define STATUS_FIELD_WATERSPORT         (1 << 16)
+//need pledge stuff
 
 #define TERRAIN_DEFINES
 
