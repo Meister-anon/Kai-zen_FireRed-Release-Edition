@@ -82,6 +82,12 @@ static void Task_EggHatch_InParty(u8 taskID);
 static void CB2_EggHatch_InParty_Phase_0(void);
 static void CB2_EggHatch_InParty_Phase_1(void);
 static void EggHatchSetMonNickname_InParty(void);
+static void Task_EggHatch_FromPc(u8 taskID);
+static void CB2_EggHatch_FromPc_Phase_0(void);
+static void CB2_EggHatch_FromPc_Phase_1(void);
+static void EggHatchSetMonNickname_FromPc(void);
+static u8 EggHatchCreateMonSprite_FromPc(u8 a0, u8 switchID, u16* speciesLoc); //needed just for box
+static void AddHatchedMonToParty_UpdatePcHatchedMon(u8 id);
 
 // IWRAM bss
 static struct EggHatchData *sEggHatchData;
@@ -1547,9 +1553,9 @@ static void _GiveEggFromDaycare(struct DayCare *daycare)
 
     isEgg = TRUE;
     SetMonData(&egg, MON_DATA_IS_EGG, &isEgg);
-    gPlayerParty[PARTY_SIZE - 1] = egg;
-    CompactPartySlots();
-    CalculatePlayerPartyCount();
+    gPlayerParty[PARTY_SIZE - 1] = egg; //add egg to end of party
+    CompactPartySlots(); //adjust slot I think
+    CalculatePlayerPartyCount(); //can use this set differing logic if count is party size send to box otherwise do normaal script...hm prob need do that in script?
     RemoveEggFromDayCare(daycare);
 }
 
@@ -3295,6 +3301,387 @@ static void CB2_EggHatch_InParty_Phase_1(void)
             UnsetBgTilemapBuffer(1);
             Free(sEggHatchData);
             SetMainCallback2(CB2_ReturnToPartyMenuSelectedMon);
+            HelpSystem_Enable();
+        }
+        break;
+    }
+
+    RunTasks();
+    RunTextPrinters();
+    AnimateSprites();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+}
+
+void EggHatch_FromPc(void) //source of special egg hatch
+{
+    LockPlayerFieldControls();
+    CreateTask(Task_EggHatch_FromPc, 10);
+    BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, 0);
+    HelpSystem_Disable();
+}
+
+static void Task_EggHatch_FromPc(u8 taskID)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        SetMainCallback2(CB2_EggHatch_FromPc_Phase_0);
+        gFieldCallback = FieldCB_ContinueScriptHandleMusic;
+        DestroyTask(taskID);
+    }
+}
+
+static u8 EggHatchCreateMonSprite_FromPc(u8 a0, u8 switchID, u16* speciesLoc)
+{
+    u8 r4 = 0;
+    u8 spriteID = 0; // r7
+    u8 monId = GetBoxCursorPosition();
+    u8 boxId = StorageGetCurrentBox();
+    struct BoxPokemon* mon = NULL; // r5
+    u16 species = SPECIES_NONE;
+    struct Pokemon pkmn;
+
+    //mon = GetInPartyMenu() ? &gPlayerParty[monId].box : &gPokemonStoragePtr->boxes[boxId][monId];
+    
+    if(GetInPartyMenu())
+    {
+        mon = &gPlayerParty[monId].box;
+        pkmn = gPlayerParty[monId];
+    }
+    else
+    {
+        mon = &gPokemonStoragePtr->boxes[boxId][monId];
+        BoxMonToMon(&gPokemonStoragePtr->boxes[boxId][monId], &pkmn);
+    }
+
+    if (a0 == 0)
+    {
+        //mon = &gPlayerParty[pokeID];
+        r4 = 1;
+    }
+    if (a0 == 1)
+    {
+        //mon = &gPlayerParty[pokeID];
+        r4 = 3;
+    }
+
+    species = GetBoxMonData(mon, MON_DATA_SPECIES);
+    switch (switchID)
+    {
+    case 0:
+    {
+        u32 pid = GetBoxMonData(mon, MON_DATA_PERSONALITY);
+        HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->sprites[(a0 * 2) + 1], species, pid);
+        LoadCompressedSpritePaletteWithTag(GetMonSpritePal(&pkmn), species);
+        *speciesLoc = species;
+    }
+        break;
+    case 1:
+        SetMultiuseSpriteTemplateToPokemon(species, r4);
+        spriteID = CreateSprite(&gMultiuseSpriteTemplate, 120, 70, 6);
+        gSprites[spriteID].invisible = TRUE;
+        gSprites[spriteID].callback = SpriteCallbackDummy;
+        break;
+    }
+    return spriteID;
+}
+
+static void EggHatchSetMonNickname_FromPc(void)
+{
+    u8 monId = GetBoxCursorPosition();
+    u8 boxId = StorageGetCurrentBox();
+
+    if(GetInPartyMenu())
+    {
+        SetBoxMonData(&gPlayerParty[monId].box, MON_DATA_NICKNAME, gStringVar3);
+    }
+    else
+    {
+        SetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_NICKNAME, gStringVar3);
+    }
+
+    
+    FreeMonSpritesGfx();
+    Free(sEggHatchData);
+    HelpSystem_Enable();
+    SetMainCallback2(Cb2_ReturnToPSS); //think this is right?
+}
+
+static void AddHatchedMonToParty_UpdatePcHatchedMon(u8 id)
+{
+    u8 isEgg = 0x46; // ?       despite not being 0, this works for checking if hatched mon is not egg
+    u16 pokeNum;
+    u8 name[POKEMON_NAME_LENGTH];
+    u16 ball;
+    u16 caughtLvl;
+    u8 mapNameID;
+    //struct Pokemon* mon = &gPlayerParty[id];
+
+    //u8 monId = GetBoxCursorPosition();
+    u8 boxId = StorageGetCurrentBox();
+    struct BoxPokemon* mon = NULL; // r5
+    u16 species = SPECIES_NONE;
+    struct Pokemon pkmn;
+
+    //mon = GetInPartyMenu() ? &gPlayerParty[monId].box : &gPokemonStoragePtr->boxes[boxId][monId];
+    
+    if(GetInPartyMenu())
+    {
+        mon = &gPlayerParty[id].box;
+        pkmn = gPlayerParty[id];
+    }
+    else
+    {
+        mon = &gPokemonStoragePtr->boxes[boxId][id];
+        BoxMonToMon(&gPokemonStoragePtr->boxes[boxId][id], &pkmn);
+    }
+
+    //CreatedHatchedMon(mon, &gEnemyParty[0]);
+    SetBoxMonData(mon, MON_DATA_IS_EGG, &isEgg);
+
+    pokeNum = GetBoxMonData(mon, MON_DATA_SPECIES);
+    GetSpeciesName(name, pokeNum);
+    SetBoxMonData(mon, MON_DATA_NICKNAME, name);
+
+    pokeNum = SpeciesToNationalPokedexNum(pokeNum); //think can leave as is, since no way to get mega etc. from egg? and gender form should alreaady be on right form
+    GetSetPokedexFlag(pokeNum, FLAG_SET_SEEN);
+    GetSetPokedexFlag(pokeNum, FLAG_SET_CAUGHT);
+
+    if (GetBoxMonData(mon, MON_DATA_SPECIES) > NATIONAL_SPECIES_COUNT
+    && !(GetSetPokedexFlag((GetFormSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES), 0)), FLAG_GET_SEEN))
+    && (gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
+    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == F_ALOLAN_FORM
+    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == F_GALARIAN_FORM
+    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == F_HISUIAN_FORM
+    || gBaseStats[SanitizeSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES))].flags == F_PALDEAN_FORM))
+    {
+        GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(GetBoxMonData(mon, MON_DATA_SPECIES), 0)), FLAG_SET_SEEN);
+        //if catch form should set base form is seen so can navigate to dex page
+    }
+
+    DayCare_GetBoxMonNickname(mon, gStringVar1);
+
+    ball = ITEM_POKE_BALL;
+    SetBoxMonData(mon, MON_DATA_POKEBALL, &ball);
+
+    //caughtLvl = 5;
+    caughtLvl = GetBoxMonData(mon, MON_DATA_MET_LEVEL);
+    SetBoxMonData(mon, MON_DATA_MET_LEVEL, &caughtLvl);
+
+    mapNameID = GetCurrentRegionMapSectionId();
+    SetBoxMonData(mon, MON_DATA_MET_LOCATION, &mapNameID);
+
+    MonRestorePP(&pkmn);
+    CalculateMonStats(&pkmn);
+}
+
+static void CB2_EggHatch_FromPc_Phase_0(void)
+{
+    u8 monId = GetBoxCursorPosition();
+    u8 boxId = StorageGetCurrentBox();
+
+
+    switch (gMain.state)
+    {
+    case 0:
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+
+        sEggHatchData = Alloc(sizeof(struct EggHatchData));
+        AllocateMonSpritesGfx();
+        sEggHatchData->eggPartyID = monId;
+        sEggHatchData->eggShardVelocityID = 0;
+
+        SetVBlankCallback(VBlankCB_EggHatch);
+        gSpecialVar_0x8005 = GetCurrentMapMusic();
+
+        ResetTempTileDataBuffers();
+        ResetBgsAndClearDma3BusyFlags(0);
+        InitBgsFromTemplates(0, sBgTemplates_EggHatch, NELEMS(sBgTemplates_EggHatch));
+
+        ChangeBgX(1, 0, 0);
+        ChangeBgY(1, 0, 0);
+        ChangeBgX(0, 0, 0);
+        ChangeBgY(0, 0, 0);
+
+        SetBgAttribute(1, 7, 2);
+        SetBgTilemapBuffer(1, Alloc(0x1000));
+        SetBgTilemapBuffer(0, Alloc(0x2000));
+
+        DeactivateAllTextPrinters();
+        ResetPaletteFade();
+        FreeAllSpritePalettes();
+        ResetSpriteData();
+        ResetTasks();
+        ScanlineEffect_Stop();
+        m4aSoundVSyncOn();
+        gMain.state++;
+        break;
+    case 1:
+        InitWindows(sWinTemplates_EggHatch);
+        sEggHatchData->windowId = 0;
+        gMain.state++;
+        break;
+    case 2:
+        DecompressAndLoadBgGfxUsingHeap(0, gBattleInterface_Textbox_Gfx, 0, 0, 0);
+        CopyToBgTilemapBuffer(0, gBattleInterface_Textbox_Tilemap, 0, 0);
+        LoadCompressedPalette(gBattleInterface_Textbox_Pal, 0, 0x20);
+        gMain.state++;
+        break;
+    case 3:
+        LoadSpriteSheet(&sEggHatch_Sheet);
+        LoadSpriteSheet(&sEggShards_Sheet);
+        LoadSpritePalette(&sEgg_SpritePalette);
+        gMain.state++;
+        break;
+    case 4:
+        CopyBgTilemapBufferToVram(0);
+        AddHatchedMonToParty_UpdatePcHatchedMon(sEggHatchData->eggPartyID);
+        gMain.state++;
+        break;
+    case 5:
+        EggHatchCreateMonSprite_FromPc(0, 0, &sEggHatchData->species);
+        gMain.state++;
+        break;
+    case 6:
+        sEggHatchData->pokeSpriteID = EggHatchCreateMonSprite_FromPc(0, 1, &sEggHatchData->species);
+        gMain.state++;
+        break;
+    case 7:
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
+        LoadPalette(gTradeGba2_Pal, 0x10, 0xA0);
+        LoadBgTiles(1, gTradeGba_Gfx, 0x1420, 0);
+        CopyToBgTilemapBuffer(1, gUnknown_826601C, 0x1000, 0);
+        CopyBgTilemapBufferToVram(1);
+        gMain.state++;
+        break;
+    case 8:
+        SetMainCallback2(CB2_EggHatch_FromPc_Phase_1);
+        sEggHatchData->CB2_state = 0;
+        break;
+    }
+    RunTasks();
+    RunTextPrinters();
+    AnimateSprites();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+}
+
+static void CB2_EggHatch_FromPc_Phase_1(void)
+{
+    u16 species;
+    u8 gender;
+    u32 personality;
+    u8 monId = GetBoxCursorPosition();
+    u8 boxId = StorageGetCurrentBox();
+
+    switch (sEggHatchData->CB2_state)
+    {
+    case 0:
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, RGB_BLACK);
+        sEggHatchData->eggSpriteID = CreateSprite(&sSpriteTemplate_EggHatch, 120, 75, 5);
+        ShowBg(0);
+        ShowBg(1);
+        sEggHatchData->CB2_state++;
+        CreateTask(Task_EggHatchPlayBGM, 5);
+        break;
+    case 1:
+        if (!gPaletteFade.active)
+        {
+            FillWindowPixelBuffer(sEggHatchData->windowId, 0x00);
+            sEggHatchData->CB2_PalCounter = 0;
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 2:
+        if (++sEggHatchData->CB2_PalCounter > 30)
+        {
+            sEggHatchData->CB2_state++;
+            gSprites[sEggHatchData->eggSpriteID].callback = SpriteCB_Egg_0;
+        }
+        break;
+    case 3:
+        if (gSprites[sEggHatchData->eggSpriteID].callback == SpriteCallbackDummy)
+        {
+           PlayCry_Normal(sEggHatchData->species, 0);
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 4:
+        if (IsCryFinished())
+        {
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 5:
+        DayCare_GetMonNickname(&gPlayerParty[sEggHatchData->eggPartyID], gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_HatchedFromEgg);
+        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 3, 0xFF);
+        PlayFanfare(MUS_EVOLVED);
+        sEggHatchData->CB2_state++;
+        PutWindowTilemap(sEggHatchData->windowId);
+        CopyWindowToVram(sEggHatchData->windowId, COPYWIN_BOTH);
+        break;
+    case 6:
+        if (IsFanfareTaskInactive())
+            sEggHatchData->CB2_state++;
+        break;
+    case 7:
+        if (IsFanfareTaskInactive())
+            sEggHatchData->CB2_state++;
+        break;
+    case 8:
+        DayCare_GetMonNickname(&gPlayerParty[sEggHatchData->eggPartyID], gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_NickHatchPrompt);
+        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 2, 1);
+        sEggHatchData->CB2_state++;
+        break;
+    case 9:
+        if (!IsTextPrinterActive(sEggHatchData->windowId))
+        {
+            LoadUserWindowBorderGfx(sEggHatchData->windowId, 0x140, 0xE0);
+            CreateYesNoMenu(&sYesNoWinTemplate, 3, 0, 2, 0x140, 0xE, 0);
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 10:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            //need change this
+            if(GetInPartyMenu()){
+                DayCare_GetBoxMonNickname(&gPlayerParty[monId].box, gStringVar3);
+                species =  GetBoxMonData(&gPlayerParty[monId].box, MON_DATA_SPECIES);
+                gender = GetMonGender(&gPlayerParty[sEggHatchData->eggPartyID]);
+                personality = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_PERSONALITY, 0);
+            }
+            else
+            {
+                DayCare_GetBoxMonNickname(&gPokemonStoragePtr->boxes[boxId][monId], gStringVar3);
+                species =  GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][monId], MON_DATA_SPECIES);
+                gender = GetMonGender(&gPlayerParty[sEggHatchData->eggPartyID]);
+                personality = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_PERSONALITY, 0);
+            }
+            
+            DoNamingScreen(NAMING_SCREEN_NICKNAME, gStringVar3, species, gender, personality, EggHatchSetMonNickname_FromPc);
+            break;
+        case 1:
+        case -1:
+            sEggHatchData->CB2_state++;
+        }
+        break;
+    case 11:
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 0x10, RGB_BLACK);
+        sEggHatchData->CB2_state++;
+        break;
+    case 12:
+        if (!gPaletteFade.active)
+        {
+            RemoveWindow(sEggHatchData->windowId);
+            UnsetBgTilemapBuffer(0);
+            UnsetBgTilemapBuffer(1);
+            Free(sEggHatchData);
+            SetMainCallback2(Cb2_ReturnToPSS); //think this is right
             HelpSystem_Enable();
         }
         break;

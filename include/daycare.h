@@ -44,5 +44,6 @@ bool8 ShouldEggHatch(void);
 
 //new functinons for party and box hatching
 void EggHatch_InParty(void);
+void EggHatch_FromPc(void);
 
 #endif // GUARD_DAYCARE_H
