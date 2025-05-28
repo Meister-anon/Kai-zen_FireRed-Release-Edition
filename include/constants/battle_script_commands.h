@@ -310,10 +310,21 @@
 #define STAT_CHANGE_UPDATE_MOVE_EFFECT		(1 << 6)	//still don't know what does
 
 // atk48
-#define STAT_CHANGE_STAT_NEGATIVE         0x1
-#define STAT_CHANGE_STAT_BY_TWO           0x2
-#define STAT_CHANGE_ONLY_MULTIPLE         0x4
-#define STAT_CHANGE_DONT_CHECK_LOWER      0x8	//think equivalent of stat_change_cant_prevent
+// stat change flags for Cmd_playstatchangeanimation
+#define STAT_CHANGE_NEGATIVE             (1 << 0)
+#define STAT_CHANGE_BY_TWO               (1 << 1)
+#define STAT_CHANGE_MULTIPLE_STATS       (1 << 2)
+#define STAT_CHANGE_DONT_CHECK_LOWER         (1 << 3)   //STAT_CHANGE_CANT_PREVENT
+
+// stat flags for Cmd_playstatchangeanimation
+#define BIT_HP                      (1 << 0)
+#define BIT_ATK                     (1 << 1)
+#define BIT_DEF                     (1 << 2)
+#define BIT_SPEED                   (1 << 3)
+#define BIT_SPATK                   (1 << 4)
+#define BIT_SPDEF                   (1 << 5)
+#define BIT_ACC                     (1 << 6)
+#define BIT_EVASION                 (1 << 7)
 
 // atk49, moveend cases
 #define MOVE_END_PROTECT_LIKE_EFFECT			   0
@@ -362,15 +373,6 @@
 #define B_SWITCH_NORMAL     0
 #define B_SWITCH_HIT        1   // dragon tail, circle throw
 #define B_SWITCH_RED_CARD   2
-
-#define BIT_HP                      0x1
-#define BIT_ATK                     0x2
-#define BIT_DEF                     0x4
-#define BIT_SPEED                   0x8
-#define BIT_SPATK                   0x10
-#define BIT_SPDEF                   0x20
-#define BIT_ACC                     0x40
-#define BIT_EVASION                 0x80
 
 
 

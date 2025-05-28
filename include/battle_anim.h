@@ -394,6 +394,18 @@ enum
 #define STAT_ANIM_MULTIPLE_PLUS2 56
 #define STAT_ANIM_MULTIPLE_MINUS1 57
 #define STAT_ANIM_MULTIPLE_MINUS2 58
+
+enum {
+    STAT_ANIM_PAL_ATK,
+    STAT_ANIM_PAL_DEF,
+    STAT_ANIM_PAL_ACC,
+    STAT_ANIM_PAL_SPEED,
+    STAT_ANIM_PAL_EVASION,
+    STAT_ANIM_PAL_SPATK,
+    STAT_ANIM_PAL_SPDEF,
+    STAT_ANIM_PAL_MULTIPLE = 0xFF
+};
+
 void LaunchStatusAnimation(u8 battlerId, u8 statusAnimId);
 extern const union AnimCmd *const sAnims_SpinningSparkle[];
 
@@ -430,8 +442,6 @@ bool8 TranslateAnimVerticalArc(struct Sprite *sprite);
 void SetSpritePrimaryCoordsFromSecondaryCoords(struct Sprite *sprite);
 void InitSpritePosToAnimTarget(struct Sprite *sprite, bool8 respectMonPicOffsets);
 void InitSpritePosToAnimAttacker(struct Sprite *sprite, bool8 respectMonPicOffsets);
-u8 GetBattlerSide(u8 battlerId);
-u8 GetBattlerPosition(u8 battlerId);
 u8 GetBattlerAtPosition(u8 position);
 bool8 IsBattlerSpritePresent(u8 battlerId);
 bool8 IsDoubleBattle(void);
@@ -746,7 +756,7 @@ void AnimTask_BlendParticle(u8 taskId);
 void AnimTask_HardwarePaletteFade(u8 taskId);
 void AnimTask_CloneBattlerSpriteWithBlend(u8 taskId);
 void AnimTask_SetUpCurseBackground(u8 taskId);
-void sub_80BB088(u8 taskId);
+void InitStatsChangeAnimation(u8 taskId);
 void sub_80BB660(u8 taskId);
 void AnimTask_BlendNonAttackerPalettes(u8 taskId);
 void AnimTask_StartSlidingBg(u8 taskId);

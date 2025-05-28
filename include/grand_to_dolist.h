@@ -4201,6 +4201,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
       only zero out both if I attempt to formchange/mega evolve another
       mon in party
+      was able to fix stat colors by taking EE logic
+      for battle anim files
 
       decide to move delete and relearn in party
       and pc
