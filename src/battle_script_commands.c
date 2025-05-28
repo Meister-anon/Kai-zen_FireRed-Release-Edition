@@ -8345,30 +8345,6 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                 }//for some reason seems doesn't always work?,idk what's going on with this thing...
                 
 
-                //I "think" this will work? //vsonic IMPORTANT...completey forgot I did this
-                //if paralysis is in grounded function may not need set smacked down here
-                else if (gBattleScripting.moveEffect == MOVE_EFFECT_PARALYSIS
-                && !(gStatuses3[gBattlerTarget] & STATUS3_SMACKED_DOWN)
-                && !gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP
-                )
-                {
-                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
-                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
-                    effect = TRUE;
-                    BattleScriptPush(gBattlescriptCurrInstr);
-                    gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithStatus;
-                }
-
-                else if (gBattleScripting.moveEffect == MOVE_EFFECT_SLEEP
-                && !(gStatuses3[gBattlerTarget] & STATUS3_SMACKED_DOWN)
-                && !gBattleMons[gBattlerTarget].status1 & STATUS1_PARALYSIS)
-                {
-                    gStatuses3[gBattlerTarget] |= STATUS3_SMACKED_DOWN;
-                    gStatuses3[gBattlerTarget] &= ~(STATUS3_MAGNET_RISE | STATUS3_TELEKINESIS | STATUS3_ON_AIR); //think need these, were part of smack down
-                    effect = TRUE;
-                    BattleScriptPush(gBattlescriptCurrInstr);
-                    gBattlescriptCurrInstr = BattleScript_GroundFlyingEnemywithStatus;
-                } //need makes its own script, too exchausted to fly
 
             } //vsonic need test
             ++gBattleScripting.atk49_state;

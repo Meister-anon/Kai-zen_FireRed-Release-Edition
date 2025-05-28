@@ -3009,11 +3009,6 @@ BattleScript_GroundFlyingEnemywithoutGravity::
 	waitmessage B_WAIT_TIME_SHORT	
 	goto BattleScript_MoveEnd
 
-BattleScript_GroundFlyingEnemywithStatus::
-	printstring STRINGID_STATUSGROUNDED
-	waitmessage B_WAIT_TIME_SHORT	
-	goto BattleScript_MoveEnd
-	
 BattleScript_GroundFloatingTarget::
 	printstring STRINGID_FELLSTRAIGHTDOWN
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
