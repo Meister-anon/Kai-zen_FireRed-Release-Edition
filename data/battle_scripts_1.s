@@ -61,7 +61,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectTriAttack
 	.4byte BattleScript_EffectRest
 	.4byte BattleScript_EffectOHKO
-	.4byte BattleScript_EffectRazorWind		@not used changed using two type effect
+	.4byte BattleScript_EffectHit		@not used changed using two type effect
 	.4byte BattleScript_EffectSuperFang
 	.4byte BattleScript_EffectDragonRage
 	.4byte BattleScript_EffectTrap
@@ -3996,13 +3996,7 @@ BattleScript_KOFail::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
-@not used
-BattleScript_EffectRazorWind::
-	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
-	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
-	setbyte sTWOTURN_STRINGID, 0
-	call BattleScriptFirstChargingTurn
-	goto BattleScript_MoveEnd
+
 
 @check if things stil use this with removal of two turn effect, 
 @still ahve skyu attack skull bash but they go different places I tihnk?
@@ -5732,36 +5726,6 @@ BattleScript_PowerHerbActivation:
 	removeitem BS_ATTACKER
 	return
 
-@ahh I hadn't set these up right
-@they don't trigger powerherb as it was too modern
-@and hadn't setup timecontrol either
-@replaced all below with BattleScript_EffectTwoTurnsAttack  - still checking if move stsrings work
-BattleScript_EffectSemiInvulnerable::
-	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_SecondTurnSemiInvulnerable
-	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_SecondTurnSemiInvulnerable
-	jumpifmove MOVE_FLY, BattleScript_FlyFirstTurn
-	jumpifmove MOVE_DIVE, BattleScript_DiveFirstTurn
-	jumpifmove MOVE_BOUNCE, BattleScript_BounceFirstTurn
-	@jumpifmove MOVE_PHANTOM_FORCE, BattleScript_FirstTurnPhantomForce  @vsonic need add
-	@jumpifmove MOVE_SHADOW_FORCE, BattleScript_FirstTurnPhantomForce
-	@ MOVE_DIG
-	setbyte sTWOTURN_STRINGID, 5
-	goto BattleScript_FirstTurnSemiInvulnerable
-
-BattleScript_BounceFirstTurn::
-	setbyte sTWOTURN_STRINGID, 7
-	goto BattleScript_FirstTurnSemiInvulnerable
-
-BattleScript_DiveFirstTurn::
-	setbyte sTWOTURN_STRINGID, 6
-	goto BattleScript_FirstTurnSemiInvulnerable
-
-BattleScript_FlyFirstTurn::
-	setbyte sTWOTURN_STRINGID, 4
-BattleScript_FirstTurnSemiInvulnerable::
-	call BattleScriptFirstChargingTurn
-	setsemiinvulnerablebit
-	goto BattleScript_MoveEnd
 
 BattleScript_EffectWithChance::
 	setmoveeffectwithchance
@@ -9465,7 +9429,6 @@ BattleScript_IntimidateActivates::
 	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
 	setbyte gBattlerTarget, 0
 	@setstatchanger STAT_ATK, 1, TRUE
-	getstatchangeIdfromability
 	setstatchangerviaAbility 1, TRUE
 		@Think Ill cut this down by making a new command to do ability check, and fail jump that way can do all checks in 1 line.
 		@specific stat abilities like hypercutter would need to be kept out, to still do tiger mom, so make it general stat drop/intimidate exclusions not stat specific stuff.

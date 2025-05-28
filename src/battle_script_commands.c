@@ -5396,11 +5396,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_ACC_PLUS_1:
             case MOVE_EFFECT_EVS_PLUS_1:
                 if (NoAliveMonsForEitherParty()
-                    || ChangeStatBuffs(SET_STAT_BUFF_VALUE(1),
-                        gBattleScripting.moveEffect - MOVE_EFFECT_ATK_PLUS_1 + 1,
-                        affectsUser | STAT_CHANGE_UPDATE_MOVE_EFFECT, NULL))
+                  || ChangeStatBuffs(SET_STAT_BUFF_VALUE(1),
+                                    gBattleScripting.moveEffect - MOVE_EFFECT_ATK_PLUS_1 + 1,
+                                    affectsUser | STAT_CHANGE_UPDATE_MOVE_EFFECT, 0) == STAT_CHANGE_DIDNT_WORK)
                 {
-                    ++gBattlescriptCurrInstr;
+                    gBattlescriptCurrInstr++;
                 }
                 else
                 {
@@ -5442,17 +5442,6 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_GroundNullifiesEarth;
                     return; //oh adding the return fixed it o.0
                 } 
-
-                /*if (mirrorArmorReflected && !affectsUser)
-                    flags |= STAT_CHANGE_ALLOW_PTR;
-                if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
-                                    gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_1 + 1,
-                                    flags | STAT_CHANGE_UPDATE_MOVE_EFFECT, 
-                                    gBattlescriptCurrInstr + 1))
-                {
-                    if (!mirrorArmorReflected)
-                    ++gBattlescriptCurrInstr;
-                }*/
 
                //issue appears to be here, changing flags to 0 or something else makes defense drop work correctly
                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,
@@ -5499,17 +5488,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SP_DEF_MINUS_2:
             case MOVE_EFFECT_ACC_MINUS_2:
             case MOVE_EFFECT_EVS_MINUS_2:
-                //flags = affectsUser;
 
                 if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
                 else
                     flags = 0;
-                
-                if (mirrorArmorReflected)
-                    flags |= (STAT_CHANGE_ALLOW_PTR * !affectsUser);
-                else
-                    flags |= STAT_CHANGE_UPDATE_MOVE_EFFECT;
+                if (mirrorArmorReflected && !affectsUser)
+                    flags |= STAT_CHANGE_ALLOW_PTR;
 
                 if ((gBattleScripting.moveEffect == MOVE_EFFECT_ACC_MINUS_2) && DoesBattlerGetTypeBasedAffinity(gBattlerTarget, TYPE_GROUND)
                 && (gBattleStruct->dynamicMoveType == TYPE_GROUND
@@ -5527,23 +5512,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
 
                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
                                     gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_2 + 1,
-                                    flags, gBattlescriptCurrInstr + 1) == STAT_CHANGE_DIDNT_WORK)
+                                    flags | STAT_CHANGE_UPDATE_MOVE_EFFECT, gBattlescriptCurrInstr + 1) == STAT_CHANGE_DIDNT_WORK)
                 {
                     if (!mirrorArmorReflected)
                         gBattlescriptCurrInstr++;
                 }
-               
-                //if (mirrorArmorReflected && !affectsUser)
-                //    flags |= STAT_CHANGE_ALLOW_PTR;
-
-                /*if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,
-                                    gBattleScripting.moveEffect - MOVE_EFFECT_ATK_MINUS_2 + 1,
-                                    flags | STAT_CHANGE_UPDATE_MOVE_EFFECT,
-                                    gBattlescriptCurrInstr + 1))
-                {
-                    if (!mirrorArmorReflected)
-                    ++gBattlescriptCurrInstr;
-                }*/
                 else
                 {
                     gBattleScripting.animArg1 = gBattleScripting.moveEffect & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
@@ -7779,6 +7752,7 @@ static void atk46_playanimation2(void) // animation Id is stored in the first po
 
 static void atk47_setgraphicalstatchangevalues(void)    //may need change this too since stat buffs go up to +-3 in later gen
 {
+    CMD_ARGS();
     // don't know if need default from emerald or not
     u8 value = GET_STAT_BUFF_VALUE_WITH_SIGN(gBattleScripting.statChanger);
 
@@ -7811,37 +7785,44 @@ static void atk47_setgraphicalstatchangevalues(void)    //may need change this t
     }
     gBattleScripting.animArg1 = GET_STAT_BUFF_ID(gBattleScripting.statChanger) + value - 1;
     gBattleScripting.animArg2 = 0;
-    ++gBattlescriptCurrInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 #define STAT_ANIM_W_ABILITIES
 static void atk48_playstatchangeanimation(void)
 {
-    u32 ability;
+
+    CMD_ARGS(u8 battler, u8 stats, u8 flags);
+
     u32 currStat = 0;
-    u16 statAnimId = 0;
-    s32 changeableStatsCount = 0;
-    u8 statsToCheck = 0;
-    u8 flags;
+    u32 statAnimId = 0;
+    u32 changeableStatsCount = 0;
+    u32 startingStatAnimId = 0;
+    u32 flags = cmd->flags;
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    u32 ability = GetBattlerAbility(battler);
+    u32 statsToCheck = cmd->stats;
 
-    ability = GetBattlerAbility(gActiveBattler);
-    gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
-    statsToCheck = gBattlescriptCurrInstr[2];
-    flags = gBattlescriptCurrInstr[3];
+    gActiveBattler = battler;
 
-    // Handle Contrary and Simple
+     // Handle Contrary and Simple
     if (ability == ABILITY_CONTRARY)
-        flags ^= STAT_ANIM_MINUS1;
-    else if (ability == ABILITY_SIMPLE)
-        flags |= STAT_CHANGE_STAT_BY_TWO;
-
-    if (flags & STAT_CHANGE_STAT_NEGATIVE) // goes down
     {
-        s16 startingStatAnimId;
-        if (flags & STAT_CHANGE_STAT_BY_TWO)
-            startingStatAnimId = STAT_ANIM_MINUS2 - 1;
+        flags ^= STAT_CHANGE_NEGATIVE;
+        RecordAbilityBattle(battler, ability);
+    }
+    else if (ability == ABILITY_SIMPLE)
+    {
+        flags |= STAT_CHANGE_BY_TWO;
+        RecordAbilityBattle(battler, ability);
+    }
+
+    if (flags & STAT_CHANGE_NEGATIVE) // goes down
+    {
+        if (flags & STAT_CHANGE_BY_TWO)
+            startingStatAnimId = STAT_ANIM_MINUS2;
         else
-            startingStatAnimId = STAT_ANIM_MINUS1 - 1;
+            startingStatAnimId = STAT_ANIM_MINUS1;
 
         while (statsToCheck != 0)
         {
@@ -7849,7 +7830,7 @@ static void atk48_playstatchangeanimation(void)
             {
                 if (flags & STAT_CHANGE_DONT_CHECK_LOWER)
                 {
-                    if (gBattleMons[gActiveBattler].statStages[currStat] > 0)
+                    if (gBattleMons[gActiveBattler].statStages[currStat] > MIN_STAT_STAGE)
                     {
                         statAnimId = startingStatAnimId + currStat;
                         ++changeableStatsCount;
@@ -7873,20 +7854,19 @@ static void atk48_playstatchangeanimation(void)
                         && !(ability == ABILITY_BIG_PECKS && currStat == STAT_DEF)
                         && !IsFlowerVeilProtected(gActiveBattler))
                 {
-                    if (gBattleMons[gActiveBattler].statStages[currStat] > 0)
+                    if (gBattleMons[gActiveBattler].statStages[currStat] > MIN_STAT_STAGE)
                     {
                         statAnimId = startingStatAnimId + currStat;
                         ++changeableStatsCount;
                     }
                 }
             }
-            statsToCheck >>= 1; //this is correct
-            ++currStat;
+            statsToCheck >>= 1, currStat++;
         }
 
         if (changeableStatsCount > 1) // more than one stat, so the color is gray
         {
-            if (flags & STAT_CHANGE_STAT_BY_TWO)
+            if (flags & STAT_CHANGE_BY_TWO)
                 statAnimId = STAT_ANIM_MULTIPLE_MINUS2;
             else
                 statAnimId = STAT_ANIM_MULTIPLE_MINUS1;
@@ -7894,45 +7874,44 @@ static void atk48_playstatchangeanimation(void)
     }
     else // goes up
     {
-        s16 startingStatAnimId;
-        if (flags & STAT_CHANGE_STAT_BY_TWO)
-            startingStatAnimId = STAT_ANIM_PLUS2 - 1;
+        if (flags & STAT_CHANGE_BY_TWO)
+            startingStatAnimId = STAT_ANIM_PLUS2;
         else
-            startingStatAnimId = STAT_ANIM_PLUS1 - 1;
+            startingStatAnimId = STAT_ANIM_PLUS1;
 
         while (statsToCheck != 0)
         {
-            if (statsToCheck & 1 && gBattleMons[gActiveBattler].statStages[currStat] < 0xC)
+            if (statsToCheck & 1 && gBattleMons[gActiveBattler].statStages[currStat] < MAX_STAT_STAGE)
             {
                 statAnimId = startingStatAnimId + currStat;
                 ++changeableStatsCount;
             }
-            statsToCheck >>= 1;
-            ++currStat;
+            statsToCheck >>= 1, currStat++;
         }
         if (changeableStatsCount > 1) // more than one stat, so the color is gray
         {
-            if (flags & STAT_CHANGE_STAT_BY_TWO)
+            if (flags & STAT_CHANGE_BY_TWO)
                 statAnimId = STAT_ANIM_MULTIPLE_PLUS2;
             else
                 statAnimId = STAT_ANIM_MULTIPLE_PLUS1;
         }
     }
-    if (flags & STAT_CHANGE_ONLY_MULTIPLE && changeableStatsCount < 2)
+
+    if (flags & STAT_CHANGE_MULTIPLE_STATS && changeableStatsCount < 2)
     {
-        gBattlescriptCurrInstr += 4;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (changeableStatsCount != 0 && !gBattleScripting.statAnimPlayed)
     {
         BtlController_EmitBattleAnimation(0, B_ANIM_STATS_CHANGE, statAnimId);
         MarkBattlerForControllerExec(gActiveBattler);
-        if (flags & STAT_CHANGE_ONLY_MULTIPLE && changeableStatsCount > 1)
+        if (flags & STAT_CHANGE_MULTIPLE_STATS && changeableStatsCount > 1)
             gBattleScripting.statAnimPlayed = TRUE;
-        gBattlescriptCurrInstr += 4;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        gBattlescriptCurrInstr += 4;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
