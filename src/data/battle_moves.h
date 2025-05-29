@@ -8387,7 +8387,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BULLDOZE] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_SPEED_DOWN_HIT,
         .power = 60,
         .type = TYPE_GROUND,
         .accuracy = 100,
@@ -8397,7 +8397,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_DMG_2X_UNDERGROUND,
         .split = SPLIT_PHYSICAL,
-        .argument = MOVE_EFFECT_SPD_MINUS_1,
     },
     //gave underground boost but otherwise change targetting to make it more accessible version of earthquake
 
@@ -13129,7 +13128,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE
@@ -13138,7 +13137,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_WICKED_TORQUE] =
     {
-        .effect = EFFECT_SPLASH,    //Todo // EFFECT_SLEEP_HIT
+        .effect = EFFECT_HIT,
         .power = 80,
         .type = TYPE_DARK,
         .accuracy = 100,
@@ -13146,8 +13145,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
+        .argument = MOVE_EFFECT_SLEEP,
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE
     },//check update fo EE should have ability set move effect without needing new effect
@@ -13162,7 +13162,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE
@@ -13178,27 +13178,29 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE
     },
+    //may give to mega mewtwo x
 
     [MOVE_MAGICAL_TORQUE] =
     {
         .effect = EFFECT_CONFUSE_HIT,
-        .power = 100,
+        .power = 110,
         .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         //.zMovePower = 160,
         //.zMoveEffect = Z_EFFECT_NONE
     },
+    //boosted up as pretty much only physical fairy move of strength
 
     /*[MOVE_PSYBLADE] =
     {

@@ -462,9 +462,6 @@ BattleScript_EffectRevelationDance:
 BattleScript_EffectStompingTantrum:
 goto BattleScript_MoveEnd  @just in case this has fallthrough
 
-@BattleScript_EffectSleepHit:
-@	setmoveeffect MOVE_EFFECT_SLEEP
-@	goto BattleScript_EffectHit
 
 @added this here for stat clear, for early bird
 @ Cant compare directly to a value, have to compare to value at pointer

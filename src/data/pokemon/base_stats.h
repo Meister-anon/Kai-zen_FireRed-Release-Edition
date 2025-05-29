@@ -39291,7 +39291,7 @@ const struct BaseStats gBaseStats[] =
          STATS(
         110,
         130,
-        195,
+        185,
         40,
         5,
         140
@@ -39318,6 +39318,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },//potentially drop hp to 100 if too strong
+    //give support moves
 
     //w pure power worry bout bringingbase changes so just incrase hp instead
     //new idea mega is focused on offense to bring out attack over defense so drop def
@@ -39453,7 +39454,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
-        .abilities = {ABILITY_SHEER_FORCE, ABILITY_SHEER_FORCE}, //shold I replace this w steam engine? //ABILITY_SHEER_FORCE
+        .abilities = {ABILITY_STEAM_ENGINE, ABILITY_STEAM_ENGINE}, //shold I replace this w steam engine? //ABILITY_SHEER_FORCE
         .abilityHidden = {ABILITY_NONE, ABILITY_NONE}, //steam engine would make speed 4x, so one hit goes to bout 80bst?
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
@@ -39464,6 +39465,7 @@ const struct BaseStats gBaseStats[] =
         .evolutions = NULL, //Should hopefully blank these for now without issue
        .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },
+    //I think removing the 4x weakness is better than boost its dmg
 
     [SPECIES_ALTARIA_MEGA] =
     {
