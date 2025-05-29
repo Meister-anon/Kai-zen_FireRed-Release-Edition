@@ -360,7 +360,7 @@
 #define EFFECT_WORRY_SEED 349
 #define EFFECT_FELL_STINGER 350
 #define EFFECT_CAPTIVATE 351
-#define EFFECT_ALWAYS_CRIT 352  //effect free no longer used, done w flag instead
+#define EFFECT_UPPER_HAND 352  
 #define EFFECT_HAMMER_ARM 353
 #define EFFECT_FUSION_COMBO 354
 #define EFFECT_HEAL_BLOCK 355

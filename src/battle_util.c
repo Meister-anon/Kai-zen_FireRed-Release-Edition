@@ -11112,10 +11112,14 @@ bool8 IsMoveMakingContact(u16 move, u8 battlerAtk)
     {
         if (gBattleMoves[move].effect == EFFECT_SHELL_SIDE_ARM && GetBattleMoveDamageCategory(battlerAtk, move) == SPLIT_PHYSICAL)
             return TRUE;
+        else if (gBattleMoves[move].effect == EFFECT_HIDDEN_POWER && GetBattleMoveDamageCategory(battlerAtk, move) == SPLIT_PHYSICAL)
+            return TRUE;
+        else if (gBattleMoves[move].effect == EFFECT_TRI_ATTACK && GetBattleMoveDamageCategory(battlerAtk, move) == SPLIT_PHYSICAL)
+            return TRUE;
         else if (GetBattlerAbility(battlerAtk) == ABILITY_MUSCLE_MAGIC)
             return TRUE;
-        //else
-        //    return FALSE;
+        else
+            return FALSE;
     }
     else if (atkHoldEffect == HOLD_EFFECT_PROTECTIVE_PADS
            || GetBattlerAbility(battlerAtk) == ABILITY_LONG_REACH

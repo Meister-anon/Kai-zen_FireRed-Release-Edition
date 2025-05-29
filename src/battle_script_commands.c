@@ -1616,12 +1616,11 @@ static void atk00_attackcanceler(void) //vsonic
             gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
-    else if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove)
+    else if (IsBattlerProtectedFromAttack(gBattlerAttacker, gBattlerTarget, gCurrentMove) //believe below means not curse but gives an exception for ghost for ghost curse
         && (gCurrentMove != MOVE_CURSE || DoesBattlerGetTypeBasedAffinity(gBattlerAttacker, TYPE_GHOST)) //is this correct? ok emerald has same logic so I guess its cool
-        //&& ((!IsTwoTurnsMove(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS))) //what does this even????! vsonic
         && (CanTwoTurnMoveAttackThisTurn(gCurrentMove) || (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS) || !IsTwoTurnsMove(gCurrentMove))
-        && gCurrentMove != MOVE_BIDE //make bide immune to protect
-        && gBattleMoves[gCurrentMove].effect != EFFECT_SUCKER_PUNCH)
+        && gBattleMoves[gCurrentMove].effect != EFFECT_SUCKER_PUNCH
+        && gBattleMoves[gCurrentMove].effect != EFFECT_UPPER_HAND)
     {
         if (IsMoveMakingContact(gCurrentMove, gBattlerAttacker))
             gProtectStructs[gBattlerAttacker].touchedProtectLike = TRUE;
@@ -1710,6 +1709,8 @@ static bool8 IsBattlerProtectedFromAttack(u8 battlerAtk, u8 battlerDef, u16 move
     && gBattleMoves[move].power < 75)
         return FALSE;
     else if (move == MOVE_RAGING_BULL)
+        return FALSE;
+    else if (move == MOVE_BIDE)
         return FALSE;
     else if ((gProtectStructs[battlerDef].protected) && (gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED))
         return TRUE;
@@ -8027,7 +8028,7 @@ static void atk49_moveend(void) //need to update this //equivalent Cmd_moveend  
                     gBattlescriptCurrInstr = BattleScript_BanefulBunkerEffect;
                     effect = 1;
                 }
-                else if (gProtectStructs[gBattlerTarget].obstructed && moveEffect != EFFECT_SUCKER_PUNCH && gCurrentMove != MOVE_UPPER_HAND)
+                else if (gProtectStructs[gBattlerTarget].obstructed && moveEffect != EFFECT_SUCKER_PUNCH && moveEffect != EFFECT_UPPER_HAND)
                 {
                     gProtectStructs[gBattlerAttacker].touchedProtectLike = FALSE;
                     i = gBattlerAttacker;

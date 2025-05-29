@@ -2759,21 +2759,6 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     score++;
             }
             break;
-        case EFFECT_ALWAYS_CRIT: //done w flag instead guess can tag onto default at end? vsonic
-            // Ally decided to use Frost Breath on us. we must have Anger Point as our ability
-            if (AI_DATA->abilities[battlerAtk] == ABILITY_ANGER_POINT)
-            {
-                if (AI_WhoStrikesFirst(battlerAtk, battlerAtkPartner, move) == AI_IS_SLOWER)   // Partner moving first
-                {
-                    // discourage raising our attack since it's about to be maxed out
-                    if (IsAttackBoostMoveEffect(effect))
-                        score -= 3;
-                    // encourage moves hitting multiple opponents
-                    if (!IS_MOVE_STATUS(move) && (moveTarget & (MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY)))
-                        score += 3;
-                }
-            }
-            break;
         }
 
         if (gBattleMoves[AI_DATA->partnerMove].flags & FLAG_ALWAYS_CRIT)

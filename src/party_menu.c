@@ -3759,6 +3759,20 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_SWEET_SCENT + MENU_FIELD_MOVES);
             
     }
+
+    if (ability == ABILITY_ILLUMINATE) 
+    {
+        for (i = 0; i < MAX_MON_MOVES; ++i)
+        {
+            if (GetMonData(&mons[slotId], i + MON_DATA_MOVE1) == sFieldMoves[FIELD_MOVE_FLASH])
+                break;                
+        }
+
+        //if mon doesn't know FLASH set field move via ability
+        if (i == MAX_MON_MOVES)
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLASH + MENU_FIELD_MOVES);
+            
+    }
         
 
     if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
