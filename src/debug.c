@@ -2616,6 +2616,7 @@ static void DebugAction_Give_PokemonComplex(u8 taskId)
 {
     u8 windowId;
     u8 speciesName[POKEMON_NAME_LENGTH + 1];
+    u8 *end;
 
     //Mon data struct
     sDebugMonData = AllocZeroed(sizeof(struct DebugMonData));
@@ -2636,7 +2637,8 @@ static void DebugAction_Give_PokemonComplex(u8 taskId)
     StringCopy(gStringVar2, gText_DigitIndicator[0]);
     ConvertIntToDecimalStringN(gStringVar3, sDebugMonData->species, STR_CONV_MODE_LEADING_ZEROS, 4);
     GetSpeciesName(speciesName, sDebugMonData->species);
-    StringCopy(gStringVar1, speciesName);
+    end = StringCopy(gStringVar1, speciesName);
+    PrependFontIdToFit(gStringVar1, end, DEBUG_MENU_FONT, 64);
     StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 15);
     StringExpandPlaceholders(gStringVar4, sDebugText_PokemonID);
     AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
@@ -2657,6 +2659,7 @@ static void DebugAction_Give_PokemonComplex(u8 taskId)
 static void DebugAction_Give_Pokemon_SelectId(u8 taskId)
 {
     u8 speciesName[POKEMON_NAME_LENGTH + 1];
+    u8 *end;
 
     if (JOY_NEW(DPAD_ANY))
     {
@@ -2687,7 +2690,8 @@ static void DebugAction_Give_Pokemon_SelectId(u8 taskId)
 
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         GetSpeciesName(speciesName, gTasks[taskId].tInput);
-        StringCopy(gStringVar1, speciesName);  //CopyItemName(gTasks[taskId].tInput, gStringVar1);
+        end = StringCopy(gStringVar1, speciesName);  //CopyItemName(gTasks[taskId].tInput, gStringVar1);
+        PrependFontIdToFit(gStringVar1, end, DEBUG_MENU_FONT, 64);
         StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 15);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 4);
         StringExpandPlaceholders(gStringVar4, sDebugText_PokemonID);
@@ -2880,6 +2884,7 @@ static void DebugAction_Give_Pokemon_SelectNature(u8 taskId)
     if (JOY_NEW(A_BUTTON))
     {
         u8 abilityId;
+        u8 *end;
         sDebugMonData->nature = gTasks[taskId].tInput;
         gTasks[taskId].tInput = 0;
         gTasks[taskId].tDigit = 0;
@@ -2888,8 +2893,9 @@ static void DebugAction_Give_Pokemon_SelectNature(u8 taskId)
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
         StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
         abilityId = Debug_GetAbilityBySpecies(sDebugMonData->species, 0);
-        StringCopy(gStringVar1, gAbilityNames[abilityId]);
-        StringExpandPlaceholders(gStringVar4, sDebugText_PokemonAbility);
+        end = StringCopy(gStringVar1, gAbilityNames[abilityId]);
+        PrependFontIdToFit(gStringVar1, end, DEBUG_MENU_FONT, 64);
+        StringExpandPlaceholders(gStringVar4, sDebugText_PokemonAbility);        
         AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
 
         gTasks[taskId].func = DebugAction_Give_Pokemon_SelectAbility;
@@ -2907,6 +2913,7 @@ static void DebugAction_Give_Pokemon_SelectAbility(u8 taskId)
     u16 abilityId;
     u8 abilityCount = NUM_ABILITY_SLOTS - 1; //-1 for proper iteration
     u8 i = 0;
+    u8 *end;
 
     if (JOY_NEW(DPAD_ANY))
     {
@@ -2933,7 +2940,8 @@ static void DebugAction_Give_Pokemon_SelectAbility(u8 taskId)
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
         StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
-        StringCopy(gStringVar1, gAbilityNames[abilityId]);
+        end = StringCopy(gStringVar1, gAbilityNames[abilityId]);
+        PrependFontIdToFit(gStringVar1, end, DEBUG_MENU_FONT, 64);
         StringExpandPlaceholders(gStringVar4, sDebugText_PokemonAbility);
         AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 1, 1, 0, NULL);
     }
