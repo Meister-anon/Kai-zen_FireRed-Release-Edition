@@ -3320,6 +3320,7 @@ static const struct AbilityLearnset sKartanaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sGuzzlordAbilityLearnset[] = {
+    ABILITY_GLUTTONY,
     ABILITY_SET_END
 };
 

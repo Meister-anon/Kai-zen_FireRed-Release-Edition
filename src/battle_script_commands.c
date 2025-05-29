@@ -10529,8 +10529,8 @@ static void atk52_switchineffects(void) //important, think can put ability reset
             gSideStatuses[GetBattlerSide(gActiveBattler)] |= SIDE_STATUS_STICKY_WEB_TRIGGERED;
             gDisableStructs[gActiveBattler].trappedinStickyweb = TRUE;
             gBattleScripting.battler = gActiveBattler;
-            SET_STATCHANGER(STAT_SPEED, 2, TRUE);
-            BattleScriptPushCursor();
+            SET_STATCHANGER(STAT_SPEED, 2, TRUE); //consider lower stat drop to 1 for spidops ability synergy
+            BattleScriptPushCursor();//lol spidops speed is sub 40, I can prob drop by 2 and still be slower for most full evos
             gBattlescriptCurrInstr = BattleScript_StickyWebOnSwitchIn;
         }
         

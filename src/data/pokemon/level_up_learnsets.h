@@ -15788,6 +15788,7 @@ static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BITE),
     LEVEL_UP_MOVE( 7, MOVE_STOMP),
     LEVEL_UP_MOVE(13, MOVE_BRUTAL_SWING),
+    LEVEL_UP_MOVE(16, MOVE_POISON_TAIL),
     LEVEL_UP_MOVE(19, MOVE_STEAMROLLER),
     LEVEL_UP_MOVE(23, MOVE_DRAGON_TAIL),
     LEVEL_UP_MOVE(29, MOVE_IRON_TAIL),
@@ -15801,6 +15802,7 @@ static const struct LevelUpMove sGuzzlordLevelUpLearnset[] = {
     LEVEL_UP_MOVE(73, MOVE_DRAGON_RUSH),
     LEVEL_UP_END
 };
+//GAVE MORE option to deal w fairy
 
 static const struct LevelUpMove sNecrozmaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_MOONLIGHT),
@@ -19394,7 +19396,8 @@ static const struct LevelUpMove sSpidopsLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 8, MOVE_ASSURANCE),
     LEVEL_UP_MOVE(11, MOVE_FEINT),
     LEVEL_UP_MOVE(14, MOVE_BUG_BITE),
-    LEVEL_UP_MOVE(19, MOVE_BLOCK),
+    LEVEL_UP_MOVE(18, MOVE_BLOCK),
+    LEVEL_UP_MOVE(20, MOVE_PURSUIT),
     LEVEL_UP_MOVE(24, MOVE_COUNTER),
     LEVEL_UP_MOVE(28, MOVE_HEADBUTT),
     LEVEL_UP_MOVE(33, MOVE_STICKY_WEB),

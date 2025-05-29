@@ -25575,10 +25575,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         223,
         101,
-        53,
-        43,
+        58,
+        23,
         97,
-        53
+        58
         ),
         MON_TYPES(TYPE_DARK, TYPE_DRAGON),
         .catchRate = 45,
@@ -25590,8 +25590,8 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_CORRUPTION, ABILITY_NONE },
-        .abilityHidden = {ABILITY_BEAST_BOOST, ABILITY_NONE},
+        .abilities = {ABILITY_BEAST_BOOST, ABILITY_NONE },
+        .abilityHidden = {ABILITY_CORRUPTION, ABILITY_NONE},
         .bodyColor = BODY_COLOR_BLACK,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -25604,6 +25604,7 @@ const struct BaseStats gBaseStats[] =
     //guess the quad fairy weakness?
     //anyway corruption is still in concept phase
     //change corruption to be onfield ability, rather than timer?
+    //ironically will be very good w misty terrain change
 
     [SPECIES_NECROZMA] =
     {
@@ -30147,7 +30148,7 @@ const struct BaseStats gBaseStats[] =
             //hp, atk, def, spd, spatk, spdef
         STATS(
               60,
-              89,
+              79,
               92,
               35,
               52,
@@ -30160,8 +30161,8 @@ const struct BaseStats gBaseStats[] =
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 15,
         .friendship = FRIENDSHIP_STANDARD,
-        .growthRate = GROWTH_ERRATIC,
-        MON_EGG_GROUPS(EGG_GROUP_BUG),
+        .growthRate = GROWTH_ERRATIC,//lowered attack back to base to require to ev train
+        MON_EGG_GROUPS(EGG_GROUP_BUG), //want as utility mon not heavy hitter + synergy w new signautre ability
         .abilities = { ABILITY_TOOLS_OF_THE_TRADE, ABILITY_NONE }, //gave arena trap from wooper
         .abilityHidden = {ABILITY_ARENA_TRAP, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GREEN, //with atk buff & status move change can keep speed low 

@@ -4203,6 +4203,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       mon in party
       was able to fix stat colors by taking EE logic
       for battle anim files
+      ...spoke too soon, changes made things worse
+      broke defense and attack drop fixed speed fixed evasion
+      -fixed 
 
       decide to move delete and relearn in party
       and pc

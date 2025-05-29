@@ -4637,6 +4637,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u32 abilityDef = GetBattlerAbility(battlerIdDef);
     u16 itemDef = gBattleMons[battlerIdDef].item;
     u32 atkSide = GetBattlerSide(battlerIdAtk);
+    u32 defSide = GetBattlerSide(battlerIdDef);
     u32 typeEffectiveness;
     u32 attackerhighestStat = GetHighestStatId(battlerIdAtk);
     u32 defenderhighestStat = GetHighestStatId(battlerIdDef);
@@ -5480,11 +5481,18 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TOOLS_OF_THE_TRADE:
-        if (GetBattlerTurnOrderNum(battlerIdAtk) == gBattlersCount - 1 && move != MOVE_FUTURE_SIGHT && move != MOVE_DOOM_DESIRE)
+        
+        if (gDisableStructs[battlerIdDef].isFirstTurn == 2) // just switched in
+            gBattleMovePower = (gBattleMovePower * 150 / 100);
+        
+        else if (GetBattlerTurnOrderNum(battlerIdAtk) == gBattlersCount - 1 && move != MOVE_FUTURE_SIGHT && move != MOVE_DOOM_DESIRE)
             gBattleMovePower = (gBattleMovePower * 120 / 100);
 
-        if (gDisableStructs[battlerIdDef].isFirstTurn == 2) // just switched in
-            OffensiveModifer(150);
+        else if (gDisableStructs[battlerIdDef].isFirstTurn == 1 && gSideTimers[defSide].retaliateTimer == 1)
+            gBattleMovePower = (gBattleMovePower * 125 / 100);
+
+        if (!CanBattlerEscape(battlerIdDef))
+            gBattleMovePower = (gBattleMovePower * 125 / 100);
         //MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TOUGH_CLAWS:
@@ -5499,7 +5507,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         break;
     case ABILITY_STAKEOUT:
         if (gDisableStructs[battlerIdDef].isFirstTurn == 2) // just switched in
-            OffensiveModifer(200);
+            gBattleMovePower *= 2;
+        
+        else if (gDisableStructs[battlerIdDef].isFirstTurn == 1 && gSideTimers[defSide].retaliateTimer == 1)
+            gBattleMovePower = (gBattleMovePower * 150 / 100);
         break;
     case ABILITY_MEGA_LAUNCHER:
         if (gBattleMoves[move].flags & FLAG_MEGA_LAUNCHER_BOOST)
