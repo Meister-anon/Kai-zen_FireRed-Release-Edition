@@ -99,6 +99,9 @@ for line in lines:
                 EndPoint = index
             elif character == ')':
                 EndPoint = index - 1
+            'approximation to adjust for placeholders'
+            if re.compile(r'}').search(line):
+                EndPoint = EndPoint - 10 
             if EndPoint - startPoint > movesLine_Limit:
                 FoundLineError = True
             elif index + 2 < len(line) and character != ')': #extra protection
@@ -156,6 +159,9 @@ if Phase1_Complete == True:
                     EndPoint = index
                 elif character == ')':
                     EndPoint = index - 1
+                'approximation to adjust for placeholders'
+                if re.compile(r'}').search(line):
+                    EndPoint = EndPoint - 10
                 if EndPoint - startPoint > abilityLine_Limit:
                     FoundLineError = True
                 elif index + 2 < len(line) and character != ')': #extra protection
@@ -212,6 +218,9 @@ if Phase1_Complete == True and Phase2_Complete == True:
                     EndPoint = index
                 elif character == ')':
                     EndPoint = index - 1
+                'approximation to adjust for placeholders'
+                if re.compile(r'}').search(line):
+                    EndPoint = EndPoint - 10
                 if EndPoint - startPoint > dexLine_Limit:
                     FoundLineError = True
             #index += 1
