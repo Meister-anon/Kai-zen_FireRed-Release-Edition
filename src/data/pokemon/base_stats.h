@@ -30149,7 +30149,7 @@ const struct BaseStats gBaseStats[] =
         STATS(
               60,
               79,
-              92,
+              102,
               35,
               52,
               86
