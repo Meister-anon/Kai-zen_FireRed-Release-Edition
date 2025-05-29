@@ -428,7 +428,6 @@ static u8 GetAbilityEncounterRateModType(void) //redo this based on emerald logi
             sWildEncounterData.abilityEffect = REDUCE_ENCOUNTER_RATE;
         else if (ability == ABILITY_ILLUMINATE
         || ability == ABILITY_ARENA_TRAP
-        //|| ability == ABILITY_HONEY_GATHER    //removed this reworked into better effect, gave sweet scent
         )
             sWildEncounterData.abilityEffect = INCREASE_ENCOUNTER_RATE;
     }

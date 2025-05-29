@@ -3746,7 +3746,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     
     //still need to setup way to check list to prevent adding things that are already there
     //instead made setup that doesn't have overlap, well things like this honey gather are the only issue w potential overlap now
-    if (ability == ABILITY_HONEY_GATHER) 
+    if (ability == ABILITY_HONEY_GATHER || ability == ABILITY_SUPERSWEET_SYRUP) 
     {
         for (i = 0; i < MAX_MON_MOVES; ++i)
         {

@@ -7808,10 +7808,12 @@ BattleScript_SteelSurgeFree::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 
+@tested works, just need adjust intimidate script as I want
 BattleScript_SwitchInAbilityMsg::
 	@@ call BattleScript_AbilityPopUp
 	printfromtable gSwitchInAbilityStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_DoIntimidateActivationAnim
 	end3
 
 BattleScript_SwitchInAbilityMsgRet::
