@@ -1385,7 +1385,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_THUNDER_WAVE] =
     {
 
-        .accuracy = 100,
+        .accuracy = 90,
         .effect = EFFECT_PARALYZE,
         .power = 0,
         .type = TYPE_ELECTRIC,

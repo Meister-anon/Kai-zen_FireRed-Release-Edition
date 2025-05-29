@@ -4854,11 +4854,15 @@ void SetMoveEffect(bool32 primary, u32 certain)
             {
                 if (gSpecialStatuses[gBattlerAttacker].Cacophonyboosted)
                     gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 5;
+                 //attempt get sleep heal and only sleep 1 turn, if doesnt' work
+                    //may replace w full sleep immunity or keep as is for balance
+                else if (GetBattlerAbility(gEffectBattler) == ABILITY_TOOLS_OF_THE_TRADE) //1 turn of sleep is counter 2s
+                    gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = 2;
                 else
                     gBattleStruct->SleepTimer[gBattlerPartyIndexes[gEffectBattler]][GetBattlerSide(gEffectBattler)] = ((Random() % 3) + 3);
                 gBattleMons[gEffectBattler].status1 |= sStatusFlagsForMoveEffects[gBattleScripting.moveEffect];
                 //gBattleMons[gEffectBattler].status1 |= ((Random() % 3) + 3); //duration of sleep, and its 2-5 here. /changed to 2-4 /guarantees 1 free turn unless earlybird  //confirmed
-                gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect];
+                gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleScripting.moveEffect]; //2-4 means 1-3 turns of sleep (is 2-4 decrementsin atkcanc so can decrease before turn end)
                 
                 if (gBattleMons[gEffectBattler].status2 & STATUS2_RAGE) //would be any time miss, with ANY attack, so don't really want that            
                 {
@@ -14813,7 +14817,7 @@ static void atk81_trysetrest(void) //would be useful to track if sleep was set w
             gBattleCommunication[MULTISTRING_CHOOSER] = 0;
         gBattleMons[gBattlerTarget].status1 = STATUS1_SLEEP;
         gBattleStruct->SleepTimer[gBattlerPartyIndexes[gBattlerTarget]][GetBattlerSide(gBattlerTarget)] = 3; //sleep turns rest is fixed
-        BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
+        BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);//is two turns of sleep
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }

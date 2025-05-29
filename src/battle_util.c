@@ -3492,10 +3492,6 @@ u8 DoBattlerEndTurnEffects(void)
             case ENDTURN_SLEEP:
                 if (gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP && gDisableStructs[gActiveBattler].sleepCounter)    //if works right should heal every 2 turns
                 {
-                    //attempt get sleep heal and only sleep 1 turn, if doesnt' work
-                    //may replace w full sleep immunity or keep as is for balance
-                    if (GetBattlerAbility(gActiveBattler) == ABILITY_TOOLS_OF_THE_TRADE)
-                        gBattleStruct->SleepTimer[gBattlerPartyIndexes[gActiveBattler]][GetBattlerSide(gActiveBattler)] = 1;
 
                     if (gBattleMons[gBattlerAttacker].maxHP > gBattleMons[gBattlerAttacker].hp
                         && !(gSideStatuses[GET_BATTLER_SIDE(gActiveBattler)] & SIDE_STATUS_HEAL_BLOCK))

@@ -4311,8 +4311,16 @@ static void BattleStartClearSetData(void)
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_PLAYER] = 0;
         gBattleStruct->ToxicTurnCounter[i][B_SIDE_OPPONENT] = 0;
 
-        gBattleStruct->SleepTimer[i][B_SIDE_PLAYER] = 0;
-        gBattleStruct->SleepTimer[i][B_SIDE_OPPONENT] = 0;
+        //think best I can do is just set to 2 without filter
+        //wont do anything if not statused
+        //and believe gets cleared at battle end
+        //if becomes sleep won't matter as that will already
+        //set its appropriate value. overwriting what I set
+        
+        //if asleep at start of battle get 1 turn of inaction before wake
+        //will heal after first turn as well, so not as bad.
+        gBattleStruct->SleepTimer[i][B_SIDE_PLAYER] = 2;
+        gBattleStruct->SleepTimer[i][B_SIDE_OPPONENT] = 2;
 
         gBattleStruct->SecondaryItemSlot[i][B_SIDE_PLAYER] = ITEM_NONE;
         gBattleStruct->SecondaryItemSlot[i][B_SIDE_OPPONENT] = ITEM_NONE;
