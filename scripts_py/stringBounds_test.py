@@ -66,6 +66,9 @@ lines = infile.readlines()
 lineId = 0
 startPoint = 0
 EndPoint = 0
+placeHolderStart = 0 #new change will work, but not for multiple placeholders
+placeHolderEnd = 0 #would need running character range so separate from index to subtract placeholder range from
+placeHolderRange = 0
 character = 0
 Num_errors = 0
 FoundLineError = False
@@ -83,7 +86,14 @@ for line in lines:
         #ok tested it can read a quote but I'm not getin it to read the parenthesi right at all somehwo?
         #aight got it now
         if character == '(' :
-            startPoint = index + 2            
+            startPoint = index + 2       
+
+        if character == '{' :
+            placeHolderStart = index   
+
+        if character == '}' :
+            placeHolderEnd = index
+            placeHolderRange =  placeHolderEnd - placeHolderStart        
             #print(startPoint, lineId)
             #print(line)
             #if lineId == 2333:
@@ -101,7 +111,7 @@ for line in lines:
                 EndPoint = index - 1
             'approximation to adjust for placeholders'
             if re.compile(r'}').search(line):
-                EndPoint = EndPoint - 10 
+                EndPoint = EndPoint - placeHolderRange 
             if EndPoint - startPoint > movesLine_Limit:
                 FoundLineError = True
             elif index + 2 < len(line) and character != ')': #extra protection
@@ -133,6 +143,9 @@ lines = infile.readlines()
 lineId = 0
 startPoint = 0
 EndPoint = 0
+placeHolderStart = 0
+placeHolderEnd = 0
+placeHolderRange = 0
 character = 0
 Num_errors = 0
 FoundLineError = False
@@ -149,7 +162,14 @@ if Phase1_Complete == True:
         while index < len(line):
             character = line[index]
             if character == '(' :
-                startPoint = index + 2            
+                startPoint = index + 2   
+
+            if character == '{' :
+                placeHolderStart = index   
+
+            if character == '}' :
+                placeHolderEnd = index
+                placeHolderRange =  placeHolderEnd - placeHolderStart                 
                 #print(startPoint, lineId)
                 #print(line)
                 #print(character)
@@ -161,7 +181,7 @@ if Phase1_Complete == True:
                     EndPoint = index - 1
                 'approximation to adjust for placeholders'
                 if re.compile(r'}').search(line):
-                    EndPoint = EndPoint - 10
+                    EndPoint = EndPoint - placeHolderRange
                 if EndPoint - startPoint > abilityLine_Limit:
                     FoundLineError = True
                 elif index + 2 < len(line) and character != ')': #extra protection
@@ -194,6 +214,9 @@ lines = infile.readlines()
 lineId = 0
 startPoint = 0
 EndPoint = 0
+placeHolderStart = 0
+placeHolderEnd = 0
+placeHolderRange = 0
 character = 0
 Num_errors = 0
 FoundLineError = False
@@ -208,7 +231,14 @@ if Phase1_Complete == True and Phase2_Complete == True:
         while index < len(line):
             character = line[index]
             if character == '"' :
-                startPoint = index + 1            
+                startPoint = index + 1
+
+            if character == '{' :
+                placeHolderStart = index   
+
+            if character == '}' :
+                placeHolderEnd = index
+                placeHolderRange =  placeHolderEnd - placeHolderStart            
                 #print(startPoint, lineId)
                 #print(line)
                 #print(character)
@@ -220,7 +250,7 @@ if Phase1_Complete == True and Phase2_Complete == True:
                     EndPoint = index - 1
                 'approximation to adjust for placeholders'
                 if re.compile(r'}').search(line):
-                    EndPoint = EndPoint - 10
+                    EndPoint = EndPoint - placeHolderRange
                 if EndPoint - startPoint > dexLine_Limit:
                     FoundLineError = True
             #index += 1
