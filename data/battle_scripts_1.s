@@ -4029,8 +4029,7 @@ BattleScriptFirstChargingTurn::
 	setmoveeffect MOVE_EFFECT_CHARGING | MOVE_EFFECT_AFFECTS_USER
 	seteffectprimary
 	setchargeturnattackstring
-	copybyte cMULTISTRING_CHOOSER, sTWOTURN_STRINGID
-	printfromtable gFirstTurnOfTwoStringIds
+	printsavedstring
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	return
 

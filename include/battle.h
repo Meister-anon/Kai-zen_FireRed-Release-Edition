@@ -1012,23 +1012,24 @@ extern struct BattleStruct *gBattleStruct;
 // NOTE: The members of this struct have hard-coded offsets 
 //       in include/constants/battle_script_commands.h
 //very finicky so not gonna bit field this
-struct BattleScripting  //remember expanding this costs ewram
+struct BattleScripting  //remember expanding this costs ewram = rearranging in  case issue was paddin
 {
     s32 painSplitHp;
     s32 bideDmg;
+    s32 savedDmg;   //port feature leaving out for now - added as needed for bs somehow
+    u16 savedStringId; //originally store table id for stringid of two turn moves, made u16 to store actually stringIds for other effects
     u8 multihitString[6];
     u8 dmgMultiplier;   //gBattleScripting.dmgMultiplier  no longer using, but keeping in here for now, aka sDMG_MULTIPLIER
-    u8 twoTurnsMoveStringId;
     u8 animArg1;
     u8 animArg2;    //gBattleScripting +12 & +19 only used in multihit scripts in battle_scripts_1.s so somewhat confident of conclusions
-    u16 tripleKickPower; //important gBattleScripting +19   //since changed move effect, can now remove this,   would need to update following values again
-    u8 atk49_state; //move end
     u8 battlerWithAbility;
+    u16 tripleKickPower; //important gBattleScripting +19   //since changed move effect, can now remove this,   would need to update following values again
+    u8 battler;
+    u8 atk49_state; //move end
     //u8 multihitMoveEffect; //important, why do these need to go here   [they make up the table, if not properly orded bs effets won't work correctly
     u16 multihitMoveEffect; //why did I make u16?   -because it is in emerald
     u16 savedMoveEffect; // For moves hitting multiple targets.
     u16 moveEffect; //don't change capitalization won't be able to just copy from emerald easily
-    u8 battler;
     u8 animTurn;
     u8 animTargetsHit;
     u8 statChangeId; //new for dynamic stat set, this stat id will be passed to statchanger
@@ -1052,7 +1053,6 @@ struct BattleScripting  //remember expanding this costs ewram
     u8 switchCase;  // Special switching conditions, eg. red card
     u8 overrideBerryRequirements;
     u8 stickyWebStatDrop; // To prevent Defiant activating on a Court Change'd Sticky Web
-    s32 savedDmg;   //port feature leaving out for now - added as needed for bs somehow
     //bool8 monCaught;  //believe most of these aren't needed, can be handled with battlescript , they are just different ways of doing things, btu I prefer saving ram.
     u8 levelUpHP;    //used for hp change on level up & shedinja hp stuff in pokemon.c
 };

@@ -4201,6 +4201,13 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
       only zero out both if I attempt to formchange/mega evolve another
       mon in party
+      i.e if field i'm passing to or from isn't 2 bytes
+      don't use hword
+
+      idk true or not, but rn fixed all issues
+      w battlescripting struct and defines
+      had a misalignment between the 2 files smh
+      
       was able to fix stat colors by taking EE logic
       for battle anim files
       ...spoke too soon, changes made things worse

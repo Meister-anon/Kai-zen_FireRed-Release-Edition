@@ -72,6 +72,10 @@
 	.2byte \stringid
 	.endm
 
+	.macro printsavedstring
+	printstring 0
+	.endm
+
 	.macro printselectionstring id:req
 	.byte 0x11
 	.2byte \id
@@ -1575,6 +1579,10 @@
 	callnative BS_GetStatChangeIdFromAbility
 	.endm
 
+	.macro getuniqueabilitystring
+	callnative BS_GetCustomAbilityString
+	.endm
+
 	@^put added bs commands above this^
 	@ returns B_SIDE_x to gBattleCommunication[0]
 	.macro getbattlerside battler:req
@@ -2226,6 +2234,7 @@
 	@paired script use after
 	@getstatchangeIdfromability command
 	.macro setstatchangerviaAbility stages:req, down:req
+	getstatchangeIdfromability
 	copybyte sSTATCHANGER, sSTATCHANGEID 
 	addbyte sSTATCHANGER \stages << 3 | \down << 7
 	.endm
@@ -2249,6 +2258,7 @@
 	chosenstatusanimation \battler, 2, \status
 	.endm
 
+	@think hword meant to be 2 bytes
 	.macro sethword dst:req, value:req
 	setbyte \dst, (\value) & 0xFF
 	setbyte \dst + 1, ((\value) >> 8) & 0xFF

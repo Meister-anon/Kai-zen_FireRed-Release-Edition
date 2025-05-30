@@ -354,7 +354,7 @@ static void atkEA_tryrecycleitem(void);
 static void atkEB_settypetoterrain(void);
 static void atkEC_pursuitrelated(void);
 static void atkED_snatchsetbattlers(void);
-static void atkEE_removelightscreenreflect(void);
+static void atkEE_removelightscreenreflect(void); //think unused
 static void atkEF_handleballthrow(void);
 static void atkF0_givecaughtmon(void);
 static void atkF1_trysetcaughtmondexflags(void);
@@ -4037,7 +4037,7 @@ static void atk10_printstring(void)
     CMD_ARGS(u16 stringid);
     if (gBattleControllerExecFlags == 0)
     {
-        u16 stringid = cmd->stringid;
+        u16 stringid = (cmd->stringid == 0 ? gBattleScripting.savedStringId : cmd->stringid);
 
         gBattlescriptCurrInstr = cmd->nextInstr;
         PrepareStringBattle(stringid, gBattlerAttacker);
@@ -5119,7 +5119,21 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 else
                 {
-                    gBattleScripting.moveEffect = Random() % 3 + 3;
+                    u8 EffectSet = Random() % 3 + 3;
+                    switch (EffectSet)
+                    {
+                        case 3:
+                            gBattleScripting.moveEffect = MOVE_EFFECT_BURN;
+                        break;
+                        case 4:
+                            gBattleScripting.moveEffect = MOVE_EFFECT_FREEZE;
+                        break;
+                        case 5:
+                            gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
+                        break;
+                    }
+                    //cleaned up so effect would always work even if order of effects changed
+                    //gBattleScripting.moveEffect = Random() % 3 + 3; //somewhat odd logic to return move effect burn freeze or paras
                     SetMoveEffect(FALSE, 0);
                 }
                 break;
@@ -5422,7 +5436,6 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SP_DEF_MINUS_1:
             case MOVE_EFFECT_ACC_MINUS_1:
             case MOVE_EFFECT_EVS_MINUS_1:
-                //flags = affectsUser;
                
                if (affectsUser == MOVE_EFFECT_AFFECTS_USER)
                     flags = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN;
@@ -5443,7 +5456,6 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattleScripting.moveEffect &= ~(MOVE_EFFECT_CERTAIN);
                     gBattleScripting.moveEffect = 0;
                     gBattleScripting.multihitMoveEffect = 0;
-                    //BattleScriptPush(gBattlescriptCurrInstr + 1);
                     gBattlescriptCurrInstr = BattleScript_GroundNullifiesEarth;
                     return; //oh adding the return fixed it o.0
                 } 
@@ -18351,37 +18363,38 @@ void BS_SetChargeturnMoveStringforTwoTurnMoves(void)
 {
     NATIVE_ARGS();
 
-    gBattleScripting.twoTurnsMoveStringId = GetMoveTwoTurnAttackStringId(gCurrentMove);
+    gBattleScripting.savedStringId = GetMoveTwoTurnAttackStringId(gCurrentMove);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 //get charging turn attack string
 //need update along with gFirstTurnOfTwoStringIds table
-u8 GetMoveTwoTurnAttackStringId(u16 move)
+u32 GetMoveTwoTurnAttackStringId(u16 move)
 {
+
     switch(move)
     {
         case MOVE_SOLAR_BEAM:
-            return B_MSG_TURN1_SOLAR_BEAM;
+            return STRINGID_PKMNTOOKSUNLIGHT;
         case MOVE_SKULL_BASH:
-            return B_MSG_TURN1_SKULL_BASH;
+            return STRINGID_PKMNLOWEREDHEAD;
         case MOVE_FLY:
         case MOVE_SKY_ATTACK:
-            return B_MSG_TURN1_FLY;
+            return STRINGID_PKMNFLEWHIGH;
         case MOVE_DIG:
-            return B_MSG_TURN1_DIG;
+            return STRINGID_PKMNDUGHOLE;
         case MOVE_DIVE:
-            return B_MSG_TURN1_DIVE;
+            return STRINGID_PKMNHIDUNDERWATER;
         case MOVE_BOUNCE:
-            return B_MSG_TURN1_BOUNCE;
+            return STRINGID_PKMNSPRANGUP;
         case MOVE_PHANTOM_FORCE:
-            return B_MSG_TURN1_PHANTOM_FORCE;
+            return STRINGID_VANISHEDINSTANTLY;
         case MOVE_GEOMANCY:
-            return B_MSG_TURN1_GEOMANCY;
+            return STRINGID_PKNMABSORBINGPOWER;
         case MOVE_SKY_DROP:
-            return B_MSG_TURN1_SKY_DROP;
+            return STRINGID_PKMNTOOKTARGETHIGH;
         case MOVE_METEOR_BEAM:
-            return B_MSG_TURN1_METEOR_BEAM;
+            return STRINGID_METEORBEAMCHARGING;
     }
 }
 /*
@@ -19014,6 +19027,34 @@ void BS_GetStatChangeIdFromAbility(void)
     
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
+
+//potentially expand use of battler argument
+//but for now last thing need do is get to replace
+//customstring argument in modifybattler stat macroes
+void BS_GetCustomAbilityString(void)
+{
+    NATIVE_ARGS();
+    u16 ability = GetBattlerAbility(gBattlerAttacker);
+
+    switch (ability)
+    {
+
+        case ABILITY_INTIMIDATE:
+            gBattleScripting.savedStringId = STRINGID_PKMNCUTSATTACKWITH;
+            break;
+        case ABILITY_TIGER_MOM:
+            gBattleScripting.savedStringId = STRINGID_TIGER_MOM_ACTIVATES;
+            break;
+        default:
+            gBattleScripting.savedStringId = 0;
+            break;
+
+    }
+    cmd->nextInstr;
+    
+}
+
+
 
 //setting up new copy ability think can just use all same values?
 static void atkE1_trygetintimidatetarget(void) //I'd like to be able to get it ot target based on the case id abilityeffect in the util.c
