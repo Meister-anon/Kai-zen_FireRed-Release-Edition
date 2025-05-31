@@ -7935,16 +7935,35 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && (IsMoveMakingContact(moveArg, gBattlerAttacker))
                     && (Random() % 2) == 0)
                 {
+                    
+                    u8 moveEffectSet;
+                    
                     do
-                        gBattleScripting.moveEffect = Random() % 5; //0-4
-                    while (gBattleScripting.moveEffect == 0);
+                    {
+                        moveEffectSet = Random() % 5;
 
-                    if (gBattleScripting.moveEffect == MOVE_EFFECT_BURN)
-                        gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
+                        //done to preserve odds
+                        switch(moveEffectSet)
+                        {
+                            case 1:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_SLEEP;
+                            break;
+                            case 2:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
+                            break;
+                            case 3:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
+                            break;
+                            case 4:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
+                            break;
+                        }
+                    }
+                    while (moveEffectSet == 0);
+                    
+                    
 
-
-                    if (gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
-                        gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
+                    
                     gBattleScripting.moveEffect += MOVE_EFFECT_AFFECTS_USER;
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect; //was gonna do infatuation, but there's no way to make it work that would make sense
@@ -8643,16 +8662,31 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && TARGET_TURN_DAMAGED //no issue with status set, all is good
                     && (Random() % 3) == 0)
                 {
+                    
+                    u8 moveEffectSet;
+                    
                     do
-                        gBattleScripting.moveEffect = Random() % 5; //0-4   /will need test unsure how will stack up, with abilities that have move effects,
-                    while (gBattleScripting.moveEffect == 0); // either will trigger after or not at all, prefer to still trigger, can use move confusion
+                    {
+                        moveEffectSet = Random() % 5;
 
-                    if (gBattleScripting.moveEffect == MOVE_EFFECT_BURN)
-                        gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
-
-
-                    if (gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
-                        gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
+                        //done to preserve odds
+                        switch(moveEffectSet)
+                        {
+                            case 1:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_SLEEP;
+                            break;
+                            case 2:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_POISON;
+                            break;
+                            case 3:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_PARALYSIS;
+                            break;
+                            case 4:
+                                gBattleScripting.moveEffect = MOVE_EFFECT_CONFUSION;
+                            break;
+                        }
+                    }
+                    while (moveEffectSet == 0);
                     
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_ApplySecondaryEffect;
