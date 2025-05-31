@@ -9394,9 +9394,13 @@ BattleScript_TargetAbilityStatRaiseRet_End:
 	return
 
 @equivalent of BattleScript_TryIntimidateHoldEffects in EE
+@vsonic dont think can use modify stat as hmm actually yeah I can
+@just need add value to script for if from item effect
+@then ut above setgraphicalstatchangevalues
 BattleScript_TryAdrenalineOrb:
 	@itemstatchangeeffects BS_TARGET
 	jumpifnotholdeffect BS_TARGET, HOLD_EFFECT_ADRENALINE_ORB, BattleScript_TryAdrenalineOrbRet
+	@modifybattlerstatstage BS_TARGET, STAT_SPEED, INCREASE, 1, BattleScript_TryAdrenalineOrbRet, FALSE, ANIM_ON
 	jumpifstat BS_TARGET, CMP_EQUAL, STAT_SPEED, 12, BattleScript_TryAdrenalineOrbRet
 	setstatchanger STAT_SPEED, 1, FALSE
 	statbuffchange STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_TryAdrenalineOrbRet
@@ -9415,21 +9419,15 @@ BattleScript_IntimidateActivatesEnd3::
 	call BattleScript_DoIntimidateActivationAnim	
 	end3
 
-
-@think can clean up below to make general stat drop category ability?
-@rather than directly set stat w setstatchanger
-@can make getstatchange command and just set stage and up/down in script
-
 BattleScript_DoIntimidateActivationAnim::
-	@pause B_WAIT_TIME_SHORT @ is the reason its so long?  ...yup
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 BattleScript_IntimidateActivates::
 	setbyte gBattlerTarget, 0
 BattleScript_IntimidateActivationAnimLoop::
 	trygetintimidatetarget BattleScript_IntimidateEnd @updated intimidate to current gen standard
-@plan setup logic magic bounce reflect intimidate back at user
 BattleScript_IntimidateSpecialChecks:
 	jumpifability BS_TARGET, ABILITY_MAGIC_BOUNCE, BattleScript_IntimidateReflect
+	jumpifability BS_TARGET, ABILITY_MIRROR_ARMOR, BattleScript_IntimidateReflect    @need test
 BattleScript_IntimidateFailChecks:
 	jumpifsubstituteblocks BattleScript_IntimidateFail		@forgot tiger mom had to different ability exclusion need rearrange abilities here
 BattleScript_IntimidateDarkCheck:
@@ -9449,7 +9447,7 @@ BattleScript_IntimidateStatDrop::
 	call BattleScript_AbilityBasedStatChange
 BattleScript_IntimidateEffect_WaitString:
 	copybyte sBATTLER, gBattlerTarget
-	@call BattleScript_TryAdrenalineOrb	@belive still need to set this up?
+	call BattleScript_TryAdrenalineOrb	@belive still need to set this up?
 BattleScript_IntimidateFail::
 BattleScript_IntimidateLoopIncrement:
 	addbyte gBattlerTarget, 1	@ this value keeps the command from looping on single target
@@ -9522,13 +9520,16 @@ BattleScript_IntimidateDarkFail::
 @need to work out how to go about to setup adrenaline orb with this
 @think will need separate adrenaline orb script for self affecting
 @i.e try attacker adrenaline orb
+@actually no adrenaline orb is for intimidating
+@and Im specifically just reflecting the stat change back
+@not doing the intimidate itself
 @think for this make command that does base on targetability
 @hmm but if it only reflects back at user?or entire side need check
 BattleScript_IntimidateReflect::
 	printstring STRINGID_REFLECT_INTIMIDATE	
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	modifybattlerstatstage BS_ATTACKER, STAT_ATK, DECREASE, 1, BattleScript_IntimidateLoopIncrement, TRUE, ANIM_ON
-	goto BattleScript_IntimidateLoopIncrement
+	modifystatstageviaAbility BS_ATTACKER, DECREASE, 1, BattleScript_IntimidateLoopIncrement, TRUE, ANIM_ON, FALSE
+	goto BattleScript_IntimidateEffect_WaitString
 
 @BattleScript_IntimidateEnd::
 @	return
@@ -9585,7 +9586,7 @@ BattleScript_IntimidateInReverse:
 	@call BattleScript_AbilityPopUpTarget
 	pause B_WAIT_TIME_SHORT
 	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, FALSE, ANIM_ON
-	@call BattleScript_TryAdrenalineOrb
+	call BattleScript_TryAdrenalineOrb
 	goto BattleScript_IntimidateLoopIncrement
 
 
