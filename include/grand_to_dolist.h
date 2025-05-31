@@ -4201,18 +4201,39 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
       only zero out both if I attempt to formchange/mega evolve another
       mon in party
+
+      vsonic IMPORTANT
+      note potentially change resist multipler from 0.5 to 0.55
+      damage lessened from other things this would be counter balance
+      so things don't stall too much
+      /also for change to super multiplier things that partial resist take 75% dmg
+      with this change they'd instead take 85% dmg
+      actually no need diffrence in damage is minimal
+      most values I tested difference is a range of less than 10 values
+
+      ok so uhh readded changes from string id change
+      and everything worked without isse so seems it was just 
+      issue of using sethword command when didn't need to.
+      Think require exact command based on value actually used
+      and being passed i.e use of hword when I could/should
+      have still been using byte -that did nothing...
+      that was part of it but remainder of issue was struct
+      misalingment
       i.e if field i'm passing to or from isn't 2 bytes
       don't use hword
 
       idk true or not, but rn fixed all issues
       w battlescripting struct and defines
       had a misalignment between the 2 files smh
-      
+
       was able to fix stat colors by taking EE logic
       for battle anim files
       ...spoke too soon, changes made things worse
       broke defense and attack drop fixed speed fixed evasion
       -fixed 
+
+      spidops silk trap not working right, status moves triggering it
+      fixed was missing logic from contact move check function
 
       decide to move delete and relearn in party
       and pc

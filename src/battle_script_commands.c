@@ -10077,7 +10077,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         && atkAbility != ABILITY_APOTHEOSCENT
         && GetBaseFormSpecies(gBattleMons[battlerAtk].species) != SPECIES_CASTFORM) //change tobe base form as can't remember if changes species on weather
         {
-            calc = (calc * 80) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
+            calc = (calc * 90) / 100; //since most mon that have this also have access to sandstorm or are in desert made less punishing
             //moveAcc = (moveAcc * 60) / 100; //euivalent of a 2 stage acc drop
         }//leaving keen eye and sixth sense out of this and sandstorm acc drop, 
         //as special exclusions to strengthen affect/mechanic
@@ -10086,9 +10086,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         //at those levels its just slightly more than a full stat drop
         //but again only for the duration of both effects
 
-
+        //to make not too oppressive think will lower effect
+        //since it stacks with weather drop (requires weather)
         if (defAbility == ABILITY_SAND_VEIL && IsBattlerWeatherAffected(battlerAtk, WEATHER_SANDSTORM_ANY))
-            calc = (calc * 80) / 100; // 1.2 sand veil loss
+            calc = (calc * 89) / 100; // 1.2 sand veil loss
         if (defAbility == ABILITY_SNOW_CLOAK && IsBattlerWeatherAffected(battlerAtk, WEATHER_HAIL_ANY))
             calc = (calc * 80) / 100; //
         if (atkAbility == ABILITY_HUSTLE && GetBattleMoveDamageCategory(battlerAtk,move) == SPLIT_PHYSICAL) //can put status based evasion/accuracy effects here
@@ -10103,7 +10104,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             //evasionStage = 5; // with that there should be as much benefit as danger in being confused, singled moves could hit everyone, etc. random & interesting..
 
         if ((defAbility == ABILITY_TANGLED_FEET) && gBattleMons[battlerDef].status2 & STATUS2_CONFUSION)
-            calc = (calc * 50) / 100;
+            calc = (calc * 67) / 100;
+            //rebalanced
             //evasionStage *= 2;//raises evasion double but evasion calcs different so thats +3 intead of +2
         //12 stage base is 6 goes up to 12 & down to 0
 
@@ -19050,7 +19052,7 @@ void BS_GetCustomAbilityString(void)
             break;
 
     }
-    cmd->nextInstr;
+    gBattlescriptCurrInstr = cmd->nextInstr;
     
 }
 

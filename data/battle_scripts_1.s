@@ -7809,7 +7809,7 @@ BattleScript_SwitchInAbilityMsg::
 	@@ call BattleScript_AbilityPopUp
 	printfromtable gSwitchInAbilityStringIds
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_DoIntimidateActivationAnim
+	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_IntimidateActivates
 	end3
 
 BattleScript_SwitchInAbilityMsgRet::
@@ -9424,10 +9424,10 @@ BattleScript_DoIntimidateActivationAnim::
 	@pause B_WAIT_TIME_SHORT @ is the reason its so long?  ...yup
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 BattleScript_IntimidateActivates::
-	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
+	@jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
 	setbyte gBattlerTarget, 0
 	@setstatchanger STAT_ATK, 1, TRUE
-	setstatchangerviaAbility 1, TRUE
+	@setstatchangerviaAbility 1, TRUE
 		@Think Ill cut this down by making a new command to do ability check, and fail jump that way can do all checks in 1 line.
 		@specific stat abilities like hypercutter would need to be kept out, to still do tiger mom, so make it general stat drop/intimidate exclusions not stat specific stuff.
 BattleScript_IntimidateActivationAnimLoop::
@@ -9458,15 +9458,16 @@ BattleScript_IntimidateFailChecks:
 	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_IntimidateInReverse
 BattleScript_IntimidateStatDrop::	
 	copybyte sBATTLER, gBattlerAttacker
-	statbuffchange STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_IntimidateFail
+	@statbuffchange STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_IntimidateFail
 	@jumpifbyte CMP_GREATER_THAN, cMULTISTRING_CHOOSER, 1, BattleScript_IntimidateFail
-	setgraphicalstatchangevalues
+	@setgraphicalstatchangevalues
 	jumpifability BS_TARGET, ABILITY_CONTRARY, BattleScript_IntimidateContrary    @need test
-	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomBattleMessage
-	printstring STRINGID_PKMNCUTSATTACKWITH
+	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON
+	@playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	@jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomBattleMessage
+	@printstring STRINGID_PKMNCUTSATTACKWITH
 BattleScript_IntimidateEffect_WaitString:
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
+	@waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	copybyte sBATTLER, gBattlerTarget
 	@call BattleScript_TryAdrenalineOrb	@belive still need to set this up?
 BattleScript_IntimidateFail::
@@ -10015,25 +10016,13 @@ BattleScript_BattlerAbilityStatRaiseOnSwitchIn::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
 	modifystatstageviaAbility BS_ATTACKER, INCREASE, 1, NULL, TRUE, ANIM_ON, STRINGID_BATTLERABILITYRAISEDSTAT
-	@statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN, NULL
-	@setgraphicalstatchangevalues
-	@playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	@waitanimation
-	@printstring STRINGID_BATTLERABILITYRAISEDSTAT
-	@waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	end3
 
 @for new zacian zamazenta ability effect need test
 BattleScript_BattlerAbilityStatNormalized::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_NOT_PROTECT_AFFECTED | MOVE_EFFECT_CERTAIN, NULL
-	setgraphicalstatchangevalues
-	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	waitanimation
-	printstring STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
-	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	@pause B_WAIT_TIME_SHORT  @may not need this seems text is fine?
+	modifystatstageviaAbility BS_ATTACKER, DECREASE, 1, NULL, TRUE, ANIM_ON, STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
 	end3
 
 BattleScript_TargetAbilityStatRaiseOnMoveEnd::

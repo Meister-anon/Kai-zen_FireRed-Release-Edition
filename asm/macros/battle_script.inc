@@ -2467,6 +2467,8 @@
 	@.ifnb  if not blank,  if a value is set for argument
 	@hmm but script can also be NULL as seen in individual commands
 	@script argument is necessary as otherwise cant move and will freeze/get stuck
+	@mostly working but  blank custom string where saved string should be 0
+	@and goes to stat goes up/down table still not working
 	.macro modifystatstageviaAbility battler:req, mode:req, amount:req, script:req, affectsUser:req, animation:req, customString
 
 	@ \mode parameters
@@ -2476,6 +2478,11 @@
 	@ \animation parameters
 	ANIM_OFF = FALSE
 	ANIM_ON = TRUE
+
+
+	.ifb \customString
+		getuniqueabilitystring		
+	.endif
 
 	getstatchangeIdfromability
 	setstatchangerviaAbility \amount, \mode
@@ -2493,13 +2500,17 @@
 	.endif
 	.ifnb \customString
 		printstring \customString
-	.else
-		.if \mode == DECREASE
-			printfromtable gStatDownStringIds
+	.else	
+		.if sSAVED_STRINGID != 0
+			printSavedstring
 		.else
-		.if \mode == INCREASE
-			printfromtable gStatUpStringIds
-		.endif
+			.if \mode == DECREASE
+				printfromtable gStatDownStringIds
+			.else
+			.if \mode == INCREASE
+				printfromtable gStatUpStringIds
+			.endif
+			.endif
 		.endif
 	.endif
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS

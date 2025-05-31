@@ -39800,14 +39800,14 @@ const struct BaseStats gBaseStats[] =
         108,
         155,
         135,
-        97, 
+        107, 
         40,
         115
         ),
         MON_TYPES(TYPE_DRAGON, TYPE_GROUND),
         .catchRate = 45,
-        .expYield = 315,
-        //.evYield_Attack = 3,
+        .expYield = 315,//making faster and new dragon move breaking swipe makes this much better
+        //.evYield_Attack = 3, //w high atk can use that as base attack move to make artificially bulkier
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 40,
         .friendship = 15,

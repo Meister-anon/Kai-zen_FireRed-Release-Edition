@@ -252,7 +252,7 @@ static const u16 gTM_Moves[] =
 //power excused because not 100 acc
 
 //add earth power , body slam
-
+// add MOVE_BREAKING_SWIPE
 //consider rename this file to item_List_data
 //for adding berry data to this
 //long as keep above tm hm stuff should have no effect
