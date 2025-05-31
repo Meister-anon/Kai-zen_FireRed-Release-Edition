@@ -9424,57 +9424,35 @@ BattleScript_DoIntimidateActivationAnim::
 	@pause B_WAIT_TIME_SHORT @ is the reason its so long?  ...yup
 	pause B_WAIT_TIME_CLEAR_BUFF_2
 BattleScript_IntimidateActivates::
-	@jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomActivates	@JUMPS attack drop and does def drop instead then goes to loop
 	setbyte gBattlerTarget, 0
-	@setstatchanger STAT_ATK, 1, TRUE
-	@setstatchangerviaAbility 1, TRUE
-		@Think Ill cut this down by making a new command to do ability check, and fail jump that way can do all checks in 1 line.
-		@specific stat abilities like hypercutter would need to be kept out, to still do tiger mom, so make it general stat drop/intimidate exclusions not stat specific stuff.
 BattleScript_IntimidateActivationAnimLoop::
 	trygetintimidatetarget BattleScript_IntimidateEnd @updated intimidate to current gen standard
 @plan setup logic magic bounce reflect intimidate back at user
 BattleScript_IntimidateSpecialChecks:
 	jumpifability BS_TARGET, ABILITY_MAGIC_BOUNCE, BattleScript_IntimidateReflect
-BattleScript_IntimidateDarkCheck:
-	@jumpiftype BS_ATTACKER, TYPE_DARK, BattleScript_IntimidateFailChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
-	jumpiftypeAffinty BS_TARGET, TYPE_DARK, BattleScript_IntimidateDarkFail	
 BattleScript_IntimidateFailChecks:
 	jumpifsubstituteblocks BattleScript_IntimidateFail		@forgot tiger mom had to different ability exclusion need rearrange abilities here
-	jumpifability BS_TARGET, ABILITY_CLEAR_BODY, BattleScript_IntimidateAbilityFail		@and then jump out, before atk stat specific exclusions
-	jumpifability BS_TARGET, ABILITY_LEAF_GUARD, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_FULL_METAL_BODY, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_LIQUID_METAL, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_WHITE_SMOKE, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_INNER_FOCUS, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_SCRAPPY, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_FEMME_FATALE, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
-	jumpifability BS_TARGET, ABILITY_TROJAN_SWORD, BattleScript_IntimidateAbilityFail
-	jumpifability BS_SCRIPTING, ABILITY_INTIMIDATE, BattleScipt_Intimidate_AttackDropExclusions
-	jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScipt_TigerMom_DefenseDropExclusions	@jump for tigermom to skip atk specific stat drop exclusions
+BattleScript_IntimidateDarkCheck:
+	jumpifIgnoreIntimidateChecks BattleScript_GlobalStatDropChecks	@if attkaer dark avoids intimidate failing on dark mon	@DARK Buff after changes, immune to intimidation
+	jumpiftypeAffinty BS_TARGET, TYPE_DARK, BattleScript_IntimidateDarkFail	
 	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_IntimidateInReverse
+BattleScript_GlobalStatDropChecks:
+	call BattleScript_StatDropGlobalImmunityChecks
+BattleScript_DoesAbilityBlockIntimidate::
+	jumpifIgnoreIntimidateChecks BattleScript_SpecificStatDropImmunityChecks
+	call BattleScript_IntimidateLikeImmunityChecks
+BattleScript_SpecificStatDropImmunityChecks:
+	jumptoIntimidateLikeSpecificStatCheck
 BattleScript_IntimidateStatDrop::	
 	copybyte sBATTLER, gBattlerAttacker
-	@statbuffchange STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_IntimidateFail
-	@jumpifbyte CMP_GREATER_THAN, cMULTISTRING_CHOOSER, 1, BattleScript_IntimidateFail
-	@setgraphicalstatchangevalues
-	jumpifability BS_TARGET, ABILITY_CONTRARY, BattleScript_IntimidateContrary    @need test
+	jumpifability BS_TARGET, ABILITY_CONTRARY, BattleScript_AbilityBasedStatChangeContrary    @need test
 	call BattleScript_AbilityBasedStatChange
-	@playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	@jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomBattleMessage
-	@printstring STRINGID_PKMNCUTSATTACKWITH
 BattleScript_IntimidateEffect_WaitString:
-	@waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	copybyte sBATTLER, gBattlerTarget
 	@call BattleScript_TryAdrenalineOrb	@belive still need to set this up?
 BattleScript_IntimidateFail::
-	@addbyte gBattlerTarget, 1 @ this value keeps the command from looping on single target
-	@goto BattleScript_IntimidateActivationAnimLoop
 BattleScript_IntimidateLoopIncrement:
-	addbyte gBattlerTarget, 1
+	addbyte gBattlerTarget, 1	@ this value keeps the command from looping on single target
 	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_IntimidateActivationAnimLoop
 BattleScript_IntimidateEnd:
 	copybyte sBATTLER, gBattlerAttacker
@@ -9489,6 +9467,34 @@ BattleScript_AbilityBasedStatChange::
 BattleScript_AbilityBasedStatChangePrintFromtable::
 	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
 BattleScript_AbilityBasedStatReturn::
+	return
+
+BattleScript_AbilityBasedStatChangeContrary::
+	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_AbilityBasedStatChangePrintFromtableContrary
+	modifystatstageviaAbility BS_TARGET, INCREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
+	goto BattleScript_AbilityBasedStatReturnContrary
+BattleScript_AbilityBasedStatChangePrintFromtableContrary::
+	modifystatstageviaAbility BS_TARGET, INCREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
+BattleScript_AbilityBasedStatReturnContrary::
+	goto BattleScript_IntimidateEffect_WaitString
+
+BattleScript_StatDropGlobalImmunityChecks::
+	jumpifability BS_TARGET, ABILITY_CLEAR_BODY, BattleScript_IntimidateAbilityFail		@and then jump out, before atk stat specific exclusions
+	jumpifability BS_TARGET, ABILITY_LEAF_GUARD, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_FULL_METAL_BODY, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_LIQUID_METAL, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_WHITE_SMOKE, BattleScript_IntimidateAbilityFail
+	return
+
+BattleScript_IntimidateLikeImmunityChecks::
+	jumpifability BS_TARGET, ABILITY_INNER_FOCUS, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_SCRAPPY, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_UNAWARE, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_FEMME_FATALE, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_QUEENLY_MAJESTY, BattleScript_IntimidateAbilityFail
+	jumpifability BS_TARGET, ABILITY_TROJAN_SWORD, BattleScript_IntimidateAbilityFail
 	return
 
 BattleScript_IntimidateDarkFail::
@@ -9550,11 +9556,11 @@ BattleScript_TigerMomBattleMessage::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_IntimidateFail
 
-BattleScipt_TigerMom_DefenseDropExclusions::
+BattleScipt_AbilityDefenseDropExclusions::
 	jumpifability BS_TARGET, ABILITY_BIG_PECKS, BattleScript_IntimidateAbilityFail
 	goto BattleScript_IntimidateStatDrop
 
-BattleScipt_Intimidate_AttackDropExclusions::
+BattleScipt_AbilityAttackDropExclusions::
 	jumpifability BS_TARGET, ABILITY_BIG_PECKS, BattleScript_IntimidateAbilityFail
 	jumpifability BS_TARGET, ABILITY_HYPER_CUTTER, BattleScript_IntimidateAbilityFail
 	goto BattleScript_IntimidateStatDrop

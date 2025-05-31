@@ -6495,6 +6495,47 @@ static void atk1E_jumpbasedonability(void)
     }
 }
 
+void BS_JumpifAttackerAbilitySkipsIntimidateChecks(void)
+{
+    NATIVE_ARGS(const u8 *jumpInstr);
+    u16 ability = GetBattlerAbility(gBattlerAttacker);
+
+    switch (ability)
+    {
+        case ABILITY_INTIMIDATE:
+        case ABILITY_TIGER_MOM:
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        break;
+        default:
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+        break;
+    }
+}
+
+void BS_JumpToStatSpecificChecksForIntimidateLike(void)
+{
+    NATIVE_ARGS();
+    u16 ability = GetBattlerAbility(gBattlerAttacker);
+
+    switch (ability)
+    {
+        case ABILITY_INTIMIDATE:
+            gBattlescriptCurrInstr = BattleScipt_AbilityAttackDropExclusions;
+        break;
+        case ABILITY_TIGER_MOM:
+            gBattlescriptCurrInstr = BattleScipt_AbilityDefenseDropExclusions;
+        break;
+        //realized evasion drop prevention doesn't exist
+        //case ABILITY_SUPERSWEET_SYRUP:
+        //    gBattlescriptCurrInstr = BattleScipt_AbilityEvasionDropExclusions;
+        //break;
+        default:
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        break;
+    }
+
+}
+
 //ok works now issue not using getbattlerforbattlescript.
 //checked EE beleive I should be using that for all cases
 void BS_AbilityJumpBasedOnField(void)

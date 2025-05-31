@@ -166,6 +166,15 @@
 	jumpbasedonability \battler, \ability, FALSE, \jumpptr
 	.endm
 
+	.macro jumpifIgnoreIntimidateChecks jumpInstr:req
+	callnative BS_JumpifAttackerAbilitySkipsIntimidateChecks
+	.4byte \jumpInstr
+	.endm
+
+	.macro jumptoIntimidateLikeSpecificStatCheck
+	callnative BS_JumpToStatSpecificChecksForIntimidateLike
+	.endm
+
 	.macro onfieldAbilityJump battler:req, ability:req, jumpCondition:req, jumpInstr:req
 	callnative BS_AbilityJumpBasedOnField
 	.byte \battler
