@@ -4350,6 +4350,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     but all its moves had failed so it didn't seal anything?
     or was it because they attacked first?
     -fixed inthrall
+
+    *fixed ability based stat change script consolidation
+    still few tweaks more to do to get refelct effects
+    adrenaline orb etc. working
+    adrenaline on intimidate tiger mom, non on suger sweet syrup 
+    as well as adapting script to separate specific exclusions correctly
     fixed damage category setup and rebalanced long reach again
     also found charge/two turn effects aren't modernized 
     should work w power herb but arent yet

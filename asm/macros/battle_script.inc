@@ -2466,10 +2466,12 @@
 	@.ifb   if blank believe, means no value for argument
 	@.ifnb  if not blank,  if a value is set for argument
 	@hmm but script can also be NULL as seen in individual commands
-	@script argument is necessary as otherwise cant move and will freeze/get stuck
-	@mostly working but  blank custom string where saved string should be 0
-	@and goes to stat goes up/down table still not working
-	.macro modifystatstageviaAbility battler:req, mode:req, amount:req, script:req, affectsUser:req, animation:req, customString
+	@talk w mggriffin found problem values are read at compile time
+	@so it cant read assignment of ssaved_string, also that was reading memory address not value of pointer
+	@cant do all in one command but just make call modify stat script
+	@and have the two options for if should go to custom or should read normal stat down
+	@for the most part script will all read the same so I still keep majority of saved efficiency
+	.macro modifystatstageviaAbility battler:req, mode:req, amount:req, script:req, affectsUser:req, animation:req, readcustomSavedString:req, customString
 
 	@ \mode parameters
 	INCREASE = FALSE
@@ -2501,9 +2503,10 @@
 	.ifnb \customString
 		printstring \customString
 	.else	
-		.if sSAVED_STRINGID != 0
+		.if \readcustomSavedString == TRUE
 			printSavedstring
 		.else
+		.if \readcustomSavedString == FALSE
 			.if \mode == DECREASE
 				printfromtable gStatDownStringIds
 			.else
@@ -2511,6 +2514,7 @@
 				printfromtable gStatUpStringIds
 			.endif
 			.endif
+		.endif
 		.endif
 	.endif
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS

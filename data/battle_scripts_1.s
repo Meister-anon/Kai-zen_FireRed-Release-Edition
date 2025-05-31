@@ -2700,7 +2700,7 @@ BattleScript_TryTailwindAbilitiesLoop_Increment:
 @1 in modifybattlerstatstage is, stage to change, means 1 stat
 BattleScript_TryTailwindAbilitiesLoop_WindRider:
 	@call BattleScript_AbilityPopUp
-	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TryTailwindAbilitiesLoop_Increment, ANIM_ON, FALSE
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TryTailwindAbilitiesLoop_Increment, FALSE, ANIM_ON
 	goto BattleScript_TryTailwindAbilitiesLoop_Increment
 
 BattleScript_TryTailwindAbilitiesLoop_WindPower:
@@ -5369,7 +5369,7 @@ BattleScript_TrySandstormwindAbilitiesLoop_Increment:
 @ as this is just tailwind and sandstorm
 BattleScript_TrySandstormwindAbilitiesLoop_WindRider:
 	@call BattleScript_AbilityPopUp
-	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TrySandstormwindAbilitiesLoop_Increment, ANIM_ON, FALSE
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_TrySandstormwindAbilitiesLoop_Increment, FALSE, ANIM_ON
 	goto BattleScript_TrySandstormwindAbilitiesLoop_Increment
 
 BattleScript_TrySandstormwindAbilitiesLoop_WindPower:
@@ -9462,7 +9462,7 @@ BattleScript_IntimidateStatDrop::
 	@jumpifbyte CMP_GREATER_THAN, cMULTISTRING_CHOOSER, 1, BattleScript_IntimidateFail
 	@setgraphicalstatchangevalues
 	jumpifability BS_TARGET, ABILITY_CONTRARY, BattleScript_IntimidateContrary    @need test
-	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON
+	call BattleScript_AbilityBasedStatChange
 	@playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
 	@jumpifability BS_SCRIPTING, ABILITY_TIGER_MOM, BattleScript_TigerMomBattleMessage
 	@printstring STRINGID_PKMNCUTSATTACKWITH
@@ -9481,6 +9481,15 @@ BattleScript_IntimidateEnd:
 	@destroyabilitypopup
 	pause B_WAIT_TIME_MED
 	end3
+
+BattleScript_AbilityBasedStatChange::
+	jumpifability BS_ATTACKER, ABILITY_SUPERSWEET_SYRUP, BattleScript_AbilityBasedStatChangePrintFromtable
+	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, TRUE
+	goto BattleScript_AbilityBasedStatReturn
+BattleScript_AbilityBasedStatChangePrintFromtable::
+	modifystatstageviaAbility BS_TARGET, DECREASE, 1, BattleScript_IntimidateFail, FALSE, ANIM_ON, FALSE
+BattleScript_AbilityBasedStatReturn::
+	return
 
 BattleScript_IntimidateDarkFail::
 	pause B_WAIT_TIME_SHORT
@@ -9507,10 +9516,12 @@ BattleScript_IntimidateDarkFail::
 @need to work out how to go about to setup adrenaline orb with this
 @think will need separate adrenaline orb script for self affecting
 @i.e try attacker adrenaline orb
+@think for this make command that does base on targetability
+@hmm but if it only reflects back at user?or entire side need check
 BattleScript_IntimidateReflect::
 	printstring STRINGID_REFLECT_INTIMIDATE	
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	modifybattlerstatstage BS_ATTACKER, STAT_ATK, DECREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON, TRUE
+	modifybattlerstatstage BS_ATTACKER, STAT_ATK, DECREASE, 1, BattleScript_IntimidateLoopIncrement, TRUE, ANIM_ON
 	goto BattleScript_IntimidateLoopIncrement
 
 @BattleScript_IntimidateEnd::
@@ -9531,7 +9542,7 @@ BattleScript_IntimidateAbilityFail::
 BattleScript_TigerMomActivates::
 	setbyte gBattlerTarget, 0
 	setstatchanger STAT_DEF, 1, TRUE
-	@modifybattlerstatstage BS_TARGET, STAT_DEF, DECREASE, 1, BattleScript_IntimidateActivationAnimLoop, ANIM_ON, FALSE
+	@modifybattlerstatstage BS_TARGET, STAT_DEF, DECREASE, 1, BattleScript_IntimidateActivationAnimLoop, FALSE, ANIM_ON
 	goto BattleScript_IntimidateActivationAnimLoop
 
 BattleScript_TigerMomBattleMessage::
@@ -9567,7 +9578,7 @@ BattleScript_IntimidateInReverse:
 	copybyte sBATTLER, gBattlerTarget
 	@call BattleScript_AbilityPopUpTarget
 	pause B_WAIT_TIME_SHORT
-	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, ANIM_ON, FALSE
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 1, BattleScript_IntimidateLoopIncrement, FALSE, ANIM_ON
 	@call BattleScript_TryAdrenalineOrb
 	goto BattleScript_IntimidateLoopIncrement
 
@@ -10015,14 +10026,14 @@ BattleScript_TargetsStatWasMaxedOut::
 BattleScript_BattlerAbilityStatRaiseOnSwitchIn::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
-	modifystatstageviaAbility BS_ATTACKER, INCREASE, 1, NULL, TRUE, ANIM_ON, STRINGID_BATTLERABILITYRAISEDSTAT
+	modifystatstageviaAbility BS_ATTACKER, INCREASE, 1, NULL, TRUE, ANIM_ON, FALSE, STRINGID_BATTLERABILITYRAISEDSTAT
 	end3
 
 @for new zacian zamazenta ability effect need test
 BattleScript_BattlerAbilityStatNormalized::
 	copybyte gBattlerAbility, gBattlerAttacker
 	@call BattleScript_AbilityPopUp
-	modifystatstageviaAbility BS_ATTACKER, DECREASE, 1, NULL, TRUE, ANIM_ON, STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
+	modifystatstageviaAbility BS_ATTACKER, DECREASE, 1, NULL, TRUE, ANIM_ON, FALSE, STRINGID_BATTLERABILITYSTAT_INCREASE_ENDS
 	end3
 
 BattleScript_TargetAbilityStatRaiseOnMoveEnd::
