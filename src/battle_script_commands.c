@@ -1516,6 +1516,7 @@ static void atk00_attackcanceler(void) //vsonic
         }
         return;
     }
+    //need adjust this for EE doubles logic vsonic
     else if (GetBattlerAbility(gBattlerTarget) == ABILITY_MAGIC_BOUNCE
         && gBattleMoves[gCurrentMove].flags & FLAG_MAGIC_COAT_AFFECTED
         && !gProtectStructs[gBattlerAttacker].usesBouncedMove)  //still working on proper setup for new magic coat need double check if ported magic bounce stuff for statbuffchange, as its similar effect

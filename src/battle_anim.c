@@ -2585,6 +2585,9 @@ static void ScriptCmd_delay(void) //only this one need use actual speed return a
     sBattleAnimScriptPtr++;
     gAnimScriptCallback = WaitAnimFrameCount;
 }
+//undiagonsed as of yet something else weird happening with 
+//battle animations dig acts weirdly when sped up
+//think skipping frame or something some how?
 
 static void ScriptCmd_waitforvisualfinish(void)
 {

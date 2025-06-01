@@ -398,6 +398,10 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //while fairy are the mysteries that are alien and unknowable
 //and dark is cable of corrupting both
 
+//sucker punch (and the like) are most of my worry 
+//with making fairy weak to dark, look over how many get sucker punch
+//potentially cut back distribution if needed
+
 //strength of dark is just in their desirable for resisting intimidate, its not any other effectivess
 //with more resistances and more weaknesses is dark really good without being able to hit
 //both psychic AND fairy?
@@ -414,6 +418,20 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 //other other hand things like guzzord are bad because both types weak to fairy
 //and also resisted/immne by fairy if dark can hit fairy for super
 //guzzlord wouldn't be bad
+
+//wait but urshifu is in the same boat, both of its types
+//are weak to and resisted by fairy, adn it released in height of fairy type
+//but its still good??
+//in that case may be a move issue?
+//sigh I've gone back and forth on this so much
+//I think dark needs to hit fairy
+//its been weakned offensively and defensively for the benefit of
+//other types.
+//rn pretty sure is the only type weak to itself
+//which is unique but still many would prob just chose to run a fighting type
+//hmm well guess that's part of why I gave it a poison resist which figth is weak to now
+//sigh alright will leave as it is for now, w dark strong and weak to fairy
+//just potentially cut back sucker punch I guess
 
 //hard decision but think got it, made fairy weak to dark again,
 //but to couter balance and ensure its not a worse version of psychic
@@ -1177,20 +1195,6 @@ static void SetAllPlayersBerryData(void)
     }
 }
 
-//have plans for but not currently used
-/*
-static void HandleAction_WaitTurnEnd(void) {
-    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
-    {
-        gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
-        PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gBattlerAttacker, *(gBattleStruct->battlerPartyIndexes + gBattlerAttacker));
-        gBattleScripting.battler = gBattlerAttacker;
-        gBattlescriptCurrInstr = BattleScript_SkipTurn;
-        gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
-        //gCurrentActionFuncId = B_ACTION_FINISHED;
-        //++gCurrentTurnActionNumber;
-    }
-}*/
 
 //make strings for these, and for the move iteslf
 //can use to just make strings that I can define here, rather than needing to make new string ids
