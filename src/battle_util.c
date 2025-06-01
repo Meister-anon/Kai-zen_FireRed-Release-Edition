@@ -7936,7 +7936,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && (Random() % 2) == 0)
                 {
                     
-                    u8 moveEffectSet;
+                    u8 moveEffectSet = 0;
                     
                     do
                     {
@@ -8664,7 +8664,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                     && (Random() % 3) == 0)
                 {
                     
-                    u8 moveEffectSet;
+                    u8 moveEffectSet = 0;
                     
                     do
                     {
