@@ -296,6 +296,14 @@ bool32 IsFishingDisallowed(void)
     return FALSE;
 }
 
+bool32 IsAccessingMobilePCDisallowed(void)
+{
+    if (!(gMapHeader.flags & MAP_ALLOW_PC_ACCESS))
+        return TRUE;
+
+    return FALSE;
+}
+
 static bool8 MetatileBehaviorForbidsBiking(u8 r4)
 {
     if (MetatileBehavior_IsMB0A(r4))

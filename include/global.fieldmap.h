@@ -227,12 +227,15 @@ struct MapHeader
 // Flags for gMapHeader.flags, as defined in the map_header_flags macro
 //whenever I find where cylcing road blocks surfing and fishing
 //will rework into header checks instead, its been hell to find/identify this thing smh
+#define MAP_RELATED_HEADER_FLAGS
+
 #define MAP_ALLOW_ESCAPE_ROPE  (1 << 0)
 #define MAP_ALLOW_RUN          (1 << 1)
 #define MAP_SHOW_MAP_NAME      (1 << 2) 
 #define MAP_ALLOW_FISHING      (1 << 3)
 #define MAP_ALLOW_SURFING      (1 << 4)
-#define UNUSED_MAP_FLAGS       (1 << 5 | 1 << 6 | 1 << 7)
+#define MAP_ALLOW_PC_ACCESS    (1 << 5)
+#define UNUSED_MAP_FLAGS       (1 << 6 | 1 << 7)
 
 #define SHOW_MAP_NAME_ENABLED  ((gMapHeader.flags & (MAP_SHOW_MAP_NAME | UNUSED_MAP_FLAGS)) == MAP_SHOW_MAP_NAME)
 
