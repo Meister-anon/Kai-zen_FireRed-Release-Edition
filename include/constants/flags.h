@@ -1372,14 +1372,14 @@
 #define FLAG_0x82E                                                  (SYS_FLAGS + 0x2E)
 #define FLAG_SYS_B_DASH                                             (SYS_FLAGS + 0x2F)
 #define FLAG_SYS_ON_CYCLING_ROAD                                    (SYS_FLAGS + 0x30)
-#define FLAG_0x831                                                  (SYS_FLAGS + 0x31)
+#define FLAG_UNLOCK_MOBILE_PC                                       (SYS_FLAGS + 0x31)
 #define FLAG_TAUGHT_MOVE_DELETE                                     (SYS_FLAGS + 0x32) //new flags for new effect player taught how to do move delete and relearn
 #define FLAG_TAUGHT_MOVE_RELEARN                                    (SYS_FLAGS + 0x33)
 #define FLAG_SYS_UPDATED_PC                                    (SYS_FLAGS + 0x34)  //instead make new flag juse rename since done at same time
 #define FLAG_MET_MOVE_DELETER                                       (SYS_FLAGS + 0x35)
 #define FLAG_MET_MOVE_REMINDER                                      (SYS_FLAGS + 0x36)//these 2 flags are for filtering messages in new script
-#define FLAG_0x837                                                  (SYS_FLAGS + 0x37)
-#define FLAG_0x838                                                  (SYS_FLAGS + 0x38)
+#define FLAG_RTC_TOGGLE                                              (SYS_FLAGS + 0x37)
+#define FLAG_NATIONAL_DEX_TOGGLE                                    (SYS_FLAGS + 0x38)
 #define FLAG_SYS_MYSTERY_GIFT_ENABLED                               (SYS_FLAGS + 0x39)
 #define FLAG_0x83A                                                  (SYS_FLAGS + 0x3A)
 #define FLAG_SYS_RIBBON_GET                                         (SYS_FLAGS + 0x3B)

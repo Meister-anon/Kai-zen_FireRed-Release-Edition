@@ -749,9 +749,9 @@
 	.4byte \ptr
 	.endm
 
-	.macro tryhealportionhealth ptr:req, battler:req
+	.macro tryhealportionhealth failInstr:req, battler:req
 	.byte 0x7b
-	.4byte \ptr
+	.4byte \failInstr
 	.byte \battler
 	.endm
 

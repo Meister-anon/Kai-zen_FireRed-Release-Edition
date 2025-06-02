@@ -55,7 +55,7 @@ static void DisableNationalPokedex_RSE(void)
     u16 *ptr = GetVarPointer(VAR_0x403C);
     //gSaveBlock2Ptr->pokedex.unusedRS = 0; //since not used can save saveblock space by removing
     *ptr = 0;
-    FlagClear(FLAG_0x838);
+    FlagClear(FLAG_NATIONAL_DEX_TOGGLE);
 }
 
 // The magic numbers used here (0xDA and 0x0302) correspond to those
@@ -66,7 +66,7 @@ void EnableNationalPokedex_RSE(void)
     u16 *ptr = GetVarPointer(VAR_0x403C);
     //gSaveBlock2Ptr->pokedex.unusedRS = 0xDA;
     *ptr = 0x0302;
-    FlagSet(FLAG_0x838);
+    FlagSet(FLAG_NATIONAL_DEX_TOGGLE);
 }
 
 // Unused
@@ -76,7 +76,7 @@ static bool32 IsNationalPokedexEnabled_RSE(void)
     //    return FALSE;
     if (VarGet(VAR_0x403C) != 0x0302)
         return FALSE;
-    if (!FlagGet(FLAG_0x838))
+    if (!FlagGet(FLAG_NATIONAL_DEX_TOGGLE))
         return FALSE;
     return TRUE;
 }
@@ -159,21 +159,21 @@ void ResetMysteryEventVars(void)
 
 void DisableResetRTC(void)
 {
-    VarSet(VAR_0x4032, 0);
-    FlagClear(FLAG_0x837);
+    VarSet(VAR_RTC_RESET, 0);
+    FlagClear(FLAG_RTC_TOGGLE);
 }
 
 void EnableResetRTC(void)
 {
-    VarSet(VAR_0x4032, 0x0920);
-    FlagSet(FLAG_0x837);
+    VarSet(VAR_RTC_RESET, 0x0920);
+    FlagSet(FLAG_RTC_TOGGLE);
 }
 
 bool32 CanResetRTC(void)
 {
-    if (!FlagGet(FLAG_0x837))
+    if (!FlagGet(FLAG_RTC_TOGGLE))
         return FALSE;
-    if (VarGet(VAR_0x4032) != 0x0920)
+    if (VarGet(VAR_RTC_RESET) != 0x0920)
         return FALSE;
     return TRUE;
 }

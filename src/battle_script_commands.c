@@ -14631,21 +14631,25 @@ static void atk7A_jumpifnexttargetvalid(void)
 
 static void atk7B_tryhealportionhealth(void)
 {
-    const u8 *failPtr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+    CMD_ARGS(const u8 * failInstr, u8 battler);
+    const u8 *failPtr = cmd->failInstr;
+    u8 battler;
 
-    if (gBattlescriptCurrInstr[5] == BS_ATTACKER)
-        gBattlerTarget = gBattlerAttacker;
+    if (cmd->battler == BS_ATTACKER)
+        battler = gBattlerTarget = gBattlerAttacker;
+    
+    if (gBattleMons[battler].hp == gBattleMons[battler].maxHP)
+        gBattlescriptCurrInstr = failPtr;
         
     if (gCurrentMove != MOVE_PURIFY && gCurrentMove != MOVE_ROOST)
-        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 3,1);
+        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 3,1);
     else
-        gBattleMoveDamage = max(gBattleMons[gBattlerTarget].maxHP / 2,1); //since purify is so specific that gets to keep half health heal /same for roost
+        gBattleMoveDamage = max(gBattleMons[battler].maxHP / 2,1); //since purify is so specific that gets to keep half health heal /same for roost
 
     gBattleMoveDamage *= -1;
-    if (gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP)
-        gBattlescriptCurrInstr = failPtr;
-    else
-        gBattlescriptCurrInstr += 6;
+
+    
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 //nvm plannin gcustom versino if possible
