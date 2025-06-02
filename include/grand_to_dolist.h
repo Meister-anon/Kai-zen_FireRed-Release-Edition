@@ -4350,6 +4350,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     but all its moves had failed so it didn't seal anything?
     or was it because they attacked first?
     -fixed inthrall
+    added x_bell yt recommended learnset changes
 
     *fixed ability based stat change script consolidation
     still few tweaks more to do to get refelct effects
@@ -5453,6 +5454,9 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     hmm think will keep roaming legendaries on for new game plus
     cuz funny to be reset to lvl 1 but run into a lvl 50
     Legendary and just get fucked
+
+    -think make design closer to meloetta than gardevoir
+    somewhere between japanese gothic lolita 
 
     SPECIES_GOTHITA - planned gothia new sprite work,
     instead of lookin like smoochum change  have similar to kirlia,
@@ -7292,7 +7296,7 @@ July 2024
     -relevant effects
     attack down, roar, sleep, confuse, defense down 2, snore - may need skeep effect boost if that sets flinch - yeah causes flinch
     skip snore, perish song,  set counter 1 value lower if  cacophonyboosted
-    hell bell, guess make it affect sound proof if boosted?
+    heal bell, guess make it affect sound proof if boosted?
     not boosting spook cuz flinch chance
     sp def down 2, bug buzz sp atk down hit
 

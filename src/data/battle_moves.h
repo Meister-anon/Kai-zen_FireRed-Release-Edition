@@ -10194,6 +10194,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .argumentEffectChance = 10,
+        .argument = MOVE_EFFECT_INFESTATION,
     },
 
     [MOVE_FIRE_LASH] =

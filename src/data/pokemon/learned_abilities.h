@@ -825,7 +825,7 @@ static const struct AbilityLearnset sAipomAbilityLearnset[] = {
 
 static const struct AbilityLearnset sSunkernAbilityLearnset[] = {
     ABILITY_SET_END
-};//possibly toss in leech seed?
+};
 
 static const struct AbilityLearnset sSunfloraAbilityLearnset[] = {
     ABILITY_SET_END
@@ -834,12 +834,14 @@ static const struct AbilityLearnset sSunfloraAbilityLearnset[] = {
 static const struct AbilityLearnset sYanmaAbilityLearnset[] = {
     ABILITY_SHARPNESS,
     ABILITY_CACOPHONY,
+    ABILITY_HUSTLE,
+    ABILITY_AVIATOR,
     ABILITY_SET_END
 };//sound waves created by wing beats
 
 static const struct AbilityLearnset sWooperAbilityLearnset[] = {
     ABILITY_SET_END
-}; //can prob drop haze etc.
+}; 
 
 static const struct AbilityLearnset sQuagsireAbilityLearnset[] = {
     ABILITY_SET_END
@@ -1974,6 +1976,8 @@ static const struct AbilityLearnset sTogekissAbilityLearnset[] = {
 static const struct AbilityLearnset sYanmegaAbilityLearnset[] = {
     ABILITY_SHARPNESS,
     ABILITY_CACOPHONY,
+    ABILITY_HUSTLE,
+    ABILITY_AVIATOR,
     ABILITY_SET_END
 };
 

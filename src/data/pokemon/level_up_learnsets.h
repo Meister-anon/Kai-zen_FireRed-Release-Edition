@@ -2450,13 +2450,23 @@ static const struct LevelUpMove sSnorlaxLevelUpLearnset[] = {
     LEVEL_UP_MOVE(25, MOVE_REST),
     LEVEL_UP_MOVE(29, MOVE_SNORE),
     LEVEL_UP_MOVE(33, MOVE_BODY_SLAM),
-    LEVEL_UP_MOVE(37, MOVE_SLEEP_TALK),
-    LEVEL_UP_MOVE(41, MOVE_BLOCK),
+    LEVEL_UP_MOVE(36, MOVE_SLEEP_TALK),
+    LEVEL_UP_MOVE(40, MOVE_SLACK_OFF),
+    LEVEL_UP_MOVE(42, MOVE_BLOCK),
     LEVEL_UP_MOVE(45, MOVE_COVET),
     LEVEL_UP_MOVE(49, MOVE_ROLLOUT),
     LEVEL_UP_MOVE(53, MOVE_HYPER_BEAM),
     LEVEL_UP_END
 };
+//better w sleep rework
+//but still consider giving slack off from x_bell
+//just give belch and some more coverage moves
+//to take advantage of joat and should have its own niche
+//oh right I weakned heal effects its 1/3rd not 1/2
+//encountered at lvl 30 so if replace rest at 25 w slack off
+//couldn't use snore
+//hmm
+
 
 static const struct LevelUpMove sArticunoLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_GUST),
@@ -5122,6 +5132,7 @@ static const struct LevelUpMove sShroomishLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sBreloomLevelUpLearnset[] = {
+    LEVEL_UP_MOVE(1, MOVE_TRAILBLAZE),
     LEVEL_UP_MOVE(1, MOVE_ABSORB),
     LEVEL_UP_MOVE(1, MOVE_TACKLE),
     LEVEL_UP_MOVE(1, MOVE_STUN_SPORE),
@@ -7736,6 +7747,7 @@ static const struct LevelUpMove sGastrodonLevelUpLearnset[] = {
 
 static const struct LevelUpMove sAmbipomLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_DUAL_STRIKE),
+    LEVEL_UP_MOVE( 1, MOVE_FOLLOW_ME),
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_TAIL_WHIP),
     LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
@@ -7754,6 +7766,9 @@ static const struct LevelUpMove sAmbipomLevelUpLearnset[] = {
     LEVEL_UP_MOVE(43, MOVE_LAST_RESORT),
     LEVEL_UP_END
 };
+//fake out via breeding need setup non breeding
+//egg move transfer
+
 
 static const struct LevelUpMove sDrifloonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_CONSTRICT),
@@ -10687,6 +10702,7 @@ static const struct LevelUpMove sScraggyLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sScraftyLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_BODY_PRESS),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_HEADBUTT),
     LEVEL_UP_MOVE( 1, MOVE_SAND_ATTACK),
@@ -10707,6 +10723,7 @@ static const struct LevelUpMove sScraftyLevelUpLearnset[] = {
     LEVEL_UP_MOVE(65, MOVE_HEAD_SMASH),
     LEVEL_UP_END
 };
+//LEVEL UP change from x_bell one move away from viable video
 
 static const struct LevelUpMove sSigilyphLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_GUST),
@@ -12591,6 +12608,7 @@ static const struct LevelUpMove sKeldeoLevelUpLearnset[] = {
 static const struct LevelUpMove sMeloettaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ROUND),
     LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_PSYCHIC_NOISE),
     LEVEL_UP_MOVE( 1, MOVE_CONFUSION),
     LEVEL_UP_MOVE( 1, MOVE_SING),
     LEVEL_UP_MOVE( 6, MOVE_QUICK_ATTACK),
@@ -12609,6 +12627,7 @@ static const struct LevelUpMove sMeloettaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(85, MOVE_PERISH_SONG),
     LEVEL_UP_END
 };
+//psychic noise gen 9 move not setup yet
 
 static const struct LevelUpMove sGenesectLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_FELL_STINGER),
@@ -14885,11 +14904,13 @@ static const struct LevelUpMove sLurantisLevelUpLearnset[] = {
     LEVEL_UP_MOVE(32, MOVE_SYNTHESIS),
     LEVEL_UP_MOVE(34, MOVE_X_SCISSOR),
     LEVEL_UP_MOVE(37, MOVE_LEAF_BLADE),
-    LEVEL_UP_MOVE(41, MOVE_INGRAIN),
+    LEVEL_UP_MOVE(40, MOVE_HAMMER_ARM),
+    LEVEL_UP_MOVE(43, MOVE_INGRAIN),
     LEVEL_UP_MOVE(46, MOVE_SOLAR_BLADE),
     LEVEL_UP_MOVE(50, MOVE_SUNNY_DAY),    
     LEVEL_UP_END
 };
+//hammer arm
 
 static const struct LevelUpMove sMorelullLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_ABSORB),

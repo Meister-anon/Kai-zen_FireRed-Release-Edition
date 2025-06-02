@@ -14004,6 +14004,11 @@ const struct BaseStats gBaseStats[] =
     //vsonic
     //thought remove frisk but has some potential use in playthrough
     //instead add to laerned list
+    //frisk for the most part just increases odds of infestation
+    //it has some great support moves but doesn't really have stats
+    //to survive and be a support hmm
+    //well it has a few moves rest giga drain etc.
+    //added aviator to learned abilities get flying type benefits back
 
     [SPECIES_LEAFEON] =
     {
@@ -22277,7 +22282,7 @@ const struct BaseStats gBaseStats[] =
         .abilityHidden = {ABILITY_MAGICIAN, ABILITY_NONE},
         .bodyColor = BODY_COLOR_GRAY,
         .noFlip = FALSE,
-        .floating = FALSE,
+        .floating = TRUE,
         .abilityLearnset = sKlefkiAbilityLearnset,
         .levelUpLearnset = sKlefkiLevelUpLearnset,
         .tmhmLearnset = sKlefkiTMHMLearnset,
