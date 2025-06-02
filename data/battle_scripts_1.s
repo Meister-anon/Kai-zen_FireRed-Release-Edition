@@ -164,13 +164,13 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectDefenseUpHit
 	.4byte BattleScript_EffectAttackUpHit
 	.4byte BattleScript_EffectAllStatsUpHit
-	.4byte BattleScript_EffectHit
+	.4byte BattleScript_EffectHit					@EFFECT_IGNORE_STAT_CHANGES_HIT  chip away sacred sword darkest lariat
 	.4byte BattleScript_EffectBellyDrum
 	.4byte BattleScript_EffectPsychUp
 	.4byte BattleScript_EffectMirrorCoat
 	.4byte BattleScript_EffectSkullBash
 	.4byte BattleScript_EffectHit						@EFFECT_TWISTER
-	.4byte BattleScript_EffectHit							@EFFECT_EARTHQUAKE  no longer used
+	.4byte BattleScript_EffectHit							@EFFECT_EARTHQUAKE
 	.4byte BattleScript_EffectFutureSight
 	.4byte BattleScript_EffectGust
 	.4byte BattleScript_EffectFlinchMinimizeHit
@@ -186,7 +186,7 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectStockpile
 	.4byte BattleScript_EffectSpitUp
 	.4byte BattleScript_EffectSwallow
-	.4byte BattleScript_EffectHit
+	.4byte BattleScript_EffectHit						@EFFECT_IGNORE_DEFENSE_EVASION_STAGE
 	.4byte BattleScript_EffectHail
 	.4byte BattleScript_EffectTorment
 	.4byte BattleScript_EffectFlatter

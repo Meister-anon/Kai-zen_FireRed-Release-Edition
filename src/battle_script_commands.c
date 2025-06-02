@@ -9950,7 +9950,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
 
         if (atkAbility == ABILITY_UNAWARE || atkAbility == ABILITY_KEEN_EYE || atkAbility == ABILITY_APOTHEOSCENT)
             evasionStage = DEFAULT_STAT_STAGE;
-        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
+        if (GetMoveEffect(move) == EFFECT_IGNORE_STAT_CHANGES_HIT || GetMoveEffect(move) == EFFECT_IGNORE_DEFENSE_EVASION_STAGE)
             evasionStage = DEFAULT_STAT_STAGE;
         if (defAbility == ABILITY_UNAWARE)
             accStage = DEFAULT_STAT_STAGE;

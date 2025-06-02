@@ -136,19 +136,19 @@
 #define EFFECT_MORNING_SUN 132
 #define EFFECT_SYNTHESIS 133
 #define EFFECT_MOONLIGHT 134
-#define EFFECT_HIDDEN_POWER 135 //no longer used vsonic
+#define EFFECT_HIDDEN_POWER 135
 #define EFFECT_RAIN_DANCE 136
 #define EFFECT_SUNNY_DAY 137
 #define EFFECT_DEFENSE_UP_HIT 138
 #define EFFECT_ATTACK_UP_HIT 139
 #define EFFECT_ALL_STATS_UP_HIT 140
-#define EFFECT_UNUSED_8D 141  // incomplete fake out in gen 2   vsonic
+#define EFFECT_IGNORE_STAT_CHANGES_HIT 141  // incomplete fake out in gen 2   vsonic
 #define EFFECT_BELLY_DRUM 142
 #define EFFECT_PSYCH_UP 143
 #define EFFECT_MIRROR_COAT 144
 #define EFFECT_SKULL_BASH 145
 #define EFFECT_TWISTER 146      //...also no longer used really need get along w bs refactor
-#define EFFECT_EARTHQUAKE 147   //no longer used vsonic
+#define EFFECT_EARTHQUAKE 147   //no longer used vsonic nvm needuse for ai
 #define EFFECT_FUTURE_SIGHT 148
 #define EFFECT_GUST 149
 #define EFFECT_FLINCH_MINIMIZE_HIT 150  // STOMP ASTONISH EXTRASENSORY NEEDLE_ARM
@@ -164,7 +164,7 @@
 #define EFFECT_STOCKPILE 160
 #define EFFECT_SPIT_UP 161
 #define EFFECT_SWALLOW 162
-#define EFFECT_UNUSED_A3 163
+#define EFFECT_IGNORE_DEFENSE_EVASION_STAGE 163
 #define EFFECT_HAIL 164
 #define EFFECT_TORMENT 165
 #define EFFECT_FLATTER 166
@@ -242,7 +242,7 @@
 #define EFFECT_BRINE 231
 #define EFFECT_VENOSHOCK 232
 #define EFFECT_RETALITATE 233
-#define EFFECT_BULLDOZE 234     //no longer used, is just hit
+#define EFFECT_BULLDOZE 234     //no longer used, is just hit unsure maybe use idk
 #define EFFECT_FOUL_PLAY 235
 #define EFFECT_PSYSHOCK 236
 #define EFFECT_ROOST 237

@@ -6112,6 +6112,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //doublne check this think w power 0 it'll do typeless damage?
+    //unsure if should be but seems fine?
 
     [MOVE_POWER_TRICK] =
     {
@@ -6931,7 +6933,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_CONFUSE_HIT,
         .power = 90,
         .type = TYPE_NORMAL,
-        .accuracy = 85,
+        .accuracy = 90,
         .pp = 20,
         .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
@@ -7429,7 +7431,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_CRUSH_GRIP] =
     {
         .effect = EFFECT_WRING_OUT,
-        .power = 1,
+        .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 5,
@@ -7439,6 +7441,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
+    //may make this power 0 so it ignores type calc
 
     [MOVE_MAGMA_STORM] =
     {
@@ -7973,7 +7976,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_CHIP_AWAY] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_IGNORE_STAT_CHANGES_HIT,
         .power = 70,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -7981,9 +7984,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STAT_STAGES_IGNORED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+    },//think change to unique effect, ignores changes to def stat and evasion stat of target
+    //would like make special veriant for normal 
+    //ahh seems effect was never set...
+    //ahh done w flag instead my bad
 
     [MOVE_CLEAR_SMOG] =
     {
@@ -8537,14 +8543,14 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .pp = 20,
         #endif
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_IGNORE_DEFENSE_EVASION_STAGE,
         .power = 90,
         .type = TYPE_FIGHTING,
         .accuracy = 100,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STAT_STAGES_IGNORED | FLAG_SHARPNESS_AFFECTED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHARPNESS_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
 
@@ -9952,7 +9958,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DARKEST_LARIAT] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_IGNORE_DEFENSE_EVASION_STAGE,
         .power = 85,
         .type = TYPE_DARK,
         .accuracy = 100,
@@ -9960,7 +9966,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_STAT_STAGES_IGNORED,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
     },
 

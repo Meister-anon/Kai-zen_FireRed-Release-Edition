@@ -432,7 +432,7 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_SHEER_FORCE_BOOST      (1 << 9)
 #define FLAG_STRONG_JAW_BOOST       (1 << 10)
 #define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11)
-#define FLAG_STAT_STAGES_IGNORED    (1 << 12)
+#define FLAG_BLANKSPACE    (1 << 12)   //removed flag was FLAG_STAT_STAGES_IGNORED noww move effect instead
 #define FLAG_DMG_MINIMIZE           (1 << 13)
 #define FLAG_DMG_2X_UNDERGROUND        (1 << 14)
 #define FLAG_DMG_2X_UNDERWATER         (1 << 15)

@@ -6099,7 +6099,10 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             damage = Offensive_Stat;
         }            
 
-        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
+        //think this is wrong? based on looking
+        //isn't meant to ignore users offense
+        //hmm it is a good effect tho
+        else if (GetMoveEffect(move) == EFFECT_IGNORE_STAT_CHANGES_HIT)
             damage = Offensive_Stat;
 
         damage = damage * gBattleMovePower;
@@ -6214,7 +6217,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
             damageHelper = defense;
         }            
 
-        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
+        if (GetMoveEffect(move) == EFFECT_IGNORE_STAT_CHANGES_HIT
+        || GetMoveEffect(move) == EFFECT_IGNORE_DEFENSE_EVASION_STAGE)
             damageHelper = defense; //doubl check but think these need to go here
         //to overwrite the typical damage calc?
 
@@ -6305,7 +6309,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (GetBattlerAbility(battlerIdAtk) == ABILITY_UNAWARE)
             damage = Offensive_Stat;
 
-        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
+        else if (GetMoveEffect(move) == EFFECT_IGNORE_STAT_CHANGES_HIT)
             damage = Offensive_Stat;
 
         damage = damage * gBattleMovePower;
@@ -6380,7 +6384,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if (GetBattlerAbility(battlerIdDef) == ABILITY_UNAWARE) //nto sure if right but trying it, may replace with emerald version.
             damageHelper = spDefense;
 
-        if (gBattleMoves[move].flags & FLAG_STAT_STAGES_IGNORED)
+        if (GetMoveEffect(move) == EFFECT_IGNORE_STAT_CHANGES_HIT
+        || GetMoveEffect(move) == EFFECT_IGNORE_DEFENSE_EVASION_STAGE)
             damageHelper = spDefense;
         
         damage = damage / damageHelper; 
