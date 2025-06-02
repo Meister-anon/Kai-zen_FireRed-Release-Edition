@@ -5,6 +5,10 @@
 #include "mon_markings.h"   //remove markings file eventuallyt
 #include "constants/form_change_types.h"    //added here to hopefully add to every pc file
 
+
+
+extern EWRAM_DATA bool8 gIsMobilePC;
+
 // Special box ids for the choose box menu
 #define BOXID_NONE_CHOSEN 200
 #define BOXID_CANCELED    201

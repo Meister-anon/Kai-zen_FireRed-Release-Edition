@@ -3544,7 +3544,7 @@ void CalculateMonStats(struct Pokemon *mon)
         //if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0) 
             currentHP = 0;
 
-    }//seems this fixes nuzlocke mode pc issue and no wild mon issue either
+    }//seems this fixes nuzlocke mode pc issue and no hp wild mon issue either
     else
     {
         if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
@@ -3649,7 +3649,7 @@ void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
         //if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0) 
             currentHP = 0;
 
-    }//seems this fixes nuzlocke mode pc issue and no wild mon issue either
+    }//seems this fixes nuzlocke mode pc issue and no hp wild mon issue either
     else
     {
         if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
@@ -7323,10 +7323,10 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     /*case MON_DATA_SHEEN:
         retVal = boxMon->sheen;
-        break;*/
+        break;
     case MON_DATA_POKERUS:
         retVal = boxMon->pokerus;
-        break;
+        break;*/
     case MON_DATA_MET_LOCATION:
         retVal = boxMon->metLocation;
         break;
@@ -7744,10 +7744,10 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     /*case MON_DATA_SHEEN:
         SET8(boxMon->sheen);
-        break;*/
+        break;
     case MON_DATA_POKERUS:
         SET8(boxMon->pokerus);
-        break;
+        break;*/
     case MON_DATA_MET_LOCATION:
         SET8(boxMon->metLocation);
         break;
@@ -10972,9 +10972,9 @@ u8 CheckPartyPokerus(struct Pokemon *party, u8 selection)
 
     int partyIndex = 0;
     unsigned curBit = 1;
-    retVal = 0;
+    retVal = FALSE;
 
-    if (selection)
+    /*if (selection)
     {
         do
         {
@@ -10988,8 +10988,8 @@ u8 CheckPartyPokerus(struct Pokemon *party, u8 selection)
     }
     else if (GetMonData(&party[0], MON_DATA_POKERUS, 0) & 0xF)
     {
-        retVal = 1;
-    }
+        retVal = TRUE;
+    }*/
 
     return retVal;
 }
@@ -11000,9 +11000,9 @@ u8 CheckPartyHasHadPokerus(struct Pokemon *party, u8 selection)
 
     int partyIndex = 0;
     unsigned curBit = 1;
-    retVal = 0;
+    retVal = FALSE;
 
-    if (selection)
+    /*if (selection)
     {
         do
         {
@@ -11016,8 +11016,8 @@ u8 CheckPartyHasHadPokerus(struct Pokemon *party, u8 selection)
     }
     else if (GetMonData(&party[0], MON_DATA_POKERUS, 0))
     {
-        retVal = 1;
-    }
+        retVal = TRUE;
+    }*/
 
     return retVal;
 }

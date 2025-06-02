@@ -36,7 +36,7 @@
 #define MON_DATA_SPDEF_EV          31
 #define MON_DATA_FRIENDSHIP        32
 #define MON_DATA_SMART             33
-#define MON_DATA_POKERUS           34
+//#define MON_DATA_POKERUS           34  //removed wasnt even in firered anyway, but cleared for pc access setup
 #define MON_DATA_MET_LOCATION      35
 #define MON_DATA_MET_LEVEL         36
 #define MON_DATA_MET_GAME          37
@@ -95,7 +95,7 @@
 #define MON_DATA_FORM_FLAG         90   //new value for helping evo into regional forms
 #define MON_DATA_EVO_LEVEL         91 //new value store level mon evolves at, moslty for keeping relative evo consistent, becomes new floor value if non -zero
 #define MON_DATA_NATURE            92 //REPLACED now for nature setting  //both for nuzlocke mode //store location fainted   - onhold for now
-#define MON_DATA_BOX_HP            93   //when hp is 0, pass hp to box so doesn't heal
+#define MON_DATA_BOX_HP            93   //when hp is 0, pass hp to box so doesn't heal, default val 1 but need change u16 so can store actual curr hp for pc access change
 #define MON_DATA_EXP_SHARE_STATE   94 //revised modern exp share, allow setting from party menu
                                       //offshoot idea block exp gain setup same way as alt, use case more direct level control
                                       //decided roll into one field

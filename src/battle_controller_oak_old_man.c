@@ -1130,10 +1130,6 @@ static u32 CopyOakOldManMonData(u8 monId, u8 *dst)
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_FRIENDSHIP);
         size = 1;
         break;
-    case REQUEST_POKERUS_BATTLE:
-        dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_POKERUS);
-        size = 1;
-        break;
     case REQUEST_MET_LOCATION_BATTLE:
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_MET_LOCATION);
         size = 1;
@@ -1431,9 +1427,6 @@ static void SetOakOldManMonData(u8 monId)
         break;
     case REQUEST_FRIENDSHIP_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_FRIENDSHIP, &gBattleBufferA[gActiveBattler][3]);
-        break;
-    case REQUEST_POKERUS_BATTLE:
-        SetMonData(&gPlayerParty[monId], MON_DATA_POKERUS, &gBattleBufferA[gActiveBattler][3]);
         break;
     case REQUEST_MET_LOCATION_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_MET_LOCATION, &gBattleBufferA[gActiveBattler][3]);

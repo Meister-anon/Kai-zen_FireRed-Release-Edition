@@ -591,10 +591,6 @@ static u32 GetOpponentMonData(u8 monId, u8 *dst)
         dst[0] = GetMonData(&gEnemyParty[monId], MON_DATA_FRIENDSHIP);
         size = 1;
         break;
-    case REQUEST_POKERUS_BATTLE:
-        dst[0] = GetMonData(&gEnemyParty[monId], MON_DATA_POKERUS);
-        size = 1;
-        break;
     case REQUEST_MET_LOCATION_BATTLE:
         dst[0] = GetMonData(&gEnemyParty[monId], MON_DATA_MET_LOCATION);
         size = 1;
@@ -900,9 +896,6 @@ static void SetOpponentMonData(u8 monId)
         break;
     case REQUEST_FRIENDSHIP_BATTLE:
         SetMonData(&gEnemyParty[monId], MON_DATA_FRIENDSHIP, &gBattleBufferA[gActiveBattler][3]);
-        break;
-    case REQUEST_POKERUS_BATTLE:
-        SetMonData(&gEnemyParty[monId], MON_DATA_POKERUS, &gBattleBufferA[gActiveBattler][3]);
         break;
     case REQUEST_MET_LOCATION_BATTLE:
         SetMonData(&gEnemyParty[monId], MON_DATA_MET_LOCATION, &gBattleBufferA[gActiveBattler][3]);

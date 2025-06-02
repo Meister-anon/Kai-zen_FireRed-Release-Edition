@@ -4361,6 +4361,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     added missed logic for mirror armor for intimidate reflect
     buffed magic bounce to do  same part effect for that
     everything should be working including adrenaline orb
+    had to increase boxHp to u16 barely found space
+    by removal of pokerus, and set lower cap on learnedabilities
+    caps at 512 for now, but I have room to expand it if needed
+
+    think will setup boxhp to copy mon hp
+    then can just use is nuzlocke mon dead function
+    which checks for boxhp being 0 etc.
+    to exclude mon from pc heal
+
+    also plan copy EE setup so pp doesnt get recovered auto
+    just when I want i.e pc heal
 
     fixed damage category setup and rebalanced long reach again
     also found charge/two turn effects aren't modernized 

@@ -126,19 +126,27 @@ union PokemonSubstruct
 //for modern have to specifically consider struct order for proper padding/space saving
 //starts w u32 so is 4byte aligned, struct is organized in groups of 4byte sections
 //note will most likely have to rearrange again when change mame buffers vsonic IMPORTANT
+//need make boxHp u16 but don't have enough space
+//need find room somehow if I put in bitfield
+//it'll require bit 10, can I make a ribbon u8?
+//can I remove hasSpecies?
+//hmm ok pokerus isn't even in fire red
+//and don't exactly need with my other qol changes
+//removed pokerus
+//can remove hasSpecies and MON_DATA_SANITY_HAS_SPECIES checks
+//for use of mon_data_species, or species_or_egg not equal egg
 struct BoxPokemon
 {
     u32 personality;
     u32 otId;
     u8 nickname[POKEMON_NAME_LENGTH];
     u8 language:3; // 7 languages
-    u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd
+    u8 nature:5;  // 1-0xF is the timer. 0x10 is set when timer runs out  //single byte think odd, think will reset back to EE way so doesn't potentially affect nature set odds/distribution
     
     u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
     u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
-    u8 hasSpecies:1;    //MON_DATA_SANITY_IS_BAD_EGG and all mentions of bad egg can be removed
     u8 isEgg:1;
-    u8 boxHp:1; //realized only need value 0 & 1
+    u8 freespace:2; //made more space for padding
     u8 metGame:4;    //byte 29?
     
     //byte 30? so even again - ok perfect so should be able to add u16 below this to not add extra padding
@@ -155,8 +163,7 @@ struct BoxPokemon
     u32 cuteRibbon:3;
     u32 smartRibbon:3;
     u32 toughRibbon:3;
-
-    u16 LearnedAbilityId; //ok removed 1 byte to add 2 bytes so should be same space, hm actually it may be smaller if I removed extra padding from putting even value on an odd byte?
+ 
     u8 ppBonuses;
     u8 otGender:1;
     u8 metLevel:7;
@@ -197,15 +204,21 @@ struct BoxPokemon
     u32 coolRibbon:3;    //these are 3 because multiple levels, so can't lower
     
     u32 experience:21; //there are 31 natures? either way need bit 5
-    u32 nature:5;
-    u32 padding:3;
-    u32 beautyRibbon:3; //running short on ewram; while cool think may scrap lostlocation so can set nature //when I do nature task think need run calcmonstat to readjust
+    u32 boxHp:10;
+    u32 hasSpecies:1;    //MON_DATA_SANITY_HAS_SPECIES and all mentions of bad egg can be removed
+    //u32 beautyRibbon:3; //running short on ewram; while cool think may scrap lostlocation so can set nature //when I do nature task think need run calcmonstat to readjust
 
     u8 beauty;
     u8 cute;
     u8 smart;
     u8 tough;
-    
+
+    //think I can make space by turning this into bit field
+    //has sub 400 abilties rn with everything if I make bit 9 can hold 512 max
+    //then move some ribbons in to fill space
+    u16 LearnedAbilityId:9; //after all done may add byte back to this to give more space for cap at 10 would be +1k
+    u16 beautyRibbon:3;
+    u16 freeblank:4;
 
 };
 //wil use bit fields to cut down on substruct stuff on rec
