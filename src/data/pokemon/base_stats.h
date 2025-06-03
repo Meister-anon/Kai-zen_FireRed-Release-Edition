@@ -49719,6 +49719,43 @@ const struct BaseStats gBaseStats[] =
         .flags = SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION,
     },
 
+    [SPECIES_SNORLAX_MEGA] = 
+    {
+        .speciesName = _("Snorlax"),
+ 
+           //hp, atk, def, spd, spatk, spdef
+         STATS(210, 110, 65, 10, 110, 110),
+        MON_TYPES(TYPE_NORMAL, TYPE_PSYCHIC),
+        .catchRate = 25,
+        .expYield = 189,
+        //.evYield_HP = 2,
+        //.itemCommon = ITEM_LEFTOVERS,
+        //.itemRare = ITEM_SITRUS_BERRY,
+        .genderRatio = PERCENT_FEMALE(12.5),
+        .eggCycles = 40,
+        .friendship = 15,
+        .growthRate = GROWTH_SLOW,
+        .eggGroup1 = EGG_GROUP_MONSTER,
+        .eggGroup2 = EGG_GROUP_MONSTER,
+        .abilities = {ABILITY_COMATOSE, ABILITY_COMATOSE},
+        .abilityHidden = {ABILITY_NONE, ABILITY_NONE},
+        .bodyColor = BODY_COLOR_BLACK,
+        .noFlip = FALSE,
+        .floating = FALSE,
+        .abilityLearnset = sSnorlaxAbilityLearnset,
+        .levelUpLearnset = sSnorlaxLevelUpLearnset,
+        .tmhmLearnset = sSnorlaxTMHMLearnset,
+        .evolutions = NULL, //Should hopefully blank these for now without issue
+    },//plan graphic buddhist wheel of life/existence
+    //mega form for snorlax give comatose and boost sp atk.
+    //should let fire off snore without needing to be full asleep
+    //and can get slack off for bigger hear
+    //acheived awakening when it evolved it gained the ability
+    //to eat and sleep at the same time
+    //Due to this its energy is rumored to be boundless
+    //make normal psychic
+    //eyes still closed but 3rd eye open
+
     [SPECIES_CEFIREON] =
     {
         .speciesName = _("Cefireon"),

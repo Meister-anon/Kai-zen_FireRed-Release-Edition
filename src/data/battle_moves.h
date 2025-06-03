@@ -2796,7 +2796,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     .target = MOVE_TARGET_BOTH,
     .priority = 0,
     .split = SPLIT_SPECIAL,
-}, //should make a good tm?
+    .argument = MOVE_EFFECT_FLINCH,
+}, 
+//redid script put flinch in move argument not on snore script itself
+//should make a good tm?
 //does flinch so no cacophony boost,hmm well I could screw it
 //check what mon get snore, since changed to both may need drop strength?
 //ok so only fast mon that learns snore is Dedenne,
