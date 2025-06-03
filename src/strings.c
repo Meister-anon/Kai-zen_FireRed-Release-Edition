@@ -946,6 +946,8 @@ const u8 gStartMenuDesc_Option[] = _("Adjust various game settings such as text\
 const u8 gStartMenuDesc_Exit[] = _("Close this MENU window.");
 const u8 gStartMenuDesc_Retire[] = _("Retire from the SAFARI GAME and return to\nthe registration counter.");
 const u8 gStartMenuDesc_Debug[] = _("Debugging functions for developers.");
+const u8 gStartMenuDesc_PC[] = _("Access stored items and POKéMON.");
+const u8 gText_PC_Access_error[] = _("ERROR: Unable to connect to PC services.\nPlease move to a location with better signal.");
 
 #include "data/text/quest_log.h"
 

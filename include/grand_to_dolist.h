@@ -4361,6 +4361,15 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     added missed logic for mirror armor for intimidate reflect
     buffed magic bounce to do  same part effect for that
     everything should be working including adrenaline orb
+
+    decide will add message blah blah out of range/
+    can't connect to the pc service rn
+    with that in mind will always have pc appended so as access
+
+    also as found gen9 s/v has item printer w infinite masterballs
+    don't need to change my pokeball swap setup
+
+
     had to increase boxHp to u16 barely found space
     by removal of pokerus, and set lower cap on learnedabilities
     caps at 512 for now, but I have room to expand it if needed

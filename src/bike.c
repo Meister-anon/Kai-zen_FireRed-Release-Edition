@@ -1,5 +1,6 @@
 #include "global.h"
 #include "bike.h"
+#include "event_data.h"
 #include "field_player_avatar.h"
 #include "metatile_behavior.h"
 #include "event_object_movement.h"
@@ -298,7 +299,7 @@ bool32 IsFishingDisallowed(void)
 
 bool32 IsAccessingMobilePCDisallowed(void)
 {
-    if (!(gMapHeader.flags & MAP_ALLOW_PC_ACCESS))
+    if (!(gMapHeader.flags & MAP_ALLOW_PC_ACCESS) || FlagGet(FLAG_SYS_PC_STORAGE_DISABLED))
         return TRUE;
 
     return FALSE;

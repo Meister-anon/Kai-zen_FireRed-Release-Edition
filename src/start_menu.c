@@ -34,9 +34,11 @@
 #include "trainer_card.h"
 #include "save_menu_util.h"
 #include "help_system.h"
+#include "bike.h"
 #include "config/debug.h"
 #include "constants/songs.h"
 #include "constants/field_weather.h"
+#include "pokemon_storage_system_internal.h"
 
 enum StartMenuOption
 {
@@ -50,6 +52,8 @@ enum StartMenuOption
     STARTMENU_RETIRE,
     STARTMENU_PLAYER2,
     STARTMENU_DEBUG,
+    STARTMENU_ACCESS_PC,
+    STARTMENU_PC_ACCESS_FAIL,
     MAX_STARTMENU_ITEMS
 };
 
@@ -68,6 +72,7 @@ static EWRAM_DATA u8 sStartMenuOrder[MAX_STARTMENU_ITEMS] = {};
 static EWRAM_DATA s8 sDrawStartMenuState[2] = {};
 static EWRAM_DATA u8 sSafariZoneStatsWindowId = 0;
 static ALIGNED(4) EWRAM_DATA u8 sSaveStatsWindowId = 0;
+EWRAM_DATA bool8 gIsMobilePC = FALSE; //think set so doesn't heal or restore pp for mon set via mobile pc
 
 static u8 (*sSaveDialogCB)(void);
 static u8 sSaveDialogDelay;
@@ -91,6 +96,9 @@ static bool8 StartMenuExitCallback(void);
 static bool8 StartMenuSafariZoneRetireCallback(void);
 //static bool8 StartMenuLinkPlayerCallback(void);
 static bool8 StartMenuDebugCallback(void);
+static bool8 StartMenuPcCallback(void);
+static bool8 StartMenuFailOpenPcCallback(void);
+static bool8 StartMenuFailOpenPcCallback2(void);
 static bool8 StartCB_Save1(void);
 static bool8 StartCB_Save2(void);
 static void StartMenu_PrepareForSave(void);
@@ -118,6 +126,7 @@ static void CloseStartMenu(void);
 static void HideStartMenuDebug(void);
 
 static const u8 sText_MenuDebug[] = _("DEBUG");
+static const u8 sText_MenuPc[] = _("PC");
 
 static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Pokedex, {.u8_void = StartMenuPokedexCallback} },
@@ -129,7 +138,9 @@ static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Exit, {.u8_void = StartMenuExitCallback} },
     { gStartMenuText_Retire, {.u8_void = StartMenuSafariZoneRetireCallback} },
     { gStartMenuText_Player, {.u8_void = NULL}},//StartMenuLinkPlayerCallback} },
-    { sText_MenuDebug, {.u8_void = StartMenuDebugCallback} }
+    { sText_MenuDebug, {.u8_void = StartMenuDebugCallback} },
+    { sText_MenuPc, {.u8_void = StartMenuPcCallback} },
+    { sText_MenuPc, {.u8_void = StartMenuFailOpenPcCallback} }
 };
 
 static const struct WindowTemplate sSafariZoneStatsWindowTemplate = {
@@ -153,6 +164,8 @@ static const u8 *const sStartMenuDescPointers[] = {
     gStartMenuDesc_Retire,
     gStartMenuDesc_Player,
     gStartMenuDesc_Debug,
+    gStartMenuDesc_PC,
+    gStartMenuDesc_PC,
 };
 
 static const struct BgTemplate sBGTemplates_AfterLinkSaveMessage[] = {
@@ -226,9 +239,15 @@ static void BuildDebugStartMenu(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
+    if (/*(FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))*/ !IsAccessingMobilePCDisallowed())
+        AppendToStartMenuItems(STARTMENU_ACCESS_PC);
+        //else
+        //    AppendToStartMenuItems(STARTMENU_PC_ACCESS_FAIL);
     AppendToStartMenuItems(STARTMENU_DEBUG);
+    
 }
 
+//may remove exit no functional reason to have it
 static void SetUpStartMenu_NormalField(void)
 {
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
@@ -239,6 +258,13 @@ static void SetUpStartMenu_NormalField(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
+    if (FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))
+    {   
+         if (!IsAccessingMobilePCDisallowed())
+            AppendToStartMenuItems(STARTMENU_ACCESS_PC);
+        else
+            AppendToStartMenuItems(STARTMENU_PC_ACCESS_FAIL);
+    }
     AppendToStartMenuItems(STARTMENU_EXIT); //prob need to use a switch case, to replace startmenu_exit with iv/ev
     /*if (gSaveBlock2Ptr->optionsButtonMode != OPTIONS_BUTTON_MODE_HELP
     && FLAG_SYS_POKEMON_GET == TRUE)
@@ -261,6 +287,13 @@ static void SetUpStartMenu_SafariZone(void)
     AppendToStartMenuItems(STARTMENU_BAG);
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_OPTION);
+    if (FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))
+    {
+        if (!IsAccessingMobilePCDisallowed())
+            AppendToStartMenuItems(STARTMENU_ACCESS_PC);
+        else
+            AppendToStartMenuItems(STARTMENU_PC_ACCESS_FAIL);
+    }
     AppendToStartMenuItems(STARTMENU_EXIT);
 }
 
@@ -479,6 +512,8 @@ static void StartMenu_FadeScreenIfLeavingOverworld(void)
     if (sStartMenuCallback != StartMenuSaveCallback
      && sStartMenuCallback != StartMenuExitCallback
      && sStartMenuCallback != StartMenuDebugCallback
+     && sStartMenuCallback != StartMenuPcCallback
+     && sStartMenuCallback != StartMenuFailOpenPcCallback
      && sStartMenuCallback != StartMenuSafariZoneRetireCallback)
     {
         StopPokemonLeagueLightingEffectTask();
@@ -588,6 +623,47 @@ static bool8 StartMenuDebugCallback(void)
 #endif
 
     return TRUE;
+}
+
+//make extra option for just printing message
+//fail to access pc message, then reopen start menu
+//think base on save callback, yeah if you select no on that
+//it goes back to open start menu
+static bool8 StartMenuPcCallback(void)
+{
+    DestroySafariZoneStatsWindow();
+    DestroyHelpMessageWindow_();
+    CloseStartMenu();
+    FreezeObjectEvents();
+    gIsDebugPC = TRUE;
+    gIsMobilePC = TRUE;
+    ScriptContext1_SetupScript(EventScript_PC);
+    return TRUE;
+}
+
+static bool8 StartMenuFailOpenPcCallback(void)
+{
+    /*DestroySafariZoneStatsWindow();
+    DestroyHelpMessageWindow_();
+    CloseStartMenu();
+    FreezeObjectEvents();*/
+    DestroySafariZoneStatsWindow();
+    ClearStdWindowAndFrame(GetStartMenuWindowId(), FALSE);
+    RemoveStartMenuWindow();
+    DestroyHelpMessageWindow(0);
+    sStartMenuCallback = StartMenuFailOpenPcCallback2;
+
+    return FALSE;
+}
+
+static bool8 StartMenuFailOpenPcCallback2(void)
+{
+    //for comeback from display message
+    ClearDialogWindowAndFrameToTransparent(0, FALSE);
+        DrawStartMenuInOneGo();
+        //RestoreHelpContext();
+        sStartMenuCallback = StartCB_HandleInput;
+    return FALSE;
 }
 
 static void HideStartMenuDebug(void)
