@@ -4365,6 +4365,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     decide will add message blah blah out of range/
     can't connect to the pc service rn
     with that in mind will always have pc appended so as access
+    oh wait but I need access to pc so can swap mon
+    out if need access to something for an hm
+
+    with that in mind I can't make a message for pc
+    as there'd be no way to indicate to the player that they have access
+    when they didn't before
 
     also as found gen9 s/v has item printer w infinite masterballs
     don't need to change my pokeball swap setup
@@ -4549,6 +4555,7 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     think I won't add this to party menu just for
     player choice. 
     */
+   goto MAP_RELATED_HEADER_FLAGS //new map header setup for run pc acess fishing surfing
    goto EGG_HATCH_LOGIC //
    /*
     working on buff scovillain gave better support moves

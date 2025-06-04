@@ -53,7 +53,6 @@ enum StartMenuOption
     STARTMENU_PLAYER2,
     STARTMENU_DEBUG,
     STARTMENU_ACCESS_PC,
-    STARTMENU_PC_ACCESS_FAIL,
     MAX_STARTMENU_ITEMS
 };
 
@@ -97,8 +96,6 @@ static bool8 StartMenuSafariZoneRetireCallback(void);
 //static bool8 StartMenuLinkPlayerCallback(void);
 static bool8 StartMenuDebugCallback(void);
 static bool8 StartMenuPcCallback(void);
-static bool8 StartMenuFailOpenPcCallback(void);
-static bool8 StartMenuFailOpenPcCallback2(void);
 static bool8 StartCB_Save1(void);
 static bool8 StartCB_Save2(void);
 static void StartMenu_PrepareForSave(void);
@@ -139,8 +136,7 @@ static const struct MenuAction sStartMenuActionTable[] = {
     { gStartMenuText_Retire, {.u8_void = StartMenuSafariZoneRetireCallback} },
     { gStartMenuText_Player, {.u8_void = NULL}},//StartMenuLinkPlayerCallback} },
     { sText_MenuDebug, {.u8_void = StartMenuDebugCallback} },
-    { sText_MenuPc, {.u8_void = StartMenuPcCallback} },
-    { sText_MenuPc, {.u8_void = StartMenuFailOpenPcCallback} }
+    { sText_MenuPc, {.u8_void = StartMenuPcCallback} }
 };
 
 static const struct WindowTemplate sSafariZoneStatsWindowTemplate = {
@@ -239,10 +235,8 @@ static void BuildDebugStartMenu(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if (/*(FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))*/ !IsAccessingMobilePCDisallowed())
+    if (/*(FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && */ !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
-        //else
-        //    AppendToStartMenuItems(STARTMENU_PC_ACCESS_FAIL);
     AppendToStartMenuItems(STARTMENU_DEBUG);
     
 }
@@ -258,13 +252,8 @@ static void SetUpStartMenu_NormalField(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if (FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))
-    {   
-         if (!IsAccessingMobilePCDisallowed())
-            AppendToStartMenuItems(STARTMENU_ACCESS_PC);
-        else
-            AppendToStartMenuItems(STARTMENU_PC_ACCESS_FAIL);
-    }
+    if ((FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && !IsAccessingMobilePCDisallowed())
+        AppendToStartMenuItems(STARTMENU_ACCESS_PC);
     AppendToStartMenuItems(STARTMENU_EXIT); //prob need to use a switch case, to replace startmenu_exit with iv/ev
     /*if (gSaveBlock2Ptr->optionsButtonMode != OPTIONS_BUTTON_MODE_HELP
     && FLAG_SYS_POKEMON_GET == TRUE)
@@ -287,13 +276,8 @@ static void SetUpStartMenu_SafariZone(void)
     AppendToStartMenuItems(STARTMENU_BAG);
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if (FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS))
-    {
-        if (!IsAccessingMobilePCDisallowed())
-            AppendToStartMenuItems(STARTMENU_ACCESS_PC);
-        else
-            AppendToStartMenuItems(STARTMENU_PC_ACCESS_FAIL);
-    }
+    if ((FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && !IsAccessingMobilePCDisallowed())
+        AppendToStartMenuItems(STARTMENU_ACCESS_PC);
     AppendToStartMenuItems(STARTMENU_EXIT);
 }
 
@@ -513,7 +497,6 @@ static void StartMenu_FadeScreenIfLeavingOverworld(void)
      && sStartMenuCallback != StartMenuExitCallback
      && sStartMenuCallback != StartMenuDebugCallback
      && sStartMenuCallback != StartMenuPcCallback
-     && sStartMenuCallback != StartMenuFailOpenPcCallback
      && sStartMenuCallback != StartMenuSafariZoneRetireCallback)
     {
         StopPokemonLeagueLightingEffectTask();
@@ -639,31 +622,6 @@ static bool8 StartMenuPcCallback(void)
     gIsMobilePC = TRUE;
     ScriptContext1_SetupScript(EventScript_PC);
     return TRUE;
-}
-
-static bool8 StartMenuFailOpenPcCallback(void)
-{
-    /*DestroySafariZoneStatsWindow();
-    DestroyHelpMessageWindow_();
-    CloseStartMenu();
-    FreezeObjectEvents();*/
-    DestroySafariZoneStatsWindow();
-    ClearStdWindowAndFrame(GetStartMenuWindowId(), FALSE);
-    RemoveStartMenuWindow();
-    DestroyHelpMessageWindow(0);
-    sStartMenuCallback = StartMenuFailOpenPcCallback2;
-
-    return FALSE;
-}
-
-static bool8 StartMenuFailOpenPcCallback2(void)
-{
-    //for comeback from display message
-    ClearDialogWindowAndFrameToTransparent(0, FALSE);
-        DrawStartMenuInOneGo();
-        //RestoreHelpContext();
-        sStartMenuCallback = StartCB_HandleInput;
-    return FALSE;
 }
 
 static void HideStartMenuDebug(void)
