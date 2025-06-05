@@ -161,7 +161,6 @@ static const u8 *const sStartMenuDescPointers[] = {
     gStartMenuDesc_Player,
     gStartMenuDesc_Debug,
     gStartMenuDesc_PC,
-    gStartMenuDesc_PC,
 };
 
 static const struct BgTemplate sBGTemplates_AfterLinkSaveMessage[] = {

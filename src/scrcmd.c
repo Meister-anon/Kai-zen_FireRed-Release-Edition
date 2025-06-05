@@ -1966,17 +1966,18 @@ bool8 ScrCmd_UpdateOakRanch(void) //to run oak ranch update from cmd
 bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poison deaths I guess
 {
     u32 i;
-    u8 boxHP = 0;
+    
     //u8 map = GetCurrentRegionMapSectionId();
 
-    if (IsMonNuzlockeDead(&gPlayerParty[i])) //if has pokedex received pokeballs already
-    {
-        for (i = 0; i != PARTY_SIZE; i++)
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {   
+        u16 boxHP = GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL);
+        if (IsMonNuzlockeDead(&gPlayerParty[i]) || gIsMobilePC == TRUE) //if has pokedex received pokeballs already
         {
             SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
-
+                    
         }
-                
     }
     return TRUE;
 }
