@@ -29290,7 +29290,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_SLOW,
         .eggGroup1 = EGG_GROUP_UNDISCOVERED,
         .eggGroup2 = EGG_GROUP_UNDISCOVERED,
-        .abilities = {ABILITY_HEALER, ABILITY_NONE},
+        .abilities = {ABILITY_CUPIDS_ARROW, ABILITY_NONE},
         .abilityHidden = {ABILITY_CONTRARY, ABILITY_NONE},
         .bodyColor = BODY_COLOR_PINK,
         .noFlip = FALSE,
@@ -29302,6 +29302,11 @@ const struct BaseStats gBaseStats[] =
         .flags = FLAG_LEGENDARY_POKEMON,
         //.flags = SPECIES_FLAG_LEGENDARY, don't need
     },
+    //wrong ability here real abilit is cute charm
+    //still not great but since is love themed pokemon
+    //and technically banned to ubers think can safely give this
+    //luvdiscs ability instead, without invalidating luvdisc itself
+    //will give it extra bulk as well from buff to attraction status
 
     //Gen 9   
     
@@ -32660,7 +32665,7 @@ const struct BaseStats gBaseStats[] =
               31,
               58
        ),
-        MON_TYPES(TYPE_BUG),
+        MON_TYPES(TYPE_BUG),//since constantly upside down, give move topsy turvy
         .catchRate = 190,
         .expYield = 54,
        // .evYield_Defense = 1,
@@ -32670,7 +32675,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_COMPOUND_EYES, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_SHED_SKIN, ABILITY_NONE},
+        .abilityHidden = {ABILITY_SHED_SKIN, ABILITY_STAMINA},
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32707,8 +32712,9 @@ const struct BaseStats gBaseStats[] =
         .abilityLearnset = sRellorAbilityLearnset,
         .levelUpLearnset = sRellorLevelUpLearnset,
         .tmhmLearnset = sRellorTMHMLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, RELATIVE_EVO(22, LOW_EFFORT), 0,  SPECIES_RABSCA}),
-    },
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_ROLLOUT, FILL, SPECIES_RABSCA},
+            {EVO_LEVEL, RELATIVE_EVO(22, LOW_EFFORT), FILL,  SPECIES_RABSCA}),
+    }, //Want a more unique evo method, think change from level to know move
 
     [SPECIES_RABSCA] =
     {
@@ -32733,7 +32739,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_FAST,
         MON_EGG_GROUPS(EGG_GROUP_BUG),
         .abilities = { ABILITY_SYNCHRONIZE, ABILITY_NONE  },
-        .abilityHidden = {ABILITY_TELEPATHY, ABILITY_NONE},
+        .abilityHidden = {ABILITY_TELEPATHY, ABILITY_STAMINA},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -32772,6 +32778,11 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sRabscaTMHMLearnset,
     },
 //#endif //P_FAMILY_RELLOR
+//think I understand why it loses shed skin, it doesnt have skin any more to molt
+//it has a metalic carapas as its an egyptian scarab
+//since constantly rolling ball think I can swing giving it stamina?
+//don't think need do anything with attack, the physical moves it does get
+//are mostly just for utility
 
 //#if p_fAMILY_FLITTLE
     [SPECIES_FLITTLE] =

@@ -352,6 +352,12 @@ void AnimatePcTurnOff()
     }
 #endif
 
+    if (gIsMobilePC)
+    {
+        gIsMobilePC = FALSE;
+        return;
+    }
+
     switch (direction)
     {
     case DIR_NORTH:

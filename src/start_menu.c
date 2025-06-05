@@ -618,7 +618,6 @@ static bool8 StartMenuPcCallback(void)
     DestroyHelpMessageWindow_();
     CloseStartMenu();
     FreezeObjectEvents();
-    gIsDebugPC = TRUE;
     gIsMobilePC = TRUE;
     ScriptContext1_SetupScript(EventScript_PC);
     return TRUE;
