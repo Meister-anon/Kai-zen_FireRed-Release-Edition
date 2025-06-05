@@ -7,8 +7,6 @@
 
 
 
-extern EWRAM_DATA bool8 gIsMobilePC;
-
 // Special box ids for the choose box menu
 #define BOXID_NONE_CHOSEN 200
 #define BOXID_CANCELED    201

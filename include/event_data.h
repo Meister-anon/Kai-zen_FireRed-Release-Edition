@@ -23,6 +23,9 @@ extern u16 gSpecialVar_MonBoxPos;
 extern u16 gSpecialVar_TextColor;
 extern u16 gSpecialVar_PrevTextColor;
 
+extern EWRAM_DATA bool8 gIsMobilePC;
+
+
 void InitEventData(void);
 void ClearTempFieldEventData(void);
 void ClearUpperFlags(void);

@@ -30,16 +30,13 @@ void HealPlayerParty(void)
         if (IsMonNuzlockeDead(&gPlayerParty[i]))
             continue;
         
-        //uses boxhp so keep as is
-        else if (!(IsNuzlockeModeOn())
-        && FlagGet(FLAG_SYS_POKEDEX_GET) && (GetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, NULL) == 0))
-            SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &clearNuzlockeDeath);
 
             
         
         arg[0] = maxHP;
         arg[1] = maxHP >> 8;
         SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);
+        SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, arg);
         ppBonuses = GetMonData(&gPlayerParty[i], MON_DATA_PP_BONUSES);
 
         // restore PP.
