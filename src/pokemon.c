@@ -12405,6 +12405,15 @@ bool8 IsMonNuzlockeDead(struct Pokemon *mon)
     return FALSE;
 }
 
+bool8 IsBoxMonNuzlockeDead(struct BoxPokemon *mon)
+{
+   if (IsNuzlockeModeOn() && (GetBoxMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+    && FlagGet(FLAG_SYS_POKEDEX_GET))
+        return TRUE;
+
+    return FALSE;
+}
+
 u8 *GetTrainerPartnerName(void)
 {
     u8 id = GetMultiplayerId();
