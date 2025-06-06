@@ -1415,7 +1415,7 @@ const u8 gSURGING_STRIKES_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The Final technique\nof the Water style.\nFluidly strikes\nthree times.\nIgnores a small\nportion of defense.");
 
 const u8 gTHUNDER_CAGE_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe\nin a cage of\nelectricity.\nFor 2 to 4 turns.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Traps the foe\nin a cage of\nelectricity.\nFor 2 to 4 turns.\nTrap damage may\nparalyze the foe."); //buff apparently never used, think give chance to paralyze each end turn, low odds maybe 10%
 
 const u8 gDRAGON_ENERGY_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The higher the\nuser's HP the more\ndamage caused.");

@@ -11799,6 +11799,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_SPECIAL,
     },
+    //gave effect trap damage can paralyze, working on
 
     [MOVE_DRAGON_ENERGY] =
     {

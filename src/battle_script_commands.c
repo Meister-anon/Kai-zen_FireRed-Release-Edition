@@ -16062,47 +16062,50 @@ static void atk97_tryinfatuating(void)
 
 static void atk98_updatestatusicon(void)
 {
-    if (!gBattleControllerExecFlags)
+    CMD_ARGS(u8 battler);
+    u32 battler;
+
+    if (gBattleControllerExecFlags)
+        return;
+
+    if (cmd->battler == BS_PLAYER2)
     {
-        if (gBattlescriptCurrInstr[1] == BS_PLAYER2)
+        for (gActiveBattler = gBattleControllerExecFlags; gActiveBattler < gBattlersCount; ++gActiveBattler)
         {
-            for (gActiveBattler = gBattleControllerExecFlags; gActiveBattler < gBattlersCount; ++gActiveBattler)
-            {
-                if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler]))
-                {
-                    BtlController_EmitStatusIconUpdate(0, gBattleMons[gActiveBattler].status1, gBattleMons[gActiveBattler].status2);
-                    MarkBattlerForControllerExec(gActiveBattler);
-                }
-            }
-            gBattlescriptCurrInstr += 2;
-        }
-        else if (gBattlescriptCurrInstr[1] == BS_ATTACKER_WITH_PARTNER)
-        {
-            gActiveBattler = gBattlerAttacker;
-            if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler]))
+            if (!(gAbsentBattlerFlags & (1u << gActiveBattler)))
             {
                 BtlController_EmitStatusIconUpdate(0, gBattleMons[gActiveBattler].status1, gBattleMons[gActiveBattler].status2);
                 MarkBattlerForControllerExec(gActiveBattler);
             }
-            if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
-            {
-                gActiveBattler = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_FLANK);
-                if (!(gAbsentBattlerFlags & gBitTable[gActiveBattler]))
-                {
-                    BtlController_EmitStatusIconUpdate(0, gBattleMons[gActiveBattler].status1, gBattleMons[gActiveBattler].status2);
-                    MarkBattlerForControllerExec(gActiveBattler);
-                }
-            }
-            gBattlescriptCurrInstr += 2;
         }
-        else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+    else if (cmd->battler == BS_ATTACKER_WITH_PARTNER)
+    {
+        gActiveBattler = gBattlerAttacker;
+        if (!(gAbsentBattlerFlags & (1u << gActiveBattler)))
         {
-
-            gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
             BtlController_EmitStatusIconUpdate(0, gBattleMons[gActiveBattler].status1, gBattleMons[gActiveBattler].status2);
             MarkBattlerForControllerExec(gActiveBattler);
-            gBattlescriptCurrInstr += 2;
         }
+        if ((IsDoubleBattle()))
+        {
+            gActiveBattler = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_FLANK);
+            if (!(gAbsentBattlerFlags & (1u << gActiveBattler)))
+            {
+                BtlController_EmitStatusIconUpdate(0, gBattleMons[gActiveBattler].status1, gBattleMons[gActiveBattler].status2);
+                MarkBattlerForControllerExec(gActiveBattler);
+            }
+        }
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+    else
+    {
+
+        gActiveBattler = GetBattlerForBattleScript(cmd->battler);
+        BtlController_EmitStatusIconUpdate(0, gBattleMons[gActiveBattler].status1, gBattleMons[gActiveBattler].status2);
+        MarkBattlerForControllerExec(gActiveBattler);
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
