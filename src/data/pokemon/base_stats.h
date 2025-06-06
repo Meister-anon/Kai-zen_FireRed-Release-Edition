@@ -12312,6 +12312,13 @@ const struct BaseStats gBaseStats[] =
     //pretty sure that combo doesn't exist
     //hmm want to make rock after changes but only thing
     //rock like about it is its head
+    //most moves normal but rock dragon is very good defenseively now
+    //ok has  large degree of type coverage in set
+    //so guess it fits the idea of normal type
+    //I want the rock type for rock resist and poison immunity
+    //ok yeah I think I can rock w normal dragon
+    //double weak to fairy but because slow
+    //think Ineed the dragon for resistences
 
     [SPECIES_SHIELDON] =
     {
