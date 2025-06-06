@@ -4216,7 +4216,7 @@ static void BattleStartClearSetData(void)
     for (i = 0; i < MAX_BATTLERS_COUNT; ++i)
     {
         gStatuses3[i] = 0;
-        gDisableStructs[i].isFirstTurn = 2; //beelieve is switching in? based on emerald comment    //vsonic
+        gDisableStructs[i].isFirstTurn = 2; //believe is switching in? based on emerald comment    //vsonic
         gUnknown_2023DD4[i] = 0;
         gLastMoves[i] = MOVE_NONE;
         gLastLandedMoves[i] = MOVE_NONE;
