@@ -1686,7 +1686,6 @@ BattleScript_EffectFinalGambit:		@CHANGED effect to do dmg based on missing heal
 	setatkhptozero
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
-	setmoveeffectwithchance
 	tryfaintmon BS_ATTACKER, FALSE, NULL	
 	goto BattleScript_MoveEnd
 
