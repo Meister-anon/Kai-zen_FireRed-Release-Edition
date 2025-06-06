@@ -143,6 +143,9 @@ void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience)
         && FlagGet(FLAG_SYS_POKEDEX_GET)) //should be block exp gain for dead mon,to prevent level up
         return;
 
+    else if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+        return;
+
     //currExperience -= 1; //sub 1 to get back to real value //actually don't need this even at lvl 1 exp is still above 0
 
     //CurrLevel = ReturnLevelBasedOnExp(currExperience, species);
@@ -150,54 +153,54 @@ void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience)
     //meaning wouldn't need applyoakranchexperience function
 
 
-        if (currExperience < gExperienceTables[gBaseStats[species].growthRate][100])
+    if (currExperience < gExperienceTables[gBaseStats[species].growthRate][MAX_LEVEL])
+    {
+        if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][11]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
         {
-            if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][11]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
-            {
-                Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter); //nvm didn't work for some reason because didn't use constant
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);  //replaced setup, now use 17 value wrap around var before counter increments, will need rebalance here
-                //ApplyOakRanchExperience(mon);
-            }
-            else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][25]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
-            {
-                Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 3);
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
-                //ApplyOakRanchExperience(&dst);
-            }
-            else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][30]) //keep an eye on this one, may shift to 35 and next to 45
-            {
-                Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 5);
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
-                //ApplyOakRanchExperience(&dst);
-            }
-            else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][40]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
-            {
-                Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 8);
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
-                //ApplyOakRanchExperience(&dst);
-            }
-            else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][55]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
-            {
-                Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 16);
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
-                //ApplyOakRanchExperience(&dst);
-            }
-            else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][75]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
-            {
-                Augmentedexperience = currExperience + ((gSaveBlock1Ptr->oakRanchStepCounter * gSaveBlock1Ptr->oakRanchStepCounter) / 2);
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
-                //ApplyOakRanchExperience(&dst);
-            }
-            else if (currExperience < gExperienceTables[gBaseStats[species].growthRate][100])
-            {
-                Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * gSaveBlock1Ptr->oakRanchStepCounter);
-                
-                if (Augmentedexperience > gExperienceTables[gBaseStats[species].growthRate][100])
-                    Augmentedexperience = gExperienceTables[gBaseStats[species].growthRate][100];
-                SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
-                //ApplyOakRanchExperience(mon); //using this is irrelvant for some reason not setting exp evenly to each slot
-            } //but it does or seemingly does if I  use struc Pokemon *mon; ?  but it ignores rule and sets to lvl 100 with FAR more lag for unkown reasons
-        }        
+            Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter); //nvm didn't work for some reason because didn't use constant
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);  //replaced setup, now use 17 value wrap around var before counter increments, will need rebalance here
+            //ApplyOakRanchExperience(mon);
+        }
+        else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][25]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
+        {
+            Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 3);
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
+            //ApplyOakRanchExperience(&dst);
+        }
+        else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][30]) //keep an eye on this one, may shift to 35 and next to 45
+        {
+            Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 5);
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
+            //ApplyOakRanchExperience(&dst);
+        }
+        else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][40]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
+        {
+            Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 8);
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
+            //ApplyOakRanchExperience(&dst);
+        }
+        else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][55]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
+        {
+            Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * 16);
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
+            //ApplyOakRanchExperience(&dst);
+        }
+        else if (currExperience <= gExperienceTables[gBaseStats[species].growthRate][75]) //test see if change works in sub of a wrap around, should make increase 1 for every 30 steps
+        {
+            Augmentedexperience = currExperience + ((gSaveBlock1Ptr->oakRanchStepCounter * gSaveBlock1Ptr->oakRanchStepCounter) / 2);
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
+            //ApplyOakRanchExperience(&dst);
+        }
+        else if (currExperience < gExperienceTables[gBaseStats[species].growthRate][100])
+        {
+            Augmentedexperience = currExperience + (gSaveBlock1Ptr->oakRanchStepCounter * gSaveBlock1Ptr->oakRanchStepCounter);
+            
+            if (Augmentedexperience > gExperienceTables[gBaseStats[species].growthRate][100])
+                Augmentedexperience = gExperienceTables[gBaseStats[species].growthRate][100];
+            SetBoxMonData(mon, MON_DATA_EXP, &Augmentedexperience);
+            //ApplyOakRanchExperience(mon); //using this is irrelvant for some reason not setting exp evenly to each slot
+        } //but it does or seemingly does if I  use struc Pokemon *mon; ?  but it ignores rule and sets to lvl 100 with FAR more lag for unkown reasons
+    }        
 
         
 }

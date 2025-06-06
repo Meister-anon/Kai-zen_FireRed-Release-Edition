@@ -687,6 +687,7 @@ u8 CheckIfPcEmpty(void)
 void UpdatePokemonStorageSystemMonExp(void)
 {
     u16 boxId, boxPosition;
+    bool8 clearValue = FALSE;
     
     for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
     {
@@ -694,6 +695,7 @@ void UpdatePokemonStorageSystemMonExp(void)
         {
             struct BoxPokemon * checkingMon = GetBoxedMonPtr(boxId, boxPosition); //need within loop so updates
             u32 species = GetBoxMonData(checkingMon, MON_DATA_SPECIES);
+            u16 Maxhp = GetBoxMonData(checkingMon, MON_DATA_MAX_HP);
 
             if (species == SPECIES_NONE || species == SPECIES_EGG) continue;
 
@@ -706,7 +708,23 @@ void UpdatePokemonStorageSystemMonExp(void)
                 //just need cap not be higher than sabrina ace by much so, <= 6 badges level not greater than 41 I guess
                 //if (CanBoxMonGainExp(checkingMon))
                     
-            }   */             
+            }   */    
+            
+            //shold be heal all pc mon if not using mobile pc
+            //and they're not nuzlocke dead
+            //added conditions to speed up execution
+            if ((IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
+            && GetBoxMonData(checkingMon, MON_DATA_BOX_HP, NULL) == 0)
+            || gIsMobilePC == TRUE
+            || GetBoxMonData(checkingMon, MON_DATA_BOX_HP) == Maxhp)
+                continue;
+            else
+            {
+                if (GetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, NULL) == TRUE)
+                    SetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, &clearValue);
+                SetBoxMonData(checkingMon, MON_DATA_BOX_HP, &Maxhp);
+                BoxMonRestorePP(checkingMon);
+            }
             
         }
             

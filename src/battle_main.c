@@ -4696,13 +4696,7 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
         CalculateMonStats(party); //to reset stats to normal  
     //lost location don't display if 0,
 
-    //boxhp only set if is 0                
-    if (IsMonNuzlockeDead(party)
-    && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
-    {
-        u8 boxHP = 0;
-        SetMonData(party, MON_DATA_BOX_HP, &boxHP);
-    }    //this works here
+
 }
 
 static void BattleIntroGetMonsData(void)

@@ -2838,7 +2838,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 HiddenAbility2_Chance = 93;
 
     u8 setZero = 0;
-    u8 setOne = 1;
 
     u8 hatched = FALSE;
     u8 formflag = FALSE;
@@ -2914,7 +2913,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_MET_GAME, &gGameVersion);
     value = ITEM_POKE_BALL;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
-    SetBoxMonData(boxMon, MON_DATA_BOX_HP, &setOne); //set non-zero only use if 0
+    SetBoxMonData(boxMon, MON_DATA_FROM_MOBILE_PC, &setZero);
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
     if (IsBoxMonShiny(boxMon))
@@ -3481,10 +3480,7 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
 void CalculateMonStats(struct Pokemon *mon)
 {
 
-    u8 boxHP = GetMonData(mon, MON_DATA_BOX_HP, NULL);
-    u8 clearNuzlockeDeath = 1;
-
-        
+       
 
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
     s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
@@ -3529,6 +3525,7 @@ void CalculateMonStats(struct Pokemon *mon)
         gBattleScripting.levelUpHP = 1;
 
     SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
+    
 
     CALC_STAT(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
     CALC_STAT(baseDefense, defenseIV, defenseEV, STAT_DEF, MON_DATA_DEF)
@@ -3539,17 +3536,22 @@ void CalculateMonStats(struct Pokemon *mon)
 
     //feel like this is all I need?
     //uses box hp keep as is
-    if (IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
+    if ((IsNuzlockeModeOn() && FlagGet(FLAG_SYS_POKEDEX_GET)
     && GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+    || (GetMonData(mon, MON_DATA_FROM_MOBILE_PC, NULL) == TRUE && gIsMobilePC))
     {   
         //if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0) 
-            currentHP = 0;
+            currentHP = GetMonData(mon, MON_DATA_BOX_HP, NULL);
 
     }//seems this fixes nuzlocke mode pc issue and no hp wild mon issue either
     else
     {
-        if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
-            SetMonData(mon, MON_DATA_BOX_HP, &clearNuzlockeDeath);
+        //if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
+            //currentHP = newMaxHP;
+
+        //plan be for created mon
+        if (!gIsMobilePC)
+            SetMonData(mon, MON_DATA_BOX_HP, &newMaxHP);
 
         if (ability == ABILITY_WONDER_GUARD)
         {
@@ -3560,7 +3562,7 @@ void CalculateMonStats(struct Pokemon *mon)
         }
         else
         {
-            if (oldMaxHP == 0) //pc removal
+            if (oldMaxHP == 0) //pc removal - not pc removal view from in pc
                 currentHP = newMaxHP;
             else if (currentHP != 0) //didn't need max hp > oldmax hp part from cfru, that made things less specific and broke transform
             {
@@ -3701,6 +3703,12 @@ void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest)
     //SetMonData(dest, MON_DATA_STATUS_SET_STATE, &value);
     //SetMonData(dest, MON_DATA_HP, &value);
     SetMonData(dest, MON_DATA_MAX_HP, &value);
+    if (gIsMobilePC)
+    {
+        value++;
+        SetMonData(dest, MON_DATA_FROM_MOBILE_PC, &value);
+    }
+         
     //value = 255;
     //SetMonData(dest, MON_DATA_MAIL, &value);
     CalculateMonStats(dest);
@@ -7329,10 +7337,10 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     /*case MON_DATA_SHEEN:
         retVal = boxMon->sheen;
-        break;
-    case MON_DATA_POKERUS:
-        retVal = boxMon->pokerus;
         break;*/
+    case MON_DATA_FROM_MOBILE_PC:
+        retVal = boxMon->storedviaMobilePc;
+        break;
     case MON_DATA_MET_LOCATION:
         retVal = boxMon->metLocation;
         break;
@@ -7750,10 +7758,10 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     /*case MON_DATA_SHEEN:
         SET8(boxMon->sheen);
-        break;
-    case MON_DATA_POKERUS:
-        SET8(boxMon->pokerus);
         break;*/
+    case MON_DATA_FROM_MOBILE_PC:
+        SET8(boxMon->storedviaMobilePc);
+        break;
     case MON_DATA_MET_LOCATION:
         SET8(boxMon->metLocation);
         break;
