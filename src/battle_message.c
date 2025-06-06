@@ -1571,6 +1571,8 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_RAGINGBULL_BREAKSTHROUGH]     = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} broke through the foe's defenses!"),
     [STRINGID_SUPERSWEETAROMAWAFTS]                 = COMPOUND_STRING("A supersweet aroma is wafting from\nthe syrup covering {B_ATK_NAME_WITH_PREFIX}!"),
     [STRINGID_FORCEDTOSURFACE]              = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was forced\nto surface!{PAUSE 36}"),
+    [STRINGID_PKMNINSNAPTRAP]                       = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} got trapped by\na snap trap!"),
+    [STRINGID_THUNDERCAGETRAPPED]                   = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was caught in\na shocking trap!"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,
@@ -1775,6 +1777,7 @@ const u16 gFirstTurnOfTwoStringIds[] = {
 //use to make sure trap effects don't overlap  *actually I'll prob allow that since they're all separate now its functionally possible
 //don't forget trap effect exclusion for floating enemies, not including magmastorm
 //use grounded function rather than just floating species array, so it'll work when grounded
+//ok this is linked to gTrappingMoves
 const u16 gWrappedStringIds[] = {
     STRINGID_PKMNSQUEEZEDBYBIND,    //bind
     STRINGID_PKMNWRAPPEDBY,         //wrap
@@ -1783,8 +1786,10 @@ const u16 gWrappedStringIds[] = {
     STRINGID_PKMNTRAPPEDINVORTEX,   //whirlpool
     STRINGID_PKMNTRAPPEDBYSANDTOMB, //sandtomb
     STRINGID_TRAPPEDBYSWIRLINGMAGMA, //magma storm
-    STRINGID_INFESTATION            //infestation
-};//need to add snaptrap
+    STRINGID_INFESTATION,            //infestation   //now swarm
+    STRINGID_PKMNINSNAPTRAP,         // MOVE_SNAP_TRAP
+    STRINGID_THUNDERCAGETRAPPED,     // MOVE_THUNDER_CAGE
+};//need to add snaptrap, thundercage
 
 const u16 gMistUsedStringIds[] = {
     STRINGID_PKMNSHROUDEDINMIST,
