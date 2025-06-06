@@ -611,15 +611,26 @@ static void SetMovedMonData(u8 boxId, u8 position)
     sMovingMonOrigBoxPos = position; //ok nvm that's not what broke it...
 }//position is sboxcursorpos    /ISSUE was calculatebasestats change, since that is called in faint mon function
 
+//need find where set mon in pc initially if no space in party
+//pretty sure this is just manual placement
+//no don't need manual box for just caught, will set that up
+//process afterwards
 static void SetPlacedMonData(u8 boxId, u8 position)
 {
-    if (boxId == TOTAL_BOXES_COUNT)
+    if (boxId == TOTAL_BOXES_COUNT)//in party
     {
         gPlayerParty[position] = gPSSData->movingMon;
     }
-    else
+    else//in box
     {
-        BoxMonRestorePP(&gPSSData->movingMon.box);
+
+        if (!gIsMobilePC && !IsBoxMonNuzlockeDead(&gPSSData->movingMon.box))
+            BoxMonRestorePP(&gPSSData->movingMon.box);
+        else if (gIsMobilePC)
+        {
+            bool8 value = TRUE;
+            SetBoxMonData(&gPSSData->movingMon.box, MON_DATA_FROM_MOBILE_PC, &value);
+        }
         SetBoxMonAt(boxId, position, &gPSSData->movingMon.box);
     }
 }
@@ -1024,14 +1035,17 @@ static void SetCursorMonData(void *pokemon, u8 mode)
     u8 *txtPtr;
     u16 gender;
     bool8 sanityIsBagEgg;
+    
 
     gPSSData->cursorMonItem = 0;
     gender = MON_MALE;
     sanityIsBagEgg = FALSE;
+
+
     if (mode == MODE_PARTY)
     {
         struct Pokemon *mon = (struct Pokemon *)pokemon;
-
+        
         gPSSData->cursorMonSpecies = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
        
         //strange seems formchange withdrawn only used for hoopa?

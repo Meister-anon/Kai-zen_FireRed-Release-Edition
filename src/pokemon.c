@@ -3587,10 +3587,6 @@ void CalculateMonStats(struct Pokemon *mon)
 
 void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
 {
-
-    u8 boxHP = GetMonData(mon, MON_DATA_BOX_HP, NULL);
-    u8 clearNuzlockeDeath = 1;
-
         
 
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
@@ -3655,8 +3651,6 @@ void TransformedMonLvlUpStatCalc(struct Pokemon *mon)
     }//seems this fixes nuzlocke mode pc issue and no hp wild mon issue either
     else
     {
-        if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
-            SetMonData(mon, MON_DATA_BOX_HP, &clearNuzlockeDeath);
 
         if (ability == ABILITY_WONDER_GUARD)
         {
