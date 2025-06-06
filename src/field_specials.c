@@ -267,6 +267,10 @@ void AnimatePcTurnOn(void)
         return;
     #endif
 
+    //needed to prevent metatile issues on pc access
+    if (gIsMobilePC)
+        return;
+
     if (FuncIsActiveTask(Task_AnimatePcTurnOn) != TRUE)
     {
         taskId = CreateTask(Task_AnimatePcTurnOn, 8);

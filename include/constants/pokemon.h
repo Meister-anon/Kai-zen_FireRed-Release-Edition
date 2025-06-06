@@ -36,7 +36,7 @@
 #define MON_DATA_SPDEF_EV          31
 #define MON_DATA_FRIENDSHIP        32
 #define MON_DATA_SMART             33
-//#define MON_DATA_POKERUS           34  //removed wasnt even in firered anyway, but cleared for pc access setup
+#define MON_DATA_FROM_MOBILE_PC    34  //was pokerus, but cleared for mobile pc access setup
 #define MON_DATA_MET_LOCATION      35
 #define MON_DATA_MET_LEVEL         36
 #define MON_DATA_MET_GAME          37

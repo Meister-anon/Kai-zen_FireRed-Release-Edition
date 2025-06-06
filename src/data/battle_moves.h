@@ -3341,11 +3341,11 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_SWAGGER] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_7
+        /*#if B_UPDATED_MOVE_DATA >= GEN_7
             .accuracy = 0,
-        #else
+        #else*/
             .accuracy = 90,
-        #endif
+        //#endif
         .effect = EFFECT_SWAGGER,
         .power = 0,
         .type = TYPE_NORMAL,
@@ -4193,7 +4193,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_FLATTER,
         .power = 0,
         .type = TYPE_DARK,
-        .accuracy = 100,
+        .accuracy = 100, //keep higher acc just beacuse sp atkers have less things working against them
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -4201,6 +4201,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_STATUS,
     },
+    //hmm has no downside could change, either also raise attack,
+    //so takes more damage if hit themselves,
+    //or lower defense and raise sp atk 2 stages
+    //leaning towards latter rn
 
     [MOVE_WILL_O_WISP] =
     {
@@ -10603,12 +10607,13 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .type = TYPE_ELECTRIC,
         .accuracy = 100,
         .pp = 10,
-        .secondaryEffectChance = 20,
+        .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         .split = SPLIT_PHYSICAL,
-    },
+    },//had lowered but think will put at ame level as bite?
+    //eh screw it will keep unnerfed as electric rock slide
 
     [MOVE_NATURES_MADNESS] =
     {

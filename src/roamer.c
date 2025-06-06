@@ -96,6 +96,7 @@ void ClearRoamerData(void)
     a;\
 })
 
+//add shiny value?
 void CreateInitialRoamerMon(void)
 {
     struct Pokemon * mon = &gEnemyParty[0];

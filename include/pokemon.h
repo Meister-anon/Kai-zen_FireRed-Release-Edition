@@ -146,7 +146,8 @@ struct BoxPokemon
     u8 otName[OT_NAME_LENGTH]; //odd name length so believe makes even again
     u8 isMonShiny:1; //potentially replace w removal of checksum? //yeah can get rid of this its all determined by checksum replace w shiny set
     u8 isEgg:1;
-    u8 freespace:2; //made more space for padding
+    u8 freespace:1; //made more space for padding
+    u8 storedviaMobilePc:1; //for tracking if mon came from mobile pc for hp reconsiliation
     u8 metGame:4;    //byte 29?
     
     //byte 30? so even again - ok perfect so should be able to add u16 below this to not add extra padding

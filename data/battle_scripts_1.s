@@ -5090,13 +5090,7 @@ BattleScript_EffectSwagger::
 	jumpifconfusedandstatmaxed 1, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	setstatchanger STAT_ATK, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_SwaggerTryConfuse
-	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_SwaggerTryConfuse
-	setgraphicalstatchangevalues
-	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+	modifybattlerstatstage BS_TARGET, STAT_ATK, INCREASE, 2, BattleScript_SwaggerTryConfuse, FALSE, ANIM_ON
 BattleScript_SwaggerTryConfuse::
 	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_OwnTempoPrevents
 	jumpifsafeguard BattleScript_SafeguardProtected
@@ -5898,6 +5892,7 @@ BattleScript_EffectTorment::
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
 	goto BattleScript_MoveEnd
 
+@test works shold be good effect
 BattleScript_EffectFlatter::
 	attackcanceler
 	jumpifsubstituteblocks BattleScript_MakeMoveMissed
@@ -5907,13 +5902,10 @@ BattleScript_EffectFlatter::
 	jumpifconfusedandstatmaxed 4, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	setstatchanger STAT_SPATK, 2, FALSE
-	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_FlatterTryConfuse
-	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_FlatterTryConfuse
-	setgraphicalstatchangevalues
-	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
+BattleScript_FlatterStatBoost::
+	modifybattlerstatstage BS_TARGET, STAT_SPATK, INCREASE, 2, BattleScript_FlatterTryLowerStat, FALSE, ANIM_ON
+BattleScript_FlatterTryLowerStat::
+	modifybattlerstatstage BS_TARGET, STAT_DEF, DECREASE, 1, BattleScript_FlatterTryConfuse, FALSE, ANIM_ON
 BattleScript_FlatterTryConfuse::
 	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_OwnTempoPrevents
 	jumpifsafeguard BattleScript_SafeguardProtected
