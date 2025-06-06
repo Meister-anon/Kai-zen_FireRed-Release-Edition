@@ -3175,15 +3175,15 @@ u8 DoBattlerEndTurnEffects(void)
                         gBattleMoveDamage = max(gBattleMons[gActiveBattler].maxHP / 8,1); ///8  keep 16 for now since buffing effects
                         
                         if (!(gBattleMons[gActiveBattler].status1 & STATUS1_ANY)
-                        /*&& Random() % 5 == 1*/)
+                        && Random() % 5 == 1)
                         {
-                            //test when fix memory terrain thing
-                            //gBattleScripting.moveEffect = (MOVE_EFFECT_PARALYSIS | MOVE_EFFECT_CERTAIN);
-                            gBattleMons[gActiveBattler].status1 |= STATUS1_PARALYSIS;
+                            gBattleScripting.moveEffect = (MOVE_EFFECT_PARALYSIS | MOVE_EFFECT_CERTAIN | MOVE_EFFECT_AFFECTS_USER);
                             gBattlescriptCurrInstr = BattleScript_ThunderCageTurnDmg;
                         }//idk how to do this yet figur esomethig
                          //seems work but status icon not clearing hoping is because of memory thing setting terrain  since misty terrain prevents status?
                          //hmm w that in mind prob should attempt do with moveeffect instead, terrain issue may have been why it didn't work
+                         //ok even without terrain issue healthbox still doesn't update?
+                         //moveeffect set was right just need affects user, since otherwise it gets set to target and I need it on attacker
                         else
                             gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
 

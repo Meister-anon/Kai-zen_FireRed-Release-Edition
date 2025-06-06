@@ -8445,12 +8445,7 @@ BattleScript_DoThunderCageTurnDmg::
 	datahpupdate BS_ATTACKER
 	tryfaintmon BS_ATTACKER, 0, NULL
 	confirmlosingteam BattleScript_DoTurnDmgEnd
-	@setmoveeffectwithchance
-	statusanimation BS_ATTACKER
-	printfromtable gGotParalyzedStringIds
-	waitmessage B_WAIT_TIME_LONG
-	updatestatusicon BS_ATTACKER
-	waitstate
+	setmoveeffectwithchance
 BattleScript_DoThunderCageEnd:
 	end2
 
