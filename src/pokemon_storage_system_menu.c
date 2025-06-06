@@ -709,6 +709,12 @@ void UpdatePokemonStorageSystemMonExp(void)
                 //if (CanBoxMonGainExp(checkingMon))
                     
             }   */    
+
+           if (!gIsMobilePC)
+           {
+                if (GetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, NULL) == TRUE)
+                    SetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, &clearValue);
+           }
             
             //shold be heal all pc mon if not using mobile pc
             //and they're not nuzlocke dead
@@ -719,9 +725,7 @@ void UpdatePokemonStorageSystemMonExp(void)
             || GetBoxMonData(checkingMon, MON_DATA_BOX_HP) == Maxhp)
                 continue;
             else
-            {
-                if (GetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, NULL) == TRUE)
-                    SetBoxMonData(checkingMon, MON_DATA_FROM_MOBILE_PC, &clearValue);
+            {                
                 SetBoxMonData(checkingMon, MON_DATA_BOX_HP, &Maxhp);
                 BoxMonRestorePP(checkingMon);
             }

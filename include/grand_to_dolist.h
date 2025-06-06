@@ -4365,6 +4365,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     decide will add message blah blah out of range/
     can't connect to the pc service rn
     with that in mind will always have pc appended so as access
+
+    what would need from there is to add a special that heals
+    all mon in pc when access physical pc
+    long as nuzlocke mode isn't on
+    then just heal all mon not dead
+
     oh wait but I need access to pc so can swap mon
     out if need access to something for an hm
 
