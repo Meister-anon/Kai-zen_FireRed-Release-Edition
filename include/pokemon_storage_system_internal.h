@@ -492,34 +492,34 @@ struct PokemonStorageSystemData
     /* 0da0 */ //struct PokemonMarkMenu field_DA4;
     /* 1e58 */ struct ChooseBoxMenu field_1E5C;
     /* 20a0 */ struct Pokemon movingMon;
-    /* 2104 */ struct Pokemon field_2108;
-    /* 2168 */ u8 field_216C;
-    /* 2169 */ u8 field_216D;
+    /* 2104 */ struct Pokemon tempMon;
+    /* 2168 */ u8 releaseMonStatus;
+    /* 2169 */ u8 releaseMonStatusResolved;
     /* 216c */ bool8 isSurfMon; //vsonic understand these ppotentiallyu remove,
     /* 216d */ bool8 isDiveMon; //need rename all fields
-    /* 216a */ s8 field_216E;
-    /* 216b */ s8 field_216F;
-    /* 216e */ s8 field_2170;
-    /* 216f */ s8 field_2171;
-    /* 2170 */ u16 field_2172;
-    /* 2172 */ u16 field_2176[3];
-    /* 2178 */ u8 field_2186;
-    /* 2179 */ u8 field_2187;
-    /* 217a */ u8 field_2188;
+    /* 216a */ s8 releaseCheckBoxId;
+    /* 216b */ s8 releaseCheckBoxPos;
+    /* 216e */ s8 releaseBoxId;
+    /* 216f */ s8 releaseBoxPos;
+    /* 2170 */ u16 releaseCheckState;
+    /* 2172 */ u16 restrictedMoveList[3];
+    /* 2178 */ u8 summaryLastIndex;
+    /* 2179 */ u8 summaryCursorPos;
+    /* 217a */ u8 summaryScreenMode;
     /* 217c */ union
     {
         struct Pokemon *mon;
         struct BoxPokemon *box;
-    } field_218C;
-    /* 2180 */ u8 field_2190[40];
-    /* 21a8 */ u8 field_21B8[40];
-    /* 21d0 */ u8 field_21E0[POKEMON_NAME_LENGTH + 1];
+    } summaryMonPtr;
+    /* 2180 */ u8 actionText[40]; //unsure what is
+    /* 21a8 */ u8 boxTitleText[40];
+    /* 21d0 */ u8 releaseMonName[POKEMON_NAME_LENGTH + 1];
     /* 21db */ u8 itemName[20];
     /* 21ef */ u8 inBoxMovingMode;
-    /* 21f0 */ u16 field_2200;
+    /* 21f0 */ u16 multiMoveWindowId;
     /* 21f4 */ struct PSS_ItemIconSprite itemIconSprites[MAX_ITEM_ICONS];
     /* 2224 */ u16 movingItem;
-    /* 2226 */ u16 field_2236;
+    /* 2226 */ u16 itemInfoWindowOffset;
     /* 2228 */ struct PssQuestLogBuffer qlogBuffer;
     /* 2230 */ u16 field_2238;
     /* 2232 */ u16 field_223A;

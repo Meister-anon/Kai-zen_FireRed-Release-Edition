@@ -650,12 +650,12 @@ static void PurgeMonOrBoxMon(u8 boxId, u8 position)
 static void SetShiftedMonData(u8 boxId, u8 position)
 {
     if (boxId == TOTAL_BOXES_COUNT)//believe field2108 is mon position, this just means use party data for that
-        gPSSData->field_2108 = gPlayerParty[position];
+        gPSSData->tempMon = gPlayerParty[position];
     else    //clears stats sets maxhp to 0, runs calcstat
-        BoxMonAtToMon(boxId, position, &gPSSData->field_2108);
+        BoxMonAtToMon(boxId, position, &gPSSData->tempMon);
 
     SetPlacedMonData(boxId, position);
-    gPSSData->movingMon = gPSSData->field_2108;
+    gPSSData->movingMon = gPSSData->tempMon;
     SetCursorMonData(&gPSSData->movingMon, MODE_PARTY);
     sMovingMonOrigBoxId = boxId;
     sMovingMonOrigBoxPos = position;
@@ -705,7 +705,7 @@ void sub_8093194(void)
         mode = MODE_BOX;
 
     sub_8090FC4(mode, sCursorPosition);
-    StringCopy(gPSSData->field_21E0, gPSSData->cursorMonNick);
+    StringCopy(gPSSData->releaseMonName, gPSSData->cursorMonNick);
 }
 
 bool8 sub_80931EC(void)
@@ -750,47 +750,47 @@ void sub_8093264(void)
 
 void InitCanReleaseMonVars(void)
 {
-    u16 knownIdx;
+    u16 knownMoveFlags;
     if (sIsMonBeingMoved)
     {
-        gPSSData->field_2108 = gPSSData->movingMon;
-        gPSSData->field_2170 = -1;
-        gPSSData->field_2171 = -1;
+        gPSSData->tempMon = gPSSData->movingMon;
+        gPSSData->releaseBoxId = -1;
+        gPSSData->releaseBoxPos = -1;
     }
     else
     {
         if (sBoxCursorArea == CURSOR_AREA_IN_PARTY)
         {
-            gPSSData->field_2108 = gPlayerParty[sCursorPosition];
-            gPSSData->field_2170 = TOTAL_BOXES_COUNT;
+            gPSSData->tempMon = gPlayerParty[sCursorPosition];
+            gPSSData->releaseBoxId = TOTAL_BOXES_COUNT;
         }
         else
         {
-            BoxMonAtToMon(StorageGetCurrentBox(), sCursorPosition, &gPSSData->field_2108);
-            gPSSData->field_2170 = StorageGetCurrentBox();
+            BoxMonAtToMon(StorageGetCurrentBox(), sCursorPosition, &gPSSData->tempMon);
+            gPSSData->releaseBoxId = StorageGetCurrentBox();
         }
-        gPSSData->field_2171 = sCursorPosition;
+        gPSSData->releaseBoxPos = sCursorPosition;
     }
 
     gPSSData->isSurfMon = FALSE;
     gPSSData->isDiveMon = FALSE;
-    gPSSData->field_2176[0] = MOVE_SURF;
-    gPSSData->field_2176[1] = MOVE_DIVE;
-    gPSSData->field_2176[2] = MOVES_COUNT;
-    knownIdx = GetMonData(&gPSSData->field_2108, MON_DATA_KNOWN_MOVES, (u8*)gPSSData->field_2176);
-    gPSSData->isSurfMon = knownIdx & 1;
-    gPSSData->isDiveMon = (knownIdx >> 1) & 1;
+    gPSSData->restrictedMoveList[0] = MOVE_SURF; //thought about removing but decide swap to canlearn intead of learned and check for entire pc,
+    gPSSData->restrictedMoveList[1] = MOVE_DIVE; //i.e check if has a mon that can learn surf etc. so don't get softlocked
+    gPSSData->restrictedMoveList[2] = MOVES_COUNT; //checks specific mon but potentially change to check entire pc ifhassurf mon and mon deleting issrufmon allow delete
+    knownMoveFlags = GetMonData(&gPSSData->tempMon, MON_DATA_KNOWN_MOVES, (u8*)gPSSData->restrictedMoveList); //set known move
+    gPSSData->isSurfMon = knownMoveFlags & 1; //asign value if true
+    gPSSData->isDiveMon = (knownMoveFlags >> 1) & 1;
     if (gPSSData->isSurfMon || gPSSData->isDiveMon)
     {
-        gPSSData->field_216D = 0;
+        gPSSData->releaseMonStatusResolved = FALSE;
     }
     else
     {
-        gPSSData->field_216D = 1;
-        gPSSData->field_216C = 1;
-    }//vsonic IMPORTANT look into believe is hm prevent release mon
+        gPSSData->releaseMonStatusResolved = TRUE;
+        gPSSData->releaseMonStatus = RELEASE_MON_ALLOWED;
+    }//vsonic IMPORTANT look into believe is hm prevent release mon - checked pret confirmed
 
-    gPSSData->field_2172 = 0;
+    gPSSData->releaseCheckState = 0;
 }
 
 s8 RunCanReleaseMon(void)
@@ -798,17 +798,17 @@ s8 RunCanReleaseMon(void)
     u16 i;
     u16 knownMoves;
 
-    if (gPSSData->field_216D)
-        return gPSSData->field_216C;
+    if (gPSSData->releaseMonStatusResolved)
+        return gPSSData->releaseMonStatus;
 
-    switch (gPSSData->field_2172)
+    switch (gPSSData->releaseCheckState)
     {
     case 0:
         for (i = 0; i < PARTY_SIZE; i++)
         {
-            if (gPSSData->field_2170 != TOTAL_BOXES_COUNT || gPSSData->field_2171 != i)
+            if (gPSSData->releaseBoxId != TOTAL_BOXES_COUNT || gPSSData->releaseBoxPos != i)
             {
-                knownMoves = GetMonData(gPlayerParty + i, MON_DATA_KNOWN_MOVES, (u8*)gPSSData->field_2176);
+                knownMoves = GetMonData(gPlayerParty + i, MON_DATA_KNOWN_MOVES, (u8*)gPSSData->restrictedMoveList);
                 if (knownMoves & 1)
                     gPSSData->isSurfMon = FALSE;
                 if (knownMoves & 2)
@@ -817,43 +817,43 @@ s8 RunCanReleaseMon(void)
         }
         if (!(gPSSData->isSurfMon || gPSSData->isDiveMon))
         {
-            gPSSData->field_216D = 1;
-            gPSSData->field_216C = 1;
+            gPSSData->releaseMonStatusResolved = TRUE;
+            gPSSData->releaseMonStatus = RELEASE_MON_ALLOWED;
         }
         else
         {
-            gPSSData->field_216E = 0;
-            gPSSData->field_216F = 0;
-            gPSSData->field_2172++;
+            gPSSData->releaseCheckBoxId = 0;
+            gPSSData->releaseCheckBoxPos = 0;
+            gPSSData->releaseCheckState++;
         }
         break;
     case 1:
         for (i = 0; i < 5; i++)
         {
-            knownMoves = GetAndCopyBoxMonDataAt(gPSSData->field_216E, gPSSData->field_216F, MON_DATA_KNOWN_MOVES, (u8*)gPSSData->field_2176);
+            knownMoves = GetAndCopyBoxMonDataAt(gPSSData->releaseCheckBoxId, gPSSData->releaseCheckBoxPos, MON_DATA_KNOWN_MOVES, (u8*)gPSSData->restrictedMoveList);
             if (knownMoves != 0
-                && !(gPSSData->field_2170 == gPSSData->field_216E && gPSSData->field_2171 == gPSSData->field_216F))
+                && !(gPSSData->releaseBoxId == gPSSData->releaseCheckBoxId && gPSSData->releaseBoxPos == gPSSData->releaseCheckBoxPos))
             {
                 if (knownMoves & 1)
                     gPSSData->isSurfMon = FALSE;
                 if (knownMoves & 2)
                     gPSSData->isDiveMon = FALSE;
             }
-            if (++gPSSData->field_216F >= IN_BOX_COUNT)
+            if (++gPSSData->releaseCheckBoxPos >= IN_BOX_COUNT)
             {
-                gPSSData->field_216F = 0;
-                if (++gPSSData->field_216E >= TOTAL_BOXES_COUNT)
+                gPSSData->releaseCheckBoxPos = 0;
+                if (++gPSSData->releaseCheckBoxId >= TOTAL_BOXES_COUNT)
                 {
-                    gPSSData->field_216D = 1;
-                    gPSSData->field_216C = 0;
+                    gPSSData->releaseMonStatusResolved = TRUE;
+                    gPSSData->releaseMonStatus = RELEASE_MON_NOT_ALLOWED;
                     break;
                 }
             }
         }
         if (!(gPSSData->isSurfMon || gPSSData->isDiveMon))
         {
-            gPSSData->field_216D = 1;
-            gPSSData->field_216C = 1;
+            gPSSData->releaseMonStatusResolved = TRUE;
+            gPSSData->releaseMonStatus = RELEASE_MON_ALLOWED;
         }
         break;
     }
@@ -883,24 +883,24 @@ void sub_80936B8(void)
     if (sIsMonBeingMoved)
     {
         sub_8093630();
-        gPSSData->field_218C.mon = &gUnknown_20397BC;
-        gPSSData->field_2187 = 0;
-        gPSSData->field_2186 = 0;
-        gPSSData->field_2188 = 0;
+        gPSSData->summaryMonPtr.mon = &gUnknown_20397BC;
+        gPSSData->summaryCursorPos = 0;
+        gPSSData->summaryLastIndex = 0;
+        gPSSData->summaryScreenMode = 0;
     }
     else if (sBoxCursorArea == CURSOR_AREA_IN_PARTY)
     {
-        gPSSData->field_218C.mon = gPlayerParty;
-        gPSSData->field_2187 = sCursorPosition;
-        gPSSData->field_2186 = CountPartyMons() - 1;
-        gPSSData->field_2188 = 0;
+        gPSSData->summaryMonPtr.mon = gPlayerParty;
+        gPSSData->summaryCursorPos = sCursorPosition;
+        gPSSData->summaryLastIndex = CountPartyMons() - 1;
+        gPSSData->summaryScreenMode = 0;
     }
     else
     {
-        gPSSData->field_218C.box = GetBoxedMonPtr(StorageGetCurrentBox(), 0);
-        gPSSData->field_2187 = sCursorPosition;
-        gPSSData->field_2186 = IN_BOX_COUNT - 1;
-        gPSSData->field_2188 = 5;
+        gPSSData->summaryMonPtr.box = GetBoxedMonPtr(StorageGetCurrentBox(), 0);
+        gPSSData->summaryCursorPos = sCursorPosition;
+        gPSSData->summaryLastIndex = IN_BOX_COUNT - 1;
+        gPSSData->summaryScreenMode = 5;
     }
 }
 

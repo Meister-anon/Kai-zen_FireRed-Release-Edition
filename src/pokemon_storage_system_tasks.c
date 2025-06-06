@@ -2162,10 +2162,10 @@ static void Cb_ChangeScreen(u8 taskId)
         FreePSSData();
         break;
     case SCREEN_CHANGE_SUMMARY_SCREEN:
-        partyMon = gPSSData->field_218C.mon;
-        monIndex = gPSSData->field_2187;
-        maxMonIndex = gPSSData->field_2186;
-        mode = gPSSData->field_2188;
+        partyMon = gPSSData->summaryMonPtr.mon;
+        monIndex = gPSSData->summaryCursorPos;
+        maxMonIndex = gPSSData->summaryLastIndex;
+        mode = gPSSData->summaryScreenMode;
         FreePSSData();
         ShowPokemonSummaryScreen(partyMon, monIndex, maxMonIndex, Cb2_ReturnToPSS, mode);
         break;
@@ -2682,7 +2682,7 @@ static void PrintStorageActionText(u8 id)
     case PC_TEXT_FMT_MON_NAME_4:
     case PC_TEXT_FMT_MON_NAME_5:
     case PC_TEXT_FMT_MON_NAME_6:
-        DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gPSSData->field_21E0);
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gPSSData->releaseMonName);
         break;
     case PC_TEXT_FMT_ITEM_NAME:
         if (IsActiveItemMoving())
@@ -2702,9 +2702,9 @@ static void PrintStorageActionText(u8 id)
         break;
     }
 
-    DynamicPlaceholderTextUtil_ExpandPlaceholders(gPSSData->field_2190, sPCStorageActionTexts[id].text);
+    DynamicPlaceholderTextUtil_ExpandPlaceholders(gPSSData->actionText, sPCStorageActionTexts[id].text);
     FillWindowPixelBuffer(1, PIXEL_FILL(1));
-    AddTextPrinterParameterized(1, 1, gPSSData->field_2190, 0, 2, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(1, 1, gPSSData->actionText, 0, 2, TEXT_SKIP_DRAW, NULL);
     DrawTextBorderOuter(1, 2, 13);
     PutWindowTilemap(1);
     CopyWindowToVram(1, COPYWIN_GFX);

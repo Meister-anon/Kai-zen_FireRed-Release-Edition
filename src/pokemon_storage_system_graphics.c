@@ -1274,8 +1274,8 @@ static void InitBoxTitle(u8 boxId)
     gPSSData->boxTitleAltPalOffset = 0x10e + 16 * tagIndex;
     gPSSData->wallpaperPalBits |= 0x10000 << tagIndex;
 
-    StringCopyPadded(gPSSData->field_21B8, GetBoxNamePtr(boxId), 0, 8);
-    DrawTextWindowAndBufferTiles(gPSSData->field_21B8, gPSSData->boxTitleTiles, 0, 0, gPSSData->boxTitleUnused, 2);
+    StringCopyPadded(gPSSData->boxTitleText, GetBoxNamePtr(boxId), 0, 8);
+    DrawTextWindowAndBufferTiles(gPSSData->boxTitleText, gPSSData->boxTitleTiles, 0, 0, gPSSData->boxTitleUnused, 2);
     LoadSpriteSheet(&spriteSheet);
     r6 = sub_8091F60(GetBoxNamePtr(boxId));
 
@@ -1311,8 +1311,8 @@ static void CreateIncomingBoxTitle(u8 boxId, s8 direction)
         template.paletteTag = TAG_PAL_DAC9;
     }
 
-    StringCopyPadded(gPSSData->field_21B8, GetBoxNamePtr(boxId), 0, 8);
-    DrawTextWindowAndBufferTiles(gPSSData->field_21B8, gPSSData->boxTitleTiles, 0, 0, gPSSData->boxTitleUnused, 2);
+    StringCopyPadded(gPSSData->boxTitleText, GetBoxNamePtr(boxId), 0, 8);
+    DrawTextWindowAndBufferTiles(gPSSData->boxTitleText, gPSSData->boxTitleTiles, 0, 0, gPSSData->boxTitleUnused, 2);
     LoadSpriteSheet(&spriteSheet);
     LoadPalette(gUnknown_83D29D0[GetBoxWallpaper(boxId)], r8, 4);
     x = sub_8091F60(GetBoxNamePtr(boxId));

@@ -5195,7 +5195,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                         SetTrap = TRUE;
                         //gBattleStruct->wrappedBy[gEffectBattler] = gBattlerAttacker;
 
-
+                        //because strong effect separted trap duration boost from remaining effects
                         if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_GRIP_CLAW
                         || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SUCTION_CUPS))   //BUFF for suction cups
                         {

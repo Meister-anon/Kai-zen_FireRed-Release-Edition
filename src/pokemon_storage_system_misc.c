@@ -70,10 +70,10 @@ bool8 sub_8095050(void)
     sMoveMonsPtr = Alloc(sizeof(*sMoveMonsPtr));
     if (sMoveMonsPtr != NULL)
     {
-        gPSSData->field_2200 = AddWindow8Bit(&gUnknown_83D35D4);
-        if (gPSSData->field_2200 != 0xFF)
+        gPSSData->multiMoveWindowId = AddWindow8Bit(&gUnknown_83D35D4);
+        if (gPSSData->multiMoveWindowId != 0xFF)
         {
-            FillWindowPixelBuffer(gPSSData->field_2200, PIXEL_FILL(0));
+            FillWindowPixelBuffer(gPSSData->multiMoveWindowId, PIXEL_FILL(0));
             return TRUE;
         }
     }
@@ -130,11 +130,11 @@ static bool8 sub_8095138(void)
         ChangeBgX(0, -1024, 0);
         ChangeBgY(0, -1024, 0);
         FillBgTilemapBufferRect_Palette0(0, 0, 0, 0, 0x20, 0x20);
-        FillWindowPixelBuffer8Bit(gPSSData->field_2200, PIXEL_FILL(0));
+        FillWindowPixelBuffer8Bit(gPSSData->multiMoveWindowId, PIXEL_FILL(0));
         sub_80956A4(sMoveMonsPtr->fromRow, sMoveMonsPtr->fromColumn);
         SetBgAttribute(0, BG_ATTR_PALETTEMODE, 1);
-        PutWindowTilemap(gPSSData->field_2200);
-        CopyWindowToVram8Bit(gPSSData->field_2200, COPYWIN_BOTH);
+        PutWindowTilemap(gPSSData->multiMoveWindowId);
+        CopyWindowToVram8Bit(gPSSData->multiMoveWindowId, COPYWIN_BOTH);
         BlendPalettes(0x3F00, 8, RGB_WHITE);
         StartCursorAnim(2);
         SetGpuRegBits(REG_OFFSET_BG0CNT, BGCNT_256COLOR);
@@ -190,7 +190,7 @@ static bool8 sub_80952A0(void)
             sub_8095520();
             sMoveMonsPtr->toRow = sMoveMonsPtr->field_6;
             sMoveMonsPtr->toColumn = sMoveMonsPtr->field_7;
-            CopyWindowToVram8Bit(gPSSData->field_2200, COPYWIN_GFX);
+            CopyWindowToVram8Bit(gPSSData->multiMoveWindowId, COPYWIN_GFX);
             sMoveMonsPtr->state++;
         }
         break;
@@ -410,7 +410,7 @@ static void sub_80956A4(u8 x, u8 y)
         const u8 *iconGfx = GetMonIconPtr(species, personality, 1);
         u8 index = GetValidMonIconPalIndex(species) + 8;
 
-        BlitBitmapRectToWindow4BitTo8Bit(gPSSData->field_2200,
+        BlitBitmapRectToWindow4BitTo8Bit(gPSSData->multiMoveWindowId,
                                          iconGfx,
                                          0,
                                          0,
@@ -431,7 +431,7 @@ static void sub_809572C(u8 x, u8 y)
 
     if (species != SPECIES_NONE)
     {
-        FillWindowPixelRect8Bit(gPSSData->field_2200,
+        FillWindowPixelRect8Bit(gPSSData->multiMoveWindowId,
                                 PIXEL_FILL(0),
                                 24 * x,
                                 24 * y,
@@ -1023,7 +1023,7 @@ void PrintItemDescription(void)
 
 void sub_80966F4(void)
 {
-    gPSSData->field_2236 = 25;
+    gPSSData->itemInfoWindowOffset = 25;
     LoadBgTiles(0, sItemInfoFrame_Gfx, 0x80, 0x1A4);
     sub_8096898(0);
 }
@@ -1032,41 +1032,41 @@ bool8 sub_8096728(void)
 {
     s32 i, var;
 
-    if (gPSSData->field_2236 == 0)
+    if (gPSSData->itemInfoWindowOffset == 0)
         return FALSE;
 
-    gPSSData->field_2236--;
-    var = 25 - gPSSData->field_2236;
+    gPSSData->itemInfoWindowOffset--;
+    var = 25 - gPSSData->itemInfoWindowOffset;
     for (i = 0; i < var; i++)
     {
-        WriteSequenceToBgTilemapBuffer(0, GetBgAttribute(0, BG_ATTR_BASETILE) + 0x14 + gPSSData->field_2236 + i, i, 12, 1, 8, 15, 25);
+        WriteSequenceToBgTilemapBuffer(0, GetBgAttribute(0, BG_ATTR_BASETILE) + 0x14 + gPSSData->itemInfoWindowOffset + i, i, 12, 1, 8, 15, 25);
     }
 
     sub_8096898(var);
-    return (gPSSData->field_2236 != 0);
+    return (gPSSData->itemInfoWindowOffset != 0);
 }
 
 bool8 sub_80967C0(void)
 {
     s32 i, var;
 
-    if (gPSSData->field_2236 == 25)
+    if (gPSSData->itemInfoWindowOffset == 25)
         return FALSE;
 
-    if (gPSSData->field_2236 == 0)
+    if (gPSSData->itemInfoWindowOffset == 0)
         FillBgTilemapBufferRect(0, 0, 25, 11, 1, 10, 17);
 
-    gPSSData->field_2236++;
-    var = 25 - gPSSData->field_2236;
+    gPSSData->itemInfoWindowOffset++;
+    var = 25 - gPSSData->itemInfoWindowOffset;
     for (i = 0; i < var; i++)
     {
-        WriteSequenceToBgTilemapBuffer(0, GetBgAttribute(0, BG_ATTR_BASETILE) + 0x14 + gPSSData->field_2236 + i, i, 12, 1, 8, 15, 25);
+        WriteSequenceToBgTilemapBuffer(0, GetBgAttribute(0, BG_ATTR_BASETILE) + 0x14 + gPSSData->itemInfoWindowOffset + i, i, 12, 1, 8, 15, 25);
     }
 
     sub_8096898(var);
 
     FillBgTilemapBufferRect(0, 0, var, 11, 1, 10, 0x11);
-    return (gPSSData->field_2236 != 25);
+    return (gPSSData->itemInfoWindowOffset != 25);
 }
 
 static void sub_8096898(u32 x)
