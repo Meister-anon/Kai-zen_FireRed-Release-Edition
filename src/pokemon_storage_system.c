@@ -139,8 +139,7 @@ void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience)
         return;
 
     //uses box hp so this has to stay
-    if (IsNuzlockeModeOn() && (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
-        && FlagGet(FLAG_SYS_POKEDEX_GET)) //should be block exp gain for dead mon,to prevent level up
+    if (IsBoxMonNuzlockeDead(mon)) //should be block exp gain for dead mon,to prevent level up
         return;
 
     else if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)

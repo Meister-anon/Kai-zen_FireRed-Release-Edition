@@ -4694,7 +4694,6 @@ void FaintClearSetData(void) //see about make status1 not fade wen faint?
     //removed transformatino line as status2 would alraedy be removed  fron fainted
     //if (gBattleMons[gActiveBattler].status2 & STATUS2_TRANSFORMED)
         CalculateMonStats(party); //to reset stats to normal  
-    //lost location don't display if 0,
 
 
 }

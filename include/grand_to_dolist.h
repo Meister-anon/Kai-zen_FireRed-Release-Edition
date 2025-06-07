@@ -4219,6 +4219,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       have still been using byte -that did nothing...
       that was part of it but remainder of issue was struct
       misalingment
+
+      Got mobile pc working how I want,
+      think I need to do next is setup feature for deciding
+      if mon should got to pc or party on catch when party is full.
+
+      To make less ubstrusive will just make come up when party is full
+      if set caught mon to got to party
+      will activate mobile pc and and allow swapping mon
+      main benefit of this being to override pc access blocks,
+      will be allowable since has to consume resource to allow.
+
       i.e if field i'm passing to or from isn't 2 bytes
       don't use hword
 

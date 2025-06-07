@@ -3083,7 +3083,7 @@ static u8 GetSelectedMapsecType(u8 layer)
     }
 }
 
-static u16 GetPlayerCurrentMapSectionId(void)
+u16 GetPlayerCurrentMapSectionId(void)
 {
     return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum)->regionMapSectionId;
 }

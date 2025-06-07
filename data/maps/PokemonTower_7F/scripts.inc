@@ -180,6 +180,7 @@ PokemonTower_7F_EventScript_Grunt3:: @ 81636D6
 PokemonTower_7F_EventScript_DefeatedGrunt3:: @ 81636F1
 	msgbox PokemonTower_7F_Text_Grunt3PostBattle
 	closemessage
+	setflag FLAG_DEFEATED_POKEMON_TOWER_ROCKETS
 	getplayerxy VAR_0x8004, VAR_0x8005
 	compare VAR_0x8004, 10
 	goto_if_eq PokemonTower_7F_EventScript_Grunt3ExitRight

@@ -570,8 +570,7 @@ void StoreSelectedPokemonInDaycare(void)
     else
     {
         u8 boxId = StorageGetCurrentBox();
-        if (IsNuzlockeModeOn() && (GetCurrentBoxMonData(monId, MON_DATA_BOX_HP) == 0)
-        && FlagGet(FLAG_SYS_POKEDEX_GET))
+        if (IsBoxMonNuzlockeDead(&gPokemonStoragePtr->boxes[boxId][monId]))
         {
             gSpecialVar_0x8008 = NUZLOCKE_BANNED_MON;
             return;

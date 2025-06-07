@@ -4193,7 +4193,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_FLATTER,
         .power = 0,
         .type = TYPE_DARK,
-        .accuracy = 100, //keep higher acc just beacuse sp atkers have less things working against them
+        .accuracy = 95, //keep higher acc just beacuse sp atkers have less things working against them
         .pp = 15,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
@@ -4205,6 +4205,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     //so takes more damage if hit themselves,
     //or lower defense and raise sp atk 2 stages
     //leaning towards latter rn
+    //considering acc drop most sp equivalents of physical effects are strictly better
+    //for some reason. hmm if don't make equal guess  could just make 95 acc
 
     [MOVE_WILL_O_WISP] =
     {

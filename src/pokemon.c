@@ -2838,6 +2838,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 HiddenAbility2_Chance = 93;
 
     u8 setZero = 0;
+    u8 setOne = 1;
 
     u8 hatched = FALSE;
     u8 formflag = FALSE;
@@ -2915,6 +2916,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
     SetBoxMonData(boxMon, MON_DATA_FROM_MOBILE_PC, &setZero);
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
+    SetBoxMonData(boxMon, MON_DATA_BOX_HP, &setOne);
 
     if (IsBoxMonShiny(boxMon))
         fixedIV = MAX_PER_STAT_IVS; //change from Lucky, should make every shiny perfect IVs
@@ -3525,6 +3527,16 @@ void CalculateMonStats(struct Pokemon *mon)
         gBattleScripting.levelUpHP = 1;
 
     SetMonData(mon, MON_DATA_MAX_HP, &newMaxHP);
+
+    //plan be for created mon
+    //needs be here for inital boxhp set
+    //putting below breaks nuzlocke mode as its default to 0
+    //also affects battle created mon
+    //removal of setone for boxhp is what broke nuzloke mode
+    //reapplied should be ok now
+        if ((!gIsMobilePC && currentHP == 0)
+        && GetMonData(mon, MON_DATA_BOX_HP, NULL) == 1)
+            SetMonData(mon, MON_DATA_BOX_HP, &newMaxHP);
     
 
     CALC_STAT(baseAttack, attackIV, attackEV, STAT_ATK, MON_DATA_ATK)
@@ -3549,9 +3561,7 @@ void CalculateMonStats(struct Pokemon *mon)
         //if (GetMonData(mon, MON_DATA_BOX_HP, NULL) == 0)
             //currentHP = newMaxHP;
 
-        //plan be for created mon
-        if (!gIsMobilePC)
-            SetMonData(mon, MON_DATA_BOX_HP, &newMaxHP);
+        
 
         if (ability == ABILITY_WONDER_GUARD)
         {
@@ -3562,7 +3572,7 @@ void CalculateMonStats(struct Pokemon *mon)
         }
         else
         {
-            if (oldMaxHP == 0) //pc removal - not pc removal view from in pc
+            if (oldMaxHP == 0) //pc removal - not pc removal view from in pc and newly created mon
                 currentHP = newMaxHP;
             else if (currentHP != 0) //didn't need max hp > oldmax hp part from cfru, that made things less specific and broke transform
             {

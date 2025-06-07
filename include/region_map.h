@@ -16,5 +16,6 @@ u8 *GetMapNameGeneric(u8 *dest, u16 mapsec);
 u8 *GetMapNameGeneric_(u8 *dest, u16 mapsec);
 void InitRegionMapWithExitCB(u8 a0, void (*a1)(void));
 void CB2_OpenFlyMap(void);
+u16 GetPlayerCurrentMapSectionId(void); //made non static for mobile pc work
 
 #endif // GUARD_REGION_MAP_H

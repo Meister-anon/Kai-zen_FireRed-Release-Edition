@@ -1966,10 +1966,8 @@ bool8 ScrCmd_UpdateOakRanch(void) //to run oak ranch update from cmd
 bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poison deaths I guess
 {
     u32 i;
-    
-    //u8 map = GetCurrentRegionMapSectionId();
 
-
+    //sets boxhp based on curr hp for party
     for (i = 0; i < PARTY_SIZE; i++)
     {   
         u16 boxHP = GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL);

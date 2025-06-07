@@ -7,7 +7,9 @@
 #include "fieldmap.h"
 #include "field_camera.h"
 #include "overworld.h"
+#include "region_map.h"
 #include "constants/map_types.h"
+#include "constants/region_map_sections.h"
 #include "constants/songs.h"
 
 static u8 GetMovePlayerOnBikeFuncId(u8 *, u16, u16);
@@ -297,9 +299,21 @@ bool32 IsFishingDisallowed(void)
     return FALSE;
 }
 
+//decided add extra logic to this,
+//for silph co only want to block access when rockets are in control
+//potentially same for pokemon tower (lavender town)
+//so for that just set to TRUE manually
+//based on flag for beating rockets and by location
+//ok hopefully this works
 bool32 IsAccessingMobilePCDisallowed(void)
 {
     if (!(gMapHeader.flags & MAP_ALLOW_PC_ACCESS) || FlagGet(FLAG_SYS_PC_STORAGE_DISABLED))
+        return TRUE;
+
+    else if (GetPlayerCurrentMapSectionId() == MAPSEC_SILPH_CO && !FlagGet(FLAG_HIDE_SAFFRON_ROCKETS))
+        return TRUE;
+
+    else if (GetPlayerCurrentMapSectionId() == MAPSEC_POKEMON_TOWER && !FlagGet(FLAG_DEFEATED_POKEMON_TOWER_ROCKETS))
         return TRUE;
 
     return FALSE;

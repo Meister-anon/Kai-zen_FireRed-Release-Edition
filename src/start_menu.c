@@ -234,7 +234,7 @@ static void BuildDebugStartMenu(void)
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
     AppendToStartMenuItems(STARTMENU_OPTION);
-    if (/*(FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && */ !IsAccessingMobilePCDisallowed())
+    if ((FlagGet(FLAG_UNLOCK_MOBILE_PC) == TRUE || FlagGet(FLAG_NEW_GAME_PLUS)) && !IsAccessingMobilePCDisallowed())
         AppendToStartMenuItems(STARTMENU_ACCESS_PC);
     AppendToStartMenuItems(STARTMENU_DEBUG);
     
