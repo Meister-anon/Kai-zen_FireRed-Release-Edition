@@ -18517,8 +18517,9 @@ static void atkCA_setforcedtarget(void) // follow me
 static void atkCB_setcharge(void)
 {
     CMD_ARGS(u8 battler);
-    u8 battler = cmd->battler;
-    gStatuses3[battler] |= STATUS3_CHARGED_UP;
+    u8 battler = GetBattlerForBattleScript(cmd->battler);
+    if (!(gStatuses3[battler] & STATUS3_CHARGED_UP))
+        gStatuses3[battler] |= STATUS3_CHARGED_UP;
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
