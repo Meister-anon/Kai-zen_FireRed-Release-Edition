@@ -1832,6 +1832,7 @@ static const struct AbilityLearnset sPuruglyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sChinglingAbilityLearnset[] = {
+    ABILITY_SONAR,
     ABILITY_SET_END
 };
 

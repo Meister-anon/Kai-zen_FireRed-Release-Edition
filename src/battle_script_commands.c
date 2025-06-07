@@ -1910,9 +1910,13 @@ static bool8 AccuracyCalcHelper(u16 move)//fiugure how to add blizzard hail accu
 #define ACCURACY_BASED_ABILITIES
 static void atk01_accuracycheck(void)
 {
-    u16 move = T2_READ_16(gBattlescriptCurrInstr + 5);  //should be reading acc of current moves,
+    CMD_ARGS(const u8 *failInstr, u16 move);
+    u16 move = cmd->move;  //should be reading acc of current moves,
     u8 moveType;
     u16 holdEffectAtk = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
+
+    if (move == ACC_CURR_MOVE)
+        move = gCurrentMove;
 
     GET_MOVE_TYPE(gCurrentMove, moveType); 
 
@@ -1936,11 +1940,11 @@ static void atk01_accuracycheck(void)
     if (move == NO_ACC_CALC || move == NO_ACC_CALC_CHECK_LOCK_ON) 
     {
         if (gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS && move == NO_ACC_CALC_CHECK_LOCK_ON && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
-            gBattlescriptCurrInstr += 7;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         else if (gStatuses3[gBattlerTarget] & (STATUS3_SEMI_INVULNERABLE))
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->failInstr;
         else if (!JumpIfMoveAffectedByProtect(0))
-            gBattlescriptCurrInstr += 7;
+            gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_2ND_HIT
             || (GetBattlerAbility(gBattlerAttacker) == ABILITY_SKILL_LINK && gMultiHitCounter > 0 && gMultiHitCounter != gMultiTask)
@@ -1951,24 +1955,20 @@ static void atk01_accuracycheck(void)
     {
         //think have surging strikes right now, can't use move arguemnt as that isn't gcurr move, and need exclude first hit
         // No acc checks for second hit of Parental Bond or skill linked moves, removed other multihit as I want those to work differently, now all go through acc check on each hit
-        //gBattlescriptCurrInstr += 7;
-        JumpIfMoveFailed(7, gCurrentMove); //ok so was RAELLY stupid, adding ability absorb to skip here,
+        gBattlescriptCurrInstr = cmd->nextInstr;
+        //JumpIfMoveFailed(7, gCurrentMove); //ok so was RAELLY stupid, adding ability absorb to skip here,
         //messed up the call to the abilityeffect in the firstplace somehow so had I wasn't calling the ability bracket at all
     }
 
     else
     {
-        u8 type;
         u16 calc;
         u16 abilityAtk = GetBattlerAbility(gBattlerAttacker);
         u16 abilityDef = GetBattlerAbility(gBattlerTarget);
 
 
 
-        if (move == ACC_CURR_MOVE)
-            move = gCurrentMove;
 
-        GET_MOVE_TYPE(move, type);
         if (JumpIfMoveAffectedByProtect(move) || AccuracyCalcHelper(move))
             return;
 
@@ -2020,7 +2020,7 @@ static void atk01_accuracycheck(void)
 
             //if (gBattleMoves[move].power)   //i ALREADY have a typecalc I don't need this to update move result flags I think?
             //am I using this at all?
-            CalcTypeEffectivenessMultiplier(move, type, gBattlerAttacker, gBattlerTarget, FALSE);    //this is only instance where uses TRUE, without that it doesn't change effectiveness
+            CalcTypeEffectivenessMultiplier(move, moveType, gBattlerAttacker, gBattlerTarget, FALSE);    //this is only instance where uses TRUE, without that it doesn't change effectiveness
             //emerald used true because it made this the type calc, but I'm not replacing typecalc command 
             //i'm putting this there, so in the typecalc function I'll set true there, everywhere else will be false.
             //pretty sure it has everything needed for wonderguard stuff to work regardless/without updating move result

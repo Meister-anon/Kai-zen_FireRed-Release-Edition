@@ -1061,7 +1061,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_SUBMISSION] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .pp = 15,
+            .pp = 5,    //lowered pp for higher distribution
         #else
             .pp = 25,
         #endif

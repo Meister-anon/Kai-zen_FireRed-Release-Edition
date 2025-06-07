@@ -3,10 +3,10 @@
 	.byte 0x0
 	.endm
 
-	.macro accuracycheck param0:req, param1:req
+	.macro accuracycheck failInstr:req, move:req
 	.byte 0x1
-	.4byte \param0
-	.2byte \param1
+	.4byte \failInstr
+	.2byte \move
 	.endm
 
 	.macro attackstring
