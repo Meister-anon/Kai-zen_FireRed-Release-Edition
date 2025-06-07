@@ -1968,15 +1968,7 @@ bool8 ScrCmd_PreventBoxHeal(void)//mostly redundency but good for catching poiso
     u32 i;
 
     //sets boxhp based on curr hp for party
-    for (i = 0; i < PARTY_SIZE; i++)
-    {   
-        u16 boxHP = GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL);
-        if (IsMonNuzlockeDead(&gPlayerParty[i]) || gIsMobilePC == TRUE) //if has pokedex received pokeballs already
-        {
-            SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
-                    
-        }
-    }
+    UpdatePartyMonBoxHp();
     return TRUE;
 }
 

@@ -55,6 +55,7 @@ void ResetPokemonStorageSystem(void);
 u8 StorageGetCurrentBox(void);
 void DrawTextWindowAndBufferTiles(const u8 *string, void *dst, u8 zero1, u8 zero2, u8 *buffer, s32 bytesToBuffer);
 
+void UpdatePartyMonBoxHp(void); //made preventboxheal logic into function to simplify integrate w caught task
 void UpdatePokemonStorageSystemMonExp(void); //boxx exp gain setup - main function call
 void BoxMonAtGainExp(struct BoxPokemon * mon, u16 species, u32 currExperience); //box exp gaain setup  //exp setting logic
 

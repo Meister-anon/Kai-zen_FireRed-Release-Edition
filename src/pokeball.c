@@ -885,13 +885,15 @@ static void SpriteCB_BallThrow_CaptureMon(struct Sprite *sprite)
         if (gPlayerPartyCount == PARTY_SIZE)
         {
             if (gSaveBlock1Ptr->oakRanchStepCounter == 0 && !FlagGet(FLAG_START_OAK_RANCH_COUNTER)) //set to 0 on new game
-            FlagSet(FLAG_START_OAK_RANCH_COUNTER); //if cactch mon think I need to set exp of box mon and then reset counter to 0
+                FlagSet(FLAG_START_OAK_RANCH_COUNTER); //if cactch mon think I need to set exp of box mon and then reset counter to 0
 
             if (FlagGet(FLAG_START_OAK_RANCH_COUNTER) && gSaveBlock1Ptr->oakRanchStepCounter != 0)
                 UpdatePokemonStorageSystemMonExp(); //attempt put here to disguise lag
             //feels dumb to put in both functions cuz I can't tell difference, but 
             //with the way function works it shouldn't overlap I gues
             //since save is set to 0 at end of function
+
+            UpdatePartyMonBoxHp();
         }
     }
     else if (sprite->data[4] == 315)

@@ -655,6 +655,21 @@ u8 CheckIfPcEmpty(void)
     return TRUE;
 }
 
+void UpdatePartyMonBoxHp(void)
+{
+    u32 i;
+    
+    for (i = 0; i < PARTY_SIZE; i++)
+    {   
+        u16 boxHP = GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL);
+        if (IsMonNuzlockeDead(&gPlayerParty[i]) || gIsMobilePC == TRUE) //if has pokedex received pokeballs already
+        {
+            SetMonData(&gPlayerParty[i], MON_DATA_BOX_HP, &boxHP);
+                    
+        }
+    }
+}
+
 //need setup function for clearing and starting stepcounter, 
 //if there are no mon in pc clear counter and stop incrementing
 //also need to start counter soon as first mon goes into pc
