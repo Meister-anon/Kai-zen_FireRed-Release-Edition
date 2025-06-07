@@ -359,7 +359,7 @@ const u16 gTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 
     [TYPE_MYSTERY] =    {______,   ______,   ______,   ______,   ______,   ______,   ______,     ______,  ______,   ______,   ______,   ______,   ______,    ______,   ______,   ______,   ______,   ______,   ______,   ______}, // mystery
 
-    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   X(1.55),    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
+    [TYPE_FIRE] =       {______,   ______,   ______,   ______,   X(0.5),   X(0.5),   ______,    X(0.5),  X(1.55),   ______,  X(0.5),   X(0.5),   X(1.55),   ______,   ______,   X(1.55),  X(0.5),   ______,   ______,   ______}, // fire
 
     [TYPE_WATER] =      {______,   ______,   ______,   ______,   X(1.55),   X(1.55),   ______,   ______,   ______,   ______,  X(1.55),   X(0.5),   X(0.5),   ______,   ______,   X(0.5),   X(0.5),   ______,   ______,   ______}, // water
 
@@ -488,7 +488,7 @@ static const u8 gTypeEffectiveness[] = // 336 is number of entries x 3 i.e numbe
     TYPE_FIRE, TYPE_GRASS, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIRE, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
     TYPE_FIRE, TYPE_STEEL, TYPE_MUL_SUPER_EFFECTIVE,
-    TYPE_FIRE, TYPE_BUG, TYPE_MUL_SUPER_EFFECTIVE,
+    //TYPE_FIRE, TYPE_BUG, TYPE_MUL_SUPER_EFFECTIVE, //buff for bug  make neutral to fire as good number of bugs resist heat and even can survive fires,heat is even beneficial to some
     TYPE_FIRE, TYPE_FIRE, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FIRE, TYPE_WATER, TYPE_MUL_NOT_EFFECTIVE,
     TYPE_FIRE, TYPE_ROCK, TYPE_MUL_NOT_EFFECTIVE,
