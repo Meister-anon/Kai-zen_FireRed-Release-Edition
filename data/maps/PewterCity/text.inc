@@ -121,7 +121,22 @@ PewterCity_Text_MonsWillUseHeldBerriesOnTheirOwn:: @ 817E8B4
 PewterCity_Text_OhPlayer:: @ 817E902
     .string "Oh, {PLAYER}{KUN}!$"
 
-PewterCity_Text_AskedToDeliverThis:: @ 817E90C
+@dex upgrade
+PewterCity_Text_OakAideDexUpgrade:: @ 817E90C
+    .string "I'm glad I caught up to you.\n"
+    .string "I'm PROF. OAK's AIDE.\p"
+    .string "The PROF. meant to give this\n"
+    .string "you and {RIVAL} earlier.\p"
+    .string "It's an alpha upgrade for\n"
+    .string "the POKéDEX that integrates\l"
+    .string "it with the PC!$"
+    
+
+PewterCity_Text_AskedToDeliverThis::
+    .string "I've also been asked to deliver this,\n"
+    .string "so here you go.$"
+
+PewterCity_Text_Default_AskedToDeliverThis::
     .string "I'm glad I caught up to you.\n"
     .string "I'm PROF. OAK's AIDE.\p"
     .string "I've been asked to deliver this,\n"

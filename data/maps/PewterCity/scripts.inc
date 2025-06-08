@@ -694,6 +694,8 @@ PewterCity_EventScript_RunningShoesAideTriggerBottom:: @ 81662D1
 	releaseall
 	end
 
+@potentially find way fornew game plus to skip dexupgrade script
+@idk may leave as is vsonic
 PewterCity_EventScript_AideGiveRunningShoes:: @ 81662DE
 	textcolor 0
 	compare VAR_TEMP_1, 1
@@ -717,6 +719,8 @@ PewterCity_EventScript_AideGiveRunningShoes:: @ 81662DE
 	call_if_eq PewterCity_EventScript_AideApproachPlayer2
 	compare VAR_TEMP_1, 3
 	call_if_eq PewterCity_EventScript_AideApproachPlayer3
+	msgbox PewterCity_Text_OakAideDexUpgrade
+	setflag FLAG_UNLOCK_MOBILE_PC
 	msgbox PewterCity_Text_AskedToDeliverThis
 	textcolor 3
 	playfanfare MUS_OBTAIN_KEY_ITEM

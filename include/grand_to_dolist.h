@@ -4540,6 +4540,14 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     and for emulator changes to save immediately skipping the hardware specific wait time
     5/19/2025  - need edit start screen message slighly
 
+
+    figured what I'll do w mobile pc
+    I think what I'll do is have oak's first aide give it to the player idea being its a beta test for a pokedex upgrade
+    that has pc integration.
+
+    since its early the player won't be able to do too much to cheese with me,
+    but will give the added benefit of being able to toss unneeded items into the pc.
+
     note mints don't directly shift nature becuase 
     there is no nature field its instead dictated by personality
     would require 5 bits to make a nature field
