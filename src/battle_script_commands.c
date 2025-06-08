@@ -10043,7 +10043,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             moveAcc = 50;       //as many status moves were changed later gen and would be excluded from wonder skin    
 
         if (atkAbility == ABILITY_SPACE_CONTROL
-        && !IS_MOVE_STATUS(move))
+        && !IS_MOVE_STATUS(move)
+        && moveAcc != 0)
             moveAcc = 100;
         
 

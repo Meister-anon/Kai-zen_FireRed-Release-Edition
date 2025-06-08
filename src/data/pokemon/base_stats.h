@@ -4677,6 +4677,7 @@ const struct BaseStats gBaseStats[] =
         .flags = FLAG_LEGENDARY_POKEMON,
     },//ok so mewtwo is apparently worst legendary thanks to power creep
     //so I guess making float is fine?
+    //wouldn't protect from precipice blades but every little bit helps I guess
 
     [SPECIES_MEW] =
     {

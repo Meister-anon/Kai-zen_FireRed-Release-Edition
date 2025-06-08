@@ -89,6 +89,7 @@ static const struct AbilityLearnset sKakunaAbilityLearnset[] = {
 
 static const struct AbilityLearnset sBeedrillAbilityLearnset[] = {
     ABILITY_HONEY_GATHER,
+    ABILITY_COMPOUND_EYES,
     ABILITY_SET_END
 };
 
@@ -1164,8 +1165,9 @@ static const struct AbilityLearnset sLombreAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLudicoloAbilityLearnset[] = {
+    ABILITY_DANCER,
     ABILITY_SET_END
-};//give more moves
+};
 
 static const struct AbilityLearnset sSeedotAbilityLearnset[] = {
     ABILITY_SET_END
