@@ -1371,10 +1371,13 @@ static const struct AbilityLearnset sGlalieAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sLunatoneAbilityLearnset[] = {
+    ABILITY_MISTY_SURGE,
     ABILITY_SET_END
 };//need give fairy moves fae worship moon, also moonblast is so obvious
+//fae is linked w moon so setting mist terrain is best I could come up with?
 
 static const struct AbilityLearnset sSolrockAbilityLearnset[] = {
+    ABILITY_SUN_DISK,
     ABILITY_SET_END
 }; //add on more fire moves etc. when do learnset update
 
@@ -1483,6 +1486,7 @@ static const struct AbilityLearnset sGorebyssAbilityLearnset[] = {
 };//need upate, draining kiss acid armor in place of iron defense etc.
 
 static const struct AbilityLearnset sAbsolAbilityLearnset[] = {
+    ABILITY_ANTICIPATION,   //as can sense incomming disaster
     ABILITY_SET_END
 };
 

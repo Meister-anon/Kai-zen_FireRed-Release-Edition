@@ -5918,7 +5918,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (IsBattlerAlive(BATTLE_PARTNER(battlerIdAtk)))
     {
        if (GetBattlerAbility(BATTLE_PARTNER(battlerIdAtk)) == ABILITY_DARK_DEAL)
-            if (gBattleMovePower > 80) //what this means is I get it on all the slash moves, may potentially drop back to 75 bp cutoff
+            if (gBattleMovePower >= 80) //what this means is I get it on all the slash moves, may potentially drop back to 75 bp cutoff
                 gBattleMovePower /= 2;
     }
 

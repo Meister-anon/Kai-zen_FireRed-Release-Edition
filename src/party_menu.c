@@ -3769,7 +3769,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         }
 
         //if mon doesn't know FLASH set field move via ability
-        if (i == MAX_MON_MOVES)
+        if (i == MAX_MON_MOVES && ShouldDisplayHMFieldMove(FIELD_MOVE_FLASH))
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLASH + MENU_FIELD_MOVES);
             
     }

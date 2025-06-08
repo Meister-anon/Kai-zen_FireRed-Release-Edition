@@ -11059,8 +11059,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Huntail"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(55, 104, 95, 72, 94, 75),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+         STATS(55, 104, 145, 52, 94, 75),
+        MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 60,
         .expYield = 170,
         //.evYield_Attack = 1,
@@ -11073,7 +11073,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
-        .abilityHidden = {ABILITY_WATER_VEIL, ABILITY_NONE},
+        .abilityHidden = {ABILITY_WATER_VEIL, ABILITY_SIMPLE},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
         .floating = FALSE,
@@ -11088,8 +11088,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Gorebyss"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(55, 84, 75, 72, 114, 95),
-        MON_TYPES(TYPE_WATER, TYPE_WATER),
+         STATS(55, 64, 145, 52, 114, 95),
+        MON_TYPES(TYPE_WATER, TYPE_FAIRY), //potentially do psychic instead
         .catchRate = 60,
         .expYield = 170,
         //.evYield_SpAttack = 2,
@@ -11101,8 +11101,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_1,
         .eggGroup2 = EGG_GROUP_WATER_1,
         .abilities = {ABILITY_SWIFT_SWIM, ABILITY_NONE},
-        .abilityHidden = {ABILITY_HYDRATION, ABILITY_NONE},
-        .bodyColor = BODY_COLOR_PINK,
+        .abilityHidden = {ABILITY_HYDRATION, ABILITY_MARVEL_SCALE},//give draining moves dex entry says drains enemies
+        .bodyColor = BODY_COLOR_PINK,//potentially update dex entry for this and huntail to include defense notes
         .noFlip = FALSE,
         .floating = FALSE,
         .abilityLearnset = sGorebyssAbilityLearnset,
@@ -11110,6 +11110,16 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sGorebyssTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //stats don't reflect it but is apparently very physically sturdy
+    //according to dex entry
+    //...its defense is high I just lowered it
+    //ok mon are "bad" but think I misunderstood why its bad, low speed makes them trick room mon
+    //think issue is defense not high enough to actually be physically bulky w its low hp
+    //plus losing eviolite so no reason to use them specifically over clampearl
+    //don't exactly want to change type but think best I can do is greatly boost
+    //defense and make huntail dark to block intimidate and make gorybess psychic
+    //hmm or could make fairy? it learns psychic that w its high sp would let it
+    //threaten all mon that would want to take out fairy besides dark
 
     [SPECIES_RELICANTH] =
     {

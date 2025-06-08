@@ -6862,6 +6862,8 @@ static const struct LevelUpMove sMetagrossLevelUpLearnset[] = {
 
 static const struct LevelUpMove sRegirockLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_EXPLOSION),
+    LEVEL_UP_MOVE(3, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(5, MOVE_HIDDEN_POWER),
     LEVEL_UP_MOVE(9, MOVE_ROCK_THROW),
     LEVEL_UP_MOVE(17, MOVE_CURSE),
     LEVEL_UP_MOVE(25, MOVE_SUPERPOWER),
@@ -6875,6 +6877,8 @@ static const struct LevelUpMove sRegirockLevelUpLearnset[] = {
 
 static const struct LevelUpMove sRegiceLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_EXPLOSION),
+    LEVEL_UP_MOVE(3, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(5, MOVE_HIDDEN_POWER),
     LEVEL_UP_MOVE(9, MOVE_ICY_WIND),
     LEVEL_UP_MOVE(17, MOVE_CURSE),
     LEVEL_UP_MOVE(25, MOVE_SUPERPOWER),
@@ -6888,6 +6892,8 @@ static const struct LevelUpMove sRegiceLevelUpLearnset[] = {
 
 static const struct LevelUpMove sRegisteelLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_EXPLOSION),
+    LEVEL_UP_MOVE(3, MOVE_ANCIENT_POWER),
+    LEVEL_UP_MOVE(5, MOVE_HIDDEN_POWER),
     LEVEL_UP_MOVE(9, MOVE_METAL_CLAW),
     LEVEL_UP_MOVE(17, MOVE_CURSE),
     LEVEL_UP_MOVE(25, MOVE_SUPERPOWER),
