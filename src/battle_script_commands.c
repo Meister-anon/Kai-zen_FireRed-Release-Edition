@@ -18589,7 +18589,7 @@ static void atkCF_jumpifnodamage(void)
 
 static void atkD0_settaunt(void)    //adjusted setup to be more in line with torment
 {
-    NATIVE_ARGS(const u8* failInstr);
+    CMD_ARGS(const u8* failInstr);
 
     if ((gDisableStructs[gBattlerTarget].tauntTimer != 0)
         || GetBattlerAbility(gBattlerTarget) == ABILITY_UNAWARE 
