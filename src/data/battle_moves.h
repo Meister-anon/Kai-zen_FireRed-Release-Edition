@@ -4336,8 +4336,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 1,
         .flags = FLAG_SNATCH_AFFECTED,
         .split = SPLIT_STATUS,
-        .argument = MOVE_EFFECT_SP_DEF_PLUS_1,
     },//see if this works attempt do same effect from unbreakable ties
+    //idk what was going on with this, but don't need argument
+    //better to just do stat change in script itself
+    //argument command breaks otherswise
 
     [MOVE_TAUNT] =
     {
