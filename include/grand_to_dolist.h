@@ -4550,6 +4550,25 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     went through and adjusted pc access for all relevant maps
 
+    realized pc changes nuzlocke conditions decide need add hardcore mode
+    which would just be mobile pc only allows access to items
+    and idk maybe depositing mon but not moving/withdrawing them?
+
+    something possibly off w battle ai,
+    brocks onix only used rock tomb
+    despite having other moves i.e bind etc.
+
+
+    if setup multi catch in battle rather than 
+    having pc access in battle come right after catching
+    would be better to set value that a catch took place
+    then in battlectrl finish battle/winding down actions
+    if party full ask if player would like to swap caught mon into party
+    if yes setup mobile pc access
+
+    charge taunt etc potentiallyl other battle effects
+    broken, when used on repeat causes game freeze...
+
     Vsonic Important 6/8/2025
     note for mega form stuff, to change form just require 
     has mega stone in bag, doesn't require equiping it
