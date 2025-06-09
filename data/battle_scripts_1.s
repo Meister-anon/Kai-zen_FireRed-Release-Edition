@@ -3022,7 +3022,7 @@ BattleScript_EffectNaturalGift:
 	ppreduce
 	jumpifnotberry BS_ATTACKER, BattleScript_ButItFailed
 	jumpifword CMP_COMMON_BITS, gFieldStatuses, STATUS_FIELD_MAGIC_ROOM, BattleScript_ButItFailed
-	jumpifability BS_ATTACKER, ABILITY_KLUTZ, BattleScript_ButItFailed
+	JumpIfIgnoresBattlerItem BS_ATTACKER, BattleScript_ButItFailed
 	jumpifembargo BattleScript_ButItFailed
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
 	critcalc

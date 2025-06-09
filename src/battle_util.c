@@ -11130,6 +11130,8 @@ u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
             return HOLD_EFFECT_NONE;
         if (gBattleMons[battlerId].ability == ABILITY_KLUTZ && !(gStatuses3[battlerId] & STATUS3_GASTRO_ACID))
             return HOLD_EFFECT_NONE;
+        if (IsBattlerMegaEvolved(battlerId))
+            return HOLD_EFFECT_NONE;
     }
 
     gPotentialItemEffectBattler = battlerId;
@@ -12936,7 +12938,7 @@ bool32 CanFling(u8 battlerId)
     u16 itemEffect = ItemId_GetHoldEffect(item);
 
     if (item == ITEM_NONE
-        || GetBattlerAbility(battlerId) == ABILITY_KLUTZ
+        || ShouldIgnoreBattlerHeldItem(battlerId)
         || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
         || gSideTimers[GET_BATTLER_SIDE(battlerId)].embargoTimer != 0
         || !CanBattlerGetOrLoseItem(battlerId, item)
@@ -12954,6 +12956,15 @@ bool32 UnnerveOn(u32 battlerId, u32 itemId)
 {
     if (ItemId_GetPocket(itemId) == POCKET_BERRY_POUCH && IsUnnerveAbilityOnOpposingSide(battlerId))
         return TRUE;
+    return FALSE;
+}
+
+bool32 ShouldIgnoreBattlerHeldItem(u32 battler)
+{
+    if (GetBattlerAbility(battler) == ABILITY_KLUTZ
+    || IsBattlerMegaEvolved(battler))
+        return TRUE;
+
     return FALSE;
 }
 

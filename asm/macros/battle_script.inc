@@ -1508,6 +1508,12 @@
 	.4byte \failInstr
 	.endm
 
+	.macro JumpIfIgnoresBattlerItem battler:req, jumpInstr:req
+	callnative BS_JumpifShouldIgnoreBattlerItem
+	.byte \battler
+	.4byte \jumpInstr
+	.endm
+
 	.macro attackthisturn ptr:req
 	callnative BS_AttacksThisTurn
 	.4byte \ptr

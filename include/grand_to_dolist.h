@@ -4550,6 +4550,17 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
 
     went through and adjusted pc access for all relevant maps
 
+    Vsonic Important 6/8/2025
+    note for mega form stuff, to change form just require 
+    has mega stone in bag, doesn't require equiping it
+    the core idea was megas themselves were too powerful to have an item
+    so let characters keep their items but just disable them like would with Klutz
+    when they mega in battle.  
+
+    pretty simple makes mon better to use if have multiple
+    mega viable mon on team i.e not useless if mega something else
+    and helps obscure which mon on team you're going to mega evolve
+
     note mints don't directly shift nature becuase 
     there is no nature field its instead dictated by personality
     would require 5 bits to make a nature field

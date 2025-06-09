@@ -189,6 +189,7 @@ void RestoreBattlerOriginalTypes(u8 battlerId);
 void MulModifier(uq4_12_t *modifier, u16 val);
 u32 ApplyModifier(uq4_12_t modifier, u32 val);
 bool32 UnnerveOn(u32 battlerId, u32 itemId);
+bool32 ShouldIgnoreBattlerHeldItem(u32 battler); //combine klutz mega primal logic for ignoring item, basis for mega form upgrade
 void TryRestoreStolenItems(void);
 void TrySaveExchangedItem(u8 battlerId, u16 stolenItem);
 bool32 CanActivateTimeControl(u32 battler);

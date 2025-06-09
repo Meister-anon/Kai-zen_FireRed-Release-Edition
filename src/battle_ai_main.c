@@ -2325,6 +2325,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             break;
         case EFFECT_NATURAL_GIFT:
             if (AI_DATA->abilities[battlerAtk] == ABILITY_KLUTZ
+              || IsBattlerMegaEvolved(battlerAtk)
               || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
               || GetPocketByItemId(gBattleMons[battlerAtk].item) != POCKET_BERRY_POUCH)
                 score -= 10;
@@ -2432,6 +2433,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             break;
         case EFFECT_EMBARGO:
             if (AI_DATA->abilities[battlerDef] == ABILITY_KLUTZ
+              || IsBattlerMegaEvolved(battlerDef)
               || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
               || gSideTimers[battlerDef].embargoTimer != 0
               || PartnerMoveIsSameAsAttacker(BATTLE_PARTNER(battlerAtk), battlerDef, move, AI_DATA->partnerMove))

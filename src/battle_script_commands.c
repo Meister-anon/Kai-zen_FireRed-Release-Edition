@@ -6575,6 +6575,18 @@ void BS_AbilityJumpBasedOnField(void)
     }
 }
 
+//rn klutz and mega/primal reversion
+void BS_JumpifShouldIgnoreBattlerItem(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+
+    if (ShouldIgnoreBattlerHeldItem(battler))
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 static void atk1F_jumpifsideaffecting(void)
 {
     CMD_ARGS(u8 battler, u32 sidestatus, const u8 *jumpInstr);
@@ -14168,7 +14180,7 @@ static void atk76_various(void) //will need to add all these emerald various com
         VARIOUS_ARGS(const u8 *failInstr);
         if (gBattleMons[battler].item == ITEM_NONE
            || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
-           || GetBattlerAbility(battler) == ABILITY_KLUTZ)
+           || ShouldIgnoreBattlerHeldItem(battler))
         {
             gBattlescriptCurrInstr = cmd->failInstr;
         }
@@ -18645,7 +18657,7 @@ static void atkD2_tryswapitems(void) // trick
               || gBattleMons[gBattlerTarget].item == ITEM_ENIGMA_BERRY
               || IS_ITEM_MAIL(gBattleMons[gBattlerAttacker].item)
               || IS_ITEM_MAIL(gBattleMons[gBattlerTarget].item)
-              || GetBattlerAbility(gBattlerTarget) == ABILITY_KLUTZ)  //ADDED klutz mon would just drop it, could make logic for that, if klutz mon has held item it'd default to knocked off on swith in
+              || ShouldIgnoreBattlerHeldItem(gBattlerTarget))  //ADDED klutz mon would just drop it, could make logic for that, if klutz mon has held item it'd default to knocked off on swith in
         {                                                                   //"mon dropped it's "glastusditem"/helditem!" so that'd only be an ability reveal if you were dumb enough to leave an item on a klutz mon  vsonic
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
         }
