@@ -20645,21 +20645,17 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
             && gBattleMoves[gCurrentMove].effect != EFFECT_LOSETYPE_HIT
             && gBattleMoves[gCurrentMove].argument)
         {
+        
             gBattleScripting.moveEffect = gBattleMoves[gCurrentMove].argument; //potentially need make argument field for bs. as well vsonic
             //atk15_setmoveeffectwithchance(); //looks weird but believe its necessary with my setup of argumenttomoveeffect
             //BattleScriptPush(cmd->nextInstr);//ok doing this properly makes bs work without breaking/skipping
             //gBattlescriptCurrInstr = cmd->nextInstr;
-        } 
-
-        
-        if (gBattleMoves[gCurrentMove].effect != EFFECT_TWO_TYPED_MOVE)
-        {
-
             if (gBattleMoves[gCurrentMove].argumentEffectChance == 0)   //to ensure arguments already set work, so dont need to add argumentchance to every move
                 argumentChance = gBattleMoves[gCurrentMove].secondaryEffectChance;  //but keeps from using the percentChance 0 makes certain effect for arguments
             else                                                                //not a major issue if can just keep important/main effects to effect not argument, 
                 argumentChance = gBattleMoves[gCurrentMove].argumentEffectChance;   //just make sure argument never has effect that would need to be set certain (just use 100 if need to)
-        }
+        }       
+
         //THIS IS WHY IT WAS CONFUSING battlescripting.moveEffect AREN'T moveeffects they are just "effects"
         //MOVE EFFECT is a completely different thing that is actually being set by this function  not battlescripting.moveEffect!!!!
         //wrong again it IS moveeffect the EFFECT goes to battlescript which assings a move effect and is stored in scripting.moveEffect to read here
@@ -20674,13 +20670,13 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
             argumentChance = (argumentChance * 150) / 100; //= gBattleMoves[gCurrentMove].secondaryEffectChance * 2;  //its good, happened 2 out of 5 hits. decided to make it 1/16 dmg
         
         //freeze boost, for later counter effect for ice toxic orb
-        //I never set his up...did I? 
-        //setup ability to refreeze think increasing freeze odds is 
-        //too much tho
-        /*if (gBattleMons[gBattlerTarget].status1 & STATUS1_FREEZE
+    //setup ability to refreeze think increasing freeze odds is 
+    //too much tho - decided to use just on item snow globe
+    //so it actually has a resasonable draw back to offset being
+    //objectively more accessible than flame orb/toxic orb
+        if (GetBattlerHoldEffect(gBattlerTarget, TRUE) == HOLD_EFFECT_SNOW_GLOBE
         && gBattleScripting.moveEffect == MOVE_EFFECT_FREEZE)
-            argumentChance = (argumentChance * 150) / 100;
-        */
+            argumentChance = (argumentChance * 125) / 100;
         
         if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE) //way if else-if works,they are paired and only the one that is true will be executed
             argumentChance *= 2;                                         //if I need to execute multiple, than use multiple ifs instead  vsonic
@@ -20761,13 +20757,16 @@ void BS_setargumenteffectwithchance(void) //different effect for in hit, where a
         }
     }
     else //doesn't have move effect  /need double check and make sure two_typed_moves aren't passing type from arguemnt to moveEffect 
-    {                                               //argumenttomoveeffect was taking them but I added conditional to exclude it
+    {    
+        gBattleScripting.moveEffect = 0;
+        gBattleScripting.multihitMoveEffect = 0;                                             //argumenttomoveeffect was taking them but I added conditional to exclude it
         gBattlescriptCurrInstr = cmd->nextInstr;
+        
     }
-    gBattleScripting.moveEffect = 0;
-    gBattleScripting.multihitMoveEffect = 0;  
+    
 
-}
+}//ok weird shit it goes to setmove effect but it still continues logic here
+//so it needs to trigger nextInstr or it freezes
 
 //will use this replace arguemtn logic move effect set function later
 /*void BS_setadditionaleffects(void)

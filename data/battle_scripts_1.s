@@ -6083,7 +6083,7 @@ BattleScript_EffectCharge::
 	waitanimation
 	printstring STRINGID_PKMNCHARGINGPOWER
 	waitmessage B_WAIT_TIME_IMPORTANT_STRINGS
-	setargumentwithchance	@works annoying to need put everywhere so need do refactor from EE
+	modifybattlerstatstage BS_ATTACKER, STAT_SPDEF, INCREASE, 1, NULL, TRUE, ANIM_ON
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectTaunt::
