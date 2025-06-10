@@ -1313,7 +1313,7 @@ u16 AI_GetHoldEffect(u32 battlerId)
         return HOLD_EFFECT_NONE;
     if (AI_DATA->abilities[battlerId] == ABILITY_KLUTZ && !(gStatuses3[battlerId] & STATUS3_GASTRO_ACID))
         return HOLD_EFFECT_NONE;
-    if (IsBattlerMegaEvolved(battlerId))
+    if (IsBattlerMegaEvolved(battlerId) || IsBattlerPrimalReverted(battlerId))
         return HOLD_EFFECT_NONE;
 
     return holdEffect;
@@ -2784,7 +2784,8 @@ static bool32 PartyBattlerShouldAvoidHazards(u8 currBattler, u8 switchBattler)
     //vsonic important go over this see if at all which battler
     //this needs for mega
     if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM || ability == ABILITY_KLUTZ
-    || IsBattlerMegaEvolved(currBattler) || IsBattlerMegaEvolved(switchBattler))
+    || IsBattlerMegaEvolved(currBattler) || IsBattlerMegaEvolved(switchBattler)
+    || IsBattlerPrimalReverted(currBattler) || IsBattlerPrimalReverted(switchBattler))
         holdEffect = HOLD_EFFECT_NONE;
     else
         holdEffect = gItems[GetMonData(mon, MON_DATA_HELD_ITEM)].holdEffect;

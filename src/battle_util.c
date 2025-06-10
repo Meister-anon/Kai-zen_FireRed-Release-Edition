@@ -11130,7 +11130,7 @@ u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
             return HOLD_EFFECT_NONE;
         if (gBattleMons[battlerId].ability == ABILITY_KLUTZ && !(gStatuses3[battlerId] & STATUS3_GASTRO_ACID))
             return HOLD_EFFECT_NONE;
-        if (IsBattlerMegaEvolved(battlerId))
+        if (IsBattlerMegaEvolved(battlerId) || IsBattlerPrimalReverted(battlerId))
             return HOLD_EFFECT_NONE;
     }
 
@@ -12015,7 +12015,7 @@ bool32 IsBattlerMegaEvolved(u8 battlerId)
     // While Transform does copy stats and visuals, it shouldn't be counted as true Mega Evolution.
     if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         return FALSE;
-    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION); //vsonic
+    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_MEGA_FORM); //vsonic
 }
 
 bool32 IsBattlerPrimalReverted(u8 battlerId)
@@ -12023,8 +12023,43 @@ bool32 IsBattlerPrimalReverted(u8 battlerId)
     // While Transform does copy stats and visuals, it shouldn't be counted as true Primal Revesion.
     if (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED)
         return FALSE;
-    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION);
+    return (gBaseStats[gBattleMons[battlerId].species].flags & SPECIES_FLAG_PRIMAL_REVERSION);
 }
+
+//use for beast ball multiplier
+bool32 IsBattlerUltraBeast(u8 battlerId)
+{
+    u16 species = gBattleMons[battlerId].species;
+
+    return IsSpeciesUltraBeast(species);
+}
+
+bool32 IsSpeciesUltraBeast(u16 species)
+{
+    switch (species)
+    {
+
+        case SPECIES_BLACEPHALON:
+        case SPECIES_STAKATAKA:
+        case SPECIES_NAGANADEL:
+        case SPECIES_POIPOLE:
+        case SPECIES_NECROZMA_ULTRA:
+        case SPECIES_NECROZMA_DAWN_WINGS:
+        case SPECIES_NECROZMA_DUSK_MANE:
+        case SPECIES_NECROZMA:
+        case SPECIES_GUZZLORD:
+        case SPECIES_KARTANA:
+        case SPECIES_CELESTEELA:
+        case SPECIES_XURKITREE:
+        case SPECIES_PHEROMOSA:
+        case SPECIES_BUZZWOLE:
+        case SPECIES_NIHILEGO:
+            return TRUE;
+        default:
+            return FALSE;
+    }
+}
+
 
 //VSONIC IMPORTANT think need to set these up still??
 // Returns SPECIES_NONE if no form change is possible
@@ -12962,7 +12997,7 @@ bool32 UnnerveOn(u32 battlerId, u32 itemId)
 bool32 ShouldIgnoreBattlerHeldItem(u32 battler)
 {
     if (GetBattlerAbility(battler) == ABILITY_KLUTZ
-    || IsBattlerMegaEvolved(battler))
+    || IsBattlerMegaEvolved(battler) || IsBattlerPrimalReverted(battler))
         return TRUE;
 
     return FALSE;

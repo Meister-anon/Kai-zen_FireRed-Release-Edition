@@ -4538,7 +4538,7 @@ bool8 CanEvioliteActivate(u8 target)
 
 bool8 IsMegaSpecies(u16 species)
 {
-    if (gBaseStats[species].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION)
+    if (gBaseStats[species].flags == SPECIES_FLAG_MEGA_FORM)
         return TRUE;
 
     return FALSE;

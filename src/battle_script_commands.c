@@ -16370,7 +16370,7 @@ static void atk9B_transformdataexecution(void) //add ability check logic, make n
                     i = Random() % BASE_SPECIES_COUNT;
                     if (IS_SPECIES_OF_TYPE(i, FoundType)
                     && gBaseStats[i].flags != FLAG_LEGENDARY_POKEMON
-                    && gBaseStats[i].flags != F_ULTRA_BEAST)
+                    && !IsSpeciesUltraBeast(i))
                     {
                         //do 2nd check for if species passes bst limiter
                         if (GetBaseStatTotal(i) <= baseStatLimit)
@@ -19882,14 +19882,7 @@ static void atkF1_trysetcaughtmondexflags(void)
         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
         gBattleResults.caughtMonSpecies = gBattleMons[gBattlerAttacker ^ BIT_SIDE].species; //moved here to attempt use for speed up
 
-        //may not need this since it is already in displaydexinfo via registermontopokedex?
-        /*if (species > NATIONAL_SPECIES_COUNT
-        && !(GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-        && gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
-        || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION) //actually shouldn't need gender form here
-        {
-            HandleSetPokedexFlag(SpeciesToNationalPokedexNum(GetFormSpeciesId(species, 0)), FLAG_SET_SEEN, personality); //if catch form should set base form is seen so can navigate to dex page
-        }*/
+
         gBattlescriptCurrInstr += 5;
     }
 }

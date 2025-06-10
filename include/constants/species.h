@@ -3455,12 +3455,12 @@ just because I saw the form*/
 #define HOENN_DEX_COUNT 396
 
 // species flags - there's no real reason for flags to use this notation but keeping for now,
-#define F_ULTRA_BEAST   (1 << 0) //need for beast ball
+#define SPECIES_FLAG_PRIMAL_REVERSION   (1 << 0) //need for beast ball, needed more for form change logic, moved beast logic to function check
 #define F_ALOLAN_FORM   (1 << 1) //need for form change/breeding
 #define F_GALARIAN_FORM (1 << 2)
 #define F_HISUIAN_FORM  (1 << 3) //changed don't have room for both, just keep eevee from opal
 #define F_PALDEAN_FORM (1 << 4)	//For pokemon opal Cefira region forms
-#define SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
+#define SPECIES_FLAG_MEGA_FORM     (1 << 5)	//to denote mega? may not need, idk, ned for EE funtions
 #define FLAG_LEGENDARY_POKEMON (1 << 6)  //replaced //consolidate w megga?
 #define F_HAS_COSMETIC_FORMS (1 << 7) //unown viillion pika caps to cut down on unneccesary space in base stats with identical stat/ability mon cant use for mon that evolve need check but think can setup for mon that evolve into cosmetic forms that don't evolve again maushold basculegion etc.
 //would need add exclusions for cosplay pikachu and its forms, 
@@ -3470,7 +3470,7 @@ just because I saw the form*/
 //forgot flag is bitwise stuff and starts at 0, 
 //I literally can't have a value above 7 and stay u8
 
-// SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
+// SPECIES_FLAG_MEGA_FORM
 
 
 
@@ -3484,4 +3484,5 @@ just because I saw the form*/
 //decided will revert back to Legendary flag, will be useful for excluding mon from ditto transformation
 //and also useful in case I'm able to setup a randomizer
 //#define FLAG_LEGENDARY_POKEMON    (1 << 8) //updated pre-form species w LEgend flag, skipped paradox mon
+//ok will get rid of ultra beast flag, and just use a species check for that
 #endif  // GUARD_CONSTANTS_SPECIES_H

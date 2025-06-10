@@ -266,8 +266,9 @@ bool8 MEScrCmd_givepokemon(struct ScriptContext *ctx)
             GetSetPokedexFlag(pokedexNum, FLAG_SET_CAUGHT);
 
             if (species > NATIONAL_SPECIES_COUNT
-            && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))
-            && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM_PRIMAL_REVERSION
+            && !(GetSetPokedexFlag((GetFormSpeciesId(species, 0)), FLAG_GET_SEEN))  
+            && (gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_MEGA_FORM
+            || gBaseStats[SanitizeSpeciesId(species)].flags == SPECIES_FLAG_PRIMAL_REVERSION
             || gBaseStats[SanitizeSpeciesId(species)].flags == F_ALOLAN_FORM
             || gBaseStats[SanitizeSpeciesId(species)].flags == F_GALARIAN_FORM
             || gBaseStats[SanitizeSpeciesId(species)].flags == F_HISUIAN_FORM

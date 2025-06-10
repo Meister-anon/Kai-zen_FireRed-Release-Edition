@@ -4416,6 +4416,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     Redid semi invulnerable effects fixed some missed things
     setup move cancel effect from hitting in semi invulnerable
     reworked sky attack into semi invulnerable move
+    separted back out primal and mega form
+    since seemed needed for new form change effect
+    replaced ultra beast
+
 
     NOTE**(
     save space remove unique mega cries intead use base cry with alteration
