@@ -9776,6 +9776,24 @@ const struct Item gItems[] =
       .secondaryId =  MOVE_PSYCHO_BOOST,
       //"moveId" "FocusPunch"
     },
+    [ITEM_TM_FLATTER] =
+    {
+      .name = _("TM Flatter"),
+      .itemId = ITEM_TM_FLATTER,
+      .price =  3000,
+      .holdEffect = HOLD_EFFECT_NONE,
+      .holdEffectParam =  0,
+     .description = gMoveDescription_Flatter,
+//      "description":  "An extremely powerful attack.\\nHowever, if the user is hit before\\nusing the move, they will flinch.,
+      .importance = 0,
+      .exitsBagOnUse = 0,
+      .pocket = POCKET_TM_CASE,
+      .type = ITEM_USE_PARTY_MENU,
+      .fieldUseFunc = NULL,
+      .battleUseFunc = NULL,
+      .secondaryId =  MOVE_FLATTER,
+      //"moveId" "FocusPunch"
+    },
     [ITEM_N_A] =
     {
       .name = _("????????"),

@@ -26647,6 +26647,11 @@ const struct BaseStats gBaseStats[] =
     //pickpocket will get more out of defenses, bandit king will block enemy item use
     //and w magician combined w sucker punch and high speed
     //would allow steal items before enemy can make use of them
+    //bandit king gives it a niche, can uturn to get it in,
+    //to prevent  enemy item from going off,
+    //best thing for this is to turn it into a utility mon,
+    //that doesn't stay in
+    //give extreme speed
 
     [SPECIES_GOSSIFLEUR] =
     {
