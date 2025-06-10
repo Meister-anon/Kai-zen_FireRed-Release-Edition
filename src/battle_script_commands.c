@@ -18075,12 +18075,12 @@ static void atkC0_recoverbasedonsunlight(void) //since requires setting sun, wil
                 //gBattleMoveDamage = GetNonDynamaxMaxHP(gBattlerAttacker) / 3;
                 gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
         }
-        else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
-            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
         else if (IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_SUN_ANY))
             gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1);
         else if (GetBattlerAbility(gBattlerAttacker) == ABILITY_FLUORESCENCE && IsBlackFogNotOnField()) //eitehr give boosted heal, or make it heal the normal amount regardless of weather change
             gBattleMoveDamage = max(20 * gBattleMons[gBattlerAttacker].maxHP / 30,1); //it has low bst overall so just keep full boost here, cut solar beam boost
+        else if (gBattleWeather == 0 || !IsBattlerWeatherAffected(gBattlerAttacker, WEATHER_ANY)) //pretty sure need replace weatherhaseffect w function that has umbrella logic in it
+            gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 3,1);
         else // not sunny weather
             gBattleMoveDamage = max(gBattleMons[gBattlerAttacker].maxHP / 4,1);
 
@@ -20313,10 +20313,6 @@ void BS_TryWindRiderPower(void)
     }
 }
 
-void BS_modifybattlerstatstage(void)
-{
-
-}
 
 void BS_setstickyweb(void) 
 {

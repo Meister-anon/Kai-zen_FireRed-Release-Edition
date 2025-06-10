@@ -155,9 +155,9 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectRapidSpin
 	.4byte BattleScript_EffectSonicscreech
 	.4byte BattleScript_EffectTwoTurnsAttack
-	.4byte BattleScript_EffectMorningSun
-	.4byte BattleScript_EffectMorningSun
-	.4byte BattleScript_EffectMorningSun
+	.4byte BattleScript_EffectMorningSun			@EFFECT_MORNING_SUN
+	.4byte BattleScript_EffectMorningSun			@EFFECT_SYNTHESIS
+	.4byte BattleScript_EffectMorningSun			@EFFECT_MOONLIGHT
 	.4byte BattleScript_EffectHiddenPower
 	.4byte BattleScript_EffectRainDance
 	.4byte BattleScript_EffectSunnyDay
