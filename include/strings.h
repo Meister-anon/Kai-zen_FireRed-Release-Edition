@@ -110,6 +110,8 @@ extern const u8 gText_TM_String[];
 extern const u8 gText_HM_String[];
 extern const u8 gText_FontSizeSmall[];
 extern const u8 gText_FontSizeNormal[];
+extern const u8 gText_ThrowInPremierBall[];
+extern const u8 gText_ThrowInPremierBalls[];
 extern const u8 gText_OhNoICantBuyThat[];
 extern const u8 gText_HowManyWouldYouLikeToSell[];
 extern const u8 gText_ICanPayThisMuch_WouldThatBeOkay[];

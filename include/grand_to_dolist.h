@@ -4421,6 +4421,12 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
     replaced ultra beast
 
 
+    setup multiple premier balls w purchase 
+    do num balls divide by 10
+    round down and set that as num premier balls to give
+    -done
+
+
     NOTE**(
     save space remove unique mega cries intead use base cry with alteration
     magical-ice-winged-otter resource pr shared by surskitty
