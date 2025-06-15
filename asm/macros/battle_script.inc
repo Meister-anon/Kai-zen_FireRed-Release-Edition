@@ -1300,9 +1300,9 @@
 	.byte 0xf2
 	.endm
 
-	.macro trygivecaughtmonnick param0:req
+	.macro trygivecaughtmonnick jumpInstr:req
 	.byte 0xf3
-	.4byte \param0
+	.4byte \jumpInstr
 	.endm
 
 	.macro subattackerhpbydmg

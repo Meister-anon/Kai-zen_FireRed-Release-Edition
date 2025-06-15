@@ -2240,14 +2240,25 @@ static const struct AbilityLearnset sAudinoAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sTimburrAbilityLearnset[] = {
+    ABILITY_RIVALRY,
+    ABILITY_STEADFAST,
+    ABILITY_OWN_TEMPO,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sGurdurrAbilityLearnset[] = {
+    ABILITY_RIVALRY,
+    ABILITY_STEADFAST,
+    ABILITY_OWN_TEMPO,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sConkeldurrAbilityLearnset[] = {
+    ABILITY_STURDY,
+    ABILITY_DRY_SKIN,
+    ABILITY_RIVALRY,
+    ABILITY_STEADFAST,
+    ABILITY_OWN_TEMPO,
     ABILITY_SET_END
 };
 
@@ -3710,6 +3721,9 @@ static const struct AbilityLearnset sKubfuAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sUrshifuSingleStrikeStyleAbilityLearnset[] = {
+    ABILITY_MOXIE,
+    ABILITY_DEFIANT,
+    ABILITY_DARK_AURA,
     ABILITY_SET_END
 };
 
@@ -4077,6 +4091,9 @@ static const struct AbilityLearnset sIndeedeeFemaleAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sUrshifuRapidStrikeStyleAbilityLearnset[] = {
+    ABILITY_MOXIE,
+    ABILITY_DEFIANT,
+    ABILITY_WATER_COMPACTION,
     ABILITY_SET_END
 };
 

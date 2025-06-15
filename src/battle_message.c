@@ -1573,6 +1573,7 @@ const u8 *const gBattleStringsTable[] = {
     [STRINGID_FORCEDTOSURFACE]              = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was forced\nto surface!{PAUSE 36}"),
     [STRINGID_PKMNINSNAPTRAP]                       = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} got trapped by\na snap trap!"),
     [STRINGID_THUNDERCAGETRAPPED]                   = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} was caught in\na shocking trap!"),
+    [STRINGID_TAKECAUGHTMONFROMPC]              = COMPOUND_STRING("Take Caught Mon From PC?"),
 
     [STRINGID_TRAINER2CLASS]                 = sText_Trainer2Class,
     [STRINGID_TRAINER2NAME]                  = sText_Trainer2Name,

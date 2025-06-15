@@ -20015,6 +20015,8 @@ void BattleDestroyYesNoCursorAt(void)
 
 static void atkF3_trygivecaughtmonnick(void)
 {
+    CMD_ARGS(const u8 *jumpInstr);
+
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
@@ -20075,14 +20077,17 @@ static void atkF3_trygivecaughtmonnick(void)
         if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
         {
             SetMonData(&gEnemyParty[gBattlerPartyIndexes[gBattlerAttacker ^ BIT_SIDE]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->jumpInstr;
         }
         break;
     case 4:
         if (CalculatePlayerPartyCount() == PARTY_SIZE)
-            gBattlescriptCurrInstr += 5;
+            gBattlescriptCurrInstr = cmd->nextInstr;
         else
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+        break;
+    }
+}
         break;
     }
 }

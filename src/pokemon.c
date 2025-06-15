@@ -4793,6 +4793,12 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     //appears to be about same as stab...fuck ofcourse it is stab is 1.35 *facepalm
     //hmm previously it always crit in state where crit was 1.5x boost, I THINK
     //this should be fine
+    //think may need boost this?
+    //since doesn't ignore stat drops etc.
+    //crit was 50% at the time
+    //even if I made this 50% they'd be weaker than original
+    //and I have lowered stab as well
+    //hmm nahh I'll leave as is
     if (move == MOVE_SURGING_STRIKES || move == MOVE_WICKED_BLOW)
         defense = (65 * defense) / 100; 
     
