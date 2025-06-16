@@ -14042,6 +14042,10 @@ use wonder gaurd logic to determine its super effective
     //think I need drop this to acc 90
     //otherwise not much reason to use earth power
     //mix of heat wave and surf
+    //vsonic still todo add new moves to leanrsets
+    //idk maybe would make this a tm?
+    //ah right I made this to have some good special moves
+    //for rogenrolla
 
     [MOVE_SPICE_TRADE] =
     {

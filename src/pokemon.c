@@ -5735,6 +5735,7 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     case ABILITY_WATER_BUBBLE:
     case ABILITY_HEATPROOF: //heatproff was previously 1/4th cut broke back down to 2
     case ABILITY_HEAT_TRANCE:
+    case ABILITY_TORCHSOUL: //extra boost in case mon given doesn't resist fire
     case ABILITY_BONE_ARMOR:
     case ABILITY_ENAMEL:
         if (moveType == TYPE_FIRE)
