@@ -825,10 +825,14 @@ static const struct AbilityLearnset sAipomAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sSunkernAbilityLearnset[] = {
+    ABILITY_FLASH_FIRE,
+    ABILITY_LEAF_GUARD,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sSunfloraAbilityLearnset[] = {
+    ABILITY_FLASH_FIRE,
+    ABILITY_LEAF_GUARD,
     ABILITY_SET_END
 };
 
