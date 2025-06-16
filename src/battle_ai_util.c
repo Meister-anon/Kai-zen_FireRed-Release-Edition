@@ -888,27 +888,27 @@ static u32 WhichMoveBetter(u32 move1, u32 move2)
     {
         if (((gBattleMoves[move1].effect == EFFECT_RECOIL
                 //|| gBattleMoves[move1].effect == EFFECT_RECOIL_IF_MISS
-                || gBattleMoves[move1].effect == EFFECT_50_RECOIL
-                || gBattleMoves[move1].effect == EFFECT_DOUBLE_EDGE
-                || gBattleMoves[move1].effect == EFFECT_33_RECOIL_W_STATUS)
+                || gBattleMoves[move1].effect == EFFECT_HEAVY_RECOIL
+                || gBattleMoves[move1].effect == EFECT_MED_RECOIL
+                || gBattleMoves[move1].effect == EFFECT_MED_RECOIL_W_STATUS)
             && (gBattleMoves[move2].effect != EFFECT_RECOIL
                  //&& gBattleMoves[move2].effect != EFFECT_RECOIL_IF_MISS   removed as these move effects aren't actually blocked by rock head
-                 && gBattleMoves[move2].effect != EFFECT_50_RECOIL
-                 && gBattleMoves[move2].effect != EFFECT_DOUBLE_EDGE
-                 && gBattleMoves[move2].effect != EFFECT_33_RECOIL_W_STATUS
+                 && gBattleMoves[move2].effect != EFFECT_HEAVY_RECOIL
+                 && gBattleMoves[move2].effect != EFECT_MED_RECOIL
+                 && gBattleMoves[move2].effect != EFFECT_MED_RECOIL_W_STATUS
                  && gBattleMoves[move2].effect != EFFECT_RECHARGE)))
             return 1;
 
         if (((gBattleMoves[move2].effect == EFFECT_RECOIL
                 || gBattleMoves[move2].effect == EFFECT_RECOIL_IF_MISS
-                || gBattleMoves[move2].effect == EFFECT_50_RECOIL
-                || gBattleMoves[move2].effect == EFFECT_DOUBLE_EDGE
-                || gBattleMoves[move2].effect == EFFECT_33_RECOIL_W_STATUS)
+                || gBattleMoves[move2].effect == EFFECT_HEAVY_RECOIL
+                || gBattleMoves[move2].effect == EFECT_MED_RECOIL
+                || gBattleMoves[move2].effect == EFFECT_MED_RECOIL_W_STATUS)
             && (gBattleMoves[move1].effect != EFFECT_RECOIL
                  && gBattleMoves[move1].effect != EFFECT_RECOIL_IF_MISS
-                 && gBattleMoves[move1].effect != EFFECT_50_RECOIL
-                 && gBattleMoves[move1].effect != EFFECT_DOUBLE_EDGE
-                 && gBattleMoves[move1].effect != EFFECT_33_RECOIL_W_STATUS
+                 && gBattleMoves[move1].effect != EFFECT_HEAVY_RECOIL
+                 && gBattleMoves[move1].effect != EFECT_MED_RECOIL
+                 && gBattleMoves[move1].effect != EFFECT_MED_RECOIL_W_STATUS
                  && gBattleMoves[move1].effect != EFFECT_RECHARGE)))
             return 0;
     }

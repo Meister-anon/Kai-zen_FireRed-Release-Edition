@@ -795,7 +795,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_PAYDAY] = BattleScript_MoveEffectPayDay,
     [MOVE_EFFECT_CHARGING] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_WRAP] = BattleScript_MoveEffectWrap,
-    [MOVE_EFFECT_RECOIL_25] = BattleScript_MoveEffectRecoil,
+    [MOVE_EFFECT_LIGHT_RECOIL] = BattleScript_MoveEffectRecoil,
     [MOVE_EFFECT_ATK_PLUS_1] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_DEF_PLUS_1] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_SPD_PLUS_1] = BattleScript_MoveEffectSleep,
@@ -821,7 +821,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_REMOVE_STATUS] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_ATK_DEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
     [MOVE_EFFECT_DEF_SPDEF_DOWN] = BattleScript_MoveEffectSleep,//BattleScript_MoveEffectFallInLove
-    [MOVE_EFFECT_RECOIL_33] = BattleScript_MoveEffectRecoil,
+    [MOVE_EFFECT_MEDIUM_RECOIL] = BattleScript_MoveEffectRecoil,
     [MOVE_EFFECT_MED_RECOIL_W_STATUS] = BattleScript_MoveEffectRecoilWithStatus,
     [MOVE_EFFECT_SPD_MINUS_2] = BattleScript_MoveEffectSleep,    
     [MOVE_EFFECT_ATTRACT] = BattleScript_MoveEffectAttract,   //see if it works as is, or I need actuall battlescript for this
@@ -5401,7 +5401,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     }
                 }//multistring > 4 would be a problem if I didn't split off the moves from the wrap effect
                 break;
-            /*case MOVE_EFFECT_RECOIL_25: // 25% recoil   also struggle
+            /*case MOVE_EFFECT_LIGHT_RECOIL: // 25% recoil   also struggle
                 gBattleMoveDamage = max((gHpDealt) / 4,1);
                 if (GetBattlerAbility(gEffectBattler) == ABILITY_PARENTAL_BOND)
                     gBattleMoveDamage *= 2;
@@ -5682,9 +5682,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
                 }
                 break;
             case MOVE_EFFECT_HEAVY_RECOIL:
-            case MOVE_EFFECT_RECOIL_25:
+            case MOVE_EFFECT_LIGHT_RECOIL:
             case MOVE_EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
-            case MOVE_EFFECT_RECOIL_33: // Double Edge / removed below to use upgraded recoil setup
+            case MOVE_EFFECT_MEDIUM_RECOIL: // Double Edge / removed below to use upgraded recoil setup
                 //gBattleMoveDamage = max(gHpDealt / 3,1);
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_MoveEffectRecoil;
@@ -14787,22 +14787,22 @@ static void atk80_manipulatedamage(void)
             //
             //at low levels on a mon w average hp
             //is effectively approx 1/5th damage seems good
-            case EFFECT_50_RECOIL:   //head smash etc.
+            case EFFECT_HEAVY_RECOIL:   //head smash etc.
             //case MOVE_EFFECT_HEAVY_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage *= 2;// max((gBattleMoveDamage * 8) / 3,1);//2 2/3  2.67
                 //gBattleMoveDamage /= 2;
             break;
             case EFFECT_RECOIL:
-            //case MOVE_EFFECT_RECOIL_25:
+            //case MOVE_EFFECT_LIGHT_RECOIL:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage += max(gBattleMoveDamage / 4,1);
                 //gBattleMoveDamage /= 4; //w raichu min dmg should be 3
             break;
             case EFFECT_SUBMISSION:
-            case EFFECT_33_RECOIL_W_STATUS: //volt tackle etc.
-            case EFFECT_DOUBLE_EDGE:
-            //case MOVE_EFFECT_RECOIL_33:
+            case EFFECT_MED_RECOIL_W_STATUS: //volt tackle etc.
+            case EFECT_MED_RECOIL:
+            //case MOVE_EFFECT_MEDIUM_RECOIL:
             //case MOVE_EFFECT_MED_RECOIL_W_STATUS:
                 gBattleMoveDamage = (max(gBattleMons[gBattlerAttacker].maxHP / 15,1) + max(gBattleMoveDamage / 10,1));
                 gBattleMoveDamage += max((gBattleMoveDamage * 2) / 3,1);
@@ -14835,7 +14835,7 @@ static void atk80_manipulatedamage(void)
 
         //gbattlemovedamage += (gbattlemovedamage / 3) //for 1/3rd and 1/2 add extra 3rd or 1/2 of formula?
 
-        //if (gBattleMoves[gCurrentMove].effect == EFFECT_50_RECOIL) //believe was initially hi jump kick miss?
+        //if (gBattleMoves[gCurrentMove].effect == EFFECT_HEAVY_RECOIL) //believe was initially hi jump kick miss?
         //    gBattleMoveDamage /= 2;
 
        /* if ((gBattleMons[gBattlerTarget].maxHP / 3) < gBattleMoveDamage)

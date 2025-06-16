@@ -219,9 +219,9 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectRefresh
 	.4byte BattleScript_EffectGrudge
 	.4byte BattleScript_EffectSnatch
-	.4byte BattleScript_EffectLowKick
-	.4byte BattleScript_EffectSecretPower
-	.4byte BattleScript_EffectDoubleEdge
+	.4byte BattleScript_EffectLowKick				@EFFECT_LOW_KICK
+	.4byte BattleScript_EffectSecretPower			@EFFECT_SECRET_POWER
+	.4byte BattleScript_EffectMediumRecoil			@EFFECT_MED_RECOIL @was double edge
 	.4byte BattleScript_EffectTeeterDance
 	.4byte BattleScript_EffectBurnHit
 	.4byte BattleScript_EffectMudSport
@@ -311,9 +311,9 @@ gBattleScriptsForBattleEffects::	@must match order of battle_effects.h file
 	.4byte BattleScript_EffectGrowth                  @ EFFECT_GROWTH
 	.4byte BattleScript_EffectCloseCombat             @ EFFECT_CLOSE_COMBAT
 	.4byte BattleScript_EffectLastResort              @ EFFECT_LAST_RESORT
-	.4byte BattleScript_EffectRecoil33WithStatus      @ EFFECT_33_RECOIL_W_STATUS
+	.4byte BattleScript_EffectMediumRecoilWithStatus      @ EFFECT_MED_RECOIL_W_STATUS
 	.4byte BattleScript_EffectFlinchStatus			  @ EFFECT_FLINCH_STATUS	@not using
-	.4byte BattleScript_EffectRecoil50                @ EFFECT_50_RECOIL
+	.4byte BattleScript_EffectHeavyRecoil                @ EFFECT_HEAVY_RECOIL
 	.4byte BattleScript_EffectShellSmash              @ EFFECT_SHELL_SMASH
 	.4byte BattleScript_EffectShiftGear               @ EFFECT_SHIFT_GEAR
 	.4byte BattleScript_EffectDefenseUp3              @ EFFECT_DEFENSE_UP_3
@@ -6212,7 +6212,7 @@ BattleScript_EffectHighestStatUpHit::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectSubmission::
-	setmoveeffect MOVE_EFFECT_RECOIL_33 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	setmoveeffect MOVE_EFFECT_MEDIUM_RECOIL | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	call_if EFFECT_SUBMISSION
 
 BattleScript_EffectBrickBreak::
@@ -6484,20 +6484,20 @@ BattleScript_EffectSecretPower::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectRecoil::
-	setmoveeffect MOVE_EFFECT_RECOIL_25 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	setmoveeffect MOVE_EFFECT_LIGHT_RECOIL | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	jumpifnotmove MOVE_STRUGGLE, BattleScript_EffectHit
 	incrementgamestat GAME_STAT_USED_STRUGGLE
 	goto BattleScript_EffectHit
 
-BattleScript_EffectDoubleEdge::
-	setmoveeffect MOVE_EFFECT_RECOIL_33 | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+BattleScript_EffectMediumRecoil::
+	setmoveeffect MOVE_EFFECT_MEDIUM_RECOIL | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
-BattleScript_EffectRecoil33WithStatus:
+BattleScript_EffectMediumRecoilWithStatus:
 	setmoveeffect MOVE_EFFECT_MED_RECOIL_W_STATUS | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
-BattleScript_EffectRecoil50:
+BattleScript_EffectHeavyRecoil:
 	setmoveeffect MOVE_EFFECT_HEAVY_RECOIL | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 

@@ -217,8 +217,8 @@ extern const u8 BattleScript_MoveEffectRecoil[];
 extern const u8 BattleScript_MoveEffectRecoilWithStatus[];
 extern const u8 BattleScript_DoRecoil[];
 extern const u8 BattleScript_RecoilEnd[];
-extern const u8 BattleScript_EffectRecoil33WithStatus[];
-extern const u8 BattleScript_EffectRecoil50[];
+extern const u8 BattleScript_EffectMediumRecoilWithStatus[];
+extern const u8 BattleScript_EffectHeavyRecoil[];
 extern const u8 BattleScript_ItemSteal[];
 extern const u8 BattleScript_InBattlePickup[];	//new in battle effect for ability pickup, 1 in 3 chance pickup held item and end of turn
 extern const u8 BattleScript_DrizzleActivates[];

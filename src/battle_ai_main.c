@@ -1862,8 +1862,8 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 break;
             }
             break;
-        case EFFECT_DOUBLE_EDGE:
-        case EFFECT_33_RECOIL_W_STATUS:
+        case EFECT_MED_RECOIL:
+        case EFFECT_MED_RECOIL_W_STATUS:
             if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD
                 && AI_DATA->abilities[battlerAtk] != ABILITY_KLUTZ)
             {
@@ -1873,7 +1873,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 break;
             }
             break;
-        case EFFECT_50_RECOIL:
+        case EFFECT_HEAVY_RECOIL:
             if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD
                 && AI_DATA->abilities[battlerAtk] != ABILITY_KLUTZ)
             {

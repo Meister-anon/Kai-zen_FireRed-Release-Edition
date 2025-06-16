@@ -629,7 +629,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_DOUBLE_EDGE] =
     {
-        .effect = EFFECT_DOUBLE_EDGE,
+        .effect = EFECT_MED_RECOIL,
         .power = 120,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -4465,11 +4465,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_IRON_FIST_BOOST,
         .split = SPLIT_PHYSICAL,
-    },
+    }, //yeah this is low recoil, double edge is medium recoil 33%
     //could reset back, but only reason to keep as is
     //would be contrary strats which only spinda could do
     //nd I want more recoil moves to show off the effect rebalance
     //think may increase to medium recoil effect? think this is low recoil?
+    //ah yeah spinda doesn't even get this move naturally its a hidden event thing only in platinum
 
     [MOVE_MAGIC_COAT] =
     {
@@ -5072,7 +5073,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
             .power = 140,
             .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
         #endif
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_RECOIL_33
+        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .type = TYPE_FIRE,
         .accuracy = 90,
         .pp = 5,
@@ -5539,10 +5540,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_VOLT_TACKLE] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_4
-            .effect = EFFECT_33_RECOIL_W_STATUS,
+            .effect = EFFECT_MED_RECOIL_W_STATUS,
             //.argument = STATUS1_PARALYSIS,
         #else
-            .effect = EFFECT_DOUBLE_EDGE,
+            .effect = EFECT_MED_RECOIL,
         #endif
         .power = 120,
         .type = TYPE_ELECTRIC,
@@ -5708,7 +5709,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_PSYCHO_BOOST] =
     {
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_RECOIL_33
+        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .power = 140,
         .type = TYPE_PSYCHIC,
         .accuracy = 90,
@@ -6370,7 +6371,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLARE_BLITZ] =
     {
-        .effect = EFFECT_33_RECOIL_W_STATUS,
+        .effect = EFFECT_MED_RECOIL_W_STATUS,
         .power = 120,
         .type = TYPE_FIRE,
         .accuracy = 100,
@@ -6679,7 +6680,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_BRAVE_BIRD] =
     {
-        .effect = EFFECT_DOUBLE_EDGE,
+        .effect = EFECT_MED_RECOIL,
         .power = 120,
         .type = TYPE_FLYING,
         .accuracy = 100,
@@ -6992,7 +6993,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 140,
         #endif
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_RECOIL_33
+        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .type = TYPE_DRAGON,
         .accuracy = 90,
         .pp = 5,
@@ -7364,7 +7365,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_HEAD_SMASH] =
     {
-        .effect = EFFECT_50_RECOIL,
+        .effect = EFFECT_HEAVY_RECOIL,
         .power = 150,
         .type = TYPE_ROCK,
         .accuracy = 90,
@@ -9820,7 +9821,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_LIGHT_OF_RUIN] =
     {
-        .effect = EFFECT_50_RECOIL,
+        .effect = EFFECT_HEAVY_RECOIL,
         .power = 140,
         .type = TYPE_FAIRY,
         .accuracy = 90,
@@ -10451,7 +10452,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_FLEUR_CANNON] =
     {
-        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_RECOIL_33
+        .effect = EFFECT_OVERHEAT,  //changed to MOVE_EFFECT_MEDIUM_RECOIL
         .power = 130,
         .type = TYPE_FAIRY,
         .accuracy = 90,
@@ -11442,7 +11443,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_STEEL_BEAM] =
     {
-        .effect = EFFECT_50_RECOIL,
+        .effect = EFFECT_HEAVY_RECOIL,
         .power = 140,
         .type = TYPE_STEEL,
         .accuracy = 95,
@@ -12047,7 +12048,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 75,
         #endif
-        .effect = EFFECT_DOUBLE_EDGE,
+        .effect = EFECT_MED_RECOIL,
         .type = TYPE_WATER,
         .accuracy = 100,
         .pp = 10,
@@ -12068,7 +12069,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         #else
             .power = 120,
         #endif
-        .effect = EFFECT_50_RECOIL,
+        .effect = EFFECT_HEAVY_RECOIL,
         .type = TYPE_GRASS,
         .accuracy = 95,
         .pp = 5,

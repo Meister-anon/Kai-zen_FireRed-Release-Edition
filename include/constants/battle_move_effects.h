@@ -20,7 +20,7 @@
 #define MOVE_EFFECT_PAYDAY              0xD
 #define MOVE_EFFECT_CHARGING            0xE
 #define MOVE_EFFECT_WRAP                0xF
-#define MOVE_EFFECT_RECOIL_25           0x10
+#define MOVE_EFFECT_LIGHT_RECOIL           0x10
 #define MOVE_EFFECT_ATK_PLUS_1          0x11
 #define MOVE_EFFECT_DEF_PLUS_1          0x12
 #define MOVE_EFFECT_SPD_PLUS_1          0x13
@@ -44,7 +44,7 @@
 #define MOVE_EFFECT_RAPIDSPIN           0x25
 #define MOVE_EFFECT_REMOVE_STATUS		0x26    //think remove or just add back individual status clear,  vsonic
 #define MOVE_EFFECT_ATK_DEF_DOWN        0x27
-#define MOVE_EFFECT_RECOIL_33           0x28
+#define MOVE_EFFECT_MEDIUM_RECOIL           0x28
 #define MOVE_EFFECT_ATK_PLUS_2          0x29
 #define MOVE_EFFECT_DEF_PLUS_2          0x2A
 #define MOVE_EFFECT_SPD_PLUS_2          0x2B
