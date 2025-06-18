@@ -19676,7 +19676,7 @@ static void atkEF_handleballthrow(void) //important changed
                     break;
                 case ITEM_SAFARI_BALL:
                     if (FlagGet(FLAG_SAFARI_VIP)) //slight boost equiv to ultra ball
-                        ballMultiplier = 20;
+                        ballMultiplier = 25;
                     else
                         ballMultiplier = 15;
                     break;
