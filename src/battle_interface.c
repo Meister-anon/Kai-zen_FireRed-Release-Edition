@@ -4,6 +4,7 @@
 #include "battle_interface.h"
 #include "battle_message.h"
 #include "decompress.h"
+#include "event_data.h"
 #include "graphics.h"
 #include "menu.h"
 #include "pokedex.h"
@@ -1702,7 +1703,7 @@ enum
     PAL_STATUS_SLP,
     PAL_STATUS_FRZ,
     PAL_STATUS_BRN,
-    PAL_STATUS_INF  //not working in battle yet
+    //PAL_STATUS_INF  //not working in battle yet
     //PAL_STATUS_SPRT
 };
 
@@ -1713,7 +1714,7 @@ static const u16 sStatusIconColors[] = {
     [PAL_STATUS_SLP] = RGB(20, 20, 17),
     [PAL_STATUS_FRZ] = RGB(17, 22, 28),
     [PAL_STATUS_BRN] = RGB(28, 14, 10),
-    [PAL_STATUS_INF] = RGB(23, 23, 3),
+    //[PAL_STATUS_INF] = RGB(23, 23, 3), removed to secondary status instead
     //[PAL_STATUS_SPRT] = RGB(6, 26, 24)
 };
 
@@ -1885,15 +1886,17 @@ static void UpdateSafariBallsTextOnHealthbox(u8 healthboxSpriteId)
     RemoveWindowOnHealthbox(windowId);
 }
 
-static void UpdateLeftNoOfBallsTextOnHealthbox(u8 healthboxSpriteId)
+void UpdateLeftNoOfBallsTextOnHealthbox(u8 healthboxSpriteId)
 {
     u8 text[16];
     u8 *txtPtr;
     u32 windowId, spriteTileNum;
     u8 *windowTileData;
+    bool8 InVipMode = FlagGet(FLAG_SAFARI_VIP);
+    s8 n = InVipMode ? 3 : 2;
 
     txtPtr = StringCopy(text, gText_HighlightRed_Left);
-    ConvertIntToDecimalStringN(txtPtr, gNumSafariBalls, STR_CONV_MODE_LEFT_ALIGN, 2);
+    ConvertIntToDecimalStringN(txtPtr, gNumSafariBalls, STR_CONV_MODE_LEFT_ALIGN, n);
 
     windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(text, GetStringRightAlignXOffset(FONT_SMALL, text, 0x2F), 3, 2, &windowId);
     spriteTileNum = gSprites[healthboxSpriteId].oam.tileNum * TILE_SIZE_4BPP;

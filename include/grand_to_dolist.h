@@ -4846,6 +4846,8 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       that would bust my ui (unless can figure that out w font fitting)
       but would like to give about 150 safari balls overall
       -figure out right balance
+      (redid safari setup remove link to ball id and battle controler for 
+      health box ball decrement)
       -curr finish font fitting for bad items etc.
       then can set to display 3 digits
       would save me some space in bag i.e no extra wrapping should I hit 99

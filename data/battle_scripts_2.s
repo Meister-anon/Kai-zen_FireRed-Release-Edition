@@ -19,21 +19,6 @@
 	.section script_data, "aw", %progbits
 	.align 2
 
-gBattlescriptsForBallThrow::
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowSafariBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-	.4byte BattleScript_ThrowBall
-
 gBattlescriptsForUsingItem::
 	.4byte BattleScript_PlayerUseItem
 	.4byte BattleScript_AIUseFullRestoreOrHpHeal
@@ -72,6 +57,7 @@ BattleScript_PokedudeThrowBall::
 	printstring STRINGID_POKEDUDEUSED
 	handleballthrow
 
+@unused now
 BattleScript_ThrowSafariBall::
 	printstring STRINGID_PLAYERUSEDITEM
 	updatestatusicon BS_ATTACKER
@@ -100,6 +86,7 @@ BattleScript_CaughtPokemonSkipNewDex::
 BattleScript_CaughtPokemonSkipNickname::
 	givecaughtmon
 BattleScript_CaughtPokemonDone::
+	jumpifbattletype BATTLE_TYPE_SAFARI, BattleScript_SetCaughtBattleOutcome
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
 	finishturn
 

@@ -1560,6 +1560,10 @@
 	.byte \IntendedDirection
 	.endm
 
+	.macro setsafariballcount
+	.byte 0xdd
+	.endm
+
 
 @ Supplementary
 

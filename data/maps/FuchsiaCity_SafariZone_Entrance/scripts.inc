@@ -118,10 +118,11 @@ FuchsiaCity_SafariZone_Entrance_EventScript_TryEnterSafariZone:: @ 816D3CA
 	goto_if_eq FuchsiaCity_SafariZone_Entrance_EventScript_NotEnoughMoney
 	removemoney 500, 0
 	updatemoneybox 0, 0, 0
+	setsafariballcount
 	msgbox FuchsiaCity_SafariZone_Entrance_Text_ThatllBe500WeOnlyUseSpecialBalls
 	textcolor 3
 	playfanfare MUS_LEVEL_UP
-	message FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived30SafariBalls
+	message FuchsiaCity_SafariZone_Entrance_Text_PlayerReceivedSafariBalls
 	waitfanfare
 	call EventScript_RestorePrevTextColor
 	msgbox FuchsiaCity_SafariZone_Entrance_Text_CallYouOnPAWhenYouRunOut

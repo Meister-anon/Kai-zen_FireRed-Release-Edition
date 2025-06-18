@@ -13,8 +13,8 @@ FuchsiaCity_SafariZone_Entrance_Text_ThatllBe500WeOnlyUseSpecialBalls:: @ 8197D0
     .string "We only use a special kind of \n"
     .string "POKé BALLS here.$"
 
-FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived30SafariBalls:: @ 8197D50
-    .string "{PLAYER} received 30 SAFARI BALLS\n"
+FuchsiaCity_SafariZone_Entrance_Text_PlayerReceivedSafariBalls:: @ 8197D50
+    .string "{PLAYER} received {STR_VAR_1} SAFARI BALLS\n"
     .string "from the attendant.$"
 
 FuchsiaCity_SafariZone_Entrance_Text_CallYouOnPAWhenYouRunOut:: @ 8197D80

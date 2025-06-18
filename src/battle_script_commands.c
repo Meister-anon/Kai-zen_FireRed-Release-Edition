@@ -1250,11 +1250,11 @@ static const u8 sTerrainToType[] =
 //yup this was it, vsonic
 static const u8 sBallCatchBonuses[] =
 {
-    [BALL_POKE]   =  10,
-    [BALL_GREAT]  =  15,
-    [BALL_SAFARI] =  15,
-    [BALL_ULTRA]  =  20,
-   
+    [BALL_POKE]     =  10,
+    [BALL_GREAT]    =  15,
+    [BALL_ULTRA]    =  20,
+    [BALL_LUXURY]   =  10,
+    [BALL_PREMIER]  =  10,   
 };
 
 // not used
@@ -19635,13 +19635,21 @@ static void atkEF_handleballthrow(void) //important changed
             u8 catchRate;
             u16 targetSpecies = GetFormChangeTargetSpecies(&gEnemyParty[gBattlerPartyIndexes[gBattlerTarget]], FORM_CHANGE_END_BATTLE, 0);
 
+            //safari catch rate is constantly shfiting so can't(?)
+            //use fixed value for it
             if (gLastUsedItem == ITEM_SAFARI_BALL)
                 catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
             else
                 catchRate = gBaseStats[gBattleMons[gBattlerTarget].species].catchRate;
-            if (gLastUsedItem > ITEM_MASTER_BALL) //pretty much if pokeball is one of the special balls (not poke, great, ultra, or master
+            
+            //will change this don't need else can do all w switch, plus
+            //works more for my needs
+            if (gLastUsedItem != ITEM_MASTER_BALL && GetPocketByItemId(gLastUsedItem) == POCKET_POKE_BALLS) 
             {
                 //since hard tied to type will leave net ball
+                //and realized point of putting these here and not with
+                //generic balls is because they were variable (and not setup to work there b4)
+                //but luxury and premier aren't so I can take those out of this list
                 switch (gLastUsedItem)
                 {
                 case ITEM_NET_BALL:
@@ -19657,16 +19665,20 @@ static void atkEF_handleballthrow(void) //important changed
                         ballMultiplier = 10;
                     break;
                 case ITEM_NEST_BALL:
-                    if (gBattleMons[gBattlerTarget].level < 40)
+                    if (gBattleMons[gBattlerTarget].level < 40 && 40 - gBattleMons[gBattlerTarget].level > 10)
                     {
                         ballMultiplier = 40 - gBattleMons[gBattlerTarget].level;
-                        if (ballMultiplier <= 9)
-                            ballMultiplier = 10;
                     }
                     else
                     {
                         ballMultiplier = 10;
                     }
+                    break;
+                case ITEM_SAFARI_BALL:
+                    if (FlagGet(FLAG_SAFARI_VIP)) //slight boost equiv to ultra ball
+                        ballMultiplier = 20;
+                    else
+                        ballMultiplier = 15;
                     break;
                 case ITEM_REPEAT_BALL:
                     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species), FLAG_GET_CAUGHT))
@@ -19679,14 +19691,12 @@ static void atkEF_handleballthrow(void) //important changed
                     if (ballMultiplier > 40)
                         ballMultiplier = 40;
                     break;
-                case ITEM_LUXURY_BALL:
-                case ITEM_PREMIER_BALL:
-                    ballMultiplier = 10;
+                default:
+                    ballMultiplier = sBallCatchBonuses[ItemIdToBallId(gLastUsedItem)];
                     break;
                 }
             }
-            else
-                ballMultiplier = sBallCatchBonuses[ItemIdToBallId(gLastUsedItem)];
+                
             odds = (catchRate * ballMultiplier / 10) * (gBattleMons[gBattlerTarget].maxHP * 3 - gBattleMons[gBattlerTarget].hp * 2) / (3 * gBattleMons[gBattlerTarget].maxHP);
             
             if ((gBattleMons[gBattlerTarget].status1 & STATUS1_SLEEP || gDisableStructs[gBattlerTarget].FrozenTurns != 0)) //juset realiszed I could stack statsus bonsu by including status 2, since right now rules exclude status 1 overlap

@@ -7078,9 +7078,9 @@ static void HandleAction_UseItem(void)
     gBattle_BG0_Y = 0;
     ClearFuryCutterDestinyBondGrudge(gBattlerAttacker);
     gLastUsedItem = gBattleBufferB[gBattlerAttacker][1] | (gBattleBufferB[gBattlerAttacker][2] << 8);
-    if (gLastUsedItem <= ITEM_PREMIER_BALL) // is ball
+    if (GetPocketByItemId(gLastUsedItem) == POCKET_POKE_BALLS) // is ball
     {
-        gBattlescriptCurrInstr = gBattlescriptsForBallThrow[gLastUsedItem];
+        gBattlescriptCurrInstr = BattleScript_ThrowBall;
     }
     else if (gLastUsedItem == ITEM_POKE_DOLL || gLastUsedItem == ITEM_FLUFFY_TAIL)
     {
@@ -7318,6 +7318,10 @@ static void HandleAction_WatchesCarefully(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
+//the only reason this entire ballthrow array exists
+//and that its done this way is to do the safari zone decrement *FACEPALM
+//which can be done by just putting btlcntrl decrement inside safari ball throw functions
+//rn I broke decrement because I moved  ball order smh
 static void HandleAction_SafariZoneBallThrow(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
@@ -7325,7 +7329,7 @@ static void HandleAction_SafariZoneBallThrow(void)
     gBattle_BG0_Y = 0;
     --gNumSafariBalls;
     gLastUsedItem = ITEM_SAFARI_BALL;
-    gBattlescriptCurrInstr = gBattlescriptsForBallThrow[ITEM_SAFARI_BALL];
+    gBattlescriptCurrInstr = BattleScript_ThrowBall;
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 

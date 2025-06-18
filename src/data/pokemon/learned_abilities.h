@@ -154,6 +154,7 @@ static const struct AbilityLearnset sNidorinaAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sNidoqueenAbilityLearnset[] = {
+    ABILITY_FRIEND_GUARD,
     ABILITY_SET_END
 };
 
@@ -1682,10 +1683,14 @@ static const struct AbilityLearnset sStarlyAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sStaraviaAbilityLearnset[] = {
+    ABILITY_EARLY_BIRD,
+    ABILITY_STORM_BREAK,
     ABILITY_SET_END
 };
 
 static const struct AbilityLearnset sStaraptorAbilityLearnset[] = {
+    ABILITY_EARLY_BIRD,
+    ABILITY_STORM_BREAK,
     ABILITY_SET_END
 };
 
@@ -1694,6 +1699,7 @@ static const struct AbilityLearnset sBidoofAbilityLearnset[] = {
 };
 
 static const struct AbilityLearnset sBibarelAbilityLearnset[] = {
+    ABILITY_NORMALIZE,
     ABILITY_SET_END
 };
 

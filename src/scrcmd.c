@@ -2068,6 +2068,15 @@ bool8 ScrCmd_hidemoneybox(struct ScriptContext * ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_setsafariballCount(void)
+{
+    bool8 InVipMode = FlagGet(FLAG_SAFARI_VIP);
+    u8 ballCount = InVipMode ? 250 : 30;
+    u8 n = InVipMode ? 3 : 2;
+    ConvertIntToDecimalStringN(gStringVar1, ballCount, STR_CONV_MODE_LEFT_ALIGN, n);
+    return FALSE;
+}
+
 bool8 ScrCmd_updatemoneybox(struct ScriptContext * ctx)
 {
     u8 x = ScriptReadByte(ctx);

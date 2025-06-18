@@ -781,10 +781,11 @@ extern const u8 BattleScript_PrintPlayerForfeited[];
 extern const u8 BattleScript_BallThrow[];
 extern const u8 BattleScript_BallThrowByWally[];
 extern const u8 BattleScript_SafariBallThrow[];
+extern const u8 BattleScript_WallyBallThrow[]; //above 4 are all from emerald
 extern const u8 BattleScript_SuccessBallThrow[];
-extern const u8 BattleScript_WallyBallThrow[];
 extern const u8 BattleScript_ShakeBallThrow[];
 extern const u8 BattleScript_TrainerBallBlock[];
+extern const u8 BattleScript_ThrowBall[]; //FR equivalent of BallThrow
 extern const u8 BattleScript_TakeItemfromCaughtMon[];
 extern const u8 BattleScript_RunByUsingItem[];
 extern const u8 BattleScript_ActionWatchesCarefully[];
@@ -813,7 +814,6 @@ extern const u8 BattleScript_SilphScopeUnveiled[];
 extern const u8 BattleScript_BattleTowerTrainerBattleWon[];
 
 extern const u8 *const gBattleScriptsForBattleEffects[]; //down here because these are pointers
-extern const u8 *const gBattlescriptsForBallThrow[];
 extern const u8 *const gBattlescriptsForRunningByItem[];
 extern const u8 *const gBattlescriptsForUsingItem[];
 extern const u8 *const gBattlescriptsForSafariActions[];
