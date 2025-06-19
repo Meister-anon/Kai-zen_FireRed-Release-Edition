@@ -17067,15 +17067,15 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         45,
-        55,
+        65,
         99,
-        97,
+        67,
         40,
         89
         ),
         MON_TYPES(TYPE_BUG, TYPE_POISON), //base speed was 47 should keep weirdly slow for bulky trick room mon?
-        .catchRate = 120,
-        .expYield = 126,
+        .catchRate = 120,   //ok I'm gonna lower speed to 67 so it can function in trick room
+        .expYield = 126,    // but with speed boost or quick feet I think can funciton as speedster
         //.evYield_Defense = 2,
         //.itemRare = ITEM_POISON_BARB,
         .genderRatio = PERCENT_FEMALE(50),
