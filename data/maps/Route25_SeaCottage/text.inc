@@ -90,7 +90,8 @@ Route25_SeaCottage_Text_BillUpdatesPC::
     .string "send an order to exclude\l"
     .string "your POKéMON from training!\p"
     .string "Just press the {START_BUTTON}\n"
-    .string "with the cursor over your mon!$"
+    .string "with the cursor over your mon\l"
+    .string "or box title to do the whole box!$"
 
 Route25_SeaCottage_Text_ThanksAgain::
     .string "BILL: Thanks again for helping me.\n"
