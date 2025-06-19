@@ -224,6 +224,7 @@ gScriptCmdTable:: @ 815F9B4
 	.4byte ScrCmd_getmondata	@new script from zatsu, populate result with mon data at partyslot	
 	.4byte ScrCmd_ReturnIsPlayerBlockingObjectPath @ new checks player position to decide what movement script to execute, 
 	.4byte ScrCmd_setsafariballCount
+	.4byte ScrCmd_toggleflag
 gScriptCmdTableEnd:: @ 815FD08
 	.4byte ScrCmd_nop
 

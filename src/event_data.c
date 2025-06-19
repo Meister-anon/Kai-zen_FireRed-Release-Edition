@@ -295,6 +295,14 @@ bool8 FlagClear(u16 idx)
     return FALSE;
 }
 
+u8 FlagToggle(u16 id)
+{
+    u8 *ptr = GetFlagPointer(id);
+    if (ptr)
+        *ptr ^= 1 << (id & 7);
+    return FALSE;
+}
+
 bool8 FlagGet(u16 idx)
 {
     u8 *ptr = GetFlagAddr(idx);
@@ -349,12 +357,4 @@ u8 *GetFlagPointer(u16 id)
         return &gSaveBlock1Ptr->flags[id / 8];
     else
         return &sSpecialFlags[(id - SPECIAL_FLAGS_START) / 8];
-}
-
-u8 FlagToggle(u16 id)
-{
-    u8 *ptr = GetFlagPointer(id);
-    if (ptr)
-        *ptr ^= 1 << (id & 7);
-    return 0;
 }

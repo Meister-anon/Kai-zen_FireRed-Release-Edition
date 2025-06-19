@@ -95,9 +95,11 @@ Debug_EventScript_Script_1::
 	end
 
 Debug_EventScript_Script_2::
+	toggleflag FLAG_SAFARI_VIP
 	end
 
 Debug_EventScript_Script_3::
+	toggleflag FLAG_SYS_UPDATED_PC
 	end
 
 Debug_EventScript_Script_4::

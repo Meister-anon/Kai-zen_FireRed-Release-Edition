@@ -4848,6 +4848,10 @@ Aftermath briefly revives the fallen Pokemon just to kill em again`
       -figure out right balance
       (redid safari setup remove link to ball id and battle controler for 
       health box ball decrement)
+      -*Note for pc exp if didnt already set it so 
+      can toggle entire box from pressign start on box title
+      set code need test -done works
+
       -curr finish font fitting for bad items etc.
       then can set to display 3 digits
       would save me some space in bag i.e no extra wrapping should I hit 99

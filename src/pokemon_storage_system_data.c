@@ -48,7 +48,7 @@ static bool8 SetSelectionMenuTexts(void);
 static bool8 SetMenuTexts_Mon(void);
 static bool8 SetMenuTextsForItem(void);
 static void CreateCursorSprites(void);
-static void ToggleCursorMultiMoveMode(void);
+static void ToggleBoxExpState(s8 cursorPos); //consolidate effect for inbox, mostly so can loop for entire box
 
 static const u16 sHandCursorPalette[] = INCBIN_U16("graphics/interface/pss_unk_83D2BCC.gbapal");
 static const u16 sHandCursorTiles[] = INCBIN_U16("graphics/interface/pss_unk_83D2BEC.4bpp");
@@ -1302,15 +1302,7 @@ static u8 InBoxInput_Normal(void)
         else if ((JOY_NEW(START_BUTTON)) && FlagGet(FLAG_SYS_UPDATED_PC))
         {
             //testing - works  
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
-                {
-                    u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
-                    SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), sCursorPosition), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
-                    if (GetBoxMonDataAt(StorageGetCurrentBox(), sCursorPosition, MON_DATA_BLOCK_BOX_EXP_GAIN))
-                        gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
-                    else
-                        gPSSData->boxMonsSprites[sCursorPosition]->oam.objMode = ST_OAM_OBJ_NORMAL;
-                }
+            ToggleBoxExpState(sCursorPosition);
             break;
             //also want to set loop all mon in box, if press start on box name
             
@@ -1687,6 +1679,8 @@ static u8 HandleInput_InParty(void)
     return input;
 }
 
+//add start button prompt to loop all mon in box and 
+//set expbox off and do the blend
 static u8 HandleInput_OnBox(void)
 {
     u8 input;
@@ -1713,6 +1707,14 @@ static u8 HandleInput_OnBox(void)
             cursorArea = CURSOR_AREA_IN_BOX;
             cursorPosition = 2;
             break;
+        }
+
+        //ok hopefully this works -tested works
+        if ((JOY_NEW(START_BUTTON)) && FlagGet(FLAG_SYS_UPDATED_PC))
+        {
+            u8 cursorPos;
+            for (cursorPos = 0; cursorPos < IN_BOX_COUNT; cursorPos++)
+                ToggleBoxExpState(cursorPos);
         }
 
         if (JOY_HELD(DPAD_LEFT))
@@ -1785,7 +1787,7 @@ static u8 HandleInput_OnButtons(void)
             gPSSData->field_CD7 = 1;
             break;
         }
-        else if (JOY_REPT(DPAD_DOWN | START_BUTTON))
+        else if (JOY_REPT(DPAD_DOWN))
         {
             input = 1;
             cursorArea = CURSOR_AREA_BOX_TITLE;
@@ -2311,4 +2313,21 @@ void sub_8095024(void)
 {
     ClearStdWindowAndFrameToTransparent(gPSSData->field_CB0, TRUE);
     RemoveWindow(gPSSData->field_CB0);
+}
+
+static void ToggleBoxExpState(s8 cursorPos)
+{
+   if (FlagGet(FLAG_SYS_UPDATED_PC))
+    {
+        //testing - works  
+        if (gPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
+            {
+                u8 value = GetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), cursorPos), MON_DATA_BLOCK_BOX_EXP_GAIN) ? FALSE : TRUE;
+                SetBoxMonData(GetBoxedMonPtr(StorageGetCurrentBox(), cursorPos), MON_DATA_BLOCK_BOX_EXP_GAIN, &value);
+                if (GetBoxMonDataAt(StorageGetCurrentBox(), cursorPos, MON_DATA_BLOCK_BOX_EXP_GAIN))
+                    gPSSData->boxMonsSprites[cursorPos]->oam.objMode = ST_OAM_OBJ_BLEND;
+                else
+                    gPSSData->boxMonsSprites[cursorPos]->oam.objMode = ST_OAM_OBJ_NORMAL;
+            }
+    }
 }

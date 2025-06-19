@@ -571,6 +571,12 @@ bool8 ScrCmd_checkflag(struct ScriptContext * ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_toggleflag(struct ScriptContext * ctx)
+{
+    FlagToggle(ScriptReadHalfword(ctx));
+    return FALSE;
+}
+
 bool8 ScrCmd_incrementgamestat(struct ScriptContext * ctx)
 {
     IncrementGameStat(ScriptReadByte(ctx));

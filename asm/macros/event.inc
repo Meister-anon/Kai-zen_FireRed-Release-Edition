@@ -1564,6 +1564,11 @@
 	.byte 0xdd
 	.endm
 
+	.macro toggleflag FlagId:req
+	.byte 0xde
+	.2byte \FlagId
+	.endm
+
 
 @ Supplementary
 
