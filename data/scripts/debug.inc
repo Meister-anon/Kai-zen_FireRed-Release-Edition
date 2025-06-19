@@ -103,6 +103,7 @@ Debug_EventScript_Script_3::
 	end
 
 Debug_EventScript_Script_4::
+	toggleflag FLAG_UNLOCK_MOBILE_PC
 	end
 
 Debug_EventScript_Script_5::
