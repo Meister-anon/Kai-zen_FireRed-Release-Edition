@@ -2510,10 +2510,10 @@ const u8 gWormadamPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "The cloak is never shed.");
 
 const u8 gMothimPokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
-    "It does not keep a nest. While it\n"
-    "loves floral honey, it won't gather\n"
-    "any itself. Instead, it plots to steal\n"
-    "honey collected by Combee.");
+    "While it loves floral honey, it won't\n"
+    "gather any itself. Instead, it flies\n"
+    "constantly in search, to steal honey\n"
+    "collected by Combee.");
 
 const u8 gCombeePokedexText[DEX_ENTRY_MAX_LENGTH + 3] = _(
     "A Pokémon formed by three others.\n"

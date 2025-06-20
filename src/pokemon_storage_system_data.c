@@ -1318,7 +1318,7 @@ static u8 InBoxInput_Normal(void)
             if (!sCanOnlyMove)
                 return INPUT_IN_MENU;
 
-            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS || sIsMonBeingMoved == TRUE)
+            if (gPSSData->boxOption != BOX_OPTION_MOVE_MONS || gPSSData->boxOption != BOX_OPTION_POST_CATCH_ACCESS || sIsMonBeingMoved == TRUE)
             {
                 switch (GetMenuItemTextId(0)) //issue wasn't compound string, it was I didn't have all the needed additions in
                 {
@@ -1895,6 +1895,7 @@ static bool8 SetMenuTexts_Mon(void)
         else
             return FALSE;
         break;
+    case BOX_OPTION_POST_CATCH_ACCESS:
     case BOX_OPTION_MOVE_MONS:
         if (sIsMonBeingMoved)
         {
@@ -1935,7 +1936,7 @@ static bool8 SetMenuTexts_Mon(void)
     }
 
     SetMenuText(PC_TEXT_SUMMARY);
-    if (gPSSData->boxOption == BOX_OPTION_MOVE_MONS)
+    if (gPSSData->boxOption == BOX_OPTION_MOVE_MONS || gPSSData->boxOption == BOX_OPTION_POST_CATCH_ACCESS)
     {
         if (!sBoxCursorArea)
             SetMenuText(PC_TEXT_WITHDRAW);

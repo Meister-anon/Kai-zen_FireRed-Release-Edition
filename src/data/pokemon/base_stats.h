@@ -12783,7 +12783,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 120,
         .expYield = 45,
         //.evYield_SpDefense = 1,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(87.5), //think change this, make mothim special, rare like vespiqueen especially works as combee are its nemesis
         .eggCycles = 15,
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -12836,8 +12836,8 @@ const struct BaseStats gBaseStats[] =
         .speciesName = _("Mothim"),
  
            //hp, atk, def, spd, spatk, spdef
-         STATS(77, 94, 50, 86, 94, 76),
-        MON_TYPES(TYPE_BUG, TYPE_NORMAL),
+         STATS(100, 96, 50, 86, 98, 76),
+        MON_TYPES(TYPE_BUG, TYPE_FLYING),//change type and stats be more unique, steals from combee make nemeisis of vespiqueen
         .catchRate = 45,
         .expYield = 148,
         //.evYield_Attack = 1,
@@ -12849,7 +12849,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_SWARM, ABILITY_NONE},
+        .abilities = {ABILITY_SWARM, ABILITY_HONEY_GATHER},
         .abilityHidden = {ABILITY_TINTED_LENS, ABILITY_ANTICIPATION},
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
@@ -44878,7 +44878,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 120,
         .expYield = 45,
         //.evYield_SpDefense = 1,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(87.5),
         .eggCycles = 15,
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
@@ -44907,7 +44907,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 120,
         .expYield = 45,
         //.evYield_SpDefense = 1,
-        .genderRatio = PERCENT_FEMALE(50),
+        .genderRatio = PERCENT_FEMALE(87.5),
         .eggCycles = 15,
         .friendship = 15,
         .growthRate = GROWTH_MEDIUM_FAST,
