@@ -1111,7 +1111,7 @@ const u8 gSMART_STRIKE_Description
     [MOVE_DESCRIPTION_LENGTH + 5] = _("The user hits\nwith an sharp horn\nthat never misses.");
 
 const u8 gPURIFY_Description 
-    [MOVE_DESCRIPTION_LENGTH + 5] = _("Cures the foe's\nstatus to\nrestore HP.");
+    [MOVE_DESCRIPTION_LENGTH + 5] = _("Cures the target's\nstatus to\nrestore HP.");
 
 const u8 gREVELATION_DANCE_Description 
     [MOVE_DESCRIPTION_LENGTH + 5] = _("Dances with\nmystical power.\nMatches user's\nprimary type.");

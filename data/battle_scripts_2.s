@@ -86,9 +86,26 @@ BattleScript_CaughtPokemonSkipNewDex::
 BattleScript_CaughtPokemonSkipNickname::
 	givecaughtmon
 BattleScript_CaughtPokemonDone::
+	@setbyte gBattleCommunication, 0
+	@for here setup task ask if mon in pc should be swapped for partymon
 	jumpifbattletype BATTLE_TYPE_SAFARI, BattleScript_SetCaughtBattleOutcome
+	
+	@seems ok, need avoid setting outcome caught as that progresses things
+	@so setup everything I need then go to setcaughtoutcome
+	jumpifbyte CMP_EQUAL, gPlayerPartyCount, PARTY_SIZE, BattleScript_PostCaughtPcAccess
+BattleScript_SetCaughtBattleOutcome::
 	setbyte gBattleOutcome, B_OUTCOME_CAUGHT
 	finishturn
+
+
+BattleScript_PostCaughtPcAccess::
+	printstring STRINGID_TAKECAUGHTMONFROMPC
+	@waitmessage B_WAIT_TIME_SHORT
+	waitstate
+	setbyte gBattleCommunication, 0
+	tryreturncaughtmonfromPc
+	waitstate
+	goto BattleScript_SetCaughtBattleOutcome
 
 BattleScript_OldMan_Pokedude_CaughtMessage::
 	printstring STRINGID_GOTCHAPKMNCAUGHT2

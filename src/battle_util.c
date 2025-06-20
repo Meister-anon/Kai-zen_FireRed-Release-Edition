@@ -1508,6 +1508,7 @@ static bool32 IsGravityPreventingMove(u32 move)
     {
     case MOVE_BOUNCE:
     case MOVE_FLY:
+    case MOVE_SKY_ATTACK:
     case MOVE_FLYING_PRESS:
     case MOVE_HI_JUMP_KICK:
     case MOVE_JUMP_KICK:
