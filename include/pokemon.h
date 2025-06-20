@@ -404,7 +404,7 @@ struct BattleMove
     u8 secondaryEffectChance;
     u16 target;
     s8 priority;
-    u32 flags; // is u32 in emerald, might not need to do that, will ask //they use a lot of move flags will update
+    u32 flags;
     u8 split;
     u16 argument;// for transferring move effects
     u8 argumentEffectChance; // setup status commands and seteffectwithchance function to read this as a value explicitly for argument
@@ -426,14 +426,14 @@ extern const struct BattleMove gBattleMoves[];
 #define FLAG_MAGIC_COAT_AFFECTED    (1 << 2)
 #define FLAG_SNATCH_AFFECTED        (1 << 3)
 #define FLAG_MIRROR_MOVE_AFFECTED   (1 << 4)
-//#define FLAG_KINGS_ROCK_AFFECTED    (1 << 5)  udpated to modern use, works on all dmg moves not just selected ones, so dont need this
+#define FLAG_FREE                   (1 << 5)
 #define FLAG_HIGH_CRIT              (1 << 6)
 #define FLAG_RECKLESS_BOOST         (1 << 7)
 #define FLAG_IRON_FIST_BOOST        (1 << 8)    //1 byte
 #define FLAG_SHEER_FORCE_BOOST      (1 << 9)
 #define FLAG_STRONG_JAW_BOOST       (1 << 10)
 #define FLAG_MEGA_LAUNCHER_BOOST    (1 << 11)
-#define FLAG_BLANKSPACE    (1 << 12)   //removed flag was FLAG_STAT_STAGES_IGNORED noww move effect instead
+#define FLAG_BLANKSPACE             (1 << 12)   //removed flag was FLAG_STAT_STAGES_IGNORED noww move effect instead
 #define FLAG_DMG_MINIMIZE           (1 << 13)
 #define FLAG_DMG_2X_UNDERGROUND        (1 << 14)
 #define FLAG_DMG_2X_UNDERWATER         (1 << 15)

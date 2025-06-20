@@ -3760,8 +3760,11 @@ static const struct LevelUpMove sShuckleLevelUpLearnset[] = {
     LEVEL_UP_MOVE(28, MOVE_BIDE),
     LEVEL_UP_MOVE(31, MOVE_SELF_DESTRUCT),    
     LEVEL_UP_MOVE(37, MOVE_REST),
+    LEVEL_UP_MOVE(42, MOVE_STUFF_CHEEKS),
     LEVEL_UP_END
 };
+//give pokerogue changes body press - HELLLLL NO, I did not understand what this did o.0
+//stuff cheeks 
 
 static const struct LevelUpMove sHeracrossLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_TACKLE),

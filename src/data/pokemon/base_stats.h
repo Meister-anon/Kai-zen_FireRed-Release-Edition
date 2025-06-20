@@ -6650,9 +6650,9 @@ const struct BaseStats gBaseStats[] =
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroup1 = EGG_GROUP_BUG,
         .eggGroup2 = EGG_GROUP_BUG,
-        .abilities = {ABILITY_STURDY, ABILITY_GLUTTONY},
-        .abilityHidden = {ABILITY_CONTRARY, ABILITY_SUCTION_CUPS}, //double check sturdy setup, should give perish song immunity, well let you sruvive it 
-        .bodyColor = BODY_COLOR_YELLOW,
+        .abilities = {ABILITY_STURDY, ABILITY_CORROSION}, //gonna replace gluttony w harvest, as gluttony has no purpose
+        .abilityHidden = {ABILITY_CONTRARY, ABILITY_HARVEST}, //double check sturdy setup, should give perish song immunity, well let you sruvive it 
+        .bodyColor = BODY_COLOR_YELLOW, //corrossion because it uses its stomach acid to disolve rocks etc.
         .noFlip = FALSE,
         .floating = FALSE,
         .safariZoneFleeRate = 50,
@@ -6661,6 +6661,10 @@ const struct BaseStats gBaseStats[] =
         .tmhmLearnset = sShuckleTMHMLearnset,
         .evolutions = NULL, //Should hopefully blank these for now without issue
     },
+    //hmm unsure if need sturdy, with its high defenses would like 
+    //actually just remove suction cups think being unable to be force switched
+    //may be too toxic?
+
     //can this explode? I know it gets rest, if it explodes w sturdy
     //maybe it can get damage that way, explode then rest
     // it does now :)
@@ -22014,10 +22018,10 @@ const struct BaseStats gBaseStats[] =
          STATS(
         60,
         50,
-        150,
+        140,
         60,
         50,
-        150
+        140
         ),
         MON_TYPES(TYPE_STEEL, TYPE_GHOST),
         .catchRate = 45,
@@ -48259,10 +48263,10 @@ const struct BaseStats gBaseStats[] =
            //hp, atk, def, spd, spatk, spdef
          STATS(
         60,
-        150,
+        140,
         50,
         60,
-        150,
+        140,
         50
         ),
         MON_TYPES(TYPE_STEEL, TYPE_GHOST),
